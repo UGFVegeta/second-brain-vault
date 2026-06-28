@@ -1,0 +1,24 @@
+{
+  "pluginList": [
+    "ObsidianToAnki/Obsidian_to_Anki"
+  ],
+  "pluginSubListFrozenVersion": [
+    {
+      "repo": "ObsidianToAnki/Obsidian_to_Anki",
+      "version": "latest"
+    }
+  ],
+  "themesList": [],
+  "updateAtStartup": true,
+  "updateThemesAtStartup": true,
+  "enableAfterInstall": true,
+  "loggingEnabled": false,
+  "loggingPath": "BRAT-log",
+  "loggingVerboseEnabled": false,
+  "debuggingMode": false,
+  "notificationsEnabled": true,
+  "globalTokenName": "",
+  "personalAccessToken": "",
+  "selectLatestPluginVersionByDefault": false,
+  "allowIncompatiblePlugins": false
+}

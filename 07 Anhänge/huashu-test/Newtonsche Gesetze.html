@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Die drei Newtonschen Gesetze</title>
+<style>
+  :root{
+    --paper:#F7F2E9;
+    --ink:#23201B;
+    --muted:#6A6358;
+    --accent:#B5451B;      /* gebranntes Orange, ein einziger Akzent */
+    --accent-soft:#EBD9C9;
+    --line:#D8CDBB;
+    --card:#FFFDF9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E2D5;}
+  body{
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    color:var(--ink);
+    display:flex;justify-content:center;
+    padding:24px;
+  }
+  .sheet{
+    width:210mm;min-height:297mm;
+    background:var(--paper);
+    padding:18mm 16mm 14mm;
+    box-shadow:0 6px 30px rgba(0,0,0,.18);
+    position:relative;
+  }
+  /* Kopf */
+  .eyebrow{
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;
+  }
+  h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:40px;line-height:1.05;margin:8px 0 6px;font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .lead{color:var(--muted);font-size:14px;max-width:62ch;line-height:1.5;}
+  .rule{height:2px;background:var(--ink);width:54px;margin:14px 0 0;}
+
+  /* Gesetz-Block */
+  .law{
+    display:grid;grid-template-columns:64px 1fr 150px;gap:20px;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:2px;padding:20px 22px;margin-top:18px;align-items:start;
+  }
+  .num{
+    font-family:Georgia,serif;font-size:46px;line-height:1;
+    color:var(--accent);font-weight:700;
+  }
+  .num span{display:block;font-family:inherit;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:6px;}
+  .law h2{font-size:20px;letter-spacing:-.01em;margin-bottom:2px;}
+  .law .sub{font-size:12px;color:var(--accent);font-weight:600;
+    text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;}
+  .merksatz{
+    font-family:Georgia,serif;font-size:15.5px;line-height:1.5;
+    border-left:3px solid var(--accent-soft);padding-left:14px;margin-bottom:10px;
+  }
+  .erkl{font-size:12.5px;color:var(--muted);line-height:1.55;}
+  .formel{
+    display:inline-block;margin-top:10px;font-family:Georgia,serif;
+    font-size:18px;background:var(--accent-soft);color:var(--ink);
+    padding:4px 12px;border-radius:2px;
+  }
+  .formel small{font-family:inherit;font-size:11px;color:var(--muted);}
+
+  /* Alltagsbeispiel + Diagramm */
+  .alltag{border-left:1px solid var(--line);padding-left:16px;}
+  .alltag .tag{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin-bottom:8px;}
+  .alltag p{font-size:11.5px;line-height:1.5;color:var(--ink);}
+  svg{display:block;margin-bottom:8px;}
+  .vec{stroke:var(--accent);stroke-width:3;fill:none;}
+  .vec2{stroke:var(--ink);stroke-width:3;fill:none;}
+  .body{fill:var(--ink);}
+  .lbl{font-size:11px;fill:var(--muted);font-family:Georgia,serif;font-style:italic;}
+
+  footer{margin-top:22px;display:flex;justify-content:space-between;
+    align-items:center;border-top:1px solid var(--line);padding-top:10px;
+    font-size:10.5px;color:var(--muted);}
+
+  @media print{
+    body{padding:0;background:#fff;}
+    .sheet{box-shadow:none;width:auto;min-height:auto;}
+    @page{size:A4;margin:0;}
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="eyebrow">Physik · Mechanik · Klasse 9/10</div>
+    <h1>Die drei Newtonschen Gesetze</h1>
+    <p class="lead">Wie Kräfte Bewegung verändern. Drei Grundgesetze, mit denen sich fast jede Bewegung im Alltag erklären lässt — vom Bremsen im Bus bis zum Abstoßen im Schwimmbad.</p>
+    <div class="rule"></div>
+
+    <!-- 1 -->
+    <div class="law">
+      <div class="num">1<span>Trägheit</span></div>
+      <div>
+        <h2>Trägheitsgesetz</h2>
+        <div class="sub">Actio = nichts → Bewegung bleibt</div>
+        <p class="merksatz">Ein Körper bleibt in Ruhe oder bewegt sich gleichförmig geradlinig weiter, solange keine resultierende Kraft auf ihn wirkt.</p>
+        <p class="erkl">Ohne eine Gesamtkraft ändert sich der Bewegungszustand nicht. Geschwindigkeit und Richtung bleiben gleich. Ein Körper „will" seinen Zustand beibehalten — das nennt man Trägheit.</p>
+      </div>
+      <div class="alltag">
+        <svg width="120" height="64" viewBox="0 0 120 64">
+          <rect x="6" y="34" width="40" height="20" rx="3" class="body"/>
+          <circle cx="16" cy="56" r="5" class="body"/><circle cx="38" cy="56" r="5" class="body"/>
+          <line x1="58" y1="44" x2="108" y2="44" class="vec" marker-end="url(#a)"/>
+          <defs><marker id="a" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#B5451B"/></marker></defs>
+          <text x="74" y="34" class="lbl">v</text>
+        </svg>
+        <div class="tag">Im Alltag</div>
+        <p>Der Bus bremst, dein Körper „fährt weiter" und du kippst nach vorn. Der Sicherheitsgurt liefert die Kraft, die dich stoppt.</p>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="law">
+      <div class="num">2<span>Kraft</span></div>
+      <div>
+        <h2>Grundgesetz der Mechanik</h2>
+        <div class="sub">Kraft erzeugt Beschleunigung</div>
+        <p class="merksatz">Die Beschleunigung eines Körpers ist umso größer, je größer die Kraft und je kleiner seine Masse ist.</p>
+        <p class="erkl">Eine resultierende Kraft beschleunigt einen Körper in Richtung der Kraft. Doppelte Kraft → doppelte Beschleunigung. Doppelte Masse → halbe Beschleunigung.</p>
+        <span class="formel">F = m · a&nbsp;&nbsp;<small>Kraft = Masse × Beschleunigung</small></span>
+      </div>
+      <div class="alltag">
+        <svg width="120" height="64" viewBox="0 0 120 64">
+          <rect x="10" y="30" width="34" height="24" rx="3" class="body"/>
+          <circle cx="20" cy="56" r="5" class="body"/><circle cx="36" cy="56" r="5" class="body"/>
+          <line x1="52" y1="42" x2="86" y2="42" class="vec" marker-end="url(#b)"/>
+          <line x1="52" y1="42" x2="112" y2="42" class="vec2" marker-end="url(#c)" opacity="0"/>
+          <defs>
+            <marker id="b" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#B5451B"/></marker>
+          </defs>
+          <text x="62" y="32" class="lbl">F</text>
+        </svg>
+        <div class="tag">Im Alltag</div>
+        <p>Ein leerer Einkaufswagen rollt mit leichtem Schubs los. Voll beladen brauchst du für dieselbe Beschleunigung viel mehr Kraft.</p>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="law">
+      <div class="num">3<span>Wechselwirkung</span></div>
+      <div>
+        <h2>Wechselwirkungsgesetz</h2>
+        <div class="sub">actio = reactio</div>
+        <p class="merksatz">Übt ein Körper A eine Kraft auf einen Körper B aus, so übt B eine gleich große, entgegengesetzt gerichtete Kraft auf A aus.</p>
+        <p class="erkl">Kräfte treten immer paarweise auf. Sie sind gleich groß und entgegengesetzt — wirken aber auf zwei verschiedene Körper und heben sich deshalb nicht auf.</p>
+      </div>
+      <div class="alltag">
+        <svg width="120" height="64" viewBox="0 0 120 64">
+          <circle cx="60" cy="32" r="10" class="body"/>
+          <line x1="48" y1="32" x2="14" y2="32" class="vec2" marker-end="url(#d)"/>
+          <line x1="72" y1="32" x2="106" y2="32" class="vec" marker-end="url(#e)"/>
+          <defs>
+            <marker id="d" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#23201B"/></marker>
+            <marker id="e" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#B5451B"/></marker>
+          </defs>
+          <text x="20" y="22" class="lbl">F</text>
+          <text x="90" y="22" class="lbl">−F</text>
+        </svg>
+        <div class="tag">Im Alltag</div>
+        <p>Beim Abstoßen vom Beckenrand drückst du die Wand zurück — die Wand drückt dich nach vorn ins Wasser.</p>
+      </div>
+    </div>
+
+    <footer>
+      <span>Merkhilfe Mechanik · Isaac Newton (1687), <em>Principia</em></span>
+      <span>F = m · a&nbsp;&nbsp;|&nbsp;&nbsp;Einheit der Kraft: 1 Newton (N) = 1 kg · m/s²</span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<svg viewBox="0 0 200 210" width="320" height="336" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<rect x="22" y="34" width="156" height="172" rx="8" fill="#eef6fc" stroke="#9cc3dd" stroke-width="2"/><ellipse cx="100" cy="34" rx="78" ry="11" fill="#dceefb" stroke="#9cc3dd" stroke-width="2"/><circle cx="62" cy="70" r="17" fill="#f1cf52" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="100" cy="70" r="17" fill="#f1cf52" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="138" cy="70" r="17" fill="#f1cf52" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="62" cy="108" r="17" fill="#f1cf52" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="100" cy="108" r="17" fill="#f1cf52" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="138" cy="108" r="17" fill="#d0392b" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="62" cy="146" r="17" fill="#d0392b" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="100" cy="146" r="17" fill="#d0392b" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="138" cy="146" r="17" fill="#d0392b" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="62" cy="184" r="17" fill="#5b8fd0" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="100" cy="184" r="17" fill="#5b8fd0" stroke="#7a7a7a" stroke-width="1.4"/>
+<circle cx="138" cy="184" r="17" fill="#5b8fd0" stroke="#7a7a7a" stroke-width="1.4"/>
+</svg>

@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+.AppleDouble
+.Trashes
+
+# Obsidian – gerätespezifischer Arbeitscache (ändert sich ständig, kein echter Inhalt)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# temporäre / Sperr- / Sicherungsdateien
+*.tmp
+~$*
+.~lock.*
+
+# Log der Auto-Commit-Automatik
+.scripts/git_autocommit.log

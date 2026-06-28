@@ -1,0 +1,30 @@
+{
+  "env": {
+    "TAVILY_API_KEY": "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"
+  },
+  "permissions": {
+    "allow": [
+      "mcp__21b2a51b-9433-479a-a491-bf52ffdb2c0f__list_calendars",
+      "Bash(osascript -e 'tell application \"Calendar\" to get name of every calendar')",
+      "Read(//Users/oskarklein/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/00b51e48-1d43-48f5-9af5-b20a75d62c18/07d114a3-70a4-443c-8705-5df5cb2f052b/skills/xlsx/**)",
+      "Bash(extract-text \"/Users/oskarklein/Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/Sport/Basketballturnier Klasse 8/2026/8er Jungs 2026 BB.xlsx\")",
+      "Skill(firecrawl-scrape)",
+      "Skill(firecrawl-scrape:*)",
+      "Bash(python3 -c ' *)",
+      "Bash(cat /tmp/gdrs.md 2>/dev/null | head -100)",
+      "Bash(pip3 install *)",
+      "Bash(ls -lh \"/Users/oskarklein/Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/Sport/Basketballturnier Klasse 8/2026/\")",
+      "Bash(python3 -c \"import fitz; print\\('pymupdf ok', fitz.__version__\\)\")",
+      "Bash(python3 -c \"import reportlab; print\\('reportlab ok'\\)\")",
+      "Bash(gs --version)",
+      "Bash(cat)",
+      "Bash(python3 /tmp/bremsweg.py)",
+      "Bash(sed -i '' \"s/row\\\\.append\\(f'{sb:\\\\.1f} m'\\)/row.append\\(f'{sb:.1f} m'.replace\\('.', ','\\)\\)/\" /tmp/bremsweg.py)",
+      "Bash(sed -i '' \"s/f'{v\\\\/3\\\\.6:.2f} m\\\\/s'/f\\\\\"{v\\\\/3.6:.2f} m\\\\/s\\\\\".replace\\('.', ','\\)/\" /tmp/bremsweg.py)",
+      "Bash(python3 /tmp/escooter_beispiel.py)",
+      "Bash(python3 /tmp/escooter_beispiel2.py)",
+      "Read(//private/tmp/**)",
+      "Bash(python3 /tmp/escooter_final.py)"
+    ]
+  }
+}

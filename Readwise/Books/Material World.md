@@ -1,0 +1,50 @@
+# Material World
+
+![rw-book-cover](https://m.media-amazon.com/images/I/71Cfjvr+lFL._SL500_.jpg)
+
+## Metadata
+- Author: [[Ed Conway]]
+- Full Title: Material World
+- Category: #books
+
+## Highlights
+- For a standard gold bar (400 troy ounces) they would have to dig about 5,000 tonnes of earth. That’s nearly the same weight as ten fully laden Airbus A380 super-jumbos, the world’s largest passenger planes – for one bar of gold. ([Location 424](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=424))
+- Later I would learn that while it might once have taken about 0.3 tonnes of ore, extracted via more traditional mining methods, to obtain enough gold for a typical wedding ring, these days it might take between 4 and 20 tonnes of rock. ([Location 435](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=435))
+- tend not to pay much ([Location 502](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=502))
+- The Material World is where you will find the most important companies you’ve never heard of, companies like CATL, Wacker, Codelco, Shagang, TSMC and ASML. ([Location 570](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=570))
+- It’s a crucial irony that pursuing our various environmental goals will, in the short and medium term, require considerably more materials to build the electric cars, wind turbines and solar panels needed to replace fossil fuels. The upshot is that in the coming decades we are likely to extract more metals from the earth’s surface than ever before. ([Location 593](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=593))
+- In 2019, the latest year of data at the time of writing, we mined, dug and blasted more materials from the earth’s surface than the sum total of everything we extracted from the dawn of humanity all the way through to 1950. ([Location 596](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=596))
+- For it turns out oil and other fossil fuels have only ever represented a fraction of the total mass of resources we’re extracting from the earth. For every tonne of fossil fuels, we exploit 6 tonnes of other materials – mostly sand and stone, but also metals, salts and chemicals. Even as we citizens of the ethereal world pare back our consumption of fossil fuels we have redoubled our consumption of everything else. But, somehow, we have deluded ourselves into believing precisely the opposite. ([Location 606](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=606))
+- And, I would later learn, the footprint of gold mining is dwarfed by that of metals like iron and copper, and they in turn are dwarfed by the sand and stone we dig and blast. ([Location 616](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=616))
+- This book about the Material World is told through six materials: sand, salt, iron, copper, oil and lithium. ([Location 630](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=630))
+- Part One SAND ([Location 709](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=709))
+- Glass ([Location 836](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=836))
+- Alan Macfarlane and Gerry Martin, went methodically through 20 of the great experiments ([Location 857](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=857))
+- The World’s First Manufactured Product ([Location 866](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=866))
+- A Quest for the Holy Grain ([Location 916](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=916))
+- And if you want the very clearest, finest glass, you need the very purest of all silica sands, sometimes called silver sands. ([Location 926](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=926))
+- The Glass Famine ([Location 997](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=997))
+- Glass and the Invention of Industrial Strategy ([Location 1073](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1073))
+- Because light takes longer to pass through water than it does through air or a vacuum – 1.33 times longer, to be precise. That number, the refractive index, is one of the most important numbers in science, since understanding how to bend light enables you to start bending it to your will. ([Location 1090](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1090))
+- The Internet Is Made of Glass ([Location 1164](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1164))
+- The problem at the time was that the best optical glasses made using conventional methods could only carry light for about 10 metres, so Kao went in search of an even clearer glass. He found it in the form of that ultra-pure fused glass first developed by James Franklin Hyde at Corning back in the 1930s. ([Location 1195](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1195))
+- Kao calculated that light could travel for kilometres down such a glass with barely any data loss. And since the bandwidth of tiny fibres was so much greater than far thicker copper ones, even an incredibly thin strand could carry multiples more information. ([Location 1197](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1197))
+- What really matters, above all, for human civilisation? ‘You know it when you can’t see it.’ ([Location 1208](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1208))
+- 2 Built upon Sand ([Location 1211](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1211))
+- Shifting Sands ([Location 1235](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1235))
+- The Race for Sand ([Location 1259](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1259))
+- for every human-made object on this planet, every building, plane, train, car and phone, try to picture a pile of earth, sand and dirt six times its weight. And the pile of moved material is getting bigger with every year that passes. ([Location 1277](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1277))
+- creatures. If you have to mine sand (and it’s hard to imagine the modern world without doing so), these active sedimentary systems are the wrong place to mine. Instead you should be looking for what are known as ‘fossil deposits’: sands that were once part of an active river or coastal system ([Location 1283](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1283))
+- but now, hundreds of millions of years later, lie inert. ([Location 1285](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1285))
+- And that’s precisely where most sand comes from in developed nations, where sand removal and land reclamation are heavily regulated. But elsewhere there is strong evidence that sand is being mined from active systems. ([Location 1286](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1286))
+- The Most Underrated Material of All ([Location 1331](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1331))
+- A Rock of Ages ([Location 1386](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1386))
+- The Darker Side of Concrete ([Location 1433](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1433))
+- Concrete and Climate Change ([Location 1484](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1484))
+- For all the attention lavished on other sources of greenhouse gases such as aviation or deforestation, the production of cement generates more CO2 than those two sectors combined. Cement production accounts for a staggering 7–8 per cent of all carbon emissions. ([Location 1486](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1486))
+- 3 The Longest Journey ([Location 1556](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1556))
+- Nearly every economic activity, nearly every dollar of global GDP, relies in one way or another on the microscopic switches of semiconductors. ([Location 1577](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1577))
+- The transistors in today’s smartphones are not just smaller than a red blood cell (about a thousand times smaller, as it happens); they are smaller than the COVID-19 virus. ([Location 1617](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1617))
+- Actually you could fit four of them inside a coronavirus, each transistor having about the same dimensions as one of the virus’s spike proteins, those club-like tendrils radiating out from its centre. ([Location 1618](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1618))
+- today’s transistors are even smaller than the wavelength of visible light and are thus totally indiscernible to the naked eye through even the most powerful conventional microscope. ([Location 1620](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1620))
+- The Birth of a Silicon Chip ([Location 1648](https://readwise.io/to_kindle?action=open&asin=B0BFGZJDVH&location=1648))

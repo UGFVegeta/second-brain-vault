@@ -1,0 +1,27 @@
+#separator:tab
+#html:false
+#deck:Führung & Schulentwicklung
+#notetype:Basic
+
+Was sind die 4 Schritte des Schildkamp-Zyklus?	1. Datenerhebung → 2. Verarbeitung → 3. Interpretation & Integration → 4. Maßnahmen (Taten)
+Was ist der erste Schritt im Schildkamp-Zyklus?	Datenerhebung – Nutzung des Schuldatenblatts und der Kompass-4-Ergebnisse der neuen 5. Klässler
+Was passiert im Schritt Interpretation & Integration?	Daten aus Fachschaftsrückmeldungen werden zusammengeführt, um die Durchlässigkeit (G/M/E-Wechsel nach Klasse 6) zu ermitteln
+Was ist Kompass 4 und wofür wird es genutzt?	Diagnoseinstrument in Klasse 4. Misst Leistungsstand in Deutsch und Mathematik ohne Notendruck. Wird zur Niveaubestimmung in der Orientierungsstufe genutzt.
+Welche drei Leistungsniveaus gibt es an der Realschule in BW?	G-Niveau (grundlegend), M-Niveau (mittleres), E-Niveau (erweitertes)
+Auf welchem Niveau werden Schüler in der Orientierungsstufe (Kl. 5/6) unterrichtet?	Ausschließlich auf M-Niveau. Niveaufestlegung (G/M/E) erst nach der Orientierungsstufe.
+Was sind Poolstunden?	Zusätzliche Lehrerstunden die die Schule flexibel einsetzt – z.B. für Binnendifferenzierung oder leistungsdifferenzierende Gruppen. Strategisch vom Konrektor koordiniert.
+Unterschied: Binnendifferenzierung vs. leistungsdifferenzierende Gruppen?	Binnendifferenzierung = verschiedene Niveaus im selben Klassenraum. Leistungsdifferenzierende Gruppen = Schüler nach Niveau in separate Gruppen aufgeteilt.
+Was sind die 6 Schritte zur rechtssicheren Dokumentation nach § 90 SchG?	1. Datenerhebung → 2. Sichtung → 3. Verarbeitung → 4. Interpretation (Verhältnismäßigkeit) → 5. Integration (Anhörungsrecht) → 6. Konkrete Maßnahme
+Was muss bei § 90 Maßnahmen zwingend dokumentiert werden?	Dass die Maßnahme verhältnismäßig ist und mildere Erziehungsmaßnahmen ausgeschöpft wurden oder ungeeignet sind
+Wer muss vor einer § 90 Maßnahme angehört werden?	Schüler UND Erziehungsberechtigte – zwingend vor der Beschlussfassung
+Was beschreibt Stufe 5 der Kommunikationsfähigkeit (BOaktiv)?	Gesprächssituationen moderieren, stockende Gespräche in Gang bringen, Beiträge anderer zielführend verwenden, Inhalte adressatengerecht erklären
+Was beschreibt Stufe 5 der Teamfähigkeit (BOaktiv)?	Aufgaben koordinieren, Vorschläge zusammenführen, andere mit Expertise unterstützen, Gruppenrollen reflektieren
+Was beschreibt Stufe 5 der Kritikfähigkeit (BOaktiv)?	Einigungen herbeiführen und Konsens akzeptieren, aus Rückmeldungen Rückschlüsse für weitere Entscheidungen ziehen
+Was ist der Kernunterschied zwischen Stärken und Liebe (nach Buckingham)?	Man kann gut in etwas sein, das einen auszehrt. Stärken = was du gut kannst. Liebe = was dir Energie gibt. Führungskräfte sollten beides berücksichtigen.
+Was sind Red Threads (Marcus Buckingham)?	Tätigkeiten die einem Energie geben und stärken. Aufgabe der Führungskraft: Red Threads bei Mitarbeitern finden und deren Anteil erhöhen.
+Welche Einstiegsfrage findet Red Threads bei Lehrern?	Was ist die eine Sache in deiner Arbeit, bei der du nach dem Tag das Gefühl hast, Energie gewonnen zu haben?
+Welche 3 Akteursgruppen bilden das multiprofessionelle Team an der Realschule?	1. Regellehrkraft (Fachlichkeit, Niveausteuerung) 2. Sonderpädagoge (individuelle Förderung) 3. Schulsozialarbeit (soziale Kompetenzen)
+Was ist das gemeinsame Ziel des multiprofessionellen Teams?	Ausbildungsreife der Schüler: schulische Basiskenntnisse, psychologische Leistungsmerkmale und Persönlichkeit (Durchhaltevermögen, Selbstständigkeit)
+Was sind die 4 strategischen Säulen für das Konrektorat an der ARS Fellbach?	1. Souveräne Prozesssteuerung 2. Datengestützte Qualitätsentwicklung 3. Rechtssichere Administration (§90) 4. Digitale Konsolidierung & ökonomische Profilbildung
+Was bedeutet souveräne Prozesssteuerung als Konrektor?	Verlässliche Vertretungsplanung und strategische Koordination der Poolstunden zur Leistungsdifferenzierung ab Klasse 7
+Was ist das Ziel des Fachbereichs WBS an der ARS Fellbach?	Ökonomische Bildung stärken, Kooperationen mit Betrieben ausbauen, direkte Übergänge in Ausbildung fördern, Berufswahlreife sichern

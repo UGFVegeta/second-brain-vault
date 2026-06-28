@@ -1,0 +1,23 @@
+{
+  "id": "conv-1780346159434-xzvwdxx2v",
+  "providerId": "claude",
+  "title": "Create two reminders for Wednesday\n\n---\n\nIch er...",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780346159435,
+  "updatedAt": 1781958095071,
+  "lastResponseAt": 1781295825132,
+  "sessionId": "47ce6823-24ba-41d2-aa20-9b4ffe3434c7",
+  "providerState": {
+    "providerSessionId": "47ce6823-24ba-41d2-aa20-9b4ffe3434c7"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 3,
+    "cacheCreationInputTokens": 65,
+    "cacheReadInputTokens": 370932,
+    "contextWindow": 200000,
+    "contextTokens": 371000,
+    "percentage": 100,
+    "contextWindowIsAuthoritative": true
+  }
+}

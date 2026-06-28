@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notenschlüsselrechner (linear)</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#fff; --ink:#1f2933; --muted:#647079;
+    --line:#e2e8ed; --accent:#2563eb; --accent-soft:#eff4ff;
+    --good:#16a34a; --bad:#dc2626; --shadow:0 1px 3px rgba(0,0,0,.08),0 6px 20px rgba(0,0,0,.04);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--ink);line-height:1.5;padding:24px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-size:1.6rem;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 16px;font-size:.95rem}
+  .modes{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:11px;padding:4px;gap:4px;box-shadow:var(--shadow)}
+  .modebtn{font:inherit;font-weight:600;font-size:.88rem;padding:9px 18px;border:none;border-radius:8px;background:transparent;color:var(--muted);cursor:pointer}
+  .modebtn:hover:not(.active){color:var(--accent)}
+  .modebtn.active{background:var(--accent);color:#fff}
+  .modeHint{color:var(--muted);font-size:.82rem;margin:10px 0 22px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+  .card h2{font-size:1rem;margin:0 0 14px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px}
+  .hint{font-weight:400;color:var(--muted);font-size:.78rem}
+  input[type=number],select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;
+       font-size:1rem;background:#fff;color:var(--ink)}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .field{margin-bottom:14px}
+  .field:last-child{margin-bottom:0}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;cursor:pointer;user-select:none}
+  .toggle input{width:auto}
+  .formula{background:var(--accent-soft);border:1px solid #d7e3ff;border-radius:10px;padding:14px 16px;
+       font-size:.9rem;color:#1e3a8a;margin-bottom:18px}
+  .formula code{background:rgba(255,255,255,.6);padding:2px 6px;border-radius:5px;font-size:.88em}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th,td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--line)}
+  th{background:#f8fafc;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+  td.grade{font-weight:700}
+  tbody tr:hover{background:var(--accent-soft)}
+  .scrollbox{max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+  .lookup{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+  .lookup .field{flex:1;min-width:140px;margin:0}
+  .result{font-size:2.4rem;font-weight:800;min-width:90px;text-align:center;padding:6px 14px;border-radius:10px;
+       background:var(--accent-soft);color:var(--accent)}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  button{font:inherit;font-weight:600;font-size:.9rem;padding:9px 16px;border-radius:9px;border:1px solid var(--line);
+       background:#fff;color:var(--ink);cursor:pointer}
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  button.primary:hover{background:#1d4ed8;color:#fff}
+  .spiegel td.pts{font-variant-numeric:tabular-nums}
+  .note{color:var(--muted);font-size:.8rem;margin-top:10px}
+  .raster{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px}
+  .tile{border:1px solid var(--line);border-radius:10px;padding:9px 6px;text-align:center;background:#fff}
+  .tile .tg{font-size:1.45rem;font-weight:800;line-height:1.1;color:var(--accent)}
+  .tile .tp{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:2px}
+  .tile.good{background:var(--accent-soft);border-color:#cfe0ff}
+  .ovwrap{display:grid;gap:10px 18px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .ov{width:100%;border-collapse:collapse;font-size:.92rem}
+  .ov th{text-align:left;font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;padding:3px 8px;border-bottom:2px solid var(--ink)}
+  .ov th:last-child{text-align:right}
+  .ov td{padding:5px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .ov td.n{text-align:right;font-weight:700}
+  .ov tbody tr:nth-child(even){background:rgba(0,0,0,.035)}
+  @media (max-width:680px){.grid{grid-template-columns:1fr}body{padding:14px}
+       .raster{grid-template-columns:repeat(auto-fit,minmax(74px,1fr))}}
+  @media print{body{background:#fff;padding:0}.card{box-shadow:none;break-inside:avoid}
+       button,.lookup,#advancedWrap label.toggle{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Notenschlüsselrechner <span class="hint">· linear</span></h1>
+  <p class="sub">Linearer Punkte-Noten-Schlüssel mit optionalem Sockel.</p>
+
+  <div class="modes" id="modeSwitch">
+    <button type="button" class="modebtn active" data-mode="free">Freier Schlüssel</button>
+    <button type="button" class="modebtn" data-mode="rsp">Realschulprüfung Mathematik</button>
+  </div>
+  <p class="modeHint" id="modeHint"></p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Schritt 1 · Notenskala</h2>
+      <div class="field">
+        <label>Beste Note der Skala</label>
+        <input type="number" id="bestGrade" value="1" step="0.1" min="0" max="20">
+      </div>
+      <div class="field">
+        <label>Schlechteste Note der Skala</label>
+        <input type="number" id="worstGrade" value="6" step="0.1" min="0" max="20">
+      </div>
+      <div class="field">
+        <label>Notenschritt in der Tabelle</label>
+        <select id="gradeStep">
+          <option value="1">ganze Noten (1, 2, 3 …)</option>
+          <option value="0.5" selected>halbe Noten (1; 1,5; 2 …)</option>
+          <option value="0.25">Viertelnoten</option>
+          <option value="0.1">Zehntelnoten</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Schritt 2 · Punkte</h2>
+      <div class="field">
+        <label>Maximale Punktzahl</label>
+        <input type="number" id="maxPoints" value="50" step="0.5" min="0.5">
+      </div>
+      <div class="field">
+        <label>Beste Note vergeben ab <span class="hint">(Punkte)</span></label>
+        <input type="number" id="bestFrom" value="50" step="0.5" min="0">
+      </div>
+      <div class="field">
+        <label>Punkte-Schritt der Tabelle</label>
+        <select id="pointStep">
+          <option value="1">1,0 Punkte</option>
+          <option value="0.5" selected>0,5 Punkte</option>
+          <option value="0.25">0,25 Punkte</option>
+        </select>
+      </div>
+      <div id="advancedWrap" class="field" style="margin-top:4px">
+        <label class="toggle"><input type="checkbox" id="advToggle"> Harten unteren Sockel verwenden</label>
+        <div id="advFields" style="display:none;margin-top:10px">
+          <label>Schlechteste Note bis <span class="hint">(Punkte)</span></label>
+          <input type="number" id="worstUntil" value="0" step="0.5" min="0">
+        </div>
+      </div>
+      <div class="field" style="margin-top:4px">
+        <label class="toggle"><input type="checkbox" id="knickToggle"> Knick (z. B. Englisch)</label>
+        <div id="knickFields" style="display:none;margin-top:10px">
+          <label>Knick bei <span class="hint">(% der Punkte)</span></label>
+          <input type="number" id="knickPct" value="50" step="1" min="1" max="99">
+          <label style="margin-top:10px">Note am Knick</label>
+          <input type="number" id="knickGrade" value="4" step="0.1" min="1" max="6">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="formula" id="formulaBox"></div>
+
+  <div class="card">
+    <h2>Alle Noten auf einen Blick</h2>
+    <div id="rasterBody"></div>
+  </div>
+
+  <div class="card">
+    <h2>Einzelabfrage</h2>
+    <div class="lookup">
+      <div class="field">
+        <label>Erreichte Punkte</label>
+        <input type="number" id="lookupPts" step="0.5" min="0" placeholder="z. B. 37">
+      </div>
+      <div class="result" id="lookupResult">–</div>
+    </div>
+    <p class="note" id="lookupExact"></p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Notenspiegel · Schwellen</h2>
+      <div class="scrollbox">
+        <table class="spiegel">
+          <thead><tr><th>Note</th><th>ab Punkten</th><th>von %</th></tr></thead>
+          <tbody id="spiegelBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Punkte → Note</h2>
+      <div class="scrollbox">
+        <table>
+          <thead><tr><th>Punkte</th><th>%</th><th>Note (gerundet)</th><th>exakt</th></tr></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="btnrow">
+    <button class="primary" onclick="window.print()">🖨️ Drucken / als PDF</button>
+    <button onclick="exportCSV()">⬇️ Tabelle als CSV</button>
+    <button onclick="resetAll()">↺ Zurücksetzen</button>
+  </div>
+  <p class="note">Hinweis: Linearer Schlüssel. Zwischen „Beste Note vergeben ab" und dem unteren Anker (0 Punkte bzw. „Schlechteste Note bis") wird linear interpoliert. Rundung kaufmännisch auf den gewählten Notenschritt.</p>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmtG = g => g.toLocaleString('de-DE',{minimumFractionDigits:0,maximumFractionDigits:2});
+const fmtP = p => p.toLocaleString('de-DE',{minimumFractionDigits:0,maximumFractionDigits:2});
+
+function cfg(){
+  const best = parseFloat($('bestGrade').value);
+  const worst = parseFloat($('worstGrade').value);
+  const max = parseFloat($('maxPoints').value);
+  let top = parseFloat($('bestFrom').value);
+  const gStep = parseFloat($('gradeStep').value);
+  const pStep = parseFloat($('pointStep').value);
+  const adv = $('advToggle').checked;
+  let bottom = adv ? parseFloat($('worstUntil').value) : 0;
+  if(isNaN(top)) top = max;
+  if(top>max) top = max;
+  if(isNaN(bottom)||bottom<0) bottom = 0;
+  if(bottom>=top) bottom = 0;
+  const knick = currentMode==='free' && $('knickToggle').checked;
+  let kPct = parseFloat($('knickPct').value);
+  let kGrade = parseFloat($('knickGrade').value);
+  if(isNaN(kPct)||kPct<=0||kPct>=100) kPct=50;
+  if(isNaN(kGrade)) kGrade=4;
+  let kP = max*kPct/100;                 // Knickpunkt in Punkten
+  if(kP<=bottom) kP=bottom+0.01;
+  if(kP>=top) kP=top-0.01;
+  return {best,worst,max,top,bottom,gStep,pStep,adv,mode:currentMode,knick,kP,kGrade};
+}
+
+let currentMode='free';
+
+// stetige Note an einer Punktzahl (optional mit Knick = zwei Segmente)
+function gradeAt(p,c){
+  if(p>=c.top) return c.best;
+  if(p<=c.bottom) return c.worst;
+  if(c.knick){
+    if(p>=c.kP) return c.kGrade + (c.best-c.kGrade)*(p-c.kP)/(c.top-c.kP);   // oben: Knicknote -> beste
+    return c.worst + (c.kGrade-c.worst)*(p-c.bottom)/(c.kP-c.bottom);        // unten: schlechteste -> Knicknote
+  }
+  return c.best + (c.worst-c.best)*(c.top-p)/(c.top-c.bottom);
+}
+// frei: kaufmännisch · rsp: amtlich auf Zehntel abrunden (zugunsten der Schüler)
+function roundGrade(v,step,mode){
+  return mode==='rsp' ? Math.floor(v/step+1e-9)*step : Math.round(v/step)*step;
+}
+
+function render(){
+  const c = cfg();
+  if([c.best,c.worst,c.max].some(isNaN) || c.max<=0){ return; }
+
+  // Formel
+  const slope = (c.worst-c.best)/(c.top-c.bottom);
+  $('formulaBox').innerHTML =
+    `<b>Schlüssel:</b> beste Note <code>${fmtG(c.best)}</code> ab <code>${fmtP(c.top)}</code> von <code>${fmtP(c.max)}</code> Punkten, `+
+    `schlechteste Note <code>${fmtG(c.worst)}</code> ${c.adv?`bis <code>${fmtP(c.bottom)}</code> Punkte`:`bei 0 Punkten`}.<br>`+
+    (c.knick
+      ? `<b>Formel (mit Knick):</b> Note <code>${fmtG(c.kGrade)}</code> bei <code>${fmtP(c.kP)}</code> Punkten (${Math.round(c.kP/c.max*100)} %); darüber linear bis <code>${fmtG(c.best)}</code>, darunter linear bis <code>${fmtG(c.worst)}</code>. `
+      : `<b>Formel:</b> <code>Note = ${fmtG(c.best)} + ${fmtG(c.worst-c.best)} × (${fmtP(c.top)} − P) / ${fmtP(c.top-c.bottom)}</code> (zwischen den Ankern). `)+
+    (c.mode==='rsp'
+      ? `<b>Abgerundet auf Zehntelnoten (amtlich, zugunsten der Schüler).</b>`
+      : `Gerundet auf ${c.gStep===1?'ganze':c.gStep===0.5?'halbe':c.gStep===0.25?'Viertel':'Zehntel'} Noten.`);
+
+  // volle Tabelle (Quelle der Wahrheit) – von max abwärts bis 0
+  const rows=[]; const seen={}; // erste (höchste) Punktzahl je gerundeter Note
+  const steps = Math.round(c.max/c.pStep);
+  for(let i=steps;i>=0;i--){
+    const p = +(i*c.pStep).toFixed(4);
+    const exact = gradeAt(p,c);
+    const rounded = +(roundGrade(exact,c.gStep,c.mode)).toFixed(2);
+    const pct = c.max>0 ? p/c.max*100 : 0;
+    rows.push({p,pct,exact,rounded});
+  }
+  // Tabellenausgabe
+  $('tableBody').innerHTML = rows.map(r=>{
+    const col = r.rounded<= (c.best+c.worst)/2 ? 'var(--good)':'var(--ink)';
+    return `<tr><td>${fmtP(r.p)}</td><td>${r.pct.toFixed(0)} %</td>`+
+           `<td class="grade" style="color:${col}">${fmtG(r.rounded)}</td>`+
+           `<td style="color:var(--muted)">${r.exact.toFixed(2)}</td></tr>`;
+  }).join('');
+
+  // Notenspiegel: für jede gerundete Note die niedrigste/höchste Punktzahl
+  const lowest={}, highest={};
+  for(const r of rows){
+    if(!(r.rounded in lowest) || r.p < lowest[r.rounded]) lowest[r.rounded]=r.p;
+    if(!(r.rounded in highest) || r.p > highest[r.rounded]) highest[r.rounded]=r.p;
+  }
+  const gradeList=[];
+  const dir = c.best<c.worst?1:-1;
+  for(let g=c.best; dir>0? g<=c.worst+1e-9 : g>=c.worst-1e-9; g+=dir*c.gStep){
+    gradeList.push(+g.toFixed(2));
+  }
+  $('spiegelBody').innerHTML = gradeList.map(g=>{
+    if(!(g in lowest)) return '';
+    const p = lowest[g];
+    const pct = c.max>0? p/c.max*100:0;
+    return `<tr><td class="grade">${fmtG(g)}</td><td class="pts">${fmtP(p)}</td><td style="color:var(--muted)">${pct.toFixed(0)} %</td></tr>`;
+  }).join('');
+
+  // Übersicht: alle Noten als Punkte|Note-Spalten (wie amtliche Notenliste)
+  const ovItems=[];
+  for(const g of gradeList){
+    if(!(g in lowest)) continue;
+    const lo=lowest[g], hi=highest[g];
+    ovItems.push({g, span: lo===hi ? `${fmtP(lo)}` : `${fmtP(lo)} - ${fmtP(hi)}`});
+  }
+  const ovCols=Math.min(4, Math.max(1, Math.ceil(ovItems.length/14)));
+  const ovPer=Math.ceil(ovItems.length/ovCols);
+  let ovHtml='<div class="ovwrap">';
+  for(let ci=0; ci<ovCols; ci++){
+    const chunk=ovItems.slice(ci*ovPer,(ci+1)*ovPer);
+    if(!chunk.length) continue;
+    ovHtml+='<table class="ov"><thead><tr><th>Punkte</th><th>Note</th></tr></thead><tbody>'+
+      chunk.map(it=>`<tr><td>${it.span}</td><td class="n">${fmtG(it.g)}</td></tr>`).join('')+
+      '</tbody></table>';
+  }
+  ovHtml+='</div>';
+  $('rasterBody').innerHTML = ovHtml;
+
+  updateLookup(c);
+  window._lastRows = rows;
+}
+
+function updateLookup(c){
+  c = c||cfg();
+  const v = parseFloat($('lookupPts').value);
+  if(isNaN(v)){ $('lookupResult').textContent='–'; $('lookupExact').textContent=''; return; }
+  const exact = gradeAt(v,c);
+  const rounded = roundGrade(exact,c.gStep,c.mode);
+  $('lookupResult').textContent = fmtG(rounded);
+  const pct = c.max>0? (v/c.max*100).toFixed(1):0;
+  const verb = c.mode==='rsp' ? 'abgerundet' : 'gerundet';
+  $('lookupExact').textContent = `${fmtP(v)} von ${fmtP(c.max)} Punkten (${pct} %) → exakt ${exact.toFixed(2)}, ${verb} ${fmtG(rounded)}.`;
+}
+
+function exportCSV(){
+  const rows = window._lastRows||[];
+  let csv = 'Punkte;Prozent;Note gerundet;Note exakt\n';
+  csv += rows.map(r=>`${fmtP(r.p)};${r.pct.toFixed(1)};${fmtG(r.rounded)};${r.exact.toFixed(2)}`).join('\n');
+  const blob = new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='Notenschluessel.csv'; a.click();
+}
+
+function resetAll(){
+  $('bestGrade').value=1; $('worstGrade').value=6; $('maxPoints').value=50;
+  $('bestFrom').value=50; $('gradeStep').value='0.5'; $('pointStep').value='0.5';
+  $('advToggle').checked=false; $('advFields').style.display='none'; $('worstUntil').value=0;
+  $('knickToggle').checked=false; $('knickFields').style.display='none'; $('knickPct').value=50; $('knickGrade').value=4;
+  $('lookupPts').value=''; bestFromTouched=false; applyMode('free');
+}
+
+// "Beste Note vergeben ab" an Max koppeln, solange Nutzer es nicht selbst anfasst
+let bestFromTouched=false;
+$('bestFrom').addEventListener('input',()=>bestFromTouched=true);
+$('maxPoints').addEventListener('input',()=>{ if(!bestFromTouched) $('bestFrom').value=$('maxPoints').value; });
+
+$('advToggle').addEventListener('change',e=>{
+  $('advFields').style.display = e.target.checked?'block':'none'; render();
+});
+$('knickToggle').addEventListener('change',e=>{
+  $('knickFields').style.display = e.target.checked?'block':'none'; render();
+});
+['bestGrade','worstGrade','maxPoints','bestFrom','gradeStep','pointStep','worstUntil','knickPct','knickGrade']
+  .forEach(id=>$(id).addEventListener('input',render));
+$('lookupPts').addEventListener('input',()=>updateLookup());
+
+// Umschalter: Freier Schlüssel <-> Realschulprüfung Mathematik
+const lockIds=['bestGrade','worstGrade','maxPoints','bestFrom','gradeStep','pointStep','advToggle','knickToggle','knickPct','knickGrade'];
+function applyMode(m){
+  currentMode=m;
+  document.querySelectorAll('.modebtn').forEach(b=>b.classList.toggle('active', b.dataset.mode===m));
+  if(m==='rsp'){
+    $('bestGrade').value=1; $('worstGrade').value=6; $('maxPoints').value=50;
+    $('bestFrom').value=50; $('gradeStep').value='0.1'; $('pointStep').value='0.5';
+    $('advToggle').checked=false; $('advFields').style.display='none';
+    $('knickToggle').checked=false; $('knickFields').style.display='none';
+    bestFromTouched=true;
+    lockIds.forEach(id=>$(id).disabled=true);
+    $('modeHint').innerHTML='Amtlicher Schlüssel der schriftlichen Realschulprüfung BW (50 Punkte, Zehntelnoten, Abrundung zugunsten der Schüler). Einstellungen gesperrt.';
+  }else{
+    lockIds.forEach(id=>$(id).disabled=false);
+    $('modeHint').textContent='';
+  }
+  render();
+}
+document.querySelectorAll('.modebtn').forEach(b=>b.addEventListener('click',()=>applyMode(b.dataset.mode)));
+
+render();
+</script>
+</body>
+</html>

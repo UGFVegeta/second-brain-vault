@@ -1,0 +1,179 @@
+# Java Programmieren
+
+![rw-book-cover](https://m.media-amazon.com/images/I/81GyfUsGI+L._SL500_.jpg)
+
+## Metadata
+- Author: [[Michael Bonacina]]
+- Full Title: Java Programmieren
+- Category: #books
+
+## Highlights
+- Java Development Kit ([Location 121](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=121))
+    - Tags: [[pink]] 
+- (JDK). ([Location 121](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=121))
+    - Tags: [[pink]] 
+- Java-Bytecode, ([Location 123](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=123))
+    - Tags: [[pink]] 
+- Java-Laufzeitumgebung ([Location 125](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=125))
+    - Tags: [[pink]] 
+- Java Runtime Environment ([Location 126](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=126))
+    - Tags: [[pink]] 
+- JRE ([Location 126](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=126))
+    - Tags: [[pink]] 
+- virtuelle Maschine (JVM) ([Location 128](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=128))
+    - Tags: [[pink]] 
+- plattformunabhängig. ([Location 130](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=130))
+    - Tags: [[blue]] 
+- *7 ([Location 139](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=139))
+    - Tags: [[pink]] 
+- als Star Seven) ([Location 140](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=140))
+    - Tags: [[pink]] 
+- auch Smalltalk ([Location 148](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=148))
+    - Tags: [[pink]] 
+- Übersetzung ([Location 156](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=156))
+    - Tags: [[blue]] 
+- Compiler. ([Location 156](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=156))
+    - Tags: [[blue]] 
+- Das ist ein Programm, das die Textdatei, in der das Programm vorliegt, einliest. Es überprüft dabei, ob alle Regeln beachtet wurden. Daraufhin erstellt es eine neue Datei. Diese enthält nun ausschließlich Maschinencode und ist daher direkt ausführbar. ([Location 156](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=156))
+    - Tags: [[blue]] 
+- Interpreter. ([Location 160](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=160))
+    - Tags: [[pink]] 
+- Der Unterschied besteht darin, dass dieser keine ausführbare Datei erzeugt. Er übersetzt das Programm hingegen in die Maschinensprache und lädt daraufhin die Befehle direkt in den Arbeitsspeicher und führt sie aus. ([Location 160](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=160))
+    - Tags: [[pink]] 
+- gute Performance. ([Location 163](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=163))
+    - Tags: [[blue]] 
+- Laufzeitfehler ([Location 166](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=166))
+    - Tags: [[blue]] 
+- Syntaxfehler ([Location 166](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=166))
+    - Tags: [[blue]] 
+- Interpretersprachen ([Location 168](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=168))
+    - Tags: [[blue]] 
+- Plattformunabhängigkeit. ([Location 169](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=169))
+    - Tags: [[blue]] 
+- Java Development Kit (JDK). ([Location 205](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=205))
+    - Tags: [[blue]] 
+- (Integrated Development Environment bzw. integrierte Entwicklungsumgebung) ([Location 209](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=209))
+    - Tags: [[blue]] 
+- public ([Location 353](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=353))
+    - Tags: [[pink]] 
+- public ([Location 354](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=354))
+    - Tags: [[pink]] 
+- private ([Location 354](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=354))
+    - Tags: [[blue]] 
+- Buchstaben, Zahlen, den Unterstrich ([Location 359](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=359))
+    - Tags: [[blue]] 
+- (_) ([Location 359](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=359))
+    - Tags: [[blue]] 
+- ($) ([Location 359](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=359))
+    - Tags: [[blue]] 
+- Bezeichner darf nicht mit einer Ziffer beginnen und außerdem keine Leerzeichen enthalten. ([Location 361](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=361))
+    - Tags: [[blue]] 
+- main. ([Location 369](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=369))
+    - Tags: [[pink]] 
+- einziges Mal ([Location 370](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=370))
+    - Tags: [[pink]] 
+- static ([Location 373](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=373))
+    - Tags: [[pink]] 
+- void, ([Location 376](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=376))
+    - Tags: [[pink]] 
+- (//) ([Location 418](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=418))
+    - Tags: [[blue]] 
+- /* und */ ([Location 420](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=420))
+    - Tags: [[blue]] 
+- /** und */. ([Location 423](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=423))
+    - Tags: [[blue]] 
+- Variablen. ([Location 486](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=486))
+    - Tags: [[pink]] 
+- nicht für eine bestimmte Zahl, ([Location 493](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=493))
+    - Tags: [[pink]] 
+- ganz bestimmten Ort im Arbeitsspeicher des Rechners. Der ([Location 493](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=493))
+    - Tags: [[pink]] 
+- Variable zu verwenden, ([Location 498](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=498))
+    - Tags: [[pink]] 
+- deklarieren. ([Location 498](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=498))
+    - Tags: [[pink]] 
+- Typ anzugeben. ([Location 501](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=501))
+    - Tags: [[pink]] 
+- bestimmter Typ und ein Name ([Location 508](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=508))
+    - Tags: [[pink]] 
+- Variablennamen ([Location 512](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=512))
+    - Tags: [[pink]] 
+- Kleinbuchstaben beginnen. ([Location 513](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=513))
+    - Tags: [[pink]] 
+- Großbuchstaben ([Location 513](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=513))
+    - Tags: [[pink]] 
+- nameKunde ([Location 514](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=514))
+    - Tags: [[blue]] 
+- breiteFenster. ([Location 514](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=514))
+    - Tags: [[blue]] 
+- int i; ([Location 516](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=516))
+    - Tags: [[blue]] 
+- integer ([Location 517](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=517))
+    - Tags: [[pink]] 
+- also eine ganze Zahl ([Location 517](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=517))
+    - Tags: [[pink]] 
+- Gleichheitszeichen: ([Location 521](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=521))
+    - Tags: [[pink]] 
+- i = 0; ([Location 521](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=521))
+    - Tags: [[blue]] 
+- gleichen Typ ([Location 538](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=538))
+    - Tags: [[blue]] 
+- Komma voneinander getrennt ([Location 538](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=538))
+    - Tags: [[blue]] 
+- int i, x, y; oder int i = 5, x = 3, y = 7; ([Location 539](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=539))
+    - Tags: [[blue]] 
+- Wahrheitswerte, ([Location 563](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=563))
+    - Tags: [[blue]] 
+- Typ boolean ([Location 563](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=563))
+    - Tags: [[blue]] 
+- true ([Location 564](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=564))
+    - Tags: [[blue]] 
+- false. ([Location 564](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=564))
+    - Tags: [[blue]] 
+- Buchstaben ([Location 564](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=564))
+    - Tags: [[pink]] 
+- char ([Location 565](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=565))
+    - Tags: [[pink]] 
+- Zeichenketten ([Location 566](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=566))
+- String ([Location 567](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=567))
+- (Achtung: Großschreibung beachten!). ([Location 567](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=567))
+- Listen und Tabellen ([Location 632](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=632))
+    - Tags: [[pink]] 
+- Arrays ([Location 633](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=633))
+    - Tags: [[blue]] 
+- Klammer ([Location 640](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=640))
+    - Tags: [[blue]] 
+- int[] a; ([Location 643](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=643))
+    - Tags: [[blue]] 
+- new ([Location 648](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=648))
+    - Tags: [[pink]] 
+- a = new int[5]; ([Location 649](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=649))
+    - Tags: [[pink]] 
+- int[] a = new int[] {3, 15, 7, 12, 6}; ([Location 674](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=674))
+    - Tags: [[pink]] 
+- multidimensionale Arrays ([Location 683](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=683))
+    - Tags: [[pink]] 
+- “%” ([Location 716](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=716))
+    - Tags: [[pink]] 
+- Integer- ([Location 717](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=717))
+    - Tags: [[pink]] 
+- x = x +5; ([Location 732](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=732))
+    - Tags: [[pink]] 
+- x += 5; ([Location 733](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=733))
+    - Tags: [[pink]] 
+- x++; ([Location 738](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=738))
+    - Tags: [[pink]] 
+- x--; ([Location 739](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=739))
+    - Tags: [[pink]] 
+- “Punkt vor Strich” ([Location 740](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=740))
+    - Tags: [[pink]] 
+- Zuweisungsoperator. ([Location 746](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=746))
+    - Tags: [[pink]] 
+- Reihenfolge von großer Bedeutung ([Location 763](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=763))
+    - Tags: [[pink]] 
+- byte → short → int → long → float → double ([Location 803](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=803))
+    - Tags: [[pink]] 
+- float-Werte ([Location 857](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=857))
+    - Tags: [[pink]] 
+- f ([Location 858](https://readwise.io/to_kindle?action=open&asin=B07FCRKS9K&location=858))
+    - Tags: [[pink]] 

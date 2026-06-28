@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bewegung · Geschwindigkeit · Beschleunigung</title>
+<style>
+  :root{
+    --paper:#F7F2E9; --ink:#23201B; --muted:#6A6358;
+    --accent:#1F6F66;            /* Petrol als ein Akzent */
+    --accent-soft:#D6E6E2; --line:#D8CDBB; --card:#FFFDF9; --grid:#E4DBC9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#E9E2D5;}
+  body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);
+    display:flex;justify-content:center;padding:24px;}
+  .sheet{width:210mm;min-height:297mm;background:var(--paper);
+    padding:17mm 16mm 13mm;box-shadow:0 6px 30px rgba(0,0,0,.18);}
+  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;}
+  h1{font-family:Georgia,serif;font-size:38px;line-height:1.05;margin:8px 0 6px;
+    font-weight:700;letter-spacing:-.01em;}
+  .lead{color:var(--muted);font-size:13.5px;max-width:64ch;line-height:1.5;}
+  .rule{height:2px;background:var(--ink);width:54px;margin:13px 0 0;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:2px;
+    padding:18px 20px;}
+  .kicker{font-family:Georgia,serif;font-size:42px;color:var(--accent);line-height:1;float:left;margin:-2px 12px 0 0;font-weight:700;}
+  .card h2{font-size:19px;margin-bottom:2px;}
+  .card .sub{font-size:11px;color:var(--accent);font-weight:600;text-transform:uppercase;
+    letter-spacing:.12em;margin-bottom:10px;}
+  .def{font-family:Georgia,serif;font-size:14px;line-height:1.5;
+    border-left:3px solid var(--accent-soft);padding-left:12px;margin-bottom:12px;clear:both;}
+  .formel{display:inline-block;font-family:Georgia,serif;font-size:18px;
+    background:var(--accent-soft);padding:4px 12px;border-radius:2px;margin-bottom:4px;}
+  .formel small{font-size:11px;color:var(--muted);}
+  .unit{font-size:11.5px;color:var(--muted);margin:8px 0 12px;}
+  .unit b{color:var(--ink);}
+  .ex{font-size:11.5px;line-height:1.5;}
+  .ex .tag{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;display:block;margin-bottom:4px;}
+  .diagram{background:#fff;border:1px solid var(--line);border-radius:2px;
+    padding:10px;margin:6px 0 12px;}
+  .axis{stroke:var(--ink);stroke-width:1.5;}
+  .gridl{stroke:var(--grid);stroke-width:1;}
+  .curve{stroke:var(--accent);stroke-width:2.5;fill:none;}
+  .lbl{font-size:10px;fill:var(--muted);font-family:Georgia,serif;font-style:italic;}
+  .cap{font-size:10px;color:var(--muted);text-align:center;font-style:italic;}
+
+  .strip{margin-top:16px;background:var(--ink);color:var(--paper);border-radius:2px;
+    padding:16px 20px;display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:18px;align-items:center;}
+  .strip h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#C9B79B;margin-bottom:6px;}
+  .strip .big{font-family:Georgia,serif;font-size:21px;line-height:1.25;}
+  .strip .big b{color:#7FD3C6;}
+  .strip small{display:block;font-size:11px;color:#B8AE9C;margin-top:6px;}
+
+  footer{margin-top:18px;display:flex;justify-content:space-between;
+    border-top:1px solid var(--line);padding-top:10px;font-size:10.5px;color:var(--muted);}
+
+  @media print{body{padding:0;background:#fff;}.sheet{box-shadow:none;width:auto;min-height:auto;}@page{size:A4;margin:0;}}
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="eyebrow">Physik · Mechanik · Klasse 9/10</div>
+    <h1>Bewegung, Geschwindigkeit &amp; Beschleunigung</h1>
+    <p class="lead">Eine Bewegung beschreibt, wie ein Körper im Laufe der Zeit seinen Ort ändert — immer bezogen auf einen Bezugspunkt. Wie schnell das geschieht, sagt die Geschwindigkeit. Wie schnell sich die Geschwindigkeit ändert, sagt die Beschleunigung.</p>
+    <div class="rule"></div>
+
+    <div class="grid2">
+      <!-- Geschwindigkeit -->
+      <div class="card">
+        <span class="kicker">v</span>
+        <h2>Geschwindigkeit</h2>
+        <div class="sub">Wie schnell?</div>
+        <p class="def">Die Geschwindigkeit gibt an, welcher Weg in welcher Zeit zurückgelegt wird.</p>
+        <span class="formel">v = s / t&nbsp;&nbsp;<small>Weg ÷ Zeit</small></span>
+        <p class="unit">Einheit: <b>m/s</b> oder <b>km/h</b></p>
+        <div class="diagram">
+          <svg width="100%" height="96" viewBox="0 0 240 96">
+            <line class="gridl" x1="40" y1="20" x2="220" y2="20"/>
+            <line class="gridl" x1="40" y1="46" x2="220" y2="46"/>
+            <line class="axis" x1="40" y1="80" x2="220" y2="80"/>
+            <line class="axis" x1="40" y1="80" x2="40" y2="12"/>
+            <line class="curve" x1="40" y1="80" x2="200" y2="22"/>
+            <text class="lbl" x="210" y="92">t</text>
+            <text class="lbl" x="20" y="20">s</text>
+          </svg>
+          <p class="cap">s-t-Diagramm · gleichförmige Bewegung (Gerade)</p>
+        </div>
+        <p class="ex"><span class="tag">Im Alltag</span>Der Tacho zeigt 50 km/h: In einer Stunde würdest du bei gleicher Fahrt 50 km weit kommen.</p>
+      </div>
+
+      <!-- Beschleunigung -->
+      <div class="card">
+        <span class="kicker">a</span>
+        <h2>Beschleunigung</h2>
+        <div class="sub">Wie schnell ändert sich v?</div>
+        <p class="def">Die Beschleunigung gibt an, wie stark sich die Geschwindigkeit in einer bestimmten Zeit ändert.</p>
+        <span class="formel">a = Δv / Δt&nbsp;&nbsp;<small>Geschw.-änderung ÷ Zeit</small></span>
+        <p class="unit">Einheit: <b>m/s²</b> &nbsp;·&nbsp; Ortsfaktor (freier Fall): g ≈ 9,81 m/s²</p>
+        <div class="diagram">
+          <svg width="100%" height="96" viewBox="0 0 240 96">
+            <line class="gridl" x1="40" y1="20" x2="220" y2="20"/>
+            <line class="gridl" x1="40" y1="46" x2="220" y2="46"/>
+            <line class="axis" x1="40" y1="80" x2="220" y2="80"/>
+            <line class="axis" x1="40" y1="80" x2="40" y2="12"/>
+            <line class="curve" x1="40" y1="80" x2="200" y2="22"/>
+            <text class="lbl" x="210" y="92">t</text>
+            <text class="lbl" x="20" y="20">v</text>
+          </svg>
+          <p class="cap">v-t-Diagramm · gleichmäßig beschleunigte Bewegung</p>
+        </div>
+        <p class="ex"><span class="tag">Im Alltag</span>Ein Auto fährt an der Ampel an: Die Geschwindigkeit wächst Sekunde für Sekunde — es beschleunigt.</p>
+      </div>
+    </div>
+
+    <!-- Umrechnungs-Strip -->
+    <div class="strip">
+      <div>
+        <h3>Merke · Einheiten umrechnen</h3>
+        <div class="big">km/h → m/s: <b>÷ 3,6</b><br>m/s → km/h: <b>× 3,6</b></div>
+      </div>
+      <div>
+        <div class="big">36 km/h<br>= <b>10 m/s</b></div>
+        <small>36 ÷ 3,6 = 10</small>
+      </div>
+      <div>
+        <div class="big">5 m/s<br>= <b>18 km/h</b></div>
+        <small>5 × 3,6 = 18</small>
+      </div>
+    </div>
+
+    <footer>
+      <span>Grundgrößen der Kinematik · Realschule BW</span>
+      <span>v = s/t&nbsp;&nbsp;|&nbsp;&nbsp;a = Δv/Δt&nbsp;&nbsp;|&nbsp;&nbsp;1 m/s = 3,6 km/h</span>
+    </footer>
+  </div>
+</body>
+</html>

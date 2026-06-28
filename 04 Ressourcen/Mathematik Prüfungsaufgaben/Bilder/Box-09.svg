@@ -1,0 +1,32 @@
+<svg viewBox="0 0 600 118" width="600" height="118" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<rect x="0" y="0" width="600" height="118" fill="#ffffff"/>
+<line x1="46.0" y1="12" x2="46.0" y2="82.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="129.0" y1="12" x2="129.0" y2="82.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="212.0" y1="12" x2="212.0" y2="82.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="295.0" y1="12" x2="295.0" y2="82.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="378.0" y1="12" x2="378.0" y2="82.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="461.0" y1="12" x2="461.0" y2="82.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="544.0" y1="12" x2="544.0" y2="82.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="46.0" y1="41.0" x2="544.0" y2="41.0" stroke="#33415c" stroke-width="1.8"/>
+<line x1="46.0" y1="24.0" x2="46.0" y2="58.0" stroke="#33415c" stroke-width="2"/>
+<line x1="544.0" y1="24.0" x2="544.0" y2="58.0" stroke="#33415c" stroke-width="2"/>
+<rect x="129.0" y="16.0" width="249.0" height="50.0" fill="#eef4fb" stroke="#33415c" stroke-width="2"/>
+<line x1="170.5" y1="16.0" x2="170.5" y2="66.0" stroke="#c0392b" stroke-width="3"/>
+<line x1="46.0" y1="82.0" x2="554.0" y2="82.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<polygon points="554.0,82.0 546.0,78.0 546.0,86.0" fill="#1a1a1a"/>
+<line x1="46.0" y1="82.0" x2="46.0" y2="88.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="46.0" y="104.0" font-size="13" fill="#333" text-anchor="middle">0</text>
+<line x1="129.0" y1="82.0" x2="129.0" y2="88.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="129.0" y="104.0" font-size="13" fill="#333" text-anchor="middle">10</text>
+<line x1="212.0" y1="82.0" x2="212.0" y2="88.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="212.0" y="104.0" font-size="13" fill="#333" text-anchor="middle">20</text>
+<line x1="295.0" y1="82.0" x2="295.0" y2="88.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="295.0" y="104.0" font-size="13" fill="#333" text-anchor="middle">30</text>
+<line x1="378.0" y1="82.0" x2="378.0" y2="88.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="378.0" y="104.0" font-size="13" fill="#333" text-anchor="middle">40</text>
+<line x1="461.0" y1="82.0" x2="461.0" y2="88.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="461.0" y="104.0" font-size="13" fill="#333" text-anchor="middle">50</text>
+<line x1="544.0" y1="82.0" x2="544.0" y2="88.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="544.0" y="104.0" font-size="13" fill="#333" text-anchor="middle">60</text>
+<text x="558.0" y="88.0" font-size="14" fill="#333">min</text>
+</svg>

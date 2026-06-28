@@ -1,0 +1,58 @@
+filters:
+  and:
+    - file.ext == "md"
+    - file.hasTag("📚Book")
+formulas:
+  status_icon: if(status == "read", "✅ Gelesen", if(status == "reading", "📖 Am Lesen", "📚 Leseliste"))
+  cover_embed: if(localCover, "![[" + localCover + "]]", "")
+properties:
+  title:
+    displayName: Titel
+  author:
+    displayName: Autor
+  category:
+    displayName: Kategorie
+  status:
+    displayName: Status
+  Rating:
+    displayName: Bewertung
+  formula.cover_embed:
+    displayName: Cover
+views:
+  - type: cards
+    name: Alle Bücher
+    order:
+      - formula.status_icon
+      - title
+      - author
+      - category
+      - Rating
+    sort: []
+    image: note.localCover
+    cardSize: 130
+  - type: table
+    name: Gelesen
+    filters:
+      and:
+        - status == "read"
+    order:
+      - title
+      - author
+      - category
+      - Rating
+  - type: table
+    name: Leseliste
+    filters:
+      and:
+        - status == "unread"
+    order:
+      - title
+      - author
+      - category
+  - type: cards
+    name: Galerie
+    order:
+      - formula.cover_embed
+      - title
+      - author
+      - formula.status_icon

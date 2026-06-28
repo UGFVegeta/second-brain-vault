@@ -1,0 +1,24 @@
+{
+  "id": "conv-1780462804064-7pjx22d0k",
+  "providerId": "claude",
+  "title": "Test system connectivity",
+  "titleGenerationStatus": "success",
+  "createdAt": 1780462804073,
+  "updatedAt": 1780637260400,
+  "lastResponseAt": 1780604756741,
+  "sessionId": "dab8957b-3e6b-408d-919c-fefe9440fa5e",
+  "providerState": {
+    "providerSessionId": "dab8957b-3e6b-408d-919c-fefe9440fa5e"
+  },
+  "currentNote": "05 Daily Notes/2026-06-02.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 1188,
+    "cacheReadInputTokens": 364877,
+    "contextWindow": 200000,
+    "contextTokens": 366066,
+    "percentage": 100,
+    "contextWindowIsAuthoritative": true
+  }
+}

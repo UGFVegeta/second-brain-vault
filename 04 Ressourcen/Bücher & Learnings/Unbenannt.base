@@ -1,0 +1,5 @@
+views:
+  - type: cards
+    name: Tabelle
+    cardSize: 140
+    image: note.cover

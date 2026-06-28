@@ -1,0 +1,17 @@
+<svg viewBox="0 0 290 150" width="320" height="166" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<rect x="14" y="28" width="96" height="96" rx="15" fill="#fafafa" stroke="#b5b5b5" stroke-width="2"/>
+<circle cx="39.9" cy="53.9" r="7.2" fill="#333333"/>
+<circle cx="84.1" cy="53.9" r="7.2" fill="#333333"/>
+<circle cx="62.0" cy="76.0" r="7.2" fill="#333333"/>
+<circle cx="39.9" cy="98.1" r="7.2" fill="#333333"/>
+<circle cx="84.1" cy="98.1" r="7.2" fill="#333333"/>
+<g transform="translate(120,0)"><g stroke="#ffffff" stroke-width="2.5">
+<path d="M95,72 L95.00,10.00 A62,62 0 0 1 157.00,72.00 Z" fill="#d0392b"/>
+<path d="M95,72 L157.00,72.00 A62,62 0 0 1 95.00,134.00 Z" fill="#5b8fd0"/>
+<path d="M95,72 L95.00,134.00 A62,62 0 0 1 33.00,72.00 Z" fill="#f1cf52"/>
+<path d="M95,72 L33.00,72.00 A62,62 0 0 1 95.00,10.00 Z" fill="#6aa84f"/>
+</g>
+<circle cx="95" cy="72" r="62" fill="none" stroke="#9a9a9a" stroke-width="2.5"/>
+<line x1="95" y1="72" x2="133" y2="106" stroke="#3a3a3a" stroke-width="5" stroke-linecap="round"/>
+<circle cx="95" cy="72" r="8" fill="#666"/></g>
+</svg>

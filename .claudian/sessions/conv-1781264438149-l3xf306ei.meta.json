@@ -1,0 +1,24 @@
+{
+  "id": "conv-1781264438149-l3xf306ei",
+  "providerId": "claude",
+  "title": "Notiere Orthopäden-Befund Fellbach",
+  "titleGenerationStatus": "success",
+  "createdAt": 1781264438155,
+  "updatedAt": 1782412314518,
+  "lastResponseAt": 1782412314518,
+  "sessionId": "a6575128-f97d-4b50-9744-eb924ea9ef06",
+  "providerState": {
+    "providerSessionId": "a6575128-f97d-4b50-9744-eb924ea9ef06"
+  },
+  "currentNote": "05 Daily Notes/2026-06-11.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 451,
+    "cacheReadInputTokens": 191605,
+    "contextWindow": 200000,
+    "contextTokens": 192057,
+    "percentage": 96,
+    "contextWindowIsAuthoritative": true
+  }
+}

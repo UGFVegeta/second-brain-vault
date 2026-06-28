@@ -1,0 +1,26 @@
+# Der Neue Wohlstand
+
+![rw-book-cover](https://m.media-amazon.com/images/I/71sudTa5tEL._SL500_.jpg)
+
+## Metadata
+- Author: [[Ezra Klein, Derek Thompson, and Katrin Harlaß]]
+- Full Title: Der Neue Wohlstand
+- Category: #books
+
+## Highlights
+- Knappheit ist stets eine bewusste Entscheidung ([Location 71](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=71))
+- In den 1960er Jahren war ein vierjähriges Hochschulstudium ohne Verschuldung möglich, der Kauf neuester hochwertiger technischer Geräte nicht. Anfang der 2020er Jahre ist es mehr oder weniger umgekehrt. ([Location 169](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=169))
+- Kernkraft ist in mancher Hinsicht sicherer als Wind und sauberer als Solarenergie. Unbestreitbar ist sie sicherer als das Verbrennen von Kohle und Gas. Trotzdem haben die USA im Angesicht der Erderwärmung den Bau von Kernreaktoren und Atomkraftwerken nahezu vollständig eingestellt. Zwischen 1973 und 2024 hat das Land nur drei neue Kernreaktoren fertiggestellt. Und zu Lebzeiten der meisten von uns wurden hierzulande mehr Atomkraftwerke stillgelegt als in Betrieb genommen.[16] Dies ist kein Versagen des privaten Marktes, verantwortungsvoll ins Risiko zu gehen, sondern ein Versagen der Regierung, die es nicht schafft, eine angemessene Risikoabwägung vorzunehmen. ([Location 269](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=269))
+- Wir werden den Klimawandel nicht zurückdrehen, indem wir die Welt dazu bringen, auf Wachstum zu verzichten. ([Location 350](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=350))
+- 1 Wachsen ([Location 371](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=371))
+- Warum Städte heute wichtiger sind als je zuvor ([Location 444](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=444))
+- Technologie habe allerdings ihre offensichtlichen Vorteile erodieren lassen. Eigentlich hätten sie verkümmern müssen, und oft habe man damit gerechnet, dass sie es tun. Aber die Städte hätten sich stur geweigert, ihr Schicksal zu akzeptieren. Stattdessen seien sie weiter aufgeblüht und hätten sich in der Moderne eine zentrale Stellung erobert, wie sie sie noch nie zuvor hatten. Dies, so Glaeser, sei »das Kernparadox der modernen Metropole: Weil die Kosten für Verbindungen über weite Entfernungen hinweg gesunken sind, ist Nähe immer wertvoller geworden.« ([Location 451](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=451))
+- »Amerikanerinnen und Amerikaner, die in Metropolregionen mit mehr als einer Million Einwohnern leben, sind im Durchschnitt mehr als 50 Prozent produktiver als solche, die in kleineren Metropolregionen leben«, schreibt Glaeser. »Dieses Verhältnis bleibt auch gleich, wenn wir Ausbildung, Erfahrung und Branche der Arbeitskräfte einbeziehen. Es bleibt sogar dann gleich, wenn wir den individuellen IQ der Arbeitskräfte berücksichtigen.« ([Location 480](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=480))
+- Willst du die besten Software-Produkte, musst du dich inmitten der besten Software-Ingenieure ansiedeln. ([Location 514](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=514))
+- Mittlerweile liegt Walmart, gemessen an seinem jährlichen Online-Umsatz, hinter Amazon auf Platz zwei. ([Location 517](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=517))
+- Innovation jedoch ist ein Kind der Nähe, soll heißen: Sie gedeiht in Städten. Und weil das so ist, gedeiht dort auch noch sehr viel mehr. Dass wir nicht erkannt haben, wie viel mehr, war ein schrecklicher Fehler. ([Location 532](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=532))
+- Die große Divergenz ([Location 536](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=536))
+- nimmt die Aufstiegsmobilität in den USA strukturell immer weiter ab. Im Jahr 1940 hatte ein Kind, das in einem US-amerikanischen Haushalt geboren wurde, eine 92-prozentige Chance, im Erwachsenenalter mehr Geld zu verdienen als seine Eltern. Hingegen hat ein Kind, das in den 1980er Jahren zur Welt gekommen ist, nur eine 50-prozentige Chance, das Einkommen der Eltern zu übertreffen.[54] Innerhalb von vierzig Jahren ist der American Dream von einer weitverbreiteten Wirklichkeit zur reinen Glückssache geworden.[55] ([Location 549](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=549))
+- Früher war es so, dass sowohl Menschen mit hohen als auch Menschen mit niedrigen Einkommen von ärmeren Gegenden in reichere zogen. Ab den 1990er Jahren zogen ärmere Arbeitskräfte aus den Gegenden mit hohen Einkommen weg – und damit auch weg von den Chancen, die diese einst boten. ([Location 576](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=576))
+- Wir haben Mobilität zu einem Motor für Ungleichheit gemacht, und wir haben es ganz bewusst getan, indem wir politische Hebel benutzten, die dazu führten, dass das Leben in dynamischen Städten für die Armen zu kostspielig wurde. ([Location 580](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=580))
+- Das Problem mit dem Lawn-Sign-Liberalismus ([Location 585](https://readwise.io/to_kindle?action=open&asin=B0F3FB23RP&location=585))

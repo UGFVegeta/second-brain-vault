@@ -1,0 +1,67 @@
+# Lieben Sie Ihren Job?
+
+![rw-book-cover](https://cdn-images-3.listennotes.com/podcasts/lead-forward-harvard-business-manager-aqpK8tsW2gB-JbDx6XO1vn-.300x300.jpg)
+
+## Metadata
+- Author: [[Harvard Business manager]]
+- Full Title: Lieben Sie Ihren Job?
+- Category: #podcasts
+- Summary: To find out if employees love their job, leaders can ask three simple questions about fun, strengths, and favorite tasks. Loving work makes people more creative, resilient, and excellent, not just good or disciplined. Leaders should help employees connect with what they love to achieve outstanding results.
+- URL: https://podcasts.apple.com/de/podcast/lead-forward/id1520157050?i=1000770690427
+
+## Full Document
+[0:03] Wer wissen will, ob seine Leute wirklich bei der Sache sind, kann das anhand von drei ganz leichten Fragen feststellen. Die erste lautet: Hattest du vergangene Woche Spaß bei der Arbeit? Die zweite: Konntest du deine Stärken einsetzen? Und drittens: Konntest du etwas von dem tun, was du ganz besonders gerne machst? Herzlich willkommen zu Lead Forward.
+
+[0:27] Mein Name ist Gesine Braun, ich bin Chefredakteurin des Harvard Business Managers. Schön, dass ihr heute da seid. Wenn ihr auf der Suche nach Antonia seid, die das hier früher lange moderiert hat, sie hat sich selbstständig gemacht und hat ihren eigenen Podcast. Ihr findet sie unter Wegen guter Führung und Antonia Götzsch auf allen Plattformen. Hier spreche ich ab jetzt alle zwei Wochen über neue Forschung zu Management und Leadership und darüber, wie ihr sie ganz konkret für euren Alltag nutzen könnt.
+
+[0:58] Heute ist bei mir Christiane Sommer zu Gast. Christiane ist leitende Redakteurin bei uns im Team. Hallo liebe Christiane. Hallo Gesine. Christiane, du willst heute mit mir über ein eigentlich ziemlich ungewöhnliches Wort im Business- und Führungskontext sprechen und darüber, warum Unternehmen es oft falsch verstehen: die Liebe.
+
+[1:18] Genau. Und mit Liebe ist tatsächlich nicht Liebe im romantischen Kontext gemeint, sondern die Liebe zu dem, was wir jeden Tag auf der Arbeit tun. Ich liebe meinen Dackel, ich liebe meine Kinder, ich liebe es, Rennrad zu fahren, aber den Job zu lieben – ist das nicht ein bisschen over the top? Das könnte man tatsächlich so meinen. Tatsächlich ist Liebe aber der Faktor, und das ist sogar wissenschaftlich belegt, der gute von exzellenter Arbeit unterscheidet. Und deshalb lohnt es sich, über Liebe im Job zu sprechen. Wenn das so ist, wie setze ich das als Chefin oder Führungskraft am besten ein? Die meisten meiner Kolleginnen und Kollegen werden vermutlich sagen: Ich dachte, ein gutes Gehalt ist der eigentliche Köder und Antreiber.
+
+[1:59] Das ist bestimmt auch nicht falsch, aber es ist eben erst der Anfang und es geht am Kern vorbei. Warum? Also Marcus Buckingham, einer der führenden Forscher auf dem Gebiet der Exzellenz, hat tatsächlich festgestellt, dass das momentan nicht so richtig klappt mit dem Geld. Er hat gemessen: Wie hoch ist das Engagement, wie hoch ist die Resilienz, wie hoch ist, na ja, der Respekt vor Führung? Und er hat festgestellt, beim Großteil der Menschen, die er befragt hat, ist tatsächlich momentan ein Tiefpunkt erreicht. Ausgerechnet jetzt, wo es in vielen Unternehmen mehr denn je drauf ankommt.
+
+[2:35] Das ist tatsächlich ziemlich übel, weil klar ist: In der Krise kann man es sich erst recht nicht leisten, mit einem Team von Leuten unterwegs zu sein, die sagen: Ich bin da mal mental raus jetzt gerade. Dann darf man aber auch nicht vergessen, Arbeit kostet momentan viel Energie. Und wenn die Menschen nichts zurückkriegen an Energie, dann sind die natürlich ein bisschen frustriert. Es geht jetzt aber nicht darum, dass es irgendwie so eine viel Gürkler- wie Duvie-Geschichte ist mit der Liebe, sondern es ist tatsächlich betriebswirtschaftlich hart nachweisbar, dass Liebe einen großen Unterschied macht. Lass uns mal konkret werden.
+
+[3:09] Woran erkenne ich, ob meine Leute mit vollem Herzen bei der Arbeit sind? Das ist eigentlich relativ simpel. Reden hilft, wie fast immer. Und tatsächlich geht es darum, drei Fragen an meine Leute zu stellen. Hattest du Spaß in der vergangenen Woche im Job?
+
+[3:24] Konntest du deine Stärken einsetzen? Und hast du die Dinge getan, die du ganz besonders gerne tust? Das reicht schon. Arbeit bedeutet aber ja auch, dass Dinge manchmal einfach gemacht werden müssen. Bin ich als Chefin wirklich dafür verantwortlich, dass ihr euch hier immer wohlfühlt und nur Dinge tut, die ihr liebt?
+
+[3:42] Ganz so ist es natürlich nicht. Aber es ist selbstverständlich dein Job, dass wir uns auf unserer Arbeit gesehen fühlen. Das bedeutet, du musst dich schon ein bisschen mit uns auseinandersetzen, sonst wird's nichts werden. Weil ihr nur dadurch bereit seid, die Extrameile zu gehen? Auch.
+
+[3:58] Also Marcus Buckingham geht sogar so weit, dass er sagt: Ohne Liebe ist Exzellenz eben überhaupt gar nicht erreichbar. Das klingt natürlich erst mal ziemlich provokant, aber er meint damit: Wer liebt, was er tut, der ist nicht nur offener, der ist auch kreativer, er ist leistungsfähiger und er ist auch widerstandsfähiger. Er bleibt dran an dem, was seine Aufgabe ist. Und ehrlich gesagt, ich weiß, dass das mit der Liebe immer noch ein bisschen befremdlich klingt, aber wenn du mit Menschen sprichst, die wirklich Spitzenleistung erbringen, ob es Spitzensportler sind, Spitzenforscher, dann werden die dir alle sagen: Ich liebe Fußball, ich liebe Chemie. Ich mag es, jeden Tag dahin zu gehen.
+
+[4:36] Es fühlt sich für mich großartig an. Warum ist das so? Weil uns dieses Gefühl der Liebe tatsächlich offener, kreativer und flexibler macht. Es ermöglicht uns auch, wenn die Zeiten schwierig werden, dranzubleiben. Das schaffen wir ohne Liebe nicht.
+
+[4:51] Woran liegt das? Das liegt tatsächlich daran, dass die Liebe in unserem Gehirn den Hormoncocktail verändert. Es ist so, dass es ja sogenannte Liebeshormone gibt. Oxytocin zum Beispiel gehört dazu. Jede Mutter kennt das: Wenn ein Neugeborenes in unseren Arm gelegt wird, dann sind wir so voller Liebe und möchten dieses Baby gar nicht mehr loslassen.
+
+[5:11] Und wir wissen, wir tun alles, damit es ihm gut geht. Und Oxytocin wird tatsächlich auch ausgeschüttet, wenn wir auf der Arbeit Dinge tun, die wir lieben. Das heißt also, daran merkt man schon: Es lässt uns die Extrameile tatsächlich gehen. Klingt einleuchtend, und den Zustand hätte ich natürlich sehr gerne bei euch im Team. Aber wie finde ich überhaupt heraus, was ihr liebt?
+
+[5:33] Auch das ist tatsächlich einfacher, als man sich das vielleicht so denken kann. Buckingham legt ein ganz, ganz einfaches Verfahren vor. Er sagt: Liebe Führungskraft, fang doch erst mal bei dir selbst an. Bau dir eine Liste: links "I love it", rechts "I hated it". Und diese Liste führst du jeden Tag, ungefähr eine Woche, wenn du die Zeit hast, auch zwei Wochen lang. Und da schreibst du dir jeden Abend auf: Das habe ich heute an meiner Arbeit geliebt, das fand ich fürchterlich, oder das möchte ich bitte nicht noch mal erleben.
+
+[6:02] Guck dir das an, und das gibt dir schon ganz, ganz wertvolle Hinweise darauf, was du als Führungskraft selbst gut findest. Und Buckingham sagt: Wenn man das als Führungskraft für sich selbst rausgefunden hat, wird es auch viel, viel einfacher, diese Liste seinen Mitarbeitenden zu vermitteln. Also da müsstest du einfach mit uns reden und sagen: Christiane, tu mir doch den Gefallen, führ doch diese Liste. Und wenn ich dann mit den Augen rolle, kannst du deine Liste zeigen und sagen: Guck, ich hab's selbst gemacht, ich habe eine Menge über mich gelernt. Vielleicht hast du auch Spaß daran. Aber Christiane, bei uns im Team gibt's ja auch Aufgaben, die niemand liebt.
+
+[6:33] Muss ich als Chefin dafür sorgen, dass ihr alle hundert Prozent immer nur das tut, was ihr liebt? Gute Frage. Erleichternde Antwort: nein. Zwanzig Prozent reichen tatsächlich. Buckingham hat in seinen Forschungen festgestellt, dass zwanzig Prozent ein Schwellenwert sind.
+
+[6:49] Es ist also so: Wenn du zwanzig Prozent deiner Arbeit liebst, unterm Strich wirst du herausragende Leistung machen können. Es ist aber nicht so, dass wenn du vierzig Prozent deiner Arbeit liebst, du doppelt so gut wirst. Scheint so zu sein, dass zwanzig Prozent erst mal ausreichend sind. Du hast vorhin gesagt, ich muss herausfinden, was ich liebe, und mit euch darüber sprechen, dass ihr herausfindet, was ihr liebt. Wie kann ich das unterstützen?
+
+[7:11] Also wie genau muss ich nachfragen? Buckingham schlägt vor, dass du dich einmal pro Woche für fünfzehn Minuten mit uns zusammensetzt, und in diesen Gesprächen soll es also zum einen natürlich darum gehen: Was machst du gerade? Wie läuft's für dich? Aber dann eben auch diese drei Kernfragen: Was hat dir Freude bereitet?
+
+[7:32] Was liebst du an deinem Job? Und das ist ziemlich spezifisch. Nicht: Ich habe so viel Spaß, mit Menschen umzugehen. Es müsste dann so was dabei rauskommen wie: Ich hab so viel Spaß daran, meiner Chefin, die heute schlecht gelaunt ist, ein Lächeln ins Gesicht zu zaubern. Hatte ich nicht, liebe Hörenden.
+
+[7:47] Das als kleinen Einwurf, aber das klingt alles unheimlich einleuchtend. Warum ist das Wort Liebe trotzdem so ungebräuchlich in der Jobwelt? Ich glaube, es liegt an der Konnotation. Wir verbinden damit: Ich liebe meine Katze, ich liebe meinen Mann, ich liebe meinen Hund, ich liebe meine Kinder. Das ist erst mal ein Wort, mit dem tatsächlich Buckingham selbst auch gefremdelt hat.
+
+[8:09] Als er rausfand, dass Liebe tatsächlich de facto ist, hat er dann irgendwann resigniert und gesagt: Okay, dann lass es uns doch benennen als das, was es ist, nämlich Liebe. Wir lieben unseren Job, und ja, wir können dann sagen, ich mag ihn so gerne, aber er sagt: Liebe ist tatsächlich noch die stärkere Geschichte, weil Liebe lässt uns auch an etwas wachsen. Gibt es Stolpersteine, wenn ich Marcus Buckingham folgen will? Ja, also der sagt zum Beispiel sinnentleertes Feedback. Was versteht er darunter?
+
+[8:38] Schadet. Also ich sag dir nur so ein bisschen generisch: „Ja, ich fand das toll, was du letzte Woche geleistet hast.“ Nee, ich muss hören, dass du sagst: „Ich fand es großartig, wie du letzte Woche diesen total vergurkten Text umgeschrieben hast, und das ist jetzt was Großartiges geworden.“ Oder du sagst: „Ich hab gesehen, dass du die Überschrift geändert hast, und das verkauft sich jetzt wie geschnitten Brot auf unserer Onlineseite.“ Das ist sozusagen Feedback, mit dem ich was anfangen kann, einfach zu sagen: Gut gemacht reicht nicht aus.
+
+[9:05] Das Zweite ist tatsächlich, dass viele Führungskräfte offensichtlich sich nicht die Zeit nehmen, regelmäßig mit ihren Leuten zu reden. Darf ich einmal einhaken, vielleicht, weil sie einfach zu viele Leute führen? Er ist da relativ knallhart. Der sagt: Wenn du nicht die Möglichkeit hast, mit jedem deiner Mitarbeiter fünfzehn Minuten regelmäßig einmal pro Woche zu sprechen, hast du zu viele Leute. Er sagt: Es geht nicht die Führungsspanne, es geht die Spanne, die du als Aufmerksamkeit für deine Leute übrig hast.
+
+[9:36] Und wenn du das nicht schaffst, musst du wohl oder übel anerkennen, dass du noch jemanden brauchst, der dir hilft, oder tatsächlich einen Schritt zurückgehen und zu deiner Führungskraft sagen: Ich hab so viele. Das finde ich einen ganz wichtigen Punkt, weil es geht ja nicht um die fünfzehn Minuten, sondern es geht ja auch um die, ich sag jetzt mal fünfundvierzig Minuten, die ich davor brauche, spezifisch zu beobachten, was du tust. Es bringt ja nichts, wenn ich nur fünfzehn Minuten in den Termin komme. Genauso ist es, und natürlich ist es mit diesen fünfzehn Minuten, in denen man über diese drei Fragen diskutiert, auch nicht getan. Die Erwartungshaltung ist selbstverständlich, dass, wenn ich dir sage, was ich besonders gerne tue, wir vielleicht meinen Job dahingehend verändern, dass ich besonders viel von dem tun kann.
+
+[10:18] Und wie gesagt, nicht ausschließlich, das ist auch klar. Das muss man als Chef auch ganz, ganz klar kommunizieren, aber ein bisschen mehr von dem, was ich gerne mag, jede Woche vielleicht. Christiane, bevor wir langsam zum Ende kommen, eine Frage: Kann ich auch als Indikator nehmen, dass jemand was wirklich richtig gut macht? Also bedeutet richtig gute Arbeit automatisch, dass ich vermuten kann, dass der die Arbeit liebt?
+
+[10:42] Wichtige Frage, enttäuschende Antwort: nein. Es gibt jede Menge Leute, die einfach großartigen Job machen, weil sie diszipliniert sind, weil sie routiniert sind, weil sie Experten sind. Sie wissen einfach, was sie tun. Und diesen Menschen fällt es natürlich relativ leicht, auch wenn sie gerade heute nicht so guter Dinge sind, relativ guten Job zu machen. Aber gut, wie gesagt, heißt immer noch nicht Exzellenz.
+
+[11:04] Insofern ist ein Job einfach gut zu erledigen nicht ein Indikator dafür, dass ich liebe, was ich tue. Christiane, vielen herzlichen Dank, dass du da warst. Das waren tolle Einsichten, und ich zumindest kann sagen: Diese Podcastaufnahme mit dir gehörte zu den Prozenten, die mir wirklich viel Spaß gemacht haben. Ganz vielen Dank. Mir hat's auch ganz viel Spaß gemacht.
+
+[11:24] Kommt auf meine I LoveDit-Seite. Wenn euch die Folge gefallen hat, abonniert \*Lead Forward\*, den es im Übrigen auch als Newsletter gibt. Und schreibt uns gerne, welche Aufgaben ihr in eurem Job wirklich liebt und welche ihr lieber sofort abgeben würdet. Bis zum nächsten Mal. Tschüs und macht's gut.

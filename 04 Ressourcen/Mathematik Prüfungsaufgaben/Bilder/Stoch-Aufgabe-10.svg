@@ -1,0 +1,8 @@
+<svg viewBox="0 0 250 135" width="320" height="173" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<circle cx="70" cy="65" r="50" fill="#e8c64a" stroke="#b8932a" stroke-width="3"/>
+<circle cx="70" cy="65" r="42" fill="none" stroke="#caa53a" stroke-width="2"/>
+<text x="70" y="77" font-size="38" font-weight="700" fill="#7a5e12" text-anchor="middle">K</text>
+<circle cx="180" cy="65" r="50" fill="#e8c64a" stroke="#b8932a" stroke-width="3"/>
+<circle cx="180" cy="65" r="42" fill="none" stroke="#caa53a" stroke-width="2"/>
+<text x="180" y="77" font-size="38" font-weight="700" fill="#7a5e12" text-anchor="middle">Z</text>
+</svg>

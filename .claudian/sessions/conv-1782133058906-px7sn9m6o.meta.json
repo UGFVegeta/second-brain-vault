@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782133058906-px7sn9m6o",
+  "providerId": "claude",
+  "title": "Compile Süna buildmeter correspondence",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782133058914,
+  "updatedAt": 1782674597698,
+  "lastResponseAt": 1782674597698,
+  "sessionId": "47470e3c-50e9-4348-94ec-57cca419884e",
+  "providerState": {
+    "providerSessionId": "47470e3c-50e9-4348-94ec-57cca419884e"
+  },
+  "usage": {
+    "model": "opus",
+    "inputTokens": 131,
+    "cacheCreationInputTokens": 519398,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 519529,
+    "percentage": 52,
+    "contextWindowIsAuthoritative": true
+  }
+}

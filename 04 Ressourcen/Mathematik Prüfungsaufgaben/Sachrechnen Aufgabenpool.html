@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sachrechnen – Aufgabenpool mündliche Prüfung</title>
+<style>
+ :root{--teal:#0e7c5a;--tealdark:#0a5e44;--line:#dde2e5;--red:#c0392b}
+ *{box-sizing:border-box} body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;margin:0;padding:22px;background:#f4f6f7}
+ h1{font-size:21px;margin:0 0 4px} .sub{color:#5b6569;font-size:13.5px;margin:0 0 16px;max-width:820px}
+ .controls{position:sticky;top:0;background:#f4f6f7;padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:18px;z-index:5;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+ button{font:inherit;font-weight:600;font-size:13.5px;padding:9px 15px;border-radius:9px;border:1px solid var(--line);background:#fff;color:#1a1a1a;cursor:pointer}
+ button:hover{border-color:var(--teal);color:var(--teal)}
+ button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} button.primary:hover{background:var(--tealdark);color:#fff}
+ .count{font-size:13px;color:#5b6569;margin-left:auto}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ .card{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;break-inside:avoid;display:flex;flex-direction:column}
+ .card.selected{border-color:var(--teal);box-shadow:0 0 0 2px rgba(46,110,142,.18)}
+ .top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+ .num{font-weight:700;font-size:15px;margin-left:auto}
+ .sel{font-size:12.5px;color:#5b6569;display:flex;align-items:center;gap:6px;cursor:pointer} .sel input{accent-color:var(--teal);width:16px;height:16px}
+ .fig{display:flex;justify-content:center;align-items:center;padding:4px} .fig svg{display:block;max-width:100%;height:auto}
+ .ges{font-size:13.5px;color:#1a1a1a;margin-top:6px;line-height:1.5}
+ .ges b{color:var(--red)}
+ .prob{font-size:15px;line-height:1.55;background:#f7fafd;border:1px solid #d3def0;border-radius:9px;padding:14px 16px;margin-top:4px;min-height:90px;display:flex;align-items:center}
+ .data{margin-top:7px;font-size:13px;line-height:1.6;background:#fafbfc;border:1px solid #e4e8ec;border-radius:7px;padding:8px 10px}
+ .dt{border-collapse:collapse;margin:6px 0;font-size:12.5px} .dt td,.dt th{border:1px solid #c4ccd4;padding:2px 9px;text-align:center} .dt th{background:#eef2f6}
+ .soltgl{align-self:flex-start;margin-top:10px;font-size:12.5px;padding:6px 12px}
+ .sol{display:none;margin-top:10px;background:#f0f4fa;border:1px solid #d3def0;border-radius:9px;padding:10px 14px;font-size:13.5px;line-height:1.5}
+ .card.open .sol{display:block} .sol svg{display:block;max-width:100%;height:auto;margin-top:8px}
+ @media (max-width:680px){.grid{grid-template-columns:1fr}}
+ @page{size:A4;margin:13mm}
+ @media print{
+   body{background:#fff;padding:0} .controls,.sub,.sel,.soltgl{display:none !important}
+   .card{border:1px solid #bbb;box-shadow:none} .card.selected{box-shadow:none}
+   .sol{display:none !important} .card.open .sol{display:block !important}
+   body.selprint .card:not(.selected){display:none !important}
+ }
+
+ .stars{font-size:14px;letter-spacing:2px;color:#e8a800;margin-left:10px;white-space:nowrap}
+ .stars .s0{color:#d4d8dc}
+ @media print{
+   .stars{display:none !important}
+   .grid{grid-template-columns:1fr !important;gap:0 !important}
+   .card{min-height:86mm;break-inside:avoid;page-break-inside:avoid;padding:7mm 9mm !important;margin:0 !important}
+   .fig svg{max-height:46mm !important}
+   .prob{min-height:0 !important}
+ }
+
+ /* PRINT3 */
+ @media print{
+   h1{display:none !important}
+   .card{min-height:86mm !important;padding:6mm 8mm !important}
+   .fig svg{max-height:36mm !important}
+ }
+
+ .drawbox{display:flex;gap:7px;align-items:center;padding:0 12px 0 2px;border-right:1px solid var(--line);margin-right:4px;flex-wrap:wrap}
+ .dlabel{font-size:13px;color:#5b6569;font-weight:700}
+ .dsel{font:inherit;font-size:13px;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:#fff}
+ .drawbtn{background:var(--teal);color:#fff;border-color:var(--teal)}
+ .drawbtn:hover{background:var(--tealdark);color:#fff}
+ @media print{.drawbox{display:none !important}}
+</style></head><body>
+<h1>Sachrechnen – Aufgabenpool</h1>
+<p class="sub">Mündliche Prüfung Mathematik (Prozent-, Zins-, Maßstabs- und Dreisatzaufgaben). Aufgaben mit dem Häkchen „auswählen“ markieren und <b>„Auswahl drucken“</b> – dann werden nur die markierten Aufgaben ohne Lösung gedruckt. Mit „Lösung anzeigen“ blendest du den Rechenweg ein; sichtbare Lösungen werden mitgedruckt.</p>
+<div class="controls">
+  <span class="drawbox" id="drawpanel"><span class="dlabel">Prüfung:</span><select id="diffsel" class="dsel"><option value="0">alle Schwierigkeiten</option><option value="1">★ leicht</option><option value="2">★★ mittel</option><option value="3">★★★ schwer</option></select><button type="button" class="drawbtn" onclick="drawTasks(6)">🎲 6 Aufgaben ziehen</button></span>
+ <button class="primary" type="button" onclick="printSel()">🖨️ Auswahl drucken</button>
+ <button type="button" onclick="printAll()">Alles drucken</button>
+ <button type="button" onclick="allSol(true)">Alle Lösungen anzeigen</button>
+ <button type="button" onclick="allSol(false)">Alle Lösungen ausblenden</button>
+ <button type="button" onclick="clearSel()">Auswahl zurücksetzen</button>
+ <span class="count" id="count">0 ausgewählt</span>
+</div>
+<div class="grid"><div class="card" data-n="1" data-diff="1">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 1</span><span class="stars" title="Schwierigkeit 1 von 3">★<span class="s0">★★</span></span></div>
+ <div class="prob">Ein Fernseher kostet 200 €. Er wird um 20 % reduziert. Wie hoch ist der neue Preis?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Rabatt = 20 % von 200 € = 40 €</li><li>Neuer Preis = 200 € − 40 € = <b>160 €</b> (oder 200 € · 0,8)</li></ul></div>
+</div><div class="card" data-n="2" data-diff="3">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 2</span><span class="stars" title="Schwierigkeit 3 von 3">★★★<span class="s0"></span></span></div>
+ <div class="prob">Der Preis eines Hosenanzugs wird im Schlussverkauf zunächst um 5 % und anschließend um 20 % gesenkt. Wie groß war die Preissenkung insgesamt (in Prozent)?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Faktor = 0,95 · 0,80 = 0,76</li><li>Es bleiben 76 % → die Senkung beträgt <b>24 %</b></li><li>(Nicht 25 %! Die Prozente dürfen nicht addiert werden.)</li></ul></div>
+</div><div class="card" data-n="3" data-diff="2">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 3</span><span class="stars" title="Schwierigkeit 2 von 3">★★<span class="s0">★</span></span></div>
+ <div class="prob">Nach einem Rabatt von 30 % kostet ein Pullover 35 €. Wie hoch war der ursprüngliche Preis?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>35 € entsprechen 70 % des Originalpreises</li><li>Originalpreis = 35 € : 0,70 = <b>50 €</b></li></ul></div>
+</div><div class="card" data-n="4" data-diff="1">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 4</span><span class="stars" title="Schwierigkeit 1 von 3">★<span class="s0">★★</span></span></div>
+ <div class="prob">Auf ein Sparbuch werden 1500 € eingezahlt, der Zinssatz beträgt 2 % pro Jahr. Wie viel Zinsen gibt es nach einem Jahr und wie hoch ist das Guthaben?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Zinsen = 2 % von 1500 € = <b>30 €</b></li><li>Guthaben = 1500 € + 30 € = <b>1530 €</b></li></ul></div>
+</div><div class="card" data-n="5" data-diff="2">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 5</span><span class="stars" title="Schwierigkeit 2 von 3">★★<span class="s0">★</span></span></div>
+ <div class="prob">Der Preis eines Handys steigt von 300 € auf 360 €. Um wie viel Prozent ist der Preis gestiegen?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Erhöhung = 360 € − 300 € = 60 €</li><li>60 € von 300 € = 60/300 = 0,20 → <b>20 %</b></li></ul></div>
+</div><div class="card" data-n="6" data-diff="1">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 6</span><span class="stars" title="Schwierigkeit 1 von 3">★<span class="s0">★★</span></span></div>
+ <div class="prob">Ein Kapital von 250 € wird mit 3 % pro Jahr verzinst. Wie hoch ist das Endkapital nach einem Jahr?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Zinsen = 3 % von 250 € = 7,50 €</li><li>Endkapital = 250 € + 7,50 € = <b>257,50 €</b></li></ul></div>
+</div><div class="card" data-n="7" data-diff="2">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 7</span><span class="stars" title="Schwierigkeit 2 von 3">★★<span class="s0">★</span></span></div>
+ <div class="prob">Ein Artikel kostet netto 80 €. Wie hoch ist der Bruttopreis bei 19 % Mehrwertsteuer?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>MwSt = 19 % von 80 € = 15,20 €</li><li>Bruttopreis = 80 € + 15,20 € = <b>95,20 €</b> (oder 80 € · 1,19)</li></ul></div>
+</div><div class="card" data-n="8" data-diff="2">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 8</span><span class="stars" title="Schwierigkeit 2 von 3">★★<span class="s0">★</span></span></div>
+ <div class="prob">Ein Neuwagen kostet 24 000 €. Im ersten Jahr verliert er 15 % an Wert. Wie viel ist er nach einem Jahr noch wert?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Wertverlust = 15 % von 24 000 € = 3600 €</li><li>Restwert = 24 000 € − 3600 € = <b>20 400 €</b> (oder 24 000 € · 0,85)</li></ul></div>
+</div><div class="card" data-n="9" data-diff="3">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 9</span><span class="stars" title="Schwierigkeit 3 von 3">★★★<span class="s0"></span></span></div>
+ <div class="prob">Ein Gerät kostet brutto 119 € (inklusive 19 % Mehrwertsteuer). Wie hoch ist der Nettopreis?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>119 € entsprechen 119 % des Nettopreises</li><li>Netto = 119 € : 1,19 = <b>100 €</b></li></ul></div>
+</div><div class="card" data-n="10" data-diff="2">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 10</span><span class="stars" title="Schwierigkeit 2 von 3">★★<span class="s0">★</span></span></div>
+ <div class="prob">Auf einer Karte im Maßstab 1 : 25 000 ist eine Strecke 12 cm lang. Wie lang ist sie in Wirklichkeit?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>12 cm · 25 000 = 300 000 cm</li><li>= 3000 m = <b>3 km</b></li></ul></div>
+</div><div class="card" data-n="11" data-diff="2">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 11</span><span class="stars" title="Schwierigkeit 2 von 3">★★<span class="s0">★</span></span></div>
+ <div class="prob">3 Maler streichen ein Haus in 8 Tagen. Wie lange brauchen 4 Maler (gleiches Tempo)?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Antiproportional: 3 · 8 = 24 Maler-Tage</li><li>24 : 4 = <b>6 Tage</b></li></ul></div>
+</div><div class="card" data-n="12" data-diff="1">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 12</span><span class="stars" title="Schwierigkeit 1 von 3">★<span class="s0">★★</span></span></div>
+ <div class="prob">5 kg Äpfel kosten 7,50 €. Was kosten 8 kg (gleicher Preis pro kg)?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Proportional: 1 kg = 7,50 € : 5 = 1,50 €</li><li>8 kg · 1,50 € = <b>12 €</b></li></ul></div>
+</div><div class="card" data-n="13" data-diff="3">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 13</span><span class="stars" title="Schwierigkeit 3 von 3">★★★<span class="s0"></span></span></div>
+ <div class="prob">Ein Preis steigt zuerst um 10 % und sinkt danach um 10 %. Wie verändert sich der Preis insgesamt?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Faktor = 1,10 · 0,90 = 0,99</li><li>→ insgesamt <b>1 % günstiger</b> als am Anfang (nicht gleich!)</li></ul></div>
+</div><div class="card" data-n="14" data-diff="1">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 14</span><span class="stars" title="Schwierigkeit 1 von 3">★<span class="s0">★★</span></span></div>
+ <div class="prob">Eine Restaurantrechnung beträgt 60 €. Es werden 15 % Trinkgeld gegeben. Wie hoch ist der Gesamtbetrag?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Trinkgeld = 15 % von 60 € = 9 €</li><li>Gesamt = 60 € + 9 € = <b>69 €</b></li></ul></div>
+</div><div class="card" data-n="15" data-diff="3">
+ <div class="top"><label class="sel"><input type="checkbox" class="cb"> auswählen</label><span class="num">Aufgabe 15</span><span class="stars" title="Schwierigkeit 3 von 3">★★★<span class="s0"></span></span></div>
+ <div class="prob">Eine Stadt hat 20 000 Einwohner und wächst zwei Jahre lang um jährlich 5 %. Wie viele Einwohner sind es nach zwei Jahren?</div>
+ <button class="soltgl" type="button" data-label="Lösung" onclick="tog(this)">Lösung anzeigen</button>
+ <div class="sol"><ul><li>Faktor pro Jahr = 1,05 → nach 2 Jahren 1,05² = 1,1025</li><li>20 000 · 1,1025 = <b>22 050 Einwohner</b></li></ul></div>
+</div></div>
+<script>
+function tog(b){const c=b.closest('.card');const open=c.classList.toggle('open');const l=b.dataset.label||'Lösung';b.textContent=open?l+' ausblenden':l+' anzeigen';}
+function allSol(v){document.querySelectorAll('.card').forEach(c=>{c.classList.toggle('open',v);const b=c.querySelector('.soltgl');const l=b.dataset.label||'Lösung';b.textContent=v?l+' ausblenden':l+' anzeigen';});}
+function upd(){const n=document.querySelectorAll('.cb:checked').length;document.getElementById('count').textContent=n+' ausgewählt';}
+document.addEventListener('change',e=>{if(e.target.classList.contains('cb')){e.target.closest('.card').classList.toggle('selected',e.target.checked);upd();}});
+function clearSel(){document.querySelectorAll('.cb').forEach(cb=>{cb.checked=false;cb.closest('.card').classList.remove('selected');});upd();}
+function printSel(){if(!document.querySelector('.cb:checked')){alert('Bitte zuerst Aufgaben auswählen (Häkchen setzen).');return;}document.body.classList.add('selprint');window.print();setTimeout(()=>document.body.classList.remove('selprint'),400);}
+function printAll(){document.body.classList.remove('selprint');window.print();}
+
+function drawTasks(n){
+ if(typeof clearSel==='function')clearSel();
+ var sel=document.getElementById('diffsel');
+ var diff=sel?(parseInt(sel.value)||0):0;
+ var cards=[].slice.call(document.querySelectorAll('.card'));
+ var pool=cards.filter(function(c){return diff===0||parseInt(c.dataset.diff)===diff;});
+ for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t;}
+ var pick=pool.slice(0,n);
+ pick.forEach(function(c){var cb=c.querySelector('.cb');if(cb)cb.checked=true;c.classList.add('selected');});
+ if(typeof upd==='function')upd();
+ if(pick.length){pick[0].scrollIntoView({behavior:'smooth',block:'center'});}
+ if(pick.length<n){alert('Nur '+pick.length+' Aufgabe(n) mit dieser Schwierigkeit vorhanden.');}
+}
+window.addEventListener('DOMContentLoaded',function(){
+ var p=new URLSearchParams(location.search);
+ if(p.has('draw')){var d=p.get('diff');var sel=document.getElementById('diffsel');if(d!==null&&sel)sel.value=d;drawTasks(parseInt(p.get('draw'))||6);}
+});
+</script></body></html>

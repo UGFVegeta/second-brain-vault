@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mündliche Prüfung Mathematik – Aufgabenpools</title>
+<style>
+ *{box-sizing:border-box}
+ body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;margin:0;padding:48px 22px;background:#f4f6f7}
+ .wrap{max-width:1000px;margin:0 auto}
+ h1{font-size:30px;margin:0 0 6px}
+ .sub{color:#5b6569;font-size:15px;margin:0 0 32px;max-width:680px;line-height:1.5}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+ a.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1.5px solid #dde2e5;
+        border-radius:14px;overflow:hidden;transition:transform .12s ease,box-shadow .12s ease}
+ a.card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.10)}
+ .bar{height:8px}
+ .body{padding:20px 22px 22px}
+ .badge{display:inline-block;font-size:12px;font-weight:700;color:#fff;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+ .title{font-size:20px;font-weight:700;margin:0 0 6px}
+ .desc{font-size:13.5px;color:#5b6569;line-height:1.5;margin:0 0 14px}
+ .go{font-size:13.5px;font-weight:600}
+ .foot{margin-top:30px;font-size:12.5px;color:#8a9399}
+ @media (max-width:680px){.grid{grid-template-columns:1fr}}
+ .examgen{background:#fff;border:1.5px solid #dde2e5;border-radius:14px;padding:18px 22px;margin:0 0 26px}
+ .eg-title{font-size:17px;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+ .eg-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+ .eg-row select{font:inherit;font-size:14px;padding:9px 11px;border-radius:9px;border:1px solid #dde2e5;background:#fff}
+ .eg-row button{font:inherit;font-weight:700;font-size:14px;padding:9px 16px;border-radius:9px;border:1px solid #0891b2;background:#0891b2;color:#fff;cursor:pointer}
+ .eg-row button:hover{background:#0e7490}
+ .eg-hint{font-size:13px;color:#5b6569;margin:12px 0 0;line-height:1.5}
+</style></head><body>
+<div class="wrap">
+ <h1>Mündliche Prüfung Mathematik</h1>
+ <p class="sub">Aufgabenpools für die mündliche Prüfung (Realschule Klasse 9/10). Thema anklicken, Aufgaben mit dem Häkchen auswählen und drucken – Lösungen lassen sich pro Aufgabe ein- und ausblenden.</p>
+ <div class="examgen">
+  <div class="eg-title">🎲 Prüfung erstellen</div>
+  <div class="eg-row">
+   <select id="egPool" aria-label="Wahlthema">
+    <option value="Trigonometrie">Trigonometrie</option>
+    <option value="Quadratische Funktionen">Quadratische Funktionen</option>
+    <option value="Stochastik">Stochastik</option>
+    <option value="Sachrechnen">Sachrechnen</option>
+    <option value="Boxplot &amp; Datenanalyse">Boxplot &amp; Datenanalyse</option>
+    <option value="Stereometrie">Stereometrie</option>
+   </select>
+   <select id="egDiff" aria-label="Schwierigkeit">
+    <option value="0">alle Schwierigkeiten</option>
+    <option value="1">★ leicht</option>
+    <option value="2">★★ mittel</option>
+    <option value="3">★★★ schwer</option>
+   </select>
+   <button type="button" onclick="genExam()">🎲 Zufallssatz →</button>
+   <button type="button" onclick="location.href='Baukasten.html'" style="background:#fff;color:#0891b2;border-color:#0891b2;font-weight:700">✏️ selbst zusammenstellen →</button>
+  </div>
+  <p class="eg-hint"><b>Zufallssatz:</b> Wahlthema + Schwierigkeit wählen → 6 Aufgaben (1 zum Wahlthema, 5 gemischt), direkt druckbar ohne Lösungen.<br><b>Selbst zusammenstellen:</b> visueller Katalog aller Aufgaben – 6–8 anklicken, drucken, verwendete Aufgaben werden ausgeblendet (mit Zurücksetzen). (Einzelne Pools haben weiterhin ein eigenes „6 ziehen" zum Üben.)</p>
+ </div>
+
+ <div class="grid">
+
+  <a class="card" href="Trigonometrie%20Aufgabenpool.html">
+   <div class="bar" style="background:#2e6e8e"></div>
+   <div class="body">
+    <span class="badge" style="background:#2e6e8e">14 Aufgaben</span>
+    <p class="title">Trigonometrie am Dreieck</p>
+    <p class="desc">Sinussatz, Kosinussatz, Flächenformel und rechtwinklige Trigonometrie – mit Dreiecksskizzen.</p>
+    <span class="go" style="color:#2e6e8e">Öffnen →</span>
+   </div>
+  </a>
+
+  <a class="card" href="Quadratische%20Funktionen%20Aufgabenpool.html">
+   <div class="bar" style="background:#2563eb"></div>
+   <div class="body">
+    <span class="badge" style="background:#2563eb">15 Aufgaben</span>
+    <p class="title">Quadratische Funktionen</p>
+    <p class="desc">Graphen zuordnen, Scheitelpunkt ablesen, Normalform per quadratischer Ergänzung in die Scheitelform umformen.</p>
+    <span class="go" style="color:#2563eb">Öffnen →</span>
+   </div>
+  </a>
+
+  <a class="card" href="Stochastik%20Aufgabenpool.html">
+   <div class="bar" style="background:#5b54c9"></div>
+   <div class="body">
+    <span class="badge" style="background:#5b54c9">15 Aufgaben</span>
+    <p class="title">Stochastik</p>
+    <p class="desc">Versuchsaufbauten (Urnen, Glücksräder, Würfel, Münzen) – die konkrete Frage stellst du mündlich.</p>
+    <span class="go" style="color:#5b54c9">Öffnen →</span>
+   </div>
+  </a>
+
+  <a class="card" href="Sachrechnen%20Aufgabenpool.html">
+   <div class="bar" style="background:#0e7c5a"></div>
+   <div class="body">
+    <span class="badge" style="background:#0e7c5a">15 Aufgaben</span>
+    <p class="title">Sachrechnen</p>
+    <p class="desc">Prozent-, Zins- und Mehrwertsteuerrechnung, Maßstab sowie proportionaler und antiproportionaler Dreisatz.</p>
+    <span class="go" style="color:#0e7c5a">Öffnen →</span>
+   </div>
+  </a>
+
+  <a class="card" href="Boxplot%20Aufgabenpool.html">
+   <div class="bar" style="background:#c2410c"></div>
+   <div class="body">
+    <span class="badge" style="background:#c2410c">15 Aufgaben</span>
+    <p class="title">Boxplot &amp; Datenanalyse</p>
+    <p class="desc">Median, Quartile und Spannweite – Boxplots lesen, erstellen, zuordnen und vergleichen.</p>
+    <span class="go" style="color:#c2410c">Öffnen →</span>
+   </div>
+  </a>
+
+  <a class="card" href="Stereometrie%20Aufgabenpool.html">
+   <div class="bar" style="background:#0891b2"></div>
+   <div class="body">
+    <span class="badge" style="background:#0891b2">15 Aufgaben</span>
+    <p class="title">Stereometrie</p>
+    <p class="desc">Körperberechnung (Prisma, Zylinder, Pyramide, Kegel, Kugel, zusammengesetzte Körper), Rotationskörper und Netze. Formeln nicht auf dem Blatt.</p>
+    <span class="go" style="color:#0891b2">Öffnen →</span>
+   </div>
+  </a>
+
+ </div>
+ <p class="foot">89 Aufgaben in 6 Themen · zuletzt aktualisiert 25.06.2026</p>
+</div>
+<script>
+function genExam(){var t=document.getElementById('egPool').value;var d=document.getElementById('egDiff').value;location.href='Pruefung.html?thema='+encodeURIComponent(t)+'&diff='+d;}
+</script>
+</body></html>

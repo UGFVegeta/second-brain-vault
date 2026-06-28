@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeinstadtCross — Crosslauf &amp; Triathlon</title>
+
+<!-- === FONTS: Anton (display, condensed/athletic) + Sora (body) === -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================
+   THEME TOKENS — change these to restyle deck
+   =========================================== */
+:root {
+    /* Colors: dark terrain + lime energy + wine-red accent */
+    --stage-bg: #07120c;
+    --slide-bg: #0b1a10;
+    --bg-deep: #07120c;
+    --bg-panel: #102619;
+    --text-primary: #f3f7f1;
+    --text-secondary: #9fb3a4;
+    --accent-lime: #c8ff3d;     /* trail / cross energy */
+    --accent-wine: #b4233a;     /* Weinstadt / vineyard */
+    --line: rgba(200,255,61,0.18);
+
+    /* Typography (authored at 1920x1080) */
+    --font-display: 'Anton', sans-serif;
+    --font-body: 'Sora', sans-serif;
+
+    /* Motion */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur: 0.7s;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===========================================
+   FIXED 16:9 STAGE — viewport-base.css (full)
+   =========================================== */
+html, body {
+    width: 100%; height: 100%; margin: 0;
+    overflow: hidden; background: var(--stage-bg, #000);
+}
+.deck-viewport {
+    position: fixed; inset: 0; overflow: hidden;
+    background: var(--stage-bg, #000);
+}
+.deck-stage {
+    position: absolute; left: 0; top: 0;
+    width: 1920px; height: 1080px; overflow: hidden;
+    transform-origin: 0 0; background: var(--slide-bg, #fff);
+}
+.slide {
+    position: absolute; inset: 0;
+    width: 1920px; height: 1080px; overflow: hidden;
+    display: block; visibility: hidden; opacity: 0; pointer-events: none;
+    background: var(--slide-bg, #fff);
+}
+.slide.active, .slide.visible {
+    visibility: visible; opacity: 1; pointer-events: auto; z-index: 1;
+}
+img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+.deck-controls {
+    position: fixed; left: 50%; bottom: 22px;
+    transform: translateX(-50%); z-index: 1000;
+}
+@media print {
+    html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+    .deck-viewport { position: static; overflow: visible; background: #fff; }
+    .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+    .slide {
+        position: relative; display: block !important; visibility: visible !important;
+        opacity: 1 !important; pointer-events: auto !important;
+        width: 1920px; height: 1080px; break-after: page; page-break-after: always;
+    }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .deck-controls { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important; transition-duration: 0.2s !important;
+    }
+}
+
+/* ===========================================
+   SHARED SLIDE STYLING
+   =========================================== */
+.slide {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    padding: 110px 130px;
+}
+/* Subtle topographic / terrain texture via layered gradients */
+.terrain-bg::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; opacity: 0.5;
+    background:
+        radial-gradient(1200px 600px at 85% -10%, rgba(200,255,61,0.10), transparent 60%),
+        radial-gradient(900px 700px at -10% 110%, rgba(180,35,58,0.16), transparent 55%),
+        repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 90px);
+}
+.slide > * { position: relative; z-index: 1; }
+
+.kicker {
+    font-family: var(--font-body); font-weight: 700;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    font-size: 22px; color: var(--accent-lime);
+    display: inline-flex; align-items: center; gap: 16px;
+}
+.kicker::before {
+    content: ""; width: 54px; height: 3px; background: var(--accent-lime);
+    display: inline-block;
+}
+
+/* ===========================================
+   ANIMATION — staggered reveal on active slide
+   =========================================== */
+.reveal {
+    opacity: 0; transform: translateY(38px);
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.slide.visible .reveal:nth-child(1) { transition-delay: 0.10s; }
+.slide.visible .reveal:nth-child(2) { transition-delay: 0.22s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: 0.34s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: 0.46s; }
+.slide.visible .reveal:nth-child(5) { transition-delay: 0.58s; }
+
+/* === SLIDE 1: TITLE === */
+.title-slide { display: flex; flex-direction: column; justify-content: center; }
+.title-slide h1 {
+    font-family: var(--font-display);
+    font-size: 300px; line-height: 0.84; letter-spacing: 0.5px;
+    margin: 28px 0 0; text-transform: uppercase;
+}
+.title-slide h1 .cross { color: var(--accent-lime); }
+.title-slide .lead {
+    font-size: 36px; color: var(--text-secondary); font-weight: 300;
+    margin-top: 46px; max-width: 1100px;
+}
+.title-meta {
+    margin-top: 70px; display: flex; gap: 26px; align-items: center;
+    font-weight: 600; font-size: 24px;
+}
+.pill {
+    border: 2px solid var(--line); border-radius: 100px;
+    padding: 14px 30px; color: var(--text-primary);
+}
+.pill.solid { background: var(--accent-wine); border-color: var(--accent-wine); }
+
+/* === SLIDE 2: DISCIPLINES (cards) === */
+.head h2 {
+    font-family: var(--font-display); font-size: 130px; line-height: 0.9;
+    text-transform: uppercase; margin: 22px 0 0;
+}
+.card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin-top: 74px; }
+.card {
+    background: var(--bg-panel); border: 1px solid var(--line);
+    border-radius: 26px; padding: 50px 44px; min-height: 430px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform var(--dur) var(--ease);
+}
+.slide.visible .card:hover { transform: translateY(-10px); }
+.card .num {
+    font-family: var(--font-display); font-size: 64px; color: var(--accent-lime);
+}
+.card h3 { font-family: var(--font-display); font-size: 50px; text-transform: uppercase; margin: 22px 0 14px; }
+.card p { color: var(--text-secondary); font-size: 25px; line-height: 1.5; font-weight: 300; }
+
+/* === SLIDE 3: STATS === */
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 86px; }
+.stat { border-left: 4px solid var(--accent-lime); padding-left: 30px; }
+.stat .big { font-family: var(--font-display); font-size: 140px; line-height: 0.9; }
+.stat .big small { font-size: 60px; color: var(--accent-lime); }
+.stat .lbl { color: var(--text-secondary); font-size: 24px; margin-top: 12px; font-weight: 300; }
+
+/* === SLIDE 4: CTA === */
+.cta-slide { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.cta-slide h2 {
+    font-family: var(--font-display); font-size: 200px; line-height: 0.86;
+    text-transform: uppercase; margin: 26px 0;
+}
+.cta-slide h2 .lime { color: var(--accent-lime); }
+.cta-box {
+    margin-top: 36px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap;
+}
+.btn {
+    font-weight: 700; font-size: 30px; padding: 24px 52px; border-radius: 100px;
+    background: var(--accent-lime); color: #07120c; border: none;
+}
+.btn.ghost { background: transparent; color: var(--text-primary); border: 2px solid var(--line); }
+.cta-note { margin-top: 50px; color: var(--text-secondary); font-size: 26px; font-weight: 300; }
+
+/* === PRESENTATION CHROME (outside stage) === */
+.deck-controls {
+    display: flex; gap: 18px; align-items: center;
+    background: rgba(7,18,12,0.7); backdrop-filter: blur(8px);
+    border: 1px solid var(--line); border-radius: 100px; padding: 10px 20px;
+    font-family: var(--font-body); color: var(--text-primary);
+}
+.deck-controls button {
+    background: none; border: none; color: var(--accent-lime);
+    font-size: 22px; cursor: pointer; padding: 4px 10px;
+}
+.deck-controls .count { font-size: 18px; color: var(--text-secondary); min-width: 54px; text-align: center; }
+
+/* Edit affordance */
+.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+.edit-toggle {
+    position: fixed; top: 18px; left: 18px; z-index: 10001;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    background: var(--accent-lime); color: #07120c; border: none;
+    border-radius: 50%; width: 48px; height: 48px; font-size: 20px; cursor: pointer;
+}
+.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+[contenteditable="true"] { outline: 2px dashed var(--accent-lime); outline-offset: 6px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+    <main class="deck-stage" id="deckStage">
+
+        <!-- === SLIDE 1: TITLE === -->
+        <section class="slide title-slide terrain-bg active">
+            <span class="kicker reveal">Weinstadt · Remstal · Baden-Württemberg</span>
+            <h1 class="reveal">WEINSTADT<br><span class="cross">CROSS</span></h1>
+            <p class="lead reveal">Crosslauf &amp; Triathlon durch die Weinberge. Ein Tag, drei Disziplinen, ein Ziel.</p>
+            <div class="title-meta reveal">
+                <span class="pill solid">Sa. 12. September 2026</span>
+                <span class="pill">Start 09:00 Uhr</span>
+                <span class="pill">Marktplatz Beutelsbach</span>
+            </div>
+        </section>
+
+        <!-- === SLIDE 2: DISCIPLINES === -->
+        <section class="slide terrain-bg">
+            <div class="head">
+                <span class="kicker reveal">Das Event</span>
+                <h2 class="reveal">Drei Wege<br>ins Ziel</h2>
+            </div>
+            <div class="card-row">
+                <div class="card reveal">
+                    <span class="num">01</span>
+                    <div>
+                        <h3>Crosslauf</h3>
+                        <p>Geländelauf über Weinbergpfade, Treppen und Trails. Distanzen für Einsteiger und Ambitionierte.</p>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <span class="num">02</span>
+                    <div>
+                        <h3>Triathlon</h3>
+                        <p>Schwimmen, Rad, Lauf als Sprintdistanz – mit Panorama über das Remstal.</p>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <span class="num">03</span>
+                    <div>
+                        <h3>Staffel</h3>
+                        <p>Teile dir die Strecke mit Freunden oder Kollegen. Teamgeist statt Einzelkampf.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SLIDE 3: STATS === -->
+        <section class="slide terrain-bg">
+            <span class="kicker reveal">Strecke in Zahlen</span>
+            <h2 class="reveal" style="font-family:var(--font-display);font-size:120px;text-transform:uppercase;line-height:0.9;margin-top:20px;">Das erwartet dich</h2>
+            <div class="stat-grid">
+                <div class="stat reveal"><div class="big">11<small>km</small></div><div class="lbl">Crosslauf-Strecke</div></div>
+                <div class="stat reveal"><div class="big">320<small>hm</small></div><div class="lbl">Höhenmeter durch die Reben</div></div>
+                <div class="stat reveal"><div class="big">3</div><div class="lbl">Disziplinen zur Auswahl</div></div>
+                <div class="stat reveal"><div class="big">600<small>+</small></div><div class="lbl">Teilnehmende erwartet</div></div>
+            </div>
+        </section>
+
+        <!-- === SLIDE 4: CTA === -->
+        <section class="slide cta-slide terrain-bg">
+            <span class="kicker reveal">Jetzt dabei sein</span>
+            <h2 class="reveal">LAUF<br><span class="lime">MIT.</span></h2>
+            <div class="cta-box reveal">
+                <button class="btn">Jetzt anmelden</button>
+                <button class="btn ghost">Strecke ansehen</button>
+            </div>
+            <p class="cta-note reveal">Anmeldung online · Frühbucher bis 31. Juli · weinstadtcross.de</p>
+        </section>
+
+    </main>
+</div>
+
+<!-- Navigation chrome -->
+<div class="deck-controls">
+    <button id="prevBtn" aria-label="Zurück">‹</button>
+    <span class="count" id="counter">1 / 4</span>
+    <button id="nextBtn" aria-label="Weiter">›</button>
+</div>
+
+<!-- Edit affordance -->
+<div class="edit-hotzone"></div>
+<button class="edit-toggle" id="editToggle" title="Bearbeiten (E)">✏️</button>
+
+<script>
+/* ===========================================
+   SLIDE PRESENTATION CONTROLLER
+   =========================================== */
+class SlidePresentation {
+    constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.current = 0;
+        this.stage = document.getElementById('deckStage');
+        this.counter = document.getElementById('counter');
+        this.setupStageScale();
+        this.setupNav();
+        this.show(0);
+    }
+    setupStageScale() {
+        const scale = () => {
+            const f = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+            const x = (window.innerWidth - 1920 * f) / 2;
+            const y = (window.innerHeight - 1080 * f) / 2;
+            this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+        };
+        scale();
+        window.addEventListener('resize', scale);
+    }
+    setupNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.target.getAttribute('contenteditable') === 'true') return;
+            if (['ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); this.next(); }
+            if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); this.prev(); }
+        });
+        document.getElementById('nextBtn').addEventListener('click', () => this.next());
+        document.getElementById('prevBtn').addEventListener('click', () => this.prev());
+        // Touch
+        let x0 = null;
+        document.addEventListener('touchstart', (e) => x0 = e.touches[0].clientX, {passive:true});
+        document.addEventListener('touchend', (e) => {
+            if (x0 === null) return;
+            const dx = e.changedTouches[0].clientX - x0;
+            if (Math.abs(dx) > 50) (dx < 0 ? this.next() : this.prev());
+            x0 = null;
+        });
+        // Mouse wheel
+        let wheelLock = false;
+        document.addEventListener('wheel', (e) => {
+            if (wheelLock) return;
+            if (Math.abs(e.deltaY) < 30) return;
+            wheelLock = true;
+            (e.deltaY > 0 ? this.next() : this.prev());
+            setTimeout(() => wheelLock = false, 700);
+        }, {passive:true});
+    }
+    show(i) {
+        this.current = Math.max(0, Math.min(i, this.slides.length - 1));
+        this.slides.forEach((s, idx) => {
+            s.classList.toggle('active', idx === this.current);
+            s.classList.toggle('visible', idx === this.current);
+        });
+        this.counter.textContent = `${this.current + 1} / ${this.slides.length}`;
+    }
+    next() { this.show(this.current + 1); }
+    prev() { this.show(this.current - 1); }
+}
+const deck = new SlidePresentation();
+
+/* ===========================================
+   INLINE EDIT MODE
+   =========================================== */
+const editor = {
+    isActive: false,
+    toggle() {
+        this.isActive = !this.isActive;
+        const t = document.getElementById('editToggle');
+        t.classList.toggle('active', this.isActive);
+        document.querySelectorAll('h1,h2,h3,p,span.lbl,.lead,.cta-note').forEach(el => {
+            el.setAttribute('contenteditable', this.isActive ? 'true' : 'false');
+        });
+    }
+};
+const hotzone = document.querySelector('.edit-hotzone');
+const editToggle = document.getElementById('editToggle');
+let hideTimeout = null;
+hotzone.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); editToggle.classList.add('show'); });
+hotzone.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+editToggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+editToggle.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+editToggle.addEventListener('click', () => editor.toggle());
+hotzone.addEventListener('click', () => editor.toggle());
+document.addEventListener('keydown', (e) => {
+    if ((e.key === 'e' || e.key === 'E') && e.target.getAttribute('contenteditable') !== 'true') editor.toggle();
+});
+</script>
+</body>
+</html>

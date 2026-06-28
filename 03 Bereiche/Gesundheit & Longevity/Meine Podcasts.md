@@ -1,0 +1,119 @@
+---
+tags: [podcasts, medien]
+status: aktiv
+date: 2026-06-12
+---
+
+# Meine Podcasts
+
+Hake deine wichtigsten Podcasts ab – Claude liest die Auswahl danach aus.
+
+## Alle Abonnements (95)
+
+- [ ] 15 Love - der Business Podcast
+- [ ] 45minuten
+- [x] AI to the DNA
+- [ ] All-In with Chamath, Jason, Sacks & Friedberg
+- [ ] Antriebskraft | Der Podcast für alle Ausdauerheldinnen & Ausdauerhelden im Laufsport
+- [ ] Baywatch Berlin
+- [ ] Besenwagen - der Radsport Podcast
+- [ ] Beyond Business Cast
+- [ ] Cicero Podcasts
+- [ ] Cinema Strikes Back
+- [x] DER FÜHRUNGSKRÄFTE PODCAST mit Wlad Jachtchenko
+- [ ] Der Nintendo-Podcast
+- [ ] Der STAHLWERK Doppelpass
+- [ ] Die Schule brennt – der Bildungspodcast mit Bob Blume
+- [ ] Die großen Fragen der Wissenschaft
+- [ ] Doppelgänger
+- [ ] Eine Stunde History - Deutschlandfunk Nova
+- [x] Eine kurze Geschichte über...
+- [x] Energiegespräch mit Prof. Heindl
+- [x] F.A.Z. Digitalwirtschaft
+- [ ] FAZ Podcast für Deutschland
+- [x] Finanzfluss Podcast
+- [x] Finanzielle Intelligenz mit Marc Friedrich
+- [ ] Frodeno Going Mental
+- [x] GameStar Podcast
+- [x] Geschichten aus der Geschichte
+- [ ] Greator – Inspiration, Motivation & Erfolg
+- [ ] Handelsblatt Disrupt
+- [ ] Handelsblatt Green & Energy
+- [ ] Hotel Matze
+- [x] Huberman Lab
+- [ ] Höhlen der Zeit - Der World of Warcraft Podcast
+- [ ] IMTalk
+- [ ] IMTalk's Legends of Triathlon
+- [x] In Führung gehen - Der Leadership Podcast
+- [ ] JUNKMILES
+- [ ] Ja klaHR! Human Resources und Leadership
+- [ ] Klartext Triathlon
+- [ ] Kwik Brain with Jim Kwik
+- [x] Lanz + Precht
+- [ ] Laufen ist einfach
+- [ ] Lead Forward
+- [ ] Lorehammer - A Warhammer 40k Podcast
+- [ ] MAFIA LAND
+- [ ] MARIO BASLER – Letzter Typ
+- [ ] MY DATA IS BETTER THAN YOURS
+- [x] Machtwechsel
+- [x] Make Economy Great Again
+- [ ] Mission Triathlon Podcast
+- [x] NZZ Akzent
+- [ ] NZZ Geopolitik: Amerika entscheidet
+- [ ] NZZ Machtspiel
+- [ ] NZZ Standpunkte
+- [ ] Nerd & Kultur
+- [x] OMR Podcast
+- [x] PACE – der Ausdauerpodcast
+- [ ] PACEPRESSO CLUBHOUSE
+- [ ] Passwort - der Podcast von heise security
+- [ ] Physik-Geplänkel
+- [ ] Plattfuß- der Triathlon und Radsport Podcast
+- [ ] Plus Ultra - Der Weg in den Dreißigjährigen Krieg
+- [ ] Powerbrains – das Sporternährungsquiz
+- [ ] Proaktiv Podcast
+- [x] Pushing Limits Podcast
+- [ ] Quarks
+- [ ] Quarks Science Cops
+- [ ] Quarks – Mal angenommen
+- [ ] ROCKET SCIENCE – mit Dr. Golo Röhrken
+- [x] RONZHEIMER.
+- [ ] Rasenball: Red Bull und der moderne Fußball
+- [ ] SCYENCE Podcast
+- [ ] SWR2 Wissen
+- [ ] Scientists for Future Podcast
+- [x] Spektrum-Podcast
+- [ ] Sport inside – der Podcast
+- [ ] Stammplatz – Fußball News täglich
+- [ ] StarTalk Radio
+- [ ] Starfield Lorecast: Lore, News & More
+- [ ] Synapsen – ein Wissenschaftspodcast
+- [ ] TRIGGERnometry
+- [ ] That Triathlon Show
+- [ ] The Greg Bennett Show
+- [ ] The Joe Rogan Experience
+- [ ] The Nick Bare Podcast
+- [x] The Peter Attia Drive
+- [ ] The Physical Performance Show
+- [ ] The Pioneer Morning Briefing
+- [ ] The Triathlon Hour
+- [ ] Triathlon Crew
+- [ ] Ulle & Rick
+- [ ] Unternehmer Macher – Dein Podcast für mehr Erfolg
+- [ ] Unternehmerwissen in 15 Minuten - Mit Rayk Hahne
+- [ ] Warcraft Reloaded – WoW Classic and Community
+- [ ] Was spielst du so? - Videospiele entdecken mit GameStar
+- [ ] Watt is los - Gespräche mit Triathlon Profis & Menschen aus dem Sport
+- [x] Welt der Physik | Podcast
+- [x] Wissenschaft und Technik
+- [ ] Zukunft Denken – Podcast
+- [ ] Zwei wie Pech & Schwafel
+- [x] based.
+- [x] bto – der Ökonomie-Podcast von Dr. Daniel Stelter
+- [ ] eins & null
+- [ ] kicker meets DAZN - Der Fußball Podcast
+- [ ] power & pace | Triathlon-Training
+- [ ] tagesschau in 100 Sekunden
+- [ ] triathlon talk – Carbon & Laktat
+- [x] {ungeskriptet} - Gespräche, die dich weiter bringen

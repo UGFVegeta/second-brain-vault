@@ -1,0 +1,15 @@
+<svg viewBox="0 0 220 220" width="320" height="320" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<g stroke="#ffffff" stroke-width="2.5">
+<path d="M110,110 L110.00,15.00 A95,95 0 0 1 177.18,42.82 Z" fill="#e8a35a"/>
+<path d="M110,110 L177.18,42.82 A95,95 0 0 1 205.00,110.00 Z" fill="#f1cf52"/>
+<path d="M110,110 L205.00,110.00 A95,95 0 0 1 177.18,177.18 Z" fill="#5b8fd0"/>
+<path d="M110,110 L177.18,177.18 A95,95 0 0 1 110.00,205.00 Z" fill="#e8a35a"/>
+<path d="M110,110 L110.00,205.00 A95,95 0 0 1 42.82,177.18 Z" fill="#e8a35a"/>
+<path d="M110,110 L42.82,177.18 A95,95 0 0 1 15.00,110.00 Z" fill="#f1cf52"/>
+<path d="M110,110 L15.00,110.00 A95,95 0 0 1 42.82,42.82 Z" fill="#5b8fd0"/>
+<path d="M110,110 L42.82,42.82 A95,95 0 0 1 110.00,15.00 Z" fill="#e8a35a"/>
+</g>
+<circle cx="110" cy="110" r="95" fill="none" stroke="#9a9a9a" stroke-width="2.5"/>
+<line x1="110" y1="110" x2="169" y2="162" stroke="#3a3a3a" stroke-width="5" stroke-linecap="round"/>
+<circle cx="110" cy="110" r="8" fill="#666"/>
+</svg>
