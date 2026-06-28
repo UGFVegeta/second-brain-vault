@@ -15,3 +15,9 @@
 
 # Log der Auto-Commit-Automatik
 .scripts/git_autocommit.log
+
+# Claude Code Tooling / Skills (reinstallierbar, teils eigene Git-Repos)
+.claude/skills/
+
+# Node
+node_modules/
