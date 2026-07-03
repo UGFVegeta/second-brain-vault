@@ -3366,8 +3366,8 @@ const AUFGABEN = [
   "themen": [
    "Stochastik & Daten"
   ],
-  "aufgabe": "2026/pruefung_2026_a1.pdf#page=1",
-  "loesung": "2026/loesung_2026_schule.pdf#page=1",
+  "aufgabe": "2026/aufg_a1_1.html",
+  "loesung": "2026/loes_a1_1.html",
   "snippet": "Vier Behälter mit Kugeln – P(weiß) ankreuzen; zwei weiße Kugeln ohne Zurücklegen ziehen. (2 P)"
  },
  {
@@ -3379,8 +3379,8 @@ const AUFGABEN = [
   "themen": [
    "Körperberechnung"
   ],
-  "aufgabe": "2026/pruefung_2026_a1.pdf#page=1",
-  "loesung": "2026/loesung_2026_schule.pdf#page=1",
+  "aufgabe": "2026/aufg_a1_2.html",
+  "loesung": "2026/loes_a1_2.html",
   "snippet": "Quader mit herausgearbeiteter quadratischer Pyramide – Formeln für O richtig/falsch ankreuzen. (1,5 P)"
  },
  {
@@ -3392,8 +3392,8 @@ const AUFGABEN = [
   "themen": [
    "Algebra & Gleichungen"
   ],
-  "aufgabe": "2026/pruefung_2026_a1.pdf#page=2",
-  "loesung": "2026/loesung_2026_schule.pdf#page=2",
+  "aufgabe": "2026/aufg_a1_3.html",
+  "loesung": "2026/loes_a1_3.html",
   "snippet": "Gleichung in faktorisierter Form lösen. (1 P)"
  },
  {
@@ -3405,8 +3405,8 @@ const AUFGABEN = [
   "themen": [
    "Trigonometrie & ebene Geometrie"
   ],
-  "aufgabe": "2026/pruefung_2026_a1.pdf#page=2",
-  "loesung": "2026/loesung_2026_schule.pdf#page=2",
+  "aufgabe": "2026/aufg_a1_4.html",
+  "loesung": "2026/loes_a1_4.html",
   "snippet": "Weitere Winkel mit gleichem Sinuswert eintragen. (1 P)"
  },
  {
@@ -3418,8 +3418,8 @@ const AUFGABEN = [
   "themen": [
    "Sachrechnen & Prozente"
   ],
-  "aufgabe": "2026/pruefung_2026_a1.pdf#page=2",
-  "loesung": "2026/loesung_2026_schule.pdf#page=2",
+  "aufgabe": "2026/aufg_a1_5.html",
+  "loesung": "2026/loes_a1_5.html",
   "snippet": "Dauerkarten-Verkaufszahlen – prozentuale Veränderungen berechnen und eintragen. (1,5 P)"
  },
  {
@@ -3431,8 +3431,8 @@ const AUFGABEN = [
   "themen": [
    "Quadratische Funktionen"
   ],
-  "aufgabe": "2026/pruefung_2026_a1.pdf#page=3",
-  "loesung": "2026/loesung_2026_schule.pdf#page=3",
+  "aufgabe": "2026/aufg_a1_6.html",
+  "loesung": "2026/loes_a1_6.html",
   "snippet": "Funktionsgleichung einer Parabel ablesen; Gerade und zweite Parabel einzeichnen. (1,5 P)"
  },
  {
@@ -3444,8 +3444,8 @@ const AUFGABEN = [
   "themen": [
    "Muster & Folgen"
   ],
-  "aufgabe": "2026/pruefung_2026_a1.pdf#page=3",
-  "loesung": "2026/loesung_2026_schule.pdf#page=3",
+  "aufgabe": "2026/aufg_a1_7.html",
+  "loesung": "2026/loes_a1_7.html",
   "snippet": "Kärtchen-Muster – Anzahl für das 7. Muster begründen und Formel aufstellen. (1,5 P)"
  },
  {
@@ -3457,7 +3457,7 @@ const AUFGABEN = [
   "themen": [
    "Trigonometrie & ebene Geometrie"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=1",
+  "aufgabe": "2026/aufg_a2_1.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=5",
   "snippet": "Im Quadrat liegt ein gleichschenkliges Dreieck EFD – Umfang des Dreiecks berechnen. (3 P)"
  },
@@ -3470,7 +3470,7 @@ const AUFGABEN = [
   "themen": [
    "Körperberechnung"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=1",
+  "aufgabe": "2026/aufg_a2_2.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=6",
   "snippet": "Schokokuss aus Zylinder und Halbkugel – überzogene Fläche und Anzahl pro 100 g Schokolade. (3,5 P)"
  },
@@ -3484,7 +3484,7 @@ const AUFGABEN = [
    "Stochastik & Daten",
    "Sachrechnen & Prozente"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=2",
+  "aufgabe": "2026/aufg_a2_3.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=7",
   "snippet": "Online-Nutzungszeit Jugendlicher – Diagramme auswerten, prozentuale Veränderungen. (3 P)"
  },
@@ -3497,7 +3497,7 @@ const AUFGABEN = [
   "themen": [
    "Stochastik & Daten"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=3",
+  "aufgabe": "2026/aufg_a2_4.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=8",
   "snippet": "Zufallsgerät mit zwei Walzen (Herz, Sterne, Kleeblätter) – Wahrscheinlichkeiten. (3,5 P)"
  },
@@ -3510,7 +3510,7 @@ const AUFGABEN = [
   "themen": [
    "Quadratische Funktionen"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=3",
+  "aufgabe": "2026/aufg_a2_5.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=9",
   "snippet": "Nach unten geöffnete Normalparabel und Gerade – Schnittpunkte, Parabel ohne Schnittpunkt. (3,5 P)"
  },
@@ -3523,7 +3523,7 @@ const AUFGABEN = [
   "themen": [
    "Stochastik & Daten"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=4",
+  "aufgabe": "2026/aufg_a2_6.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=10",
   "snippet": "Stadtlauf zweier Klassen – Boxplots auswerten, Rangliste vervollständigen. (3,5 P)"
  },
@@ -3536,7 +3536,7 @@ const AUFGABEN = [
   "themen": [
    "Trigonometrie & ebene Geometrie"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=5",
+  "aufgabe": "2026/aufg_b_1a.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=11",
   "snippet": "Rechtwinkliges Trapez mit gleichschenkligem Dreieck EBC – Flächeninhalt des Vierecks AECD. (5 P)"
  },
@@ -3549,7 +3549,7 @@ const AUFGABEN = [
   "themen": [
    "Quadratische Funktionen"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=5",
+  "aufgabe": "2026/aufg_b_1b.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=12",
   "snippet": "Zwei Parabeln mit Schnittpunkt C – Gerade durch Ursprung, Dreieck N1N2C, Flächenhalbierung. (5 P)"
  },
@@ -3562,7 +3562,7 @@ const AUFGABEN = [
   "themen": [
    "Quadratische Funktionen"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=6",
+  "aufgabe": "2026/aufg_b_2a.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=13",
   "snippet": "Verschobene Normalparabeln p1 und p2 – Gerade durch die Scheitel, Trapez DN1BC. (5 P)"
  },
@@ -3576,7 +3576,7 @@ const AUFGABEN = [
    "Körperberechnung",
    "Trigonometrie & ebene Geometrie"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=6",
+  "aufgabe": "2026/aufg_b_2b.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=14",
   "snippet": "Regelmäßige fünfseitige Pyramide – Umfang des Dreiecks ABS berechnen. (5 P)"
  },
@@ -3589,7 +3589,7 @@ const AUFGABEN = [
   "themen": [
    "Stochastik & Daten"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=7",
+  "aufgabe": "2026/aufg_b_3a.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=15",
   "snippet": "Neun Symbolkarten – Behauptung prüfen, Erwartungswert, fairer Gewinn. (5 P)"
  },
@@ -3602,7 +3602,7 @@ const AUFGABEN = [
   "themen": [
    "Quadratische Funktionen"
   ],
-  "aufgabe": "2026/pruefung_2026.pdf#page=7",
+  "aufgabe": "2026/aufg_b_3b.html",
   "loesung": "2026/loesung_2026_schule.pdf#page=16",
   "snippet": "Siebenmeterwurf im Handball – parabelförmige Flugbahn, Torwart und Torhöhe prüfen. (5 P)"
  }
