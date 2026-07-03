@@ -3366,7 +3366,7 @@ const AUFGABEN = [
   "themen": [
    "Stochastik & Daten"
   ],
-  "aufgabe": "2026/loesung_2026_schule.pdf#page=1",
+  "aufgabe": "2026/pruefung_2026_a1.pdf#page=1",
   "loesung": "2026/loesung_2026_schule.pdf#page=1",
   "snippet": "Vier Behälter mit Kugeln – P(weiß) ankreuzen; zwei weiße Kugeln ohne Zurücklegen ziehen. (2 P)"
  },
@@ -3379,7 +3379,7 @@ const AUFGABEN = [
   "themen": [
    "Körperberechnung"
   ],
-  "aufgabe": "2026/loesung_2026_schule.pdf#page=1",
+  "aufgabe": "2026/pruefung_2026_a1.pdf#page=1",
   "loesung": "2026/loesung_2026_schule.pdf#page=1",
   "snippet": "Quader mit herausgearbeiteter quadratischer Pyramide – Formeln für O richtig/falsch ankreuzen. (1,5 P)"
  },
@@ -3392,7 +3392,7 @@ const AUFGABEN = [
   "themen": [
    "Algebra & Gleichungen"
   ],
-  "aufgabe": "2026/loesung_2026_schule.pdf#page=2",
+  "aufgabe": "2026/pruefung_2026_a1.pdf#page=2",
   "loesung": "2026/loesung_2026_schule.pdf#page=2",
   "snippet": "Gleichung in faktorisierter Form lösen. (1 P)"
  },
@@ -3405,7 +3405,7 @@ const AUFGABEN = [
   "themen": [
    "Trigonometrie & ebene Geometrie"
   ],
-  "aufgabe": "2026/loesung_2026_schule.pdf#page=2",
+  "aufgabe": "2026/pruefung_2026_a1.pdf#page=2",
   "loesung": "2026/loesung_2026_schule.pdf#page=2",
   "snippet": "Weitere Winkel mit gleichem Sinuswert eintragen. (1 P)"
  },
@@ -3418,7 +3418,7 @@ const AUFGABEN = [
   "themen": [
    "Sachrechnen & Prozente"
   ],
-  "aufgabe": "2026/loesung_2026_schule.pdf#page=2",
+  "aufgabe": "2026/pruefung_2026_a1.pdf#page=2",
   "loesung": "2026/loesung_2026_schule.pdf#page=2",
   "snippet": "Dauerkarten-Verkaufszahlen – prozentuale Veränderungen berechnen und eintragen. (1,5 P)"
  },
@@ -3431,7 +3431,7 @@ const AUFGABEN = [
   "themen": [
    "Quadratische Funktionen"
   ],
-  "aufgabe": "2026/loesung_2026_schule.pdf#page=3",
+  "aufgabe": "2026/pruefung_2026_a1.pdf#page=3",
   "loesung": "2026/loesung_2026_schule.pdf#page=3",
   "snippet": "Funktionsgleichung einer Parabel ablesen; Gerade und zweite Parabel einzeichnen. (1,5 P)"
  },
@@ -3444,7 +3444,7 @@ const AUFGABEN = [
   "themen": [
    "Muster & Folgen"
   ],
-  "aufgabe": "2026/loesung_2026_schule.pdf#page=3",
+  "aufgabe": "2026/pruefung_2026_a1.pdf#page=3",
   "loesung": "2026/loesung_2026_schule.pdf#page=3",
   "snippet": "Kärtchen-Muster – Anzahl für das 7. Muster begründen und Formel aufstellen. (1,5 P)"
  },
