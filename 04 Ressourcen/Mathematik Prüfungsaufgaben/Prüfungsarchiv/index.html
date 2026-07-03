@@ -311,7 +311,7 @@
   }
 
   function baueDruckHTML(mitLoesung) {
-    var SKALA = 0.681, BREIT = 1054;
+    var DRUCKBREITE = 703; // nutzbare A4-Breite in px (96 dpi, 12 mm Ränder)
     var tasks = auswahl.map(aufgabeVon).filter(Boolean);
     tasks.sort(function (x, y) {
       return x.jahr - y.jahr || (x.sort < y.sort ? -1 : 1);
@@ -319,13 +319,18 @@
     function abs(p) { return new URL(p, location.href).href; }
     function block(a, i, art) {
       var url = art === "l" ? a.loesung : a.aufgabe;
-      var h = (art === "l" ? a.hl : a.ha) || 1400;
-      var hs = Math.ceil(h * SKALA);
-      return '<div class="task' + (hs < 880 ? " zusammen" : "") + '">' +
+      var box = (art === "l" ? a.bl : a.ba) || [900, 1400, 0];
+      var w = box[0], unten = box[1], oben = box[2];
+      var h = unten - oben + 12;
+      var s = Math.min(1, DRUCKBREITE / (w + 6));
+      var hs = Math.ceil(h * s);
+      return '<div class="task' + (hs < 900 ? " zusammen" : "") + '">' +
         '<div class="cap">Aufgabe ' + (i + 1) +
         ' <span>(' + a.jahr + " · " + a.label + ")</span></div>" +
-        '<div class="rahmen" style="height:' + hs + 'px">' +
-        '<iframe src="' + abs(url) + '" style="height:' + h + 'px" scrolling="no"></iframe>' +
+        '<div class="rahmen" style="height:' + hs + "px;width:" + Math.ceil(w * s) + 'px">' +
+        '<iframe src="' + abs(url) + '" scrolling="no" style="width:' + (w + 20) +
+        "px;height:" + (unten + 30) + "px;transform:scale(" + s.toFixed(4) +
+        ");margin-top:-" + Math.round(oben * s) + 'px"></iframe>' +
         "</div></div>";
     }
     var teile = tasks.map(function (a, i) { return block(a, i, "a"); }).join("");
@@ -336,17 +341,17 @@
     }
     return '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">' +
       "<title>Arbeitsblatt" + (mitLoesung ? " mit Lösungen" : "") + "</title><style>" +
-      "body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;padding:24px}" +
+      "body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;padding:16px}" +
       "h1{font-size:17px;margin:0 0 2px}" +
       ".kopfzeile{display:flex;justify-content:space-between;align-items:flex-end;" +
-      "border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:12px}" +
+      "border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:6px}" +
       ".kopfzeile .nd{font-size:13px}" +
-      ".rahmen{overflow:hidden;width:" + Math.ceil(BREIT * SKALA) + "px}" +
-      ".rahmen iframe{width:" + BREIT + "px;border:0;transform:scale(" + SKALA + ");transform-origin:0 0}" +
-      ".task{margin-bottom:10px}.task.zusammen{break-inside:avoid}" +
-      ".cap{font-weight:bold;font-size:14px;margin:12px 0 2px;border-top:1px solid #ccc;padding-top:8px}" +
-      ".cap span{font-weight:normal;color:#555;font-size:12px}" +
-      ".loesungen{break-before:page}.loesungen h1{margin-top:18px}" +
+      ".rahmen{overflow:hidden}" +
+      ".rahmen iframe{border:0;transform-origin:0 0}" +
+      ".task{margin-bottom:2px}.task.zusammen{break-inside:avoid}" +
+      ".cap{font-weight:bold;font-size:13px;margin:8px 0 2px;border-top:1px solid #ccc;padding-top:6px}" +
+      ".cap span{font-weight:normal;color:#555;font-size:11px}" +
+      ".loesungen{break-before:page}.loesungen h1{margin-top:14px}" +
       ".hinweis{position:fixed;top:8px;right:8px;background:#1a5fb4;color:#fff;border:0;" +
       "border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer}" +
       "@media print{.hinweis{display:none}}@page{margin:12mm}" +
