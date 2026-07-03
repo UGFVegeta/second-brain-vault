@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782849207198-4jas7yict",
+  "providerId": "claude",
+  "title": "Respond to parent pickup request for school trip",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782849207198,
+  "updatedAt": 1782881448908,
+  "lastResponseAt": 1782849219647,
+  "sessionId": "434fdef5-1a34-44d7-9c38-7073929674e4",
+  "providerState": {
+    "providerSessionId": "434fdef5-1a34-44d7-9c38-7073929674e4"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 2,
+    "cacheCreationInputTokens": 36508,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 1000000,
+    "contextTokens": 36510,
+    "percentage": 4,
+    "contextWindowIsAuthoritative": true
+  }
+}

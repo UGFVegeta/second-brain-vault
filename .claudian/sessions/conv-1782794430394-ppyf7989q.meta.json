@@ -1,0 +1,24 @@
+{
+  "id": "conv-1782794430394-ppyf7989q",
+  "providerId": "claude",
+  "title": "Add labels to image for B&W printing",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782794430399,
+  "updatedAt": 1782824950241,
+  "lastResponseAt": 1782823250498,
+  "sessionId": "130dcafd-6d78-45b4-9d01-5458ada245e9",
+  "providerState": {
+    "providerSessionId": "130dcafd-6d78-45b4-9d01-5458ada245e9"
+  },
+  "currentNote": "04 Ressourcen/Mathematik Prüfungsaufgaben/Kurzaufgaben Aufgabenpool.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 885,
+    "cacheReadInputTokens": 97849,
+    "contextWindow": 200000,
+    "contextTokens": 98735,
+    "percentage": 49,
+    "contextWindowIsAuthoritative": true
+  }
+}

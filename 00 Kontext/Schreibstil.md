@@ -38,6 +38,7 @@ Du-Form – bei Schülern, Kollegen und Schulleitung gleichermaßen.
 - **Wir-Form** statt "unsere Klasse" o. ä. – konsequent "wir".
 - **Fakten vor Wirkung:** Lieber eine schwächere, aber korrekte Aussage als eine wirkungsvolle, die sachlich nicht stimmt. Bei Unsicherheit über Regelungen nachfragen statt plausibel klingende Hebel erfinden.
 - **"Nur Grammatik und Rechtschreibung" heißt wörtlich:** minimal eingreifen, Wortwahl und Satzbau ansonsten unangetastet lassen.
+- **"extra" statt "separat":** Im informellen Kontext (Kollegen-Chat etc.) bevorzugt Oskar "extra" statt "separat". (Bestätigt 2026-07-01.)
 
 ## Empfänger-spezifischer Ton
 

@@ -182,3 +182,65 @@ Forme in die Scheitelform um und gib den Scheitelpunkt an. *(Hinweis: zuerst den
 > = 2(x − 1)² − 2 + 5
 > = 2(x − 1)² + 3
 > **Scheitel S(1 | 3)**
+
+## Aufgabe 16
+*Schwierigkeit: ★★☆*
+Ordne die Graphen den Gleichungen (1)–(5) zu. Begründe kurz (Öffnung, Streckung, Scheitel bzw. Steigung).
+
+(1) y = −x² + 4  (2) y = ½x − 1  (3) y = x² − 2  (4) y = −x + 1  (5) y = x² − 4x + 3
+![[Quad-Aufgabe-16.svg]]
+> [!tip]- Lösung
+> **g₁ → (4)** y = −x + 1 (fallende Gerade)
+> **p₁ → (3)** y = x² − 2, Scheitel (0|−2)
+> **p₂ → (5)** y = x² − 4x + 3 = (x−2)² − 1, Scheitel (2|−1)
+> **p₃ → (1)** y = −x² + 4, nach unten, Scheitel (0|4)
+> **g₂ → (2)** y = ½x − 1 (steigende Gerade)
+
+## Aufgabe 17
+*Schwierigkeit: ★★★*
+Ordne die Graphen den Gleichungen (1)–(6) zu. Begründe kurz.
+
+(1) y = ½x² − 2  (2) y = −x² + 1  (3) y = 2x + 2  (4) y = x² − 2x + 1  (5) y = x² + 2x − 3  (6) y = −x − 1
+![[Quad-Aufgabe-17.svg]]
+> [!tip]- Lösung
+> **p₁ → (5)** y = x² + 2x − 3 = (x+1)² − 4, Scheitel (−1|−4)
+> **g₁ → (3)** y = 2x + 2 (steigende Gerade)
+> **p₂ → (2)** y = −x² + 1, nach unten, Scheitel (0|1)
+> **p₃ → (1)** y = ½x² − 2, breit, Scheitel (0|−2)
+> **p₄ → (4)** y = x² − 2x + 1 = (x−1)², Scheitel (1|0)
+> **g₂ → (6)** y = −x − 1 (fallende Gerade)
+
+## Aufgabe 18
+*Schwierigkeit: ★★☆*
+Lies die Schnittpunkte von Gerade g und Parabel p ab. Bestimme außerdem die Nullstellen der Parabel.
+![[Quad-Aufgabe-18.svg]]
+> [!tip]- Lösung
+> Schnittpunkte: **(0 | −3)** und **(3 | 0)**
+> Nullstellen von p: **x = −1** und **x = 3**
+>
+> *p: y = x² − 2x − 3,  g: y = x − 3.*
+> Schnitt: x² − 2x − 3 = x − 3 → x² − 3x = 0 → x(x − 3) = 0 → x = 0; x = 3.
+> Nullstellen: x² − 2x − 3 = (x − 3)(x + 1) = 0.
+
+## Aufgabe 19
+*Schwierigkeit: ★★☆*
+Lies die Schnittpunkte von Gerade g und Parabel p ab. Bestimme außerdem die Nullstellen der Parabel.
+![[Quad-Aufgabe-19.svg]]
+> [!tip]- Lösung
+> Schnittpunkte: **(−1 | 0)** und **(2 | 3)**
+> Nullstellen von p: **x = −1** und **x = 3**
+>
+> *p: y = −x² + 2x + 3,  g: y = x + 1.*
+> Schnitt: −x² + 2x + 3 = x + 1 → x² − x − 2 = 0 → (x − 2)(x + 1) = 0 → x = −1; x = 2.
+> Nullstellen: −x² + 2x + 3 = 0 → x² − 2x − 3 = (x − 3)(x + 1) = 0.
+
+## Aufgabe 20
+*Schwierigkeit: ★★★*
+Lies die Schnittpunkte der beiden Parabeln p₁ und p₂ ab. Gib auch die Nullstellen an.
+![[Quad-Aufgabe-20.svg]]
+> [!tip]- Lösung
+> Schnittpunkte: **(0 | 0)** und **(2 | 4)**
+> Nullstellen p₁: **x = 0**;  p₂: **x = 0** und **x = 4**
+>
+> *p₁: y = x²,  p₂: y = −x² + 4x.*
+> Schnitt: x² = −x² + 4x → 2x² − 4x = 0 → 2x(x − 2) = 0 → x = 0; x = 2.

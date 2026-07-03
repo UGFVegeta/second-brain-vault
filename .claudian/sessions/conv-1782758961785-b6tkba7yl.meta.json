@@ -1,0 +1,24 @@
+{
+  "id": "conv-1782758961785-b6tkba7yl",
+  "providerId": "claude",
+  "title": "Verify skill-creator is installed",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782758961787,
+  "updatedAt": 1782759734286,
+  "lastResponseAt": 1782759057937,
+  "sessionId": "6a56c64c-f1f7-4cfe-b21f-b5b6007f00a2",
+  "providerState": {
+    "providerSessionId": "6a56c64c-f1f7-4cfe-b21f-b5b6007f00a2"
+  },
+  "currentNote": "04 Ressourcen/Mathematik Prüfungsaufgaben/Quadratische Funktionen Aufgabenpool.md",
+  "usage": {
+    "model": "opus",
+    "inputTokens": 2,
+    "cacheCreationInputTokens": 682,
+    "cacheReadInputTokens": 45454,
+    "contextWindow": 1000000,
+    "contextTokens": 46138,
+    "percentage": 5,
+    "contextWindowIsAuthoritative": true
+  }
+}

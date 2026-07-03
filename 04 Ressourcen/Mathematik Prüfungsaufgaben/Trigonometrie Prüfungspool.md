@@ -157,3 +157,67 @@ Die Skizze enthält bewusst **keine Beschreibung** – die Schüler sollen das D
 > AB = BC·tan(∠ACB) = 5·tan 64,4° ≈ 10,43 cm
 > Fläche ABC = ½·10,43·5 ≈ 26,1 cm²; Fläche DBC = ½·4,90·5 ≈ 12,25 cm²
 > **Fläche ADC = 26,1 − 12,25 ≈ 13,8 cm²**
+
+## Aufgabe 15
+*Schwierigkeit: ★☆☆*
+![[Trig-Aufgabe-15.png]]
+> [!tip]- Lösung
+> *Gegeben:* Gleichseitiges Dreieck (alle Seiten gleich, alle Winkel 60°), Seite a = 8 cm.
+>
+> Höhe h = a·sin 60° = 8·(√3/2) ≈ **6,93 cm**
+> Fläche = ½·a·h = ½·8·6,93 ≈ **27,7 cm²** (alternativ a²·√3/4)
+
+## Aufgabe 16
+*Schwierigkeit: ★★☆*
+![[Trig-Aufgabe-16.png]]
+> [!tip]- Lösung
+> *Gegeben:* Gleichseitiges Dreieck, Höhe h = 10 cm. Gesucht: Seite a und Fläche.
+>
+> h = a·sin 60° → a = h / sin 60° = 10 / (√3/2) ≈ **11,55 cm**
+> Fläche = ½·a·h = ½·11,55·10 ≈ **57,7 cm²**
+
+## Aufgabe 17
+*Schwierigkeit: ★★☆*
+![[Trig-Aufgabe-17.png]]
+> [!tip]- Lösung
+> *Gegeben:* Gleichschenkliges Trapez, Grundseiten AB = 12 cm und DC = 6 cm, Basiswinkel 65°.
+>
+> Überstand je Seite = (12 − 6)/2 = 3 cm
+> Höhe h = 3·tan 65° ≈ **6,43 cm**
+> Schenkel = 3 / cos 65° ≈ **7,10 cm**
+> Fläche = ½·(12 + 6)·h = ½·18·6,43 ≈ **57,9 cm²**
+
+## Aufgabe 18
+*Schwierigkeit: ★★★*
+![[Trig-Aufgabe-18.png]]
+> [!tip]- Lösung
+> *Gegeben:* Rechtwinkliges Trapez (rechte Winkel bei A und D), Grundseiten AB = 11 cm und DC = 6 cm, Winkel 55° bei B.
+>
+> Horizontaler Überstand = 11 − 6 = 5 cm
+> Höhe h = 5·tan 55° ≈ **7,14 cm**
+> (Schenkel BC = 5 / cos 55° ≈ 8,72 cm)
+> Fläche = ½·(11 + 6)·h = ½·17·7,14 ≈ **60,7 cm²**
+
+## Aufgabe 19
+*Schwierigkeit: ★★★*
+![[Trig-Aufgabe-19.png]]
+> [!tip]- Lösung
+> *Gegeben:* AB = 14 cm, α = 35° bei A; G auf AC mit AG = GB, rechter Winkel bei C. Gesucht: β₂, Fläche BGC.
+>
+> Dreieck ABG ist gleichschenklig (AG = GB) → ∠ABG = α = 35°, also ∠AGB = 110° und ∠BGC = 70°
+> In Dreieck BGC: **β₂ = 180° − 90° − 70° = 20°**
+> AG = GB = AB / (2·cos 35°) = 14 / (2·cos 35°) ≈ 8,55 cm
+> GC = GB·cos 70° ≈ 2,92 cm; BC = GB·sin 70° ≈ 8,03 cm
+> **Fläche BGC = ½·GC·BC ≈ 11,7 cm²**
+
+## Aufgabe 20
+*Schwierigkeit: ★★★*
+![[Trig-Aufgabe-20.png]]
+> [!tip]- Lösung
+> *Gegeben:* AB = 16 cm, α = 20° bei A; G auf AC mit AG = GB, rechter Winkel bei C. Gesucht: β₂, Fläche BGC.
+>
+> Dreieck ABG ist gleichschenklig (AG = GB) → ∠ABG = α = 20°, also ∠AGB = 140° und ∠BGC = 40°
+> In Dreieck BGC: **β₂ = 180° − 90° − 40° = 50°**
+> AG = GB = AB / (2·cos 20°) = 16 / (2·cos 20°) ≈ 8,51 cm
+> GC = GB·cos 40° ≈ 6,52 cm; BC = GB·sin 40° ≈ 5,47 cm
+> **Fläche BGC = ½·GC·BC ≈ 17,8 cm²**

@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782824997611-38f8u6f9d",
+  "providerId": "claude",
+  "title": "schreibe eine Absage für meine Turngruppe am Donne...",
+  "titleGenerationStatus": "failed",
+  "createdAt": 1782824997612,
+  "updatedAt": 1782881496256,
+  "lastResponseAt": 1782881489760,
+  "sessionId": "60811e53-4697-4744-9f54-fb74377f08b7",
+  "providerState": {
+    "providerSessionId": "60811e53-4697-4744-9f54-fb74377f08b7"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 459,
+    "cacheReadInputTokens": 133695,
+    "contextWindow": 200000,
+    "contextTokens": 134155,
+    "percentage": 67,
+    "contextWindowIsAuthoritative": true
+  }
+}

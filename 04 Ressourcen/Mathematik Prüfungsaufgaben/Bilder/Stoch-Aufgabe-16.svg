@@ -1,0 +1,12 @@
+<svg viewBox="0 0 210 200" width="300" height="286" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<path d="M105,98 L105.0,16.0 A82,82 0 0 1 187.0,98.0 Z" fill="#d0392b" stroke="#6b6b6b" stroke-width="1.6"/>
+<text x="139.8" y="67.2" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">rot</text>
+<path d="M105,98 L187.0,98.0 A82,82 0 0 1 105.0,180.0 Z" fill="#5b8fd0" stroke="#6b6b6b" stroke-width="1.6"/>
+<text x="139.8" y="136.8" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">blau</text>
+<path d="M105,98 L105.0,180.0 A82,82 0 0 1 23.0,98.0 Z" fill="#5cab6e" stroke="#6b6b6b" stroke-width="1.6"/>
+<text x="70.2" y="136.8" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">grün</text>
+<path d="M105,98 L23.0,98.0 A82,82 0 0 1 105.0,16.0 Z" fill="#f1cf52" stroke="#6b6b6b" stroke-width="1.6"/>
+<text x="70.2" y="67.2" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">gelb</text>
+<circle cx="105" cy="98" r="6" fill="#fff" stroke="#6b6b6b" stroke-width="1.6"/>
+<path d="M105,8 l-7,16 l14,0 Z" fill="#1a1a1a"/>
+</svg>

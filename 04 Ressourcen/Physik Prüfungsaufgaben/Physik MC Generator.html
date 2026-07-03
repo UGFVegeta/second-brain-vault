@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Physik MC-Generator · Klasse 7–10 Realschule BW</title>
+<style>
+  :root {
+    --blau: #1a5276;
+    --blau-hell: #eaf2f8;
+    --grau: #666;
+    --rand: #d5d8dc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #e8eaed;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ---------- Seitenleiste (nur Bildschirm) ---------- */
+  aside {
+    width: 320px;
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid var(--rand);
+    padding: 18px 20px 40px;
+    overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+  aside h1 { font-size: 17px; margin: 0 0 2px; color: var(--blau); }
+  aside .sub { font-size: 12px; color: var(--grau); margin-bottom: 16px; }
+  fieldset {
+    border: 1px solid var(--rand);
+    border-radius: 8px;
+    margin: 0 0 14px;
+    padding: 10px 12px 12px;
+  }
+  legend { font-size: 12px; font-weight: 600; color: var(--blau); padding: 0 4px; }
+  label { display: block; font-size: 13px; margin: 6px 0; cursor: pointer; }
+  select, input[type=number] {
+    width: 100%;
+    padding: 5px 8px;
+    font-size: 13px;
+    border: 1px solid var(--rand);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .row { display: flex; gap: 8px; align-items: center; }
+  .row label { flex: 1; margin: 0; }
+  .row select, .row input { flex: 1; }
+  .themen label { margin: 3px 0; }
+  .check label { display: flex; align-items: center; gap: 7px; }
+  button {
+    font-size: 13px;
+    padding: 8px 12px;
+    border: 1px solid var(--rand);
+    border-radius: 7px;
+    background: #f8f9fa;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 6px;
+  }
+  button:hover { background: #eef1f4; }
+  button.primary { background: var(--blau); color: #fff; border-color: var(--blau); font-weight: 600; }
+  button.primary:hover { background: #154360; }
+  #poolInfo { font-size: 12px; color: var(--grau); margin-top: 10px; line-height: 1.5; }
+  #poolInfo b { color: var(--blau); }
+  .warn { color: #b03a2e !important; }
+
+  /* ---------- Vorschau ---------- */
+  main { flex: 1; padding: 30px 20px 80px; display: flex; justify-content: center; }
+  .sheet {
+    background: #fff;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 16mm 17mm;
+    box-shadow: 0 2px 14px rgba(0,0,0,.18);
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #111;
+  }
+
+  /* ---------- Arbeitsblatt-Layout ---------- */
+  .kopf { border-bottom: 2.5px solid #111; padding-bottom: 3mm; margin-bottom: 3mm; }
+  .kopf .fach { font-size: 9pt; letter-spacing: .12em; text-transform: uppercase; color: #444; }
+  .kopf h2[contenteditable] {
+    font-size: 16pt; margin: 1mm 0 2mm; outline: none;
+  }
+  .kopf h2[contenteditable]:empty:before { content: "Titel eingeben …"; color: #aaa; }
+  .metazeile {
+    display: flex; justify-content: space-between; gap: 6mm;
+    font-size: 10pt; margin-top: 2mm;
+  }
+  .metazeile span { flex: 1; border-bottom: 1px solid #999; padding-bottom: 1px; white-space: nowrap; }
+  .hinweis {
+    font-size: 9.5pt; font-style: italic; color: #333;
+    margin: 0 0 4mm; padding: 1.5mm 3mm;
+    background: var(--blau-hell); border-left: 3px solid var(--blau);
+  }
+  .fragen.two { column-count: 2; column-gap: 9mm; }
+  .frage {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 4.5mm;
+    position: relative;
+  }
+  .frage .fq {
+    font-weight: 600; margin-bottom: 1.5mm;
+    display: flex; gap: 2mm;
+  }
+  .frage .fq .nr { flex-shrink: 0; }
+  .frage .fq .pkt { font-weight: 400; color: #444; font-size: 9pt; white-space: nowrap; margin-left: auto; padding-left: 3mm; }
+  .antwort { display: flex; align-items: baseline; gap: 2.2mm; margin: 0.8mm 0 0.8mm 5mm; }
+  .box {
+    flex-shrink: 0;
+    width: 3.6mm; height: 3.6mm;
+    border: 1.4px solid #111; border-radius: 0.6mm;
+    display: inline-block;
+    transform: translateY(0.5mm);
+  }
+  .antwort .buchst { font-weight: 600; min-width: 5mm; }
+  .frage .tools {
+    position: absolute; right: -2mm; top: -1mm;
+    display: none; gap: 4px;
+  }
+  .frage:hover .tools { display: flex; }
+  .tools button { width: auto; margin: 0; padding: 2px 7px; font-size: 12px; border-radius: 5px; }
+
+  /* ---------- Lösungsblatt ---------- */
+  .loesungen { margin-top: 10mm; border-top: 1px dashed #999; padding-top: 5mm; }
+  .loesungen h3 { font-size: 13pt; margin: 0 0 3mm; }
+  .loes-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5mm 6mm;
+    font-size: 10.5pt;
+  }
+  .loes-grid div b { display: inline-block; min-width: 7mm; }
+
+  /* ---------- Fragen-Auswahl ---------- */
+  #pickBg {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: none; align-items: center; justify-content: center; z-index: 50;
+  }
+  #pickBg.open { display: flex; }
+  #pick {
+    background: #fff; border-radius: 12px; width: 760px; max-width: 94vw;
+    max-height: 88vh; display: flex; flex-direction: column; padding: 22px 26px;
+  }
+  #pick h3 { margin: 0 0 4px; color: var(--blau); }
+  #pick .pickinfo { font-size: 12.5px; color: var(--grau); margin: 0 0 8px; }
+  #pickList {
+    overflow-y: auto; flex: 1; border: 1px solid var(--rand);
+    border-radius: 8px; padding: 6px 10px;
+  }
+  .pick-thema {
+    font-weight: 700; color: var(--blau); font-size: 13px;
+    margin: 10px 0 4px; border-bottom: 1px solid var(--rand); padding-bottom: 2px;
+  }
+  .pick-row {
+    display: flex; gap: 9px; align-items: flex-start;
+    font-size: 13px; padding: 5px 4px; border-radius: 6px; margin: 0;
+  }
+  .pick-row:hover { background: var(--blau-hell); }
+  .pick-row input { margin-top: 3px; }
+  .pick-row .pq { font-weight: 600; }
+  .pick-row .pa { color: #1e8449; font-size: 12px; }
+  .pick-row.off { opacity: .55; }
+  .pick-row .pwarn { color: #b03a2e; font-size: 12px; }
+
+  /* ---------- Modal ---------- */
+  #modalBg {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: none; align-items: center; justify-content: center; z-index: 50;
+  }
+  #modalBg.open { display: flex; }
+  #modal {
+    background: #fff; border-radius: 12px; width: 620px; max-width: 92vw;
+    max-height: 86vh; overflow-y: auto; padding: 22px 26px;
+  }
+  #modal h3 { margin: 0 0 6px; color: var(--blau); }
+  #modal p, #modal li { font-size: 13px; color: #333; }
+  #modal textarea {
+    width: 100%; height: 180px; font-family: ui-monospace, Menlo, monospace;
+    font-size: 12px; border: 1px solid var(--rand); border-radius: 8px; padding: 10px;
+  }
+  #modal pre {
+    background: #f4f6f7; border-radius: 8px; padding: 10px;
+    font-size: 11px; overflow-x: auto;
+  }
+  #modal .btnrow { display: flex; gap: 10px; }
+  #modal .btnrow button { margin-top: 12px; }
+  #importMsg { font-size: 12.5px; margin-top: 8px; }
+
+  /* ---------- Druck ---------- */
+  @page { size: A4; margin: 14mm 15mm; }
+  @media print {
+    body { background: #fff; display: block; }
+    aside, .tools, #modalBg, #pickBg { display: none !important; }
+    main { padding: 0; }
+    .sheet {
+      width: auto; min-height: 0; padding: 0;
+      box-shadow: none;
+    }
+    .loesungen { page-break-before: always; margin-top: 0; border-top: none; padding-top: 0; }
+    body.ohne-loesung .loesungen { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<aside>
+  <h1>Physik MC-Generator</h1>
+  <div class="sub">Klasse 7–10 · Realschule Baden-Württemberg</div>
+
+  <fieldset>
+    <legend>Klasse &amp; Themen</legend>
+    <div class="row">
+      <label for="klasse">Klasse</label>
+      <select id="klasse">
+        <option value="7">Klasse 7</option>
+        <option value="8">Klasse 8</option>
+        <option value="9">Klasse 9</option>
+        <option value="10">Klasse 10</option>
+      </select>
+    </div>
+    <div class="themen check" id="themen"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Aufgaben</legend>
+    <div class="row">
+      <label for="anzahl">Anzahl Aufgaben</label>
+      <input type="number" id="anzahl" min="1" max="40" value="10">
+    </div>
+    <div class="row">
+      <label for="nOpts">Antwortmöglichkeiten</label>
+      <select id="nOpts">
+        <option value="3">3</option>
+        <option value="4" selected>4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="kMode">Davon richtig</label>
+      <select id="kMode">
+        <option value="1" selected>genau 1</option>
+        <option value="2">genau 2</option>
+        <option value="3">genau 3</option>
+        <option value="mix">gemischt (1–3)</option>
+      </select>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Darstellung</legend>
+    <div class="check">
+      <label><input type="checkbox" id="twoCol"> Zweispaltig (mehr Aufgaben pro Seite)</label>
+      <label><input type="checkbox" id="showPkt" checked> Punkte anzeigen</label>
+      <label><input type="checkbox" id="showAnz" checked> Anzahl richtiger Antworten anzeigen</label>
+      <label><input type="checkbox" id="printLoes" checked> Lösungsblatt mitdrucken (eigene Seite)</label>
+      <label><input type="checkbox" id="noHead"> Nur Aufgaben – ohne Kopf &amp; Hinweis (zum Einfügen in eine Klassenarbeit)</label>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label for="startNr">Erste Aufgabennummer</label>
+      <input type="number" id="startNr" min="1" max="99" value="1">
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label for="pktMode">Punkte pro Frage</label>
+      <select id="pktMode">
+        <option value="1" selected>immer 1 Punkt</option>
+        <option value="k">= Anzahl richtiger</option>
+      </select>
+    </div>
+  </fieldset>
+
+  <button class="primary" id="btnGen">🎲 Neu generieren (zufällig)</button>
+  <button id="btnPick">☑️ Fragen selbst auswählen…</button>
+  <button id="btnPrint">🖨️ Drucken / als PDF speichern</button>
+  <button id="btnCustom">📥 Eigene Fragen (z.&nbsp;B. zu Videos)…</button>
+
+  <div id="poolInfo"></div>
+</aside>
+
+<main>
+  <div class="sheet" id="sheet"></div>
+</main>
+
+<div id="modalBg">
+  <div id="modal">
+    <h3>Eigene Fragen importieren</h3>
+    <p>Hier kannst du zusätzliche Fragen einfügen – z.&nbsp;B. von Claude erstellte Fragen zu einem YouTube-Video oder Unterrichtsfilm. Die Fragen werden dauerhaft im Browser gespeichert und erscheinen als eigenes Thema (★) in der Themenliste.</p>
+    <p>Format (JSON-Liste, <code>richtig</code>/<code>falsch</code> sind Antwort-Listen – gern mehr Falschantworten angeben, dann kann die App variieren):</p>
+    <pre>[
+  {
+    "klasse": 8,
+    "thema": "Film: Die Sendung mit der Maus – Strom",
+    "frage": "Was wird im Film als Stromquelle gezeigt?",
+    "richtig": ["Eine Batterie"],
+    "falsch": ["Ein Magnet", "Eine Glühlampe", "Ein Schalter", "Ein Dynamo"]
+  }
+]</pre>
+    <textarea id="importText" placeholder="JSON hier einfügen …"></textarea>
+    <div id="importMsg"></div>
+    <div class="btnrow">
+      <button class="primary" id="btnImport">Importieren</button>
+      <button id="btnExport">Eigene Fragen exportieren</button>
+      <button id="btnClearCustom">Alle eigenen Fragen löschen</button>
+      <button id="btnCloseModal">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<div id="pickBg">
+  <div id="pick">
+    <h3>Fragen selbst auswählen</h3>
+    <p class="pickinfo" id="pickInfo"></p>
+    <div id="pickList"></div>
+    <div class="btnrow">
+      <button class="primary" id="btnApplyPick">Aufs Blatt übernehmen (<span id="pickCount">0</span>)</button>
+      <button id="btnPickNone">Alle abwählen</button>
+      <button id="btnClosePick">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   FRAGENPOOL · Physik Realschule BW · Klasse 7–10
+   Struktur: k = Klasse, t = Thema, q = Frage,
+             r = richtige Antworten, f = falsche Antworten
+   Der Generator zieht je nach Einstellung eine Teilmenge
+   der Antworten – je mehr Einträge, desto mehr Variation.
+   ============================================================ */
+const POOL = [
+
+/* ---------- Klasse 7 · Optik ---------- */
+{k:7,t:"Optik",q:"Wie breitet sich Licht in Luft aus?",r:["Geradlinig in alle Richtungen"],f:["In Wellenlinien um Hindernisse herum","Immer nur in eine einzige Richtung","Im Zickzack","Kreisförmig um die Lichtquelle herum","Nur nach oben"]},
+{k:7,t:"Optik",q:"Wie groß ist die Lichtgeschwindigkeit ungefähr?",r:["300 000 km/s"],f:["340 m/s","300 km/s","300 000 km/h","1 000 km/s","30 000 km/s"]},
+{k:7,t:"Optik",q:"Welche Körper sind Selbstleuchter (echte Lichtquellen)?",r:["Die Sonne","Eine brennende Kerze","Ein Glühwürmchen"],f:["Der Mond","Ein Spiegel","Ein Katzenauge (Reflektor)","Ein weißes Blatt Papier"]},
+{k:7,t:"Optik",q:"Welche Aussagen zum Reflexionsgesetz sind richtig?",r:["Einfallswinkel und Reflexionswinkel sind gleich groß","Einfallender Strahl, Lot und reflektierter Strahl liegen in einer Ebene"],f:["Der Einfallswinkel ist immer größer als der Reflexionswinkel","Der reflektierte Strahl steht immer senkrecht auf der Oberfläche","An glatten Flächen wird Licht in alle Richtungen gestreut"]},
+{k:7,t:"Optik",q:"Ein Lichtstrahl trifft schräg auf eine Wasseroberfläche. Was passiert beim Übergang von Luft in Wasser?",r:["Er wird zum Lot hin gebrochen"],f:["Er wird vom Lot weg gebrochen","Er läuft ungebrochen geradlinig weiter","Er wird vollständig zurückgeworfen","Er wird im Wasser schneller"]},
+{k:7,t:"Optik",q:"Warum entstehen Schatten?",r:["Weil sich Licht geradlinig ausbreitet und lichtundurchlässige Körper es aufhalten"],f:["Weil Licht um Gegenstände herumfließt","Weil dunkle Gegenstände Dunkelheit aussenden","Weil Licht an Gegenständen immer reflektiert wird","Weil die Luft hinter Gegenständen kälter ist"]},
+{k:7,t:"Optik",q:"Welche Aussagen über Sammellinsen sind richtig?",r:["Sie bündeln parallel einfallendes Licht in einem Brennpunkt","Sie sind in der Mitte dicker als am Rand","Sie werden z. B. in Lupen verwendet"],f:["Sie zerstreuen parallel einfallendes Licht","Sie sind am Rand dicker als in der Mitte","Licht wird von ihnen vollständig verschluckt"]},
+{k:7,t:"Optik",q:"Wann entsteht eine Mondfinsternis?",r:["Wenn der Mond durch den Schatten der Erde wandert"],f:["Wenn der Mond zwischen Sonne und Erde steht","Wenn Wolken den Mond verdecken","Wenn sich die Sonne hinter dem Mond befindet","Immer bei Neumond"]},
+{k:7,t:"Optik",q:"Warum können wir einen Baum sehen, obwohl er nicht selbst leuchtet?",r:["Weil er auftreffendes Licht in unsere Augen streut (reflektiert)"],f:["Weil unsere Augen Sehstrahlen zum Baum senden","Weil jeder Baum ein schwacher Selbstleuchter ist","Weil die Luft um den Baum leuchtet","Weil der Baum Licht verschluckt"]},
+{k:7,t:"Optik",q:"Ein Gegenstand steht vor einem ebenen Spiegel. Welche Aussagen über das Spiegelbild sind richtig?",r:["Es ist genauso groß wie der Gegenstand","Es erscheint genauso weit hinter dem Spiegel, wie der Gegenstand davor steht"],f:["Es ist immer kleiner als der Gegenstand","Es kann auf einem Schirm aufgefangen werden","Es steht auf dem Kopf"]},
+
+/* ---------- Klasse 7 · Akustik ---------- */
+{k:7,t:"Akustik",q:"Wie entsteht Schall?",r:["Durch schwingende Körper"],f:["Durch Licht, das auf Gegenstände trifft","Durch Wärme in der Luft","Nur durch elektrische Geräte","Durch Luftdruck allein, ohne Bewegung"]},
+{k:7,t:"Akustik",q:"Kann sich Schall im Vakuum (luftleerer Raum) ausbreiten?",r:["Nein, Schall braucht einen Stoff wie Luft, Wasser oder Metall"],f:["Ja, genauso schnell wie in Luft","Ja, aber deutlich langsamer","Nur sehr laute Geräusche","Nur sehr hohe Töne"]},
+{k:7,t:"Akustik",q:"Wie groß ist die Schallgeschwindigkeit in Luft ungefähr?",r:["340 m/s"],f:["300 000 km/s","34 m/s","3 400 m/s","150 m/s","1 000 km/s"]},
+{k:7,t:"Akustik",q:"Wovon hängt die Tonhöhe ab?",r:["Von der Frequenz der Schwingung – je größer die Frequenz, desto höher der Ton"],f:["Von der Amplitude der Schwingung","Von der Lautstärke","Von der Größe des Lautsprechers","Von der Temperatur des schwingenden Körpers"]},
+{k:7,t:"Akustik",q:"Wovon hängt die Lautstärke eines Tons ab?",r:["Von der Amplitude der Schwingung – je größer, desto lauter"],f:["Von der Frequenz der Schwingung","Von der Tonhöhe","Von der Schallgeschwindigkeit","Von der Länge des Tons"]},
+{k:7,t:"Akustik",q:"In welcher Einheit wird die Frequenz gemessen?",r:["Hertz (Hz)"],f:["Dezibel (dB)","Newton (N)","Watt (W)","Meter pro Sekunde (m/s)","Joule (J)"]},
+{k:7,t:"Akustik",q:"Welchen Frequenzbereich kann ein junger Mensch ungefähr hören?",r:["20 Hz bis 20 000 Hz"],f:["1 Hz bis 100 Hz","200 Hz bis 2 000 Hz","20 000 Hz bis 100 000 Hz","0 Hz bis 1 000 000 Hz"]},
+{k:7,t:"Akustik",q:"Du siehst einen Blitz und hörst den Donner 3 Sekunden später. Wie weit ist das Gewitter ungefähr entfernt?",r:["Etwa 1 km"],f:["Etwa 3 km","Etwa 100 m","Etwa 10 km","Etwa 340 km"]},
+{k:7,t:"Akustik",q:"Welche Aussagen über Schall sind richtig?",r:["Schall breitet sich in Wasser schneller aus als in Luft","Schall braucht zur Ausbreitung einen Stoff","Ultraschall ist für Menschen nicht hörbar"],f:["Schall ist schneller als Licht","Im Weltall hört man Explosionen sehr laut","Hohe Töne haben eine kleine Frequenz"]},
+
+/* ---------- Klasse 7 · Magnetismus ---------- */
+{k:7,t:"Magnetismus",q:"Was geschieht, wenn man zwei Nordpole einander annähert?",r:["Sie stoßen sich ab"],f:["Sie ziehen sich an","Nichts, Pole wirken nur auf Eisen","Sie heben ihre Wirkung dauerhaft auf","Einer der Pole wird zum Südpol"]},
+{k:7,t:"Magnetismus",q:"Welche Stoffe werden von einem Magneten angezogen?",r:["Eisen","Nickel","Cobalt"],f:["Aluminium","Kupfer","Holz","Glas"]},
+{k:7,t:"Magnetismus",q:"Ein Stabmagnet wird in der Mitte durchgesägt. Was entsteht?",r:["Zwei neue Magnete mit jeweils einem Nord- und einem Südpol"],f:["Ein reiner Nordpol und ein reiner Südpol","Zwei unmagnetische Eisenstücke","Ein Magnet und ein unmagnetisches Stück","Die magnetische Wirkung verschwindet vollständig"]},
+{k:7,t:"Magnetismus",q:"Warum zeigt eine Kompassnadel nach Norden?",r:["Weil sie sich am Magnetfeld der Erde ausrichtet"],f:["Weil sie vom Polarstern angezogen wird","Weil der Wind sie dreht","Weil Norden immer kälter ist","Weil sie elektrisch geladen ist"]},
+{k:7,t:"Magnetismus",q:"Wie kann man das Magnetfeld eines Magneten sichtbar machen?",r:["Mit Eisenfeilspänen auf einer Platte über dem Magneten","Mit vielen kleinen Kompassnadeln"],f:["Mit einem Spiegel","Mit Sägespänen aus Holz","Mit einem Thermometer","Mit Kupferpulver"]},
+{k:7,t:"Magnetismus",q:"Wie erklärt das Modell der Elementarmagnete, dass ein Eisennagel magnetisiert werden kann?",r:["Die Elementarmagnete im Eisen werden gleich ausgerichtet"],f:["Im Nagel entstehen neue Magnetatome","Der Nagel wird elektrisch aufgeladen","Die Elementarmagnete werden aus dem Magneten in den Nagel übertragen","Der Nagel wird durch Reibung erwärmt"]},
+{k:7,t:"Magnetismus",q:"Welche Aussagen über Magnete sind richtig?",r:["Ungleiche Pole ziehen sich an","Die magnetische Wirkung ist an den Polen am stärksten","Magnetkraft wirkt auch ohne Berührung"],f:["Ein Magnet zieht alle Metalle an","Gleiche Pole ziehen sich an","Magnetkraft wirkt nur bei direkter Berührung"]},
+
+/* ---------- Klasse 8 · Elektrischer Strom ---------- */
+{k:8,t:"Elektrischer Strom",q:"Wann fließt in einem Stromkreis elektrischer Strom?",r:["Wenn der Stromkreis geschlossen ist und eine elektrische Quelle vorhanden ist"],f:["Sobald eine Batterie irgendwo im Raum liegt","Nur wenn der Stromkreis geöffnet ist","Immer, wenn ein Kabel vorhanden ist","Nur wenn der Stromkreis aus Kunststoff besteht"]},
+{k:8,t:"Elektrischer Strom",q:"Welche Materialien leiten elektrischen Strom gut?",r:["Kupfer","Silber","Eisen"],f:["Gummi","Porzellan","Trockenes Holz","Kunststoff"]},
+{k:8,t:"Elektrischer Strom",q:"In welcher Einheit wird die elektrische Stromstärke gemessen?",r:["Ampere (A)"],f:["Volt (V)","Ohm (Ω)","Watt (W)","Joule (J)","Hertz (Hz)"]},
+{k:8,t:"Elektrischer Strom",q:"Welche Zuordnungen von Größe und Einheit sind richtig?",r:["Spannung – Volt (V)","Stromstärke – Ampere (A)"],f:["Spannung – Ampere (A)","Stromstärke – Ohm (Ω)","Widerstand – Watt (W)"]},
+{k:8,t:"Elektrischer Strom",q:"Welche Wirkungen kann elektrischer Strom haben?",r:["Wärmewirkung","Magnetische Wirkung","Chemische Wirkung"],f:["Strom macht Leiter leichter","Strom kühlt Drähte grundsätzlich ab","Strom hält Metalle trocken"]},
+{k:8,t:"Elektrischer Strom",q:"Zwei Lampen sind in Reihe geschaltet. Eine Lampe brennt durch. Was passiert?",r:["Beide Lampen leuchten nicht mehr"],f:["Die andere Lampe leuchtet normal weiter","Die andere Lampe leuchtet doppelt so hell","Die Batterie wird sofort leer","Die durchgebrannte Lampe repariert sich selbst"]},
+{k:8,t:"Elektrischer Strom",q:"Welche Aussagen über die Parallelschaltung von zwei Lampen sind richtig?",r:["An beiden Lampen liegt die gleiche Spannung","Fällt eine Lampe aus, leuchtet die andere weiter"],f:["Durch beide Lampen fließt immer exakt derselbe Strom wie durch die Quelle","Beide Lampen gehen aus, wenn eine durchbrennt","Die Lampen leuchten nur halb so hell wie in Reihenschaltung"]},
+{k:8,t:"Elektrischer Strom",q:"Warum ist Strom aus der Steckdose lebensgefährlich?",r:["Die Spannung von 230 V kann gefährlich hohe Ströme durch den Körper treiben"],f:["Weil die Steckdose sehr heiß ist","Weil aus der Steckdose Funken sprühen","Weil die Spannung nur 1,5 V beträgt","Strom aus der Steckdose ist ungefährlich"]},
+{k:8,t:"Elektrischer Strom",q:"Welche Aufgabe hat eine Sicherung im Haushalt?",r:["Sie unterbricht den Stromkreis, wenn die Stromstärke zu groß wird"],f:["Sie erhöht die Spannung bei Bedarf","Sie speichert Strom für den Notfall","Sie macht den Strom ungefährlich für Kinder","Sie verhindert, dass Strom verbraucht wird"]},
+
+/* ---------- Klasse 8 · Energie ---------- */
+{k:8,t:"Energie",q:"Welche der folgenden Begriffe bezeichnen Energieformen?",r:["Bewegungsenergie (kinetische Energie)","Lageenergie (potenzielle Energie)","Chemische Energie"],f:["Schwerkraft","Leistung","Spannung","Temperatur"]},
+{k:8,t:"Energie",q:"Was besagt der Energieerhaltungssatz?",r:["Energie kann weder erzeugt noch vernichtet, sondern nur umgewandelt werden"],f:["Energie geht bei jeder Umwandlung verloren","Energie kann in Kraftwerken aus dem Nichts erzeugt werden","Energie verschwindet, wenn ein Gerät ausgeschaltet wird","Energie kann nur in Wärme umgewandelt werden"]},
+{k:8,t:"Energie",q:"In welcher Einheit wird Energie gemessen?",r:["Joule (J)"],f:["Newton (N)","Watt (W)","Volt (V)","Kelvin (K)","Ampere (A)"]},
+{k:8,t:"Energie",q:"Welche Energieumwandlung findet in einem Fahrraddynamo statt?",r:["Bewegungsenergie wird in elektrische Energie umgewandelt"],f:["Elektrische Energie wird in Bewegungsenergie umgewandelt","Lichtenergie wird in Bewegungsenergie umgewandelt","Chemische Energie wird in Wärme umgewandelt","Lageenergie wird in chemische Energie umgewandelt"]},
+{k:8,t:"Energie",q:"Eine Glühlampe nimmt 60 J elektrische Energie auf und gibt davon 3 J als Licht ab. Wie groß ist ihr Wirkungsgrad?",r:["5 %"],f:["20 %","3 %","57 %","95 %"]},
+{k:8,t:"Energie",q:"Wovon hängt die Lageenergie (Höhenenergie) eines Körpers ab?",r:["Von seiner Masse","Von seiner Höhe über dem Boden"],f:["Von seiner Farbe","Von seiner Temperatur","Von seiner Geschwindigkeit"]},
+{k:8,t:"Energie",q:"Welche Aussagen über die Leistung sind richtig?",r:["Sie gibt an, wie viel Energie pro Zeit umgewandelt wird","Ihre Einheit ist Watt (W)"],f:["Sie wird in Joule gemessen","Je länger ein Gerät läuft, desto größer ist seine Leistung","Leistung und Energie bedeuten dasselbe"]},
+{k:8,t:"Energie",q:"Warum kann es kein Perpetuum mobile (Maschine, die ewig ohne Energiezufuhr läuft) geben?",r:["Weil bei jeder Umwandlung ein Teil der Energie als Wärme abgegeben und damit entwertet wird"],f:["Weil noch niemand die richtige Bauanleitung gefunden hat","Weil Maschinen aus Metall zu schwer sind","Weil Energie mit der Zeit einfach verschwindet","Es gibt Perpetuum mobiles – z. B. Windräder"]},
+
+/* ---------- Klasse 8 · Wärmelehre ---------- */
+{k:8,t:"Wärmelehre",q:"Was beschreibt die Temperatur eines Körpers im Teilchenmodell?",r:["Wie schnell sich seine Teilchen im Durchschnitt bewegen"],f:["Wie viele Teilchen der Körper enthält","Wie groß die Teilchen sind","Wie schwer die Teilchen sind","Welche Farbe die Teilchen haben"]},
+{k:8,t:"Wärmelehre",q:"Auf welche Arten kann Wärme übertragen werden?",r:["Wärmeleitung","Wärmeströmung (Konvektion)","Wärmestrahlung"],f:["Wärmespiegelung","Wärmebindung","Wärmeverdichtung"]},
+{k:8,t:"Wärmelehre",q:"Was geschieht mit den meisten Stoffen, wenn sie erwärmt werden?",r:["Sie dehnen sich aus"],f:["Sie ziehen sich zusammen","Ihr Volumen bleibt exakt gleich","Sie werden immer flüssig","Sie werden schwerer"]},
+{k:8,t:"Wärmelehre",q:"Was besagt die Anomalie des Wassers?",r:["Wasser hat bei 4 °C seine größte Dichte"],f:["Wasser gefriert erst bei −4 °C","Wasser dehnt sich beim Erwärmen nie aus","Eis ist dichter als flüssiges Wasser","Wasser siedet bei 90 °C"]},
+{k:8,t:"Wärmelehre",q:"Welche Stoffe leiten Wärme gut?",r:["Kupfer","Aluminium","Eisen"],f:["Luft","Styropor","Wolle","Holz"]},
+{k:8,t:"Wärmelehre",q:"Wodurch hält eine Thermoskanne Getränke lange warm?",r:["Das Vakuum zwischen den Wänden verhindert Wärmeleitung und Wärmeströmung","Die verspiegelten Wände verringern die Wärmestrahlung"],f:["Sie heizt das Getränk elektrisch nach","Die Metallwände leiten Wärme ins Getränk zurück","Sie erzeugt beim Schütteln neue Wärme"]},
+{k:8,t:"Wärmelehre",q:"Welche Fixpunkte legen die Celsius-Skala fest?",r:["0 °C: Schmelzpunkt von Eis, 100 °C: Siedepunkt von Wasser (bei Normaldruck)"],f:["0 °C: kältester Wintertag, 100 °C: heißester Sommertag","0 °C: Gefrierpunkt von Alkohol, 100 °C: Siedepunkt von Öl","0 °C: absoluter Nullpunkt, 100 °C: Körpertemperatur","−100 °C und +100 °C als Messgrenzen des Thermometers"]},
+
+/* ---------- Klasse 9 · Bewegungen ---------- */
+{k:9,t:"Bewegungen",q:"Mit welcher Formel berechnet man die Geschwindigkeit bei gleichförmiger Bewegung?",r:["v = s / t"],f:["v = s · t","v = t / s","v = s + t","v = a · t²"]},
+{k:9,t:"Bewegungen",q:"Ein Auto fährt 72 km/h. Wie viel m/s sind das?",r:["20 m/s"],f:["72 m/s","7,2 m/s","36 m/s","259 m/s"]},
+{k:9,t:"Bewegungen",q:"Was bedeutet eine waagerechte Linie in einem Zeit-Weg-Diagramm (t-s-Diagramm)?",r:["Der Körper steht still"],f:["Der Körper bewegt sich gleichförmig","Der Körper wird schneller","Der Körper bewegt sich rückwärts","Der Körper fällt frei nach unten"]},
+{k:9,t:"Bewegungen",q:"Was gibt die Beschleunigung an?",r:["Wie schnell sich die Geschwindigkeit eines Körpers ändert"],f:["Wie weit sich ein Körper bewegt","Wie schwer ein Körper ist","Wie lange eine Bewegung dauert","Welche Höchstgeschwindigkeit ein Körper erreichen kann"]},
+{k:9,t:"Bewegungen",q:"Welche Aussagen zum freien Fall (ohne Luftwiderstand) sind richtig?",r:["Alle Körper fallen gleich schnell","Die Geschwindigkeit nimmt gleichmäßig zu"],f:["Schwere Körper fallen grundsätzlich schneller als leichte","Die Geschwindigkeit bleibt während des Falls konstant","Die Fallbeschleunigung beträgt 9,81 m/s"]},
+{k:9,t:"Bewegungen",q:"Ein Radfahrer legt 30 km in 2 Stunden zurück. Wie groß ist seine Durchschnittsgeschwindigkeit?",r:["15 km/h"],f:["60 km/h","7,5 km/h","32 km/h","1,5 km/h"]},
+{k:9,t:"Bewegungen",q:"Woran erkennt man eine gleichförmige Bewegung?",r:["Die Geschwindigkeit bleibt konstant"],f:["Die Geschwindigkeit nimmt gleichmäßig zu","Der Körper legt in gleichen Zeiten immer kürzere Wege zurück","Die Beschleunigung ist konstant und größer als null","Der Körper bewegt sich im Kreis"]},
+{k:9,t:"Bewegungen",q:"Welche Aussagen zu Diagrammen sind richtig?",r:["Im t-s-Diagramm bedeutet eine steilere Gerade eine höhere Geschwindigkeit","Im t-v-Diagramm bedeutet eine waagerechte Linie eine konstante Geschwindigkeit"],f:["Im t-s-Diagramm bedeutet eine steilere Gerade eine geringere Geschwindigkeit","Im t-v-Diagramm bedeutet eine waagerechte Linie Stillstand"]},
+
+/* ---------- Klasse 9 · Kräfte ---------- */
+{k:9,t:"Kräfte",q:"In welcher Einheit wird die Kraft gemessen?",r:["Newton (N)"],f:["Kilogramm (kg)","Joule (J)","Watt (W)","Pascal (Pa)","Meter pro Sekunde (m/s)"]},
+{k:9,t:"Kräfte",q:"Woran kann man erkennen, dass auf einen Körper eine Kraft wirkt?",r:["Er wird verformt","Er ändert seine Geschwindigkeit","Er ändert seine Bewegungsrichtung"],f:["Er hat eine hohe Temperatur","Er beginnt zu leuchten","Er wird elektrisch leitfähig"]},
+{k:9,t:"Kräfte",q:"Welche Aussagen über Masse und Gewichtskraft sind richtig?",r:["Die Masse eines Körpers ist überall gleich groß","Die Gewichtskraft hängt vom Ort ab (z. B. Erde oder Mond)"],f:["Masse und Gewichtskraft sind dasselbe","Die Masse wird in Newton gemessen","Auf dem Mond ist die Masse eines Körpers kleiner als auf der Erde"]},
+{k:9,t:"Kräfte",q:"Welche Gewichtskraft wirkt auf einen Körper der Masse 5 kg? (g ≈ 10 N/kg)",r:["Etwa 50 N"],f:["Etwa 5 N","Etwa 0,5 N","Etwa 500 N","Etwa 15 N"]},
+{k:9,t:"Kräfte",q:"Was besagt das Hookesche Gesetz?",r:["Die Dehnung einer Feder ist proportional zur wirkenden Kraft"],f:["Jede Feder dehnt sich bei jeder Kraft gleich weit","Die Dehnung einer Feder ist unabhängig von der Kraft","Eine Feder kann beliebig weit gedehnt werden, ohne Schaden zu nehmen","Die Kraft einer Feder ist proportional zu ihrer Temperatur"]},
+{k:9,t:"Kräfte",q:"Warum kippst du im Bus nach vorne, wenn er plötzlich bremst?",r:["Wegen der Trägheit behält dein Körper zunächst seine Geschwindigkeit bei"],f:["Weil dich der Fahrtwind nach vorne drückt","Weil die Bremsen eine Kraft auf deinen Körper ausüben","Weil sich die Schwerkraft beim Bremsen verstärkt","Weil der Bus sich nach hinten neigt"]},
+{k:9,t:"Kräfte",q:"Was bedeutet das Wechselwirkungsgesetz (actio = reactio)?",r:["Kräfte treten immer paarweise auf: Übt Körper A eine Kraft auf B aus, übt B eine gleich große, entgegengesetzte Kraft auf A aus"],f:["Jede Kraft erzeugt eine doppelt so große Gegenkraft","Kräfte wirken immer nur auf einen einzigen Körper","Eine Kraft und ihre Gegenkraft heben sich am selben Körper auf, deshalb bewegt sich nichts","Kräfte wirken nur bei Berührung"]},
+{k:9,t:"Kräfte",q:"Welche Aussagen über Reibung sind richtig?",r:["Reibungskraft wirkt der Bewegung entgegen","Ohne Reibung könnten wir nicht laufen","Reibung kann erwünscht oder unerwünscht sein"],f:["Reibung ist immer schädlich und wird immer vermieden","Auf Eis ist die Reibung besonders groß","Reibung erzeugt Energie aus dem Nichts"]},
+
+/* ---------- Klasse 9 · Elektrik: Ohmsches Gesetz ---------- */
+{k:9,t:"Elektrik: Ohmsches Gesetz",q:"Wie lautet das Ohmsche Gesetz (Zusammenhang von Spannung U, Widerstand R und Stromstärke I)?",r:["U = R · I"],f:["U = R / I","R = U · I","I = U · R","U = I / R"]},
+{k:9,t:"Elektrik: Ohmsches Gesetz",q:"An einem Widerstand von 100 Ω liegt eine Spannung von 20 V. Wie groß ist die Stromstärke?",r:["0,2 A"],f:["5 A","2 A","2 000 A","0,5 A"]},
+{k:9,t:"Elektrik: Ohmsches Gesetz",q:"In welcher Einheit wird der elektrische Widerstand gemessen?",r:["Ohm (Ω)"],f:["Volt (V)","Ampere (A)","Watt (W)","Siemens pro Meter","Joule (J)"]},
+{k:9,t:"Elektrik: Ohmsches Gesetz",q:"Wie groß ist der Gesamtwiderstand zweier in Reihe geschalteter Widerstände?",r:["Er ist die Summe der Einzelwiderstände"],f:["Er ist kleiner als der kleinste Einzelwiderstand","Er ist das Produkt der Einzelwiderstände","Er entspricht immer dem größeren Widerstand","Er ist immer halb so groß wie die Summe"]},
+{k:9,t:"Elektrik: Ohmsches Gesetz",q:"Welche Aussage gilt für den Gesamtwiderstand einer Parallelschaltung?",r:["Er ist kleiner als der kleinste Einzelwiderstand"],f:["Er ist die Summe der Einzelwiderstände","Er ist größer als der größte Einzelwiderstand","Er entspricht dem Mittelwert der Einzelwiderstände","Er ist unendlich groß"]},
+{k:9,t:"Elektrik: Ohmsches Gesetz",q:"Wovon hängt der Widerstand eines Metalldrahts ab?",r:["Von seiner Länge","Von seiner Querschnittsfläche (Dicke)","Vom Material"],f:["Von seiner Farbe","Von der Himmelsrichtung, in der er liegt","Von der Uhrzeit"]},
+{k:9,t:"Elektrik: Ohmsches Gesetz",q:"Mit welcher Formel berechnet man die elektrische Leistung?",r:["P = U · I"],f:["P = U / I","P = U + I","P = R · U","P = W · t"]},
+
+/* ---------- Klasse 10 · Radioaktivität & Kernphysik ---------- */
+{k:10,t:"Radioaktivität & Kernphysik",q:"Welche Arten radioaktiver Strahlung gibt es?",r:["Alphastrahlung","Betastrahlung","Gammastrahlung"],f:["Deltastrahlung","Omegastrahlung","Mikrowellenstrahlung"]},
+{k:10,t:"Radioaktivität & Kernphysik",q:"Woraus besteht Alphastrahlung?",r:["Aus Heliumkernen (2 Protonen und 2 Neutronen)"],f:["Aus Elektronen","Aus elektromagnetischen Wellen","Aus einzelnen Neutronen","Aus Wasserstoffatomen"]},
+{k:10,t:"Radioaktivität & Kernphysik",q:"Welche Aussagen zur Abschirmung radioaktiver Strahlung sind richtig?",r:["Alphastrahlung wird bereits von einem Blatt Papier abgeschirmt","Gammastrahlung hat das größte Durchdringungsvermögen"],f:["Gammastrahlung wird von einem Blatt Papier vollständig gestoppt","Alphastrahlung durchdringt dicke Bleiplatten","Betastrahlung lässt sich gar nicht abschirmen"]},
+{k:10,t:"Radioaktivität & Kernphysik",q:"Was bedeutet der Begriff Halbwertszeit?",r:["Die Zeit, nach der die Hälfte der ursprünglich vorhandenen Atomkerne zerfallen ist"],f:["Die Zeit, nach der alle Atomkerne zerfallen sind","Die halbe Lebensdauer eines Geigerzählers","Die Zeit, in der sich die Strahlung verdoppelt","Die Zeit, die Strahlung bis zur Erde braucht"]},
+{k:10,t:"Radioaktivität & Kernphysik",q:"Ein radioaktiver Stoff hat eine Halbwertszeit von 8 Tagen. Wie viel von ursprünglich 100 g ist nach 16 Tagen noch nicht zerfallen?",r:["25 g"],f:["50 g","0 g","12,5 g","75 g"]},
+{k:10,t:"Radioaktivität & Kernphysik",q:"Woraus besteht ein Atomkern?",r:["Aus Protonen und Neutronen"],f:["Aus Protonen und Elektronen","Aus Elektronen und Neutronen","Nur aus Elektronen","Aus Molekülen"]},
+{k:10,t:"Radioaktivität & Kernphysik",q:"Wo wird Radioaktivität sinnvoll genutzt?",r:["In der Krebstherapie (Bestrahlung)","Bei der Altersbestimmung mit der C-14-Methode","In der medizinischen Diagnostik (z. B. Szintigrafie)"],f:["Zum Frischhalten von Lebensmitteln im Kühlschrank","In Energiesparlampen","Zum Desinfizieren von Trinkwasser im Wasserhahn"]},
+{k:10,t:"Radioaktivität & Kernphysik",q:"Was geschieht bei der Kernspaltung in einem Kernkraftwerk?",r:["Ein schwerer Atomkern (z. B. Uran) wird durch ein Neutron gespalten, dabei wird Energie frei"],f:["Zwei leichte Kerne verschmelzen zu einem schweren Kern","Atomkerne werden verbrannt wie Kohle","Elektronen werden aus der Hülle geschossen","Uran wird zu Gold umgewandelt"]},
+
+/* ---------- Klasse 10 · Elektromagnetismus & Induktion ---------- */
+{k:10,t:"Elektromagnetismus & Induktion",q:"Wie kann man die Stärke eines Elektromagneten erhöhen?",r:["Mehr Windungen auf die Spule wickeln","Die Stromstärke erhöhen","Einen Eisenkern in die Spule schieben"],f:["Die Spule aus Kunststoff wickeln","Die Stromrichtung umkehren","Die Spule abkühlen"]},
+{k:10,t:"Elektromagnetismus & Induktion",q:"Wann wird in einer Spule eine Spannung induziert?",r:["Wenn sich das Magnetfeld durch die Spule ändert"],f:["Wenn ein konstantes Magnetfeld anliegt","Wenn die Spule erwärmt wird","Wenn die Spule still neben einem ruhenden Magneten liegt","Wenn man die Spule an eine Batterie anschließt"]},
+{k:10,t:"Elektromagnetismus & Induktion",q:"Welche Energieumwandlung findet in einem Generator statt?",r:["Bewegungsenergie wird in elektrische Energie umgewandelt"],f:["Elektrische Energie wird in Bewegungsenergie umgewandelt","Wärme wird direkt in Licht umgewandelt","Chemische Energie wird in Bewegungsenergie umgewandelt","Elektrische Energie wird erzeugt, ohne dass Energie zugeführt wird"]},
+{k:10,t:"Elektromagnetismus & Induktion",q:"Welche Aussagen über den Transformator sind richtig?",r:["Er funktioniert nur mit Wechselspannung","Das Verhältnis der Spannungen entspricht dem Verhältnis der Windungszahlen"],f:["Er funktioniert auch mit Gleichspannung einer Batterie","Er erzeugt zusätzliche Energie","Er wandelt Strom in Licht um"]},
+{k:10,t:"Elektromagnetismus & Induktion",q:"Ein Transformator hat 1000 Windungen an der Primärspule (230 V) und 100 Windungen an der Sekundärspule. Wie groß ist die Sekundärspannung ungefähr?",r:["23 V"],f:["2 300 V","230 V","10 V","46 V"]},
+{k:10,t:"Elektromagnetismus & Induktion",q:"Welche Energieumwandlung findet in einem Elektromotor statt?",r:["Elektrische Energie wird in Bewegungsenergie umgewandelt"],f:["Bewegungsenergie wird in elektrische Energie umgewandelt","Wärme wird in elektrische Energie umgewandelt","Chemische Energie wird in Licht umgewandelt","Lageenergie wird in Wärme umgewandelt"]},
+{k:10,t:"Elektromagnetismus & Induktion",q:"Warum wird elektrische Energie mit Hochspannung über große Entfernungen transportiert?",r:["Bei hoher Spannung genügt eine kleine Stromstärke – dadurch sind die Wärmeverluste in den Leitungen gering"],f:["Weil hohe Spannung die Leitungen kühlt","Weil Strom bei Hochspannung schneller fließt","Weil Hochspannung ungefährlicher ist als Niederspannung","Damit Vögel nicht auf den Leitungen sitzen"]},
+
+/* ---------- Klasse 10 · Energieversorgung ---------- */
+{k:10,t:"Energieversorgung",q:"Welche Energiequellen sind erneuerbar?",r:["Sonne","Wind","Wasserkraft"],f:["Kohle","Erdgas","Uran","Erdöl"]},
+{k:10,t:"Energieversorgung",q:"Welche Energieumwandlungskette beschreibt ein Kohlekraftwerk richtig?",r:["Chemische Energie → thermische Energie → Bewegungsenergie → elektrische Energie"],f:["Elektrische Energie → Wärme → chemische Energie","Bewegungsenergie → chemische Energie → elektrische Energie","Lichtenergie → elektrische Energie","Kernenergie → Bewegungsenergie → Wärme"]},
+{k:10,t:"Energieversorgung",q:"Was macht eine Photovoltaikanlage?",r:["Sie wandelt Lichtenergie direkt in elektrische Energie um"],f:["Sie erwärmt Wasser für die Heizung (das macht Solarthermie)","Sie speichert Sonnenlicht für die Nacht","Sie wandelt Wärme in Licht um","Sie erzeugt Strom auch ohne Licht"]},
+{k:10,t:"Energieversorgung",q:"Was gibt eine Kilowattstunde (kWh) an?",r:["Eine Energiemenge"],f:["Eine Leistung","Eine Stromstärke","Eine Spannung","Die Laufzeit eines Geräts"]},
+{k:10,t:"Energieversorgung",q:"Ein Heizlüfter mit 2000 W Leistung läuft 3 Stunden. Wie viel elektrische Energie wird umgesetzt?",r:["6 kWh"],f:["600 kWh","0,6 kWh","2 003 kWh","66 kWh"]},
+{k:10,t:"Energieversorgung",q:"Welche Aussagen zum Klimaschutz in der Energieversorgung sind richtig?",r:["Bei der Verbrennung fossiler Brennstoffe entsteht CO₂","Ein höherer Anteil erneuerbarer Energien senkt den CO₂-Ausstoß"],f:["Windräder stoßen im Betrieb viel CO₂ aus","Kohlekraftwerke sind klimaneutral","CO₂ hat keinen Einfluss auf das Klima"]}
+];
+
+/* ============================================================ APP ============================================================ */
+const LS_CUSTOM = "physikMC.eigeneFragen";
+const LS_SETTINGS = "physikMC.einstellungen";
+const LETTERS = ["A","B","C","D","E","F"];
+
+const $ = id => document.getElementById(id);
+let customPool = [];
+try { customPool = JSON.parse(localStorage.getItem(LS_CUSTOM) || "[]"); } catch(e) { customPool = []; }
+
+let current = []; // aktuelle Arbeitsblatt-Fragen: {src, kCorrect, options:[{text, correct}]}
+
+function allQuestions() {
+  return POOL.concat(customPool.map(q => ({k:+q.klasse, t:"★ "+q.thema, q:q.frage, r:q.richtig, f:q.falsch})));
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function settings() {
+  return {
+    klasse: +$("klasse").value,
+    themen: [...document.querySelectorAll("#themen input:checked")].map(c => c.value),
+    anzahl: Math.max(1, +$("anzahl").value || 10),
+    n: +$("nOpts").value,
+    kMode: $("kMode").value,
+    twoCol: $("twoCol").checked,
+    showPkt: $("showPkt").checked,
+    showAnz: $("showAnz").checked,
+    printLoes: $("printLoes").checked,
+    noHead: $("noHead").checked,
+    startNr: Math.max(1, +$("startNr").value || 1),
+    pktMode: $("pktMode").value
+  };
+}
+
+function feasibleKs(q, n, kMode) {
+  const kandidaten = kMode === "mix" ? [1,2,3] : [+kMode];
+  return kandidaten.filter(k => q.r.length >= k && q.f.length >= n - k && k < n);
+}
+
+function eligiblePool(s) {
+  return allQuestions().filter(q =>
+    q.k === s.klasse &&
+    s.themen.includes(q.t) &&
+    feasibleKs(q, s.n, s.kMode).length > 0
+  );
+}
+
+function buildEntry(q, s) {
+  const ks = feasibleKs(q, s.n, s.kMode);
+  const k = ks[Math.floor(Math.random() * ks.length)];
+  const opts = shuffle(
+    shuffle(q.r).slice(0, k).map(t => ({text: t, correct: true}))
+    .concat(shuffle(q.f).slice(0, s.n - k).map(t => ({text: t, correct: false})))
+  );
+  return {src: q, kCorrect: k, options: opts};
+}
+
+function generate() {
+  const s = settings();
+  const pool = shuffle(eligiblePool(s));
+  current = pool.slice(0, s.anzahl).map(q => buildEntry(q, s));
+  render();
+  saveSettings();
+}
+
+function swapQuestion(idx) {
+  const s = settings();
+  const used = new Set(current.map(e => e.src.q));
+  const ersatz = shuffle(eligiblePool(s).filter(q => !used.has(q.q)))[0];
+  if (!ersatz) { alert("Kein weiterer passender Ersatz im Pool. Wähle mehr Themen oder andere Einstellungen."); return; }
+  current[idx] = buildEntry(ersatz, s);
+  render();
+}
+
+function removeQuestion(idx) {
+  current.splice(idx, 1);
+  render();
+}
+
+function esc(t) {
+  return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function render() {
+  const s = settings();
+  document.body.classList.toggle("ohne-loesung", !s.printLoes);
+  const multi = current.some(e => e.kCorrect > 1);
+  const pkt = e => s.pktMode === "1" ? 1 : e.kCorrect;
+  const totalPkt = current.reduce((sum, e) => sum + pkt(e), 0);
+  const start = s.startNr;
+
+  let html = "";
+  if (!s.noHead) {
+    html += `
+    <div class="kopf">
+      <div class="fach">Physik · Klasse ${s.klasse}</div>
+      <h2 contenteditable="true" id="titel">${esc(sheetTitle)}</h2>
+      <div class="metazeile">
+        <span>Name:</span><span>Klasse:</span><span>Datum:</span>
+        ${s.showPkt ? `<span style="flex:0 0 32mm">Punkte: &nbsp;&nbsp;&nbsp;/ ${totalPkt}</span>` : ""}
+      </div>
+    </div>
+    <p class="hinweis">${multi
+      ? "Kreuze die richtigen Antworten an. <b>Achtung:</b> Es können mehrere Antworten richtig sein!"
+      : "Kreuze jeweils die <b>eine</b> richtige Antwort an."}</p>`;
+  }
+  html += `<div class="fragen${s.twoCol ? " two" : ""}">`;
+
+  current.forEach((e, i) => {
+    const zusatz = [];
+    if (s.showAnz && multi) zusatz.push(e.kCorrect === 1 ? "1 richtige" : e.kCorrect + " richtige");
+    if (s.showPkt) zusatz.push(pkt(e) + " P.");
+    html += `<div class="frage">
+      <div class="tools">
+        <button title="Frage austauschen" onclick="swapQuestion(${i})">🔄</button>
+        <button title="Frage entfernen" onclick="removeQuestion(${i})">✕</button>
+      </div>
+      <div class="fq"><span class="nr">${i + start}.</span><span>${esc(e.src.q)}</span>${zusatz.length ? `<span class="pkt">(${zusatz.join(" · ")})</span>` : ""}</div>
+      ${e.options.map((o, j) => `<div class="antwort"><span class="box"></span><span class="buchst">${LETTERS[j]})</span><span>${esc(o.text)}</span></div>`).join("")}
+    </div>`;
+  });
+
+  html += `</div>
+    <div class="loesungen">
+      <h3>Lösungsblatt${sheetTitle ? " – " + esc(sheetTitle) : ""}</h3>
+      <div class="loes-grid">
+        ${current.map((e, i) => {
+          const richtige = e.options.map((o, j) => o.correct ? LETTERS[j] : null).filter(Boolean).join(", ");
+          return `<div><b>${i + start}:</b> ${richtige}</div>`;
+        }).join("")}
+      </div>
+    </div>`;
+
+  $("sheet").innerHTML = html;
+  const titelEl = $("titel");
+  if (titelEl) titelEl.addEventListener("input", () => { sheetTitle = titelEl.textContent; });
+  updateInfo();
+}
+
+function updateInfo() {
+  const s = settings();
+  const n = eligiblePool(s).length;
+  const zuWenig = n < s.anzahl;
+  $("poolInfo").innerHTML =
+    `Passende Fragen im Pool: <b class="${zuWenig ? "warn" : ""}">${n}</b>` +
+    (zuWenig ? ` <span class="warn">(weniger als gewünscht – mehr Themen wählen oder Einstellungen ändern)</span>` : "") +
+    `<br>Eigene Fragen gespeichert: <b>${customPool.length}</b>` +
+    `<br><br>Faustregel A4: einspaltig ≈ 5–7 Aufgaben/Seite, zweispaltig ≈ 10–13.`;
+}
+
+function buildThemen() {
+  const klasse = +$("klasse").value;
+  const themen = [...new Set(allQuestions().filter(q => q.k === klasse).map(q => q.t))].sort();
+  $("themen").innerHTML = themen.map(t =>
+    `<label><input type="checkbox" value="${esc(t)}" checked> ${esc(t)}</label>`
+  ).join("") || `<em style="font-size:12px;color:#888">Keine Themen für diese Klasse.</em>`;
+  document.querySelectorAll("#themen input").forEach(c => c.addEventListener("change", generate));
+}
+
+function saveSettings() {
+  const s = settings();
+  s.titel = sheetTitle;
+  try { localStorage.setItem(LS_SETTINGS, JSON.stringify(s)); } catch(e) {}
+}
+
+function loadSettings() {
+  try {
+    const s = JSON.parse(localStorage.getItem(LS_SETTINGS) || "null");
+    if (!s) return;
+    $("klasse").value = s.klasse || 7;
+    $("anzahl").value = s.anzahl || 10;
+    $("nOpts").value = s.n || 4;
+    $("kMode").value = s.kMode || "1";
+    $("twoCol").checked = !!s.twoCol;
+    $("showPkt").checked = s.showPkt !== false;
+    $("showAnz").checked = s.showAnz !== false;
+    $("printLoes").checked = s.printLoes !== false;
+    $("noHead").checked = !!s.noHead;
+    $("startNr").value = s.startNr || 1;
+    if (s.pktMode) $("pktMode").value = s.pktMode;
+    if (s.titel) sheetTitle = s.titel;
+  } catch(e) {}
+}
+
+/* ---------- Fragen selbst auswählen ---------- */
+let pickSnapshot = [];
+
+function openPick() {
+  const s = settings();
+  pickSnapshot = allQuestions()
+    .filter(q => q.k === s.klasse && s.themen.includes(q.t))
+    .sort((a, b) => a.t.localeCompare(b.t, "de"));
+  const aufBlatt = new Set(current.map(e => e.src.q));
+  let html = "", letztesThema = null;
+  pickSnapshot.forEach((q, i) => {
+    if (q.t !== letztesThema) { html += `<div class="pick-thema">${esc(q.t)}</div>`; letztesThema = q.t; }
+    const passt = feasibleKs(q, s.n, s.kMode).length > 0;
+    html += `<label class="pick-row${passt ? "" : " off"}">
+      <input type="checkbox" data-idx="${i}" ${aufBlatt.has(q.q) ? "checked" : ""} ${passt ? "" : "disabled"}>
+      <span><span class="pq">${esc(q.q)}</span><br><span class="pa">✓ ${q.r.map(esc).join(" · ")}</span>${passt ? "" : `<br><span class="pwarn">passt nicht zu den aktuellen Einstellungen (Antwortmöglichkeiten / davon richtig)</span>`}</span>
+    </label>`;
+  });
+  $("pickList").innerHTML = html || `<em style="font-size:13px;color:#888">Keine Fragen für die aktuelle Klasse/Themen-Auswahl.</em>`;
+  $("pickInfo").textContent = `Klasse ${s.klasse} · ${pickSnapshot.length} Fragen in den gewählten Themen. Angehakte Fragen kommen aufs Blatt (Reihenfolge nach Thema).`;
+  $("pickList").querySelectorAll("input").forEach(c => c.addEventListener("change", updatePickCount));
+  updatePickCount();
+  $("pickBg").classList.add("open");
+}
+
+function updatePickCount() {
+  $("pickCount").textContent = $("pickList").querySelectorAll("input:checked").length;
+}
+
+function applyPick() {
+  const s = settings();
+  const gewaehlt = [...$("pickList").querySelectorAll("input:checked")].map(c => pickSnapshot[+c.dataset.idx]);
+  if (!gewaehlt.length) { alert("Keine Frage angehakt."); return; }
+  current = gewaehlt.map(q => buildEntry(q, s));
+  $("pickBg").classList.remove("open");
+  render();
+}
+
+/* ---------- Eigene Fragen ---------- */
+function importCustom() {
+  const msg = $("importMsg");
+  try {
+    const data = JSON.parse($("importText").value);
+    if (!Array.isArray(data)) throw new Error("Es wird eine JSON-Liste [ … ] erwartet.");
+    const gueltig = [];
+    data.forEach((q, i) => {
+      if (!q.klasse || !q.thema || !q.frage || !Array.isArray(q.richtig) || !Array.isArray(q.falsch) || !q.richtig.length || !q.falsch.length)
+        throw new Error(`Eintrag ${i + 1}: Es fehlen Felder (klasse, thema, frage, richtig[], falsch[]).`);
+      gueltig.push({klasse: +q.klasse, thema: String(q.thema), frage: String(q.frage), richtig: q.richtig.map(String), falsch: q.falsch.map(String)});
+    });
+    customPool = customPool.concat(gueltig);
+    localStorage.setItem(LS_CUSTOM, JSON.stringify(customPool));
+    msg.style.color = "#1e8449";
+    msg.textContent = `✓ ${gueltig.length} Frage(n) importiert. Sie erscheinen mit ★ in der Themenliste.`;
+    $("importText").value = "";
+    buildThemen();
+    updateInfo();
+  } catch(e) {
+    msg.style.color = "#b03a2e";
+    msg.textContent = "Fehler: " + e.message;
+  }
+}
+
+function exportCustom() {
+  if (!customPool.length) { $("importMsg").textContent = "Keine eigenen Fragen gespeichert."; return; }
+  const blob = new Blob([JSON.stringify(customPool, null, 2)], {type: "application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "physik-mc-eigene-fragen.json";
+  a.click();
+}
+
+function clearCustom() {
+  if (!customPool.length) { $("importMsg").textContent = "Keine eigenen Fragen gespeichert."; return; }
+  if (!confirm(`Wirklich alle ${customPool.length} eigenen Fragen löschen? (Tipp: vorher exportieren)`)) return;
+  customPool = [];
+  localStorage.removeItem(LS_CUSTOM);
+  $("importMsg").textContent = "Alle eigenen Fragen gelöscht.";
+  buildThemen();
+  updateInfo();
+}
+
+/* ---------- Start ---------- */
+let sheetTitle = "Multiple-Choice-Test";
+loadSettings();
+buildThemen();
+generate();
+
+$("klasse").addEventListener("change", () => { buildThemen(); generate(); });
+["anzahl","nOpts","kMode"].forEach(id => $(id).addEventListener("change", generate));
+["twoCol","showPkt","showAnz","printLoes","noHead","startNr","pktMode"].forEach(id => $(id).addEventListener("change", () => { render(); saveSettings(); }));
+$("btnGen").addEventListener("click", generate);
+$("btnPick").addEventListener("click", openPick);
+$("btnApplyPick").addEventListener("click", applyPick);
+$("btnPickNone").addEventListener("click", () => { $("pickList").querySelectorAll("input").forEach(c => c.checked = false); updatePickCount(); });
+$("btnClosePick").addEventListener("click", () => $("pickBg").classList.remove("open"));
+$("pickBg").addEventListener("click", e => { if (e.target === $("pickBg")) $("pickBg").classList.remove("open"); });
+$("btnPrint").addEventListener("click", () => window.print());
+$("btnCustom").addEventListener("click", () => { $("modalBg").classList.add("open"); $("importMsg").textContent = ""; });
+$("btnCloseModal").addEventListener("click", () => $("modalBg").classList.remove("open"));
+$("modalBg").addEventListener("click", e => { if (e.target === $("modalBg")) $("modalBg").classList.remove("open"); });
+$("btnImport").addEventListener("click", importCustom);
+$("btnExport").addEventListener("click", exportCustom);
+$("btnClearCustom").addEventListener("click", clearCustom);
+</script>
+</body>
+</html>

@@ -1,13 +1,16 @@
 ---
-tags: [projekt, idee, mathematik, app, pruefung]
-status: idee
+tags: [projekt, mathematik, app, pruefung]
+status: aktiv
 date: 2026-06-20
+updated: 2026-06-30
 ---
 
 # App: Generator mündliche Prüfung (Mathematik)
 
-> [!note] Status
-> Idee / Backlog – **nicht nahe Zukunft.** Festgehalten am 2026-06-20, damit die Vision nicht verloren geht.
+> [!success] Status
+> **Fertig (Beta).** App läuft als HTML-Datei, 125 Aufgaben in 7 Themen. Kollegenanleitung erstellt: [[02 Projekte/Mündliche Prüfung App - Anleitung für Kollegen]]
+>
+> **Update 2026-07-02:** Zufallsgenerator überarbeitet – Themen-Balance (5 gemischte aus 5 verschiedenen Themen, aufsteigend sortiert), Schwierigkeitsprofil „⚖️ ausgewogen" (2·★, 2·★★, 2·★★★), Serien-Modus (bis 10 überschneidungsfreie Sätze auf einmal, je Satz eigene Druckseite mit Name/Datum-Zeile) und verwendet-Abgleich mit dem Baukasten (gemeinsamer Speicher, „✓ Satz als verwendet markieren"). Details in [[04 Ressourcen/Mathematik Prüfungsaufgaben/Generator/ANLEITUNG.md]].
 
 ## Vision
 
@@ -22,12 +25,9 @@ Eine App, die automatisch eine **mündliche Mathe-Prüfung** zusammenstellt – 
 5. Boxplot
 6. Quadratische Funktionen
 
-## Datenbasis (schon vorhanden)
+## Datenbasis (vollständig)
 
-- [[04 Ressourcen/Mathematik Prüfungsaufgaben/Trigonometrie Prüfungspool.md]] – Aufgaben als Bild + eingeklappte Lösung
-- [[04 Ressourcen/Mathematik Prüfungsaufgaben/Stochastik Aufgabenpool.md]]
-- HTML-Versionen vorhanden, Bilder im Ordner `Bilder/`
-- Übrige Themen (Stereometrie, Sachrechnen, Boxplot, quadratische Funktionen) müssen noch als Pool aufgebaut werden.
+Alle 7 Pools sind aufgebaut (125 Aufgaben, Stand 2026-07-02): Trigonometrie (20), Quadratische Funktionen (20), Stochastik (20), Sachrechnen (15), Boxplot & Datenanalyse (15), Stereometrie (15), Kurzaufgaben/Zeitfüller (20). Jeweils als `.md` (Bild + eingeklappte Lösung, z.B. [[04 Ressourcen/Mathematik Prüfungsaufgaben/Trigonometrie Prüfungspool.md]]) und als HTML-Pool, Bilder im Ordner `Bilder/`. Aktuelle Zahlen stehen immer in der Tabelle in [[04 Ressourcen/Mathematik Prüfungsaufgaben/Generator/ANLEITUNG.md]].
 
 ## Kernerkenntnis / wichtigster Vorarbeitsschritt
 

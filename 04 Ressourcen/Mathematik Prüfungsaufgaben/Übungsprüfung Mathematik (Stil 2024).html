@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Übungsprüfung Mathematik – Format Realschulabschlussprüfung BW (Stil 2024)</title>
+<style>
+  :root { --line: #222; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt; color: #111; background: #9a9a9a;
+    margin: 0; padding: 20px 0;
+  }
+  .blatt {
+    width: 210mm; min-height: 297mm; margin: 0 auto 20px;
+    background: #fff; padding: 14mm 16mm 12mm;
+    box-shadow: 0 2px 12px rgba(0,0,0,.4);
+    position: relative; display: flex; flex-direction: column;
+  }
+  .blatt.loesung { background: #fdeef2; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .blatt { box-shadow: none; margin: 0; page-break-after: always; width: auto; min-height: auto; padding: 4mm 2mm; }
+    .blatt.loesung { background: #fff; }
+    .no-print { display: none; }
+  }
+  .kopf-titel { text-align: center; font-size: 11pt; margin-bottom: 6px; }
+  .kopf { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 4px; }
+  .kopf .l { line-height: 1.5; } .kopf .r { text-align: right; line-height: 1.5; }
+  .namenszeile {
+    border-top: 2px solid var(--line); border-bottom: 2px solid var(--line);
+    padding: 4px 2px; display: flex; gap: 60px; font-weight: bold; margin-bottom: 10px;
+  }
+  .hilfsmittel { margin: 4px 0 14px; }
+  .hilfsmittel td { padding: 1px 14px 1px 0; vertical-align: top; }
+  .aufgabe { margin-top: 18px; }
+  .a-kopf { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 6px; }
+  .a-kopf .pkt { font-weight: bold; }
+  .a-body { line-height: 1.45; }
+  .a-body p { margin: 6px 0; }
+  .zweispaltig { display: flex; gap: 18px; align-items: flex-start; }
+  .zweispaltig .text { flex: 1; }
+  .gegeben { margin: 8px 0 8px 30px; line-height: 1.6; }
+  ul.punkte { margin: 6px 0; padding-left: 22px; }
+  ul.punkte li { margin: 5px 0; }
+  .stift::after { content: " ✎"; }
+  table.werte { border-collapse: collapse; margin: 8px 0; }
+  table.werte td, table.werte th { border: 1px solid var(--line); padding: 3px 12px; text-align: center; }
+  table.ohne-rand td { border: none; }
+  .cbx {
+    display: inline-block; width: 11px; height: 11px;
+    border: 1.4px solid var(--line); vertical-align: middle;
+  }
+  .rangliste { border: 1px solid var(--line); padding: 6px 10px; margin: 8px 0; }
+  .fusszeile {
+    margin-top: auto; padding-top: 8px; border-top: 1px solid #888;
+    font-size: 8pt; color: #444; display: flex; justify-content: space-between;
+  }
+  .formel { font-family: Georgia, "Times New Roman", serif; font-style: italic; }
+  .formel b { font-style: normal; }
+  .ueberstrich { text-decoration: overline; font-style: italic; font-family: Georgia, serif; }
+  .gleichung { text-align: center; font-size: 12pt; margin: 12px 0; font-family: Georgia, serif; }
+  .hinweis-kasten { border: 2px solid var(--line); padding: 8px 12px; margin: 10px 0; }
+  .loesung h3 { margin: 14px 0 4px; border-bottom: 1px solid #b66; padding-bottom: 2px; }
+  .loesung p { margin: 4px 0; line-height: 1.5; }
+  .zwischen { color: #555; }
+  svg text { font-family: Arial, Helvetica, sans-serif; }
+  .deckblatt-info { border: 2px solid var(--line); padding: 14px 18px; margin-top: 18px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- ======================= DECKBLATT / HINWEIS ======================= -->
+<div class="blatt no-print" style="min-height:auto; padding-bottom:8mm">
+  <div class="kopf-titel"><b>Übungsprüfung Mathematik</b> · Format der Realschulabschlussprüfung BW (Haupttermin-Struktur 2024)</div>
+  <div class="deckblatt-info" style="font-size:10pt">
+    Eigenständig erstelltes Übungsmaterial: Alle Aufgaben, Zahlenwerte und Grafiken sind neu entworfen
+    und orientieren sich an Aufgabentypen, Schwierigkeitsgrad und Punkteverteilung der Abschlussprüfung 2024
+    (A1: 10 P ohne Hilfsmittel · A2: 20 P · Wahlteil B: zwei von drei Aufgaben à 10 P).
+    Zur freien Verwendung und Weitergabe im Unterricht. Die Lösungsblätter für die Lehrkraft stehen am Ende
+    (beim Druck für Schüler einfach die letzten beiden Seiten weglassen).
+  </div>
+</div>
+
+<!-- ======================= A1 BLATT 1 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Pflichtteil A1<br>Blatt 1 von 3</div>
+  </div>
+  <div class="namenszeile"><span>Nachname:</span><span>Vorname:</span></div>
+  <table class="hilfsmittel ohne-rand">
+    <tr><td><b>Zugelassene Hilfsmittel:</b></td><td>Zeichengeräte, inklusive Parabelschablone</td></tr>
+    <tr><td><b>Teil A1 (Pflichtteil):</b></td><td>Es sind alle Aufgaben (10 Punkte) zu bearbeiten.</td></tr>
+  </table>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 1</span><span class="pkt">(1,5 P)</span></div>
+    <div class="a-body zweispaltig">
+      <div class="text">
+        <p>Das Volumen eines Quaders und das Volumen einer quadratischen Pyramide sind gleich groß.</p>
+        <p>Für den Quader gilt:</p>
+        <div class="gegeben formel">a = 6 cm<br>b = 5 cm<br>c = 2 cm</div>
+        <p>Für die quadratische Pyramide gilt:</p>
+        <div class="gegeben formel">a<sub>Pyr</sub> = 6 cm</div>
+        <p><b>Berechnen Sie die Höhe der quadratischen Pyramide.</b></p>
+      </div>
+      <svg width="290" height="200" viewBox="0 0 290 200">
+        <!-- Quader -->
+        <g stroke="#222" fill="none" stroke-width="1.3">
+          <rect x="15" y="120" width="105" height="44"/>
+          <path d="M15,120 L43,96 L148,96 L120,120"/>
+          <path d="M148,96 L148,140 L120,164"/>
+          <path d="M15,164 L43,140 L148,140" stroke-dasharray="4,3"/>
+          <path d="M43,96 L43,140" stroke-dasharray="4,3"/>
+        </g>
+        <text x="63" y="180" font-size="12" font-style="italic">a</text>
+        <text x="136" y="158" font-size="12" font-style="italic">b</text>
+        <text x="6" y="146" font-size="12" font-style="italic">c</text>
+        <!-- Pyramide -->
+        <g stroke="#222" fill="none" stroke-width="1.3">
+          <path d="M195,168 L255,168 L281,148 L221,148 Z" stroke-dasharray="0"/>
+          <path d="M195,168 L238,26 L255,168"/>
+          <path d="M221,148 L238,26" stroke-dasharray="4,3"/>
+          <path d="M281,148 L238,26"/>
+          <path d="M238,26 L238,158" stroke-dasharray="2,3"/>
+        </g>
+        <text x="218" y="184" font-size="12" font-style="italic">a<tspan font-size="9" dy="3">Pyr</tspan></text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 2</span><span class="pkt">(1 P)</span></div>
+    <div class="a-body zweispaltig">
+      <div class="text" style="max-width:46%">
+        <p>In einem Beutel liegen rote (r), grüne (g) und blaue (b) Kugeln.<br>
+        Es sind insgesamt 25 Kugeln, die alle gleich groß sind.<br>
+        Finja zieht zwei Kugeln ohne Zurücklegen.</p>
+        <p class="stift"><b>Ergänzen Sie in den beiden leeren Feldern die Wahrscheinlichkeitsangaben.</b></p>
+      </div>
+      <svg width="330" height="230" viewBox="0 0 330 230">
+        <g stroke="#222" stroke-width="1.1" fill="none">
+          <path d="M165,12 L55,72 M165,12 L165,72 M165,12 L275,72"/>
+          <path d="M55,90 L15,150 M55,90 L55,150 M55,90 L95,150"/>
+          <path d="M165,90 L125,150 M165,90 L165,150 M165,90 L205,150"/>
+          <path d="M275,90 L235,150 M275,90 L275,150 M275,90 L315,150"/>
+        </g>
+        <!-- Kästchen 1. Stufe -->
+        <rect x="83" y="26" width="42" height="26" fill="#fff" stroke="#222"/>
+        <text x="104" y="43" font-size="11" text-anchor="middle">40 %</text>
+        <g>
+          <rect x="144" y="26" width="42" height="26" fill="#fff" stroke="#222"/>
+          <text x="165" y="37" font-size="10" text-anchor="middle">8</text>
+          <line x1="157" y1="39" x2="173" y2="39" stroke="#222"/>
+          <text x="165" y="49" font-size="10" text-anchor="middle">25</text>
+        </g>
+        <rect x="207" y="26" width="42" height="26" fill="#fff" stroke="#222"/>
+        <!-- Kästchen 2. Stufe: g -> g -->
+        <rect x="144" y="102" width="42" height="26" fill="#fff" stroke="#222"/>
+        <!-- Knoten 1. Stufe -->
+        <g font-size="12" text-anchor="middle">
+          <circle cx="55" cy="81" r="10" fill="#fff" stroke="#222"/><text x="55" y="85">r</text>
+          <circle cx="165" cy="81" r="10" fill="#fff" stroke="#222"/><text x="165" y="85">g</text>
+          <circle cx="275" cy="81" r="10" fill="#fff" stroke="#222"/><text x="275" y="85">b</text>
+        </g>
+        <!-- Knoten 2. Stufe -->
+        <g font-size="11" text-anchor="middle">
+          <circle cx="15" cy="160" r="9" fill="#fff" stroke="#222"/><text x="15" y="164">r</text>
+          <circle cx="55" cy="160" r="9" fill="#fff" stroke="#222"/><text x="55" y="164">g</text>
+          <circle cx="95" cy="160" r="9" fill="#fff" stroke="#222"/><text x="95" y="164">b</text>
+          <circle cx="125" cy="160" r="9" fill="#fff" stroke="#222"/><text x="125" y="164">r</text>
+          <circle cx="165" cy="160" r="9" fill="#fff" stroke="#222"/><text x="165" y="164">g</text>
+          <circle cx="205" cy="160" r="9" fill="#fff" stroke="#222"/><text x="205" y="164">b</text>
+          <circle cx="235" cy="160" r="9" fill="#fff" stroke="#222"/><text x="235" y="164">r</text>
+          <circle cx="275" cy="160" r="9" fill="#fff" stroke="#222"/><text x="275" y="164">g</text>
+          <circle cx="315" cy="160" r="9" fill="#fff" stroke="#222"/><text x="315" y="164">b</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= A1 BLATT 2 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Pflichtteil A1<br>Blatt 2 von 3</div>
+  </div>
+  <div style="border-top:2px solid var(--line); margin-bottom:10px"></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 3</span><span class="pkt">(1 P)</span></div>
+    <div class="a-body">
+      <p>Gegeben sind vier Terme in Zehnerpotenzschreibweise.</p>
+      <p class="formel" style="margin-left:20px">
+        (A)&nbsp; 0,0036 · 10<sup>5</sup> &emsp;&emsp;
+        (B)&nbsp; 0,36 · 10<sup>4</sup> &emsp;&emsp;
+        (C)&nbsp; 3,6 · 10<sup>6</sup> &emsp;&emsp;
+        (D)&nbsp; 360 · 10<sup>3</sup>
+      </p>
+      <p><b>Welcher Term hat den größten Wert?<br>
+      Geben Sie diesen ohne Zehnerpotenzschreibweise an.</b></p>
+    </div>
+  </div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 4</span><span class="pkt">(2 P)</span></div>
+    <div class="a-body">
+      <p>Timo hat die ersten drei Muster aus Plättchen gelegt.</p>
+      <svg width="360" height="120" viewBox="0 0 360 120">
+        <g fill="#111">
+          <!-- Muster 1: Kreuz Arm 1 -->
+          <rect x="30" y="45" width="12" height="12"/><rect x="16" y="45" width="12" height="12"/>
+          <rect x="44" y="45" width="12" height="12"/><rect x="30" y="31" width="12" height="12"/>
+          <rect x="30" y="59" width="12" height="12"/>
+          <!-- Muster 2 -->
+          <rect x="140" y="45" width="12" height="12"/>
+          <rect x="126" y="45" width="12" height="12"/><rect x="112" y="45" width="12" height="12"/>
+          <rect x="154" y="45" width="12" height="12"/><rect x="168" y="45" width="12" height="12"/>
+          <rect x="140" y="31" width="12" height="12"/><rect x="140" y="17" width="12" height="12"/>
+          <rect x="140" y="59" width="12" height="12"/><rect x="140" y="73" width="12" height="12"/>
+          <!-- Muster 3 -->
+          <rect x="280" y="45" width="12" height="12"/>
+          <rect x="266" y="45" width="12" height="12"/><rect x="252" y="45" width="12" height="12"/><rect x="238" y="45" width="12" height="12"/>
+          <rect x="294" y="45" width="12" height="12"/><rect x="308" y="45" width="12" height="12"/><rect x="322" y="45" width="12" height="12"/>
+          <rect x="280" y="31" width="12" height="12"/><rect x="280" y="17" width="12" height="12"/><rect x="280" y="3" width="12" height="12"/>
+          <rect x="280" y="59" width="12" height="12"/><rect x="280" y="73" width="12" height="12"/><rect x="280" y="87" width="12" height="12"/>
+        </g>
+        <g font-size="11" text-anchor="middle">
+          <text x="42" y="95">(1.)</text><text x="146" y="105">(2.)</text><text x="286" y="115">(3.)</text>
+        </g>
+      </svg>
+      <p style="margin-top:10px">a)&nbsp; <b>Wie viele Plättchen benötigt Timo für das 6. Muster?<br>
+      &emsp;&nbsp;&nbsp;Begründen Sie Ihre Antwort.</b></p>
+      <p>b)&nbsp; Timo möchte die Anzahl der Plättchen bei jedem Muster berechnen.<br>
+      &emsp;&nbsp;&nbsp;Er hat vier Formeln zur Auswahl.</p>
+      <p style="margin-left:20px" class="stift"><b>Welche beiden Formeln sollte er auswählen?<br>
+      Kreuzen Sie jeweils richtig oder falsch an.</b></p>
+      <div class="zweispaltig" style="margin-left:20px">
+        <table class="werte" style="border:none">
+          <tr><td style="border:none"></td><th style="border:none; font-weight:normal">richtig</th><th style="border:none; font-weight:normal">falsch</th></tr>
+          <tr><td class="formel"><b>p</b> = 4n + 1</td><td style="border:none"><span class="cbx"></span></td><td style="border:none"><span class="cbx"></span></td></tr>
+          <tr><td class="formel"><b>p</b> = 2n + 3</td><td style="border:none"><span class="cbx"></span></td><td style="border:none"><span class="cbx"></span></td></tr>
+          <tr><td class="formel"><b>p</b> = (2n + 1) + 2n</td><td style="border:none"><span class="cbx"></span></td><td style="border:none"><span class="cbx"></span></td></tr>
+          <tr><td class="formel"><b>p</b> = 5n − 1</td><td style="border:none"><span class="cbx"></span></td><td style="border:none"><span class="cbx"></span></td></tr>
+        </table>
+        <div style="font-size:10pt; padding-top:24px">
+          → n gibt die Stelle des jeweiligen Musters an<br><br>
+          → p ist die Anzahl der Plättchen eines Musters
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 5</span><span class="pkt">(1 P)</span></div>
+    <div class="a-body">
+      <p class="stift"><b>Welcher Kosinuswert ist positiv, welcher negativ? Kreuzen Sie an.</b></p>
+      <table class="werte">
+        <tr><td style="border:none"></td><th style="font-weight:normal; border-top:none; border-left:none; border-right:none">positiv</th><th style="font-weight:normal; border-top:none; border-left:none; border-right:none">negativ</th></tr>
+        <tr><td class="formel" style="border-left:none; border-right:none">cos 70°</td><td style="border-left:none; border-right:none"><span class="cbx"></span></td><td style="border-left:none; border-right:none"><span class="cbx"></span></td></tr>
+        <tr><td class="formel" style="border-left:none; border-right:none">cos 170°</td><td style="border-left:none; border-right:none"><span class="cbx"></span></td><td style="border-left:none; border-right:none"><span class="cbx"></span></td></tr>
+        <tr><td class="formel" style="border-left:none; border-right:none">cos 250°</td><td style="border-left:none; border-right:none"><span class="cbx"></span></td><td style="border-left:none; border-right:none"><span class="cbx"></span></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= A1 BLATT 3 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Pflichtteil A1<br>Blatt 3 von 3</div>
+  </div>
+  <div style="border-top:2px solid var(--line); margin-bottom:10px"></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 6</span><span class="pkt">(2 P)</span></div>
+    <div class="a-body">
+      <p>Jana hat die Weitsprung-Ergebnisse ihrer Klasse gemessen und der Weite nach sortiert.</p>
+      <div class="rangliste">
+        Sprungweiten (in cm):<br><br>
+        250 | 260 | 260 | 280 | 280 | 290 | 300 | 300 | 310 | 320 | 330 | 330 | 340 | 350 | 350 | 360 | 380 | 400 | 420
+      </div>
+      <p>Mit dieser Rangliste hat Jana einen Boxplot erstellt.</p>
+      <svg width="560" height="130" viewBox="0 0 560 130" style="border:1px solid #222; display:block; margin:6px 0">
+        <!-- Skala: 0..450 -> x = 30 + wert*1.1 -->
+        <g stroke="#222" stroke-width="1.2" fill="none">
+          <!-- Boxplot: min 250, Q1 FALSCH bei 300, Median 320, Q3 350, Max 420 -->
+          <line x1="305" y1="45" x2="305" y2="15"/> <!-- min 250 whisker -->
+          <line x1="305" y1="30" x2="360" y2="30"/>
+          <rect x="360" y="12" width="55" height="36" fill="#ccc"/>
+          <line x1="382" y1="12" x2="382" y2="48" stroke-width="1.6"/> <!-- Median 320 -->
+          <line x1="415" y1="30" x2="492" y2="30"/>
+          <line x1="492" y1="45" x2="492" y2="15"/> <!-- max 420 -->
+          <!-- Achse -->
+          <line x1="25" y1="85" x2="540" y2="85"/>
+          <path d="M540,85 L531,81 M540,85 L531,89"/>
+        </g>
+        <g stroke="#222" stroke-width="1">
+          <line x1="30" y1="81" x2="30" y2="89"/><line x1="85" y1="83" x2="85" y2="87"/>
+          <line x1="140" y1="81" x2="140" y2="89"/><line x1="195" y1="83" x2="195" y2="87"/>
+          <line x1="250" y1="81" x2="250" y2="89"/><line x1="305" y1="83" x2="305" y2="87"/>
+          <line x1="360" y1="81" x2="360" y2="89"/><line x1="415" y1="83" x2="415" y2="87"/>
+          <line x1="470" y1="81" x2="470" y2="89"/><line x1="525" y1="83" x2="525" y2="87"/>
+        </g>
+        <g font-size="11" text-anchor="middle">
+          <text x="30" y="103">0</text><text x="140" y="103">100</text>
+          <text x="250" y="103">200</text><text x="360" y="103">300</text>
+          <text x="470" y="103">400</text>
+          <text x="500" y="120" text-anchor="start" font-size="11">Weite in cm</text>
+        </g>
+      </svg>
+      <p>a)&nbsp; Jana hat bei der Erstellung des Boxplots einen Fehler gemacht.<br>
+      &emsp;&nbsp;&nbsp;<b>Beschreiben Sie diesen Fehler.</b></p>
+      <p>b)&nbsp; Zwei Schüler waren beim Messen krank und springen nach.<br>
+      &emsp;&nbsp;&nbsp;Der eine springt 270 cm, der andere 430 cm weit.<br>
+      &emsp;&nbsp;&nbsp;Die beiden Werte nimmt Jana in die Rangliste oben mit auf.</p>
+      <p style="margin-left:20px">Jana behauptet: „Der Zentralwert ändert sich durch die beiden weiteren Werte nicht.“<br>
+      <b>Überprüfen Sie diese Behauptung und begründen Sie.</b></p>
+    </div>
+  </div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 7</span><span class="pkt">(1,5 P)</span></div>
+    <div class="a-body zweispaltig">
+      <div class="text">
+        <p>500 Schülerinnen und Schüler wurden befragt, welchen Snack sie in der großen
+        Pause am liebsten kaufen (siehe Diagramm).</p>
+        <p>a)&nbsp; <b>Geben Sie den prozentualen Anteil der Befragten an, die einen Müsliriegel wählen.</b></p>
+        <p>b)&nbsp; 60 % der Befragten, die Obst wählen, sind Mädchen.<br>
+        &emsp;&nbsp;&nbsp;Von diesen Mädchen bringen 20 % ihr Obst von zu Hause mit.</p>
+        <p style="margin-left:20px"><b>Berechnen Sie die Anzahl der Mädchen, die ihr Obst von zu Hause mitbringen.</b></p>
+      </div>
+      <svg width="290" height="190" viewBox="0 0 290 190">
+        <text x="145" y="14" font-size="12" font-weight="bold" text-anchor="middle">Beliebteste Pausensnacks</text>
+        <!-- Skala: 0..220 -> Breite 0.9px je Einheit ab x=95 -->
+        <g stroke="#bbb" stroke-width="1">
+          <line x1="140" y1="24" x2="140" y2="168"/><line x1="185" y1="24" x2="185" y2="168"/>
+          <line x1="230" y1="24" x2="230" y2="168"/><line x1="275" y1="24" x2="275" y2="168"/>
+        </g>
+        <g fill="#222">
+          <rect x="95" y="30" width="180" height="24"/>
+          <rect x="95" y="64" width="112.5" height="24"/>
+          <rect x="95" y="98" width="90" height="24"/>
+          <rect x="95" y="132" width="67.5" height="24"/>
+        </g>
+        <g font-size="11" text-anchor="end">
+          <text x="90" y="46">Brezel</text><text x="90" y="80">Obst</text>
+          <text x="90" y="114">Müsliriegel</text><text x="90" y="148">Sonstige</text>
+        </g>
+        <g font-size="10.5" fill="#fff" text-anchor="end">
+          <text x="270" y="46">200</text><text x="203" y="80">125</text>
+          <text x="180" y="114">100</text><text x="158" y="148">75</text>
+        </g>
+        <text x="278" y="182" font-size="9" text-anchor="end" fill="#555">[Eigene Darstellung]</text>
+      </svg>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= A2 BLATT 1 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Pflichtteil A2<br>Blatt 1 von 3</div>
+  </div>
+  <div class="namenszeile"><span>Nachname:</span><span>Vorname:</span></div>
+  <table class="hilfsmittel ohne-rand">
+    <tr><td><b>Zugelassene Hilfsmittel:</b></td><td>Formelsammlung, Zeichengeräte, inklusive Parabelschablone,<br>wissenschaftlicher Taschenrechner (nicht programmierbar)</td></tr>
+    <tr><td><b>Teil A2 (Pflichtteil):</b></td><td>Es sind alle Aufgaben (20 Punkte) zu bearbeiten.</td></tr>
+    <tr><td><b>Teil B (Wahlteil):</b></td><td>Es sind zwei der drei Aufgaben (20 Punkte) zu bearbeiten.</td></tr>
+  </table>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 1</span><span class="pkt">(4 P)</span></div>
+    <div class="a-body zweispaltig">
+      <div class="text">
+        <p>Im Rechteck ABCD gilt:</p>
+        <div class="gegeben formel">
+          <span class="ueberstrich">BC</span> = 5,2 cm<br>
+          <span class="ueberstrich">CE</span> = 8,4 cm<br>
+          &epsilon; = 47,0°
+        </div>
+        <p><b>Berechnen Sie den Umfang<br>des Rechtecks ABCD.</b></p>
+      </div>
+      <!-- Koordinaten: A(0,0) B(8.12,0) C(8.12,5.2) D(0,5.2) E(0,3.05) F(4.85,0); Skala 30, y gespiegelt, Offset 20/16 -->
+      <svg width="330" height="230" viewBox="0 0 330 230">
+        <g stroke="#222" stroke-width="1.4" fill="none">
+          <rect x="25" y="26" width="243.6" height="156"/>
+          <path d="M25,90.5 L268.6,26"/>   <!-- E-C -->
+          <path d="M25,90.5 L170.5,182"/>  <!-- E-F -->
+          <path d="M170.5,182 L268.6,26"/> <!-- F-C -->
+        </g>
+        <!-- rechter Winkel bei F -->
+        <path d="M161.4,175.9 L165.3,169.5 L171.8,173.2" stroke="#222" fill="none" stroke-width="1"/>
+        <circle cx="166.2" cy="174.4" r="1.2" fill="#222"/>
+        <!-- Winkel ε bei E -->
+        <path d="M47,84.7 A22,22 0 0 1 38.9,99.2" stroke="#222" fill="none" stroke-width="1"/>
+        <text x="52" y="99" font-size="13" font-style="italic">&epsilon;</text>
+        <g font-size="13">
+          <text x="12" y="196">A</text><text x="273" y="196">B</text>
+          <text x="273" y="22">C</text><text x="12" y="22">D</text>
+          <text x="10" y="95">E</text><text x="165" y="200">F</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="aufgabe" style="margin-top:34px">
+    <div class="a-kopf"><span>Aufgabe 2</span><span class="pkt">(3,5 P)</span></div>
+    <div class="a-body zweispaltig">
+      <div class="text">
+        <p>Eines der Manteldreiecke der regelmäßigen sechsseitigen Pyramide ist grau gefärbt.</p>
+        <p>Es gilt:</p>
+        <div class="gegeben formel">
+          <span class="ueberstrich">BS</span> = 11,0 cm<br>
+          &psi; = 36,0°
+        </div>
+        <p><b>Berechnen Sie das Volumen der Pyramide.</b></p>
+      </div>
+      <svg width="300" height="250" viewBox="0 0 300 250">
+        <!-- Sechseck-Basis: Mittelpunkt (150,195), rx 95, ry 30 -->
+        <g stroke="#222" stroke-width="1.3" fill="none">
+          <!-- Ecken: 0°..300°: (245,195) (197.5,221) (102.5,221) (55,195) (102.5,169) (197.5,169) -->
+          <path d="M245,195 L197.5,221 L102.5,221 L55,195" />
+          <path d="M55,195 L102.5,169 L197.5,169 L245,195" stroke-dasharray="4,3"/>
+          <!-- graues Manteldreieck S-B-C (vorne rechts): B(197.5,221) C(245,195) -->
+          <path d="M150,22 L197.5,221 L245,195 Z" fill="#d4d4d4" stroke="none"/>
+          <!-- Kanten zur Spitze -->
+          <path d="M150,22 L245,195 M150,22 L197.5,221 M150,22 L102.5,221 M150,22 L55,195"/>
+          <path d="M150,22 L102.5,169 M150,22 L197.5,169" stroke-dasharray="4,3"/>
+          <!-- Höhe -->
+          <path d="M150,22 L150,195" stroke-dasharray="2,3"/>
+        </g>
+        <text x="146" y="203" font-size="12">×</text>
+        <!-- Winkel ψ an S zwischen SB und SC -->
+        <path d="M156,49 A28,28 0 0 1 165,48" stroke="#222" fill="none" stroke-width="1"/>
+        <text x="163" y="64" font-size="13" font-style="italic">&psi;</text>
+        <g font-size="13">
+          <text x="146" y="16">S</text>
+          <text x="199" y="237">B</text>
+          <text x="252" y="200">C</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= A2 BLATT 2 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Pflichtteil A2<br>Blatt 2 von 3</div>
+  </div>
+  <div style="border-top:2px solid var(--line); margin-bottom:10px"></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 3</span><span class="pkt">(3,5 P)</span></div>
+    <div class="a-body">
+      <p>Gegeben sind drei Funktionsgleichungen und drei Graphen.</p>
+      <p class="formel" style="margin-left:20px">
+        (A)&nbsp; y = −&frac14;x² + 4 &emsp;&emsp;
+        (B)&nbsp; y = (x + 3)² + e &emsp;&emsp;
+        (C)&nbsp; y = x² − 4x + 3
+      </p>
+      <div class="zweispaltig">
+        <div class="text">
+          <ul class="punkte">
+            <li><b>Welcher Graph gehört zu welcher Funktionsgleichung?<br>Begründen Sie Ihre Entscheidung.</b></li>
+            <li><b>Bestimmen Sie den Wert für e mithilfe des Schaubildes.</b></li>
+          </ul>
+          <p>Die Gerade g verläuft durch den Scheitelpunkt S<sub>1</sub> von p<sub>1</sub> und durch den Punkt P(0|3).</p>
+          <ul class="punkte">
+            <li><b>Bestimmen Sie die Funktionsgleichung der Geraden g.</b></li>
+          </ul>
+        </div>
+        <svg width="290" height="280" viewBox="-5 -5 270 270" style="flex-shrink:0">
+          <!-- Gitter: x -6.5..6.5, y -4.5..8.5, 20px/E; Achsen bei sx=130 (x=0), sy=170 (y=0) -->
+          <g stroke="#c9c9c9" stroke-width="0.7">
+            <line x1="10" y1="0" x2="10" y2="260"/><line x1="30" y1="0" x2="30" y2="260"/><line x1="50" y1="0" x2="50" y2="260"/><line x1="70" y1="0" x2="70" y2="260"/><line x1="90" y1="0" x2="90" y2="260"/><line x1="110" y1="0" x2="110" y2="260"/><line x1="150" y1="0" x2="150" y2="260"/><line x1="170" y1="0" x2="170" y2="260"/><line x1="190" y1="0" x2="190" y2="260"/><line x1="210" y1="0" x2="210" y2="260"/><line x1="230" y1="0" x2="230" y2="260"/><line x1="250" y1="0" x2="250" y2="260"/>
+            <line x1="0" y1="10" x2="260" y2="10"/><line x1="0" y1="30" x2="260" y2="30"/><line x1="0" y1="50" x2="260" y2="50"/><line x1="0" y1="70" x2="260" y2="70"/><line x1="0" y1="90" x2="260" y2="90"/><line x1="0" y1="110" x2="260" y2="110"/><line x1="0" y1="130" x2="260" y2="130"/><line x1="0" y1="150" x2="260" y2="150"/><line x1="0" y1="190" x2="260" y2="190"/><line x1="0" y1="210" x2="260" y2="210"/><line x1="0" y1="230" x2="260" y2="230"/><line x1="0" y1="250" x2="260" y2="250"/>
+          </g>
+          <g stroke="#222" stroke-width="1.3">
+            <line x1="130" y1="0" x2="130" y2="260"/><line x1="0" y1="170" x2="260" y2="170"/>
+            <path d="M130,0 L126,8 M130,0 L134,8" fill="none"/>
+            <path d="M260,170 L252,166 M260,170 L252,174" fill="none"/>
+          </g>
+          <g font-size="9" text-anchor="middle" fill="#333">
+            <text x="50" y="181">-4</text><text x="90" y="181">-2</text>
+            <text x="170" y="181">2</text><text x="210" y="181">4</text><text x="250" y="181">6</text>
+            <text x="122" y="133">2</text><text x="122" y="93">4</text><text x="122" y="53">6</text><text x="122" y="13">8</text>
+            <text x="122" y="213">-2</text><text x="122" y="253">-4</text>
+            <text x="138" y="10" font-size="11" font-style="italic">y</text>
+            <text x="252" y="162" font-size="11" font-style="italic">x</text>
+          </g>
+          <g stroke="#222" stroke-width="1.6" fill="none">
+            <path d="M112.0,21.8 L117.0,49.5 L122.0,74.8 L127.0,97.6 L132.0,117.8 L137.0,135.6 L142.0,150.8 L147.0,163.6 L152.0,173.8 L157.0,181.6 L162.0,186.8 L167.0,189.5 L172.0,189.8 L177.0,187.5 L182.0,182.8 L187.0,175.6 L192.0,165.8 L197.0,153.6 L202.0,138.8 L207.0,121.5 L212.0,101.8 L217.0,79.6 L222.0,54.8 L227.0,27.6"/>
+            <path d="M6.0,5.2 L11.0,35.9 L16.0,64.2 L21.0,89.9 L26.0,113.2 L31.0,133.9 L36.0,152.2 L41.0,167.9 L46.0,181.2 L51.0,191.9 L56.0,200.2 L61.0,205.9 L66.0,209.2 L71.0,210.0 L76.0,208.2 L81.0,203.9 L86.0,197.2 L91.0,188.0 L96.0,176.2 L101.0,161.9 L106.0,145.2 L111.0,126.0 L116.0,104.2 L121.0,80.0 L126.0,53.2 L131.0,24.0"/>
+            <path d="M14.0,258.2 L19.0,244.0 L24.0,230.5 L29.0,217.5 L34.0,205.2 L39.0,193.5 L44.0,182.4 L49.0,172.0 L54.0,162.2 L59.0,153.0 L64.0,144.4 L69.0,136.5 L74.0,129.2 L79.0,122.5 L84.0,116.4 L89.0,111.0 L94.0,106.2 L99.0,102.0 L104.0,98.4 L109.0,95.5 L114.0,93.2 L119.0,91.5 L124.0,90.5 L129.0,90.0 L134.0,90.2 L139.0,91.0 L144.0,92.5 L149.0,94.5 L154.0,97.2 L159.0,100.5 L164.0,104.5 L169.0,109.0 L174.0,114.2 L179.0,120.0 L184.0,126.4 L189.0,133.5 L194.0,141.2 L199.0,149.5 L204.0,158.5 L209.0,168.0 L214.0,178.2 L219.0,189.0 L224.0,200.5 L229.0,212.5 L234.0,225.2 L239.0,238.5 L244.0,252.5"/>
+          </g>
+          <g font-size="12" font-style="italic">
+            <text x="98" y="36">p<tspan font-size="9" dy="2">2</tspan></text>
+            <text x="228" y="44">p<tspan font-size="9" dy="2">1</tspan></text>
+            <text x="160" y="112">p<tspan font-size="9" dy="2">3</tspan></text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 4</span><span class="pkt">(3 P)</span></div>
+    <div class="a-body">
+      <p>Beim Kartenspiel „Drachenburg“ liegen 20 Karten verdeckt auf dem Tisch.
+      Die Tabelle zeigt die Verteilung auf die drei Kartentypen.</p>
+      <table class="werte">
+        <tr><th>Kartentyp</th><td>Drache</td><td>Zauberer</td><td>Ritter</td></tr>
+        <tr><th>Anzahl der Karten</th><td>9</td><td>7</td><td>4</td></tr>
+      </table>
+      <p>Mia zieht zwei Karten gleichzeitig.</p>
+      <p>Wie groß ist die Wahrscheinlichkeit, dass auf den beiden gezogenen Karten</p>
+      <ul class="punkte">
+        <li><b>Ritter abgebildet sind?</b></li>
+        <li><b>höchstens ein Drache abgebildet ist?</b></li>
+        <li><b>kein Zauberer abgebildet ist?</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= A2 BLATT 3 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Pflichtteil A2<br>Blatt 3 von 3</div>
+  </div>
+  <div style="border-top:2px solid var(--line); margin-bottom:10px"></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 5</span><span class="pkt">(3 P)</span></div>
+    <div class="a-body">
+      <p>Lösen Sie die Gleichung.</p>
+      <p class="gleichung">(x + 1)(x − 4) − (x − 3)² = x(x − 5) + 2</p>
+    </div>
+  </div>
+
+  <div class="aufgabe" style="margin-top:26px">
+    <div class="a-kopf"><span>Aufgabe 6</span><span class="pkt">(3 P)</span></div>
+    <div class="a-body zweispaltig">
+      <div class="text">
+        <p>Das nebenstehende Diagramm zeigt die Entwicklung der Besucherzahlen des Freibads Sonnenau.</p>
+        <ul class="punkte">
+          <li><b>Um wie viel Prozent ist die Anzahl der Besucher von 2021 bis 2023 insgesamt gestiegen?</b></li>
+        </ul>
+        <p>Im Jahr 2025 stiegen die Besucherzahlen um 15 % gegenüber dem Vorjahr an.</p>
+        <ul class="punkte">
+          <li class="stift"><b>Zeichnen Sie die Säule des Jahres 2025 in das Diagramm ein.</b></li>
+        </ul>
+        <p>Von den Besuchern des Jahres 2024, die höchstens 17 Jahre alt sind, sind 18 900 Mädchen.</p>
+        <ul class="punkte">
+          <li><b>Berechnen Sie den prozentualen Anteil der Mädchen an den Besuchern, die höchstens 17 Jahre alt sind.</b></li>
+        </ul>
+      </div>
+      <div style="flex-shrink:0">
+        <svg width="300" height="210" viewBox="0 0 300 210">
+          <text x="160" y="14" font-size="12" font-weight="bold" text-anchor="middle">Freibad Sonnenau – Besucher</text>
+          <!-- y: 0..160000 -> 160px, Basis y=185; 20000 = 20px -->
+          <g stroke="#ccc" stroke-width="0.8">
+            <line x1="55" y1="165" x2="290" y2="165"/><line x1="55" y1="145" x2="290" y2="145"/>
+            <line x1="55" y1="125" x2="290" y2="125"/><line x1="55" y1="105" x2="290" y2="105"/>
+            <line x1="55" y1="85" x2="290" y2="85"/><line x1="55" y1="65" x2="290" y2="65"/>
+            <line x1="55" y1="45" x2="290" y2="45"/><line x1="55" y1="25" x2="290" y2="25"/>
+          </g>
+          <g stroke="#222" stroke-width="1.2">
+            <line x1="55" y1="20" x2="55" y2="185"/><line x1="55" y1="185" x2="290" y2="185"/>
+          </g>
+          <g font-size="8.5" text-anchor="end" fill="#333">
+            <text x="51" y="188">0</text><text x="51" y="148">40 000</text>
+            <text x="51" y="108">80 000</text><text x="51" y="68">120 000</text>
+            <text x="51" y="28">160 000</text>
+          </g>
+          <g fill="#222">
+            <rect x="68" y="105" width="26" height="80"/>
+            <rect x="112" y="89" width="26" height="96"/>
+            <rect x="156" y="65" width="26" height="120"/>
+            <rect x="200" y="59" width="26" height="126"/>
+          </g>
+          <g font-size="8.5" text-anchor="middle">
+            <text x="81" y="100">80 000</text><text x="125" y="84">96 000</text>
+            <text x="169" y="60">120 000</text><text x="213" y="54">126 000</text>
+          </g>
+          <g font-size="9.5" text-anchor="middle">
+            <text x="81" y="197">2021</text><text x="125" y="197">2022</text>
+            <text x="169" y="197">2023</text><text x="213" y="197">2024</text><text x="257" y="197">2025</text>
+          </g>
+        </svg>
+        <svg width="300" height="200" viewBox="0 0 300 200">
+          <text x="150" y="14" font-size="11.5" font-weight="bold" text-anchor="middle">Besucher 2024 nach Alter in Prozent</text>
+          <!-- Kreis: Mitte (150,110), r=62; Segmente ab 12 Uhr im UZS: 25/30/25/20 % -->
+          <g stroke="#fff" stroke-width="1.2">
+            <path d="M150,110 L150,48 A62,62 0 0 1 212,110 Z" fill="#1c1c1c"/>
+            <path d="M150,110 L212,110 A62,62 0 0 1 130.8,169 Z" fill="#e8e8e8"/>
+            <path d="M150,110 L130.8,169 A62,62 0 0 1 91,129.2 Z" fill="#555"/>
+            <path d="M150,110 L91,129.2 A62,62 0 0 1 150,48 Z" fill="#aaa"/>
+          </g>
+          <g font-size="10">
+            <text x="176" y="86" fill="#fff">25 %</text>
+            <text x="172" y="146">30 %</text>
+            <text x="112" y="148" fill="#fff">25 %</text>
+            <text x="110" y="86">20 %</text>
+          </g>
+          <g font-size="9.5">
+            <text x="222" y="62">bis 17 Jahre</text>
+            <text x="212" y="168">18 bis 39 Jahre</text>
+            <text x="18" y="176">40 bis 59 Jahre</text>
+            <text x="26" y="52">ab 60 Jahre</text>
+          </g>
+          <text x="290" y="196" font-size="8.5" text-anchor="end" fill="#555">[Eigene Darstellung]</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= B BLATT 1 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Wahlteil B<br>Blatt 1 von 3</div>
+  </div>
+  <div class="namenszeile"><span>Nachname:</span><span>Vorname:</span></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 1</span><span></span></div>
+    <div class="a-body">
+      <div class="zweispaltig">
+        <div class="text">
+          <p>a)&nbsp; Im Rechteck ABCD liegt das Drachenviereck EGCF.<br>
+          &emsp;&nbsp;&nbsp;Es gilt:</p>
+          <div class="gegeben formel">
+            <span class="ueberstrich">AB</span> = 10,2 cm<br>
+            <span class="ueberstrich">BC</span> = 6,0 cm<br>
+            <span class="ueberstrich">BE</span> = 6,0 cm<br>
+            &epsilon; = 25,0°
+          </div>
+          <ul class="punkte">
+            <li><b>Berechnen Sie den Winkel &phi;.</b></li>
+            <li><b>Berechnen Sie den Umfang des Vierecks AEFD.</b></li>
+          </ul>
+        </div>
+        <div style="flex-shrink:0">
+          <div style="text-align:right; font-weight:bold; margin-bottom:2px">(5 P)</div>
+          <!-- A(0,0) B(10.2,0) C(10.2,6) D(0,6) E(4.2,0) G(10.2,2.8) F(7,6); Skala 26, Offset 22/18, y gespiegelt (Höhe 156) -->
+          <svg width="330" height="220" viewBox="0 0 330 220">
+            <g stroke="#222" stroke-width="1.4" fill="none">
+              <rect x="22" y="18" width="265.2" height="156"/>
+              <path d="M131.2,174 L287.2,101.2"/>  <!-- E-G -->
+              <path d="M131.2,174 L204,18"/>        <!-- E-F -->
+            </g>
+            <!-- ε bei E zwischen EB und EG -->
+            <path d="M157,174 A26,26 0 0 0 154.7,163" stroke="#222" fill="none" stroke-width="1"/>
+            <text x="160" y="168" font-size="13" font-style="italic">&epsilon;</text>
+            <!-- φ bei F zwischen FE und FC -->
+            <path d="M209.5,29.8 A13,13 0 0 1 217,18" stroke="#222" fill="none" stroke-width="1"/>
+            <text x="212" y="42" font-size="13" font-style="italic">&phi;</text>
+            <g font-size="13">
+              <text x="10" y="188">A</text><text x="292" y="188">B</text>
+              <text x="292" y="16">C</text><text x="10" y="16">D</text>
+              <text x="126" y="192">E</text><text x="294" y="106">G</text>
+              <text x="200" y="14">F</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div style="margin-top:40px">
+        <div style="display:flex; justify-content:space-between">
+          <p style="margin:0">b)&nbsp; Die Parabeln p<sub>1</sub> und p<sub>2</sub> sind zwei nach oben geöffnete verschobene Normalparabeln.</p>
+          <b>(5 P)</b>
+        </div>
+        <p style="margin-left:20px">Die Parabel p<sub>1</sub> hat den Scheitelpunkt S<sub>1</sub>(1|−4).<br>
+        Die Parabel p<sub>2</sub> schneidet die x-Achse in den Punkten N<sub>1</sub>(2|0) und N<sub>2</sub>(6|0).</p>
+        <ul class="punkte" style="margin-left:20px">
+          <li><b>Bestimmen Sie die Funktionsgleichungen von p<sub>1</sub> und p<sub>2</sub>.</b></li>
+        </ul>
+        <p style="margin-left:20px">Die Gerade g verläuft durch den Scheitelpunkt S<sub>1</sub> und den Punkt A(3|2).</p>
+        <ul class="punkte" style="margin-left:20px">
+          <li><b>Berechnen Sie die Funktionsgleichung von g.</b></li>
+        </ul>
+        <p style="margin-left:20px">Der Punkt S<sub>2</sub> ist der Scheitelpunkt der Parabel p<sub>2</sub>.</p>
+        <ul class="punkte" style="margin-left:20px">
+          <li><b>Berechnen Sie die Entfernung zwischen S<sub>1</sub> und S<sub>2</sub>.</b></li>
+        </ul>
+        <p style="margin-left:20px">Lena behauptet: „Die Parabeln p<sub>1</sub> und p<sub>2</sub> sowie die Gerade g schneiden sich in einem gemeinsamen Punkt.“</p>
+        <ul class="punkte" style="margin-left:20px">
+          <li><b>Überprüfen Sie diese Behauptung. Begründen Sie Ihre Antwort rechnerisch.</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= B BLATT 2 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Wahlteil B<br>Blatt 2 von 3</div>
+  </div>
+  <div class="namenszeile"><span>Nachname:</span><span>Vorname:</span></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 2</span><span></span></div>
+    <div class="a-body">
+      <div style="display:flex; justify-content:space-between">
+        <p style="margin:0">a)&nbsp; Die Gerade g hat die Funktionsgleichung y = x − 4.<br>
+        &emsp;&nbsp;&nbsp;Sie schneidet die x-Achse im Punkt A und die y-Achse im Punkt B.</p>
+        <b>(5 P)</b>
+      </div>
+      <ul class="punkte" style="margin-left:20px">
+        <li><b>Bestimmen Sie die Koordinaten der Punkte A und B.</b></li>
+      </ul>
+      <p style="margin-left:20px">Durch die Punkte A und B verläuft die nach oben geöffnete verschobene Normalparabel p.</p>
+      <ul class="punkte" style="margin-left:20px">
+        <li><b>Berechnen Sie die Funktionsgleichung der Parabel p und die Koordinaten ihres Scheitelpunktes S.</b></li>
+      </ul>
+      <p style="margin-left:20px">Die beiden Punkte P(x<sub>P</sub>|6) und Q(x<sub>Q</sub>|6) liegen auf der Parabel p.<br>
+      Sie bilden zusammen mit dem Scheitelpunkt S das Dreieck PSQ.</p>
+      <ul class="punkte" style="margin-left:20px">
+        <li><b>Berechnen Sie den Flächeninhalt des Dreiecks PSQ.</b></li>
+      </ul>
+
+      <div class="zweispaltig" style="margin-top:44px">
+        <div class="text">
+          <p>b)&nbsp; Die Abbildung zeigt den Achsenschnitt eines zusammengesetzten Körpers
+          und den Parallelschnitt eines quadratischen Prismas.<br>
+          &emsp;&nbsp;&nbsp;Der zusammengesetzte Körper besteht aus einem Zylinder und einem aufgesetzten Kegel.</p>
+          <p>&emsp;&nbsp;&nbsp;Es gilt:</p>
+          <div class="gegeben formel">
+            s = 10,4 cm<br>
+            &delta; = 38,0°<br>
+            h<sub>ges</sub> = 15,0 cm<br>
+            h<sub>ges</sub> = h<sub>Prisma</sub>
+          </div>
+          <p>Der Durchmesser d des zusammengesetzten Körpers ist genauso lang wie die Grundkante a des quadratischen Prismas.</p>
+          <ul class="punkte">
+            <li><b>Berechnen Sie die Differenz der Oberflächeninhalte der beiden Körper.</b></li>
+          </ul>
+        </div>
+        <div style="flex-shrink:0">
+          <div style="text-align:right; font-weight:bold; margin-bottom:2px">(5 P)</div>
+          <!-- Zylinder+Kegel: r=6.4->64px? Skala 7.5: d=96px, h_zyl=51px, h_kegel=61.5px -->
+          <svg width="300" height="220" viewBox="0 0 300 220">
+            <g stroke="#222" stroke-width="1.3" fill="none">
+              <!-- Kegel: Spitze (85,25), Basis (37,86)-(133,86) -->
+              <path d="M85,25 L37,86 L37,190 L133,190 L133,86 Z"/>
+              <line x1="37" y1="86" x2="133" y2="86" stroke-dasharray="4,3"/>
+              <line x1="85" y1="25" x2="85" y2="190" stroke-dasharray="2,3"/>
+            </g>
+            <!-- δ an der Spitze zwischen Achse und s -->
+            <path d="M85,47 A22,22 0 0 0 74,44" stroke="#222" fill="none" stroke-width="1"/>
+            <text x="72" y="58" font-size="12" font-style="italic">&delta;</text>
+            <text x="46" y="52" font-size="12" font-style="italic">s</text>
+            <!-- h_ges Klammer rechts -->
+            <g stroke="#222" stroke-width="1">
+              <line x1="152" y1="25" x2="152" y2="190"/>
+              <line x1="147" y1="25" x2="157" y2="25"/><line x1="147" y1="190" x2="157" y2="190"/>
+            </g>
+            <text x="158" y="112" font-size="11" font-style="italic">h<tspan font-size="8" dy="3">ges</tspan></text>
+            <!-- d unten -->
+            <g stroke="#222" stroke-width="1">
+              <line x1="37" y1="202" x2="133" y2="202"/>
+              <line x1="37" y1="197" x2="37" y2="207"/><line x1="133" y1="197" x2="133" y2="207"/>
+            </g>
+            <text x="81" y="216" font-size="12" font-style="italic">d</text>
+            <!-- Prisma-Schnitt -->
+            <rect x="200" y="25" width="78" height="165" stroke="#222" fill="none" stroke-width="1.3"/>
+            <g stroke="#222" stroke-width="1">
+              <line x1="200" y1="202" x2="278" y2="202"/>
+              <line x1="200" y1="197" x2="200" y2="207"/><line x1="278" y1="197" x2="278" y2="207"/>
+            </g>
+            <text x="235" y="216" font-size="12" font-style="italic">a</text>
+            <text x="284" y="112" font-size="11" font-style="italic">h<tspan font-size="8" dy="3">Pr</tspan></text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= B BLATT 3 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Wahlteil B<br>Blatt 3 von 3</div>
+  </div>
+  <div class="namenszeile"><span>Nachname:</span><span>Vorname:</span></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 3</span><span></span></div>
+    <div class="a-body">
+      <div class="zweispaltig">
+        <div class="text">
+          <p>a)&nbsp; Beim Schulfest bietet die Klasse 10b ein Greifspiel an.
+          Dabei ziehen die Spieler zweimal nacheinander eine Kugel aus einem Stoffbeutel.
+          Die Kugeln werden nicht zurückgelegt.<br>
+          &emsp;&nbsp;&nbsp;In dem Beutel liegen vier rote, drei goldene und drei silberne Kugeln.</p>
+          <ul class="punkte">
+            <li><b>Berechnen Sie die Wahrscheinlichkeit für das Ereignis „zweimal Gold“.</b></li>
+          </ul>
+          <p>Für ein Glücksspiel wird der nebenstehende Gewinnplan eingesetzt.</p>
+          <ul class="punkte">
+            <li><b>Berechnen Sie den Erwartungswert.</b></li>
+          </ul>
+          <p>Der Gewinnplan soll so verändert werden, dass das Spiel fair wird.
+          Dazu soll der Gewinn von „zweimal Gold“ verändert werden, während alles andere
+          unverändert bleibt.</p>
+          <ul class="punkte">
+            <li><b>Wie hoch muss der Gewinn für „zweimal Gold“ sein?</b></li>
+          </ul>
+        </div>
+        <div style="flex-shrink:0">
+          <div style="text-align:right; font-weight:bold; margin-bottom:8px">(5 P)</div>
+          <table class="werte">
+            <tr><th>Ereignis</th><th>Gewinn</th></tr>
+            <tr><td>zweimal Gold</td><td>5,00 €</td></tr>
+            <tr><td>zweimal Silber</td><td>3,00 €</td></tr>
+            <tr><td>Gold und Silber</td><td>2,00 €</td></tr>
+            <tr><td colspan="2">Einsatz 1,00 €</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div style="margin-top:36px">
+        <div class="zweispaltig">
+          <div class="text">
+            <p>b)&nbsp; Die Vorderseite eines Gewächshaustunnels hat annähernd die Form einer Parabel.
+            Sie lässt sich mit der Funktionsgleichung <span class="formel">y = ax² + c</span> beschreiben.</p>
+          </div>
+          <div style="flex-shrink:0">
+            <div style="text-align:right; font-weight:bold">(5 P)</div>
+            <svg width="280" height="160" viewBox="0 0 280 160">
+              <g stroke="#222" stroke-width="1.5" fill="none">
+                <path d="M15.0,142.5 L22.5,128.0 L30.0,114.4 L37.5,101.7 L45.0,90.0 L52.5,79.2 L60.0,69.4 L67.5,60.5 L75.0,52.5 L82.5,45.5 L90.0,39.4 L97.5,34.2 L105.0,30.0 L112.5,26.7 L120.0,24.4 L127.5,23.0 L135.0,22.5 L142.5,23.0 L150.0,24.4 L157.5,26.7 L165.0,30.0 L172.5,34.2 L180.0,39.4 L187.5,45.5 L195.0,52.5 L202.5,60.5 L210.0,69.4 L217.5,79.2 L225.0,90.0 L232.5,101.7 L240.0,114.4 L247.5,128.0 L255.0,142.5"/>
+                <line x1="8" y1="142.5" x2="272" y2="142.5"/>
+              </g>
+              <!-- Tür (Vorschlag 1: Höhe 6m = 90px hoch? Skala 15px/m -> 6m=90px, Breite 8m=120px) -->
+              <rect x="105" y="52.5" width="60" height="90" fill="none" stroke="#222" stroke-width="1" stroke-dasharray="5,3"/>
+              <g stroke="#222" stroke-width="1">
+                <line x1="98" y1="52.5" x2="98" y2="142.5"/>
+                <line x1="94" y1="52.5" x2="102" y2="52.5"/><line x1="94" y1="142.5" x2="102" y2="142.5"/>
+              </g>
+              <text x="70" y="102" font-size="11">6 m</text>
+              <text x="272" y="156" font-size="9" fill="#555" text-anchor="end">[Eigene Darstellung]</text>
+            </svg>
+          </div>
+        </div>
+        <p style="margin-left:20px">Die maximale Höhe des Tunnels beträgt 8 m. Der Tunnel hat am Boden eine Breite von 16 m.</p>
+        <ul class="punkte" style="margin-left:20px">
+          <li><b>Geben Sie eine mögliche Funktionsgleichung an.</b></li>
+        </ul>
+        <p style="margin-left:20px">In die Vorderseite des Tunnels soll eine rechteckige Türfläche mittig eingebaut werden.
+        Dazu werden zwei Vorschläge geprüft.</p>
+        <p style="margin-left:20px">Vorschlag 1:&nbsp; Die Türfläche soll eine Höhe von 6 m haben.<br>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;Die beiden oberen Eckpunkte berühren den Parabelbogen (siehe Abbildung).</p>
+        <ul class="punkte" style="margin-left:20px">
+          <li><b>Berechnen Sie den Flächeninhalt dieser Türfläche.</b></li>
+        </ul>
+        <p style="margin-left:20px">Vorschlag 2:&nbsp; Die Türfläche soll eine Breite von 12 m haben.</p>
+        <ul class="punkte" style="margin-left:20px">
+          <li><b>Berechnen Sie die größtmögliche Höhe dieser Türfläche.</b></li>
+          <li><b>Welche der beiden Türflächen ist größer? Berechnen Sie.</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Haupttermin 2024</span></div>
+</div>
+
+<!-- ======================= LÖSUNGEN SEITE 1 ======================= -->
+<div class="blatt loesung">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Lösungen · Seite 1 von 2</div>
+  </div>
+  <div style="border-top:2px solid var(--line); text-align:center; padding:3px; font-size:10pt">Für die Fachlehrerin, den Fachlehrer</div>
+  <div style="border-top:1px solid var(--line); margin-bottom:8px"></div>
+
+  <h3>Teil A1 (Pflichtteil) – 10 Punkte</h3>
+  <p><b>Aufgabe 1</b> (1,5 P): h<sub>Pyr</sub> = 5 cm &nbsp;<span class="zwischen">[V<sub>Quader</sub> = 60 cm³; 60 = ⅓ · 36 · h]</span></p>
+  <p><b>Aufgabe 2</b> (1 P): 1. Stufe b: 7/25 &nbsp;·&nbsp; 2. Stufe g→g: 7/24 &nbsp;<span class="zwischen">[25 Kugeln: 10 r, 8 g, 7 b]</span></p>
+  <p><b>Aufgabe 3</b> (1 P): Term (C); 3 600 000 &nbsp;<span class="zwischen">[A: 360; B: 3 600; D: 360 000]</span></p>
+  <p><b>Aufgabe 4</b> (2 P): a) 25 Plättchen &nbsp;<span class="zwischen">[je Muster kommen 4 Plättchen dazu: 13+4+4+4 bzw. 4·6+1]</span><br>
+  b) richtig: p = 4n + 1 und p = (2n + 1) + 2n &nbsp;·&nbsp; falsch: p = 2n + 3 <span class="zwischen">[n=2: 7≠9]</span>, p = 5n − 1 <span class="zwischen">[n=2: 9 ✓, aber n=1: 4≠5]</span></p>
+  <p><b>Aufgabe 5</b> (1 P): cos 70° positiv &nbsp;·&nbsp; cos 170° negativ &nbsp;·&nbsp; cos 250° negativ</p>
+  <p><b>Aufgabe 6</b> (2 P): a) Mögliche Beschreibung: „Jana hat das untere Quartil falsch eingezeichnet.
+  Der richtige Wert liegt bei 280 cm (eingezeichnet: 300 cm).“ [1 P]<br>
+  b) Die Behauptung stimmt. Mögliche Begründung: „Ein Wert (270 cm) liegt in der unteren Hälfte
+  und ein Wert (430 cm) in der oberen Hälfte der Rangliste – der Zentralwert bleibt 320 cm.“ [1 P]</p>
+  <p><b>Aufgabe 7</b> (1,5 P): a) 20 % [0,5 P] &nbsp;·&nbsp; b) 15 Mädchen &nbsp;<span class="zwischen">[75 Mädchen wählen Obst; 20 % von 75]</span> [1 P]</p>
+
+  <h3>Teil A2 (Pflichtteil) – 20 Punkte</h3>
+  <p><b>Aufgabe 1</b> (4 P): u<sub>ABCD</sub> = 26,6 cm &nbsp;<span class="zwischen">[EF = 5,73 cm; FC = 6,14 cm; BF = 3,27 cm; AF = 4,85 cm; AE = 3,05 cm; AB = 8,12 cm]</span></p>
+  <p><b>Aufgabe 2</b> (3,5 P): V<sub>Pyr</sub> ≈ 346 cm³ &nbsp;<span class="zwischen">[BC = 6,80 cm; h<sub>s</sub> = 10,46 cm; h<sub>a</sub> = 5,89 cm; h<sub>Pyr</sub> = 8,65 cm; G = 120,1 cm²]</span></p>
+  <p><b>Aufgabe 3</b> (3,5 P):</p>
+  <table class="werte" style="font-size:10pt">
+    <tr><th>Zuordnung</th><th>Mögliche Begründung</th><th>Parameter</th></tr>
+    <tr><td>(A) → p<sub>3</sub></td><td>nach unten geöffnete, gestauchte Parabel</td><td rowspan="2">e = −2</td></tr>
+    <tr><td>(B) → p<sub>2</sub></td><td>S<sub>2</sub>(−3|−2), Verschiebung um −3 in x-Richtung</td></tr>
+    <tr><td>(C) → p<sub>1</sub></td><td>Scheitelform y = (x−2)² − 1, S<sub>1</sub>(2|−1)</td><td></td></tr>
+  </table>
+  <p>g: y = −2x + 3 &nbsp;<span class="zwischen">[durch S<sub>1</sub>(2|−1) und P(0|3): m = −2, c = 3]</span></p>
+  <p><b>Aufgabe 4</b> (3 P): P(zwei Ritter) = 3/95 ≈ 3,2 % &nbsp;·&nbsp;
+  P(höchstens ein Drache) = 77/95 ≈ 81,1 % <span class="zwischen">[1 − 18/95]</span> &nbsp;·&nbsp;
+  P(kein Zauberer) = 39/95 ≈ 41,1 % <span class="zwischen">[13/20 · 12/19]</span></p>
+  <p><b>Aufgabe 5</b> (3 P): L = {3; 5} &nbsp;<span class="zwischen">[3x − 13 = x² − 5x + 2 → x² − 8x + 15 = 0]</span></p>
+  <p><b>Aufgabe 6</b> (3 P): a) 50 % &nbsp;·&nbsp; b) Säule 2025: 144 900 Besucher &nbsp;·&nbsp;
+  c) 60 % &nbsp;<span class="zwischen">[25 % von 126 000 = 31 500 Besucher bis 17 Jahre; 18 900 / 31 500]</span></p>
+  <div class="fusszeile"><span>Übungsmaterial · Lösungen</span><span>Nur für die Lehrkraft</span></div>
+</div>
+
+<!-- ======================= LÖSUNGEN SEITE 2 ======================= -->
+<div class="blatt loesung">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsprüfung</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Übungssatz A</div>
+    <div class="r">Lösungen · Seite 2 von 2</div>
+  </div>
+  <div style="border-top:2px solid var(--line); text-align:center; padding:3px; font-size:10pt">Für die Fachlehrerin, den Fachlehrer</div>
+  <div style="border-top:1px solid var(--line); margin-bottom:8px"></div>
+
+  <h3>Wahlteil B – je Aufgabe 10 Punkte (zwei von drei)</h3>
+  <p><b>Aufgabe 1 a)</b> (5 P): &phi; = 115° &nbsp;<span class="zwischen">[Winkel BEC = 45°; Winkel GEF = 2·(45°−25°) = 40°;
+  Winkel GCF = 90°; Winkelsumme: (360° − 40° − 90°) : 2]</span><br>
+  u<sub>AEFD</sub> = 23,8 cm &nbsp;<span class="zwischen">[GB = 2,80 cm; EG = EF = 6,62 cm; AE = 4,2 cm; FD = 7,0 cm; DA = 6,0 cm]</span></p>
+  <p><b>Aufgabe 1 b)</b> (5 P): p<sub>1</sub>: y = (x−1)² − 4 &nbsp;·&nbsp; p<sub>2</sub>: y = (x−2)(x−6) = (x−4)² − 4 &nbsp;<span class="zwischen">[S<sub>2</sub>(4|−4)]</span><br>
+  g: y = 3x − 7 &nbsp;<span class="zwischen">[m = (2−(−4))/(3−1) = 3]</span> &nbsp;·&nbsp; Entfernung S<sub>1</sub>S<sub>2</sub> = 3 LE<br>
+  Behauptung stimmt nicht: p<sub>1</sub> ∩ p<sub>2</sub> = P(2,5|−1,75), aber g(2,5) = 0,5 ≠ −1,75.</p>
+  <p><b>Aufgabe 2 a)</b> (5 P): A(4|0), B(0|−4) &nbsp;·&nbsp; p: y = x² − 3x − 4, S(1,5|−6,25)<br>
+  A<sub>PSQ</sub> ≈ 42,9 FE &nbsp;<span class="zwischen">[x² − 3x − 10 = 0 → P(−2|6), Q(5|6); g = 7 LE; h = 12,25 LE]</span></p>
+  <p><b>Aufgabe 2 b)</b> (5 P): Differenz ≈ 485 cm² &nbsp;<span class="zwischen">[r = 6,40 cm; h<sub>Kegel</sub> = 8,20 cm; h<sub>Zyl</sub> = 6,80 cm;
+  O<sub>Körper</sub> = πr² + 2πr·h<sub>Zyl</sub> + πrs ≈ 611,7 cm²; a = d = 12,81 cm; O<sub>Prisma</sub> = 2a² + 4a·15 ≈ 1096,3 cm²]</span></p>
+  <p><b>Aufgabe 3 a)</b> (5 P): P(zweimal Gold) = 1/15 ≈ 6,7 % &nbsp;<span class="zwischen">[3/10 · 2/9]</span><br>
+  E = −1/15 € ≈ −0,07 € &nbsp;<span class="zwischen">[E = 1/15 · 5 € + 1/15 · 3 € + 1/5 · 2 € − 1 €; P(zweimal Silber) = 1/15; P(Gold u. Silber) = 2 · 3/10 · 3/9 = 1/5]</span><br>
+  Fairer Gewinn „zweimal Gold“: 6,00 € <span class="zwischen">[0 = x/15 + 3/15 + 6/15 − 1 → x = 6 €]</span></p>
+  <p><b>Aufgabe 3 b)</b> (5 P): y = −0,125x² + 8 &nbsp;<span class="zwischen">[S(0|8); N(±8|0)]</span><br>
+  Vorschlag 1: Breite 8 m <span class="zwischen">[6 = −0,125x² + 8 → x = ±4]</span>, A<sub>1</sub> = 48 m²<br>
+  Vorschlag 2: größtmögliche Höhe 3,5 m <span class="zwischen">[y(6) = −0,125·36 + 8]</span>, A<sub>2</sub> = 42 m²<br>
+  Die Türfläche von Vorschlag 1 ist größer.</p>
+
+  <div class="hinweis-kasten" style="font-size:10pt">
+    <b>Hinweise zur Bewertung</b> (wie im Original-Format): Es können ganze und halbe Punkte vergeben werden.
+    Der Lösungsweg muss nachvollziehbar sein. Ergebnisse sind sinnvoll zu runden.
+    Fehlende oder falsche Maßeinheiten bei gefragten Ergebnissen: je 0,5 P Abzug (max. 2 P in der Gesamtprüfung).
+    Angaben in eckigen Klammern sind Hinweise für einen möglichen Lösungsweg.
+    Notenschlüssel der Original-Prüfung (50 Punkte) anwendbar.
+  </div>
+  <div class="fusszeile"><span>Übungsmaterial · Lösungen</span><span>Nur für die Lehrkraft</span></div>
+</div>
+
+</body>
+</html>

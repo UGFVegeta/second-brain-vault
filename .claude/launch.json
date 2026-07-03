@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "wsc-preview",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/344ce7ba-8289-491c-a8db-be7397c682e6/scratchpad/wsc && exec python3 -m http.server 8734"],
+      "port": 8734
+    },
+    {
+      "name": "physik-mc",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/7fdb90cc-7cfe-4310-ba5e-fc97befeab43/scratchpad/physikmc' && exec python3 -m http.server 8736"],
+      "port": 8736
+    },
+    {
+      "name": "matheaufgaben",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8738", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen/Mathematik Prüfungsaufgaben"],
+      "port": 8738
+    },
+    {
+      "name": "pruefungsarchiv",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8737", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen/Mathematik Prüfungsaufgaben/Prüfungsarchiv"],
+      "port": 8737
+    },
+    {
+      "name": "pruefungsapp",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/ea4a42c3-9343-4a09-b3cc-56a699ab9b0d/scratchpad/pruefungsapp' && exec python3 -m http.server 8735"],
+      "port": 8735
+    }
+  ]
+}

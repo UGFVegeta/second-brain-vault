@@ -4,20 +4,20 @@
   "title": "Compile Süna buildmeter correspondence",
   "titleGenerationStatus": "success",
   "createdAt": 1782133058914,
-  "updatedAt": 1782674597698,
-  "lastResponseAt": 1782674597698,
+  "updatedAt": 1782758685307,
+  "lastResponseAt": 1782707366847,
   "sessionId": "47470e3c-50e9-4348-94ec-57cca419884e",
   "providerState": {
     "providerSessionId": "47470e3c-50e9-4348-94ec-57cca419884e"
   },
   "usage": {
     "model": "opus",
-    "inputTokens": 131,
-    "cacheCreationInputTokens": 519398,
-    "cacheReadInputTokens": 0,
+    "inputTokens": 2,
+    "cacheCreationInputTokens": 2767,
+    "cacheReadInputTokens": 618051,
     "contextWindow": 1000000,
-    "contextTokens": 519529,
-    "percentage": 52,
+    "contextTokens": 620820,
+    "percentage": 62,
     "contextWindowIsAuthoritative": true
   }
 }

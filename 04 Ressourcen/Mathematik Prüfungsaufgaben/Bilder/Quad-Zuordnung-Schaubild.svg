@@ -1,0 +1,198 @@
+<svg viewBox="0 0 750 640" width="750" height="640" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+  <rect width="750" height="640" fill="white"/>
+  <clipPath id="plot"><rect x="80" y="20" width="635" height="591"/></clipPath>
+
+  <!-- Gitternetz vertikal (x = -6 bis 8) -->
+  <!-- svg_x(x) = 350 + x*45 -->
+  <line x1="80"  y1="20" x2="80"  y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="125" y1="20" x2="125" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="170" y1="20" x2="170" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="215" y1="20" x2="215" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="260" y1="20" x2="260" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="305" y1="20" x2="305" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="350" y1="20" x2="350" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="395" y1="20" x2="395" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="440" y1="20" x2="440" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="485" y1="20" x2="485" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="530" y1="20" x2="530" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="575" y1="20" x2="575" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="620" y1="20" x2="620" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="665" y1="20" x2="665" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="710" y1="20" x2="710" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+
+  <!-- Gitternetz horizontal (y = -4 bis 9) -->
+  <!-- svg_y(y) = 399 - y*42 -->
+  <line x1="80" y1="567" x2="715" y2="567" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="525" x2="715" y2="525" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="483" x2="715" y2="483" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="441" x2="715" y2="441" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="399" x2="715" y2="399" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="357" x2="715" y2="357" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="315" x2="715" y2="315" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="273" x2="715" y2="273" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="231" x2="715" y2="231" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="189" x2="715" y2="189" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="147" x2="715" y2="147" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="105" x2="715" y2="105" stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="63"  x2="715" y2="63"  stroke="#bbbbbb" stroke-width="0.8"/>
+  <line x1="80" y1="21"  x2="715" y2="21"  stroke="#bbbbbb" stroke-width="0.8"/>
+
+  <!-- Gitternetz y=-5 -->
+  <line x1="80" y1="609" x2="715" y2="609" stroke="#bbbbbb" stroke-width="0.8"/>
+
+  <!-- x-Achse -->
+  <line x1="72" y1="399" x2="724" y2="399" stroke="#222222" stroke-width="2.2"/>
+  <polygon points="724,399 715,394 715,404" fill="#222222"/>
+  <text x="730" y="404" font-size="17" fill="#222222" font-weight="bold">x</text>
+
+  <!-- y-Achse -->
+  <line x1="350" y1="619" x2="350" y2="10" stroke="#222222" stroke-width="2.2"/>
+  <polygon points="350,10 345,19 355,19" fill="#222222"/>
+  <text x="356" y="10" font-size="17" fill="#222222" font-weight="bold">y</text>
+
+  <!-- Tick-Marks x-Achse -->
+  <line x1="80"  y1="393" x2="80"  y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="125" y1="393" x2="125" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="170" y1="393" x2="170" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="215" y1="393" x2="215" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="260" y1="393" x2="260" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="305" y1="393" x2="305" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="395" y1="393" x2="395" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="440" y1="393" x2="440" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="485" y1="393" x2="485" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="530" y1="393" x2="530" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="575" y1="393" x2="575" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="620" y1="393" x2="620" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="665" y1="393" x2="665" y2="405" stroke="#222222" stroke-width="1.5"/>
+  <line x1="710" y1="393" x2="710" y2="405" stroke="#222222" stroke-width="1.5"/>
+
+  <!-- Tick-Marks y-Achse -->
+  <line x1="344" y1="567" x2="356" y2="567" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="525" x2="356" y2="525" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="483" x2="356" y2="483" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="441" x2="356" y2="441" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="357" x2="356" y2="357" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="315" x2="356" y2="315" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="273" x2="356" y2="273" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="231" x2="356" y2="231" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="189" x2="356" y2="189" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="147" x2="356" y2="147" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="105" x2="356" y2="105" stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="63"  x2="356" y2="63"  stroke="#222222" stroke-width="1.5"/>
+  <line x1="344" y1="21"  x2="356" y2="21"  stroke="#222222" stroke-width="1.5"/>
+
+  <!-- Achsenbeschriftung x -->
+  <text x="80"  y="421" font-size="13" fill="#222222" text-anchor="middle">-6</text>
+  <text x="125" y="421" font-size="13" fill="#222222" text-anchor="middle">-5</text>
+  <text x="170" y="421" font-size="13" fill="#222222" text-anchor="middle">-4</text>
+  <text x="215" y="421" font-size="13" fill="#222222" text-anchor="middle">-3</text>
+  <text x="260" y="421" font-size="13" fill="#222222" text-anchor="middle">-2</text>
+  <text x="305" y="421" font-size="13" fill="#222222" text-anchor="middle">-1</text>
+  <text x="395" y="421" font-size="13" fill="#222222" text-anchor="middle">1</text>
+  <text x="440" y="421" font-size="13" fill="#222222" text-anchor="middle">2</text>
+  <text x="485" y="421" font-size="13" fill="#222222" text-anchor="middle">3</text>
+  <text x="530" y="421" font-size="13" fill="#222222" text-anchor="middle">4</text>
+  <text x="575" y="421" font-size="13" fill="#222222" text-anchor="middle">5</text>
+  <text x="620" y="421" font-size="13" fill="#222222" text-anchor="middle">6</text>
+  <text x="665" y="421" font-size="13" fill="#222222" text-anchor="middle">7</text>
+  <text x="710" y="421" font-size="13" fill="#222222" text-anchor="middle">8</text>
+
+  <!-- Achsenbeschriftung y -->
+  <line x1="344" y1="609" x2="356" y2="609" stroke="#222222" stroke-width="1.5"/>
+  <text x="337" y="613" font-size="13" fill="#222222" text-anchor="end">-5</text>
+  <text x="337" y="571" font-size="13" fill="#222222" text-anchor="end">-4</text>
+  <text x="337" y="529" font-size="13" fill="#222222" text-anchor="end">-3</text>
+  <text x="337" y="487" font-size="13" fill="#222222" text-anchor="end">-2</text>
+  <text x="337" y="445" font-size="13" fill="#222222" text-anchor="end">-1</text>
+  <text x="337" y="361" font-size="13" fill="#222222" text-anchor="end">1</text>
+  <text x="337" y="319" font-size="13" fill="#222222" text-anchor="end">2</text>
+  <text x="337" y="277" font-size="13" fill="#222222" text-anchor="end">3</text>
+  <text x="337" y="235" font-size="13" fill="#222222" text-anchor="end">4</text>
+  <text x="337" y="193" font-size="13" fill="#222222" text-anchor="end">5</text>
+  <text x="337" y="151" font-size="13" fill="#222222" text-anchor="end">6</text>
+  <text x="337" y="109" font-size="13" fill="#222222" text-anchor="end">7</text>
+  <text x="337" y="67"  font-size="13" fill="#222222" text-anchor="end">8</text>
+  <text x="337" y="25"  font-size="13" fill="#222222" text-anchor="end">9</text>
+
+  <!-- KURVEN -->
+  <g clip-path="url(#plot)">
+
+    <!-- a (grün): y = -½x² + 6   Scheitel (0|6), nach unten -->
+    <polyline fill="none" stroke="#33aa33" stroke-width="2.8" stroke-linejoin="round"
+      points="
+        139,609 143,591 148,572
+        152,554 161,517 170,483 179,450 188,419 197,390 206,362 215,336 224,312
+        233,289 242,268 251,249 260,231 269,215 278,201 287,187 296,177 305,168
+        314,160 323,154 332,150 341,148 350,147
+        359,148 368,150 377,154 386,160 395,168 404,177 413,187 422,201 431,215
+        440,231 449,249 458,268 467,289 476,312 485,336 494,362 503,390 512,419
+        521,450 530,483 539,517 548,554
+        553,572 557,591 561,609
+      "/>
+
+    <!-- b (blau): y = x² + 2   Scheitel (0|2), nach oben -->
+    <polyline fill="none" stroke="#3366ff" stroke-width="2.8" stroke-linejoin="round"
+      points="
+        233,31 242,73 251,111 260,147 269,179 278,207 287,233 296,254 305,273
+        314,288 323,300 332,308 341,313 350,315
+        359,313 368,308 377,300 386,288 395,273 404,254 413,233 422,207 431,179
+        440,147 449,111 458,73 467,31
+      "/>
+
+    <!-- c (rot): y = (x-4)² + 2   Scheitel (4|2), nach oben -->
+    <polyline fill="none" stroke="#dd2222" stroke-width="2.8" stroke-linejoin="round"
+      points="
+        413,30  422,72  431,111 440,147 449,179 458,207 467,232 476,254 485,273
+        494,287 503,299 512,307 521,313 530,315 539,313 548,307 557,299 566,287
+        575,273 584,254 593,232 602,207 611,179 620,147 629,111 638,72 647,30
+      "/>
+
+    <!-- d (orange): y = (x+2)² - 4   Scheitel (-2|-4), nach oben -->
+    <polyline fill="none" stroke="#e07800" stroke-width="2.8" stroke-linejoin="round"
+      points="
+        98,22  107,81  116,137 125,189 134,238 143,283 152,325 161,364 170,399
+        179,431 188,460 197,485 206,506 215,525 224,540 233,552 242,560 251,565
+        260,567
+        269,565 278,560 287,552 296,540 305,525 314,506 323,485 332,460 341,431
+        350,399 359,364 368,325 377,283 386,238 395,189 404,137 413,81 422,22
+      "/>
+
+    <!-- e (lila): y = -¼x² + 6   Scheitel (0|6), nach unten, breiter -->
+    <polyline fill="none" stroke="#9922cc" stroke-width="2.8" stroke-linejoin="round"
+      points="
+        80,525  89,500  98,476  107,453 116,431 125,410 134,389 143,369 152,350
+        161,332 170,315 179,298 188,283 197,268 206,254 215,241 224,229 233,218
+        242,207 251,198 260,189 269,181 278,174 287,167 296,162 305,157 314,154
+        323,151 332,149 341,148 350,147
+        359,148 368,149 377,151 386,154 395,157 404,162 413,167 422,174 431,181
+        440,189 449,198 458,207 467,218 476,229 485,241 494,254 503,268 512,283
+        521,298 530,315 539,332 548,350 557,369 566,389 575,410 584,431 593,453
+        602,476 611,500 620,525 629,551 634,564
+        638,577 643,591 647,604 648,609
+      "/>
+
+  </g>
+
+  <!-- BESCHRIFTUNGEN -->
+
+  <!-- a (grün): x=-2, y=4 auf Kurve → svg(260,231) -->
+  <rect x="244" y="222" width="14" height="16" fill="white"/>
+  <text x="251" y="237" font-size="16" fill="#33aa33" font-weight="bold" text-anchor="middle">a</text>
+
+  <!-- b (blau): x=-1, y=3 auf Kurve → svg(305,273) -->
+  <rect x="308" y="264" width="14" height="16" fill="white"/>
+  <text x="315" y="279" font-size="16" fill="#3366ff" font-weight="bold" text-anchor="middle">b</text>
+
+  <!-- c (rot): x=6.2, y≈6.84 → svg(629,111) -->
+  <rect x="632" y="102" width="12" height="16" fill="white"/>
+  <text x="638" y="117" font-size="16" fill="#dd2222" font-weight="bold" text-anchor="middle">c</text>
+
+  <!-- d (orange): x=1, y=5 auf Kurve → svg(395,189) -->
+  <rect x="399" y="180" width="14" height="16" fill="white"/>
+  <text x="406" y="195" font-size="16" fill="#e07800" font-weight="bold" text-anchor="middle">d</text>
+
+  <!-- e (lila): x=3, y=3.75 auf Kurve → svg(485,241) -->
+  <rect x="488" y="232" width="12" height="16" fill="white"/>
+  <text x="494" y="247" font-size="16" fill="#9922cc" font-weight="bold" text-anchor="middle">e</text>
+
+</svg>

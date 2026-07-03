@@ -1,0 +1,23 @@
+{
+  "id": "conv-1782881564079-qvpr92lil",
+  "providerId": "claude",
+  "title": "Review today's schedule and daily notes",
+  "titleGenerationStatus": "success",
+  "createdAt": 1782881564080,
+  "updatedAt": 1783074591164,
+  "lastResponseAt": 1783074591164,
+  "sessionId": "db485798-8baf-4ea4-871b-db556c1c8c48",
+  "providerState": {
+    "providerSessionId": "db485798-8baf-4ea4-871b-db556c1c8c48"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 3,
+    "cacheCreationInputTokens": 24263,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 24266,
+    "percentage": 12,
+    "contextWindowIsAuthoritative": true
+  }
+}
