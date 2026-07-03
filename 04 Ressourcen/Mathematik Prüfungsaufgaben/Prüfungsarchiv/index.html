@@ -61,6 +61,24 @@
   .tag { font-size: 10.5px; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
   .item .snip { margin-top: 3px; font-size: 11.5px; color: var(--muted); line-height: 1.35;
                 display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .item .kopf { display: flex; align-items: baseline; }
+  .item .kopf .titeltext { flex: 1; }
+  .pick {
+    width: 15px; height: 15px; margin-left: 8px; flex-shrink: 0; cursor: pointer;
+    accent-color: var(--accent); align-self: center;
+  }
+  #werkzeug {
+    display: flex; align-items: center; gap: 8px; margin-top: 8px;
+    padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px;
+  }
+  #werkzeug .zahl { color: var(--muted); }
+  #werkzeug button {
+    font-size: 12px; padding: 4px 10px; border: 1px solid var(--line);
+    border-radius: 6px; background: #fff; cursor: pointer; color: var(--text);
+  }
+  #werkzeug button:hover { border-color: var(--accent); }
+  #werkzeug button.primaer { background: var(--accent); color: #fff; border-color: var(--accent); }
+  #werkzeug button:disabled { opacity: .45; cursor: default; }
   #viewer { flex: 1; display: flex; flex-direction: column; min-width: 0; }
   #vkopf {
     display: flex; align-items: center; gap: 10px; padding: 8px 14px;
@@ -101,6 +119,13 @@
     <div class="fgroup" id="fTeil"><span>Teil</span></div>
     <div class="fgroup" id="fThema"><span>Thema</span></div>
   </div>
+  <div id="werkzeug">
+    <span>🖨</span>
+    <span class="zahl" id="wAnzahl">0 Aufgaben ausgewählt</span>
+    <button class="primaer" id="wDruck">Arbeitsblatt drucken</button>
+    <button id="wDruckL">Mit Lösungen drucken</button>
+    <button id="wLeeren">Auswahl leeren</button>
+  </div>
 </header>
 <main>
   <div id="liste">
@@ -131,6 +156,10 @@
   THEMEN.sort();
 
   var state = { jahr: "", teile: [], themen: [], sel: null, ansicht: "aufgabe" };
+  var auswahl = [];
+  try {
+    auswahl = JSON.parse(localStorage.getItem("pruefungsarchiv_auswahl") || "[]");
+  } catch (e) {}
   try {
     var saved = JSON.parse(localStorage.getItem("pruefungsarchiv") || "{}");
     if (saved.jahr !== undefined) state.jahr = saved.jahr;
@@ -200,13 +229,23 @@
       d.dataset.slug = a.slug;
       var teilKurz = a.teil.replace(" – ohne Taschenrechner", "").replace(" – mit Taschenrechner", "");
       d.innerHTML =
-        '<div class="kopf">' + a.jahr + " · " + a.label +
-        ' <span class="teil">' + teilKurz + "</span></div>" +
+        '<div class="kopf"><span class="titeltext">' + a.jahr + " · " + a.label +
+        ' <span class="teil">' + teilKurz + "</span></span>" +
+        '<input type="checkbox" class="pick" title="Für Arbeitsblatt auswählen"' +
+        (auswahl.indexOf(a.slug) >= 0 ? " checked" : "") + "></div>" +
         '<div class="themen">' + a.themen.map(function (t) {
           return '<span class="tag">' + t + "</span>";
         }).join("") + "</div>" +
         (a.snippet ? '<div class="snip">' + a.snippet.replace(/</g, "&lt;") + "</div>" : "");
       d.onclick = function () { zeige(a.slug, "aufgabe"); };
+      var cb = d.querySelector(".pick");
+      cb.onclick = function (e) {
+        e.stopPropagation();
+        var i = auswahl.indexOf(a.slug);
+        if (cb.checked && i < 0) auswahl.push(a.slug);
+        if (!cb.checked && i >= 0) auswahl.splice(i, 1);
+        werkzeugAktualisieren();
+      };
       box.appendChild(d);
     });
   }
@@ -259,6 +298,84 @@
   }
   document.getElementById("prev").onclick = function () { schritt(-1); };
   document.getElementById("next").onclick = function () { schritt(1); };
+
+  // --- Arbeitsblatt-Druck ---
+  function werkzeugAktualisieren() {
+    var n = auswahl.length;
+    document.getElementById("wAnzahl").textContent =
+      n + (n === 1 ? " Aufgabe" : " Aufgaben") + " ausgewählt";
+    document.getElementById("wDruck").disabled = !n;
+    document.getElementById("wDruckL").disabled = !n;
+    document.getElementById("wLeeren").disabled = !n;
+    try { localStorage.setItem("pruefungsarchiv_auswahl", JSON.stringify(auswahl)); } catch (e) {}
+  }
+
+  function baueDruckHTML(mitLoesung) {
+    var SKALA = 0.681, BREIT = 1054;
+    var tasks = auswahl.map(aufgabeVon).filter(Boolean);
+    tasks.sort(function (x, y) {
+      return x.jahr - y.jahr || (x.sort < y.sort ? -1 : 1);
+    });
+    function abs(p) { return new URL(p, location.href).href; }
+    function block(a, i, art) {
+      var url = art === "l" ? a.loesung : a.aufgabe;
+      var h = (art === "l" ? a.hl : a.ha) || 1400;
+      var hs = Math.ceil(h * SKALA);
+      return '<div class="task' + (hs < 880 ? " zusammen" : "") + '">' +
+        '<div class="cap">Aufgabe ' + (i + 1) +
+        ' <span>(' + a.jahr + " · " + a.label + ")</span></div>" +
+        '<div class="rahmen" style="height:' + hs + 'px">' +
+        '<iframe src="' + abs(url) + '" style="height:' + h + 'px" scrolling="no"></iframe>' +
+        "</div></div>";
+    }
+    var teile = tasks.map(function (a, i) { return block(a, i, "a"); }).join("");
+    var loes = "";
+    if (mitLoesung) {
+      loes = '<div class="loesungen"><h1>Lösungen</h1>' +
+        tasks.map(function (a, i) { return block(a, i, "l"); }).join("") + "</div>";
+    }
+    return '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">' +
+      "<title>Arbeitsblatt" + (mitLoesung ? " mit Lösungen" : "") + "</title><style>" +
+      "body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;padding:24px}" +
+      "h1{font-size:17px;margin:0 0 2px}" +
+      ".kopfzeile{display:flex;justify-content:space-between;align-items:flex-end;" +
+      "border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:12px}" +
+      ".kopfzeile .nd{font-size:13px}" +
+      ".rahmen{overflow:hidden;width:" + Math.ceil(BREIT * SKALA) + "px}" +
+      ".rahmen iframe{width:" + BREIT + "px;border:0;transform:scale(" + SKALA + ");transform-origin:0 0}" +
+      ".task{margin-bottom:10px}.task.zusammen{break-inside:avoid}" +
+      ".cap{font-weight:bold;font-size:14px;margin:12px 0 2px;border-top:1px solid #ccc;padding-top:8px}" +
+      ".cap span{font-weight:normal;color:#555;font-size:12px}" +
+      ".loesungen{break-before:page}.loesungen h1{margin-top:18px}" +
+      ".hinweis{position:fixed;top:8px;right:8px;background:#1a5fb4;color:#fff;border:0;" +
+      "border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer}" +
+      "@media print{.hinweis{display:none}}@page{margin:12mm}" +
+      "</style></head><body>" +
+      '<button class="hinweis" onclick="window.print()">Drucken</button>' +
+      '<div class="kopfzeile"><div><h1>Arbeitsblatt – Prüfungsaufgaben Mathematik' +
+      (mitLoesung ? " (mit Lösungen)" : "") + "</h1>" +
+      '<div style="font-size:11px;color:#555">Realschulabschlussprüfung BW · zusammengestellt aus ' +
+      tasks.length + " Aufgaben</div></div>" +
+      '<div class="nd">Name: ____________________&emsp;Datum: ____________</div></div>' +
+      teile + loes + "</body></html>";
+  }
+
+  function druck(mitLoesung) {
+    if (!auswahl.length) return;
+    var w = window.open("", "_blank");
+    if (!w) { alert("Popup wurde blockiert – bitte Popups für diese Seite erlauben."); return; }
+    w.document.write(baueDruckHTML(mitLoesung));
+    w.document.close();
+  }
+  window.baueDruckHTML = baueDruckHTML;
+
+  document.getElementById("wDruck").onclick = function () { druck(false); };
+  document.getElementById("wDruckL").onclick = function () { druck(true); };
+  document.getElementById("wLeeren").onclick = function () {
+    auswahl = [];
+    werkzeugAktualisieren();
+    document.querySelectorAll(".pick").forEach(function (c) { c.checked = false; });
+  };
   document.addEventListener("keydown", function (e) {
     if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return;
     if (e.key === "ArrowLeft") { schritt(-1); e.preventDefault(); }
@@ -268,6 +385,7 @@
   });
 
   render();
+  werkzeugAktualisieren();
 })();
 </script>
 </body>
