@@ -324,13 +324,15 @@
       var h = unten - oben + 12;
       var s = Math.min(1, DRUCKBREITE / (w + 6));
       var hs = Math.ceil(h * s);
+      // zoom statt transform: verändert die echte Layoutgröße und druckt
+      // zuverlässig (transform auf iframes erzeugt Leerseiten in Chrome)
       return '<div class="task' + (hs < 900 ? " zusammen" : "") + '">' +
         '<div class="cap">Aufgabe ' + (i + 1) +
         ' <span>(' + a.jahr + " · " + a.label + ")</span></div>" +
         '<div class="rahmen" style="height:' + hs + "px;width:" + Math.ceil(w * s) + 'px">' +
-        '<iframe src="' + abs(url) + '" scrolling="no" style="width:' + (w + 20) +
-        "px;height:" + (unten + 30) + "px;transform:scale(" + s.toFixed(4) +
-        ");margin-top:-" + Math.round(oben * s) + 'px"></iframe>' +
+        '<iframe src="' + abs(url) + '" scrolling="no" style="zoom:' + s.toFixed(4) +
+        ";width:" + (w + 20) + "px;height:" + (unten + 30) + "px;margin-top:-" +
+        oben + 'px"></iframe>' +
         "</div></div>";
     }
     var teile = tasks.map(function (a, i) { return block(a, i, "a"); }).join("");
@@ -346,8 +348,9 @@
       ".kopfzeile{display:flex;justify-content:space-between;align-items:flex-end;" +
       "border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:6px}" +
       ".kopfzeile .nd{font-size:13px}" +
+      "html,body{height:auto}" +
       ".rahmen{overflow:hidden}" +
-      ".rahmen iframe{border:0;transform-origin:0 0}" +
+      ".rahmen iframe{border:0}" +
       ".task{margin-bottom:2px}.task.zusammen{break-inside:avoid}" +
       ".cap{font-weight:bold;font-size:13px;margin:8px 0 2px;border-top:1px solid #ccc;padding-top:6px}" +
       ".cap span{font-weight:normal;color:#555;font-size:11px}" +
