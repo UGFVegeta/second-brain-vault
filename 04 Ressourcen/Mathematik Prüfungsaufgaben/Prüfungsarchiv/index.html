@@ -118,6 +118,7 @@
     </div>
     <div class="fgroup" id="fTeil"><span>Teil</span></div>
     <div class="fgroup" id="fThema"><span>Thema</span></div>
+    <div class="fgroup" id="fSatz"><span>Eigene Übungssätze</span></div>
   </div>
   <div id="werkzeug">
     <span>🖨</span>
@@ -155,7 +156,7 @@
   });
   THEMEN.sort();
 
-  var state = { jahr: "", teile: [], themen: [], sel: null, ansicht: "aufgabe" };
+  var state = { jahr: "", teile: [], themen: [], saetze: [], sel: null, ansicht: "aufgabe" };
   var auswahl = [];
   try {
     auswahl = JSON.parse(localStorage.getItem("pruefungsarchiv_auswahl") || "[]");
@@ -165,19 +166,27 @@
     if (saved.jahr !== undefined) state.jahr = saved.jahr;
     if (saved.teile) state.teile = saved.teile;
     if (saved.themen) state.themen = saved.themen;
+    if (saved.saetze) state.saetze = saved.saetze;
   } catch (e) {}
 
   function speichern() {
     try {
       localStorage.setItem("pruefungsarchiv",
-        JSON.stringify({ jahr: state.jahr, teile: state.teile, themen: state.themen }));
+        JSON.stringify({ jahr: state.jahr, teile: state.teile, themen: state.themen,
+                         saetze: state.saetze }));
     } catch (e) {}
+  }
+
+  function anzeigename(a) {
+    return (a.satz ? "Ü-" + a.satz : a.jahr) + " · " + a.label;
   }
 
   // --- Filter-UI aufbauen ---
   var selJahr = document.getElementById("fJahr");
   var jahre = [];
-  AUFGABEN.forEach(function (a) { if (jahre.indexOf(a.jahr) < 0) jahre.push(a.jahr); });
+  AUFGABEN.forEach(function (a) {
+    if (a.jahr > 0 && jahre.indexOf(a.jahr) < 0) jahre.push(a.jahr);
+  });
   jahre.sort();
   jahre.forEach(function (j) {
     var o = document.createElement("option");
@@ -210,11 +219,39 @@
   chips("fTeil", TEILE, state.teile);
   chips("fThema", THEMEN, state.themen);
 
+  // Übungssatz-Chips (eigene Sätze, standardmäßig ausgeblendet)
+  var SAETZE = [];
+  AUFGABEN.forEach(function (a) {
+    if (a.satz && SAETZE.indexOf(a.satz) < 0) SAETZE.push(a.satz);
+  });
+  SAETZE.sort();
+  var satzbox = document.getElementById("fSatz");
+  if (!SAETZE.length) satzbox.style.display = "none";
+  SAETZE.forEach(function (s) {
+    var c = document.createElement("button");
+    c.className = "chip" + (state.saetze.indexOf(s) >= 0 ? " on" : "");
+    var n = AUFGABEN.filter(function (a) { return a.satz === s; }).length;
+    c.innerHTML = "Übungssatz " + s + ' <span class="n">' + n + "</span>";
+    c.onclick = function () {
+      var i = state.saetze.indexOf(s);
+      if (i >= 0) state.saetze.splice(i, 1); else state.saetze.push(s);
+      c.classList.toggle("on");
+      render(); speichern();
+    };
+    satzbox.appendChild(c);
+  });
+
   // --- Liste rendern ---
   var gefiltert = [];
   function render() {
     gefiltert = AUFGABEN.filter(function (a) {
-      if (state.jahr && String(a.jahr) !== String(state.jahr)) return false;
+      if (state.saetze.length) {
+        if (!a.satz || state.saetze.indexOf(a.satz) < 0) return false;
+      } else if (a.satz) {
+        return false;
+      } else if (state.jahr && String(a.jahr) !== String(state.jahr)) {
+        return false;
+      }
       if (state.teile.length && state.teile.indexOf(a.teil) < 0) return false;
       if (state.themen.length && !a.themen.some(function (t) { return state.themen.indexOf(t) >= 0; })) return false;
       return true;
@@ -229,7 +266,7 @@
       d.dataset.slug = a.slug;
       var teilKurz = a.teil.replace(" – ohne Taschenrechner", "").replace(" – mit Taschenrechner", "");
       d.innerHTML =
-        '<div class="kopf"><span class="titeltext">' + a.jahr + " · " + a.label +
+        '<div class="kopf"><span class="titeltext">' + anzeigename(a) +
         ' <span class="teil">' + teilKurz + "</span></span>" +
         '<input type="checkbox" class="pick" title="Für Arbeitsblatt auswählen"' +
         (auswahl.indexOf(a.slug) >= 0 ? " checked" : "") + "></div>" +
@@ -273,7 +310,7 @@
     frame.style.display = "";
     leer.style.display = "none";
     vkopf.style.display = "";
-    document.getElementById("vtitel").textContent = a.jahr + " · " + a.label + " · " + a.teil;
+    document.getElementById("vtitel").textContent = anzeigename(a) + " · " + a.teil;
     tabA.className = "tab" + (state.ansicht === "aufgabe" ? " on" : "");
     tabL.className = "tab" + (state.ansicht === "loesung" ? " on" : "");
     document.getElementById("neu").href = datei;
@@ -328,7 +365,7 @@
       // zuverlässig (transform auf iframes erzeugt Leerseiten in Chrome)
       return '<div class="task' + (hs < 900 ? " zusammen" : "") + '">' +
         '<div class="cap">Aufgabe ' + (i + 1) +
-        ' <span>(' + a.jahr + " · " + a.label + ")</span></div>" +
+        ' <span>(' + anzeigename(a) + ")</span></div>" +
         '<div class="rahmen" style="height:' + hs + "px;width:" + Math.ceil(w * s) + 'px">' +
         '<iframe src="' + abs(url) + '" scrolling="no" style="zoom:' + s.toFixed(4) +
         ";width:" + (w + 20) + "px;height:" + (unten + 30) + "px;margin-top:-" +

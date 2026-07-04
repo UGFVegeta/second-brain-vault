@@ -6355,5 +6355,2300 @@ const AUFGABEN = [
    1486,
    0
   ]
+ },
+ {
+  "slug": "uea_a1_p1",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/1",
+  "sort": "A1_001",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_A_a1_p1.html",
+  "loesung": "uebung/l_A_a1_p1.html",
+  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "ba": [
+   692,
+   285,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a1_p2",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/2",
+  "sort": "A1_002",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_A_a1_p2.html",
+  "loesung": "uebung/l_A_a1_p2.html",
+  "snippet": "Baumdiagramm (Ziehen ohne Zurücklegen) – leere Felder ergänzen.",
+  "ba": [
+   692,
+   253,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a1_p3",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/3",
+  "sort": "A1_003",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_A_a1_p3.html",
+  "loesung": "uebung/l_A_a1_p3.html",
+  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "ba": [
+   692,
+   142,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a1_p4",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/4",
+  "sort": "A1_004",
+  "themen": [
+   "Muster & Folgen"
+  ],
+  "aufgabe": "uebung/a_A_a1_p4.html",
+  "loesung": "uebung/l_A_a1_p4.html",
+  "snippet": "Plättchen-Muster fortsetzen und Formeln prüfen (richtig/falsch).",
+  "ba": [
+   692,
+   430,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a1_p5",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/5",
+  "sort": "A1_005",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_A_a1_p5.html",
+  "loesung": "uebung/l_A_a1_p5.html",
+  "snippet": "Vorzeichen von cos-Werten am Einheitskreis ankreuzen.",
+  "ba": [
+   692,
+   159,
+   10
+  ],
+  "bl": [
+   692,
+   62,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a1_p6",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/6",
+  "sort": "A1_006",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_A_a1_p6.html",
+  "loesung": "uebung/l_A_a1_p6.html",
+  "snippet": "Boxplot zu die Weitsprung-Ergebnisse ihrer Klasse – Fehler finden, Behauptung zum Zentralwert prüfen.",
+  "ba": [
+   692,
+   406,
+   10
+  ],
+  "bl": [
+   692,
+   139,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a1_p7",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/7",
+  "sort": "A1_007",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_A_a1_p7.html",
+  "loesung": "uebung/l_A_a1_p7.html",
+  "snippet": "Balkendiagramm „Beliebteste Pausensnacks“ – Prozentanteil und verschachtelte Prozente.",
+  "ba": [
+   692,
+   230,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a2_p1",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/1",
+  "sort": "A2_001",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_A_a2_p1.html",
+  "loesung": "uebung/l_A_a2_p1.html",
+  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "ba": [
+   692,
+   255,
+   10
+  ],
+  "bl": [
+   692,
+   180,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a2_p2",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/2",
+  "sort": "A2_002",
+  "themen": [
+   "Körperberechnung",
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_A_a2_p2.html",
+  "loesung": "uebung/l_A_a2_p2.html",
+  "snippet": "Regelmäßige sechsseitigen Pyramide – Volumen aus Kante und Spitzenwinkel.",
+  "ba": [
+   692,
+   278,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a2_p3",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/3",
+  "sort": "A2_003",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_A_a2_p3.html",
+  "loesung": "uebung/l_A_a2_p3.html",
+  "snippet": "Drei Parabeln zuordnen, Parameter e ablesen, Gerade durch den Scheitel.",
+  "ba": [
+   692,
+   320,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a2_p4",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/4",
+  "sort": "A2_004",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_A_a2_p4.html",
+  "loesung": "uebung/l_A_a2_p4.html",
+  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "ba": [
+   692,
+   242,
+   10
+  ],
+  "bl": [
+   692,
+   118,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a2_p5",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/5",
+  "sort": "A2_005",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_A_a2_p5.html",
+  "loesung": "uebung/l_A_a2_p5.html",
+  "snippet": "Gleichung mit Binomen lösen – Lösungsmenge bestimmen.",
+  "ba": [
+   692,
+   101,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "uea_a2_p6",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/6",
+  "sort": "A2_006",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_A_a2_p6.html",
+  "loesung": "uebung/l_A_a2_p6.html",
+  "snippet": "Säulen- und Kreisdiagramm „Freibad Sonnenau – Besucher“ – prozentuale Veränderungen.",
+  "ba": [
+   692,
+   420,
+   10
+  ],
+  "bl": [
+   692,
+   135,
+   10
+  ]
+ },
+ {
+  "slug": "uea_b_1a",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "Wahlteil B",
+  "label": "B1a",
+  "sort": "B001a",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_A_b_1a.html",
+  "loesung": "uebung/l_A_b_1a.html",
+  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "ba": [
+   692,
+   245,
+   10
+  ],
+  "bl": [
+   692,
+   165,
+   10
+  ]
+ },
+ {
+  "slug": "uea_b_1b",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "Wahlteil B",
+  "label": "B1b",
+  "sort": "B001b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_A_b_1b.html",
+  "loesung": "uebung/l_A_b_1b.html",
+  "snippet": "Zwei Normalparabeln, Gerade durch den Scheitel – Behauptung rechnerisch prüfen.",
+  "ba": [
+   692,
+   325,
+   10
+  ],
+  "bl": [
+   692,
+   154,
+   10
+  ]
+ },
+ {
+  "slug": "uea_b_2a",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "Wahlteil B",
+  "label": "B2a",
+  "sort": "B002a",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_A_b_2a.html",
+  "loesung": "uebung/l_A_b_2a.html",
+  "snippet": "Gerade, Parabel durch Achsenschnittpunkte, Dreieck mit dem Scheitel.",
+  "ba": [
+   692,
+   252,
+   10
+  ],
+  "bl": [
+   692,
+   152,
+   10
+  ]
+ },
+ {
+  "slug": "uea_b_2b",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "Wahlteil B",
+  "label": "B2b",
+  "sort": "B002b",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_A_b_2b.html",
+  "loesung": "uebung/l_A_b_2b.html",
+  "snippet": "Zylinder mit Kegel gegen quadratisches Prisma – Differenz der Oberflächen.",
+  "ba": [
+   692,
+   362,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "uea_b_3a",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "Wahlteil B",
+  "label": "B3a",
+  "sort": "B003a",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_A_b_3a.html",
+  "loesung": "uebung/l_A_b_3a.html",
+  "snippet": "Glücksspiel – Wahrscheinlichkeit, Erwartungswert und fairer Gewinn.",
+  "ba": [
+   692,
+   291,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "uea_b_3b",
+  "jahr": 0,
+  "satz": "A",
+  "teil": "Wahlteil B",
+  "label": "B3b",
+  "sort": "B003b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_A_b_3b.html",
+  "loesung": "uebung/l_A_b_3b.html",
+  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "ba": [
+   692,
+   483,
+   10
+  ],
+  "bl": [
+   692,
+   156,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a1_p1",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/1",
+  "sort": "A1_001",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_B_a1_p1.html",
+  "loesung": "uebung/l_B_a1_p1.html",
+  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "ba": [
+   692,
+   285,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a1_p2",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/2",
+  "sort": "A1_002",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_B_a1_p2.html",
+  "loesung": "uebung/l_B_a1_p2.html",
+  "snippet": "Baumdiagramm (Ziehen ohne Zurücklegen) – leere Felder ergänzen.",
+  "ba": [
+   692,
+   253,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a1_p3",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/3",
+  "sort": "A1_003",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_B_a1_p3.html",
+  "loesung": "uebung/l_B_a1_p3.html",
+  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "ba": [
+   692,
+   142,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a1_p4",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/4",
+  "sort": "A1_004",
+  "themen": [
+   "Muster & Folgen"
+  ],
+  "aufgabe": "uebung/a_B_a1_p4.html",
+  "loesung": "uebung/l_B_a1_p4.html",
+  "snippet": "Plättchen-Muster fortsetzen und Formeln prüfen (richtig/falsch).",
+  "ba": [
+   692,
+   430,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a1_p5",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/5",
+  "sort": "A1_005",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_B_a1_p5.html",
+  "loesung": "uebung/l_B_a1_p5.html",
+  "snippet": "Vorzeichen von sin-Werten am Einheitskreis ankreuzen.",
+  "ba": [
+   692,
+   159,
+   10
+  ],
+  "bl": [
+   692,
+   62,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a1_p6",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/6",
+  "sort": "A1_006",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_B_a1_p6.html",
+  "loesung": "uebung/l_B_a1_p6.html",
+  "snippet": "Boxplot zu die Schulweg-Zeiten ihrer Klasse – Fehler finden, Behauptung zum Zentralwert prüfen.",
+  "ba": [
+   692,
+   406,
+   10
+  ],
+  "bl": [
+   692,
+   139,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a1_p7",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/7",
+  "sort": "A1_007",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_B_a1_p7.html",
+  "loesung": "uebung/l_B_a1_p7.html",
+  "snippet": "Balkendiagramm „Gewählte Ausflugsziele“ – Prozentanteil und verschachtelte Prozente.",
+  "ba": [
+   692,
+   230,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a2_p1",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/1",
+  "sort": "A2_001",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_B_a2_p1.html",
+  "loesung": "uebung/l_B_a2_p1.html",
+  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "ba": [
+   692,
+   251,
+   10
+  ],
+  "bl": [
+   692,
+   180,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a2_p2",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/2",
+  "sort": "A2_002",
+  "themen": [
+   "Körperberechnung",
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_B_a2_p2.html",
+  "loesung": "uebung/l_B_a2_p2.html",
+  "snippet": "Regelmäßige fünfseitigen Pyramide – Volumen aus Kante und Spitzenwinkel.",
+  "ba": [
+   692,
+   278,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a2_p3",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/3",
+  "sort": "A2_003",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_B_a2_p3.html",
+  "loesung": "uebung/l_B_a2_p3.html",
+  "snippet": "Drei Parabeln zuordnen, Parameter e ablesen, Gerade durch den Scheitel.",
+  "ba": [
+   692,
+   320,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a2_p4",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/4",
+  "sort": "A2_004",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_B_a2_p4.html",
+  "loesung": "uebung/l_B_a2_p4.html",
+  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "ba": [
+   692,
+   242,
+   10
+  ],
+  "bl": [
+   692,
+   118,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a2_p5",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/5",
+  "sort": "A2_005",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_B_a2_p5.html",
+  "loesung": "uebung/l_B_a2_p5.html",
+  "snippet": "Gleichung mit Binomen lösen – Lösungsmenge bestimmen.",
+  "ba": [
+   692,
+   101,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_a2_p6",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/6",
+  "sort": "A2_006",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_B_a2_p6.html",
+  "loesung": "uebung/l_B_a2_p6.html",
+  "snippet": "Säulen- und Kreisdiagramm „Stadtbücherei – Ausleihen“ – prozentuale Veränderungen.",
+  "ba": [
+   692,
+   441,
+   10
+  ],
+  "bl": [
+   692,
+   135,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_b_1a",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "Wahlteil B",
+  "label": "B1a",
+  "sort": "B001a",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_B_b_1a.html",
+  "loesung": "uebung/l_B_b_1a.html",
+  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "ba": [
+   692,
+   245,
+   10
+  ],
+  "bl": [
+   692,
+   165,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_b_1b",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "Wahlteil B",
+  "label": "B1b",
+  "sort": "B001b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_B_b_1b.html",
+  "loesung": "uebung/l_B_b_1b.html",
+  "snippet": "Zwei Normalparabeln, Gerade durch den Scheitel – Behauptung rechnerisch prüfen.",
+  "ba": [
+   692,
+   325,
+   10
+  ],
+  "bl": [
+   692,
+   154,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_b_2a",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "Wahlteil B",
+  "label": "B2a",
+  "sort": "B002a",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_B_b_2a.html",
+  "loesung": "uebung/l_B_b_2a.html",
+  "snippet": "Gerade, Parabel durch Achsenschnittpunkte, Dreieck mit dem Scheitel.",
+  "ba": [
+   692,
+   252,
+   10
+  ],
+  "bl": [
+   692,
+   152,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_b_2b",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "Wahlteil B",
+  "label": "B2b",
+  "sort": "B002b",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_B_b_2b.html",
+  "loesung": "uebung/l_B_b_2b.html",
+  "snippet": "Zylinder mit Kegel gegen quadratisches Prisma – Differenz der Oberflächen.",
+  "ba": [
+   692,
+   362,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_b_3a",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "Wahlteil B",
+  "label": "B3a",
+  "sort": "B003a",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_B_b_3a.html",
+  "loesung": "uebung/l_B_b_3a.html",
+  "snippet": "Glücksspiel – Wahrscheinlichkeit, Erwartungswert und fairer Gewinn.",
+  "ba": [
+   692,
+   291,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "ueb_b_3b",
+  "jahr": 0,
+  "satz": "B",
+  "teil": "Wahlteil B",
+  "label": "B3b",
+  "sort": "B003b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_B_b_3b.html",
+  "loesung": "uebung/l_B_b_3b.html",
+  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "ba": [
+   692,
+   543,
+   10
+  ],
+  "bl": [
+   692,
+   156,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a1_p1",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/1",
+  "sort": "A1_001",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_C_a1_p1.html",
+  "loesung": "uebung/l_C_a1_p1.html",
+  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "ba": [
+   692,
+   285,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a1_p2",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/2",
+  "sort": "A1_002",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_C_a1_p2.html",
+  "loesung": "uebung/l_C_a1_p2.html",
+  "snippet": "Baumdiagramm (Ziehen ohne Zurücklegen) – leere Felder ergänzen.",
+  "ba": [
+   692,
+   253,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a1_p3",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/3",
+  "sort": "A1_003",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_C_a1_p3.html",
+  "loesung": "uebung/l_C_a1_p3.html",
+  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "ba": [
+   692,
+   142,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a1_p4",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/4",
+  "sort": "A1_004",
+  "themen": [
+   "Muster & Folgen"
+  ],
+  "aufgabe": "uebung/a_C_a1_p4.html",
+  "loesung": "uebung/l_C_a1_p4.html",
+  "snippet": "Plättchen-Muster fortsetzen und Formeln prüfen (richtig/falsch).",
+  "ba": [
+   692,
+   430,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a1_p5",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/5",
+  "sort": "A1_005",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_C_a1_p5.html",
+  "loesung": "uebung/l_C_a1_p5.html",
+  "snippet": "Vorzeichen von sin-Werten am Einheitskreis ankreuzen.",
+  "ba": [
+   692,
+   159,
+   10
+  ],
+  "bl": [
+   692,
+   62,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a1_p6",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/6",
+  "sort": "A1_006",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_C_a1_p6.html",
+  "loesung": "uebung/l_C_a1_p6.html",
+  "snippet": "Boxplot zu die Sprünge beim Seilspringen (30 Sekunden) – Fehler finden, Behauptung zum Zentralwert prüfen.",
+  "ba": [
+   692,
+   406,
+   10
+  ],
+  "bl": [
+   692,
+   139,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a1_p7",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/7",
+  "sort": "A1_007",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_C_a1_p7.html",
+  "loesung": "uebung/l_C_a1_p7.html",
+  "snippet": "Balkendiagramm „Lieblings-Haustiere“ – Prozentanteil und verschachtelte Prozente.",
+  "ba": [
+   692,
+   230,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a2_p1",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/1",
+  "sort": "A2_001",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_C_a2_p1.html",
+  "loesung": "uebung/l_C_a2_p1.html",
+  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "ba": [
+   692,
+   253,
+   10
+  ],
+  "bl": [
+   692,
+   180,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a2_p2",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/2",
+  "sort": "A2_002",
+  "themen": [
+   "Körperberechnung",
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_C_a2_p2.html",
+  "loesung": "uebung/l_C_a2_p2.html",
+  "snippet": "Regelmäßige sechsseitigen Pyramide – Volumen aus Kante und Spitzenwinkel.",
+  "ba": [
+   692,
+   278,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a2_p3",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/3",
+  "sort": "A2_003",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_C_a2_p3.html",
+  "loesung": "uebung/l_C_a2_p3.html",
+  "snippet": "Drei Parabeln zuordnen, Parameter e ablesen, Gerade durch den Scheitel.",
+  "ba": [
+   692,
+   320,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a2_p4",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/4",
+  "sort": "A2_004",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_C_a2_p4.html",
+  "loesung": "uebung/l_C_a2_p4.html",
+  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "ba": [
+   692,
+   242,
+   10
+  ],
+  "bl": [
+   692,
+   118,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a2_p5",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/5",
+  "sort": "A2_005",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_C_a2_p5.html",
+  "loesung": "uebung/l_C_a2_p5.html",
+  "snippet": "Gleichung mit Binomen lösen – Lösungsmenge bestimmen.",
+  "ba": [
+   692,
+   101,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "uec_a2_p6",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/6",
+  "sort": "A2_006",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_C_a2_p6.html",
+  "loesung": "uebung/l_C_a2_p6.html",
+  "snippet": "Säulen- und Kreisdiagramm „Fahrradverleih – Ausleihen“ – prozentuale Veränderungen.",
+  "ba": [
+   692,
+   441,
+   10
+  ],
+  "bl": [
+   692,
+   135,
+   10
+  ]
+ },
+ {
+  "slug": "uec_b_1a",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "Wahlteil B",
+  "label": "B1a",
+  "sort": "B001a",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_C_b_1a.html",
+  "loesung": "uebung/l_C_b_1a.html",
+  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "ba": [
+   692,
+   245,
+   10
+  ],
+  "bl": [
+   692,
+   165,
+   10
+  ]
+ },
+ {
+  "slug": "uec_b_1b",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "Wahlteil B",
+  "label": "B1b",
+  "sort": "B001b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_C_b_1b.html",
+  "loesung": "uebung/l_C_b_1b.html",
+  "snippet": "Zwei Normalparabeln, Gerade durch den Scheitel – Behauptung rechnerisch prüfen.",
+  "ba": [
+   692,
+   325,
+   10
+  ],
+  "bl": [
+   692,
+   154,
+   10
+  ]
+ },
+ {
+  "slug": "uec_b_2a",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "Wahlteil B",
+  "label": "B2a",
+  "sort": "B002a",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_C_b_2a.html",
+  "loesung": "uebung/l_C_b_2a.html",
+  "snippet": "Gerade, Parabel durch Achsenschnittpunkte, Dreieck mit dem Scheitel.",
+  "ba": [
+   692,
+   252,
+   10
+  ],
+  "bl": [
+   692,
+   152,
+   10
+  ]
+ },
+ {
+  "slug": "uec_b_2b",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "Wahlteil B",
+  "label": "B2b",
+  "sort": "B002b",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_C_b_2b.html",
+  "loesung": "uebung/l_C_b_2b.html",
+  "snippet": "Zylinder mit Kegel gegen quadratisches Prisma – Differenz der Oberflächen.",
+  "ba": [
+   692,
+   362,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "uec_b_3a",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "Wahlteil B",
+  "label": "B3a",
+  "sort": "B003a",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_C_b_3a.html",
+  "loesung": "uebung/l_C_b_3a.html",
+  "snippet": "Glücksspiel – Wahrscheinlichkeit, Erwartungswert und fairer Gewinn.",
+  "ba": [
+   692,
+   270,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "uec_b_3b",
+  "jahr": 0,
+  "satz": "C",
+  "teil": "Wahlteil B",
+  "label": "B3b",
+  "sort": "B003b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_C_b_3b.html",
+  "loesung": "uebung/l_C_b_3b.html",
+  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "ba": [
+   692,
+   483,
+   10
+  ],
+  "bl": [
+   692,
+   156,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a1_p1",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/1",
+  "sort": "A1_001",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_D_a1_p1.html",
+  "loesung": "uebung/l_D_a1_p1.html",
+  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "ba": [
+   692,
+   285,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a1_p2",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/2",
+  "sort": "A1_002",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_D_a1_p2.html",
+  "loesung": "uebung/l_D_a1_p2.html",
+  "snippet": "Baumdiagramm (Ziehen ohne Zurücklegen) – leere Felder ergänzen.",
+  "ba": [
+   692,
+   253,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a1_p3",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/3",
+  "sort": "A1_003",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_D_a1_p3.html",
+  "loesung": "uebung/l_D_a1_p3.html",
+  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "ba": [
+   692,
+   142,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a1_p4",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/4",
+  "sort": "A1_004",
+  "themen": [
+   "Muster & Folgen"
+  ],
+  "aufgabe": "uebung/a_D_a1_p4.html",
+  "loesung": "uebung/l_D_a1_p4.html",
+  "snippet": "Plättchen-Muster fortsetzen und Formeln prüfen (richtig/falsch).",
+  "ba": [
+   692,
+   430,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a1_p5",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/5",
+  "sort": "A1_005",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_D_a1_p5.html",
+  "loesung": "uebung/l_D_a1_p5.html",
+  "snippet": "Vorzeichen von cos-Werten am Einheitskreis ankreuzen.",
+  "ba": [
+   692,
+   159,
+   10
+  ],
+  "bl": [
+   692,
+   62,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a1_p6",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/6",
+  "sort": "A1_006",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_D_a1_p6.html",
+  "loesung": "uebung/l_D_a1_p6.html",
+  "snippet": "Boxplot zu die Wurfweiten beim Schlagballwurf – Fehler finden, Behauptung zum Zentralwert prüfen.",
+  "ba": [
+   692,
+   406,
+   10
+  ],
+  "bl": [
+   692,
+   139,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a1_p7",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/7",
+  "sort": "A1_007",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_D_a1_p7.html",
+  "loesung": "uebung/l_D_a1_p7.html",
+  "snippet": "Balkendiagramm „Weg zur Schule“ – Prozentanteil und verschachtelte Prozente.",
+  "ba": [
+   692,
+   230,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a2_p1",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/1",
+  "sort": "A2_001",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_D_a2_p1.html",
+  "loesung": "uebung/l_D_a2_p1.html",
+  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "ba": [
+   692,
+   257,
+   10
+  ],
+  "bl": [
+   692,
+   180,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a2_p2",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/2",
+  "sort": "A2_002",
+  "themen": [
+   "Körperberechnung",
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_D_a2_p2.html",
+  "loesung": "uebung/l_D_a2_p2.html",
+  "snippet": "Regelmäßige fünfseitigen Pyramide – Volumen aus Kante und Spitzenwinkel.",
+  "ba": [
+   692,
+   278,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a2_p3",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/3",
+  "sort": "A2_003",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_D_a2_p3.html",
+  "loesung": "uebung/l_D_a2_p3.html",
+  "snippet": "Drei Parabeln zuordnen, Parameter e ablesen, Gerade durch den Scheitel.",
+  "ba": [
+   692,
+   320,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a2_p4",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/4",
+  "sort": "A2_004",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_D_a2_p4.html",
+  "loesung": "uebung/l_D_a2_p4.html",
+  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "ba": [
+   692,
+   242,
+   10
+  ],
+  "bl": [
+   692,
+   118,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a2_p5",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/5",
+  "sort": "A2_005",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_D_a2_p5.html",
+  "loesung": "uebung/l_D_a2_p5.html",
+  "snippet": "Gleichung mit Binomen lösen – Lösungsmenge bestimmen.",
+  "ba": [
+   692,
+   101,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "ued_a2_p6",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/6",
+  "sort": "A2_006",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_D_a2_p6.html",
+  "loesung": "uebung/l_D_a2_p6.html",
+  "snippet": "Säulen- und Kreisdiagramm „Konzertbesucher Stadthalle“ – prozentuale Veränderungen.",
+  "ba": [
+   692,
+   441,
+   10
+  ],
+  "bl": [
+   692,
+   135,
+   10
+  ]
+ },
+ {
+  "slug": "ued_b_1a",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "Wahlteil B",
+  "label": "B1a",
+  "sort": "B001a",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_D_b_1a.html",
+  "loesung": "uebung/l_D_b_1a.html",
+  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "ba": [
+   692,
+   245,
+   10
+  ],
+  "bl": [
+   692,
+   165,
+   10
+  ]
+ },
+ {
+  "slug": "ued_b_1b",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "Wahlteil B",
+  "label": "B1b",
+  "sort": "B001b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_D_b_1b.html",
+  "loesung": "uebung/l_D_b_1b.html",
+  "snippet": "Zwei Normalparabeln, Gerade durch den Scheitel – Behauptung rechnerisch prüfen.",
+  "ba": [
+   692,
+   325,
+   10
+  ],
+  "bl": [
+   692,
+   154,
+   10
+  ]
+ },
+ {
+  "slug": "ued_b_2a",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "Wahlteil B",
+  "label": "B2a",
+  "sort": "B002a",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_D_b_2a.html",
+  "loesung": "uebung/l_D_b_2a.html",
+  "snippet": "Gerade, Parabel durch Achsenschnittpunkte, Dreieck mit dem Scheitel.",
+  "ba": [
+   692,
+   252,
+   10
+  ],
+  "bl": [
+   692,
+   152,
+   10
+  ]
+ },
+ {
+  "slug": "ued_b_2b",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "Wahlteil B",
+  "label": "B2b",
+  "sort": "B002b",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_D_b_2b.html",
+  "loesung": "uebung/l_D_b_2b.html",
+  "snippet": "Zylinder mit Kegel gegen quadratisches Prisma – Differenz der Oberflächen.",
+  "ba": [
+   692,
+   362,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "ued_b_3a",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "Wahlteil B",
+  "label": "B3a",
+  "sort": "B003a",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_D_b_3a.html",
+  "loesung": "uebung/l_D_b_3a.html",
+  "snippet": "Glücksspiel – Wahrscheinlichkeit, Erwartungswert und fairer Gewinn.",
+  "ba": [
+   692,
+   291,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "ued_b_3b",
+  "jahr": 0,
+  "satz": "D",
+  "teil": "Wahlteil B",
+  "label": "B3b",
+  "sort": "B003b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_D_b_3b.html",
+  "loesung": "uebung/l_D_b_3b.html",
+  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "ba": [
+   692,
+   483,
+   10
+  ],
+  "bl": [
+   692,
+   156,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a1_p1",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/1",
+  "sort": "A1_001",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_E_a1_p1.html",
+  "loesung": "uebung/l_E_a1_p1.html",
+  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "ba": [
+   692,
+   285,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a1_p2",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/2",
+  "sort": "A1_002",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_E_a1_p2.html",
+  "loesung": "uebung/l_E_a1_p2.html",
+  "snippet": "Baumdiagramm (Ziehen ohne Zurücklegen) – leere Felder ergänzen.",
+  "ba": [
+   692,
+   253,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a1_p3",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/3",
+  "sort": "A1_003",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_E_a1_p3.html",
+  "loesung": "uebung/l_E_a1_p3.html",
+  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "ba": [
+   692,
+   142,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a1_p4",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/4",
+  "sort": "A1_004",
+  "themen": [
+   "Muster & Folgen"
+  ],
+  "aufgabe": "uebung/a_E_a1_p4.html",
+  "loesung": "uebung/l_E_a1_p4.html",
+  "snippet": "Plättchen-Muster fortsetzen und Formeln prüfen (richtig/falsch).",
+  "ba": [
+   692,
+   430,
+   10
+  ],
+  "bl": [
+   692,
+   101,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a1_p5",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/5",
+  "sort": "A1_005",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_E_a1_p5.html",
+  "loesung": "uebung/l_E_a1_p5.html",
+  "snippet": "Vorzeichen von cos-Werten am Einheitskreis ankreuzen.",
+  "ba": [
+   692,
+   159,
+   10
+  ],
+  "bl": [
+   692,
+   62,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a1_p6",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/6",
+  "sort": "A1_006",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_E_a1_p6.html",
+  "loesung": "uebung/l_E_a1_p6.html",
+  "snippet": "Boxplot zu die Zeiten über 1 km im Sportunterricht – Fehler finden, Behauptung zum Zentralwert prüfen.",
+  "ba": [
+   692,
+   406,
+   10
+  ],
+  "bl": [
+   692,
+   139,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a1_p7",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A1 – ohne Taschenrechner",
+  "label": "A1/7",
+  "sort": "A1_007",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_E_a1_p7.html",
+  "loesung": "uebung/l_E_a1_p7.html",
+  "snippet": "Balkendiagramm „Lieblings-Sportarten“ – Prozentanteil und verschachtelte Prozente.",
+  "ba": [
+   692,
+   230,
+   10
+  ],
+  "bl": [
+   692,
+   107,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a2_p1",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/1",
+  "sort": "A2_001",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_E_a2_p1.html",
+  "loesung": "uebung/l_E_a2_p1.html",
+  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "ba": [
+   692,
+   262,
+   10
+  ],
+  "bl": [
+   692,
+   180,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a2_p2",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/2",
+  "sort": "A2_002",
+  "themen": [
+   "Körperberechnung",
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_E_a2_p2.html",
+  "loesung": "uebung/l_E_a2_p2.html",
+  "snippet": "Regelmäßige sechsseitigen Pyramide – Volumen aus Kante und Spitzenwinkel.",
+  "ba": [
+   692,
+   278,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a2_p3",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/3",
+  "sort": "A2_003",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_E_a2_p3.html",
+  "loesung": "uebung/l_E_a2_p3.html",
+  "snippet": "Drei Parabeln zuordnen, Parameter e ablesen, Gerade durch den Scheitel.",
+  "ba": [
+   692,
+   320,
+   10
+  ],
+  "bl": [
+   692,
+   128,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a2_p4",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/4",
+  "sort": "A2_004",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_E_a2_p4.html",
+  "loesung": "uebung/l_E_a2_p4.html",
+  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "ba": [
+   692,
+   242,
+   10
+  ],
+  "bl": [
+   692,
+   118,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a2_p5",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/5",
+  "sort": "A2_005",
+  "themen": [
+   "Algebra & Gleichungen"
+  ],
+  "aufgabe": "uebung/a_E_a2_p5.html",
+  "loesung": "uebung/l_E_a2_p5.html",
+  "snippet": "Gleichung mit Binomen lösen – Lösungsmenge bestimmen.",
+  "ba": [
+   692,
+   101,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "uee_a2_p6",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "A2 – mit Taschenrechner",
+  "label": "A2/6",
+  "sort": "A2_006",
+  "themen": [
+   "Stochastik & Daten",
+   "Sachrechnen & Prozente"
+  ],
+  "aufgabe": "uebung/a_E_a2_p6.html",
+  "loesung": "uebung/l_E_a2_p6.html",
+  "snippet": "Säulen- und Kreisdiagramm „Podcast „Schulfunk“ – Abrufe“ – prozentuale Veränderungen.",
+  "ba": [
+   692,
+   441,
+   10
+  ],
+  "bl": [
+   692,
+   135,
+   10
+  ]
+ },
+ {
+  "slug": "uee_b_1a",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "Wahlteil B",
+  "label": "B1a",
+  "sort": "B001a",
+  "themen": [
+   "Trigonometrie & ebene Geometrie"
+  ],
+  "aufgabe": "uebung/a_E_b_1a.html",
+  "loesung": "uebung/l_E_b_1a.html",
+  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "ba": [
+   692,
+   245,
+   10
+  ],
+  "bl": [
+   692,
+   165,
+   10
+  ]
+ },
+ {
+  "slug": "uee_b_1b",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "Wahlteil B",
+  "label": "B1b",
+  "sort": "B001b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_E_b_1b.html",
+  "loesung": "uebung/l_E_b_1b.html",
+  "snippet": "Zwei Normalparabeln, Gerade durch den Scheitel – Behauptung rechnerisch prüfen.",
+  "ba": [
+   692,
+   325,
+   10
+  ],
+  "bl": [
+   692,
+   154,
+   10
+  ]
+ },
+ {
+  "slug": "uee_b_2a",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "Wahlteil B",
+  "label": "B2a",
+  "sort": "B002a",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_E_b_2a.html",
+  "loesung": "uebung/l_E_b_2a.html",
+  "snippet": "Gerade, Parabel durch Achsenschnittpunkte, Dreieck mit dem Scheitel.",
+  "ba": [
+   692,
+   252,
+   10
+  ],
+  "bl": [
+   692,
+   152,
+   10
+  ]
+ },
+ {
+  "slug": "uee_b_2b",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "Wahlteil B",
+  "label": "B2b",
+  "sort": "B002b",
+  "themen": [
+   "Körperberechnung"
+  ],
+  "aufgabe": "uebung/a_E_b_2b.html",
+  "loesung": "uebung/l_E_b_2b.html",
+  "snippet": "Zylinder mit Kegel gegen quadratisches Prisma – Differenz der Oberflächen.",
+  "ba": [
+   692,
+   362,
+   10
+  ],
+  "bl": [
+   692,
+   159,
+   10
+  ]
+ },
+ {
+  "slug": "uee_b_3a",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "Wahlteil B",
+  "label": "B3a",
+  "sort": "B003a",
+  "themen": [
+   "Stochastik & Daten"
+  ],
+  "aufgabe": "uebung/a_E_b_3a.html",
+  "loesung": "uebung/l_E_b_3a.html",
+  "snippet": "Glücksspiel – Wahrscheinlichkeit, Erwartungswert und fairer Gewinn.",
+  "ba": [
+   692,
+   291,
+   10
+  ],
+  "bl": [
+   692,
+   124,
+   10
+  ]
+ },
+ {
+  "slug": "uee_b_3b",
+  "jahr": 0,
+  "satz": "E",
+  "teil": "Wahlteil B",
+  "label": "B3b",
+  "sort": "B003b",
+  "themen": [
+   "Quadratische Funktionen"
+  ],
+  "aufgabe": "uebung/a_E_b_3b.html",
+  "loesung": "uebung/l_E_b_3b.html",
+  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "ba": [
+   692,
+   459,
+   10
+  ],
+  "bl": [
+   692,
+   156,
+   10
+  ]
  }
 ];
