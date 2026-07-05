@@ -2,13 +2,15 @@
 tags: [projekt, mathematik, app, pruefung]
 status: aktiv
 date: 2026-06-20
-updated: 2026-06-30
+updated: 2026-07-05
 ---
 
 # App: Generator mündliche Prüfung (Mathematik)
 
 > [!success] Status
 > **Fertig (Beta).** App läuft als HTML-Datei, 125 Aufgaben in 7 Themen. Kollegenanleitung erstellt: [[02 Projekte/Mündliche Prüfung App - Anleitung für Kollegen]]
+>
+> **Update 2026-07-05:** Eintippbare Felder für **Vorname** und **Zielnote** – erscheinen auf beiden Ausdrucken, damit klar ist welche gedruckte Prüfung zu wem gehört. Im Zufallsgenerator (`Pruefung.html`) direkt in der Kopfzeile jedes Satzes, im Baukasten (`Baukasten.html`) als zwei Felder in der Werkzeugleiste neben den Druck-Buttons. Eingaben werden nicht gespeichert (Datenschutz).
 >
 > **Update 2026-07-02:** Zufallsgenerator überarbeitet – Themen-Balance (5 gemischte aus 5 verschiedenen Themen, aufsteigend sortiert), Schwierigkeitsprofil „⚖️ ausgewogen" (2·★, 2·★★, 2·★★★), Serien-Modus (bis 10 überschneidungsfreie Sätze auf einmal, je Satz eigene Druckseite mit Name/Datum-Zeile) und verwendet-Abgleich mit dem Baukasten (gemeinsamer Speicher, „✓ Satz als verwendet markieren"). Details in [[04 Ressourcen/Mathematik Prüfungsaufgaben/Generator/ANLEITUNG.md]].
 

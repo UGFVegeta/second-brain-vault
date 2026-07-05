@@ -17,6 +17,9 @@
  .exset+.exset{border-top:2px dashed #c4ccd4;padding-top:18px}
  .settitle{font-size:16px;font-weight:700;margin:6px 0 6px}
  .nameline{font-size:13px;color:#333;margin:0 0 14px}
+ .nameline input{font:inherit;font-size:13px;color:#111;border:0;border-bottom:1px solid #8a949a;background:transparent;padding:1px 4px;outline:none;border-radius:0}
+ .nameline .pname{width:230px}
+ .nameline .pnote{width:55px;text-align:center}
  .dstars{font-size:12px;color:#e8a800;letter-spacing:1px;margin-left:auto}
  .ecard{background:#fff;border:1.5px solid #dde2e5;border-radius:12px;padding:14px 16px;margin-bottom:16px;break-inside:avoid;page-break-inside:avoid}
  .ehead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
@@ -49,7 +52,7 @@
  @media print{.ecard[data-topic="Trigonometrie"] .fig svg,.ecard[data-topic="Quadratische Funktionen"] .fig svg{max-height:108mm !important;max-width:100% !important}}
 </style></head><body>
 <h1>Prüfungssatz erstellen</h1>
-<p class="sub">Themenübergreifende mündliche Prüfung: <b>1 Aufgabe zum Wahlthema</b> (wird intensiver gefragt) und <b>5 gemischte</b> Aufgaben aus 5 <b>verschiedenen</b> anderen Themen, aufsteigend nach Schwierigkeit. Mehrere Sätze auf einmal (z.&nbsp;B. ein Satz pro Schüler) enthalten <b>keine doppelten Aufgaben</b>, und bereits als „verwendet“ markierte Aufgaben (auch aus dem Baukasten) werden übersprungen. Drucken: „🖨️ Drucken (Schüler)“ ohne Lösungen, „🖨️ Mit Lösung (Lehrer)“ als Lösungsblatt für dich – jeder Satz beginnt auf einer neuen Seite.</p>
+<p class="sub">Themenübergreifende mündliche Prüfung: <b>1 Aufgabe zum Wahlthema</b> (wird intensiver gefragt) und <b>5 gemischte</b> Aufgaben aus 5 <b>verschiedenen</b> anderen Themen, aufsteigend nach Schwierigkeit. Mehrere Sätze auf einmal (z.&nbsp;B. ein Satz pro Schüler) enthalten <b>keine doppelten Aufgaben</b>, und bereits als „verwendet“ markierte Aufgaben (auch aus dem Baukasten) werden übersprungen. Drucken: „🖨️ Drucken (Schüler)“ ohne Lösungen, „🖨️ Mit Lösung (Lehrer)“ als Lösungsblatt für dich – jeder Satz beginnt auf einer neuen Seite. <b>Vorname und Zielnote</b> kannst du nach dem Erstellen direkt in die Kopfzeile jedes Satzes tippen – sie erscheinen mit auf dem Ausdruck (werden aber nirgends gespeichert).</p>
 <div class="controls">
  <span class="lbl">Wahlthema:</span>
  <select id="thema"></select>
@@ -131,18 +134,21 @@ function gen(){
   const ids={};set.forEach(function(t){ids[t.id]=1;});
   pool=pool.filter(function(t){return !ids[t.id];});
  }
- LAST={sets:sets,thema:thema};
+ // Vorname/Zielnote je Satz – nur im Speicher, wird nirgends abgelegt (Datenschutz)
+ LAST={sets:sets,thema:thema,meta:sets.map(function(){return {name:'',note:''};})};
  draw(false);
  window.scrollTo({top:0,behavior:'smooth'});
 }
 function stars(d){return '★★★'.slice(0,d);}
+function escA(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function draw(showSol){
  if(!LAST)return;
  const wrap=document.getElementById('sheet'); wrap.innerHTML='';
  LAST.sets.forEach(function(set,s){
+  const m=(LAST.meta&&LAST.meta[s])||{name:'',note:''};
   const sd=document.createElement('div'); sd.className='exset';
   let inner='<div class="settitle">Mündliche Prüfung – Wahlthema: '+LAST.thema+(LAST.sets.length>1?' · Satz '+(s+1):'')+(showSol?' · mit Lösungen':'')+'</div>'
-   +'<div class="nameline">Name: ______________________________ &nbsp;&nbsp; Datum: ______________</div>';
+   +'<div class="nameline">Name: <input class="pname" data-s="'+s+'" value="'+escA(m.name)+'"> &nbsp;&nbsp; Zielnote: <input class="pnote" data-s="'+s+'" value="'+escA(m.note)+'"> &nbsp;&nbsp; Datum: ______________</div>';
   set.forEach(function(t,i){
    const wb=(i===0)?'<span class="wbadge">Wahlthema</span>':'';
    inner+='<div class="ecard" data-topic="'+t.topic+'"><div class="ehead"><span class="enum">Aufgabe '+(i+1)+'</span><span class="etopic">'+t.topic+'</span>'+wb+'<span class="dstars">'+stars(t.diff)+'</span></div>'+t.body;
@@ -151,6 +157,13 @@ function draw(showSol){
   });
   sd.innerHTML=inner;
   wrap.appendChild(sd);
+ });
+ // Eingaben in LAST.meta halten, damit sie den Neuaufbau beim Drucken überleben
+ wrap.querySelectorAll('.pname,.pnote').forEach(function(inp){
+  inp.addEventListener('input',function(){
+   const mm=LAST.meta[parseInt(inp.dataset.s)];
+   if(inp.classList.contains('pname'))mm.name=inp.value;else mm.note=inp.value;
+  });
  });
  document.getElementById('result').style.display='block';
 }

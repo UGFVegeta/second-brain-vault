@@ -100,6 +100,9 @@ CSS = """
  .exset+.exset{border-top:2px dashed #c4ccd4;padding-top:18px}
  .settitle{font-size:16px;font-weight:700;margin:6px 0 6px}
  .nameline{font-size:13px;color:#333;margin:0 0 14px}
+ .nameline input{font:inherit;font-size:13px;color:#111;border:0;border-bottom:1px solid #8a949a;background:transparent;padding:1px 4px;outline:none;border-radius:0}
+ .nameline .pname{width:230px}
+ .nameline .pnote{width:55px;text-align:center}
  .dstars{font-size:12px;color:#e8a800;letter-spacing:1px;margin-left:auto}
  .ecard{background:#fff;border:1.5px solid #dde2e5;border-radius:12px;padding:14px 16px;margin-bottom:16px;break-inside:avoid;page-break-inside:avoid}
  .ehead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
@@ -184,18 +187,21 @@ function gen(){
   const ids={};set.forEach(function(t){ids[t.id]=1;});
   pool=pool.filter(function(t){return !ids[t.id];});
  }
- LAST={sets:sets,thema:thema};
+ // Vorname/Zielnote je Satz – nur im Speicher, wird nirgends abgelegt (Datenschutz)
+ LAST={sets:sets,thema:thema,meta:sets.map(function(){return {name:'',note:''};})};
  draw(false);
  window.scrollTo({top:0,behavior:'smooth'});
 }
 function stars(d){return '★★★'.slice(0,d);}
+function escA(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function draw(showSol){
  if(!LAST)return;
  const wrap=document.getElementById('sheet'); wrap.innerHTML='';
  LAST.sets.forEach(function(set,s){
+  const m=(LAST.meta&&LAST.meta[s])||{name:'',note:''};
   const sd=document.createElement('div'); sd.className='exset';
   let inner='<div class="settitle">Mündliche Prüfung – Wahlthema: '+LAST.thema+(LAST.sets.length>1?' · Satz '+(s+1):'')+(showSol?' · mit Lösungen':'')+'</div>'
-   +'<div class="nameline">Name: ______________________________ &nbsp;&nbsp; Datum: ______________</div>';
+   +'<div class="nameline">Name: <input class="pname" data-s="'+s+'" value="'+escA(m.name)+'"> &nbsp;&nbsp; Zielnote: <input class="pnote" data-s="'+s+'" value="'+escA(m.note)+'"> &nbsp;&nbsp; Datum: ______________</div>';
   set.forEach(function(t,i){
    const wb=(i===0)?'<span class="wbadge">Wahlthema</span>':'';
    inner+='<div class="ecard" data-topic="'+t.topic+'"><div class="ehead"><span class="enum">Aufgabe '+(i+1)+'</span><span class="etopic">'+t.topic+'</span>'+wb+'<span class="dstars">'+stars(t.diff)+'</span></div>'+t.body;
@@ -204,6 +210,13 @@ function draw(showSol){
   });
   sd.innerHTML=inner;
   wrap.appendChild(sd);
+ });
+ // Eingaben in LAST.meta halten, damit sie den Neuaufbau beim Drucken überleben
+ wrap.querySelectorAll('.pname,.pnote').forEach(function(inp){
+  inp.addEventListener('input',function(){
+   const mm=LAST.meta[parseInt(inp.dataset.s)];
+   if(inp.classList.contains('pname'))mm.name=inp.value;else mm.note=inp.value;
+  });
  });
  document.getElementById('result').style.display='block';
 }
@@ -252,7 +265,9 @@ page = ('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">'
  'Mehrere Sätze auf einmal (z.&nbsp;B. ein Satz pro Schüler) enthalten <b>keine doppelten Aufgaben</b>, '
  'und bereits als „verwendet“ markierte Aufgaben (auch aus dem Baukasten) werden übersprungen. '
  'Drucken: „🖨️ Drucken (Schüler)“ ohne Lösungen, „🖨️ Mit Lösung (Lehrer)“ als Lösungsblatt für dich – '
- 'jeder Satz beginnt auf einer neuen Seite.</p>\n'
+ 'jeder Satz beginnt auf einer neuen Seite. '
+ '<b>Vorname und Zielnote</b> kannst du nach dem Erstellen direkt in die Kopfzeile jedes Satzes tippen – '
+ 'sie erscheinen mit auf dem Ausdruck (werden aber nirgends gespeichert).</p>\n'
  '<div class="controls">\n'
  ' <span class="lbl">Wahlthema:</span>\n'
  ' <select id="thema"></select>\n'
@@ -316,7 +331,12 @@ BK_CSS = """
  body.preview #sheet{display:block}
  .rm{margin-left:auto;font-size:12px;padding:3px 8px;border:1px solid #dde2e5;border-radius:7px;background:#fff;cursor:pointer;color:#c0392b}
  .rm:hover{border-color:#c0392b}
- #sheettitle{font-size:16px;font-weight:700;margin:0 0 14px}
+ #sheettitle{font-size:16px;font-weight:700;margin:0 0 6px}
+ .nameline{font-size:13px;color:#333;margin:0 0 14px}
+ .fillline{display:inline-block;border-bottom:1px solid #555;min-width:220px;min-height:17px;padding:0 4px;vertical-align:bottom}
+ .fillnote{min-width:60px;text-align:center}
+ .hdrin{font:inherit;font-size:13.5px;padding:8px 11px;border-radius:9px;border:1px solid #dde2e5;background:#fff;width:150px}
+ .hdrnote{width:90px}
  .ecard{background:#fff;border:1.5px solid #dde2e5;border-radius:12px;padding:14px 16px;margin-bottom:16px;break-inside:avoid;page-break-inside:avoid}
  .ehead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
  .enum{font-weight:700;font-size:15px}.etopic{font-size:12px;color:#5b6569;background:#eef3f7;border-radius:20px;padding:2px 10px}
@@ -365,9 +385,15 @@ function updCount(){document.getElementById('selcount').textContent=selected.len
 function release(e,id){e.stopPropagation();used.delete(id);saveUsed();renderCatalog();}
 function clearSelBk(){selected=[];exitPreview();renderCatalog();}
 function exitPreview(){document.body.classList.remove('preview');var b=document.getElementById('previewBtn');if(b)b.textContent='👁 Auswahl ansehen';}
+function escBk(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+// Vorname/Zielnote aus der Werkzeugleiste – nur für den Druck, wird nirgends gespeichert (Datenschutz)
+function syncHdr(){if(document.body.classList.contains('preview'))renderSheet(false);}
 function renderSheet(showSol){
  var sheet=document.getElementById('sheet');
- sheet.innerHTML='<div id="sheettitle">Mündliche Prüfung Mathematik'+(showSol?' · mit Lösungen':'')+'</div>';
+ var hn=escBk(document.getElementById('bkName').value.trim());
+ var hz=escBk(document.getElementById('bkNote').value.trim());
+ sheet.innerHTML='<div id="sheettitle">Mündliche Prüfung Mathematik'+(showSol?' · mit Lösungen':'')+'</div>'
+  +'<div class="nameline">Name: <span class="fillline">'+hn+'</span> &nbsp;&nbsp; Zielnote: <span class="fillline fillnote">'+hz+'</span> &nbsp;&nbsp; Datum: <span class="fillline" style="min-width:110px"></span></div>';
  selected.forEach(function(id,i){var t=byId[id];var div=document.createElement('div');div.className='ecard';div.setAttribute('data-topic',t.topic);var inner='<div class="ehead"><span class="enum">Aufgabe '+(i+1)+'</span><span class="etopic">'+t.topic+'</span><button class="rm" onclick="removeFromSel(\\''+id+'\\')">✕ entfernen</button></div>'+t.body;if(showSol&&t.sol)inner+='<div class="solbox"><span class="sl">Lösung</span>'+t.sol+'</div>';div.innerHTML=inner;sheet.appendChild(div);});
 }
 function removeFromSel(id){var i=selected.indexOf(id);if(i>=0)selected.splice(i,1);renderCatalog();if(document.body.classList.contains('preview')){if(selected.length)renderSheet(false);else exitPreview();}}
@@ -405,6 +431,8 @@ bk = ('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">'
  '<h1>Prüfung selbst zusammenstellen</h1>\n'
  '<p class="sub">Alle Aufgaben aller Themen als Katalog mit Bild. Klicke 6–8 Aufgaben an und drucke sie zweimal: '
  '<b>„🖨️ Drucken (Schüler)“</b> ohne Lösungen und <b>„🖨️ Mit Lösung (Lehrer)“</b> als Lösungsblatt für dich. '
+ '<b>Vorname und Zielnote</b> tippst du vor dem Drucken in die beiden Felder der Leiste – sie erscheinen '
+ 'in der Kopfzeile des Ausdrucks (werden aber nirgends gespeichert). '
  'Mit <b>„✓ Als verwendet markieren“</b> verschwinden sie aus der Übersicht, damit du sie nicht erneut nimmst – '
  'gespeichert im Browser, mit <b>„↺ Zurücksetzen“</b> wieder freigeben.</p>\n'
  '<div class="controls">\n'
@@ -417,6 +445,8 @@ bk = ('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">'
  '</div>\n'
  '<div class="toolbar">\n'
  ' <button type="button" id="previewBtn" onclick="togglePreview()">👁 Auswahl ansehen</button>\n'
+ ' <input id="bkName" class="hdrin" placeholder="Vorname" oninput="syncHdr()">\n'
+ ' <input id="bkNote" class="hdrin hdrnote" placeholder="Zielnote" oninput="syncHdr()">\n'
  ' <button class="primary" type="button" onclick="printSel()">🖨️ Drucken (Schüler)</button>\n'
  ' <button type="button" onclick="printSelSol()" style="background:#0e7c5a;color:#fff;border-color:#0e7c5a;font-weight:700">🖨️ Mit Lösung (Lehrer)</button>\n'
  ' <button type="button" onclick="markUsed()">✓ Als verwendet markieren</button>\n'

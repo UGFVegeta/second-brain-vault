@@ -33,7 +33,12 @@
  body.preview #sheet{display:block}
  .rm{margin-left:auto;font-size:12px;padding:3px 8px;border:1px solid #dde2e5;border-radius:7px;background:#fff;cursor:pointer;color:#c0392b}
  .rm:hover{border-color:#c0392b}
- #sheettitle{font-size:16px;font-weight:700;margin:0 0 14px}
+ #sheettitle{font-size:16px;font-weight:700;margin:0 0 6px}
+ .nameline{font-size:13px;color:#333;margin:0 0 14px}
+ .fillline{display:inline-block;border-bottom:1px solid #555;min-width:220px;min-height:17px;padding:0 4px;vertical-align:bottom}
+ .fillnote{min-width:60px;text-align:center}
+ .hdrin{font:inherit;font-size:13.5px;padding:8px 11px;border-radius:9px;border:1px solid #dde2e5;background:#fff;width:150px}
+ .hdrnote{width:90px}
  .ecard{background:#fff;border:1.5px solid #dde2e5;border-radius:12px;padding:14px 16px;margin-bottom:16px;break-inside:avoid;page-break-inside:avoid}
  .ehead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
  .enum{font-weight:700;font-size:15px}.etopic{font-size:12px;color:#5b6569;background:#eef3f7;border-radius:20px;padding:2px 10px}
@@ -63,7 +68,7 @@
  @media print{.ecard[data-topic="Trigonometrie"] .fig svg,.ecard[data-topic="Quadratische Funktionen"] .fig svg{max-height:108mm !important;max-width:100% !important}}
 </style></head><body>
 <h1>Prüfung selbst zusammenstellen</h1>
-<p class="sub">Alle Aufgaben aller Themen als Katalog mit Bild. Klicke 6–8 Aufgaben an und drucke sie zweimal: <b>„🖨️ Drucken (Schüler)“</b> ohne Lösungen und <b>„🖨️ Mit Lösung (Lehrer)“</b> als Lösungsblatt für dich. Mit <b>„✓ Als verwendet markieren“</b> verschwinden sie aus der Übersicht, damit du sie nicht erneut nimmst – gespeichert im Browser, mit <b>„↺ Zurücksetzen“</b> wieder freigeben.</p>
+<p class="sub">Alle Aufgaben aller Themen als Katalog mit Bild. Klicke 6–8 Aufgaben an und drucke sie zweimal: <b>„🖨️ Drucken (Schüler)“</b> ohne Lösungen und <b>„🖨️ Mit Lösung (Lehrer)“</b> als Lösungsblatt für dich. <b>Vorname und Zielnote</b> tippst du vor dem Drucken in die beiden Felder der Leiste – sie erscheinen in der Kopfzeile des Ausdrucks (werden aber nirgends gespeichert). Mit <b>„✓ Als verwendet markieren“</b> verschwinden sie aus der Übersicht, damit du sie nicht erneut nimmst – gespeichert im Browser, mit <b>„↺ Zurücksetzen“</b> wieder freigeben.</p>
 <div class="controls">
  <span class="lbl">Filter:</span>
  <select id="fTheme" onchange="renderCatalog()"><option value="*">alle Themen</option><option value="Trigonometrie">Trigonometrie</option><option value="Quadratische Funktionen">Quadratische Funktionen</option><option value="Stochastik">Stochastik</option><option value="Sachrechnen">Sachrechnen</option><option value="Boxplot &amp; Datenanalyse">Boxplot &amp; Datenanalyse</option><option value="Stereometrie">Stereometrie</option><option value="Kurzaufgaben">Kurzaufgaben</option></select>
@@ -73,6 +78,8 @@
 </div>
 <div class="toolbar">
  <button type="button" id="previewBtn" onclick="togglePreview()">👁 Auswahl ansehen</button>
+ <input id="bkName" class="hdrin" placeholder="Vorname" oninput="syncHdr()">
+ <input id="bkNote" class="hdrin hdrnote" placeholder="Zielnote" oninput="syncHdr()">
  <button class="primary" type="button" onclick="printSel()">🖨️ Drucken (Schüler)</button>
  <button type="button" onclick="printSelSol()" style="background:#0e7c5a;color:#fff;border-color:#0e7c5a;font-weight:700">🖨️ Mit Lösung (Lehrer)</button>
  <button type="button" onclick="markUsed()">✓ Als verwendet markieren</button>
@@ -117,9 +124,15 @@ function updCount(){document.getElementById('selcount').textContent=selected.len
 function release(e,id){e.stopPropagation();used.delete(id);saveUsed();renderCatalog();}
 function clearSelBk(){selected=[];exitPreview();renderCatalog();}
 function exitPreview(){document.body.classList.remove('preview');var b=document.getElementById('previewBtn');if(b)b.textContent='👁 Auswahl ansehen';}
+function escBk(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+// Vorname/Zielnote aus der Werkzeugleiste – nur für den Druck, wird nirgends gespeichert (Datenschutz)
+function syncHdr(){if(document.body.classList.contains('preview'))renderSheet(false);}
 function renderSheet(showSol){
  var sheet=document.getElementById('sheet');
- sheet.innerHTML='<div id="sheettitle">Mündliche Prüfung Mathematik'+(showSol?' · mit Lösungen':'')+'</div>';
+ var hn=escBk(document.getElementById('bkName').value.trim());
+ var hz=escBk(document.getElementById('bkNote').value.trim());
+ sheet.innerHTML='<div id="sheettitle">Mündliche Prüfung Mathematik'+(showSol?' · mit Lösungen':'')+'</div>'
+  +'<div class="nameline">Name: <span class="fillline">'+hn+'</span> &nbsp;&nbsp; Zielnote: <span class="fillline fillnote">'+hz+'</span> &nbsp;&nbsp; Datum: <span class="fillline" style="min-width:110px"></span></div>';
  selected.forEach(function(id,i){var t=byId[id];var div=document.createElement('div');div.className='ecard';div.setAttribute('data-topic',t.topic);var inner='<div class="ehead"><span class="enum">Aufgabe '+(i+1)+'</span><span class="etopic">'+t.topic+'</span><button class="rm" onclick="removeFromSel(\''+id+'\')">✕ entfernen</button></div>'+t.body;if(showSol&&t.sol)inner+='<div class="solbox"><span class="sl">Lösung</span>'+t.sol+'</div>';div.innerHTML=inner;sheet.appendChild(div);});
 }
 function removeFromSel(id){var i=selected.indexOf(id);if(i>=0)selected.splice(i,1);renderCatalog();if(document.body.classList.contains('preview')){if(selected.length)renderSheet(false);else exitPreview();}}
