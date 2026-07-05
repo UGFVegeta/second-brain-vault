@@ -6827,15 +6827,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_a1_p1.html",
   "loesung": "uebung/l_B_a1_p1.html",
-  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "snippet": "Zusammengesetzter Körper – Oberflächenformeln richtig/falsch ankreuzen.",
   "ba": [
    692,
-   285,
+   239,
    10
   ],
   "bl": [
    692,
-   128,
+   90,
    10
   ]
  },
@@ -6875,15 +6875,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_a1_p3.html",
   "loesung": "uebung/l_B_a1_p3.html",
-  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "snippet": "Gleichung in faktorisierter Form – Lösungsmenge angeben.",
   "ba": [
    692,
-   142,
+   99,
    10
   ],
   "bl": [
    692,
-   101,
+   67,
    10
   ]
  },
@@ -6923,10 +6923,10 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_a1_p5.html",
   "loesung": "uebung/l_B_a1_p5.html",
-  "snippet": "Vorzeichen von sin-Werten am Einheitskreis ankreuzen.",
+  "snippet": "Winkel mit gleichem Sinuswert ergänzen (0° bis 360°).",
   "ba": [
    692,
-   159,
+   152,
    10
   ],
   "bl": [
@@ -6943,19 +6943,19 @@ const AUFGABEN = [
   "label": "A1/6",
   "sort": "A1_006",
   "themen": [
-   "Stochastik & Daten"
+   "Quadratische Funktionen"
   ],
   "aufgabe": "uebung/a_B_a1_p6.html",
   "loesung": "uebung/l_B_a1_p6.html",
-  "snippet": "Boxplot zu die Schulweg-Zeiten ihrer Klasse – Fehler finden, Behauptung zum Zentralwert prüfen.",
+  "snippet": "Parabel aus dem Schaubild ablesen, Gerade und zweite Parabel einzeichnen.",
   "ba": [
    692,
-   406,
+   315,
    10
   ],
   "bl": [
    692,
-   139,
+   106,
    10
   ]
  },
@@ -6967,20 +6967,19 @@ const AUFGABEN = [
   "label": "A1/7",
   "sort": "A1_007",
   "themen": [
-   "Stochastik & Daten",
    "Sachrechnen & Prozente"
   ],
   "aufgabe": "uebung/a_B_a1_p7.html",
   "loesung": "uebung/l_B_a1_p7.html",
-  "snippet": "Balkendiagramm „Gewählte Ausflugsziele“ – Prozentanteil und verschachtelte Prozente.",
+  "snippet": "Tabelle mit Prozent-Pfeilen – die Mitgliederzahlen eines Sportvereins fortschreiben.",
   "ba": [
    692,
-   230,
+   246,
    10
   ],
   "bl": [
    692,
-   107,
+   101,
    10
   ]
  },
@@ -6996,15 +6995,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_a2_p1.html",
   "loesung": "uebung/l_B_a2_p1.html",
-  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "snippet": "Quadrat mit Punkt E – Umfang des einbeschriebenen Dreiecks AEC.",
   "ba": [
    692,
-   251,
+   279,
    10
   ],
   "bl": [
    692,
-   180,
+   124,
    10
   ]
  },
@@ -7016,20 +7015,19 @@ const AUFGABEN = [
   "label": "A2/2",
   "sort": "A2_002",
   "themen": [
-   "Körperberechnung",
-   "Trigonometrie & ebene Geometrie"
+   "Körperberechnung"
   ],
   "aufgabe": "uebung/a_B_a2_p2.html",
   "loesung": "uebung/l_B_a2_p2.html",
-  "snippet": "Regelmäßige fünfseitigen Pyramide – Volumen aus Kante und Spitzenwinkel.",
+  "snippet": "Zylinder mit Halbkugel – Oberfläche und Materialbedarf.",
   "ba": [
    692,
-   278,
+   228,
    10
   ],
   "bl": [
    692,
-   159,
+   162,
    10
   ]
  },
@@ -7069,10 +7067,10 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_a2_p4.html",
   "loesung": "uebung/l_B_a2_p4.html",
-  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "snippet": "Zwei unabhängige Glücksräder – drei Wahrscheinlichkeiten.",
   "ba": [
    692,
-   242,
+   248,
    10
   ],
   "bl": [
@@ -7093,15 +7091,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_a2_p5.html",
   "loesung": "uebung/l_B_a2_p5.html",
-  "snippet": "Gleichung mit Binomen lösen – Lösungsmenge bestimmen.",
+  "snippet": "Lineares Gleichungssystem lösen.",
   "ba": [
    692,
-   101,
+   126,
    10
   ],
   "bl": [
    692,
-   124,
+   67,
    10
   ]
  },
@@ -7142,15 +7140,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_b_1a.html",
   "loesung": "uebung/l_B_b_1a.html",
-  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "snippet": "Rechtwinkliges Trapez mit gleichschenkligem Dreieck – Fläche des Vierecks AECD.",
   "ba": [
    692,
-   245,
+   235,
    10
   ],
   "bl": [
    692,
-   165,
+   124,
    10
   ]
  },
@@ -7210,19 +7208,20 @@ const AUFGABEN = [
   "label": "B2b",
   "sort": "B002b",
   "themen": [
-   "Körperberechnung"
+   "Körperberechnung",
+   "Trigonometrie & ebene Geometrie"
   ],
   "aufgabe": "uebung/a_B_b_2b.html",
   "loesung": "uebung/l_B_b_2b.html",
-  "snippet": "Zylinder mit Kegel gegen quadratisches Prisma – Differenz der Oberflächen.",
+  "snippet": "Sechsseitige Pyramide – Umfang des Diagonaldreiecks ACS.",
   "ba": [
    692,
-   362,
+   278,
    10
   ],
   "bl": [
    692,
-   159,
+   124,
    10
   ]
  },
@@ -7238,15 +7237,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_b_3a.html",
   "loesung": "uebung/l_B_b_3a.html",
-  "snippet": "Glücksspiel – Wahrscheinlichkeit, Erwartungswert und fairer Gewinn.",
+  "snippet": "Symbolkarten – Behauptung prüfen, Erwartungswert, faires Spiel.",
   "ba": [
    692,
-   291,
+   324,
    10
   ],
   "bl": [
    692,
-   124,
+   145,
    10
   ]
  },
@@ -7262,15 +7261,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_B_b_3b.html",
   "loesung": "uebung/l_B_b_3b.html",
-  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "snippet": "Wurfparabel – Funktionsgleichung, Hindernis und Zielpunkt prüfen.",
   "ba": [
    692,
-   543,
+   360,
    10
   ],
   "bl": [
    692,
-   156,
+   118,
    10
   ]
  },
@@ -7282,19 +7281,19 @@ const AUFGABEN = [
   "label": "A1/1",
   "sort": "A1_001",
   "themen": [
-   "Körperberechnung"
+   "Stochastik & Daten"
   ],
   "aufgabe": "uebung/a_C_a1_p1.html",
   "loesung": "uebung/l_C_a1_p1.html",
-  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "snippet": "Vier Behälter mit Kugeln – P(weiß) ankreuzen, zwei Kugeln ohne Zurücklegen.",
   "ba": [
    692,
-   285,
+   342,
    10
   ],
   "bl": [
    692,
-   128,
+   96,
    10
   ]
  },
@@ -7455,15 +7454,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_C_a2_p1.html",
   "loesung": "uebung/l_C_a2_p1.html",
-  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "snippet": "Quadrat mit Punkt E – Umfang des einbeschriebenen Dreiecks AEC.",
   "ba": [
    692,
-   253,
+   279,
    10
   ],
   "bl": [
    692,
-   180,
+   124,
    10
   ]
  },
@@ -7572,20 +7571,19 @@ const AUFGABEN = [
   "label": "A2/6",
   "sort": "A2_006",
   "themen": [
-   "Stochastik & Daten",
-   "Sachrechnen & Prozente"
+   "Stochastik & Daten"
   ],
   "aufgabe": "uebung/a_C_a2_p6.html",
   "loesung": "uebung/l_C_a2_p6.html",
-  "snippet": "Säulen- und Kreisdiagramm „Fahrradverleih – Ausleihen“ – prozentuale Veränderungen.",
+  "snippet": "Zwei Boxplots vergleichen – Aussagen bewerten.",
   "ba": [
    692,
-   441,
+   503,
    10
   ],
   "bl": [
    692,
-   135,
+   125,
    10
   ]
  },
@@ -7745,15 +7743,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_a1_p1.html",
   "loesung": "uebung/l_D_a1_p1.html",
-  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "snippet": "Zusammengesetzter Körper – Oberflächenformeln richtig/falsch ankreuzen.",
   "ba": [
    692,
-   285,
+   239,
    10
   ],
   "bl": [
    692,
-   128,
+   90,
    10
   ]
  },
@@ -7793,15 +7791,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_a1_p3.html",
   "loesung": "uebung/l_D_a1_p3.html",
-  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "snippet": "Gleichung in faktorisierter Form – Lösungsmenge angeben.",
   "ba": [
    692,
-   142,
+   99,
    10
   ],
   "bl": [
    692,
-   101,
+   67,
    10
   ]
  },
@@ -7841,10 +7839,10 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_a1_p5.html",
   "loesung": "uebung/l_D_a1_p5.html",
-  "snippet": "Vorzeichen von cos-Werten am Einheitskreis ankreuzen.",
+  "snippet": "Winkel mit gleichem Sinuswert ergänzen (0° bis 360°).",
   "ba": [
    692,
-   159,
+   152,
    10
   ],
   "bl": [
@@ -7861,19 +7859,19 @@ const AUFGABEN = [
   "label": "A1/6",
   "sort": "A1_006",
   "themen": [
-   "Stochastik & Daten"
+   "Quadratische Funktionen"
   ],
   "aufgabe": "uebung/a_D_a1_p6.html",
   "loesung": "uebung/l_D_a1_p6.html",
-  "snippet": "Boxplot zu die Wurfweiten beim Schlagballwurf – Fehler finden, Behauptung zum Zentralwert prüfen.",
+  "snippet": "Parabel aus dem Schaubild ablesen, Gerade und zweite Parabel einzeichnen.",
   "ba": [
    692,
-   406,
+   315,
    10
   ],
   "bl": [
    692,
-   139,
+   106,
    10
   ]
  },
@@ -7885,20 +7883,19 @@ const AUFGABEN = [
   "label": "A1/7",
   "sort": "A1_007",
   "themen": [
-   "Stochastik & Daten",
    "Sachrechnen & Prozente"
   ],
   "aufgabe": "uebung/a_D_a1_p7.html",
   "loesung": "uebung/l_D_a1_p7.html",
-  "snippet": "Balkendiagramm „Weg zur Schule“ – Prozentanteil und verschachtelte Prozente.",
+  "snippet": "Tabelle mit Prozent-Pfeilen – die Verkaufszahlen von Saisonkarten fortschreiben.",
   "ba": [
    692,
-   230,
+   246,
    10
   ],
   "bl": [
    692,
-   107,
+   101,
    10
   ]
  },
@@ -7934,20 +7931,19 @@ const AUFGABEN = [
   "label": "A2/2",
   "sort": "A2_002",
   "themen": [
-   "Körperberechnung",
-   "Trigonometrie & ebene Geometrie"
+   "Körperberechnung"
   ],
   "aufgabe": "uebung/a_D_a2_p2.html",
   "loesung": "uebung/l_D_a2_p2.html",
-  "snippet": "Regelmäßige fünfseitigen Pyramide – Volumen aus Kante und Spitzenwinkel.",
+  "snippet": "Zylinder mit Halbkugel – Oberfläche und Materialbedarf.",
   "ba": [
    692,
-   278,
+   228,
    10
   ],
   "bl": [
    692,
-   159,
+   162,
    10
   ]
  },
@@ -7987,10 +7983,10 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_a2_p4.html",
   "loesung": "uebung/l_D_a2_p4.html",
-  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "snippet": "Zwei unabhängige Glücksräder – drei Wahrscheinlichkeiten.",
   "ba": [
    692,
-   242,
+   246,
    10
   ],
   "bl": [
@@ -8011,15 +8007,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_a2_p5.html",
   "loesung": "uebung/l_D_a2_p5.html",
-  "snippet": "Gleichung mit Binomen lösen – Lösungsmenge bestimmen.",
+  "snippet": "Lineares Gleichungssystem lösen.",
   "ba": [
    692,
-   101,
+   126,
    10
   ],
   "bl": [
    692,
-   124,
+   67,
    10
   ]
  },
@@ -8060,15 +8056,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_b_1a.html",
   "loesung": "uebung/l_D_b_1a.html",
-  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "snippet": "Rechtwinkliges Trapez mit gleichschenkligem Dreieck – Fläche des Vierecks AECD.",
   "ba": [
    692,
-   245,
+   235,
    10
   ],
   "bl": [
    692,
-   165,
+   124,
    10
   ]
  },
@@ -8128,19 +8124,20 @@ const AUFGABEN = [
   "label": "B2b",
   "sort": "B002b",
   "themen": [
-   "Körperberechnung"
+   "Körperberechnung",
+   "Trigonometrie & ebene Geometrie"
   ],
   "aufgabe": "uebung/a_D_b_2b.html",
   "loesung": "uebung/l_D_b_2b.html",
-  "snippet": "Zylinder mit Kegel gegen quadratisches Prisma – Differenz der Oberflächen.",
+  "snippet": "Sechsseitige Pyramide – Umfang des Diagonaldreiecks ACS.",
   "ba": [
    692,
-   362,
+   278,
    10
   ],
   "bl": [
    692,
-   159,
+   124,
    10
   ]
  },
@@ -8156,15 +8153,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_b_3a.html",
   "loesung": "uebung/l_D_b_3a.html",
-  "snippet": "Glücksspiel – Wahrscheinlichkeit, Erwartungswert und fairer Gewinn.",
+  "snippet": "Symbolkarten – Behauptung prüfen, Erwartungswert, faires Spiel.",
   "ba": [
    692,
-   291,
+   324,
    10
   ],
   "bl": [
    692,
-   124,
+   145,
    10
   ]
  },
@@ -8180,15 +8177,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_D_b_3b.html",
   "loesung": "uebung/l_D_b_3b.html",
-  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "snippet": "Wurfparabel – Funktionsgleichung, Hindernis und Zielpunkt prüfen.",
   "ba": [
    692,
-   483,
+   314,
    10
   ],
   "bl": [
    692,
-   156,
+   118,
    10
   ]
  },
@@ -8200,19 +8197,19 @@ const AUFGABEN = [
   "label": "A1/1",
   "sort": "A1_001",
   "themen": [
-   "Körperberechnung"
+   "Stochastik & Daten"
   ],
   "aufgabe": "uebung/a_E_a1_p1.html",
   "loesung": "uebung/l_E_a1_p1.html",
-  "snippet": "Volumen von Quader und quadratischer Pyramide gleich – Höhe berechnen.",
+  "snippet": "Vier Behälter mit Kugeln – P(weiß) ankreuzen, zwei Kugeln ohne Zurücklegen.",
   "ba": [
    692,
-   285,
+   342,
    10
   ],
   "bl": [
    692,
-   128,
+   96,
    10
   ]
  },
@@ -8252,15 +8249,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_E_a1_p3.html",
   "loesung": "uebung/l_E_a1_p3.html",
-  "snippet": "Zehnerpotenzen vergleichen – größten Term angeben.",
+  "snippet": "Gleichung in faktorisierter Form – Lösungsmenge angeben.",
   "ba": [
    692,
-   142,
+   99,
    10
   ],
   "bl": [
    692,
-   101,
+   67,
    10
   ]
  },
@@ -8344,20 +8341,19 @@ const AUFGABEN = [
   "label": "A1/7",
   "sort": "A1_007",
   "themen": [
-   "Stochastik & Daten",
    "Sachrechnen & Prozente"
   ],
   "aufgabe": "uebung/a_E_a1_p7.html",
   "loesung": "uebung/l_E_a1_p7.html",
-  "snippet": "Balkendiagramm „Lieblings-Sportarten“ – Prozentanteil und verschachtelte Prozente.",
+  "snippet": "Tabelle mit Prozent-Pfeilen – die Abo-Zahlen eines Schülermagazins fortschreiben.",
   "ba": [
    692,
-   230,
+   246,
    10
   ],
   "bl": [
    692,
-   107,
+   101,
    10
   ]
  },
@@ -8373,15 +8369,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_E_a2_p1.html",
   "loesung": "uebung/l_E_a2_p1.html",
-  "snippet": "Rechteck mit einbeschriebenem rechtwinkligem Dreieck – Umfang berechnen.",
+  "snippet": "Quadrat mit Punkt E – Umfang des einbeschriebenen Dreiecks AEC.",
   "ba": [
    692,
-   262,
+   279,
    10
   ],
   "bl": [
    692,
-   180,
+   124,
    10
   ]
  },
@@ -8446,10 +8442,10 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_E_a2_p4.html",
   "loesung": "uebung/l_E_a2_p4.html",
-  "snippet": "Zwei Ziehungen ohne Zurücklegen – drei Wahrscheinlichkeiten berechnen.",
+  "snippet": "Zwei unabhängige Glücksräder – drei Wahrscheinlichkeiten.",
   "ba": [
    692,
-   242,
+   243,
    10
   ],
   "bl": [
@@ -8490,20 +8486,19 @@ const AUFGABEN = [
   "label": "A2/6",
   "sort": "A2_006",
   "themen": [
-   "Stochastik & Daten",
-   "Sachrechnen & Prozente"
+   "Stochastik & Daten"
   ],
   "aufgabe": "uebung/a_E_a2_p6.html",
   "loesung": "uebung/l_E_a2_p6.html",
-  "snippet": "Säulen- und Kreisdiagramm „Podcast „Schulfunk“ – Abrufe“ – prozentuale Veränderungen.",
+  "snippet": "Zwei Boxplots vergleichen – Aussagen bewerten.",
   "ba": [
    692,
-   441,
+   472,
    10
   ],
   "bl": [
    692,
-   135,
+   125,
    10
   ]
  },
@@ -8519,15 +8514,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_E_b_1a.html",
   "loesung": "uebung/l_E_b_1a.html",
-  "snippet": "Drachenviereck im Rechteck – Winkel φ und Umfang des Restvierecks.",
+  "snippet": "Rechtwinkliges Trapez mit gleichschenkligem Dreieck – Fläche des Vierecks AECD.",
   "ba": [
    692,
-   245,
+   219,
    10
   ],
   "bl": [
    692,
-   165,
+   124,
    10
   ]
  },
@@ -8639,15 +8634,15 @@ const AUFGABEN = [
   ],
   "aufgabe": "uebung/a_E_b_3b.html",
   "loesung": "uebung/l_E_b_3b.html",
-  "snippet": "Parabelförmige Öffnung – Funktionsgleichung und zwei Flächen-Vorschläge.",
+  "snippet": "Wurfparabel – Funktionsgleichung, Hindernis und Zielpunkt prüfen.",
   "ba": [
    692,
-   459,
+   344,
    10
   ],
   "bl": [
    692,
-   156,
+   118,
    10
   ]
  }
