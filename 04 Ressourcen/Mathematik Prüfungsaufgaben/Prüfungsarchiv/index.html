@@ -126,6 +126,8 @@
     <button class="primaer" id="wDruck">Arbeitsblatt drucken</button>
     <button id="wDruckL">Mit Lösungen drucken</button>
     <button id="wLeeren">Auswahl leeren</button>
+    <span style="border-left:1px solid var(--line); align-self:stretch"></span>
+    <button id="wGesamt" title="Öffnet den gewählten Jahrgang oder Übungssatz als ein Dokument (Aufgaben + Lösungsteil)">Komplettdokument</button>
   </div>
 </header>
 <main>
@@ -347,12 +349,8 @@
     try { localStorage.setItem("pruefungsarchiv_auswahl", JSON.stringify(auswahl)); } catch (e) {}
   }
 
-  function baueDruckHTML(mitLoesung) {
+  function baueDokHTML(tasks, mitLoesung, titel, untertitel, mitNameDatum) {
     var DRUCKBREITE = 703; // nutzbare A4-Breite in px (96 dpi, 12 mm Ränder)
-    var tasks = auswahl.map(aufgabeVon).filter(Boolean);
-    tasks.sort(function (x, y) {
-      return x.jahr - y.jahr || (x.sort < y.sort ? -1 : 1);
-    });
     function abs(p) { return new URL(p, location.href).href; }
     function block(a, i, art) {
       var url = art === "l" ? a.loesung : a.aufgabe;
@@ -379,7 +377,7 @@
         tasks.map(function (a, i) { return block(a, i, "l"); }).join("") + "</div>";
     }
     return '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">' +
-      "<title>Arbeitsblatt" + (mitLoesung ? " mit Lösungen" : "") + "</title><style>" +
+      "<title>" + titel + "</title><style>" +
       "body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;padding:16px}" +
       "h1{font-size:17px;margin:0 0 2px}" +
       ".kopfzeile{display:flex;justify-content:space-between;align-items:flex-end;" +
@@ -397,12 +395,42 @@
       "@media print{.hinweis{display:none}}@page{margin:12mm}" +
       "</style></head><body>" +
       '<button class="hinweis" onclick="window.print()">Drucken</button>' +
-      '<div class="kopfzeile"><div><h1>Arbeitsblatt – Prüfungsaufgaben Mathematik' +
-      (mitLoesung ? " (mit Lösungen)" : "") + "</h1>" +
-      '<div style="font-size:11px;color:#555">Realschulabschlussprüfung BW · zusammengestellt aus ' +
-      tasks.length + " Aufgaben</div></div>" +
-      '<div class="nd">Name: ____________________&emsp;Datum: ____________</div></div>' +
-      teile + loes + "</body></html>";
+      '<div class="kopfzeile"><div><h1>' + titel + "</h1>" +
+      '<div style="font-size:11px;color:#555">' + untertitel + "</div></div>" +
+      (mitNameDatum ? '<div class="nd">Name: ____________________&emsp;Datum: ____________</div>' : "") +
+      "</div>" + teile + loes + "</body></html>";
+  }
+
+  function baueDruckHTML(mitLoesung) {
+    var tasks = auswahl.map(aufgabeVon).filter(Boolean);
+    tasks.sort(function (x, y) {
+      return x.jahr - y.jahr || (x.sort < y.sort ? -1 : 1);
+    });
+    return baueDokHTML(tasks, mitLoesung,
+      "Arbeitsblatt – Prüfungsaufgaben Mathematik" + (mitLoesung ? " (mit Lösungen)" : ""),
+      "Realschulabschlussprüfung BW · zusammengestellt aus " + tasks.length + " Aufgaben",
+      true);
+  }
+
+  function gesamtOeffnen() {
+    if (state.saetze.length === 1) {
+      window.open("uebung/satz_" + state.saetze[0] + "_komplett.html", "_blank");
+      return;
+    }
+    if (state.saetze.length === 0 && state.jahr) {
+      var tasks = AUFGABEN.filter(function (a) {
+        return !a.satz && String(a.jahr) === String(state.jahr);
+      });
+      tasks.sort(function (x, y) { return x.sort < y.sort ? -1 : 1; });
+      var w = window.open("", "_blank");
+      if (!w) { alert("Popup wurde blockiert – bitte Popups erlauben."); return; }
+      w.document.write(baueDokHTML(tasks, true,
+        "Prüfung " + state.jahr + " – Gesamtansicht",
+        "alle " + tasks.length + " Aufgaben, Lösungen ab der letzten Seite", false));
+      w.document.close();
+      return;
+    }
+    alert("Bitte zuerst oben einen Jahrgang (Jahr-Auswahl) oder genau einen Übungssatz anklicken.");
   }
 
   function druck(mitLoesung) {
@@ -414,6 +442,7 @@
   }
   window.baueDruckHTML = baueDruckHTML;
 
+  document.getElementById("wGesamt").onclick = gesamtOeffnen;
   document.getElementById("wDruck").onclick = function () { druck(false); };
   document.getElementById("wDruckL").onclick = function () { druck(true); };
   document.getElementById("wLeeren").onclick = function () {
