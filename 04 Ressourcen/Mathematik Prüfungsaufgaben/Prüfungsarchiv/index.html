@@ -149,6 +149,7 @@
   </div>
 </main>
 <script src="daten.js"></script>
+<script src="inhalte.js"></script>
 <script>
 (function () {
   var TEILE = ["Pflichtteil", "Wahlteil", "A1 – ohne Taschenrechner", "A2 – mit Taschenrechner", "Wahlteil B"];
@@ -349,56 +350,90 @@
     try { localStorage.setItem("pruefungsarchiv_auswahl", JSON.stringify(auswahl)); } catch (e) {}
   }
 
+  // Druck aus vorab extrahiertem Inline-Inhalt (window.INHALTE, siehe inhalte.js).
+  // Kein iframe, kein Zoom, kein Live-Auslesen: der Inhalt fließt auf Seitenbreite um
+  // (Bilder/Tabellen begrenzt) -> druckt korrekt, bricht über Seiten um, nichts wird
+  // abgeschnitten. Funktioniert auch über file:// (kein contentDocument-Zugriff nötig).
+  var DRUCKBREITE = 695; // nutzbare A4-Breite in px (96 dpi, 12 mm Ränder, kleine Reserve)
+
   function baueDokHTML(tasks, mitLoesung, titel, untertitel, mitNameDatum) {
-    var DRUCKBREITE = 703; // nutzbare A4-Breite in px (96 dpi, 12 mm Ränder)
     function abs(p) { return new URL(p, location.href).href; }
-    function block(a, i, art) {
+    var INH = window.INHALTE || {};
+
+    function kopf(a, i, art) {
+      return '<div class="cap">Aufgabe ' + (i + 1) + ' <span>(' + anzeigename(a) +
+        (art === "l" ? " – Lösung" : "") + ")</span></div>";
+    }
+    // Fallback (praktisch nie nötig): fehlt der gebackene Inhalt, zugeschnittenen iframe zeigen.
+    function iframeFallback(a, i, art) {
       var url = art === "l" ? a.loesung : a.aufgabe;
       var box = (art === "l" ? a.bl : a.ba) || [900, 1400, 0];
       var w = box[0], unten = box[1], oben = box[2];
-      var h = unten - oben + 12;
-      var s = Math.min(1, DRUCKBREITE / (w + 6));
-      var hs = Math.ceil(h * s);
-      // zoom statt transform: verändert die echte Layoutgröße und druckt
-      // zuverlässig (transform auf iframes erzeugt Leerseiten in Chrome)
-      return '<div class="task' + (hs < 900 ? " zusammen" : "") + '">' +
-        '<div class="cap">Aufgabe ' + (i + 1) +
-        ' <span>(' + anzeigename(a) + ")</span></div>" +
-        '<div class="rahmen" style="height:' + hs + "px;width:" + Math.ceil(w * s) + 'px">' +
+      var wSafe = Math.round(w * 1.06) + 10;
+      var s = Math.min(1, DRUCKBREITE / (wSafe + 6));
+      var hs = Math.ceil((unten - oben + 12) * s);
+      return '<div class="task ganz">' + kopf(a, i, art) +
+        '<div class="rahmen" style="height:' + hs + "px;width:" + Math.ceil((wSafe + 20) * s) + 'px">' +
         '<iframe src="' + abs(url) + '" scrolling="no" style="zoom:' + s.toFixed(4) +
-        ";width:" + (w + 20) + "px;height:" + (unten + 30) + "px;margin-top:-" +
-        oben + 'px"></iframe>' +
-        "</div></div>";
+        ";width:" + (wSafe + 20) + "px;height:" + (unten + 30) + "px;margin-top:-" + oben +
+        'px"></iframe></div></div>';
     }
-    var teile = tasks.map(function (a, i) { return block(a, i, "a"); }).join("");
-    var loes = "";
-    if (mitLoesung) {
-      loes = '<div class="loesungen"><h1>Lösungen</h1>' +
-        tasks.map(function (a, i) { return block(a, i, "l"); }).join("") + "</div>";
+
+    function block(a, i, art) {
+      var rec = INH[a.slug];
+      var html = rec ? (art === "l" ? rec.l : rec.a) : null;
+      if (!html) {
+        var url = art === "l" ? a.loesung : a.aufgabe;
+        return url ? iframeFallback(a, i, art) : "";
+      }
+      // Aufgaben passen auf eine Seite (nicht trennen); Lösungen dürfen umbrechen.
+      var klasse = art === "l" ? "task" : "task ganz";
+      return '<div class="' + klasse + '">' + kopf(a, i, art) + '<div class="fit">' + html + "</div></div>";
     }
+
+    function sektion(art) {
+      return tasks.map(function (a, i) { return block(a, i, art); }).join("");
+    }
+
+    var teile = sektion("a");
+    var loes = mitLoesung ? ('<div class="loesungen"><h1>Lösungen</h1>' + sektion("l") + "</div>") : "";
+    var base = new URL(".", location.href).href;
     return '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">' +
+      '<base href="' + base + '">' +
       "<title>" + titel + "</title><style>" +
-      "body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;padding:16px}" +
+      "body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;padding:14px}" +
       "h1{font-size:17px;margin:0 0 2px}" +
       ".kopfzeile{display:flex;justify-content:space-between;align-items:flex-end;" +
-      "border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:6px}" +
+      "border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:8px}" +
       ".kopfzeile .nd{font-size:13px}" +
-      "html,body{height:auto}" +
-      ".rahmen{overflow:hidden}" +
-      ".rahmen iframe{border:0}" +
-      ".task{margin-bottom:2px}.task.zusammen{break-inside:avoid}" +
-      ".cap{font-weight:bold;font-size:13px;margin:8px 0 2px;border-top:1px solid #ccc;padding-top:6px}" +
+      ".task{margin-bottom:10px}.ganz{break-inside:avoid}" +
+      ".cap{font-weight:bold;font-size:13px;margin:8px 0 3px;border-top:1px solid #ccc;padding-top:6px;break-after:avoid}" +
       ".cap span{font-weight:normal;color:#555;font-size:11px}" +
-      ".loesungen{break-before:page}.loesungen h1{margin-top:14px}" +
+      // Umfließen auf Seitenbreite: Bilder/SVG/Tabellen werden begrenzt -> kein Abschnitt rechts.
+      ".fit{overflow-wrap:break-word}" +
+      ".fit img{max-width:100%!important;height:auto!important}" +
+      ".fit svg{max-width:100%!important;height:auto!important}" +
+      ".fit table{max-width:100%!important;border-collapse:collapse}" +
+      ".fit td,.fit th{vertical-align:top}" +
+      ".rahmen{overflow:hidden}.rahmen iframe{border:0}" +
+      ".loesungen{break-before:page}.loesungen h1{margin-top:0}" +
       ".hinweis{position:fixed;top:8px;right:8px;background:#1a5fb4;color:#fff;border:0;" +
-      "border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer}" +
+      "border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer;z-index:9}" +
       "@media print{.hinweis{display:none}}@page{margin:12mm}" +
       "</style></head><body>" +
       '<button class="hinweis" onclick="window.print()">Drucken</button>' +
       '<div class="kopfzeile"><div><h1>' + titel + "</h1>" +
       '<div style="font-size:11px;color:#555">' + untertitel + "</div></div>" +
       (mitNameDatum ? '<div class="nd">Name: ____________________&emsp;Datum: ____________</div>' : "") +
-      "</div>" + teile + loes + "</body></html>";
+      "</div>" + teile + loes +
+      // Chrome leert per document.write erzeugte Tabs nach dem Druckdialog manchmal
+      // (bzw. zeichnet sie nicht neu). Inhalt sichern und bei Bedarf wiederherstellen.
+      "<script>(function(){var g=document.body.innerHTML;function h(){" +
+      "if(!document.body.children.length||!document.body.innerHTML.trim()){document.body.innerHTML=g;}" +
+      "document.body.style.display='none';void document.body.offsetHeight;document.body.style.display='';}" +
+      "window.addEventListener('afterprint',h);window.addEventListener('pageshow',h);" +
+      "window.addEventListener('focus',h);document.addEventListener('visibilitychange',h);})();<\/script>" +
+      "</body></html>";
   }
 
   function baueDruckHTML(mitLoesung) {
@@ -410,6 +445,10 @@
       "Arbeitsblatt – Prüfungsaufgaben Mathematik" + (mitLoesung ? " (mit Lösungen)" : ""),
       "Realschulabschlussprüfung BW · zusammengestellt aus " + tasks.length + " Aufgaben",
       true);
+  }
+
+  function schreibeDok(w, html) {
+    try { w.document.open(); w.document.write(html); w.document.close(); } catch (e) {}
   }
 
   function gesamtOeffnen() {
@@ -424,10 +463,9 @@
       tasks.sort(function (x, y) { return x.sort < y.sort ? -1 : 1; });
       var w = window.open("", "_blank");
       if (!w) { alert("Popup wurde blockiert – bitte Popups erlauben."); return; }
-      w.document.write(baueDokHTML(tasks, true,
+      schreibeDok(w, baueDokHTML(tasks, true,
         "Prüfung " + state.jahr + " – Gesamtansicht",
         "alle " + tasks.length + " Aufgaben, Lösungen ab der letzten Seite", false));
-      w.document.close();
       return;
     }
     alert("Bitte zuerst oben einen Jahrgang (Jahr-Auswahl) oder genau einen Übungssatz anklicken.");
@@ -437,8 +475,7 @@
     if (!auswahl.length) return;
     var w = window.open("", "_blank");
     if (!w) { alert("Popup wurde blockiert – bitte Popups für diese Seite erlauben."); return; }
-    w.document.write(baueDruckHTML(mitLoesung));
-    w.document.close();
+    schreibeDok(w, baueDruckHTML(mitLoesung));
   }
   window.baueDruckHTML = baueDruckHTML;
 
