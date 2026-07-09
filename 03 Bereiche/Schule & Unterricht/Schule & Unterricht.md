@@ -18,5 +18,11 @@ Keine personenbezogenen Daten von Schülern, Eltern oder Kollegen hier speichern
 ## Vorlagen & Strukturen
 -
 
+## Unterrichtsmaterial
+Fachliches Unterrichtsmaterial (Merkhefte, Aufgabenpools, interaktive Tools) liegt nicht hier, sondern nach Fach sortiert:
+- [[04 Ressourcen/Physik/Physik]]
+- [[04 Ressourcen/Mathematik/Mathematik]]
+- [[04 Ressourcen/Sport/Sport]]
+
 ## Referenzen
 - [[04 Ressourcen/Lernwissenschaft & Pädagogik]]

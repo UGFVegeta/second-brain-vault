@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Manim Animationen – Mathematik Prüfungsaufgaben</title>
+<style>
+  :root {
+    color-scheme: light dark;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    background: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; color: #e6e6e6; }
+    .card { background: #262626 !important; border-color: #3a3a3a !important; }
+    .tag { background: #33403a !important; color: #8fd6b4 !important; }
+  }
+  h1 { font-size: 1.6rem; margin-bottom: 0.2rem; }
+  p.intro { color: #666; margin-top: 0; }
+  .card {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    margin: 0 0 0.4rem;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    background: #eef3f0;
+    color: #3a7a56;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+  }
+  .card p.desc {
+    margin: 0.3rem 0 0.9rem;
+    color: #555;
+  }
+  video {
+    width: 100%;
+    border-radius: 8px;
+    background: #000;
+    display: block;
+  }
+  @media (prefers-color-scheme: dark) { .card p.desc { color: #b3b3b3; } }
+</style>
+</head>
+<body>
+
+<h1>Manim Animationen</h1>
+<p class="intro">Kurze mathematische Animationen zu den Aufgabenpools – erstellt mit Manim (Python).</p>
+
+<div class="card">
+  <span class="tag">Trigonometrie</span>
+  <h2>Sinus &amp; Kosinus am Einheitskreis</h2>
+  <p class="desc">Punkt läuft am Einheitskreis entlang, Kosinus (grün) und Sinus (rot) werden als Strecken abgetragen; parallel baut sich rechts der Funktionsgraph auf.</p>
+  <video controls preload="metadata" src="Videos/Einheitskreis Sinus Kosinus (Manim Demo).mp4"></video>
+  <p class="desc" style="margin-top:0.9rem;"><a href="Einheitskreis Interaktiv.html">→ Interaktive Version mit Regler öffnen</a></p>
+</div>
+
+<div class="card">
+  <span class="tag">Quadratische Funktionen</span>
+  <h2>Parabelverschiebung</h2>
+  <p class="desc">Verschiebung der Normalparabel nach links/rechts (d) und oben/unten (e), danach Streckung, Stauchung und Öffnung nach unten über den Faktor a.</p>
+  <video controls preload="metadata" src="Videos/Parabelverschiebung (Manim Demo).mp4"></video>
+</div>
+
+<div class="card">
+  <span class="tag">Boxplot</span>
+  <h2>Konstruktion aus einer Datenreihe</h2>
+  <p class="desc">Sortierte Werte auf dem Zahlenstrahl, Bestimmung von Minimum, Q1, Median, Q3, Maximum – und der daraus gebaute Boxplot darunter.</p>
+  <video controls preload="metadata" src="Videos/Boxplot Konstruktion (Manim Demo).mp4"></video>
+</div>
+
+<div class="card">
+  <span class="tag">Stereometrie</span>
+  <h2>Kegel- vs. Zylindervolumen</h2>
+  <p class="desc">3D-Szene mit rotierender Kamera: Zylinder und Kegel mit gleicher Grundfläche und Höhe, Herleitung von V_Kegel = ⅓ · π · r² · h.</p>
+  <video controls preload="metadata" src="Videos/Kegelvolumen (Manim Demo).mp4"></video>
+</div>
+
+<div class="card">
+  <span class="tag">Stochastik</span>
+  <h2>Baumdiagramm ohne Zurücklegen</h2>
+  <p class="desc">Zweistufiges Zufallsexperiment (Urne: 3 rote, 2 blaue Kugeln), Pfadwahrscheinlichkeiten und Ergebnisse nach der Pfadregel.</p>
+  <video controls preload="metadata" src="Videos/Baumdiagramm Stochastik (Manim Demo).mp4"></video>
+</div>
+
+</body>
+</html>

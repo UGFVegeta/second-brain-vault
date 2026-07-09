@@ -12,7 +12,7 @@ updated: 2026-07-05
 >
 > **Update 2026-07-05:** Eintippbare Felder für **Vorname** und **Zielnote** – erscheinen auf beiden Ausdrucken, damit klar ist welche gedruckte Prüfung zu wem gehört. Im Zufallsgenerator (`Pruefung.html`) direkt in der Kopfzeile jedes Satzes, im Baukasten (`Baukasten.html`) als zwei Felder in der Werkzeugleiste neben den Druck-Buttons. Eingaben werden nicht gespeichert (Datenschutz).
 >
-> **Update 2026-07-02:** Zufallsgenerator überarbeitet – Themen-Balance (5 gemischte aus 5 verschiedenen Themen, aufsteigend sortiert), Schwierigkeitsprofil „⚖️ ausgewogen" (2·★, 2·★★, 2·★★★), Serien-Modus (bis 10 überschneidungsfreie Sätze auf einmal, je Satz eigene Druckseite mit Name/Datum-Zeile) und verwendet-Abgleich mit dem Baukasten (gemeinsamer Speicher, „✓ Satz als verwendet markieren"). Details in [[04 Ressourcen/Mathematik Prüfungsaufgaben/Generator/ANLEITUNG.md]].
+> **Update 2026-07-02:** Zufallsgenerator überarbeitet – Themen-Balance (5 gemischte aus 5 verschiedenen Themen, aufsteigend sortiert), Schwierigkeitsprofil „⚖️ ausgewogen" (2·★, 2·★★, 2·★★★), Serien-Modus (bis 10 überschneidungsfreie Sätze auf einmal, je Satz eigene Druckseite mit Name/Datum-Zeile) und verwendet-Abgleich mit dem Baukasten (gemeinsamer Speicher, „✓ Satz als verwendet markieren"). Details in [[04 Ressourcen/Mathematik/Prüfungsaufgaben/Generator/ANLEITUNG.md]].
 
 ## Vision
 
@@ -29,7 +29,7 @@ Eine App, die automatisch eine **mündliche Mathe-Prüfung** zusammenstellt – 
 
 ## Datenbasis (vollständig)
 
-Alle 7 Pools sind aufgebaut (125 Aufgaben, Stand 2026-07-02): Trigonometrie (20), Quadratische Funktionen (20), Stochastik (20), Sachrechnen (15), Boxplot & Datenanalyse (15), Stereometrie (15), Kurzaufgaben/Zeitfüller (20). Jeweils als `.md` (Bild + eingeklappte Lösung, z.B. [[04 Ressourcen/Mathematik Prüfungsaufgaben/Trigonometrie Prüfungspool.md]]) und als HTML-Pool, Bilder im Ordner `Bilder/`. Aktuelle Zahlen stehen immer in der Tabelle in [[04 Ressourcen/Mathematik Prüfungsaufgaben/Generator/ANLEITUNG.md]].
+Alle 7 Pools sind aufgebaut (125 Aufgaben, Stand 2026-07-02): Trigonometrie (20), Quadratische Funktionen (20), Stochastik (20), Sachrechnen (15), Boxplot & Datenanalyse (15), Stereometrie (15), Kurzaufgaben/Zeitfüller (20). Jeweils als `.md` (Bild + eingeklappte Lösung, z.B. [[04 Ressourcen/Mathematik/Prüfungsaufgaben/Trigonometrie Prüfungspool.md]]) und als HTML-Pool, Bilder im Ordner `Bilder/`. Aktuelle Zahlen stehen immer in der Tabelle in [[04 Ressourcen/Mathematik/Prüfungsaufgaben/Generator/ANLEITUNG.md]].
 
 ## Kernerkenntnis / wichtigster Vorarbeitsschritt
 

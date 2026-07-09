@@ -13,6 +13,7 @@ Oskar Klein, Realschullehrer (Physik, Mathematik, Sport) in Baden-Württemberg, 
 - **02 Projekte/**: Aktive Projekte mit konkretem Ziel und Enddatum. Projekte starten als einzelne .md Datei. Nur bei komplexen Projekten mit mehreren Dateien wird ein Unterordner erstellt.
 - **03 Bereiche/**: Laufende Verantwortungsbereiche ohne Enddatum. Jeder Bereich ist ein eigener Ordner, weil Bereiche über die Zeit wachsen.
 - **04 Ressourcen/**: Referenzmaterial, Wissen, gesammelte Informationen. Jedes Thema ist ein eigener Ordner. Bücher und Learnings zentral in 04 Ressourcen/Bücher & Learnings/ sammeln.
+  - **Unterrichtsmaterial nach Fach**: Merkhefte, interaktive HTML-Tools, Aufgabenpools, Klassenarbeits-Material etc. gehören nach 04 Ressourcen/<Fach>/<Thema>/ – aktuell **Physik/** (z. B. Kinematik/, Klassenarbeiten/, Prüfungsaufgaben/), **Mathematik/** (z. B. Quadratische Funktionen/, Prüfungsaufgaben/) und **Sport/**. Themenordner nach Bedarf neu anlegen (z. B. Physik/Elektrizitätslehre/). 03 Bereiche/Schule & Unterricht/ enthält nur noch die Bereichs-Übersichtsnotiz, kein Fachmaterial.
 - **05 Daily Notes/**: Tägliches Logbuch. Was passiert ist, welche Entscheidungen getroffen wurden, was offen ist. Gibt Claude die Kontinuität zwischen Sessions.
 - **06 Archiv/**: Abgeschlossene Projekte und inaktive Bereiche. Aus dem aktiven Blickfeld, aber durchsuchbar.
 - **07 Anhänge/**: Bilder, PDFs, Medien. Obsidian legt hier automatisch alle eingefügten Dateien ab.
@@ -181,6 +182,29 @@ Ich kann Oskars Postfächer **web.de** und **Gmail** (oskar17185@googlemail.com)
 - Zugangsdaten (App-Passwörter) liegen sicher außerhalb des Vaults: `~/.config/claude-mail/web-de.env` und `~/.config/claude-mail/gmail.env` (Rechte 600).
 - Leseskript (nur lesend): `~/.config/claude-mail/triage.py [anzahl] [env-datei]`.
 - **Vollständige Doku inkl. wichtiger Lehren** (besonders Gmail-Löschen: nur UID + Trash-Label, kein expunge): [[04 Ressourcen/E-Mail Anbindung/E-Mail Anbindung per IMAP.md]].
+
+## Trainingsdaten (intervals.icu)
+
+Oskars Trainings (Triathlon) sind über **intervals.icu** per API lesbar. Athlete-ID `i635070`.
+
+- **Quelle:** Garmin ist **direkt** mit intervals.icu verbunden (`source: GARMIN_CONNECT`) → volle Datentiefe (Typ, Dauer, Distanz, TSS, Zonen). **Strava nicht als Quelle nutzen:** Strava-Aktivitäten sind an der intervals.icu-API gesperrt (`"STRAVA activities are not available via the API"`) und liefern nur Datum + Quelle. Deshalb Garmin direkt, nicht über Strava.
+- **API-Key/ID** liegen außerhalb des Vaults: `~/.config/claude-intervals/intervals.env` (Rechte 600). Auth = HTTP Basic, Nutzername literal `API_KEY`. **Wichtig:** Cloudflare blockt den Default-User-Agent von urllib (Fehler 1010) → immer einen Browser-User-Agent mitschicken.
+- **Skript:** `.scripts/intervals_live.py` → zeigt Form (CTL/ATL/TSB) + letzte Einheiten.
+
+**Abrufen:**
+```bash
+python3 .scripts/intervals_live.py        # letzte 21 Tage
+python3 .scripts/intervals_live.py 60     # letzte 60 Tage
+```
+
+Wenn Oskar fragt wie sein Training läuft, wie die letzten Einheiten waren oder wie seine Form ist: **immer zuerst dieses Skript ausführen.**
+
+**TrainingPeaks-Virtual-Rollenfahrten:** gehen nie zu Garmin und sind über Strava an der API gesperrt. TP Virtual legt sie aber lokal als `.fit` ab unter `~/TPVirtual/<USERID>/FITFiles/*.fit`. Das Skript `.scripts/intervals_tpv_upload.py` lädt neue Dateien direkt per API hoch (`source: UPLOAD`, volle Wattdaten) und merkt sich Erledigtes in `~/.config/claude-intervals/tpv_uploaded.txt`. **Nach einer neuen Rollenfahrt einfach ausführen:**
+```bash
+python3 .scripts/intervals_tpv_upload.py         # neue Fahrten hochladen
+python3 .scripts/intervals_tpv_upload.py --dry   # nur zeigen, was neu wäre
+```
+Wenn Oskar eine Rolle gefahren ist bzw. seine virtuellen Einheiten fehlen: dieses Skript laufen lassen, dann sind sie in intervals.icu lesbar.
 
 ## Session-Routinen
 

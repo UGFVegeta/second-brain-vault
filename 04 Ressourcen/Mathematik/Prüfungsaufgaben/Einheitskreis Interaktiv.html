@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Einheitskreis Interaktiv – Sinus &amp; Kosinus</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    background: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; color: #e6e6e6; }
+    .card { background: #262626 !important; border-color: #3a3a3a !important; }
+    .value-box { background: #2f2f2f !important; }
+    svg .grid-line { stroke: #3a3a3a !important; }
+    svg .axis-line { stroke: #888 !important; }
+  }
+  h1 { font-size: 1.6rem; margin-bottom: 0.2rem; }
+  p.intro { color: #666; margin-top: 0; }
+  @media (prefers-color-scheme: dark) { p.intro { color: #aaa; } }
+
+  .card {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .panel { flex: 1 1 380px; min-width: 320px; }
+  svg { width: 100%; height: auto; display: block; }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  input[type="range"] {
+    flex: 1;
+    accent-color: #3a7a56;
+  }
+  .angle-readout {
+    font-variant-numeric: tabular-nums;
+    min-width: 5.5rem;
+    text-align: right;
+    font-weight: 600;
+  }
+  button {
+    align-self: flex-start;
+    background: #3a7a56;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.45rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  button:hover { background: #2f6547; }
+  button.active { background: #c0532c; }
+  button.active:hover { background: #a5441f; }
+
+  .values {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .value-box {
+    background: #f4f4f4;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-variant-numeric: tabular-nums;
+    flex: 1 1 140px;
+  }
+  .value-box .label { font-size: 0.75rem; opacity: 0.7; }
+  .value-box .num { font-size: 1.1rem; font-weight: 600; }
+  .value-box .sub { font-size: 0.75rem; opacity: 0.6; margin-top: 0.1rem; }
+  .cos-color { color: #3a9d5c; }
+  .sin-color { color: #d1453c; }
+
+  .grid-line { stroke: #e5e5e5; stroke-width: 1; }
+  .axis-line { stroke: #999; stroke-width: 1.5; }
+  .curve-cos { fill: none; stroke: #3a9d5c; stroke-width: 2.5; }
+  .curve-sin { fill: none; stroke: #d1453c; stroke-width: 2.5; }
+</style>
+</head>
+<body>
+
+<h1>Einheitskreis Interaktiv</h1>
+<p class="intro">Regler bewegen – Sinus (rot) und Kosinus (grün) ändern sich live am Kreis und im Graph.</p>
+
+<div class="card">
+  <div class="controls">
+    <div class="slider-row">
+      <input type="range" id="angleSlider" min="0" max="360" step="1" value="45">
+      <span class="angle-readout" id="angleReadout">45°</span>
+    </div>
+    <button id="playBtn">▶ Automatisch drehen</button>
+  </div>
+
+  <div class="values">
+    <div class="value-box">
+      <div class="label">Winkel α</div>
+      <div class="num" id="degReadout">45°</div>
+      <div class="sub" id="radReadout">0,785 rad</div>
+    </div>
+    <div class="value-box">
+      <div class="label cos-color">cos(α)</div>
+      <div class="num cos-color" id="cosReadout">0,707</div>
+    </div>
+    <div class="value-box">
+      <div class="label sin-color">sin(α)</div>
+      <div class="num sin-color" id="sinReadout">0,707</div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="panel">
+      <svg id="circleSvg" viewBox="0 0 400 400">
+        <line class="axis-line" x1="20" y1="200" x2="380" y2="200"></line>
+        <line class="axis-line" x1="200" y1="20" x2="200" y2="380"></line>
+        <circle cx="200" cy="200" r="150" fill="none" stroke="#4a90d9" stroke-width="2"></circle>
+
+        <line id="cosLine" x1="200" y1="200" x2="350" y2="200" stroke="#3a9d5c" stroke-width="5"></line>
+        <line id="sinLine" x1="350" y1="200" x2="350" y2="200" stroke="#d1453c" stroke-width="5"></line>
+        <line id="radiusLine" x1="200" y1="200" x2="350" y2="200" stroke="#c99a2e" stroke-width="2"></line>
+        <path id="angleArc" d="" fill="none" stroke="#888" stroke-width="1.5"></path>
+
+        <circle id="pointDot" cx="350" cy="200" r="7" fill="#c99a2e"></circle>
+      </svg>
+    </div>
+
+    <div class="panel">
+      <svg id="graphSvg" viewBox="0 0 500 260">
+        <line class="grid-line" x1="40" y1="30" x2="40" y2="230"></line>
+        <line class="grid-line" x1="150" y1="30" x2="150" y2="230"></line>
+        <line class="grid-line" x1="260" y1="30" x2="260" y2="230"></line>
+        <line class="grid-line" x1="370" y1="30" x2="370" y2="230"></line>
+        <line class="grid-line" x1="480" y1="30" x2="480" y2="230"></line>
+        <line class="axis-line" x1="40" y1="130" x2="480" y2="130"></line>
+        <line class="axis-line" x1="40" y1="30" x2="40" y2="230"></line>
+
+        <text x="40" y="248" font-size="11" fill="currentColor" text-anchor="middle">0°</text>
+        <text x="150" y="248" font-size="11" fill="currentColor" text-anchor="middle">90°</text>
+        <text x="260" y="248" font-size="11" fill="currentColor" text-anchor="middle">180°</text>
+        <text x="370" y="248" font-size="11" fill="currentColor" text-anchor="middle">270°</text>
+        <text x="480" y="248" font-size="11" fill="currentColor" text-anchor="middle">360°</text>
+
+        <path id="cosCurve" class="curve-cos" d=""></path>
+        <path id="sinCurve" class="curve-sin" d=""></path>
+
+        <line id="markerLine" x1="70" y1="30" x2="70" y2="230" stroke="#999" stroke-width="1" stroke-dasharray="4 3"></line>
+        <circle id="cosDot" cx="70" cy="130" r="6" fill="#3a9d5c"></circle>
+        <circle id="sinDot" cx="70" cy="130" r="6" fill="#d1453c"></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const slider = document.getElementById('angleSlider');
+  const angleReadout = document.getElementById('angleReadout');
+  const degReadout = document.getElementById('degReadout');
+  const radReadout = document.getElementById('radReadout');
+  const cosReadout = document.getElementById('cosReadout');
+  const sinReadout = document.getElementById('sinReadout');
+
+  const cosLine = document.getElementById('cosLine');
+  const sinLine = document.getElementById('sinLine');
+  const radiusLine = document.getElementById('radiusLine');
+  const angleArc = document.getElementById('angleArc');
+  const pointDot = document.getElementById('pointDot');
+
+  const markerLine = document.getElementById('markerLine');
+  const cosDot = document.getElementById('cosDot');
+  const sinDot = document.getElementById('sinDot');
+
+  const CX = 200, CY = 200, R = 150;
+  const GX0 = 40, GX1 = 480, GY_TOP = 30, GY_BOT = 230, GY_MID = 130, AMP = 100;
+
+  function xForDeg(deg) { return GX0 + (deg / 360) * (GX1 - GX0); }
+  function yForVal(v) { return GY_MID - v * AMP; }
+
+  function drawStaticCurves() {
+    let cosPath = '', sinPath = '';
+    for (let d = 0; d <= 360; d += 2) {
+      const rad = d * Math.PI / 180;
+      const x = xForDeg(d);
+      const yc = yForVal(Math.cos(rad));
+      const ys = yForVal(Math.sin(rad));
+      cosPath += (d === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + yc.toFixed(1) + ' ';
+      sinPath += (d === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + ys.toFixed(1) + ' ';
+    }
+    document.getElementById('cosCurve').setAttribute('d', cosPath);
+    document.getElementById('sinCurve').setAttribute('d', sinPath);
+  }
+
+  function update(deg) {
+    const rad = deg * Math.PI / 180;
+    const c = Math.cos(rad);
+    const s = Math.sin(rad);
+
+    const px = CX + c * R;
+    const py = CY - s * R;
+
+    cosLine.setAttribute('x1', CX); cosLine.setAttribute('y1', CY);
+    cosLine.setAttribute('x2', px); cosLine.setAttribute('y2', CY);
+
+    sinLine.setAttribute('x1', px); sinLine.setAttribute('y1', CY);
+    sinLine.setAttribute('x2', px); sinLine.setAttribute('y2', py);
+
+    radiusLine.setAttribute('x1', CX); radiusLine.setAttribute('y1', CY);
+    radiusLine.setAttribute('x2', px); radiusLine.setAttribute('y2', py);
+
+    pointDot.setAttribute('cx', px); pointDot.setAttribute('cy', py);
+
+    const arcR = 30;
+    const startX = CX + arcR, startY = CY;
+    const endX = CX + arcR * c, endY = CY - arcR * s;
+    const largeArc = deg > 180 ? 1 : 0;
+    angleArc.setAttribute('d', `M ${startX} ${startY} A ${arcR} ${arcR} 0 ${largeArc} 0 ${endX} ${endY}`);
+
+    const gx = xForDeg(deg);
+    markerLine.setAttribute('x1', gx); markerLine.setAttribute('x2', gx);
+    cosDot.setAttribute('cx', gx); cosDot.setAttribute('cy', yForVal(c));
+    sinDot.setAttribute('cx', gx); sinDot.setAttribute('cy', yForVal(s));
+
+    angleReadout.textContent = deg.toFixed(0) + '°';
+    degReadout.textContent = deg.toFixed(0) + '°';
+    radReadout.textContent = rad.toFixed(3).replace('.', ',') + ' rad';
+    cosReadout.textContent = c.toFixed(3).replace('.', ',');
+    sinReadout.textContent = s.toFixed(3).replace('.', ',');
+  }
+
+  slider.addEventListener('input', () => update(parseFloat(slider.value)));
+
+  const playBtn = document.getElementById('playBtn');
+  let playing = false;
+  let rafId = null;
+  function step() {
+    let v = parseFloat(slider.value) + 1;
+    if (v > 360) v = 0;
+    slider.value = v;
+    update(v);
+    rafId = setTimeout(step, 30);
+  }
+  playBtn.addEventListener('click', () => {
+    playing = !playing;
+    playBtn.textContent = playing ? '⏸ Stoppen' : '▶ Automatisch drehen';
+    playBtn.classList.toggle('active', playing);
+    if (playing) {
+      step();
+    } else {
+      clearTimeout(rafId);
+    }
+  });
+
+  drawStaticCurves();
+  update(parseFloat(slider.value));
+})();
+</script>
+
+</body>
+</html>

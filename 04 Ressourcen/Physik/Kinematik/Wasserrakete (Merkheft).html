@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Wasserrakete – Merkheft</title>
+<style>
+  :root{--ink:#1f2937;--sub:#4b5563;--accent:#2563a8;--bg:#fff;--card:#f6f7f9;--line:#e2e5ea;}
+  *{box-sizing:border-box;}
+  body{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);max-width:760px;margin:0 auto;padding:0 20px 60px;line-height:1.55;}
+  nav{position:sticky;top:0;background:var(--bg);padding:14px 0;border-bottom:1px solid var(--line);z-index:5;}
+  nav a{color:var(--accent);text-decoration:none;font-size:14px;margin-right:16px;}
+  nav a:hover{text-decoration:underline;}
+  h1{font-size:26px;margin:28px 0 4px;}
+  .subtitle{color:var(--sub);font-size:15px;margin-bottom:24px;}
+  section.lesson{padding:36px 0;border-bottom:1px solid var(--line);}
+  section.lesson:last-of-type{border-bottom:none;}
+  .lesson-label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+  h2{font-size:21px;margin:16px 0 10px;text-decoration:underline;text-decoration-color:#f0b5b5;text-decoration-thickness:3px;}
+  h3.core{font-size:19px;background:var(--card);border-left:4px solid var(--accent);padding:10px 14px;margin:18px 0;font-family:Georgia,serif;}
+  .beispiel{background:var(--card);border-radius:8px;padding:16px 20px;margin:16px 0;font-size:15px;}
+  .beispiel .schritt{margin:3px 0;}
+  .note{background:#fff8e6;border:1px solid #f0dca0;border-radius:6px;padding:10px 14px;margin:14px 0;font-size:14px;}
+  .outside{background:#eaf6ec;border:1px solid #bfe3c6;border-radius:6px;padding:10px 14px;margin:14px 0;font-size:14px;}
+  .figure{margin:20px 0;text-align:center;}
+  .figure svg{max-width:100%;height:auto;background:var(--card);border-radius:8px;}
+  .caption{font-size:13px;color:var(--sub);margin-top:6px;}
+  sub{font-size:70%;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;font-size:14px;margin:8px 0;}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0;}
+  table.tbl th,table.tbl td{border:1px solid var(--line);padding:6px 9px;text-align:left;}
+  table.tbl th{background:var(--card);font-weight:600;}
+  .tbl-scroll{overflow-x:auto;margin:14px 0;-webkit-overflow-scrolling:touch;}
+  .tbl-scroll table.tbl{margin:0;font-size:12px;white-space:nowrap;}
+  .tbl-scroll table.tbl th,.tbl-scroll table.tbl td{padding:6px 8px;}
+  .tbl-scroll td{min-width:56px;}
+  ol.fragen li{margin:6px 0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#l1">1. Einstieg</a>
+  <a href="#l2">2. Rückstoßprinzip</a>
+  <a href="#l3">3. Aufbau & Sicherheit</a>
+  <a href="#l4">4. Messprotokoll</a>
+  <a href="#l5">5. Phasenmodell (v-t)</a>
+  <a href="#l6">6. Beschleunigung</a>
+  <a href="#l7">7. Fallphase</a>
+</nav>
+
+<h1>Wasserrakete</h1>
+<p class="subtitle">Merkheft – Geschwindigkeit &amp; Beschleunigung im Flug (Raketen-Modell 02679-00 + Sensor AltimeterTwo)</p>
+
+<section class="lesson" id="l1">
+  <div class="lesson-label">Lektion 1</div>
+  <h2>Einstieg: Frage an der Tafel</h2>
+
+  <p>Zum Stundenbeginn eine Frage an die Tafel schreiben – oder besser noch: Schülerfragen sammeln. Am Ende der Stunde mit den echten Sensordaten beantworten. Das gibt der Stunde einen roten Faden: Vermutung am Anfang, Überprüfung am Ende.</p>
+
+  <div class="grid4">
+    <div class="beispiel">
+      <div class="schritt"><strong>Vorhersage-Fragen</strong> (schätzen &amp; später verifizieren)</div>
+      <div class="schritt">Wie schnell wird unsere Rakete? Schneller als du radfährst?</div>
+      <div class="schritt">Wie hoch fliegt sie – höher als unser Schulgebäude?</div>
+      <div class="schritt">Wie lange dauert der ganze Flug, hoch und wieder runter?</div>
+    </div>
+    <div class="beispiel">
+      <div class="schritt"><strong>Denkanstoß-Fragen</strong> (kognitiver Konflikt)</div>
+      <div class="schritt">Warum fliegt die Rakete nach oben, wenn das Wasser nach unten rausschießt?</div>
+      <div class="schritt">Ist sie am Anfang oder am Ende schneller?</div>
+      <div class="schritt">Wird sie die ganze Zeit gleich stark beschleunigt?</div>
+    </div>
+  </div>
+
+  <p><strong>Alternative: Schülerfragen sammeln statt vorgeben.</strong> Rakete und Sensor zeigen, 2 Minuten lang Fragen sammeln lassen ("Was wollt ihr über den Flug herausfinden?"), an der Tafel clustern, am Stundenende zurückkommen: "Welche Fragen konnten wir beantworten?"</p>
+
+  <div class="note">Empfehlung: <em>„Wie schnell und wie stark wird unsere Rakete beim Start beschleunigt – schneller, als ihr denkt?"</em> Dazu kurze Schätzrunde (Handzeichen/Zuruf, Werte an die Tafel) vor dem Rausgehen. Vergleich mit den echten Sensorwerten am Schluss (Lektion 6 &amp; 7).</div>
+</section>
+
+<section class="lesson" id="l2">
+  <div class="lesson-label">Lektion 2</div>
+  <h2>Rückstoßprinzip</h2>
+
+  <h3 class="core">actio = reactio</h3>
+
+  <p>Wasser bzw. Luft strömt mit hoher Geschwindigkeit nach unten aus der Düse. Nach dem 3. Newtonschen Gesetz wirkt auf die Rakete eine gleich große Kraft in die Gegenrichtung – sie wird nach oben beschleunigt.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 320 280" width="320" height="280" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<rect x="0" y="0" width="320" height="280" fill="#ffffff"/>
+<rect x="135" y="90" width="50" height="100" rx="6" fill="#eaf1fb" stroke="#2563a8" stroke-width="2"/>
+<polygon points="135,90 185,90 160,35" fill="#eaf1fb" stroke="#2563a8" stroke-width="2"/>
+<polygon points="135,190 115,225 135,205" fill="#eaf1fb" stroke="#2563a8" stroke-width="2"/>
+<polygon points="185,190 205,225 185,205" fill="#eaf1fb" stroke="#2563a8" stroke-width="2"/>
+<rect x="152" y="190" width="16" height="14" fill="#cfd8e3" stroke="#2563a8" stroke-width="1.5"/>
+<line x1="160" y1="35" x2="160" y2="12" stroke="#2563a8" stroke-width="3"/>
+<polygon points="160,2 152,18 168,18" fill="#2563a8"/>
+<text x="175" y="22" font-size="13" fill="#2563a8" font-weight="bold">Schubkraft F</text>
+<text x="175" y="38" font-size="12" fill="#2563a8">(auf die Rakete)</text>
+<line x1="160" y1="204" x2="160" y2="248" stroke="#d0392b" stroke-width="3"/>
+<polygon points="160,258 152,242 168,242" fill="#d0392b"/>
+<text x="175" y="235" font-size="13" fill="#d0392b" font-weight="bold">Rückstoßkraft</text>
+<text x="175" y="251" font-size="12" fill="#d0392b">(Masse strömt aus)</text>
+</svg>
+    <div class="caption">Rückstoßprinzip: Die ausströmende Masse erzeugt eine Kraft nach unten (reactio), die Rakete erfährt die gleich große Kraft nach oben (actio) – 3. Newtonsches Gesetz.</div>
+  </div>
+
+  <div class="note">Je mehr Masse (Wasser) mit je höherer Geschwindigkeit ausgestoßen wird, desto größer die Schubkraft – deshalb ändert sich v<sub>max</sub> deutlich, wenn man Wassermenge oder Druck variiert.</div>
+</section>
+
+<section class="lesson" id="l3">
+  <div class="lesson-label">Lektion 3</div>
+  <h2>Versuchsaufbau &amp; Sicherheit</h2>
+
+  <p>Kompatibles Set: Raketen-Modell (02679-00) + Sensor-Rakete (02679-03) + Sensor AltimeterTwo (02679-04).</p>
+
+  <table class="tbl">
+    <tr><th>Parameter</th><th>Wert</th></tr>
+    <tr><td>Raketenlänge</td><td>380 mm</td></tr>
+    <tr><td>Einstellbarer Druck</td><td>bis 4 bar</td></tr>
+    <tr><td>Flughöhe (Wasserantrieb)</td><td>bis 70 m</td></tr>
+    <tr><td>Flughöhe (Luftantrieb)</td><td>bis 30 m</td></tr>
+  </table>
+
+  <p>Der Sensor zeigt nach jedem Flug an: maximale Flughöhe, Höchstgeschwindigkeit, Brenndauer, Spitzenbeschleunigung a<sub>max</sub>, Durchschnittsbeschleunigung a<sub>avg</sub>, Ausstoßzeitpunkt/-höhe, Sinkrate und Gesamtflugdauer.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 340 300" width="340" height="300" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<rect x="0" y="0" width="340" height="300" fill="#ffffff"/>
+<circle cx="170" cy="150" r="110" fill="none" stroke="#d0392b" stroke-width="2" stroke-dasharray="6,5"/>
+<line x1="170" y1="150" x2="270" y2="150" stroke="#d0392b" stroke-width="1.5"/>
+<text x="205" y="143" font-size="12" fill="#d0392b" font-weight="bold">≥ 15 m</text>
+<rect x="165" y="140" width="10" height="18" fill="#2563a8"/>
+<polygon points="165,140 175,140 170,125" fill="#2563a8"/>
+<circle cx="280" cy="60" r="6" fill="#2e9e5b"/>
+<text x="240" y="48" font-size="12" fill="#2e9e5b">Sensor ablesen</text>
+<circle cx="60" cy="60" r="6" fill="#2e9e5b"/>
+<text x="20" y="48" font-size="12" fill="#2e9e5b">Zünden</text>
+<circle cx="60" cy="240" r="6" fill="#2e9e5b"/>
+<text x="20" y="258" font-size="12" fill="#2e9e5b">Pumpen</text>
+<circle cx="280" cy="240" r="6" fill="#2e9e5b"/>
+<text x="248" y="258" font-size="12" fill="#2e9e5b">Klasse</text>
+<line x1="20" y1="95" x2="50" y2="80" stroke="#666666" stroke-width="2"/>
+<polygon points="57,77 46,72 45,85" fill="#666666"/>
+<text x="15" y="108" font-size="11" fill="#666666">Wind beachten</text>
+</svg>
+    <div class="caption">Aufbau von oben: Sicherheitsabstand als Kreis um die Startrampe, Rollen außerhalb des Kreises verteilt.</div>
+  </div>
+
+  <div class="note">Bei Flughöhen bis 70 m unbedingt einen großen, freien Platz (Sportplatz statt Schulhof) wählen und Windrichtung vor dem Start prüfen – nicht in Richtung Gebäude oder Personen starten.</div>
+</section>
+
+<section class="lesson" id="l4">
+  <div class="lesson-label">Lektion 4</div>
+  <h2>Messprotokoll</h2>
+
+  <p>Diese Tabelle <strong>vor dem Rausgehen</strong> austeilen bzw. mit rausnehmen (Klemmbrett) – die Rechnungen aus Lektion 6 und 7 kommen erst danach, mit den echten Werten von hier.</p>
+
+  <div class="tbl-scroll">
+  <table class="tbl">
+    <tr>
+      <th>Start</th><th>Wasser (ml)</th><th>Druck (bar)</th><th>Flughöhe (m)</th>
+      <th>v<sub>max</sub> (m/s)</th><th>Brenndauer (s)</th><th>a<sub>max</sub> (m/s²)</th>
+      <th>a<sub>avg</sub> (m/s²)</th><th>Sinkrate (m/s)</th><th>Flugdauer (s)</th>
+    </tr>
+    <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  </div>
+  <p class="caption">Tabelle lässt sich horizontal scrollen, falls sie auf dem Bildschirm nicht vollständig passt. Wassermenge/Druck von Start zu Start bewusst variieren.</p>
+
+  <div class="outside">Ablauf: Einstiegsfrage &amp; Schätzung (Lektion 1) → Tabelle vorbereiten → raus auf den Sportplatz, Rampe aufbauen (Lektion 3) → mehrere Starts, Sensorwerte direkt nach jedem Flug eintragen → zurück drinnen mit den Werten rechnen (Lektion 6 &amp; 7).</div>
+</section>
+
+<section class="lesson" id="l5">
+  <div class="lesson-label">Lektion 5</div>
+  <h2>Phasenmodell: v-t-Diagramm</h2>
+
+  <p>Der Flug hat zwei physikalisch verschiedene Phasen: die sehr kurze <strong>Antriebsphase</strong> (Rückstoß, riesige Beschleunigung) und die anschließende <strong>freie Flugphase</strong> (Steigen und Fallen), in der nur noch die Erdbeschleunigung wirkt.</p>
+
+  <h3 class="core">nach Brennschluss: a = −g = konstant</h3>
+
+  <div class="figure">
+    <svg viewBox="0 0 360 260" width="360" height="260" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<rect x="0" y="0" width="360" height="260" fill="#ffffff"/>
+<clipPath id="plotvt"><rect x="42" y="20" width="298" height="206"/></clipPath>
+<line x1="42.0" y1="226.0" x2="42.0" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="69.1" y1="226.0" x2="69.1" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="96.2" y1="226.0" x2="96.2" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="123.3" y1="226.0" x2="123.3" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="150.4" y1="226.0" x2="150.4" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="177.5" y1="226.0" x2="177.5" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="204.5" y1="226.0" x2="204.5" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="231.6" y1="226.0" x2="231.6" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="258.7" y1="226.0" x2="258.7" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="285.8" y1="226.0" x2="285.8" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="312.9" y1="226.0" x2="312.9" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="340.0" y1="226.0" x2="340.0" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="226.0" x2="340.0" y2="226.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="205.4" x2="340.0" y2="205.4" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="184.8" x2="340.0" y2="184.8" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="164.2" x2="340.0" y2="164.2" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="143.6" x2="340.0" y2="143.6" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="123.0" x2="340.0" y2="123.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="102.4" x2="340.0" y2="102.4" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="81.8" x2="340.0" y2="81.8" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="61.2" x2="340.0" y2="61.2" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="40.6" x2="340.0" y2="40.6" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="20.0" x2="340.0" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="123.0" x2="350.0" y2="123.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="42.0" y1="234.0" x2="42.0" y2="10.0" stroke="#333333" stroke-width="1.6"/>
+<polygon points="350.0,123.0 343.0,119.0 343.0,127.0" fill="#333333"/>
+<polygon points="42.0,10.0 38.0,17.0 46.0,17.0" fill="#333333"/>
+<text x="348.0" y="139.0" font-size="12" fill="#333333">t in s</text>
+<text x="50.0" y="6.0" font-size="12" fill="#333333">v in m/s</text>
+<text x="69.1" y="136.0" font-size="9" fill="#666666" text-anchor="middle">0.5</text>
+<text x="96.2" y="136.0" font-size="9" fill="#666666" text-anchor="middle">1.0</text>
+<text x="123.3" y="136.0" font-size="9" fill="#666666" text-anchor="middle">1.5</text>
+<text x="150.4" y="136.0" font-size="9" fill="#666666" text-anchor="middle">2.0</text>
+<text x="177.5" y="136.0" font-size="9" fill="#666666" text-anchor="middle">2.5</text>
+<text x="204.5" y="136.0" font-size="9" fill="#666666" text-anchor="middle">3.0</text>
+<text x="231.6" y="136.0" font-size="9" fill="#666666" text-anchor="middle">3.5</text>
+<text x="258.7" y="136.0" font-size="9" fill="#666666" text-anchor="middle">4.0</text>
+<text x="285.8" y="136.0" font-size="9" fill="#666666" text-anchor="middle">4.5</text>
+<text x="312.9" y="136.0" font-size="9" fill="#666666" text-anchor="middle">5.0</text>
+<text x="340.0" y="136.0" font-size="9" fill="#666666" text-anchor="middle">5.5</text>
+<text x="36.0" y="229.5" font-size="9" fill="#666666" text-anchor="end">-25</text>
+<text x="36.0" y="208.9" font-size="9" fill="#666666" text-anchor="end">-20</text>
+<text x="36.0" y="188.3" font-size="9" fill="#666666" text-anchor="end">-15</text>
+<text x="36.0" y="167.7" font-size="9" fill="#666666" text-anchor="end">-10</text>
+<text x="36.0" y="147.1" font-size="9" fill="#666666" text-anchor="end">-5</text>
+<text x="36.0" y="105.9" font-size="9" fill="#666666" text-anchor="end">5</text>
+<text x="36.0" y="85.3" font-size="9" fill="#666666" text-anchor="end">10</text>
+<text x="36.0" y="64.7" font-size="9" fill="#666666" text-anchor="end">15</text>
+<text x="36.0" y="44.1" font-size="9" fill="#666666" text-anchor="end">20</text>
+<text x="36.0" y="23.5" font-size="9" fill="#666666" text-anchor="end">25</text>
+<text x="36.0" y="126.5" font-size="9" fill="#666666" text-anchor="end">0</text>
+<line x1="58.3" y1="226.0" x2="58.3" y2="20.0" stroke="#999999" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="196.3" y1="226.0" x2="196.3" y2="20.0" stroke="#999999" stroke-width="1" stroke-dasharray="3,3"/>
+<g clip-path="url(#plotvt)"><polyline points="42.00,123.00 58.25,20.00" fill="none" stroke="#e0982a" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+<g clip-path="url(#plotvt)"><polyline points="58.25,20.00 196.33,123.00" fill="none" stroke="#2563a8" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+<g clip-path="url(#plotvt)"><polyline points="196.33,123.00 334.41,226.00" fill="none" stroke="#d0392b" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+<circle cx="58.3" cy="20.0" r="3.2" fill="#e0982a"/><text x="73.3" y="48.0" font-size="12" font-weight="bold" fill="#e0982a">Brennschluss</text>
+<circle cx="196.3" cy="123.0" r="3.2" fill="#2563a8"/><text x="206.3" y="160.0" font-size="12" font-weight="bold" fill="#2563a8">Scheitelpunkt</text>
+<circle cx="334.4" cy="226.0" r="3.2" fill="#d0392b"/><text x="264.4" y="240.0" font-size="12" font-weight="bold" fill="#d0392b">Aufprall</text>
+</svg>
+    <div class="caption">v-t-Diagramm mit Beispielwerten (t<sub>Brenn</sub> = 0,3 s, v<sub>max</sub> = 25 m/s, ideal ohne Luftwiderstand): steiler Anstieg während der Brennphase, danach konstante Steigung −g bis zum Aufprall.</div>
+  </div>
+
+  <div class="note">Die Brennphase (nur 0,3 s) ist im Diagramm stark gestreckt dargestellt, damit man sie überhaupt sieht – im Vergleich zur gesamten Flugdauer ist sie winzig.</div>
+</section>
+
+<section class="lesson" id="l6">
+  <div class="lesson-label">Lektion 6</div>
+  <h2>Beschleunigung berechnen</h2>
+
+  <h3 class="core">a = Δv / Δt</h3>
+
+  <div class="beispiel">
+    <div class="schritt"><strong>Beispielwerte</strong> (angenommen, zur Übung – jetzt mit euren echten Werten aus dem Messprotokoll rechnen)</div>
+    <div class="schritt">Brenndauer t = 0,3 s</div>
+    <div class="schritt">Höchstgeschwindigkeit v<sub>max</sub> = 25 m/s</div>
+    <div class="schritt">a = Δv / Δt = (25 m/s − 0 m/s) / 0,3 s</div>
+    <div class="schritt">a ≈ 83,3 m/s² &nbsp;(≈ 8,5-fache Erdbeschleunigung)</div>
+  </div>
+
+  <div class="note">Diesen selbst berechneten Wert direkt mit dem vom Sensor angezeigten a<sub>max</sub>/a<sub>avg</sub> vergleichen – so wird die Formel a = Δv/Δt an einem echten Messergebnis überprüfbar. a<sub>avg</sub> liegt erwartungsgemäß unter a<sub>max</sub>, weil der Schub gegen Ende der Brennphase nachlässt.</div>
+</section>
+
+<section class="lesson" id="l7">
+  <div class="lesson-label">Lektion 7</div>
+  <h2>Fallphase &amp; Höhenkontrolle</h2>
+
+  <h3 class="core">s = ½ · g · t²</h3>
+
+  <div class="beispiel">
+    <div class="schritt">Beispielwerte: Fallzeit t ≈ 2,55 s (aus Sensor: Flugdauer − Steigzeit)</div>
+    <div class="schritt">s = ½ · 9,81 m/s² · (2,55 s)²</div>
+    <div class="schritt">s ≈ 31,9 m</div>
+    <div class="schritt">Vergleich mit der vom Sensor angezeigten max. Flughöhe → stimmen die Werte überein?</div>
+  </div>
+
+  <div class="figure">
+    <svg viewBox="0 0 360 260" width="360" height="260" xmlns="http://www.w3.org/2000/svg" font-family="Arial,Helvetica,sans-serif">
+<rect x="0" y="0" width="360" height="260" fill="#ffffff"/>
+<clipPath id="plotst"><rect x="42" y="20" width="298" height="206"/></clipPath>
+<line x1="42.0" y1="226.0" x2="42.0" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="69.1" y1="226.0" x2="69.1" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="96.2" y1="226.0" x2="96.2" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="123.3" y1="226.0" x2="123.3" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="150.4" y1="226.0" x2="150.4" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="177.5" y1="226.0" x2="177.5" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="204.5" y1="226.0" x2="204.5" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="231.6" y1="226.0" x2="231.6" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="258.7" y1="226.0" x2="258.7" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="285.8" y1="226.0" x2="285.8" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="312.9" y1="226.0" x2="312.9" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="340.0" y1="226.0" x2="340.0" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="226.0" x2="340.0" y2="226.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="196.6" x2="340.0" y2="196.6" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="167.1" x2="340.0" y2="167.1" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="137.7" x2="340.0" y2="137.7" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="108.3" x2="340.0" y2="108.3" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="78.9" x2="340.0" y2="78.9" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="49.4" x2="340.0" y2="49.4" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="20.0" x2="340.0" y2="20.0" stroke="#d8e4ee" stroke-width="1"/>
+<line x1="42.0" y1="226.0" x2="350.0" y2="226.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="42.0" y1="234.0" x2="42.0" y2="10.0" stroke="#333333" stroke-width="1.6"/>
+<polygon points="350.0,226.0 343.0,222.0 343.0,230.0" fill="#333333"/>
+<polygon points="42.0,10.0 38.0,17.0 46.0,17.0" fill="#333333"/>
+<text x="348.0" y="242.0" font-size="12" fill="#333333">t in s</text>
+<text x="50.0" y="6.0" font-size="12" fill="#333333">s in m</text>
+<text x="69.1" y="239.0" font-size="9" fill="#666666" text-anchor="middle">0.5</text>
+<text x="96.2" y="239.0" font-size="9" fill="#666666" text-anchor="middle">1.0</text>
+<text x="123.3" y="239.0" font-size="9" fill="#666666" text-anchor="middle">1.5</text>
+<text x="150.4" y="239.0" font-size="9" fill="#666666" text-anchor="middle">2.0</text>
+<text x="177.5" y="239.0" font-size="9" fill="#666666" text-anchor="middle">2.5</text>
+<text x="204.5" y="239.0" font-size="9" fill="#666666" text-anchor="middle">3.0</text>
+<text x="231.6" y="239.0" font-size="9" fill="#666666" text-anchor="middle">3.5</text>
+<text x="258.7" y="239.0" font-size="9" fill="#666666" text-anchor="middle">4.0</text>
+<text x="285.8" y="239.0" font-size="9" fill="#666666" text-anchor="middle">4.5</text>
+<text x="312.9" y="239.0" font-size="9" fill="#666666" text-anchor="middle">5.0</text>
+<text x="340.0" y="239.0" font-size="9" fill="#666666" text-anchor="middle">5.5</text>
+<text x="36.0" y="200.1" font-size="9" fill="#666666" text-anchor="end">5</text>
+<text x="36.0" y="170.6" font-size="9" fill="#666666" text-anchor="end">10</text>
+<text x="36.0" y="141.2" font-size="9" fill="#666666" text-anchor="end">15</text>
+<text x="36.0" y="111.8" font-size="9" fill="#666666" text-anchor="end">20</text>
+<text x="36.0" y="82.4" font-size="9" fill="#666666" text-anchor="end">25</text>
+<text x="36.0" y="52.9" font-size="9" fill="#666666" text-anchor="end">30</text>
+<text x="36.0" y="23.5" font-size="9" fill="#666666" text-anchor="end">35</text>
+<text x="36.0" y="229.5" font-size="9" fill="#666666" text-anchor="end">0</text>
+<line x1="180.1" y1="226.0" x2="180.1" y2="20.0" stroke="#999999" stroke-width="1" stroke-dasharray="3,3"/>
+<g clip-path="url(#plotst)"><polyline points="42.00,226.00 46.60,213.71 51.21,201.83 55.81,190.38 60.41,179.34 65.01,168.71 69.62,158.50 74.22,148.71 78.82,139.34 83.42,130.38 88.03,121.84 92.63,113.71 97.23,106.01 101.83,98.71 106.44,91.84 111.04,85.38 115.64,79.34 120.24,73.72 124.85,68.51 129.45,63.72 134.05,59.34 138.65,55.38 143.26,51.84 147.86,48.72 152.46,46.01 157.07,43.72 161.67,41.84 166.27,40.38 170.87,39.34 175.48,38.72 180.08,38.51 184.68,38.72 189.28,39.34 193.89,40.38 198.49,41.84 203.09,43.72 207.69,46.01 212.30,48.72 216.90,51.84 221.50,55.38 226.10,59.34 230.71,63.72 235.31,68.51 239.91,73.72 244.51,79.34 249.12,85.38 253.72,91.84 258.32,98.71 262.92,106.01 267.53,113.71 272.13,121.84 276.73,130.38 281.34,139.34 285.94,148.71 290.54,158.50 295.14,168.71 299.75,179.34 304.35,190.38 308.95,201.83 313.55,213.71 318.16,226.00" fill="none" stroke="#2563a8" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></g>
+<circle cx="180.1" cy="38.5" r="3.2" fill="#2563a8"/><text x="188.1" y="32.5" font-size="12" font-weight="bold" fill="#2563a8">Scheitel ≈ 32 m</text>
+<circle cx="318.2" cy="226.0" r="3.2" fill="#d0392b"/><text x="272.2" y="252.0" font-size="12" font-weight="bold" fill="#d0392b">Landung</text>
+</svg>
+    <div class="caption">s-t-Diagramm (idealisiert, ohne Luftwiderstand): Höhe steigt bis zum Scheitelpunkt (≈ 32 m) und fällt symmetrisch wieder ab.</div>
+  </div>
+
+  <div class="note">Weichen berechnete und gemessene Höhe voneinander ab? Mögliche Ursachen: Luftwiderstand, Wind, ungenaue Zeitmessung, evtl. Fallschirm (verlangsamt und verlängert die Fallphase, macht sie asymmetrisch zur Steigphase).</div>
+
+  <p><strong>Auswertungsfragen (mit euren Werten aus dem Messprotokoll):</strong></p>
+  <ol class="fragen">
+    <li>Berechne a = Δv/Δt aus deinen eigenen Werten (v<sub>max</sub>, Brenndauer) und vergleiche mit dem vom Sensor angezeigten a<sub>max</sub>/a<sub>avg</sub>.</li>
+    <li>Berechne mit s = ½·g·t² eine Kontrollhöhe und vergleiche sie mit der vom Sensor gemessenen Flughöhe.</li>
+    <li>Wie verändert sich v<sub>max</sub>, wenn du die Wassermenge bzw. den Druck erhöhst? Passt das zum Rückstoßprinzip aus Lektion 2?</li>
+  </ol>
+
+  <div class="note">Rückbezug zum Einstieg (Lektion 1): Stimmen die Schätzungen von der Tafel mit den echten Werten überein? Wer lag am nächsten dran?</div>
+</section>
+
+</body>
+</html>

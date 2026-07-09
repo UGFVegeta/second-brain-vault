@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Stochastik – A2-Aufgabenblatt · Format Realschulabschlussprüfung BW (Stil 2024)</title>
+<style>
+  :root { --line: #222; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt; color: #111; background: #9a9a9a;
+    margin: 0; padding: 20px 0;
+  }
+  .blatt {
+    width: 210mm; min-height: 297mm; margin: 0 auto 20px;
+    background: #fff; padding: 14mm 16mm 12mm;
+    box-shadow: 0 2px 12px rgba(0,0,0,.4);
+    position: relative; display: flex; flex-direction: column;
+  }
+  .blatt.loesung { background: #fdeef2; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .blatt { box-shadow: none; margin: 0; page-break-after: always; width: auto; min-height: auto; padding: 4mm 2mm; }
+    .blatt.loesung { background: #fff; }
+    .no-print { display: none; }
+  }
+  .kopf-titel { text-align: center; font-size: 11pt; margin-bottom: 6px; }
+  .kopf { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 4px; }
+  .kopf .l { line-height: 1.5; } .kopf .r { text-align: right; line-height: 1.5; }
+  .namenszeile {
+    border-top: 2px solid var(--line); border-bottom: 2px solid var(--line);
+    padding: 4px 2px; display: flex; gap: 60px; font-weight: bold; margin-bottom: 10px;
+  }
+  .hilfsmittel { margin: 4px 0 14px; }
+  .hilfsmittel td { padding: 1px 14px 1px 0; vertical-align: top; }
+  .aufgabe { margin-top: 18px; }
+  .a-kopf { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 6px; }
+  .a-kopf .pkt { font-weight: bold; }
+  .a-body { line-height: 1.45; }
+  .a-body p { margin: 6px 0; }
+  .gegeben { margin: 8px 0 8px 30px; line-height: 1.6; }
+  ul.punkte { margin: 6px 0; padding-left: 22px; }
+  ul.punkte li { margin: 5px 0; }
+  table.werte { border-collapse: collapse; margin: 8px 0; }
+  table.werte td, table.werte th { border: 1px solid var(--line); padding: 3px 12px; text-align: center; }
+  table.vier { border-collapse: collapse; margin: 10px 0; }
+  table.vier td, table.vier th { border: 1px solid var(--line); padding: 5px 16px; text-align: center; }
+  table.vier th { background: #f0f0f0; }
+  .gleichung { text-align: center; font-size: 12pt; margin: 12px 0; font-family: Georgia, serif; }
+  .fusszeile {
+    margin-top: auto; padding-top: 8px; border-top: 1px solid #888;
+    font-size: 8pt; color: #444; display: flex; justify-content: space-between;
+  }
+  .loesung h3 { margin: 14px 0 4px; border-bottom: 1px solid #b66; padding-bottom: 2px; }
+  .loesung p { margin: 4px 0; line-height: 1.5; }
+  .zwischen { color: #555; }
+  .deckblatt-info { border: 2px solid var(--line); padding: 14px 18px; margin-top: 18px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- ======================= DECKBLATT / HINWEIS ======================= -->
+<div class="blatt no-print" style="min-height:auto; padding-bottom:8mm">
+  <div class="kopf-titel"><b>Stochastik – A2-Aufgabenblatt</b> · Format der Realschulabschlussprüfung BW (Stil 2024)</div>
+  <div class="deckblatt-info" style="font-size:10pt">
+    Eigenständig erstelltes Übungsmaterial für <b>Klasse 10 (Baden-Württemberg)</b>: sechs Stochastik-Aufgaben
+    im Stil des <b>Pflichtteils A2</b> (mit Hilfsmitteln: Formelsammlung und wissenschaftlicher Taschenrechner)
+    mit insgesamt <b>20 Punkten</b>. Alle Aufgaben, Zahlenwerte und Grafiken sind neu entworfen und orientieren
+    sich an Aufgabentypen, Schwierigkeitsgrad und Punkteverteilung der Abschlussprüfung.
+    Zur freien Verwendung und Weitergabe im Unterricht. Das <b>Lösungsblatt für die Lehrkraft</b> steht am Ende
+    (beim Druck für Schüler einfach die letzte Seite weglassen).
+  </div>
+</div>
+
+<!-- ======================= AUFGABEN BLATT 1 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsblatt Stochastik</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Thema: Stochastik</div>
+    <div class="r">Pflichtteil A2 · 20 Punkte<br>Blatt 1 von 2</div>
+  </div>
+  <div class="namenszeile"><span>Name:</span><span>Klasse:</span></div>
+  <table class="hilfsmittel">
+    <tr><td><b>Teil A2 (Pflichtteil):</b></td><td>Es sind alle Aufgaben (20 Punkte) zu bearbeiten.</td></tr>
+    <tr><td><b>Hilfsmittel:</b></td><td>Merkhilfe (Formelsammlung), wissenschaftlicher Taschenrechner.</td></tr>
+    <tr><td><b>Hinweis:</b></td><td>Der Lösungsweg muss erkennbar sein. Runden Sie Prozentwerte auf eine Nachkommastelle.</td></tr>
+  </table>
+  <div style="border-top:2px solid var(--line); margin-bottom:10px"></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 1</span><span class="pkt">(4 P)</span></div>
+    <div class="a-body">
+      <p>In einem Beutel liegen <b>12 gleich große Kugeln</b>: 5 rote, 4 blaue und 3 gelbe.
+      Es werden nacheinander <b>zwei Kugeln ohne Zurücklegen</b> gezogen.</p>
+      <p>Berechnen Sie die Wahrscheinlichkeit, dass</p>
+      <ul class="punkte">
+        <li><b>beide Kugeln rot sind,</b></li>
+        <li><b>genau eine Kugel blau ist,</b></li>
+        <li><b>mindestens eine Kugel gelb ist.</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="aufgabe" style="margin-top:30px">
+    <div class="a-kopf"><span>Aufgabe 2</span><span class="pkt">(3 P)</span></div>
+    <div class="a-body">
+      <p>Ein Glücksrad hat <b>acht gleich große Sektoren</b>. Auf vier Sektoren steht die Auszahlung 0&nbsp;€,
+      auf drei Sektoren 2&nbsp;€ und auf einem Sektor 5&nbsp;€. Das Rad wird einmal gedreht;
+      der <b>Einsatz beträgt 2&nbsp;€</b>.</p>
+      <ul class="punkte">
+        <li><b>Berechnen Sie den Erwartungswert der Auszahlung.</b></li>
+        <li><b>Entscheiden Sie, ob das Spiel fair ist. Begründen Sie Ihre Antwort.</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="aufgabe" style="margin-top:30px">
+    <div class="a-kopf"><span>Aufgabe 3</span><span class="pkt">(3 P)</span></div>
+    <div class="a-body">
+      <p>Es werden <b>zwei ideale Spielwürfel</b> gleichzeitig geworfen.</p>
+      <p>Berechnen Sie die Wahrscheinlichkeit, dass</p>
+      <ul class="punkte">
+        <li><b>die Augensumme 8 beträgt,</b></li>
+        <li><b>die Augensumme mindestens 10 beträgt,</b></li>
+        <li><b>beide Würfel dieselbe Augenzahl zeigen (Pasch).</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Stil 2024</span></div>
+</div>
+
+<!-- ======================= AUFGABEN BLATT 2 ======================= -->
+<div class="blatt">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsblatt Stochastik</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Thema: Stochastik</div>
+    <div class="r">Pflichtteil A2 · 20 Punkte<br>Blatt 2 von 2</div>
+  </div>
+  <div style="border-top:2px solid var(--line); margin-bottom:10px"></div>
+
+  <div class="aufgabe">
+    <div class="a-kopf"><span>Aufgabe 4</span><span class="pkt">(3 P)</span></div>
+    <div class="a-body">
+      <p>In einer Urne liegen <b>6 rote</b> und <b>4 blaue Kugeln</b>. Es wird <b>zweimal mit Zurücklegen</b>
+      gezogen.</p>
+      <p>Berechnen Sie die Wahrscheinlichkeit, dass</p>
+      <ul class="punkte">
+        <li><b>beide Kugeln rot sind,</b></li>
+        <li><b>beide Kugeln dieselbe Farbe haben,</b></li>
+        <li><b>eine rote und eine blaue Kugel gezogen werden.</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="aufgabe" style="margin-top:30px">
+    <div class="a-kopf"><span>Aufgabe 5</span><span class="pkt">(3,5 P)</span></div>
+    <div class="a-body">
+      <p>In einem Beutel sind <b>5 rote</b> und <b>3 grüne Kugeln</b>. Es werden <b>zwei Kugeln
+      ohne Zurücklegen</b> gezogen.</p>
+      <p>Berechnen Sie die Wahrscheinlichkeit, dass</p>
+      <ul class="punkte">
+        <li><b>beide Kugeln grün sind,</b></li>
+        <li><b>eine rote und eine grüne Kugel gezogen werden,</b></li>
+        <li><b>höchstens eine rote Kugel gezogen wird.</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="aufgabe" style="margin-top:30px">
+    <div class="a-kopf"><span>Aufgabe 6</span><span class="pkt">(3,5 P)</span></div>
+    <div class="a-body">
+      <p>Ein Glücksrad hat <b>drei gleich große Felder</b> mit den Zahlen <b>1, 2 und 3</b>.
+      Es wird <b>zweimal gedreht</b>.</p>
+      <ul class="punkte">
+        <li><b>Zeichnen Sie ein Baumdiagramm für den Zufallsversuch.</b></li>
+        <li><b>Berechnen Sie die Wahrscheinlichkeit, dass zweimal dieselbe Zahl erscheint.</b></li>
+        <li><b>Berechnen Sie die Wahrscheinlichkeit, dass höchstens einmal die Zahl 3 erscheint.</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fusszeile"><span>Übungsmaterial · zur freien Verwendung im Unterricht</span><span>Format: RSA BW, Stil 2024</span></div>
+</div>
+
+<!-- ======================= LÖSUNGEN ======================= -->
+<div class="blatt loesung">
+  <div class="kopf-titel">Realschulabschlussprüfung – Übungsblatt Stochastik</div>
+  <div class="kopf">
+    <div class="l">Prüfungsfach: Mathematik<br>Thema: Stochastik</div>
+    <div class="r">Lösungen · Seite 1 von 1</div>
+  </div>
+  <div style="border-top:2px solid var(--line); text-align:center; padding:3px; font-size:10pt">Für die Fachlehrerin, den Fachlehrer</div>
+  <div style="border-top:1px solid var(--line); margin-bottom:8px"></div>
+
+  <h3>Teil A2 (Pflichtteil) – 20 Punkte</h3>
+
+  <p><b>Aufgabe 1</b> (4 P):
+  a) P(beide rot) = 5/12 · 4/11 = 20/132 = <b>5/33 ≈ 15,2 %</b> [1 P]<br>
+  b) P(genau eine blau) = 2 · 4/12 · 8/11 = 64/132 = <b>16/33 ≈ 48,5 %</b>
+  &nbsp;<span class="zwischen">[blau–nichtblau und nichtblau–blau; 8 Nicht-Blaue]</span> [1,5 P]<br>
+  c) P(mind. eine gelb) = 1 − P(keine gelb) = 1 − 9/12 · 8/11 = 1 − 72/132 = <b>5/11 ≈ 45,5 %</b> [1,5 P]</p>
+
+  <p><b>Aufgabe 2</b> (3 P):
+  a) E = 4/8 · 0 + 3/8 · 2 + 1/8 · 5 = 6/8 + 5/8 = 11/8 = <b>1,375 €</b> [2 P]<br>
+  b) <b>Nicht fair.</b> Der erwartete Reingewinn ist 1,375 € − 2 € = <b>−0,625 €</b>; der Einsatz (2 €) ist
+  größer als die erwartete Auszahlung, das Spiel ist für den Spieler ungünstig. [1 P]</p>
+
+  <p><b>Aufgabe 3</b> (3 P): <span class="zwischen">[36 gleich wahrscheinliche Ergebnisse]</span><br>
+  a) P(Summe 8) = <b>5/36 ≈ 13,9 %</b> &nbsp;<span class="zwischen">[(2,6),(3,5),(4,4),(5,3),(6,2)]</span> [1 P]<br>
+  b) P(Summe ≥ 10) = 6/36 = <b>1/6 ≈ 16,7 %</b> &nbsp;<span class="zwischen">[10: 3 · , 11: 2 · , 12: 1 ·]</span> [1 P]<br>
+  c) P(Pasch) = 6/36 = <b>1/6 ≈ 16,7 %</b> [1 P]</p>
+
+  <p><b>Aufgabe 4</b> (3 P): <span class="zwischen">[mit Zurücklegen; P(rot) = 6/10, P(blau) = 4/10]</span><br>
+  a) P(beide rot) = 6/10 · 6/10 = <b>9/25 = 36 %</b> [1 P]<br>
+  b) P(gleiche Farbe) = 6/10·6/10 + 4/10·4/10 = 36/100 + 16/100 = <b>13/25 = 52 %</b> [1 P]<br>
+  c) P(rot und blau) = 2 · 6/10 · 4/10 = <b>12/25 = 48 %</b>
+  &nbsp;<span class="zwischen">[rot–blau und blau–rot; oder 1 − 52 %]</span> [1 P]</p>
+
+  <p><b>Aufgabe 5</b> (3,5 P): <span class="zwischen">[ohne Zurücklegen; 5 rot, 3 grün, insg. 8]</span><br>
+  a) P(beide grün) = 3/8 · 2/7 = 6/56 = <b>3/28 ≈ 10,7 %</b> [1 P]<br>
+  b) P(rot und grün) = 2 · 5/8 · 3/7 = 30/56 = <b>15/28 ≈ 53,6 %</b>
+  &nbsp;<span class="zwischen">[rot–grün und grün–rot]</span> [1,5 P]<br>
+  c) P(höchstens eine rote) = 1 − P(beide rot) = 1 − 5/8·4/7 = 1 − 20/56 = <b>9/14 ≈ 64,3 %</b> [1 P]</p>
+
+  <p><b>Aufgabe 6</b> (3,5 P): <span class="zwischen">[Glücksrad zweimal, je P = 1/3, 9 gleich wahrscheinliche Ergebnisse]</span><br>
+  a) Baumdiagramm: zwei Stufen mit je drei Ästen (1, 2, 3), jeder Ast <b>1/3</b> [1 P]<br>
+  b) P(zweimal dieselbe Zahl) = 3 · 1/3 · 1/3 = 3/9 = <b>1/3 ≈ 33,3 %</b>
+  &nbsp;<span class="zwischen">[(1,1), (2,2), (3,3)]</span> [1,25 P]<br>
+  c) P(höchstens einmal die 3) = 1 − P(zweimal 3) = 1 − 1/3·1/3 = 1 − 1/9 = <b>8/9 ≈ 88,9 %</b> [1,25 P]</p>
+
+  <div class="fusszeile"><span>Übungsmaterial · Lösungen</span><span>Nur für die Lehrkraft</span></div>
+</div>
+
+</body>
+</html>
