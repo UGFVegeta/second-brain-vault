@@ -34,7 +34,7 @@
     {
       "name": "unterricht",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8739", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen"],
+      "runtimeArgs": ["-m", "http.server", "8739", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude"],
       "port": 8739
     }
   ]
