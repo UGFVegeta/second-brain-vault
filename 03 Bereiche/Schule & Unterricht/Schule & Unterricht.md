@@ -20,6 +20,7 @@ Keine personenbezogenen Daten von Schülern, Eltern oder Kollegen hier speichern
 
 ## Unterrichtsmaterial
 Fachliches Unterrichtsmaterial (Merkhefte, Aufgabenpools, interaktive Tools) liegt nicht hier, sondern nach Fach sortiert:
+- **Dashboard mit allen HTML-Tools:** `04 Ressourcen/Dashboard.html` (per Doppelklick öffnen – liegt bewusst in 04 Ressourcen, damit die Links auch in Safari funktionieren)
 - [[04 Ressourcen/Physik/Physik]]
 - [[04 Ressourcen/Mathematik/Mathematik]]
 - [[04 Ressourcen/Sport/Sport]]

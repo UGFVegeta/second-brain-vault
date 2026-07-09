@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Unterrichtsmaterial – Dashboard</title>
+<style>
+  :root{--ink:#1f2937;--sub:#5b6572;--accent:#2563a8;--bg:#eef1f5;--card:#ffffff;--line:#e2e5ea;--chip:#eaf1fb;}
+  *{box-sizing:border-box;}
+  body{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);margin:0;padding:32px 24px 60px;line-height:1.4;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  h1{font-size:28px;margin:0 0 6px;}
+  .subtitle{color:var(--sub);font-size:15px;margin-bottom:32px;}
+  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;align-items:start;}
+  .subject{background:var(--card);border-radius:14px;padding:22px 22px 8px;box-shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);}
+  .subject h2{font-size:19px;margin:0 0 4px;display:flex;align-items:center;gap:8px;}
+  .subject .count{font-size:12px;color:var(--sub);font-weight:400;margin-left:auto;}
+  .cat{margin:18px 0 14px;}
+  .cat h3{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:700;margin:0 0 8px;}
+  .cat .desc{font-size:12.5px;color:var(--sub);margin:-4px 0 8px;}
+  a.tool{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;text-decoration:none;color:var(--ink);font-size:14px;margin:2px 0;transition:background .12s;}
+  a.tool:hover{background:var(--chip);}
+  a.tool .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;}
+  a.tool .label{flex:1;}
+  a.tool .go{color:var(--accent);font-size:12px;opacity:0;transition:opacity .12s;}
+  a.tool:hover .go{opacity:1;}
+  .empty{font-size:13px;color:var(--sub);font-style:italic;padding:8px 10px 16px;}
+  footer{max-width:1180px;margin:36px auto 0;color:var(--sub);font-size:12px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Unterrichtsmaterial Dashboard</h1>
+  <p class="subtitle">Direktzugriff auf alle HTML-Tools, Merkhefte und Aufgabenpools – nach Fach und Thema sortiert.</p>
+
+  <div class="board">
+
+    <div class="subject">
+      <h2>📐 Mathematik</h2>
+
+      <div class="cat">
+        <h3>Quadratische Funktionen</h3>
+        <a class="tool" href="Mathematik/Quadratische%20Funktionen/Parabeln%20(Rise-Stil).html"><span class="dot"></span><span class="label">Parabeln – Merkheft</span><span class="go">öffnen →</span></a>
+      </div>
+
+      <div class="cat">
+        <h3>Mündliche Prüfung</h3>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/index.html"><span class="dot"></span><span class="label">🏠 Prüfungspools – Übersicht</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Pruefung.html"><span class="dot"></span><span class="label">🎲 Prüfungssatz erstellen (Zufallssatz)</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Baukasten.html"><span class="dot"></span><span class="label">✏️ Prüfung selbst zusammenstellen</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Prüfungsarchiv/index.html"><span class="dot"></span><span class="label">📚 Prüfungsarchiv (370 Aufgaben, 2011–2026)</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Übungsprüfung%20Mathematik%20(Stil%202024).html"><span class="dot"></span><span class="label">📝 Übungsprüfung (Stil 2024)</span><span class="go">öffnen →</span></a>
+      </div>
+
+      <div class="cat">
+        <h3>Aufgabenpools</h3>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Trigonometrie%20Aufgabenpool.html"><span class="dot"></span><span class="label">Trigonometrie – Aufgabenpool</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Trigonometrie%20Aufgaben.html"><span class="dot"></span><span class="label">Trigonometrie – Aufgaben</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Quadratische%20Funktionen%20Aufgabenpool.html"><span class="dot"></span><span class="label">Quadratische Funktionen – Aufgabenpool</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Stochastik%20Aufgabenpool.html"><span class="dot"></span><span class="label">Stochastik – Aufgabenpool</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Stochastik%20A2-Aufgabenblatt%20(Stil%202024).html"><span class="dot"></span><span class="label">Stochastik – A2-Aufgabenblatt (Stil 2024)</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Sachrechnen%20Aufgabenpool.html"><span class="dot"></span><span class="label">Sachrechnen – Aufgabenpool</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Boxplot%20Aufgabenpool.html"><span class="dot"></span><span class="label">Boxplot – Aufgabenpool</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Stereometrie%20Aufgabenpool.html"><span class="dot"></span><span class="label">Stereometrie – Aufgabenpool</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Kurzaufgaben%20Aufgabenpool.html"><span class="dot"></span><span class="label">Kurzaufgaben – Aufgabenpool</span><span class="go">öffnen →</span></a>
+      </div>
+
+      <div class="cat">
+        <h3>Weitere Tools</h3>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Einheitskreis%20Interaktiv.html"><span class="dot"></span><span class="label">Einheitskreis Interaktiv</span><span class="go">öffnen →</span></a>
+        <a class="tool" href="Mathematik/Prüfungsaufgaben/Manim%20Animationen.html"><span class="dot"></span><span class="label">Manim Animationen</span><span class="go">öffnen →</span></a>
+      </div>
+    </div>
+
+    <div class="subject">
+      <h2>⚛️ Physik</h2>
+
+      <div class="cat">
+        <h3>Kinematik</h3>
+        <a class="tool" href="Physik/Kinematik/Wasserrakete%20(Merkheft).html"><span class="dot"></span><span class="label">Wasserrakete – Merkheft</span><span class="go">öffnen →</span></a>
+        <div class="desc">E-Scooter-Aufschrieb liegt als PDF/Markdown daneben, kein eigenes HTML-Tool.</div>
+      </div>
+
+      <div class="cat">
+        <h3>Prüfungsaufgaben</h3>
+        <a class="tool" href="Physik/Prüfungsaufgaben/Physik%20MC%20Generator.html"><span class="dot"></span><span class="label">Physik MC-Generator (Klasse 7–10)</span><span class="go">öffnen →</span></a>
+      </div>
+
+      <div class="cat">
+        <h3>Klassenarbeiten</h3>
+        <div class="empty">Nur Lösungsnotizen & Bilder, noch kein HTML-Tool.</div>
+      </div>
+    </div>
+
+    <div class="subject">
+      <h2>🏃 Sport</h2>
+      <div class="cat">
+        <div class="empty">Noch keine HTML-Tools – Sportcurriculum & Sprengeltabelle liegen als Markdown-Notizen in 04 Ressourcen/Sport/.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Neue Tools tauchen hier auf, sobald sie unter 04 Ressourcen/&lt;Fach&gt;/&lt;Thema&gt;/ liegen – dann diese Seite kurz um den Link ergänzen. Diese Datei muss in 04 Ressourcen/ liegen, damit die Links auch in Safari funktionieren.</footer>
+</div>
+</body>
+</html>
