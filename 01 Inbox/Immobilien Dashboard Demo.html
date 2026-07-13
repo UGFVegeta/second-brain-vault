@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mietverwaltung – Dashboard-Demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f3ee;
+    color: #1a1a18;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 26px; font-weight: 600; margin-bottom: 4px; }
+  h2 { font-size: 19px; font-weight: 600; margin: 40px 0 12px; }
+  h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+  p.lead { color: #5f5e5a; margin-bottom: 28px; }
+  .demo-hint {
+    background: #eeedfe; color: #3c3489; font-size: 13px;
+    padding: 10px 14px; border-radius: 8px; margin-bottom: 20px;
+  }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .topbar .title { font-size: 17px; font-weight: 600; }
+  .topbar .sub { font-size: 13px; color: #5f5e5a; }
+  .bankpill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #e1f5ee; color: #085041; font-size: 12px;
+    padding: 5px 12px; border-radius: 20px; font-weight: 500;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #1d9e75; display: inline-block; }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .metric { background: #fff; border: 1px solid #e5e3da; border-radius: 10px; padding: 14px 16px; }
+  .metric .label { font-size: 12px; color: #888780; margin-bottom: 2px; }
+  .metric .value { font-size: 23px; font-weight: 600; }
+  .value.green { color: #0f6e56; }
+  .value.red { color: #a32d2d; }
+  .card { background: #fff; border: 1px solid #e5e3da; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid #efeee8; flex-wrap: wrap; }
+  .row:first-of-type { border-top: none; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: #e6f1fb; color: #185fa5;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; flex-shrink: 0;
+  }
+  .row .info { flex: 1; min-width: 150px; }
+  .row .obj { font-size: 14px; font-weight: 600; }
+  .row .meta { font-size: 12px; color: #888780; }
+  .row .amount { font-size: 14px; font-weight: 600; min-width: 64px; text-align: right; }
+  .badge { font-size: 12px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; font-weight: 500; }
+  .badge.paid { background: #e1f5ee; color: #085041; }
+  .badge.open { background: #faeeda; color: #854f0b; }
+  .badge.late { background: #fcebeb; color: #a32d2d; }
+  .slot { display: flex; gap: 8px; align-items: center; min-height: 28px; }
+  button {
+    font-family: inherit; font-size: 12px; padding: 5px 12px;
+    border: 1px solid #d3d1c7; border-radius: 6px; background: #fff;
+    cursor: pointer; color: #1a1a18;
+  }
+  button:hover { background: #f4f3ee; }
+  .sent { font-size: 12px; color: #0f6e56; font-weight: 500; white-space: nowrap; }
+  .draft { font-size: 12px; color: #888780; }
+  .draftbox {
+    width: 100%; background: #f9f8f3; border: 1px solid #e5e3da; border-radius: 10px;
+    padding: 14px 16px; margin: 4px 0 8px;
+  }
+  .draftbox .ki-tag {
+    display: inline-block; background: #eeedfe; color: #3c3489; font-size: 11px;
+    font-weight: 600; padding: 2px 9px; border-radius: 20px; margin-bottom: 8px;
+  }
+  .draftbox .head { font-size: 12px; color: #5f5e5a; margin-bottom: 2px; }
+  .draftbox .body { font-size: 13px; margin: 10px 0 12px; white-space: pre-line; }
+  .draftbox .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .draftbox .note { font-size: 11px; color: #888780; }
+  button.primary { background: #1d9e75; border-color: #1d9e75; color: #fff; }
+  button.primary:hover { background: #0f6e56; }
+  .nk-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+  .nk-table th { text-align: left; font-weight: 600; color: #5f5e5a; padding: 6px 8px 6px 0; border-bottom: 1px solid #d3d1c7; }
+  .nk-table td { padding: 5px 8px 5px 0; border-bottom: 1px solid #efeee8; vertical-align: top; }
+  .nk-table th.num, .nk-table td.num { text-align: right; padding-right: 0; white-space: nowrap; }
+  .nk-table tr.sum td { font-weight: 600; border-bottom: none; padding-top: 8px; }
+  .nk-result { background: #fcebeb; color: #791f1f; font-size: 14px; font-weight: 600; padding: 10px 14px; border-radius: 8px; margin: 12px 0; }
+  .rule { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid #efeee8; }
+  .rule:first-of-type { border-top: none; }
+  .rule .info { flex: 1; }
+  .rule .name { font-size: 14px; }
+  .rule .freq { font-size: 12px; color: #888780; }
+  .pill-auto { background: #e6f1fb; color: #185fa5; font-size: 12px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; font-weight: 500; }
+  .pill-approve { background: #f4f3ee; color: #5f5e5a; font-size: 12px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; border: 1px solid #e5e3da; }
+  .cardnote { font-size: 13px; color: #5f5e5a; margin-bottom: 12px; }
+  section.text p { margin-bottom: 12px; }
+  section.text ul, section.text ol { margin: 0 0 12px 22px; }
+  section.text li { margin-bottom: 8px; }
+  .callout {
+    background: #faeeda; color: #633806; font-size: 14px;
+    padding: 12px 16px; border-radius: 8px; margin: 16px 0;
+  }
+  footer { margin-top: 48px; font-size: 12px; color: #888780; border-top: 1px solid #e5e3da; padding-top: 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 6px; }
+  .kpi { background: #f9f8f3; border-radius: 8px; padding: 10px 12px; }
+  .kpi .label { font-size: 11px; color: #888780; margin-bottom: 2px; }
+  .kpi .value { font-size: 18px; font-weight: 600; }
+  .bars { display: flex; align-items: flex-end; gap: 8px; height: 96px; margin: 22px 0 4px; }
+  .bars .bar { flex: 1; background: #85b7eb; border-radius: 4px 4px 0 0; position: relative; min-height: 4px; }
+  .bars .bar.last { background: #185fa5; }
+  .bars .bar span { position: absolute; top: -16px; left: 0; right: 0; text-align: center; font-size: 10px; color: #5f5e5a; }
+  .barlabels { display: flex; gap: 8px; }
+  .barlabels span { flex: 1; text-align: center; font-size: 11px; color: #888780; }
+  .doc { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid #efeee8; }
+  .doc:first-child { border-top: none; }
+  .doc .ic { width: 30px; height: 30px; border-radius: 6px; background: #e6f1fb; color: #185fa5; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+  .doc .dname { font-size: 14px; }
+  .doc .dmeta { font-size: 12px; color: #888780; }
+  .search { width: 100%; padding: 9px 12px; border: 1px solid #d3d1c7; border-radius: 8px; font-size: 13px; font-family: inherit; margin-bottom: 10px; }
+  .search:focus { outline: none; border-color: #185fa5; }
+  .empty { font-size: 13px; color: #888780; padding: 10px 0; }
+  .tag-plan { display: inline-block; background: #f1efe8; color: #5f5e5a; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; border: 1px solid #d3d1c7; margin-left: 8px; vertical-align: middle; }
+  .badge.blue { background: #e6f1fb; color: #185fa5; }
+  .badge.neutral { background: #f1efe8; color: #5f5e5a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Immobilien-Dashboard – Demo</h1>
+  <p class="lead">Klickbarer Entwurf einer App für Immobilien-Investoren: Portfolio, Miete, Nebenkosten, Steuer, Darlehen, Fristen, Dokumente und Instandhaltung an einem Ort. Alle Daten sind erfunden.</p>
+
+  <div class="demo-hint">Demo ausprobieren: Bei offenen oder überfälligen Mieten auf „Erinnerung senden" klicken – die KI formuliert die E-Mail an den Mieter fertig vor, verschickt wird sie erst nach Freigabe.</div>
+
+  <div class="topbar">
+    <div>
+      <div class="title">Mietübersicht Juli 2026</div>
+      <div class="sub">7 Einheiten · 4 Objekte</div>
+    </div>
+    <span class="bankpill"><span class="dot"></span>Bank verbunden · Abgleich heute 06:30</span>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="label">Erwartet</div><div class="value">8.450 €</div></div>
+    <div class="metric"><div class="label">Eingegangen</div><div class="value green">6.650 €</div></div>
+    <div class="metric"><div class="label">Offen</div><div class="value red">1.800 €</div></div>
+    <div class="metric"><div class="label">Quote</div><div class="value">79 %</div></div>
+  </div>
+
+  <div class="card">
+    <h3>Portfolio &amp; Vermögen</h3>
+    <p class="cardnote">Gesamtübersicht über alle Objekte: Wert, Finanzierung und die Entwicklung des Eigenkapitals über die Jahre.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="label">Portfoliowert (geschätzt)</div><div class="value">1.480.000 €</div></div>
+      <div class="kpi"><div class="label">Restschuld Darlehen</div><div class="value">940.000 €</div></div>
+      <div class="kpi"><div class="label">Eigenkapital / Net Worth</div><div class="value" style="color:#0f6e56;">540.000 €</div></div>
+      <div class="kpi"><div class="label">Cashflow / Monat</div><div class="value" style="color:#0f6e56;">+1.640 €</div></div>
+    </div>
+    <div style="font-size:12px;color:#888780;margin-top:16px;">Eigenkapital-Entwicklung (Tilgung + Wertsteigerung)</div>
+    <div class="bars" id="bars"></div>
+    <div class="barlabels" id="barlabels"></div>
+    <div style="font-size:11px;color:#888780;margin-top:10px;">Objektwerte sind Schätzungen auf Basis von Bodenrichtwerten und Preisindizes – kein Gutachten.</div>
+  </div>
+
+  <div class="card">
+    <h3>Zahlungsstatus Juli</h3>
+    <div id="rows"></div>
+  </div>
+
+  <div class="card" id="nk-card">
+    <h3>Nebenkosten 2026</h3>
+    <p class="cardnote">Belege werden übers Jahr gesammelt (Rechnung fotografieren, die App ordnet sie dem Objekt zu). Die Jahresabrechnung entsteht dann auf Knopfdruck – die KI erstellt die Entwürfe, versendet wird erst nach Freigabe.</p>
+    <div id="nk"></div>
+    <div class="rule" style="border-top:1px solid #e5e3da;">
+      <div class="info">
+        <div class="name">Abrechnung 2025</div>
+        <div class="freq">Zustellfrist an Mieter: 31.12.2026 – danach verfallen Nachforderungen</div>
+      </div>
+      <span class="slot" id="nk-slot"><button id="nk-btn">Abrechnungen erstellen</button></span>
+    </div>
+    <div class="draftbox" id="nk-beispiel" style="display:none;">
+      <span class="ki-tag">KI-Entwurf 1 von 7</span>
+      <div class="head">An: Herr T. &lt;mieter@beispiel.de&gt;</div>
+      <div class="head">Betreff: Betriebskostenabrechnung 2025 – Bahnhofstr. 8, WE 1</div>
+      <div class="body">Sehr geehrter Herr T.,
+
+anbei erhalten Sie die Betriebskostenabrechnung für den Zeitraum 01.01.2025 bis 31.12.2025. Ihre Wohnung: 72 m² von 160 m² Gesamtwohnfläche, 2 von 5 Personen im Haus.</div>
+      <table class="nk-table">
+        <tr><th>Kostenart</th><th class="num">Gesamt</th><th>Verteilerschlüssel</th><th class="num">Ihr Anteil</th></tr>
+        <tr><td>Grundsteuer</td><td class="num">640,00 €</td><td>Wohnfläche (45 %)</td><td class="num">288,00 €</td></tr>
+        <tr><td>Gebäudeversicherung</td><td class="num">890,00 €</td><td>Wohnfläche (45 %)</td><td class="num">400,50 €</td></tr>
+        <tr><td>Müllabfuhr</td><td class="num">480,00 €</td><td>Personen (2 von 5)</td><td class="num">192,00 €</td></tr>
+        <tr><td>Wasser / Abwasser</td><td class="num">1.240,00 €</td><td>Zählerstand</td><td class="num">512,00 €</td></tr>
+        <tr><td>Heizung / Warmwasser</td><td class="num">2.150,00 €</td><td>Verbrauch (Heizkostenverteiler)</td><td class="num">918,00 €</td></tr>
+        <tr><td>Allgemeinstrom</td><td class="num">210,00 €</td><td>Wohnfläche (45 %)</td><td class="num">94,50 €</td></tr>
+        <tr><td>Hausmeister / Gartenpflege</td><td class="num">720,00 €</td><td>Wohnfläche (45 %)</td><td class="num">324,00 €</td></tr>
+        <tr><td>Schornsteinfeger</td><td class="num">110,00 €</td><td>Wohnfläche (45 %)</td><td class="num">49,50 €</td></tr>
+        <tr class="sum"><td>Summe Ihr Anteil</td><td class="num"></td><td></td><td class="num">2.778,50 €</td></tr>
+        <tr class="sum"><td>Geleistete Vorauszahlungen (12 × 220,00 €)</td><td class="num"></td><td></td><td class="num">−2.640,00 €</td></tr>
+      </table>
+      <div class="nk-result">Nachzahlung: 138,50 € – zahlbar innerhalb von 30 Tagen</div>
+      <div class="body">Die Belege können Sie nach Terminvereinbarung einsehen. Ihre monatliche Vorauszahlung würden wir ab dem nächsten Monat auf 232,00 € anpassen.
+
+Mit freundlichen Grüßen</div>
+      <div class="actions">
+        <button class="primary" id="nk-approve">Alle 7 freigeben &amp; senden</button>
+        <button id="nk-discard">Verwerfen</button>
+        <span class="note">Beispiel WE 1 – die übrigen 6 Entwürfe entsprechend</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="st-card">
+    <h3>Steuer 2025 – Anlage V</h3>
+    <p class="cardnote">Einnahmen und Werbungskosten werden übers Jahr automatisch kategorisiert. Der Export bündelt alles pro Objekt – fertig für den Steuerberater.</p>
+    <div id="st"></div>
+    <div class="rule" style="border-top:1px solid #e5e3da;">
+      <div class="info">
+        <div class="name">Export für den Steuerberater</div>
+        <div class="freq">Anlage-V-Übersicht je Objekt + Belegliste + alle Beleg-PDFs</div>
+      </div>
+      <span class="slot" id="st-slot"><button id="st-btn">Export erstellen</button></span>
+    </div>
+    <div class="draftbox" id="st-paket" style="display:none;">
+      <span class="ki-tag">Export-Paket</span>
+      <div class="body">Steuerexport_2025.zip – von der KI zusammengestellt:
+
+• 4 × Anlage-V-Übersicht (PDF), eine je Objekt – Beträge bereits den amtlichen Zeilen zugeordnet
+• Belegliste_2025.csv – alle 47 Belege des Jahres mit Datum, Objekt, Kategorie und Betrag
+• Belege/ – sämtliche Beleg-PDFs, je Objekt sortiert und einheitlich benannt
+• Zins- und Tilgungsaufstellung je Darlehen (automatisch aus den Kontoumsätzen)</div>
+      <div class="actions">
+        <button class="primary" id="st-csv">Beispiel-Belegliste (CSV) herunterladen</button>
+        <button id="st-mail">Per E-Mail an Steuerberater</button>
+        <span class="note" id="st-note">Der CSV-Download funktioniert wirklich – Beispieldaten</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Darlehen</h3>
+    <p class="cardnote">Restschuld, Zinssatz und Zinsbindung je Finanzierung. Die App warnt rechtzeitig, bevor eine Zinsbindung ausläuft.</p>
+    <div id="loans"></div>
+  </div>
+
+  <div class="card">
+    <h3>Fristen &amp; Erinnerungen</h3>
+    <p class="cardnote">Alle Termine an einem Ort – Wartungen, Prüfpflichten, Vertragsabläufe und Chancen wie mögliche Mieterhöhungen.</p>
+    <div id="fristen"></div>
+  </div>
+
+  <div class="card" id="doc-card">
+    <h3>Dokumente</h3>
+    <p class="cardnote">Zentrale Ablage aller Verträge und Unterlagen mit Volltextsuche – auch in gescannten PDFs. Technisch reicht dafür ein einfach strukturierter Ordner (nach Objekt und Jahr): Belege werden dort abgelegt, Claude liest neue Dateien beim Dashboard-Update und zieht Betrag, Datum und Kategorie automatisch raus. Kein separates Dokumentenverwaltungssystem nötig.</p>
+    <input class="search" id="docsearch" placeholder="Suchen … z. B. „Grundbuch&quot; oder „Bahnhofstr.&quot;">
+    <div id="docs"></div>
+  </div>
+
+  <div class="card" id="tk-card">
+    <h3>Instandhaltung</h3>
+    <p class="cardnote">Mängelmeldungen werden zu Tickets. Handwerkerauftrag freigeben, Status verfolgen – die Rechnung landet direkt als Werbungskosten in der Steuervorbereitung.</p>
+    <div id="tickets"></div>
+  </div>
+
+  <div class="card">
+    <h3>Automatisierung</h3>
+    <p class="cardnote">Jede Regel läuft entweder vollautomatisch oder legt den Schritt zur Freigabe vor – frei einstellbar.</p>
+    <div id="rules"></div>
+  </div>
+
+  <section class="text">
+    <h2>Was die App können soll</h2>
+    <ul>
+      <li><strong>Übersicht:</strong> Alle Objekte, Mietverhältnisse und Sollmieten an einem Ort. Pro Monat auf einen Blick: Was ist eingegangen, was fehlt?</li>
+      <li><strong>Automatischer Abgleich:</strong> Die App holt regelmäßig die Kontoumsätze und ordnet Zahlungen den Mietverhältnissen zu – über IBAN, Verwendungszweck und Betrag.</li>
+      <li><strong>Erinnerungen – von der KI geschrieben:</strong> Bleibt eine Miete aus, formuliert die KI die E-Mail an den Mieter komplett fertig – personalisiert mit Name, Wohnung, Betrag und passendem Ton (freundliche Erinnerung oder förmliche Mahnung). Man liest nur noch drüber, passt bei Bedarf einen Satz an und klickt auf „Freigeben". Verschickt wird nichts ohne dieses Okay – wichtig, falls z.&nbsp;B. bar gezahlt wurde oder eine Absprache besteht.</li>
+      <li><strong>Berichte:</strong> Monats- und Jahresübersichten (auch als PDF), z.&nbsp;B. als Vorbereitung für die Steuererklärung (Anlage V).</li>
+    </ul>
+
+    <h2>Bankanbindung: Wie automatisch geht es?</h2>
+    <p>Fast vollautomatisch – aber nicht hundertprozentig. Seit der PSD2-Richtlinie verlangen Banken für den Kontozugriff regelmäßig eine starke Authentifizierung, typischerweise alle 90–180 Tage eine TAN-Bestätigung. Dazwischen kann die App die Umsätze täglich selbstständig abrufen. Man muss sich also nicht jede Woche einloggen, sondern nur alle paar Monate einmal kurz bestätigen.</p>
+    <p>Drei Wege dorthin:</p>
+    <ol>
+      <li><strong>FinTS/HBCI direkt mit der Bank</strong> – der deutsche Standard, den fast alle Banken unterstützen (Sparkassen, Volksbanken, viele Privatbanken). Kostenlos, ohne Drittanbieter, die Daten bleiben komplett bei einem selbst. Für eine eigene App gibt es fertige Bibliotheken. <em>Empfehlung.</em></li>
+      <li><strong>Open-Banking-Anbieter</strong> – Dienste wie Enable Banking bieten API-Zugriff auf Kontoumsätze, für Privatnutzung teils kostenlos. (Hinweis: GoCardless, lange die beliebte Gratis-Lösung, nimmt seit Juli 2025 keine neuen Privatkonten mehr an.)</li>
+      <li><strong>CSV-Export als Fallback</strong> – einmal pro Woche Umsätze aus dem Online-Banking exportieren und in die App ziehen; die Zuordnung passiert trotzdem automatisch. Unspektakulär, aber absolut zuverlässig.</li>
+    </ol>
+
+    <h2>Ausbau-Ideen: Was die App noch übernehmen könnte</h2>
+    <p>Die Mietüberwachung ist nur der Anfang. Die größten Zeitfresser für Vermieter liegen woanders – und lassen sich mit derselben Datenbasis gleich mit erledigen:</p>
+    <ul>
+      <li><strong>Nebenkostenabrechnung:</strong> Übers Jahr alle umlagefähigen Kosten sammeln (Rechnung fotografieren, die App ordnet sie per Texterkennung dem Objekt zu), Verteilerschlüssel und Vorauszahlungen sind hinterlegt – die Jahresabrechnung entsteht auf Knopfdruck. Die App überwacht auch die gesetzliche 12-Monats-Frist, nach der Nachforderungen verfallen.</li>
+      <li><strong>Steuervorbereitung (Anlage V):</strong> Einnahmen und Werbungskosten landen übers Jahr automatisch in der richtigen Kategorie pro Objekt. Am Jahresende: fertiger Export für den Steuerberater. Kein Belege-Suchen mehr im Februar.</li>
+      <li><strong>Mieterhöhungs- und Index-Radar:</strong> Die App meldet, wann eine Erhöhung rechtlich möglich wird (frühestens 15 Monate nach der letzten). Bei Indexmieten holt sie automatisch den aktuellen Verbraucherpreisindex und rechnet die mögliche Anpassung aus – das verschenken viele Vermieter jahrelang.</li>
+      <li><strong>Zinsbindungs-Wecker:</strong> Erinnerung z.&nbsp;B. 18 Monate bevor die Zinsbindung eines Kredits ausläuft, damit die Anschlussfinanzierung in Ruhe verhandelt werden kann.</li>
+      <li><strong>Anomalie-Erkennung:</strong> Nicht nur „Miete fehlt", sondern auch „Mieter überweist plötzlich 50&nbsp;€ zu wenig" (vergessene Dauerauftrags-Anpassung nach Erhöhung) oder Doppelzahlungen.</li>
+      <li><strong>Wertentwicklung und Rendite:</strong> Pro Objekt: Kaufpreis, geschätzter aktueller Wert (auf Basis amtlicher Bodenrichtwerte und Preisindizes), Restschuld – daraus die Eigenkapitalentwicklung, die durch Tilgung und Wertsteigerung doppelt wächst. Dazu Netto-Mietrendite und Cashflow nach Finanzierungskosten. Ehrliche Einschränkung: Der Wert bleibt eine Schätzung, kein Gutachten – als Trendkurve aber sehr aussagekräftig.</li>
+      <li><strong>Fristen-Radar:</strong> Heizungswartung, Legionellenprüfung, Rauchmelder, Zählerablesung, Versicherungen, Kündigungsfristen, Kautionsrückzahlung nach Auszug – einmal hinterlegen, die App erinnert von selbst.</li>
+      <li><strong>Mängel-Tickets:</strong> Mieter melden einen Defekt per Formular oder E-Mail, die App macht ein Ticket daraus, der Handwerkerauftrag wird freigegeben, der Status verfolgt – und die Rechnung landet direkt als Werbungskosten in der Steuervorbereitung.</li>
+    </ul>
+    <p><strong>Priorität nach Zeitersparnis:</strong> Nebenkostenabrechnung und Anlage-V-Export sparen die meiste Zeit, das Mieterhöhungs-/Index-Radar bringt echtes Geld, die Wertentwicklung ist das Sahnehäubchen fürs Dashboard.</p>
+
+    <h2>Geplant – aber mit Einschränkungen <span class="tag-plan">ehrlich gesagt</span></h2>
+    <p>Zwei gewünschte Funktionen sind technisch heikler als der Rest. Damit beim Bauen keine falschen Erwartungen entstehen:</p>
+    <ul>
+      <li><strong>Mietspiegel-Integration:</strong> Es gibt in Deutschland keine einheitliche, bundesweite Mietspiegel-Schnittstelle. Qualifizierte Mietspiegel sind kommunal, erscheinen meist als PDF und sind nicht standardisiert maschinenlesbar. Für einzelne Städte lässt sich das aufbereiten, „einfach anbinden" geht aber nicht – in der Praxis über kostenpflichtige Datenanbieter oder manuell gepflegte lokale Werte. Bei Indexmieten dagegen einfach: Der Verbraucherpreisindex ist frei abrufbar.</li>
+      <li><strong>Steuer-Optimierungsvorschläge:</strong> Allgemeine Faustregeln (z.&nbsp;B. Erhaltungsaufwand über mehrere Jahre verteilen, 15-%-Grenze bei anschaffungsnahem Aufwand beachten) sind machbar. Konkrete Steuerempfehlungen bewegen sich aber rechtlich nahe an der Steuerberatung, die dem Steuerberater vorbehalten ist. Die App sollte solche Hinweise als „mit dem Steuerberater besprechen" kennzeichnen, nicht als verbindliche Beratung.</li>
+    </ul>
+
+    <h2>Datenschutz</h2>
+    <div class="callout">In der App stecken personenbezogene Daten der Mieter (Namen, Kontodaten, Zahlungsverhalten). Deshalb sollte sie lokal laufen – auf dem eigenen Rechner oder einem kleinen Server zuhause – statt öffentlich im Internet gehostet zu werden.</div>
+
+    <h2>Wie es weitergehen könnte</h2>
+    <p>So eine App lässt sich mit Claude Code als überschaubares Projekt bauen: erst die Objekt- und Mietverwaltung mit manueller Statuspflege, dann der CSV-Import mit automatischer Zuordnung, danach die Bankanbindung per FinTS und zuletzt der E-Mail-Versand mit Freigabe. Jede Stufe ist für sich schon nützlich.</p>
+    <p><strong>Belege ohne eigenes Dokumentenmanagement-System:</strong> Für die Belegablage muss keine separate Software (z.&nbsp;B. paperless-ngx) mit eigenem Server, Datenbank und Update-Pflege aufgesetzt werden. Es reicht ein simpler, klar strukturierter Ordner (z.&nbsp;B. <code>Immobilien/&lt;Objekt&gt;/&lt;Jahr&gt;/</code>), in den Rechnungen und Nebenkostenbelege einfach reingelegt werden. Claude liest beim Dashboard-Update neue Dateien in diesem Ordner, erkennt Betrag, Datum und Kategorie und trägt sie automatisch in die passenden Bereiche (Nebenkosten, Steuervorbereitung) ein. Das spart die Infrastruktur einer eigenen Dokumentenverwaltung – Nachteil: keine eigene Such-Oberfläche für die Rohbelege und keine Verarbeitung in Echtzeit, sondern erst beim nächsten Dashboard-Lauf. Für den Anwendungsfall reicht das aber aus.</p>
+  </section>
+
+  <footer>Demo-Entwurf, erstellt mit Claude · Alle Namen, Objekte und Beträge sind frei erfunden.</footer>
+</div>
+
+<script>
+const mieten = [
+  {obj:"Gartenstr. 12, WE 1", mieter:"Familie K.", ini:"FK", betrag:920, status:"paid", label:"bezahlt", datum:"01.07."},
+  {obj:"Gartenstr. 12, WE 2", mieter:"Herr B.", ini:"HB", betrag:780, status:"paid", label:"bezahlt", datum:"02.07."},
+  {obj:"Lindenweg 4", mieter:"Familie S.", ini:"FS", betrag:1450, status:"paid", label:"bezahlt", datum:"01.07."},
+  {obj:"Lindenweg 4, ELW", mieter:"Frau M.", ini:"FM", betrag:650, status:"open", label:"offen", datum:"fällig 03.07."},
+  {obj:"Bahnhofstr. 8, WE 1", mieter:"Herr T.", ini:"HT", betrag:1150, status:"late", label:"überfällig", datum:"fällig 03.07."},
+  {obj:"Bahnhofstr. 8, WE 2", mieter:"Familie R.", ini:"FR", betrag:1250, status:"paid", label:"bezahlt", datum:"01.07."},
+  {obj:"Am Hang 3", mieter:"Familie W.", ini:"FW", betrag:2250, status:"paid", label:"bezahlt", datum:"30.06."}
+];
+const eur = n => n.toLocaleString("de-DE") + " €";
+const rows = document.getElementById("rows");
+mieten.forEach((m, i) => {
+  const r = document.createElement("div");
+  r.className = "row";
+  const action = m.status !== "paid" ? '<button class="remind" data-i="' + i + '">Erinnerung senden</button>' : "";
+  r.innerHTML =
+    '<div class="avatar">' + m.ini + '</div>' +
+    '<div class="info"><div class="obj">' + m.obj + '</div><div class="meta">' + m.mieter + ' · ' + m.datum + '</div></div>' +
+    '<div class="amount">' + eur(m.betrag) + '</div>' +
+    '<span class="badge ' + m.status + '">' + m.label + '</span>' +
+    '<span class="slot">' + action + '</span>';
+  rows.appendChild(r);
+});
+function mailText(m) {
+  const anrede = m.mieter.startsWith("Herr") ? "Sehr geehrter " + m.mieter : "Sehr geehrte " + m.mieter;
+  return anrede + ",\n\nfür Ihre Wohnung (" + m.obj + ") ist die Juli-Miete in Höhe von " + eur(m.betrag) + " (" + m.datum + ") noch nicht bei uns eingegangen. Vermutlich handelt es sich nur um ein Versehen – wir bitten Sie, den Betrag in den nächsten Tagen zu überweisen.\n\nSollte sich diese Nachricht mit Ihrer Zahlung überschnitten haben, betrachten Sie sie bitte als gegenstandslos.\n\nMit freundlichen Grüßen";
+}
+rows.addEventListener("click", e => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  if (btn.classList.contains("remind")) {
+    const row = btn.closest(".row");
+    const m = mieten[btn.dataset.i];
+    const box = document.createElement("div");
+    box.className = "draftbox";
+    box.innerHTML =
+      '<span class="ki-tag">KI-Entwurf</span>' +
+      '<div class="head">An: ' + m.mieter + ' &lt;mieter@beispiel.de&gt;</div>' +
+      '<div class="head">Betreff: Zahlungserinnerung Miete Juli – ' + m.obj + '</div>' +
+      '<div class="body">' + mailText(m) + '</div>' +
+      '<div class="actions">' +
+        '<button class="approve primary" data-i="' + btn.dataset.i + '">Freigeben &amp; senden</button>' +
+        '<button class="discard" data-i="' + btn.dataset.i + '">Verwerfen</button>' +
+        '<span class="note">Text vor dem Senden frei anpassbar</span>' +
+      '</div>';
+    row.after(box);
+    btn.closest(".slot").innerHTML = '<span class="draft">Entwurf wartet auf Freigabe</span>';
+  } else if (btn.classList.contains("approve")) {
+    const box = btn.closest(".draftbox");
+    const row = box.previousElementSibling;
+    box.remove();
+    row.querySelector(".slot").innerHTML = '<span class="sent">✓ E-Mail gesendet</span>';
+  } else if (btn.classList.contains("discard")) {
+    const box = btn.closest(".draftbox");
+    const row = box.previousElementSibling;
+    box.remove();
+    row.querySelector(".slot").innerHTML = '<button class="remind" data-i="' + btn.dataset.i + '">Erinnerung senden</button>';
+  }
+});
+
+const nebenkosten = [
+  {obj:"Gartenstr. 12", belege:14, summe:3240, voraus:3600},
+  {obj:"Lindenweg 4", belege:9, summe:2180, voraus:2400},
+  {obj:"Bahnhofstr. 8", belege:11, summe:2870, voraus:2640},
+  {obj:"Am Hang 3", belege:6, summe:1410, voraus:1800}
+];
+const nkEl = document.getElementById("nk");
+nebenkosten.forEach(o => {
+  const d = document.createElement("div");
+  d.className = "rule";
+  d.innerHTML =
+    '<div class="info"><div class="name">' + o.obj + '</div>' +
+    '<div class="freq">' + o.belege + ' Belege erfasst · umlagefähig bisher ' + eur(o.summe) + ' · Vorauszahlungen ' + eur(o.voraus) + '</div></div>' +
+    '<span class="' + (o.summe > o.voraus ? 'badge open' : 'badge paid') + '">' +
+    (o.summe > o.voraus ? 'Nachzahlung zeichnet sich ab' : 'im Rahmen') + '</span>';
+  nkEl.appendChild(d);
+});
+document.getElementById("nk-card").addEventListener("click", e => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  const slot = document.getElementById("nk-slot");
+  const beispiel = document.getElementById("nk-beispiel");
+  if (btn.id === "nk-btn") {
+    beispiel.style.display = "block";
+    slot.innerHTML = '<span class="draft">7 Entwürfe warten auf Freigabe</span>';
+  } else if (btn.id === "nk-approve") {
+    beispiel.style.display = "none";
+    slot.innerHTML = '<span class="sent">✓ 7 Abrechnungen versendet</span>';
+  } else if (btn.id === "nk-discard") {
+    beispiel.style.display = "none";
+    slot.innerHTML = '<button id="nk-btn">Abrechnungen erstellen</button>';
+  }
+});
+
+const steuer = [
+  {obj:"Gartenstr. 12", ein:20400, wk:7850},
+  {obj:"Lindenweg 4", ein:25200, wk:11320},
+  {obj:"Bahnhofstr. 8", ein:28800, wk:14980},
+  {obj:"Am Hang 3", ein:27000, wk:9140}
+];
+const stEl = document.getElementById("st");
+steuer.forEach(o => {
+  const d = document.createElement("div");
+  d.className = "rule";
+  d.innerHTML =
+    '<div class="info"><div class="name">' + o.obj + '</div>' +
+    '<div class="freq">Einnahmen ' + eur(o.ein) + ' · Werbungskosten ' + eur(o.wk) + '</div></div>' +
+    '<span class="badge paid">Überschuss ' + eur(o.ein - o.wk) + '</span>';
+  stEl.appendChild(d);
+});
+document.getElementById("st-card").addEventListener("click", e => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  const slot = document.getElementById("st-slot");
+  const paket = document.getElementById("st-paket");
+  if (btn.id === "st-btn") {
+    paket.style.display = "block";
+    slot.innerHTML = '<span class="draft">Paket zusammengestellt</span>';
+  } else if (btn.id === "st-csv") {
+    const csv = "﻿Datum;Objekt;Kategorie;Beschreibung;Betrag (EUR);Anlage V\n" +
+      "15.01.2025;Bahnhofstr. 8;Schuldzinsen;Darlehenszins Januar;-412,00;Zeile 37\n" +
+      "03.02.2025;Gartenstr. 12;Versicherung;Gebäudeversicherung 2025;-890,00;Zeile 46\n" +
+      "14.03.2025;Gartenstr. 12;Instandhaltung;Heizungswartung;-289,00;Zeile 40\n" +
+      "02.04.2025;Lindenweg 4;Grundsteuer;Grundsteuer 1. Quartal;-160,00;Zeile 46\n" +
+      "28.05.2025;Am Hang 3;Instandhaltung;Dachrinnenreinigung;-240,00;Zeile 40\n" +
+      "01.07.2025;Bahnhofstr. 8;Verwaltung;Kontoführung Mietkonto;-12,00;Zeile 47\n" +
+      "19.09.2025;Lindenweg 4;Instandhaltung;Austausch Durchlauferhitzer ELW;-1.140,00;Zeile 40\n" +
+      "05.11.2025;Am Hang 3;Versicherung;Haus- und Grundbesitzerhaftpflicht;-98,00;Zeile 46\n" +
+      "31.12.2025;alle Objekte;AfA;Gebäudeabschreibung 2025 (Summe);-14.200,00;Zeile 33\n" +
+      "(Beispieldaten – von der Demo erzeugt);;;;;\n";
+    const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Belegliste_2025_Beispiel.csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  } else if (btn.id === "st-mail") {
+    document.getElementById("st-note").textContent = "E-Mail-Entwurf an den Steuerberater erstellt – wartet auf Freigabe";
+    btn.outerHTML = '<button class="primary" id="st-approve">Freigeben &amp; senden</button>';
+  } else if (btn.id === "st-approve") {
+    paket.style.display = "none";
+    slot.innerHTML = '<span class="sent">✓ Export an Steuerberater gesendet</span>';
+  }
+});
+
+const jahre = [
+  {j:"2021", ek:180}, {j:"2022", ek:250}, {j:"2023", ek:320},
+  {j:"2024", ek:400}, {j:"2025", ek:470}, {j:"2026", ek:540}
+];
+const maxEk = Math.max(...jahre.map(x => x.ek));
+const barsEl = document.getElementById("bars");
+const barlabelsEl = document.getElementById("barlabels");
+jahre.forEach((x, i) => {
+  const b = document.createElement("div");
+  b.className = "bar" + (i === jahre.length - 1 ? " last" : "");
+  b.style.height = Math.round(x.ek / maxEk * 100) + "%";
+  b.innerHTML = '<span>' + x.ek + 'k</span>';
+  barsEl.appendChild(b);
+  const l = document.createElement("span");
+  l.textContent = x.j;
+  barlabelsEl.appendChild(l);
+});
+
+const darlehen = [
+  {obj:"Gartenstr. 12", rest:210000, zins:"1,9 %", bindung:"bis 03/2031", warn:false},
+  {obj:"Lindenweg 4", rest:265000, zins:"2,4 %", bindung:"bis 09/2027", warn:true},
+  {obj:"Bahnhofstr. 8", rest:320000, zins:"3,1 %", bindung:"bis 11/2033", warn:false},
+  {obj:"Am Hang 3", rest:145000, zins:"1,6 %", bindung:"bis 06/2029", warn:false}
+];
+const loansEl = document.getElementById("loans");
+darlehen.forEach(d => {
+  const r = document.createElement("div");
+  r.className = "rule";
+  const badge = d.warn
+    ? '<span class="badge open">Zinsbindung läuft aus</span>'
+    : '<span class="badge neutral">' + d.bindung + '</span>';
+  r.innerHTML =
+    '<div class="info"><div class="name">' + d.obj + '</div>' +
+    '<div class="freq">Restschuld ' + eur(d.rest) + ' · Zins ' + d.zins + ' · Zinsbindung ' + d.bindung + '</div></div>' +
+    badge;
+  loansEl.appendChild(r);
+});
+
+const fristen = [
+  {was:"Heizungswartung Bahnhofstr. 8", frist:"fällig in 2 Wochen", art:"open"},
+  {was:"Mieterhöhung möglich – Lindenweg 4", frist:"ab 01.09.2026 (15-Monats-Frist erreicht)", art:"blue"},
+  {was:"Zinsbindung Lindenweg 4 läuft aus", frist:"09/2027 – Anschlussfinanzierung prüfen", art:"open"},
+  {was:"Legionellenprüfung Gartenstr. 12", frist:"in 3 Monaten", art:"neutral"},
+  {was:"Nebenkostenabrechnung 2025 zustellen", frist:"bis 31.12.2026", art:"neutral"}
+];
+const fristenEl = document.getElementById("fristen");
+fristen.forEach(f => {
+  const r = document.createElement("div");
+  r.className = "rule";
+  r.innerHTML =
+    '<div class="info"><div class="name">' + f.was + '</div>' +
+    '<div class="freq">' + f.frist + '</div></div>' +
+    '<span class="badge ' + f.art + '">' + (f.art === "blue" ? "Chance" : f.art === "open" ? "bald fällig" : "geplant") + '</span>';
+  fristenEl.appendChild(r);
+});
+
+const dokumente = [
+  {name:"Mietvertrag Bahnhofstr. 8, WE 1", typ:"Mietvertrag", cat:"MV"},
+  {name:"Mietvertrag Lindenweg 4, ELW", typ:"Mietvertrag", cat:"MV"},
+  {name:"Darlehensvertrag Lindenweg 4", typ:"Darlehensvertrag", cat:"DV"},
+  {name:"Kaufvertrag Am Hang 3", typ:"Kaufvertrag", cat:"KV"},
+  {name:"Grundbuchauszug Gartenstr. 12", typ:"Grundbuchunterlagen", cat:"GB"},
+  {name:"Teilungserklärung Bahnhofstr. 8", typ:"Grundbuchunterlagen", cat:"GB"},
+  {name:"Übergabeprotokoll Gartenstr. 12, WE 2", typ:"Sonstiges", cat:"PR"}
+];
+const docsEl = document.getElementById("docs");
+function renderDocs(filter) {
+  const q = (filter || "").toLowerCase();
+  const list = dokumente.filter(d => (d.name + " " + d.typ).toLowerCase().includes(q));
+  docsEl.innerHTML = list.length
+    ? list.map(d =>
+        '<div class="doc"><div class="ic">' + d.cat + '</div>' +
+        '<div style="flex:1;"><div class="dname">' + d.name + '</div>' +
+        '<div class="dmeta">' + d.typ + '</div></div>' +
+        '<button>Öffnen</button></div>').join("")
+    : '<div class="empty">Keine Dokumente gefunden.</div>';
+}
+renderDocs("");
+document.getElementById("docsearch").addEventListener("input", e => renderDocs(e.target.value));
+
+const tickets = [
+  {titel:"Tropfender Wasserhahn Bad – Lindenweg 4", mieter:"Familie S.", status:"neu"},
+  {titel:"Heizung fällt aus – Bahnhofstr. 8, WE 2", mieter:"Familie R.", status:"beauftragt"},
+  {titel:"Rollladen defekt – Am Hang 3", mieter:"Familie W.", status:"erledigt", kosten:"180 €"}
+];
+const ticketsEl = document.getElementById("tickets");
+function ticketBadge(t) {
+  if (t.status === "neu") return '<span class="badge open">neu</span>';
+  if (t.status === "beauftragt") return '<span class="badge blue">Handwerker beauftragt</span>';
+  return '<span class="badge paid">erledigt · ' + (t.kosten || "") + '</span>';
+}
+function renderTickets() {
+  ticketsEl.innerHTML = "";
+  tickets.forEach((t, i) => {
+    const r = document.createElement("div");
+    r.className = "rule";
+    const action = t.status === "neu"
+      ? '<button data-i="' + i + '" class="tk-order">Auftrag freigeben</button>'
+      : ticketBadge(t);
+    r.innerHTML =
+      '<div class="info"><div class="name">' + t.titel + '</div>' +
+      '<div class="freq">gemeldet von ' + t.mieter + '</div></div>' +
+      '<span class="slot">' + action + '</span>';
+    ticketsEl.appendChild(r);
+  });
+}
+renderTickets();
+document.getElementById("tk-card").addEventListener("click", e => {
+  const btn = e.target.closest("button.tk-order");
+  if (!btn) return;
+  tickets[btn.dataset.i].status = "beauftragt";
+  renderTickets();
+});
+
+const regeln = [
+  {name:"Kontoumsätze abrufen und Mieten zuordnen", freq:"täglich 06:30", auto:true},
+  {name:"KI schreibt Zahlungserinnerung an Mieter", freq:"3 Tage nach Fälligkeit", auto:false},
+  {name:"KI schreibt Mahnung bei 2. ausbleibender Miete", freq:"bei Bedarf", auto:false},
+  {name:"Monatsbericht als PDF", freq:"am 1. des Monats", auto:true}
+];
+const rules = document.getElementById("rules");
+regeln.forEach(rg => {
+  const d = document.createElement("div");
+  d.className = "rule";
+  const pill = rg.auto ? '<span class="pill-auto">automatisch</span>' : '<span class="pill-approve">mit Freigabe</span>';
+  d.innerHTML = '<div class="info"><div class="name">' + rg.name + '</div><div class="freq">' + rg.freq + '</div></div>' + pill;
+  rules.appendChild(d);
+});
+</script>
+</body>
+</html>

@@ -8,9 +8,13 @@ Zentraler Sammelpunkt für alle gelesenen und geplanten Bücher. Jedes Buch hat 
 
 ## Übersicht
 
-- **115 Bücher** in der Sammlung
+- **120 Bücher** in der Sammlung
 - **8 gelesen** (mit Notizen und Highlights)
-- **105 auf der Leseliste** (noch ungelesen)
+- **110 auf der Leseliste** (noch ungelesen)
+
+## Thematische Leselisten
+
+- [[Leseliste Routinen & Empirie]] – Unterrichtsroutinen & evidenzbasierte Methoden, ab Schuljahr 2026/27
 
 ## Frontmatter-Schema
 
