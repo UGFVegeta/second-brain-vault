@@ -19,6 +19,9 @@
 # Claude Code Tooling / Skills (reinstallierbar, teils eigene Git-Repos)
 .claude/skills/
 
+# Claude Code lokale Settings mit API-Keys (nicht ins Repo)
+.claude/settings.local.json
+
 # Node
 node_modules/
 

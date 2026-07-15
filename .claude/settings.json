@@ -1,7 +1,4 @@
 {
-  "env": {
-    "FIRECRAWL_API_KEY": "fc-072d8b6690594243b9c7cb630d3d4e9c"
-  },
   "enabledPlugins": {
     "context-mode@context-mode": true
   }
