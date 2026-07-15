@@ -17,7 +17,9 @@
 .scripts/git_autocommit.log
 
 # Claude Code Tooling / Skills (reinstallierbar, teils eigene Git-Repos)
-.claude/skills/
+# Ausnahme: grill-me ist ein eigener Skill (kein Plugin) und wird mitversioniert
+.claude/skills/*
+!.claude/skills/grill-me/
 
 # Claude Code lokale Settings mit API-Keys (nicht ins Repo)
 .claude/settings.local.json
