@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Terme und Gleichungen – Klasse 9</title>
+<style>
+  @page { size: A4; margin: 13mm 14mm 12mm 14mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11.6pt;
+    line-height: 1.5;
+    color: #000;
+    margin: 0;
+  }
+  header {
+    border-bottom: 2pt solid #000;
+    padding-bottom: 3mm;
+    margin-bottom: 4mm;
+  }
+  h1 { font-size: 15pt; margin: 0 0 1mm 0; }
+  .sub { font-size: 9pt; color: #333; margin: 0 0 3mm 0; }
+  .felder {
+    display: flex;
+    gap: 6mm;
+    font-size: 9pt;
+  }
+  .felder span { flex: 1; border-bottom: 0.6pt solid #000; padding-bottom: 0.5mm; }
+
+  h2 {
+    font-size: 12pt;
+    margin: 5.5mm 0 2.5mm 0;
+    padding: 1mm 2mm;
+    background: #e8e8e8;
+    border-left: 2.5pt solid #000;
+    page-break-after: avoid;
+  }
+  h2 .tr { float: right; font-weight: normal; font-size: 8.5pt; font-style: italic; }
+
+  .a { margin: 0 0 2.8mm 0; page-break-inside: avoid; }
+  .nr { font-weight: bold; }
+  .items { margin-left: 7mm; }
+  .items > span { display: inline-block; min-width: 40mm; margin-right: 2mm; }
+  .items.w > span { min-width: 55mm; }
+  .items.voll > span { display: block; min-width: 0; margin-bottom: 0.6mm; }
+  i { font-style: italic; }
+
+  .frac { display: inline-block; vertical-align: -0.55em; text-align: center; font-size: 0.86em; }
+  .frac > span { display: block; padding: 0 0.15em; min-width: 0; margin: 0; }
+  .frac .u { border-top: 0.6pt solid #000; }
+
+  .hinweis { font-size: 9pt; font-style: italic; color: #333; margin: 0.5mm 0 1.5mm 7mm; }
+  .formel { font-size: 9.5pt; margin: 0 0 2mm 7mm; padding: 1mm 2.5mm; border: 0.6pt solid #999; display: inline-block; }
+  footer { margin-top: 4mm; border-top: 0.6pt solid #999; padding-top: 1.5mm; font-size: 8pt; color: #555; }
+  .pb { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Terme und Gleichungen – Fit für Klasse 10</h1>
+  <p class="sub">Wiederholung Äquivalenzumformungen · <b>Teil A–E ohne Taschenrechner</b> – nur Teil F (quadratische Gleichungen) mit TR.<br>
+  Rechenwege ins Heft, nicht aufs Blatt. Umformungsschritte immer notieren.</p>
+  <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div>
+</header>
+
+<h2>A · Terme zusammenfassen <span class="tr">ohne TR</span></h2>
+
+<div class="a"><span class="nr">A1</span> Fasse so weit wie möglich zusammen.
+  <div class="items">
+    <span>a) 4<i>x</i> + 7<i>x</i></span>
+    <span>b) 9<i>a</i> − 3<i>a</i> + <i>a</i></span>
+    <span>c) 5<i>x</i> + 3<i>y</i> − 2<i>x</i> + 4<i>y</i></span>
+    <span>d) 7<i>a</i> − 4<i>b</i> − <i>a</i> + 9<i>b</i></span>
+    <span>e) 3<i>x</i>² + 5<i>x</i> − <i>x</i>² + 2<i>x</i></span>
+    <span>f) 6<i>ab</i> − 2<i>a</i> + 3<i>ab</i> + 5<i>a</i></span>
+    <span>g) 2<i>x</i> − 5 + 7<i>x</i> + 12</span>
+    <span>h) 8<i>x</i>² − 3<i>x</i> + 2 − 5<i>x</i>² + 3<i>x</i></span>
+    <span>i) 10<i>x</i> − 4<i>y</i> + 3<i>x</i> − 6<i>y</i></span>
+    <span>j) 5<i>a</i>² − 2<i>a</i> + 3 − <i>a</i>² + 7<i>a</i></span>
+    <span>k) 4<i>ab</i> + 2<i>b</i> − <i>ab</i> + 8<i>b</i></span>
+    <span>l) <i>x</i>² + <i>x</i> + 1 + <i>x</i>² − <i>x</i> − 1</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">A2</span> Vereinfache die Produkte.
+  <div class="items">
+    <span>a) 3<i>x</i> · 4<i>x</i></span>
+    <span>b) 2<i>a</i> · 5<i>b</i></span>
+    <span>c) (−2<i>x</i>) · 3<i>x</i></span>
+    <span>d) <i>x</i> · <i>x</i> · <i>x</i></span>
+    <span>e) 2<i>x</i> · 3<i>x</i>²</span>
+    <span>f) (−4<i>a</i>) · (−2<i>a</i>)</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">A3</span> Berechne den Wert des Terms für <i>x</i> = 3 und <i>y</i> = −2.
+  <div class="items">
+    <span>a) 4<i>x</i> + 2<i>y</i></span>
+    <span>b) <i>x</i>² − <i>y</i>²</span>
+    <span>c) 3<i>xy</i></span>
+    <span>d) 2<i>x</i>² − 5<i>y</i></span>
+  </div>
+</div>
+
+<h2>B · Klammern auflösen <span class="tr">ohne TR</span></h2>
+
+<div class="a"><span class="nr">B1</span> Löse die Klammern auf und fasse zusammen.
+  <div class="items">
+    <span>a) 3(<i>x</i> + 4)</span>
+    <span>b) 5(2<i>a</i> − 3)</span>
+    <span>c) −2(<i>x</i> − 6)</span>
+    <span>d) 4(3<i>x</i> + 2) − 5<i>x</i></span>
+    <span>e) 2(<i>a</i> + 3) + 3(<i>a</i> − 1)</span>
+    <span>f) 6<i>x</i> − (2<i>x</i> − 7)</span>
+    <span>g) 4(2<i>x</i> + 1) − 3(<i>x</i> − 2)</span>
+    <span>h) 6(<i>a</i> − 2) − (4<i>a</i> − 12)</span>
+    <span>i) (<i>x</i> + 2)(<i>x</i> + 5)</span>
+    <span>j) (2<i>x</i> − 3)(<i>x</i> + 4)</span>
+    <span>k) (<i>x</i> + 3)(<i>x</i> + 7)</span>
+    <span>l) (3<i>x</i> + 2)(<i>x</i> − 5)</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">B2</span> Multipliziere aus (Variable mal Klammer).
+  <div class="items">
+    <span>a) 2<i>x</i>(3<i>x</i> + 4)</span>
+    <span>b) −3<i>a</i>(2<i>a</i> − 5)</span>
+    <span>c) <i>x</i>(<i>x</i>² − 4<i>x</i> + 1)</span>
+    <span>d) 4<i>b</i>(2<i>a</i> + 3<i>b</i>)</span>
+  </div>
+</div>
+
+<h2>C · Binomische Formeln <span class="tr">ohne TR</span></h2>
+
+<div class="a"><span class="nr">C1</span> Multipliziere mit der passenden binomischen Formel aus.
+  <div class="items">
+    <span>a) (<i>x</i> + 3)²</span>
+    <span>b) (<i>x</i> − 5)²</span>
+    <span>c) (2<i>x</i> + 1)²</span>
+    <span>d) (<i>x</i> + 4)(<i>x</i> − 4)</span>
+    <span>e) (3<i>a</i> − 2<i>b</i>)²</span>
+    <span>f) (5 + <i>x</i>)(5 − <i>x</i>)</span>
+    <span>g) (<i>x</i> + 6)²</span>
+    <span>h) (4<i>x</i> − 3)²</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">C2</span> Rückwärts: Schreibe als Produkt bzw. als Binom.
+  <div class="items">
+    <span>a) <i>x</i>² + 8<i>x</i> + 16</span>
+    <span>b) <i>x</i>² − 49</span>
+    <span>c) 4<i>x</i>² − 12<i>x</i> + 9</span>
+    <span>d) <i>a</i>² − 6<i>a</i> + 9</span>
+    <span>e) <i>x</i>² − 100</span>
+    <span>f) 9<i>x</i>² + 6<i>x</i> + 1</span>
+    <span>g) 25<i>a</i>² − 16</span>
+    <span>h) <i>x</i>² + 2<i>x</i> + 1</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">C3</span> Ergänze die fehlenden Zahlen bzw. Terme, sodass eine binomische Formel entsteht.
+  <div class="items w">
+    <span>a) <i>x</i>² + 10<i>x</i> + ___ = (<i>x</i> + ___)²</span>
+    <span>b) <i>x</i>² − ___ + 36 = (<i>x</i> − 6)²</span>
+    <span>c) <i>x</i>² − ___ = (<i>x</i> + 9)(<i>x</i> − 9)</span>
+    <span>d) ___ + 14<i>x</i> + 49 = (<i>x</i> + 7)²</span>
+  </div>
+</div>
+
+<h2 class="pb">D · Faktorisieren (Ausklammern) <span class="tr">ohne TR</span></h2>
+
+<div class="a"><span class="nr">D1</span> Klammere so viel wie möglich aus.
+  <div class="items">
+    <span>a) 7<i>x</i> + 21</span>
+    <span>b) 12<i>a</i> − 8</span>
+    <span>c) 5<i>x</i>² + 10<i>x</i></span>
+    <span>d) 6<i>ab</i> − 9<i>b</i></span>
+    <span>e) <i>x</i>² + 5<i>x</i></span>
+    <span>f) 8<i>x</i>²<i>y</i> + 12<i>xy</i></span>
+    <span>g) 15<i>x</i>² − 5<i>x</i></span>
+    <span>h) 4<i>a</i>²<i>b</i> + 6<i>ab</i>²</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">D2</span> Faktorisiere vollständig. <span class="hinweis" style="display:inline; margin:0;">Tipp: erst ausklammern, dann binomische Formel.</span>
+  <div class="items w">
+    <span>a) 3<i>x</i>² − 27</span>
+    <span>b) 2<i>x</i>² + 8<i>x</i> + 8</span>
+    <span>c) 5<i>x</i>² − 20</span>
+    <span>d) 3<i>x</i>² − 18<i>x</i> + 27</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">D3</span> Kürze den Bruchterm. <span class="hinweis" style="display:inline; margin:0;">Tipp: Zähler zuerst faktorisieren.</span>
+  <div class="items">
+    <span>a) <span class="frac"><span>6<i>x</i> + 9</span><span class="u">3</span></span></span>
+    <span>b) <span class="frac"><span><i>x</i>² + 5<i>x</i></span><span class="u"><i>x</i></span></span></span>
+    <span>c) <span class="frac"><span>4<i>a</i>² − 12<i>a</i></span><span class="u">4<i>a</i></span></span></span>
+  </div>
+</div>
+
+<h2>E · Lineare Gleichungen <span class="tr">ohne TR</span></h2>
+
+<div class="a"><span class="nr">E1</span> Löse durch Äquivalenzumformungen. Notiere jeden Umformungsschritt (z.&nbsp;B. | − 5, | : 3). Mache bei b) und f) die Probe.
+  <div class="items">
+    <span>a) <i>x</i> + 7 = 15</span>
+    <span>b) 4<i>x</i> = 36</span>
+    <span>c) 3<i>x</i> + 5 = −16</span>
+    <span>d) 8<i>x</i> + 3 = 5<i>x</i> + 18</span>
+    <span>e) 6<i>x</i> − 9 = 2<i>x</i> + 15</span>
+    <span>f) 5(<i>x</i> − 2) = 3<i>x</i> + 8</span>
+    <span>g) 7<i>x</i> − (2<i>x</i> + 4) = 21</span>
+    <span>h) <span class="frac"><span><i>x</i></span><span class="u">4</span></span> + 3 = 7</span>
+    <span>i) 4(2<i>x</i> + 1) = 5<i>x</i> + 19</span>
+    <span>j) 2(3<i>x</i> − 4) = 4(<i>x</i> + 1)</span>
+    <span>k) 6<i>x</i> + 5 = 2<i>x</i> − 11</span>
+    <span>l) 3(2<i>x</i> − 5) = 4<i>x</i> + 1</span>
+    <span>m) <span class="frac"><span><i>x</i></span><span class="u">3</span></span> − 2 = 4</span>
+    <span>n) 5<i>x</i> − 2(<i>x</i> − 4) = 23</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">E2</span> Übersetze in eine Gleichung und löse im Heft.
+  <div class="items voll">
+    <span>a) Das Dreifache einer Zahl, vermindert um 7, ergibt 23. Wie heißt die Zahl?</span>
+    <span>b) Addiert man zu einer Zahl 12, erhält man das Vierfache der Zahl. Wie heißt die Zahl?</span>
+    <span>c) Ein Rechteck hat den Umfang 36 cm. Die Länge ist doppelt so lang wie die Breite. Berechne die Seitenlängen.</span>
+  </div>
+</div>
+
+<h2>F · Quadratische Gleichungen <span class="tr"><b>TR erlaubt</b></span></h2>
+
+<div class="a"><span class="nr">F1</span> Löse durch Umformen und Wurzelziehen. Denke an beide Lösungen!
+  <div class="items">
+    <span>a) <i>x</i>² = 81</span>
+    <span>b) <i>x</i>² − 49 = 0</span>
+    <span>c) 3<i>x</i>² = 75</span>
+    <span>d) 2<i>x</i>² − 32 = 0</span>
+    <span>e) 4<i>x</i>² = 1</span>
+    <span>f) <i>x</i>² + 9 = 0</span>
+    <span>g) <i>x</i>² − 121 = 0</span>
+    <span>h) 5<i>x</i>² − 45 = 0</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">F2</span> Löse mit der Mitternachtsformel. Gib zuerst <i>a</i>, <i>b</i> und <i>c</i> an.
+  <div class="formel"><i>x</i><sub>1,2</sub> = <span class="frac"><span>−<i>b</i> ± √(<i>b</i>² − 4<i>ac</i>)</span><span class="u">2<i>a</i></span></span></div>
+  <div class="items">
+    <span>a) <i>x</i>² + 5<i>x</i> + 6 = 0</span>
+    <span>b) <i>x</i>² − 2<i>x</i> − 15 = 0</span>
+    <span>c) 2<i>x</i>² + 7<i>x</i> + 3 = 0</span>
+    <span>d) <i>x</i>² − 6<i>x</i> + 9 = 0</span>
+    <span>e) <i>x</i>² + 4<i>x</i> + 5 = 0</span>
+    <span>f) <i>x</i>² + <i>x</i> − 12 = 0</span>
+    <span>g) 2<i>x</i>² − 8<i>x</i> + 6 = 0</span>
+    <span>h) <i>x</i>² + 10<i>x</i> + 25 = 0</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">F3</span> Entscheide nur mit der Diskriminante D = <i>b</i>² − 4<i>ac</i>, wie viele Lösungen die Gleichung hat (ohne sie zu lösen).
+  <div class="items w">
+    <span>a) <i>x</i>² + 3<i>x</i> − 7 = 0</span>
+    <span>b) <i>x</i>² − 8<i>x</i> + 16 = 0</span>
+    <span>c) 2<i>x</i>² + <i>x</i> + 4 = 0</span>
+  </div>
+</div>
+
+<footer>Terme und Gleichungen · Fit für Klasse 10 · Rechenwege ins Heft</footer>
+
+</body>
+</html>

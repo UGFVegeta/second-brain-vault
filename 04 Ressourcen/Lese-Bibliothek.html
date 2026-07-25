@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meine Kindle-Bibliothek</title>
+<style>
+  :root {
+    --surface: #fcfcfb;
+    --card: #ffffff;
+    --border: #e8e7e3;
+    --text-1: #0b0b0b;
+    --text-2: #52514e;
+    --text-3: #8a8984;
+    --series-1: #2a78d6;
+    --good: #008300;
+    --track: #eeede9;
+    --accent-bg: #eef4fc;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 14px rgba(0,0,0,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #1a1a19;
+      --card: #232322;
+      --border: #373634;
+      --text-1: #ffffff;
+      --text-2: #c3c2b7;
+      --text-3: #8a8984;
+      --series-1: #3987e5;
+      --good: #4caf50;
+      --track: #2e2e2c;
+      --accent-bg: #20293a;
+      --shadow: none;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--surface); color: var(--text-1); line-height: 1.5;
+    padding: 32px 24px 64px;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 26px; letter-spacing: -.02em; }
+  .sub { color: var(--text-2); font-size: 14px; margin: 4px 0 20px; }
+  .sub b { color: var(--text-1); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  #search {
+    flex: 1 1 240px; max-width: 340px; padding: 8px 12px; font-size: 13.5px;
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text-1);
+  }
+  select {
+    padding: 8px 10px; font-size: 13px; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--card); color: var(--text-1);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 18px; }
+  .chip {
+    border: 1px solid var(--border); background: var(--card); color: var(--text-2);
+    border-radius: 999px; padding: 5px 13px; font-size: 12.5px; cursor: pointer; user-select: none;
+  }
+  .chip:hover { border-color: var(--series-1); }
+  .chip.active { background: var(--series-1); border-color: var(--series-1); color: #fff; }
+
+  .bookrow {
+    display: grid; grid-template-columns: 40px 1fr 170px 150px 90px 34px; gap: 14px; align-items: center;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 14px; margin-bottom: 6px; box-shadow: var(--shadow);
+  }
+  .bookrow img.cover, .bookrow .cover-fallback {
+    width: 34px; height: 50px; object-fit: cover; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  }
+  .bookrow .cover-fallback {
+    display: flex; align-items: center; justify-content: center; font-size: 13px;
+    background: var(--track); color: var(--text-3);
+  }
+  .bookrow .t { font-size: 13.5px; font-weight: 550; line-height: 1.3; }
+  .bookrow .t a { color: inherit; text-decoration: none; }
+  .bookrow .t a:hover { color: var(--series-1); }
+  .genre-badge {
+    display: inline-block; font-size: 11px; font-weight: 600; color: var(--series-1);
+    background: var(--accent-bg); border-radius: 6px; padding: 2px 8px; white-space: nowrap;
+  }
+  .prog .bar-track { height: 6px; border-radius: 4px; background: var(--track); overflow: hidden; }
+  .prog .bar-fill { height: 100%; border-radius: 4px; background: var(--series-1); }
+  .prog .lbl { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+  .prog .lbl b { color: var(--text-1); font-weight: 700; }
+  .prog .done { color: var(--good); font-weight: 600; font-size: 12px; }
+  .date { font-size: 12px; color: var(--text-3); text-align: right; }
+  .empty { color: var(--text-3); font-size: 13px; padding: 20px 0; }
+  .chat-btn {
+    border: none; background: var(--accent-bg); color: var(--series-1);
+    width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 14px;
+  }
+  .chat-btn:hover { opacity: .75; }
+  #chatOverlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center; justify-content: center; z-index: 50; }
+  #chatOverlay.open { display: flex; }
+  #chatBox {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    width: min(560px, 94vw); height: min(560px, 82vh); display: flex; flex-direction: column;
+    box-shadow: 0 12px 40px rgba(0,0,0,.3);
+  }
+  #chatHead { padding: 13px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  #chatHead .bt { font-weight: 650; font-size: 14.5px; line-height: 1.3; }
+  #chatHead .bsub { font-size: 11.5px; color: var(--text-3); }
+  #chatClose { border: none; background: none; font-size: 18px; cursor: pointer; color: var(--text-3); }
+  #chatMsgs { padding: 14px 18px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 85%; padding: 8px 12px; border-radius: 12px; font-size: 13.5px; line-height: 1.5; white-space: pre-wrap; }
+  .msg.me { align-self: flex-end; background: var(--series-1); color: #fff; }
+  .msg.ai { align-self: flex-start; background: var(--accent-bg); color: var(--text-1); }
+  .msg.info { align-self: center; background: none; color: var(--text-3); font-size: 12px; text-align: center; }
+  #chatForm { display: flex; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--border); }
+  #chatInput { flex: 1; padding: 9px 12px; font-size: 13.5px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text-1); }
+  #chatSend { border: none; background: var(--series-1); color: #fff; border-radius: 10px; padding: 0 16px; font-size: 14px; cursor: pointer; }
+  #chatSend:disabled { opacity: .5; cursor: default; }
+  footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--text-3); }
+  @media (max-width: 700px) {
+    .bookrow { grid-template-columns: 40px 1fr 90px 34px; }
+    .genre-cell, .date { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📚 Meine Kindle-Bibliothek</h1>
+  <div class="sub"><b id="countShown"></b> Bücher · Stand: 16. Juli 2026 · Klick auf einen Titel öffnet ihn bei Amazon</div>
+
+  <div class="controls">
+    <input id="search" type="search" placeholder="Titel suchen …">
+    <select id="sortSel">
+      <option value="recent">Sortierung: Zuletzt gelesen</option>
+      <option value="title">Sortierung: Titel A–Z</option>
+      <option value="progress">Sortierung: Fortschritt</option>
+      <option value="date">Sortierung: Datum (älteste zuerst)</option>
+      <option value="genre">Sortierung: Genre</option>
+    </select>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div id="list"></div>
+
+  <footer>
+    Fortschritt: aus Kindle-App und Whispersync (Web-Reader) – für ältere Bücher liegt kein Prozentwert vor, dort zählt das Datum des letzten Lese-Zugriffs.
+    „—“ beim Datum heißt: kein Zugriff seit Einrichtung der Sync-Daten.
+  </footer>
+</div>
+
+<div id="chatOverlay">
+  <div id="chatBox">
+    <div id="chatHead">
+      <div><div class="bt" id="chatTitle"></div><div class="bsub">Buch-Chat · antwortet Claude mit Blick in deine Notizen</div></div>
+      <button id="chatClose" title="Schließen">✕</button>
+    </div>
+    <div id="chatMsgs"></div>
+    <form id="chatForm">
+      <input id="chatInput" type="text" placeholder="Frage zum Buch oder deinen Notizen …" autocomplete="off">
+      <button id="chatSend" type="submit">Senden</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const LIB = [{"t": "Der Astronaut: Roman - Das Buch zur großen Hollywood-Verfilmung mit Ryan Gosling in der Hauptrolle. Kinostart: 19. März 2026", "asin": "3837155668", "ts": 1784233652, "pct": 100, "g": "SF"}, {"t": "The Running the Room Companion: Issues in classroom management and strategies to deal with them (English Edition)", "asin": "B0BQ2XQH1X", "ts": 1784233650, "pct": 0, "g": "L"}, {"t": "Der Mann, der seine Frau mit einem Hut verwechselte", "asin": "B09CCX1MFX", "ts": 1784233649, "pct": 0, "g": "GP"}, {"t": "Der Gedanken-Code: Wie künstliche Intelligenz unser Denken entschlüsselt und wir trotzdem die Kontrolle behalten (Beck Paperback 4611)", "asin": "B0CW18VSC9", "ts": 1784233648, "pct": 7, "g": "WT"}, {"t": "Dungeon Crawler Carl: Entertainment ist Pflicht. Überleben nicht. | Die legendäre Fantasy-Serie endlich auf Deutsch", "asin": "B0G4RYRYB3", "ts": 1784233646, "pct": 13, "g": "F"}, {"t": "Selbstbild", "asin": "B01E5BO230", "ts": 1784233444, "pct": 3, "g": "PE"}, {"t": "Running the Room: The Teacher’s Guide to Behaviour (English Edition)", "asin": "B0BQ2WDTTK", "ts": 1783485641, "pct": 0, "g": "L"}, {"t": "Die Gabe der Könige: Roman (Die Weitseher-Saga 1)", "asin": "B01ATNGQYG", "ts": 1774892212, "pct": null, "g": "F"}, {"t": "Think and Grow Rich – Deutsche Ausgabe: Die ungekürzte und unveränderte Originalausgabe von Denke nach und werde reich von 1937", "asin": "3960923147", "ts": 1773612712, "pct": null, "g": "PE"}, {"t": "Der 5-Uhr-Club: Gestalte deinen Morgen und in deinem Leben wird alles möglich | Bestseller-Autor von \"Der Mönch, der seinen Ferrari verkaufte\"", "asin": "B07Q7BC6F2", "ts": 1773612630, "pct": null, "g": "PE"}, {"t": "5 Dinge, die Sterbende am meisten bereuen: Einsichten, die Ihr Leben verändern werden", "asin": "B00B6PD7RG", "ts": 1771882474, "pct": null, "g": "PE"}, {"t": "The strength of the few: Ausgabe ebook (Hierarchy Reihe 2)", "asin": "B0FC324X5H", "ts": 1770934575, "pct": 64, "g": "F"}, {"t": "Über die Psychologie des Geldes _ zeitlose Lektionen über -- Ueber die Psychologie des Geldes -- 2022 -- FinanzBuch Verlag", "asin": "", "ts": 1768164036, "pct": null, "g": "W"}, {"t": "Mistborn 1 - Kinder des Nebels -- Sanderson, Brandon[Sanderson, Brandon] -- Mistborn 1", "asin": "", "ts": 1768163970, "pct": null, "g": "F"}, {"t": "The will of the many: Ausgabe ebook (Hierarchy Reihe 1)", "asin": "B0F22D25YQ", "ts": 1767735034, "pct": null, "g": "F"}, {"t": "Red Rising: Zeitalter des Lichts Teil 2: Teil 2 (Red-Rising-Reihe, Band 6.2)", "asin": "B0D3LWWK29", "ts": 1767302590, "pct": null, "g": "SF"}, {"t": "Red Rising: Zeitalter des Lichts Teil 1: Teil 1 (Red-Rising-Reihe, Band 6.1)", "asin": "B0C6TM9DQT", "ts": 1766873409, "pct": null, "g": "SF"}, {"t": "Red Rising - Das Dunkle Zeitalter Teil 2", "asin": "3961541329", "ts": 1766353335, "pct": null, "g": "SF"}, {"t": "Spiele der Erwachsenen: Psychologie der menschlichen Beziehungen", "asin": "B09QFTYRYJ", "ts": 1766222233, "pct": null, "g": "GP"}, {"t": "Red Rising - Das Dunkle Zeitalter Teil 1", "asin": "396154042X", "ts": 1765369412, "pct": null, "g": "SF"}, {"t": "Nudge: The Final Edition (English Edition)", "asin": "1663714924", "ts": 1765145607, "pct": null, "g": "W"}, {"t": "Das einzige Buch, das Du über Finanzen lesen solltest: Der entspannte Weg zum Vermögen – Von den Machern des YouTube-Erfolgs \"Finanzfluss\" | Ratgeber für Geldanlage an der Börse mit ETF & Aktien", "asin": "B093T47N3J", "ts": 1764413263, "pct": 1, "g": "W"}, {"t": "Generation Angst: Wie wir unsere Kinder an die virtuelle Welt verlieren und ihre psychische Gesundheit aufs Spiel setzen | Der «Spiegel»-Bestseller", "asin": "B0DNK6LYGF", "ts": 1764409225, "pct": 18, "g": "PG"}, {"t": "DIe Psychologie des Geldes- Morgan Housel", "asin": "", "ts": 1762812038, "pct": null, "g": "W"}, {"t": "Rowling, J K - Harry Potter Complete Collection [Omnibus] --Rowling, J K -- 101 -- Pottermore_Scholastic", "asin": "", "ts": 1762023860, "pct": null, "g": "F"}, {"t": "Think Faster, Talk Smarter: A powerful, practical guide to speaking successfully when you're put on the spot (English Edition)", "asin": "B0BW9VP72Q", "ts": 1761561661, "pct": null, "g": "PE"}, {"t": "Red Rising - Asche zu Asche (Red-Rising-Reihe 4)", "asin": "B07H8DMF6J", "ts": 1760906266, "pct": null, "g": "SF"}, {"t": "The Shadow of the Gods: Book One of the Bloodsworn Saga (English Edition)", "asin": "1405550325", "ts": 1759242735, "pct": null, "g": "F"}, {"t": "Der neue Wohlstand: Was wir für eine bessere Zukunft tun müssen", "asin": "B0F3FB23RP", "ts": 1759242555, "pct": null, "g": "PG"}, {"t": "Die Führungskraft der Zukunft – Innovative Führungstechniken und visionäres Management: Der Schlüssel zur langfristigen Mitarbeiterbindung, nachhaltigem Erfolg und Erfüllung", "asin": "B0CWZJJGFW", "ts": 1759003236, "pct": 0, "g": "PE"}, {"t": "Red Rising - Tag der Entscheidung: Roman (Red-Rising-Reihe 3)", "asin": "B06XS268TN", "ts": 1758486884, "pct": null, "g": "SF"}, {"t": "Als die Welt uns gehörte: Berührender Jugendroman über Freundschaft und Hoffnung in den dunkelsten Zeiten", "asin": "B09JVV12YM", "ts": 1758094019, "pct": null, "g": "R"}, {"t": "Red Rising - Im Haus der Feinde: Roman (Red-Rising-Reihe 2)", "asin": "B06X6HHVCZ", "ts": 1757356109, "pct": null, "g": "SF"}, {"t": "Red Rising: Roman (Red-Rising-Reihe 1)", "asin": "B01N1U1XNY", "ts": 1756756604, "pct": null, "g": "SF"}, {"t": "Wot Se Fack, Deutschland?: Warum unsere Gefühle den Verstand verloren haben | Ein mutiges Buch, das hoffentlich nicht jedem gefallen wird.", "asin": "B0DKTP1PS3", "ts": 1756741762, "pct": null, "g": "PG"}, {"t": "Wie man ein Buch liest", "asin": "B09QQBLLXV", "ts": 1754972526, "pct": null, "g": "L"}, {"t": "33 erstaunliche Lichtblicke, die zeigen, warum die Welt viel besser ist, als wir denken: Mit über 100 mehrfarbigen Abbildungen und Tabellen", "asin": "B0F6TRH873", "ts": 1753128398, "pct": 4, "g": "WT"}, {"t": "Iron Flame – Flammengeküsst: Roman | Die heißersehnte Fortsetzung des Fantasy-Erfolgs ›Fourth Wing‹ (Flammengeküsst-Reihe 2)", "asin": "B0C8674474", "ts": 1751405824, "pct": null, "g": "F"}, {"t": "Klimapolitik: Ziele, Konflikte, Lösungen (Beck'sche Reihe 2853)", "asin": "B0B8PKBHMD", "ts": 1750365822, "pct": null, "g": "WT"}, {"t": "Fourth Wing – Flammengeküsst: Roman | Das internationale Bestsellerphänomen (Flammengeküsst-Reihe 1)", "asin": "B0C7RDJPMN", "ts": 1749322862, "pct": null, "g": "F"}, {"t": "Der NGO-Komplex: Wie die Politik unser Steuergeld verprasst", "asin": "B0F337Q1TN", "ts": 1749243679, "pct": null, "g": "PG"}, {"t": "Plan B für das Klima: Mit den Kräften der Natur den Klimawandel bewältigen", "asin": "B0DM9QHMNT", "ts": 1744054766, "pct": null, "g": "WT"}, {"t": "Algorithms to Live By: The Computer Science of Human Decisions (English Edition)", "asin": "B01D24KJMO", "ts": 1743025466, "pct": null, "g": "WT"}, {"t": "How Not to Be Wrong: The Hidden Maths of Everyday Life (English Edition)", "asin": "B00K8J3VC2", "ts": 1743025443, "pct": null, "g": "WT"}, {"t": "Source Code: Meine Anfänge | Die Autobiographie des Microsoft-Gründers, #1 New York Times Bestseller", "asin": "B0DN1YD13X", "ts": 1741081629, "pct": null, "g": "B"}, {"t": "Mehr Geld als Verstand: Wie die deutsche Politik dein Geld verprasst. SPIEGEL-Bestseller Platz 1", "asin": "B0DM6M9H1P", "ts": 1740521497, "pct": null, "g": "PG"}, {"t": "Thank You for Being Late: Ein optimistisches Handbuch für das Zeitalter der Beschleunigung", "asin": "B075GHQGJ1", "ts": 1739290435, "pct": null, "g": "PG"}, {"t": "Selbstbild: Wie unser Denken Erfolge oder Niederlagen bewirkt", "asin": "1628613548", "ts": 1737643529, "pct": 2, "g": "PE"}, {"t": "Bildung: Alles, was man wissen muß", "asin": "B08W8B87GJ", "ts": 1737321048, "pct": null, "g": "L"}, {"t": "Shitbürgertum", "asin": "B0DT6Y31N3", "ts": 1737043843, "pct": null, "g": "PG"}, {"t": "Das merk ich mir!: Erfolgreich lernen und für immer behalten mit der Make-it-stick-Methode - Für Schule, Studium und Beruf", "asin": "B07NT7VLTS", "ts": 1737010630, "pct": 54, "g": "L"}, {"t": "Moonwalking with Einstein: The Art and Science of Remembering Everything (English Edition)", "asin": "B079X2G1K3", "ts": 1736455713, "pct": null, "g": "L"}, {"t": "Schnelles Denken, langsames Denken", "asin": "B00AIMNQTM", "ts": 1736368103, "pct": null, "g": "L"}, {"t": "Allgemeinwissen - 30 Themengebiete - Inkl. Audioquiz: Steigern Sie durch die erwiesenermaßen besten Lernmethoden maximal Ihre Allgemeinbildung und Ihren IQ", "asin": "B09J4ZDCF3", "ts": 1736367978, "pct": null, "g": "L"}, {"t": "Lean Lesson Planning: A practical approach to doing less and achieving more in the classroom (High Impact Teaching Book 1) (English Edition)", "asin": "B01N41XNAF", "ts": 1735844352, "pct": null, "g": "L"}, {"t": "Good Energy: Der erstaunliche Zusammenhang zwischen Stoffwechsel und unerschöpflicher Gesundheit | Das Grundlagenwerk, in dem jeder erfährt, wie man länger gesünder leben kann", "asin": "B0DLNCRXG9", "ts": 1735772675, "pct": null, "g": "GP"}, {"t": "Engineering in Plain Sight: An Illustrated Field Guide to the Constructed Environment (English Edition)", "asin": "B09WCW8LYP", "ts": 1735249673, "pct": null, "g": "WT"}, {"t": "So rettet ihr das Klima nicht!: Warum die Energiewende gescheitert ist und was wir jetzt tun müssen", "asin": "B0CZ1M7VZW", "ts": 1734733219, "pct": null, "g": "WT"}, {"t": "Learning How to Learn: How to Succeed in School Without Spending All Your Time Studying; A Guide for Kids and Teens (English Edition)", "asin": "B07FK4HJ83", "ts": 1732224599, "pct": null, "g": "L"}, {"t": "Kompromisslos verhandeln: Die Strategien und Methoden des Verhandlungsführers des FBI", "asin": "B01N95M8WR", "ts": 1731336626, "pct": null, "g": "PE"}, {"t": "Limitless: Wie du schneller lernst und dein Potenzial befreist", "asin": "B0CZS8XXXV", "ts": 1731014130, "pct": null, "g": "L"}, {"t": "Outliers: The Story of Success (English Edition)", "asin": "B004V7O9G4", "ts": 1730812733, "pct": null, "g": "PE"}, {"t": "Being Logical: A Guide to Good Thinking (English Edition)", "asin": "B000FC1TGW", "ts": 1730499019, "pct": null, "g": "L"}, {"t": "Die Wissenschaft des Reichwerdens", "asin": "B09NXN2GHV", "ts": 1730233588, "pct": null, "g": "W"}, {"t": "Limitless Expanded Edition: Upgrade Your Brain, Learn Anything Faster, and Unlock Your Exceptional Life (English Edition)", "asin": "B09CKJ42CS", "ts": 1730232997, "pct": null, "g": "L"}, {"t": "Hook Point: How to Stand Out in a 3-Second World (English Edition)", "asin": "B08D56R2FW", "ts": 1730030063, "pct": null, "g": "W"}, {"t": "Die Physiker: Eine Komödie in zwei Akten", "asin": "B008EU563E", "ts": 1729743853, "pct": null, "g": "R"}, {"t": "Der Besuch der alten Dame: Eine tragische Komödie", "asin": "B008EU4X0G", "ts": 1729743729, "pct": null, "g": "R"}, {"t": "The E-Myth Revisited: Why Most Small Businesses Don't Work and What to Do About It (English Edition)", "asin": "B000RO9VJK", "ts": 1729699207, "pct": null, "g": "W"}, {"t": "Ultralearning: Accelerate Your Career, Master Hard Skills and Outsmart the Competition (English Edition)", "asin": "0062945149", "ts": 1729626863, "pct": 76, "g": "L"}, {"t": "How to Become a Straight-A Student: The Unconventional Strategies Real College Students Use to Score High While Studying Less (English Edition)", "asin": "B07M92Y6FY", "ts": 1728817823, "pct": 1, "g": "L"}, {"t": "Deep Work: Rules for Focused Success in a Distracted World (English Edition)", "asin": "B01CYLJ49U", "ts": 1728807350, "pct": null, "g": "PE"}, {"t": "OUTLIVE - Attia, Peter; Dr.; Gifford, Bil", "asin": "", "ts": 1728546514, "pct": 70, "g": "GP"}, {"t": "Neuronale Netze kompakt: Vom Perceptron zum Deep Learning (IT kompakt)", "asin": "B0DFTJ9L27", "ts": 1728397309, "pct": 8, "g": "WT"}, {"t": "The Growth Mindset Coach: A Teacher's Month-by-Month Handbook for Empowering Students to Achieve (Growth Mindset for Teachers) (English Edition)", "asin": "B0D9KWYGPW", "ts": 1727779362, "pct": 6, "g": "L"}, {"t": "Schulden: Die ersten 5000 Jahre", "asin": "B00864N7VG", "ts": 1726952415, "pct": null, "g": "W"}, {"t": "Bullshit Jobs: Vom wahren Sinn der Arbeit", "asin": "B0CX28Z763", "ts": 1726952351, "pct": null, "g": "PG"}, {"t": "Material World: A Substantial Story of Our Past and Future (English Edition)", "asin": "B0BSH5CJWD", "ts": 1726166148, "pct": null, "g": "WT"}, {"t": "In 20 Sprachen um die Welt und was sie so besonders macht -- Dorren, Gaston -- 2021 -- C_H_Beck", "asin": "", "ts": 1724176618, "pct": null, "g": "L"}, {"t": "Künstliche Intelligenz_ Dem Menschen überlegen – wie KI uns -- Manfred Spitzer -- 2023 -- Droemer eBook", "asin": "", "ts": 1724176566, "pct": null, "g": "WT"}, {"t": "Der träumende Krieger – Die Legende vom Tränenvogel 2: Roman", "asin": "B0D2359S9V", "ts": 1723929759, "pct": null, "g": "F"}, {"t": "Das Blut der Herzlosen – Die Legende vom Tränenvogel 1: Roman", "asin": "B0D1VYTR4Q", "ts": 1722105719, "pct": null, "g": "F"}, {"t": "Digitale Demenz_ Wie wir uns und unsere Kinder um den -- Spitzer, Manfred -- 2012 -- Verlagsgruppe Droemer Knau", "asin": "", "ts": 1719438398, "pct": null, "g": "PG"}, {"t": "Was Sie schon immer übers Klima wissen wollten, aber bisher nicht zu fragen wagten: Der Klimawandel zwischen Lobbygruppen und Wissenschaft", "asin": "B0D4R2SR4Z", "ts": 1719180189, "pct": null, "g": "WT"}, {"t": "Was geht mich die Physik an?: Physikalisch denken in Gesellschaft, Politik und Management.", "asin": "B0CDZ8C557", "ts": 1717535599, "pct": null, "g": "WT"}, {"t": "Das laute Schweigen des Max Grund: Roman", "asin": "B0CKLSLSQY", "ts": 1716890694, "pct": 6, "g": "R"}, {"t": "(K)ein Gespur fur Zahlen_ So be - Barbara Oakley", "asin": "", "ts": 1716890196, "pct": 0, "g": "L"}, {"t": "Die 5 Rollen einer Führungskraft -- Wladislaw Jachtchenko -- 2020 -- Remote Verlag", "asin": "", "ts": 1716889474, "pct": 0, "g": "PE"}, {"t": "KNIGHTSTONE ACADEMY 1: Begehre uns nicht (Dark Bully Romance / Reverse Harem / Spicy Fantasy)", "asin": "B0C2JDSV4V", "ts": 1715977360, "pct": null, "g": "R"}, {"t": "You Can Run Pain Free! Revised & Expanded Edition_ a -- Brad Beer -- 2018 -- BookBaby", "asin": "", "ts": 1714942630, "pct": null, "g": "GP"}, {"t": "Sieben kurze Lektionen über Physik -- Rovelli, Carlo[Rovelli, Carlo] -- 2015 -- Rowohlt Verlag", "asin": "", "ts": 1712526843, "pct": null, "g": "WT"}, {"t": "Keine Macht den Doofen -- Schmidt-Salomon, Michael -- 2012 -- Piper ebooks", "asin": "", "ts": 1712265349, "pct": null, "g": "PG"}, {"t": "Leibniz war kein Butterkeks -- Lea, Salomon;Michael, Schmidt-Salomon -- Piper ebooks", "asin": "", "ts": 1712265344, "pct": null, "g": "PG"}, {"t": "Die 7 Wege zur Effektivität -- Stephen R. Covey -- 2018 -- GABAL Verlag", "asin": "", "ts": 1710450307, "pct": null, "g": "PE"}, {"t": "Der Prozess", "asin": "B0794YZ5QS", "ts": 1706392735, "pct": null, "g": "R"}, {"t": "Daniel Kehlmann Die Vermessung der Welt -- Kehlmann, Daniel", "asin": "", "ts": 1706301209, "pct": 81, "g": "R"}, {"t": "Elon Musk -- Walter Isaacson -- 2023 -- C.Bertelsmann Verlag", "asin": "", "ts": 1706301191, "pct": null, "g": "B"}, {"t": "Shaolin Spirit - Meistere dein Leben -- Shi Heng Yi -- 2023 -- O.W. Barth", "asin": "", "ts": 1706301189, "pct": null, "g": "PE"}, {"t": "Quantenphysik für Hippies", "asin": "B0CJY5CHH1", "ts": 1702674385, "pct": null, "g": "WT"}, {"t": "Wie die Welt wirklich funktioniert: Die fossilen Grundlagen unserer Zivilisation und die Zukunft der Menschheit", "asin": "B0BVDB6CVC", "ts": 1702242467, "pct": null, "g": "WT"}, {"t": "Die Legenden der Alaburg (Alaburg 2/7) (Die Farbseher Saga 2)", "asin": "B01J26FVJM", "ts": 1702049973, "pct": null, "g": "F"}, {"t": "Die Geheimnisse der Alaburg (Alaburg 1/7) (Die Farbseher Saga 1)", "asin": "B06XX1RQP7", "ts": 1700225577, "pct": null, "g": "F"}, {"t": "Klimapanik: Warum uns eine falsche Klimapolitik Billionen kostet und den Planeten nicht retten wird", "asin": "B09BX4C2MP", "ts": 1699136521, "pct": 63, "g": "WT"}, {"t": "Die Macht der Geographie: Wie sich Weltpolitik anhand von 10 Karten erklären lässt", "asin": "B011BFRH12", "ts": 1699045944, "pct": 5, "g": "PG"}, {"t": "Lichtblick statt Blackout: Warum wir beim Weltverbessern neu denken müssen", "asin": "B0BHJM6HQC", "ts": 1699014907, "pct": 64, "g": "WT"}, {"t": "Erklärs mir, als wäre ich 5: Kinderfragen einfach beantwortet. Verständliches Allgemeinwissen. Der Nachfolger zum SPIEGEL-Bestseller. Ein Geschenk für Eltern, Lehrer und Neugierige", "asin": "B082NZLG3K", "ts": 1698441188, "pct": null, "g": "L"}, {"t": "Antifragilität: Anleitung für eine Welt, die wir nicht verstehen", "asin": "B00B5S59ZW", "ts": 1698412703, "pct": null, "g": "W"}, {"t": "Marcus Aurelius: Selbstbetrachtungen: Selbsterkenntnisse des römischen Kaisers Marcus Aurelius", "asin": "B011R5TUZM", "ts": 1698004151, "pct": null, "g": "PE"}, {"t": "Die subtile Kunst des Daraufscheißens", "asin": "B01N53XGLD", "ts": 1697660351, "pct": null, "g": "PE"}, {"t": "Can't Hurt Me: Beherrsche deinen Geist und erreiche jedes Ziel. Deutsche Ausgabe. Über 5 Millionen verkaufte Exemplare weltweit", "asin": "B0C86L342P", "ts": 1697660153, "pct": null, "g": "PE"}, {"t": "Die Gargoyles von Notre Dame 2 (2/3)", "asin": "B0BZ1KLHVH", "ts": 1696111289, "pct": null, "g": "F"}, {"t": "Exercised: The Science of Physical Activity, Rest and Health (English Edition)", "asin": "0241503620", "ts": 1695933847, "pct": null, "g": "GP"}, {"t": "Lights Out: Pride, Delusion, and the Fall of General Electric (English Edition)", "asin": "B084D28MBV", "ts": 1695156812, "pct": null, "g": "W"}, {"t": "Das Kapital im 21. Jahrhundert", "asin": "B0B8PBNKQ1", "ts": 1695156661, "pct": null, "g": "W"}, {"t": "Neue Weltmacht Indien: Geostratege, Wirtschaftsriese, Wissenslabor", "asin": "B0CCYXMXGP", "ts": 1692910683, "pct": null, "g": "PG"}, {"t": "Krieger, Dieb und Hexe: Die Gefährten des rastlosen Todes", "asin": "B0BSB72W3K", "ts": 1684617440, "pct": null, "g": "F"}, {"t": "Die Gargoyles von Notre Dame (1/3)", "asin": "B0C58ZWFYM", "ts": 1682365266, "pct": null, "g": "F"}, {"t": "12 Rules For Life: Ordnung und Struktur in einer chaotischen Welt - Aktualisierte Neuausgabe", "asin": "B07SGM97WX", "ts": 1679698030, "pct": null, "g": "PE"}, {"t": "Im Westen nichts Neues: Roman. Ohne Material", "asin": "B00DGXX7T4", "ts": 1678734905, "pct": null, "g": "R"}, {"t": "Xenos (Eisenhorn Book 1) (English Edition)", "asin": "B075QL99VX", "ts": 1678657247, "pct": null, "g": "SF"}, {"t": "Snow Crash: Roman", "asin": "B0932441ZR", "ts": 1677448132, "pct": null, "g": "SF"}, {"t": "Weltuntergang fällt aus! (SPIEGEL-Bestseller): Warum die Wende der Klimakrise viel einfacher ist, als die meisten denken, und was jetzt zu tun ist", "asin": "B09QD62QRN", "ts": 1672531516, "pct": null, "g": "WT"}, {"t": "Chip War: The Fight for the World's Most Critical Technology (English Edition)", "asin": "B09TX28RGV", "ts": 1670969182, "pct": null, "g": "WT"}, {"t": "Das Restaurant am Ende des Universums: Band 2 der fünfbändigen »Intergalaktischen Trilogie«", "asin": "B01MRP6GFG", "ts": 1670627729, "pct": null, "g": "SF"}, {"t": "Faszinierende Physik: Ein bebilderter Streifzug vom Universum bis in die Welt der Elementarteilchen", "asin": "B07PF2WN96", "ts": 1670005557, "pct": null, "g": "WT"}, {"t": "Per Anhalter durch die Galaxis: Band 1 der fünfbändigen »Intergalaktischen Trilogie«", "asin": "B01MSQT481", "ts": 1668638281, "pct": null, "g": "SF"}, {"t": "Eat that Frog: 21 Wege, wie Sie in weniger Zeit mehr erreichen (Dein Leben)", "asin": "B07L4T9D6V", "ts": 1668292062, "pct": null, "g": "PE"}, {"t": "Effective Notetaking (Study Skills Book 1) (English Edition)", "asin": "B004J35LQ2", "ts": 1667254781, "pct": null, "g": "L"}, {"t": "Miracle Morning: Die Stunde, die alles verändert. Steh auf und nimm dein Leben in die Hand", "asin": "B01G1SACRK", "ts": 1666038553, "pct": null, "g": "PE"}, {"t": "Java_ Kompendium_ Professionell Java programmieren lernen (German Edition) - Markus Neumann", "asin": "", "ts": 1664726699, "pct": null, "g": "WT"}, {"t": "Building a Second Brain: A Proven Method to Organise Your Digital Life and Unlock Your Creative Potential (English Edition)", "asin": "B09MGZ148G", "ts": 1661956054, "pct": null, "g": "L"}, {"t": "Das Tagebuch der Menschheit: Was die Bibel über unsere Evolution verrät", "asin": "B01F6CGJRY", "ts": 1661116023, "pct": null, "g": "PG"}, {"t": "Wie ich die Dinge geregelt kriege: Selbstmanagement für den Alltag", "asin": "B00XW10HV6", "ts": 1660394872, "pct": null, "g": "PE"}, {"t": "Die Bestien Chroniken - Sammelband - Band 1-3 des Fantasy Erfolgs", "asin": "B085MN33PC", "ts": 1659820616, "pct": null, "g": "F"}, {"t": "Das 1×1 der ETFs - Wie du deine Finanzen Schritt für Schritt selbst in die Hand nimmst", "asin": "B09VFKW964", "ts": 1659820363, "pct": null, "g": "W"}, {"t": "Einführung in Data Science: Grundprinzipien der Datenanalyse mit Python (Animals)", "asin": "B081QMZFWC", "ts": 1659037850, "pct": null, "g": "WT"}, {"t": "Saeculum", "asin": "B00K9S1EBC", "ts": 1658957038, "pct": null, "g": "R"}, {"t": "Atomkraft? Ja bitte!: Klimawandel und Energiekrise: Wie Kernkraft uns jetzt retten kann", "asin": "B09RSS95K3", "ts": 1658672742, "pct": null, "g": "WT"}, {"t": "How Computers Work (How It Works) (English Edition)", "asin": "B00SZKC75S", "ts": 1658611476, "pct": null, "g": "WT"}, {"t": "Den Klimawandel verstehen: Ein Sketchnote-Buch", "asin": "B0B133VK5B", "ts": 1655360943, "pct": null, "g": "WT"}, {"t": "Die 10 Irrtümer der Antikapitalisten: Zur Kritik der Kapitalismuskritik", "asin": "B09KW9JRCM", "ts": 1652383167, "pct": null, "g": "W"}, {"t": "Becoming Ironman: Mein Weg zum Weltmeister im Triathlon. Autobiografie und SPIEGEL Bestseller des zweifachen Ironman-Hawaii-Siegers. Ein inspirierendes Buch für alle Ausdauersportler", "asin": "B0B7SM8HGG", "ts": 1651007883, "pct": null, "g": "GP"}, {"t": "Söhne und Weltmacht: Terror im Aufstieg und Fall der Nationen", "asin": "B07V3SW6L9", "ts": 1646074318, "pct": null, "g": "PG"}, {"t": "The Hobbit: The Classic Bestselling Fantasy Novel (English Edition)", "asin": "0008433844", "ts": 1644270146, "pct": null, "g": "F"}, {"t": "Der Herr des Wüstenplaneten: Roman (Der Wüstenplanet - neu übersetzt 2)", "asin": "3837153576", "ts": 1642978046, "pct": null, "g": "SF"}, {"t": "Liebe und Eigenständigkeit: Die Kunst bedingungsloser Elternschaft, jenseits von Belohnung und Bestrafung", "asin": "B07WGM8XGN", "ts": 1641757014, "pct": null, "g": "L"}, {"t": "Der Wüstenplanet: Roman (Der Wüstenplanet - neu übersetzt 1)", "asin": "3837153568", "ts": 1640815175, "pct": null, "g": "SF"}, {"t": "A Thousand Brains: A New Theory of Intelligence (English Edition)", "asin": "B08CDYR545", "ts": 1640282469, "pct": null, "g": "WT"}, {"t": "Der Lehrling des Feldschers III (Die Feldscher Chroniken 3/3)", "asin": "B09KRLK93H", "ts": 1638915313, "pct": null, "g": "F"}, {"t": "Bewegung macht schlau: Mentale Leistungssteigerung durch körperliche Aktivität", "asin": "B08XQQWNGC", "ts": 1638742238, "pct": null, "g": "GP"}, {"t": "The Second Brain: A Groundbreaking New Understanding of Nervous Disorders of the Stomach and Intestine (English Edition)", "asin": "B07J4ZY8DZ", "ts": 1638431673, "pct": null, "g": "GP"}, {"t": "Die Kunst des klaren Denkens", "asin": "", "ts": 1637189064, "pct": null, "g": "L"}, {"t": "Die Foundation-Trilogie: Foundation / Foundation und Imperium / Zweite Foundation (Roboter und Foundation – der Zyklus 13)", "asin": "B007Q5L7R2", "ts": 1633903820, "pct": null, "g": "SF"}, {"t": "Mindset - Updated Edition: Changing The Way You think To Fulfil Your Potential (English Edition)", "asin": "0593150422", "ts": 1630787969, "pct": null, "g": "PE"}, {"t": "Die Kunst des klaren Denkens: Neuausgabe: komplett überarbeitet, mit großem Workbook-Teil", "asin": "B084514TDV", "ts": 1629300892, "pct": null, "g": "L"}, {"t": "Homo Deus", "asin": "", "ts": 1628678657, "pct": null, "g": "PG"}, {"t": "The Art of Statistics: Learning From Data (Pelican Books)", "asin": "", "ts": 1628678337, "pct": null, "g": "WT"}, {"t": "Das Café am Rande der Welt: Eine Erzählung über den Sinn des Lebens (German Edition)", "asin": "", "ts": 1628677715, "pct": null, "g": "PE"}, {"t": "Die 4-Stunden-Woche – Mehr Zeit, mehr Geld, mehr Leben", "asin": "", "ts": 1628677411, "pct": null, "g": "PE"}, {"t": "Six Easy Pieces: Essentials of Physics Explained by Its Most Brilliant Teacher", "asin": "", "ts": 1628677105, "pct": null, "g": "WT"}, {"t": "Sechs physikalische Fingerübungen • Physikalische Fingerübungen für Fortgeschrittene: Zwei Bestseller in einem Band", "asin": "B009SKQ45S", "ts": 1628675018, "pct": null, "g": "WT"}, {"t": "Die Wissenschaftslüge: Wie uns Pseudo-Wissenschaftler das Leben schwer machen", "asin": "B0058G5YNY", "ts": 1628447954, "pct": null, "g": "WT"}, {"t": "Numbers Don't Lie: 71 Things You Need to Know About the World (English Edition)", "asin": "0241990947", "ts": 1628057653, "pct": null, "g": "WT"}, {"t": "Quantum Computing for Babies: A Programming and Coding Math Book for Little Ones and Math Lovers from the #1 Science Author for Kids (STEM Gift for Kids) (Baby University 0) (English Edition)", "asin": "B08BJ8Q98V", "ts": 1627589767, "pct": null, "g": "WT"}, {"t": "Das Rad der Zeit 1. Das Original:: Die Suche nach dem Auge der Welt", "asin": "B009FYS1SK", "ts": 1626721008, "pct": null, "g": "F"}, {"t": "Per Aufzug in den Weltraum: Expeditionen in die nahe Zukunft", "asin": "B07CMX63KX", "ts": 1626210639, "pct": null, "g": "WT"}, {"t": "Rebelles: Die Bestien Chroniken III/III", "asin": "3961540489", "ts": 1623617888, "pct": null, "g": "F"}, {"t": "Magus: Die Bestien Chroniken II/III", "asin": "3961540470", "ts": 1623617888, "pct": null, "g": "F"}, {"t": "Bestias: Die Bestien Chroniken I/III", "asin": "3961540462", "ts": 1623617888, "pct": null, "g": "F"}, {"t": "Der Lehrling des Feldschers II (Die Feldscher Chroniken 2/3)", "asin": "3961542430", "ts": 1623074577, "pct": null, "g": "F"}, {"t": "Der Lehrling des Feldschers (Die Feldscher Chroniken 1/3)", "asin": "3961541507", "ts": 1622582698, "pct": null, "g": "F"}, {"t": "Ready Player Two: Roman. Deutschsprachige Ausgabe (Ready Player One 2)", "asin": "B08NYBKN98", "ts": 1619982855, "pct": null, "g": "SF"}, {"t": "Von der Pflicht: Eine Betrachtung", "asin": "3844542809", "ts": 1617182285, "pct": null, "g": "PG"}, {"t": "Star Wars: Light of the Jedi (The High Republic) (Star Wars: The High Republic Book 1) (English Edition)", "asin": "B084V936F9", "ts": 1616274989, "pct": null, "g": "SF"}, {"t": "The Subtle Art of Not Giving a F*ck: A Counterintuitive Approach to Living a Good Life (Mark Manson Collection Book 1) (English Edition)", "asin": "B019MMUA8S", "ts": 1616018192, "pct": null, "g": "PE"}, {"t": "Das Zettelkasten-Prinzip: Erfolgreich wissenschaftlich Schreiben und Studieren mit effektiven Notizen", "asin": "B06WVSFYB4", "ts": 1615233760, "pct": null, "g": "L"}, {"t": "Die 1%-Methode – Minimale Veränderung, maximale Wirkung: Mit kleinen Gewohnheiten jedes Ziel erreichen - Mit Micro Habits zum Erfolg", "asin": "B07ZTFJQ5J", "ts": 1612734275, "pct": null, "g": "PE"}, {"t": "Schnelles Denken, langsames Denken (German Edition)", "asin": "", "ts": 1612130313, "pct": null, "g": "L"}, {"t": "Die Macht der Gewohnheit: Warum wir tun, was wir tun", "asin": "B009IRKRM2", "ts": 1610061161, "pct": null, "g": "PE"}, {"t": "HOW TO - Wie man's hinkriegt: Absurde, wirklich wissenschaftliche Empfehlungen für alle Lebenslagen - Deutschsprachige Ausgabe, illustriert", "asin": "B07NDF461Q", "ts": 1610003214, "pct": null, "g": "WT"}, {"t": "Hit Refresh: The Quest to Rediscover Microsoft's Soul and Imagine a Better Future for Everyone (English Edition)", "asin": "B075SMBK8J", "ts": 1596872879, "pct": null, "g": "W"}, {"t": "Hit Refresh: Wie Microsoft sich neu erfunden hat und die Zukunft verändert", "asin": "B0751FV8NX", "ts": 1596463857, "pct": null, "g": "W"}, {"t": "Das Buch, von dem du dir wünschst, deine Eltern hätten es gelesen: (und deine Kinder werden froh sein, wenn du es gelesen hast) | Der SPIEGEL-Bestseller", "asin": "B07ZTPWG4X", "ts": 1596463783, "pct": null, "g": "GP"}, {"t": "Die Kinder der Zeit: Roman (Die Zeit-Saga 1)", "asin": "3961540519", "ts": 1594012072, "pct": null, "g": "SF"}, {"t": "Die Siliziuminsel: Roman", "asin": "B07K26PJ7W", "ts": 1593446307, "pct": null, "g": "SF"}, {"t": "Gute Ökonomie für harte Zeiten: Sechs Überlebensfragen und wie wir sie besser lösen können", "asin": "3844539131", "ts": 1589922574, "pct": null, "g": "W"}, {"t": "Der Wolkenatlas", "asin": "B009KYVYY8", "ts": 1589921121, "pct": null, "g": "R"}, {"t": "Der Mythos vom Geld - die Geschichte der Macht: Vom Tauschhandel zum Euro: eine Geschichte des Geldes und der Währungen", "asin": "B00PWHXY5O", "ts": 1589005343, "pct": null, "g": "W"}, {"t": "Die Physik der Zukunft: Unser Leben in 100 Jahren", "asin": "B00GRK0R9G", "ts": 1588107506, "pct": null, "g": "WT"}, {"t": "Lifespan: Why We Age – and Why We Don’t Have To (English Edition)", "asin": "B07NQ2D32G", "ts": 1583874103, "pct": null, "g": "GP"}, {"t": "Spaceman: An Astronaut's Unlikely Journey to Unlock the Secrets of the Universe (English Edition)", "asin": "B01M9KAALR", "ts": 1567629664, "pct": null, "g": "B"}, {"t": "The Big Five for Life: Was wirklich zählt im Leben", "asin": "B008Y20IIK", "ts": 1565552422, "pct": null, "g": "PE"}, {"t": "Kanban für Anfänger: Grundlegendes über den Einsatz von Kanban in der Industrie und der Softwareentwicklung | Wie Kanban in der Praxis funktioniert", "asin": "B07M634CQ2", "ts": 1564439399, "pct": null, "g": "W"}, {"t": "Das Universum für Eilige", "asin": "B078WX9BCH", "ts": 1564439196, "pct": null, "g": "WT"}, {"t": "Erde 5.0: Die Zukunft Provozieren", "asin": "B07FCQNJBX", "ts": 1564439108, "pct": null, "g": "WT"}, {"t": "Projekt Phoenix: Der Roman über IT und DevOps – Neue Erfolgsstrategien für Ihre Firma", "asin": "B01M9D31C7", "ts": 1564439017, "pct": null, "g": "WT"}, {"t": "JavaScript: Programmieren für Einsteiger: Der leichte Weg zum JavaScript-Experten (Einfach Programmieren lernen 6)", "asin": "B07QXJKR2Z", "ts": 1560837551, "pct": null, "g": "WT"}, {"t": "JavaScript: The Definitive Guide: Activate Your Web Pages (Definitive Guides) (English Edition)", "asin": "B004XQX4K0", "ts": 1560837271, "pct": null, "g": "WT"}, {"t": "Elon Musk. Die Biografie des Gründers von Tesla, PayPal, SpaceX und wie er unsere Zukunft neu erfindet", "asin": "", "ts": 1551391588, "pct": null, "g": "B"}, {"t": "Eine kurze Geschichte der Zeit", "asin": "", "ts": 1551391582, "pct": null, "g": "WT"}, {"t": "Eine kurze Geschichte der Menschheit (German Edition)", "asin": "", "ts": 1551391576, "pct": null, "g": "PG"}, {"t": "Steve Jobs: Die autorisierte Biografie des Apple-Gründers", "asin": "", "ts": 1551391571, "pct": null, "g": "B"}, {"t": "George.S.Clason.Der Reichste.Mann.Von.Babylon-clearscan", "asin": "", "ts": 1551391563, "pct": null, "g": "W"}, {"t": "Kurze Antworten auf große Fragen (German Edition)", "asin": "", "ts": 1551391560, "pct": null, "g": "WT"}, {"t": "Money", "asin": "", "ts": 1551391548, "pct": null, "g": "W"}, {"t": "Eine kurze Geschichte der alltäglichen Dinge", "asin": "", "ts": 1551391539, "pct": null, "g": "PG"}, {"t": "Rich Dad Poor Dad: Was die Reichen ihren Kindern über Geld beibringen", "asin": "B00KRGYEQS", "ts": 1541233419, "pct": null, "g": "W"}, {"t": "Ausdauertraining 2.0: Moderne Leistungsdiagnostik, Trainingsplanung und trainingsspezifische Ernährungsoptimierung", "asin": "B07GYMVRPV", "ts": 1535707231, "pct": null, "g": "GP"}, {"t": "Flammenwüste: Roman (Arnurs Drachen 2)", "asin": "B00GXFIV6Q", "ts": 1534104744, "pct": null, "g": "F"}, {"t": "Flammenwüste - Das Geheimnis der goldenen Stadt (Arnurs Drachen 1)", "asin": "B00K4YDQT4", "ts": 1534104609, "pct": null, "g": "F"}, {"t": "Shoe Dog: Die offizielle Biografie des NIKE-Gründers", "asin": "B01DYJ047M", "ts": 1534104556, "pct": null, "g": "B"}, {"t": "Silicon Valley: Was aus dem mächtigsten Tal der Welt auf uns zukommt", "asin": "B00KG6382A", "ts": 1527806863, "pct": null, "g": "W"}, {"t": "The Innovators: Die Vordenker der digitalen Revolution von Ada Lovelace bis Steve Jobs", "asin": "B077BZ8JYM", "ts": 1527023089, "pct": null, "g": "B"}, {"t": "Altered Carbon - Das Unsterblichkeitsprogramm: Roman. Das Buch zur Netflix-Serie (Takeshi Kovacs 1)", "asin": "B01NBHKKDF", "ts": 1518991055, "pct": null, "g": "SF"}, {"t": "Die Dämonenakademie - Die Prophezeiung: Roman (Dämonenakademie-Serie 3)", "asin": "B01M0Y5HER", "ts": 1515452667, "pct": null, "g": "F"}, {"t": "Ready Player One: Roman", "asin": "B01MQ20O2I", "ts": 1501971959, "pct": null, "g": "SF"}, {"t": "Summoner: The Battlemage: Book 3", "asin": "B01M2WE89J", "ts": 1499028789, "pct": null, "g": "F"}, {"t": "Umfangreiches Wörterbuch Englisch-Deutsch 460.000 Einträge (Pommel`s Sprachschule 1)", "asin": "B00CF0NGXQ", "ts": 1498945580, "pct": null, "g": "X"}, {"t": "Witch Hunter (Mathius Thulmann Book 1) (English Edition)", "asin": "B01MZ02IV6", "ts": 1498944950, "pct": null, "g": "F"}, {"t": "Ahren: Der 13. Paladin Band I", "asin": "B06W5GZC5G", "ts": 1496696200, "pct": null, "g": "F"}, {"t": "Die Dämonenakademie – Wie alles begann", "asin": "B06WGP59QB", "ts": 1496530277, "pct": null, "g": "F"}, {"t": "Die Dämonenakademie - Die Inquisition: Roman (Dämonenakademie-Serie 2)", "asin": "B01MSW2C9B", "ts": 1495843977, "pct": null, "g": "F"}, {"t": "Die Dämonenakademie - Der Erwählte: Roman (Dämonenakademie-Serie 1)", "asin": "B01G1SB95O", "ts": 1494624409, "pct": null, "g": "F"}, {"t": "Star Wars™ - Nachspiel: Der Krieg ist nicht vorbei", "asin": "B01AG57V6Y", "ts": 1493505916, "pct": null, "g": "SF"}, {"t": "Frostflamme: Die Chroniken der Sphaera (Zeit der Dämonen 1)", "asin": "B01DWEEQJG", "ts": 1476638350, "pct": null, "g": "F"}, {"t": "World of Warcraft: Illidan: Roman zum Game", "asin": "B01J8MZH7G", "ts": 1471563662, "pct": null, "g": "F"}, {"t": "Das Buch ohne Namen: Roman (wahrscheinlich) (Bourbon Kid 1)", "asin": "B004ROT8ZI", "ts": 1469654321, "pct": null, "g": "R"}, {"t": "Star Wars: Verlorene Welten (Journey to Star Wars: Das Erwachen der Macht)", "asin": "B016DWHT6Q", "ts": 1451394710, "pct": null, "g": "SF"}, {"t": "Das Jesus-Video: Thriller (Jesus Video 1)", "asin": "B00KQO8MIC", "ts": 1438383582, "pct": null, "g": "R"}, {"t": "Der Jesus-Deal: Thriller (Jesus Video 2)", "asin": "B00L3IL99E", "ts": 1438383532, "pct": null, "g": "R"}, {"t": "Der Schwarm: Roman", "asin": "B004WNZ1WS", "ts": 1438383490, "pct": null, "g": "R"}, {"t": "Eine Billion Dollar: Roman", "asin": "B004ROSYSK", "ts": 1438294620, "pct": null, "g": "R"}, {"t": "The Eye of the World: Book One of The Wheel of Time (English Edition)", "asin": "B002U3CCYM", "ts": 1436219685, "pct": null, "g": "F"}, {"t": "Das Erbe der ersten Menschheit (Die erste Menschheit 1)", "asin": "B00HMRFCUW", "ts": 1434393582, "pct": null, "g": "SF"}, {"t": "Bushido - Der Ehrenkodex der Samurai", "asin": "B00EAY3MJ8", "ts": 1434391695, "pct": null, "g": "PE"}, {"t": "Die Kunst des Krieges: Übersetzung aus dem Chinesischen", "asin": "B00S8GKZM6", "ts": 1434391643, "pct": null, "g": "PE"}, {"t": "Die Radsport-Mafia und ihre schmutzigen Geschäfte", "asin": "B00A3UP804", "ts": 1433710172, "pct": null, "g": "GP"}, {"t": "Die Zwerge (Die Zwerge 1): Roman", "asin": "B005A5IB2E", "ts": 1427668218, "pct": null, "g": "F"}, {"t": "1984: in der Übersetzung von Michael Walter", "asin": "B00DW3K6OC", "ts": 1423694607, "pct": null, "g": "SF"}, {"t": "City of Bones (Chroniken der Unterwelt, Band 1)", "asin": "B00AAT63A2", "ts": 1410209340, "pct": null, "g": "F"}, {"t": "The Circle (English Edition)", "asin": "B00FFDNQVM", "ts": 1410162766, "pct": null, "g": "R"}, {"t": "Der letzte Wunsch: Vorgeschichte 1 zur Hexer-Saga (Die Vorgeschichte zur Hexer-Saga)", "asin": "B004UFTTM6", "ts": 1403470361, "pct": null, "g": "F"}, {"t": "Tödliche Wahrheit (Die Bestimmung, Band 2)", "asin": "B00AHX7NSW", "ts": 1398383326, "pct": null, "g": "SF"}, {"t": "Die Bestimmung, Band 1", "asin": "B006SPYK1G", "ts": 1397425124, "pct": null, "g": "SF"}, {"t": "Metro 2034: Roman (Metro-Romane 2)", "asin": "B004OVEZT8", "ts": 1392848835, "pct": null, "g": "SF"}, {"t": "Metro 2033: Roman (Metro-Romane 1)", "asin": "B004OL2WHK", "ts": 1383516841, "pct": null, "g": "SF"}, {"t": "Der Prozeß", "asin": "B004UWPSBK", "ts": 1382734612, "pct": null, "g": "R"}, {"t": "Der Heckenritter von Westeros: Das Urteil der Sieben", "asin": "B00DTRC4SW", "ts": 1382045525, "pct": null, "g": "F"}, {"t": "Das Silmarillion", "asin": "", "ts": 1380128352, "pct": null, "g": "F"}, {"t": "Der Name des Windes", "asin": "", "ts": 1380127961, "pct": null, "g": "F"}, {"t": "Weit wie das Meer", "asin": "", "ts": 1380127784, "pct": null, "g": "R"}, {"t": "Rubinrot", "asin": "", "ts": 1377536576, "pct": null, "g": "F"}, {"t": "Die Furcht des Weisen / Band 2: Die Königsmörder-Chronik. Zweiter Tag", "asin": "", "ts": 1375655805, "pct": null, "g": "F"}, {"t": "Planetenwanderer: Roman", "asin": "B00CWZLGY0", "ts": 1372880239, "pct": null, "g": "SF"}, {"t": "Inferno", "asin": "", "ts": 1369948871, "pct": null, "g": "R"}, {"t": "Anna Karenina - Vollständige Ausgabe", "asin": "B005EM744O", "ts": 1369437132, "pct": null, "g": "R"}, {"t": "Krieg und Frieden", "asin": "B004UBADB6", "ts": 1369435948, "pct": null, "g": "R"}, {"t": "Die göttliche Komödie", "asin": "B004UO77XA", "ts": 1369435560, "pct": null, "g": "R"}, {"t": "Schatten Des Windes", "asin": "", "ts": 1365359742, "pct": null, "g": "R"}, {"t": "Das Lied von Eis und Feuer 04 - Martin, G: Lied von Eis und Feuer 04 - A Clash of Kings (Pages 332-728)", "asin": "", "ts": 1364845937, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 10: Ein Tanz mit Drachen (German Edition)", "asin": "", "ts": 1364845430, "pct": null, "g": "F"}, {"t": "Martin, George R. R. - Das Lied von Eis und Feuer 9", "asin": "", "ts": 1364845039, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 1 - Die Herren von Winterfell", "asin": "", "ts": 1364844721, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 02 - Das Erbe von Winterfell", "asin": "", "ts": 1364844393, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 03 - Martin, G: Lied von Eis und Feuer 03 - A Clash of Kings (Pages 1-332)", "asin": "", "ts": 1364844085, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 05 - Martin, G: Lied von Eis und Feuer 05 - A Storm of Swords. Book Three of A Song of Ice and Fire (1)", "asin": "", "ts": 1364843464, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 6 - Martin, G: Lied von Eis und Feuer 6 - A Storm of Swords. Book Three of A Song of Ice and Fire (2)", "asin": "", "ts": 1364843128, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 7 - Martin, G: Lied von Eis und Feuer 7 - A Feast of Crows. A Song of Ice and Fire, vol 4 (4/1)", "asin": "", "ts": 1364842802, "pct": null, "g": "F"}, {"t": "Das Lied von Eis und Feuer 8 - Die dunkle Koenigin", "asin": "", "ts": 1364842595, "pct": null, "g": "F"}, {"t": "Silo 1 (Wool 1): Roman", "asin": "B00ADL5GJG", "ts": 1363035532, "pct": null, "g": "SF"}, {"t": "IM SCHATTEN DER DRACHEN: Die Mittland-Chroniken 1", "asin": "B009SD2QUC", "ts": 1362000557, "pct": null, "g": "F"}, {"t": "Süddeutsche Zeitung", "asin": "B00B2FXHES", "ts": 1358726400, "pct": null, "g": "X"}, {"t": "DIE ZEIT", "asin": "B00B1U6V2Y", "ts": 1358380800, "pct": null, "g": "X"}, {"t": "Kabale und Liebe", "asin": "B004SIYLHI", "ts": 1358374101, "pct": null, "g": "R"}, {"t": "Dantons Tod", "asin": "B004SIS106", "ts": 1358374075, "pct": null, "g": "R"}, {"t": "Sparks, Nicholas", "asin": "", "ts": 1356979125, "pct": null, "g": "R"}, {"t": "Microsoft Word - Wie ein einziger Tag.doc", "asin": "", "ts": 1356978825, "pct": null, "g": "R"}, {"t": "Das Schweigen des Glücks", "asin": "", "ts": 1356978648, "pct": null, "g": "R"}, {"t": "Du bist nicht allein", "asin": "", "ts": 1356977875, "pct": null, "g": "R"}, {"t": "Ein Tag wie ein Leben", "asin": "", "ts": 1356977496, "pct": null, "g": "R"}, {"t": "Weg der Träume", "asin": "", "ts": 1356977232, "pct": null, "g": "R"}, {"t": "The Lord of the Rings: The classic fantasy masterpiece (English Edition)", "asin": "B002RI9176", "ts": 1356977142, "pct": null, "g": "F"}, {"t": "Wokini oder die Suche nach dem verborgen Glück", "asin": "", "ts": 1356976572, "pct": null, "g": "PE"}, {"t": "Zeit im Wind", "asin": "", "ts": 1356976306, "pct": null, "g": "R"}, {"t": "Er ist wieder da", "asin": "", "ts": 1356969065, "pct": null, "g": "R"}, {"t": "Der Herr der Ringe", "asin": "", "ts": 1356960915, "pct": null, "g": "F"}, {"t": "Die Regeln der Arbeit", "asin": "B00ABGG5BQ", "ts": 1356960831, "pct": null, "g": "PE"}, {"t": "Think Faster, Talk Smarter: How to Speak Successfully When You're Put on the Spot (English Edition)", "asin": "B0C24L7YDQ", "ts": 0, "pct": null, "g": "PE"}];
+const GENRES = {"F":"Fantasy","SF":"Science-Fiction","R":"Romane & Klassiker","PE":"Persönliche Entwicklung","L":"Bildung & Lernen","W":"Wirtschaft & Finanzen","WT":"Wissenschaft & Technik","PG":"Politik & Gesellschaft","GP":"Gesundheit & Sport","B":"Biografien","X":"Sonstiges"};
+
+const chipsEl = document.getElementById('chips');
+const listEl = document.getElementById('list');
+const searchEl = document.getElementById('search');
+const sortEl = document.getElementById('sortSel');
+let activeGenre = 'Alle';
+
+function fmtDate(ts) {
+  if (!ts || ts < 1e6) return '—';
+  const d = new Date(ts * 1000);
+  return String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getFullYear()).slice(2);
+}
+function cleanTitle(t) {
+  let s = t.split(' -- ')[0].split(':')[0].trim();
+  return s.length < 4 ? t.slice(0, 60) : s;
+}
+function renderChips() {
+  const counts = {};
+  LIB.forEach(b => counts[b.g] = (counts[b.g] || 0) + 1);
+  const cats = ['Alle', ...Object.keys(GENRES).filter(g => counts[g])];
+  chipsEl.innerHTML = cats.map(c =>
+    `<span class="chip${c === activeGenre ? ' active' : ''}" data-g="${c}">${c === 'Alle' ? 'Alle · ' + LIB.length : GENRES[c] + ' · ' + counts[c]}</span>`
+  ).join('');
+}
+function render() {
+  const q = searchEl.value.trim().toLowerCase();
+  let items = LIB.filter(b =>
+    (activeGenre === 'Alle' || b.g === activeGenre) &&
+    (!q || b.t.toLowerCase().includes(q)));
+  const mode = sortEl.value;
+  if (mode === 'title') items.sort((a, b) => cleanTitle(a.t).localeCompare(cleanTitle(b.t), 'de'));
+  else if (mode === 'progress') items.sort((a, b) => (b.pct ?? -1) - (a.pct ?? -1) || b.ts - a.ts);
+  else if (mode === 'date') items.sort((a, b) => a.ts - b.ts);
+  else if (mode === 'genre') items.sort((a, b) => GENRES[a.g].localeCompare(GENRES[b.g], 'de') || b.ts - a.ts);
+  else items.sort((a, b) => b.ts - a.ts);
+  document.getElementById('countShown').textContent = items.length;
+  listEl.innerHTML = items.map(b => {
+    const cover = b.asin
+      ? `<img class="cover" src="https://images-eu.ssl-images-amazon.com/images/P/${b.asin}.09._SX120_.jpg" alt="" loading="lazy" onerror="this.outerHTML='<div class=\'cover-fallback\'>📖</div>'">`
+      : `<div class="cover-fallback">📖</div>`;
+    const title = b.asin
+      ? `<a href="https://www.amazon.de/dp/${b.asin}" target="_blank" rel="noopener" title="${b.t.replace(/"/g,'&quot;')}">${cleanTitle(b.t)}</a>`
+      : `<span title="${b.t.replace(/"/g,'&quot;')}">${cleanTitle(b.t)}</span>`;
+    let prog;
+    if (b.pct === 100) prog = `<div class="done">✓ Beendet</div>`;
+    else if (b.pct !== null && b.pct !== undefined)
+      prog = `<div class="bar-track"><div class="bar-fill" style="width:${b.pct}%"></div></div><div class="lbl"><b>${b.pct} %</b></div>`;
+    else prog = `<div class="lbl">—</div>`;
+    return `<div class="bookrow">
+      <div>${cover}</div>
+      <div class="t">${title}</div>
+      <div class="genre-cell"><span class="genre-badge">${GENRES[b.g]}</span></div>
+      <div class="prog">${prog}</div>
+      <div class="date">${fmtDate(b.ts)}</div>
+      <div><button class="chat-btn" data-t="${encodeURIComponent(b.t)}" title="Claude zu diesem Buch fragen">💬</button></div>
+    </div>`;
+  }).join('') || '<p class="empty">Keine Treffer.</p>';
+}
+chipsEl.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  activeGenre = chip.dataset.g;
+  renderChips(); render();
+});
+searchEl.addEventListener('input', render);
+sortEl.addEventListener('change', render);
+renderChips(); render();
+
+// ---------- Buch-Chat (lokale Brücke zu Claude Code) ----------
+const BRIDGE = 'http://127.0.0.1:8744';
+const chatHist = {};   // Buch -> [{who, text}]
+let chatBook = null;
+const overlay = document.getElementById('chatOverlay');
+const msgsEl = document.getElementById('chatMsgs');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+
+function addMsg(who, text) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + who;
+  d.textContent = text;
+  msgsEl.appendChild(d);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+  return d;
+}
+function renderHist() {
+  msgsEl.innerHTML = '';
+  (chatHist[chatBook] || []).forEach(m => addMsg(m.who, m.text));
+}
+async function openChat(book) {
+  chatBook = book;
+  document.getElementById('chatTitle').textContent = book.split(' -- ')[0].split(':')[0].trim();
+  overlay.classList.add('open');
+  renderHist();
+  chatInput.focus();
+  try {
+    const r = await fetch(BRIDGE + '/ping', { signal: AbortSignal.timeout(2500) });
+    if (!r.ok) throw new Error();
+    if (!(chatHist[book] || []).length)
+      addMsg('info', 'Verbunden. Frag mich etwas zu diesem Buch oder deinen Notizen dazu.');
+  } catch {
+    addMsg('info', 'Brücke offline. Starte sie mit Doppelklick auf „Buch-Chat starten.command“ (im selben Ordner) und stell die Frage dann erneut.');
+  }
+}
+listEl.addEventListener('click', e => {
+  const btn = e.target.closest('.chat-btn');
+  if (btn) openChat(decodeURIComponent(btn.dataset.t));
+});
+document.getElementById('chatClose').addEventListener('click', () => overlay.classList.remove('open'));
+overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+document.getElementById('chatForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const q = chatInput.value.trim();
+  if (!q || chatSend.disabled) return;
+  chatInput.value = '';
+  (chatHist[chatBook] = chatHist[chatBook] || []).push({ who: 'me', text: q });
+  addMsg('me', q);
+  chatSend.disabled = true;
+  const typing = addMsg('info', 'Claude liest deine Notizen …');
+  try {
+    const r = await fetch(BRIDGE + '/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ book: chatBook, q })
+    });
+    const data = await r.json();
+    typing.remove();
+    const text = r.ok ? data.answer : ('Fehler: ' + (data.error || r.status));
+    chatHist[chatBook].push({ who: 'ai', text });
+    addMsg('ai', text);
+  } catch {
+    typing.remove();
+    addMsg('info', 'Keine Verbindung zur Brücke. Läuft „Buch-Chat starten.command“?');
+  } finally {
+    chatSend.disabled = false;
+    chatInput.focus();
+  }
+});
+</script>
+</body>
+</html>

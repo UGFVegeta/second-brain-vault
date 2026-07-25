@@ -1,0 +1,5 @@
+{
+  "strompreis_ct": 40.07,
+  "verguetung_ct": 7.95,
+  "_hinweis": "strompreis_ct = EnBW Haushaltstarif (Zähler ...7941, bestätigt 13.07.2026). verguetung_ct = EEG-Mischvergütung 13 kWp Überschusseinspeisung, ~geschätzt aus wahrscheinlicher Inbetriebnahme Ende 2023. Exakter Wert steht auf der EEG-Jahresabrechnung von EnBW."
+}

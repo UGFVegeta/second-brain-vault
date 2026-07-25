@@ -3,7 +3,7 @@
 ## Bestehende Themen
 | Thema | Aufgaben |
 |---|---|
-| Trigonometrie | 20 |
+| Trigonometrie | 26 |
 | Quadratische Funktionen | 20 |
 | Stochastik | 20 |
 | Sachrechnen | 15 |

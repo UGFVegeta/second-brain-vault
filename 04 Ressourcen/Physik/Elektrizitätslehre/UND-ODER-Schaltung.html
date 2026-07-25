@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UND- und ODER-Schaltung – Interaktiv</title>
+<style>
+  :root{
+    --bg:#f8fafc; --card:#ffffff; --fg:#1e293b; --muted:#64748b; --border:#e2e8f0;
+    --wire:#334155; --accent:#2563eb; --accent-soft:#dbeafe;
+    --on:#16a34a; --off:#94a3b8; --glow:#facc15;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b1220; --card:#111a2b; --fg:#e6ebf2; --muted:#94a3b8; --border:#233047;
+      --wire:#cbd5e1; --accent:#60a5fa; --accent-soft:#1e293b;
+      --on:#4ade80; --off:#64748b; --glow:#fde047;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+  .wrap{max-width:960px;margin:0 auto;padding:24px 18px 60px}
+  h1{font-size:1.5rem;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 20px}
+  .controls{display:flex;flex-wrap:wrap;gap:22px;align-items:center;
+    background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:24px}
+  .ctrl{display:flex;flex-direction:column;gap:6px;min-width:180px;flex:1}
+  .ctrl label{font-size:.85rem;color:var(--muted);font-weight:600}
+  .ctrl .val{font-family:Georgia,serif;font-style:italic;color:var(--fg);font-weight:700}
+  input[type=range]{accent-color:var(--accent);width:100%}
+  .hint{font-size:.8rem;color:var(--muted);flex-basis:100%;margin-top:2px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:720px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px}
+  .card h2{margin:0;font-size:1.15rem;display:flex;align-items:center;gap:10px}
+  .pill{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;
+    background:var(--accent-soft);color:var(--accent)}
+  .status{font-size:.82rem;font-weight:700;padding:4px 11px;border-radius:999px;margin-left:auto}
+  .status.on{background:rgba(22,163,74,.14);color:var(--on)}
+  .status.off{background:rgba(148,163,184,.18);color:var(--off)}
+  svg{width:100%;height:auto;display:block}
+  .switches{display:flex;gap:10px}
+  .switches button{flex:1;font-family:Georgia,serif;font-size:1rem;font-weight:700;
+    padding:10px;border-radius:10px;cursor:pointer;border:1.5px solid var(--border);
+    background:var(--bg);color:var(--fg);transition:all .12s}
+  .switches button.closed{border-color:var(--on);background:rgba(22,163,74,.12);color:var(--on)}
+  .switches button:hover{border-color:var(--accent)}
+  .readout{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+  .readout .cell{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 4px}
+  .readout .q{font-family:Georgia,serif;font-style:italic;font-size:.95rem;color:var(--muted)}
+  .readout .n{font-family:Georgia,serif;font-weight:700;font-size:1.05rem;margin-top:2px}
+  .foot{font-size:.82rem;color:var(--muted);margin-top:26px;border-top:1px solid var(--border);padding-top:14px}
+  .foot b{color:var(--fg)}
+  .switch-hit{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>UND- und ODER-Schaltung</h1>
+  <p class="sub">Schalter anklicken (im Bild oder über die Tasten). Amperemeter liegt in Reihe, Voltmeter parallel zur Lampe – wie es sich gehört.</p>
+
+  <div class="controls">
+    <div class="ctrl">
+      <label>Quellenspannung&nbsp; <span class="val">U = <span id="uVal"></span>&nbsp;V</span></label>
+      <input id="u" type="range" min="1" max="12" step="0.5" value="4.5">
+    </div>
+    <div class="ctrl">
+      <label>Lampenwiderstand&nbsp; <span class="val">R = <span id="rVal"></span>&nbsp;Ω</span></label>
+      <input id="r" type="range" min="1" max="30" step="1" value="9">
+    </div>
+    <div class="hint">Schalter gelten als ideal (R&nbsp;≈&nbsp;0). Ist der Stromkreis offen, fließt kein Strom (I&nbsp;=&nbsp;0) und an der Lampe liegt keine Spannung.</div>
+  </div>
+
+  <div class="grid">
+    <div class="card" id="card-oder"></div>
+    <div class="card" id="card-und"></div>
+  </div>
+
+  <p class="foot">
+    <b>UND-Schaltung</b> (Schalter in Reihe): Die Lampe leuchtet nur, wenn <i>beide</i> Schalter geschlossen sind.<br>
+    <b>ODER-Schaltung</b> (Schalter parallel): Die Lampe leuchtet, sobald <i>mindestens ein</i> Schalter geschlossen ist.<br>
+    Berechnung nach dem ohmschen Gesetz: <i>I</i> = <i>U</i> / <i>R</i>, Leistung <i>P</i> = <i>U</i> · <i>I</i>.
+  </p>
+</div>
+
+<script>
+const state = {
+  oder: {s1:false, s2:false},
+  und:  {s1:false, s2:false}
+};
+const fmt = (x, d=2) => x.toLocaleString('de-DE',{maximumFractionDigits:d, minimumFractionDigits: (Number.isInteger(x)?0:1)});
+
+function lampOn(type){
+  const s = state[type];
+  return type==='oder' ? (s.s1 || s.s2) : (s.s1 && s.s2);
+}
+
+// ---- SVG-Bausteine ----
+function swArm(x,y,closed){
+  // Angriffspunkte: Pivot (x,y), Festkontakt (x+35,y)
+  const arm = closed ? `M${x} ${y} H${x+35}` : `M${x} ${y} L${x+27} ${y-15}`;
+  return `<path d="${arm}" class="arm"/>
+          <circle cx="${x}" cy="${y}" r="3.4" class="term"/>
+          <circle cx="${x+35}" cy="${y}" r="3.4" class="term"/>`;
+}
+function switchHit(x,y,type,id){
+  // unsichtbares, klickbares Feld über dem Schalter
+  return `<rect class="switch-hit" x="${x-6}" y="${y-26}" width="48" height="40" fill="transparent"
+           onclick="toggle('${type}','${id}')"/>`;
+}
+
+function drawCircuit(type){
+  const on = lampOn(type);
+  const s = state[type];
+  const glow = on ? `
+      <circle cx="300" cy="230" r="30" fill="var(--glow)" opacity="0.25"/>
+      <circle cx="300" cy="230" r="22" fill="var(--glow)" opacity="0.55"/>` : '';
+
+  let top = '';
+  if(type==='und'){
+    top = `
+      <path class="w" d="M95 110 H150"/>
+      ${swArm(150,110,s.s1)} ${switchHit(150,110,'und','s1')}
+      <path class="w" d="M185 110 H215"/>
+      ${swArm(215,110,s.s2)} ${switchHit(215,110,'und','s2')}
+      <path class="w" d="M250 110 H300"/>
+      <text class="sym" x="167" y="84" text-anchor="middle">S₁</text>
+      <text class="sym" x="232" y="84" text-anchor="middle">S₂</text>`;
+  } else {
+    top = `
+      <path class="w" d="M95 110 H150"/>
+      <circle class="node" cx="150" cy="110" r="3.4"/>
+      <path class="w" d="M150 110 V78 H168"/>
+      ${swArm(168,78,s.s1)} ${switchHit(168,78,'oder','s1')}
+      <path class="w" d="M203 78 H250 V110"/>
+      <path class="w" d="M150 110 H163"/>
+      ${swArm(163,110,s.s2)} ${switchHit(163,110,'oder','s2')}
+      <path class="w" d="M198 110 H250"/>
+      <circle class="node" cx="250" cy="110" r="3.4"/>
+      <path class="w" d="M250 110 H300"/>
+      <text class="sym" x="185" y="54" text-anchor="middle">S₁</text>
+      <text class="sym" x="181" y="133" text-anchor="middle">S₂</text>`;
+  }
+
+  return `<svg viewBox="0 0 400 470" xmlns="http://www.w3.org/2000/svg" style="font-family:Georgia,serif">
+    <defs>
+      <marker id="cur-${type}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker>
+    </defs>
+    <!-- Batterie + linke Seite -->
+    <path class="w" d="M95 110 V242"/>
+    <line x1="77" y1="244" x2="113" y2="244" stroke="var(--wire)" stroke-width="2"/>
+    <line x1="84" y1="260" x2="106" y2="260" stroke="var(--wire)" stroke-width="5"/>
+    <path class="w" d="M95 262 V400"/>
+    <text class="sym" x="70" y="252" text-anchor="end">U</text>
+    <text class="mut" x="118" y="242">+</text>
+    ${top}
+    <!-- rechte Seite + Lampe -->
+    <path class="w" d="M300 110 V208"/>
+    ${glow}
+    <circle cx="300" cy="230" r="22" class="comp"/>
+    <line x1="284.5" y1="214.5" x2="315.5" y2="245.5" class="lampx"/>
+    <line x1="315.5" y1="214.5" x2="284.5" y2="245.5" class="lampx"/>
+    <path class="w" d="M300 252 V400"/>
+    <text class="sym" x="272" y="236" text-anchor="end">R</text>
+    <!-- Voltmeter parallel zur Lampe -->
+    <path class="w" d="M300 205 H345 V217"/>
+    <path class="w" d="M345 243 V255 H300"/>
+    <circle cx="345" cy="230" r="15" class="comp"/>
+    <text class="mtxt" x="345" y="230">V</text>
+    <text class="mutb" x="365" y="235">U</text>
+    <!-- unten + Amperemeter -->
+    <path class="w" d="M300 400 H216"/>
+    <circle cx="200" cy="400" r="16" class="comp"/>
+    <text class="mtxt" x="200" y="400">A</text>
+    <path class="w" d="M184 400 H95"/>
+    <path class="arrow" d="M165 400 H140" marker-end="url(#cur-${type})"/>
+    <text class="sym" x="150" y="426" text-anchor="middle">I</text>
+  </svg>`;
+}
+
+function render(){
+  const U = parseFloat(document.getElementById('u').value);
+  const R = parseFloat(document.getElementById('r').value);
+  document.getElementById('uVal').textContent = fmt(U);
+  document.getElementById('rVal').textContent = fmt(R,0);
+
+  for(const type of ['oder','und']){
+    const on = lampOn(type);
+    const I = on ? U/R : 0;
+    const Ul = on ? U : 0;
+    const P = Ul*I;
+    const s = state[type];
+    const card = document.getElementById('card-'+type);
+    const title = type==='oder' ? 'ODER-Schaltung' : 'UND-Schaltung';
+    const badge = type==='oder' ? 'Schalter parallel' : 'Schalter in Reihe';
+    card.innerHTML = `
+      <h2>${title} <span class="pill">${badge}</span>
+        <span class="status ${on?'on':'off'}">Lampe ${on?'AN':'aus'}</span></h2>
+      ${drawCircuit(type)}
+      <div class="switches">
+        <button class="${s.s1?'closed':''}" onclick="toggle('${type}','s1')">S₁ ${s.s1?'geschlossen':'offen'}</button>
+        <button class="${s.s2?'closed':''}" onclick="toggle('${type}','s2')">S₂ ${s.s2?'geschlossen':'offen'}</button>
+      </div>
+      <div class="readout">
+        <div class="cell"><div class="q">U<sub>Lampe</sub></div><div class="n">${fmt(Ul)} V</div></div>
+        <div class="cell"><div class="q">I</div><div class="n">${fmt(I)} A</div></div>
+        <div class="cell"><div class="q">R</div><div class="n">${fmt(R,0)} Ω</div></div>
+        <div class="cell"><div class="q">P</div><div class="n">${fmt(P)} W</div></div>
+      </div>`;
+  }
+}
+
+function toggle(type, sw){
+  state[type][sw] = !state[type][sw];
+  render();
+}
+
+document.getElementById('u').addEventListener('input', render);
+document.getElementById('r').addEventListener('input', render);
+render();
+</script>
+<style>
+  /* SVG-Klassen (nach dem SVG definiert, greifen global) */
+  .w{stroke:var(--wire);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .comp{stroke:var(--wire);stroke-width:2.6;fill:none}
+  .lampx{stroke:var(--wire);stroke-width:2.2;stroke-linecap:round}
+  .arm{stroke:var(--accent);stroke-width:2.8;stroke-linecap:round;fill:none}
+  .term{fill:var(--accent)}
+  .node{fill:var(--wire)}
+  .arrow{stroke:var(--accent);stroke-width:2.4;fill:none}
+  .sym{fill:var(--fg);font-size:19px;font-style:italic;font-weight:600}
+  .mtxt{fill:var(--wire);font-size:15px;font-weight:700;text-anchor:middle;dominant-baseline:central}
+  .mut{fill:var(--muted);font-size:13px}
+  .mutb{fill:var(--accent);font-size:14px;font-style:italic}
+</style>
+</body>
+</html>

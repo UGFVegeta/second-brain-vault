@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lese-Dashboard</title>
+<style>
+  :root {
+    --surface: #fcfcfb;
+    --card: #ffffff;
+    --border: #e8e7e3;
+    --text-1: #0b0b0b;
+    --text-2: #52514e;
+    --text-3: #8a8984;
+    --series-1: #2a78d6;   /* blau  – Sachbuch / Hauptreihe */
+    --series-2: #1baf7a;   /* aqua  – Belletristik */
+    --seq-350: #5598e7;
+    --good: #008300;
+    --track: #eeede9;
+    --accent-bg: #eef4fc;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 14px rgba(0,0,0,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #1a1a19;
+      --card: #232322;
+      --border: #373634;
+      --text-1: #ffffff;
+      --text-2: #c3c2b7;
+      --text-3: #8a8984;
+      --series-1: #3987e5;
+      --series-2: #199e70;
+      --seq-350: #2a78d6;
+      --good: #4caf50;
+      --track: #2e2e2c;
+      --accent-bg: #20293a;
+      --shadow: none;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--surface);
+    color: var(--text-1);
+    line-height: 1.5;
+    padding: 32px 24px 64px;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  header h1 { font-size: 28px; letter-spacing: -.02em; }
+  header .sub { color: var(--text-2); font-size: 14px; margin-top: 4px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 24px 0 8px; }
+  .tile { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .tile .num { font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+  .tile .lbl { font-size: 12.5px; color: var(--text-2); margin-top: 2px; }
+  .lib-btn {
+    display: inline-block; margin-top: 12px; padding: 9px 18px; font-size: 13.5px; font-weight: 600;
+    color: #fff; background: var(--series-1); border-radius: 999px; text-decoration: none;
+    box-shadow: var(--shadow);
+  }
+  .lib-btn:hover { opacity: .88; }
+
+  section { margin-top: 40px; }
+  h2 { font-size: 19px; letter-spacing: -.01em; margin-bottom: 4px; }
+  .h2sub { color: var(--text-2); font-size: 13px; margin-bottom: 16px; }
+  h3.row-label { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
+  h3.row-label .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+  /* Empfehlungs-Duo */
+  .duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; margin-top: 24px; }
+  .reco { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; box-shadow: var(--shadow); }
+  .reco h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); margin-bottom: 10px; }
+  .reco .big { font-size: 16px; font-weight: 650; line-height: 1.35; }
+  .reco .big a { color: var(--text-1); text-decoration: none; }
+  .reco .big a:hover { color: var(--series-1); }
+  .reco .meta { font-size: 13px; color: var(--text-2); margin-top: 3px; }
+  .reco .tag { display: inline-block; font-size: 11px; font-weight: 600; color: var(--series-1); background: var(--accent-bg); border-radius: 6px; padding: 2px 8px; margin-top: 8px; }
+  .reco blockquote { font-size: 14.5px; line-height: 1.55; font-style: italic; color: var(--text-1); }
+  .reco .src { font-size: 12.5px; color: var(--text-3); margin-top: 8px; font-style: normal; }
+  .reco button {
+    margin-top: 12px; border: 1px solid var(--border); background: transparent; color: var(--text-2);
+    font-size: 12px; padding: 5px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .reco button:hover { border-color: var(--series-1); color: var(--series-1); }
+
+  /* Gerade gelesen – Listenzeilen */
+  .rowbook {
+    display: grid; grid-template-columns: 52px 1fr 220px 160px; gap: 16px; align-items: center;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 10px 16px; margin-bottom: 8px; box-shadow: var(--shadow);
+  }
+  .rowbook img.cover, .rowbook .cover-fallback {
+    width: 44px; height: 64px; object-fit: cover; border-radius: 4px; box-shadow: 0 1px 5px rgba(0,0,0,.22);
+  }
+  .rowbook .cover-fallback {
+    display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700;
+    text-align: center; color: #fff; padding: 3px;
+    background: linear-gradient(150deg, var(--seq-350), var(--series-1));
+  }
+  .rowbook .title { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .rowbook .author { font-size: 12.5px; color: var(--text-2); }
+  .bar-track { height: 7px; border-radius: 4px; background: var(--track); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; background: var(--series-1); }
+  .rowbook .pmeta { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-3); margin-top: 5px; }
+  .rowbook .pmeta .pct { font-weight: 700; color: var(--text-1); }
+  .rowbook .nosync { font-size: 11.5px; color: var(--text-3); }
+  .badge-done { font-size: 12px; font-weight: 600; color: var(--good); }
+  .rowbook .actions { text-align: right; font-size: 12px; display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
+  .note-link { text-decoration: none; color: var(--series-1); font-weight: 500; font-size: 12px; }
+  .note-link:hover { text-decoration: underline; }
+  .note-none { color: var(--text-3); font-size: 12px; }
+  .sync-hint { font-size: 12px; color: var(--text-3); margin-top: 10px; }
+  @media (max-width: 700px) {
+    .rowbook { grid-template-columns: 52px 1fr; }
+    .rowbook .prog, .rowbook .actions { grid-column: 2; text-align: left; align-items: flex-start; }
+  }
+
+  /* Serien-Tracker */
+  .series-row {
+    display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 14px; align-items: baseline;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 16px; margin-bottom: 7px; font-size: 13px;
+  }
+  .series-row .s-name { font-weight: 600; }
+  .series-row .s-name span { color: var(--text-3); font-weight: 400; font-size: 12px; }
+  .series-row .s-state { color: var(--text-2); }
+  .series-row .s-next { color: var(--text-2); }
+  .series-row .s-next b { color: var(--text-1); font-weight: 600; }
+  @media (max-width: 700px) { .series-row { grid-template-columns: 1fr; gap: 2px; } }
+
+  /* Charts */
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; box-shadow: var(--shadow); }
+  .chart-card h4 { font-size: 14px; margin-bottom: 2px; }
+  .chart-card .csub { font-size: 12px; color: var(--text-3); margin-bottom: 14px; }
+  .cols { display: flex; align-items: flex-end; gap: 6px; height: 130px; }
+  .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; height: 100%; }
+  .col .c-bar { width: 100%; max-width: 26px; background: var(--series-1); border-radius: 4px 4px 0 0; min-height: 2px; }
+  .col .c-bar:hover { opacity: .75; }
+  .col .c-val { font-size: 10.5px; color: var(--text-2); }
+  .col .c-lbl { font-size: 10px; color: var(--text-3); }
+  .split-bar { display: flex; height: 24px; border-radius: 6px; overflow: hidden; gap: 2px; margin: 6px 0 8px; }
+  .split-bar .f { background: var(--series-2); }
+  .split-bar .s { background: var(--series-1); }
+  .delta-lbl { font-size: 12px; color: var(--text-2); margin-top: 12px; }
+  .legend { display: flex; gap: 18px; font-size: 12.5px; color: var(--text-2); margin-top: 10px; }
+  .legend .sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 6px; }
+  .insight { font-size: 12.5px; color: var(--text-2); margin-top: 12px; padding: 9px 12px; background: var(--accent-bg); border-radius: 8px; }
+  .hbars .hb { display: grid; grid-template-columns: 140px 1fr 40px; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 12px; }
+  .hbars .hb .n { color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbars .hb .tr { background: var(--track); border-radius: 4px; height: 12px; }
+  .hbars .hb .fl { background: var(--series-1); border-radius: 4px; height: 100%; }
+  .hbars .hb .v { color: var(--text-2); text-align: right; font-variant-numeric: tabular-nums; }
+  .week { display: flex; gap: 8px; margin: 14px 0 6px; }
+  .wd { flex: 1; text-align: center; }
+  .wd .c { width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; background: var(--track); color: var(--text-3); }
+  .wd.on .c { background: var(--series-1); color: #fff; }
+  .wd.today .c { outline: 2px solid var(--series-1); outline-offset: 2px; }
+  .wd .l { font-size: 10.5px; color: var(--text-3); }
+
+  /* Leseliste (kompakt, am Ende) */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .chip {
+    border: 1px solid var(--border); background: var(--card); color: var(--text-2);
+    border-radius: 999px; padding: 5px 13px; font-size: 12.5px; cursor: pointer; user-select: none;
+  }
+  .chip:hover { border-color: var(--series-1); }
+  .chip.active { background: var(--series-1); border-color: var(--series-1); color: #fff; }
+  #search {
+    width: 100%; max-width: 340px; margin: 6px 0 16px; padding: 8px 12px; font-size: 13.5px;
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text-1);
+  }
+  details.cat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 7px; }
+  details.cat summary {
+    cursor: pointer; padding: 10px 16px; font-size: 13.5px; font-weight: 600; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  details.cat summary::-webkit-details-marker { display: none; }
+  details.cat summary .cnt { color: var(--text-3); font-weight: 400; font-size: 12px; }
+  details.cat[open] summary { border-bottom: 1px solid var(--border); }
+  .items { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px; padding: 12px 16px; }
+  .item { font-size: 12.5px; display: flex; gap: 8px; align-items: baseline; text-decoration: none; color: inherit; border-radius: 6px; padding: 2px 4px; }
+  a.item:hover { background: var(--accent-bg); }
+  a.item:hover .t { color: var(--series-1); }
+  .item .fmt { flex: none; font-size: 9.5px; font-weight: 700; padding: 1px 5px; border-radius: 4px; color: var(--series-1); border: 1px solid var(--series-1); align-self: center; }
+  .item .t { font-weight: 500; }
+  .item .a { color: var(--text-3); font-size: 11.5px; }
+
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--text-3); }
+  footer b { color: var(--text-2); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>📚 Lese-Dashboard</h1>
+  <div class="sub">Stand: 16. Juli 2026 · Quellen: Kindle-App (lokal) · Whispersync (Web-Reader) · Amazon-Wunschlisten · Readwise</div>
+</header>
+
+<div class="tiles">
+  <div class="tile"><div class="num">288</div><div class="lbl">Bücher in der Kindle-Bibliothek</div></div>
+  <div class="tile"><div class="num">6</div><div class="lbl">davon zuletzt aktiv (Juli)</div></div>
+  <div class="tile"><div class="num">168</div><div class="lbl">Titel auf der Leseliste</div></div>
+  <div class="tile"><div class="num">86</div><div class="lbl">Bücher mit Readwise-Highlights</div></div>
+</div>
+<a class="lib-btn" href="Lese-Bibliothek.html" target="_blank" rel="noopener">📚 Alle 288 Bücher ansehen – mit Genre &amp; Fortschritt</a>
+
+<div class="duo">
+  <div class="reco">
+    <h4>🎯 Als Nächstes lesen</h4>
+    <div id="nextPick"></div>
+    <button id="nextBtn">Anderer Vorschlag</button>
+  </div>
+  <div class="reco">
+    <h4>💡 Highlight der Woche</h4>
+    <blockquote id="quoteText"></blockquote>
+    <div class="src" id="quoteSrc"></div>
+    <button id="quoteBtn">Nächstes Highlight</button>
+  </div>
+</div>
+
+<section>
+  <h2>Gerade gelesen</h2>
+  <div class="h2sub">Die fünf zuletzt gelesenen Titel je Bereich. Fortschritt = zuletzt gelesene Position deines Kindles (Whispersync).</div>
+
+  <h3 class="row-label"><span class="dot" style="background:var(--series-2)"></span>Belletristik</h3>
+  <div id="fictionRows"></div>
+
+  <h3 class="row-label"><span class="dot" style="background:var(--series-1)"></span>Fachbücher</h3>
+  <div id="factRows"></div>
+
+  <div class="sync-hint">ℹ️ 0 % heißt: Laut Whispersync noch nicht angefangen – z.&nbsp;B. wenn du das Buch bisher nur kurz angeschaut hast.</div>
+</section>
+
+<section>
+  <h2>Serien-Tracker</h2>
+  <div class="h2sub">Wo du in deinen Reihen stehst – und was als Nächstes dran wäre.</div>
+  <div class="series-row"><div class="s-name">Dungeon Crawler Carl <span>· Matt Dinniman</span></div><div class="s-state">Band 1 läuft · 16 %</div><div class="s-next">Danach: <b>Carl's Doomsday Scenario</b> (Bd. 2, engl.)</div></div>
+  <div class="series-row"><div class="s-name">Hierarchy <span>· James Islington</span></div><div class="s-state">Bd. 1 gelesen ✓ · Bd. 2 bei 64 %</div><div class="s-next">Bd. 3 noch nicht erschienen</div></div>
+  <div class="series-row"><div class="s-name">Die Weitseher-Saga <span>· Robin Hobb</span></div><div class="s-state">Bd. 1 beendet ✓</div><div class="s-next">Danach: <b>Des Königs Meuchelmörder</b> (Bd. 2)</div></div>
+  <div class="series-row"><div class="s-name">Red Rising <span>· Pierce Brown</span></div><div class="s-state">Bände 1–6 gelesen ✓</div><div class="s-next">Danach: <b>Red God</b> (Bd. 7, angekündigt)</div></div>
+  <div class="series-row"><div class="s-name">Mistborn <span>· Brandon Sanderson</span></div><div class="s-state">Bd. 1 zuletzt 11.01.</div><div class="s-next">Danach: <b>Krieger des Feuers</b> (Bd. 2)</div></div>
+  <div class="series-row"><div class="s-name">Flammengeküsst <span>· Rebecca Yarros</span></div><div class="s-state">Bis Onyx Storm (Bd. 3) gelesen ✓</div><div class="s-next">Bd. 4 noch ohne Termin</div></div>
+</section>
+
+<section>
+  <h2>Statistik</h2>
+  <div class="h2sub">Was deine Lesedaten verraten.</div>
+  <div class="charts">
+
+    <div class="chart-card">
+      <h4>Leseaktivität nach Monat</h4>
+      <div class="csub">Bücher mit letztem Lese-Zugriff im jeweiligen Monat (Aug 25 – Jul 26)</div>
+      <div class="cols" id="activityChart"></div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Diese Woche</h4>
+      <div class="csub">Tage mit Kindle-Sync (Mo 13. – So 19. Juli)</div>
+      <div class="week">
+        <div class="wd on"><div class="c">✓</div><div class="l">Mo</div></div>
+        <div class="wd"><div class="c">·</div><div class="l">Di</div></div>
+        <div class="wd"><div class="c">·</div><div class="l">Mi</div></div>
+        <div class="wd on today"><div class="c">✓</div><div class="l">Do</div></div>
+        <div class="wd"><div class="c">·</div><div class="l">Fr</div></div>
+        <div class="wd"><div class="c">·</div><div class="l">Sa</div></div>
+        <div class="wd"><div class="c">·</div><div class="l">So</div></div>
+      </div>
+      <div class="insight">2 von 3 angepeilten Lesetagen geschafft – einer noch bis Sonntag. 💪</div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Kauf-Lese-Delta</h4>
+      <div class="csub">Was du sammelst vs. was du tatsächlich liest</div>
+      <div class="delta-lbl">Leseliste (168 Titel)</div>
+      <div class="split-bar" title="Belletristik 11 · Sachbuch 157">
+        <div class="f" style="width:6.5%"></div>
+        <div class="s" style="width:93.5%"></div>
+      </div>
+      <div class="delta-lbl">Gelesen – letzte 30 aktive Bücher</div>
+      <div class="split-bar" title="Belletristik 15 · Sachbuch 15">
+        <div class="f" style="width:50%"></div>
+        <div class="s" style="width:50%"></div>
+      </div>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--series-2)"></span>Belletristik</span>
+        <span><span class="sw" style="background:var(--series-1)"></span>Sachbuch</span>
+      </div>
+      <div class="insight">Fantasy liest du sofort – Sachbücher sammelst du schneller, als du sie liest. Die Leseliste ist zu 93&nbsp;% Sachbuch, gelesen wird 50:50.</div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Deine meist markierten Bücher</h4>
+      <div class="csub">Anzahl Readwise-Highlights</div>
+      <div class="hbars" id="highlightChart"></div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Leseliste</h2>
+  <div class="h2sub">168 Titel aus deinen Amazon-Wunschlisten. Klick auf einen Titel öffnet ihn direkt bei Amazon.</div>
+  <div class="chips" id="chips"></div>
+  <input id="search" type="search" placeholder="Titel oder Autor suchen …">
+  <div id="listContainer"></div>
+</section>
+
+<footer>
+  <b>Aktualisieren:</b> Sag Claude einfach „Aktualisier mein Lese-Dashboard“ – die Daten kommen aus der lokalen Kindle-App, dem Amazon-Web-Reader (Whispersync), deinen Wunschlisten und Readwise. ·
+  <b>Hinweis:</b> Wunschlisten zeigen je Kategorie die zuletzt hinzugefügten Titel (max. 10 pro Liste).
+</footer>
+
+</div>
+
+<script>
+// ---------- Gerade gelesen ----------
+const V = 'obsidian://open?vault=Second%20Brain%20Claude&file=';
+const NEW = 'obsidian://new?vault=Second%20Brain%20Claude&file=';
+const reading = {
+  fiction: [
+    { t: "Dungeon Crawler Carl", a: "Matt Dinniman", pct: 16, d: "16.07.2026", asin: "B0DSLZKPYZ" },
+    { t: "Der Astronaut", a: "Andy Weir", pct: 100, d: "16.07.2026", asin: "B08MCCKT1Z",
+      note: V + 'Readwise%2FBooks%2FDer%20Astronaut',
+      takeaway: NEW + '04%20Ressourcen%2FB%C3%BCcher%20%26%20Learnings%2FDer%20Astronaut%20-%20Andy%20Weir' },
+    { t: "Die Gabe der Könige", a: "Robin Hobb", pct: 100, d: "30.03.2026", asin: "B071DCKCRK",
+      takeaway: NEW + '04%20Ressourcen%2FB%C3%BCcher%20%26%20Learnings%2FDie%20Gabe%20der%20K%C3%B6nige%20-%20Robin%20Hobb' },
+    { t: "The Strength of the Few", a: "James Islington", pct: 64, d: "12.02.2026", asin: "B0FC324X5H" },
+    { t: "Mistborn 1 – Kinder des Nebels", a: "Brandon Sanderson", pct: null, d: "11.01.2026", asin: null, special: "privat geladen – kein Sync" }
+  ],
+  fact: [
+    { t: "Der Gedanken-Code", a: "Janosch Delcker", pct: 7, d: "16.07.2026", asin: "B0CW18VSC9" },
+    { t: "Selbstbild", a: "Carol Dweck", pct: 3, d: "16.07.2026", asin: "B01E5BO230",
+      note: V + '04%20Ressourcen%2FB%C3%BCcher%20%26%20Learnings%2FSelbstbild%20-%20Carol%20Dweck' },
+    { t: "Der Mann, der seine Frau mit einem Hut verwechselte", a: "Oliver Sacks", pct: 0, d: "16.07.2026", asin: "B09CCX1MFX" },
+    { t: "The Running the Room Companion", a: "Tom Bennett", pct: 0, d: "16.07.2026", asin: "B0BQ2XQH1X" },
+    { t: "Running the Room", a: "Tom Bennett", pct: 0, d: "08.07.2026", asin: "B0BQ2WDTTK",
+      note: V + '04%20Ressourcen%2FB%C3%BCcher%20%26%20Learnings%2FRunning%20the%20Room%20-%20Tom%20Bennett' }
+  ]
+};
+function bookRow(b) {
+  const cover = b.asin
+    ? `<img class="cover" src="https://images-eu.ssl-images-amazon.com/images/P/${b.asin}.09._SX160_.jpg" alt="" loading="lazy">`
+    : `<div class="cover-fallback">${b.t}</div>`;
+  let prog;
+  if (b.pct === 100) {
+    prog = `<div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--good)"></div></div>
+            <div class="pmeta"><span class="badge-done">✓ Beendet</span><span>${b.d}</span></div>`;
+  } else if (b.pct !== null) {
+    prog = `<div class="bar-track"><div class="bar-fill" style="width:${b.pct}%"></div></div>
+            <div class="pmeta"><span class="pct">${b.pct} %</span><span>${b.d}</span></div>`;
+  } else {
+    prog = `<div class="bar-track"></div>
+            <div class="pmeta"><span class="nosync">${b.special || 'kein Sync'}</span><span>${b.d}</span></div>`;
+  }
+  const actions = [
+    b.note ? `<a class="note-link" href="${b.note}">📓 Notiz öffnen</a>` : '',
+    b.takeaway ? `<a class="note-link" href="${b.takeaway}">✍️ Takeaways festhalten</a>` : '',
+    (!b.note && !b.takeaway) ? `<span class="note-none">Noch keine Notiz</span>` : ''
+  ].join('');
+  return `<div class="rowbook">
+    <div>${cover}</div>
+    <div><div class="title">${b.t}</div><div class="author">${b.a}</div></div>
+    <div class="prog">${prog}</div>
+    <div class="actions">${actions}</div>
+  </div>`;
+}
+document.getElementById('fictionRows').innerHTML = reading.fiction.map(bookRow).join('');
+document.getElementById('factRows').innerHTML = reading.fact.map(bookRow).join('');
+
+// ---------- Leseliste (Titel, Autor, Format, ASIN) ----------
+const leseliste = {
+  "Bildung": [
+    ["Raus aus der Ohnmacht", "Haim Omer", "P", "3525459130"],
+    ["Tyrannei der Gleichheit", "Mathias Brodkorb", "P", "3751821155"],
+    ["»Was kostet es, ein Handy aufzuladen?«", "Nick Klupak", "P", "3747405924"],
+    ["So geht Schule", "StudyHelp / M. Diekmann", "P", "3987551674"],
+    ["Visible Learning 2.0", "John Hattie", "P", "3834022500"],
+    ["Das Digital-Dilemma", "Klaus Zierer", "P", "377271868X"],
+    ["Praktische Statistik für Data Scientists", "Peter Bruce", "K", "B093XT3FDH"],
+    ["Theorie der Unbildung", "Konrad Paul Liessmann", "P", "3492252206"],
+    ["Mentale Stärke und Resilienz", "Jens Heuchemer", "P", "1960004379"],
+    ["Erfolg braucht kein Talent", "Daniel Coyle", "K", "B07RWZ5BXN"]
+  ],
+  "Coding": [
+    ["Praktische Statistik für Data Scientists", "Peter Bruce", "K", "B093XT3FDH"],
+    ["The Clean Coder", "Robert C. Martin", "P", "0137081073"],
+    ["Ethical Hacking", "Florian Dalwigk", "K", "B0CY362ZXS"],
+    ["The Pragmatic Programmer", "David Thomas", "K", "B07VRS84D1"],
+    ["Chip War", "Chris Miller", "P", "1668012057"],
+    ["Human Compatible", "Stuart Russell", "P", "3747501737"],
+    ["Einstieg in Unity", "Thomas Theis", "P", "3836283328"],
+    ["Learning C# by Developing Games with Unity", "Harrison Ferrone", "K", "B089ZZXB24"]
+  ],
+  "Fantasy & Science-Fiction": [
+    ["Because I Killed Him", "Edith Birde", "K", "B0GJG3MFL1"],
+    ["Kinder des Nebels (Nebelgeborene 1)", "Brandon Sanderson", "P", "3492704794"],
+    ["Die Zeitmaschine", "H. G. Wells", "P", "B0FS6L8CV8"],
+    ["Farm der Tiere", "George Orwell", "P", "3730609777"],
+    ["Tagebuch eines Killerbots", "Martha Wells", "P", "3453320344"],
+    ["Fahrenheit 451", "Ray Bradbury", "P", "3453319834"],
+    ["Der Astronaut", "Andy Weir", "P", "3453321340"],
+    ["Die Welt der Drachen", "Anne McCaffrey", "K", "B01MQX4QSI"],
+    ["Drachenmeister Band 1", "Tracey West", "P", "394718834X"],
+    ["Das Erwachen des Feuers", "Anthony Ryan", "P", "3608982426"]
+  ],
+  "Finanzen": [
+    ["Think and Grow Rich (Neuübersetzung)", "Napoleon Hill", "P", "369066229X"],
+    ["The Psychology of Money", "Morgan Housel", "K", "B084HJSJJ2"],
+    ["Über die Kunst, Geld bewusst einzusetzen", "Morgan Housel", "P", "3959728387"],
+    ["Das einzige Buch, das Du über Finanzen …", "Thomas Kehl", "P", "3548065848"],
+    ["Sam Bankman-Fried", "Michael Lewis", "P", "3864709903"],
+    ["Mein Weg", "Josef Ackermann", "P", "3784436552"],
+    ["Das Aktien & ETF Handbuch", "Marcel Friedmann", "P", "3910242367"]
+  ],
+  "Führung": [
+    ["Love and Work", "Marcus Buckingham", "K", "B08T24QK35"],
+    ["Tools der Titanen", "Tim Ferriss", "P", "3959727925"],
+    ["Wie man Freunde gewinnt", "Dale Carnegie", "P", "3596709415"],
+    ["Wenn es hart auf hart kommt", "Ben Horowitz", "P", "3864702097"]
+  ],
+  "Geschichte": [
+    ["Die Lehren der Geschichte", "Will Durant", "P", "3959723687"],
+    ["Wie konnte das geschehen?", "Götz Aly", "P", "3103973640"],
+    ["Diesseits der Mauer", "Katja Hoyer", "P", "3455015689"],
+    ["Eine (sehr) kurze Geschichte des Lebens", "Henry Gee", "K", "B092RG1WNW"],
+    ["Die Geografie der Zukunft", "Tim Marshall", "K", "B0BK9VFT82"],
+    ["Eine kurze Geschichte von fast allem", "Bill Bryson", "K", "B0CMJBCTH6"],
+    ["Die kürzeste Geschichte Deutschlands", "James Hawes", "K", "B07CMXV26M"],
+    ["Sapiens", "Yuval Noah Harari", "K", "B08T1FNKCL"],
+    ["21 Lektionen für das 21. Jahrhundert", "Yuval Noah Harari", "K", "B0B8PZ3X6C"],
+    ["Sapiens – Eine kurze Geschichte der Menschheit", "Yuval Noah Harari", "K", "B0CSFZL864"]
+  ],
+  "Gesundheit": [
+    ["Der Mann, der seine Frau mit einem Hut verwechselte", "Oliver Sacks", "P", "3499012464"],
+    ["Die bittere Wahrheit über Zucker", "Robert H. Lustig", "P", "3868838635"],
+    ["Young Forever – auf ewig jung", "Mark Hyman", "P", "3966648636"],
+    ["Change Your Brain Every Day", "Daniel G. Amen", "P", "149645457X"],
+    ["Change Your Brain, Change Your Life", "Daniel G. Amen", "P", "110190464X"],
+    ["Gesundes Gehirn – gesunde Psyche", "Daniel G. Amen", "P", "3742316613"],
+    ["Raising Mentally Strong Kids", "Daniel G. Amen", "P", "1496484797"],
+    ["I Don't Want to Talk About It", "Terrence Real", "P", "0684835398"],
+    ["Outlive", "Peter Attia", "P", "386493270X"],
+    ["Die Mücke", "Timothy C. Winegard", "P", "3990550225"],
+    ["Jaws", "Sandra Kahn", "P", "1503613585"]
+  ],
+  "Künstliche Intelligenz": [
+    ["Der Gedanken-Code", "Janosch Delcker", "P", "3406823432"],
+    ["Weiß die KI, dass sie nichts weiß?", "Katharina Zweig", "P", "3453219074"],
+    ["The Book of Why", "Judea Pearl", "K", "B077YGFJ8N"],
+    ["Thank You for Being Late", "Thomas L. Friedman", "P", "3785726031"],
+    ["KI-Kompetenz", "Katja Nettesheim", "P", "3800675048"],
+    ["Einfach. Alles. Merken.", "Ulrich Bien", "P", "3842642504"],
+    ["Neuronale Netze programmieren mit Python", "Joachim Steinwendner", "K", "B097HRZZV5"],
+    ["Why Machines Learn", "Anil Ananthaswamy", "P", "0241586488"],
+    ["Künstliche Intelligenz und Hirnforschung", "Patrick Krauss", "P", "3662671786"],
+    ["Grundkurs Künstliche Intelligenz", "Wolfgang Ertel", "P", "3658320745"]
+  ],
+  "Lernen": [
+    ["Superforecasting", "Philip E. Tetlock", "K", "B01EVZNIBW"],
+    ["Mentale Höchstleistung durch Gehirnjogging", "Markus Hofmann", "K", "B0B9PY43YW"],
+    ["Nudge", "Richard H. Thaler", "P", "3548068561"],
+    ["Realtalk", "Jonas Schreiber", "P", "3695191813"],
+    ["Gedächtnistraining für Senioren", "Markus Hofmann", "P", "3982352835"],
+    ["Die 5 Säulen des Schnell-Lernens", "Neil Cooper", "K", "B0CB94S45G"],
+    ["Das Gehirn", "Rita Carter", "P", "3831036683"],
+    ["Unlimited Memory", "Kevin Horsley", "P", "1631619985"],
+    ["Teach Students How to Learn", "Saundra Yancy McGuire", "K", "B0C9XK7ND7"],
+    ["Teach Yourself How to Learn", "Saundra Yancy McGuire", "K", "B0C9XFDQN8"],
+    ["Der Anfang der Unendlichkeit", "David Deutsch", "P", "1838498605"],
+    ["Think Faster, Talk Smarter", "Matt Abrahams", "P", "B0C24QBYZG"],
+    ["Wie Kinder denken lernen", "Manfred Spitzer", "K", "B07LFCF3GD"],
+    ["Fluent Forever", "Gabriel Wyner", "K", "B00IBZ405W"],
+    ["Moonwalking with Einstein", "Joshua Foer", "P", "0143120530"],
+    ["The Teaching and Learning Playbook", "Michael Feely", "P", "1032187093"]
+  ],
+  "Mathematik": [
+    ["Algorithms to Live By", "Brian Christian", "P", "0007547994"],
+    ["The Art of Statistics", "David Spiegelhalter", "P", "0241258766"],
+    ["Everything Is Predictable", "Tom Chivers", "P", "1399604031"],
+    ["Math with Bad Drawings", "Ben Orlin", "P", "0316509035"],
+    ["Schule des Denkens", "George Pólya", "P", "3772006086"],
+    ["(K)ein Gespür für Zahlen", "Barbara Oakley", "K", "B00XWEQXDY"],
+    ["Arbeitsbuch Grundwissen Mathematikstudium", "Tilo Arens", "P", "3662633671"],
+    ["Grundwissen Mathematikstudium – Analysis", "Tilo Arens", "P", "3662633124"],
+    ["Gauß", "Hubert Mania", "P", "3499625318"],
+    ["Was ist Mathematik?", "Richard Courant", "P", "3642137008"]
+  ],
+  "Persönliche Entwicklung": [
+    ["Du musst nicht von allen gemocht werden", "Ichiro Kishimi", "P", "3499634058"],
+    ["The Millionaire Fastlane", "MJ DeMarco", "P", "395972487X"],
+    ["How to Win Friends (Neuübersetzung)", "Dale Carnegie", "P", "3690661099"],
+    ["Spiele der Erwachsenen", "Eric Berne", "P", "3499613506"],
+    ["Think and Grow Rich", "Napoleon Hill", "P", "3959721714"],
+    ["What's Your Dream?", "Simon Squibb", "P", "3868818154"],
+    ["Playing to Win", "A. G. Lafley", "P", "3800675315"],
+    ["Wenn Höflichkeit reinhaut", "Peter Modler", "P", "3593515563"],
+    ["Mit Ignoranten sprechen", "Peter Modler", "P", "3593510804"]
+  ],
+  "Philosophie": [
+    ["5 Dinge, die Sterbende am meisten bereuen", "Bronnie Ware", "P", "3442157528"],
+    ["Generation Angst", "Jonathan Haidt", "P", "3498028367"],
+    ["Wer klar denkt, entscheidet besser", "Shane Parrish", "K", "B0CKT6ZGCY"],
+    ["Die LET THEM Theorie", "Mel Robbins", "K", "B0DYYZ4324"],
+    ["Zahlen lügen nicht", "Vaclav Smil", "P", "3406817033"],
+    ["Rational Optimist", "Matt Ridley", "P", "0007267126"],
+    ["Wenn Ideen Sex haben", "Matt Ridley", "P", "3864705924"],
+    ["Verlust", "Andreas Reckwitz", "P", "3518588222"],
+    ["Über den Sinn des Lebens", "Viktor E. Frankl", "P", "3407866917"],
+    ["Ideologiemaschinen", "Harry Lehmann", "P", "3849705455"]
+  ],
+  "Physik": [
+    ["Energie", "Eduard Heindl", "P", "3658504854"],
+    ["Scale", "Geoffrey West", "P", "3406741916"],
+    ["Kernenergie", "Hartmut Frey", "P", "3658315113"],
+    ["Das andere Klimabuch", "Robert Benkens", "P", "3826094077"],
+    ["Akte Atomausstieg", "Daniel Gräber", "K", "B0DLHQ6JHY"],
+    ["33 erstaunliche Lichtblicke", "Axel Bojanowski", "P", "3864894824"],
+    ["Strom", "Tim Meyer", "P", "3769351223"],
+    ["Technologie des Flugzeuges", "Klaus Engmann", "P", "3834334235"],
+    ["Plan B für das Klima", "Gerd Ganteför", "P", "3864894719"],
+    ["Mit Physik auf der Suche nach dem Sinn", "Tim Vollert", "P", "3423352477"]
+  ],
+  "Politik": [
+    ["Ein falsches Wort", "René Pfister", "P", "3328110526"],
+    ["Falsche Wahrheiten", "Nikolaus Blome", "P", "3421070334"],
+    ["Neue Deutsche Gewalt", "Philipp Woldin", "P", "3406837875"],
+    ["Das Versagen", "Katja Gloger", "P", "3550204272"],
+    ["Schattenseiten der Migration", "Frank Urbaniok", "P", "3907442520"],
+    ["Links-grüne Meinungsmacht", "Julia Ruhs", "P", "3784437494"],
+    ["Good Morning Germanistan!", "Henryk M. Broder", "K", "B0F3818XMT"],
+    ["inside tagesschau", "Alexander Teske", "P", "3784437311"],
+    ["Die Achse der Autokraten", "Anne Applebaum", "K", "B0CW1FBQBD"]
+  ],
+  "Produktivität": [
+    ["Konzentriert arbeiten", "Cal Newport", "P", "3868816577"],
+    ["Poor Charlie's Almanack", "Charles T. Munger", "P", "3689360005"],
+    ["Narren des Zufalls", "Nassim Nicholas Taleb", "P", "3570553906"],
+    ["Die 7 Wege zur Effektivität", "Stephen R. Covey", "P", "3869368942"],
+    ["Das Happiness-Prinzip", "Shawn Achor", "P", "3962571639"],
+    ["Tiny Experiments", "Anne-Laure Le Cunff", "K", "B0FKC4549D"],
+    ["Blitzscaling", "Reid Hoffman", "P", "386470698X"],
+    ["Das 12-Wochen-Jahr", "Brian P. Moran", "P", "352751015X"]
+  ],
+  "Programmieren": [
+    ["Python programmieren lernen mit ChatGPT", "Simon Flaig", "P", "3949604855"],
+    ["Python für Einsteiger", "Florian Dalwigk", "P", "3969672244"]
+  ],
+  "Romane": [
+    ["Tschick", "Wolfgang Herrndorf", "K", "B004WOX4NU"]
+  ],
+  "Schach": [
+    ["Schach für Kinder", "Sabrina Chevannes", "P", "3730605054"]
+  ],
+  "Schulleitung": [
+    ["Das Rhetorik Buch", "Michael Hofberger", "P", "3968990919"],
+    ["Positive Rhetorik im Alltag & Beruf", "David Winkelmann", "P", "1964329221"],
+    ["Systemische Fragetechniken", "Oliver Hirschfeld", "P", "1964329264"],
+    ["Die Führungskraft der Zukunft", "Stefanie Brings", "P", "3989352687"],
+    ["Positive Leadership in der Schule", "Ewald Blum", "P", "340725914X"]
+  ],
+  "Unterrichten 2.0": [
+    ["Die geheimen Tricks der 1,0er-Schüler", "Tim Nießner", "K", "B081S79BSY"],
+    ["Richtig lernen", "Elena Handtrack", "K", "B0CM3H6JNR"],
+    ["Die Bildungsweltmeister", "Alexander Brand", "K", "B0FY2PNNXY"],
+    ["Unterrichte wie ein Champion", "Doug Lemov", "K", "B0C1MBHQR5"],
+    ["The Thinking Toolbox", "Nathaniel Bluedorn", "K", "B0CL5D73KS"],
+    ["Why Don't Students Like School?", "Daniel T. Willingham", "K", "B092TSZHCC"],
+    ["Running the Room", "Tom Bennett", "K", "B0BQ2WDTTK"],
+    ["Teach Like a Champion 3.0", "Doug Lemov", "K", "B09C6G2T8P"]
+  ],
+  "Wirtschaft": [
+    ["Dreihundert Männer", "Konstantin Richter", "K", "B0F2HPMYPV"],
+    ["Marktwirtschaft", "Stefan Kooths", "P", "3170335987"],
+    ["Fürstengeld, Fiatgeld, Bitcoin", "Christian Rieck", "K", "B0F8ZGN1NW"],
+    ["Die with Zero", "Bill Perkins", "P", "3959727739"],
+    ["Economics in One Lesson", "Henry Hazlitt", "P", "3959726058"],
+    ["Kapitalismus und Freiheit", "Jan W. Haas", "P", "3492239625"],
+    ["Mehr Geld als Verstand", "Nena Brockhaus", "P", "3959727879"]
+  ]
+};
+const amz = asin => `https://www.amazon.de/dp/${asin}`;
+
+// ---------- Als Nächstes lesen ----------
+const flatList = Object.entries(leseliste).flatMap(([cat, items]) => items.map(([t, a, f, asin]) => ({ t, a, cat, asin })));
+let lastPick = -1;
+function pickNext() {
+  let i;
+  do { i = Math.floor(Math.random() * flatList.length); } while (i === lastPick);
+  lastPick = i;
+  const b = flatList[i];
+  const link = b.asin ? `<a href="${amz(b.asin)}" target="_blank" rel="noopener">${b.t}</a>` : b.t;
+  document.getElementById('nextPick').innerHTML =
+    `<div class="big">${link}</div><div class="meta">${b.a}</div><span class="tag">${b.cat}</span>`;
+}
+document.getElementById('nextBtn').addEventListener('click', pickNext);
+pickNext();
+
+// ---------- Highlight der Woche ----------
+const quotes = [
+  ["Die Spanne zwischen Erfolg und Misserfolg wird mit der Zeit immer größer. Die Zeit vervielfacht das, was Sie tun.", "Die 1%-Methode · James Clear"],
+  ["Für diese Menschen geht es nicht darum, sofort perfekt zu sein. Es geht darum, etwas über einen bestimmten Zeitraum hinweg zu lernen, eine Herausforderung anzunehmen und Fortschritte zu erzielen.", "Selbstbild · Carol Dweck"],
+  ["Wenn ein Mensch beim Lernen Fehler macht, aber korrigierende Rückmeldungen bekommt, prägt er sich nicht das Falsche ein.", "Das merk ich mir! · Brown, Roediger, McDaniel"],
+  ["My advice is this: recognize where you are, and start small. If you're the kind of person who can't sit still for a minute, try sitting still for half a minute.", "Ultralearning · Scott H. Young"],
+  ["Die Schwerelosigkeit der Astronauten im Orbit entsteht, weil sie ständig fallen. Aber die Krümmung der Erde sorgt dafür, dass der Boden im gleichen Maße zurückweicht, wie man fällt. Man fällt im Prinzip ewig.", "Der Astronaut · Andy Weir"],
+  ["Die Lichtmenge, der ein Mensch an einem klaren Tag draußen ausgesetzt ist, ist hundertmal größer als die Menge, die er drinnen bei künstlichem Licht erhält.", "Good Energy · Casey Means"],
+  ["Stahl, Zement, Stickstoff und Kunststoffe werden als die vier stofflichen Säulen der Zivilisation fortbestehen.", "Wie die Welt wirklich funktioniert · Vaclav Smil"],
+  ["Ein Durchschnittsbürger konsumiert heute dreimal so viel Informationen wie in den 1960er-Jahren.", "Limitless · Jim Kwik"],
+  ["Da wären zunächst die vier klassischen Energieträger Kohle, Öl, Gas und Uran, die nach wie vor rund 80 Prozent des weltweiten Bedarfs decken.", "Plan B für das Klima · Gerd Ganteför"]
+];
+function isoWeek(d) {
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
+  return Math.ceil((((t - Date.UTC(t.getUTCFullYear(), 0, 1)) / 864e5) + 1) / 7);
+}
+let qIdx = isoWeek(new Date()) % quotes.length;
+function showQuote() {
+  document.getElementById('quoteText').textContent = '„' + quotes[qIdx][0] + '“';
+  document.getElementById('quoteSrc').textContent = '— ' + quotes[qIdx][1];
+}
+document.getElementById('quoteBtn').addEventListener('click', () => { qIdx = (qIdx + 1) % quotes.length; showQuote(); });
+showQuote();
+
+// ---------- Leseliste-Rendering ----------
+const chipsEl = document.getElementById('chips');
+const listEl = document.getElementById('listContainer');
+const searchEl = document.getElementById('search');
+let activeCat = 'Alle';
+
+function renderChips() {
+  const cats = ['Alle', ...Object.keys(leseliste)];
+  chipsEl.innerHTML = cats.map(c =>
+    `<span class="chip${c === activeCat ? ' active' : ''}" data-cat="${c}">${c}${c !== 'Alle' ? ' · ' + leseliste[c].length : ''}</span>`
+  ).join('');
+}
+function renderList() {
+  const q = searchEl.value.trim().toLowerCase();
+  const cats = activeCat === 'Alle' ? Object.keys(leseliste) : [activeCat];
+  const open = activeCat !== 'Alle' || q.length > 0;
+  listEl.innerHTML = cats.map(cat => {
+    const items = leseliste[cat].filter(([t, a]) =>
+      !q || t.toLowerCase().includes(q) || a.toLowerCase().includes(q));
+    if (!items.length) return '';
+    return `<details class="cat"${open ? ' open' : ''}><summary>${cat} <span class="cnt">${items.length} Titel</span></summary>
+      <div class="items">${items.map(([t, a, f, asin]) => {
+        const inner = `<span class="fmt">${f === 'K' ? 'Kindle' : 'Print'}</span><span><span class="t">${t}</span> <span class="a">– ${a}</span></span>`;
+        return asin
+          ? `<a class="item" href="${amz(asin)}" target="_blank" rel="noopener" title="Bei Amazon öffnen">${inner}</a>`
+          : `<div class="item">${inner}</div>`;
+      }).join('')}</div></details>`;
+  }).join('') || '<p style="color:var(--text-3);font-size:13px">Keine Treffer.</p>';
+}
+chipsEl.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  activeCat = chip.dataset.cat;
+  renderChips(); renderList();
+});
+searchEl.addEventListener('input', renderList);
+renderChips(); renderList();
+
+// ---------- Chart: Leseaktivität ----------
+const activity = [
+  ["Aug", 1], ["Sep", 8], ["Okt", 2], ["Nov", 4], ["Dez", 5],
+  ["Jan", 4], ["Feb", 2], ["Mär", 3], ["Apr", 0], ["Mai", 0], ["Jun", 0], ["Jul", 7]
+];
+const maxA = Math.max(...activity.map(d => d[1]));
+document.getElementById('activityChart').innerHTML = activity.map(([m, v]) =>
+  `<div class="col" title="${m}: ${v} Bücher">
+     <span class="c-val">${v || ''}</span>
+     <div class="c-bar" style="height:${v / maxA * 100}%"></div>
+     <span class="c-lbl">${m}</span>
+   </div>`).join('');
+
+// ---------- Chart: Highlights ----------
+const highlights = [
+  ["Ultralearning", 376],
+  ["Good Energy", 336],
+  ["Limitless", 313],
+  ["Selbstbild", 226],
+  ["Wie die Welt wirklich funktioniert", 215],
+  ["Weltuntergang fällt aus!", 206],
+  ["Plan B für das Klima", 202]
+];
+const maxH = highlights[0][1];
+document.getElementById('highlightChart').innerHTML = highlights.map(([n, v]) =>
+  `<div class="hb" title="${n}: ${v} Highlights">
+     <span class="n">${n}</span>
+     <div class="tr"><div class="fl" style="width:${v / maxH * 100}%"></div></div>
+     <span class="v">${v}</span>
+   </div>`).join('');
+</script>
+</body>
+</html>

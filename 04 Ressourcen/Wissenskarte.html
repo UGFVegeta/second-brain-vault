@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wissenskarte</title>
+<style>
+  :root {
+    --bg: #0e1218; --card: #151a23; --card2: #1c2330; --line: #222a38;
+    --t1: #e8ecf2; --t2: #c6cdd8; --t3: #8b94a3; --t4: #657084;
+    --accent: #5aa2f0; --halo: rgba(255,255,255,.028); --halostroke: rgba(255,255,255,.06);
+    --edge: rgba(160,175,200,.10); --label: #aeb7c6;
+  }
+  html.light {
+    --bg: #eef1f6; --card: #ffffff; --card2: #e9edf3; --line: #dde2ea;
+    --t1: #1c222c; --t2: #3d4654; --t3: #6b7586; --t4: #97a0af;
+    --accent: #2a78d6; --halo: rgba(30,50,90,.04); --halostroke: rgba(30,50,90,.09);
+    --edge: rgba(60,80,110,.13); --label: #5a6474;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--t1); font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; overflow: hidden; }
+  #bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  #bar h1 { font-size: 16px; margin: 0; font-weight: 650; white-space: nowrap; }
+  #stats { font-size: 11.5px; color: var(--t4); white-space: nowrap; }
+  #searchwrap { position: relative; flex: 1; max-width: 420px; }
+  #search { width: 100%; background: var(--card); border: 1px solid var(--line); color: var(--t1); border-radius: 10px; padding: 7px 12px; font-size: 13.5px; outline: none; }
+  #search:focus { border-color: var(--accent); }
+  #results { position: absolute; top: 38px; left: 0; right: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: none; max-height: 60vh; overflow-y: auto; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+  #results div { padding: 7px 12px; font-size: 13px; cursor: pointer; display: flex; gap: 8px; align-items: baseline; }
+  #results div:hover, #results div.sel { background: var(--card2); }
+  #results .cl { font-size: 10.5px; color: var(--t4); margin-left: auto; white-space: nowrap; }
+  #bar a, #themeBtn { background: var(--card); color: var(--t2); border: 1px solid var(--line); border-radius: 10px; padding: 5px 12px; font-size: 12.5px; cursor: pointer; text-decoration: none; white-space: nowrap; }
+  #bar a:hover, #themeBtn:hover { border-color: var(--t4); }
+  #views { display: flex; gap: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  #views button { background: var(--card); color: var(--t3); border: none; padding: 6px 13px; font-size: 12.5px; cursor: pointer; }
+  #views button + button { border-left: 1px solid var(--line); }
+  #views button.on { background: var(--card2); color: var(--t1); font-weight: 600; }
+  #map { position: fixed; inset: 0; cursor: grab; }
+  #map.drag { cursor: grabbing; }
+  #panel { position: fixed; top: 54px; right: 0; bottom: 0; width: 380px; max-width: 92vw; background: var(--card); border-left: 1px solid var(--line); z-index: 9; transform: translateX(105%); transition: transform .22s ease; display: flex; flex-direction: column; }
+  #panel.open { transform: none; }
+  #phead { padding: 15px 18px 10px; border-bottom: 1px solid var(--line); }
+  #phead .cl { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; font-weight: 600; }
+  #phead h2 { font-size: 17px; margin: 3px 0 5px; line-height: 1.3; }
+  #phead .meta { font-size: 11.5px; color: var(--t4); }
+  #phead .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 5px; }
+  #phead .tag { font-size: 10.5px; color: var(--t3); background: var(--card2); border-radius: 8px; padding: 1px 8px; }
+  #pbody { flex: 1; overflow-y: auto; padding: 13px 18px; font-size: 13.5px; line-height: 1.6; color: var(--t2); }
+  #pbody b { color: var(--t1); }
+  #pbody .wl { color: var(--accent); cursor: pointer; }
+  #pbody .wl:hover { text-decoration: underline; }
+  #pbody .dim { color: var(--t4); font-style: italic; }
+  #pfoot { padding: 12px 18px 16px; border-top: 1px solid var(--line); }
+  #plinks { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  #plinks span { font-size: 11px; color: var(--accent); background: var(--card2); border-radius: 8px; padding: 2px 9px; cursor: pointer; }
+  #pfoot .row { display: flex; gap: 8px; }
+  #pfoot a, #closeBtn { flex: 1; text-align: center; font-size: 12.5px; color: var(--t1); text-decoration: none; border: 1px solid var(--line); border-radius: 10px; padding: 7px 4px; background: var(--card2); cursor: pointer; }
+  #pfoot a:hover { border-color: var(--accent); }
+  #hint { position: fixed; bottom: 12px; left: 16px; z-index: 5; font-size: 11px; color: var(--t4); }
+  @media (max-width: 700px) { #bar h1, #stats { display: none; } }
+</style>
+</head>
+<body>
+<canvas id="map"></canvas>
+<div id="bar">
+  <h1>🗺️ Wissenskarte</h1>
+  <div id="searchwrap">
+    <input id="search" type="text" placeholder="Notiz suchen … (Titel, Tag, Ordner)" autocomplete="off">
+    <div id="results"></div>
+  </div>
+  <span id="stats"></span>
+  <div id="views">
+    <button data-m="map" class="on">Karte</button>
+    <button data-m="globe">Globus</button>
+    <button data-m="ring">Ring</button>
+  </div>
+  <button id="themeBtn">Hell</button>
+  <a href="Lebens-Dashboard.html">Dashboard</a>
+</div>
+<div id="panel">
+  <div id="phead"></div>
+  <div id="pbody"></div>
+  <div id="pfoot">
+    <div id="plinks"></div>
+    <div class="row"><a id="obsBtn" href="#">In Obsidian öffnen</a><span id="closeBtn">Schließen</span></div>
+  </div>
+</div>
+<div id="hint">Ziehen = verschieben · Scrollen = zoomen · Klick auf Notiz = Vorschau</div>
+
+<script src="wissenskarte_data.js"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+const applyTheme = t => { document.documentElement.classList.toggle("light", t === "light"); $("themeBtn").textContent = t === "light" ? "Dunkel" : "Hell"; draw(); };
+let theme = localStorage.getItem("leben-theme") || "dark";
+$("themeBtn").onclick = () => { theme = theme === "light" ? "dark" : "light"; localStorage.setItem("leben-theme", theme); applyTheme(theme); };
+
+const W = window.WK;
+const cv = $("map"), ctx = cv.getContext("2d");
+let tf = { x: 0, y: 0, k: 1 };
+let sel = -1, hov = -1, anim = null;
+let mode = "map", selRing = null;
+let g3 = null, rot = { yaw: .5, pitch: -.3 }, gz = 1, gProj = null, gLoop = null;
+let ringItems = null;
+const neigh = new Map();
+
+function init() {
+  const g = new Date(W.generated);
+  $("stats").textContent = `${W.nodes.length} Notizen · ${W.links.length} Verbindungen · Stand ${String(g.getDate()).padStart(2,"0")}.${String(g.getMonth()+1).padStart(2,"0")}.`;
+  W.links.forEach(([a, b]) => {
+    if (!neigh.has(a)) neigh.set(a, []);
+    if (!neigh.has(b)) neigh.set(b, []);
+    neigh.get(a).push(b); neigh.get(b).push(a);
+  });
+  resize(); fitAll(); applyTheme(theme);
+  window.addEventListener("resize", () => { resize(); draw(); });
+  window.addEventListener("load", () => { resize(); fitAll(); draw(); });
+  requestAnimationFrame(() => { if (cv.width === 0 || tf.k <= 0.031) { resize(); fitAll(); } draw(); });
+}
+
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  const w = innerWidth || document.documentElement.clientWidth || 1200;
+  const h = innerHeight || document.documentElement.clientHeight || 800;
+  cv.width = w * dpr; cv.height = h * dpr;
+  cv.style.width = w + "px"; cv.style.height = h + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+function fitAll() {
+  const w = innerWidth || document.documentElement.clientWidth || 1200;
+  const h = innerHeight || document.documentElement.clientHeight || 800;
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  W.clusters.forEach(c => { x0 = Math.min(x0, c.x - c.r); y0 = Math.min(y0, c.y - c.r); x1 = Math.max(x1, c.x + c.r); y1 = Math.max(y1, c.y + c.r); });
+  const k = Math.max(0.03, Math.min(w / (x1 - x0 + 120), Math.max(h - 60, 200) / (y1 - y0 + 120)));
+  tf = { k, x: w / 2 - k * (x0 + x1) / 2, y: (h + 54) / 2 - k * (y0 + y1) / 2 };
+}
+
+const sx = n => n.x * tf.k + tf.x, sy = n => n.y * tf.k + tf.y;
+const nodeR = n => 2.5 + Math.min(8, n.k * 1.1);
+
+function cssVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+function draw() {
+  if (mode === "globe") return drawGlobe();
+  if (mode === "ring") return drawRing();
+  drawMap();
+}
+
+function drawMap() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  const light = document.documentElement.classList.contains("light");
+
+  // Cluster-Halos
+  for (const c of W.clusters) {
+    const x = c.x * tf.k + tf.x, y = c.y * tf.k + tf.y, r = c.r * tf.k;
+    if (x + r < 0 || x - r > innerWidth || y + r < 0 || y - r > innerHeight) continue;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 7);
+    ctx.fillStyle = cssVar("--halo"); ctx.fill();
+    ctx.strokeStyle = cssVar("--halostroke"); ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = c.color; ctx.globalAlpha = .9;
+    ctx.font = `600 ${Math.max(11, Math.min(15, 13 * Math.sqrt(tf.k * 2)))}px -apple-system, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.fillText(`${c.label} · ${c.n}`, x, y - r - 8);
+    ctx.globalAlpha = 1;
+  }
+
+  // Kanten
+  const selSet = sel >= 0 ? new Set([sel, ...(neigh.get(sel) || [])]) : null;
+  ctx.lineWidth = 1;
+  for (const [a, b] of W.links) {
+    const na = W.nodes[a], nb = W.nodes[b];
+    const hi = selSet && selSet.has(a) && selSet.has(b) && (a === sel || b === sel);
+    ctx.strokeStyle = hi ? cssVar("--accent") : cssVar("--edge");
+    ctx.globalAlpha = hi ? .85 : 1;
+    ctx.beginPath(); ctx.moveTo(sx(na), sy(na)); ctx.lineTo(sx(nb), sy(nb)); ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  // Knoten
+  for (let i = 0; i < W.nodes.length; i++) {
+    const n = W.nodes[i];
+    const x = sx(n), y = sy(n);
+    if (x < -20 || x > innerWidth + 20 || y < -20 || y > innerHeight + 20) continue;
+    const r = Math.max(2, nodeR(n) * Math.sqrt(tf.k));
+    const dimmed = selSet && !selSet.has(i);
+    ctx.globalAlpha = dimmed ? (light ? .25 : .18) : 1;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 7);
+    ctx.fillStyle = W.clusters[n.c].color; ctx.fill();
+    if (i === sel || i === hov) {
+      ctx.strokeStyle = light ? "#1c222c" : "#ffffff"; ctx.lineWidth = 1.6; ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // Beschriftungen
+  const showAll = tf.k >= 1.15;
+  ctx.font = "11px -apple-system, sans-serif"; ctx.textAlign = "left";
+  for (let i = 0; i < W.nodes.length; i++) {
+    const n = W.nodes[i];
+    const wanted = i === sel || i === hov || showAll || (tf.k >= .55 && n.k >= 3);
+    if (!wanted) continue;
+    const x = sx(n), y = sy(n);
+    if (x < -150 || x > innerWidth + 40 || y < 40 || y > innerHeight + 20) continue;
+    if (selSet && !selSet.has(i) && i !== hov) continue;
+    ctx.fillStyle = (i === sel || i === hov) ? cssVar("--t1") : cssVar("--label");
+    ctx.fillText(n.t.length > 34 ? n.t.slice(0, 33) + "…" : n.t, x + nodeR(n) * Math.sqrt(tf.k) + 4, y + 3.5);
+  }
+}
+
+// --- Interaktion ------------------------------------------------------------
+let drag = null, moved = 0;
+cv.addEventListener("mousedown", e => { drag = { x: e.clientX, y: e.clientY }; moved = 0; cv.classList.add("drag"); });
+window.addEventListener("mousemove", e => {
+  if (drag) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (mode === "globe") {
+      rot.yaw += dx * 0.0045;
+      rot.pitch = Math.min(1.4, Math.max(-1.4, rot.pitch + dy * 0.0045));
+    } else { tf.x += dx; tf.y += dy; }
+    moved += Math.abs(dx) + Math.abs(dy);
+    drag = { x: e.clientX, y: e.clientY }; draw();
+  } else {
+    const h = hit(e.clientX, e.clientY);
+    if (h !== hov) { hov = h; cv.style.cursor = h >= 0 ? "pointer" : "grab"; draw(); }
+  }
+});
+window.addEventListener("mouseup", e => {
+  cv.classList.remove("drag");
+  if (drag && moved < 6) {
+    const h = hit(e.clientX, e.clientY);
+    if (h >= 0) { mode === "ring" ? selectRing(ringItems[h]) : select(h); }
+    else if (e.target === cv) { sel = -1; selRing = null; $("panel").classList.remove("open"); draw(); }
+  }
+  drag = null;
+});
+cv.addEventListener("wheel", e => {
+  e.preventDefault();
+  const f = Math.exp(-e.deltaY * 0.0016);
+  if (mode === "globe") { gz = Math.min(4, Math.max(.5, gz * f)); draw(); return; }
+  const k2 = Math.min(9, Math.max(.04, tf.k * f));
+  tf.x = e.clientX - (e.clientX - tf.x) * (k2 / tf.k);
+  tf.y = e.clientY - (e.clientY - tf.y) * (k2 / tf.k);
+  tf.k = k2; draw();
+}, { passive: false });
+
+function hit(mx, my) {
+  if (mode === "globe") return hitGlobe(mx, my);
+  if (mode === "ring") return hitRing(mx, my);
+  let best = -1, bd = 14;
+  for (let i = 0; i < W.nodes.length; i++) {
+    const n = W.nodes[i];
+    const d = Math.hypot(sx(n) - mx, sy(n) - my);
+    const r = Math.max(6, nodeR(n) * Math.sqrt(tf.k) + 3);
+    if (d < r && d < bd) { bd = d; best = i; }
+  }
+  return best;
+}
+
+function flyTo(i, zoom = 2.1) {
+  if (mode === "globe") return flyToGlobe(i);
+  const n = W.nodes[i];
+  const from = { ...tf };
+  const to = { k: zoom, x: innerWidth / 2 - n.x * zoom - 130, y: (innerHeight + 54) / 2 - n.y * zoom };
+  const t0 = performance.now(), dur = 850;
+  cancelAnimationFrame(anim);
+  const step = t => {
+    const p = Math.min(1, (t - t0) / dur), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    tf = { k: from.k + (to.k - from.k) * e, x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e };
+    draw();
+    if (p < 1) anim = requestAnimationFrame(step);
+  };
+  anim = requestAnimationFrame(step);
+}
+
+// --- Vorschau ---------------------------------------------------------------
+function mdLite(t) {
+  let h = esc(t);
+  h = h.replace(/\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]+))?\]\]/g, (m, tgt, alias) =>
+    `<span class="wl" data-t="${esc(tgt.trim())}">${esc(alias || tgt.trim())}</span>`);
+  h = h.replace(/^#{1,6}\s+(.+)$/gm, "<b>$1</b>");
+  h = h.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+  h = h.replace(/^\s*[-*]\s+/gm, "• ");
+  h = h.replace(/^---\s*$/gm, "");
+  return h.replace(/\n/g, "<br>");
+}
+
+function select(i) {
+  sel = i; selRing = null;
+  $("obsBtn").style.display = "";
+  $("obsBtn").textContent = "In Obsidian öffnen";
+  $("obsBtn").removeAttribute("target");
+  const n = W.nodes[i], c = W.clusters[n.c];
+  $("phead").innerHTML = `<div class="cl" style="color:${c.color}">${esc(c.label)}</div>
+    <h2>${esc(n.t)}</h2>
+    <div class="meta">${esc(n.p)} · geändert ${n.d.split("-").reverse().join(".")}</div>
+    ${n.g.length ? `<div class="tags">${n.g.map(t => `<span class="tag">#${esc(t)}</span>`).join("")}</div>` : ""}`;
+  $("pbody").innerHTML = (n.e ? mdLite(n.e) + (n.e.length >= 1590 ? ' <span class="dim">… (in Obsidian weiterlesen)</span>' : "") : '<span class="dim">leere Notiz</span>');
+  const nb = (neigh.get(i) || []);
+  $("plinks").innerHTML = nb.length ? nb.map(j => `<span data-i="${j}">${esc(W.nodes[j].t.slice(0, 28))}</span>`).join("") : "";
+  $("obsBtn").href = "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(n.p.replace(/\.md$/, ""));
+  $("panel").classList.add("open");
+  draw();
+}
+$("closeBtn").onclick = () => { sel = -1; $("panel").classList.remove("open"); draw(); };
+$("plinks").addEventListener("click", e => { const i = e.target.dataset.i; if (i != null) { select(+i); flyTo(+i); } });
+$("pbody").addEventListener("click", e => {
+  const t = e.target.dataset && e.target.dataset.t;
+  if (!t) return;
+  const i = W.nodes.findIndex(n => n.t.toLowerCase() === t.toLowerCase() || n.p.toLowerCase().endsWith("/" + t.toLowerCase() + ".md"));
+  if (i >= 0) { select(i); flyTo(i); }
+});
+
+// --- Suche ------------------------------------------------------------------
+const res = $("results");
+let rsel = 0, rhits = [];
+$("search").addEventListener("input", () => {
+  const q = $("search").value.trim().toLowerCase();
+  if (q.length < 2) { res.style.display = "none"; return; }
+  rhits = W.nodes.map((n, i) => ({ n, i }))
+    .filter(o => o.n.t.toLowerCase().includes(q) || o.n.p.toLowerCase().includes(q) || o.n.g.some(t => t.toLowerCase().includes(q)))
+    .sort((a, b) => (b.n.t.toLowerCase().startsWith(q) - a.n.t.toLowerCase().startsWith(q)) || b.n.k - a.n.k)
+    .slice(0, 14);
+  rsel = 0;
+  res.innerHTML = rhits.map((o, j) => `<div data-i="${o.i}" class="${j === 0 ? "sel" : ""}"><span>${esc(o.n.t)}</span><span class="cl">${esc(W.clusters[o.n.c].label)}</span></div>`).join("") || '<div style="color:var(--t4)">nichts gefunden</div>';
+  res.style.display = "block";
+});
+$("search").addEventListener("keydown", e => {
+  if (e.key === "Enter" && rhits[rsel]) { go(rhits[rsel].i); }
+  else if (e.key === "ArrowDown") { rsel = Math.min(rsel + 1, rhits.length - 1); mark(); e.preventDefault(); }
+  else if (e.key === "ArrowUp") { rsel = Math.max(rsel - 1, 0); mark(); e.preventDefault(); }
+  else if (e.key === "Escape") { res.style.display = "none"; }
+});
+function mark() { [...res.children].forEach((el, j) => el.classList.toggle("sel", j === rsel)); }
+res.addEventListener("mousedown", e => { const d = e.target.closest("[data-i]"); if (d) go(+d.dataset.i); });
+function go(i) { res.style.display = "none"; $("search").blur(); if (mode === "ring") setMode("map"); select(i); flyTo(i); }
+document.addEventListener("mousedown", e => { if (!e.target.closest("#searchwrap")) res.style.display = "none"; });
+
+// --- Globus -----------------------------------------------------------------
+function initGlobe() {
+  const GA = Math.PI * (3 - Math.sqrt(5));
+  const C = W.clusters.length;
+  const dirs = [];
+  for (let i = 0; i < C; i++) {
+    const y = 1 - 2 * (i + .5) / C, r = Math.sqrt(1 - y * y), a = i * GA;
+    dirs.push([r * Math.cos(a), y, r * Math.sin(a)]);
+  }
+  const perp = w => {
+    const t = Math.abs(w[1]) < .9 ? [0, 1, 0] : [1, 0, 0];
+    let u = [w[1] * t[2] - w[2] * t[1], w[2] * t[0] - w[0] * t[2], w[0] * t[1] - w[1] * t[0]];
+    const l = Math.hypot(...u); u = u.map(v => v / l);
+    const v = [w[1] * u[2] - w[2] * u[1], w[2] * u[0] - w[0] * u[2], w[0] * u[1] - w[1] * u[0]];
+    return [u, v];
+  };
+  const slots = {};
+  g3 = { dirs, pos: [] };
+  for (const [i, n] of W.nodes.entries()) {
+    const w = dirs[n.c], [u, v] = perp(w);
+    const cnt = W.clusters[n.c].n, k = slots[n.c] = (slots[n.c] || 0) + 1;
+    const cap = Math.min(.5, .13 + .045 * Math.sqrt(cnt));
+    const rr = cap * Math.sqrt((k - .5) / cnt), th = k * 2.39996;
+    const s = Math.sin(rr), c = Math.cos(rr);
+    g3.pos.push([
+      w[0] * c + (u[0] * Math.cos(th) + v[0] * Math.sin(th)) * s,
+      w[1] * c + (u[1] * Math.cos(th) + v[1] * Math.sin(th)) * s,
+      w[2] * c + (u[2] * Math.cos(th) + v[2] * Math.sin(th)) * s,
+    ]);
+  }
+}
+
+function project(p) {
+  const cy = Math.cos(rot.yaw), sy = Math.sin(rot.yaw);
+  const cp = Math.cos(rot.pitch), sp = Math.sin(rot.pitch);
+  const x1 = p[0] * cy + p[2] * sy, z1 = -p[0] * sy + p[2] * cy, y1 = p[1];
+  const y2 = y1 * cp - z1 * sp, z2 = y1 * sp + z1 * cp;
+  return { x: x1, y: y2, z: z2 };
+}
+
+function globeGeom() {
+  const w = innerWidth || 1200, h = innerHeight || 800;
+  return { cx: w / 2, cy: (h + 54) / 2, R: Math.min(w, h - 60) * .38 * gz };
+}
+
+function drawGlobe() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  const light = document.documentElement.classList.contains("light");
+  const { cx, cy, R } = globeGeom();
+  ctx.beginPath(); ctx.arc(cx, cy, R * 1.04, 0, 7);
+  ctx.fillStyle = cssVar("--halo"); ctx.fill();
+  ctx.strokeStyle = cssVar("--halostroke"); ctx.lineWidth = 1; ctx.stroke();
+
+  gProj = W.nodes.map((n, i) => {
+    const p = project(g3.pos[i]);
+    return { x: cx + p.x * R, y: cy - p.y * R, z: p.z, i };
+  });
+
+  const selSet = sel >= 0 ? new Set([sel, ...(neigh.get(sel) || [])]) : null;
+  ctx.lineWidth = 1;
+  for (const [a, b] of W.links) {
+    const pa = gProj[a], pb = gProj[b];
+    const zAvg = (pa.z + pb.z) / 2;
+    if (zAvg < -.2) continue;
+    const hi = selSet && (a === sel || b === sel);
+    ctx.strokeStyle = hi ? cssVar("--accent") : cssVar("--edge");
+    ctx.globalAlpha = hi ? .9 : Math.max(.15, .3 + zAvg * .5);
+    ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+
+  const order = [...gProj].sort((a, b) => a.z - b.z);
+  for (const p of order) {
+    const n = W.nodes[p.i];
+    const back = p.z < 0;
+    const r = Math.max(1.6, nodeR(n) * .9 * Math.sqrt(gz) * (back ? .65 : 1));
+    const dimmed = selSet && !selSet.has(p.i);
+    ctx.globalAlpha = (back ? .22 : 1) * (dimmed ? .25 : 1);
+    ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 7);
+    ctx.fillStyle = W.clusters[n.c].color; ctx.fill();
+    if (p.i === sel || p.i === hov) { ctx.strokeStyle = light ? "#1c222c" : "#fff"; ctx.lineWidth = 1.6; ctx.stroke(); }
+  }
+  ctx.globalAlpha = 1;
+
+  ctx.font = "11px -apple-system, sans-serif"; ctx.textAlign = "left";
+  for (const p of gProj) {
+    const n = W.nodes[p.i];
+    if (p.z < .25) continue;
+    const want = p.i === sel || p.i === hov || gz >= 1.7 || n.k >= 4;
+    if (!want || (selSet && !selSet.has(p.i) && p.i !== hov)) continue;
+    ctx.fillStyle = (p.i === sel || p.i === hov) ? cssVar("--t1") : cssVar("--label");
+    ctx.fillText(n.t.length > 30 ? n.t.slice(0, 29) + "…" : n.t, p.x + 7, p.y + 3.5);
+  }
+  ctx.textAlign = "center"; ctx.font = "600 13px -apple-system, sans-serif";
+  for (const [ci, d] of g3.dirs.entries()) {
+    const p = project(d);
+    if (p.z < .4) continue;
+    ctx.fillStyle = W.clusters[ci].color; ctx.globalAlpha = .95;
+    ctx.fillText(W.clusters[ci].label, cx + p.x * R, cy - p.y * R - 14 - Math.sqrt(W.clusters[ci].n) * 1.2);
+  }
+  ctx.globalAlpha = 1; ctx.textAlign = "left";
+}
+
+function hitGlobe(mx, my) {
+  if (!gProj) return -1;
+  let best = -1, bd = 13;
+  for (const p of gProj) {
+    if (p.z < 0) continue;
+    const d = Math.hypot(p.x - mx, p.y - my);
+    if (d < bd) { bd = d; best = p.i; }
+  }
+  return best;
+}
+
+function flyToGlobe(i) {
+  const [x, y, z] = g3.pos[i];
+  const tyaw = Math.atan2(-x, z);
+  const z1 = -x * Math.sin(tyaw) + z * Math.cos(tyaw);
+  const tpitch = Math.atan2(y, z1);
+  const from = { ...rot };
+  let dy = tyaw - from.yaw;
+  dy = ((dy + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+  const dp = tpitch - from.pitch;
+  const t0 = performance.now(), dur = 900;
+  cancelAnimationFrame(anim);
+  const step = t => {
+    const p = Math.min(1, (t - t0) / dur), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    rot = { yaw: from.yaw + dy * e, pitch: from.pitch + dp * e };
+    draw();
+    if (p < 1) anim = requestAnimationFrame(step);
+  };
+  anim = requestAnimationFrame(step);
+}
+
+function tickGlobe() {
+  if (mode !== "globe") { gLoop = null; return; }
+  if (!drag && sel < 0 && hov < 0) { rot.yaw += 0.0011; draw(); }
+  gLoop = requestAnimationFrame(tickGlobe);
+}
+
+// --- Ring -------------------------------------------------------------------
+function initRing() {
+  ringItems = [];
+  const cats = W.ring.cats;
+  const total = cats.reduce((s, c) => s + Math.max(c.items.length, 2), 0);
+  let a = -Math.PI / 2;
+  const GAP = .045;
+  for (const c of cats) {
+    const span = (Math.max(c.items.length, 2) / total) * (Math.PI * 2 - GAP * cats.length);
+    c.a0 = a; c.a1 = a + span;
+    const m = c.items.length;
+    c.items.forEach((it, j) => {
+      const ang = m === 1 ? (c.a0 + c.a1) / 2 : c.a0 + span * (j + .5) / m;
+      const r = 335;
+      ringItems.push({ ...it, cat: c.label, color: c.color, ang,
+        x: Math.cos(ang) * r, y: Math.sin(ang) * r, rb: r });
+    });
+    a += span + GAP;
+  }
+}
+
+function fitRing() {
+  const w = innerWidth || 1200, h = innerHeight || 800;
+  const k = Math.max(.2, Math.min(w / 1060, (h - 70) / 1060));
+  tf = { k, x: w / 2, y: (h + 54) / 2 };
+}
+
+function drawRing() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  const light = document.documentElement.classList.contains("light");
+  const X = x => x * tf.k + tf.x, Y = y => y * tf.k + tf.y;
+
+  ctx.beginPath(); ctx.arc(X(0), Y(0), 92 * tf.k, 0, 7);
+  ctx.fillStyle = cssVar("--card2"); ctx.fill();
+  ctx.strokeStyle = cssVar("--halostroke"); ctx.stroke();
+  ctx.textAlign = "center"; ctx.fillStyle = cssVar("--t1");
+  ctx.font = `600 ${Math.max(11, 15 * tf.k)}px -apple-system, sans-serif`;
+  ctx.fillText("Claude × Oskar", X(0), Y(0) - 4 * tf.k);
+  ctx.fillStyle = cssVar("--t4");
+  ctx.font = `${Math.max(9, 11 * tf.k)}px -apple-system, sans-serif`;
+  ctx.fillText("dein KI-Setup", X(0), Y(0) + 15 * tf.k);
+
+  for (const c of W.ring.cats) {
+    ctx.beginPath(); ctx.arc(X(0), Y(0), 235 * tf.k, c.a0, c.a1);
+    ctx.strokeStyle = c.color; ctx.globalAlpha = light ? .35 : .3;
+    ctx.lineWidth = 24 * tf.k; ctx.stroke(); ctx.globalAlpha = 1;
+    const mid = (c.a0 + c.a1) / 2;
+    ctx.save();
+    ctx.translate(X(Math.cos(mid) * 235), Y(Math.sin(mid) * 235));
+    let ra = mid + Math.PI / 2;
+    if (mid > 0 && mid < Math.PI) ra += Math.PI;
+    ctx.rotate(ra);
+    ctx.fillStyle = c.color; ctx.font = `600 ${Math.max(10, 12.5 * tf.k)}px -apple-system, sans-serif`;
+    ctx.fillText(`${c.label} · ${c.items.length}`, 0, 4 * tf.k);
+    ctx.restore();
+  }
+
+  ctx.lineWidth = 1;
+  for (const [idx, it] of ringItems.entries()) {
+    const px = X(it.x), py = Y(it.y);
+    ctx.strokeStyle = it.color; ctx.globalAlpha = .25;
+    ctx.beginPath();
+    ctx.moveTo(X(Math.cos(it.ang) * 250), Y(Math.sin(it.ang) * 250));
+    ctx.lineTo(X(Math.cos(it.ang) * (it.rb - 10)), Y(Math.sin(it.ang) * (it.rb - 10)));
+    ctx.stroke(); ctx.globalAlpha = 1;
+    const on = selRing === it || idx === hov;
+    ctx.beginPath(); ctx.arc(px, py, (on ? 7.5 : 5.5) * Math.max(.7, tf.k), 0, 7);
+    ctx.fillStyle = it.color; ctx.fill();
+    if (on) { ctx.strokeStyle = light ? "#1c222c" : "#fff"; ctx.lineWidth = 1.6; ctx.stroke(); ctx.lineWidth = 1; }
+    ctx.fillStyle = on ? cssVar("--t1") : cssVar("--label");
+    ctx.font = `${Math.max(9.5, 11 * Math.min(1, tf.k * 1.4))}px -apple-system, sans-serif`;
+    const flip = Math.cos(it.ang) < 0;
+    ctx.save();
+    ctx.translate(px, py);
+    ctx.rotate(it.ang + (flip ? Math.PI : 0));
+    ctx.textAlign = flip ? "right" : "left";
+    ctx.fillText(it.t.length > 34 ? it.t.slice(0, 33) + "…" : it.t, flip ? -11 : 11, 3.5);
+    ctx.restore();
+  }
+  ctx.textAlign = "left";
+}
+
+function hitRing(mx, my) {
+  if (!ringItems) return -1;
+  let best = -1, bd = 13;
+  for (const [idx, it] of ringItems.entries()) {
+    const d = Math.hypot(it.x * tf.k + tf.x - mx, it.y * tf.k + tf.y - my);
+    if (d < bd) { bd = d; best = idx; }
+  }
+  return best;
+}
+
+function selectRing(it) {
+  selRing = it; sel = -1;
+  $("phead").innerHTML = `<div class="cl" style="color:${it.color}">${esc(it.cat)}</div>
+    <h2>${esc(it.t)}</h2>${it.href ? `<div class="meta">${esc(it.href)}</div>` : ""}`;
+  $("pbody").innerHTML = it.d ? esc(it.d) : '<span class="dim">keine Beschreibung</span>';
+  $("plinks").innerHTML = "";
+  const b = $("obsBtn");
+  if (it.href) { b.style.display = ""; b.textContent = "Öffnen"; b.href = it.href; b.target = "_blank"; }
+  else b.style.display = "none";
+  $("panel").classList.add("open");
+  draw();
+}
+
+// --- Ansichten umschalten ----------------------------------------------------
+function setMode(m) {
+  mode = m; sel = -1; selRing = null; hov = -1;
+  $("panel").classList.remove("open");
+  document.querySelectorAll("#views button").forEach(b => b.classList.toggle("on", b.dataset.m === m));
+  if (m === "map") fitAll();
+  if (m === "globe") { if (!g3) initGlobe(); if (!gLoop) gLoop = requestAnimationFrame(tickGlobe); }
+  if (m === "ring") { if (!ringItems) initRing(); fitRing(); }
+  $("hint").textContent = m === "globe" ? "Ziehen = drehen · Scrollen = zoomen · Klick auf Notiz = Vorschau"
+    : m === "ring" ? "Dein Claude-Setup auf einen Blick · Klick auf einen Punkt = Details"
+    : "Ziehen = verschieben · Scrollen = zoomen · Klick auf Notiz = Vorschau";
+  draw();
+}
+document.querySelectorAll("#views button").forEach(b => { b.onclick = () => setMode(b.dataset.m); });
+
+if (!W) {
+  document.body.innerHTML = '<p style="padding:80px 20px;text-align:center;color:#8b94a3;font-family:sans-serif">wissenskarte_data.js fehlt – bitte einmal aktualisieren (Lebens-Dashboard aktualisieren.command).</p>';
+} else init();
+</script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oskars Dashboard</title>
+<style>
+  :root {
+    --bg: #0e1218; --card: #151a23; --card2: #1c2330; --line: #222a38;
+    --t1: #e8ecf2; --t2: #c6cdd8; --t3: #8b94a3; --t4: #657084;
+    --blue: #5aa2f0; --purple: #a78bfa; --green: #2dd4a7; --amber: #f0b954;
+    --coral: #f28b6b; --yellow: #ffd75e; --pink: #f27ba8; --red: #f0716b;
+    --h0: #1c2330; --h1: #14453a; --h2: #177a5c; --h3: #2dd4a7;
+    --v0: #1c2330; --v1: #33305e; --v2: #574f9e; --v3: #a78bfa;
+  }
+  html.light {
+    --bg: #eef1f6; --card: #ffffff; --card2: #e9edf3; --line: #dde2ea;
+    --t1: #1c222c; --t2: #3d4654; --t3: #6b7586; --t4: #97a0af;
+    --blue: #2a78d6; --purple: #7c5cd6; --green: #149d76; --amber: #b97f14;
+    --coral: #d86a44; --yellow: #d9a900; --pink: #d4537e; --red: #d84b45;
+    --h0: #e9edf3; --h1: #bfe8d9; --h2: #5fc9a4; --h3: #149d76;
+    --v0: #e9edf3; --v1: #ddd6f6; --v2: #ab97e8; --v3: #7c5cd6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--t1);
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    padding: 26px 20px 60px; line-height: 1.45;
+    transition: background .2s;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  h1 { font-size: 24px; margin: 0; font-weight: 650; letter-spacing: -.01em; }
+  .stand { font-size: 12.5px; color: var(--t3); }
+  .fresh { font-size: 11px; border-radius: 10px; padding: 2px 10px; margin-left: auto; }
+  .fresh.ok { color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); }
+  .fresh.old { color: var(--amber); background: color-mix(in srgb, var(--amber) 12%, transparent); border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent); }
+  #themeBtn {
+    background: var(--card); color: var(--t2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 4px 12px; font-size: 12.5px; cursor: pointer;
+  }
+  #themeBtn:hover { border-color: var(--t4); }
+  .subtitle { font-size: 12.5px; color: var(--t4); margin: 0 0 18px; }
+
+  a.mapbtn { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 11px 17px; margin-bottom: 14px; font-size: 13.5px; color: var(--t2); text-decoration: none; }
+  a.mapbtn:hover { border-color: var(--blue); color: var(--t1); }
+  a.mapbtn .arr { margin-left: auto; color: var(--t4); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 12px 15px; }
+  .stat .lbl { font-size: 11.5px; color: var(--t3); margin-bottom: 2px; }
+  .stat .val { font-size: 23px; font-weight: 650; letter-spacing: -.01em; }
+  .stat .sub { font-size: 11px; color: var(--t4); }
+
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 17px 19px; grid-column: span 3; min-width: 0; }
+  .card.wide { grid-column: 1 / -1; }
+  @media (max-width: 820px) { .card { grid-column: 1 / -1; } body { padding: 18px 12px 50px; } }
+
+  .chead { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+  .chead .ico { font-size: 16px; }
+  .chead .ct { font-size: 14.5px; font-weight: 650; }
+  .chead .meta { margin-left: auto; font-size: 12px; color: var(--t3); }
+
+  .ev { display: flex; align-items: baseline; gap: 10px; padding: 5px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); }
+  .ev:last-child { border-bottom: none; }
+  .ev .time { color: var(--t4); min-width: 46px; font-variant-numeric: tabular-nums; font-size: 12.5px; flex: none; }
+  .ev .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; align-self: center; }
+  .ev .t { color: var(--t2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ev .cal { margin-left: auto; font-size: 10.5px; color: var(--t4); flex: none; }
+  .dayhead { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 12px 0 3px; font-weight: 600; }
+  .dayhead:first-child { margin-top: 0; }
+  .empty { font-size: 13px; color: var(--t4); font-style: italic; padding: 6px 0; }
+
+  a.proj { display: flex; align-items: center; gap: 10px; padding: 5.5px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--t2); }
+  a.proj:last-of-type { border-bottom: none; }
+  a.proj:hover .t { color: var(--t1); }
+  a.proj .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pill { font-size: 10.5px; border-radius: 9px; padding: 1px 9px; flex: none; margin-left: auto; }
+  .pill.aktiv { color: var(--green); background: color-mix(in srgb, var(--green) 13%, transparent); }
+  .pill.geplant { color: var(--blue); background: color-mix(in srgb, var(--blue) 13%, transparent); }
+  .pill.idee { color: var(--purple); background: color-mix(in srgb, var(--purple) 13%, transparent); }
+  .pill.pausiert, .pill.unklar { color: var(--amber); background: color-mix(in srgb, var(--amber) 13%, transparent); }
+  .more { font-size: 12px; color: var(--t4); padding-top: 8px; }
+
+  .hmwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 820px) { .hmwrap { grid-template-columns: 1fr; } }
+  .hm-label { font-size: 12.5px; color: var(--t2); font-weight: 600; margin-bottom: 7px; display: flex; gap: 8px; align-items: baseline; }
+  .hm-label span { font-size: 11px; color: var(--t4); font-weight: 400; }
+  .hm-scroll { overflow-x: auto; }
+  .hm-months { display: grid; grid-auto-flow: column; grid-auto-columns: 14px; gap: 4px; font-size: 9.5px; color: var(--t4); margin-bottom: 3px; width: max-content; }
+  .hm-months span { white-space: nowrap; overflow: visible; }
+  .hm { display: grid; grid-template-rows: repeat(7, 14px); grid-auto-flow: column; grid-auto-columns: 14px; gap: 4px; width: max-content; }
+  .hm div { width: 14px; height: 14px; border-radius: 3.5px; }
+  .legend { display: flex; align-items: center; gap: 4px; font-size: 10.5px; color: var(--t4); margin-top: 7px; }
+  .legend i { width: 10px; height: 10px; border-radius: 2.5px; display: inline-block; }
+
+  .formrow { display: flex; gap: 22px; margin-bottom: 14px; }
+  .formrow .f .lbl { font-size: 11px; color: var(--t3); }
+  .formrow .f .v { font-size: 21px; font-weight: 650; }
+  .wbars { display: flex; align-items: flex-end; gap: 6px; height: 70px; margin: 4px 0 2px; }
+  .wbars .wb { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; min-width: 0; }
+  .wbars .wb i { display: block; background: var(--green); border-radius: 3px 3px 0 0; min-height: 2px; opacity: .55; }
+  .wbars .wb:last-child i { opacity: 1; }
+  .wlbl { display: flex; gap: 6px; font-size: 9.5px; color: var(--t4); margin-bottom: 12px; }
+  .wlbl span { flex: 1; text-align: center; }
+  .act { display: flex; gap: 10px; align-items: baseline; font-size: 13px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+  .act:last-child { border-bottom: none; }
+  .act .d { color: var(--t4); font-size: 11.5px; min-width: 44px; flex: none; }
+  .act .typ { color: var(--green); font-size: 11.5px; min-width: 66px; flex: none; }
+  .act .n { color: var(--t2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .act .du { margin-left: auto; color: var(--t3); font-size: 12px; flex: none; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .chip { font-size: 12px; border-radius: 10px; padding: 3px 11px; border: 1px solid var(--line); color: var(--t2); background: var(--card2); }
+  .chip b { font-weight: 600; color: var(--amber); }
+  .chip.yr { font-size: 11px; color: var(--t3); }
+  a.linkbtn { display: flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 10px; font-size: 13px; color: var(--t2); text-decoration: none; margin-top: 6px; background: var(--card2); }
+  a.linkbtn:hover { border-color: var(--amber); color: var(--t1); }
+  a.linkbtn .arr { margin-left: auto; color: var(--t4); font-size: 12px; }
+
+  .book { display: grid; grid-template-columns: 34px 1fr 52px; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .book:last-of-type { border-bottom: none; }
+  .book img { width: 34px; height: 50px; object-fit: cover; border-radius: 4px; background: var(--card2); }
+  .book .t { font-size: 13px; color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .book .a { font-size: 11px; color: var(--t4); }
+  .book .track { height: 5px; background: var(--card2); border-radius: 3px; margin-top: 5px; }
+  .book .fill { height: 5px; background: var(--coral); border-radius: 3px; }
+  .book .pct { font-size: 13px; font-weight: 650; color: var(--coral); text-align: right; }
+  .btnrow { display: flex; gap: 8px; margin-top: 12px; }
+  .btnrow a { flex: 1; text-align: center; font-size: 12.5px; color: var(--t2); text-decoration: none; border: 1px solid var(--line); border-radius: 10px; padding: 6px 4px; background: var(--card2); }
+  .btnrow a:hover { border-color: var(--coral); }
+
+  .dailywrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px; }
+  @media (max-width: 820px) { .dailywrap { grid-template-columns: 1fr; } }
+  .dailywrap h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 0 0 8px; font-weight: 600; }
+  .todo { display: flex; gap: 9px; padding: 5px 0; font-size: 13.5px; color: var(--t2); border-bottom: 1px solid var(--line); align-items: baseline; }
+  .todo:last-child { border-bottom: none; }
+  .todo .ring { width: 8px; height: 8px; border: 1.5px solid var(--amber); border-radius: 50%; flex: none; align-self: center; }
+  a.dnote { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--t2); }
+  a.dnote:last-child { border-bottom: none; }
+  a.dnote:hover .dd { color: var(--t1); }
+  a.dnote .dd { font-variant-numeric: tabular-nums; }
+  a.dnote .info { margin-left: auto; font-size: 11.5px; color: var(--t4); }
+  .pvgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 10px 12px; margin-bottom: 6px; }
+  .pv .lbl { font-size: 11px; color: var(--t3); }
+  .pv .v { font-size: 18px; font-weight: 650; }
+  .pvh { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 10px 0 7px; font-weight: 600; }
+  .pvh:first-child { margin-top: 0; }
+  .pvlive { font-size: 11.5px; color: var(--t4); margin-top: 8px; border-top: 1px solid var(--line); padding-top: 8px; }
+  #tip { position: fixed; z-index: 50; background: var(--card2); border: 1px solid var(--line); color: var(--t1); font-size: 12px; padding: 5px 10px; border-radius: 8px; pointer-events: none; display: none; max-width: 340px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+  .soctrack { height: 7px; background: var(--card2); border-radius: 4px; margin-top: 6px; }
+  .socfill { height: 7px; background: var(--yellow); border-radius: 4px; }
+  .err { font-size: 12.5px; color: var(--amber); }
+
+  footer { max-width: 1120px; margin: 26px auto 0; font-size: 11.5px; color: var(--t4); line-height: 1.7; }
+  footer .warn { color: var(--amber); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Oskars Dashboard</h1>
+    <span class="stand" id="stand"></span>
+    <span class="fresh ok" id="fresh"></span>
+    <button id="themeBtn">Hell</button>
+  </header>
+  <p class="subtitle">Kalender · Vault · intervals.icu · Kindle · Kostal · GDRS iCloud</p>
+
+  <div class="stats" id="stats"></div>
+
+  <a class="mapbtn" href="Wissenskarte.html" target="_blank">🗺️ <b>Wissenskarte</b> – alle Notizen als interaktive Karte mit Suche und Vorschau <span class="arr">→</span></a>
+
+  <div class="grid">
+    <section class="card" id="cardKal">
+      <div class="chead"><span class="ico">📅</span><span class="ct">Heute &amp; morgen</span><span class="meta" id="kalMeta"></span></div>
+      <div id="kalBody"></div>
+    </section>
+
+    <section class="card" id="cardProj">
+      <div class="chead"><span class="ico">🎯</span><span class="ct">Projekte</span><span class="meta" id="projMeta"></span></div>
+      <div id="projBody"></div>
+    </section>
+
+    <section class="card wide">
+      <div class="chead"><span class="ico">🔥</span><span class="ct">Aktivität der letzten 20 Wochen</span><span class="meta">zeigen mit der Maus Details</span></div>
+      <div class="hmwrap">
+        <div class="hm-block">
+          <div class="hm-label">Training <span>intervals.icu</span></div>
+          <div class="hm-scroll"><div class="hm-months" id="moTrain"></div><div class="hm" id="hmTrain"></div></div>
+          <div class="legend">weniger <i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i> mehr</div>
+        </div>
+        <div class="hm-block">
+          <div class="hm-label">Vault &amp; Notizen <span>bearbeitete Notizen und Git-Commits</span></div>
+          <div class="hm-scroll"><div class="hm-months" id="moVault"></div><div class="hm" id="hmVault"></div></div>
+          <div class="legend">weniger <i style="background:var(--v0)"></i><i style="background:var(--v1)"></i><i style="background:var(--v2)"></i><i style="background:var(--v3)"></i> mehr</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="chead"><span class="ico">🏊🚴🏃</span><span class="ct">Training</span><span class="meta" id="trainMeta"></span></div>
+      <div id="trainBody"></div>
+    </section>
+
+    <section class="card">
+      <div class="chead"><span class="ico">🏫</span><span class="ct">Schule</span><span class="meta" id="schuleMeta"></span></div>
+      <div id="schuleBody"></div>
+    </section>
+
+    <section class="card">
+      <div class="chead"><span class="ico">📚</span><span class="ct">Lesen</span><span class="meta" id="lesenMeta"></span></div>
+      <div id="lesenBody"></div>
+    </section>
+
+    <section class="card">
+      <div class="chead"><span class="ico">☀️</span><span class="ct">PV-Anlage</span><span class="meta" id="pvMeta"></span></div>
+      <div id="pvBody"></div>
+    </section>
+
+    <section class="card wide">
+      <div class="chead"><span class="ico">📓</span><span class="ct">Daily Notes</span><span class="meta" id="dailyMeta"></span></div>
+      <div class="dailywrap" id="dailyBody"></div>
+    </section>
+  </div>
+</div>
+<div id="tip"></div>
+<footer id="foot"></footer>
+
+<script src="leben_data.js"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+const WD = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const MON = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+const fmtD = iso => { const d = new Date(iso + "T12:00"); return `${WD[d.getDay()]} ${String(d.getDate()).padStart(2,"0")}.${String(d.getMonth()+1).padStart(2,"0")}.`; };
+const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; };
+
+// Theme
+const applyTheme = t => {
+  document.documentElement.classList.toggle("light", t === "light");
+  $("themeBtn").textContent = t === "light" ? "Dunkel" : "Hell";
+};
+let theme = localStorage.getItem("leben-theme") || "dark";
+applyTheme(theme);
+$("themeBtn").onclick = () => { theme = theme === "light" ? "dark" : "light"; localStorage.setItem("leben-theme", theme); applyTheme(theme); };
+
+function render(L) {
+  const today = todayISO();
+
+  // Kopf
+  const gen = new Date(L.generated);
+  const ageH = (Date.now() - gen.getTime()) / 36e5;
+  $("stand").textContent = `Stand: ${WD[gen.getDay()]} ${String(gen.getDate()).padStart(2,"0")}.${String(gen.getMonth()+1).padStart(2,"0")}. · ${String(gen.getHours()).padStart(2,"0")}:${String(gen.getMinutes()).padStart(2,"0")} Uhr`;
+  const fresh = $("fresh");
+  if (ageH < 20) { fresh.textContent = "aktuell"; fresh.className = "fresh ok"; }
+  else { fresh.textContent = `${Math.round(ageH)} h alt`; fresh.className = "fresh old"; }
+
+  // Statzeile
+  const kal = L.kalender || [];
+  const termineHeute = kal.filter(e => e.d === today && e.cal !== "Feiertage").length;
+  const projAktiv = (L.projekte || []).filter(p => p.status === "aktiv");
+  const tsb = L.training ? L.training.tsb : null;
+  const tsbWord = tsb == null ? "" : (tsb > 5 ? "frisch" : (tsb < -15 ? "müde" : "neutral"));
+  const weekH = L.training && L.training.weeks.length ? L.training.weeks[L.training.weeks.length-1].h : null;
+  const angef = (L.lesen || []).filter(b => b.pct != null && b.pct > 0 && b.pct < 100).length;
+  const stats = [
+    ["Termine heute", termineHeute, "", "var(--blue)"],
+    ["Aktive Projekte", projAktiv.length, "", "var(--purple)"],
+    ["Form (TSB)", tsb == null ? "–" : (tsb > 0 ? "+" : "") + tsb, tsbWord, "var(--green)"],
+    ["Diese Woche", weekH == null ? "–" : weekH + " h", "Training", "var(--green)"],
+    ["Bücher angefangen", angef, "", "var(--coral)"],
+    ["Inbox", L.vault ? L.vault.inbox : "–", "unsortierte Notizen", "var(--amber)"],
+  ];
+  $("stats").innerHTML = stats.map(([l, v, s, c]) =>
+    `<div class="stat"><div class="lbl">${l}</div><div class="val" style="color:${c}">${v}</div>${s ? `<div class="sub">${s}</div>` : ""}</div>`).join("");
+
+  renderKalender(kal, today);
+  renderProjekte(L.projekte || []);
+  if (L.training) renderHeat($("hmTrain"), d => trainLevel(L.training.heat[d]), d => trainTip(d, L.training.heat[d]), ["--h0","--h1","--h2","--h3"]);
+  if (L.vault) renderHeat($("hmVault"), d => vaultLevel(L.vault.heat[d]), d => vaultTip(d, L.vault.heat[d]), ["--v0","--v1","--v2","--v3"]);
+  renderTraining(L.training);
+  renderSchule(L.schule);
+  renderLesen(L.lesen || []);
+  renderPV(L.pv);
+  renderDailies(L.vault);
+
+  // Fußzeile
+  const errs = Object.keys(L.errors || {});
+  $("foot").innerHTML =
+    (errs.length ? `<div class="warn">⚠️ Beim letzten Refresh ohne Daten: ${errs.map(esc).join(", ")} (${esc(Object.values(L.errors).join(" · "))})</div>` : "") +
+    `Aktualisieren: läuft automatisch jeden Morgen, oder Doppelklick auf „Lebens-Dashboard aktualisieren.command" in 04 Ressourcen. ` +
+    `Serientermine zeigt der Kalender-Export nur eingeschränkt. Lesestand aus dem Lese-Dashboard, Klick auf Projekte öffnet Obsidian.`;
+}
+
+function calColor(c) {
+  const m = { "Privat": "var(--blue)", "Arbeit": "var(--purple)", "Familie": "var(--pink)",
+    "Sport": "var(--green)", "Schule": "var(--amber)", "Jahresterminplanung / DieWo": "var(--amber)",
+    "Feiertage": "var(--t4)", "Geburtstage": "var(--coral)" };
+  return m[c] || "var(--t4)";
+}
+
+function renderKalender(kal, today) {
+  const tomorrow = (() => { const d = new Date(); d.setDate(d.getDate()+1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; })();
+  let html = "";
+  for (const [d, label] of [[today, "Heute"], [tomorrow, "Morgen"]]) {
+    const evs = kal.filter(e => e.d === d);
+    html += `<div class="dayhead">${label} · ${fmtD(d)}</div>`;
+    if (!evs.length) { html += '<div class="empty">keine Termine</div>'; continue; }
+    html += evs.map(e => `<div class="ev"><span class="time">${e.allday ? "ganztags" : e.s}</span><span class="dot" style="background:${calColor(e.cal)}"></span><span class="t">${esc(e.t)}</span><span class="cal">${esc(e.cal === "Jahresterminplanung / DieWo" ? "DieWo" : e.cal)}</span></div>`).join("");
+  }
+  $("kalBody").innerHTML = html;
+  $("kalMeta").textContent = "";
+}
+
+function renderProjekte(alle) {
+  const aktiv = alle.filter(p => p.status === "aktiv");
+  const show = aktiv.slice(0, 8);
+  const rest = aktiv.length - show.length;
+  const sonst = alle.filter(p => p.status === "geplant" || p.status === "idee").length;
+  const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f.replace(/\.md$/, ""));
+  $("projBody").innerHTML =
+    show.map(p => `<a class="proj" href="${obs(p.file)}"><span class="t">${esc(p.name)}</span><span class="pill ${esc(p.status)}">${esc(p.status)}</span></a>`).join("") +
+    (rest > 0 || sonst > 0 ? `<div class="more">${rest > 0 ? `+${rest} weitere aktive` : ""}${rest > 0 && sonst > 0 ? " · " : ""}${sonst > 0 ? `${sonst} geplant/Ideen` : ""}</div>` : "");
+  $("projMeta").textContent = `${aktiv.length} aktiv`;
+}
+
+function heatDays() {
+  const out = [];
+  const now = new Date(); now.setHours(12, 0, 0, 0);
+  const dow = (now.getDay() + 6) % 7;
+  const start = new Date(now); start.setDate(now.getDate() - dow - 19 * 7);
+  for (let d = new Date(start); d <= now; d.setDate(d.getDate() + 1))
+    out.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`);
+  return out;
+}
+
+function renderHeat(el, levelFn, tipFn, shades) {
+  const days = heatDays();
+  el.innerHTML = days.map(d =>
+    `<div style="background:var(${shades[levelFn(d)]})" data-tip="${esc(tipFn(d))}"></div>`).join("");
+  const mo = document.getElementById(el.id === "hmTrain" ? "moTrain" : "moVault");
+  let last = -1, cells = "";
+  for (let i = 0; i < days.length; i += 7) {
+    const m = parseInt(days[i].slice(5, 7)) - 1;
+    cells += `<span>${m !== last ? MON[m] : ""}</span>`;
+    last = m;
+  }
+  mo.innerHTML = cells;
+}
+const trainLevel = h => !h || !h.s ? 0 : (h.s < 2700 ? 1 : (h.s < 5400 ? 2 : 3));
+const trainTip = (d, h) => fmtD(d) + (h && h.s ? " · " + h.txt.join(", ") : " · Ruhetag");
+const vaultLevel = h => { const n = h ? (h.e || 0) + (h.c || 0) : 0; return !n ? 0 : (n < 3 ? 1 : (n < 8 ? 2 : 3)); };
+const vaultTip = (d, h) => fmtD(d) + (h ? ` · ${h.e || 0} Notizen bearbeitet, ${h.c || 0} Commits` : " · keine Aktivität");
+
+function renderTraining(t) {
+  if (!t) { $("trainBody").innerHTML = '<div class="empty">keine Daten – intervals.icu nicht erreichbar</div>'; return; }
+  const maxH = Math.max(...t.weeks.map(w => w.h), 1);
+  $("trainBody").innerHTML = `
+    <div class="formrow">
+      <div class="f"><div class="lbl">Fitness (CTL)</div><div class="v">${t.ctl ?? "–"}</div></div>
+      <div class="f"><div class="lbl">Ermüdung (ATL)</div><div class="v">${t.atl ?? "–"}</div></div>
+      <div class="f"><div class="lbl">Form (TSB)</div><div class="v" style="color:var(--green)">${t.tsb == null ? "–" : (t.tsb > 0 ? "+" : "") + t.tsb}</div></div>
+    </div>
+    <div class="wbars">${t.weeks.map(w => `<div class="wb" data-tip="KW ${parseInt(w.w.slice(-2))} · ${w.h} h Training"><i style="height:${Math.max(3, Math.round(w.h / maxH * 100))}%"></i></div>`).join("")}</div>
+    <div class="wlbl">${t.weeks.map(w => `<span>${parseInt(w.w.slice(-2))}</span>`).join("")}</div>
+    ${t.recent.slice(0, 5).map(a => `<div class="act"><span class="d">${fmtD(a.d).slice(3)}</span><span class="typ">${esc(a.typ)}</span><span class="n">${esc(a.name)}</span><span class="du">${a.dur}${a.km ? " · " + a.km + " km" : ""}</span></div>`).join("")}`;
+  $("trainMeta").textContent = "Wochen-Ø " + (t.weeks.reduce((s, w) => s + w.h, 0) / Math.max(t.weeks.length, 1)).toFixed(1) + " h";
+}
+
+function renderSchule(s) {
+  if (!s) { $("schuleBody").innerHTML = '<div class="empty">iCloud-Ordner nicht erreichbar</div>'; return; }
+  $("schuleBody").innerHTML =
+    `<div class="chips">${s.faecher.map(f => `<span class="chip">${esc(f.name)} <b>${f.n}</b></span>`).join("")}</div>` +
+    `<div class="chips">${s.schuljahre.map(y => `<span class="chip yr">${esc(y.replace("Schuljahr ", "SJ "))}</span>`).join("")}</div>` +
+    s.links.map(l => `<a class="linkbtn" href="${esc(l.href)}" target="_blank"><span>${esc(l.label)}</span><span class="arr">→</span></a>`).join("");
+  $("schuleMeta").textContent = "GDRS iCloud";
+}
+
+function renderLesen(books) {
+  const show = books.filter(b => b.pct != null && b.pct < 100).slice(0, 4);
+  $("lesenBody").innerHTML =
+    show.map(b => `<div class="book">
+      ${b.asin ? `<img src="https://images-eu.ssl-images-amazon.com/images/P/${b.asin}.09._SX80_.jpg" alt="" onerror="this.style.visibility='hidden'">` : "<div></div>"}
+      <div><div class="t">${esc(b.t)}</div><div class="a">${esc(b.a)}</div><div class="track"><div class="fill" style="width:${b.pct}%"></div></div></div>
+      <div class="pct">${b.pct} %</div>
+    </div>`).join("") +
+    `<div class="btnrow"><a href="Lese-Dashboard.html" target="_blank">Lese-Dashboard</a><a href="Lese-Bibliothek.html" target="_blank">Bibliothek</a></div>`;
+  $("lesenMeta").textContent = show.length + " im Gange";
+}
+
+function renderPV(p) {
+  if (!p) { $("pvBody").innerHTML = '<div class="empty err">Kostal nicht erreichbar – Werte erscheinen beim nächsten Refresh im Heimnetz.</div>'; $("pvMeta").textContent = ""; return; }
+  const kwh = x => x == null ? "–" : x.toLocaleString("de-DE", { maximumFractionDigits: 1 }) + " kWh";
+  const block = (label, t, spar) => `
+    <h4 class="pvh">${label}</h4>
+    <div class="pvgrid pv">
+      <div><div class="lbl">Produktion</div><div class="v" style="color:var(--yellow)">${kwh(t.prod)}</div></div>
+      <div><div class="lbl">Verbrauch</div><div class="v">${kwh(t.verbrauch)}</div></div>
+      <div><div class="lbl">Einspeisung</div><div class="v">${kwh(t.einspeisung)}</div></div>
+      <div><div class="lbl">Netzbezug</div><div class="v">${kwh(t.netzbezug)}</div></div>
+      ${t.autark != null ? `<div><div class="lbl">Autarkie</div><div class="v" style="color:var(--green)">${t.autark} %</div></div>` : ""}
+      ${spar != null ? `<div><div class="lbl">Ersparnis</div><div class="v" style="color:var(--green)">${spar.toLocaleString("de-DE", { minimumFractionDigits: 2 })} €</div></div>` : ""}
+    </div>`;
+  let html = "";
+  if (p.gestern) html += block("Gestern (6:30 – 6:30 Uhr)", p.gestern, p.sparGestern);
+  else html += '<div class="empty">Vortags-Bilanz gibt es ab morgen – der Zählerverlauf wird seit heute aufgezeichnet.</div>';
+  if (p.heute) html += block("Heute bisher", p.heute, p.sparHeute);
+  const batDir = p.bat_w > 10 ? "entlädt" : (p.bat_w < -10 ? "lädt" : "");
+  html += `<div class="pvlive">Beim letzten Refresh: ${fmtW(Math.max(0, p.pv_w))} PV · Haus ${fmtW(p.home_w)} · Batterie ${Math.round(p.soc)} % ${batDir}</div>`;
+  $("pvBody").innerHTML = html;
+  $("pvMeta").textContent = p.heute ? `Autarkie heute ${p.heute.autark} %` : "";
+}
+const fmtW = w => w >= 1000 ? (w / 1000).toFixed(1).replace(".", ",") + " kW" : Math.round(w) + " W";
+
+function renderDailies(v) {
+  if (!v || !v.dailies || !v.dailies.length) {
+    $("dailyBody").innerHTML = '<div class="empty">noch keine Daily Notes gefunden – nach dem nächsten Refresh erscheinen sie hier</div>';
+    $("dailyMeta").textContent = "";
+    return;
+  }
+  const obs = d => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent("05 Daily Notes/" + d);
+  let offenHtml, offenHead;
+  if (v.offenAlle && v.offenAlle.length) {
+    offenHead = `Offene Punkte der letzten Wochen (${v.offenTotal || v.offenAlle.length})`;
+    offenHtml = v.offenAlle.map(o =>
+      `<div class="todo"><span class="ring"></span><span>${esc(o.t)}<span style="color:var(--t4);font-size:11px"> · ${fmtD(o.last)}${o.n > 1 ? " · " + o.n + "×" : ""}</span></span></div>`).join("") +
+      (v.offenTotal > v.offenAlle.length ? `<div class="more">+${v.offenTotal - v.offenAlle.length} weitere in den Notes</div>` : "");
+  } else {
+    const latest = v.dailies[0];
+    offenHead = `Offen aus der letzten Note (${fmtD(latest.d)})`;
+    offenHtml = latest.offen.length
+      ? latest.offen.map(t => `<div class="todo"><span class="ring"></span><span>${esc(t)}</span></div>`).join("")
+      : '<div class="empty">keine offenen Punkte notiert</div>';
+  }
+  $("dailyBody").innerHTML = `
+    <div>
+      <h4>${offenHead}</h4>
+      ${offenHtml}
+    </div>
+    <div>
+      <h4>Letzte Einträge · Klick öffnet Obsidian</h4>
+      ${v.dailies.map(n => `<a class="dnote" href="${obs(n.d)}"><span class="dd">${fmtD(n.d)}</span><span class="info">${n.g} geschafft · ${n.offen.length} offen</span></a>`).join("")}
+    </div>`;
+  $("dailyMeta").textContent = `${v.nDailies || v.dailies.length} Notizen insgesamt`;
+}
+
+document.addEventListener("mousemove", e => {
+  const tip = $("tip");
+  const t = e.target.closest ? e.target.closest("[data-tip]") : null;
+  if (!t) { tip.style.display = "none"; return; }
+  tip.textContent = t.dataset.tip;
+  tip.style.display = "block";
+  tip.style.left = Math.min(innerWidth - tip.offsetWidth - 10, e.clientX + 14) + "px";
+  tip.style.top = Math.min(innerHeight - 44, e.clientY + 18) + "px";
+});
+
+const L = window.LEBEN;
+if (!L) {
+  document.querySelector(".grid").innerHTML = '<section class="card wide"><div class="chead"><span class="ico">⚠️</span><span class="ct">Keine Daten gefunden</span></div><div class="empty">leben_data.js fehlt – bitte einmal "Lebens-Dashboard aktualisieren.command" doppelklicken.</div></section>';
+} else {
+  render(L);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Staffellauf – Startzeiten</title>
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .page { width: 210mm; height: 285mm; overflow: hidden; display: flex; flex-direction: column; }
+  body {
+    width: 210mm; min-height: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #10243c;
+    background: #fff;
+    display: flex; flex-direction: column;
+  }
+  .top {
+    background: #0b3d6b;
+    color: #fff;
+    padding: 11mm 14mm 9mm;
+    text-align: center;
+    position: relative;
+  }
+  .kicker {
+    font-size: 13pt; letter-spacing: 0.32em; text-transform: uppercase;
+    font-weight: 600; color: #9fd0ff;
+  }
+  h1 {
+    font-size: 56pt; line-height: 1.0; font-weight: 800;
+    letter-spacing: -0.02em; margin: 5mm 0 4mm;
+  }
+  .sub {
+    display: inline-block;
+    border: 2.5px solid #ffd23f; color: #ffd23f;
+    border-radius: 999px; padding: 2.5mm 8mm;
+    font-size: 18pt; font-weight: 700; letter-spacing: 0.03em;
+  }
+  .mid {
+    text-align: center; padding: 7mm 14mm 3mm;
+  }
+  .mid h2 {
+    font-size: 24pt; font-weight: 800; letter-spacing: 0.02em;
+  }
+  .mid p { font-size: 14pt; color: #4a6076; margin-top: 2.5mm; }
+  .times {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6mm 8mm;
+    padding: 6mm 18mm 4mm;
+    align-content: start;
+  }
+  .slot {
+    border: 3px solid #0b3d6b;
+    border-radius: 6mm;
+    padding: 3.5mm 2mm;
+    text-align: center;
+    font-size: 34pt; font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .slot.wide { grid-column: 1 / -1; }
+  .slot small {
+    display: block; font-size: 11pt; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: #7089a1; margin-bottom: 1.5mm;
+  }
+  .foot {
+    background: #ffd23f;
+    padding: 7mm 14mm;
+    text-align: center;
+  }
+  .foot .big { font-size: 19pt; font-weight: 800; }
+  .foot .small { font-size: 12.5pt; margin-top: 2mm; color: #4a3a00; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <div class="kicker">Probetag TSV Rudersberg</div>
+    <h1>Staffellauf</h1>
+    <div class="sub">Station geöffnet 13:30 – 15:30 Uhr</div>
+  </div>
+
+  <div class="mid">
+    <h2>Startzeiten</h2>
+    <p>Alle 15 Minuten startet ein neuer Durchgang – einfach kurz vorher da sein!</p>
+  </div>
+
+  <div class="times">
+    <div class="slot"><small>Start 1</small>13:45</div>
+    <div class="slot"><small>Start 2</small>14:00</div>
+    <div class="slot"><small>Start 3</small>14:15</div>
+    <div class="slot"><small>Start 4</small>14:30</div>
+    <div class="slot"><small>Start 5</small>14:45</div>
+    <div class="slot"><small>Start 6</small>15:00</div>
+    <div class="slot wide"><small>Start 7 – letzter Start</small>15:15</div>
+  </div>
+
+  <div class="foot">
+    <div class="big">Mitmachen können alle – einfach anstellen und loslaufen!</div>
+    <div class="small">Sportschuhe empfohlen · Teams werden vor Ort eingeteilt</div>
+  </div>
+</div>
+</body>
+</html>

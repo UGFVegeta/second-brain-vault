@@ -15,8 +15,8 @@
     },
     {
       "name": "matheaufgaben",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8738", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen/Mathematik/Prüfungsaufgaben"],
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/518e2dd8-693b-43dc-aa48-75d69e5d33e8/scratchpad/mathe' && exec python3 -m http.server 8738"],
       "port": 8738
     },
     {
@@ -36,6 +36,24 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8739", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude"],
       "port": 8739
+    },
+    {
+      "name": "lesedashboard",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/c1ae9ec8-4f6a-4262-989d-41b9354c00bd/scratchpad/lesedash'); socketserver.TCPServer(('', 8743), h).serve_forever()"],
+      "port": 8743
+    },
+    {
+      "name": "elektro",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/a72909c3-0e8e-4b82-a669-2ad0285b4be6/scratchpad'); socketserver.TCPServer(('', 8742), h).serve_forever()"],
+      "port": 8742
+    },
+    {
+      "name": "artefakt-test",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/135f954a-4211-45e3-989a-4dd2081564ab/scratchpad'); socketserver.TCPServer(('', 8751), h).serve_forever()"],
+      "port": 8751
     }
   ]
 }

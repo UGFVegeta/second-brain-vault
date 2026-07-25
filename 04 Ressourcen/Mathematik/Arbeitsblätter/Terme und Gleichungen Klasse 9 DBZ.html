@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Terme und Gleichungen – Saiyajin-Training</title>
+<style>
+  @page { size: A4; margin: 11mm 13mm 11mm 13mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11.2pt;
+    line-height: 1.45;
+    color: #1a1a2e;
+    margin: 0;
+  }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* ===== Header ===== */
+  header {
+    position: relative;
+    background: radial-gradient(ellipse at 30% 40%, #ffd54d 0%, #ff9f1c 45%, #f0641e 100%);
+    border: 2.5pt solid #1a1a2e;
+    border-radius: 4mm;
+    padding: 4mm 5mm 3.5mm 5mm;
+    margin-bottom: 4mm;
+    overflow: hidden;
+  }
+  header::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(115deg, transparent 46%, rgba(255,255,255,0.55) 47%, transparent 52%),
+      linear-gradient(65deg, transparent 60%, rgba(255,255,255,0.35) 61%, transparent 65%);
+  }
+  h1 {
+    position: relative;
+    font-family: "Arial Black", "Helvetica Neue", sans-serif;
+    font-size: 19pt;
+    font-style: italic;
+    letter-spacing: 0.3mm;
+    margin: 0 0 0.5mm 0;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 1.2pt 1.2pt 0 #1a1a2e, -0.6pt -0.6pt 0 #1a1a2e, 0.6pt -0.6pt 0 #1a1a2e, -0.6pt 0.6pt 0 #1a1a2e, 2.5pt 2.5pt 0 rgba(26,26,46,0.35);
+  }
+  .sub {
+    position: relative;
+    font-size: 9pt;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin: 0 0 2.5mm 0;
+  }
+  .felder { position: relative; display: flex; gap: 6mm; font-size: 9pt; font-weight: bold; color: #1a1a2e; }
+  .felder span { flex: 1; border-bottom: 1pt solid #1a1a2e; padding-bottom: 0.5mm; background: rgba(255,255,255,0.45); border-radius: 1mm 1mm 0 0; padding-left: 1.5mm; }
+
+  /* ===== Dragon Ball ===== */
+  .ball {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 7.5mm; height: 7.5mm;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #ffe9a8 0%, #ffb830 45%, #f07d1a 100%);
+    border: 1.2pt solid #1a1a2e;
+    color: #d0342c;
+    font-size: 6pt;
+    letter-spacing: -0.4pt;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 2.5mm;
+    flex: none;
+  }
+  .ball span { display: block; line-height: 0.95; }
+
+  /* ===== Block-Header ===== */
+  h2 {
+    display: flex;
+    align-items: center;
+    font-size: 12pt;
+    margin: 5mm 0 2mm 0;
+    padding: 1.2mm 2.5mm;
+    background: linear-gradient(90deg, #1a1a2e 0%, #274690 55%, #5c7ec9 100%);
+    color: #fff;
+    border-radius: 1.5mm;
+    border-left: 3.5pt solid #f0641e;
+    page-break-after: avoid;
+  }
+  h2 .pl {
+    margin-left: auto;
+    font-family: "Arial Black", sans-serif;
+    font-style: italic;
+    font-size: 8.5pt;
+    color: #ffd54d;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  h2 .pl b { color: #fff; }
+  .scouter {
+    display: inline-block;
+    font-size: 7.5pt;
+    font-style: normal;
+    font-weight: bold;
+    padding: 0.3mm 2mm;
+    margin-left: 2mm;
+    border-radius: 2mm;
+    background: #2ecc40;
+    color: #063;
+    border: 0.8pt solid #063;
+    text-transform: none;
+  }
+  .scouter.aus { background: #ddd; color: #555; border-color: #888; }
+
+  .flavor { font-size: 8.5pt; font-style: italic; color: #444; margin: -0.5mm 0 1.5mm 2.5mm; }
+
+  .a { margin: 0 0 2.6mm 0; page-break-inside: avoid; }
+  .nr {
+    font-family: "Arial Black", sans-serif;
+    font-style: italic;
+    color: #f0641e;
+  }
+  .items { margin-left: 7mm; }
+  .items > span { display: inline-block; min-width: 40mm; margin-right: 2mm; }
+  .items.w > span { min-width: 55mm; }
+  .items.voll > span { display: block; min-width: 0; margin-bottom: 0.6mm; }
+  i { font-style: italic; }
+
+  .frac { display: inline-block; vertical-align: -0.55em; text-align: center; font-size: 0.86em; }
+  .frac > span { display: block; padding: 0 0.15em; min-width: 0; margin: 0; }
+  .frac .u { border-top: 0.6pt solid #1a1a2e; }
+
+  .formel {
+    font-size: 9.5pt; margin: 0 0 2mm 7mm; padding: 1mm 3mm;
+    border: 1.2pt solid #274690; border-radius: 2mm;
+    display: inline-block;
+    background: linear-gradient(180deg, #eef3ff 0%, #d9e4ff 100%);
+  }
+
+  footer {
+    margin-top: 4mm;
+    border: 1.2pt solid #1a1a2e;
+    border-radius: 2mm;
+    padding: 1.5mm 3mm;
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #1a1a2e;
+    background: linear-gradient(90deg, #ffd54d 0%, #ff9f1c 100%);
+  }
+  .pb { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Terme &amp; Gleichungen · Saiyajin-Training</h1>
+  <p class="sub">Kämpfe dich durch 6 Power-Level bis ÜBER 9000! · Teil A–E ohne Scouter (TR) – nur Level F mit TR. Rechenwege ins Heft: Ein wahrer Krieger zeigt seine Technik.</p>
+  <div class="felder"><span>Kämpfername:</span><span>Klasse:</span><span>Datum:</span></div>
+</header>
+
+<h2><span class="ball">★</span> A · Terme zusammenfassen <span class="pl">Kampfkraft <b>500</b><span class="scouter aus">ohne Scouter</span></span></h2>
+<p class="flavor">Aufwärmen im Raum von Geist und Zeit – gleiche Variablen finden zueinander.</p>
+
+<div class="a"><span class="nr">A1</span> Fasse so weit wie möglich zusammen.
+  <div class="items">
+    <span>a) 4<i>x</i> + 7<i>x</i></span>
+    <span>b) 9<i>a</i> − 3<i>a</i> + <i>a</i></span>
+    <span>c) 5<i>x</i> + 3<i>y</i> − 2<i>x</i> + 4<i>y</i></span>
+    <span>d) 7<i>a</i> − 4<i>b</i> − <i>a</i> + 9<i>b</i></span>
+    <span>e) 3<i>x</i>² + 5<i>x</i> − <i>x</i>² + 2<i>x</i></span>
+    <span>f) 6<i>ab</i> − 2<i>a</i> + 3<i>ab</i> + 5<i>a</i></span>
+    <span>g) 2<i>x</i> − 5 + 7<i>x</i> + 12</span>
+    <span>h) 8<i>x</i>² − 3<i>x</i> + 2 − 5<i>x</i>² + 3<i>x</i></span>
+    <span>i) 10<i>x</i> − 4<i>y</i> + 3<i>x</i> − 6<i>y</i></span>
+    <span>j) 5<i>a</i>² − 2<i>a</i> + 3 − <i>a</i>² + 7<i>a</i></span>
+    <span>k) 4<i>ab</i> + 2<i>b</i> − <i>ab</i> + 8<i>b</i></span>
+    <span>l) <i>x</i>² + <i>x</i> + 1 + <i>x</i>² − <i>x</i> − 1</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">A2</span> Vereinfache die Produkte.
+  <div class="items">
+    <span>a) 3<i>x</i> · 4<i>x</i></span>
+    <span>b) 2<i>a</i> · 5<i>b</i></span>
+    <span>c) (−2<i>x</i>) · 3<i>x</i></span>
+    <span>d) <i>x</i> · <i>x</i> · <i>x</i></span>
+    <span>e) 2<i>x</i> · 3<i>x</i>²</span>
+    <span>f) (−4<i>a</i>) · (−2<i>a</i>)</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">A3</span> Berechne den Wert des Terms für <i>x</i> = 3 und <i>y</i> = −2.
+  <div class="items">
+    <span>a) 4<i>x</i> + 2<i>y</i></span>
+    <span>b) <i>x</i>² − <i>y</i>²</span>
+    <span>c) 3<i>xy</i></span>
+    <span>d) 2<i>x</i>² − 5<i>y</i></span>
+  </div>
+</div>
+
+<h2><span class="ball">★★</span> B · Klammern auflösen <span class="pl">Kampfkraft <b>1.000</b><span class="scouter aus">ohne Scouter</span></span></h2>
+<p class="flavor">Sprenge die Klammern wie einen Energieball – aber Vorsicht beim Minus davor!</p>
+
+<div class="a"><span class="nr">B1</span> Löse die Klammern auf und fasse zusammen.
+  <div class="items">
+    <span>a) 3(<i>x</i> + 4)</span>
+    <span>b) 5(2<i>a</i> − 3)</span>
+    <span>c) −2(<i>x</i> − 6)</span>
+    <span>d) 4(3<i>x</i> + 2) − 5<i>x</i></span>
+    <span>e) 2(<i>a</i> + 3) + 3(<i>a</i> − 1)</span>
+    <span>f) 6<i>x</i> − (2<i>x</i> − 7)</span>
+    <span>g) 4(2<i>x</i> + 1) − 3(<i>x</i> − 2)</span>
+    <span>h) 6(<i>a</i> − 2) − (4<i>a</i> − 12)</span>
+    <span>i) (<i>x</i> + 2)(<i>x</i> + 5)</span>
+    <span>j) (2<i>x</i> − 3)(<i>x</i> + 4)</span>
+    <span>k) (<i>x</i> + 3)(<i>x</i> + 7)</span>
+    <span>l) (3<i>x</i> + 2)(<i>x</i> − 5)</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">B2</span> Multipliziere aus (Variable mal Klammer).
+  <div class="items">
+    <span>a) 2<i>x</i>(3<i>x</i> + 4)</span>
+    <span>b) −3<i>a</i>(2<i>a</i> − 5)</span>
+    <span>c) <i>x</i>(<i>x</i>² − 4<i>x</i> + 1)</span>
+    <span>d) 4<i>b</i>(2<i>a</i> + 3<i>b</i>)</span>
+  </div>
+</div>
+
+<h2><span class="ball">★★★</span> C · Binomische Formeln <span class="pl">Kampfkraft <b>3.000</b><span class="scouter aus">ohne Scouter</span></span></h2>
+<p class="flavor">Drei Techniken, wie die drei Formen des Kamehameha – beherrsche sie vorwärts und rückwärts.</p>
+
+<div class="a"><span class="nr">C1</span> Multipliziere mit der passenden binomischen Formel aus.
+  <div class="items">
+    <span>a) (<i>x</i> + 3)²</span>
+    <span>b) (<i>x</i> − 5)²</span>
+    <span>c) (2<i>x</i> + 1)²</span>
+    <span>d) (<i>x</i> + 4)(<i>x</i> − 4)</span>
+    <span>e) (3<i>a</i> − 2<i>b</i>)²</span>
+    <span>f) (5 + <i>x</i>)(5 − <i>x</i>)</span>
+    <span>g) (<i>x</i> + 6)²</span>
+    <span>h) (4<i>x</i> − 3)²</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">C2</span> Rückwärts: Schreibe als Produkt bzw. als Binom.
+  <div class="items">
+    <span>a) <i>x</i>² + 8<i>x</i> + 16</span>
+    <span>b) <i>x</i>² − 49</span>
+    <span>c) 4<i>x</i>² − 12<i>x</i> + 9</span>
+    <span>d) <i>a</i>² − 6<i>a</i> + 9</span>
+    <span>e) <i>x</i>² − 100</span>
+    <span>f) 9<i>x</i>² + 6<i>x</i> + 1</span>
+    <span>g) 25<i>a</i>² − 16</span>
+    <span>h) <i>x</i>² + 2<i>x</i> + 1</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">C3</span> Ergänze die fehlenden Zahlen bzw. Terme, sodass eine binomische Formel entsteht.
+  <div class="items w">
+    <span>a) <i>x</i>² + 10<i>x</i> + ___ = (<i>x</i> + ___)²</span>
+    <span>b) <i>x</i>² − ___ + 36 = (<i>x</i> − 6)²</span>
+    <span>c) <i>x</i>² − ___ = (<i>x</i> + 9)(<i>x</i> − 9)</span>
+    <span>d) ___ + 14<i>x</i> + 49 = (<i>x</i> + 7)²</span>
+  </div>
+</div>
+
+<h2 class="pb"><span class="ball" style="font-size:5pt;"><span>★★</span><span>★★</span></span> D · Faktorisieren <span class="pl">Kampfkraft <b>5.000</b><span class="scouter aus">ohne Scouter</span></span></h2>
+<p class="flavor">Fusion rückwärts: Zerlege jeden Term in seine stärksten Faktoren.</p>
+
+<div class="a"><span class="nr">D1</span> Klammere so viel wie möglich aus.
+  <div class="items">
+    <span>a) 7<i>x</i> + 21</span>
+    <span>b) 12<i>a</i> − 8</span>
+    <span>c) 5<i>x</i>² + 10<i>x</i></span>
+    <span>d) 6<i>ab</i> − 9<i>b</i></span>
+    <span>e) <i>x</i>² + 5<i>x</i></span>
+    <span>f) 8<i>x</i>²<i>y</i> + 12<i>xy</i></span>
+    <span>g) 15<i>x</i>² − 5<i>x</i></span>
+    <span>h) 4<i>a</i>²<i>b</i> + 6<i>ab</i>²</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">D2</span> Faktorisiere vollständig. <span style="font-size:8.5pt; font-style:italic; color:#444;">Tipp: erst ausklammern, dann binomische Formel.</span>
+  <div class="items w">
+    <span>a) 3<i>x</i>² − 27</span>
+    <span>b) 2<i>x</i>² + 8<i>x</i> + 8</span>
+    <span>c) 5<i>x</i>² − 20</span>
+    <span>d) 3<i>x</i>² − 18<i>x</i> + 27</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">D3</span> Kürze den Bruchterm. <span style="font-size:8.5pt; font-style:italic; color:#444;">Tipp: Zähler zuerst faktorisieren.</span>
+  <div class="items">
+    <span>a) <span class="frac"><span>6<i>x</i> + 9</span><span class="u">3</span></span></span>
+    <span>b) <span class="frac"><span><i>x</i>² + 5<i>x</i></span><span class="u"><i>x</i></span></span></span>
+    <span>c) <span class="frac"><span>4<i>a</i>² − 12<i>a</i></span><span class="u">4<i>a</i></span></span></span>
+  </div>
+</div>
+
+<h2><span class="ball" style="font-size:5pt;"><span>★★★</span><span>★★</span></span> E · Lineare Gleichungen <span class="pl">Kampfkraft <b>8.000</b><span class="scouter aus">ohne Scouter</span></span></h2>
+<p class="flavor">Deine Kamehameha-Technik: Energie auf beiden Seiten sammeln, dann | − und | : entfesseln.</p>
+
+<div class="a"><span class="nr">E1</span> Löse durch Äquivalenzumformungen. Notiere jeden Umformungsschritt (z.&nbsp;B. | − 5, | : 3). Mache bei b) und f) die Probe.
+  <div class="items">
+    <span>a) <i>x</i> + 7 = 15</span>
+    <span>b) 4<i>x</i> = 36</span>
+    <span>c) 3<i>x</i> + 5 = −16</span>
+    <span>d) 8<i>x</i> + 3 = 5<i>x</i> + 18</span>
+    <span>e) 6<i>x</i> − 9 = 2<i>x</i> + 15</span>
+    <span>f) 5(<i>x</i> − 2) = 3<i>x</i> + 8</span>
+    <span>g) 7<i>x</i> − (2<i>x</i> + 4) = 21</span>
+    <span>h) <span class="frac"><span><i>x</i></span><span class="u">4</span></span> + 3 = 7</span>
+    <span>i) 4(2<i>x</i> + 1) = 5<i>x</i> + 19</span>
+    <span>j) 2(3<i>x</i> − 4) = 4(<i>x</i> + 1)</span>
+    <span>k) 6<i>x</i> + 5 = 2<i>x</i> − 11</span>
+    <span>l) 3(2<i>x</i> − 5) = 4<i>x</i> + 1</span>
+    <span>m) <span class="frac"><span><i>x</i></span><span class="u">3</span></span> − 2 = 4</span>
+    <span>n) 5<i>x</i> − 2(<i>x</i> − 4) = 23</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">E2</span> Übersetze in eine Gleichung und löse im Heft.
+  <div class="items voll">
+    <span>a) Das Dreifache einer Zahl, vermindert um 7, ergibt 23. Wie heißt die Zahl?</span>
+    <span>b) Addiert man zu einer Zahl 12, erhält man das Vierfache der Zahl. Wie heißt die Zahl?</span>
+    <span>c) Ein Rechteck hat den Umfang 36 cm. Die Länge ist doppelt so lang wie die Breite. Berechne die Seitenlängen.</span>
+  </div>
+</div>
+
+<h2><span class="ball" style="font-size:5pt;"><span>★★★</span><span>★★★</span></span> F · Quadratische Gleichungen <span class="pl">Kampfkraft <b>ÜBER 9000!</b><span class="scouter">Scouter (TR) erlaubt</span></span></h2>
+<p class="flavor">Finalform! Der Scouter ist erlaubt – aber denk daran: Manche Gegner haben zwei Lösungen, manche gar keine.</p>
+
+<div class="a"><span class="nr">F1</span> Löse durch Umformen und Wurzelziehen. Denke an beide Lösungen!
+  <div class="items">
+    <span>a) <i>x</i>² = 81</span>
+    <span>b) <i>x</i>² − 49 = 0</span>
+    <span>c) 3<i>x</i>² = 75</span>
+    <span>d) 2<i>x</i>² − 32 = 0</span>
+    <span>e) 4<i>x</i>² = 1</span>
+    <span>f) <i>x</i>² + 9 = 0</span>
+    <span>g) <i>x</i>² − 121 = 0</span>
+    <span>h) 5<i>x</i>² − 45 = 0</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">F2</span> Löse mit der Mitternachtsformel. Gib zuerst <i>a</i>, <i>b</i> und <i>c</i> an.
+  <div class="formel"><i>x</i><sub>1,2</sub> = <span class="frac"><span>−<i>b</i> ± √(<i>b</i>² − 4<i>ac</i>)</span><span class="u">2<i>a</i></span></span></div>
+  <div class="items">
+    <span>a) <i>x</i>² + 5<i>x</i> + 6 = 0</span>
+    <span>b) <i>x</i>² − 2<i>x</i> − 15 = 0</span>
+    <span>c) 2<i>x</i>² + 7<i>x</i> + 3 = 0</span>
+    <span>d) <i>x</i>² − 6<i>x</i> + 9 = 0</span>
+    <span>e) <i>x</i>² + 4<i>x</i> + 5 = 0</span>
+    <span>f) <i>x</i>² + <i>x</i> − 12 = 0</span>
+    <span>g) 2<i>x</i>² − 8<i>x</i> + 6 = 0</span>
+    <span>h) <i>x</i>² + 10<i>x</i> + 25 = 0</span>
+  </div>
+</div>
+
+<div class="a"><span class="nr">F3</span> Entscheide nur mit der Diskriminante D = <i>b</i>² − 4<i>ac</i>, wie viele Lösungen die Gleichung hat (ohne sie zu lösen).
+  <div class="items w">
+    <span>a) <i>x</i>² + 3<i>x</i> − 7 = 0</span>
+    <span>b) <i>x</i>² − 8<i>x</i> + 16 = 0</span>
+    <span>c) 2<i>x</i>² + <i>x</i> + 4 = 0</span>
+  </div>
+</div>
+
+<footer>⭐ Alle 6 Level geschafft? Dann bist du bereit für Klasse 10 – die 7. Kugel gibt's beim Lehrer. Shenlong wäre stolz auf dich!</footer>
+
+</body>
+</html>

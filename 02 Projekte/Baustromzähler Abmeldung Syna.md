@@ -8,13 +8,14 @@ date: 2026-06-22
 
 ## 🔢 Wichtigste Daten (für Anruf)
 
-| | |
-|---|---|
-| **Zählernummer** | `1ISK0071589912` |
-| **Kundennummer EnBW** | `3104933241` |
-| **Vertragsnummer EnBW** | `701044438696` |
-| **Adresse** | Wieselweg 4, 73635 Rudersberg |
-| **Offene Rechnung** | ~5.000 € (EnBW, noch nicht bezahlt) |
+|                         |                                     |
+| ----------------------- | ----------------------------------- |
+| **Zählernummer**        | `1ISK0071589912`                    |
+| **Kundennummer EnBW**   | `3104933241`                        |
+| **Vertragsnummer EnBW** | `701044438696`                      |
+| **Adresse**             | Wieselweg 4, 73635 Rudersberg       |
+| **Offene Rechnung**     | ~5.000 € (EnBW, noch nicht bezahlt) |
+| aktueller Stand:        |                                     |
 
 ## 📞 Ansprechpartner
 

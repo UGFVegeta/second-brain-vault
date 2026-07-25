@@ -24,6 +24,10 @@
 # Claude Code lokale Settings mit API-Keys (nicht ins Repo)
 .claude/settings.local.json
 
+# Python-Bytecode-Cache
+__pycache__/
+*.pyc
+
 # Node
 node_modules/
 

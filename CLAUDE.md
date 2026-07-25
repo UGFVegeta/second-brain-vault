@@ -131,6 +131,8 @@ Gibt zurück: PV-Produktion (W), Hausverbrauch, Batterie-Ladestand (%), Netz-Bez
 
 Wenn Oskar fragt wie die Anlage gerade läuft oder was sie heute produziert hat: **immer zuerst diesen Befehl ausführen.**
 
+**Wichtig – Login-Sperre:** Der Wechselrichter sperrt den Benutzer bei mehreren Anmeldungen kurz hintereinander (`UserLockedException: User is locked [403]`). Die Sperre hält etwa 15–30 Minuten und **verlängert sich bei jedem weiteren Versuch** – also nach einem Fehler nicht in einer Schleife retryen, sondern warten. Skripte deshalb: **ein Login pro Lauf**, alle Module über dieselbe Session abrufen (so gelöst in `.scripts/leben_refresh.py`, Funktion `fetch_all()`). `kostal_live.py` nicht direkt aufrufen, während ein Dashboard-Refresh läuft. Für `pykoplenti`/`aiohttp` immer `/Library/Frameworks/Python.framework/Versions/3.12/bin/python3` nutzen, das System-`python3` hat die Module nicht.
+
 ## Apple Kalender
 
 Wenn Oskar fragt was morgen, heute, oder an einem anderen Tag ansteht: **immer zuerst den Apple Kalender per AppleScript auslesen.** Nicht nur die Vault-Notizen prüfen.
@@ -205,6 +207,14 @@ python3 .scripts/intervals_tpv_upload.py         # neue Fahrten hochladen
 python3 .scripts/intervals_tpv_upload.py --dry   # nur zeigen, was neu wäre
 ```
 Wenn Oskar eine Rolle gefahren ist bzw. seine virtuellen Einheiten fehlen: dieses Skript laufen lassen, dann sind sie in intervals.icu lesbar.
+
+## LLM-Wiki (04 Ressourcen/Wiki/)
+
+Claude pflegt in 04 Ressourcen/Wiki/ themenübergreifende Wissensseiten nach dem Karpathy-Prinzip. Die verbindlichen Regeln stehen in [[04 Ressourcen/Wiki/Wiki.md|Wiki]] (Startseite): nur belegte Aussagen aus Vault-Quellen, Quellen nennen, **Widersprüche mit ⚠️ markieren statt überschreiben**, kurz halten, Praxisbezug für Oskar, untereinander verlinken.
+
+- Trigger: „arbeite X ins Wiki ein", ein ausgelesenes Buch, oder wichtige neue Erkenntnisse aus Gesprächen.
+- Quellnotizen (Readwise, Bücher & Learnings) bleiben unverändert – das Wiki verdichtet nur.
+- Neue Seiten immer in den Index in Wiki.md eintragen.
 
 ## Session-Routinen
 
