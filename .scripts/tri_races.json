@@ -1,0 +1,86 @@
+{
+  "_hinweis": "Konfiguration der Wettkampf-Dashboards. Neues Rennen: Block kopieren, Komoot-Tour-IDs und Share-Tokens aus den Einbettungen der Veranstalterseite eintragen, dann tri_update.py laufen lassen. sportart steuert den Filter auf der Übersicht: triathlon oder lauf.",
+  "zielordner": "04 Ressourcen/Triathlon & Training/Wettkampf-Dashboards",
+  "rennen": [
+    {
+      "id": "weinstadtcross",
+      "ordner": "WeinstadtCross",
+      "sportart": "lauf",
+      "name": "11. Volksbank WeinstadtCross",
+      "kurz": "WeinstadtCross",
+      "untertitel": "Crosslauf · Deutsche Meisterschaften",
+      "datum": "2026-11-28T11:40:00",
+      "ort": "Bildungszentrum Weinstadt-Beutelsbach",
+      "distanzen": { "laufen": "3,6 / 4,7 / 5,8 / 7,0 km" },
+      "webseite": "https://weinstadtcross.de/",
+      "akzent": "#f0b954",
+      "komoot": {},
+      "bilder": [],
+      "pdfs": [
+        { "url": "https://weinstadtcross.de/wp-content/uploads/2025/12/Strecken-2027.pdf", "datei": "strecken", "seiten": [1, 2] },
+        { "url": "https://weinstadtcross.de/wp-content/uploads/2026/05/Zeitplan_2026.pdf", "datei": "zeitplan", "seiten": [1] },
+        { "url": "https://weinstadtcross.de/wp-content/uploads/2026/06/2026_Ausschreibung_Volksbank_WeinstadtCross.pdf", "datei": "ausschreibung", "seiten": [1] }
+      ],
+      "quellen": [
+        "https://weinstadtcross.de/",
+        "https://weinstadtcross.de/strecken-neu",
+        "https://weinstadtcross.de/zeitplan",
+        "https://weinstadtcross.de/ausschreibung-2",
+        "https://weinstadtcross.de/zeitplan-dm"
+      ]
+    },
+    {
+      "id": "breisgau-md",
+      "sportart": "triathlon",
+      "ordner": "Breisgau Mitteldistanz",
+      "name": "35. Breisgau Triathlon",
+      "kurz": "Breisgau",
+      "untertitel": "Mitteldistanz · BW-Meisterschaft",
+      "datum": "2026-08-23T10:00:00",
+      "ort": "Müllersee Riegel → Sportplatz Malterdingen",
+      "distanzen": { "schwimmen": "1,9 km", "rad": "80 km", "laufen": "21,1 km" },
+      "webseite": "https://www.tnb-malterdingen.de/breisgau-triathlon/",
+      "akzent": "#f0716b",
+      "komoot": {
+        "schwimmen": { "id": "2810798848", "token": "aC9owjM33soOt9m3pL2SaQ7p5N1VCfkx11WbUtj6HUiS3ckGl7", "runden": 2 },
+        "rad": { "id": "2684268738", "token": "aM8tcG0S5YW3jMM6GeAq0T5w3Y158SBs2U3bLzeK0vd2xiIeSn", "runden": 3 },
+        "laufen": { "id": "2809170692", "token": "aX1ZIqQ84bqz1UoohoqDvjbLm5G7R3QMIJr7LEdW4XHPjywmi0", "runden": 2 }
+      },
+      "bilder": [],
+      "quellen": [
+        "https://www.tnb-malterdingen.de/breisgau-triathlon/distanzen-strecken/",
+        "https://www.tnb-malterdingen.de/breisgau-triathlon/athleteninfo/zeitplan/",
+        "https://www.tnb-malterdingen.de/breisgau-triathlon/athleteninfo/ausschreibung/",
+        "https://www.tnb-malterdingen.de/breisgau-triathlon/athleteninfo/faq/"
+      ]
+    },
+    {
+      "id": "ravensburg-sprint",
+      "sportart": "triathlon",
+      "ordner": "Ravensburg Sprint",
+      "name": "41. Ravensburger Triathlon",
+      "kurz": "Ravensburg",
+      "untertitel": "Sprint · BW-Meisterschaft",
+      "datum": "2026-08-01T11:00:00",
+      "ort": "Flappachbad Ravensburg",
+      "distanzen": { "schwimmen": "0,75 km", "rad": "24 km", "laufen": "5 km" },
+      "webseite": "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/",
+      "akzent": "#5aa2f0",
+      "komoot": {
+        "rad": { "id": "1208134342", "token": "alJbUUDq866cbepg3QjekVtPwn3hUVIjq6N7Y32bt6LMkYXQIw", "runden": 1 }
+      },
+      "bilder": [
+        { "url": "https://triathlon-dav-ravensburg.de/wp-content/uploads/2023/03/Schwimmen.jpg", "datei": "schwimmstrecke.jpg" },
+        { "url": "https://triathlon-dav-ravensburg.de/wp-content/uploads/2023/03/Radstrecke.jpg", "datei": "radstrecke.jpg" },
+        { "url": "https://triathlon-dav-ravensburg.de/wp-content/uploads/2023/03/Laufstrecke-1.jpg", "datei": "laufstrecke.jpg" },
+        { "url": "https://triathlon-dav-ravensburg.de/wp-content/uploads/2023/03/Anfahrt_Flappach-768x413-1.jpg", "datei": "anfahrt.jpg" }
+      ],
+      "quellen": [
+        "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/sprint-cup/",
+        "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/strecken/",
+        "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/zeitplan/",
+        "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/anfahrt/"
+      ]
+    }
+  ]
+}

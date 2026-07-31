@@ -1,0 +1,73 @@
+{
+ "breisgau-md": {
+  "https://www.tnb-malterdingen.de/breisgau-triathlon/distanzen-strecken/": {
+   "hash": "d2706e549d4fe7018dea83fd99d4cf6e611ee296f7793852af7c4bd3037d47bd",
+   "zeichen": 5353,
+   "geprueft": "2026-07-26 23:00"
+  },
+  "https://www.tnb-malterdingen.de/breisgau-triathlon/athleteninfo/zeitplan/": {
+   "hash": "bba6d42c068ac705967bcfd0526b21ae664dcec412262b469b5cd3ec56264099",
+   "zeichen": 3587,
+   "geprueft": "2026-07-26 23:00"
+  },
+  "https://www.tnb-malterdingen.de/breisgau-triathlon/athleteninfo/ausschreibung/": {
+   "hash": "d7a3c10c81a58db5a5bfcb79a73b1008ae256b127ab279d93fd64918f578b4e6",
+   "zeichen": 6357,
+   "geprueft": "2026-07-26 23:00"
+  },
+  "https://www.tnb-malterdingen.de/breisgau-triathlon/athleteninfo/faq/": {
+   "hash": "d604ff854d7137b73fb9d70e60c1b3fe7669adf868077e1fcc3994f3f7befd7b",
+   "zeichen": 4806,
+   "geprueft": "2026-07-26 23:00"
+  }
+ },
+ "ravensburg-sprint": {
+  "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/sprint-cup/": {
+   "hash": "8de70afb5e89eaf00ad913213582c85fb0b348c824fb802a9cda1570ffe6c76e",
+   "zeichen": 4503,
+   "geprueft": "2026-07-28 15:16"
+  },
+  "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/strecken/": {
+   "hash": "82401831818cbf09b64f0c62d0ea8a065b03697c74fce6820c3cd816a6b72ba9",
+   "zeichen": 2290,
+   "geprueft": "2026-07-28 15:16"
+  },
+  "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/zeitplan/": {
+   "hash": "6e4a7abca869aa86f27e6c6b42637d504f12aac643a948ea0f6b0c19b8026a3b",
+   "zeichen": 1891,
+   "geprueft": "2026-07-28 15:16"
+  },
+  "https://triathlon-dav-ravensburg.de/ravensburger-triathlon/anfahrt/": {
+   "hash": "3c1fb3ef01e1b3935f49f27bdb840813ca3ae630cfa8cacefa171096f98b0c7d",
+   "zeichen": 1972,
+   "geprueft": "2026-07-28 15:16"
+  }
+ },
+ "weinstadtcross": {
+  "https://weinstadtcross.de/": {
+   "hash": "87c1f5ad6a72deebea305acefac404fdc66f462b488e5032b540d35a70cec600",
+   "zeichen": 3097,
+   "geprueft": "2026-07-28 15:16"
+  },
+  "https://weinstadtcross.de/strecken-neu": {
+   "hash": "caa58cd15f60a1d71411fa6b551fe22ed8556107eba17dd9d57f980938a9570b",
+   "zeichen": 2038,
+   "geprueft": "2026-07-28 15:16"
+  },
+  "https://weinstadtcross.de/zeitplan": {
+   "hash": "7c4d5b0a392f15637213760eeff9efc8b59428857b804f6800bd1a8abac58efb",
+   "zeichen": 2051,
+   "geprueft": "2026-07-28 15:16"
+  },
+  "https://weinstadtcross.de/ausschreibung-2": {
+   "hash": "2a71f573fd3420a9e49088dcb25ac12bec512c8e16e5e8848b0c86ec924cbb22",
+   "zeichen": 2066,
+   "geprueft": "2026-07-28 15:16"
+  },
+  "https://weinstadtcross.de/zeitplan-dm": {
+   "hash": "aae38508bd87968438c67b8a73881095fa9d03cd17f664d2d4fd73961675f739",
+   "zeichen": 2062,
+   "geprueft": "2026-07-28 15:16"
+  }
+ }
+}

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11. Volksbank WeinstadtCross – Streckendashboard</title>
+<link rel="stylesheet" href="../dashboard.css">
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="../Wettkampf-Dashboards.html">← Alle Wettkämpfe</a>
+
+<header>
+  <h1>11. Volksbank WeinstadtCross</h1>
+  <span class="badge-bw">Deutsche Meisterschaften Crosslauf</span>
+  <button id="themeBtn" hidden>Hell</button>
+</header>
+<p class="subtitle">Samstag, 28. und Sonntag, 29. November 2026 · Bildungszentrum Weinstadt-Beutelsbach —
+  <a href="https://weinstadtcross.de/" target="_blank">Veranstalterseite</a></p>
+
+<div class="stats">
+  <div class="stat cd"><div class="lbl">Countdown</div><div class="val" id="cd">–</div><div class="sub" id="cdsub">bis zum ersten Start</div></div>
+  <div class="stat run"><div class="lbl">Cross-Runde</div><div class="val">1.100 m</div><div class="sub">plus 300 m Einlaufrunde</div></div>
+  <div class="stat"><div class="lbl">Hauptdistanzen</div><div class="val">3,6 – 7,0</div><div class="sub">km, je nach Wettbewerb</div></div>
+  <div class="stat"><div class="lbl">Startgeld</div><div class="val">18 €</div><div class="sub">Aktive, Jugend 8 €</div></div>
+  <div class="stat"><div class="lbl">Meldeschluss</div><div class="val">25.11.</div><div class="sub">19:59 Uhr, danach +10 €</div></div>
+  <div class="stat"><div class="lbl">Erster Start</div><div class="val">10:30</div><div class="sub">Samstag, MiniCross</div></div>
+</div>
+
+<div class="tabs-io">
+<input type="radio" name="tab" id="t-ueber" checked>
+<input type="radio" name="tab" id="t-strecke">
+<input type="radio" name="tab" id="t-zeit">
+<input type="radio" name="tab" id="t-orga">
+<input type="radio" name="tab" id="t-renn">
+
+<nav class="tabs">
+  <label for="t-ueber">Überblick</label>
+  <label for="t-strecke">Strecke &amp; Boden</label>
+  <label for="t-zeit">Zeitplan</label>
+  <label for="t-orga">Orga &amp; Logistik</label>
+  <label for="t-renn">Für mich relevant</label>
+</nav>
+
+<!-- ============================= ÜBERBLICK ============================= -->
+<section class="grid" id="tab-ueber">
+
+  <div class="card">
+    <div class="chead"><span class="ico">📋</span><span class="ct">Harte Fakten</span><span class="tag off meta">Ausschreibung</span></div>
+    <table class="kv">
+      <tr><td>Veranstaltung</td><td><b>11. Volksbank WeinstadtCross 2026</b></td></tr>
+      <tr><td>Besonderheit</td><td>Im Rahmen des WeinstadtCross finden die <b>Deutschen Meisterschaften im Crosslauf</b> statt, dazu der <b>Deutsche Cross Cup</b> und die <b>7. Betriebssportmeisterschaften (BWBV)</b></td></tr>
+      <tr><td>Termin</td><td><b>Samstag, 28.11.2026 ab 9:00 Uhr</b>, DM-Langstrecken am Sonntag, 29.11.2026</td></tr>
+      <tr><td>Ort</td><td>Stadion beim Bildungszentrum Weinstadt-Beutelsbach, Beutelsbacher Str. 82, 71384 Weinstadt</td></tr>
+      <tr><td>Anmeldung</td><td>Online über weinstadtcross.de bis <b>Mittwoch, 25.11.2026, 19:59 Uhr</b></td></tr>
+      <tr><td>Nachmeldung</td><td>Donnerstag bis Samstag, jeweils bis <b>1 Stunde vor dem Start</b>, +10 € Nachmeldegebühr</td></tr>
+      <tr><td>Startgeld</td><td>Aktive 18 €, Jugendliche bis 18 Jahre 8 €, Schüler (für die Schule startend) kostenfrei, Staffel 24 €</td></tr>
+      <tr><td>Starterpaket</td><td>Inklusive WeinstadtCross-T-Shirt, solange der Vorrat reicht</td></tr>
+      <tr><td>Zeitnahme</td><td>SH Running, Transponder in der Startnummer integriert, Ergebnisse abends bei RaceResult</td></tr>
+      <tr><td>Regelwerk</td><td>DLV-Satzungen, Deutsche Leichtathletik-Ordnung, DLV-Anti-Doping-Code, Internationale Wettkampfregeln</td></tr>
+      <tr><td>Wetter</td><td><b>Die Veranstaltung findet bei jeder Witterung statt.</b></td></tr>
+    </table>
+    <div class="btnrow">
+      <a href="https://weinstadtcross.de/anmeldung" target="_blank">Anmeldung</a>
+      <a href="assets/ausschreibung.pdf" target="_blank">Ausschreibung (PDF)</a>
+      <a href="assets/zeitplan.pdf" target="_blank">Zeitplan (PDF)</a>
+      <a href="https://deutscher-crosscup.de" target="_blank">Deutscher Cross Cup</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🏅</span><span class="ct">Prämien &amp; Auszeichnungen</span><span class="tag off meta">Ausschreibung</span></div>
+    <table class="climbs">
+      <thead><tr><th>Wertung</th><th>1. Platz</th><th>2. Platz</th><th>3. Platz</th></tr></thead>
+      <tbody>
+        <tr><td class="k">6.400 m Aktive / U23 (m/w)</td><td>120 €</td><td>80 €</td><td>50 €</td></tr>
+        <tr><td class="k">6.400 m U20 (m/w)</td><td>120 €</td><td>80 €</td><td>50 €</td></tr>
+        <tr><td class="k">2.100 m U18 (m/w)</td><td>120 €</td><td>80 €</td><td>50 €</td></tr>
+        <tr><td class="k">2.100 m U16 (m/w)</td><td>120 €</td><td>80 €</td><td>50 €</td></tr>
+      </tbody>
+    </table>
+    <ul class="notes" style="margin-top:12px">
+      <li>Medaillen für die Plätze 1 bis 3, jeder Teilnehmer bekommt eine Blanko-Urkunde zum Ausdrucken</li>
+      <li>Keine Mannschaftswertung außer beim Staffellauf, die drei schnellsten TeamCross-Staffeln erhalten Medaillen</li>
+      <li><b>Großer Preis der Volksbank Stuttgart:</b> die drei erstplatzierten Frauen und Männer aus Weinstadt erhalten eine kostenlose Mitgliedschaft im Sportvereinszentrum (1 Jahr / ½ Jahr / ¼ Jahr)</li>
+      <li>Prämienzahlung nach Zieleinlauf, bei ausgeloster Dopingkontrolle erst nach Freigabe durch die Athletics Integrity Unit</li>
+    </ul>
+    <div class="hint">Die Prämientabelle nennt 6.400 m und 2.100 m als Distanzen, der Zeitplan dagegen 3,6 / 4,7 / 5,8 / 7,0 km und 1,5 km.
+      Die Prämiendistanzen beziehen sich auf die Wettbewerbe des Deutschen Cross Cups. ⚠️ Im Zweifel vor der Meldung nachfragen.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🎪</span><span class="ct">Rund um den Lauf</span><span class="tag off meta">Ausschreibung</span></div>
+    <div class="grid" style="gap:12px">
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🍲</span><span class="ct">Verpflegung</span></div>
+        <ul class="notes">
+          <li>Bei Start und Ziel sowie in der Sporthalle</li>
+          <li>Warme und kalte Speisen, Getränke</li>
+          <li>Kaffee und Kuchen, Glühwein und Punsch</li>
+        </ul>
+      </div>
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🎤</span><span class="ct">Stimmung</span></div>
+        <ul class="notes">
+          <li>DJ Luca Metzger vor, während und nach dem Wettkampf</li>
+          <li>Moderation Achim Seiter</li>
+          <li>Green-Event-zertifiziert, vom DLV genehmigter Lauf</li>
+        </ul>
+      </div>
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🚿</span><span class="ct">Vor Ort</span></div>
+        <ul class="notes">
+          <li>Startnummernausgabe ab 8:30 Uhr in der großen Sporthalle</li>
+          <li>Duschen, Umkleiden und <b>Spikes putzen</b> am Stadion</li>
+          <li>Parken direkt am Bildungszentrum</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================= STRECKE ============================= -->
+<section class="grid" id="tab-strecke">
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🗺️</span><span class="ct">Rundenkurse</span><span class="tag off meta">offizieller Streckenplan</span></div>
+    <figure>
+      <img src="assets/strecken-2.png" alt="Streckenplan mit den vier Rundenkursen">
+      <figcaption>Vier ineinandergelegte Rundkurse mit gemeinsamem Start und Ziel: Mini 150 m (gelb), Midi 300 m (rot),
+        Sprint 600 m (grün), Cross 1.100 m (blau). Quelle: weinstadtcross.de, Streckenplan (PDF).</figcaption>
+    </figure>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🧮</span><span class="ct">Wie sich die Distanzen zusammensetzen</span><span class="tag est meta">aus Zeitplan abgeleitet</span></div>
+    <table class="climbs">
+      <thead><tr><th>Distanz</th><th>Zusammensetzung</th><th>rechnerisch</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1,5 km</td><td>1 ER + 1 CR</td><td>1.400 m</td></tr>
+        <tr><td class="k">3,6 km</td><td>1 ER + 3 CR</td><td>3.600 m</td></tr>
+        <tr><td class="k">4,7 km</td><td>1 ER + 4 CR</td><td>4.700 m</td></tr>
+        <tr><td class="k">5,8 km</td><td>1 ER + 5 CR</td><td>5.800 m</td></tr>
+        <tr><td class="k">7,0 km</td><td>1 ER + 6 CR</td><td>6.900 m</td></tr>
+      </tbody>
+    </table>
+    <div class="hint">CR ist die Cross-Runde mit 1.100 m. ER steht für die Einlaufrunde. Ihre Länge steht nirgends
+      ausdrücklich, ergibt sich aber aus der Rechnung zu <b>300 m</b> und passt damit exakt zu vier der fünf Distanzen.
+      Nur die 7,0 km gehen rechnerisch auf 6.900 m, hier rundet der Veranstalter offenbar. <span class="tag est">abgeleitet</span></div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🪨</span><span class="ct">Bodenbeschaffenheit</span><span class="tag est meta">aus Luftbild und Ausschreibung</span></div>
+    <table class="kv">
+      <tr><td>Charakter</td><td>Klassischer <b>Crosslauf über Wiesen, Äcker und Feldwege</b> zwischen den Rebhängen unterhalb des Stadions</td></tr>
+      <tr><td>Untergrund</td><td>Überwiegend Grünland und offene Ackerflächen, dazwischen ein befestigter Wirtschaftsweg, der die Runde quert</td></tr>
+      <tr><td>Kein Asphalt</td><td>Die Runden liegen komplett außerhalb der Straßen, Start und Ziel liegen auf der Wiese unterhalb des Sportgeländes</td></tr>
+      <tr><td>Spikes</td><td>Der Veranstalter richtet eine Station zum <b>Spikes putzen</b> ein. Deutlicher Hinweis darauf, dass Spikes hier Standard sind.</td></tr>
+      <tr><td>Jahreszeit</td><td>Ende November. Nasser, weicher, teils matschiger Boden ist einzukalkulieren, gelaufen wird <b>bei jeder Witterung</b>.</td></tr>
+      <tr><td>Höhenprofil</td><td>Nicht veröffentlicht. Das Gelände fällt vom Stadion zu den Feldern hin ab, die Runde enthält also Wellen, aber keine langen Anstiege. <span class="tag est">Einschätzung</span></td></tr>
+    </table>
+    <div class="hint">Für diesen Lauf gibt es keinen GPS-Track und keine Höhenangaben des Veranstalters. Die Angaben oben
+      stammen aus dem offiziellen Streckenplan (Luftbild) und aus der Ausschreibung, nicht aus einer Vermessung.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">📍</span><span class="ct">Geländeplan mit Infrastruktur</span><span class="tag off meta">offizieller Plan</span></div>
+    <figure>
+      <img src="assets/strecken-1.png" alt="Geländeplan mit Start, Ziel, Parken und Versorgung">
+      <figcaption>Start und Ziel sowie die Wettkampfstrecken liegen südlich des Stadions. Anmeldung, Startnummernausgabe,
+        Siegerehrung und Verpflegung in der Sporthalle am Bildungszentrum, Duschen und Spikes putzen am Stadion.</figcaption>
+    </figure>
+  </div>
+
+</section>
+
+<!-- ============================= ZEITPLAN ============================= -->
+<section class="grid" id="tab-zeit">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🕐</span><span class="ct">Samstag, 28.11.2026</span><span class="tag off meta">offiziell</span></div>
+    <div class="tl">
+      <div class="daylabel">Volksbank WeinstadtCross</div>
+      <div class="row"><span class="tm">ab 08:30</span><span class="tx">Ausgabe der Startunterlagen, große Sporthalle</span></div>
+      <div class="row"><span class="tm">10:30</span><span class="tx">Mack MiniCross U6 · 0,15 km (Minirunde)</span></div>
+      <div class="row"><span class="tm">10:40</span><span class="tx">Mack MidiCross U8 · 0,3 km (Midirunde)</span></div>
+      <div class="row"><span class="tm">10:50</span><span class="tx">Zeissler SprintCross, 1. Lauf · 0,5 km</span></div>
+      <div class="row"><span class="tm">11:00</span><span class="tx">JugendCross 14–15 Jahre · 1,5 km</span></div>
+      <div class="row"><span class="tm">11:20</span><span class="tx">JugendCross 16–17 Jahre · 1,5 km</span></div>
+      <div class="row hot"><span class="tm">11:40</span><span class="tx"><b>JedermannCross / Großer Preis der Volksbank · 4,7 km</b></span></div>
+      <div class="row"><span class="tm">11:40</span><span class="tx">TeamstaffelCross · 3,6 km &nbsp;·&nbsp; Bort SchnupperCross / Sport Schwab Cup · 1,5 km</span></div>
+      <div class="row"><span class="tm">12:00</span><span class="tx">Zeissler SprintCross, 2. Lauf · 0,5 km</span></div>
+      <div class="row"><span class="tm">12:10 – 12:35</span><span class="tx">KinderCross U8, U12 und U14 · 0,5 bis 1,5 km</span></div>
+      <div class="daylabel">Deutsche Meisterschaften, Mittelstrecke</div>
+      <div class="row hot"><span class="tm">13:15</span><span class="tx"><b>M35 – M45 Mittelstrecke · 3,6 km</b> (Siegerehrung 14:00)</span></div>
+      <div class="row"><span class="tm">13:40</span><span class="tx">W35 – W45 Mittelstrecke · 3,6 km</span></div>
+      <div class="row"><span class="tm">14:05</span><span class="tx">Frauen / U23 Mittelstrecke · 3,6 km</span></div>
+      <div class="row"><span class="tm">14:30</span><span class="tx">Männer / U23 Mittelstrecke · 3,6 km</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🕐</span><span class="ct">Sonntag, 29.11.2026</span><span class="tag off meta">offiziell</span></div>
+    <div class="tl">
+      <div class="row"><span class="tm">10:30</span><span class="tx">M65 – M90 und W50 – W90 · 3,6 km</span></div>
+      <div class="row"><span class="tm">11:00</span><span class="tx">M50 – M60 · 4,7 km</span></div>
+      <div class="row"><span class="tm">11:30</span><span class="tx">Weibliche Jugend U18 · 3,6 km</span></div>
+      <div class="row"><span class="tm">11:50</span><span class="tx">Männliche Jugend U18 · 3,6 km</span></div>
+      <div class="row"><span class="tm">12:15</span><span class="tx">Weibliche Jugend U20 · 4,7 km</span></div>
+      <div class="row"><span class="tm">12:40</span><span class="tx">Männliche Jugend U20 · 4,7 km</span></div>
+      <div class="row"><span class="tm">13:10</span><span class="tx">W35 – W45 Langstrecke · 5,8 km</span></div>
+      <div class="row hot"><span class="tm">13:40</span><span class="tx"><b>M35 – M45 Langstrecke · 5,8 km</b> (Siegerehrung 14:30)</span></div>
+      <div class="row"><span class="tm">14:15</span><span class="tx">Frauen / U23 Langstrecke · 7,0 km</span></div>
+      <div class="row"><span class="tm">15:00</span><span class="tx">Männer / U23 Langstrecke · 7,0 km</span></div>
+    </div>
+    <div class="hint warn"><b>⚠️ Zwei Unstimmigkeiten im offiziellen Zeitplan:</b> Die Spalte „Alter am 31.12.“ passt bei
+      mehreren Zeilen nicht zum Wettbewerb, sie scheint um zwei Zeilen verrutscht zu sein. Und der Lauf um 11:20 heißt
+      „2200m JugendCross“, ist in der Streckenspalte aber mit 1,5 km angegeben. Vor der Meldung besser nachfragen.
+      Der DM-Zeitplan steht außerdem unter dem Vorbehalt der Genehmigung durch den DLV.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">📄</span><span class="ct">Offizieller Zeitplan</span><span class="tag off meta">PDF des Veranstalters</span></div>
+    <figure>
+      <img src="assets/zeitplan-1.png" alt="Offizieller Zeitplan als Tabelle">
+      <figcaption>Quelle: weinstadtcross.de, Zeitplan 2026 (PDF). ER = Einlaufrunde, CR = Cross-Runde, SR = Sprint-Runde.</figcaption>
+    </figure>
+  </div>
+
+</section>
+
+<!-- ============================= ORGA ============================= -->
+<section class="grid" id="tab-orga">
+
+  <div class="card">
+    <div class="chead"><span class="ico">📍</span><span class="ct">Anfahrt &amp; Gelände</span><span class="tag off meta">offiziell</span></div>
+    <table class="kv">
+      <tr><td>Adresse</td><td>Stadion beim Bildungszentrum Weinstadt-Beutelsbach, <b>Beutelsbacher Str. 82, 71384 Weinstadt</b></td></tr>
+      <tr><td>Parken</td><td>Am Bildungszentrum, laut Geländeplan nördlich der Sporthalle</td></tr>
+      <tr><td>Sporthalle</td><td>Anmeldung, Startnummernausgabe, Siegerehrung, Speisen und Getränke</td></tr>
+      <tr><td>Stadion</td><td>Duschen, Umkleiden und Station zum Spikes putzen</td></tr>
+      <tr><td>Start / Ziel</td><td>Südlich des Stadions auf der Wiese, dort auch Wettkampfstrecken und DJ</td></tr>
+      <tr><td>Glühweinstand</td><td>Am Weg zwischen Stadion und Start-Ziel-Bereich</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">⚙️</span><span class="ct">Ablauf &amp; Formalien</span><span class="tag off meta">Ausschreibung</span></div>
+    <table class="kv">
+      <tr><td>Startunterlagen</td><td>Samstag <b>ab 08:30 Uhr</b> in der großen Sporthalle am Bildungszentrum</td></tr>
+      <tr><td>Nachmeldung</td><td>Donnerstag bis Samstag bis <b>1 Stunde vor dem jeweiligen Start</b>, +10 €</td></tr>
+      <tr><td>Zeitmessung</td><td>Transponder ist in der Startnummer integriert, keine separate Rückgabe nötig</td></tr>
+      <tr><td>Ergebnisse</td><td>Am Abend der Veranstaltung bei RaceResult, Auswertung durch SH Running</td></tr>
+      <tr><td>Zielschluss</td><td>Für jeden Wettbewerb gibt es einen Zielschluss, danach keine Wertung mehr. Die konkreten Zeiten nennt die Ausschreibung nicht. <span class="tag est">offen</span></td></tr>
+      <tr><td>Urkunde</td><td>Blanko-Urkunde bei der Anmeldung, Ausdruck zu Hause</td></tr>
+      <tr><td>Haftung</td><td>Keine Haftung für Unfälle, Diebstahl oder gesundheitliche Schäden. Mit der Meldung werden DLV-Ordnungen und Anti-Doping-Code anerkannt.</td></tr>
+      <tr><td>Foto und Daten</td><td>Mit der Anmeldung wird der Veröffentlichung von Bildern und der Datenweitergabe an den Deutschen Cross Cup zugestimmt</td></tr>
+    </table>
+    <div class="hint">Weil die Veranstaltung Teil der Deutschen Meisterschaften ist, gelten für die DM-Wettbewerbe
+      zusätzlich die Meldewege des DLV. Der Zeitplan der DM steht unter dem Vorbehalt der Genehmigung.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">📄</span><span class="ct">Ausschreibung im Original</span><span class="tag off meta">PDF des Veranstalters</span></div>
+    <figure>
+      <img src="assets/ausschreibung-1.png" alt="Erste Seite der offiziellen Ausschreibung">
+      <figcaption>Erste Seite der Ausschreibung 2026. Vollständig als <a href="assets/ausschreibung.pdf" target="_blank" style="color:var(--blue)">PDF</a>.</figcaption>
+    </figure>
+  </div>
+
+</section>
+
+<!-- ============================= FÜR MICH ============================= -->
+<section class="grid" id="tab-renn">
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🎯</span><span class="ct">Welche Läufe kommen für dich in Frage</span><span class="tag est meta">Einschätzung</span></div>
+    <table class="climbs">
+      <thead><tr><th>Wettbewerb</th><th>Tag</th><th>Start</th><th>Distanz</th><th>Runden</th></tr></thead>
+      <tbody>
+        <tr><td class="k">M35 – M45 Mittelstrecke (DM)</td><td>Samstag</td><td>13:15</td><td>3,6 km</td><td>1 ER + 3 CR</td></tr>
+        <tr><td class="k">M35 – M45 Langstrecke (DM)</td><td>Sonntag</td><td>13:40</td><td>5,8 km</td><td>1 ER + 5 CR</td></tr>
+        <tr><td class="k">JedermannCross</td><td>Samstag</td><td>11:40</td><td>4,7 km</td><td>1 ER + 4 CR</td></tr>
+        <tr><td class="k">TeamstaffelCross</td><td>Samstag</td><td>11:40</td><td>3,6 km</td><td>2–3 Starter</td></tr>
+      </tbody>
+    </table>
+    <div class="hint">Mit Jahrgang in der AK M40 fällst du in die Klasse <b>M35 – M45</b>. Die beiden DM-Wettbewerbe liegen
+      an unterschiedlichen Tagen, ein Doppelstart wäre also möglich. Für die DM-Wettbewerbe braucht es die Meldung über
+      den DLV-Weg, der JedermannCross läuft über die normale Anmeldung. ⚠️ Ob für die DM-AK-Läufe eine Qualifikation
+      oder eine Vereinsmeldung nötig ist, geht aus der Ausschreibung nicht hervor.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">👟</span><span class="ct">Was Crosslauf hier bedeutet</span><span class="tag est meta">Einschätzung</span></div>
+    <ul class="notes">
+      <li><b>Spikes sind Standard.</b> Der Veranstalter richtet eine Putzstation ein, das sagt alles über den erwarteten Untergrund.</li>
+      <li><b>Runden statt Strecke.</b> Bei 1.100 m Runde bedeuten 3,6 km vier Durchgänge am Publikum vorbei. Das Tempo lässt sich sehr gut über die Rundenzeiten steuern.</li>
+      <li><b>Kurz und hart.</b> 3,6 km Cross sind eher ein verlängerter 5.000-m-Wettkampf als ein Ausdauerlauf. Der Einstieg entscheidet, weil sich auf weichem Boden Positionen kaum zurückgewinnen lassen.</li>
+      <li><b>Ende November.</b> Kälte, Nässe und Matsch gehören dazu. Warmlaufen und trockene Wechselkleidung sind wichtiger als bei einem Sommerwettkampf.</li>
+      <li><b>Passt in die Saisonplanung:</b> Der Termin liegt fast vier Monate nach der Triathlonsaison und ist ein guter Anlass, den Winter mit Tempoarbeit zu strukturieren.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">✅</span><span class="ct">Offene Punkte</span></div>
+    <ul class="notes">
+      <li>Meldeweg für die DM-Altersklassen klären, die Ausschreibung verweist nur auf leichtathletik.de</li>
+      <li>Zielschlusszeiten sind nicht veröffentlicht</li>
+      <li>Höhenprofil der Runde gibt es nicht, vor Ort beim Einlaufen anschauen</li>
+      <li>Spikes-Länge nach Bodenzustand wählen, Entscheidung erst am Wettkampftag</li>
+      <li>Startpass beziehungsweise Vereinszugehörigkeit für die DM prüfen</li>
+    </ul>
+  </div>
+
+</section>
+</div>
+
+<footer>
+  <b>Quellen:</b> Alle mit „offiziell“ oder „Ausschreibung“ markierten Angaben stammen von
+  <a href="https://weinstadtcross.de/" target="_blank">weinstadtcross.de</a>, aus der Ausschreibung 11. Volksbank
+  WeinstadtCross 2026 und dem Zeitplan 2026 (beide PDF), Datenstand <span id="stand">–</span>.
+  Streckenpläne und Zeitplan liegen als Bild im Ordner <code>assets/</code>, die Original-PDFs daneben.
+  Für diesen Lauf gibt es <b>keinen GPS-Track und keine offiziellen Höhenmeter</b>, deshalb keine Profile wie bei den
+  Triathlon-Dashboards. Mit „Einschätzung“ oder „abgeleitet“ markierte Angaben sind <b>keine Aussagen des Veranstalters</b>.
+  <br>Angaben ohne Gewähr, vor der Meldung die Veranstalterseite gegenprüfen.
+  Aktualisieren mit <code>python3 .scripts/tri_update.py weinstadt</code>.
+</footer>
+
+</div>
+
+<script src="strecken_data.js"></script>
+<script src="../dashboard.js"></script>
+<script>
+(function () {
+  "use strict";
+  TriUI.theme("#themeBtn", "tri-theme");
+  TriUI.countdown("#cd", "#cdsub", "2026-11-28T10:30:00");
+  if (typeof STRECKEN !== "undefined") {
+    document.getElementById("stand").textContent = STRECKEN.stand;
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>41. Ravensburger Triathlon – Streckendashboard</title>
+<link rel="stylesheet" href="../dashboard.css">
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="../Wettkampf-Dashboards.html">← Alle Wettkämpfe</a>
+
+<header>
+  <h1>41. Ravensburger Triathlon</h1>
+  <span class="badge-bw">BW-Meisterschaft Sprint</span>
+  <button id="themeBtn" hidden>Hell</button>
+</header>
+<p class="subtitle">Samstag, 1. August 2026 · Flappachbad Ravensburg · Mazda-Dämpfle-Sprint-Cup —
+  <a href="https://triathlon-dav-ravensburg.de/ravensburger-triathlon/" target="_blank">Veranstalterseite</a></p>
+
+<div class="stats">
+  <div class="stat cd"><div class="lbl">Countdown</div><div class="val" id="cd">–</div><div class="sub" id="cdsub">bis zum Start</div></div>
+  <div class="stat swim"><div class="lbl">Schwimmen</div><div class="val">0,75 km</div><div class="sub">1 Runde, Flappachweiher</div></div>
+  <div class="stat bike"><div class="lbl">Radfahren</div><div class="val" id="s_rad">24 km</div><div class="sub" id="s_radhm">1 Runde</div></div>
+  <div class="stat run"><div class="lbl">Laufen</div><div class="val">5,0 km</div><div class="sub">2 Runden</div></div>
+  <div class="stat"><div class="lbl">Startzeit</div><div class="val">11:00</div><div class="sub">3 Startgruppen à 2 min</div></div>
+  <div class="stat"><div class="lbl">Teilnehmerlimit</div><div class="val">400</div><div class="sub">Meldeschluss 23.07.</div></div>
+</div>
+
+<div class="tabs-io">
+<input type="radio" name="tab" id="t-ueber" checked>
+<input type="radio" name="tab" id="t-schwimm">
+<input type="radio" name="tab" id="t-rad">
+<input type="radio" name="tab" id="t-lauf">
+<input type="radio" name="tab" id="t-wz">
+<input type="radio" name="tab" id="t-renn">
+
+<nav class="tabs">
+  <label for="t-ueber">Überblick</label>
+  <label for="t-rad">Radstrecke</label>
+  <label for="t-lauf">Laufstrecke</label>
+  <label for="t-schwimm">Schwimmstrecke</label>
+  <label for="t-wz">Wechselzone &amp; Anfahrt</label>
+  <label for="t-renn">Renn-Notizen</label>
+</nav>
+
+<!-- ============================= ÜBERBLICK ============================= -->
+<section class="grid" id="tab-ueber">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🕐</span><span class="ct">Zeitplan Wettkampftag</span><span class="tag off meta">offiziell</span></div>
+    <div class="tl">
+      <div class="daylabel">Freitag, 31.07.</div>
+      <div class="row"><span class="tm">18:15 – 19:45</span><span class="tx">Registrierung / Nachmeldung + Startunterlagen <b>(für Einheimische)</b></span></div>
+      <div class="daylabel">Samstag, 01.08.</div>
+      <div class="row"><span class="tm">07:45 – 10:30</span><span class="tx">Registrierung / Ausgabe Startunterlagen</span></div>
+      <div class="row"><span class="tm">08:00 – 09:00</span><span class="tx">Check-In 1 (Wechselzone)</span></div>
+      <div class="row"><span class="tm">08:45 – 09:45</span><span class="tx">Zufahrt zum Flappach gesperrt (Nachwuchs-Cup)</span></div>
+      <div class="row"><span class="tm">09:00 – 09:30</span><span class="tx">Starts TWS-Nachwuchs-Cup (Schüler C / B / A + Jugend B)</span></div>
+      <div class="row hot"><span class="tm">09:45 – 10:45</span><span class="tx"><b>Check-In 2</b> – letzte Möglichkeit, Rad &amp; Wechselbeutel abzulegen</span></div>
+      <div class="row hot"><span class="tm">10:30</span><span class="tx"><b>Wettkampfbesprechung</b> Sprint- &amp; Staffel-Cup (verpflichtend)</span></div>
+      <div class="row hot"><span class="tm">11:00 / 11:02 / 11:04</span><span class="tx"><b>Start Sprint-Cup</b> Gruppe 1 / 2 / 3 (Staffeln mit Gruppe 2)</span></div>
+      <div class="row"><span class="tm">11:30</span><span class="tx">Siegerehrung Nachwuchs-Cup</span></div>
+      <div class="row"><span class="tm">ab 13:00</span><span class="tx">Check-Out + Rückgabe Transponder</span></div>
+      <div class="row hot"><span class="tm">ca. 14:00</span><span class="tx"><b>Siegerehrung Sprint-/Staffel-Cup</b> – Prämien nur bei Teilnahme!</span></div>
+      <div class="row"><span class="tm">14:00</span><span class="tx">Ende der Bewachung der Wechselzone</span></div>
+    </div>
+    <div class="hint">Die Zuordnung zur Startgruppe läuft über die Startnummer und wird erst kurz vor dem Rennen bekannt gegeben.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">📋</span><span class="ct">Harte Fakten</span><span class="tag off meta">offiziell</span></div>
+    <table class="kv">
+      <tr><td>Veranstaltung</td><td><b>41. Ravensburger Triathlon</b>, Mazda-Dämpfle-Sprint-Cup</td></tr>
+      <tr><td>Besonderheit 2026</td><td><b>Baden-Württembergische Meisterschaft Sprint</b>. Wertung automatisch mit BWTV-Startpass, Verein bei der Meldung angeben. Keine Nachmeldung zur Meisterschaft nach Meldeschluss.</td></tr>
+      <tr><td>Distanzen</td><td>0,7 km – 24 km – 5 km <span class="tag gps" id="f_gps"></span></td></tr>
+      <tr><td>Start / Ziel</td><td>Flappachbad Ravensburg, Ittenbeurer Str.</td></tr>
+      <tr><td>Startgebühr</td><td>45 € (1.–150.), 50 € (151.–300.), 60 € ab dem 251., Storno-Plätze 65 €</td></tr>
+      <tr><td>Nachmeldung</td><td>+10 €, nur solange das Limit nicht erreicht ist</td></tr>
+      <tr><td>Meldeschluss</td><td><b>23.07., 24:00 Uhr</b></td></tr>
+      <tr><td>Preisgeld gesamt</td><td>Platz 1: 150 €, Platz 2: 100 €, Platz 3: 75 €, Plätze 4–6: Sachpreise (m/w)</td></tr>
+      <tr><td>Altersklassen</td><td>Platz 1: „Ravensburger Mehlsack-Pokal“, Platz 2–3 Sachpreise</td></tr>
+      <tr><td>Regelwerk</td><td>DTU-Sportordnung, Windschattenverbot, Kampfrichter des BWTV kontrollieren</td></tr>
+      <tr><td>Zeitmessung</td><td>Transponder, Rückgabe beim Check-Out, Verlust wird berechnet</td></tr>
+    </table>
+    <div class="btnrow">
+      <a href="https://www.datasport.de/anmeldeservice/ravensburgertriathlon2026" target="_blank">Anmeldung (datasport)</a>
+      <a href="https://triathlon-dav-ravensburg.de/ravensburger-triathlon/strecken/" target="_blank">Streckenpläne</a>
+      <a href="https://triathlon-dav-ravensburg.de/ravensburger-triathlon/ergebnislisten/" target="_blank">Ergebnislisten</a>
+    </div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🧭</span><span class="ct">Die drei Disziplinen auf einen Blick</span></div>
+    <div class="grid" style="gap:12px">
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🏊</span><span class="ct" style="color:var(--blue)">Schwimmen · 750 m</span></div>
+        <ul class="notes">
+          <li>Eine Runde im <b>Flappachweiher</b>, im <b>Uhrzeigersinn</b></li>
+          <li>Mit Bojen markiert, <b>alle Bojen müssen umschwommen werden</b></li>
+          <li>Rechteckkurs, lange Achse in Nord-Süd-Richtung</li>
+          <li>Naturbad, Süßwasser, kein Strömungseinfluss</li>
+        </ul>
+      </div>
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🚴</span><span class="ct" style="color:var(--amber)">Radfahren · <span id="k_rad"></span></span></div>
+        <ul class="notes">
+          <li><b>Eine Runde, <span id="k_radhm"></span></b>, laut Veranstalter „anspruchsvoll, einige steile Anstiege und Abfahrten“</li>
+          <li><b>100 % befestigt</b> (Asphalt), Vollsperrung auf der gesamten Strecke</li>
+          <li>Trotzdem StVO beachten, <b>absolutes Rechtsfahrgebot</b>, Gegenverkehr möglich</li>
+          <li>Zwei ernsthafte Anstiege: km 2,4–3,6 und km 13,9–15,8</li>
+        </ul>
+      </div>
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🏃</span><span class="ct" style="color:var(--green)">Laufen · 5 km</span></div>
+        <ul class="notes">
+          <li><b>Zwei Runden</b> à ca. 2,5 km im Flappachtal Richtung Ittenbeuren</li>
+          <li>Profil laut offizieller Karte praktisch <b>flach</b> (ca. 505–540 m)</li>
+          <li>Hin- und Rückweg laufen streckenweise auf getrennten Wegen</li>
+          <li>Untergrund gemischt: Asphalt-Talstraße plus Wirtschaftswege</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================= RAD ============================= -->
+<section class="grid" id="tab-rad">
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🚴</span><span class="ct">Radstrecke – GPS-Track des Veranstalters</span>
+      <span class="tag gps meta">aus offiziellem Komoot-Track berechnet</span></div>
+    <div class="split">
+      <div>
+        <div class="mapbox"><svg id="mapRad" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg></div>
+        <div class="legend" id="legRad"></div>
+      </div>
+      <div>
+        <div class="profbox">
+          <svg id="profRad" viewBox="0 0 700 300" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="tip" id="tipRad"></div>
+        </div>
+        <p class="note">Mit der Maus über das Profil fahren, die Position wird gleichzeitig auf der Karte markiert.</p>
+        <table class="kv" style="margin-top:12px">
+          <tr><td>Distanz (GPS)</td><td><b id="r_dist"></b></td></tr>
+          <tr><td>Höhenmeter</td><td><b id="r_hm"></b></td></tr>
+          <tr><td>Höhe min / max</td><td><b id="r_alt"></b></td></tr>
+          <tr><td>Steilste Rampe</td><td><b id="r_max"></b></td></tr>
+          <tr><td>Steilste Abfahrt</td><td><b id="r_min"></b></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">⛰️</span><span class="ct">Die Anstiege</span><span class="tag gps meta">berechnet</span></div>
+    <table class="climbs"><thead><tr><th>Abschnitt</th><th>Länge</th><th>Hm</th><th>Ø</th><th>max</th></tr></thead>
+      <tbody id="climbRad"></tbody></table>
+    <p class="note">Ermittelt aus dem GPS-Track, Höhen auf ±150 m geglättet. Kurze Wellen unter 250 m Länge oder 2 % Steigung sind nicht gelistet.</p>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🛣️</span><span class="ct">Untergrund &amp; Wegtypen</span><span class="tag gps meta">Komoot-Klassifizierung</span></div>
+    <div class="bars" id="surfRad"></div>
+    <div style="height:10px"></div>
+    <div class="bars" id="wayRad"></div>
+    <div class="hint">Die Strecke ist durchgehend befestigt, kein Schotter und kein Feldweg. „Befestigt“ ist Komoots Sammelklasse für versiegelte Beläge ohne ausdrückliche Asphalt-Angabe in OpenStreetMap.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🗺️</span><span class="ct">Offizieller Streckenplan Rad</span><span class="tag off meta">Veranstalter</span></div>
+    <figure>
+      <img src="assets/radstrecke.jpg" alt="Offizieller Streckenplan der Radstrecke">
+      <figcaption>Quelle: triathlon-dav-ravensburg.de. Runde von Flappach über Kernlerlang, Fildenmoos, Schwärzach und Schlupfingen zurück.
+        <a href="https://www.komoot.de/tour/1208134342?ref=aso&amp;share_token=alJbUUDq866cbepg3QjekVtPwn3hUVIjq6N7Y32bt6LMkYXQIw" target="_blank" style="color:var(--blue)">GPS-Track bei Komoot →</a></figcaption>
+    </figure>
+  </div>
+
+</section>
+
+<!-- ============================= LAUF ============================= -->
+<section class="grid" id="tab-lauf">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🗺️</span><span class="ct">Offizieller Streckenplan Lauf</span><span class="tag off meta">Veranstalter</span></div>
+    <figure>
+      <img src="assets/laufstrecke.jpg" alt="Offizieller Streckenplan der Laufstrecke">
+      <figcaption>Zwei Runden, gesamt ca. 5 km. Wendepunktkurs im Flappachtal Richtung Ittenbeuren, die eingeblendete
+        Höhenkurve des Veranstalters verläuft nahezu waagrecht.</figcaption>
+    </figure>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">📐</span><span class="ct">Profil &amp; Untergrund</span><span class="tag est meta">teils abgeleitet</span></div>
+    <table class="kv">
+      <tr><td>Distanz</td><td><b>ca. 5 km</b>, 2 Runden à ca. 2,5 km <span class="tag off">offiziell</span></td></tr>
+      <tr><td>Streckenform</td><td>Wendepunktkurs im Tal, Hin- und Rückweg teilweise auf getrennten Wegen <span class="tag off">Kartenbild</span></td></tr>
+      <tr><td>Höhenlage</td><td>ca. <b>505 – 540 m</b> ü. NN <span class="tag est">abgeleitet</span></td></tr>
+      <tr><td>Höhenmeter</td><td>flach, <b>grob 15–25 hm je Runde</b> <span class="tag est">Schätzung</span></td></tr>
+      <tr><td>Charakter</td><td>Talauswärts leicht fallend, zurück leicht steigend, keine echten Anstiege</td></tr>
+      <tr><td>Untergrund</td><td>asphaltierte Talstraße (ca. 1,3 km durchgehend) sowie parallele Feld- und Wirtschaftswege in Schotter oder wassergebundener Decke</td></tr>
+    </table>
+    <div class="hint"><b>Ehrlich gesagt:</b> Für die Laufstrecke veröffentlicht der Veranstalter weder GPX noch Höhenmeter.
+      Die Höhenangaben oben stammen aus dem GPS-Track der Radstrecke, die denselben Talabschnitt befährt, die
+      Untergrund-Angaben aus den OpenStreetMap-Daten der Wege in diesem Korridor. Welche der parallelen Wege genau
+      genutzt werden, geht aus dem offiziellen Plan nicht hervor. Am sichersten ist ein Blick beim Einlaufen.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">👟</span><span class="ct">Was das für die Schuhwahl heißt</span><span class="tag est meta">Einschätzung</span></div>
+    <ul class="notes">
+      <li>Ein <b>gemischter Untergrund</b> aus Asphalt und Schotterweg spricht gegen extrem weiche, hohe Carbon-Racer mit schmaler Aufstandsfläche. Ein stabiler, leichter Wettkampfschuh ist die sicherere Wahl.</li>
+      <li>Bei Nässe können die wassergebundenen Abschnitte rutschig und weich werden, das kostet spürbar Tempo auf der zweiten Runde.</li>
+      <li>Der Kurs ist flach: Die Pace steht und fällt mit dem, was vom Rad übrig bleibt, nicht mit der Bergfestigkeit.</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============================= SCHWIMMEN ============================= -->
+<section class="grid" id="tab-schwimm">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🗺️</span><span class="ct">Offizieller Streckenplan Schwimmen</span><span class="tag off meta">Veranstalter</span></div>
+    <figure>
+      <img src="assets/schwimmstrecke.jpg" alt="Offizieller Streckenplan der Schwimmstrecke">
+      <figcaption>Eine Runde im Flappachweiher, im Uhrzeigersinn, mit vier markierten Bojen. Ein- und Ausstieg liegen
+        am Nordostufer direkt an der Wechselzone.</figcaption>
+    </figure>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🏊</span><span class="ct">Details Schwimmen</span></div>
+    <table class="kv">
+      <tr><td>Distanz</td><td><b>ca. 750 m</b> (Ausschreibung: 0,7 km) <span class="tag off">offiziell</span></td></tr>
+      <tr><td>Gewässer</td><td>Flappachweiher im Naturbad Flappachbad, stehendes Süßwasser</td></tr>
+      <tr><td>Kursform</td><td>Rechteck, <b>eine Runde im Uhrzeigersinn</b>, rechte Körperseite zeigt zur Boje</td></tr>
+      <tr><td>Bojen</td><td>Alle Bojen müssen umschwommen werden <span class="tag off">offiziell</span></td></tr>
+      <tr><td>Start</td><td>3 Startgruppen im Abstand von 2 Minuten, Zuordnung über die Startnummer</td></tr>
+      <tr><td>Untergrund / Einstieg</td><td>Ufer des Naturbads, flacher Einstieg, kein Sprungstart vom Steg dokumentiert</td></tr>
+      <tr><td>Neopren</td><td>Nicht auf der Veranstalterseite geregelt. Es gilt die DTU-Sportordnung, die Neoprenpflicht und -erlaubnis an die gemessene Wassertemperatur koppelt, die Entscheidung fällt am Wettkampftag. <span class="tag est">nicht offiziell bestätigt</span></td></tr>
+    </table>
+    <div class="hint">Praktischer Hinweis aus der Ausschreibung: Wer <b>ohne</b> Neoprenanzug schwimmt, bekommt beim
+      Check-In die Startnummer auf den Oberarm geschrieben. Genau daran erkennt man vor Ort früh, wie der Veranstalter
+      die Wassertemperatur bewertet.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🧭</span><span class="ct">Im Uhrzeigersinn – was das praktisch bedeutet</span><span class="tag est meta">Einschätzung</span></div>
+    <ul class="notes">
+      <li>Bei Rechtsherum-Kursen liegen die Bojen auf der <b>rechten</b> Seite. Wer beidseitig atmen kann, sollte die langen Geraden über die rechte Seite kontrollieren.</li>
+      <li>Der Kurs ist ein schmales Rechteck, die beiden langen Schenkel verlaufen längs des Weihers, die Wenden liegen eng beieinander. Das gibt zwei Stellen mit hohem Gedränge.</li>
+      <li>Ein- und Ausstieg und die Wechselzone liegen zusammen am Nordostufer: kurzer Weg, aber genau dort sammeln sich alle Startgruppen.</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============================= WECHSELZONE ============================= -->
+<section class="grid" id="tab-wz">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🔁</span><span class="ct">Wechselzone</span><span class="tag off meta">offiziell</span></div>
+    <table class="kv">
+      <tr><td>Lage</td><td>Am Flappachbad, direkt am Schwimmausstieg. Start, beide Wechsel und Ziel liegen an einem Ort.</td></tr>
+      <tr><td>Check-In 1</td><td><b>08:00 – 09:00 Uhr</b></td></tr>
+      <tr><td>Check-In 2</td><td><b>09:45 – 10:45 Uhr</b>, dazwischen läuft der Nachwuchs-Cup</td></tr>
+      <tr><td>Beim Check-In</td><td>Am Eingang der Wechselzone wird der <b>Oberarm mit der Startnummer beschriftet</b> (sofern ohne Neopren geschwommen wird)</td></tr>
+      <tr><td>Gepäck</td><td>In der Wechselzone gibt es einen <b>separaten Bereich für Kleider- und Taschenabgabe</b></td></tr>
+      <tr><td>Check-Out</td><td>ab ca. <b>13:00 Uhr</b>, gleichzeitig Rückgabe des Transponders</td></tr>
+      <tr><td>Bewachung</td><td>endet um <b>14:00 Uhr</b></td></tr>
+      <tr><td>Helmpflicht</td><td>Absolute Helmpflicht nach DTU-Sportordnung, Helm zu, bevor das Rad bewegt wird</td></tr>
+    </table>
+    <div class="hint">Einen bemaßten Wechselzonen-Plan mit Ein- und Ausgängen, Radständer-Nummerierung und
+      Auf-/Absitzlinie veröffentlicht der Veranstalter <b>nicht</b>. Die Details kommen in der verpflichtenden
+      Wettkampfbesprechung um 10:30 Uhr.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🚗</span><span class="ct">Anfahrt &amp; Sperrzeiten</span><span class="tag off meta">offiziell</span></div>
+    <figure>
+      <img src="assets/anfahrt.jpg" alt="Anfahrtskarte zum Flappachbad">
+      <figcaption>Vom Zentrum Ravensburg auf der B32 Richtung Wangen, nach dem Ortsschild an der Abzweigung Ittenbeuren rechts zum Flappachbad.</figcaption>
+    </figure>
+    <table class="kv" style="margin-top:12px">
+      <tr><td>Zufahrt gesperrt</td><td><b>08:45 – 09:45</b> und <b>10:45 – ca. 13:00 Uhr</b></td></tr>
+      <tr><td>Konsequenz</td><td>Wer nach 08:45 anreist, kommt erst ab 09:45 aufs Gelände, dann bleibt nur noch Check-In 2</td></tr>
+      <tr><td>ÖPNV</td><td>Badebus Linie 7A ab Busbahnhof, am Veranstaltungstag mindestens halbstündlich. Endhaltestelle „Abzweigung Flappach“, von dort noch ca. 1 km zu Fuß</td></tr>
+    </table>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">⏱️</span><span class="ct">Zeitpuffer rückwärts gerechnet</span><span class="tag est meta">eigene Planung</span></div>
+    <table class="kv">
+      <tr><td>11:00</td><td>Start Startgruppe 1</td></tr>
+      <tr><td>10:30</td><td>Wettkampfbesprechung, <b>Pflicht</b>. Ab hier keine Vorbereitung mehr in der Wechselzone einplanen.</td></tr>
+      <tr><td>bis 10:45</td><td>Check-In 2 endet, Rad und Wechselbeutel müssen stehen</td></tr>
+      <tr><td>ab 09:45</td><td>Zufahrt wieder frei, Check-In 2 öffnet</td></tr>
+      <tr><td>bis 08:45</td><td><b>spätestens auf dem Gelände</b>, sonst greift die erste Zufahrtssperre</td></tr>
+      <tr><td>07:45</td><td>Registrierung öffnet. Die entspannte Variante: Startunterlagen holen, Check-In 1 nutzen, dann in Ruhe einschwimmen.</td></tr>
+    </table>
+  </div>
+
+</section>
+
+<!-- ============================= RENN-NOTIZEN ============================= -->
+<section class="grid" id="tab-renn">
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🎯</span><span class="ct">Was das Streckenprofil für das Rennen bedeutet</span><span class="tag est meta">Einschätzung, keine offizielle Angabe</span></div>
+    <ul class="notes">
+      <li><b>Die Radstrecke entscheidet.</b> <span id="n_hm"></span> auf <span id="n_km"></span> sind für einen Sprint überdurchschnittlich viel. Das ist kein Flachkurs, auf dem sich Watt-Defizite im Windschatten verstecken lassen, und das Windschattenverbot wird von BWTV-Kampfrichtern kontrolliert.</li>
+      <li><b>Der frühe Anstieg ist die Falle.</b> Schon bei km 2,4 beginnt eine 1,15 km lange Rampe mit 5,9 % Schnitt, direkt nach dem Wechsel, wenn der Puls vom Schwimmen noch oben ist. Wer hier überzieht, zahlt es auf dem zweiten Anstieg zurück.</li>
+      <li><b>Der lange Anstieg ab km 13,9</b> ist mit 1,95 km und 98 hm der härteste, mit Spitzen bis rund 13 %. Ab dort geht es überwiegend welliges Terrain zurück, auf dem letzten Drittel lässt sich viel Zeit gutmachen, wenn noch Körner da sind.</li>
+      <li><b>Steile Abfahrten:</b> Der Veranstalter warnt ausdrücklich vor steilen Abfahrten bei Rechtsfahrgebot und möglichem Gegenverkehr. Die Zeitgewinne beim Vollrisiko sind kleiner als der Verlust bei einem Fahrfehler.</li>
+      <li><b>Der Lauf ist flach</b>, hier entscheidet ausschließlich die Restfrische. Zwei identische Runden erlauben ein sauberes Pacing: erste Runde kontrolliert, zweite Runde nachlegen.</li>
+      <li><b>Wechselzone kompakt:</b> Schwimmausstieg und Wechselzone liegen zusammen, die Wege sind kurz. Der Zeitgewinn liegt in der Routine, nicht in der Laufstrecke innerhalb der Zone.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">✅</span><span class="ct">Vor dem Wettkampf zu klären</span></div>
+    <ul class="notes">
+      <li>Startgruppen-Zuordnung, kommt erst kurz vorher über die Startnummer</li>
+      <li>Wassertemperatur und Neopren, Entscheidung fällt am Wettkampftag</li>
+      <li>Genauer Untergrund der Laufrunde, beim Einlaufen abgehen</li>
+      <li>Wechselzonen-Layout mit Ein- und Ausgängen und Auf-/Absitzlinie in der Besprechung um 10:30 Uhr</li>
+      <li>Verpflegungspunkte auf Rad- und Laufstrecke sind nicht ausgeschrieben, eigene Versorgung einplanen</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🏆</span><span class="ct">Meisterschafts-Formalien</span><span class="tag off meta">offiziell</span></div>
+    <ul class="notes">
+      <li>BWTV-Startpass nötig, die Wertung läuft dann automatisch</li>
+      <li><b>Verein muss bei der Meldung angegeben werden</b></li>
+      <li>Keine Nachmeldung zur Meisterschaft nach Meldeschluss (23.07.)</li>
+      <li>Prämien nur bei persönlicher Teilnahme an der Siegerehrung um ca. 14:00 Uhr</li>
+      <li>Altersklassen nach DTU-Sportordnung, Platz 1 bekommt den „Ravensburger Mehlsack-Pokal“</li>
+    </ul>
+  </div>
+
+</section>
+</div>
+
+<footer>
+  <b>Quellen:</b> Alle mit „offiziell“ markierten Angaben stammen von
+  <a href="https://triathlon-dav-ravensburg.de/ravensburger-triathlon/" target="_blank">triathlon-dav-ravensburg.de</a>
+  (Seiten Sprint-Cup, Strecken, Zeitplan, Anfahrt), Datenstand <span id="stand">–</span>.
+  Radstrecken-Kennzahlen, Profil, Anstiege und Untergrund sind aus dem vom Veranstalter verlinkten
+  <a href="https://www.komoot.de/tour/1208134342?ref=aso&amp;share_token=alJbUUDq866cbepg3QjekVtPwn3hUVIjq6N7Y32bt6LMkYXQIw" target="_blank">Komoot-Track</a>
+  berechnet, der Untergrund der Laufstrecke aus OpenStreetMap. Mit „Schätzung“ oder „abgeleitet“ markierte Werte sind
+  <b>keine offiziellen Angaben des Veranstalters</b>. Kartenbilder © Veranstalter / OpenStreetMap-Mitwirkende.
+  <br>Angaben ohne Gewähr, vor dem Rennen die Veranstalterseite gegenprüfen.
+  Aktualisieren mit <code>python3 .scripts/tri_update.py ravensburg</code>.
+</footer>
+
+</div>
+
+<script src="strecken_data.js"></script>
+<script src="../dashboard.js"></script>
+<script>
+(function () {
+  "use strict";
+  TriUI.theme("#themeBtn", "tri-theme");
+  TriUI.countdown("#cd", "#cdsub", "2026-08-01T11:00:00");
+  if (typeof STRECKEN === "undefined") return;
+
+  var r = STRECKEN.disziplinen.rad, nf = TriUI.nf;
+  document.getElementById("stand").textContent = STRECKEN.stand;
+  if (!r) return;
+
+  TriUI.disziplin({
+    data: r, map: "#mapRad", profile: "#profRad", tip: "#tipRad", legend: "#legRad",
+    climbs: "#climbRad", surfaces: "#surfRad", ways: "#wayRad", startLabel: "Flappachbad"
+  });
+
+  TriUI.fill({
+    "#s_rad": nf(r.distanzKm, 1) + " km",
+    "#s_radhm": "1 Runde · " + nf(r.hmAufKomoot) + " hm",
+    "#k_rad": nf(r.distanzKm, 1) + " km",
+    "#k_radhm": nf(r.hmAufKomoot) + " hm",
+    "#f_gps": "GPS: " + nf(r.distanzKm, 1) + " km Rad",
+    "#r_dist": nf(r.distanzKm, 2) + " km",
+    "#r_hm": nf(r.hmAufKomoot) + " hm bergauf / " + nf(r.hmAbKomoot) + " hm bergab (geglättet: " + nf(r.hmAufGeglaettet) + " hm)",
+    "#r_alt": nf(r.minHoehe) + " – " + nf(r.maxHoehe) + " m ü. NN (Start " + nf(r.startHoehe) + " m)",
+    "#r_max": nf(r.maxSteigung, 1) + " % (geglättet über 50 m)",
+    "#r_min": nf(Math.abs(r.maxGefaelle), 1) + " % Gefälle",
+    "#n_hm": nf(r.hmAufKomoot) + " Höhenmeter",
+    "#n_km": nf(r.distanzKm, 1) + " km"
+  });
+})();
+</script>
+</body>
+</html>

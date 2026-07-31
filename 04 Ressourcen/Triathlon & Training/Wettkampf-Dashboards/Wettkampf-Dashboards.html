@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wettkampf-Dashboards</title>
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Wettkampf-Dashboards</h1>
+  <button id="themeBtn" hidden>Hell</button>
+</header>
+<p class="subtitle">Strecken, Höhenprofile, Untergrund und Zeitpläne aller anstehenden Wettkämpfe, Triathlon wie Laufen.
+  Stand der Daten: <span id="stand">–</span></p>
+
+<nav class="tabs" id="filter">
+  <button data-f="alle" class="on">Alle</button>
+  <button data-f="triathlon">Triathlon</button>
+  <button data-f="lauf">Laufen</button>
+  <button data-f="kommend">Nur kommende</button>
+</nav>
+
+<div class="races" id="races"></div>
+<p class="note" id="leer" hidden>Keine Wettkämpfe in dieser Auswahl.</p>
+
+<div class="grid" style="margin-top:22px">
+  <div class="card">
+    <div class="chead"><span class="ico">🔄</span><span class="ct">Daten aktualisieren</span></div>
+    <p class="note" style="margin-top:0">Streckendaten, Höhenprofile und Streckenbilder werden aus den Quellen der
+      Veranstalter neu geladen. Gleichzeitig prüft das Skript, ob sich die Texte auf den Veranstalterseiten geändert
+      haben, und meldet, wo nachgeschaut werden sollte.</p>
+    <table class="kv" style="margin-top:10px">
+      <tr><td>Alles aktualisieren</td><td><b>Doppelklick auf „Wettkampfdaten aktualisieren.command“</b> im selben Ordner</td></tr>
+      <tr><td>Im Terminal</td><td><code>python3 .scripts/tri_update.py</code></td></tr>
+      <tr><td>Nur ein Rennen</td><td><code>python3 .scripts/tri_update.py breisgau</code></td></tr>
+      <tr><td>Neues Rennen aufnehmen</td><td>Block in <code>.scripts/tri_races.json</code> ergänzen: Komoot-Tour-IDs und
+        Share-Tokens aus den Karten-Einbettungen der Veranstalterseite, dann das Skript laufen lassen</td></tr>
+    </table>
+    <div class="hint">Kennzahlen wie Distanz, Höhenmeter und Untergrund kommen automatisch aus den GPS-Tracks.
+      Fließtexte wie Zeitplan, Startgebühren und Regeln stehen bewusst fest in den Dashboards und werden nicht
+      automatisch überschrieben – dafür meldet das Skript, welche Veranstalterseite sich geändert hat.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">📖</span><span class="ct">So sind die Angaben gekennzeichnet</span></div>
+    <table class="kv" style="margin-top:0">
+      <tr><td><span class="tag off">offiziell</span></td><td>steht wörtlich so beim Veranstalter oder in der Ausschreibung</td></tr>
+      <tr><td><span class="tag gps">GPS</span></td><td>aus dem vom Veranstalter verlinkten GPS-Track berechnet</td></tr>
+      <tr><td><span class="tag est">Schätzung</span></td><td>abgeleitet oder eingeschätzt, keine Angabe des Veranstalters</td></tr>
+      <tr><td>⚠️</td><td>Veranstalterangabe und GPS-Track widersprechen sich, beide Werte stehen nebeneinander</td></tr>
+    </table>
+    <p class="note">Alle Dashboards funktionieren offline: Kartenbilder und GPS-Daten liegen im jeweiligen Rennordner.</p>
+  </div>
+</div>
+
+<footer>
+  Erzeugt aus <code>.scripts/tri_races.json</code> über <code>.scripts/tri_update.py</code>.
+  Kartendaten © OpenStreetMap-Mitwirkende, Streckenpläne und Ausschreibungen © jeweiliger Veranstalter.
+</footer>
+
+</div>
+
+<script src="races.js"></script>
+<script src="dashboard.js"></script>
+<script>
+(function () {
+  "use strict";
+  TriUI.theme("#themeBtn", "tri-theme");
+  if (typeof RENNEN === "undefined") return;
+  document.getElementById("stand").textContent = typeof STAND !== "undefined" ? STAND : "–";
+
+  var box = document.getElementById("races");
+  var heute = new Date();
+
+  var SPORT = { triathlon: "Triathlon", lauf: "Laufen" };
+
+  RENNEN.forEach(function (r) {
+    var d = new Date(r.datum);
+    var tage = Math.ceil((d - heute) / 86400000);
+    var cd = tage > 0 ? "in " + tage + (tage === 1 ? " Tag" : " Tagen")
+      : tage === 0 ? "heute" : "gelaufen";
+    var a = document.createElement("a");
+    a.className = "race";
+    a.href = encodeURI(r.ordner + "/Dashboard.html");
+    a.style.setProperty("--akzent", r.akzent || "var(--blue)");
+
+    var disz = ["schwimmen", "rad", "laufen"].filter(function (k) {
+      return (r.kennzahlen || {})[k] || (r.distanzen || {})[k];
+    }).map(function (k) {
+      var kz = (r.kennzahlen || {})[k];
+      var label = { schwimmen: "Schwimmen", rad: "Rad", laufen: "Laufen" }[k];
+      var wert = kz ? TriUI.nf(kz.km, kz.km < 10 ? 2 : 1) + " km" : r.distanzen[k];
+      var zusatz = kz && kz.hm > 20 ? TriUI.nf(kz.hm) + " hm" : (kz && kz.runden > 1 ? kz.runden + " Runden" : "");
+      return "<div class='d'><b>" + wert + "</b>" + label + (zusatz ? " · " + zusatz : "") + "</div>";
+    }).join("");
+
+    a.dataset.sport = r.sportart || "triathlon";
+    a.dataset.vorbei = tage < 0 ? "1" : "0";
+
+    a.innerHTML =
+      "<div class='rname'>" + r.name + "</div>" +
+      "<div class='rsub'>" + (SPORT[r.sportart] || "Triathlon") + " · " + r.untertitel + " · " + r.ort + "</div>" +
+      "<div class='rdate'>" + d.toLocaleDateString("de-DE",
+        { weekday: "long", day: "2-digit", month: "long", year: "numeric" }) +
+      "<span class='cd" + (tage < 0 ? " past" : "") + "'>" + cd + "</span></div>" +
+      "<div class='disz'>" + disz + "</div>" +
+      "<div class='rfoot'>Daten vom " + r.stand +
+      (r.quellenGeaendert && r.quellenGeaendert.length
+        ? "<span class='chg'>· " + r.quellenGeaendert.length + " Quellenseite(n) geändert, Texte prüfen</span>" : "") +
+      "</div>";
+    box.appendChild(a);
+  });
+
+  /* ---------- Filter ---------- */
+  var knoepfe = document.querySelectorAll("#filter button");
+  var leer = document.getElementById("leer");
+
+  function anwenden(f) {
+    var sichtbar = 0;
+    Array.prototype.forEach.call(box.children, function (k) {
+      var passt = f === "alle" ? true
+        : f === "kommend" ? k.dataset.vorbei === "0"
+          : k.dataset.sport === f;
+      k.style.display = passt ? "" : "none";
+      if (passt) sichtbar++;
+    });
+    leer.hidden = sichtbar > 0;
+    localStorage.setItem("tri-filter", f);
+  }
+
+  knoepfe.forEach(function (b) {
+    b.addEventListener("click", function () {
+      knoepfe.forEach(function (x) { x.classList.remove("on"); });
+      b.classList.add("on");
+      anwenden(b.dataset.f);
+    });
+  });
+
+  var gemerkt = localStorage.getItem("tri-filter") || "alle";
+  var aktiv = document.querySelector("#filter button[data-f='" + gemerkt + "']");
+  if (aktiv) {
+    knoepfe.forEach(function (x) { x.classList.remove("on"); });
+    aktiv.classList.add("on");
+  }
+  anwenden(aktiv ? gemerkt : "alle");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>35. Breisgau Triathlon – Mitteldistanz</title>
+<link rel="stylesheet" href="../dashboard.css">
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="../Wettkampf-Dashboards.html">← Alle Wettkämpfe</a>
+
+<header>
+  <h1>35. Breisgau Triathlon</h1>
+  <span class="badge-bw">Mitteldistanz · BW-Meisterschaft</span>
+  <button id="themeBtn" hidden>Hell</button>
+</header>
+<p class="subtitle">Sonntag, 23. August 2026 · Start Müllersee Riegel · Ziel Sportplatz Malterdingen —
+  <a href="https://www.tnb-malterdingen.de/breisgau-triathlon/" target="_blank">Veranstalterseite</a></p>
+
+<div class="stats">
+  <div class="stat cd"><div class="lbl">Countdown</div><div class="val" id="cd">–</div><div class="sub" id="cdsub">bis zum Start</div></div>
+  <div class="stat swim"><div class="lbl">Schwimmen</div><div class="val">1,9 km</div><div class="sub">2 Runden, Müllersee</div></div>
+  <div class="stat bike"><div class="lbl">Radfahren</div><div class="val" id="s_rad">80 km</div><div class="sub" id="s_radhm">3 Runden</div></div>
+  <div class="stat run"><div class="lbl">Laufen</div><div class="val" id="s_lauf">21,1 km</div><div class="sub" id="s_laufhm">2 Runden</div></div>
+  <div class="stat"><div class="lbl">Start</div><div class="val">10:00</div><div class="sub">Massenstart</div></div>
+  <div class="stat"><div class="lbl">Zielschluss</div><div class="val">6:45 h</div><div class="sub">ca. 16:45 Uhr</div></div>
+</div>
+
+<div class="tabs-io">
+<input type="radio" name="tab" id="t-ueber" checked>
+<input type="radio" name="tab" id="t-schwimm">
+<input type="radio" name="tab" id="t-rad">
+<input type="radio" name="tab" id="t-lauf">
+<input type="radio" name="tab" id="t-wz">
+<input type="radio" name="tab" id="t-renn">
+
+<nav class="tabs">
+  <label for="t-ueber">Überblick</label>
+  <label for="t-schwimm">Schwimmen</label>
+  <label for="t-rad">Radstrecke</label>
+  <label for="t-lauf">Laufstrecke</label>
+  <label for="t-wz">Wechselzonen &amp; Logistik</label>
+  <label for="t-renn">Renn-Notizen</label>
+</nav>
+
+<!-- ============================= ÜBERBLICK ============================= -->
+<section class="grid" id="tab-ueber">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🕐</span><span class="ct">Zeitplan</span><span class="tag off meta">offiziell</span></div>
+    <div class="tl">
+      <div class="daylabel">Donnerstag, 20.08.</div>
+      <div class="row"><span class="tm">19:00</span><span class="tx">Online-Wettkampfbesprechung per Zoom (Link kommt per Mail, wird aufgezeichnet)</span></div>
+      <div class="daylabel">Samstag, 22.08.</div>
+      <div class="row hot"><span class="tm">15:00 – 19:00</span><span class="tx"><b>Startunterlagen abholen</b> und <b>roten Laufbeutel abgeben</b>, Vereinsheim am Sportplatz Malterdingen. Keine Ausnahmen, das geht nur samstags.</span></div>
+      <div class="row"><span class="tm">16:00 – 19:00</span><span class="tx">Pastaparty am Sportplatz (im Startgeld enthalten, Gäste ca. 10–12 €)</span></div>
+      <div class="row"><span class="tm">18:00</span><span class="tx">Wettkampfbesprechung vor Ort am Sportplatz</span></div>
+      <div class="daylabel">Sonntag, 23.08. – Wettkampftag</div>
+      <div class="row"><span class="tm">08:00 – 09:30</span><span class="tx">Rad-Check-In, Wechselzone Müllersee</span></div>
+      <div class="row hot"><span class="tm">bis 09:20</span><span class="tx"><b>Blauer Beutel</b> (Bike) am Beutelständer am See</span></div>
+      <div class="row hot"><span class="tm">bis 09:30</span><span class="tx"><b>Wechselzone verlassen</b></span></div>
+      <div class="row hot"><span class="tm">bis 09:45</span><span class="tx"><b>Grüner Beutel</b> (After-Race) am Lkw vor dem Rad-Check-In abgeben</span></div>
+      <div class="row"><span class="tm">ca. 09:45</span><span class="tx">Wettkampfbesprechung am Schwimmstart</span></div>
+      <div class="row hot"><span class="tm">10:00</span><span class="tx"><b>Start Mitteldistanz</b> als Massenstart im Müllersee</span></div>
+      <div class="row"><span class="tm">10:50</span><span class="tx">Start Jedermann-Distanz</span></div>
+      <div class="row"><span class="tm">13:30</span><span class="tx">Siegerehrung Jedermann</span></div>
+      <div class="row"><span class="tm">ab 15:00</span><span class="tx">Rad-Check-Out möglich</span></div>
+      <div class="row hot"><span class="tm">ca. 16:30</span><span class="tx"><b>Siegerehrung Mitteldistanz</b> im Zielbereich, inklusive BW-Meisterschaft</span></div>
+      <div class="row"><span class="tm">ca. 16:45</span><span class="tx">Zielschluss (6:45 h Rennzeit)</span></div>
+      <div class="row"><span class="tm">17:00 / 17:30</span><span class="tx">Ende Bewachung Räder (Radpark ab 17:30 unbewacht)</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">📋</span><span class="ct">Harte Fakten</span><span class="tag off meta">Ausschreibung</span></div>
+    <table class="kv">
+      <tr><td>Veranstaltung</td><td><b>35. Breisgau Triathlon</b>, Mitteldistanz mit <b>Baden-Württembergischen Meisterschaften</b></td></tr>
+      <tr><td>Datum</td><td>Sonntag, 23.08.2026, Start 10:00 Uhr</td></tr>
+      <tr><td>Start / Ziel</td><td>Müllersee Riegel → Sportplatz Malterdingen, Am Sportplatz 1</td></tr>
+      <tr><td>Distanzen</td><td>2,0 km – 80 km – 21 km <span class="tag gps" id="f_gps"></span></td></tr>
+      <tr><td>Startberechtigung</td><td>Startpass oder Tageslizenz (25 €), Mindestalter 18</td></tr>
+      <tr><td>BW-Meisterschaft</td><td>Alle Startpassinhaber eines <b>BaWü-Vereins werden automatisch gewertet</b>, Gesamtwertung und ab AK 20 in 5-Jahres-Schritten</td></tr>
+      <tr><td>Preisgeld BW</td><td>Gesamtwertung m/w: 200 € – 100 € – 50 €; zusätzlich Sach- und Geldpreise im Gesamtwert von ca. 3.000 €</td></tr>
+      <tr><td>Ehrungen</td><td>Gesamt Top 3 sowie Platz 1–3 jeder Altersklasse; Preisgeldränge Platz 1–10 (nur Einzelstarter)</td></tr>
+      <tr><td>Altersklassen</td><td>Nach DTU-Sportordnung, es gilt der Jahrgang. AK40 = Jahrgang 1986 bis 1982. Eine AK wird nur ab drei Teilnehmern gewertet, sonst Wertung in der nächstjüngeren AK.</td></tr>
+      <tr><td>Startgebühr</td><td>155 € bis 31.03., 175 € bis 16.08., 195 € ab 17.08. (Staffel 185 / 205 / 225 €)</td></tr>
+      <tr><td>Meldeschluss</td><td>16.08.2026, 24:00 Uhr oder früher bei erreichtem Limit</td></tr>
+      <tr><td>Teilnehmerlimit</td><td>600 gesamt, davon 300 je Distanz</td></tr>
+      <tr><td>Zeitmessung</td><td>Racepedia, Transponder <b>am Fußgelenk</b>, Verlust 50 €</td></tr>
+      <tr><td>Regelwerk</td><td>DTU-Sportordnung, Windschattenverbot, Helmpflicht</td></tr>
+    </table>
+    <div class="btnrow">
+      <a href="https://www.tnb-malterdingen.de/breisgau-triathlon/athleteninfo/ausschreibung/" target="_blank">Ausschreibung</a>
+      <a href="https://www.tnb-malterdingen.de/breisgau-triathlon/distanzen-strecken/" target="_blank">Strecken</a>
+      <a href="https://breisgau-triathlon-2026.racepedia.de/" target="_blank">Anmeldung / Racepedia</a>
+    </div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">⏱️</span><span class="ct">Zeitlimits</span><span class="tag off meta">offiziell</span></div>
+    <table class="kv">
+      <tr><td>Schwimmen</td><td><b>1:10 h</b> — spätestens 11:10 Uhr aus dem Wasser</td></tr>
+      <tr><td>Schwimmen + Rad</td><td><b>4:30 h</b> — spätestens 14:30 Uhr in der Wechselzone 2</td></tr>
+      <tr><td>Zielschluss</td><td><b>6:45 h</b> Rennzeit, also ca. 16:45 Uhr</td></tr>
+    </table>
+    <div class="hint">Die Limits sind für ambitionierte Zeiten weit weg, aber sie bestimmen den Notfallplan: Wer nach 4:30 h nicht auf der Laufstrecke ist, wird aus dem Rennen genommen.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🧭</span><span class="ct">Die drei Disziplinen auf einen Blick</span></div>
+    <div class="grid" style="gap:12px">
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🏊</span><span class="ct" style="color:var(--blue)">Schwimmen · 1,9 km</span></div>
+        <ul class="notes">
+          <li><b>Zwei Runden</b> im Müllersee in Riegel, ruhiges Gewässer, gute Orientierung</li>
+          <li>GPS-Track des Veranstalters: <b id="l_schwimm"></b></li>
+          <li>Badekappe des Veranstalters ist <b>Pflicht</b></li>
+          <li>Wechselzone 1 direkt am Seeufer, kurzer Weg aus dem Wasser</li>
+        </ul>
+      </div>
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🚴</span><span class="ct" style="color:var(--amber)">Radfahren · 80 km</span></div>
+        <ul class="notes">
+          <li><b>Anfahrt vom See plus drei Runden</b> um Malterdingen</li>
+          <li>GPS: <b id="l_rad"></b>, Runde ca. <b id="l_radrunde"></b></li>
+          <li>Praktisch vollständig asphaltiert, für den Verkehr gesperrt</li>
+          <li>Je Runde ein langer Waldanstieg, danach schnelle Abfahrt und Wellen in den Rebhängen</li>
+        </ul>
+      </div>
+      <div class="card third" style="box-shadow:none;background:var(--card2)">
+        <div class="chead"><span class="ico">🏃</span><span class="ct" style="color:var(--green)">Laufen · 21,1 km</span></div>
+        <ul class="notes">
+          <li><b>Zwei Runden</b> à gut 10 km rund um Malterdingen</li>
+          <li>GPS: <b id="l_lauf"></b></li>
+          <li>Rund ein Drittel Naturboden und unbefestigte Wege, überwiegend Wirtschaftswege statt Straße</li>
+          <li>Vier Verpflegungsstellen auf der Laufstrecke</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================= SCHWIMMEN ============================= -->
+<section class="grid" id="tab-schwimm">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🏊</span><span class="ct">Schwimmkurs Müllersee</span><span class="tag gps meta">GPS des Veranstalters</span></div>
+    <div class="mapbox"><svg id="mapSchwimm" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg></div>
+    <p class="note">Zwei Runden, gezeichnet aus dem offiziellen Komoot-Track. Start und Ausstieg liegen am selben Uferabschnitt neben der Wechselzone 1.</p>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🌡️</span><span class="ct">Details &amp; Neopren</span></div>
+    <table class="kv">
+      <tr><td>Distanz</td><td><b>1.900 m</b> laut Ausschreibung (Tabelle nennt 2,0 km), GPS-Track <b id="f_schwimmkm"></b></td></tr>
+      <tr><td>Gewässer</td><td>Müllersee Riegel, stehendes Gewässer, Campingplatz am Ufer</td></tr>
+      <tr><td>Runden</td><td>2 Runden à ca. <b id="f_schwimmrunde"></b></td></tr>
+      <tr><td>Start</td><td><b>Massenstart</b> um 10:00 Uhr</td></tr>
+      <tr><td>Zeitlimit</td><td>1 Stunde 10 Minuten</td></tr>
+      <tr><td>Badekappe</td><td>Die vom Veranstalter ausgegebene Kappe ist <b>Pflicht</b></td></tr>
+      <tr><td>Neopren Pflicht</td><td><b>14,0 – 15,9 °C</b></td></tr>
+      <tr><td>Neopren erlaubt</td><td><b>16,0 – 24,5 °C</b>, aber nicht verpflichtend</td></tr>
+      <tr><td>Neopren verboten</td><td>ab <b>24,6 °C</b></td></tr>
+      <tr><td>Wassertemperatur</td><td>Wird nicht dauerhaft gemessen. Erste Messung der Kampfrichter meist am Samstag, die verbindliche Entscheidung fällt am Rennmorgen und wird über Social Media und Aushänge bekannt gegeben.</td></tr>
+    </table>
+    <div class="hint">Ende August liegt ein flacher Baggersee im Breisgau erfahrungsgemäß deutlich über 20 °C. Neopren wird also mit hoher Wahrscheinlichkeit erlaubt, aber nicht Pflicht sein. Das ist eine Einschätzung, keine Zusage des Veranstalters – ohne Messwert bleibt es offen.</div>
+  </div>
+
+</section>
+
+<!-- ============================= RAD ============================= -->
+<section class="grid" id="tab-rad">
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🚴</span><span class="ct">Radstrecke – 80 km, 3 Runden</span>
+      <span class="tag gps meta">aus dem GPS-Track berechnet</span></div>
+    <div class="split">
+      <div>
+        <div class="mapbox"><svg id="mapRad" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg></div>
+        <div class="legend" id="legRad"></div>
+      </div>
+      <div>
+        <div class="profbox">
+          <svg id="profRad" viewBox="0 0 700 300" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="tip" id="tipRad"></div>
+        </div>
+        <p class="note">Gestrichelte Linien markieren die Rundenwechsel. Mit der Maus über das Profil fahren, die Position erscheint auf der Karte.</p>
+        <table class="kv" style="margin-top:12px">
+          <tr><td>Distanz (GPS)</td><td><b id="r_dist"></b></td></tr>
+          <tr><td>davon Anfahrt vom See</td><td><b id="r_anfahrt"></b></td></tr>
+          <tr><td>Rundenlänge</td><td><b id="r_runde"></b></td></tr>
+          <tr><td>Höhenmeter</td><td><b id="r_hm"></b></td></tr>
+          <tr><td>Höhe min / max</td><td><b id="r_alt"></b></td></tr>
+          <tr><td>Steilste Rampe</td><td><b id="r_max"></b></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="hint warn"><b>⚠️ Widerspruch bei den Höhenmetern:</b> Die Veranstalterseite nennt <b>1.119 hm</b>.
+      Der von ihr selbst eingebundene Komoot-Track ergibt <b id="w_rad"></b>. Beide Zahlen stehen hier nebeneinander,
+      weil nicht klar ist, welche stimmt. Barometrisch gemessene Werte einer Radcomputer-Runde liegen oft höher als
+      die aus einem Höhenmodell berechneten. Für die Renneinteilung ist die Verteilung der Anstiege wichtiger als die Summe.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">⛰️</span><span class="ct">Die Anstiege über alle drei Runden</span><span class="tag gps meta">berechnet</span></div>
+    <table class="climbs"><thead><tr><th>Abschnitt</th><th>Länge</th><th>Hm</th><th>Ø</th><th>max</th></tr></thead>
+      <tbody id="climbRad"></tbody></table>
+    <p class="note">Der lange Waldanstieg wiederholt sich je Runde. Kurze Wellen unter 250 m Länge oder 2 % Steigung sind nicht gelistet.</p>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🛣️</span><span class="ct">Untergrund &amp; Wegtypen</span><span class="tag gps meta">Komoot-Klassifizierung</span></div>
+    <div class="bars" id="surfRad"></div>
+    <div style="height:10px"></div>
+    <div class="bars" id="wayRad"></div>
+    <div class="hint">Die Radstrecke ist praktisch durchgehend versiegelt. „Befestigt“ ist Komoots Sammelklasse für versiegelte Beläge ohne ausdrückliche Asphalt-Angabe in OpenStreetMap.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">📏</span><span class="ct">Regeln auf dem Rad</span><span class="tag off meta">Ausschreibung</span></div>
+    <ul class="notes">
+      <li><b>Windschattenverbot</b>, Zone 12 m, gemessen von Vorderkante zu Vorderkante. Ständiges Nebeneinanderfahren ist mit Disqualifikation belegt, Zeitstrafen werden auf die Endzeit addiert.</li>
+      <li>Strecke ist <b>für den Verkehr gesperrt</b>, in wenigen Bereichen dürfen andere Verkehrsteilnehmer in Rennrichtung mitfahren. StVO und Rechtsfahrgebot gelten trotzdem.</li>
+      <li>Helm mit geschlossenem Kinnriemen, <b>Oberkörperbekleidung Pflicht</b>, Bremshebel müssen nach hinten ragen.</li>
+      <li>Startnummer am Rad sichtbar anbringen, Startnummer am Trikot auf dem Rad <b>hinten</b> tragen.</li>
+      <li><b>Verpflegung Rad:</b> eine Stelle am Ortseingang Malterdingen mit Wasser, Iso und Gels. Bei drei Runden also drei Gelegenheiten. Eigene Verpflegung darf an den Verpflegungsstellen deponiert werden, muss aber selbst oder durch eigene Helfer hingebracht werden.</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============================= LAUF ============================= -->
+<section class="grid" id="tab-lauf">
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🏃</span><span class="ct">Laufstrecke – 21,1 km, 2 Runden</span>
+      <span class="tag gps meta">aus dem GPS-Track berechnet</span></div>
+    <div class="split">
+      <div>
+        <div class="mapbox"><svg id="mapLauf" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet"></svg></div>
+        <div class="legend" id="legLauf"></div>
+      </div>
+      <div>
+        <div class="profbox">
+          <svg id="profLauf" viewBox="0 0 700 300" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="tip" id="tipLauf"></div>
+        </div>
+        <table class="kv" style="margin-top:12px">
+          <tr><td>Distanz (GPS)</td><td><b id="l_dist"></b></td></tr>
+          <tr><td>Rundenlänge</td><td><b id="l_runde"></b></td></tr>
+          <tr><td>Höhenmeter</td><td><b id="l_hm"></b></td></tr>
+          <tr><td>Höhe min / max</td><td><b id="l_alt"></b></td></tr>
+          <tr><td>Steilste Rampe</td><td><b id="l_max"></b></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="hint warn"><b>⚠️ Widerspruch bei den Höhenmetern:</b> Die Veranstalterseite nennt <b>278 hm</b>,
+      der eingebundene Komoot-Track ergibt <b id="w_lauf"></b>. Der Unterschied ist hier deutlich größer als beim Rad.
+      Verlass dich lieber auf die Profilform als auf eine der beiden Summen.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🪨</span><span class="ct">Untergrund – der wichtigste Punkt</span><span class="tag gps meta">Komoot-Klassifizierung</span></div>
+    <div class="bars" id="surfLauf"></div>
+    <div style="height:10px"></div>
+    <div class="bars" id="wayLauf"></div>
+    <div class="hint">Das ist kein Straßenhalbmarathon. Rund ein Drittel der Strecke ist Naturboden oder unbefestigter Weg,
+      und nach Wegtypen läuft mehr als die Hälfte über Wirtschafts- und Feldwege statt über Straßen.
+      Der Veranstalter beschreibt es als „asphaltierte Wege mit Abschnitten entlang von Feldern und Ortsrandlagen“.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">⛰️</span><span class="ct">Anstiege</span><span class="tag gps meta">berechnet</span></div>
+    <table class="climbs"><thead><tr><th>Abschnitt</th><th>Länge</th><th>Hm</th><th>Ø</th><th>max</th></tr></thead>
+      <tbody id="climbLauf"></tbody></table>
+    <p class="note">Wenn hier nichts steht, gibt es auf der Runde keinen Anstieg über 250 m Länge mit mindestens 2 % Steigung.</p>
+    <ul class="notes" style="margin-top:12px">
+      <li><b>Verpflegung:</b> vier Stellen mit Wasser, Iso, Cola, Bananen und Gels</li>
+      <li>Startnummer am Trikot <b>vorne</b> tragen, Oberkörperbekleidung Pflicht</li>
+      <li>Begleitung durch Nicht-Teilnehmer ist verboten</li>
+      <li>Straßen und Wege sind vollständig für den Verkehr gesperrt</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============================= WECHSELZONEN ============================= -->
+<section class="grid" id="tab-wz">
+
+  <div class="card">
+    <div class="chead"><span class="ico">🔁</span><span class="ct">Zwei Wechselzonen</span><span class="tag off meta">offiziell</span></div>
+    <table class="kv">
+      <tr><td>Wechselzone 1</td><td><b>Müllersee Riegel</b>, direkt am Seeufer. Schwimmen auf Rad. Hier findet am Sonntagmorgen auch der Check-In statt. Schwimm- und Radausrüstung gehören hierher.</td></tr>
+      <tr><td>Wechselzone 2</td><td><b>Sportplatz Malterdingen</b>, Rad auf Laufen, zugleich Zielbereich. Die Laufsachen werden bereits am Samstag abgegeben und vom Veranstalter nach Startnummern sortiert bereitgelegt.</td></tr>
+      <tr><td>Check-In</td><td>Sonntag <b>08:00 – 09:30 Uhr</b> am Müllersee</td></tr>
+      <tr><td>Wechselzone räumen</td><td>bis <b>09:30 Uhr</b></td></tr>
+      <tr><td>Check-Out Rad</td><td>ab ca. <b>15:00 Uhr</b>, nur gegen Startnummer und Athletenband</td></tr>
+      <tr><td>Bewachung</td><td>Räder bis <b>17:00 Uhr</b>, Radpark an der Wechselzone 2 bis <b>17:30 Uhr</b></td></tr>
+      <tr><td>Duschen</td><td>Sportheim des SV Malterdingen im Zielbereich</td></tr>
+      <tr><td>Medizinisch</td><td>DRK am Start, in beiden Wechselzonen und im Ziel, mobiler Notarzt auf der Strecke</td></tr>
+    </table>
+    <div class="hint">Ein bemaßter Wechselzonen-Plan wird nicht veröffentlicht. Der Ablauf kommt in der Wettkampfbesprechung.</div>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🎒</span><span class="ct">Das Beutel-System</span><span class="tag off meta">wichtig</span></div>
+    <table class="kv">
+      <tr><td><b style="color:var(--blue)">Blau</b> — Bike</td><td>Muss bis <b>09:20 Uhr</b> am Beutelständer am See liegen</td></tr>
+      <tr><td><b style="color:var(--red)">Rot</b> — Run</td><td>Wird bereits <b>am Samstag</b> bei der Startunterlagenausgabe abgegeben. Am Sonntag gibt es <b>keine</b> Annahme von Laufbeuteln mehr am See.</td></tr>
+      <tr><td><b style="color:var(--green)">Grün</b> — After-Race</td><td>Bis <b>09:45 Uhr</b> am Lkw vor dem Rad-Check-In. Der Veranstalter bringt ihn ins Ziel.</td></tr>
+    </table>
+    <div class="hint warn">Der rote Laufbeutel ist die klassische Falle: Wer ihn samstags nicht dabei hat, steht am Sonntag ohne Laufschuhe da. Also am Samstag komplett packen, nicht erst am Rennmorgen.</div>
+  </div>
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🚌</span><span class="ct">Logistik und Anreise</span><span class="tag off meta">offiziell</span></div>
+    <table class="kv">
+      <tr><td>Punkt-zu-Punkt-Rennen</td><td>Start am Müllersee Riegel, Ziel am Sportplatz Malterdingen. Beides sind unterschiedliche Orte, das Rad bleibt nach dem Rennen an der Wechselzone 2.</td></tr>
+      <tr><td>Shuttle für Zuschauer</td><td>Zum Schwimmstart ab Haltestelle Firma Berrang: <b>08:30 / 09:00 / 09:30 Uhr</b>. Rückfahrt zum Parkplatz Malterdingen ab Eingang Campingplatz Müllersee: <b>11:30 / 11:50 Uhr</b>.</td></tr>
+      <tr><td>Parken</td><td>Parkplatz Malterdingen, etwa 5 Minuten zu Fuß zum Zielbereich mit Catering</td></tr>
+      <tr><td>Übernachtung</td><td>Campingplatz am Müllersee direkt am Schwimmstart (Buchung über muellersee.de). Campen auf den Parkplätzen außerhalb des umzäunten Seegeländes ist nicht erlaubt.</td></tr>
+      <tr><td>Im Ziel</td><td>Finisher-Buffet, Transponderabgabe, Finisher-Shirt sofern bestellt</td></tr>
+    </table>
+    <div class="hint">Praktische Konsequenz für die eigene Anreise: Das Auto steht sinnvollerweise in Malterdingen am Ziel, morgens geht es mit dem Rad oder dem Shuttle zum See. Das muss vorher geklärt sein, weil die Wechselzone am See um 09:30 Uhr geräumt sein muss.</div>
+  </div>
+
+</section>
+
+<!-- ============================= RENN-NOTIZEN ============================= -->
+<section class="grid" id="tab-renn">
+
+  <div class="card wide">
+    <div class="chead"><span class="ico">🎯</span><span class="ct">Was das Streckenprofil für das Rennen bedeutet</span><span class="tag est meta">Einschätzung, keine offizielle Angabe</span></div>
+    <ul class="notes">
+      <li><b>Das Rad ist der Knackpunkt.</b> Rund <span id="n_radhm"></span> auf 80 km bedeuten je Runde denselben langen Waldanstieg. Wer die erste Runde zu hart fährt, verliert auf der dritten deutlich mehr, als er vorher gewonnen hat.</li>
+      <li><b>Drei identische Runden sind ein Geschenk fürs Pacing.</b> Die erste Runde gibt die Referenzzeit, ab der zweiten weiß man genau, wo der Anstieg beginnt und wo sich Tempo wirklich auszahlt.</li>
+      <li><b>Der Halbmarathon ist kein Straßenlauf.</b> Etwa ein Drittel Naturboden und unbefestigte Abschnitte, über die Hälfte der Strecke auf Wirtschafts- und Feldwegen. Nach 80 hügeligen Radkilometern kostet weicher Untergrund zusätzlich Kraft, und die Pace liegt hier systematisch über der Straßenpace.</li>
+      <li><b>Zwei Laufrunden bedeuten:</b> die erste Runde kontrolliert laufen, weil man die Verpflegungsstellen und die Wegbeschaffenheit erst kennenlernt, dann in der zweiten nachlegen.</li>
+      <li><b>Punkt-zu-Punkt-Logistik.</b> Anders als bei einem Rundkurs am selben Ort muss die Anreise wirklich geplant sein. Der rote Laufbeutel muss samstags fertig gepackt sein.</li>
+      <li><b>Massenstart.</b> Kein Rolling Start und keine Wellen, also von Anfang an Gedränge im Wasser. Die ersten 300 m Position halten, dann sauber in den eigenen Rhythmus kommen.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">🏆</span><span class="ct">Meisterschafts-Formalien</span><span class="tag off meta">offiziell</span></div>
+    <ul class="notes">
+      <li>Startpass eines Vereins aus Baden-Württemberg genügt, die Wertung läuft automatisch</li>
+      <li>Ohne Startpass ist eine Tageslizenz für 25 € nötig, die aber <b>nicht</b> zur Meisterschaftswertung berechtigt</li>
+      <li>Gewertet wird die Gesamtwertung und ab AK 20 in 5-Jahres-Schritten</li>
+      <li>Eine Altersklasse wird nur ab drei Teilnehmern eigenständig gewertet, sonst rutscht die Wertung in die nächstjüngere Klasse</li>
+      <li>Die Gesamt-Siegerehrung nimmt ein Vertreter des Landesverbands vor, ca. 16:30 Uhr im Zielbereich</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="ico">✅</span><span class="ct">Offene Punkte vor dem Start</span></div>
+    <ul class="notes">
+      <li>Wassertemperatur und damit die Neoprenfrage – Entscheidung am Rennmorgen</li>
+      <li>Startplatz: das Rennen war ausgebucht, freie Plätze werden kurzfristig neu vergeben</li>
+      <li>Startpass oder Tageslizenz klären, für die BW-Wertung ist der Startpass Pflicht</li>
+      <li>Anreiselogistik zwischen Ziel Malterdingen und Start Müllersee festlegen</li>
+      <li>Laufschuhwahl an gemischten Untergrund anpassen</li>
+      <li>Eigene Verpflegung für die Radrunden vorbereiten, es gibt nur eine Stelle je Runde</li>
+    </ul>
+  </div>
+
+</section>
+</div>
+
+<footer>
+  <b>Quellen:</b> Alle mit „offiziell“ oder „Ausschreibung“ markierten Angaben stammen von
+  <a href="https://www.tnb-malterdingen.de/breisgau-triathlon/" target="_blank">tnb-malterdingen.de</a>
+  sowie aus der offiziellen Ausschreibung Mitteldistanz 2026 (PDF), abgerufen am <span id="stand">–</span>.
+  Streckenkennzahlen, Profile, Anstiege und Untergrund sind aus den drei vom Veranstalter eingebundenen
+  Komoot-Tracks berechnet. Mit „Einschätzung“ markierte Abschnitte sind <b>keine Angaben des Veranstalters</b>.
+  Widersprüche zwischen Veranstalterangabe und GPS-Track sind mit ⚠️ gekennzeichnet und bewusst nicht aufgelöst.
+  <br>Angaben ohne Gewähr – vor dem Rennen die Veranstalterseite gegenprüfen.
+  Aktualisieren mit <code>python3 .scripts/tri_update.py breisgau</code>.
+</footer>
+
+</div>
+
+<script src="strecken_data.js"></script>
+<script src="../dashboard.js"></script>
+<script>
+(function () {
+  "use strict";
+  TriUI.theme("#themeBtn", "tri-theme");
+  TriUI.countdown("#cd", "#cdsub", "2026-08-23T10:00:00");
+  if (typeof STRECKEN === "undefined") return;
+
+  var D = STRECKEN.disziplinen, nf = TriUI.nf;
+  var s = D.schwimmen, r = D.rad, l = D.laufen;
+  document.getElementById("stand").textContent = STRECKEN.stand;
+
+  function km(v, d) { return nf(v, d === undefined ? 2 : d) + " km"; }
+
+  if (s) {
+    TriUI.disziplin({ data: s, map: "#mapSchwimm", flat: true, kmStep: 0.5, startLabel: "Start / Ausstieg" });
+    TriUI.fill({
+      "#l_schwimm": km(s.distanzKm),
+      "#f_schwimmkm": km(s.distanzKm),
+      "#f_schwimmrunde": km(s.distanzKm / 2)
+    });
+  }
+
+  if (r) {
+    TriUI.disziplin({
+      data: r, map: "#mapRad", profile: "#profRad", tip: "#tipRad", legend: "#legRad",
+      climbs: "#climbRad", surfaces: "#surfRad", ways: "#wayRad", climbLimit: 12,
+      markHm: 45, startLabel: "Müllersee", zielLabel: "Malterdingen"
+    });
+    TriUI.fill({
+      "#s_rad": km(r.distanzKm, 1), "#s_radhm": "3 Runden · " + nf(r.hmAufKomoot) + " hm",
+      "#l_rad": km(r.distanzKm) + " · " + nf(r.hmAufKomoot) + " hm",
+      "#l_radrunde": km(r.rundeKm, 1),
+      "#r_dist": km(r.distanzKm),
+      "#r_anfahrt": "ca. " + km(r.vorlaufKm, 1) + " vom Müllersee bis in den Rundkurs",
+      "#r_runde": "ca. " + km(r.rundeKm, 1) + " je Runde (3 Runden)",
+      "#r_hm": nf(r.hmAufKomoot) + " hm bergauf laut Komoot, " + nf(r.hmAufGeglaettet) + " hm geglättet berechnet",
+      "#r_alt": nf(r.minHoehe) + " – " + nf(r.maxHoehe) + " m ü. NN",
+      "#r_max": nf(r.maxSteigung, 1) + " %",
+      "#w_rad": nf(r.hmAufKomoot) + " hm",
+      "#n_radhm": nf(r.hmAufKomoot) + " bis 1.119 Höhenmeter"
+    });
+  }
+
+  if (l) {
+    TriUI.disziplin({
+      data: l, map: "#mapLauf", profile: "#profLauf", tip: "#tipLauf", legend: "#legLauf",
+      climbs: "#climbLauf", surfaces: "#surfLauf", ways: "#wayLauf", markHm: 15,
+      startLabel: "Sportplatz", zielLabel: "Ziel"
+    });
+    TriUI.fill({
+      "#s_lauf": km(l.distanzKm, 1), "#s_laufhm": "2 Runden · " + nf(l.hmAufKomoot) + " hm",
+      "#l_lauf": km(l.distanzKm) + " · " + nf(l.hmAufKomoot) + " hm",
+      "#l_dist": km(l.distanzKm) + " (Ausschreibung: 21,1 km)",
+      "#l_runde": km(l.rundeKm || l.distanzKm / 2) + " je Runde (2 Runden)",
+      "#l_hm": nf(l.hmAufKomoot) + " hm bergauf laut Komoot, " + nf(l.hmAufGeglaettet) + " hm geglättet berechnet",
+      "#l_alt": nf(l.minHoehe) + " – " + nf(l.maxHoehe) + " m ü. NN",
+      "#l_max": nf(l.maxSteigung, 1) + " %",
+      "#w_lauf": nf(l.hmAufKomoot) + " hm"
+    });
+  }
+
+  TriUI.fill({ "#f_gps": "GPS: " + km(s ? s.distanzKm : 0, 2) + " / " + km(r.distanzKm, 1) + " / " + km(l.distanzKm, 1) });
+})();
+</script>
+</body>
+</html>
