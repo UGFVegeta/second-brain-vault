@@ -1,0 +1,301 @@
+/* ------------------------------------------------------------------
+   Folienvorlage Physik Klasse 7 (Oskar Klein)
+   Seitenformat exakt wie der Notability-Bestand: 716.8 x 404 pt
+   Farben aus dem Altbestand gemessen:
+     Magenta Rahmen  #FF1F8A
+     Blaugrau Kasten #8DA6C2 (Rand #66798E)
+     Violett Pfeil   #AD7FBA
+   Karo: gemessen an den Notability-Karoblaettern des Bestands,
+     Kaestchen 16.32 pt (= 4.8 mm auf A4-Breite), Linien #A3B7D3.
+     Das Karo liegt NUR in der Zeichenzone, nicht auf der ganzen Seite.
+   ------------------------------------------------------------------ */
+
+@page { size: 716.8pt 404pt; margin: 0; }
+
+:root {
+  --magenta:   #FF1F8A;
+  --blaugrau:  #8DA6C2;
+  --blaurand:  #66798E;
+  --violett:   #AD7FBA;
+  --karo:      #A3B7D3;
+  --kararand:  #C3D0E2;
+  --deko:      #C5D2E0;
+  --tuerkis:   #00A0A0;
+  --rot:       #E3000F;
+  --raster:    16.32pt;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #111;
+}
+
+/* --- Grundseite ------------------------------------------------- */
+
+.folie {
+  position: relative;
+  width: 716.8pt;
+  height: 404pt;
+  overflow: hidden;
+  background-color: #fff;
+  page-break-after: always;
+}
+
+/* Karo-Flaeche: nur dort, wo tatsaechlich gezeichnet wird.
+   Als SVG-Pattern, weil Chrome feine linear-gradient-Linien beim
+   PDF-Export wegrundet. So bleibt das Karo vektoriell. */
+.karo {
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><path d='M100 0H0v100' fill='none' stroke='%23A3B7D3' stroke-width='2.5'/></svg>");
+  background-size: var(--raster) var(--raster);
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+.folie:last-child { page-break-after: auto; }
+
+/* Deko-Pfeil am linken Rand, wie im Bestand angeschnitten */
+.folie::before {
+  content: "";
+  position: absolute;
+  left: -14pt;
+  top: 22%;
+  width: 0; height: 0;
+  border-top: 14pt solid transparent;
+  border-bottom: 14pt solid transparent;
+  border-left: 22pt solid var(--deko);
+}
+
+/* --- Titel ------------------------------------------------------ */
+
+.titelband {
+  position: absolute;
+  left: 14pt; right: 14pt; top: 12pt;
+  border: 0.8pt solid var(--magenta);
+  background: rgba(255,255,255,0.85);
+  padding: 6pt 0;
+  text-align: center;
+}
+.titelband h1 {
+  margin: 0;
+  font-size: 30pt;
+  font-weight: 500;
+  letter-spacing: -0.3pt;
+}
+
+/* Kapiteltitelseite: nur eine grosse Ueberschrift mittig */
+.folie.kapitel { display: flex; align-items: center; justify-content: center; }
+.folie.kapitel h1 {
+  margin: 0;
+  font-size: 40pt;
+  font-weight: 500;
+  text-align: center;
+  max-width: 560pt;
+  line-height: 1.2;
+}
+.folie.kapitel::before { content: none; }
+
+/* --- Zeichenzone ------------------------------------------------ */
+
+.zeichenzone {
+  position: absolute;
+  left: 40.16pt;           /* zentriert, Breite = 39 Kaestchen */
+  top: 74pt;
+  width: 636.48pt;         /* 39 x 16.32 pt */
+  height: 212.16pt;        /* 13 x 16.32 pt */
+  border: 0.5pt solid var(--kararand);
+}
+.zeichenzone svg { width: 100%; height: 100%; display: block; }
+
+/* --- Merksatz --------------------------------------------------- */
+
+.merksatz {
+  position: absolute;
+  left: 96pt; right: 96pt; bottom: 26pt;
+  border: 0.8pt solid var(--magenta);
+  background: rgba(255,255,255,0.9);
+  padding: 7pt 10pt;
+  font-size: 12.5pt;
+  line-height: 1.35;
+}
+.merksatz.links { left: 38pt; right: auto; width: 330pt; }
+
+b, strong { font-weight: 600; }
+.rot { color: var(--rot); font-weight: 600; }
+
+/* --- Hand-Icon: Seite, auf der mitgeschrieben wird -------------- */
+
+.schreibicon {
+  position: absolute;
+  right: 20pt; top: 16pt;
+  width: 52pt;
+  opacity: 0.95;
+}
+
+/* --- Versuchsraster --------------------------------------------- */
+
+.versuch {
+  position: absolute;
+  left: 38pt; right: 38pt; top: 72pt; bottom: 18pt;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 170pt 118pt;
+  gap: 10pt 14pt;
+  font-size: 10pt;
+  line-height: 1.28;
+}
+.versuch h2 {
+  margin: 0 0 3pt 0;
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--blaurand);
+}
+/* Feldhoehen fest, damit Arbeits- und Vorlagenseite deckungsgleich bleiben */
+.versuch .feld {
+  border: 0.6pt solid var(--blaugrau);
+  background: rgba(255,255,255,0.85);
+  padding: 6pt 8pt;
+  overflow: hidden;
+}
+.versuch .zelle { display: flex; flex-direction: column; }
+.versuch .zelle .feld { flex: 1; }
+/* Felder, in die gezeichnet wird, bekommen das Karo */
+.versuch .feld.karo { border-color: var(--kararand); }
+.versuch ol, .versuch ul { margin: 0; padding-left: 13pt; }
+.versuch li { margin-bottom: 2.5pt; }
+.versuch .feld svg { width: 100%; height: 100%; display: block; }
+
+/* --- Leitfragen-Dramaturgie -------------------------------------
+   Muster aus dem bewerteten Unterrichtsbesuch:
+   Impuls -> Leitfrage + offene Vermutung -> Erarbeitung ->
+   Antwort -> Check (MC) -> Loesung
+   ---------------------------------------------------------------- */
+
+/* Impulsseite: nur beobachten, noch keine Frage */
+.impulszone {
+  position: absolute;
+  left: 40.16pt; top: 66pt;
+  width: 636.48pt; height: 244.8pt;   /* 39 x 15 Kaestchen */
+}
+.impulszone svg { width: 100%; height: 100%; display: block; }
+.impulstext {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; bottom: 24pt;
+  font-size: 13pt;
+  text-align: center;
+  color: var(--blaurand);
+  font-weight: 600;
+}
+
+/* Frageband: die Leitfrage der Einheit */
+.frageband {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 52pt;
+  background: var(--blaugrau);
+  border: 0.6pt solid var(--blaurand);
+  padding: 10pt 18pt 12pt 18pt;
+}
+.frageband .nr {
+  font-size: 10.5pt; font-weight: 600; letter-spacing: 0.8pt;
+  color: #2E4257; text-transform: uppercase;
+}
+.frageband h2 { margin: 3pt 0 0 0; font-size: 21pt; font-weight: 500; line-height: 1.2; }
+
+.vermutungslabel {
+  position: absolute;
+  left: 40.16pt; top: 122pt;
+  font-size: 11.5pt; font-weight: 600; color: var(--blaurand);
+}
+.zeichenzone.tief { top: 138pt; height: 228.48pt; }   /* 14 Kaestchen */
+
+/* Grosse Zeichenflaeche fuer Darstellungen, die die Klasse in voller
+   Groesse abzeichnen soll (z. B. Spektrum mit 2 Kaestchen je Farbe).
+   17 Kaestchen hoch, der Merksatz rueckt dafuer nach unten. */
+.zeichenzone.gross { top: 60pt; height: 277.44pt; }
+.merksatz.tief { bottom: 12pt; padding: 5pt 10pt; }
+
+/* Antwortseite: gleiche Frage, jetzt beantwortet */
+.antwortzone {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 148pt;
+  border: 0.8pt solid var(--magenta);
+  background: rgba(255,255,255,0.9);
+  padding: 12pt 16pt;
+  font-size: 14pt;
+  line-height: 1.4;
+}
+
+/* Wissenscheck: zwei Multiple-Choice-Aufgaben */
+.check {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 70pt; bottom: 18pt;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0 22pt;
+  font-size: 10.5pt; line-height: 1.3;
+}
+.check .aufgabe p { margin: 0 0 5pt 0; font-weight: 600; }
+.check ol { margin: 0; padding-left: 17pt; list-style: lower-alpha; }
+.check li { margin-bottom: 3.5pt; }
+
+.loesung {
+  position: absolute;
+  left: 0; right: 0; top: 170pt;
+  text-align: center;
+  font-size: 24pt; letter-spacing: 3pt;
+}
+
+/* Rueckblick auf alle Leitfragen */
+.rueckblick {
+  position: absolute;
+  left: 60pt; right: 60pt; top: 86pt;
+  font-size: 13.5pt; line-height: 1.5;
+  list-style: none; padding-left: 0; margin: 0;
+}
+.rueckblick li { margin-bottom: 7pt; }
+.rueckblick .fnr { font-weight: 600; color: var(--blaurand); }
+
+/* --- Textseite ohne Zeichenzone --------------------------------- */
+
+.textblock {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 78pt; bottom: 24pt;
+  font-size: 12pt;
+  line-height: 1.4;
+}
+.textblock.zweispaltig { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22pt; }
+.textblock h2 { margin: 0 0 5pt 0; font-size: 13pt; font-weight: 600; color: var(--blaurand); }
+.textblock ul, .textblock ol { margin: 0; padding-left: 15pt; }
+.textblock li { margin-bottom: 3.5pt; }
+
+/* --- Prozesskette Sender / Ausbreitung / Empfaenger -------------- */
+
+.kette { display: flex; align-items: center; justify-content: center; gap: 0; }
+.kette .kasten {
+  background: var(--blaugrau);
+  border: 0.6pt solid var(--blaurand);
+  color: #111;
+  font-size: 12pt;
+  padding: 16pt 22pt;
+  text-align: center;
+}
+.kette .pfeil {
+  width: 0; height: 0;
+  border-top: 20pt solid transparent;
+  border-bottom: 20pt solid transparent;
+  border-left: 34pt solid var(--violett);
+}
+
+/* --- SVG-Grundstile (Physikzeichnungen) ------------------------- */
+
+svg .licht      { stroke: #E8B400; stroke-width: 1.4; fill: none; }
+svg .lichtrand  { stroke: #E8B400; stroke-width: 1.4; fill: none; stroke-dasharray: none; }
+svg .koerper    { fill: #6E6E6E; stroke: #333; stroke-width: 1; }
+svg .schirm     { stroke: #333; stroke-width: 2.5; }
+svg .kern       { fill: #3A3A3A; }
+svg .halb       { fill: #9A9A9A; }
+svg .hilfslinie { stroke: #999; stroke-width: 0.8; stroke-dasharray: 4 3; fill: none; }
+svg .beschriftung { font-family: "Avenir Next", Helvetica, sans-serif; font-size: 11px; fill: #111; }
+svg .beschriftung.klein { font-size: 9.5px; }
+svg .kursiv { font-style: italic; }

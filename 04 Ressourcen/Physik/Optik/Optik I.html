@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Optik I – Licht, Ausbreitung, Schatten, Astronomie</title>
+<link rel="stylesheet" href="folien.css">
+</head>
+<body>
+
+<!-- ================================================== 1 Kapitel -->
+<section class="folie kapitel">
+  <h1>Optik | Licht und Sehen</h1>
+</section>
+
+
+<!-- ======================================== F1 Impuls ------------ -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- links: Licht aus -->
+      <rect x="40" y="30" width="250" height="160" fill="#26262B" stroke="#111"/>
+      <circle cx="165" cy="120" r="30" fill="#332B2B"/>
+      <text class="beschriftung" x="128" y="214" font-weight="600">Licht aus</text>
+      <!-- rechts: Licht an -->
+      <rect x="346" y="30" width="250" height="160" fill="#FFFDF4" stroke="#555"/>
+      <rect x="440" y="40" width="62" height="14" rx="3" fill="#8DA6C2" stroke="#66798E"/>
+      <path d="M456 54 h30 l-6 12 h-18 z" fill="#B0B0B0" stroke="#666"/>
+      <circle cx="471" cy="70" r="6" fill="#FFD34D" stroke="#B98900"/>
+      <g class="licht">
+        <line x1="471" y1="76" x2="440" y2="112"/>
+        <line x1="471" y1="76" x2="471" y2="112"/>
+        <line x1="471" y1="76" x2="502" y2="112"/>
+      </g>
+      <circle cx="471" cy="142" r="30" fill="#D24B4B" stroke="#8E2B2B"/>
+      <path d="M471 112 q4 -12 14 -14" fill="none" stroke="#4B7A2B" stroke-width="2.5"/>
+      <text class="beschriftung" x="440" y="214" font-weight="600">Licht an</text>
+    </svg>
+  </div>
+  <div class="impulstext">Im abgedunkelten Raum: Was ändert sich, wenn die Lampe eingeschaltet wird?</div>
+</section>
+
+<!-- ======================================== F1 Leitfrage --------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 1</div>
+    <h2>Warum sehen wir überhaupt etwas?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ============================================ 1. Wie sehen wir? -->
+<section class="folie">
+  <div class="titelband"><h1>1. Wie sehen wir?</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Wir sehen einen Gegenstand nur, wenn <span class="rot">Licht von ihm in unser Auge</span> gelangt.
+    Die Lichtquelle ist der <b>Sender</b>, das Auge der <b>Empfänger</b>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>1. Wie sehen wir?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Lampe -->
+      <rect x="46" y="26" width="34" height="16" rx="3" fill="#8DA6C2" stroke="#66798E"/>
+      <path d="M55 42 h16 l-3 10 h-10 z" fill="#B0B0B0" stroke="#666"/>
+      <circle cx="63" cy="56" r="7" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="34" y="20">Lichtquelle (Sender)</text>
+      <!-- Strahlen Lampe -> Gegenstand -->
+      <g class="licht">
+        <line x1="63" y1="63" x2="252" y2="120"/>
+        <line x1="63" y1="63" x2="252" y2="146"/>
+        <line x1="63" y1="63" x2="252" y2="172"/>
+      </g>
+      <!-- Gegenstand: Apfel -->
+      <circle cx="278" cy="146" r="28" fill="#D24B4B" stroke="#8E2B2B"/>
+      <path d="M278 118 q4 -12 14 -14" fill="none" stroke="#4B7A2B" stroke-width="2.5"/>
+      <text class="beschriftung" x="240" y="196">Gegenstand</text>
+      <!-- gestreutes Licht in alle Richtungen -->
+      <g class="licht">
+        <line x1="304" y1="132" x2="470" y2="92"/>
+        <line x1="304" y1="146" x2="470" y2="106"/>
+        <line x1="306" y1="120" x2="400" y2="60"/>
+        <line x1="306" y1="164" x2="400" y2="196"/>
+      </g>
+      <!-- Auge -->
+      <path d="M486 100 q26 -22 52 0 q-26 22 -52 0 z" fill="#fff" stroke="#333" stroke-width="1.6"/>
+      <circle cx="512" cy="100" r="8" fill="#3A5A8C"/>
+      <circle cx="512" cy="100" r="3.5" fill="#111"/>
+      <text class="beschriftung" x="470" y="140">Auge (Empfänger)</text>
+      <!-- Ablauf -->
+      <text class="beschriftung klein" x="150" y="86">1. Licht trifft den Gegenstand</text>
+      <text class="beschriftung klein" x="352" y="86">2. Licht wird zurückgeworfen</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Wir sehen einen Gegenstand nur, wenn <span class="rot">Licht von ihm in unser Auge</span> gelangt.
+    Die Lichtquelle ist der <b>Sender</b>, das Auge der <b>Empfänger</b>.
+  </div>
+</section>
+
+
+<!-- ================================ 2. Lichtquellen / beleuchtete -->
+<section class="folie">
+  <div class="titelband"><h1>2. Lichtquellen und beleuchtete Körper</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    <b>Lichtquellen</b> senden selbst Licht aus (Selbstleuchter).
+    <b>Beleuchtete Körper</b> senden nur Licht aus, das sie von einer Lichtquelle bekommen haben.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>2. Lichtquellen und beleuchtete Körper</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="18" x2="318" y2="196" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="6 4"/>
+      <text class="beschriftung" x="86" y="26" font-weight="600">Lichtquellen</text>
+      <text class="beschriftung" x="392" y="26" font-weight="600">beleuchtete Körper</text>
+
+      <!-- Sonne -->
+      <circle cx="70" cy="80" r="20" fill="#FFD34D" stroke="#B98900"/>
+      <g stroke="#E8B400" stroke-width="1.6">
+        <line x1="70" y1="48" x2="70" y2="40"/><line x1="70" y1="112" x2="70" y2="120"/>
+        <line x1="38" y1="80" x2="30" y2="80"/><line x1="102" y1="80" x2="110" y2="80"/>
+        <line x1="47" y1="57" x2="41" y2="51"/><line x1="93" y1="103" x2="99" y2="109"/>
+        <line x1="93" y1="57" x2="99" y2="51"/><line x1="47" y1="103" x2="41" y2="109"/>
+      </g>
+      <text class="beschriftung klein" x="54" y="140">Sonne</text>
+
+      <!-- Kerze -->
+      <rect x="152" y="72" width="18" height="46" fill="#F0E2C0" stroke="#B9A87A"/>
+      <path d="M161 72 q-9 -12 0 -24 q9 12 0 24 z" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="146" y="140">Kerze</text>
+
+      <!-- Gluehlampe -->
+      <circle cx="248" cy="82" r="17" fill="#FFF2C2" stroke="#B98900"/>
+      <rect x="240" y="99" width="16" height="12" fill="#B0B0B0" stroke="#666"/>
+      <text class="beschriftung klein" x="222" y="140">Glühlampe</text>
+
+      <!-- Mond -->
+      <path d="M392 60 a30 30 0 1 0 0 56 a24 24 0 1 1 0 -56 z" fill="#DCDCDC" stroke="#8A8A8A"/>
+      <text class="beschriftung klein" x="368" y="140">Mond</text>
+
+      <!-- Buch -->
+      <path d="M452 74 h34 v46 h-34 z" fill="#fff" stroke="#555"/>
+      <path d="M486 74 h34 v46 h-34 z" fill="#fff" stroke="#555"/>
+      <line x1="486" y1="74" x2="486" y2="120" stroke="#555"/>
+      <text class="beschriftung klein" x="470" y="140">Buch</text>
+
+      <!-- Baum -->
+      <rect x="576" y="98" width="9" height="24" fill="#8B5A2B"/>
+      <circle cx="580.5" cy="88" r="21" fill="#5E9B45" stroke="#3E6B2E"/>
+      <text class="beschriftung klein" x="562" y="140">Baum</text>
+
+      <text class="beschriftung klein" x="46" y="176">senden selbst Licht aus</text>
+      <text class="beschriftung klein" x="392" y="176">werfen fremdes Licht zurück</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    <b>Lichtquellen</b> senden selbst Licht aus (Selbstleuchter).
+    <b>Beleuchtete Körper</b> senden nur Licht aus, das sie von einer Lichtquelle bekommen haben.
+  </div>
+</section>
+
+
+<!-- ======================================== F1 Antwort ----------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 1</div>
+    <h2>Warum sehen wir überhaupt etwas?</h2>
+  </div>
+  <div class="antwortzone">
+    Wir sehen einen Gegenstand nur, wenn <span class="rot">Licht von ihm in unser Auge gelangt</span>.
+    Dazu braucht es eine <b>Lichtquelle</b> als Sender. Die meisten Gegenstände um uns herum
+    sind <b>beleuchtete Körper</b>: Sie werfen fremdes Licht zurück.
+  </div>
+</section>
+
+<!-- ======================================== F1 Check ------------- -->
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 1</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Warum kannst du dein Physikheft sehen?</p>
+      <ol>
+        <li>Weil das Heft selbst Licht aussendet.</li>
+        <li>Weil Licht vom Heft in dein Auge gelangt.</li>
+        <li>Weil deine Augen Licht aussenden.</li>
+        <li>Weil das Heft hell ist.</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Welcher Körper ist eine Lichtquelle?</p>
+      <ol>
+        <li>Der Mond</li>
+        <li>Ein Spiegel</li>
+        <li>Eine brennende Kerze</li>
+        <li>Eine weiße Wand</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) c</div>
+</section>
+
+
+<!-- ======================================== F2 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Lampe oben mittig -->
+      <rect x="286" y="16" width="64" height="15" rx="3" fill="#8DA6C2" stroke="#66798E"/>
+      <path d="M302 31 h32 l-7 12 h-18 z" fill="#B0B0B0" stroke="#666"/>
+      <circle cx="318" cy="47" r="7" fill="#FFD34D" stroke="#B98900"/>
+      <g class="licht">
+        <line x1="318" y1="54" x2="120" y2="112"/>
+        <line x1="318" y1="54" x2="318" y2="112"/>
+        <line x1="318" y1="54" x2="516" y2="112"/>
+      </g>
+      <!-- weisses Blatt -->
+      <rect x="80" y="112" width="80" height="60" fill="#FFFFFF" stroke="#666"/>
+      <text class="beschriftung klein" x="76" y="192">weißes Blatt</text>
+      <!-- schwarzer Karton -->
+      <rect x="278" y="112" width="80" height="60" fill="#2E2E2E" stroke="#111"/>
+      <text class="beschriftung klein" x="266" y="192">schwarzer Karton</text>
+      <!-- Glasscheibe -->
+      <rect x="476" y="112" width="80" height="60" fill="#CFE4F2" stroke="#6E9BB8" opacity="0.85"/>
+      <text class="beschriftung klein" x="482" y="192">Glasscheibe</text>
+    </svg>
+  </div>
+  <div class="impulstext">Dieselbe Lampe, drei Gegenstände. Was passiert jeweils mit dem Licht?</div>
+</section>
+
+<!-- ======================================== F2 Leitfrage -------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 2</div>
+    <h2>Was passiert mit dem Licht, wenn es auf einen Körper trifft?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ========================== 3. Licht trifft auf einen Koerper -->
+<section class="folie">
+  <div class="titelband"><h1>3. Licht trifft auf einen Körper</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Licht kann <b>ausgesendet</b> (Emission), <b>zurückgeworfen</b> (Streuung),
+    <b>verschluckt</b> (Absorption) oder <b>durchgelassen</b> (Transmission) werden.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>3. Licht trifft auf einen Körper</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4">
+        <line x1="159" y1="16" x2="159" y2="180"/>
+        <line x1="318" y1="16" x2="318" y2="180"/>
+        <line x1="477" y1="16" x2="477" y2="180"/>
+      </g>
+
+      <!-- Emission -->
+      <circle cx="80" cy="90" r="15" fill="#FFD34D" stroke="#B98900"/>
+      <g class="licht">
+        <line x1="80" y1="70" x2="80" y2="52"/><line x1="80" y1="110" x2="80" y2="128"/>
+        <line x1="60" y1="90" x2="42" y2="90"/><line x1="100" y1="90" x2="118" y2="90"/>
+        <line x1="66" y1="76" x2="53" y2="63"/><line x1="94" y1="104" x2="107" y2="117"/>
+        <line x1="94" y1="76" x2="107" y2="63"/><line x1="66" y1="104" x2="53" y2="117"/>
+      </g>
+      <text class="beschriftung" x="42" y="166" font-weight="600">Emission</text>
+      <text class="beschriftung klein" x="30" y="182">Körper sendet Licht aus</text>
+
+      <!-- Streuung -->
+      <rect x="216" y="60" width="14" height="62" fill="#C8C8C8" stroke="#555"/>
+      <g class="licht"><line x1="176" y1="66" x2="216" y2="86"/></g>
+      <g class="licht">
+        <line x1="216" y1="86" x2="184" y2="112"/>
+        <line x1="216" y1="86" x2="192" y2="60"/>
+        <line x1="216" y1="86" x2="176" y2="90"/>
+        <line x1="216" y1="86" x2="200" y2="128"/>
+      </g>
+      <text class="beschriftung" x="196" y="166" font-weight="600">Streuung</text>
+      <text class="beschriftung klein" x="176" y="182">Licht wird zurückgeworfen</text>
+
+      <!-- Absorption -->
+      <rect x="374" y="60" width="16" height="62" fill="#2E2E2E" stroke="#111"/>
+      <g class="licht">
+        <line x1="334" y1="72" x2="374" y2="82"/>
+        <line x1="334" y1="102" x2="374" y2="98"/>
+      </g>
+      <text class="beschriftung" x="348" y="166" font-weight="600">Absorption</text>
+      <text class="beschriftung klein" x="338" y="182">Licht wird verschluckt</text>
+
+      <!-- Transmission -->
+      <rect x="532" y="56" width="13" height="70" fill="#CFE4F2" stroke="#6E9BB8" opacity="0.8"/>
+      <g class="licht">
+        <line x1="494" y1="76" x2="608" y2="76"/>
+        <line x1="494" y1="104" x2="608" y2="104"/>
+      </g>
+      <text class="beschriftung" x="506" y="166" font-weight="600">Transmission</text>
+      <text class="beschriftung klein" x="500" y="182">Licht geht hindurch</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Licht kann <b>ausgesendet</b> (Emission), <b>zurückgeworfen</b> (Streuung),
+    <b>verschluckt</b> (Absorption) oder <b>durchgelassen</b> (Transmission) werden.
+  </div>
+</section>
+
+
+<!-- ======================================== F2 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 2</div>
+    <h2>Was passiert mit dem Licht, wenn es auf einen Körper trifft?</h2>
+  </div>
+  <div class="antwortzone">
+    Das Licht wird <b>zurückgeworfen</b> (Streuung), <b>verschluckt</b> (Absorption)
+    oder <b>durchgelassen</b> (Transmission). Meist geschieht mehreres gleichzeitig.
+    Sendet ein Körper selbst Licht aus, spricht man von <b>Emission</b>.
+  </div>
+</section>
+
+<!-- ======================================== F2 Check ------------ -->
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 2</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Ein schwarzes T-Shirt sieht schwarz aus. Was passiert dort mit dem Licht?</p>
+      <ol>
+        <li>Es wird fast vollständig verschluckt.</li>
+        <li>Es geht vollständig hindurch.</li>
+        <li>Es wird vollständig zurückgeworfen.</li>
+        <li>Es wird verstärkt.</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Durch eine Fensterscheibe kannst du hindurchsehen. Wie heißt das?</p>
+      <ol>
+        <li>Absorption</li>
+        <li>Emission</li>
+        <li>Transmission</li>
+        <li>Streuung</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) a &nbsp;&nbsp; 2) c</div>
+</section>
+
+
+<!-- ======================================== F3 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Hausecke -->
+      <path d="M300 20 h150 v170 h-150 z" fill="#E4DCCB" stroke="#8A7B5E"/>
+      <path d="M300 20 v170" stroke="#8A7B5E" stroke-width="2"/>
+      <text class="beschriftung klein" x="344" y="112">Mauer</text>
+      <!-- Ball dahinter -->
+      <circle cx="510" cy="150" r="22" fill="#D24B4B" stroke="#8E2B2B"/>
+      <text class="beschriftung klein" x="486" y="192">Ball</text>
+      <!-- Person davor -->
+      <circle cx="130" cy="96" r="15" fill="#F0D2B4" stroke="#9C7B5A"/>
+      <path d="M130 111 v44" stroke="#3A5A8C" stroke-width="9"/>
+      <path d="M130 155 l-14 30 M130 155 l14 30" stroke="#3A5A8C" stroke-width="6" fill="none"/>
+      <text class="beschriftung klein" x="104" y="212">Beobachter</text>
+      <!-- Blickrichtung -->
+      <line class="hilfslinie" x1="150" y1="96" x2="300" y2="96"/>
+      <line class="hilfslinie" x1="150" y1="96" x2="292" y2="150"/>
+      <text class="beschriftung klein" x="176" y="86">Blickrichtung</text>
+    </svg>
+  </div>
+  <div class="impulstext">Der Ball liegt hinter der Mauer. Warum siehst du ihn nicht?</div>
+</section>
+
+<!-- ======================================== F3 Leitfrage ------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 3</div>
+    <h2>Warum können wir nicht um die Ecke sehen?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ================================ 4. Wie breitet sich Licht aus -->
+<section class="folie">
+  <div class="titelband"><h1>4. Wie breitet sich Licht aus?</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Das Licht einer Lichtquelle breitet sich in verschiedene Richtungen aus. → es läuft
+    auseinander (<span class="rot">divergent</span>). Mithilfe von <b>Blenden</b> oder
+    <b>Spalten</b> kann man daraus parallele Lichtbündel erzeugen.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>4. Wie breitet sich Licht aus?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g class="licht">
+        <line x1="60" y1="106" x2="24"  y2="70"/>
+        <line x1="60" y1="106" x2="12"  y2="106"/>
+        <line x1="60" y1="106" x2="24"  y2="142"/>
+        <line x1="60" y1="106" x2="60"  y2="44"/>
+        <line x1="60" y1="106" x2="60"  y2="168"/>
+      </g>
+      <g class="licht">
+        <line x1="60" y1="106" x2="324" y2="14"/>
+        <line x1="60" y1="106" x2="324" y2="46"/>
+        <line x1="60" y1="106" x2="324" y2="78"/>
+        <line x1="60" y1="106" x2="324" y2="134"/>
+        <line x1="60" y1="106" x2="324" y2="166"/>
+        <line x1="60" y1="106" x2="324" y2="198"/>
+      </g>
+      <g class="licht">
+        <line x1="60" y1="106" x2="616" y2="88"/>
+        <line x1="60" y1="106" x2="616" y2="106"/>
+        <line x1="60" y1="106" x2="616" y2="124"/>
+      </g>
+      <circle cx="60" cy="106" r="8" fill="#FFD34D" stroke="#B98900" stroke-width="1.2"/>
+      <rect x="324" y="8"   width="10" height="83" fill="#4A4A4A"/>
+      <rect x="324" y="121" width="10" height="83" fill="#4A4A4A"/>
+      <text class="beschriftung" x="30" y="132">Lichtquelle</text>
+      <text class="beschriftung" x="126" y="32">divergentes Lichtbündel</text>
+      <text class="beschriftung" x="342" y="196">Blende</text>
+      <text class="beschriftung" x="350" y="178">Spalt</text>
+      <line class="hilfslinie" x1="348" y1="174" x2="332" y2="110"/>
+      <text class="beschriftung" x="436" y="58">nahezu paralleles</text>
+      <text class="beschriftung" x="436" y="72">Lichtbündel</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Das Licht einer Lichtquelle breitet sich in verschiedene Richtungen aus. → es läuft
+    auseinander (<span class="rot">divergent</span>). Mithilfe von <b>Blenden</b> oder
+    <b>Spalten</b> kann man daraus parallele Lichtbündel erzeugen.
+  </div>
+</section>
+
+
+<!-- ==================================== 5. Lichtstrahlenmodell -->
+<section class="folie">
+  <div class="titelband"><h1>5. Das Lichtstrahlenmodell</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Ein <span class="rot">Lichtstrahl</span> ist ein <b>Modell</b>: ein gedachter, unendlich dünner
+    Teil eines Lichtbündels. Modelle vereinfachen die Wirklichkeit, damit wir sie zeichnen und erklären können.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>5. Das Lichtstrahlenmodell</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="pfeil" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0 0 L7 3.5 L0 7 z" fill="#E8B400"/>
+        </marker>
+      </defs>
+      <text class="beschriftung" x="60" y="30" font-weight="600">Wirklichkeit: Lichtbündel</text>
+      <polygon points="60,88 60,124 268,138 268,74" fill="#FFE38A" stroke="#E8B400"/>
+      <circle cx="52" cy="106" r="9" fill="#FFD34D" stroke="#B98900"/>
+
+      <!-- Modellpfeil -->
+      <path d="M286 106 h44" stroke="#66798E" stroke-width="2" fill="none"/>
+      <path d="M330 100 l12 6 l-12 6 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="284" y="96">Modell</text>
+
+      <text class="beschriftung" x="368" y="30" font-weight="600">Modell: Lichtstrahlen</text>
+      <g class="licht" marker-end="url(#pfeil)">
+        <line x1="368" y1="82" x2="600" y2="72"/>
+        <line x1="368" y1="106" x2="600" y2="106"/>
+        <line x1="368" y1="130" x2="600" y2="140"/>
+      </g>
+      <circle cx="360" cy="106" r="9" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="404" y="176">Ein Lichtstrahl hat keine Breite.</text>
+      <text class="beschriftung klein" x="404" y="190">Er zeigt nur die Richtung des Lichts.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Ein <span class="rot">Lichtstrahl</span> ist ein <b>Modell</b>: ein gedachter, unendlich dünner
+    Teil eines Lichtbündels. Modelle vereinfachen die Wirklichkeit, damit wir sie zeichnen und erklären können.
+  </div>
+</section>
+
+
+<!-- ======================================== F3 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 3</div>
+    <h2>Warum können wir nicht um die Ecke sehen?</h2>
+  </div>
+  <div class="antwortzone">
+    Weil sich Licht <span class="rot">geradlinig</span> ausbreitet. Es läuft von der Lichtquelle
+    aus in alle Richtungen auseinander, macht aber keinen Bogen um Hindernisse.
+    Diese Ausbreitung beschreiben wir mit dem <b>Lichtstrahlenmodell</b>.
+  </div>
+</section>
+
+<!-- ======================================== F3 Check ------------ -->
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 3</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Wie breitet sich Licht in Luft aus?</p>
+      <ol>
+        <li>In Bögen um Hindernisse herum</li>
+        <li>Geradlinig</li>
+        <li>Nur nach unten</li>
+        <li>In Wellenlinien um die Ecke</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Was ist ein Lichtstrahl?</p>
+      <ol>
+        <li>Ein besonders helles Lichtbündel</li>
+        <li>Ein Gerät im Physikraum</li>
+        <li>Ein Modell, das die Richtung des Lichts zeigt</li>
+        <li>Ein sehr dünnes Kabel</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) c</div>
+</section>
+
+
+<!-- ======================================== F4 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- links: eine Lampe, scharfer Schatten -->
+      <circle cx="58" cy="100" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <rect x="150" y="76" width="10" height="48" fill="#6E6E6E" stroke="#333"/>
+      <polygon points="160,76 160,124 268,140 268,60" fill="#3A3A3A" opacity="0.35"/>
+      <line x1="268" y1="24" x2="268" y2="182" stroke="#333" stroke-width="2.5"/>
+      <rect x="264" y="60" width="8" height="80" fill="#3A3A3A"/>
+      <text class="beschriftung" x="86" y="212" font-weight="600">eine Lampe</text>
+
+      <line x1="318" y1="16" x2="318" y2="196" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+
+      <!-- rechts: zwei Lampen, weiche Raender -->
+      <circle cx="376" cy="84" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <circle cx="376" cy="118" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <rect x="470" y="76" width="10" height="48" fill="#6E6E6E" stroke="#333"/>
+      <polygon points="480,76 480,124 588,146 588,54" fill="#3A3A3A" opacity="0.28"/>
+      <polygon points="480,76 588,54 588,28" fill="#9A9A9A" opacity="0.35"/>
+      <polygon points="480,124 588,146 588,172" fill="#9A9A9A" opacity="0.35"/>
+      <line x1="588" y1="16" x2="588" y2="190" stroke="#333" stroke-width="2.5"/>
+      <rect x="584" y="54" width="8" height="92" fill="#3A3A3A"/>
+      <rect x="584" y="28" width="8" height="26" fill="#9A9A9A"/>
+      <rect x="584" y="146" width="8" height="26" fill="#9A9A9A"/>
+      <text class="beschriftung" x="400" y="212" font-weight="600">zwei Lampen</text>
+    </svg>
+  </div>
+  <div class="impulstext">Derselbe Körper, einmal mit einer und einmal mit zwei Lampen. Was fällt am Schatten auf?</div>
+</section>
+
+<!-- ======================================== F4 Leitfrage ------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 4</div>
+    <h2>Warum hat ein Schatten manchmal weiche Ränder?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ============================ 6. Schattenraum und Schattenbild -->
+<section class="folie">
+  <div class="titelband"><h1>6. Schattenraum und Schattenbild</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Hinter einem undurchsichtigen Körper entsteht ein Raum, in den kein Licht gelangt:
+    der <b>Schattenraum</b>. Trifft er auf eine Fläche, sieht man dort das <b>Schattenbild</b>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>6. Schattenraum und Schattenbild</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Schattenraum -->
+      <polygon points="250,64 250,148 520,190 520,22" fill="#3A3A3A" opacity="0.25"/>
+      <!-- Randstrahlen -->
+      <g class="licht">
+        <line x1="60" y1="106" x2="520" y2="22"/>
+        <line x1="60" y1="106" x2="520" y2="190"/>
+        <line x1="60" y1="106" x2="250" y2="34"/>
+        <line x1="60" y1="106" x2="250" y2="178"/>
+      </g>
+      <!-- Koerper -->
+      <rect x="244" y="64" width="12" height="84" fill="#6E6E6E" stroke="#333"/>
+      <!-- Schirm -->
+      <line x1="520" y1="10" x2="520" y2="202" stroke="#333" stroke-width="2.5"/>
+      <rect x="516" y="22" width="9" height="168" fill="#3A3A3A"/>
+      <!-- Lichtquelle -->
+      <circle cx="60" cy="106" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="30" y="132">Lichtquelle</text>
+      <text class="beschriftung klein" x="206" y="170">Körper</text>
+      <text class="beschriftung klein" x="330" y="100">Schattenraum</text>
+      <text class="beschriftung klein" x="534" y="112">Schattenbild</text>
+      <text class="beschriftung klein" x="486" y="206">Schirm</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Hinter einem undurchsichtigen Körper entsteht ein Raum, in den kein Licht gelangt:
+    der <b>Schattenraum</b>. Trifft er auf eine Fläche, sieht man dort das <b>Schattenbild</b>.
+  </div>
+</section>
+
+
+<!-- ================================ 7. Kern- und Halbschatten ---- -->
+<section class="folie">
+  <div class="titelband"><h1>7. Kern- und Halbschatten</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Jede Lichtquelle erzeugt hinter einem <b>lichtundurchlässigen Körper</b> einen <b>Schatten</b>.
+    Beleuchten zwei Lichtquellen den Körper gemeinsam, so <span class="rot">überlagern</span> sich die beiden Schattengebiete.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>7. Kern- und Halbschatten</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="300,76 300,136 540,193 540,70" fill="#3A3A3A" opacity="0.30"/>
+      <polygon points="300,76 540,70 540,18"  fill="#9A9A9A" opacity="0.32"/>
+      <polygon points="300,136 540,193 540,143" fill="#9A9A9A" opacity="0.32"/>
+      <g class="licht">
+        <line x1="56" y1="82" x2="540" y2="70"/>
+        <line x1="56" y1="82" x2="540" y2="193"/>
+        <line x1="56" y1="130" x2="540" y2="18"/>
+        <line x1="56" y1="130" x2="540" y2="143"/>
+      </g>
+      <rect x="294" y="76" width="12" height="60" fill="#6E6E6E" stroke="#333" stroke-width="1"/>
+      <line x1="540" y1="8" x2="540" y2="204" stroke="#333" stroke-width="2.5"/>
+      <rect x="536" y="70" width="9" height="73"  fill="#3A3A3A"/>
+      <rect x="536" y="18" width="9" height="52"  fill="#9A9A9A"/>
+      <rect x="536" y="143" width="9" height="50" fill="#9A9A9A"/>
+      <circle cx="56" cy="82"  r="7" fill="#FFD34D" stroke="#B98900"/>
+      <circle cx="56" cy="130" r="7" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="30" y="76">L<tspan font-size="8" dy="3">1</tspan></text>
+      <text class="beschriftung" x="30" y="150">L<tspan font-size="8" dy="3">2</tspan></text>
+      <text class="beschriftung klein" x="250" y="162">undurchsichtiger</text>
+      <text class="beschriftung klein" x="250" y="173">Körper</text>
+      <text class="beschriftung klein" x="552" y="46">Halbschatten</text>
+      <text class="beschriftung klein" x="552" y="110">Kernschatten</text>
+      <text class="beschriftung klein" x="552" y="174">Halbschatten</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Jede Lichtquelle erzeugt hinter einem <b>lichtundurchlässigen Körper</b> einen <b>Schatten</b>.
+    Beleuchten zwei Lichtquellen den Körper gemeinsam, so <span class="rot">überlagern</span> sich die beiden Schattengebiete.
+  </div>
+</section>
+
+
+<!-- ==================================== Versuch Kern/Halbschatten -->
+<section class="folie">
+  <div class="titelband"><h1>Versuch: Kern- und Halbschatten</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="versuch">
+    <div class="zelle"><h2>Aufbau</h2><div class="feld karo"></div></div>
+    <div class="zelle"><h2>Beschreibung</h2>
+      <div class="feld">
+        <ol>
+          <li>Stelle die Ray-Box mit der Lampenseite auf ein weißes Blatt. Falte das Blatt so, dass eine Bildwand entsteht.</li>
+          <li>Stelle einen undurchsichtigen Körper etwa 10 cm vor die Lampe. Beobachte das Gebiet hinter dem Körper.</li>
+          <li>Verschiebe den Körper näher zur Lichtquelle und wieder weg. Wie verändert sich der Schatten?</li>
+          <li>Stelle eine zweite Leuchtbox parallel dazu auf. Was verändert sich am Schatten?</li>
+        </ol>
+      </div>
+    </div>
+    <div class="zelle"><h2>Beobachtung</h2><div class="feld"></div></div>
+    <div class="zelle"><h2>Ergebnis</h2><div class="feld"></div></div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Versuch: Kern- und Halbschatten</h1></div>
+  <div class="versuch">
+    <div class="zelle"><h2>Aufbau</h2>
+      <div class="feld karo">
+        <svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="46" width="30" height="22" fill="#8DA6C2" stroke="#66798E"/>
+          <rect x="12" y="80" width="30" height="22" fill="#8DA6C2" stroke="#66798E"/>
+          <circle cx="46" cy="57" r="3.5" fill="#FFD34D" stroke="#B98900"/>
+          <circle cx="46" cy="91" r="3.5" fill="#FFD34D" stroke="#B98900"/>
+          <rect x="150" y="52" width="9" height="44" fill="#6E6E6E" stroke="#333"/>
+          <line x1="248" y1="18" x2="248" y2="126" stroke="#333" stroke-width="2"/>
+          <g class="licht">
+            <line x1="46" y1="57" x2="248" y2="47"/>
+            <line x1="46" y1="57" x2="248" y2="118"/>
+            <line x1="46" y1="91" x2="248" y2="30"/>
+            <line x1="46" y1="91" x2="248" y2="101"/>
+          </g>
+          <text class="beschriftung klein" x="8" y="36">Ray-Boxen</text>
+          <text class="beschriftung klein" x="128" y="114">Körper</text>
+          <text class="beschriftung klein" x="206" y="138">Bildwand</text>
+        </svg>
+      </div>
+    </div>
+    <div class="zelle"><h2>Beschreibung</h2>
+      <div class="feld">
+        <ol>
+          <li>Stelle die Ray-Box mit der Lampenseite auf ein weißes Blatt. Falte das Blatt so, dass eine Bildwand entsteht.</li>
+          <li>Stelle einen undurchsichtigen Körper etwa 10 cm vor die Lampe. Beobachte das Gebiet hinter dem Körper.</li>
+          <li>Verschiebe den Körper näher zur Lichtquelle und wieder weg. Wie verändert sich der Schatten?</li>
+          <li>Stelle eine zweite Leuchtbox parallel dazu auf. Was verändert sich am Schatten?</li>
+        </ol>
+      </div>
+    </div>
+    <div class="zelle"><h2>Beobachtung</h2>
+      <div class="feld">
+        Hinter dem Körper entsteht ein Schatten. Je näher der Körper an der Lampe steht,
+        desto größer wird der Schatten. Mit zwei Lampen entstehen ein dunkler und zwei hellere Bereiche.
+      </div>
+    </div>
+    <div class="zelle"><h2>Ergebnis</h2>
+      <div class="feld">
+        Im <b>Kernschatten</b> kommt von keiner Lichtquelle Licht an.
+        Im <b>Halbschatten</b> trifft nur das Licht einer der beiden Lichtquellen auf die Bildwand.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================== F4 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 4</div>
+    <h2>Warum hat ein Schatten manchmal weiche Ränder?</h2>
+  </div>
+  <div class="antwortzone">
+    Weil meistens <span class="rot">mehrere oder ausgedehnte Lichtquellen</span> leuchten.
+    Im <b>Kernschatten</b> kommt von keiner Lichtquelle Licht an, im <b>Halbschatten</b>
+    nur von einem Teil. Der Halbschatten macht den Rand weich.
+  </div>
+</section>
+
+<!-- ======================================== F4 Check ------------ -->
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 4</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Wo entsteht ein Kernschatten?</p>
+      <ol>
+        <li>Dort, wo Licht von allen Lichtquellen ankommt</li>
+        <li>Dort, wo von keiner Lichtquelle Licht ankommt</li>
+        <li>Nur bei Sonnenlicht</li>
+        <li>Direkt an der Lampe</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Zwei Lampen beleuchten einen Körper. Was siehst du auf dem Schirm?</p>
+      <ol>
+        <li>Nur einen scharf begrenzten Schatten</li>
+        <li>Gar keinen Schatten</li>
+        <li>Einen Kernschatten und zwei Halbschatten</li>
+        <li>Zwei Kernschatten ohne Halbschatten</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) c</div>
+</section>
+
+
+<!-- ======================================== F5 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="24" width="556" height="150" fill="#1B2438" stroke="#0F1524"/>
+      <g fill="#FFFFFF" opacity="0.75">
+        <circle cx="90" cy="48" r="1.6"/><circle cx="200" cy="40" r="1.3"/>
+        <circle cx="330" cy="52" r="1.6"/><circle cx="470" cy="38" r="1.3"/>
+        <circle cx="556" cy="60" r="1.6"/><circle cx="150" cy="150" r="1.3"/>
+        <circle cx="410" cy="156" r="1.6"/><circle cx="270" cy="148" r="1.3"/>
+      </g>
+      <g stroke="#9A9A9A" stroke-width="1">
+        <circle cx="120" cy="100" r="26" fill="#2A3348"/>
+        <circle cx="266" cy="100" r="26" fill="#2A3348"/>
+        <path d="M266 74 a26 26 0 0 1 0 52 z" fill="#F2F2F2"/>
+        <circle cx="412" cy="100" r="26" fill="#F2F2F2"/>
+        <circle cx="546" cy="100" r="26" fill="#2A3348"/>
+        <path d="M546 74 a26 26 0 0 0 0 52 z" fill="#F2F2F2"/>
+      </g>
+      <text class="beschriftung klein" x="98" y="200">1. Woche</text>
+      <text class="beschriftung klein" x="244" y="200">2. Woche</text>
+      <text class="beschriftung klein" x="390" y="200">3. Woche</text>
+      <text class="beschriftung klein" x="524" y="200">4. Woche</text>
+    </svg>
+  </div>
+  <div class="impulstext">Vier Aufnahmen des Mondes im Abstand von je einer Woche. Was fällt dir auf?</div>
+</section>
+
+<!-- ======================================== F5 Leitfrage ------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 5</div>
+    <h2>Warum sieht der Mond nicht immer gleich aus?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ======================================== 8. Mondphasen (oben) -->
+<section class="folie">
+  <div class="titelband"><h1>8. Wo steht der Mond?</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Der Mond ist ein <b>beleuchteter Körper</b>. Die Sonne beleuchtet immer genau eine Hälfte.
+    Auf seiner Bahn um die Erde sehen wir davon <span class="rot">unterschiedlich viel</span>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>8. Wo steht der Mond?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sonnenlicht von links, parallel -->
+      <g class="licht">
+        <line x1="14" y1="30" x2="128" y2="30"/>
+        <line x1="14" y1="70" x2="128" y2="70"/>
+        <line x1="14" y1="106" x2="128" y2="106"/>
+        <line x1="14" y1="142" x2="128" y2="142"/>
+        <line x1="14" y1="182" x2="128" y2="182"/>
+      </g>
+      <g fill="#E8B400">
+        <path d="M128 25 l10 5 l-10 5 z"/><path d="M128 65 l10 5 l-10 5 z"/>
+        <path d="M128 101 l10 5 l-10 5 z"/><path d="M128 137 l10 5 l-10 5 z"/>
+        <path d="M128 177 l10 5 l-10 5 z"/>
+      </g>
+      <text class="beschriftung" x="14" y="16">Sonnenlicht</text>
+
+      <!-- Mondbahn -->
+      <circle cx="330" cy="106" r="76" fill="none" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+      <!-- Erde -->
+      <circle cx="330" cy="106" r="19" fill="#5B8FC9" stroke="#2F5C8F"/>
+      <text class="beschriftung klein" x="316" y="110" fill="#fff">Erde</text>
+
+      <!-- Monde: linke Haelfte hell, rechte dunkel -->
+      <g stroke="#7A7A7A" stroke-width="1">
+        <!-- links = Neumond-Position -->
+        <circle cx="254" cy="106" r="11" fill="#4A4A4A"/>
+        <path d="M254 95 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+        <!-- oben -->
+        <circle cx="330" cy="30" r="11" fill="#4A4A4A"/>
+        <path d="M330 19 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+        <!-- rechts = Vollmond-Position -->
+        <circle cx="406" cy="106" r="11" fill="#4A4A4A"/>
+        <path d="M406 95 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+        <!-- unten -->
+        <circle cx="330" cy="182" r="11" fill="#4A4A4A"/>
+        <path d="M330 171 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+      </g>
+
+      <text class="beschriftung klein" x="196" y="140">Neumond</text>
+      <text class="beschriftung klein" x="352" y="26">zunehmender Mond</text>
+      <text class="beschriftung klein" x="424" y="110">Vollmond</text>
+      <text class="beschriftung klein" x="352" y="200">abnehmender Mond</text>
+      <path d="M420 60 a72 72 0 0 0 -18 -22" fill="none" stroke="#66798E" stroke-width="1.4"/>
+      <path d="M402 38 l2 10 l8 -6 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="430" y="52">Umlauf</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Der Mond ist ein <b>beleuchteter Körper</b>. Die Sonne beleuchtet immer genau eine Hälfte.
+    Auf seiner Bahn um die Erde sehen wir davon <span class="rot">unterschiedlich viel</span>.
+  </div>
+</section>
+
+
+<!-- ==================================== 9. Mondphasen (Ansicht) -->
+<section class="folie">
+  <div class="titelband"><h1>9. Die Mondphasen</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    So sehen wir den Mond <b>von der Erde aus</b>. Von Neumond bis zum nächsten Neumond
+    vergehen etwa <span class="rot">29,5 Tage</span>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>9. Die Mondphasen</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#7A7A7A" stroke-width="1.2">
+        <!-- Neumond -->
+        <circle cx="76" cy="86" r="34" fill="#4A4A4A"/>
+        <!-- zunehmender Halbmond: rechte Haelfte hell -->
+        <circle cx="216" cy="86" r="34" fill="#4A4A4A"/>
+        <path d="M216 52 a34 34 0 0 1 0 68 z" fill="#F2F2F2"/>
+        <!-- Vollmond -->
+        <circle cx="356" cy="86" r="34" fill="#F2F2F2"/>
+        <!-- abnehmender Halbmond: linke Haelfte hell -->
+        <circle cx="496" cy="86" r="34" fill="#4A4A4A"/>
+        <path d="M496 52 a34 34 0 0 0 0 68 z" fill="#F2F2F2"/>
+      </g>
+      <text class="beschriftung" x="46"  y="146">Neumond</text>
+      <text class="beschriftung" x="164" y="146">zunehmender</text>
+      <text class="beschriftung" x="176" y="160">Halbmond</text>
+      <text class="beschriftung" x="330" y="146">Vollmond</text>
+      <text class="beschriftung" x="446" y="146">abnehmender</text>
+      <text class="beschriftung" x="458" y="160">Halbmond</text>
+      <line x1="46" y1="184" x2="588" y2="184" stroke="#66798E" stroke-width="1.4"/>
+      <path d="M588 179 l10 5 l-10 5 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="266" y="200">etwa 29,5 Tage</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    So sehen wir den Mond <b>von der Erde aus</b>. Von Neumond bis zum nächsten Neumond
+    vergehen etwa <span class="rot">29,5 Tage</span>.
+  </div>
+</section>
+
+
+<!-- ==================================== 10. Sonnenfinsternis ----- -->
+<section class="folie">
+  <div class="titelband"><h1>10. Sonnenfinsternis</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Bei einer <b>Sonnenfinsternis</b> steht der <span class="rot">Mond zwischen Sonne und Erde</span>.
+    Sein Kernschatten trifft die Erde. Nur dort ist die Sonne ganz verdeckt.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>10. Sonnenfinsternis</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Halbschattenbereiche -->
+      <polygon points="360,120 360,92 526,148 526,64" fill="#9A9A9A" opacity="0.22"/>
+      <!-- Kernschatten -->
+      <polygon points="360,92 532,106 360,120" fill="#2E2E2E" opacity="0.55"/>
+      <!-- Randstrahlen: Kernschatten -->
+      <g class="licht">
+        <line x1="40" y1="66" x2="532" y2="106"/>
+        <line x1="40" y1="146" x2="532" y2="106"/>
+      </g>
+      <!-- Randstrahlen: Halbschatten -->
+      <g class="licht">
+        <line x1="40" y1="66" x2="526" y2="148"/>
+        <line x1="40" y1="146" x2="526" y2="64"/>
+      </g>
+      <!-- Sonne -->
+      <circle cx="40" cy="106" r="40" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="22" y="164">Sonne</text>
+      <!-- Mond -->
+      <circle cx="360" cy="106" r="14" fill="#9A9A9A" stroke="#5E5E5E"/>
+      <text class="beschriftung" x="344" y="146">Mond</text>
+      <!-- Erde -->
+      <circle cx="560" cy="106" r="34" fill="#5B8FC9" stroke="#2F5C8F"/>
+      <text class="beschriftung" x="546" y="164">Erde</text>
+      <text class="beschriftung klein" x="392" y="88">Kernschatten</text>
+      <text class="beschriftung klein" x="392" y="176">Halbschatten</text>
+      <line class="hilfslinie" x1="424" y1="172" x2="470" y2="138"/>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Bei einer <b>Sonnenfinsternis</b> steht der <span class="rot">Mond zwischen Sonne und Erde</span>.
+    Sein Kernschatten trifft die Erde. Nur dort ist die Sonne ganz verdeckt.
+  </div>
+</section>
+
+
+<!-- ====================================== 11. Mondfinsternis ----- -->
+<section class="folie">
+  <div class="titelband"><h1>11. Mondfinsternis</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Bei einer <b>Mondfinsternis</b> steht die <span class="rot">Erde zwischen Sonne und Mond</span>.
+    Der Mond taucht in den Kernschatten der Erde ein.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>11. Mondfinsternis</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Kernschatten der Erde -->
+      <polygon points="330,80 600,93 600,119 330,132" fill="#2E2E2E" opacity="0.45"/>
+      <!-- Randstrahlen -->
+      <g class="licht">
+        <line x1="40" y1="66" x2="600" y2="93"/>
+        <line x1="40" y1="146" x2="600" y2="119"/>
+      </g>
+      <!-- Sonne -->
+      <circle cx="40" cy="106" r="40" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="22" y="164">Sonne</text>
+      <!-- Erde -->
+      <circle cx="330" cy="106" r="26" fill="#5B8FC9" stroke="#2F5C8F"/>
+      <text class="beschriftung" x="314" y="156">Erde</text>
+      <!-- Mond im Kernschatten -->
+      <circle cx="520" cy="106" r="11" fill="#4A4A4A" stroke="#2E2E2E"/>
+      <text class="beschriftung" x="502" y="140">Mond</text>
+      <text class="beschriftung klein" x="392" y="70">Kernschatten der Erde</text>
+      <line class="hilfslinie" x1="430" y1="76" x2="440" y2="96"/>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Bei einer <b>Mondfinsternis</b> steht die <span class="rot">Erde zwischen Sonne und Mond</span>.
+    Der Mond taucht in den Kernschatten der Erde ein.
+  </div>
+</section>
+
+
+<!-- ======================================== F5 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 5</div>
+    <h2>Warum sieht der Mond nicht immer gleich aus?</h2>
+  </div>
+  <div class="antwortzone">
+    Der Mond ist ein <b>beleuchteter Körper</b>. Die Sonne beleuchtet immer genau eine Hälfte.
+    Weil der Mond die Erde umläuft, sehen wir von dieser hellen Hälfte
+    <span class="rot">unterschiedlich viel</span>. Stehen Sonne, Erde und Mond auf einer Linie,
+    entsteht eine Finsternis.
+  </div>
+</section>
+
+<!-- ======================================== F5 Check ------------ -->
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 5</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Warum können wir den Mond sehen?</p>
+      <ol>
+        <li>Er sendet eigenes Licht aus.</li>
+        <li>Die Sonne beleuchtet ihn und er wirft das Licht zurück.</li>
+        <li>Er glüht von innen.</li>
+        <li>Die Erde beleuchtet ihn.</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Bei einer Sonnenfinsternis …</p>
+      <ol>
+        <li>steht der Mond zwischen Sonne und Erde.</li>
+        <li>steht die Erde zwischen Sonne und Mond.</li>
+        <li>ist die Sonne für kurze Zeit erloschen.</li>
+        <li>steht die Sonne zwischen Erde und Mond.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) a</div>
+</section>
+
+
+<!-- ======================================== 12. Lochkamera ------- -->
+<section class="folie">
+  <div class="titelband"><h1>12. Die Lochkamera</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Das Licht von der <b>Spitze</b> der Flamme verläuft durch die Lochblende und trifft
+    <b>unten</b> auf den Schirm. Deshalb steht das Bild <span class="rot">umgekehrt</span>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>12. Die Lochkamera</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Gegenstand: Kerze, symmetrisch zur optischen Achse (y = 106) -->
+      <rect x="52" y="96" width="20" height="56" fill="#F0E2C0" stroke="#B9A87A"/>
+      <path d="M62 96 q-13 -18 0 -36 q13 18 0 36 z" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="36" y="170">Gegenstand</text>
+      <!-- optische Achse -->
+      <line class="hilfslinie" x1="40" y1="106" x2="500" y2="106"/>
+      <!-- Randstrahlen: Spitze nach unten, Fuss nach oben -->
+      <g class="licht">
+        <line x1="62" y1="60" x2="480" y2="140.8"/>
+        <line x1="62" y1="152" x2="480" y2="71.2"/>
+      </g>
+      <!-- Lochblende -->
+      <rect x="296" y="14" width="9" height="88" fill="#4A4A4A"/>
+      <rect x="296" y="110" width="9" height="88" fill="#4A4A4A"/>
+      <text class="beschriftung klein" x="252" y="12">Lochblende</text>
+      <!-- Schirm -->
+      <line x1="480" y1="16" x2="480" y2="200" stroke="#333" stroke-width="2.5"/>
+      <text class="beschriftung klein" x="486" y="196">Schirm</text>
+      <!-- Bild: umgekehrte Kerze, Fuss oben, Flamme unten -->
+      <rect x="472" y="71.2" width="15" height="42" fill="#F0E2C0" stroke="#B9A87A"/>
+      <path d="M479.5 113.2 q-10 14 0 27.6 q10 -14 0 -27.6 z" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="496" y="94">Bild</text>
+      <text class="beschriftung klein" x="496" y="106">(umgekehrt)</text>
+      <text class="beschriftung klein" x="120" y="36">Spitze oben</text>
+      <text class="beschriftung klein" x="336" y="170">trifft unten auf</text>
+      <text class="beschriftung klein" x="336" y="182">den Schirm</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Das Licht von der <b>Spitze</b> der Flamme verläuft durch die Lochblende und trifft
+    <b>unten</b> auf den Schirm. Deshalb steht das Bild <span class="rot">umgekehrt</span>.
+  </div>
+</section>
+
+
+<!-- ============================== Hausaufgabe: Lochkamera bauen -->
+<section class="folie">
+  <div class="titelband"><h1>Hausaufgabe: Wir bauen eine Lochkamera</h1></div>
+  <div class="textblock zweispaltig">
+    <div>
+      <h2>Mitzubringen</h2>
+      <ul>
+        <li>eine runde Chipsdose</li>
+        <li>Zirkel, Schere, Lineal</li>
+        <li>transparentes Papier oder Butterbrotpapier</li>
+        <li>schwarzer Zeichenkarton, etwas größer als der Mantel der Dose</li>
+        <li>Klebstoff oder Tesa, Nagel (ca. 1 mm)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Bauanleitung</h2>
+      <ol>
+        <li>Stich mit dem Nagel von außen ein kleines Loch in die Mitte des Dosenbodens.</li>
+        <li>Rolle die schwarze Pappe zu einer Röhre, die gerade noch in die Dose passt, und klebe sie fest.</li>
+        <li>Klebe das Transparentpapier auf ein Ende der Röhre.</li>
+        <li>Schiebe die Röhre mit dem Papier voraus in die Dose.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="merksatz links" style="left:40.16pt; width:300pt;">
+    <b>Tipp zu Schritt 3:</b> Schneide einen Kreis aus, dessen Radius mindestens 1 cm größer ist
+    als der Radius deiner Röhre, und schneide kleine Laschen in den Rand.
+  </div>
+</section>
+
+
+<!-- ==================================== Versuch mit der Lochkamera -->
+<section class="folie">
+  <div class="titelband"><h1>Versuch: Beobachtungen mit der Lochkamera</h1></div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="versuch">
+    <div class="zelle"><h2>Aufbau</h2><div class="feld karo"></div></div>
+    <div class="zelle"><h2>Beschreibung</h2>
+      <div class="feld">
+        <ol>
+          <li>Betrachte mit der Lochkamera hell erleuchtete Gegenstände (Fenster, Kerze).</li>
+          <li>Verändere den Abstand zwischen Loch und Transparentpapier.</li>
+          <li>Setze verschiedene Blenden an die Öffnung, also größere und kleinere Löcher.</li>
+          <li>Beschreibe, wie sich Helligkeit, Schärfe und Größe des Bildes ändern.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="zelle"><h2>Beobachtung</h2><div class="feld"></div></div>
+    <div class="zelle"><h2>Ergebnis</h2><div class="feld"></div></div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Versuch: Beobachtungen mit der Lochkamera</h1></div>
+  <div class="versuch">
+    <div class="zelle"><h2>Aufbau</h2>
+      <div class="feld karo">
+        <svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dose -->
+          <rect x="120" y="34" width="150" height="74" fill="#EFEFEF" stroke="#555"/>
+          <rect x="238" y="34" width="32" height="74" fill="#DCE9F2" stroke="#6E9BB8"/>
+          <line x1="120" y1="71" x2="126" y2="71" stroke="#333" stroke-width="2"/>
+          <!-- Kerze -->
+          <rect x="42" y="74" width="12" height="30" fill="#F0E2C0" stroke="#B9A87A"/>
+          <path d="M48 74 q-7 -10 0 -22 q7 10 0 22 z" fill="#FFD34D" stroke="#B98900"/>
+          <g class="licht">
+            <line x1="48" y1="56" x2="254" y2="88"/>
+            <line x1="48" y1="100" x2="254" y2="56"/>
+          </g>
+          <text class="beschriftung klein" x="100" y="24">Loch</text>
+          <text class="beschriftung klein" x="228" y="126">Transparentpapier</text>
+          <text class="beschriftung klein" x="30" y="126">Kerze</text>
+        </svg>
+      </div>
+    </div>
+    <div class="zelle"><h2>Beschreibung</h2>
+      <div class="feld">
+        <ol>
+          <li>Betrachte mit der Lochkamera hell erleuchtete Gegenstände (Fenster, Kerze).</li>
+          <li>Verändere den Abstand zwischen Loch und Transparentpapier.</li>
+          <li>Setze verschiedene Blenden an die Öffnung, also größere und kleinere Löcher.</li>
+          <li>Beschreibe, wie sich Helligkeit, Schärfe und Größe des Bildes ändern.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="zelle"><h2>Beobachtung</h2>
+      <div class="feld">
+        Das Bild steht auf dem Kopf. Je weiter das Papier vom Loch entfernt ist, desto größer
+        wird das Bild. Ein kleineres Loch macht das Bild schärfer, aber dunkler.
+      </div>
+    </div>
+    <div class="zelle"><h2>Ergebnis</h2>
+      <div class="feld">
+        Weil sich Licht <b>geradlinig</b> ausbreitet, entsteht hinter dem Loch ein
+        <b>umgekehrtes Bild</b>. Größere Bildweite bedeutet ein größeres Bild.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================ Rueckblick --- -->
+<section class="folie">
+  <div class="titelband"><h1>Unsere fünf Fragen</h1></div>
+  <ol class="rueckblick">
+    <li><span class="fnr">F1</span> &nbsp; Warum sehen wir überhaupt etwas?</li>
+    <li><span class="fnr">F2</span> &nbsp; Was passiert mit dem Licht, wenn es auf einen Körper trifft?</li>
+    <li><span class="fnr">F3</span> &nbsp; Warum können wir nicht um die Ecke sehen?</li>
+    <li><span class="fnr">F4</span> &nbsp; Warum hat ein Schatten manchmal weiche Ränder?</li>
+    <li><span class="fnr">F5</span> &nbsp; Warum sieht der Mond nicht immer gleich aus?</li>
+  </ol>
+  <div class="merksatz">
+    Alle fünf Antworten stecken in einem Satz:
+    <span class="rot">Licht breitet sich geradlinig aus und wird an Körpern zurückgeworfen,
+    verschluckt oder durchgelassen.</span>
+  </div>
+</section>
+
+
+<!-- ================================================ Abschluss ---- -->
+<section class="folie">
+  <div class="titelband"><h1>Zum Schluss: Sicheln auf dem Boden</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <text class="beschriftung" x="24" y="34" font-size="13">Bei einer Sonnenfinsternis sind die Lichtflecken unter einem Baum</text>
+      <text class="beschriftung" x="24" y="54" font-size="13">nicht rund, sondern kleine Sicheln. Warum?</text>
+      <rect x="300" y="150" width="12" height="40" fill="#8B5A2B"/>
+      <circle cx="306" cy="128" r="34" fill="#5E9B45" stroke="#3E6B2E"/>
+      <line x1="60" y1="196" x2="576" y2="196" stroke="#8A6A3A" stroke-width="2"/>
+      <g fill="#FFD34D" stroke="#B98900" stroke-width="0.8">
+        <path d="M150 186 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+        <path d="M220 190 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+        <path d="M400 188 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+        <path d="M470 186 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+      </g>
+      <text class="beschriftung klein" x="120" y="164">Lichtflecken auf dem Boden</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Die Lücken im Blätterdach wirken wie viele kleine <b>Lochblenden</b>.
+    Jede erzeugt ein Bild der Sonne, und während der Finsternis ist die Sonne selbst eine Sichel.
+  </div>
+</section>
+
+</body>
+</html>

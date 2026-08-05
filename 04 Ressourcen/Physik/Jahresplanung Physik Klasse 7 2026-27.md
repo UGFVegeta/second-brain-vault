@@ -35,6 +35,9 @@ Energie, Wärmelehre, Kinematik und Dynamik bleiben für die Klassen 8 und 9.
 
 3.1.1 Denk- und Arbeitsweisen wird nicht als eigener Block unterrichtet, sondern laut Plan durchgängig mitgenommen. Beobachtung gegen Erklärung, Überprüfbarkeit, Funktion von Modellen und Größe mit Maßzahl und Einheit lassen sich am Lichtstrahlenmodell und am Stromkreismodell natürlich verankern.
 
+> [!info] Die wochengenaue Umsetzung steht in [[Stoffverteilungsplan Physik Klasse 7 2026-27]].
+> Dort sind Optik I auf 14 und Optik II auf 16 Stunden präzisiert, weil die Feinplanung mehr Teilthemen ergeben hat. Der Farbenteil von Optik II läuft ins zweite Halbjahr.
+
 ## Stundenverteilung
 
 Angesetzt sind **2 Klassenarbeiten**, eine pro Halbjahr.

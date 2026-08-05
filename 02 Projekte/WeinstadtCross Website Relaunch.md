@@ -29,6 +29,21 @@ Die neue Seite verlinkt ohnehin auf die bestehenden WP-Unterseiten (Anmeldung, A
 ### Weg 3: WordPress komplett ersetzen (statisch)
 Ganze Site statisch, WP abschalten. Vorteile: Sicherheit (xmlrpc/Wordfence-Themen entfallen), Tempo, keine Updates. Nachteile: News/Ergebnisse nur noch von Hand pflegbar, Unterseiten müssten alle nachgebaut werden, Bilder aus `wp-content` müssten lokal kopiert werden. Werkzeug dafür wäre Publii (bereits installiert, zwei Testprojekte unter `~/Documents/Publii/sites/`). Erst sinnvoll, wenn klar ist wer die Seite pflegt.
 
+## Neuer Reiter „Anreise & Parken" (05.08.2026)
+
+Auf Wunsch des Orga-Kollegen aus Weinstadt. Fertiger Baustein: **`Anreise-und-Parken.html`** im iCloud-Ordner. Die Datei ist gleichzeitig lokale Vorschau (doppelklicken) und Kopiervorlage, der einzufügende Teil ist zwischen `AB HIER KOPIEREN` und `BIS HIER KOPIEREN` markiert.
+
+- **Einbau:** neue WP-Seite anlegen → Block „Custom HTML" (bzw. in Betheme das Element „Code / HTML") → Block einfügen → Seite ins Menü unter **Info** hängen. Nicht in den Text-Tab des klassischen Editors einfügen, der zerschießt die Formatierung.
+- **Technik:** alle Klassen mit `.wc-ap-` vorangestellt, damit nichts mit Betheme kollidiert. Kein JavaScript, die Reiter laufen über versteckte Radio-Buttons plus CSS. Keine Google Fonts, damit kein Datenschutzproblem entsteht.
+- **Bilder:** vier Karten aus `Parkmöglichkeiten DM Cross 1.pdf` als Web-JPGs in `Bilder/` (`weinstadtcross-2026-parken-*.jpg`, je 300–430 KB). In die Mediathek hochladen und die vier `src`- und `href`-Pfade auf die Mediathek-URLs umstellen.
+- Inhalt aus `Cross-DM Auslobungstext zur Anreise Kopie.pdf` und dem Lageplan-PDF. Adresse ITT Cannon (Cannonstr. 1, 71384 Weinstadt) über die Firmenseite bestätigt, alle anderen Parkplätze verlinken über Google-Maps-Namenssuche statt über erfundene Hausnummern.
+
+### Vor der Veröffentlichung klären
+- [ ] Genaue Adressen der Parkplätze beim Orga-Team erfragen. Der Auslobungstext verweist auf „Lageplan mit Adressen", im Lageplan stehen aber keine Adressen.
+- [ ] Widerspruch: Der Text nennt „3 Bereiche" mit weiteren Parkplätzen, der Lageplan zeigt vier (Bürgerpark, ITT Cannon, Bahnhof Beutelsbach, Bahnhof Endersbach).
+- [ ] Fußweg von ITT Cannon und Bahnhof Beutelsbach wirkt auf der Karte deutlich länger als die im Text genannten 10 Gehminuten. Vor der Veröffentlichung nachmessen lassen.
+- [ ] Übernachtungsmöglichkeiten werden ein **eigener Reiter** (Quelle: `DM Cross - Übernachtungsmöglichkeiten.pdf`, 6 Hotels, 3 Ferienwohnungen, 7 Wohnmobilstellplätze). Im selben Design noch zu bauen.
+
 ## Offen / Nächste Schritte
 - [ ] Neue Version ansehen und Feedback (Datei doppelklicken oder Preview)
 - [ ] Entscheidung: Weg 1 → 2 (Hybrid) oder Weg 3 (voll statisch)

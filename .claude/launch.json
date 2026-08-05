@@ -50,6 +50,12 @@
       "port": 8742
     },
     {
+      "name": "wsc-parken",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/Users/oskarklein/Library/Mobile Documents/com~apple~CloudDocs/Homepage WeinstadtCross/2026'); socketserver.TCPServer(('', 8752), h).serve_forever()"],
+      "port": 8752
+    },
+    {
       "name": "artefakt-test",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/135f954a-4211-45e3-989a-4dd2081564ab/scratchpad'); socketserver.TCPServer(('', 8751), h).serve_forever()"],
