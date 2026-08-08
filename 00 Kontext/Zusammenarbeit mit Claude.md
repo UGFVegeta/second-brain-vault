@@ -21,6 +21,19 @@ Wie Claude bei der Arbeit mit Oskar agieren soll. Ergänzt [[Schreibstil]].
 
 Niemals etwas konstruieren, das plausibel klingt. Bei Unsicherheit lieber klar sagen „das geht nicht" oder „weiß ich nicht". Faktentreue vor Wirkung.
 
+## Pläne als Gerüst, nicht als Kalender (08.08.2026)
+
+Trainingspläne und andere Planungen mit unsicherem Zeitbudget **nie als Tag-für-Tag-Kalender** liefern („Montag das, Dienstag das"). Das schaffe ich zeitlich nicht, und der Plan wird nutzlos, sobald der erste Tag kippt.
+
+Stattdessen ein **Grundgerüst pro Woche**:
+
+- Welche Einheiten müssen rein, in **Prioritätsreihenfolge**.
+- Welche **Regeln** gelten beim Kombinieren (Abstände, was nicht gestapelt werden darf).
+- Optionale Füllung, wenn Zeit übrig ist.
+- Eine **Notfall-Staffel**: wenn nur eine Einheit möglich ist, dann diese.
+
+Das Verschieben auf konkrete Tage mache ich selbst, je nach Zeit. Siehe [[Laufform & Renntempo Mitteldistanz]] als Anwendungsfall.
+
 ---
 
 *Stand: 18.06.2026, aus dem Kennenlern-Interview (Bereich „Zusammenarbeit"). Weitere Bereiche – Prioritäten, Entscheidungsstil, Tagesablauf – folgen.*

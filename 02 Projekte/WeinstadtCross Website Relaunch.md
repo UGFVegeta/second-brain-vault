@@ -193,10 +193,46 @@ Acht Logos machen **2,6 MB** aus, obwohl sie nur wenige hundert Pixel breit darg
 
 Fertige Dateien liegen in `Logos optimiert/` (WebP, max. 800 px Breite, Qualität 88).
 
-### 2. ⚠️ Meta-Beschreibung steht seit Juni auf dem WordPress-Standardtext
-Google zeigt unter dem Suchergebnis weiterhin **„Just another WordPress site"**. Der fertige Ersatztext steht seit dem 01.06.2026 in [[WeinstadtCross – SEO-Optimierung]] und wurde nie eingetragen. Für eine Deutsche Meisterschaft der sichtbarste Schwachpunkt überhaupt, Aufwand fünf Minuten.
+### 2. ✅ Meta-Beschreibung, Seitentitel und Event-Markup (erledigt am 08.08.2026)
+Seit dem 08.08.2026 gemessen in Ordnung:
 
-Ebenfalls offen aus derselben Notiz: Seitentitel lautet nur „Home - WeinstadtCross" ohne Jahr, Datum und DM-Hinweis. **og:image fehlt**, beim Teilen in WhatsApp erscheint also kein Bild. **Schema.org-Event fehlt**, keine Rich Results bei Google.
+| Punkt | Stand |
+|---|---|
+| Seitentitel | „Volksbank WeinstadtCross 2026 \| DM Crosslauf in Weinstadt", 57 Zeichen |
+| Meta-Beschreibung | 154 Zeichen, mit Datum und Ort, genau **eine** im Quelltext |
+| WordPress-Untertitel | „Deutsche Crosslauf-Meisterschaften am 28. und 29. November 2026 in Weinstadt" |
+| Schema.org-Event | `SportsEvent` als gültiges JSON-LD auf der Startseite |
+
+**Woher die doppelte Beschreibung kam.** Nicht von Yoast und nicht vom Untertitel. Betheme gibt über Theme Options → SEO → *Use built-in fields* eine eigene Beschreibung aus, die noch auf dem WordPress-Standardtext stand. Sie erschien an Zeichenposition 266 im Kopfbereich, also **vor** dem Yoast-Block ab 706, und war damit die, die Google gelesen hätte. Erkennbar war das nur daran, dass RSS-Feed und `wp-json` bereits den neuen Untertitel zeigten, die Startseite aber nicht. ⚠️ Der Schalter *Use built-in fields* steht weiterhin auf an, nur das Textfeld ist leer. Sauberer wäre, ihn ganz auszuschalten, da Yoast im Einsatz ist (so auch die [Betheme-Doku](https://support.muffingroup.com/documentation/theme-options-seo/)).
+
+**Einbau des Event-Markups.** Betheme hat kein Feld für eigenen Code im Kopfbereich, die SEO-Sektion kennt nur Google Analytics, Facebook Pixel und Google Remarketing. Der Block liegt deshalb als Text-Element ganz unten auf der Startseite. Der BeBuilder lässt `<script type="application/ld+json">` durch, anders als seinerzeit `<style>`. Quelle: `Event-Markup Startseite.txt` im Homepage-Ordner, reines ASCII über `\uXXXX`-Escapes, damit beim Kopieren keine Umlaute zerschossen werden.
+
+Inhalt: 28.–29.11.2026, Stadion beim Bildungszentrum Weinstadt-Benzach (Beutelsbacher Str. 84), Veranstalter SG Weinstadt e.V. (Adresse und Telefon aus dem Impressum), drei Fotos, beide Wettkampftage als `subEvent`. **Bewusst ohne Uhrzeiten**, solange der Zeitplan auf die DLV-Freigabe wartet. Startzeiten danach nachtragen.
+
+### 2b. ✅ Vorschaubild beim Teilen (og:image, 08.08.2026)
+Startseite liefert jetzt `https://weinstadtcross.de/wp-content/uploads/2026/08/Vorschaubild-mit-Text.jpg`, 1200 × 630, 119 KB, Verhältnis 1,90 zu 1, dazu `og:image:width`/`height` von Yoast. `twitter:card` steht auf `summary_large_image`. `twitter:image` ist leer, das ist **kein Fehler**: X fällt auf `og:image` zurück.
+
+**Wo die Einstellung sitzt.** Bei einer statischen Startseite **nicht** in den Yoast-Einstellungen, sondern im Yoast-Kasten der Seite *Home* selbst, Bereich *Social-Darstellung*. Titel und Beschreibung dort bewusst leer lassen, dann erbt Yoast die Google-Texte.
+
+**Wie das Bild entsteht.** `og.py` im Scratchpad rendert es mit Headless Chrome aus HTML, also in derselben Bildsprache wie der Hero-Block: Foto vom Massenstart unter dem gelben Bogen, dunkler Verlauf nach unten, gelber Strich, Poppins in Versalien, gelbe Linie am Fuß. Zwei Fassungen liegen im Homepage-Ordner: `Vorschaubild-mit-Text.jpg` (im Einsatz) und `Vorschaubild-ohne-Text.jpg`.
+
+⚠️ Auf dem Bild sind **Kinder mit erkennbaren Gesichtern und Startnummern** zu sehen. Das Foto steht ohnehin öffentlich in der Hero-Slideshow, als Vorschaubild wandert es aber sichtbarer durch Verteiler und Chats. Falls das später anders bewertet wird: Ersatzmotiv ist `Weinstadtcross2025_8` (schlammiger Laufschuh, ohne Personen), Neurendern dauert eine Minute.
+
+### 2c. Unterseiten: Vorschaubild erledigt, Google-Beschreibung offen (08.08.2026)
+Vorschaubild sitzt auf **Anreise und Parken, Übernachten, Strecken, Ausschreibung und Prämien** (Seiten-IDs 3050, 3048, 260, 266, 2949). In WhatsApp erscheint jetzt Bild, Überschrift und Text, geprüft.
+
+⚠️ **Das Standardbild für alle Seiten auf einmal ist in Yoast Free gesperrt.** Yoast → Einstellungen → Content-Typen → Seiten → Social-Media-Auftritt → *Bild für Social-Media* ist Premium. Deshalb pro Seite einzeln über den Yoast-Kasten, das geht in der kostenlosen Version.
+
+**Die Falle im Yoast-Kasten**, zweimal reingelaufen: Der Kasten hat zwei Bereiche untereinander mit fast gleich klingenden Feldern.
+
+| Feld | Bereich | Wer liest es |
+|---|---|---|
+| Meta-Beschreibung | oben, unter der Google-Vorschau | **Google** |
+| Beschreibung für Social-Media | unten, bei *Social-Media-Auftritt* | **WhatsApp, Facebook** (`og:description`) |
+
+Zusätzlich sitzt oben die **Titelform**, das ist die Webadresse, nicht der Titel. Da war schon einmal der SEO-Titel gelandet.
+
+**Offen:** `meta description` ist auf allen fünf Unterseiten leer, sie tragen außerdem die Standardtitel („Anreise und Parken - WeinstadtCross"). Google baut sich den Snippet dann selbst aus dem Seitentext. Kein Fehler, nur unkontrolliert. Fertige Texte liegen in `Meta-Beschreibungen Unterseiten.txt` im Homepage-Ordner, einzutragen oben unter der Google-Vorschau. Bewusst zurückgestellt, weil der Nutzen gegenüber dem bereits Erreichten klein ist. Für die News-**Beiträge** ist das Vorschaubild ebenfalls noch nicht gesetzt.
 
 ### 3. In Ordnung
 canonical gesetzt, Favicon vorhanden, `lang="de"`, gzip aktiv, `http` leitet auf `https`, `www` leitet auf die Hauptdomain. Sicherheits-Header (HSTS, X-Content-Type-Options) fehlen, für eine Vereinsseite aber nachrangig.

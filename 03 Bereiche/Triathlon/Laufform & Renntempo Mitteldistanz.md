@@ -82,36 +82,47 @@ Die Ausdauer trägt 21 km locker, das ist nicht die Frage. Der Limiter ist die B
 
 Der eigentliche Schutz am Renntag ist die Renneinteilung: konservativ loslaufen, hinten steigern. Nach dem Sonntagslauf nicht in Versuchung geraten, in der Folgewoche 18 bis 20 km draufzusetzen, dort steigt das Risiko schneller als der Nutzen. Ein zweiter Lauf derselben Größenordnung rund eine Woche vor dem Rennen reicht.
 
-## 16-Tage-Plan bis zum Rennen
+## Wochengerüst bis zum Rennen
 
 Als Webseite aufbereitet: https://claude.ai/code/artifact/57552207-7687-4b0f-b07d-775b12985ec9
 
-### Belastungsblock, 08. bis 16.08.
+⚠️ **Kein Tag-für-Tag-Plan.** Feste Tageszuordnungen sind zeitlich nicht machbar, siehe [[Zusammenarbeit mit Claude]]. Stattdessen Pflichteinheiten nach Priorität plus Regeln zum Kombinieren. Das Schieben auf konkrete Tage macht Oskar selbst.
 
-| Tag | Einheit | Werte |
+Ortswechsel: bis So 09.08. in Italien (Flachland), dann bis Fr 14.08. früh in **Flachau bei Salzburg**. Realistisch nur zwei bis drei Radeinheiten insgesamt. Der Wechsel kommt gelegen, weil der Berg in Flachau real gefahren statt simuliert werden kann.
+
+Erledigt: Fr 07.08. 13,8 km mit 3 × 3 km · Sa 08.08. 15 km locker (fühlte sich gut an, 20–25 km wären gegangen; Rad abgesagt wegen Seitenwind mit hohen Felgen).
+
+### Woche 1, Belastung, bis So 16.08.
+
+Ziel: die letzten harten Reize setzen. Was hier nicht passiert, ist danach nicht mehr aufholbar.
+
+| Prio | Einheit | Menge / Werte |
 |---|---|---|
-⚠️ Ortswechsel: bis So 09.08. in Italien (Flachland), dann bis Fr 14.08. früh in **Flachau bei Salzburg**. Realistisch nur zwei bis drei Radeinheiten insgesamt. Der Wechsel kommt gelegen, weil der Berg in Flachau real gefahren statt simuliert werden kann.
+| 01 | **Koppeltraining Rad auf Lauf (Schlüssel):** 1:30 h Rad mit 2 × 20 min Renntempo, davon möglichst ein Block am Berg, direkt danach 5 km im Renntempo | 1× · 265–275 W → 4:05/km |
+| 02 | **Letzter langer Lauf.** Muss spätestens So 16.08. liegen, danach beginnt der Taper | 1× · 16–18 km · ~5:00/km |
+| 03 | **Bergeinheit Rad:** Anstieg von 3–4 km 3 × am Renntempo, oder am längeren Berg 3 × 12–15 min. Verpflegung testen | 1× · 260–275 W · 60–90 g KH/h |
+| 04 | Locker traben als Füllung | 1–2× · je 8 km |
+| 05 | Schwimmen, wenn sich eine Gelegenheit ergibt | optional |
 
-| Sa 08.08. | ✅ Erledigt: langer Lauf vorgezogen, 15 km im knappen Fünferschnitt, hinten schneller, fühlte sich gut an (20–25 km wären gegangen). Rad abgesagt wegen Seitenwind mit hohen Felgen | 15 km · ~5:00/km |
-| So 09.08. | **Positionstest Rad**, dann Fahrt nach Flachau. Erste 20 min nur Positionsbeurteilung, dann 2 × 15–20 min in Aero, 8 min locker dazwischen. Nach zwei Lauftagen zählt das Positionsurteil mehr als die Wattzahl | 1:30 h · 280–290 W |
-| Mo 10.08. | Ankommen in Flachau, bewusst ruhig. Optional 6–8 km locker | – |
-| Di 11.08. | **Rad Bergeinheit:** Anstieg von 3–4 km 3 × am Renntempo, oder am längeren Berg 3 × 12–15 min. Verpflegung testen. Abfahrten am Basislenker, nicht in Aero, keine technischen Strecken | 260–275 W · 60–90 g KH/h |
-| Mi 12.08. | Locker traben, Beine für den Folgetag freihalten | 8 km locker |
-| Do 13.08. | **Schlüsseleinheit Koppeltraining** (letzter voller Tag in Flachau): 1:30 h Rad mit 2 × 20 min Renntempo, davon möglichst ein Block am Berg, direkt danach 5 km im Renntempo. **Wenn nur eine Radeinheit in Flachau möglich ist, dann diese** | 265–275 W → 4:05/km |
-| Fr 14.08. | **Rückreise, kein Sport.** Fest eingeplanter Ruhetag direkt hinter der Schlüsseleinheit | – |
-| Sa 15.08. | Reise ausrollen, 45–60 min ruhig rollen, Sattelposition final beurteilen, danach nichts mehr verstellen. Dazu locker schwimmen | 45–60 min · 1,5 km |
-| So 16.08. | Letzter langer Lauf, 7 Tage vor dem Rennen, nur bei ruhigem Außenband | 16–17 km · ~5:00/km |
+**Regeln:** Zwischen den beiden harten Radeinheiten mindestens ein leichter Tag. Langer Lauf nicht direkt nach der Koppeleinheit. Nach zwei Belastungstagen ein ruhiger Tag. Abfahrten in den Bergen am Basislenker, nicht in Aero, keine technischen Strecken. Zwickt das Außenband, wird der Lauf gestrichen statt durchgezogen.
 
-### Taper, 17. bis 22.08.
+**Wenn es eng wird:** 1 Einheit → Koppeltraining. 2 → plus langer Lauf. 3 → plus Bergeinheit. Alles darüber ist Bonus.
 
-| Tag | Einheit | Werte |
+### Woche 2, Taper, 17. bis 22.08.
+
+Ziel: Umfang etwa halbieren, Spritzigkeit halten, nichts Neues aufbauen. Ruhe ist hier die wertvollste Einheit.
+
+| Prio | Einheit | Menge / Werte |
 |---|---|---|
-| Mo 17.08. | Kompletter Ruhetag nach dem langen Lauf, höchstens Mobilität | – |
-| Di 18.08. | Rad 1:15 h mit 3 × 6 min leicht über Renntempo, danach locker schwimmen | 275–285 W · 1,5 km |
-| Mi 19.08. | Lauf 8 km mit 3 × 1 km unter Renntempo, 2 min Trab dazwischen | 4:00/km |
-| Do 20.08. | Ruhe, Mobilität, früh schlafen | – |
-| Fr 21.08. | Rad 45 min locker mit 3 × 3 min Renntempo. Material checken | 45 min |
-| Sa 22.08. | 20 min traben mit 3 × 30 s Steigerung. Anreise, packen, früh ins Bett | 20 min |
+| 01 | **Material und Verpflegung:** Reifen, Bremsen, Schaltung, Startnummernband, Wechselbeutel, Verpflegung abfüllen. Nicht verhandelbar | – |
+| 02 | Rad kurz und scharf, 1:00–1:15 h mit 3 × 6 min leicht über Renntempo | 1× · 275–285 W |
+| 03 | Lauf 8 km mit 3 × 1 km unter Renntempo, 2 min Trab dazwischen | 1× · 4:00/km |
+| 04 | Schwimmen locker mit ein paar Steigerungen | 1–2× · je 1,5 km |
+| 05 | Am Vortag 20 min traben mit 3 × 30 s Steigerung | 1× · 20 min |
+
+**Regeln:** Mindestens zwei komplette Ruhetage. Ab Do 20.08. nichts Hartes mehr. Kein neuer Reiz, nur Erhalt. Im Zweifel weglassen, zu viel kostet in dieser Woche deutlich mehr als zu wenig.
+
+**Wenn es eng wird:** zuerst das Rad streichen, dann den Lauf. Nie streichen: Material, Verpflegung, Schlaf.
 
 ### Renntag 23.08., 10:00 Uhr
 
