@@ -36,3 +36,6 @@ node_modules/
 
 # Firecrawl-Cache (Scrape-/Parse-Ergebnisse, kein Vault-Inhalt)
 .firecrawl/
+
+# Claudian-Plugin-Arbeitsdaten (Sitzungslogs, ändern sich ständig, kein Vault-Inhalt)
+.claudian/
