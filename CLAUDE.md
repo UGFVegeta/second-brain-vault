@@ -225,6 +225,17 @@ Claude pflegt in 04 Ressourcen/Wiki/ themenübergreifende Wissensseiten nach dem
 - Quellnotizen (Readwise, Bücher & Learnings) bleiben unverändert – das Wiki verdichtet nur.
 - Neue Seiten immer in den Index in Wiki.md eintragen.
 
+## GitHub-Backup des Vaults
+
+Der Vault wird per Git nach GitHub gesichert (privates Repo).
+
+- **Repo:** https://github.com/UGFVegeta/second-brain-vault (privat), Account `UGFVegeta` (Login über Apple). `gh` CLI ist eingerichtet, Token im macOS-Schlüsselbund.
+- **Automatik:** Das Community-Plugin **Obsidian Git** committet und pusht alle 15 Minuten automatisch, solange Obsidian offen ist. Config in `.obsidian/plugins/obsidian-git/data.json`. Kein Klick nötig.
+- Der Git-Balken im Claudian-Plugin („PR erstellen") wird **nicht** gebraucht – ignorieren.
+- Der frühere LaunchAgent `com.oskar.vaultgit` (Skript `.scripts/git_autocommit.sh`) ist **abgeschaltet** (plist als `.disabled` umbenannt), weil macOS ihm den Documents-Zugriff verweigert hat. Nicht reaktivieren.
+- **Nicht ins Repo (gitignored):** `.obsidian/plugins/readwise-official/data.json` (enthält Readwise-Token), `.firecrawl/`, `.claudian/`, `.claude/settings.local.json` (API-Keys). Beim Anlegen neuer Dateien mit Secrets: erst `.gitignore` prüfen/ergänzen.
+- Manuell sichern (falls Obsidian zu war): im Terminal `git add -A && git commit -m "Vault-Sync" && git push`.
+
 ## Session-Routinen
 
 ### Bei Session-Start
