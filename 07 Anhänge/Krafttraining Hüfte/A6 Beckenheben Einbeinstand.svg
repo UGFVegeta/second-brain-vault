@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" width="440" height="300" role="img" aria-label="Beckenheben im Einbeinstand, Pelvic Drop">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="300" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="28" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">A6 · Beckenheben im Einbeinstand (Frontansicht)</text>
+  <text x="220" y="48" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Standbeinknie bleibt gestreckt · nur das Becken sinkt und hebt</text>
+
+  <line x1="40" y1="278" x2="400" y2="278" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="160" y="212" width="108" height="66" rx="4" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+
+  <path d="M206,148 L292,148" fill="none" stroke="#b6bdc8" stroke-width="3" stroke-dasharray="6 7"/>
+  <text x="300" y="140" font-family="system-ui,sans-serif" font-size="11" fill="#9aa3b0">waagerecht</text>
+
+  <circle cx="220" cy="148" r="20" fill="#e8590c" opacity="0.17"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M220,148 L268,160" stroke-width="7.5"/>
+    <path d="M220,148 L222,180 L222,212" stroke-width="7.5"/>
+    <path d="M268,160 L276,206 L280,250" stroke-width="7.5"/>
+    <path d="M244,154 L242,100" stroke-width="7.5"/>
+    <path d="M216,100 L272,100" stroke-width="7.5"/>
+    <path d="M216,102 L194,150" stroke-width="5"/>
+    <path d="M272,102 L294,150" stroke-width="5"/>
+  </g>
+  <circle cx="244" cy="80" r="17" fill="#2c3e50"/>
+
+  <path d="M280,258 L280,274" fill="none" stroke="#2f9e44" stroke-width="2.5" stroke-dasharray="4 4"/>
+  <text x="318" y="268" font-family="system-ui,sans-serif" font-size="11.5" fill="#2f9e44" text-anchor="middle">hängt frei</text>
+
+  <path d="M340,192 L340,150" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+  <text x="366" y="180" font-family="system-ui,sans-serif" font-size="12" fill="#e8590c" text-anchor="middle">heben</text>
+
+  <text x="122" y="148" font-family="system-ui,sans-serif" font-size="11.5" fill="#e8590c" text-anchor="middle">Standbein</text>
+  <text x="122" y="163" font-family="system-ui,sans-serif" font-size="11.5" fill="#e8590c" text-anchor="middle">arbeitet</text>
+
+  <text x="220" y="294" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">3 × 12 je Seite · genau die Funktion, die beim Laufen gebraucht wird</text>
+</svg>

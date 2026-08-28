@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 285" width="440" height="285" role="img" aria-label="Abduktion im Stand am Band">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="285" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="30" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">B3 · Abduktion im Stand (Band oder Kabel)</text>
+  <text x="220" y="50" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Bein gestreckt seitlich wegführen · Becken bleibt ruhig</text>
+
+  <line x1="40" y1="258" x2="400" y2="258" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="72" y1="96" x2="72" y2="258" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="62" y="230" width="18" height="18" rx="3" fill="#9aa3b0"/>
+
+  <path d="M80,239 L112,231 L142,245 L172,233 L202,247 L232,235 L262,249 L292,238 L316,247" fill="none" stroke="#2f9e44" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <circle cx="238" cy="160" r="20" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M238,160 L241,210 L238,258" stroke-width="7.5"/>
+    <path d="M238,160 L286,206 L318,248" stroke-width="7.5"/>
+    <path d="M238,160 L236,94" stroke-width="7.5"/>
+    <path d="M236,98 L212,156" stroke-width="5"/>
+  </g>
+  <circle cx="236" cy="76" r="18" fill="#2c3e50"/>
+
+  <path d="M290,254 Q322,256 340,240" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+
+  <text x="220" y="276" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">3 × 12–15 je Seite · das Standbein arbeitet genauso hart mit</text>
+</svg>

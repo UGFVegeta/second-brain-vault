@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 295" width="440" height="295" role="img" aria-label="Seitlicher Ausfallschritt">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="295" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="30" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">B6 · Seitlicher Ausfallschritt (Frontansicht)</text>
+  <text x="220" y="50" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Gewicht zur Seite verlagern · anderes Bein bleibt gestreckt</text>
+
+  <line x1="40" y1="266" x2="400" y2="266" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+
+  <circle cx="176" cy="158" r="20" fill="#e8590c" opacity="0.15"/>
+  <circle cx="250" cy="170" r="17" fill="#2f9e44" opacity="0.14"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M172,106 L232,106" stroke-width="7.5"/>
+    <path d="M202,106 L200,158" stroke-width="7.5"/>
+    <path d="M176,158 L226,158" stroke-width="7.5"/>
+    <path d="M176,158 L152,212 L152,266" stroke-width="7.5"/>
+    <path d="M226,158 L286,216 L332,266" stroke-width="7.5"/>
+    <path d="M172,108 L138,150" stroke-width="5"/>
+    <path d="M232,108 L266,150" stroke-width="5"/>
+  </g>
+  <circle cx="202" cy="84" r="18" fill="#2c3e50"/>
+
+  <path d="M108,164 L108,220" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+
+  <text x="352" y="196" font-family="system-ui,sans-serif" font-size="12" fill="#2f9e44" text-anchor="middle">Adduktoren</text>
+  <text x="220" y="288" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">3 × 8 je Seite · trainiert die Frontalebene, die beim Laufen fehlt</text>
+</svg>

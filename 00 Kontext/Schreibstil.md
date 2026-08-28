@@ -27,13 +27,25 @@ Du-Form – bei Schülern, Kollegen und Schulleitung gleichermaßen.
 - Lange Einleitungen bevor das eigentliche Anliegen kommt
 - Emojis in Mails und schulischen Texten
 
+## Basis: der Skill `vermenschlichen`
+
+Seit 17.08.2026 gilt der global installierte Skill `vermenschlichen` als Basis für alle deutschen Texte (Regelwerk gegen typische KI-Muster, abgeleitet aus den Wikipedia-Seiten „Anzeichen für KI-generierte Inhalte"). Er hat im Zweifel recht. Diese Notiz hier ergänzt ihn und ist Master für Oskars persönliche Ebene. Technische Ablage: `~/.claude/skills/vermenschlichen` und `~/.claude/skills/schreibstil-oskar`, verankert in `~/.claude/CLAUDE.md`.
+
+Die einzige Stelle, an der Oskars Regel vorgeht, ist der **Grundton nach Empfänger**: intern (Kollegen, Konrektor, Schulleitung, Schüler) Oskars lockerer Du-Ton, extern (Behörden, Firmen, Handwerker, Bewerbungen, Öffentliches) der sachliche Ton aus `vermenschlichen`.
+
+### Am 17.08.2026 aufgegeben
+
+Vier frühere Sonderregeln hat Oskar zugunsten von `vermenschlichen` gestrichen:
+
+- **Gedankenstriche.** Früher: niemals (bestätigt 2026-06-20). Jetzt: sparsam erlaubt, ein bewusst gesetzter ist in Ordnung, mehrere pro Absatz sind ein Warnsignal. Bei Spannen der Bis-Strich, also „2020–2024".
+- **Aufzählungen.** Früher: in Nachrichten und Briefen gar keine. Jetzt: erlaubt, wenn der Inhalt wirklich eine Liste ist. Fließende Zusammenhänge weiter in Sätze, und das Muster „Punkt plus fettes Schlagwort plus Doppelpunkt" bleibt tabu.
+- **Zuspitzung.** Früher: Pointen und Spitzen bewusst stehen lassen. Jetzt: neutral formulieren. Neutral heißt sachlich, nicht weich, relativierende Halbsätze bleiben gestrichen.
+- **Anrede und Gruß.** War kein echter Konflikt: `vermenschlichen` verbietet Briefformeln in Artikeln, nicht in Briefen. Mails behalten freundlichen Einstieg und klaren Abschluss.
+
 ## Konkrete Erkenntnisse (aus der Zusammenarbeit)
 
-- **Keine Aufzählungen in Nachrichten/Briefen.** Auch bei mehreren Punkten Fließtext, keine Bulletlisten. Listen wirken zu schematisch.
 - **"Zu sehr nach KI" ist ein echtes Ablehnungskriterium.** Vermeiden: glatte, perfekt ausbalancierte Sätze, Dreiklänge/Tricolon, durchgestylte Symmetrie. Lieber plain und gesprochen-natürlich, ruhig mit kurzen, einfachen Sätzen.
-- **Gedankenstriche/Bindestriche niemals verwenden.** Oskar nutzt sie nie. Stattdessen Punkt, Komma oder Satz umbauen. (Bestätigt 2026-06-20.)
 - **Kein blumiges Lob.** Formulierungen wie "durchweg freundliche und kompetente Beratung, das haben wir sehr geschätzt" sind zu viel und nicht Oskars Stimme. Schlicht bleiben: "vielen Dank für Ihre freundliche Beratung" reicht.
-- **Oskars Direktheit nicht glätten.** Pointierte, auch mal provokante Formulierungen ("unterirdisch", kleine Spitzen) bewusst stehen lassen – Abmildern nimmt die Wirkung.
 - **Keine relativierenden Zusätze**, die den eigenen Punkt verwässern (Halbsätze wie "das wirkt sich zwar nicht … aus" eher streichen).
 - **Wir-Form** statt "unsere Klasse" o. ä. – konsequent "wir".
 - **Fakten vor Wirkung:** Lieber eine schwächere, aber korrekte Aussage als eine wirkungsvolle, die sachlich nicht stimmt. Bei Unsicherheit über Regelungen nachfragen statt plausibel klingende Hebel erfinden.

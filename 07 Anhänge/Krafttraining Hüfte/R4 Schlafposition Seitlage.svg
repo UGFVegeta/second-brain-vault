@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 288" width="440" height="288" role="img" aria-label="Schlafposition Seitlage mit Kissen zwischen Knien und Fußgelenken">
+  <rect width="440" height="288" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="28" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">R4 · Schlafposition Seitlage</text>
+  <text x="220" y="48" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Kissen zwischen Knien UND Fußgelenken · Bein bleibt parallel</text>
+
+  <text x="292" y="104" font-family="system-ui,sans-serif" font-size="12" fill="#3d6f9e" text-anchor="middle">Knie</text>
+  <line x1="292" y1="112" x2="292" y2="186" stroke="#7aa7cc" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="382" y="128" font-family="system-ui,sans-serif" font-size="12" fill="#3d6f9e" text-anchor="middle">Fußgelenke</text>
+  <line x1="374" y1="136" x2="350" y2="188" stroke="#7aa7cc" stroke-width="2" stroke-dasharray="4 4"/>
+
+  <rect x="40" y="216" width="360" height="32" rx="6" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+  <rect x="58" y="188" width="54" height="28" rx="13" fill="#cfe3f5" stroke="#7aa7cc" stroke-width="3"/>
+
+  <g fill="none" stroke="#aeb6c2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M226,212 L290,214 L348,216" stroke-width="7.5"/>
+  </g>
+
+  <circle cx="226" cy="202" r="19" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M122,198 L226,206" stroke-width="7.5"/>
+    <path d="M226,196 L290,190 L348,192" stroke-width="7.5"/>
+    <path d="M124,204 L176,216" stroke-width="5"/>
+  </g>
+  <circle cx="96" cy="196" r="17" fill="#2c3e50"/>
+
+  <rect x="268" y="188" width="46" height="28" rx="12" fill="#cfe3f5" stroke="#7aa7cc" stroke-width="3" opacity="0.95"/>
+  <rect x="330" y="190" width="34" height="26" rx="12" fill="#cfe3f5" stroke="#7aa7cc" stroke-width="3" opacity="0.95"/>
+
+  <text x="220" y="270" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">Ohne zweites Kissen kippt der Fuß ab und die Hüfte geht in Adduktion</text>
+</svg>

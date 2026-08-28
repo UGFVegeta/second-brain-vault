@@ -1,0 +1,1505 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Physik Klasse 7 | Dashboard</title><style>
+:root{--bg:#0e1218;--card:#151a23;--card2:#1c2330;--line:#222a38;
+--t1:#e8ecf2;--t2:#c6cdd8;--t3:#8b94a3;--t4:#657084;
+--blue:#5aa2f0;--purple:#a78bfa;--green:#2dd4a7;--amber:#f0b954;
+--pink:#f27ba8;--red:#f0716b;--shadow:0 1px 3px rgba(0,0,0,.4)}
+html.light{--bg:#eef1f6;--card:#fff;--card2:#e9edf3;--line:#dde2ea;
+--t1:#1c222c;--t2:#3d4654;--t3:#6b7586;--t4:#97a0af;
+--blue:#2a78d6;--purple:#7c5cd6;--green:#149d76;--amber:#b97f14;
+--pink:#d4537e;--red:#d84b45;--shadow:0 1px 3px rgba(20,30,50,.09)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t1);
+font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;padding:26px 20px 70px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+h1{font-size:25px;margin:0;font-weight:650;letter-spacing:-.015em}
+.badge{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--amber);
+background:color-mix(in srgb,var(--amber) 13%,transparent);
+border:1px solid color-mix(in srgb,var(--amber) 32%,transparent);border-radius:9px;padding:3px 10px}
+#themeBtn{margin-left:auto;background:var(--card);color:var(--t2);border:1px solid var(--line);
+border-radius:10px;padding:4px 12px;font-size:12.5px;cursor:pointer}
+.subtitle{font-size:13px;color:var(--t3);margin:5px 0 18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:11px 15px;box-shadow:var(--shadow)}
+.stat .lbl{font-size:11.5px;color:var(--t3)}
+.stat .val{font-size:22px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .sub{font-size:11px;color:var(--t4)}
+.tabs-io>input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+nav.tabs label{background:var(--card);border:1px solid var(--line);color:var(--t3);border-radius:11px;
+padding:7px 15px;font-size:13px;cursor:pointer;user-select:none}
+nav.tabs label:hover{color:var(--t1);border-color:var(--t4)}
+section.tab{display:none}
+h2.frage{font-size:17px;margin:26px 0 4px;font-weight:640;letter-spacing:-.01em}
+h2.frage .nr{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+color:var(--purple);display:block;margin-bottom:2px}
+.antwort{background:color-mix(in srgb,var(--green) 10%,var(--card));border:1px solid
+color-mix(in srgb,var(--green) 30%,var(--line));border-radius:12px;padding:10px 14px;font-size:13.5px;
+color:var(--t2);margin:8px 0 16px}
+.karte{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+margin-bottom:12px;box-shadow:var(--shadow)}
+.karte h3{margin:0 0 8px;font-size:15px;font-weight:620}
+.karte h3 .art{font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+color:var(--amber);margin-left:8px}
+.bild{background:#fff;border-radius:10px;padding:8px;overflow:hidden}
+.bild svg{width:100%;height:auto;display:block}
+.merk{font-size:13px;color:var(--t2);margin-top:9px;padding-left:11px;border-left:3px solid var(--pink)}
+.vfeld{font-size:12.5px;color:var(--t2);margin-top:8px}
+.vfeld b{color:var(--t1)}
+details{margin-top:10px;font-size:12.5px;color:var(--t3)}
+details summary{cursor:pointer;color:var(--blue)}
+details ol{margin:6px 0 0 0;padding-left:20px}
+details li{margin-bottom:2px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--card);
+border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:var(--shadow)}
+th{text-align:left;padding:8px 11px;color:var(--t3);font-weight:600;font-size:11.5px;
+text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--line);background:var(--card2)}
+td{padding:8px 11px;border-bottom:1px solid var(--line);color:var(--t2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.w{color:var(--t1);font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+td.nr{font-variant-numeric:tabular-nums;color:var(--amber);white-space:nowrap}
+.blk{display:inline-block;font-size:11px;padding:1px 8px;border-radius:7px;white-space:nowrap;
+background:var(--card2);color:var(--t3);border:1px solid var(--line)}
+.blk.optik{color:var(--blue);border-color:color-mix(in srgb,var(--blue) 35%,transparent)}
+.blk.akustik{color:var(--purple);border-color:color-mix(in srgb,var(--purple) 35%,transparent)}
+.blk.magnet{color:var(--green);border-color:color-mix(in srgb,var(--green) 35%,transparent)}
+.blk.strom{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 35%,transparent)}
+.blk.ka{color:var(--red);border-color:color-mix(in srgb,var(--red) 35%,transparent)}
+.hinweis{font-size:12.5px;color:var(--t3);margin:14px 0 0;padding:11px 14px;background:var(--card);
+border:1px solid var(--line);border-radius:12px}
+/* Stile der Folien-SVGs, damit die Zeichnungen hier genauso aussehen */
+svg .licht{stroke:#E8B400;stroke-width:1.4;fill:none}
+svg .koerper{fill:#6E6E6E;stroke:#333;stroke-width:1}
+svg .hilfslinie{stroke:#999;stroke-width:.8;stroke-dasharray:4 3;fill:none}
+svg .beschriftung{font-family:-apple-system,Helvetica,sans-serif;font-size:11px;fill:#111}
+svg .beschriftung.klein{font-size:9.5px}
+svg .kursiv{font-style:italic}
+</style></head><body><div class='wrap'>
+<header><h1>Physik Klasse 7</h1><span class="badge">Schuljahr 2026/27</span><button id="themeBtn">Hell / Dunkel</button></header>
+<div class="subtitle">Nachschlagewerk zu Jahresplanung, Inhalten und Versuchen. Erzeugt aus den Foliensätzen, ohne die leeren Zeichenseiten.</div>
+<div class="stats">
+<div class="stat"><div class="lbl">Unterrichtswochen</div><div class="val">39</div><div class="sub">18 + 21</div></div>
+<div class="stat"><div class="lbl">Stunden brutto</div><div class="val">78</div><div class="sub">rund 68 planbar</div></div>
+<div class="stat"><div class="lbl">Leitfragen</div><div class="val">12</div><div class="sub">durchnummeriert</div></div>
+<div class="stat"><div class="lbl">Inhaltsseiten</div><div class="val">42</div><div class="sub">mit Zeichnung</div></div>
+<div class="stat"><div class="lbl">Phywe-Versuche</div><div class="val">16</div><div class="sub">zugeordnet</div></div>
+</div>
+<div class="tabs-io">
+<input type="radio" name="tab" id="t-plan" checked>
+<input type="radio" name="tab" id="t-optik1">
+<input type="radio" name="tab" id="t-optik2">
+<input type="radio" name="tab" id="t-akustik">
+<input type="radio" name="tab" id="t-versuche">
+<style>
+#t-plan:checked ~ nav.tabs label[for="t-plan"]{background:var(--card2);color:var(--t1);border-color:var(--blue);font-weight:600}
+#t-plan:checked ~ #s-plan{display:block}
+#t-optik1:checked ~ nav.tabs label[for="t-optik1"]{background:var(--card2);color:var(--t1);border-color:var(--blue);font-weight:600}
+#t-optik1:checked ~ #s-optik1{display:block}
+#t-optik2:checked ~ nav.tabs label[for="t-optik2"]{background:var(--card2);color:var(--t1);border-color:var(--blue);font-weight:600}
+#t-optik2:checked ~ #s-optik2{display:block}
+#t-akustik:checked ~ nav.tabs label[for="t-akustik"]{background:var(--card2);color:var(--t1);border-color:var(--blue);font-weight:600}
+#t-akustik:checked ~ #s-akustik{display:block}
+#t-versuche:checked ~ nav.tabs label[for="t-versuche"]{background:var(--card2);color:var(--t1);border-color:var(--blue);font-weight:600}
+#t-versuche:checked ~ #s-versuche{display:block}
+</style>
+<nav class="tabs">
+<label for="t-plan">Jahresplan</label>
+<label for="t-optik1">Optik I</label>
+<label for="t-optik2">Optik II</label>
+<label for="t-akustik">Akustik</label>
+<label for="t-versuche">Versuche</label>
+</nav>
+<section class="tab" id="s-plan"><table><tr><th>Woche</th><th>ab</th><th>Block</th><th>Thema</th><th>Bildungsplan</th><th>Folien</th></tr>
+<tr><td class="w">W01</td><td class="w">14.09.2026</td><td><span class="blk ">Einstieg</span></td><td>Was macht die Physik? Sicherheit und Regeln im Fachraum</td><td>3.1.1 (1)</td><td>–</td></tr>
+<tr><td class="w">W02</td><td class="w">21.09.2026</td><td><span class="blk ">Einstieg</span></td><td>Messen: Größe, Maßzahl, Einheit. Beobachten gegen Erklären. Protokollform</td><td>3.1.1 (1), (2), (4)</td><td>–</td></tr>
+<tr><td class="w">W03</td><td class="w">28.09.2026</td><td><span class="blk optik">Optik I</span></td><td>F1 Warum sehen wir überhaupt etwas? Sehvorgang, Lichtquellen und beleuchtete Körper</td><td>3.1.3 (1)</td><td>Optik I, S. 2–10</td></tr>
+<tr><td class="w">W04</td><td class="w">05.10.2026</td><td><span class="blk optik">Optik I</span></td><td>F2 Was passiert mit dem Licht am Körper? Streuung, Absorption, Emission, Transmission</td><td>3.1.3 (5)</td><td>Optik I, S. 11–17</td></tr>
+<tr><td class="w">W05</td><td class="w">12.10.2026</td><td><span class="blk optik">Optik I</span></td><td>F3 Warum sehen wir nicht um die Ecke? Lichtausbreitung, Blende, Lichtstrahlenmodell</td><td>3.1.3 (2), 3.1.1 (3)</td><td>Optik I, S. 18–26</td></tr>
+<tr><td class="w">W06</td><td class="w">19.10.2026</td><td><span class="blk optik">Optik I</span></td><td>F4 Warum hat ein Schatten weiche Ränder? Schattenraum, Kern- und Halbschatten</td><td>3.1.3 (3)</td><td>Optik I, S. 27–32</td></tr>
+<tr><td class="w">W07</td><td class="w">02.11.2026</td><td><span class="blk optik">Optik I</span></td><td>Versuch Kern- und Halbschatten, F4 Antwort und Check. Einstieg F5</td><td>3.1.3 (3), (4)</td><td>Optik I, S. 33–39</td></tr>
+<tr><td class="w">W08</td><td class="w">09.11.2026</td><td><span class="blk optik">Optik I</span></td><td>F5 Mondbahn und Mondphasen, Sonnen- und Mondfinsternis</td><td>3.1.3 (4)</td><td>Optik I, S. 40–50</td></tr>
+<tr><td class="w">W09</td><td class="w">16.11.2026</td><td><span class="blk optik">Optik I</span></td><td>Lochkamera: Bildentstehung, Bau als Hausaufgabe, Versuch, Rückblick</td><td>3.1.3 (2), (3)</td><td>Optik I, S. 51–57</td></tr>
+<tr><td class="w">W10</td><td class="w">23.11.2026</td><td><span class="blk optik">Optik II</span></td><td>F6 Was passiert am Spiegel? Reflexionsgesetz, Versuch mit der Kreisscheibe</td><td>3.1.3 (6)</td><td>Optik II, S. 2–7</td></tr>
+<tr><td class="w">W11</td><td class="w">30.11.2026</td><td><span class="blk optik">Optik II</span></td><td>Das Spiegelbild, Anwendung Spiegelgröße, F6 Antwort und Check</td><td>3.1.3 (6)</td><td>Optik II, S. 8–14</td></tr>
+<tr><td class="w">W12</td><td class="w">07.12.2026</td><td><span class="blk optik">Optik II</span></td><td>F7 Warum sieht der Strohhalm geknickt aus? Brechung und ihre Richtung</td><td>3.1.3 (7)</td><td>Optik II, S. 15–23</td></tr>
+<tr><td class="w">W13</td><td class="w">14.12.2026</td><td><span class="blk optik">Optik II</span></td><td>F8 Wie vergrößert eine Lupe? Sammel- und Zerstreuungslinse, Versuch Strahlengänge</td><td>3.1.3 (8)</td><td>Optik II, S. 24–29</td></tr>
+<tr><td class="w">W14</td><td class="w">21.12.2026</td><td><span class="blk ">Puffer</span></td><td>verkürzte Woche: Wiederholung, Nacharbeiten, Vorziehen</td><td>–</td><td>–</td></tr>
+<tr><td class="w">W15</td><td class="w">11.01.2027</td><td><span class="blk optik">Optik II</span></td><td>Bildentstehung an der Sammellinse, so wirkt die Lupe, das Auge</td><td>3.1.3 (8)</td><td>Optik II, S. 30–35</td></tr>
+<tr><td class="w">W16</td><td class="w">18.01.2027</td><td><span class="blk optik">Optik II</span></td><td>Kurz- und Weitsichtigkeit, F8 Antwort und Check. Wiederholung Optik</td><td>3.1.3 (8)</td><td>Optik II, S. 36–40</td></tr>
+<tr><td class="w">W17</td><td class="w">25.01.2027</td><td><span class="blk ka">Klassenarbeit</span></td><td><b>Klassenarbeit 1</b>: Optik I und Optik II bis Linsen</td><td>3.1.3 (1)–(8)</td><td>–</td></tr>
+<tr><td class="w">W18</td><td class="w">01.02.2027</td><td><span class="blk ">Puffer</span></td><td>Besprechung der Klassenarbeit, Rückgabe, Nacharbeit</td><td>–</td><td>–</td></tr>
+<tr><td class="w">W19</td><td class="w">15.02.2027</td><td><span class="blk optik">Optik II</span></td><td>F9 Woher kommen die Farben? Prisma und Spektrum, Regenbogen</td><td>3.1.3 (9)</td><td>Optik II, S. 41–46</td></tr>
+<tr><td class="w">W20</td><td class="w">22.02.2027</td><td><span class="blk optik">Optik II</span></td><td>Unsichtbares Licht (IR und UV), Farbaddition, Rückblick, Glasfaserkabel</td><td>3.1.3 (9), (10.M)</td><td>Optik II, S. 47–55</td></tr>
+<tr><td class="w">W21</td><td class="w">01.03.2027</td><td><span class="blk akustik">Akustik</span></td><td>F10 Wie entsteht Schall? Sender, Ausbreitung, Empfänger, Schallwelle im Modell</td><td>3.1.3 (11.E)</td><td>Akustik, S. 2–12</td></tr>
+<tr><td class="w">W22</td><td class="w">08.03.2027</td><td><span class="blk akustik">Akustik</span></td><td>F11 Laut oder leise, hoch oder tief? Pendelversuch, Amplitude, Periode, Frequenz</td><td>3.1.3 (12.E)</td><td>Akustik, S. 13–18</td></tr>
+<tr><td class="w">W23</td><td class="w">15.03.2027</td><td><span class="blk akustik">Akustik</span></td><td>Ton, Klang, Geräusch, Knall. Saitenversuch, F11 Antwort und Check</td><td>3.1.3 (12.E), (13.E)</td><td>Akustik, S. 19–27</td></tr>
+<tr><td class="w">W24</td><td class="w">22.03.2027</td><td><span class="blk akustik">Akustik</span></td><td>verkürzte Woche: F12 Hörvorgang im Ohr, Lärm und Hörschädigung, Gewitterfrage</td><td>3.1.3 (14.E)</td><td>Akustik, S. 28–38</td></tr>
+<tr><td class="w">W25</td><td class="w">05.04.2027</td><td><span class="blk magnet">Magnetismus</span></td><td>Phänomene des Magnetismus, ferromagnetische Stoffe, Magnetpole</td><td>3.1.6 (1)</td><td>noch zu erstellen</td></tr>
+<tr><td class="w">W26</td><td class="w">12.04.2027</td><td><span class="blk magnet">Magnetismus</span></td><td>Anziehung und Abstoßung, Magnetfeld als Wirkungsraum</td><td>3.1.6 (1)</td><td>noch zu erstellen</td></tr>
+<tr><td class="w">W27</td><td class="w">19.04.2027</td><td><span class="blk magnet">Magnetismus</span></td><td>Feldlinienbild des Stabmagneten, Kompass und Erdmagnetfeld</td><td>3.1.6 (2)</td><td>noch zu erstellen</td></tr>
+<tr><td class="w">W28</td><td class="w">26.04.2027</td><td><span class="blk magnet">Magnetismus</span></td><td>Elementarmagnetmodell, Magnetisieren und Entmagnetisieren, Anwendungen</td><td>3.1.6 (2), 3.1.1 (3)</td><td>noch zu erstellen</td></tr>
+<tr><td class="w">W29</td><td class="w">03.05.2027</td><td><span class="blk strom">Stromkreis</span></td><td>verkürzte Woche: Bauteile des Stromkreises, Schaltsymbole</td><td>3.1.7 (1)</td><td>Klasse 8, &bdquo;3. Der einfache Stromkreis"</td></tr>
+<tr><td class="w">W30</td><td class="w">10.05.2027</td><td><span class="blk strom">Stromkreis</span></td><td>Leiter und Nichtleiter, Versuch. Schaltpläne lesen und zeichnen</td><td>3.1.7 (2), (5)</td><td>Klasse 8, &bdquo;Leiter & Nichtleiter"</td></tr>
+<tr><td class="w">W31</td><td class="w">31.05.2027</td><td><span class="blk strom">Stromkreis</span></td><td>Stromstärke, Spannung und Widerstand qualitativ als Antrieb und Hemmnis</td><td>3.1.7 (3)</td><td>Klasse 8, &bdquo;6." und &bdquo;7."</td></tr>
+<tr><td class="w">W32</td><td class="w">07.06.2027</td><td><span class="blk strom">Stromkreis</span></td><td>Modelle für den Stromkreis, zum Beispiel Wasser- oder Fahrradkettenmodell</td><td>3.1.7 (4), 3.1.1 (3)</td><td>noch zu erstellen</td></tr>
+<tr><td class="w">W33</td><td class="w">14.06.2027</td><td><span class="blk strom">Stromkreis</span></td><td>Schaltungen aufbauen, Und- und Oder-Schaltung</td><td>3.1.7 (5)</td><td>Klasse 8, &bdquo;4. Und- & Oder-Schaltung"</td></tr>
+<tr><td class="w">W34</td><td class="w">21.06.2027</td><td><span class="blk strom">Stromkreis</span></td><td>Stromstärke und Spannung messen, Umgang mit dem Messgerät</td><td>3.1.7 (6)</td><td>Klasse 8, &bdquo;Messung Stromstärke und Spannung"</td></tr>
+<tr><td class="w">W35</td><td class="w">28.06.2027</td><td><span class="blk strom">Stromkreis</span></td><td>Gefahren des elektrischen Stroms, Schutzmaßnahmen. Wiederholung</td><td>3.1.7 (11)</td><td>noch zu erstellen</td></tr>
+<tr><td class="w">W36</td><td class="w">05.07.2027</td><td><span class="blk ka">Klassenarbeit</span></td><td><b>Klassenarbeit 2</b>: Farben, Akustik, Magnetismus, Stromkreis</td><td>3.1.3 (9)–(14.E), 3.1.6, 3.1.7 (1)–(6)</td><td>–</td></tr>
+<tr><td class="w">W37</td><td class="w">12.07.2027</td><td><span class="blk ka">Klassenarbeit</span></td><td>Besprechung, Rückgabe, Nacharbeit</td><td>–</td><td>–</td></tr>
+<tr><td class="w">W38</td><td class="w">19.07.2027</td><td><span class="blk ">Puffer</span></td><td>Projekt oder Vertiefung, zum Beispiel Elektromotor oder Optikstationen</td><td>–</td><td>–</td></tr>
+<tr><td class="w">W39</td><td class="w">26.07.2027</td><td><span class="blk ">Puffer</span></td><td>verkürzte Woche: Rückblick auf das Schuljahr, Ausblick Klasse 8</td><td>–</td><td>–</td></tr>
+</table></section>
+<section class="tab" id="s-optik1"><div class="subtitle">Optik I: Licht, Ausbreitung, Schatten, Astronomie</div>
+<h2 class="frage"><span class="nr">Leitfrage 1</span>Warum sehen wir überhaupt etwas?</h2>
+<div class="antwort">Wir sehen einen Gegenstand nur, wenn Licht von ihm in unser Auge gelangt. Dazu braucht es eine Lichtquelle als Sender. Die meisten Gegenstände um uns herum sind beleuchtete Körper: Sie werfen fremdes Licht zurück.</div>
+<div class="karte"><h3>1. Wie sehen wir?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Lampe -->
+      <rect x="46" y="26" width="34" height="16" rx="3" fill="#8DA6C2" stroke="#66798E"/>
+      <path d="M55 42 h16 l-3 10 h-10 z" fill="#B0B0B0" stroke="#666"/>
+      <circle cx="63" cy="56" r="7" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="34" y="20">Lichtquelle (Sender)</text>
+      <!-- Strahlen Lampe -> Gegenstand -->
+      <g class="licht">
+        <line x1="63" y1="63" x2="252" y2="120"/>
+        <line x1="63" y1="63" x2="252" y2="146"/>
+        <line x1="63" y1="63" x2="252" y2="172"/>
+      </g>
+      <!-- Gegenstand: Apfel -->
+      <circle cx="278" cy="146" r="28" fill="#D24B4B" stroke="#8E2B2B"/>
+      <path d="M278 118 q4 -12 14 -14" fill="none" stroke="#4B7A2B" stroke-width="2.5"/>
+      <text class="beschriftung" x="240" y="196">Gegenstand</text>
+      <!-- gestreutes Licht in alle Richtungen -->
+      <g class="licht">
+        <line x1="304" y1="132" x2="470" y2="92"/>
+        <line x1="304" y1="146" x2="470" y2="106"/>
+        <line x1="306" y1="120" x2="400" y2="60"/>
+        <line x1="306" y1="164" x2="400" y2="196"/>
+      </g>
+      <!-- Auge -->
+      <path d="M486 100 q26 -22 52 0 q-26 22 -52 0 z" fill="#fff" stroke="#333" stroke-width="1.6"/>
+      <circle cx="512" cy="100" r="8" fill="#3A5A8C"/>
+      <circle cx="512" cy="100" r="3.5" fill="#111"/>
+      <text class="beschriftung" x="470" y="140">Auge (Empfänger)</text>
+      <!-- Ablauf -->
+      <text class="beschriftung klein" x="150" y="86">1. Licht trifft den Gegenstand</text>
+      <text class="beschriftung klein" x="352" y="86">2. Licht wird zurückgeworfen</text>
+    </svg></div><div class="merk">Wir sehen einen Gegenstand nur, wenn Licht von ihm in unser Auge gelangt. Die Lichtquelle ist der Sender, das Auge der Empfänger.</div></div>
+<div class="karte"><h3>2. Lichtquellen und beleuchtete Körper</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="18" x2="318" y2="196" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="6 4"/>
+      <text class="beschriftung" x="86" y="26" font-weight="600">Lichtquellen</text>
+      <text class="beschriftung" x="392" y="26" font-weight="600">beleuchtete Körper</text>
+
+      <!-- Sonne -->
+      <circle cx="70" cy="80" r="20" fill="#FFD34D" stroke="#B98900"/>
+      <g stroke="#E8B400" stroke-width="1.6">
+        <line x1="70" y1="48" x2="70" y2="40"/><line x1="70" y1="112" x2="70" y2="120"/>
+        <line x1="38" y1="80" x2="30" y2="80"/><line x1="102" y1="80" x2="110" y2="80"/>
+        <line x1="47" y1="57" x2="41" y2="51"/><line x1="93" y1="103" x2="99" y2="109"/>
+        <line x1="93" y1="57" x2="99" y2="51"/><line x1="47" y1="103" x2="41" y2="109"/>
+      </g>
+      <text class="beschriftung klein" x="54" y="140">Sonne</text>
+
+      <!-- Kerze -->
+      <rect x="152" y="72" width="18" height="46" fill="#F0E2C0" stroke="#B9A87A"/>
+      <path d="M161 72 q-9 -12 0 -24 q9 12 0 24 z" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="146" y="140">Kerze</text>
+
+      <!-- Gluehlampe -->
+      <circle cx="248" cy="82" r="17" fill="#FFF2C2" stroke="#B98900"/>
+      <rect x="240" y="99" width="16" height="12" fill="#B0B0B0" stroke="#666"/>
+      <text class="beschriftung klein" x="222" y="140">Glühlampe</text>
+
+      <!-- Mond -->
+      <path d="M392 60 a30 30 0 1 0 0 56 a24 24 0 1 1 0 -56 z" fill="#DCDCDC" stroke="#8A8A8A"/>
+      <text class="beschriftung klein" x="368" y="140">Mond</text>
+
+      <!-- Buch -->
+      <path d="M452 74 h34 v46 h-34 z" fill="#fff" stroke="#555"/>
+      <path d="M486 74 h34 v46 h-34 z" fill="#fff" stroke="#555"/>
+      <line x1="486" y1="74" x2="486" y2="120" stroke="#555"/>
+      <text class="beschriftung klein" x="470" y="140">Buch</text>
+
+      <!-- Baum -->
+      <rect x="576" y="98" width="9" height="24" fill="#8B5A2B"/>
+      <circle cx="580.5" cy="88" r="21" fill="#5E9B45" stroke="#3E6B2E"/>
+      <text class="beschriftung klein" x="562" y="140">Baum</text>
+
+      <text class="beschriftung klein" x="46" y="176">senden selbst Licht aus</text>
+      <text class="beschriftung klein" x="392" y="176">werfen fremdes Licht zurück</text>
+    </svg></div><div class="merk">Lichtquellen senden selbst Licht aus (Selbstleuchter). Beleuchtete Körper senden nur Licht aus, das sie von einer Lichtquelle bekommen haben.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) c)</summary>
+<div style='margin-top:8px'><b>1) Warum kannst du dein Physikheft sehen?</b><ol type='a'><li>Weil das Heft selbst Licht aussendet.</li><li>Weil Licht vom Heft in dein Auge gelangt.</li><li>Weil deine Augen Licht aussenden.</li><li>Weil das Heft hell ist.</li><li>Der Mond</li><li>Ein Spiegel</li><li>Eine brennende Kerze</li><li>Eine weiße Wand</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 2</span>Was passiert mit dem Licht, wenn es auf einen Körper trifft?</h2>
+<div class="antwort">Das Licht wird zurückgeworfen (Streuung), verschluckt (Absorption) oder durchgelassen (Transmission). Meist geschieht mehreres gleichzeitig. Sendet ein Körper selbst Licht aus, spricht man von Emission.</div>
+<div class="karte"><h3>3. Licht trifft auf einen Körper</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4">
+        <line x1="159" y1="16" x2="159" y2="180"/>
+        <line x1="318" y1="16" x2="318" y2="180"/>
+        <line x1="477" y1="16" x2="477" y2="180"/>
+      </g>
+
+      <!-- Emission -->
+      <circle cx="80" cy="90" r="15" fill="#FFD34D" stroke="#B98900"/>
+      <g class="licht">
+        <line x1="80" y1="70" x2="80" y2="52"/><line x1="80" y1="110" x2="80" y2="128"/>
+        <line x1="60" y1="90" x2="42" y2="90"/><line x1="100" y1="90" x2="118" y2="90"/>
+        <line x1="66" y1="76" x2="53" y2="63"/><line x1="94" y1="104" x2="107" y2="117"/>
+        <line x1="94" y1="76" x2="107" y2="63"/><line x1="66" y1="104" x2="53" y2="117"/>
+      </g>
+      <text class="beschriftung" x="42" y="166" font-weight="600">Emission</text>
+      <text class="beschriftung klein" x="30" y="182">Körper sendet Licht aus</text>
+
+      <!-- Streuung -->
+      <rect x="216" y="60" width="14" height="62" fill="#C8C8C8" stroke="#555"/>
+      <g class="licht"><line x1="176" y1="66" x2="216" y2="86"/></g>
+      <g class="licht">
+        <line x1="216" y1="86" x2="184" y2="112"/>
+        <line x1="216" y1="86" x2="192" y2="60"/>
+        <line x1="216" y1="86" x2="176" y2="90"/>
+        <line x1="216" y1="86" x2="200" y2="128"/>
+      </g>
+      <text class="beschriftung" x="196" y="166" font-weight="600">Streuung</text>
+      <text class="beschriftung klein" x="176" y="182">Licht wird zurückgeworfen</text>
+
+      <!-- Absorption -->
+      <rect x="374" y="60" width="16" height="62" fill="#2E2E2E" stroke="#111"/>
+      <g class="licht">
+        <line x1="334" y1="72" x2="374" y2="82"/>
+        <line x1="334" y1="102" x2="374" y2="98"/>
+      </g>
+      <text class="beschriftung" x="348" y="166" font-weight="600">Absorption</text>
+      <text class="beschriftung klein" x="338" y="182">Licht wird verschluckt</text>
+
+      <!-- Transmission -->
+      <rect x="532" y="56" width="13" height="70" fill="#CFE4F2" stroke="#6E9BB8" opacity="0.8"/>
+      <g class="licht">
+        <line x1="494" y1="76" x2="608" y2="76"/>
+        <line x1="494" y1="104" x2="608" y2="104"/>
+      </g>
+      <text class="beschriftung" x="506" y="166" font-weight="600">Transmission</text>
+      <text class="beschriftung klein" x="500" y="182">Licht geht hindurch</text>
+    </svg></div><div class="merk">Licht kann ausgesendet (Emission), zurückgeworfen (Streuung), verschluckt (Absorption) oder durchgelassen (Transmission) werden.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) a 2) c)</summary>
+<div style='margin-top:8px'><b>1) Ein schwarzes T-Shirt sieht schwarz aus. Was passiert dort mit dem Licht?</b><ol type='a'><li>Es wird fast vollständig verschluckt.</li><li>Es geht vollständig hindurch.</li><li>Es wird vollständig zurückgeworfen.</li><li>Es wird verstärkt.</li><li>Absorption</li><li>Emission</li><li>Transmission</li><li>Streuung</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 3</span>Warum können wir nicht um die Ecke sehen?</h2>
+<div class="antwort">Weil sich Licht geradlinig ausbreitet. Es läuft von der Lichtquelle aus in alle Richtungen auseinander, macht aber keinen Bogen um Hindernisse. Diese Ausbreitung beschreiben wir mit dem Lichtstrahlenmodell.</div>
+<div class="karte"><h3>4. Wie breitet sich Licht aus?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g class="licht">
+        <line x1="60" y1="106" x2="24"  y2="70"/>
+        <line x1="60" y1="106" x2="12"  y2="106"/>
+        <line x1="60" y1="106" x2="24"  y2="142"/>
+        <line x1="60" y1="106" x2="60"  y2="44"/>
+        <line x1="60" y1="106" x2="60"  y2="168"/>
+      </g>
+      <g class="licht">
+        <line x1="60" y1="106" x2="324" y2="14"/>
+        <line x1="60" y1="106" x2="324" y2="46"/>
+        <line x1="60" y1="106" x2="324" y2="78"/>
+        <line x1="60" y1="106" x2="324" y2="134"/>
+        <line x1="60" y1="106" x2="324" y2="166"/>
+        <line x1="60" y1="106" x2="324" y2="198"/>
+      </g>
+      <g class="licht">
+        <line x1="60" y1="106" x2="616" y2="88"/>
+        <line x1="60" y1="106" x2="616" y2="106"/>
+        <line x1="60" y1="106" x2="616" y2="124"/>
+      </g>
+      <circle cx="60" cy="106" r="8" fill="#FFD34D" stroke="#B98900" stroke-width="1.2"/>
+      <rect x="324" y="8"   width="10" height="83" fill="#4A4A4A"/>
+      <rect x="324" y="121" width="10" height="83" fill="#4A4A4A"/>
+      <text class="beschriftung" x="30" y="132">Lichtquelle</text>
+      <text class="beschriftung" x="126" y="32">divergentes Lichtbündel</text>
+      <text class="beschriftung" x="342" y="196">Blende</text>
+      <text class="beschriftung" x="350" y="178">Spalt</text>
+      <line class="hilfslinie" x1="348" y1="174" x2="332" y2="110"/>
+      <text class="beschriftung" x="436" y="58">nahezu paralleles</text>
+      <text class="beschriftung" x="436" y="72">Lichtbündel</text>
+    </svg></div><div class="merk">Das Licht einer Lichtquelle breitet sich in verschiedene Richtungen aus. → es läuft auseinander (divergent). Mithilfe von Blenden oder Spalten kann man daraus parallele Lichtbündel erzeugen.</div></div>
+<div class="karte"><h3>5. Das Lichtstrahlenmodell</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="pfeil" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0 0 L7 3.5 L0 7 z" fill="#E8B400"/>
+        </marker>
+      </defs>
+      <text class="beschriftung" x="60" y="30" font-weight="600">Wirklichkeit: Lichtbündel</text>
+      <polygon points="60,88 60,124 268,138 268,74" fill="#FFE38A" stroke="#E8B400"/>
+      <circle cx="52" cy="106" r="9" fill="#FFD34D" stroke="#B98900"/>
+
+      <!-- Modellpfeil -->
+      <path d="M286 106 h44" stroke="#66798E" stroke-width="2" fill="none"/>
+      <path d="M330 100 l12 6 l-12 6 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="284" y="96">Modell</text>
+
+      <text class="beschriftung" x="368" y="30" font-weight="600">Modell: Lichtstrahlen</text>
+      <g class="licht" marker-end="url(#pfeil)">
+        <line x1="368" y1="82" x2="600" y2="72"/>
+        <line x1="368" y1="106" x2="600" y2="106"/>
+        <line x1="368" y1="130" x2="600" y2="140"/>
+      </g>
+      <circle cx="360" cy="106" r="9" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="404" y="176">Ein Lichtstrahl hat keine Breite.</text>
+      <text class="beschriftung klein" x="404" y="190">Er zeigt nur die Richtung des Lichts.</text>
+    </svg></div><div class="merk">Ein Lichtstrahl ist ein Modell: ein gedachter, unendlich dünner Teil eines Lichtbündels. Modelle vereinfachen die Wirklichkeit, damit wir sie zeichnen und erklären können.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) c)</summary>
+<div style='margin-top:8px'><b>1) Wie breitet sich Licht in Luft aus?</b><ol type='a'><li>In Bögen um Hindernisse herum</li><li>Geradlinig</li><li>Nur nach unten</li><li>In Wellenlinien um die Ecke</li><li>Ein besonders helles Lichtbündel</li><li>Ein Gerät im Physikraum</li><li>Ein Modell, das die Richtung des Lichts zeigt</li><li>Ein sehr dünnes Kabel</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 4</span>Warum hat ein Schatten manchmal weiche Ränder?</h2>
+<div class="antwort">Weil meistens mehrere oder ausgedehnte Lichtquellen leuchten. Im Kernschatten kommt von keiner Lichtquelle Licht an, im Halbschatten nur von einem Teil. Der Halbschatten macht den Rand weich.</div>
+<div class="karte"><h3>6. Schattenraum und Schattenbild</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Schattenraum -->
+      <polygon points="250,64 250,148 520,190 520,22" fill="#3A3A3A" opacity="0.25"/>
+      <!-- Randstrahlen -->
+      <g class="licht">
+        <line x1="60" y1="106" x2="520" y2="22"/>
+        <line x1="60" y1="106" x2="520" y2="190"/>
+        <line x1="60" y1="106" x2="250" y2="34"/>
+        <line x1="60" y1="106" x2="250" y2="178"/>
+      </g>
+      <!-- Koerper -->
+      <rect x="244" y="64" width="12" height="84" fill="#6E6E6E" stroke="#333"/>
+      <!-- Schirm -->
+      <line x1="520" y1="10" x2="520" y2="202" stroke="#333" stroke-width="2.5"/>
+      <rect x="516" y="22" width="9" height="168" fill="#3A3A3A"/>
+      <!-- Lichtquelle -->
+      <circle cx="60" cy="106" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="30" y="132">Lichtquelle</text>
+      <text class="beschriftung klein" x="206" y="170">Körper</text>
+      <text class="beschriftung klein" x="330" y="100">Schattenraum</text>
+      <text class="beschriftung klein" x="534" y="112">Schattenbild</text>
+      <text class="beschriftung klein" x="486" y="206">Schirm</text>
+    </svg></div><div class="merk">Hinter einem undurchsichtigen Körper entsteht ein Raum, in den kein Licht gelangt: der Schattenraum. Trifft er auf eine Fläche, sieht man dort das Schattenbild.</div></div>
+<div class="karte"><h3>7. Kern- und Halbschatten</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="300,76 300,136 540,193 540,70" fill="#3A3A3A" opacity="0.30"/>
+      <polygon points="300,76 540,70 540,18"  fill="#9A9A9A" opacity="0.32"/>
+      <polygon points="300,136 540,193 540,143" fill="#9A9A9A" opacity="0.32"/>
+      <g class="licht">
+        <line x1="56" y1="82" x2="540" y2="70"/>
+        <line x1="56" y1="82" x2="540" y2="193"/>
+        <line x1="56" y1="130" x2="540" y2="18"/>
+        <line x1="56" y1="130" x2="540" y2="143"/>
+      </g>
+      <rect x="294" y="76" width="12" height="60" fill="#6E6E6E" stroke="#333" stroke-width="1"/>
+      <line x1="540" y1="8" x2="540" y2="204" stroke="#333" stroke-width="2.5"/>
+      <rect x="536" y="70" width="9" height="73"  fill="#3A3A3A"/>
+      <rect x="536" y="18" width="9" height="52"  fill="#9A9A9A"/>
+      <rect x="536" y="143" width="9" height="50" fill="#9A9A9A"/>
+      <circle cx="56" cy="82"  r="7" fill="#FFD34D" stroke="#B98900"/>
+      <circle cx="56" cy="130" r="7" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="30" y="76">L<tspan font-size="8" dy="3">1</tspan></text>
+      <text class="beschriftung" x="30" y="150">L<tspan font-size="8" dy="3">2</tspan></text>
+      <text class="beschriftung klein" x="250" y="162">undurchsichtiger</text>
+      <text class="beschriftung klein" x="250" y="173">Körper</text>
+      <text class="beschriftung klein" x="552" y="46">Halbschatten</text>
+      <text class="beschriftung klein" x="552" y="110">Kernschatten</text>
+      <text class="beschriftung klein" x="552" y="174">Halbschatten</text>
+    </svg></div><div class="merk">Jede Lichtquelle erzeugt hinter einem lichtundurchlässigen Körper einen Schatten. Beleuchten zwei Lichtquellen den Körper gemeinsam, so überlagern sich die beiden Schattengebiete.</div></div>
+<div class="karte"><h3>Versuch: Kern- und Halbschatten<span class="art">Versuch</span></h3><div class="bild"><svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="46" width="30" height="22" fill="#8DA6C2" stroke="#66798E"/>
+          <rect x="12" y="80" width="30" height="22" fill="#8DA6C2" stroke="#66798E"/>
+          <circle cx="46" cy="57" r="3.5" fill="#FFD34D" stroke="#B98900"/>
+          <circle cx="46" cy="91" r="3.5" fill="#FFD34D" stroke="#B98900"/>
+          <rect x="150" y="52" width="9" height="44" fill="#6E6E6E" stroke="#333"/>
+          <line x1="248" y1="18" x2="248" y2="126" stroke="#333" stroke-width="2"/>
+          <g class="licht">
+            <line x1="46" y1="57" x2="248" y2="47"/>
+            <line x1="46" y1="57" x2="248" y2="118"/>
+            <line x1="46" y1="91" x2="248" y2="30"/>
+            <line x1="46" y1="91" x2="248" y2="101"/>
+          </g>
+          <text class="beschriftung klein" x="8" y="36">Ray-Boxen</text>
+          <text class="beschriftung klein" x="128" y="114">Körper</text>
+          <text class="beschriftung klein" x="206" y="138">Bildwand</text>
+        </svg></div><div class="vfeld"><b>Durchführung:</b> Stelle die Ray-Box mit der Lampenseite auf ein weißes Blatt. Falte das Blatt so, dass eine Bildwand entsteht. Stelle einen undurchsichtigen Körper etwa 10 cm vor die Lampe. Beobachte das Gebiet hinter dem Körper. Verschiebe den Körper näher zur Lichtquelle und wieder weg. Wie verändert sich der Schatten? Stelle eine zweite Leuchtbox parallel dazu auf. Was verändert sich am Schatten?</div><div class="vfeld"><b>Beobachtung:</b> Hinter dem Körper entsteht ein Schatten. Je näher der Körper an der Lampe steht, desto größer wird der Schatten. Mit zwei Lampen entstehen ein dunkler und zwei hellere Bereiche.</div><div class="vfeld"><b>Ergebnis:</b> Im Kernschatten kommt von keiner Lichtquelle Licht an. Im Halbschatten trifft nur das Licht einer der beiden Lichtquellen auf die Bildwand.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) c)</summary>
+<div style='margin-top:8px'><b>1) Wo entsteht ein Kernschatten?</b><ol type='a'><li>Dort, wo Licht von allen Lichtquellen ankommt</li><li>Dort, wo von keiner Lichtquelle Licht ankommt</li><li>Nur bei Sonnenlicht</li><li>Direkt an der Lampe</li><li>Nur einen scharf begrenzten Schatten</li><li>Gar keinen Schatten</li><li>Einen Kernschatten und zwei Halbschatten</li><li>Zwei Kernschatten ohne Halbschatten</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 5</span>Warum sieht der Mond nicht immer gleich aus?</h2>
+<div class="antwort">Der Mond ist ein beleuchteter Körper. Die Sonne beleuchtet immer genau eine Hälfte. Weil der Mond die Erde umläuft, sehen wir von dieser hellen Hälfte unterschiedlich viel. Stehen Sonne, Erde und Mond auf einer Linie, entsteht eine Finsternis.</div>
+<div class="karte"><h3>8. Wo steht der Mond?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sonnenlicht von links, parallel -->
+      <g class="licht">
+        <line x1="14" y1="30" x2="128" y2="30"/>
+        <line x1="14" y1="70" x2="128" y2="70"/>
+        <line x1="14" y1="106" x2="128" y2="106"/>
+        <line x1="14" y1="142" x2="128" y2="142"/>
+        <line x1="14" y1="182" x2="128" y2="182"/>
+      </g>
+      <g fill="#E8B400">
+        <path d="M128 25 l10 5 l-10 5 z"/><path d="M128 65 l10 5 l-10 5 z"/>
+        <path d="M128 101 l10 5 l-10 5 z"/><path d="M128 137 l10 5 l-10 5 z"/>
+        <path d="M128 177 l10 5 l-10 5 z"/>
+      </g>
+      <text class="beschriftung" x="14" y="16">Sonnenlicht</text>
+
+      <!-- Mondbahn -->
+      <circle cx="330" cy="106" r="76" fill="none" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+      <!-- Erde -->
+      <circle cx="330" cy="106" r="19" fill="#5B8FC9" stroke="#2F5C8F"/>
+      <text class="beschriftung klein" x="316" y="110" fill="#fff">Erde</text>
+
+      <!-- Monde: linke Haelfte hell, rechte dunkel -->
+      <g stroke="#7A7A7A" stroke-width="1">
+        <!-- links = Neumond-Position -->
+        <circle cx="254" cy="106" r="11" fill="#4A4A4A"/>
+        <path d="M254 95 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+        <!-- oben -->
+        <circle cx="330" cy="30" r="11" fill="#4A4A4A"/>
+        <path d="M330 19 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+        <!-- rechts = Vollmond-Position -->
+        <circle cx="406" cy="106" r="11" fill="#4A4A4A"/>
+        <path d="M406 95 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+        <!-- unten -->
+        <circle cx="330" cy="182" r="11" fill="#4A4A4A"/>
+        <path d="M330 171 a11 11 0 0 0 0 22 z" fill="#F2F2F2"/>
+      </g>
+
+      <text class="beschriftung klein" x="196" y="140">Neumond</text>
+      <text class="beschriftung klein" x="352" y="26">zunehmender Mond</text>
+      <text class="beschriftung klein" x="424" y="110">Vollmond</text>
+      <text class="beschriftung klein" x="352" y="200">abnehmender Mond</text>
+      <path d="M420 60 a72 72 0 0 0 -18 -22" fill="none" stroke="#66798E" stroke-width="1.4"/>
+      <path d="M402 38 l2 10 l8 -6 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="430" y="52">Umlauf</text>
+    </svg></div><div class="merk">Der Mond ist ein beleuchteter Körper. Die Sonne beleuchtet immer genau eine Hälfte. Auf seiner Bahn um die Erde sehen wir davon unterschiedlich viel.</div></div>
+<div class="karte"><h3>9. Die Mondphasen</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#7A7A7A" stroke-width="1.2">
+        <!-- Neumond -->
+        <circle cx="76" cy="86" r="34" fill="#4A4A4A"/>
+        <!-- zunehmender Halbmond: rechte Haelfte hell -->
+        <circle cx="216" cy="86" r="34" fill="#4A4A4A"/>
+        <path d="M216 52 a34 34 0 0 1 0 68 z" fill="#F2F2F2"/>
+        <!-- Vollmond -->
+        <circle cx="356" cy="86" r="34" fill="#F2F2F2"/>
+        <!-- abnehmender Halbmond: linke Haelfte hell -->
+        <circle cx="496" cy="86" r="34" fill="#4A4A4A"/>
+        <path d="M496 52 a34 34 0 0 0 0 68 z" fill="#F2F2F2"/>
+      </g>
+      <text class="beschriftung" x="46"  y="146">Neumond</text>
+      <text class="beschriftung" x="164" y="146">zunehmender</text>
+      <text class="beschriftung" x="176" y="160">Halbmond</text>
+      <text class="beschriftung" x="330" y="146">Vollmond</text>
+      <text class="beschriftung" x="446" y="146">abnehmender</text>
+      <text class="beschriftung" x="458" y="160">Halbmond</text>
+      <line x1="46" y1="184" x2="588" y2="184" stroke="#66798E" stroke-width="1.4"/>
+      <path d="M588 179 l10 5 l-10 5 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="266" y="200">etwa 29,5 Tage</text>
+    </svg></div><div class="merk">So sehen wir den Mond von der Erde aus. Von Neumond bis zum nächsten Neumond vergehen etwa 29,5 Tage.</div></div>
+<div class="karte"><h3>10. Sonnenfinsternis</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Halbschattenbereiche -->
+      <polygon points="360,120 360,92 526,148 526,64" fill="#9A9A9A" opacity="0.22"/>
+      <!-- Kernschatten -->
+      <polygon points="360,92 532,106 360,120" fill="#2E2E2E" opacity="0.55"/>
+      <!-- Randstrahlen: Kernschatten -->
+      <g class="licht">
+        <line x1="40" y1="66" x2="532" y2="106"/>
+        <line x1="40" y1="146" x2="532" y2="106"/>
+      </g>
+      <!-- Randstrahlen: Halbschatten -->
+      <g class="licht">
+        <line x1="40" y1="66" x2="526" y2="148"/>
+        <line x1="40" y1="146" x2="526" y2="64"/>
+      </g>
+      <!-- Sonne -->
+      <circle cx="40" cy="106" r="40" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="22" y="164">Sonne</text>
+      <!-- Mond -->
+      <circle cx="360" cy="106" r="14" fill="#9A9A9A" stroke="#5E5E5E"/>
+      <text class="beschriftung" x="344" y="146">Mond</text>
+      <!-- Erde -->
+      <circle cx="560" cy="106" r="34" fill="#5B8FC9" stroke="#2F5C8F"/>
+      <text class="beschriftung" x="546" y="164">Erde</text>
+      <text class="beschriftung klein" x="392" y="88">Kernschatten</text>
+      <text class="beschriftung klein" x="392" y="176">Halbschatten</text>
+      <line class="hilfslinie" x1="424" y1="172" x2="470" y2="138"/>
+    </svg></div><div class="merk">Bei einer Sonnenfinsternis steht der Mond zwischen Sonne und Erde. Sein Kernschatten trifft die Erde. Nur dort ist die Sonne ganz verdeckt.</div></div>
+<div class="karte"><h3>11. Mondfinsternis</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Kernschatten der Erde -->
+      <polygon points="330,80 600,93 600,119 330,132" fill="#2E2E2E" opacity="0.45"/>
+      <!-- Randstrahlen -->
+      <g class="licht">
+        <line x1="40" y1="66" x2="600" y2="93"/>
+        <line x1="40" y1="146" x2="600" y2="119"/>
+      </g>
+      <!-- Sonne -->
+      <circle cx="40" cy="106" r="40" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="22" y="164">Sonne</text>
+      <!-- Erde -->
+      <circle cx="330" cy="106" r="26" fill="#5B8FC9" stroke="#2F5C8F"/>
+      <text class="beschriftung" x="314" y="156">Erde</text>
+      <!-- Mond im Kernschatten -->
+      <circle cx="520" cy="106" r="11" fill="#4A4A4A" stroke="#2E2E2E"/>
+      <text class="beschriftung" x="502" y="140">Mond</text>
+      <text class="beschriftung klein" x="392" y="70">Kernschatten der Erde</text>
+      <line class="hilfslinie" x1="430" y1="76" x2="440" y2="96"/>
+    </svg></div><div class="merk">Bei einer Mondfinsternis steht die Erde zwischen Sonne und Mond. Der Mond taucht in den Kernschatten der Erde ein.</div></div>
+<div class="karte"><h3>12. Die Lochkamera</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Gegenstand: Kerze, symmetrisch zur optischen Achse (y = 106) -->
+      <rect x="52" y="96" width="20" height="56" fill="#F0E2C0" stroke="#B9A87A"/>
+      <path d="M62 96 q-13 -18 0 -36 q13 18 0 36 z" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="36" y="170">Gegenstand</text>
+      <!-- optische Achse -->
+      <line class="hilfslinie" x1="40" y1="106" x2="500" y2="106"/>
+      <!-- Randstrahlen: Spitze nach unten, Fuss nach oben -->
+      <g class="licht">
+        <line x1="62" y1="60" x2="480" y2="140.8"/>
+        <line x1="62" y1="152" x2="480" y2="71.2"/>
+      </g>
+      <!-- Lochblende -->
+      <rect x="296" y="14" width="9" height="88" fill="#4A4A4A"/>
+      <rect x="296" y="110" width="9" height="88" fill="#4A4A4A"/>
+      <text class="beschriftung klein" x="252" y="12">Lochblende</text>
+      <!-- Schirm -->
+      <line x1="480" y1="16" x2="480" y2="200" stroke="#333" stroke-width="2.5"/>
+      <text class="beschriftung klein" x="486" y="196">Schirm</text>
+      <!-- Bild: umgekehrte Kerze, Fuss oben, Flamme unten -->
+      <rect x="472" y="71.2" width="15" height="42" fill="#F0E2C0" stroke="#B9A87A"/>
+      <path d="M479.5 113.2 q-10 14 0 27.6 q10 -14 0 -27.6 z" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="496" y="94">Bild</text>
+      <text class="beschriftung klein" x="496" y="106">(umgekehrt)</text>
+      <text class="beschriftung klein" x="120" y="36">Spitze oben</text>
+      <text class="beschriftung klein" x="336" y="170">trifft unten auf</text>
+      <text class="beschriftung klein" x="336" y="182">den Schirm</text>
+    </svg></div><div class="merk">Das Licht von der Spitze der Flamme verläuft durch die Lochblende und trifft unten auf den Schirm. Deshalb steht das Bild umgekehrt.</div></div>
+<div class="karte"><h3>Versuch: Beobachtungen mit der Lochkamera<span class="art">Versuch</span></h3><div class="bild"><svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dose -->
+          <rect x="120" y="34" width="150" height="74" fill="#EFEFEF" stroke="#555"/>
+          <rect x="238" y="34" width="32" height="74" fill="#DCE9F2" stroke="#6E9BB8"/>
+          <line x1="120" y1="71" x2="126" y2="71" stroke="#333" stroke-width="2"/>
+          <!-- Kerze -->
+          <rect x="42" y="74" width="12" height="30" fill="#F0E2C0" stroke="#B9A87A"/>
+          <path d="M48 74 q-7 -10 0 -22 q7 10 0 22 z" fill="#FFD34D" stroke="#B98900"/>
+          <g class="licht">
+            <line x1="48" y1="56" x2="254" y2="88"/>
+            <line x1="48" y1="100" x2="254" y2="56"/>
+          </g>
+          <text class="beschriftung klein" x="100" y="24">Loch</text>
+          <text class="beschriftung klein" x="228" y="126">Transparentpapier</text>
+          <text class="beschriftung klein" x="30" y="126">Kerze</text>
+        </svg></div><div class="vfeld"><b>Durchführung:</b> Betrachte mit der Lochkamera hell erleuchtete Gegenstände (Fenster, Kerze). Verändere den Abstand zwischen Loch und Transparentpapier. Setze verschiedene Blenden an die Öffnung, also größere und kleinere Löcher. Beschreibe, wie sich Helligkeit, Schärfe und Größe des Bildes ändern.</div><div class="vfeld"><b>Beobachtung:</b> Das Bild steht auf dem Kopf. Je weiter das Papier vom Loch entfernt ist, desto größer wird das Bild. Ein kleineres Loch macht das Bild schärfer, aber dunkler.</div><div class="vfeld"><b>Ergebnis:</b> Weil sich Licht geradlinig ausbreitet, entsteht hinter dem Loch ein umgekehrtes Bild. Größere Bildweite bedeutet ein größeres Bild.</div></div>
+<div class="karte"><h3>Zum Schluss: Sicheln auf dem Boden</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <text class="beschriftung" x="24" y="34" font-size="13">Bei einer Sonnenfinsternis sind die Lichtflecken unter einem Baum</text>
+      <text class="beschriftung" x="24" y="54" font-size="13">nicht rund, sondern kleine Sicheln. Warum?</text>
+      <rect x="300" y="150" width="12" height="40" fill="#8B5A2B"/>
+      <circle cx="306" cy="128" r="34" fill="#5E9B45" stroke="#3E6B2E"/>
+      <line x1="60" y1="196" x2="576" y2="196" stroke="#8A6A3A" stroke-width="2"/>
+      <g fill="#FFD34D" stroke="#B98900" stroke-width="0.8">
+        <path d="M150 186 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+        <path d="M220 190 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+        <path d="M400 188 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+        <path d="M470 186 a9 9 0 1 0 0 -14 a7 7 0 1 1 0 14 z"/>
+      </g>
+      <text class="beschriftung klein" x="120" y="164">Lichtflecken auf dem Boden</text>
+    </svg></div><div class="merk">Die Lücken im Blätterdach wirken wie viele kleine Lochblenden. Jede erzeugt ein Bild der Sonne, und während der Finsternis ist die Sonne selbst eine Sichel.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) a)</summary>
+<div style='margin-top:8px'><b>1) Warum können wir den Mond sehen?</b><ol type='a'><li>Er sendet eigenes Licht aus.</li><li>Die Sonne beleuchtet ihn und er wirft das Licht zurück.</li><li>Er glüht von innen.</li><li>Die Erde beleuchtet ihn.</li><li>steht der Mond zwischen Sonne und Erde.</li><li>steht die Erde zwischen Sonne und Mond.</li><li>ist die Sonne für kurze Zeit erloschen.</li><li>steht die Sonne zwischen Erde und Mond.</li></ol></div>
+</details>
+</section>
+<section class="tab" id="s-optik2"><div class="subtitle">Optik II: Reflexion, Brechung, Linsen, Farben</div>
+<h2 class="frage"><span class="nr">Leitfrage 6</span>Was passiert mit dem Licht am Spiegel?</h2>
+<div class="antwort">Es wird reflektiert, und zwar so, dass Einfallswinkel = Reflexionswinkel gilt. Unser Auge verlängert die ankommenden Strahlen geradlinig nach hinten. Deshalb sehen wir das Bild scheinbar hinter dem Spiegel: ein virtuelles Bild.</div>
+<div class="karte"><h3>13. Das Reflexionsgesetz</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Spiegel -->
+      <line x1="118" y1="160" x2="520" y2="160" stroke="#333" stroke-width="2.5"/>
+      <g stroke="#777" stroke-width="1.2">
+        <line x1="130" y1="160" x2="120" y2="172"/><line x1="160" y1="160" x2="150" y2="172"/>
+        <line x1="190" y1="160" x2="180" y2="172"/><line x1="220" y1="160" x2="210" y2="172"/>
+        <line x1="250" y1="160" x2="240" y2="172"/><line x1="280" y1="160" x2="270" y2="172"/>
+        <line x1="310" y1="160" x2="300" y2="172"/><line x1="340" y1="160" x2="330" y2="172"/>
+        <line x1="370" y1="160" x2="360" y2="172"/><line x1="400" y1="160" x2="390" y2="172"/>
+        <line x1="430" y1="160" x2="420" y2="172"/><line x1="460" y1="160" x2="450" y2="172"/>
+        <line x1="490" y1="160" x2="480" y2="172"/><line x1="520" y1="160" x2="510" y2="172"/>
+      </g>
+      <!-- Lot -->
+      <line class="hilfslinie" x1="320" y1="30" x2="320" y2="160"/>
+      <text class="beschriftung klein" x="326" y="40">Lot</text>
+      <!-- einfallender Strahl (alpha = 40 Grad) -->
+      <line x1="249" y1="76" x2="320" y2="160" stroke="#E8B400" stroke-width="1.8"/>
+      <path d="M286 116 l10 3 l-4 -9 z" fill="#E8B400"/>
+      <!-- reflektierter Strahl -->
+      <line x1="320" y1="160" x2="391" y2="76" stroke="#E8B400" stroke-width="1.8"/>
+      <path d="M366 100 l-2 10 l9 -5 z" fill="#E8B400"/>
+      <!-- Winkelboegen -->
+      <path d="M320 106 a54 54 0 0 0 -34 14" fill="none" stroke="#66798E" stroke-width="1.2"/>
+      <path d="M354 120 a54 54 0 0 0 -34 -14" fill="none" stroke="#66798E" stroke-width="1.2"/>
+      <text class="beschriftung kursiv" x="288" y="132">α</text>
+      <text class="beschriftung kursiv" x="342" y="132">β</text>
+      <text class="beschriftung klein" x="196" y="66">einfallender Strahl</text>
+      <text class="beschriftung klein" x="396" y="66">reflektierter Strahl</text>
+      <text class="beschriftung" x="228" y="200" font-weight="600">α = β</text>
+      <text class="beschriftung klein" x="286" y="200">Einfallswinkel = Reflexionswinkel</text>
+    </svg></div><div class="merk">Trifft Licht auf einen Spiegel, wird es reflektiert. Dabei gilt: Einfallswinkel = Reflexionswinkel. Beide Winkel werden zum Lot gemessen.</div></div>
+<div class="karte"><h3>14. Das Spiegelbild</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Spiegel -->
+      <line x1="318" y1="16" x2="318" y2="196" stroke="#333" stroke-width="2.5"/>
+      <g stroke="#777" stroke-width="1.2">
+        <line x1="318" y1="30" x2="330" y2="20"/><line x1="318" y1="60" x2="330" y2="50"/>
+        <line x1="318" y1="90" x2="330" y2="80"/><line x1="318" y1="120" x2="330" y2="110"/>
+        <line x1="318" y1="150" x2="330" y2="140"/><line x1="318" y1="180" x2="330" y2="170"/>
+      </g>
+      <text class="beschriftung klein" x="296" y="208">Spiegel</text>
+      <!-- Gegenstand: Kerze -->
+      <rect x="170" y="96" width="16" height="46" fill="#F0E2C0" stroke="#B9A87A"/>
+      <path d="M178 96 q-10 -14 0 -28 q10 14 0 28 z" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="152" y="160">Gegenstand</text>
+      <!-- virtuelles Bild -->
+      <g opacity="0.45">
+        <rect x="450" y="96" width="16" height="46" fill="#F0E2C0" stroke="#B9A87A"/>
+        <path d="M458 96 q-10 -14 0 -28 q10 14 0 28 z" fill="#FFD34D" stroke="#B98900"/>
+      </g>
+      <text class="beschriftung klein" x="422" y="160">virtuelles Bild</text>
+      <!-- Strahlen von Spitze und Fuss ins Auge.
+           Auftreffpunkte konstruiert ueber das virtuelle Bild:
+           Spitze (458|68) -> Auge (208|168) schneidet den Spiegel bei y = 124,
+           Fuss   (458|142) -> Auge (208|168) schneidet ihn bei y = 156.6.
+           Damit gilt an beiden Punkten Einfallswinkel = Reflexionswinkel. -->
+      <g class="licht">
+        <line x1="178" y1="68" x2="318" y2="124"/>
+        <line x1="318" y1="124" x2="208" y2="168"/>
+        <line x1="178" y1="142" x2="318" y2="156.6"/>
+        <line x1="318" y1="156.6" x2="208" y2="168"/>
+      </g>
+      <!-- rueckwaertige Verlaengerung zum virtuellen Bild -->
+      <line class="hilfslinie" x1="318" y1="124" x2="458" y2="68"/>
+      <line class="hilfslinie" x1="318" y1="156.6" x2="458" y2="142"/>
+      <!-- Auge -->
+      <path d="M186 168 q22 -18 44 0 q-22 18 -44 0 z" fill="#fff" stroke="#333" stroke-width="1.4"/>
+      <circle cx="208" cy="168" r="6.5" fill="#3A5A8C"/>
+      <circle cx="208" cy="168" r="2.8" fill="#111"/>
+      <!-- Abstandsmarken -->
+      <line class="hilfslinie" x1="178" y1="196" x2="318" y2="196"/>
+      <line class="hilfslinie" x1="318" y1="196" x2="458" y2="196"/>
+      <text class="beschriftung klein" x="230" y="192">g</text>
+      <text class="beschriftung klein" x="382" y="192">g</text>
+    </svg></div><div class="merk">Das Spiegelbild ist genauso groß wie der Gegenstand und steht scheinbar (virtuell) ebenso weit hinter dem Spiegel wie der Gegenstand davor.</div></div>
+<div class="karte"><h3>Anwendung: Wie groß muss der Spiegel sein?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wand mit Spiegel -->
+      <line x1="380" y1="10" x2="380" y2="202" stroke="#8A7B5E" stroke-width="2"/>
+      <line x1="380" y1="56" x2="380" y2="152" stroke="#333" stroke-width="5"/>
+      <text class="beschriftung klein" x="388" y="100">Spiegel</text>
+      <text class="beschriftung klein" x="388" y="112">(halbe Körpergröße)</text>
+      <!-- Person -->
+      <circle cx="150" cy="40" r="14" fill="#F0D2B4" stroke="#9C7B5A"/>
+      <path d="M150 54 v70" stroke="#3A5A8C" stroke-width="10"/>
+      <path d="M150 124 l-14 60 M150 124 l14 60" stroke="#3A5A8C" stroke-width="7" fill="none"/>
+      <!-- Augenhoehe -->
+      <circle cx="163" cy="38" r="3" fill="#111"/>
+      <!-- Strahlen Scheitel und Fuss zum Auge -->
+      <g class="licht">
+        <line x1="150" y1="26" x2="380" y2="56"/>
+        <line x1="380" y1="56" x2="163" y2="38"/>
+        <line x1="150" y1="184" x2="380" y2="152"/>
+        <line x1="380" y1="152" x2="163" y2="38"/>
+      </g>
+      <!-- virtuelles Bild -->
+      <g opacity="0.4">
+        <circle cx="610" cy="40" r="14" fill="#F0D2B4" stroke="#9C7B5A"/>
+        <path d="M610 54 v70" stroke="#3A5A8C" stroke-width="10"/>
+        <path d="M610 124 l-14 60 M610 124 l14 60" stroke="#3A5A8C" stroke-width="7" fill="none"/>
+      </g>
+      <line class="hilfslinie" x1="380" y1="56" x2="610" y2="26"/>
+      <line class="hilfslinie" x1="380" y1="152" x2="610" y2="184"/>
+      <text class="beschriftung klein" x="118" y="204">Betrachter</text>
+      <text class="beschriftung klein" x="566" y="204">Spiegelbild</text>
+    </svg></div><div class="merk">Der Spiegel muss nur halb so groß sein wie die Person, und seine Oberkante liegt auf halber Höhe zwischen Auge und Scheitel. Der Abstand zur Wand spielt keine Rolle.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) c)</summary>
+<div style='margin-top:8px'><b>1) Ein Lichtstrahl trifft unter 30° zum Lot auf einen Spiegel. Wie groß ist der Reflexionswinkel?</b><ol type='a'><li>15°</li><li>30°</li><li>60°</li><li>90°</li><li>Auf der Spiegeloberfläche</li><li>Doppelt so weit hinter dem Spiegel, wie du davor stehst</li><li>Genauso weit hinter dem Spiegel, wie du davor stehst</li><li>Direkt vor deinen Augen</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 7</span>Warum sieht der Strohhalm im Wasser geknickt aus?</h2>
+<div class="antwort">Das Licht vom Strohhalm wird beim Übergang von Wasser zu Luft gebrochen. Unser Gehirn nimmt aber an, dass Licht geradlinig verläuft, und verlängert die Strahlen gerade nach hinten. Deshalb erscheint der Strohhalm verschoben.</div>
+<div class="karte"><h3>15. Die Lichtbrechung</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Medien -->
+      <rect x="90" y="24" width="456" height="96" fill="#FFFFFF" stroke="none"/>
+      <rect x="90" y="120" width="456" height="76" fill="#BFE0F0" opacity="0.75"/>
+      <line x1="90" y1="120" x2="546" y2="120" stroke="#6E9BB8" stroke-width="2"/>
+      <text class="beschriftung klein" x="100" y="44">Luft</text>
+      <text class="beschriftung klein" x="100" y="146">Wasser</text>
+      <!-- Lot -->
+      <line class="hilfslinie" x1="318" y1="28" x2="318" y2="196"/>
+      <text class="beschriftung klein" x="324" y="38">Lot</text>
+      <!-- einfallender Strahl, alpha = 45 Grad -->
+      <line x1="247" y1="49" x2="318" y2="120" stroke="#E8B400" stroke-width="1.8"/>
+      <path d="M288 91 l10 2 l-3 -9 z" fill="#E8B400"/>
+      <!-- gebrochener Strahl, beta = 32 Grad -->
+      <line x1="318" y1="120" x2="363" y2="192" stroke="#E8B400" stroke-width="1.8"/>
+      <path d="M348 168 l3 10 l6 -7 z" fill="#E8B400"/>
+      <!-- schwacher reflektierter Anteil -->
+      <line x1="318" y1="120" x2="389" y2="49" stroke="#E8B400" stroke-width="1" opacity="0.45"/>
+      <!-- Winkel -->
+      <path d="M318 76 a44 44 0 0 0 -28 12" fill="none" stroke="#66798E" stroke-width="1.2"/>
+      <path d="M348 152 a44 44 0 0 0 -30 -12" fill="none" stroke="#66798E" stroke-width="1.2"/>
+      <text class="beschriftung kursiv" x="290" y="100">α</text>
+      <text class="beschriftung kursiv" x="326" y="160">β</text>
+      <text class="beschriftung klein" x="176" y="40">einfallender Strahl</text>
+      <text class="beschriftung klein" x="368" y="188">gebrochener Strahl</text>
+      <text class="beschriftung klein" x="400" y="60">ein Teil wird reflektiert</text>
+      <text class="beschriftung" x="404" y="120" font-weight="600">β &lt; α</text>
+      <text class="beschriftung klein" x="404" y="134">zum Lot hin gebrochen</text>
+    </svg></div><div class="merk">Beim Übergang in ein anderes Material ändert Licht seine Richtung. Man sagt, es wird gebrochen. Der Grund: Licht ist in Wasser und Glas langsamer als in Luft.</div></div>
+<div class="karte"><h3>16. In welche Richtung wird gebrochen?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="14" x2="318" y2="198" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+      <!-- links: Luft -> Wasser -->
+      <rect x="30" y="94" width="250" height="76" fill="#BFE0F0" opacity="0.75"/>
+      <line x1="30" y1="94" x2="280" y2="94" stroke="#6E9BB8" stroke-width="1.6"/>
+      <line class="hilfslinie" x1="155" y1="26" x2="155" y2="188"/>
+      <line x1="99" y1="38" x2="155" y2="94" stroke="#E8B400" stroke-width="1.8"/>
+      <line x1="155" y1="94" x2="190" y2="170" stroke="#E8B400" stroke-width="1.8"/>
+      <text class="beschriftung klein" x="36" y="46">Luft</text>
+      <text class="beschriftung klein" x="36" y="120">Wasser</text>
+      <text class="beschriftung" x="60" y="206" font-weight="600">zum Lot hin</text>
+
+      <!-- rechts: Wasser -> Luft -->
+      <rect x="356" y="94" width="250" height="76" fill="#BFE0F0" opacity="0.75"/>
+      <line x1="356" y1="94" x2="606" y2="94" stroke="#6E9BB8" stroke-width="1.6"/>
+      <line class="hilfslinie" x1="481" y1="26" x2="481" y2="188"/>
+      <line x1="446" y1="170" x2="481" y2="94" stroke="#E8B400" stroke-width="1.8"/>
+      <line x1="481" y1="94" x2="537" y2="38" stroke="#E8B400" stroke-width="1.8"/>
+      <text class="beschriftung klein" x="362" y="46">Luft</text>
+      <text class="beschriftung klein" x="362" y="120">Wasser</text>
+      <text class="beschriftung" x="386" y="206" font-weight="600">vom Lot weg</text>
+    </svg></div><div class="merk">Von Luft ins Wasser (optisch dünner → dichter): zum Lot hin. Von Wasser in die Luft (dichter → dünner): vom Lot weg.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) a 2) b)</summary>
+<div style='margin-top:8px'><b>1) Licht geht von Luft in Wasser über. Wie wird es gebrochen?</b><ol type='a'><li>Zum Lot hin</li><li>Vom Lot weg</li><li>Gar nicht</li><li>Immer um genau 90°</li><li>Weil Wasser schwerer ist als Luft</li><li>Weil Licht im Wasser langsamer ist als in Luft</li><li>Weil das Wasser das Licht anzieht</li><li>Weil das Glas im Weg steht</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 8</span>Wie kann eine Lupe vergrößern?</h2>
+<div class="antwort">Die Lupe ist eine Sammellinse. Hältst du sie so nah an den Gegenstand, dass er innerhalb der Brennweite liegt, laufen die Strahlen hinter der Linse auseinander. Das Auge verlängert sie geradlinig zurück und sieht ein vergrößertes, aufrechtes, virtuelles Bild.</div>
+<div class="karte"><h3>17. Sammellinse und Zerstreuungslinse</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="14" x2="318" y2="198" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+
+      <!-- links: Sammellinse -->
+      <line class="hilfslinie" x1="30" y1="106" x2="290" y2="106"/>
+      <path d="M150 56 Q176 106 150 156 Q124 106 150 56 z" fill="#CFE4F2" stroke="#5E7A8C" stroke-width="1.4"/>
+      <g class="licht">
+        <line x1="36" y1="76" x2="150" y2="76"/>
+        <line x1="36" y1="106" x2="150" y2="106"/>
+        <line x1="36" y1="136" x2="150" y2="136"/>
+        <line x1="150" y1="76" x2="230" y2="106"/>
+        <line x1="150" y1="106" x2="230" y2="106"/>
+        <line x1="150" y1="136" x2="230" y2="106"/>
+        <line x1="230" y1="106" x2="286" y2="127"/>
+        <line x1="230" y1="106" x2="286" y2="85"/>
+      </g>
+      <circle cx="230" cy="106" r="3" fill="#111"/>
+      <text class="beschriftung klein kursiv" x="224" y="126">F</text>
+      <text class="beschriftung" x="106" y="188" font-weight="600">Sammellinse</text>
+      <text class="beschriftung klein" x="122" y="202">bündelt das Licht</text>
+
+      <!-- rechts: Zerstreuungslinse -->
+      <line class="hilfslinie" x1="346" y1="106" x2="606" y2="106"/>
+      <path d="M452 56 Q470 106 452 156 L488 156 Q470 106 488 56 z" fill="#CFE4F2" stroke="#5E7A8C" stroke-width="1.4"/>
+      <g class="licht">
+        <line x1="352" y1="86" x2="452" y2="86"/>
+        <line x1="352" y1="106" x2="452" y2="106"/>
+        <line x1="352" y1="126" x2="452" y2="126"/>
+        <line x1="488" y1="86" x2="600" y2="66"/>
+        <line x1="488" y1="106" x2="600" y2="106"/>
+        <line x1="488" y1="126" x2="600" y2="146"/>
+      </g>
+      <line class="hilfslinie" x1="488" y1="86" x2="398" y2="106"/>
+      <line class="hilfslinie" x1="488" y1="126" x2="398" y2="106"/>
+      <circle cx="398" cy="106" r="3" fill="#111"/>
+      <text class="beschriftung klein kursiv" x="384" y="126">F</text>
+      <text class="beschriftung" x="418" y="188" font-weight="600">Zerstreuungslinse</text>
+      <text class="beschriftung klein" x="416" y="202">zerstreut das Licht</text>
+    </svg></div><div class="merk">Sammellinsen (konvex) brechen parallel einfallendes Licht so, dass es sich im Brennpunkt bündelt. Zerstreuungslinsen (konkav) lassen das Licht auseinanderlaufen.</div></div>
+<div class="karte"><h3>Versuch: Strahlengänge an Linsen<span class="art">Versuch</span></h3><div class="bild"><svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="72" x2="280" y2="72" stroke="#8DA6C2" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="150" y1="18" x2="150" y2="126" stroke="#8DA6C2" stroke-width="1" stroke-dasharray="4 3"/>
+          <rect x="24" y="52" width="34" height="40" fill="#8DA6C2" stroke="#66798E"/>
+          <path d="M150 44 Q166 72 150 100 Q134 72 150 44 z" fill="#CFE4F2" stroke="#5E7A8C"/>
+          <g class="licht">
+            <line x1="58" y1="58" x2="150" y2="58"/>
+            <line x1="58" y1="72" x2="150" y2="72"/>
+            <line x1="58" y1="86" x2="150" y2="86"/>
+            <line x1="150" y1="58" x2="212" y2="72"/>
+            <line x1="150" y1="72" x2="212" y2="72"/>
+            <line x1="150" y1="86" x2="212" y2="72"/>
+            <line x1="212" y1="72" x2="266" y2="84"/>
+            <line x1="212" y1="72" x2="266" y2="60"/>
+          </g>
+          <text class="beschriftung klein" x="16" y="44">Ray-Box</text>
+          <text class="beschriftung klein" x="136" y="120">Linse</text>
+          <text class="beschriftung klein kursiv" x="208" y="92">F</text>
+        </svg></div><div class="vfeld"><b>Durchführung:</b> Zeichne eine gestrichelte waagrechte und eine senkrechte Achse ins Heft. Lege die Linse mittig auf die senkrechte Achse und stelle die Ray-Box auf drei parallele Strahlen. Lege die Ray-Box so, dass der mittlere Strahl auf der waagrechten Achse liegt. Zeichne die Strahlen vor und nach der Linse nach, entferne die Linse und verbinde sie. Führe den Versuch zuerst mit der Sammellinse, dann mit der Zerstreuungslinse durch.</div><div class="vfeld"><b>Beobachtung:</b> Sammellinse Zerstreuungslinse</div><div class="vfeld"><b>Ergebnis:</b> Die Sammellinse bündelt das Licht in einem Punkt, dem Brennpunkt F. Die Zerstreuungslinse lässt es auseinanderlaufen. Der Abstand von der Linse zum Brennpunkt heißt Brennweite f.</div></div>
+<div class="karte"><h3>18. Bildentstehung an der Sammellinse</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- optische Achse und Linse (f = 90, Gegenstandsweite 180 = 2f) -->
+      <line class="hilfslinie" x1="60" y1="106" x2="600" y2="106"/>
+      <path d="M318 40 Q344 106 318 172 Q292 106 318 40 z" fill="#CFE4F2" stroke="#5E7A8C" stroke-width="1.4"/>
+      <circle cx="228" cy="106" r="3" fill="#111"/>
+      <circle cx="408" cy="106" r="3" fill="#111"/>
+      <text class="beschriftung klein kursiv" x="222" y="124">F</text>
+      <text class="beschriftung klein kursiv" x="402" y="124">F'</text>
+      <!-- Gegenstand -->
+      <line x1="138" y1="106" x2="138" y2="66" stroke="#D24B4B" stroke-width="2.4"/>
+      <path d="M138 66 l-5 10 l10 0 z" fill="#D24B4B"/>
+      <text class="beschriftung klein" x="106" y="60">Gegenstand</text>
+      <!-- Parallelstrahl -->
+      <line x1="138" y1="66" x2="318" y2="66" stroke="#E8B400" stroke-width="1.6"/>
+      <line x1="318" y1="66" x2="498" y2="146" stroke="#E8B400" stroke-width="1.6"/>
+      <!-- Brennpunktstrahl -->
+      <line x1="138" y1="66" x2="318" y2="146" stroke="#E8B400" stroke-width="1.6"/>
+      <line x1="318" y1="146" x2="498" y2="146" stroke="#E8B400" stroke-width="1.6"/>
+      <!-- Mittelpunktstrahl -->
+      <line x1="138" y1="66" x2="498" y2="146" stroke="#E8B400" stroke-width="1.6"/>
+      <!-- Bild -->
+      <line x1="498" y1="106" x2="498" y2="146" stroke="#8E2B2B" stroke-width="2.4"/>
+      <path d="M498 146 l-5 -10 l10 0 z" fill="#8E2B2B"/>
+      <text class="beschriftung klein" x="506" y="150">Bild</text>
+      <text class="beschriftung klein" x="506" y="162">umgekehrt</text>
+      <text class="beschriftung klein" x="160" y="46">Parallelstrahl</text>
+      <text class="beschriftung klein" x="196" y="120">Brennpunktstrahl</text>
+      <text class="beschriftung klein" x="330" y="188">Mittelpunktstrahl</text>
+    </svg></div><div class="merk">Zum Konstruieren genügen drei Strahlen: Parallelstrahl wird zum Brennpunktstrahl, Brennpunktstrahl wird zum Parallelstrahl, Mittelpunktstrahl läuft gerade weiter.</div></div>
+<div class="karte"><h3>19. So wirkt die Lupe</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Achse, Linse bei x=300, f=80 -->
+      <line class="hilfslinie" x1="60" y1="100" x2="600" y2="100"/>
+      <path d="M300 36 Q324 100 300 164 Q276 100 300 36 z" fill="#CFE4F2" stroke="#5E7A8C" stroke-width="1.4"/>
+      <circle cx="220" cy="100" r="3" fill="#111"/>
+      <circle cx="380" cy="100" r="3" fill="#111"/>
+      <text class="beschriftung klein kursiv" x="214" y="118">F</text>
+      <text class="beschriftung klein kursiv" x="374" y="118">F'</text>
+      <!-- Gegenstand innerhalb der Brennweite -->
+      <line x1="260" y1="100" x2="260" y2="72" stroke="#D24B4B" stroke-width="2.4"/>
+      <path d="M260 72 l-5 10 l10 0 z" fill="#D24B4B"/>
+      <text class="beschriftung klein" x="238" y="64">Gegenstand</text>
+      <!-- Parallelstrahl -->
+      <line x1="260" y1="72" x2="300" y2="72" stroke="#E8B400" stroke-width="1.6"/>
+      <line x1="300" y1="72" x2="500" y2="142" stroke="#E8B400" stroke-width="1.6"/>
+      <!-- Mittelpunktstrahl -->
+      <line x1="260" y1="72" x2="380" y2="156" stroke="#E8B400" stroke-width="1.6"/>
+      <!-- Rueckverlaengerungen zum virtuellen Bild -->
+      <line class="hilfslinie" x1="300" y1="72" x2="220" y2="44"/>
+      <line class="hilfslinie" x1="300" y1="100" x2="220" y2="44"/>
+      <!-- virtuelles Bild -->
+      <line x1="220" y1="100" x2="220" y2="44" stroke="#8E2B2B" stroke-width="2.4" opacity="0.6"/>
+      <path d="M220 44 l-5 10 l10 0 z" fill="#8E2B2B" opacity="0.6"/>
+      <text class="beschriftung klein" x="150" y="40">virtuelles Bild,</text>
+      <text class="beschriftung klein" x="150" y="52">doppelt so groß</text>
+      <!-- Auge -->
+      <path d="M498 128 q24 -20 48 0 q-24 20 -48 0 z" fill="#fff" stroke="#333" stroke-width="1.5"/>
+      <circle cx="522" cy="128" r="7" fill="#3A5A8C"/>
+      <circle cx="522" cy="128" r="3" fill="#111"/>
+      <text class="beschriftung klein" x="506" y="160">Auge</text>
+    </svg></div><div class="merk">Liegt der Gegenstand innerhalb der Brennweite, treffen sich die Strahlen hinter der Linse nicht mehr. Das Auge verlängert sie zurück und sieht ein vergrößertes, aufrechtes, virtuelles Bild.</div></div>
+<div class="karte"><h3>20. Das Auge als optisches Gerät</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line class="hilfslinie" x1="60" y1="106" x2="580" y2="106"/>
+      <!-- Augapfel -->
+      <ellipse cx="440" cy="106" rx="96" ry="80" fill="#FDFBF6" stroke="#8A7B5E" stroke-width="1.6"/>
+      <!-- Hornhaut -->
+      <path d="M344 76 q-22 30 0 60" fill="#DCEEF7" stroke="#5E7A8C" stroke-width="1.6"/>
+      <!-- Linse -->
+      <path d="M368 76 Q386 106 368 136 Q350 106 368 76 z" fill="#CFE4F2" stroke="#5E7A8C" stroke-width="1.4"/>
+      <!-- Netzhaut -->
+      <path d="M536 66 a80 80 0 0 1 0 80" fill="none" stroke="#D24B4B" stroke-width="2.6"/>
+      <!-- Gegenstand -->
+      <line x1="130" y1="106" x2="130" y2="60" stroke="#D24B4B" stroke-width="2.4"/>
+      <path d="M130 60 l-5 10 l10 0 z" fill="#D24B4B"/>
+      <text class="beschriftung klein" x="100" y="52">Gegenstand</text>
+      <!-- Strahlen -->
+      <g class="licht">
+        <line x1="130" y1="60" x2="368" y2="76"/>
+        <line x1="368" y1="76" x2="536" y2="130"/>
+        <line x1="130" y1="60" x2="368" y2="106"/>
+        <line x1="368" y1="106" x2="536" y2="130"/>
+        <line x1="130" y1="106" x2="368" y2="136"/>
+        <line x1="368" y1="136" x2="536" y2="106"/>
+      </g>
+      <!-- Bild auf der Netzhaut -->
+      <line x1="536" y1="106" x2="536" y2="130" stroke="#8E2B2B" stroke-width="2.6"/>
+      <path d="M536 130 l-5 -9 l10 0 z" fill="#8E2B2B"/>
+      <text class="beschriftung klein" x="300" y="34">Hornhaut</text>
+      <line class="hilfslinie" x1="316" y1="38" x2="340" y2="80"/>
+      <text class="beschriftung klein" x="376" y="34">Linse</text>
+      <line class="hilfslinie" x1="380" y1="38" x2="372" y2="74"/>
+      <text class="beschriftung klein" x="548" y="90">Netzhaut</text>
+      <text class="beschriftung klein" x="548" y="146">Bild steht</text>
+      <text class="beschriftung klein" x="548" y="158">auf dem Kopf</text>
+    </svg></div><div class="merk">Das Licht fällt durch die Hornhaut, wird von der Linse gebrochen und erzeugt auf der Netzhaut ein reelles, umgekehrtes und scharfes Bild.</div></div>
+<div class="karte"><h3>21. Kurzsichtig und weitsichtig</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="14" x2="318" y2="198" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+
+      <!-- links: kurzsichtig -->
+      <ellipse cx="160" cy="96" rx="86" ry="58" fill="#FDFBF6" stroke="#8A7B5E" stroke-width="1.4"/>
+      <path d="M96 72 Q110 96 96 120 Q82 96 96 72 z" fill="#CFE4F2" stroke="#5E7A8C"/>
+      <path d="M242 62 a58 58 0 0 1 0 68" fill="none" stroke="#D24B4B" stroke-width="2.2"/>
+      <line class="hilfslinie" x1="24" y1="96" x2="240" y2="96"/>
+      <g class="licht">
+        <line x1="30" y1="76" x2="96" y2="76"/><line x1="30" y1="116" x2="96" y2="116"/>
+        <line x1="96" y1="76" x2="186" y2="96"/><line x1="96" y1="116" x2="186" y2="96"/>
+        <line x1="186" y1="96" x2="242" y2="110"/><line x1="186" y1="96" x2="242" y2="82"/>
+      </g>
+      <circle cx="186" cy="96" r="3.5" fill="#111"/>
+      <text class="beschriftung klein" x="146" y="150">Bild vor der Netzhaut</text>
+      <text class="beschriftung" x="60" y="176" font-weight="600">kurzsichtig</text>
+      <text class="beschriftung klein" x="46" y="192">Zerstreuungslinse korrigiert</text>
+
+      <!-- rechts: weitsichtig -->
+      <ellipse cx="470" cy="96" rx="72" ry="58" fill="#FDFBF6" stroke="#8A7B5E" stroke-width="1.4"/>
+      <path d="M420 72 Q434 96 420 120 Q406 96 420 72 z" fill="#CFE4F2" stroke="#5E7A8C"/>
+      <path d="M538 62 a58 58 0 0 1 0 68" fill="none" stroke="#D24B4B" stroke-width="2.2"/>
+      <line class="hilfslinie" x1="350" y1="96" x2="596" y2="96"/>
+      <g class="licht">
+        <line x1="356" y1="76" x2="420" y2="76"/><line x1="356" y1="116" x2="420" y2="116"/>
+        <line x1="420" y1="76" x2="538" y2="106"/><line x1="420" y1="116" x2="538" y2="86"/>
+      </g>
+      <line class="hilfslinie" x1="538" y1="106" x2="586" y2="118"/>
+      <line class="hilfslinie" x1="538" y1="86" x2="586" y2="74"/>
+      <circle cx="586" cy="96" r="3.5" fill="#111" opacity="0.5"/>
+      <text class="beschriftung klein" x="470" y="150">Bild hinter der Netzhaut</text>
+      <text class="beschriftung" x="386" y="176" font-weight="600">weitsichtig</text>
+      <text class="beschriftung klein" x="386" y="192">Sammellinse korrigiert</text>
+    </svg></div><div class="merk">Kurzsichtig: Augapfel zu lang, das Bild entsteht vor der Netzhaut, eine Zerstreuungslinse hilft. Weitsichtig: Augapfel zu kurz, das Bild entsteht hinter der Netzhaut, eine Sammellinse hilft.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) c)</summary>
+<div style='margin-top:8px'><b>1) Was passiert mit parallelem Licht an einer Sammellinse?</b><ol type='a'><li>Es läuft auseinander.</li><li>Es bündelt sich im Brennpunkt.</li><li>Es wird vollständig reflektiert.</li><li>Es bleibt unverändert parallel.</li><li>Weiter weg als die doppelte Brennweite</li><li>Genau im Brennpunkt</li><li>Innerhalb der Brennweite</li><li>Der Abstand spielt keine Rolle.</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 9</span>Woher kommen die Farben des Regenbogens?</h2>
+<div class="antwort">Weißes Licht besteht aus allen Spektralfarben. Sie werden verschieden stark gebrochen: Rot am wenigsten, Violett am stärksten. Jeder Regentropfen bricht, reflektiert und bricht erneut. So wird das weiße Sonnenlicht in seine Farben zerlegt.</div>
+<div class="karte"><h3>22. Das Prisma zerlegt weißes Licht</h3><div class="bild"><svg viewBox="0 0 636 277" xmlns="http://www.w3.org/2000/svg">
+      <!-- Gleichseitiges Prisma: S(120|26), L(76|102), R(164|102).
+           Symmetrischer Durchgang: Eintritt A und Austritt B liegen exakt
+           auf den Prismenflaechen, auf halber Prismenhoehe (y = 64) ist die
+           linke Kante bei x = 98, die rechte bei x = 142.
+           Die Farbstrahlen enden am Schirm in Abstaenden von 32,64 pt,
+           das sind genau 2 Kaestchen bzw. 1 cm im Heft. -->
+      <path d="M120 26 L164 102 L76 102 z" fill="#DCEEF7" stroke="#5E7A8C" stroke-width="1.6"/>
+      <!-- Lote auf den Prismenflaechen -->
+      <line class="hilfslinie" x1="75.5" y1="51" x2="120.5" y2="77"/>
+      <line class="hilfslinie" x1="119.5" y1="77" x2="164.5" y2="51"/>
+      <!-- einfallendes weisses Licht -->
+      <line x1="20" y1="90" x2="98" y2="64" stroke="#9A9A9A" stroke-width="4"/>
+      <text class="beschriftung klein" x="18" y="108">weißes Licht</text>
+      <!-- im Glas parallel zur Grundflaeche -->
+      <line x1="98" y1="64" x2="142" y2="64" stroke="#9A9A9A" stroke-width="4"/>
+      <circle cx="98" cy="64" r="3.2" fill="#111"/>
+      <circle cx="142" cy="64" r="3.2" fill="#111"/>
+      <text class="beschriftung klein" x="100" y="122">Prisma</text>
+      <!-- Spektrum: Rot am wenigsten, Violett am staerksten abgelenkt -->
+      <g stroke-width="3.4">
+        <line x1="142" y1="64" x2="520" y2="100"   stroke="#C2352E"/>
+        <line x1="142" y1="64" x2="520" y2="132.6" stroke="#E08A2E"/>
+        <line x1="142" y1="64" x2="520" y2="165.3" stroke="#E6C72E"/>
+        <line x1="142" y1="64" x2="520" y2="197.9" stroke="#4E9B45"/>
+        <line x1="142" y1="64" x2="520" y2="230.6" stroke="#2E6BB8"/>
+        <line x1="142" y1="64" x2="520" y2="263.2" stroke="#7A4BAF"/>
+      </g>
+      <!-- Schirm -->
+      <line x1="522" y1="84" x2="522" y2="275" stroke="#333" stroke-width="2.5"/>
+      <g>
+        <rect x="516" y="92"    width="12" height="16" fill="#C2352E"/>
+        <rect x="516" y="124.6" width="12" height="16" fill="#E08A2E"/>
+        <rect x="516" y="157.3" width="12" height="16" fill="#E6C72E"/>
+        <rect x="516" y="189.9" width="12" height="16" fill="#4E9B45"/>
+        <rect x="516" y="222.6" width="12" height="16" fill="#2E6BB8"/>
+        <rect x="516" y="255.2" width="12" height="16" fill="#7A4BAF"/>
+      </g>
+      <text class="beschriftung" x="538" y="105">Rot</text>
+      <text class="beschriftung" x="538" y="137.6">Orange</text>
+      <text class="beschriftung" x="538" y="170.3">Gelb</text>
+      <text class="beschriftung" x="538" y="202.9">Grün</text>
+      <text class="beschriftung" x="538" y="235.6">Blau</text>
+      <text class="beschriftung" x="538" y="268.2">Violett</text>
+      <text class="beschriftung klein" x="240" y="52">Rot wird am wenigsten gebrochen,</text>
+      <text class="beschriftung klein" x="240" y="64">Violett am stärksten.</text>
+      <text class="beschriftung klein" x="240" y="252">Die Auffächerung ist übertrieben</text>
+      <text class="beschriftung klein" x="240" y="264">gezeichnet, damit alle Farben Platz haben.</text>
+    </svg></div><div class="merk">Weißes Licht wird am Prisma in die Spektralfarben zerlegt. Das Farbband heißt Spektrum.</div></div>
+<div class="karte"><h3>23. Wie entsteht ein Regenbogen?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Konstruktion (M = 360|100, r = 64):
+           Einfallswinkel 59,6°, Brechungswinkel 40,3° (Wasser, n = 1,33).
+           Weil MA = MB = MC = r ist, sind alle Dreiecke gleichschenklig.
+           Dadurch tritt an jedem Punkt derselbe Winkel zum Radius auf und
+           die drei Punkte liegen um je 180° - 2·40,3° = 99,4° versetzt:
+           A bei 99,4°, B bei 0°, C bei -99,4°. -->
+      <circle cx="360" cy="100" r="64" fill="#DCEEF7" stroke="#5E7A8C" stroke-width="1.8"/>
+      <text class="beschriftung klein" x="392" y="188">Regentropfen</text>
+      <!-- Lote (Radien) an den drei Punkten -->
+      <line class="hilfslinie" x1="360" y1="100" x2="349.5" y2="36.9"/>
+      <line class="hilfslinie" x1="360" y1="100" x2="424" y2="100"/>
+      <line class="hilfslinie" x1="360" y1="100" x2="349.5" y2="163.1"/>
+      <!-- Sonne und einfallendes weisses Licht -->
+      <circle cx="266" cy="12" r="9" fill="#FFD34D" stroke="#B98900"/>
+      <line x1="274" y1="8" x2="349.5" y2="36.9" stroke="#9A9A9A" stroke-width="3.6"/>
+      <text class="beschriftung klein" x="200" y="16">Sonnenlicht</text>
+      <!-- roter Weg: A -> B -> C -> aus dem Tropfen -->
+      <g stroke-width="2.4" fill="none">
+        <path d="M349.5 36.9 L424 100 L349.5 163.1 L246 203" stroke="#C2352E"/>
+      </g>
+      <!-- violetter Weg: staerker gebrochen, Austritt flacher -->
+      <g stroke-width="2.4" fill="none">
+        <path d="M349.5 36.9 L423.2 110.5 L331.4 157.2 L140 170" stroke="#7A4BAF"/>
+      </g>
+      <circle cx="349.5" cy="36.9" r="3.2" fill="#111"/>
+      <circle cx="424" cy="100" r="3.2" fill="#111"/>
+      <circle cx="349.5" cy="163.1" r="3.2" fill="#111"/>
+      <text class="beschriftung klein" x="360" y="30">1. Brechung beim Eintritt</text>
+      <text class="beschriftung klein" x="434" y="96">2. Reflexion</text>
+      <text class="beschriftung klein" x="434" y="108">an der Innenseite</text>
+      <text class="beschriftung klein" x="356" y="176">3. Brechung beim Austritt</text>
+      <text class="beschriftung klein" x="216" y="204">Rot</text>
+      <text class="beschriftung klein" x="106" y="166">Violett</text>
+      <text class="beschriftung klein" x="30" y="196">Farbunterschied</text>
+      <text class="beschriftung klein" x="30" y="207">übertrieben gezeichnet</text>
+    </svg></div><div class="merk">Jeder Regentropfen wirkt wie ein kleines Prisma: Das Licht wird beim Eintritt gebrochen, an der Rückwand reflektiert und beim Austritt erneut gebrochen.</div></div>
+<div class="karte"><h3>24. Was wir nicht sehen können</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Balken -->
+      <rect x="40" y="70" width="120" height="52" fill="#6E4B4B"/>
+      <rect x="160" y="70" width="60" height="52" fill="#C2352E"/>
+      <rect x="220" y="70" width="52" height="52" fill="#E08A2E"/>
+      <rect x="272" y="70" width="52" height="52" fill="#E6C72E"/>
+      <rect x="324" y="70" width="52" height="52" fill="#4E9B45"/>
+      <rect x="376" y="70" width="52" height="52" fill="#2E6BB8"/>
+      <rect x="428" y="70" width="52" height="52" fill="#7A4BAF"/>
+      <rect x="480" y="70" width="116" height="52" fill="#4B3F6E"/>
+      <!-- Klammer sichtbarer Bereich -->
+      <path d="M160 132 v10 h320 v-10" fill="none" stroke="#66798E" stroke-width="1.6"/>
+      <text class="beschriftung" x="252" y="162" font-weight="600">für uns sichtbares Licht</text>
+      <text class="beschriftung klein" x="58" y="58">Infrarot (IR)</text>
+      <text class="beschriftung klein" x="502" y="58">Ultraviolett (UV)</text>
+      <text class="beschriftung klein" x="52" y="186">Wärmestrahlung,</text>
+      <text class="beschriftung klein" x="52" y="198">Fernbedienung</text>
+      <text class="beschriftung klein" x="480" y="186">Sonnenbrand,</text>
+      <text class="beschriftung klein" x="480" y="198">Schwarzlicht</text>
+    </svg></div><div class="merk">Neben Rot liegt Infrarot, neben Violett Ultraviolett. Beide sind für uns unsichtbar. Unser Auge nimmt nur einen kleinen Ausschnitt wahr.</div></div>
+<div class="karte"><h3>25. Licht lässt sich addieren</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Additive Mischung ueber Clip-Pfade, weil mix-blend-mode
+           beim PDF-Export nicht angewendet wird. -->
+      <defs>
+        <clipPath id="cR"><circle cx="272" cy="80" r="58"/></clipPath>
+        <clipPath id="cG"><circle cx="364" cy="80" r="58"/></clipPath>
+      </defs>
+      <rect x="130" y="14" width="376" height="184" fill="#141414"/>
+      <circle cx="272" cy="80" r="58" fill="#E00000"/>
+      <circle cx="364" cy="80" r="58" fill="#00C000"/>
+      <circle cx="318" cy="140" r="58" fill="#1414D8"/>
+      <g clip-path="url(#cR)"><circle cx="364" cy="80" r="58" fill="#E8E000"/></g>
+      <g clip-path="url(#cR)"><circle cx="318" cy="140" r="58" fill="#D000C8"/></g>
+      <g clip-path="url(#cG)"><circle cx="318" cy="140" r="58" fill="#00C8C8"/></g>
+      <g clip-path="url(#cR)"><g clip-path="url(#cG)"><circle cx="318" cy="140" r="58" fill="#FFFFFF"/></g></g>
+      <text class="beschriftung klein" x="212" y="40" fill="#fff">Rot</text>
+      <text class="beschriftung klein" x="404" y="40" fill="#fff">Grün</text>
+      <text class="beschriftung klein" x="304" y="194" fill="#fff">Blau</text>
+      <text class="beschriftung klein" x="302" y="74" fill="#111">Gelb</text>
+      <text class="beschriftung klein" x="246" y="122" fill="#fff">Magenta</text>
+      <text class="beschriftung klein" x="346" y="122" fill="#111">Cyan</text>
+      <text class="beschriftung klein" x="302" y="108" fill="#111">Weiß</text>
+      <text class="beschriftung klein" x="518" y="70">Rot + Grün = Gelb</text>
+      <text class="beschriftung klein" x="518" y="88">Rot + Blau = Magenta</text>
+      <text class="beschriftung klein" x="518" y="106">Grün + Blau = Cyan</text>
+      <text class="beschriftung klein" x="518" y="124">alle drei = Weiß</text>
+      <text class="beschriftung klein" x="20" y="70">Ein Display hat</text>
+      <text class="beschriftung klein" x="20" y="86">nur rote, grüne</text>
+      <text class="beschriftung klein" x="20" y="102">und blaue Punkte.</text>
+    </svg></div><div class="merk">Mischen sich Lichtfarben im Auge, entstehen neue Farbeindrücke. Das heißt Farbaddition. Aus Rot, Grün und Blau lassen sich alle Farben eines Displays erzeugen.</div></div>
+<div class="karte"><h3>Zum Schluss: Licht im Glasfaserkabel</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Faser -->
+      <rect x="40" y="76" width="556" height="60" fill="#DCEEF7" stroke="#5E7A8C" stroke-width="1.6"/>
+      <!-- Strahl mit Totalreflexionen. Die Faser reicht von y = 76 bis y = 136,
+           alle Reflexionspunkte liegen exakt auf diesen beiden Wänden.
+           Konstante Steigung 48/110, dadurch ist an jedem Punkt
+           Einfallswinkel = Reflexionswinkel. -->
+      <g class="licht" stroke-width="2">
+        <line x1="20" y1="79.3" x2="40" y2="88"/>
+        <line x1="40" y1="88" x2="150" y2="136"/>
+        <line x1="150" y1="136" x2="287.5" y2="76"/>
+        <line x1="287.5" y1="76" x2="425" y2="136"/>
+        <line x1="425" y1="136" x2="562.5" y2="76"/>
+        <line x1="562.5" y1="76" x2="596" y2="90.6"/>
+        <line x1="596" y1="90.6" x2="620" y2="101"/>
+      </g>
+      <text class="beschriftung klein" x="40" y="60">Laserlicht</text>
+      <text class="beschriftung klein" x="150" y="168">Totalreflexion an der Grenzfläche</text>
+      <text class="beschriftung klein" x="470" y="60">Internetdaten</text>
+    </svg></div><div class="merk">Ein Lichtwellenleiter ist ein Bündel aus Glasfasern, so dünn wie ein menschliches Haar. Trifft das Licht flach auf die Grenzfläche, wird es vollständig reflektiert und kann nicht entweichen. So kommen Internetdaten zu dir nach Hause.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) d 2) a)</summary>
+<div style='margin-top:8px'><b>1) Welche Farbe wird am Prisma am stärksten gebrochen?</b><ol type='a'><li>Rot</li><li>Gelb</li><li>Grün</li><li>Violett</li><li>Gelb</li><li>Weiß</li><li>Cyan</li><li>Schwarz</li></ol></div>
+</details>
+</section>
+<section class="tab" id="s-akustik"><div class="subtitle">Akustik: Schall und Hören (E-Niveau)</div>
+<h2 class="frage"><span class="nr">Leitfrage 10</span>Wie entsteht Schall und wie kommt er zu uns?</h2>
+<div class="antwort">Eine Schallquelle versetzt ein Medium in Schwingung. Die Anregung läuft als Folge von Verdichtungen und Verdünnungen weiter bis zum Empfänger, zum Beispiel unserem Ohr. Ohne Medium, also im Vakuum, gibt es keinen Schall.</div>
+<div class="karte"><h3>26. Wie entsteht Schall?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Kette: Sender - Ausbreitung - Empfaenger -->
+      <rect x="40" y="46" width="150" height="72" fill="#8DA6C2" stroke="#66798E"/>
+      <text class="beschriftung" x="88" y="88" font-weight="600">Sender</text>
+      <path d="M206 62 h84 v-16 l40 36 l-40 36 v-16 h-84 z" fill="#AD7FBA" stroke="#8A5C96"/>
+      <text class="beschriftung" x="222" y="88">Ausbreitung</text>
+      <rect x="346" y="46" width="150" height="72" fill="#8DA6C2" stroke="#66798E"/>
+      <text class="beschriftung" x="386" y="88" font-weight="600">Empfänger</text>
+      <text class="beschriftung klein" x="40" y="140">Bsp. Stimme,</text>
+      <text class="beschriftung klein" x="40" y="154">Lautsprecher,</text>
+      <text class="beschriftung klein" x="40" y="168">Musikinstrumente</text>
+      <text class="beschriftung klein" x="222" y="140">Gas, Flüssigkeit</text>
+      <text class="beschriftung klein" x="222" y="154">oder Festkörper</text>
+      <text class="beschriftung klein" x="346" y="140">Bsp. menschliches Ohr,</text>
+      <text class="beschriftung klein" x="346" y="154">Mikrofon</text>
+      <text class="beschriftung klein" x="520" y="64">Das Medium wird</text>
+      <text class="beschriftung klein" x="520" y="78">angeregt, also in</text>
+      <text class="beschriftung klein" x="520" y="92">Schwingung versetzt.</text>
+    </svg></div><div class="merk">Schall entsteht, indem ein Medium (Gas, Flüssigkeit oder Festkörper) an einer Stelle in Bewegung gebracht wird. Objekte, die Medien anregen, nennen wir Schallquellen.</div></div>
+<div class="karte"><h3>27. Die Schallwelle im Modell</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- schwingender Koerper -->
+      <rect x="46" y="52" width="22" height="108" fill="#D8D8D8" stroke="#555" stroke-width="1.4"/>
+      <path d="M34 106 h-14 M26 100 l-8 6 l8 6" stroke="#AD7FBA" stroke-width="1.6" fill="none"/>
+      <path d="M80 106 h14 M88 100 l8 6 l-8 6" stroke="#AD7FBA" stroke-width="1.6" fill="none"/>
+      <text class="beschriftung klein" x="20" y="182">schwingender</text>
+      <text class="beschriftung klein" x="20" y="194">Körper</text>
+      <!-- Teilchen: abwechselnd dicht und duenn -->
+      <g fill="#5BAEDC">
+        <circle cx="108" cy="66" r="4"/><circle cx="118" cy="92" r="4"/><circle cx="106" cy="118" r="4"/>
+        <circle cx="120" cy="144" r="4"/><circle cx="112" cy="80" r="4"/><circle cx="122" cy="130" r="4"/>
+        <circle cx="116" cy="106" r="4"/><circle cx="108" cy="156" r="4"/>
+        <circle cx="146" cy="72" r="4"/><circle cx="164" cy="104" r="4"/><circle cx="150" cy="140" r="4"/>
+        <circle cx="176" cy="82" r="4"/><circle cx="182" cy="132" r="4"/>
+        <circle cx="212" cy="62" r="4"/><circle cx="222" cy="76" r="4"/><circle cx="216" cy="90" r="4"/>
+        <circle cx="228" cy="104" r="4"/><circle cx="214" cy="118" r="4"/><circle cx="226" cy="132" r="4"/>
+        <circle cx="218" cy="146" r="4"/><circle cx="230" cy="68" r="4"/><circle cx="236" cy="118" r="4"/>
+        <circle cx="222" cy="158" r="4"/><circle cx="238" cy="90" r="4"/>
+        <circle cx="268" cy="76" r="4"/><circle cx="282" cy="110" r="4"/><circle cx="272" cy="144" r="4"/>
+        <circle cx="296" cy="88" r="4"/><circle cx="300" cy="132" r="4"/>
+        <circle cx="330" cy="64" r="4"/><circle cx="340" cy="78" r="4"/><circle cx="334" cy="92" r="4"/>
+        <circle cx="346" cy="106" r="4"/><circle cx="332" cy="120" r="4"/><circle cx="344" cy="134" r="4"/>
+        <circle cx="336" cy="148" r="4"/><circle cx="348" cy="70" r="4"/><circle cx="354" cy="120" r="4"/>
+        <circle cx="340" cy="160" r="4"/><circle cx="356" cy="92" r="4"/>
+        <circle cx="386" cy="80" r="4"/><circle cx="400" cy="112" r="4"/><circle cx="390" cy="146" r="4"/>
+        <circle cx="414" cy="90" r="4"/><circle cx="418" cy="134" r="4"/>
+        <circle cx="448" cy="66" r="4"/><circle cx="458" cy="80" r="4"/><circle cx="452" cy="94" r="4"/>
+        <circle cx="464" cy="108" r="4"/><circle cx="450" cy="122" r="4"/><circle cx="462" cy="136" r="4"/>
+        <circle cx="454" cy="150" r="4"/><circle cx="466" cy="72" r="4"/><circle cx="472" cy="122" r="4"/>
+        <circle cx="458" cy="162" r="4"/><circle cx="474" cy="94" r="4"/>
+        <circle cx="504" cy="78" r="4"/><circle cx="518" cy="110" r="4"/><circle cx="508" cy="144" r="4"/>
+        <circle cx="532" cy="88" r="4"/><circle cx="536" cy="132" r="4"/>
+      </g>
+      <!-- Beschriftung Verdichtung / Verduennung -->
+      <line class="hilfslinie" x1="224" y1="46" x2="224" y2="30"/>
+      <text class="beschriftung klein" x="188" y="26">Verdichtung</text>
+      <line class="hilfslinie" x1="164" y1="46" x2="150" y2="30"/>
+      <text class="beschriftung klein" x="96" y="26">Verdünnung</text>
+      <!-- Ausbreitungsrichtung -->
+      <line x1="108" y1="190" x2="546" y2="190" stroke="#66798E" stroke-width="1.6"/>
+      <path d="M546 185 l10 5 l-10 5 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="278" y="204">Ausbreitungsrichtung des Schalls</text>
+    </svg></div><div class="merk">In der Luft breitet sich Schall als Folge von Verdichtung und Verdünnung aus. Die Schallgeschwindigkeit beträgt 343 m/s = 1235 km/h.</div></div>
+<div class="karte"><h3>28. Schall braucht einen Stoff</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="14" x2="318" y2="198" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+      <!-- links: mit Luft -->
+      <path d="M96 148 a56 66 0 0 1 112 0 z" fill="#EAF4FA" stroke="#5E7A8C" stroke-width="1.6"/>
+      <rect x="86" y="148" width="132" height="10" fill="#8DA6C2" stroke="#66798E"/>
+      <rect x="136" y="112" width="32" height="30" fill="#D8D8D8" stroke="#555"/>
+      <circle cx="152" cy="106" r="9" fill="#B0B0B0" stroke="#555"/>
+      <g fill="#5BAEDC">
+        <circle cx="112" cy="112" r="3"/><circle cx="126" cy="94" r="3"/><circle cx="180" cy="102" r="3"/>
+        <circle cx="194" cy="124" r="3"/><circle cx="118" cy="134" r="3"/><circle cx="188" cy="140" r="3"/>
+        <circle cx="152" cy="80" r="3"/><circle cx="168" cy="88" r="3"/>
+      </g>
+      <g stroke="#AD7FBA" stroke-width="1.6" fill="none">
+        <path d="M186 92 a26 26 0 0 1 0 34"/>
+        <path d="M196 84 a38 38 0 0 1 0 50"/>
+      </g>
+      <text class="beschriftung" x="98" y="182" font-weight="600">mit Luft</text>
+      <text class="beschriftung klein" x="98" y="196">Klingel ist zu hören</text>
+
+      <!-- rechts: Vakuum -->
+      <path d="M414 148 a56 66 0 0 1 112 0 z" fill="#F7F7F7" stroke="#5E7A8C" stroke-width="1.6"/>
+      <rect x="404" y="148" width="132" height="10" fill="#8DA6C2" stroke="#66798E"/>
+      <rect x="454" y="112" width="32" height="30" fill="#D8D8D8" stroke="#555"/>
+      <circle cx="470" cy="106" r="9" fill="#B0B0B0" stroke="#555"/>
+      <text class="beschriftung klein" x="440" y="88">keine Teilchen</text>
+      <!-- Pumpe -->
+      <rect x="544" y="150" width="46" height="26" fill="#8DA6C2" stroke="#66798E"/>
+      <line x1="536" y1="153" x2="544" y2="153" stroke="#66798E" stroke-width="2"/>
+      <text class="beschriftung klein" x="540" y="192">Vakuumpumpe</text>
+      <text class="beschriftung" x="416" y="182" font-weight="600">im Vakuum</text>
+      <text class="beschriftung klein" x="416" y="196">nichts zu hören</text>
+    </svg></div><div class="merk">Im Vakuum ist keine Schallausbreitung möglich. Ohne Teilchen gibt es nichts, was verdichtet und verdünnt werden kann. Licht dagegen breitet sich auch im Vakuum aus.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) c)</summary>
+<div style='margin-top:8px'><b>1) Was passiert in der Luft, wenn sich Schall ausbreitet?</b><ol type='a'><li>Die Luft strömt vom Sender zum Empfänger.</li><li>Die Luft wird abwechselnd verdichtet und verdünnt.</li><li>Die Luft erwärmt sich gleichmäßig.</li><li>Die Luft bleibt völlig unverändert.</li><li>Weil es dort zu kalt ist.</li><li>Weil der Schall zu schnell ist.</li><li>Weil im Vakuum keine Teilchen sind, die schwingen können.</li><li>Weil das Licht schneller ist als der Schall.</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 11</span>Warum klingt ein Ton laut oder leise, hoch oder tief?</h2>
+<div class="antwort">Beides liegt an der Schwingung der Schallquelle. Die Amplitude ist ein Maß für die Lautstärke, die Frequenz ein Maß für die Tonhöhe. An der Form der Kurve erkennt man außerdem, ob es ein Ton, ein Klang, ein Geräusch oder ein Knall ist.</div>
+<div class="karte"><h3>Versuch: Das Pendel<span class="art">Versuch</span></h3><div class="bild"><svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">
+          <line x1="70" y1="14" x2="200" y2="14" stroke="#555" stroke-width="3"/>
+          <line x1="150" y1="14" x2="150" y2="104" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <line x1="150" y1="14" x2="108" y2="96" stroke="#555" stroke-width="1.4"/>
+          <circle cx="108" cy="96" r="11" fill="#8DA6C2" stroke="#66798E"/>
+          <path d="M132 96 a48 48 0 0 1 18 -8" fill="none" stroke="#AD7FBA" stroke-width="1.4"/>
+          <text class="beschriftung klein" x="88" y="126">Auslenkung</text>
+          <rect x="228" y="52" width="44" height="34" rx="5" fill="#D8D8D8" stroke="#555"/>
+          <circle cx="250" cy="69" r="11" fill="#fff" stroke="#555"/>
+          <text class="beschriftung klein" x="224" y="104">Stoppuhr</text>
+        </svg></div><div class="vfeld"><b>Durchführung:</b> Ein Pendel (Faden mit Kugel) wird ausgelenkt und dann losgelassen. Gemessen wird jeweils die Zeit für 10 Schwingungen. Die Auslenkung wird erhöht (gleiche Masse und Länge). Die Masse wird erhöht (gleiche Auslenkung und Länge). Die Länge wird vergrößert (gleiche Auslenkung und Masse).</div><div class="vfeld"><b>Beobachtung:</b> Das Pendel führt wiederholt die gleiche Bewegung aus. a) Die Auslenkung hat keinen Einfluss auf die Schwingungsdauer. b) Die Masse hat keinen Einfluss auf die Schwingungsdauer. c) Je größer die Pendellänge, desto größer die Schwingungsdauer.</div><div class="vfeld"><b>Ergebnis:</b> Eine Schwingung ist eine Bewegung, die sich regelmäßig wiederholt. Bei diesem Pendel hängt die Schwingungsdauer nur von der Länge ab.</div></div>
+<div class="karte"><h3>29. Die Größen einer Schwingung</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Achsen -->
+      <line x1="60" y1="106" x2="560" y2="106" stroke="#333" stroke-width="1.6"/>
+      <path d="M560 101 l10 5 l-10 5 z" fill="#333"/>
+      <line x1="60" y1="24" x2="60" y2="188" stroke="#333" stroke-width="1.6"/>
+      <path d="M55 24 l5 -10 l5 10 z" fill="#333"/>
+      <text class="beschriftung kursiv" x="574" y="110">t</text>
+      <text class="beschriftung kursiv" x="42" y="22">A</text>
+      <!-- Sinuskurve, Periode 120, Amplitude 46 -->
+      <path d="M60 106 C81.6 44.8, 98.4 44.8, 120 106 C141.6 167.2, 158.4 167.2, 180 106
+               C201.6 44.8, 218.4 44.8, 240 106 C261.6 167.2, 278.4 167.2, 300 106
+               C321.6 44.8, 338.4 44.8, 360 106 C381.6 167.2, 398.4 167.2, 420 106
+               C441.6 44.8, 458.4 44.8, 480 106 C501.6 167.2, 518.4 167.2, 540 106"
+            fill="none" stroke="#00A0A0" stroke-width="2.4"/>
+      <!-- Amplitude -->
+      <line class="hilfslinie" x1="90" y1="60" x2="200" y2="60"/>
+      <line x1="200" y1="60" x2="200" y2="106" stroke="#C2352E" stroke-width="1.6"/>
+      <path d="M195 64 l5 -8 l5 8 z" fill="#C2352E"/>
+      <path d="M195 100 l5 8 l5 -8 z" fill="#C2352E"/>
+      <text class="beschriftung kursiv" x="208" y="86" fill="#C2352E">A</text>
+      <!-- Periode -->
+      <line x1="240" y1="180" x2="360" y2="180" stroke="#C2352E" stroke-width="1.6"/>
+      <path d="M244 175 l-8 5 l8 5 z" fill="#C2352E"/>
+      <path d="M356 175 l8 5 l-8 5 z" fill="#C2352E"/>
+      <line class="hilfslinie" x1="240" y1="106" x2="240" y2="180"/>
+      <line class="hilfslinie" x1="360" y1="106" x2="360" y2="180"/>
+      <text class="beschriftung kursiv" x="294" y="196" fill="#C2352E">T</text>
+      <text class="beschriftung klein" x="256" y="172">1 Schwingung</text>
+      <text class="beschriftung klein" x="404" y="40">Amplitude: Stärke der Dichteschwankung</text>
+      <text class="beschriftung klein" x="404" y="54">Periode: Dauer einer Schwingung</text>
+      <text class="beschriftung klein" x="404" y="68">Frequenz: Perioden pro Sekunde</text>
+    </svg></div><div class="merk">Amplitude A: maximale Auslenkung. Periode T: Dauer einer Schwingung. Frequenz f: Anzahl der Schwingungen pro Sekunde.</div></div>
+<div class="karte"><h3>30. Ton, Klang, Geräusch und Knall</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4">
+        <line x1="318" y1="10" x2="318" y2="202"/>
+        <line x1="20" y1="106" x2="616" y2="106"/>
+      </g>
+      <!-- Ton: reine Sinuskurve -->
+      <line x1="34" y1="56" x2="290" y2="56" stroke="#333" stroke-width="1"/>
+      <path d="M40 56 C50.8 30, 59.2 30, 70 56 C80.8 82, 89.2 82, 100 56
+               C110.8 30, 119.2 30, 130 56 C140.8 82, 149.2 82, 160 56
+               C170.8 30, 179.2 30, 190 56 C200.8 82, 209.2 82, 220 56
+               C230.8 30, 239.2 30, 250 56 C260.8 82, 269.2 82, 280 56"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="40" y="24" font-weight="600">Ton</text>
+      <text class="beschriftung klein" x="86" y="24">Stimmgabel</text>
+      <!-- Klang: Grundton + Oberton -->
+      <line x1="352" y1="56" x2="608" y2="56" stroke="#333" stroke-width="1"/>
+      <path d="M358 56 C364 28, 370 40, 376 34 C382 28, 388 74, 394 68 C400 62, 406 84, 418 56
+               C424 28, 430 40, 436 34 C442 28, 448 74, 454 68 C460 62, 466 84, 478 56
+               C484 28, 490 40, 496 34 C502 28, 508 74, 514 68 C520 62, 526 84, 538 56
+               C544 28, 550 40, 556 34 C562 28, 568 74, 574 68 C580 62, 586 84, 598 56"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="358" y="24" font-weight="600">Klang</text>
+      <text class="beschriftung klein" x="414" y="24">Gitarre, Stimme</text>
+      <!-- Geraeusch -->
+      <line x1="34" y1="160" x2="290" y2="160" stroke="#333" stroke-width="1"/>
+      <path d="M40 160 L50 140 L58 172 L68 136 L78 166 L86 148 L96 178 L106 142 L114 164
+               L124 132 L134 174 L144 150 L152 168 L162 138 L172 176 L182 146 L190 162
+               L200 134 L210 172 L220 152 L228 166 L238 140 L248 174 L258 148 L266 164
+               L276 144 L284 160"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="40" y="200" font-weight="600">Geräusch</text>
+      <text class="beschriftung klein" x="118" y="200">Papier knüllen</text>
+      <!-- Knall -->
+      <line x1="352" y1="160" x2="608" y2="160" stroke="#333" stroke-width="1"/>
+      <path d="M352 160 L400 160 L406 118 L412 196 L420 132 L428 186 L436 146 L444 174
+               L452 154 L460 166 L468 158 L476 162 L484 160 L608 160"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="358" y="200" font-weight="600">Knall</text>
+      <text class="beschriftung klein" x="412" y="200">Luftballon platzt</text>
+    </svg></div><div class="merk">Ton: reine Sinusschwingung. Klang: mehrere Töne überlagert, Muster wiederholt sich. Geräusch: kein wiederholendes Muster. Knall: kurz, sehr große Amplitude.</div></div>
+<div class="karte"><h3>31. Laut und leise, hoch und tief</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4">
+        <line x1="318" y1="10" x2="318" y2="202"/>
+        <line x1="20" y1="106" x2="616" y2="106"/>
+      </g>
+      <!-- leise: kleine Amplitude -->
+      <line x1="34" y1="56" x2="290" y2="56" stroke="#333" stroke-width="1"/>
+      <path d="M40 56 C50.8 42, 59.2 42, 70 56 C80.8 70, 89.2 70, 100 56
+               C110.8 42, 119.2 42, 130 56 C140.8 70, 149.2 70, 160 56
+               C170.8 42, 179.2 42, 190 56 C200.8 70, 209.2 70, 220 56
+               C230.8 42, 239.2 42, 250 56 C260.8 70, 269.2 70, 280 56"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="40" y="26" font-weight="600">leise</text>
+      <text class="beschriftung klein" x="90" y="26">kleine Amplitude</text>
+      <!-- laut: grosse Amplitude, gleiche Frequenz -->
+      <line x1="352" y1="56" x2="608" y2="56" stroke="#333" stroke-width="1"/>
+      <path d="M358 56 C368.8 20, 377.2 20, 388 56 C398.8 92, 407.2 92, 418 56
+               C428.8 20, 437.2 20, 448 56 C458.8 92, 467.2 92, 478 56
+               C488.8 20, 497.2 20, 508 56 C518.8 92, 527.2 92, 538 56
+               C548.8 20, 557.2 20, 568 56 C578.8 92, 587.2 92, 598 56"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="358" y="26" font-weight="600">laut</text>
+      <text class="beschriftung klein" x="404" y="26">große Amplitude</text>
+      <!-- tief: kleine Frequenz -->
+      <line x1="34" y1="160" x2="290" y2="160" stroke="#333" stroke-width="1"/>
+      <path d="M40 160 C61.6 124, 78.4 124, 100 160 C121.6 196, 138.4 196, 160 160
+               C181.6 124, 198.4 124, 220 160 C241.6 196, 258.4 196, 280 160"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="40" y="200" font-weight="600">tief</text>
+      <text class="beschriftung klein" x="82" y="200">kleine Frequenz</text>
+      <!-- hoch: grosse Frequenz, gleiche Amplitude -->
+      <line x1="352" y1="160" x2="608" y2="160" stroke="#333" stroke-width="1"/>
+      <path d="M358 160 C363.4 124, 367.6 124, 373 160 C378.4 196, 382.6 196, 388 160
+               C393.4 124, 397.6 124, 403 160 C408.4 196, 412.6 196, 418 160
+               C423.4 124, 427.6 124, 433 160 C438.4 196, 442.6 196, 448 160
+               C453.4 124, 457.6 124, 463 160 C468.4 196, 472.6 196, 478 160
+               C483.4 124, 487.6 124, 493 160 C498.4 196, 502.6 196, 508 160
+               C513.4 124, 517.6 124, 523 160 C528.4 196, 532.6 196, 538 160
+               C543.4 124, 547.6 124, 553 160 C558.4 196, 562.6 196, 568 160
+               C573.4 124, 577.6 124, 583 160 C588.4 196, 592.6 196, 598 160"
+            fill="none" stroke="#00A0A0" stroke-width="2"/>
+      <text class="beschriftung" x="358" y="200" font-weight="600">hoch</text>
+      <text class="beschriftung klein" x="404" y="200">große Frequenz</text>
+    </svg></div><div class="merk">Die Amplitude bestimmt die Lautstärke, die Frequenz die Tonhöhe. Große Amplitude heißt laut, hohe Frequenz heißt hoher Ton.</div></div>
+<div class="karte"><h3>Versuch: Amplitude und Frequenz<span class="art">Versuch</span></h3><div class="bild"><svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="34" width="260" height="76" fill="#EFE4CE" stroke="#B9A87A"/>
+          <line x1="34" y1="72" x2="266" y2="72" stroke="#555" stroke-width="2"/>
+          <path d="M34 72 Q150 52 266 72" fill="none" stroke="#8A8A8A" stroke-width="1" stroke-dasharray="3 3"/>
+          <path d="M34 72 Q150 92 266 72" fill="none" stroke="#8A8A8A" stroke-width="1" stroke-dasharray="3 3"/>
+          <path d="M188 62 l0 20 l14 -10 z" fill="#7A7A7A" stroke="#555"/>
+          <text class="beschriftung klein" x="176" y="102">Steg</text>
+          <path d="M96 46 q10 -10 20 0" fill="none" stroke="#AD7FBA" stroke-width="1.6"/>
+          <text class="beschriftung klein" x="82" y="38">Anzupfen</text>
+          <text class="beschriftung klein" x="36" y="126">Saite</text>
+        </svg></div><div class="vfeld"><b>Durchführung:</b> Eine Saite wird gespannt und angezupft. Was kann man sehen? An der Saite wird stärker gezupft als zuvor. Der Steg wird nach links verschoben und die Saite wieder angezupft.</div><div class="vfeld"><b>Beobachtung:</b> a) Die Schwingung der Saite ist erkennbar. b) Der Ton ist lauter. c) Der Ton ist höher.</div><div class="vfeld"><b>Ergebnis:</b> Je größer die Amplitude der schwingenden Saite, desto lauter der Ton. Je kürzer die schwingende Saite, desto höher die Frequenz und damit der Ton höher.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) b)</summary>
+<div style='margin-top:8px'><b>1) Zwei Töne haben dieselbe Frequenz, aber verschiedene Amplitude. Was unterscheidet sie?</b><ol type='a'><li>Die Tonhöhe</li><li>Die Lautstärke</li><li>Die Schallgeschwindigkeit</li><li>Nichts, sie klingen gleich.</li><li>Ein reiner Ton</li><li>Ein Klang</li><li>Ein Geräusch</li><li>Ein Knall</li></ol></div>
+</details>
+<h2 class="frage"><span class="nr">Leitfrage 12</span>Wie hören wir, und wann wird Schall gefährlich?</h2>
+<div class="antwort">Der Schall bringt das Trommelfell zum Schwingen, die Gehörknöchelchen leiten die Schwingung weiter, und in der Gehörschnecke entstehen elektrische Signale für das Gehirn. Weil die Sinneszellen nicht nachwachsen, ist zu lauter Schall dauerhaft schädlich, ab etwa 85 dB.</div>
+<div class="karte"><h3>32. Der Hörvorgang im Ohr</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ohrmuschel -->
+      <path d="M60 40 q46 -18 60 30 q14 46 -14 74 q-22 30 -46 24 q26 -34 12 -70 q-8 -40 -12 -58 z"
+            fill="#F0D2B4" stroke="#9C7B5A" stroke-width="1.6"/>
+      <!-- Gehoergang -->
+      <path d="M116 84 h96" stroke="#9C7B5A" stroke-width="26" stroke-linecap="butt"/>
+      <path d="M116 84 h96" stroke="#FBE7D4" stroke-width="20"/>
+      <!-- Trommelfell -->
+      <line x1="214" y1="70" x2="214" y2="98" stroke="#C2352E" stroke-width="3.4"/>
+      <!-- Gehoerknoechelchen -->
+      <g fill="#8DA6C2" stroke="#66798E" stroke-width="1.2">
+        <path d="M220 76 l16 -10 l6 10 l-14 10 z"/>
+        <path d="M244 62 l16 4 l-2 14 l-16 -6 z"/>
+        <path d="M264 74 l14 8 l-6 12 l-12 -8 z"/>
+      </g>
+      <!-- Gehoerschnecke -->
+      <path d="M296 96 a30 30 0 1 0 22 -28 a20 20 0 1 1 -14 20 a11 11 0 1 0 8 -8"
+            fill="none" stroke="#5E7A8C" stroke-width="7" stroke-linecap="round"/>
+      <!-- Hoernerv -->
+      <path d="M300 128 q34 26 76 22" fill="none" stroke="#E0B93A" stroke-width="6" stroke-linecap="round"/>
+      <text class="beschriftung klein" x="386" y="154">zum Gehirn</text>
+      <!-- Schall -->
+      <g stroke="#C2352E" stroke-width="1.8" fill="none">
+        <path d="M30 66 a26 26 0 0 0 0 36"/>
+        <path d="M18 54 a40 40 0 0 0 0 60"/>
+      </g>
+      <!-- Beschriftungen -->
+      <text class="beschriftung klein" x="52" y="152">1. Ohrmuschel</text>
+      <text class="beschriftung klein" x="130" y="130">2. Gehörgang</text>
+      <text class="beschriftung klein" x="158" y="32">3. Trommelfell</text>
+      <line class="hilfslinie" x1="200" y1="36" x2="214" y2="66"/>
+      <text class="beschriftung klein" x="238" y="16">4. Gehörknöchelchen</text>
+      <line class="hilfslinie" x1="250" y1="20" x2="248" y2="56"/>
+      <text class="beschriftung klein" x="336" y="42">5. Gehörschnecke</text>
+      <line class="hilfslinie" x1="344" y1="46" x2="330" y2="68"/>
+      <!-- Ablauftext -->
+      <text class="beschriftung klein" x="404" y="80">Die Sinneszellen in der Schnecke</text>
+      <text class="beschriftung klein" x="404" y="94">wandeln die Schwingung in</text>
+      <text class="beschriftung klein" x="404" y="108">elektrische Signale um.</text>
+      <text class="beschriftung klein" x="404" y="122">Im Gehirn entsteht der Höreindruck.</text>
+    </svg></div><div class="merk">Die Schallwelle bringt das Trommelfell zum Schwingen. Über die Gehörknöchelchen gelangt die Schwingung in die Gehörschnecke, wo Sinneszellen sie in elektrische Signale umwandeln.</div></div>
+<div class="karte"><h3>33. Wann wird Schall gefährlich?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Skala -->
+      <line x1="60" y1="150" x2="596" y2="150" stroke="#333" stroke-width="1.8"/>
+      <path d="M596 145 l10 5 l-10 5 z" fill="#333"/>
+      <g stroke="#333" stroke-width="1.2">
+        <line x1="90" y1="150" x2="90" y2="158"/><line x1="176" y1="150" x2="176" y2="158"/>
+        <line x1="262" y1="150" x2="262" y2="158"/><line x1="348" y1="150" x2="348" y2="158"/>
+        <line x1="434" y1="150" x2="434" y2="158"/><line x1="520" y1="150" x2="520" y2="158"/>
+      </g>
+      <text class="beschriftung klein" x="78" y="172">20 dB</text>
+      <text class="beschriftung klein" x="164" y="172">40 dB</text>
+      <text class="beschriftung klein" x="250" y="172">60 dB</text>
+      <text class="beschriftung klein" x="336" y="172">80 dB</text>
+      <text class="beschriftung klein" x="422" y="172">100 dB</text>
+      <text class="beschriftung klein" x="508" y="172">120 dB</text>
+      <text class="beschriftung klein" x="560" y="196">Lautstärke</text>
+      <!-- Gefahrenbereich -->
+      <rect x="370" y="132" width="226" height="16" fill="#C2352E" opacity="0.25"/>
+      <line x1="370" y1="126" x2="370" y2="150" stroke="#C2352E" stroke-width="2"/>
+      <text class="beschriftung klein" x="376" y="122" fill="#C2352E">ab 85 dB Gehör in Gefahr</text>
+      <!-- Balken mit Beispielen -->
+      <g>
+        <rect x="84" y="104" width="12" height="44" fill="#4E9B45"/>
+        <rect x="170" y="92" width="12" height="56" fill="#4E9B45"/>
+        <rect x="256" y="80" width="12" height="68" fill="#E6C72E"/>
+        <rect x="342" y="66" width="12" height="82" fill="#E08A2E"/>
+        <rect x="428" y="52" width="12" height="96" fill="#C2352E"/>
+        <rect x="514" y="38" width="12" height="110" fill="#7A2E2E"/>
+      </g>
+      <text class="beschriftung klein" x="62" y="98">Flüstern</text>
+      <text class="beschriftung klein" x="146" y="86">Kühlschrank</text>
+      <text class="beschriftung klein" x="234" y="74">Gespräch</text>
+      <text class="beschriftung klein" x="322" y="60">Straßenlärm</text>
+      <text class="beschriftung klein" x="404" y="46">Kopfhörer laut</text>
+      <text class="beschriftung klein" x="496" y="32">Konzert vorn</text>
+    </svg></div><div class="merk">Ab etwa 85 dB kann dauerhafter Lärm das Gehör schädigen. Die Sinneszellen in der Schnecke wachsen nicht nach. Schutz: Abstand, Pausen, Gehörschutz, Lautstärke begrenzen.</div></div>
+<div class="karte"><h3>Zum Schluss: Wie weit ist das Gewitter?</h3><div class="bild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wolke -->
+      <g fill="#8A93A0">
+        <ellipse cx="130" cy="48" rx="46" ry="22"/>
+        <ellipse cx="96" cy="56" rx="30" ry="18"/>
+        <ellipse cx="166" cy="58" rx="32" ry="18"/>
+      </g>
+      <!-- Blitz -->
+      <path d="M126 70 l-16 42 h18 l-14 40 l40 -52 h-20 l16 -30 z" fill="#E6C72E" stroke="#B98900" stroke-width="1.2"/>
+      <!-- Person -->
+      <circle cx="520" cy="96" r="15" fill="#F0D2B4" stroke="#9C7B5A"/>
+      <path d="M520 111 v46" stroke="#3A5A8C" stroke-width="10"/>
+      <path d="M520 157 l-14 34 M520 157 l14 34" stroke="#3A5A8C" stroke-width="7" fill="none"/>
+      <!-- Licht -->
+      <line x1="190" y1="92" x2="496" y2="92" stroke="#E6C72E" stroke-width="2.6"/>
+      <path d="M496 87 l10 5 l-10 5 z" fill="#E6C72E"/>
+      <text class="beschriftung klein" x="230" y="84">Licht: 300 000 km/s, praktisch sofort da</text>
+      <!-- Schall -->
+      <g stroke="#C2352E" stroke-width="2" fill="none">
+        <path d="M200 118 a30 30 0 0 1 0 40"/>
+        <path d="M216 110 a44 44 0 0 1 0 56"/>
+        <path d="M232 102 a58 58 0 0 1 0 72"/>
+      </g>
+      <line x1="250" y1="138" x2="496" y2="138" stroke="#C2352E" stroke-width="2.2" stroke-dasharray="6 4"/>
+      <path d="M496 133 l10 5 l-10 5 z" fill="#C2352E"/>
+      <text class="beschriftung klein" x="256" y="130">Schall: 343 m/s, also rund 1 km in 3 Sekunden</text>
+      <text class="beschriftung" x="256" y="182" font-weight="600">Zähle die Sekunden zwischen Blitz und Donner</text>
+      <text class="beschriftung" x="256" y="198" font-weight="600">und teile durch 3. Das ist die Entfernung in km.</text>
+    </svg></div><div class="merk">Licht ist fast eine Million Mal schneller als Schall. Deshalb sehen wir den Blitz sofort und hören den Donner erst später.</div></div>
+<details><summary>Check-Fragen anzeigen (Lösung: 1) b 2) c)</summary>
+<div style='margin-top:8px'><b>1) Was gerät als Erstes in Schwingung, wenn Schall ins Ohr gelangt?</b><ol type='a'><li>Die Gehörschnecke</li><li>Das Trommelfell</li><li>Der Hörnerv</li><li>Die Gehörknöchelchen</li><li>Weil das Trommelfell reißt.</li><li>Weil die Gehörknöchelchen verrutschen.</li><li>Weil die Sinneszellen nicht nachwachsen.</li><li>Weil sich der Gehörgang verengt.</li></ol></div>
+</details>
+</section>
+<section class="tab" id="s-versuche"><table><tr><th>Woche</th><th>Versuch</th><th>Artikel-Nr.</th><th>Set</th><th>Form</th></tr>
+<tr><td class="w">W04</td><td>Durchsichtige und undurchsichtige Stoffe</td><td class="nr">P1063300</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W05</td><td>Geradlinige Ausbreitung des Lichts</td><td class="nr">P1063200</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W06/W07</td><td>Schatten (Kern- und Halbschatten)</td><td class="nr">P1063400</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W08</td><td>Mond- und Sonnenfinsternis (mit der Leuchtbox)</td><td class="nr">P1063500</td><td>TESS</td><td>Demo</td></tr>
+<tr><td class="w">W10</td><td>Reflexion des Lichts</td><td class="nr">P1063600</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W11</td><td>Bilder am Planspiegel</td><td class="nr">P1063800</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W12</td><td>Brechung beim Übergang Luft zu Glas</td><td class="nr">P1064300</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W12</td><td>Brechung beim Übergang Glas zu Luft</td><td class="nr">P1064700</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W12</td><td>Brechung beim Übergang Luft zu Wasser</td><td class="nr">P1064500</td><td>TESS</td><td>Schülerversuch</td></tr>
+<tr><td class="w">W13</td><td>Strahlengang und Brennweite bei einer Konvexlinse</td><td class="nr">P1065300</td><td>TESS</td><td>Stationen</td></tr>
+<tr><td class="w">W13</td><td>Strahlengang und Brennweite bei einer Konkavlinse</td><td class="nr">P1065500</td><td>TESS</td><td>Stationen</td></tr>
+<tr><td class="w">W15</td><td>Bildkonstruktion an Konvexlinsen</td><td class="nr">P1065400</td><td>TESS</td><td>Stationen</td></tr>
+<tr><td class="w">W15</td><td>Funktionsweise des menschlichen Auges</td><td class="nr">P1066700</td><td>TESS</td><td>Stationen</td></tr>
+<tr><td class="w">W16</td><td>Kurzsichtigkeit und ihre Korrektur</td><td class="nr">P1066800</td><td>TESS</td><td>Stationen</td></tr>
+<tr><td class="w">W16</td><td>Weitsichtigkeit und ihre Korrektur</td><td class="nr">P1066900</td><td>TESS</td><td>Stationen</td></tr>
+<tr><td class="w">W19</td><td>Brechung an einem Prisma</td><td class="nr">P1065000</td><td>TESS</td><td>Stationen</td></tr>
+<tr><td class="w">Zusatz</td><td>Totalreflexion und Grenzwinkel</td><td class="nr">P1064800</td><td>TESS</td><td>passt zur Glasfaser-Folie</td></tr>
+<tr><td class="w">Zusatz</td><td>Umlenkprisma</td><td class="nr">P1065100</td><td>TESS</td><td>Anwendung Totalreflexion</td></tr>
+<tr><td class="w">Zusatz</td><td>Lichtdurchgang durch planparallele Platte</td><td class="nr">P1064900</td><td>TESS</td><td>Vertiefung</td></tr>
+<tr><td class="w">Zusatz</td><td>Chromatische Linsenfehler</td><td class="nr">P1066000</td><td>TESS</td><td>Vertiefung Farben</td></tr>
+</table>
+<div class="hinweis"><b>Nicht durch die Optiksets abgedeckt:</b><br>Akustik: Stimmgabel, Oszilloskop mit Mikrofon, Monochord, Vakuumglocke mit Klingel<br>Magnetismus: Stabmagnete, Eisenfeilspäne, Kompassnadeln, Spule<br>Stromkreis: Experimentierkästen, Vielfachmessgeräte<br>Farbmischung: Farbmischungs-Zubehör für die Leuchtbox (separat nachzurüsten)</div>
+</section></div>
+<script>
+const b=document.getElementById('themeBtn'),r=document.documentElement;
+if(localStorage.getItem('phys-theme')==='light')r.classList.add('light');
+b.onclick=()=>{r.classList.toggle('light');
+localStorage.setItem('phys-theme',r.classList.contains('light')?'light':'dark');};
+</script></div></body></html>

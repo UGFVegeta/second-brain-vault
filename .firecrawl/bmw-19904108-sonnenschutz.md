@@ -1,1 +1,0 @@
-Auf der Seite gibt es keine Informationen darüber, ob Sonnenschutzverglasung enthalten ist.

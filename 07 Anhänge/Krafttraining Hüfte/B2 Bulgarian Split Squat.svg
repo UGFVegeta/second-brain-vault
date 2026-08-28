@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 285" width="440" height="285" role="img" aria-label="Bulgarian Split Squat">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="285" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="30" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">B2 · Bulgarian Split Squat</text>
+  <text x="220" y="50" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Senkrecht absenken · Knie über dem Fuß · Ferse drückt</text>
+
+  <line x1="40" y1="262" x2="400" y2="262" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="290" y="200" width="110" height="18" rx="3" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+  <line x1="346" y1="218" x2="346" y2="262" stroke="#9aa3b0" stroke-width="4"/>
+
+  <circle cx="206" cy="162" r="20" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M206,162 L190,214 L186,262" stroke-width="7.5"/>
+    <path d="M206,162 L268,222 L314,206" stroke-width="7.5"/>
+    <path d="M206,162 L204,96" stroke-width="7.5"/>
+    <path d="M204,100 L178,166" stroke-width="5"/>
+  </g>
+  <circle cx="204" cy="78" r="18" fill="#2c3e50"/>
+
+  <line x1="164" y1="176" x2="192" y2="176" stroke="#2c3e50" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="164" cy="176" r="7" fill="#2c3e50"/>
+  <circle cx="192" cy="176" r="7" fill="#2c3e50"/>
+
+  <path d="M132,180 L132,226" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+
+  <text x="220" y="278" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">3 × 8 je Seite · Tiefe nur so weit, wie die Hüfte es zulässt</text>
+</svg>

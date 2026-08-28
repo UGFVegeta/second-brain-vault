@@ -13,5 +13,8 @@ Langfristige Gesundheit und Fitness als Fundament für alles andere. Das Ziel is
 - Schlafqualität optimieren
 - Präventive Maßnahmen für langfristige Gesundheit
 
+## Laufende Themen
+- [[Hüfte – Übersicht & Entscheidungsstand]] – Coxarthrose: Nachtschmerz, Krafttraining, OP-Entscheidung
+
 ## Referenzen
 - [[03 Bereiche/Sport & Triathlon]]

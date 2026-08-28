@@ -20,6 +20,35 @@ date: 2026-06-08
 
 **Alle Supplemente werden seit Feb/März 2026 eingenommen.**
 
+*Quelle: Ärztlicher Befundbericht Labor Dr. Bayer / SYNLAB Leinfelden, Endbefund vom 16.02.2026, Blutentnahme 28.01.2026. Der "Eisen"-Wert oben (83 μg/L) ist im Originalbefund die **Ferritin**-Konzentration (Referenzbereich Labor: 22–275 μg/l – offiziell also unauffällig; 120–150 μg/L ist Sundays funktionaler Zielbereich für Ausdauerleistung, kein medizinischer Grenzwert).*
+
+---
+
+## Kardiovaskuläres Risikoprofil (aus demselben Befund, 16.02.2026)
+
+| Wert | Ergebnis | Referenzbereich | Status |
+|---|---|---|---|
+| Lipoprotein(a) | 49,7 mg/dl | < 30,0 mg/dl | 🔴 erhöht ("Grauzone") |
+| Homocystein | 8,4 μmol/l | < 10 μmol/l | 🟡 im Schwellenbereich 8–10 |
+| Cholesterin gesamt | 161 mg/dl | 150–200 mg/dl | 🟢 unauffällig |
+| HDL-Cholesterin | 43 mg/dl | > 40 mg/dl | 🟢 unauffällig |
+| LDL-Chol. (homogen) | 111 mg/dl | < 116 mg/dl | 🟡 grenzwertig, evtl. SCORE-Risiko klären |
+| Triglyzeride | 64 mg/dl | < 150 mg/dl | 🟢 gut |
+| LDL-Subfraktionen | Phänotyp A | – | 🟢 große, wenig atherogene Partikel |
+| Lp-PLA2 (Gefäßentzündung) | 493 U/l | < 640 U/l | 🟢 niedriges Risiko |
+| Apo B/Apo A1-Quotient | 0,6 | 0,35–1,00 | 🟢 günstig |
+| CRP hochsensitiv | < 0,40 mg/l | < 1,0 mg/l | 🟢 sehr gut |
+
+**Lp(a) ist genetisch bedingt (nicht durch Lebensstil beeinflussbar) und prädisponiert für Arteriosklerose/Thrombose.** Laut Befund-Kommentar liegt der Wert in einer Grauzone – Risiko noch nicht eindeutig erhöht, aber relevant bei weiteren Risikofaktoren. Labor empfiehlt ergänzende Abklärung von Schilddrüse, Nierenfunktion, Diabetes (diese beeinflussen Lp(a)). **Homocystein**: Labor rät zu gezielter Substitution mit Folat, B12, B6, um unter 8 μmol/l zu kommen – trotz aktuell unauffälliger B-Vitamin-Werte.
+
+## Weitere auffällige Einzelwerte
+
+- **Insulin nüchtern: 2,1 μU/ml** (Referenz 3,0–25,0, 🔵 unter Norm) – bei normalem HbA1c (5,0%) und normaler Glukose eher Zeichen guter Insulinsensitivität (typisch bei Ausdauersportlern), keine Auffälligkeit von Krankheitswert.
+- **Differentialblutbild nicht auswertbar** – Probe war beim Eintreffen im Labor bereits "autolytisch verändert" (Zellzerfall, vermutlich durch Transportzeit). Eosinophile, Lymphozyten, Monozyten etc. konnten nicht bestimmt werden – bei nächster Blutabnahme ggf. auf schnellen Transport achten.
+- MCV 97,6 fl (▲, Referenz 80–96) und mittleres Plättchenvolumen 12,6 fl (▲, Referenz 7,4–11,7) leicht erhöht, MCHC 29,0 g/dl (▼, Referenz 32–36) leicht erniedrigt – Einzelbefunde ohne klinische Bedeutung laut Befund.
+- Nierenfunktion sehr gut: eGFR (CKD-EPI) 108, eGFR (CAPA) 111 ml/min – deutlich über Norm (>60).
+- Fettsäureprofil: AA/EPA-Quotient 5,6 (▲, Ziel < 4) – leicht proinflammatorische Tendenz, laut Befund noch im akzeptablen Graubereich. Alpha-Linolensäure und Linolsäure unter Referenz.
+
 ---
 
 ## Einnahmeplan (angepasst an Alltag)

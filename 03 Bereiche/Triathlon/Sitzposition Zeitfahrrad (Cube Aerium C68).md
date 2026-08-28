@@ -42,7 +42,75 @@ Ausgangswerte (eintragen sobald abgelesen):
 - **0,6 cm nach vorne**
 - **2 bis 3 mm höher**
 - Fotos vorher/nachher vorhanden (Downloads IMG_6890 und IMG_6894). Taugen als Beleg der veränderten Klemmposition, nicht zum Messen, weil Abstand und Winkel der Aufnahmen unterschiedlich sind.
-- ⚠️ Noch nicht getestet, Regen am Änderungstag.
+- Am Änderungstag Regen, daher erst am 09.08. getestet.
+
+## ✅ Ergebnis des Tests (09.08.2026)
+
+**Die Änderung hat funktioniert.** Kein Nachvornerutschen mehr, eher ein Tick nach hinten. Die natürliche Kraftposition liegt jetzt dort, wo der Sattel steht, statt dass der Körper dagegen arbeitet. Keine Warnzeichen (Hüfte ruhig, kein Ziehen).
+
+Fahrt: 50,18 km in 1:15:45, nur 42 hm, **39,7 km/h Schnitt**, 242 W im Mittel, NP 263, IF 0,80, 80 TSS.
+
+| Bestwert | Leistung |
+|---|---|
+| 20 min | **296 W** |
+| 30 min | **290 W** |
+
+Entscheidend: Das war eine **flache** Strecke. Genau die Schwäche aus Ravensburg (in der Ebene in Aero zu wenig Druck) ist damit adressiert. 30 Minuten 290 W flach in Aeroposition.
+
+Subjektiv: „noch nie so gut und so schnell Rad gefahren", dazu mehrere Strava-Bestzeiten.
+
+✅ **Dauer in Aeroposition ist kein Thema (19.08.2026).** Ich hatte das mehrfach als offenen Punkt geführt, weil die längste dokumentierte Aerofahrt nach der Sattelverstellung 1:52 war, die Radzeit in Malterdingen aber rund 2:20 beträgt. Oskar hält die Position nach eigener Aussage locker zweieinhalb Stunden. Das war eine Lücke in den Daten, kein Problem am Rad. **Nicht erneut aufwerfen.**
+
+Einordnung zur Effizienz: Verhältnis Leistung zu Herzfrequenz bei 2,33 und damit an der Spitze der Trainingsfahrten, aber nur knapp über dem 21. und 28. Juli (2,26 bis 2,29). Sehr guter Tag, kein Dimensionssprung. Wie viel davon die Position ist, lässt sich aus einer Fahrt nicht trennen.
+
+⚠️ **Rad-Herzfrequenz nicht mit Laufwerten vergleichen.** Auf dem Rad liegt sie durchgängig rund 15 Schläge tiefer: selbst in den Rennen Erbach und Schluchsee nur 136 bzw. 137 im Schnitt. HF taugt auf dem Rad deshalb nicht zur Intensitätssteuerung, dafür die Wattzahl nehmen.
+
+## ⚠️ Zwei verschiedene FTP-Werte (geklärt am 09.08.2026)
+
+**Die 330 W stammen aus einem Indoor-Test auf dem Rennrad in aufrechter Position.** Für das Zeitrad im Aerolenker gilt dieser Wert nicht. Der Unterschied liegt bei den meisten bei 5 bis 10 %, und Oskar hat das selbst beschrieben („in der Aeroposition trete ich nicht so viel Watt wie aufrecht"). Realistische Zeitrad-FTP: **295 bis 310 W**.
+
+Zwei unabhängige Herleitungen der Renn-Wattzahl:
+
+1. **Über die Rennwerte:** Schluchsee 57 min bei NP 281, bei rennüblichen 90–95 % ergibt das eine Zeitrad-FTP um 300.
+2. **Über die Fahrt vom 09.08.:** 30 min bei 290 W gehalten. Für 2,5 h Rad plus anschließenden Halbmarathon sind 80–85 % davon haltbar.
+
+Beide Wege führen rechnerisch auf 240 bis 250 W. **Festgelegt ist aber 260 bis 265 W** (Entscheidung Oskar, 09.08.2026), siehe unten.
+
+❌ Das ursprüngliche Ziel von 264–274 W war aus den 330 abgeleitet und damit falsch: gemessen an einer Zeitrad-FTP um 300 wären das IF 0,88–0,91, also keine Mitteldistanz-Intensität.
+
+**Gegenrechnung:** 270 statt 245 W wären auf 80 km rund 4 bis 5 Minuten schneller. Ein überzogener Radsplit kostet aber etwa 13 s/km auf dem Lauf, also 4,5 Minuten. Auf dem Papier ein Nullsummenspiel, im Risiko klar asymmetrisch: nach oben 4 Minuten Gewinn, nach unten 10 Minuten Verlust bei einem Einbruch. Als Läufertyp ist die Rechnung eindeutig.
+
+**Offen:** Misst der Indoor-Test mit demselben Powermeter wie draußen? Bei Smart-Rolle gegen Pedale/Kurbel sind die Werte zusätzlich um mehrere Prozent verschoben.
+
+**Zu tun:** Sauberer Zeitrad-FTP-Test erst nach dem Rennen. Am Renntag auf absolute Watt steuern, nicht auf Prozent einer ungeprüften FTP.
+
+## Festgelegtes Radziel Malterdingen (09.08.2026)
+
+**Im Flachen 258 bis 262 W, an den drei Anstiegen bis 300 W. Harte Grenze ist die Summe: NP über die vollen 80 km maximal 270 W.** Die Verteilung bleibt taktisch frei, wer am Berg mitgeht, zahlt es im nächsten Flachstück zurück.
+
+### ✅ Warum am Berg 300 W gehen (korrigiert am 09.08.2026)
+
+Am Anstieg liege ich nicht im Aerolenker, sondern sitze auf dem Basislenker auf. Damit ist der Hüftwinkel offen und die Atmung frei, also gilt dort die **Rennrad-FTP von 330** und nicht die geschätzte Aero-FTP um 305. 300 W für zehn Minuten sind damit IF 0,91, eine normale Belastung und keine Schwellenarbeit.
+
+❌ Mein ursprünglicher Einwand („300 W wären Schwellenleistung") war falsch, weil er die Aeroposition auf den Berg übertragen hat.
+
+⚠️ Was bleibt: Die Stoffwechselkosten hängen **nicht** von der Position ab. Flach 262 plus Berg 300 ergibt über die 80 km eine NP von etwa 270 bis 275, gegen eine gemischte effektive FTP von 315 bis 320 also IF 0,85 bis 0,87. Das ist das obere Ende vor einem Halbmarathon. Deshalb im Flachen eher 258 bis 262, damit die Summe bei NP 270 bleibt.
+
+### Zeitrechnung (Fahrer + Rad 87 kg)
+
+| Abschnitt | Mehrleistung | Zeitgewinn |
+|---|---|---|
+| Flach 60 km | 262 statt 245 W | 2:11 |
+| Berg 3 × 3,2 km | 300 statt 265 W | 3:05 |
+| Berg 3 × 3,2 km | 280 statt 265 W | 1:25 |
+
+Wichtige Erkenntnis: **Am Berg bringt jedes Watt mehr Zeit als im Flachen**, weil dort die Leistung fast linear in Geschwindigkeit umschlägt, während sie gegen den Luftwiderstand in der dritten Potenz verpufft. Die Neigung, am Anstieg zu drücken, ist rechnerisch also richtig.
+
+⚠️ **Aber:** 300 W über 10 Minuten sind bei einer Zeitrad-FTP um 305 Schwellenleistung. Dreimal in einem 80-km-Rennen ist das der klassische Mechanismus, der den Halbmarathon zerlegt, nicht über die Radzeit, sondern über den Glykogenverbrauch. Mit 280 W holt man über die Hälfte des Gewinns zu einem Bruchteil der Ermüdung.
+
+**Windschatten:** Bei legalem Abstand real 3 bis 5 % weniger Luftwiderstand, über 80 km grob 1 bis 2 Minuten geschenkt. Er kauft Tempo bei gleicher Leistung, nicht Spielraum für mehr Watt. Dass es sich hinter jemandem leichter anfühlt, ist die Falle: Überziehen fühlt sich im Moment nicht danach an.
+
+**Test:** Die Koppeleinheit am 13.08. prüft, ob 260 bis 265 W die richtige Größenordnung sind, also ob danach noch 4:05/km auf 5 km gehen.
 
 Einordnung: Der rein geometrische Ausgleich für 0,6 cm nach vorne liegt bei etwa 0,5 bis 1,5 mm. Mit 2 bis 3 mm ist die Höhe also etwas großzügig, unterm Strich 1 bis 2 mm mehr Beinstreckung als vorher. Wenig, aber Richtung Überstreckung.
 

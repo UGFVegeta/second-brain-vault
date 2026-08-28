@@ -1,0 +1,1741 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Kernphysik – Klasse 10</title>
+<link rel="stylesheet" href="../Optik/folien.css">
+<style>
+  /* Farbcode der Kernbausteine, gilt fuer den ganzen Satz */
+  svg .proton   { fill: #D24B4B; stroke: #8E2B2B; stroke-width: .8; }
+  svg .neutron  { fill: #8DA6C2; stroke: #4E6480; stroke-width: .8; }
+  svg .elektron { fill: #E6C72E; stroke: #B98900; stroke-width: .8; }
+  svg .kernlinie{ stroke: #8A8A8A; stroke-width: 1; fill: none; }
+  svg .nuklid   { font-family: "Avenir Next", Helvetica, sans-serif; font-size: 19px; fill: #111; }
+  svg .nuklid .idx { font-size: 10.5px; }
+  svg .strahl-a { stroke: #D24B4B; stroke-width: 2.6; fill: none; }
+  svg .strahl-b { stroke: #2E6BB8; stroke-width: 2.6; fill: none; }
+  svg .strahl-g { stroke: #7A4BAF; stroke-width: 2.6; fill: none; }
+</style>
+</head>
+<body>
+
+<!-- ================================================== Kapitel --- -->
+<section class="folie kapitel">
+  <h1>Kernphysik | Struktur der Materie</h1>
+</section>
+
+
+<!-- ======================================== F1 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Groessenvergleich: Stadion und Stecknadelkopf -->
+      <ellipse cx="180" cy="130" rx="128" ry="80" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+      <ellipse cx="180" cy="130" rx="96" ry="56" fill="#EFF3E4" stroke="#A8BE84" stroke-width="1.4"/>
+      <circle cx="180" cy="130" r="3" class="proton"/>
+      <text class="beschriftung klein" x="150" y="152">Kern</text>
+      <text class="beschriftung" x="104" y="34" font-weight="600">Modell: ein Fußballstadion</text>
+      <text class="beschriftung klein" x="86" y="228">Wäre das Atom so groß wie ein Stadion,</text>
+      <text class="beschriftung klein" x="86" y="240">wäre der Kern eine Erbse in der Mitte.</text>
+      <!-- Pfeil -->
+      <path d="M330 130 h44" stroke="#66798E" stroke-width="2" fill="none"/>
+      <path d="M374 124 l12 6 l-12 6 z" fill="#66798E"/>
+      <!-- Atom schematisch -->
+      <circle cx="500" cy="130" r="76" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="500" cy="130" r="46" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <g class="proton"><circle cx="496" cy="128" r="6"/><circle cx="506" cy="134" r="6"/></g>
+      <g class="neutron"><circle cx="504" cy="124" r="6"/><circle cx="494" cy="137" r="6"/></g>
+      <circle cx="546" cy="130" r="5" class="elektron"/>
+      <circle cx="500" cy="54" r="5" class="elektron"/>
+      <circle cx="446" cy="152" r="5" class="elektron"/>
+      <text class="beschriftung" x="452" y="34" font-weight="600">Atom</text>
+      <text class="beschriftung klein" x="586" y="134">Hülle</text>
+    </svg>
+  </div>
+  <div class="impulstext">Fast das ganze Atom ist leer. Trotzdem steckt im winzigen Kern fast die gesamte Masse.</div>
+</section>
+
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 1</div>
+    <h2>Woraus besteht Materie?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ==================================== 1. Aufbau des Atoms ----- -->
+<section class="folie">
+  <div class="titelband"><h1>1. Der Aufbau des Atoms</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Der <b>Atomkern</b> enthält <span class="rot">Protonen</span> (positiv) und
+    <span class="rot">Neutronen</span> (neutral). In der <b>Atomhülle</b> bewegen sich
+    die <b>Elektronen</b> (negativ). Ein Atom ist nach außen neutral.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>1. Der Aufbau des Atoms</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Huelle -->
+      <circle cx="180" cy="106" r="88" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <circle cx="180" cy="106" r="54" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <!-- Kern -->
+      <g class="proton">
+        <circle cx="174" cy="100" r="9"/><circle cx="190" cy="108" r="9"/><circle cx="176" cy="116" r="9"/>
+      </g>
+      <g class="neutron">
+        <circle cx="188" cy="94" r="9"/><circle cx="164" cy="110" r="9"/><circle cx="192" cy="122" r="9"/>
+      </g>
+      <!-- Elektronen -->
+      <circle cx="234" cy="106" r="6" class="elektron"/>
+      <circle cx="180" cy="52" r="6" class="elektron"/>
+      <circle cx="118" cy="138" r="6" class="elektron"/>
+      <circle cx="268" cy="106" r="6" class="elektron"/>
+      <!-- Legende -->
+      <circle cx="330" cy="46" r="8" class="proton"/>
+      <text class="beschriftung" x="346" y="51">Proton, positiv geladen</text>
+      <circle cx="330" cy="76" r="8" class="neutron"/>
+      <text class="beschriftung" x="346" y="81">Neutron, ungeladen</text>
+      <circle cx="330" cy="106" r="6" class="elektron"/>
+      <text class="beschriftung" x="346" y="111">Elektron, negativ geladen</text>
+      <text class="beschriftung klein" x="120" y="196">Kern: fast die ganze Masse</text>
+      <text class="beschriftung klein" x="248" y="30">Hülle: fast das ganze Volumen</text>
+      <!-- Schreibweise -->
+      <g transform="translate(348,140)">
+        <text class="nuklid" x="34" y="24">X</text>
+        <text class="nuklid idx" x="14" y="12">A</text>
+        <text class="nuklid idx" x="14" y="28">Z</text>
+        <text class="beschriftung klein" x="58" y="8">A = Massenzahl (Protonen + Neutronen)</text>
+        <text class="beschriftung klein" x="58" y="22">Z = Kernladungszahl (Protonen)</text>
+        <text class="beschriftung klein" x="58" y="36">X = Elementsymbol</text>
+      </g>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Der <b>Atomkern</b> enthält <span class="rot">Protonen</span> (positiv) und
+    <span class="rot">Neutronen</span> (neutral). In der <b>Atomhülle</b> bewegen sich
+    die <b>Elektronen</b> (negativ). Ein Atom ist nach außen neutral.
+  </div>
+</section>
+
+
+<!-- ==================================== 2. Isotope -------------- -->
+<section class="folie">
+  <div class="titelband"><h1>2. Isotope</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    <span class="rot">Isotope</span> sind Atome desselben Elements mit <b>gleicher Protonenzahl</b>,
+    aber <b>unterschiedlicher Neutronenzahl</b>. Sie verhalten sich chemisch gleich,
+    ihre Kerne aber verschieden.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>2. Isotope</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4">
+        <line x1="212" y1="16" x2="212" y2="176"/>
+        <line x1="424" y1="16" x2="424" y2="176"/>
+      </g>
+      <!-- Wasserstoff -->
+      <circle cx="106" cy="86" r="46" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="106" cy="86" r="9" class="proton"/>
+      <circle cx="152" cy="86" r="6" class="elektron"/>
+      <text class="beschriftung" x="70" y="156" font-weight="600">Wasserstoff</text>
+      <g transform="translate(78,168)">
+        <text class="nuklid" x="20" y="20">H</text><text class="nuklid idx" x="6" y="8">1</text>
+        <text class="nuklid idx" x="6" y="24">1</text>
+      </g>
+      <text class="beschriftung klein" x="120" y="188">1 Proton, 0 Neutronen</text>
+      <!-- Deuterium -->
+      <circle cx="318" cy="86" r="46" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="313" cy="86" r="9" class="proton"/>
+      <circle cx="326" cy="90" r="9" class="neutron"/>
+      <circle cx="364" cy="86" r="6" class="elektron"/>
+      <text class="beschriftung" x="286" y="156" font-weight="600">Deuterium</text>
+      <g transform="translate(292,168)">
+        <text class="nuklid" x="20" y="20">H</text><text class="nuklid idx" x="6" y="8">2</text>
+        <text class="nuklid idx" x="6" y="24">1</text>
+      </g>
+      <text class="beschriftung klein" x="332" y="188">1 Proton, 1 Neutron</text>
+      <!-- Tritium -->
+      <circle cx="530" cy="86" r="46" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <circle cx="525" cy="82" r="9" class="proton"/>
+      <circle cx="538" cy="88" r="9" class="neutron"/>
+      <circle cx="524" cy="95" r="9" class="neutron"/>
+      <circle cx="576" cy="86" r="6" class="elektron"/>
+      <text class="beschriftung" x="504" y="156" font-weight="600">Tritium</text>
+      <g transform="translate(500,168)">
+        <text class="nuklid" x="20" y="20">H</text><text class="nuklid idx" x="6" y="8">3</text>
+        <text class="nuklid idx" x="6" y="24">1</text>
+      </g>
+      <text class="beschriftung klein" x="540" y="188">1 Proton, 2 Neutronen</text>
+      <text class="beschriftung klein" x="70" y="30">alle drei sind Wasserstoff, denn alle haben genau 1 Proton</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    <span class="rot">Isotope</span> sind Atome desselben Elements mit <b>gleicher Protonenzahl</b>,
+    aber <b>unterschiedlicher Neutronenzahl</b>. Sie verhalten sich chemisch gleich,
+    ihre Kerne aber verschieden.
+  </div>
+</section>
+
+
+<!-- ======================================== F1 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 1</div>
+    <h2>Woraus besteht Materie?</h2>
+  </div>
+  <div class="antwortzone">
+    Aus Atomen mit einem winzigen, schweren <b>Kern</b> aus Protonen und Neutronen und einer
+    fast leeren <b>Hülle</b> aus Elektronen. Die <span class="rot">Protonenzahl</span> bestimmt
+    das Element, die Neutronenzahl unterscheidet die <b>Isotope</b> eines Elements.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 1</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Was gibt die Kernladungszahl Z an?</p>
+      <ol>
+        <li>Die Anzahl der Neutronen</li>
+        <li>Die Anzahl der Protonen</li>
+        <li>Protonen und Neutronen zusammen</li>
+        <li>Die Masse des Atoms in Gramm</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Zwei Atome haben je 6 Protonen, aber 6 bzw. 8 Neutronen. Was gilt?</p>
+      <ol>
+        <li>Es sind verschiedene Elemente.</li>
+        <li>Es sind Isotope desselben Elements.</li>
+        <li>Eines davon ist ein Ion.</li>
+        <li>Das ist unmöglich.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) b</div>
+</section>
+
+
+<!-- ======================================== F2 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Geiger-Mueller-Zaehler -->
+      <rect x="150" y="70" width="150" height="104" rx="8" fill="#3A3A3A" stroke="#111"/>
+      <rect x="164" y="84" width="122" height="46" fill="#0E2A14" stroke="#0A1C0E"/>
+      <text x="176" y="118" font-family="Menlo,monospace" font-size="26" fill="#4BE07A">137 /s</text>
+      <circle cx="182" cy="152" r="7" fill="#8DA6C2"/><circle cx="206" cy="152" r="7" fill="#8DA6C2"/>
+      <text class="beschriftung klein" x="152" y="196">Zählrohr</text>
+      <!-- Zaehlrohr-Sonde -->
+      <rect x="300" y="108" width="60" height="20" rx="9" fill="#7A7A7A" stroke="#555"/>
+      <line x1="300" y1="118" x2="286" y2="118" stroke="#555" stroke-width="2.4"/>
+      <!-- Praeparat -->
+      <path d="M430 150 h74 l-10 -34 h-54 z" fill="#8DA6C2" stroke="#4E6480"/>
+      <circle cx="467" cy="128" r="9" fill="#E6C72E" stroke="#B98900"/>
+      <text class="beschriftung klein" x="424" y="176">Präparat</text>
+      <!-- Strahlung -->
+      <g stroke="#D24B4B" stroke-width="2" fill="none">
+        <path d="M420 108 a26 26 0 0 0 0 -0.1"/>
+      </g>
+      <g class="strahl-a">
+        <line x1="440" y1="118" x2="372" y2="112"/>
+        <line x1="442" y1="128" x2="374" y2="126"/>
+      </g>
+      <text class="beschriftung" x="150" y="52" font-weight="600">Das Zählrohr klickt, obwohl niemand etwas tut.</text>
+      <text class="beschriftung klein" x="380" y="98">unsichtbare Strahlung</text>
+    </svg>
+  </div>
+  <div class="impulstext">Auch ohne Präparat klickt es ab und zu. Woher kommt diese Strahlung?</div>
+</section>
+
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 2</div>
+    <h2>Warum zerfallen manche Atomkerne von selbst?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ==================================== 3. Radioaktivitaet ------ -->
+<section class="folie">
+  <div class="titelband"><h1>3. Was ist Radioaktivität?</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Instabile Kerne wandeln sich <span class="rot">spontan</span> um und senden dabei Strahlung aus.
+    Das nennt man <b>Radioaktivität</b>. Wann ein einzelner Kern zerfällt, ist
+    <b>nicht vorhersagbar</b>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>3. Was ist Radioaktivität?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- instabiler Kern -->
+      <g>
+        <circle cx="130" cy="100" r="42" fill="#F6E9E9" stroke="#8E2B2B" stroke-width="1.4"/>
+        <g class="proton"><circle cx="118" cy="90" r="8"/><circle cx="140" cy="96" r="8"/>
+          <circle cx="124" cy="112" r="8"/><circle cx="144" cy="116" r="8"/></g>
+        <g class="neutron"><circle cx="132" cy="82" r="8"/><circle cx="110" cy="104" r="8"/>
+          <circle cx="150" cy="104" r="8"/><circle cx="130" cy="124" r="8"/></g>
+      </g>
+      <text class="beschriftung" x="88" y="166" font-weight="600">instabiler Kern</text>
+      <text class="beschriftung klein" x="82" y="180">zu viele oder zu wenige Neutronen</text>
+      <!-- Umwandlung -->
+      <path d="M188 100 h52" stroke="#66798E" stroke-width="2" fill="none"/>
+      <path d="M240 94 l12 6 l-12 6 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="186" y="90">zerfällt</text>
+      <!-- neuer Kern -->
+      <circle cx="316" cy="100" r="34" fill="#EAF4EA" stroke="#3E6B2E" stroke-width="1.4"/>
+      <g class="proton"><circle cx="308" cy="94" r="8"/><circle cx="326" cy="100" r="8"/></g>
+      <g class="neutron"><circle cx="312" cy="110" r="8"/><circle cx="328" cy="88" r="8"/></g>
+      <text class="beschriftung" x="278" y="158" font-weight="600">stabilerer Kern</text>
+      <!-- Strahlung -->
+      <g class="strahl-a">
+        <line x1="352" y1="82" x2="470" y2="52"/>
+      </g>
+      <g class="strahl-b">
+        <line x1="352" y1="100" x2="470" y2="100"/>
+      </g>
+      <g class="strahl-g">
+        <line x1="352" y1="118" x2="470" y2="148"/>
+      </g>
+      <text class="beschriftung" x="478" y="56">α-Strahlung</text>
+      <text class="beschriftung" x="478" y="104">β-Strahlung</text>
+      <text class="beschriftung" x="478" y="152">γ-Strahlung</text>
+      <text class="beschriftung klein" x="352" y="196">Der Zeitpunkt für einen einzelnen Kern ist zufällig.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Instabile Kerne wandeln sich <span class="rot">spontan</span> um und senden dabei Strahlung aus.
+    Das nennt man <b>Radioaktivität</b>. Wann ein einzelner Kern zerfällt, ist
+    <b>nicht vorhersagbar</b>.
+  </div>
+</section>
+
+
+<!-- ==================================== 4. Die drei Strahlungsarten -->
+<section class="folie">
+  <div class="titelband"><h1>4. Alpha, Beta und Gamma</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    <b>α</b>: Heliumkern, 2 Protonen und 2 Neutronen. &nbsp;
+    <b>β⁻</b>: ein Neutron wird zum Proton, ein Elektron fliegt weg. &nbsp;
+    <b>γ</b>: energiereiche Strahlung, der Kern gibt nur Energie ab.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>4. Alpha, Beta und Gamma</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4">
+        <line x1="212" y1="10" x2="212" y2="202"/>
+        <line x1="424" y1="10" x2="424" y2="202"/>
+      </g>
+      <!-- Alpha -->
+      <text class="beschriftung" x="24" y="28" font-weight="600">α-Zerfall</text>
+      <circle cx="70" cy="76" r="26" fill="#F6E9E9" stroke="#8E2B2B"/>
+      <path d="M104 76 h30" stroke="#66798E" stroke-width="1.6"/>
+      <path d="M134 71 l9 5 l-9 5 z" fill="#66798E"/>
+      <circle cx="172" cy="76" r="22" fill="#EAF4EA" stroke="#3E6B2E"/>
+      <g transform="translate(148,110)">
+        <g class="proton"><circle cx="8" cy="8" r="7"/><circle cx="22" cy="8" r="7"/></g>
+        <g class="neutron"><circle cx="15" cy="20" r="7"/><circle cx="29" cy="20" r="7"/></g>
+      </g>
+      <text class="beschriftung klein" x="140" y="158">Heliumkern</text>
+      <text class="beschriftung klein" x="16" y="180">A wird um 4 kleiner,</text>
+      <text class="beschriftung klein" x="16" y="192">Z um 2 kleiner</text>
+
+      <!-- Beta -->
+      <text class="beschriftung" x="236" y="28" font-weight="600">β⁻-Zerfall</text>
+      <circle cx="282" cy="76" r="26" fill="#F6E9E9" stroke="#8E2B2B"/>
+      <path d="M316 76 h30" stroke="#66798E" stroke-width="1.6"/>
+      <path d="M346 71 l9 5 l-9 5 z" fill="#66798E"/>
+      <circle cx="384" cy="76" r="26" fill="#EAF4EA" stroke="#3E6B2E"/>
+      <g transform="translate(258,112)">
+        <circle cx="10" cy="10" r="8" class="neutron"/>
+        <path d="M22 10 h20" stroke="#66798E" stroke-width="1.4"/>
+        <path d="M42 6 l7 4 l-7 4 z" fill="#66798E"/>
+        <circle cx="60" cy="10" r="8" class="proton"/>
+        <text class="beschriftung klein" x="76" y="14">+</text>
+        <circle cx="96" cy="10" r="5.5" class="elektron"/>
+      </g>
+      <text class="beschriftung klein" x="228" y="158">Neutron wird zu Proton und Elektron</text>
+      <text class="beschriftung klein" x="228" y="180">A bleibt gleich,</text>
+      <text class="beschriftung klein" x="228" y="192">Z wird um 1 größer</text>
+
+      <!-- Gamma -->
+      <text class="beschriftung" x="448" y="28" font-weight="600">γ-Strahlung</text>
+      <circle cx="494" cy="76" r="26" fill="#F3EDF8" stroke="#7A4BAF"/>
+      <text class="beschriftung klein" x="474" y="80">angeregt</text>
+      <path d="M528 76 h30" stroke="#66798E" stroke-width="1.6"/>
+      <path d="M558 71 l9 5 l-9 5 z" fill="#66798E"/>
+      <circle cx="596" cy="76" r="26" fill="#EAF4EA" stroke="#3E6B2E"/>
+      <path d="M448 128 q8 -12 16 0 q8 12 16 0 q8 -12 16 0 q8 12 16 0 q8 -12 16 0"
+            class="strahl-g" stroke-width="2.2"/>
+      <text class="beschriftung klein" x="448" y="158">reine Energieabgabe</text>
+      <text class="beschriftung klein" x="448" y="180">A und Z bleiben</text>
+      <text class="beschriftung klein" x="448" y="192">unverändert</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    <b>α</b>: Heliumkern, 2 Protonen und 2 Neutronen. &nbsp;
+    <b>β⁻</b>: ein Neutron wird zum Proton, ein Elektron fliegt weg. &nbsp;
+    <b>γ</b>: energiereiche Strahlung, der Kern gibt nur Energie ab.
+  </div>
+</section>
+
+
+<!-- ==================================== 5. Zerfallsgleichungen -- -->
+<section class="folie">
+  <div class="titelband"><h1>5. Zerfallsgleichungen aufstellen</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Bei jedem Zerfall bleiben <span class="rot">Massenzahl und Ladung erhalten</span>:
+    Die Summe der oberen Zahlen ist links und rechts gleich, ebenso die Summe der unteren.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>5. Zerfallsgleichungen aufstellen</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Nuklide: Massen- und Kernladungszahl rechtsbuendig vor dem Symbol.
+           Bezugspunkt jeder Gruppe ist die Grundlinie des Elementsymbols. -->
+      <!-- Alpha-Zerfall -->
+      <text class="beschriftung" x="40" y="34" font-weight="600">α-Zerfall von Uran-238</text>
+      <g transform="translate(96,74)">
+        <text class="nuklid idx" x="0" y="-11" text-anchor="end">238</text>
+        <text class="nuklid idx" x="0" y="6" text-anchor="end">92</text>
+        <text class="nuklid" x="4" y="0">U</text>
+      </g>
+      <text class="nuklid" x="140" y="74">→</text>
+      <g transform="translate(232,74)">
+        <text class="nuklid idx" x="0" y="-11" text-anchor="end">234</text>
+        <text class="nuklid idx" x="0" y="6" text-anchor="end">90</text>
+        <text class="nuklid" x="4" y="0">Th</text>
+      </g>
+      <text class="nuklid" x="288" y="74">+</text>
+      <g transform="translate(344,74)">
+        <text class="nuklid idx" x="0" y="-11" text-anchor="end">4</text>
+        <text class="nuklid idx" x="0" y="6" text-anchor="end">2</text>
+        <text class="nuklid" x="4" y="0">He</text>
+      </g>
+      <text class="beschriftung klein" x="410" y="66">oben: 238 = 234 + 4</text>
+      <text class="beschriftung klein" x="410" y="80">unten: 92 = 90 + 2</text>
+
+      <!-- Beta-Zerfall -->
+      <text class="beschriftung" x="40" y="122" font-weight="600">β⁻-Zerfall von Kohlenstoff-14</text>
+      <g transform="translate(96,162)">
+        <text class="nuklid idx" x="0" y="-11" text-anchor="end">14</text>
+        <text class="nuklid idx" x="0" y="6" text-anchor="end">6</text>
+        <text class="nuklid" x="4" y="0">C</text>
+      </g>
+      <text class="nuklid" x="140" y="162">→</text>
+      <g transform="translate(232,162)">
+        <text class="nuklid idx" x="0" y="-11" text-anchor="end">14</text>
+        <text class="nuklid idx" x="0" y="6" text-anchor="end">7</text>
+        <text class="nuklid" x="4" y="0">N</text>
+      </g>
+      <text class="nuklid" x="288" y="162">+</text>
+      <g transform="translate(344,162)">
+        <text class="nuklid idx" x="0" y="-11" text-anchor="end">0</text>
+        <text class="nuklid idx" x="0" y="6" text-anchor="end">−1</text>
+        <text class="nuklid" x="4" y="0">e</text>
+      </g>
+      <text class="beschriftung klein" x="410" y="154">oben: 14 = 14 + 0</text>
+      <text class="beschriftung klein" x="410" y="168">unten: 6 = 7 + (−1)</text>
+
+      <!-- Merkregel -->
+      <rect x="40" y="178" width="556" height="32" fill="#F4F7FA" stroke="#8DA6C2" stroke-width="1"/>
+      <text class="beschriftung klein" x="52" y="192">1. Ausgangskern notieren &nbsp; 2. Teilchen der Strahlungsart anschreiben</text>
+      <text class="beschriftung klein" x="52" y="205">3. obere und untere Zahlen ausgleichen &nbsp; 4. Element im Periodensystem ablesen</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Bei jedem Zerfall bleiben <span class="rot">Massenzahl und Ladung erhalten</span>:
+    Die Summe der oberen Zahlen ist links und rechts gleich, ebenso die Summe der unteren.
+  </div>
+</section>
+
+
+<!-- ==================================== 6. Durchdringung -------- -->
+<section class="folie">
+  <div class="titelband"><h1>6. Wie weit kommt die Strahlung?</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    <b>α</b> wird schon von Papier gestoppt, <b>β</b> von einigen Millimetern Aluminium,
+    <b>γ</b> erst von dickem Blei geschwächt. Je durchdringender die Strahlung,
+    desto <span class="rot">schwerer abzuschirmen</span>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>6. Wie weit kommt die Strahlung?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Quelle -->
+      <path d="M30 128 h60 l-8 -30 h-44 z" fill="#8DA6C2" stroke="#4E6480"/>
+      <text class="beschriftung klein" x="28" y="146">Präparat</text>
+      <!-- Absorber -->
+      <rect x="196" y="34" width="7" height="140" fill="#F0E2C0" stroke="#B9A87A"/>
+      <text class="beschriftung klein" x="176" y="192">Papier</text>
+      <rect x="342" y="34" width="14" height="140" fill="#C8CDD4" stroke="#7A8390"/>
+      <text class="beschriftung klein" x="322" y="192">Aluminium</text>
+      <rect x="488" y="34" width="30" height="140" fill="#6E6E6E" stroke="#3A3A3A"/>
+      <text class="beschriftung klein" x="486" y="192">Blei</text>
+      <!-- Strahlen -->
+      <g class="strahl-a"><line x1="92" y1="70" x2="196" y2="70"/></g>
+      <text class="beschriftung" x="104" y="60">α</text>
+      <g class="strahl-b"><line x1="92" y1="104" x2="342" y2="104"/></g>
+      <text class="beschriftung" x="104" y="94">β</text>
+      <g class="strahl-g"><line x1="92" y1="140" x2="596" y2="140"/></g>
+      <text class="beschriftung" x="104" y="130">γ</text>
+      <text class="beschriftung klein" x="530" y="136">stark geschwächt,</text>
+      <text class="beschriftung klein" x="530" y="148">aber nicht ganz weg</text>
+      <text class="beschriftung klein" x="212" y="66">gestoppt</text>
+      <text class="beschriftung klein" x="366" y="100">gestoppt</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    <b>α</b> wird schon von Papier gestoppt, <b>β</b> von einigen Millimetern Aluminium,
+    <b>γ</b> erst von dickem Blei geschwächt. Je durchdringender die Strahlung,
+    desto <span class="rot">schwerer abzuschirmen</span>.
+  </div>
+</section>
+
+
+<!-- ======================================== F2 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 2</div>
+    <h2>Warum zerfallen manche Atomkerne von selbst?</h2>
+  </div>
+  <div class="antwortzone">
+    Weil sie <span class="rot">instabil</span> sind: Das Verhältnis von Protonen zu Neutronen passt
+    nicht. Der Kern wandelt sich spontan in einen stabileren um und gibt dabei
+    <b>α</b>-, <b>β</b>- oder <b>γ</b>-Strahlung ab. Massenzahl und Ladung bleiben dabei erhalten.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 2</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Ein Kern sendet ein α-Teilchen aus. Wie ändern sich A und Z?</p>
+      <ol>
+        <li>A minus 4, Z minus 2</li>
+        <li>A minus 2, Z minus 4</li>
+        <li>A bleibt, Z plus 1</li>
+        <li>Beide bleiben gleich</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Welche Strahlung wird von einem Blatt Papier gestoppt?</p>
+      <ol>
+        <li>γ-Strahlung</li>
+        <li>β-Strahlung</li>
+        <li>α-Strahlung</li>
+        <li>Keine davon</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) a &nbsp;&nbsp; 2) c</div>
+</section>
+
+
+<!-- ======================================== F3 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wuerfel als Zufallsmodell -->
+      <g>
+        <rect x="60" y="70" width="54" height="54" rx="8" fill="#fff" stroke="#555" stroke-width="1.6"/>
+        <circle cx="76" cy="86" r="5"/><circle cx="98" cy="108" r="5"/>
+        <rect x="130" y="70" width="54" height="54" rx="8" fill="#fff" stroke="#555" stroke-width="1.6"/>
+        <circle cx="146" cy="86" r="5"/><circle cx="157" cy="97" r="5"/><circle cx="168" cy="108" r="5"/>
+        <rect x="200" y="70" width="54" height="54" rx="8" fill="#D24B4B" stroke="#8E2B2B" stroke-width="1.6"/>
+        <circle cx="216" cy="86" r="5" fill="#fff"/><circle cx="238" cy="86" r="5" fill="#fff"/>
+        <circle cx="216" cy="108" r="5" fill="#fff"/><circle cx="238" cy="108" r="5" fill="#fff"/>
+        <circle cx="227" cy="97" r="5" fill="#fff"/><circle cx="216" cy="97" r="5" fill="#fff"/>
+      </g>
+      <text class="beschriftung" x="60" y="152">100 Würfel, alle gleichzeitig geworfen</text>
+      <text class="beschriftung klein" x="60" y="170">Wer eine Sechs würfelt, ist &bdquo;zerfallen&ldquo; und geht raus.</text>
+      <text class="beschriftung klein" x="60" y="184">Beim nächsten Wurf sind es weniger, dann noch weniger …</text>
+      <!-- Abnahme -->
+      <g>
+        <rect x="330" y="128" width="34" height="70" fill="#8DA6C2"/>
+        <rect x="376" y="146" width="34" height="52" fill="#8DA6C2"/>
+        <rect x="422" y="162" width="34" height="36" fill="#8DA6C2"/>
+        <rect x="468" y="174" width="34" height="24" fill="#8DA6C2"/>
+        <rect x="514" y="182" width="34" height="16" fill="#8DA6C2"/>
+        <rect x="560" y="188" width="34" height="10" fill="#8DA6C2"/>
+      </g>
+      <line x1="320" y1="198" x2="606" y2="198" stroke="#333" stroke-width="1.4"/>
+      <text class="beschriftung klein" x="326" y="120">Anzahl übrig</text>
+      <text class="beschriftung klein" x="500" y="216">Anzahl der Würfe</text>
+    </svg>
+  </div>
+  <div class="impulstext">Niemand weiß, welcher Würfel als Nächstes fällt. Über die Menge ist der Verlauf trotzdem sicher.</div>
+</section>
+
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 3</div>
+    <h2>Wie schnell zerfällt ein radioaktiver Stoff?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ==================================== 7. Halbwertszeit -------- -->
+<section class="folie">
+  <div class="titelband"><h1>7. Die Halbwertszeit</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone gross karo"></div>
+  <div class="merksatz tief">
+    Die <span class="rot">Halbwertszeit</span> <span class="kursiv">T</span> ist die Zeit,
+    nach der die Hälfte aller Kerne zerfallen ist.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>7. Die Halbwertszeit</h1></div>
+  <div class="zeichenzone gross karo">
+    <svg viewBox="0 0 636 277" xmlns="http://www.w3.org/2000/svg">
+      <!-- Achsen -->
+      <line x1="70" y1="240" x2="600" y2="240" stroke="#333" stroke-width="1.6"/>
+      <path d="M600 235 l10 5 l-10 5 z" fill="#333"/>
+      <line x1="70" y1="20" x2="70" y2="240" stroke="#333" stroke-width="1.6"/>
+      <path d="M65 20 l5 -10 l5 10 z" fill="#333"/>
+      <text class="beschriftung" x="24" y="24">N(t)</text>
+      <text class="beschriftung" x="590" y="262">t in s</text>
+      <!-- Gitter -->
+      <g stroke="#D8E0EA" stroke-width=".8">
+        <line x1="70" y1="185" x2="600" y2="185"/><line x1="70" y1="130" x2="600" y2="130"/>
+        <line x1="70" y1="75" x2="600" y2="75"/>
+        <line x1="180" y1="20" x2="180" y2="240"/><line x1="290" y1="20" x2="290" y2="240"/>
+        <line x1="400" y1="20" x2="400" y2="240"/><line x1="510" y1="20" x2="510" y2="240"/>
+      </g>
+      <text class="beschriftung klein" x="36" y="24">240</text>
+      <text class="beschriftung klein" x="36" y="79">180</text>
+      <text class="beschriftung klein" x="36" y="134">120</text>
+      <text class="beschriftung klein" x="42" y="189">60</text>
+      <text class="beschriftung klein" x="174" y="256">11</text>
+      <text class="beschriftung klein" x="284" y="256">22</text>
+      <text class="beschriftung klein" x="394" y="256">33</text>
+      <text class="beschriftung klein" x="504" y="256">44</text>
+      <!-- Zerfallskurve: N0 = 240, T = 11 s (Fluor-20) -->
+      <path d="M70 20 C104 78, 140 118, 180 130 C220 142, 254 168, 290 185
+               C326 202, 360 214, 400 217.5 C440 221, 474 228, 510 231.2
+               C546 234, 576 236, 600 237"
+            fill="none" stroke="#00A0A0" stroke-width="2.6"/>
+      <!-- Halbierungen -->
+      <g stroke="#C2352E" stroke-width="1.4" stroke-dasharray="5 4">
+        <line x1="70" y1="130" x2="180" y2="130"/><line x1="180" y1="130" x2="180" y2="240"/>
+        <line x1="180" y1="185" x2="290" y2="185"/><line x1="290" y1="185" x2="290" y2="240"/>
+        <line x1="290" y1="212.5" x2="400" y2="212.5"/><line x1="400" y1="212.5" x2="400" y2="240"/>
+      </g>
+      <circle cx="180" cy="130" r="4" fill="#C2352E"/>
+      <circle cx="290" cy="185" r="4" fill="#C2352E"/>
+      <circle cx="400" cy="212.5" r="4" fill="#C2352E"/>
+      <text class="beschriftung klein" x="188" y="124">nach 1 · T: 120</text>
+      <text class="beschriftung klein" x="298" y="179">nach 2 · T: 60</text>
+      <text class="beschriftung klein" x="408" y="207">nach 3 · T: 30</text>
+      <text class="beschriftung" x="404" y="60" font-weight="600">Fluor-20</text>
+      <text class="beschriftung klein" x="404" y="76">Halbwertszeit T = 11 s</text>
+      <text class="beschriftung klein" x="404" y="90">Startwert N₀ = 240 Kerne</text>
+      <text class="beschriftung klein" x="404" y="112">Die Kurve erreicht die Null nie,</text>
+      <text class="beschriftung klein" x="404" y="126">sie nähert sich ihr nur an.</text>
+    </svg>
+  </div>
+  <div class="merksatz tief">
+    Die <span class="rot">Halbwertszeit</span> <span class="kursiv">T</span> ist die Zeit,
+    nach der die Hälfte aller Kerne zerfallen ist.
+  </div>
+</section>
+
+
+<!-- ==================================== 8. Aktivitaet ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>8. Aktivität und Zählrate</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Die <span class="rot">Aktivität</span> <span class="kursiv">A</span> ist die Zahl der Zerfälle
+    pro Sekunde, Einheit <b>Becquerel (Bq)</b>. Das Zählrohr misst davon nur einen Teil,
+    die <b>Zählrate</b>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>8. Aktivität und Zählrate</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Praeparat -->
+      <path d="M50 140 h74 l-10 -34 h-54 z" fill="#8DA6C2" stroke="#4E6480"/>
+      <circle cx="87" cy="118" r="9" fill="#E6C72E" stroke="#B98900"/>
+      <text class="beschriftung klein" x="44" y="166">Präparat</text>
+      <!-- Strahlung in alle Richtungen -->
+      <g class="strahl-a" stroke-width="1.6">
+        <line x1="87" y1="106" x2="87" y2="40"/>
+        <line x1="97" y1="110" x2="160" y2="60"/>
+        <line x1="103" y1="118" x2="186" y2="106"/>
+        <line x1="97" y1="128" x2="160" y2="164"/>
+        <line x1="77" y1="110" x2="30" y2="66"/>
+        <line x1="71" y1="118" x2="14" y2="112"/>
+        <line x1="77" y1="128" x2="34" y2="168"/>
+      </g>
+      <text class="beschriftung" x="132" y="34" font-weight="600">Aktivität A</text>
+      <text class="beschriftung klein" x="132" y="50">alle Zerfälle pro Sekunde</text>
+      <text class="beschriftung klein" x="132" y="64">Einheit: Becquerel, 1 Bq = 1 Zerfall/s</text>
+      <!-- Zaehlrohr -->
+      <rect x="192" y="92" width="66" height="28" rx="12" fill="#7A7A7A" stroke="#555"/>
+      <rect x="266" y="76" width="120" height="60" rx="7" fill="#3A3A3A" stroke="#111"/>
+      <rect x="276" y="86" width="100" height="30" fill="#0E2A14"/>
+      <text x="286" y="110" font-family="Menlo,monospace" font-size="19" fill="#4BE07A">137 /s</text>
+      <text class="beschriftung klein" x="196" y="150">Zählrohr erfasst nur,</text>
+      <text class="beschriftung klein" x="196" y="164">was seine Öffnung trifft</text>
+      <text class="beschriftung" x="404" y="100" font-weight="600">Zählrate</text>
+      <text class="beschriftung klein" x="404" y="116">gemessene Impulse pro Sekunde</text>
+      <text class="beschriftung klein" x="404" y="130">immer kleiner als die Aktivität</text>
+      <rect x="396" y="146" width="212" height="46" fill="#F4F7FA" stroke="#8DA6C2"/>
+      <text class="beschriftung klein" x="408" y="164">Die Aktivität nimmt mit derselben</text>
+      <text class="beschriftung klein" x="408" y="178">Halbwertszeit ab wie die Kernzahl.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Die <span class="rot">Aktivität</span> <span class="kursiv">A</span> ist die Zahl der Zerfälle
+    pro Sekunde, Einheit <b>Becquerel (Bq)</b>. Das Zählrohr misst davon nur einen Teil,
+    die <b>Zählrate</b>.
+  </div>
+</section>
+
+
+<!-- ======================================== F3 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 3</div>
+    <h2>Wie schnell zerfällt ein radioaktiver Stoff?</h2>
+  </div>
+  <div class="antwortzone">
+    Nicht gleichmäßig, sondern <span class="rot">immer um die Hälfte in gleichen Zeitabschnitten</span>.
+    Diese Zeit heißt <b>Halbwertszeit</b> und ist für jedes Nuklid fest. Gemessen wird über die
+    <b>Aktivität</b> in Becquerel. Für den einzelnen Kern bleibt der Zerfall reiner Zufall.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 3</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Von 800 Kernen sind nach zwei Halbwertszeiten noch wie viele übrig?</p>
+      <ol>
+        <li>400</li>
+        <li>200</li>
+        <li>100</li>
+        <li>0</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Was gibt die Einheit Becquerel an?</p>
+      <ol>
+        <li>Die Energie eines Teilchens</li>
+        <li>Die Masse des Präparats</li>
+        <li>Die Zahl der Zerfälle pro Sekunde</li>
+        <li>Die Reichweite der Strahlung</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) c</div>
+</section>
+
+
+<!-- ======================================== F4 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Roentgenbild Hand -->
+      <rect x="60" y="30" width="180" height="180" rx="6" fill="#12161c" stroke="#333"/>
+      <g fill="#dfe6ee">
+        <rect x="132" y="150" width="40" height="52" rx="8"/>
+        <rect x="118" y="96" width="15" height="60" rx="7"/>
+        <rect x="138" y="84" width="15" height="72" rx="7"/>
+        <rect x="158" y="90" width="15" height="66" rx="7"/>
+        <rect x="178" y="104" width="14" height="52" rx="7"/>
+        <rect x="102" y="132" width="14" height="42" rx="7" transform="rotate(-24 109 153)"/>
+      </g>
+      <text class="beschriftung klein" x="66" y="226">Röntgenbild</text>
+      <!-- Warnzeichen -->
+      <g transform="translate(400,120)">
+        <circle cx="0" cy="0" r="62" fill="#F6E9B0" stroke="#B98900" stroke-width="2"/>
+        <circle cx="0" cy="0" r="9" fill="#111"/>
+        <g fill="#111">
+          <path d="M0 -14 a14 14 0 0 1 12 7 L34 -20 a56 56 0 0 0 -48 -28 z" transform="rotate(0)"/>
+          <path d="M0 -14 a14 14 0 0 1 12 7 L34 -20 a56 56 0 0 0 -48 -28 z" transform="rotate(120)"/>
+          <path d="M0 -14 a14 14 0 0 1 12 7 L34 -20 a56 56 0 0 0 -48 -28 z" transform="rotate(240)"/>
+        </g>
+      </g>
+      <text class="beschriftung klein" x="368" y="226">Warnzeichen</text>
+      <text class="beschriftung" x="500" y="104" font-weight="600">Dieselbe Strahlung</text>
+      <text class="beschriftung" x="500" y="124">hilft und schadet.</text>
+    </svg>
+  </div>
+  <div class="impulstext">Beim Arzt wird sie eingesetzt, im Labor streng abgeschirmt. Wie passt das zusammen?</div>
+</section>
+
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 4</div>
+    <h2>Was macht ionisierende Strahlung mit dem Körper?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ==================================== 9. Ionisation ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>9. Warum heißt sie ionisierende Strahlung?</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Die Strahlung ist so energiereich, dass sie <span class="rot">Elektronen aus Atomen herausschlägt</span>.
+    Zurück bleibt ein geladenes <b>Ion</b>. Genau das macht sie im Körper gefährlich.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>9. Warum heißt sie ionisierende Strahlung?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- neutrales Atom -->
+      <circle cx="120" cy="106" r="52" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <g class="proton"><circle cx="115" cy="103" r="8"/><circle cx="127" cy="109" r="8"/></g>
+      <g class="neutron"><circle cx="124" cy="98" r="8"/><circle cx="114" cy="113" r="8"/></g>
+      <circle cx="172" cy="106" r="6" class="elektron"/>
+      <circle cx="120" cy="54" r="6" class="elektron"/>
+      <text class="beschriftung" x="80" y="184" font-weight="600">neutrales Atom</text>
+      <!-- Strahlung trifft -->
+      <g class="strahl-g" stroke-width="2.2">
+        <line x1="196" y1="70" x2="164" y2="98"/>
+      </g>
+      <path d="M188 62 l14 -12" stroke="#7A4BAF" stroke-width="2.2"/>
+      <text class="beschriftung klein" x="200" y="48">Strahlung</text>
+      <!-- Pfeil -->
+      <path d="M232 106 h44" stroke="#66798E" stroke-width="2" fill="none"/>
+      <path d="M276 100 l12 6 l-12 6 z" fill="#66798E"/>
+      <!-- Ion -->
+      <circle cx="380" cy="106" r="52" fill="none" stroke="#A3B7D3" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <g class="proton"><circle cx="375" cy="103" r="8"/><circle cx="387" cy="109" r="8"/></g>
+      <g class="neutron"><circle cx="384" cy="98" r="8"/><circle cx="374" cy="113" r="8"/></g>
+      <circle cx="380" cy="54" r="6" class="elektron"/>
+      <text class="nuklid" x="418" y="70">+</text>
+      <text class="beschriftung" x="342" y="184" font-weight="600">Ion, positiv geladen</text>
+      <!-- herausgeschlagenes Elektron -->
+      <circle cx="486" cy="132" r="6" class="elektron"/>
+      <path d="M432 118 l46 12" stroke="#B98900" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/>
+      <text class="beschriftung klein" x="462" y="158">Elektron fliegt weg</text>
+      <text class="beschriftung klein" x="470" y="72">Im Körper trifft dieses</text>
+      <text class="beschriftung klein" x="470" y="86">Elektron weitere Moleküle</text>
+      <text class="beschriftung klein" x="470" y="100">und verändert sie.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Die Strahlung ist so energiereich, dass sie <span class="rot">Elektronen aus Atomen herausschlägt</span>.
+    Zurück bleibt ein geladenes <b>Ion</b>. Genau das macht sie im Körper gefährlich.
+  </div>
+</section>
+
+
+<!-- ==================================== 10. Biologische Wirkung - -->
+<section class="folie">
+  <div class="titelband"><h1>10. Wirkung auf die Zelle</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Trifft die Strahlung den <b>Zellkern</b>, kann die <span class="rot">DNA beschädigt</span> werden.
+    Die Zelle repariert sich, stirbt ab oder verändert sich dauerhaft. Letzteres kann später
+    zu <b>Krebs</b> führen.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>10. Wirkung auf die Zelle</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Zelle -->
+      <ellipse cx="140" cy="106" rx="94" ry="72" fill="#EAF4EA" stroke="#3E6B2E" stroke-width="1.4"/>
+      <circle cx="140" cy="106" r="40" fill="#DCEEF7" stroke="#5E7A8C" stroke-width="1.4"/>
+      <!-- DNA -->
+      <path d="M124 78 q18 14 0 28 q-18 14 0 28" fill="none" stroke="#8E2B2B" stroke-width="2.4"/>
+      <path d="M156 78 q-18 14 0 28 q18 14 0 28" fill="none" stroke="#8E2B2B" stroke-width="2.4"/>
+      <g stroke="#C2352E" stroke-width="1.6">
+        <line x1="128" y1="86" x2="152" y2="86"/><line x1="128" y1="106" x2="152" y2="106"/>
+        <line x1="128" y1="126" x2="152" y2="126"/>
+      </g>
+      <text class="beschriftung klein" x="104" y="196">Zelle mit Zellkern und DNA</text>
+      <!-- Treffer -->
+      <g class="strahl-g" stroke-width="2.4"><line x1="252" y1="60" x2="166" y2="96"/></g>
+      <path d="M164 92 l-8 8 m0 -8 l8 8" stroke="#C2352E" stroke-width="2.4"/>
+      <text class="beschriftung klein" x="242" y="48">Treffer im Zellkern</text>
+      <!-- drei Folgen -->
+      <g transform="translate(300,34)">
+        <rect x="0" y="0" width="316" height="42" fill="#EAF4EA" stroke="#3E6B2E"/>
+        <text class="beschriftung" x="12" y="18" font-weight="600">1. Reparatur</text>
+        <text class="beschriftung klein" x="12" y="34">Die Zelle repariert den Schaden vollständig.</text>
+        <rect x="0" y="52" width="316" height="42" fill="#FDF3E4" stroke="#B98900"/>
+        <text class="beschriftung" x="12" y="70" font-weight="600">2. Zelltod</text>
+        <text class="beschriftung klein" x="12" y="86">Die Zelle stirbt ab, der Körper ersetzt sie.</text>
+        <rect x="0" y="104" width="316" height="52" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <text class="beschriftung" x="12" y="122" font-weight="600">3. Veränderung</text>
+        <text class="beschriftung klein" x="12" y="138">Die Zelle lebt weiter, teilt sich aber falsch.</text>
+        <text class="beschriftung klein" x="12" y="151">Jahre später kann daraus Krebs entstehen.</text>
+      </g>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Trifft die Strahlung den <b>Zellkern</b>, kann die <span class="rot">DNA beschädigt</span> werden.
+    Die Zelle repariert sich, stirbt ab oder verändert sich dauerhaft. Letzteres kann später
+    zu <b>Krebs</b> führen.
+  </div>
+</section>
+
+
+<!-- ==================================== 11. Strahlenbelastung --- -->
+<section class="folie">
+  <div class="titelband"><h1>11. Wie stark sind wir belastet?</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Die Dosis wird in <b>Millisievert (mSv)</b> angegeben. In Deutschland kommen rund
+    <span class="rot">2,1 mSv pro Jahr aus natürlichen Quellen</span> und etwa ebenso viel
+    aus zivilisatorischen, fast ausschließlich aus der Medizin.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>11. Wie stark sind wir belastet?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="150" y1="184" x2="600" y2="184" stroke="#333" stroke-width="1.4"/>
+      <!-- natuerlich -->
+      <text class="beschriftung" x="24" y="52" font-weight="600">natürlich</text>
+      <text class="beschriftung klein" x="24" y="66">rund 2,1 mSv im Jahr</text>
+      <g>
+        <rect x="164" y="104" width="56" height="80" fill="#4E9B45"/>
+        <rect x="238" y="132" width="56" height="52" fill="#4E9B45"/>
+        <rect x="312" y="152" width="56" height="32" fill="#4E9B45"/>
+      </g>
+      <text class="beschriftung klein" x="166" y="98">Radon</text>
+      <text class="beschriftung klein" x="238" y="126">Nahrung</text>
+      <text class="beschriftung klein" x="308" y="146">Kosmos</text>
+      <!-- zivilisatorisch -->
+      <text class="beschriftung" x="24" y="122" font-weight="600">zivilisatorisch</text>
+      <text class="beschriftung klein" x="24" y="136">rund 1,7 mSv im Jahr</text>
+      <g>
+        <rect x="404" y="112" width="56" height="72" fill="#C2352E"/>
+        <rect x="478" y="168" width="56" height="16" fill="#C2352E"/>
+        <rect x="552" y="178" width="42" height="6" fill="#C2352E"/>
+      </g>
+      <text class="beschriftung klein" x="396" y="106">Medizin</text>
+      <text class="beschriftung klein" x="472" y="162">Beruf</text>
+      <text class="beschriftung klein" x="540" y="172">Kernkraft</text>
+      <text class="beschriftung klein" x="150" y="202">Anteile an der jährlichen Strahlendosis in Deutschland</text>
+      <rect x="24" y="152" width="112" height="46" fill="#F4F7FA" stroke="#8DA6C2"/>
+      <text class="beschriftung klein" x="32" y="170">1 Röntgenbild</text>
+      <text class="beschriftung klein" x="32" y="186">der Lunge: 0,1 mSv</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Die Dosis wird in <b>Millisievert (mSv)</b> angegeben. In Deutschland kommen rund
+    <span class="rot">2,1 mSv pro Jahr aus natürlichen Quellen</span> und etwa ebenso viel
+    aus zivilisatorischen, fast ausschließlich aus der Medizin.
+  </div>
+</section>
+
+
+<!-- ==================================== 12. Schutz -------------- -->
+<section class="folie">
+  <div class="titelband"><h1>12. Schutz und Anwendungen</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Drei Regeln schützen: <span class="rot">Abstand halten</span>, <span class="rot">Aufenthalt verkürzen</span>,
+    <span class="rot">abschirmen</span>. Genutzt wird die Strahlung in der Medizin, zur Sterilisation
+    und zur Werkstoffprüfung.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>12. Schutz und Anwendungen</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="12" x2="318" y2="200" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+      <text class="beschriftung" x="24" y="30" font-weight="600">Schutz</text>
+      <!-- Abstand -->
+      <path d="M40 70 h60" stroke="#66798E" stroke-width="1.4"/>
+      <path d="M40 66 l-6 4 l6 4 z" fill="#66798E"/><path d="M100 66 l6 4 l-6 4 z" fill="#66798E"/>
+      <text class="beschriftung" x="118" y="74">Abstand halten</text>
+      <text class="beschriftung klein" x="118" y="88">doppelter Abstand, ein Viertel der Dosis</text>
+      <!-- Zeit -->
+      <circle cx="70" cy="122" r="14" fill="none" stroke="#66798E" stroke-width="1.6"/>
+      <path d="M70 112 v10 l7 5" stroke="#66798E" stroke-width="1.6" fill="none"/>
+      <text class="beschriftung" x="118" y="120">Zeit verkürzen</text>
+      <text class="beschriftung klein" x="118" y="134">halbe Zeit, halbe Dosis</text>
+      <!-- Abschirmung -->
+      <rect x="56" y="158" width="28" height="30" fill="#6E6E6E" stroke="#3A3A3A"/>
+      <text class="beschriftung" x="118" y="170">Abschirmen</text>
+      <text class="beschriftung klein" x="118" y="184">Blei, Beton, Wasser</text>
+
+      <text class="beschriftung" x="348" y="30" font-weight="600">Anwendungen</text>
+      <text class="beschriftung" x="348" y="60">Medizin</text>
+      <text class="beschriftung klein" x="348" y="74">Röntgen, Computertomografie,</text>
+      <text class="beschriftung klein" x="348" y="88">Bestrahlung von Tumoren</text>
+      <text class="beschriftung" x="348" y="116">Technik</text>
+      <text class="beschriftung klein" x="348" y="130">Prüfen von Schweißnähten</text>
+      <text class="beschriftung klein" x="348" y="144">und Tragflächen ohne Zerlegen</text>
+      <text class="beschriftung" x="348" y="172">Sterilisation</text>
+      <text class="beschriftung klein" x="348" y="186">Keimfreimachen von Besteck und Verbandmaterial</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Drei Regeln schützen: <span class="rot">Abstand halten</span>, <span class="rot">Aufenthalt verkürzen</span>,
+    <span class="rot">abschirmen</span>. Genutzt wird die Strahlung in der Medizin, zur Sterilisation
+    und zur Werkstoffprüfung.
+  </div>
+</section>
+
+
+<!-- ======================================== F4 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 4</div>
+    <h2>Was macht ionisierende Strahlung mit dem Körper?</h2>
+  </div>
+  <div class="antwortzone">
+    Sie schlägt <b>Elektronen aus Atomen</b> und verändert dadurch Moleküle. Trifft es die
+    <span class="rot">DNA im Zellkern</span>, kann die Zelle sich reparieren, absterben oder
+    dauerhaft verändert werden. Schutz bieten Abstand, kurze Zeit und Abschirmung.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 4</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Warum heißt die Strahlung „ionisierend"?</p>
+      <ol>
+        <li>Weil sie Atome zum Leuchten bringt</li>
+        <li>Weil sie Elektronen aus Atomen herausschlägt</li>
+        <li>Weil sie Kerne spaltet</li>
+        <li>Weil sie nur auf Ionen wirkt</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Du verdoppelst deinen Abstand zur Quelle. Was passiert mit der Dosis?</p>
+      <ol>
+        <li>Sie halbiert sich</li>
+        <li>Sie bleibt gleich</li>
+        <li>Sie sinkt auf ein Viertel</li>
+        <li>Sie verdoppelt sich</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) c</div>
+</section>
+
+
+<!-- ======================================== F5 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Vergleich Masse -->
+      <rect x="80" y="150" width="120" height="46" fill="#3A3A3A" stroke="#111"/>
+      <text class="beschriftung" x="98" y="178" fill="#fff">3000 t Kohle</text>
+      <text class="beschriftung klein" x="86" y="216">für einen Tag Kraftwerksbetrieb</text>
+      <text class="nuklid" x="256" y="180">=</text>
+      <rect x="320" y="168" width="24" height="28" fill="#8DA6C2" stroke="#4E6480"/>
+      <text class="beschriftung" x="360" y="178">1 kg Uran-235</text>
+      <text class="beschriftung klein" x="360" y="216">für denselben Tag</text>
+      <text class="beschriftung" x="80" y="52" font-weight="600">Im Atomkern steckt millionenfach mehr Energie</text>
+      <text class="beschriftung" x="80" y="72" font-weight="600">als in chemischen Bindungen.</text>
+      <text class="beschriftung klein" x="80" y="104">Werte gerundet, sie hängen vom Kraftwerkstyp ab.</text>
+    </svg>
+  </div>
+  <div class="impulstext">Ein Kilogramm gegen dreitausend Tonnen. Woher kommt dieser Unterschied?</div>
+</section>
+
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 5</div>
+    <h2>Wie gewinnt man Energie aus dem Atomkern?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ==================================== 13. Kernspaltung -------- -->
+<section class="folie">
+  <div class="titelband"><h1>13. Die Kernspaltung</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Ein <b>Neutron</b> trifft einen Uran-235-Kern. Der Kern wird instabil und
+    <span class="rot">spaltet sich in zwei mittelschwere Kerne</span>. Dabei werden Energie
+    und <b>zwei bis drei neue Neutronen</b> frei.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>13. Die Kernspaltung</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Neutron trifft -->
+      <circle cx="40" cy="106" r="8" class="neutron"/>
+      <path d="M52 106 h34" stroke="#4E6480" stroke-width="1.6"/>
+      <path d="M86 101 l10 5 l-10 5 z" fill="#4E6480"/>
+      <text class="beschriftung klein" x="24" y="88">Neutron</text>
+      <!-- U-235 -->
+      <circle cx="140" cy="106" r="36" fill="#F6E9E9" stroke="#8E2B2B" stroke-width="1.4"/>
+      <g transform="translate(140,152)">
+        <text class="nuklid idx" x="-8" y="-4" text-anchor="end">235</text>
+        <text class="nuklid idx" x="-8" y="9" text-anchor="end">92</text>
+        <text class="nuklid" x="-4" y="5">U</text>
+      </g>
+      <!-- Pfeil -->
+      <path d="M186 106 h40" stroke="#66798E" stroke-width="2"/>
+      <path d="M226 100 l12 6 l-12 6 z" fill="#66798E"/>
+      <!-- Bruchstuecke -->
+      <circle cx="300" cy="62" r="26" fill="#EAF4EA" stroke="#3E6B2E" stroke-width="1.4"/>
+      <g transform="translate(300,104)">
+        <text class="nuklid idx" x="-8" y="-4" text-anchor="end">141</text>
+        <text class="nuklid idx" x="-8" y="9" text-anchor="end">56</text>
+        <text class="nuklid" x="-4" y="5">Ba</text>
+      </g>
+      <circle cx="300" cy="160" r="23" fill="#EAF4EA" stroke="#3E6B2E" stroke-width="1.4"/>
+      <g transform="translate(300,200)">
+        <text class="nuklid idx" x="-8" y="-4" text-anchor="end">92</text>
+        <text class="nuklid idx" x="-8" y="9" text-anchor="end">36</text>
+        <text class="nuklid" x="-4" y="5">Kr</text>
+      </g>
+      <!-- neue Neutronen -->
+      <g class="neutron">
+        <circle cx="400" cy="52" r="8"/><circle cx="416" cy="106" r="8"/><circle cx="400" cy="160" r="8"/>
+      </g>
+      <path d="M330 56 l58 -6 M326 100 l78 4 M330 156 l58 6" stroke="#4E6480" stroke-width="1.4" fill="none"/>
+      <text class="beschriftung klein" x="386" y="34">3 neue Neutronen</text>
+      <!-- Energie -->
+      <path d="M448 106 q14 -18 28 0 q14 18 28 0" stroke="#E08A2E" stroke-width="2.6" fill="none"/>
+      <text class="beschriftung" x="516" y="100" font-weight="600">Energie</text>
+      <text class="beschriftung klein" x="516" y="114">als Bewegungsenergie</text>
+      <text class="beschriftung klein" x="516" y="128">der Bruchstücke</text>
+      <text class="beschriftung klein" x="24" y="196">235 + 1 = 141 + 92 + 3</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Ein <b>Neutron</b> trifft einen Uran-235-Kern. Der Kern wird instabil und
+    <span class="rot">spaltet sich in zwei mittelschwere Kerne</span>. Dabei werden Energie
+    und <b>zwei bis drei neue Neutronen</b> frei.
+  </div>
+</section>
+
+
+<!-- ==================================== 14. Kettenreaktion ------ -->
+<section class="folie">
+  <div class="titelband"><h1>14. Die Kettenreaktion</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Die frei werdenden Neutronen spalten weitere Kerne. Bleibt im Mittel
+    <span class="rot">genau ein Neutron</span> wirksam, läuft die Reaktion <b>kontrolliert</b>.
+    Sind es mehr, wächst sie lawinenartig.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>14. Die Kettenreaktion</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <line x1="318" y1="10" x2="318" y2="202" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+      <!-- kontrolliert -->
+      <text class="beschriftung" x="24" y="28" font-weight="600">kontrolliert: im Reaktor</text>
+      <g>
+        <circle cx="60" cy="80" r="16" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="150" cy="80" r="16" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="240" cy="80" r="16" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <path d="M78 80 h54 M168 80 h54" stroke="#4E6480" stroke-width="1.6"/>
+        <path d="M132 75 l10 5 l-10 5 z M222 75 l10 5 l-10 5 z" fill="#4E6480"/>
+      </g>
+      <text class="beschriftung klein" x="40" y="122">Von den freien Neutronen löst</text>
+      <text class="beschriftung klein" x="40" y="136">im Mittel genau eines die nächste</text>
+      <text class="beschriftung klein" x="40" y="150">Spaltung aus. Die übrigen werden</text>
+      <text class="beschriftung klein" x="40" y="164">von den Steuerstäben geschluckt.</text>
+      <text class="beschriftung" x="40" y="190" font-weight="600">gleichmäßige Leistung</text>
+      <!-- unkontrolliert -->
+      <text class="beschriftung" x="348" y="28" font-weight="600">unkontrolliert: Kernwaffe</text>
+      <g>
+        <circle cx="368" cy="106" r="13" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="440" cy="70" r="13" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="440" cy="142" r="13" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="516" cy="46" r="13" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="516" cy="94" r="13" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="516" cy="118" r="13" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <circle cx="516" cy="166" r="13" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <g stroke="#4E6480" stroke-width="1.4" fill="none">
+          <path d="M380 100 l48 -24 M380 112 l48 24"/>
+          <path d="M452 64 l52 -14 M452 76 l52 14"/>
+          <path d="M452 136 l52 -14 M452 148 l52 14"/>
+        </g>
+      </g>
+      <text class="beschriftung klein" x="348" y="192">Jede Spaltung löst mehrere neue aus, die Zahl wächst lawinenartig.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Die frei werdenden Neutronen spalten weitere Kerne. Bleibt im Mittel
+    <span class="rot">genau ein Neutron</span> wirksam, läuft die Reaktion <b>kontrolliert</b>.
+    Sind es mehr, wächst sie lawinenartig.
+  </div>
+</section>
+
+
+<!-- ==================================== 15. Kernreaktor --------- -->
+<section class="folie">
+  <div class="titelband"><h1>15. Aufbau eines Kernreaktors</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    <b>Brennstäbe</b> liefern die Kerne, <b>Steuerstäbe</b> schlucken überschüssige Neutronen,
+    der <b>Moderator</b> bremst sie ab, das <b>Kühlmittel</b> transportiert die Wärme zur Turbine.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>15. Aufbau eines Kernreaktors</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Druckbehaelter -->
+      <rect x="60" y="40" width="160" height="150" rx="10" fill="#DCEEF7" stroke="#4E6480" stroke-width="2"/>
+      <!-- Brennstaebe -->
+      <g fill="#D24B4B" stroke="#8E2B2B">
+        <rect x="82" y="76" width="11" height="94"/><rect x="112" y="76" width="11" height="94"/>
+        <rect x="142" y="76" width="11" height="94"/><rect x="172" y="76" width="11" height="94"/>
+      </g>
+      <!-- Steuerstaebe -->
+      <g fill="#3A3A3A">
+        <rect x="97" y="24" width="11" height="80"/><rect x="127" y="24" width="11" height="80"/>
+        <rect x="157" y="24" width="11" height="80"/>
+      </g>
+      <text class="beschriftung klein" x="228" y="34">Steuerstäbe</text>
+      <text class="beschriftung klein" x="228" y="46">fahren ein und aus</text>
+      <text class="beschriftung klein" x="228" y="96">Brennstäbe mit Uran</text>
+      <text class="beschriftung klein" x="228" y="130">Wasser als Moderator</text>
+      <text class="beschriftung klein" x="228" y="142">und Kühlmittel</text>
+      <text class="beschriftung klein" x="64" y="204">Druckbehälter</text>
+      <!-- Kreislauf -->
+      <path d="M220 70 h96 v104 h-96" fill="none" stroke="#C2352E" stroke-width="2.4"/>
+      <path d="M300 66 l12 4 l-12 4 z" fill="#C2352E"/>
+      <text class="beschriftung klein" x="238" y="62">heißes Wasser</text>
+      <!-- Dampferzeuger -->
+      <rect x="316" y="60" width="52" height="120" rx="6" fill="#EFEFEF" stroke="#7A8390" stroke-width="1.6"/>
+      <text class="beschriftung klein" x="312" y="196">Wärmetauscher</text>
+      <!-- Turbine -->
+      <path d="M368 96 h44" stroke="#5E7A8C" stroke-width="2.4"/>
+      <g fill="#8DA6C2" stroke="#4E6480">
+        <path d="M412 74 l34 12 l-34 12 z"/><path d="M446 62 l34 24 l-34 24 z"/>
+      </g>
+      <text class="beschriftung klein" x="410" y="52">Turbine</text>
+      <!-- Generator -->
+      <circle cx="522" cy="86" r="26" fill="#E6C72E" stroke="#B98900" stroke-width="1.6"/>
+      <text class="beschriftung klein" x="504" y="90">Generator</text>
+      <path d="M548 86 h44" stroke="#333" stroke-width="1.6"/>
+      <text class="beschriftung klein" x="548" y="74">Strom</text>
+      <!-- Kuehlturm -->
+      <path d="M420 190 l10 -46 h40 l10 46 z" fill="#D8DEE6" stroke="#7A8390"/>
+      <text class="beschriftung klein" x="412" y="204">Kühlung</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    <b>Brennstäbe</b> liefern die Kerne, <b>Steuerstäbe</b> schlucken überschüssige Neutronen,
+    der <b>Moderator</b> bremst sie ab, das <b>Kühlmittel</b> transportiert die Wärme zur Turbine.
+  </div>
+</section>
+
+
+<!-- ==================================== 16. AKW und Kohle ------- -->
+<section class="folie">
+  <div class="titelband"><h1>16. Kernkraftwerk und Kohlekraftwerk</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Beide Kraftwerke erzeugen Strom über <b>Wärme, Dampf, Turbine und Generator</b>.
+    Verschieden ist nur der <span class="rot">erste Schritt</span>: Kernspaltung statt Verbrennung.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>16. Kernkraftwerk und Kohlekraftwerk</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Kette AKW -->
+      <text class="beschriftung" x="24" y="42" font-weight="600">Kernkraftwerk</text>
+      <g transform="translate(24,54)">
+        <rect x="0" y="0" width="118" height="34" fill="#F6E9E9" stroke="#8E2B2B"/>
+        <text class="beschriftung klein" x="10" y="15">Kernenergie</text>
+        <text class="beschriftung klein" x="10" y="28">im Uran</text>
+        <path d="M126 17 h24" stroke="#66798E" stroke-width="1.6"/><path d="M150 12 l10 5 l-10 5 z" fill="#66798E"/>
+        <rect x="166" y="0" width="106" height="34" fill="#FDF3E4" stroke="#B98900"/>
+        <text class="beschriftung klein" x="176" y="21">Wärme</text>
+        <path d="M280 17 h24" stroke="#66798E" stroke-width="1.6"/><path d="M304 12 l10 5 l-10 5 z" fill="#66798E"/>
+        <rect x="320" y="0" width="118" height="34" fill="#EAF4EA" stroke="#3E6B2E"/>
+        <text class="beschriftung klein" x="330" y="15">Bewegungs-</text>
+        <text class="beschriftung klein" x="330" y="28">energie (Turbine)</text>
+        <path d="M446 17 h24" stroke="#66798E" stroke-width="1.6"/><path d="M470 12 l10 5 l-10 5 z" fill="#66798E"/>
+        <rect x="486" y="0" width="110" height="34" fill="#FDF8DC" stroke="#B98900"/>
+        <text class="beschriftung klein" x="496" y="21">elektrische Energie</text>
+      </g>
+      <!-- Kette Kohle -->
+      <text class="beschriftung" x="24" y="130" font-weight="600">Kohlekraftwerk</text>
+      <g transform="translate(24,142)">
+        <rect x="0" y="0" width="118" height="34" fill="#EDEDED" stroke="#555"/>
+        <text class="beschriftung klein" x="10" y="15">chemische Energie</text>
+        <text class="beschriftung klein" x="10" y="28">in der Kohle</text>
+        <path d="M126 17 h24" stroke="#66798E" stroke-width="1.6"/><path d="M150 12 l10 5 l-10 5 z" fill="#66798E"/>
+        <rect x="166" y="0" width="106" height="34" fill="#FDF3E4" stroke="#B98900"/>
+        <text class="beschriftung klein" x="176" y="21">Wärme</text>
+        <path d="M280 17 h24" stroke="#66798E" stroke-width="1.6"/><path d="M304 12 l10 5 l-10 5 z" fill="#66798E"/>
+        <rect x="320" y="0" width="118" height="34" fill="#EAF4EA" stroke="#3E6B2E"/>
+        <text class="beschriftung klein" x="330" y="15">Bewegungs-</text>
+        <text class="beschriftung klein" x="330" y="28">energie (Turbine)</text>
+        <path d="M446 17 h24" stroke="#66798E" stroke-width="1.6"/><path d="M470 12 l10 5 l-10 5 z" fill="#66798E"/>
+        <rect x="486" y="0" width="110" height="34" fill="#FDF8DC" stroke="#B98900"/>
+        <text class="beschriftung klein" x="496" y="21">elektrische Energie</text>
+      </g>
+      <rect x="20" y="50" width="126" height="42" fill="none" stroke="#C2352E" stroke-width="2" stroke-dasharray="5 3"/>
+      <rect x="20" y="138" width="126" height="42" fill="none" stroke="#C2352E" stroke-width="2" stroke-dasharray="5 3"/>
+      <text class="beschriftung klein" x="160" y="112" fill="#C2352E">Nur hier unterscheiden sich die beiden Kraftwerke.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Beide Kraftwerke erzeugen Strom über <b>Wärme, Dampf, Turbine und Generator</b>.
+    Verschieden ist nur der <span class="rot">erste Schritt</span>: Kernspaltung statt Verbrennung.
+  </div>
+</section>
+
+
+<!-- ==================================== 17. Kernfusion ---------- -->
+<section class="folie">
+  <div class="titelband"><h1>17. Die Kernfusion</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Bei der <span class="rot">Fusion</span> verschmelzen leichte Kerne zu einem schwereren.
+    Das ist die Energiequelle der <b>Sonne</b>. Auf der Erde gelingt sie bisher nur kurzzeitig,
+    weil enorme Temperaturen nötig sind.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>17. Die Kernfusion</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Deuterium -->
+      <g>
+        <circle cx="70" cy="70" r="20" fill="#F6E9E9" stroke="#8E2B2B" stroke-width="1.4"/>
+        <circle cx="64" cy="70" r="7" class="proton"/><circle cx="76" cy="70" r="7" class="neutron"/>
+      </g>
+      <g transform="translate(70,112)">
+        <text class="nuklid idx" x="-8" y="-4" text-anchor="end">2</text>
+        <text class="nuklid idx" x="-8" y="9" text-anchor="end">1</text>
+        <text class="nuklid" x="-4" y="5">H</text>
+      </g>
+      <text class="beschriftung klein" x="42" y="140">Deuterium</text>
+      <text class="nuklid" x="128" y="76">+</text>
+      <!-- Tritium -->
+      <g>
+        <circle cx="190" cy="70" r="22" fill="#F6E9E9" stroke="#8E2B2B" stroke-width="1.4"/>
+        <circle cx="183" cy="68" r="7" class="proton"/><circle cx="196" cy="64" r="7" class="neutron"/>
+        <circle cx="192" cy="78" r="7" class="neutron"/>
+      </g>
+      <g transform="translate(190,112)">
+        <text class="nuklid idx" x="-8" y="-4" text-anchor="end">3</text>
+        <text class="nuklid idx" x="-8" y="9" text-anchor="end">1</text>
+        <text class="nuklid" x="-4" y="5">H</text>
+      </g>
+      <text class="beschriftung klein" x="168" y="140">Tritium</text>
+      <path d="M228 70 h40" stroke="#66798E" stroke-width="2"/>
+      <path d="M268 64 l12 6 l-12 6 z" fill="#66798E"/>
+      <!-- Helium -->
+      <g>
+        <circle cx="336" cy="70" r="24" fill="#EAF4EA" stroke="#3E6B2E" stroke-width="1.4"/>
+        <circle cx="329" cy="66" r="7" class="proton"/><circle cx="343" cy="66" r="7" class="proton"/>
+        <circle cx="329" cy="78" r="7" class="neutron"/><circle cx="343" cy="78" r="7" class="neutron"/>
+      </g>
+      <g transform="translate(336,116)">
+        <text class="nuklid idx" x="-8" y="-4" text-anchor="end">4</text>
+        <text class="nuklid idx" x="-8" y="9" text-anchor="end">2</text>
+        <text class="nuklid" x="-4" y="5">He</text>
+      </g>
+      <text class="beschriftung klein" x="312" y="144">Helium</text>
+      <text class="nuklid" x="386" y="76">+</text>
+      <circle cx="428" cy="70" r="9" class="neutron"/>
+      <text class="beschriftung klein" x="410" y="98">Neutron</text>
+      <!-- Energie -->
+      <path d="M462 70 q14 -16 28 0 q14 16 28 0" stroke="#E08A2E" stroke-width="2.6" fill="none"/>
+      <text class="beschriftung" x="530" y="66" font-weight="600">Energie</text>
+      <!-- Sonne -->
+      <circle cx="540" cy="150" r="30" fill="#FFD34D" stroke="#B98900"/>
+      <g stroke="#E8B400" stroke-width="1.8">
+        <line x1="540" y1="108" x2="540" y2="98"/><line x1="540" y1="192" x2="540" y2="202"/>
+        <line x1="498" y1="150" x2="488" y2="150"/><line x1="582" y1="150" x2="592" y2="150"/>
+      </g>
+      <text class="beschriftung klein" x="386" y="150">In der Sonne verschmilzt</text>
+      <text class="beschriftung klein" x="386" y="164">Wasserstoff zu Helium.</text>
+      <text class="beschriftung klein" x="24" y="176">2 + 3 = 4 + 1 &nbsp;&nbsp;und&nbsp;&nbsp; 1 + 1 = 2 + 0</text>
+      <text class="beschriftung klein" x="24" y="196">Auf der Erde nötig: über 100 Millionen Grad. Deshalb gibt es bisher kein Fusionskraftwerk.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Bei der <span class="rot">Fusion</span> verschmelzen leichte Kerne zu einem schwereren.
+    Das ist die Energiequelle der <b>Sonne</b>. Auf der Erde gelingt sie bisher nur kurzzeitig,
+    weil enorme Temperaturen nötig sind.
+  </div>
+</section>
+
+
+<!-- ======================================== F5 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 5</div>
+    <h2>Wie gewinnt man Energie aus dem Atomkern?</h2>
+  </div>
+  <div class="antwortzone">
+    Auf zwei Wegen. Bei der <b>Kernspaltung</b> zerbricht ein schwerer Kern in zwei mittelschwere,
+    die freien Neutronen halten die Kettenreaktion in Gang. Bei der <b>Kernfusion</b> verschmelzen
+    leichte Kerne. Beides liefert <span class="rot">millionenfach mehr Energie</span> als eine
+    chemische Reaktion.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 5</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Wozu dienen die Steuerstäbe im Reaktor?</p>
+      <ol>
+        <li>Sie liefern zusätzliche Neutronen.</li>
+        <li>Sie fangen überschüssige Neutronen ab.</li>
+        <li>Sie kühlen die Brennstäbe.</li>
+        <li>Sie erzeugen den Strom.</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Was passiert bei der Kernfusion?</p>
+      <ol>
+        <li>Ein schwerer Kern zerfällt in zwei leichte.</li>
+        <li>Leichte Kerne verschmelzen zu einem schwereren.</li>
+        <li>Elektronen werden aus der Hülle geschlagen.</li>
+        <li>Neutronen zerfallen zu Protonen.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) b</div>
+</section>
+
+
+<!-- ======================================== F6 Impuls ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Zeitstrahl -->
+      <line x1="50" y1="140" x2="600" y2="140" stroke="#333" stroke-width="2"/>
+      <path d="M600 134 l12 6 l-12 6 z" fill="#333"/>
+      <g stroke="#333" stroke-width="1.4">
+        <line x1="90" y1="140" x2="90" y2="150"/><line x1="230" y1="140" x2="230" y2="150"/>
+        <line x1="380" y1="140" x2="380" y2="150"/><line x1="540" y1="140" x2="540" y2="150"/>
+      </g>
+      <text class="beschriftung klein" x="66" y="168">heute</text>
+      <text class="beschriftung klein" x="196" y="168">in 500 Jahren</text>
+      <text class="beschriftung klein" x="336" y="168">in 24 000 Jahren</text>
+      <text class="beschriftung klein" x="490" y="168">in 1 Million Jahren</text>
+      <!-- Marker -->
+      <rect x="72" y="104" width="36" height="30" fill="#8DA6C2" stroke="#4E6480"/>
+      <text class="beschriftung klein" x="60" y="96">Einlagerung</text>
+      <text class="beschriftung klein" x="176" y="118">Rückholbarkeit</text>
+      <text class="beschriftung klein" x="176" y="130">endet</text>
+      <text class="beschriftung klein" x="330" y="118">1 Halbwertszeit</text>
+      <text class="beschriftung klein" x="330" y="130">von Plutonium-239</text>
+      <text class="beschriftung klein" x="470" y="118">Sicherheitsnachweis</text>
+      <text class="beschriftung klein" x="470" y="130">muss so lange gelten</text>
+      <text class="beschriftung" x="50" y="46" font-weight="600">Der Abfall bleibt länger gefährlich,</text>
+      <text class="beschriftung" x="50" y="68" font-weight="600">als es Schrift und Städte bisher gibt.</text>
+    </svg>
+  </div>
+  <div class="impulstext">Wer entscheidet heute, was in einer Million Jahren sicher sein muss?</div>
+</section>
+
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 6</div>
+    <h2>Nutzen und Risiko: Wie entscheiden wir?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section>
+
+
+<!-- ==================================== 18. Radioaktiver Abfall - -->
+<section class="folie">
+  <div class="titelband"><h1>18. Der radioaktive Abfall</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Abgebrannte Brennstäbe kühlen jahrelang im <b>Abklingbecken</b>, danach im
+    <b>Zwischenlager</b>. Ein <span class="rot">Endlager</span> gibt es in Deutschland bisher nicht,
+    gesucht wird ein Ort, der eine Million Jahre sicher bleibt.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>18. Der radioaktive Abfall</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Abklingbecken -->
+      <rect x="30" y="60" width="120" height="90" fill="#BFE0F0" stroke="#6E9BB8" stroke-width="1.6"/>
+      <g fill="#D24B4B" stroke="#8E2B2B">
+        <rect x="52" y="96" width="10" height="46"/><rect x="72" y="96" width="10" height="46"/>
+        <rect x="92" y="96" width="10" height="46"/><rect x="112" y="96" width="10" height="46"/>
+      </g>
+      <text class="beschriftung" x="34" y="52" font-weight="600">Abklingbecken</text>
+      <text class="beschriftung klein" x="34" y="168">im Kraftwerk, mehrere Jahre</text>
+      <path d="M158 106 h34" stroke="#66798E" stroke-width="1.8"/>
+      <path d="M192 100 l12 6 l-12 6 z" fill="#66798E"/>
+      <!-- Zwischenlager -->
+      <rect x="212" y="72" width="130" height="78" fill="#EFEFEF" stroke="#7A8390" stroke-width="1.6"/>
+      <path d="M212 72 l65 -26 l65 26" fill="#D8DEE6" stroke="#7A8390" stroke-width="1.6"/>
+      <g fill="#8DA6C2" stroke="#4E6480">
+        <rect x="230" y="104" width="22" height="42" rx="4"/><rect x="264" y="104" width="22" height="42" rx="4"/>
+        <rect x="298" y="104" width="22" height="42" rx="4"/>
+      </g>
+      <text class="beschriftung" x="216" y="40" font-weight="600">Zwischenlager</text>
+      <text class="beschriftung klein" x="216" y="168">Castor-Behälter, Jahrzehnte</text>
+      <path d="M350 106 h34" stroke="#66798E" stroke-width="1.8"/>
+      <path d="M384 100 l12 6 l-12 6 z" fill="#66798E"/>
+      <!-- Endlager -->
+      <rect x="404" y="40" width="200" height="26" fill="#A8BE84" stroke="#6B7F4E"/>
+      <rect x="404" y="66" width="200" height="40" fill="#E4D9C2" stroke="#B9A87A"/>
+      <rect x="404" y="106" width="200" height="70" fill="#C9BFA8" stroke="#8A7B5E"/>
+      <g fill="#8DA6C2" stroke="#4E6480">
+        <rect x="446" y="130" width="18" height="30" rx="3"/><rect x="476" y="130" width="18" height="30" rx="3"/>
+        <rect x="506" y="130" width="18" height="30" rx="3"/><rect x="536" y="130" width="18" height="30" rx="3"/>
+      </g>
+      <line x1="504" y1="66" x2="504" y2="126" stroke="#6E6E6E" stroke-width="5"/>
+      <text class="beschriftung" x="408" y="34" font-weight="600">Endlager, tief im Gestein</text>
+      <text class="beschriftung klein" x="408" y="196">gesucht wird ein Ort, der eine Million Jahre sicher ist</text>
+      <text class="beschriftung klein" x="596" y="172" text-anchor="end" fill="#4A4032">Salz, Ton oder Granit</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Abgebrannte Brennstäbe kühlen jahrelang im <b>Abklingbecken</b>, danach im
+    <b>Zwischenlager</b>. Ein <span class="rot">Endlager</span> gibt es in Deutschland bisher nicht,
+    gesucht wird ein Ort, der eine Million Jahre sicher bleibt.
+  </div>
+</section>
+
+
+<!-- ==================================== 19. Argumente ----------- -->
+<section class="folie">
+  <div class="titelband"><h1>19. Argumente abwägen</h1></div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="zeichenzone karo"></div>
+  <div class="merksatz">
+    Physik liefert die <b>Fakten</b>, die Entscheidung trifft die Gesellschaft. Ein gutes Argument
+    nennt <span class="rot">Größenordnungen</span> und trennt Wissen von Meinung.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>19. Argumente abwägen</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <rect x="24" y="16" width="286" height="180" fill="#EAF4EA" stroke="#3E6B2E"/>
+      <text class="beschriftung" x="38" y="38" font-weight="600">spricht dafür</text>
+      <text class="beschriftung klein" x="38" y="60">kein CO₂ beim Betrieb</text>
+      <text class="beschriftung klein" x="38" y="80">sehr hohe Energiedichte,</text>
+      <text class="beschriftung klein" x="38" y="93">wenig Brennstoff nötig</text>
+      <text class="beschriftung klein" x="38" y="113">liefert unabhängig von</text>
+      <text class="beschriftung klein" x="38" y="126">Wetter und Tageszeit</text>
+      <text class="beschriftung klein" x="38" y="146">Strahlung wird in der Medizin</text>
+      <text class="beschriftung klein" x="38" y="159">gezielt zum Heilen genutzt</text>
+      <text class="beschriftung klein" x="38" y="179">Forschung an der Fusion läuft</text>
+
+      <rect x="326" y="16" width="286" height="180" fill="#F6E9E9" stroke="#8E2B2B"/>
+      <text class="beschriftung" x="340" y="38" font-weight="600">spricht dagegen</text>
+      <text class="beschriftung klein" x="340" y="60">Abfall bleibt hunderttausende</text>
+      <text class="beschriftung klein" x="340" y="73">Jahre gefährlich</text>
+      <text class="beschriftung klein" x="340" y="93">kein Endlager in Betrieb</text>
+      <text class="beschriftung klein" x="340" y="113">bei schweren Unfällen sind</text>
+      <text class="beschriftung klein" x="340" y="126">ganze Regionen betroffen</text>
+      <text class="beschriftung klein" x="340" y="146">Uran ist endlich und muss</text>
+      <text class="beschriftung klein" x="340" y="159">importiert werden</text>
+      <text class="beschriftung klein" x="340" y="179">hohe Kosten für Rückbau</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Physik liefert die <b>Fakten</b>, die Entscheidung trifft die Gesellschaft. Ein gutes Argument
+    nennt <span class="rot">Größenordnungen</span> und trennt Wissen von Meinung.
+  </div>
+</section>
+
+
+<!-- ======================================== F6 Antwort ---------- -->
+<section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 6</div>
+    <h2>Nutzen und Risiko: Wie entscheiden wir?</h2>
+  </div>
+  <div class="antwortzone">
+    Indem wir beides <span class="rot">quantitativ</span> vergleichen: Wie groß ist der Nutzen,
+    wie wahrscheinlich und wie schwer der Schaden, und wer trägt ihn wann? Die Physik liefert
+    Halbwertszeiten, Dosen und Energiemengen. Die Abwägung selbst ist eine
+    <b>gesellschaftliche Entscheidung</b>.
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 6</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Wie lange soll hochradioaktiver Abfall in Deutschland nach der Einlagerung rückholbar bleiben?</p>
+      <ol>
+        <li>50 Jahre</li>
+        <li>100 Jahre</li>
+        <li>500 Jahre</li>
+        <li>10 000 Jahre</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Welche Aussage ist ein physikalisches Argument und keine Meinung?</p>
+      <ol>
+        <li>Kernkraft ist zu gefährlich.</li>
+        <li>Plutonium-239 hat eine Halbwertszeit von rund 24 000 Jahren.</li>
+        <li>Endlager sind niemandem zuzumuten.</li>
+        <li>Kernkraft ist die Zukunft.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) c &nbsp;&nbsp; 2) b</div>
+</section>
+
+
+<!-- ================================================ Rueckblick --- -->
+<section class="folie">
+  <div class="titelband"><h1>Unsere sechs Fragen</h1></div>
+  <ol class="rueckblick">
+    <li><span class="fnr">F1</span> &nbsp; Woraus besteht Materie?</li>
+    <li><span class="fnr">F2</span> &nbsp; Warum zerfallen manche Atomkerne von selbst?</li>
+    <li><span class="fnr">F3</span> &nbsp; Wie schnell zerfällt ein radioaktiver Stoff?</li>
+    <li><span class="fnr">F4</span> &nbsp; Was macht ionisierende Strahlung mit dem Körper?</li>
+    <li><span class="fnr">F5</span> &nbsp; Wie gewinnt man Energie aus dem Atomkern?</li>
+    <li><span class="fnr">F6</span> &nbsp; Nutzen und Risiko: Wie entscheiden wir?</li>
+  </ol>
+  <div class="merksatz">
+    Ein Satz verbindet alles:
+    <span class="rot">Instabile Kerne wandeln sich um und geben dabei Energie ab.</span>
+    Wie viel und wie schnell, entscheidet über Nutzen und Gefahr.
+  </div>
+</section>
+
+
+<!-- ================================================ Abschluss ---- -->
+<section class="folie">
+  <div class="titelband"><h1>Zum Schluss: Die Altersbestimmung</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Baum lebend -->
+      <rect x="86" y="130" width="14" height="46" fill="#8B5A2B"/>
+      <circle cx="93" cy="110" r="30" fill="#5E9B45" stroke="#3E6B2E"/>
+      <text class="beschriftung klein" x="52" y="194">lebender Baum</text>
+      <text class="beschriftung klein" x="146" y="96">nimmt ständig C-14</text>
+      <text class="beschriftung klein" x="146" y="110">aus der Luft auf</text>
+      <path d="M132 116 h-24" stroke="#4E9B45" stroke-width="1.6"/>
+      <path d="M108 111 l-10 5 l10 5 z" fill="#4E9B45"/>
+      <!-- Pfeil Zeit -->
+      <path d="M290 116 h60" stroke="#66798E" stroke-width="2"/>
+      <path d="M350 110 l12 6 l-12 6 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="288" y="104">Zeit</text>
+      <!-- Fund -->
+      <rect x="392" y="130" width="14" height="46" fill="#6E5A3B"/>
+      <text class="beschriftung klein" x="368" y="194">Holzfund</text>
+      <text class="beschriftung klein" x="428" y="96">kein Nachschub mehr,</text>
+      <text class="beschriftung klein" x="428" y="110">C-14 zerfällt mit</text>
+      <text class="beschriftung klein" x="428" y="124">T = 5730 Jahren</text>
+      <rect x="424" y="140" width="188" height="46" fill="#F4F7FA" stroke="#8DA6C2"/>
+      <text class="beschriftung klein" x="434" y="158">Nur noch die Hälfte des C-14?</text>
+      <text class="beschriftung klein" x="434" y="176">Dann ist das Holz rund 5730 Jahre alt.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Weil die Halbwertszeit fest ist, wird der Zerfall zur <b>Uhr</b>. Mit der
+    <span class="rot">C-14-Methode</span> bestimmt man das Alter von Holz, Knochen und Gletschermumien.
+  </div>
+</section>
+
+</body>
+</html>

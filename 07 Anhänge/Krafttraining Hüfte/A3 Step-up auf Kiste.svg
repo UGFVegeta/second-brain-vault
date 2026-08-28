@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 285" width="440" height="285" role="img" aria-label="Step-up auf Kiste">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="285" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="30" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">A3 · Step-up auf Kiste</text>
+  <text x="220" y="50" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Kistenhöhe = Knie ca. 90° · über die Ferse hochdrücken</text>
+
+  <line x1="40" y1="262" x2="400" y2="262" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="250" y="206" width="140" height="56" rx="4" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+
+  <circle cx="258" cy="142" r="20" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M258,142 L288,172 L300,206" stroke-width="7.5"/>
+    <path d="M258,142 L230,196 L212,262" stroke-width="7.5"/>
+    <path d="M258,142 L254,92" stroke-width="7.5"/>
+    <path d="M255,96 L274,148" stroke-width="5"/>
+  </g>
+  <circle cx="252" cy="74" r="17" fill="#2c3e50"/>
+
+  <path d="M352,196 L352,142" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="366" y="172" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c">3 s ab</text>
+
+  <text x="220" y="278" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">3 × 8–10 je Seite · das langsame Ablassen ist der Reiz</text>
+</svg>

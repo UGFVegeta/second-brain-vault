@@ -1,0 +1,32 @@
+[
+  {
+    "id": "dl-001",
+    "objekt_id": "gartenstr-12",
+    "bank": "Kreissparkasse",
+    "darlehensnummer": "Beispiel-1",
+    "restschuld": 218000,
+    "zinssatz": 1.85,
+    "rate_monatlich": 1240,
+    "zinsbindung_ende": "2027-03-31"
+  },
+  {
+    "id": "dl-002",
+    "objekt_id": "lindenweg-4",
+    "bank": "Volksbank",
+    "darlehensnummer": "Beispiel-2",
+    "restschuld": 264000,
+    "zinssatz": 1.42,
+    "rate_monatlich": 1090,
+    "zinsbindung_ende": "2029-09-30"
+  },
+  {
+    "id": "dl-003",
+    "objekt_id": "bahnhofstr-7",
+    "bank": "ING",
+    "darlehensnummer": "Beispiel-3",
+    "restschuld": 187500,
+    "zinssatz": 3.65,
+    "rate_monatlich": 980,
+    "zinsbindung_ende": "2031-05-31"
+  }
+]

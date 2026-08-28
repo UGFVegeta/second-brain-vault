@@ -1,0 +1,10 @@
+# Der Kern der Mietverwaltung braucht KEINE Fremdbibliotheken.
+# Einlesen, Zuordnen, Dashboard und Auswertung laufen mit dem, was Python
+# mitbringt. Diese Datei ist nur fuer den optionalen Direktabruf bei der Bank.
+#
+# Installieren nur, wenn FinTS genutzt werden soll:
+#     py -3 -m pip install -r requirements.txt
+#
+# Siehe doku/Bankanbindung.md
+
+fints>=5.0.0

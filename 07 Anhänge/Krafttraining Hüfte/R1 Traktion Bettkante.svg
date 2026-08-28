@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 290" width="440" height="290" role="img" aria-label="Traktion, Bein an der Bettkante hängen lassen">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="290" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="28" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">R1 · Traktion an der Bettkante</text>
+  <text x="220" y="48" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Rückenlage, ein Bein locker über die Kante hängen lassen</text>
+
+  <line x1="30" y1="272" x2="410" y2="272" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="46" y="176" width="252" height="22" rx="4" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+  <line x1="62" y1="198" x2="62" y2="272" stroke="#9aa3b0" stroke-width="4"/>
+  <line x1="284" y1="198" x2="284" y2="272" stroke="#9aa3b0" stroke-width="4"/>
+
+  <circle cx="256" cy="172" r="19" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M110,168 L256,172" stroke-width="7.5"/>
+    <path d="M256,172 L296,176" stroke-width="7.5"/>
+    <path d="M256,174 L302,214 L308,258" stroke-width="7.5"/>
+    <path d="M112,172 L150,190" stroke-width="5"/>
+  </g>
+  <circle cx="88" cy="164" r="18" fill="#2c3e50"/>
+
+  <path d="M348,206 L348,258" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+  <text x="374" y="236" font-family="system-ui,sans-serif" font-size="12" fill="#e8590c">Zug</text>
+
+  <text x="220" y="284" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">2 Minuten · Bein völlig locker lassen, nicht aktiv ziehen</text>
+</svg>

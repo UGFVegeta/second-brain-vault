@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" width="440" height="300" role="img" aria-label="Exzentrischer Step-down">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="300" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="28" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">A3 Variante · Step-down (exzentrisch)</text>
+  <text x="220" y="48" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Standbein beugt · freier Fuß sinkt langsam Richtung Boden</text>
+
+  <line x1="40" y1="270" x2="400" y2="270" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="150" y="226" width="112" height="44" rx="4" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+
+  <circle cx="244" cy="144" r="20" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M244,144 L238,186 L250,226" stroke-width="7.5"/>
+    <path d="M244,144 L292,196 L300,262" stroke-width="7.5"/>
+    <path d="M244,144 L242,98" stroke-width="7.5"/>
+    <path d="M242,100 L214,152" stroke-width="5"/>
+  </g>
+  <circle cx="242" cy="78" r="17" fill="#2c3e50"/>
+
+  <path d="M338,198 L338,258" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+  <text x="360" y="232" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c">3 s</text>
+
+  <text x="130" y="172" font-family="system-ui,sans-serif" font-size="11.5" fill="#6b7280" text-anchor="middle">Standbein</text>
+  <text x="220" y="292" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">3 × 8 je Seite · Ferse des freien Fußes tippt nur an, kein Absetzen</text>
+</svg>

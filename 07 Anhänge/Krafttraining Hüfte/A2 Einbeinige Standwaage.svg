@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 285" width="440" height="285" role="img" aria-label="Einbeinige Standwaage mit Kurzhantel">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="285" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="34" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">A2 · Einbeinige Standwaage (Single-Leg RDL)</text>
+  <text x="220" y="55" font-family="system-ui,sans-serif" font-size="13.5" fill="#6b7280" text-anchor="middle">Rücken gerade · Becken bleibt waagerecht · bis ca. 45°</text>
+
+  <line x1="40" y1="252" x2="400" y2="252" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="240" cy="152" r="20" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M240,152 L244,205 L240,252" stroke-width="7.5"/>
+    <path d="M240,152 L148,126" stroke-width="7.5"/>
+    <path d="M240,152 L312,142 L372,134" stroke-width="7.5"/>
+    <path d="M150,130 L146,184" stroke-width="5"/>
+  </g>
+  <circle cx="124" cy="118" r="19" fill="#2c3e50"/>
+
+  <g stroke="#2c3e50" stroke-linecap="round">
+    <line x1="132" y1="192" x2="160" y2="192" stroke-width="6"/>
+  </g>
+  <circle cx="132" cy="192" r="7" fill="#2c3e50"/>
+  <circle cx="160" cy="192" r="7" fill="#2c3e50"/>
+
+  <path d="M186,94 Q154,92 132,108" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+
+  <text x="220" y="274" font-family="system-ui,sans-serif" font-size="13" fill="#e8590c" text-anchor="middle">3 × 8–10 je Seite · bei Hamstring-Ziehen Umfang begrenzen</text>
+</svg>

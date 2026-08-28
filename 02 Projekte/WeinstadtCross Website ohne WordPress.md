@@ -46,6 +46,30 @@ Damit ist der Kernpunkt nicht mehr behauptet, sondern vorgeführt: Kopfzeile, Me
 
 Mit Chrome gerendert und geprüft: 6 Logos in der Spalte, 28 in der Wand über drei Gruppen, 3 Klappmenüs mit 11 Unterpunkten, aktiver Menüpunkt wird automatisch markiert, keine Platzhalter übrig.
 
+**Alle 19 Seiten fertig** (Stand 08.08.2026), also jede Seite, die im Menü erreichbar ist, plus Impressum und Datenschutz im Fußbereich. Alle aus `baue_seiten.py`. Sie liegen im Ordner `WeinstadtCross Entwurf/` und gebündelt als `WeinstadtCross-Entwurf.zip` (212 KB) zum Weiterleiten. Geprüft: keine toten Links, keine Platzhalter im Quelltext, aktiver Menüpunkt auf jeder Seite markiert.
+
+Inhalte wurden von der Live-Seite importiert (`importiere_rest.py`), nicht neu formuliert. Prämien, Anreise und Übernachten übernehmen die bestehenden Bausteine samt ihrem CSS, das inline auf den Live-Seiten lag.
+
+⚠️ **Sieben Seiten sind auch heute schon praktisch leer** und im Entwurf deshalb ehrliche Platzhalter: Anmeldung, Teilnehmer, Ergebnisse, Gesamtwertung Cross Cup, Kooperationspartner sowie Ausschreibung und Ausschreibung Schulen (dort nur PDF und Bild). Das ist kein Mangel des Entwurfs, sondern der Stand im August.
+
+**Zwei Funde auf der bestehenden Seite:**
+- Die Sponsorenseite enthält eine **kaputte YouTube-Einbettung**: `youtube.com/embed/https://youtu.be/czxGkGwoIdU?...`, also eine vollständige URL hinter `/embed/`. Das Video kann so nicht laufen.
+- Die Anmeldeseite trägt noch die Überschrift „Anmeldung WeinstadtCross 2025".
+
+**Fallstrick beim Übernehmen von CSS:** Die Prämientabelle war zunächst unsichtbar, weiße Schrift auf weißem Grund. Ursache waren Farbvariablen (`--wc-ink`, `--wc-gelb`, `--wc-line`, `--wc-chalk`) aus TEIL 1 der Customizer-Datei, die beim Herauslösen der Regeln fehlten. Sie sind jetzt in `entwurf.css` definiert.
+
+**Der Zeitplan** kommt aus `Zeitplan – NUR HTML.txt`, also aus derselben Excel wie die WordPress-Fassung: 3 Tagesblöcke, 27 Läufe, 7 CMS-Kennzeichen, PDF verlinkt. Oben steht ein Hinweis, dass die DLV-Genehmigung noch aussteht.
+
+### Grußworte: Vorschlag statt Klappmenü unter „DM"
+Oskar stört an der bestehenden Seite, dass die drei Grußworte einzeln im Klappmenü unter *DM Cross* hängen. Das sind: **Michael Scharmann** (Oberbürgermeister Weinstadt), **Dr. Richard Sigel** (Landrat Rems-Murr-Kreis), **Dieter Schneider** (Präsident WLV). Dazu kommt, dass Scharmanns Grußwort ausgerechnet unter `/impressum-2` liegt.
+
+Gelöst im Entwurf durch drei Änderungen:
+1. **Eine Seite statt drei.** Alle Grußworte untereinander, je eine Karte mit Porträt, Name, Funktion, Text und Unterschrift (bei Sigel und Schneider vorhanden, bei Scharmann nicht). Sprungmarken pro Person, damit man einzeln verlinken kann.
+2. **Raus aus „DM".** Der Menüpunkt sitzt jetzt unter *Infos*. Grußworte sind Repräsentation, keine Wettkampfinformation, und gehören nicht in denselben Zweig wie Zeitplan und Strecken.
+3. **Trotzdem sichtbar.** Auf der Startseite ein eigener Abschnitt mit den drei Porträts, Name und Funktion, der auf die Seite führt. Damit sind die drei Herren prominenter als bisher, ohne die Navigation zu belegen.
+
+Die Texte wurden **unverändert** von der Live-Seite übernommen, nicht neu formuliert.
+
 **Klappmenü statt Zwischenseite** (Wunsch von Oskar am 08.08.2026): Heute muss man im Menü erst auf „Info" klicken und landet auf `/teilnehmer`, bevor man weiterkommt. Im Entwurf klappen „Infos", „Vor Ort" und „Ergebnisse" beim Zeigen auf, jede Unterseite ist mit einem Klick erreichbar. Rein über CSS gelöst, ohne Javascript, auf dem Handy über ein Aufklappmenü mit allen Punkten flach untereinander.
 
 ## Offen

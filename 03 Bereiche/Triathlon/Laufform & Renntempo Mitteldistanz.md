@@ -70,7 +70,17 @@ Der Limiter ist nicht die Geschwindigkeit, sondern die Ermüdungsresistenz. 3:55
 
 - **3:45/km** (ca. 1:19): unrealistisch für dieses Rennen. Nicht wegen der Beine, sondern weil 10 Wochen ohne Lauf über 14 km sich auf den letzten 7 km rächen.
 - **3:55/km** (ca. 1:22:40): ambitioniert und möglich, aber nur bei kühlem Wetter, diszipliniertem Radsplit und Steigerung nach hinten.
-- **Empfohlene Taktik:** bei etwa 4:05/km starten, ab der Hälfte entscheiden. Läuft es, landet der Schnitt trotzdem nahe 4:00, und ich überhole hinten statt überholt zu werden. Mit 3:55 loszulaufen und bei km 14 einzubrechen ist der teuerste Fehler.
+- **Empfohlene Taktik:** kontrolliert starten, ab der Hälfte steigern. Mit 3:55 loszulaufen und bei km 14 einzubrechen ist der teuerste Fehler.
+
+### ✅ Korrektur nach der Koppeleinheit vom 15.08.2026
+
+Rad 66,0 km in 1:52 mit 450 hm, NP 252 (IF 0,76), beste 20 min 277 W. Direkt danach **4 km bei 3:52 / 3:56 / 3:56 / 3:52, Herzfrequenz nur 132–141.**
+
+Bei einer Schwellenfrequenz von 161 und einem Ravensburg-Laufsplit bei HF 150 im Schnitt waren das gut 15 Schläge Reserve. Das ist deutlich besser als vorhergesagt.
+
+**Prognose korrigiert von 1:26–1:31 auf 1:24–1:28.**
+
+⚠️ Was die Einheit nicht belegt: 4 km sind 19 % eines Halbmarathons und testen ausgerechnet die Haltbarkeit nicht. Die Fahrt war mit 66 km, 450 hm und NP 252 zudem leichter als das Rennen mit 80 km, 908 hm, NP ~270, einer halben Stunde mehr Fahrzeit und zwei Kilometern Schwimmen davor.
 
 Größter Hebel bleibt das Rad: bei überzogenem Radsplit ist jedes Laufziel Makulatur. Richtwert IF 0,80 bis 0,83. Auf dieser Strecke heißt das konkret, an den drei Anstiegen nicht zu überziehen, auch wenn es dort leicht fällt.
 
@@ -98,9 +108,9 @@ Ziel: die letzten harten Reize setzen. Was hier nicht passiert, ist danach nicht
 
 | Prio | Einheit | Menge / Werte |
 |---|---|---|
-| 01 | **Koppeltraining Rad auf Lauf (Schlüssel):** 1:30 h Rad mit 2 × 20 min Renntempo, davon möglichst ein Block am Berg, direkt danach 5 km im Renntempo | 1× · 265–275 W → 4:05/km |
+| 01 | **Koppeltraining Rad auf Lauf (Schlüssel):** 1:30 h Rad mit 2 × 20 min Renntempo, davon möglichst ein Block am Berg, direkt danach 5 km im Renntempo | 1× · 258–262 W → 4:05/km |
 | 02 | **Letzter langer Lauf.** Muss spätestens So 16.08. liegen, danach beginnt der Taper | 1× · 16–18 km · ~5:00/km |
-| 03 | **Bergeinheit Rad:** Anstieg von 3–4 km 3 × am Renntempo, oder am längeren Berg 3 × 12–15 min. Verpflegung testen | 1× · 260–275 W · 60–90 g KH/h |
+| 03 | **Bergeinheit Rad**, geplant Flachauwinkl → Zauchensee (44,6 km, 661 hm). Hauptanstieg 15,26 km bei 3,1 %, am Stück ~36 min. Darin 3 × 10–12 min mit je 3 min locker, passend zu den drei Anstiegen im Rennen. Verpflegung testen. Oben auf 1353 m kosten dieselben Watt mehr, das ist die Höhe und kein Formproblem. Abfahrt am Basislenker, bei 3 % wird es über 50 km/h schnell 2 h · 3 × 10–12 min · 265–285 W · 60–90 g KH/h. **Auf 2 h verlängern**, Zusatzzeit locker bei 200–220 W und möglichst im Tal, weil die neue Sitzposition bisher nur über 1:15 getestet ist und im Rennen gut zwei Stunden halten muss. Keine weiteren Intervalle |
 | 04 | Locker traben als Füllung | 1–2× · je 8 km |
 | 05 | Schwimmen, wenn sich eine Gelegenheit ergibt | optional |
 
@@ -108,9 +118,27 @@ Ziel: die letzten harten Reize setzen. Was hier nicht passiert, ist danach nicht
 
 **Wenn es eng wird:** 1 Einheit → Koppeltraining. 2 → plus langer Lauf. 3 → plus Bergeinheit. Alles darüber ist Bonus.
 
-### Woche 2, Taper, 17. bis 22.08.
+### Woche 2, Taper, 17. bis 22.08. — festgelegt am 15.08.
 
-Ziel: Umfang etwa halbieren, Spritzigkeit halten, nichts Neues aufbauen. Ruhe ist hier die wertvollste Einheit.
+Wenig Zeit in dieser Woche, und das ist kein Nachteil. **Rechnung ergibt TSB +9,4 am Renntag**, genau im Zielfenster von +5 bis +20. In einer Taperwoche ist zu wenig fast nie das Problem, zu viel dagegen schon.
+
+| Tag | Inhalt |
+|---|---|
+| So 16.08. | 2 h Rad bei 200 W, früh 6 bis 8 Uhr, durchgehend im Aerolenker als Positionstest über Renndauer. Nachmittags 12 km locker |
+| Mo 17.08. | Kein Sport |
+| Di 18.08. | 3 × 6 min auf der Rolle. Dazu schwimmen 30–35 min |
+| Mi 19.08. | 3 × 1000 m etwas unter Renntempo |
+| Do 20.08. | Schwimmen 30–35 min |
+| Fr 21.08. | Frei. Der wichtigste Tag der Woche |
+| Sa 22.08. | 5 km mit ein paar Steigerungen, früh vor Anreise und Radabgabe |
+
+Hinweise dazu:
+
+- ⚠️ **Wattzahlen von der Rolle nicht als Eichung nehmen.** Drinnen auf dem Rennrad wird etwas anderes gemessen als draußen in Aero. Die 258–262 W fürs Rennen bleiben unberührt.
+- **Schwimmen:** ruhig durchschwimmen statt Intervalle, in einer der beiden Einheiten 1000–1500 m am Stück. Nach zwei Wochen ohne Wasser fehlt das Gefühl, nicht die Ausdauer.
+- Fällt etwas aus, ist das kein Verlust. Zuerst das Rad streichen, dann den Lauf. Nie streichen: Material, Verpflegung, Schlaf.
+
+Alte Prioritätenlogik als Rückfall, falls die Woche ganz kippt:
 
 | Prio | Einheit | Menge / Werte |
 |---|---|---|
@@ -127,8 +155,10 @@ Ziel: Umfang etwa halbieren, Spritzigkeit halten, nichts Neues aufbauen. Ruhe is
 ### Renntag 23.08., 10:00 Uhr
 
 - **Schwimmen 1,98 km:** ruhig anschwimmen, erste 200 m nicht überpacen.
-- **Rad 80,16 km:** 264–274 W normalisiert (IF 0,80–0,83). An den drei Anstiegen maximal ~300 W und bewusst nicht mehr, dort liegt die Falle. 60–90 g KH/h.
-- **Laufen 20,8 km:** bei 4:05/km starten, ab km 10 entscheiden. Bei Hitze 15–25 s/km abziehen und nach HF laufen.
+- **Rad 80,16 km:** Im Flachen **258–262 W**, an den drei Anstiegen **bis 300 W** (dort aufgesessen, also gilt die Rennrad-FTP von 330). Harte Grenze ist die Summe: **NP über die vollen 80 km maximal 270 W.** Verteilung taktisch frei: wer am Berg mitgeht, zahlt es im Flachstück zurück. 60–90 g KH/h. Herleitung und Zeitrechnung siehe [[Sitzposition Zeitfahrrad (Cube Aerium C68)]].
+- **Laufen 20,8 km:** negativer Split statt gleichmäßigem Tempo. **km 0–7 bei 4:02, km 7–14 bei 3:58, ab km 14 bei 3:50** ergibt 1:23:12. Bei Hitze 15–25 s/km abziehen und nach HF laufen.
+
+  ⚠️ Kernpunkt: **3:55 muss nicht angelaufen werden, um unter 1:24 zu kommen.** Start 4:05 mit Steigerung ergibt 1:24:01, Start 4:00 ergibt 1:23:12, durchgehend 3:55 ergibt 1:22:37. Die 35 Sekunden Unterschied sind das Risiko nicht wert: bei einer Fehleinschätzung verliert man nicht 35 Sekunden, sondern zehn Minuten.
 
 ## Offen
 

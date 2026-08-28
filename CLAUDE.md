@@ -40,7 +40,8 @@ Hinweis-Format: Kurz und konkret, z.B. „💡 Für diesen Text würde ich Opus 
 
 ## Technische Regeln
 
-- Alle Skills und MCP Server werden immer auf Projektebene installiert (nicht global)
+- Skills werden global in `~/.claude/skills/` installiert, damit sie in allen Projekten greifen. Ausnahme: Skills, die nur zu diesem Vault passen (z.B. `pruefungsaufgaben-generator`), bleiben in `.claude/skills/`. MCP Server weiterhin auf Projektebene. (Geändert 17.08.2026, vorher galt: alles auf Projektebene.)
+- Design-Standard ist der globale Skill `impeccable`. `frontend-design` und `huashu-design` liegen deaktiviert in `.claude/skills-deaktiviert/`, damit sich die Regelwerke nicht in die Quere kommen. `canvas-design` bleibt aktiv, das deckt Poster und statische Grafik ab, nicht Web-UI.
 - Für notebooklm-Befehle immer PATH setzen: `export PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:$PATH"`
 - NotebookLM Account: oskar17185@googlemail.com (Profil: default)
 
@@ -176,6 +177,14 @@ tell application "Reminders"
   end tell
 end tell
 ```
+
+## Bildgenerierung (Weg 2: Gemini-App, Prompts von Claude)
+
+Für Bilder zu **Unterrichtsmaterial und Webseiten**. Entschieden 28.08.2026: kein API-Weg (die Gemini-API hat kein Gratis-Kontingent, Bezahltarif wollte Oskar nicht). Oskar hat ein Gemini-Abo und erzeugt die Bilder selbst in der Gemini-App.
+
+- **Ablauf:** Claude schreibt konkrete Prompts (Motiv, Stil, Perspektive, Bildausschnitt, Text im Bild wörtlich). Oskar wirft sie auf gemini.google.com, lädt die Ergebnisse herunter, legt sie in `07 Anhänge/` ab. Claude sortiert/benennt und bindet sie ein.
+- Für die WeinstadtCross-Website im Zweifel echte Stockfotos bevorzugen (rechtlich klarer); KI-Bilder für Szenen, die es als Stock nicht gibt.
+- Ungenutzt vorhanden, falls Oskar doch auf API umschwenkt: `.scripts/bild.py` und `~/.config/claude-image/gemini.env` (Key gültig, aber ohne aktivierte Abrechnung nicht nutzbar).
 
 ## E-Mail Anbindung (IMAP)
 

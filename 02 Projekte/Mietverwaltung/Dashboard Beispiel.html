@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mietverwaltung</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         background: #f4f3ee; color: #1a1a18; line-height: 1.6; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 26px; font-weight: 600; margin-bottom: 4px; }
+  h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+  p.lead { color: #5f5e5a; margin-bottom: 24px; font-size: 14px; }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .metric { background: #fff; border: 1px solid #e5e3da; border-radius: 10px; padding: 14px 16px; }
+  .metric .label { font-size: 12px; color: #888780; margin-bottom: 2px; }
+  .metric .value { font-size: 23px; font-weight: 600; }
+  .value.green { color: #0f6e56; } .value.red { color: #a32d2d; } .value.amber { color: #854f0b; }
+  .card { background: #fff; border: 1px solid #e5e3da; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
+  .cardnote { font-size: 13px; color: #5f5e5a; margin-bottom: 12px; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid #efeee8; flex-wrap: wrap; }
+  .row:first-of-type { border-top: none; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: #e6f1fb; color: #185fa5;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+  .row .info { flex: 1; min-width: 170px; }
+  .row .obj { font-size: 14px; font-weight: 600; }
+  .row .meta { font-size: 12px; color: #888780; }
+  .row .amount { font-size: 14px; font-weight: 600; min-width: 92px; text-align: right; }
+  .badge { font-size: 12px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; font-weight: 500; }
+  .badge.paid { background: #e1f5ee; color: #085041; }
+  .badge.open { background: #faeeda; color: #854f0b; }
+  .badge.late { background: #fcebeb; color: #a32d2d; }
+  .badge.blue { background: #e6f1fb; color: #185fa5; }
+  .badge.neutral { background: #f1efe8; color: #5f5e5a; }
+  .bars { display: flex; align-items: flex-end; gap: 8px; height: 96px; margin: 22px 0 4px; }
+  .bars .bar { flex: 1; background: #85b7eb; border-radius: 4px 4px 0 0; position: relative; min-height: 3px; }
+  .bars .bar.last { background: #185fa5; }
+  .bars .bar span { position: absolute; top: -16px; left: 0; right: 0; text-align: center; font-size: 10px; color: #5f5e5a; }
+  .barlabels { display: flex; gap: 8px; }
+  .barlabels span { flex: 1; text-align: center; font-size: 11px; color: #888780; }
+  .empty { font-size: 13px; color: #888780; padding: 10px 0; }
+  .callout { background: #faeeda; color: #633806; font-size: 14px; padding: 12px 16px; border-radius: 8px; margin: 16px 0; }
+  .callout.info { background: #eeedfe; color: #3c3489; }
+  button { font-family: inherit; font-size: 12px; padding: 6px 12px; border: 1px solid #d3d1c7;
+           border-radius: 6px; background: #fff; cursor: pointer; color: #1a1a18; }
+  button:hover { background: #f4f3ee; }
+  .search { width: 100%; padding: 9px 12px; border: 1px solid #d3d1c7; border-radius: 8px;
+            font-size: 13px; font-family: inherit; margin-bottom: 10px; }
+  .search:focus { outline: none; border-color: #185fa5; }
+  footer { margin-top: 48px; font-size: 12px; color: #888780; border-top: 1px solid #e5e3da; padding-top: 16px; }
+  table.liste { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.liste th { text-align: left; font-weight: 600; color: #5f5e5a; padding: 6px 8px 6px 0; border-bottom: 1px solid #d3d1c7; }
+  table.liste td { padding: 6px 8px 6px 0; border-bottom: 1px solid #efeee8; vertical-align: top; }
+  table.liste td.num, table.liste th.num { text-align: right; white-space: nowrap; padding-right: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Mietverwaltung</h1>
+  <p class="lead">Stand 17.08.2026 &middot; 3 Objekte, 6 Einheiten</p>
+  <div class="metrics"><div class="metric"><div class="label">Sollmiete pro Monat</div><div class="value ">4.715 EUR</div></div><div class="metric"><div class="label">Eingegangen</div><div class="value green">3.950 EUR</div></div><div class="metric"><div class="label">Noch offen</div><div class="value red">765 EUR</div></div><div class="metric"><div class="label">Einheiten</div><div class="value amber">5 / 6</div></div></div>
+  <div class="card">
+<h3>Zahlungsstatus August 2026</h3>
+<div class="row"><div class="avatar">NO</div><div class="info"><div class="obj">Gartenstr. 12, WE 3 DG</div><div class="meta">Frau Novak</div></div><div class="amount">690,00 EUR</div><span class="badge open">offen</span></div>
+<div class="row"><div class="avatar">KR</div><div class="info"><div class="obj">Gartenstr. 12, WE 1 EG</div><div class="meta">Familie Kramer</div></div><div class="amount">920,00 EUR</div><span class="badge paid">bezahlt 01.08.</span></div>
+<div class="row"><div class="avatar">SA</div><div class="info"><div class="obj">Lindenweg 4, Haus</div><div class="meta">Familie Sanchez</div></div><div class="amount">1.450,00 EUR</div><span class="badge paid">bezahlt 01.08.</span></div>
+<div class="row"><div class="avatar">AD</div><div class="info"><div class="obj">Bahnhofstr. 7, WE 1</div><div class="meta">Herr Adler</div></div><div class="amount">875,00 EUR</div><span class="badge late">fehlen 75,00 EUR</span></div>
+<div class="row"><div class="avatar">BE</div><div class="info"><div class="obj">Gartenstr. 12, WE 2 OG</div><div class="meta">Herr Bergmann</div></div><div class="amount">780,00 EUR</div><span class="badge paid">bezahlt 03.08.</span></div>
+</div>
+<div class="card">
+<h3>Rückstände</h3>
+<p class="cardnote">Ausgewertet: Juni 2026 bis August 2026</p>
+<table class='liste'><tr><th>Monat</th><th>Einheit</th><th>Mieter</th><th class='num'>Soll</th><th class='num'>Eingegangen</th><th class='num'>Offen</th></tr>
+<tr><td>Juni 2026</td><td>Gartenstr. 12, WE 3 DG</td><td>Frau Novak</td><td class='num'>690,00 EUR</td><td class='num'>600,00 EUR</td><td class='num'><strong>90,00 EUR</strong></td></tr>
+<tr><td>August 2026</td><td>Gartenstr. 12, WE 3 DG</td><td>Frau Novak</td><td class='num'>690,00 EUR</td><td class='num'>0,00 EUR</td><td class='num'><strong>690,00 EUR</strong></td></tr>
+<tr><td>August 2026</td><td>Bahnhofstr. 7, WE 1</td><td>Herr Adler</td><td class='num'>875,00 EUR</td><td class='num'>800,00 EUR</td><td class='num'><strong>75,00 EUR</strong></td></tr>
+</table>
+<div class="callout">Offen insgesamt: <strong>855,00 EUR</strong>. Für einen Entwurf der Zahlungserinnerung sag Claude: „Mahnlauf“.</div>
+</div>
+<div class="card">
+<h3>Zu prüfen (1)</h3>
+<p class="cardnote">Diese Eingänge konnte die Zuordnung nicht sicher zuweisen. Sag Claude „Zuordnungen prüfen“, dann geht ihr sie gemeinsam durch.</p>
+<table class='liste'><tr><th>Datum</th><th>Absender</th><th>Verwendungszweck</th><th class='num'>Betrag</th><th>Vermutung</th></tr>
+<tr><td>07.08.2026</td><td>Hausverwaltung Beispiel eG</td><td>Erstattung Betriebskosten 2025</td><td class='num'>312,45 EUR</td><td>keine</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>Mieteingänge 2026</h3>
+<div class="bars"><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:89px"><span>4.625</span></div><div class="bar" style="height:92px"><span>4.805</span></div><div class="bar last" style="height:76px"><span>3.950</span></div><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:3px"><span></span></div><div class="bar" style="height:3px"><span></span></div></div><div class="barlabels"><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span><span>09</span><span>10</span><span>11</span><span>12</span></div><p class="cardnote" style="margin-top:14px">Summe 2026: <strong>13.380,00 EUR</strong></p>
+</div>
+<div class="card">
+<h3>Ausgaben 2026</h3>
+<p class="cardnote">Grundlage für die Werbungskosten in der Anlage V. Sag Claude „Ausgaben kategorisieren“, um offene Posten zuzuordnen.</p>
+<table class='liste'><tr><th>Kategorie</th><th class='num'>Betrag</th></tr>
+<tr><td>nicht kategorisiert</td><td class='num'>3.578,50 EUR</td></tr>
+<tr><td><strong>Summe</strong></td><td class='num'><strong>3.578,50 EUR</strong></td></tr>
+</table>
+</div>
+<div class="card">
+<h3>Darlehen</h3>
+<p class="cardnote">Zinsbindung unter 18 Monaten wird markiert, damit die Anschlussfinanzierung in Ruhe verhandelt werden kann.</p>
+<table class='liste'><tr><th>Objekt</th><th>Bank</th><th class='num'>Restschuld</th><th class='num'>Zins</th><th class='num'>Rate</th><th>Zinsbindung bis</th></tr>
+<tr><td>Gartenstr. 12</td><td>Kreissparkasse</td><td class='num'>218.000 EUR</td><td class='num'>1,85 %</td><td class='num'>1.240 EUR</td><td>03/2027 <span class='badge late'>Anschluss klären</span></td></tr>
+<tr><td>Lindenweg 4</td><td>Volksbank</td><td class='num'>264.000 EUR</td><td class='num'>1,42 %</td><td class='num'>1.090 EUR</td><td>09/2029</td></tr>
+<tr><td>Bahnhofstr. 7</td><td>ING</td><td class='num'>187.500 EUR</td><td class='num'>3,65 %</td><td class='num'>980 EUR</td><td>05/2031</td></tr>
+<tr><td colspan='2'><strong>Summe</strong></td><td class='num'><strong>669.500 EUR</strong></td><td colspan='3'></td></tr>
+</table>
+</div>
+<div class="card">
+<h3>Fristen &amp; Wartung</h3>
+<div class="row"><div class="info"><div class="obj">Rauchmelder prüfen</div><div class="meta">Bahnhofstr. 7</div></div><span class="badge open">in 11 Tagen</span></div>
+<div class="row"><div class="info"><div class="obj">Heizungswartung</div><div class="meta">Gartenstr. 12</div></div><span class="badge neutral">20.09.2026</span></div>
+<div class="row"><div class="info"><div class="obj">Zinsbindung läuft aus – Anschlussfinanzierung verhandeln</div><div class="meta">Gartenstr. 12</div></div><span class="badge neutral">30.09.2026</span></div>
+<div class="row"><div class="info"><div class="obj">Legionellenprüfung Trinkwasser</div><div class="meta">Gartenstr. 12</div></div><span class="badge neutral">15.10.2026</span></div>
+<div class="row"><div class="info"><div class="obj">Nebenkostenabrechnung 2025 verschicken (Frist 31.12.2026)</div><div class="meta">alle Objekte</div></div><span class="badge neutral">30.11.2026</span></div>
+</div>
+  <div class="card">
+    <h3>Export für die Steuer</h3>
+    <p class="cardnote">Alle Buchungen des laufenden Jahres als CSV, direkt für den
+    Steuerberater oder die Anlage V.</p>
+    <button id="csv">Belegliste 2026 herunterladen</button>
+  </div>
+  <footer>Erzeugt am 17.08.2026 13:09 aus den Daten in daten\ &middot; enthält echte Mieterdaten,
+  bitte nicht weitergeben.</footer>
+</div>
+<script>
+const daten = [{"datum": "2026-06-01", "betrag": 1450.0, "zweck": "Miete 06/2026 Lindenweg 4", "name": "Sanchez, Maria", "kategorie": "Mieteinnahme"}, {"datum": "2026-06-01", "betrag": 920.0, "zweck": "Miete 06/2026 Gartenstr. 12 WE 1", "name": "Kramer, Thomas", "kategorie": "Mieteinnahme"}, {"datum": "2026-06-02", "betrag": 875.0, "zweck": "Miete Bahnhofstr 7 WE1 06/26", "name": "Adler, Peter", "kategorie": "Mieteinnahme"}, {"datum": "2026-06-02", "betrag": 780.0, "zweck": "Miete Juni 2026", "name": "Bergmann, Klaus", "kategorie": "Mieteinnahme"}, {"datum": "2026-06-03", "betrag": 600.0, "zweck": "Mietzahlung Juni", "name": "Novak, Ines", "kategorie": "Mieteinnahme"}, {"datum": "2026-06-05", "betrag": -742.8, "zweck": "Gebaeudeversicherung Gartenstr. 12 Jahresbeitrag", "name": "Musterversicherung AG", "kategorie": ""}, {"datum": "2026-06-12", "betrag": -389.2, "zweck": "Rechnung 2026-118 Heizungswartung Gartenstr. 12", "name": "Heizung Mueller GmbH", "kategorie": ""}, {"datum": "2026-07-01", "betrag": 920.0, "zweck": "Miete 07/2026 Gartenstr. 12 WE 1", "name": "Kramer, Thomas", "kategorie": "Mieteinnahme"}, {"datum": "2026-07-01", "betrag": 1450.0, "zweck": "Miete 07/2026 Lindenweg 4", "name": "Sanchez, Maria", "kategorie": "Mieteinnahme"}, {"datum": "2026-07-02", "betrag": 780.0, "zweck": "Miete Juli 2026", "name": "Bergmann, Klaus", "kategorie": "Mieteinnahme"}, {"datum": "2026-07-02", "betrag": 875.0, "zweck": "Miete Bahnhofstrasse Juli fuer P. Adler", "name": "Adler-Weiss, Sabine", "kategorie": "Mieteinnahme"}, {"datum": "2026-07-03", "betrag": 780.0, "zweck": "Miete 07/2026 sowie Restbetrag Juni", "name": "Novak, Ines", "kategorie": "Mieteinnahme"}, {"datum": "2026-07-09", "betrag": -156.0, "zweck": "Stadtwerke Abschlag Wasser Bahnhofstr. 7", "name": "Stadtwerke Beispielheim", "kategorie": ""}, {"datum": "2026-07-20", "betrag": -1480.0, "zweck": "Kautionsrueckzahlung nach Auszug", "name": "Fischer, Andrea", "kategorie": ""}, {"datum": "2026-08-01", "betrag": 1450.0, "zweck": "Miete 08/2026 Lindenweg 4", "name": "Sanchez, Maria", "kategorie": "Mieteinnahme"}, {"datum": "2026-08-01", "betrag": 920.0, "zweck": "Miete 08/2026 Gartenstr. 12 WE 1", "name": "Kramer, Thomas", "kategorie": "Mieteinnahme"}, {"datum": "2026-08-03", "betrag": 780.0, "zweck": "Miete August 2026", "name": "Bergmann, Klaus", "kategorie": "Mieteinnahme"}, {"datum": "2026-08-04", "betrag": 800.0, "zweck": "Miete August", "name": "Adler, Peter", "kategorie": "Mieteinnahme"}, {"datum": "2026-08-07", "betrag": 312.45, "zweck": "Erstattung Betriebskosten 2025", "name": "Hausverwaltung Beispiel eG", "kategorie": "Mieteinnahme"}, {"datum": "2026-08-11", "betrag": -612.5, "zweck": "Rechnung 4471 Sanitaer Bad WE 2 Gartenstr.", "name": "Sanitaer Vogt e.K.", "kategorie": ""}, {"datum": "2026-08-12", "betrag": -198.0, "zweck": "Grundsteuer Q3 Bahnhofstr. 7", "name": "Stadtkasse Beispielheim", "kategorie": ""}];
+document.getElementById("csv").addEventListener("click", function () {
+  const kopf = "Datum;Betrag;Kategorie;Name;Verwendungszweck";
+  const zeilen = daten.map(function (d) {
+    const feld = function (w) { return String(w == null ? "" : w).replace(/;/g, ","); };
+    return [feld(d.datum), String(d.betrag).replace(".", ","), feld(d.kategorie),
+            feld(d.name), feld(d.zweck)].join(";");
+  });
+  const inhalt = "\ufeff" + [kopf].concat(zeilen).join("\n");
+  const blob = new Blob([inhalt], {type: "text/csv;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Belegliste_2026.csv";
+  a.click();
+});
+</script>
+</body>
+</html>

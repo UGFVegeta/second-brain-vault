@@ -1,0 +1,26 @@
+# ACHTUNG: Dieses Repository bleibt lokal. Kein GitHub, kein Remote, keine
+# oeffentliche Cloud. In daten/ stehen echte Namen, Kontoverbindungen und
+# Zahlungsverhalten von Mietern.
+#
+# Warum daten/ trotzdem versioniert wird: Genau dafuer ist git hier da. Wenn
+# bei einer Aenderung etwas schiefgeht, laesst sich der vorherige Stand
+# zurueckholen. Wer daten/ ausschliesst, hat zwar ein Repository, aber keinen
+# Schutz fuer das, worauf es ankommt.
+#
+# Siehe doku/Versionierung und Sicherung.md
+
+# Grosse Ursprungsdateien. Die liegen ohnehin noch im Original vor und
+# blaehen die Historie nur auf.
+belege/
+unterlagen/*
+!unterlagen/*.md
+kontoauszuege/*
+!kontoauszuege/*.md
+
+# Wird erzeugt und laesst sich jederzeit neu bauen
+Dashboard.html
+sicherungen/
+entwuerfe/
+
+__pycache__/
+*.pyc

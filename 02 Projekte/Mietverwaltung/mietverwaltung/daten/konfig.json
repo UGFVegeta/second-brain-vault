@@ -1,0 +1,26 @@
+{
+  "vermieter_name": "Mietverwaltung",
+  "miete_faellig_am": 3,
+  "schwellen": {
+    "sicher": 70,
+    "vorschlag": 40
+  },
+  "mahnstufen": [
+    {
+      "nach_tagen": 7,
+      "ton": "freundliche Erinnerung"
+    },
+    {
+      "nach_tagen": 21,
+      "ton": "deutliche Zahlungsaufforderung"
+    },
+    {
+      "nach_tagen": 45,
+      "ton": "förmliche Mahnung mit Fristsetzung"
+    }
+  ],
+  "bank": {
+    "verfahren": "csv",
+    "hinweis": "verfahren: csv oder fints. Für fints siehe doku/Bankanbindung.md"
+  }
+}

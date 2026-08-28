@@ -237,6 +237,24 @@ Zusätzlich sitzt oben die **Titelform**, das ist die Webadresse, nicht der Tite
 ### 3. In Ordnung
 canonical gesetzt, Favicon vorhanden, `lang="de"`, gzip aktiv, `http` leitet auf `https`, `www` leitet auf die Hauptdomain. Sicherheits-Header (HSTS, X-Content-Type-Options) fehlen, für eine Vereinsseite aber nachrangig.
 
+## Grußworte und Ergebnisarchiv (12.08.2026)
+
+**Grußworte auf einer Seite statt vier.** Neue Seite `/grussworte` (ID 3094) mit allen vier Grußworten als Karten: **Klaus Silbernagel** (Vorstandsvorsitzender SG Weinstadt, neu, aus PDF), Michael Scharmann (OB), Dr. Richard Sigel (Landrat), Dieter Schneider (WLV). Drei davon mit Unterschrift, Scharmann hat keine. Damit ist der Ärger erledigt, dass die Grußworte einzeln im Klappmenü unter *DM Cross* hingen. Erzeugt von `baue_grussworte_wp.py`, CSS in TEIL 10.
+
+Die drei alten Einzelseiten (`/grusswort-dieter-schneider`, `/grusswort-dr-richard-sigel`, `/impressum-2`) werden **gelöscht**, nicht umgeleitet. Entscheidung von Oskar am 12.08.2026: Auf die alten Adressen muss niemand mehr zugreifen. Vor dem Löschen geprüft, dass keine Seite und kein Beitrag mehr darauf verlinkt und dass das echte Impressum unter `/impressum` liegt.
+
+**Klaus Silbernagels Unterschrift** steckte nicht als eigenes Bild im PDF, die ganze Seite ist ein Scan. Freigestellt über die **Tintenfarbe**, nicht über die Helligkeit: Nur was deutlich blau ist bleibt stehen, dadurch fällt der schwarze Text darunter weg. Ergebnis 7 KB mit Transparenz. Der erste Versuch über die Helligkeit hatte den Text mitgenommen.
+
+**Ergebnisarchiv** (`/muffin-builder-2502`) neu als Kartenraster, TEIL 9. Vorher hießen alle neun Links „Click here", was für Screenreader und Google gleichermaßen wertlos ist. Beim Umbau alle Ziele geprüft: fünf zeigten auf abavent.de, das auf datasport.de umleitet, jetzt direkt aufs Endziel. 2017 läuft nun über https, 2016 bleibt bei http, weil der Server dort die verschlüsselte Verbindung abbricht.
+
+### Zwei Fallen, die Zeit gekostet haben
+- **Silbentrennung aus PDFs.** Beim Zusammenfügen von „Cross- Meisterschaften" zerstörte eine zu grobe Regel auch korrekte Bindestriche („Straßen- und" wurde zu „Straßenund"). Regel jetzt eingegrenzt auf Fälle, in denen nach dem Bindestrich ein **Großbuchstabe** folgt. Bei fremden Texten besonders heikel.
+- **Ligaturen aus PDFs.** Ein zusammengezogenes „ff" (U+FB00) rutschte durch und wäre als Sonderzeichen auf der Seite gelandet. Wird jetzt aufgelöst.
+
+⚠️ **Kaputte YouTube-Einbettung auf der Sponsorenseite**: `youtube.com/embed/https://youtu.be/czxGkGwoIdU`, also eine vollständige Adresse hinter `/embed/`. Das Video kann so nicht laufen.
+
+**Lehre fürs Prüfen:** Dreimal kam ein CSS-Stand nicht online an. Statt zu raten hat jedes Mal derselbe Messwert geholfen, nämlich die Zeichenzahl von `<style id="wp-custom-css">` im Quelltext. Bleibt sie gleich, wurde nichts gespeichert, unabhängig davon woran es liegt.
+
 ## Wartet auf die DLV-Genehmigung
 
 Der Zeitplan geht über den Kollegen zum DLV. Erst danach:

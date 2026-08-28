@@ -1,0 +1,39 @@
+[
+  {
+    "id": "gartenstr-12",
+    "bezeichnung": "Gartenstr. 12",
+    "ort": "73614 Musterstadt",
+    "typ": "Mehrfamilienhaus",
+    "kaufpreis": 480000,
+    "kaufdatum": "2015-04-01",
+    "notizen": "Beispielobjekt – frei erfunden.",
+    "einheiten": [
+      { "id": "gartenstr-12-we1", "bezeichnung": "WE 1 EG", "wohnflaeche": 72, "zimmer": 3 },
+      { "id": "gartenstr-12-we2", "bezeichnung": "WE 2 OG", "wohnflaeche": 64, "zimmer": 2.5 },
+      { "id": "gartenstr-12-we3", "bezeichnung": "WE 3 DG", "wohnflaeche": 58, "zimmer": 2 }
+    ]
+  },
+  {
+    "id": "lindenweg-4",
+    "bezeichnung": "Lindenweg 4",
+    "ort": "73614 Musterstadt",
+    "typ": "Doppelhaushälfte",
+    "kaufpreis": 395000,
+    "kaufdatum": "2019-09-15",
+    "einheiten": [
+      { "id": "lindenweg-4-haus", "bezeichnung": "Haus", "wohnflaeche": 126, "zimmer": 5 }
+    ]
+  },
+  {
+    "id": "bahnhofstr-7",
+    "bezeichnung": "Bahnhofstr. 7",
+    "ort": "73630 Beispielheim",
+    "typ": "Zweifamilienhaus",
+    "kaufpreis": 310000,
+    "kaufdatum": "2021-06-01",
+    "einheiten": [
+      { "id": "bahnhofstr-7-we1", "bezeichnung": "WE 1", "wohnflaeche": 81, "zimmer": 3 },
+      { "id": "bahnhofstr-7-we2", "bezeichnung": "WE 2", "wohnflaeche": 79, "zimmer": 3 }
+    ]
+  }
+]

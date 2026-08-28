@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 268" width="440" height="268" role="img" aria-label="Schlafposition Rückenlage mit Kissen unter den Knien">
+  <rect width="440" height="268" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="28" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">R3 · Schlafposition Rückenlage</text>
+  <text x="220" y="48" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Kissen unter den Knien nimmt die Spannung von der Hüftkapsel</text>
+
+  <rect x="40" y="186" width="360" height="32" rx="6" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+  <rect x="60" y="158" width="52" height="28" rx="13" fill="#cfe3f5" stroke="#7aa7cc" stroke-width="3"/>
+  <rect x="252" y="150" width="58" height="36" rx="16" fill="#cfe3f5" stroke="#7aa7cc" stroke-width="3"/>
+
+  <circle cx="240" cy="170" r="19" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M122,172 L240,176" stroke-width="7.5"/>
+    <path d="M240,176 L282,146 L330,180" stroke-width="7.5"/>
+    <path d="M124,176 L170,188" stroke-width="5"/>
+  </g>
+  <circle cx="96" cy="166" r="17" fill="#2c3e50"/>
+
+  <line x1="281" y1="232" x2="281" y2="190" stroke="#7aa7cc" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="281" y="246" font-family="system-ui,sans-serif" font-size="12" fill="#3d6f9e" text-anchor="middle">Kissen unter den Knien</text>
+
+  <text x="220" y="262" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">Die entlastendste Position bei nächtlichem Hüftschmerz</text>
+</svg>

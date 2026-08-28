@@ -1,0 +1,42 @@
+[
+  {
+    "id": "fr-001",
+    "objekt_id": "gartenstr-12",
+    "titel": "Heizungswartung",
+    "faellig": "2026-09-20",
+    "wiederholung": "jaehrlich",
+    "kategorie": "Wartung"
+  },
+  {
+    "id": "fr-002",
+    "objekt_id": "gartenstr-12",
+    "titel": "Legionellenprüfung Trinkwasser",
+    "faellig": "2026-10-15",
+    "wiederholung": "jaehrlich",
+    "kategorie": "Pflicht"
+  },
+  {
+    "id": "fr-003",
+    "objekt_id": null,
+    "titel": "Nebenkostenabrechnung 2025 verschicken (Frist 31.12.2026)",
+    "faellig": "2026-11-30",
+    "wiederholung": "jaehrlich",
+    "kategorie": "Abrechnung"
+  },
+  {
+    "id": "fr-004",
+    "objekt_id": "bahnhofstr-7",
+    "titel": "Rauchmelder prüfen",
+    "faellig": "2026-08-28",
+    "wiederholung": "jaehrlich",
+    "kategorie": "Pflicht"
+  },
+  {
+    "id": "fr-005",
+    "objekt_id": "gartenstr-12",
+    "titel": "Zinsbindung läuft aus – Anschlussfinanzierung verhandeln",
+    "faellig": "2026-09-30",
+    "wiederholung": "einmalig",
+    "kategorie": "Finanzierung"
+  }
+]

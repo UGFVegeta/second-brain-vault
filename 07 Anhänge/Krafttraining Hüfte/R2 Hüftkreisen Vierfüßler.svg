@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 290" width="440" height="290" role="img" aria-label="Hüftkreisen im Vierfüßlerstand">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="290" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="28" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">R2 · Hüftkreisen im Vierfüßlerstand</text>
+  <text x="220" y="48" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Rücken bleibt ruhig · nur die Hüfte kreist, kein Ausweichen im Becken</text>
+
+  <line x1="40" y1="264" x2="400" y2="264" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+
+  <circle cx="248" cy="176" r="19" fill="#e8590c" opacity="0.15"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M132,172 L248,178" stroke-width="7.5"/>
+    <path d="M132,172 L134,264" stroke-width="7.5"/>
+    <path d="M248,178 L252,264" stroke-width="7.5"/>
+    <path d="M248,176 L296,206" stroke-width="7.5"/>
+    <path d="M296,206 L318,242" stroke-width="7.5"/>
+  </g>
+  <circle cx="110" cy="160" r="18" fill="#2c3e50"/>
+
+  <path d="M336,182 A34,34 0 1,1 300,166" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+
+  <text x="220" y="284" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">10 Kreise je Richtung · langsam, ohne in die Endgradigkeit zu gehen</text>
+</svg>

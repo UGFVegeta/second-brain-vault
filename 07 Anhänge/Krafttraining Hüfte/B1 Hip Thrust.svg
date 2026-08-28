@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 285" width="440" height="285" role="img" aria-label="Hip Thrust mit Langhantel">
+  <defs>
+    <marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 z" fill="#e8590c"/>
+    </marker>
+  </defs>
+  <rect width="440" height="285" rx="12" fill="#f7f8fa"/>
+
+  <text x="220" y="34" font-family="system-ui,sans-serif" font-size="17" font-weight="600" fill="#2c3e50" text-anchor="middle">B1 · Hip Thrust</text>
+  <text x="220" y="55" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Oberer Rücken auf der Bank · Rippen unten · kein Hohlkreuz</text>
+  <text x="220" y="74" font-family="system-ui,sans-serif" font-size="12.5" fill="#6b7280" text-anchor="middle">Oben bilden Rumpf und Oberschenkel eine waagerechte Linie</text>
+
+  <line x1="40" y1="256" x2="400" y2="256" stroke="#9aa3b0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="60" y="152" width="120" height="20" rx="3" fill="#e3e7ec" stroke="#9aa3b0" stroke-width="3.5"/>
+  <line x1="118" y1="172" x2="118" y2="256" stroke="#9aa3b0" stroke-width="4"/>
+
+  <circle cx="240" cy="150" r="21" fill="#e8590c" opacity="0.15"/>
+  <path d="M252,172 L252,214" fill="none" stroke="#b6bdc8" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 9"/>
+
+  <g fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M126,148 L246,150" stroke-width="7.5"/>
+    <path d="M246,150 L302,152 L300,256" stroke-width="7.5"/>
+    <path d="M130,144 L216,136" stroke-width="5"/>
+  </g>
+  <circle cx="100" cy="140" r="19" fill="#2c3e50"/>
+
+  <circle cx="238" cy="128" r="24" fill="none" stroke="#2c3e50" stroke-width="6"/>
+  <circle cx="238" cy="128" r="8" fill="#2c3e50"/>
+
+  <path d="M196,206 L196,160" fill="none" stroke="#e8590c" stroke-width="4.5" stroke-linecap="round" marker-end="url(#ar)"/>
+
+  <text x="220" y="276" font-family="system-ui,sans-serif" font-size="12.5" fill="#e8590c" text-anchor="middle">4 × 6–10 · oben 1 s maximal anspannen · Pause 2 min</text>
+</svg>

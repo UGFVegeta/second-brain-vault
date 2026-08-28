@@ -24,6 +24,9 @@
 # Claude Code lokale Settings mit API-Keys (nicht ins Repo)
 .claude/settings.local.json
 
+# Readwise-Plugin-Daten enthalten API-Token (nicht ins Repo)
+.obsidian/plugins/readwise-official/data.json
+
 # Python-Bytecode-Cache
 __pycache__/
 *.pyc
