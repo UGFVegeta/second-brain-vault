@@ -440,6 +440,10 @@ async function renderRecall(dir) {
       <button id="mic" ${SR ? "" : "disabled title='Im Browser nicht verfügbar'"}>🎙 Diktieren</button>
       <span id="micState" class="muted"></span>
     </div>
+    <p class="muted" style="font-size:.8rem;margin-top:.35rem">
+      Falls das hakt: macOS-Diktat nutzen (Systemeinstellungen › Tastatur › Diktat, Kurzbefehl 2× drücken) –
+      Cursor ins Feld, dann sprechen. Läuft zuverlässiger und offline.
+    </p>
 
     <h3>Wie sicher fühlst du dich – vor dem Abgleich?</h3>
     <p class="muted" style="font-size:.85rem">Erst einschätzen, dann kommt das Feedback. Das trainiert die Selbsteinschätzung mit.</p>
@@ -463,10 +467,17 @@ async function renderRecall(dir) {
   }));
   $("#recallBox").oninput = () => ($("#save").disabled = !($("#recallBox").value.trim() && selbst));
 
-  // Diktat
-  let rec = null, listening = false, baseText = "";
+  // Diktat (Web Speech API, nur Chrome, braucht Internet)
+  let rec = null, listening = false, baseText = "", lastStart = 0, fatal = false;
+  const micState = $("#micState");
+  const setSave = () => ($("#save").disabled = !($("#recallBox").value.trim() && selbst));
+  const resetMicBtn = () => { $("#mic").textContent = "🎙 Diktieren"; $("#mic").classList.remove("rec-on"); };
+  const startRec = () => { try { lastStart = Date.now(); rec.start(); } catch (err) { console.warn("[speech] start():", err.name); } };
+
   if (SR) {
     rec = new SR(); rec.lang = "de-DE"; rec.continuous = true; rec.interimResults = true;
+    rec.onstart = () => { console.log("[speech] start"); micState.textContent = "Mikro aktiv – sprich jetzt"; };
+    rec.onspeechstart = () => (micState.textContent = "… hört zu");
     rec.onresult = (e) => {
       let fin = "", interim = "";
       for (let i = e.resultIndex; i < e.results.length; i++) {
@@ -475,21 +486,44 @@ async function renderRecall(dir) {
       }
       if (fin) baseText = (baseText ? baseText + " " : "") + fin.trim();
       $("#recallBox").value = (baseText + (interim ? " " + interim : "")).trim();
-      $("#save").disabled = !($("#recallBox").value.trim() && selbst);
+      setSave();
     };
-    rec.onerror = (e) => { $("#micState").textContent = "Mikrofon: " + e.error; };
-    rec.onend = () => { if (listening) rec.start(); };
+    rec.onerror = (e) => {
+      console.warn("[speech] error:", e.error, e.message || "");
+      const msg = {
+        "not-allowed": "Mikrofon blockiert. Im Schloss-Symbol der Adressleiste Mikrofon erlauben, dann Seite neu laden.",
+        "service-not-allowed": "Chrome-Spracherkennung blockiert (System-/Firmenrichtlinie oder kein Internet).",
+        "audio-capture": "Kein Mikrofon gefunden.",
+        "network": "Keine Verbindung zum Spracherkennungs-Dienst. Chrome braucht dafür Internet.",
+        "no-speech": "Nichts gehört – näher ans Mikro oder lauter.",
+      };
+      if (["not-allowed", "service-not-allowed", "audio-capture", "network"].includes(e.error)) {
+        fatal = true; listening = false; resetMicBtn();
+        micState.innerHTML = `<span style="color:var(--bad)">${msg[e.error]}</span>`;
+      } else if (msg[e.error]) {
+        micState.textContent = msg[e.error];
+      }
+    };
+    rec.onend = () => {
+      console.log("[speech] end (listening=" + listening + ", fatal=" + fatal + ")");
+      if (listening && !fatal) {
+        const wait = Math.max(0, 500 - (Date.now() - lastStart));
+        setTimeout(() => { if (listening && !fatal) startRec(); }, wait);
+      } else {
+        resetMicBtn();
+      }
+    };
   }
+
   $("#mic").onclick = () => {
     if (!rec) return;
-    listening = !listening;
-    if (listening) {
-      baseText = $("#recallBox").value.trim();
-      rec.start(); $("#mic").textContent = "⏹ Stop"; $("#mic").classList.add("rec-on");
-      $("#micState").textContent = "hört zu …";
+    if (!listening) {
+      fatal = false; baseText = $("#recallBox").value.trim(); listening = true;
+      $("#mic").textContent = "⏹ Stopp"; $("#mic").classList.add("rec-on");
+      micState.textContent = "starte …";
+      startRec();
     } else {
-      rec.stop(); $("#mic").textContent = "🎙 Diktieren"; $("#mic").classList.remove("rec-on");
-      $("#micState").textContent = "";
+      listening = false; rec.stop(); resetMicBtn(); micState.textContent = "gestoppt";
     }
   };
 
