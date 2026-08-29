@@ -181,6 +181,16 @@
       <div id="projBody"></div>
     </section>
 
+    <section class="card" id="cardBereiche">
+      <div class="chead"><span class="ico">🔄</span><span class="ct">Bereiche</span><span class="meta">laufende Themen</span></div>
+      <div id="bereicheBody"></div>
+    </section>
+
+    <section class="card" id="cardWissen">
+      <div class="chead"><span class="ico">🗂️</span><span class="ct">Wissen</span><span class="meta">Ressourcen &amp; Material</span></div>
+      <div id="wissenBody"></div>
+    </section>
+
     <section class="card wide">
       <div class="chead"><span class="ico">🔥</span><span class="ct">Aktivität der letzten 20 Wochen</span><span class="meta">zeigen mit der Maus Details</span></div>
       <div class="hmwrap">
@@ -277,6 +287,7 @@ function render(L) {
 
   renderKalender(kal, today);
   renderProjekte(L.projekte || []);
+  renderNav();
   if (L.training) renderHeat($("hmTrain"), d => trainLevel(L.training.heat[d]), d => trainTip(d, L.training.heat[d]), ["--h0","--h1","--h2","--h3"]);
   if (L.vault) renderHeat($("hmVault"), d => vaultLevel(L.vault.heat[d]), d => vaultTip(d, L.vault.heat[d]), ["--v0","--v1","--v2","--v3"]);
   renderTraining(L.training);
@@ -314,15 +325,43 @@ function renderKalender(kal, today) {
 }
 
 function renderProjekte(alle) {
+  const rank = { aktiv: 0, geplant: 1, idee: 2, pausiert: 3 };
   const aktiv = alle.filter(p => p.status === "aktiv");
-  const show = aktiv.slice(0, 8);
-  const rest = aktiv.length - show.length;
-  const sonst = alle.filter(p => p.status === "geplant" || p.status === "idee").length;
+  const andere = alle.filter(p => p.status in rank && p.status !== "aktiv")
+                     .sort((a, b) => rank[a.status] - rank[b.status]);
   const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f.replace(/\.md$/, ""));
-  $("projBody").innerHTML =
-    show.map(p => `<a class="proj" href="${obs(p.file)}"><span class="t">${esc(p.name)}</span><span class="pill ${esc(p.status)}">${esc(p.status)}</span></a>`).join("") +
-    (rest > 0 || sonst > 0 ? `<div class="more">${rest > 0 ? `+${rest} weitere aktive` : ""}${rest > 0 && sonst > 0 ? " · " : ""}${sonst > 0 ? `${sonst} geplant/Ideen` : ""}</div>` : "");
+  const row = p => `<a class="proj" href="${obs(p.file)}"><span class="t">${esc(p.name)}</span><span class="pill ${esc(p.status)}">${esc(p.status)}</span></a>`;
+  $("projBody").innerHTML = aktiv.map(row).join("") +
+    (andere.length ? `<div class="more">geplant · pausiert · Ideen</div>` + andere.map(row).join("") : "");
   $("projMeta").textContent = `${aktiv.length} aktiv`;
+}
+
+function renderNav() {
+  const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f);
+  const bereiche = [
+    ["Familie", "03 Bereiche/Familie/Familie"],
+    ["Finanzen", "03 Bereiche/Finanzen/Finanzen"],
+    ["Führung & Schulentwicklung", "03 Bereiche/Führung & Schulentwicklung/Führung & Schulentwicklung"],
+    ["Gesundheit & Longevity", "03 Bereiche/Gesundheit & Longevity/Gesundheit & Longevity"],
+    ["Haus & Garten", "03 Bereiche/Haus & Garten/Haus & Garten"],
+    ["Schule & Unterricht", "03 Bereiche/Schule & Unterricht/Schule & Unterricht"],
+    ["Sport & Triathlon", "03 Bereiche/Sport & Triathlon/Sport & Triathlon"],
+    ["Weiterbildung", "03 Bereiche/Weiterbildung/Weiterbildung"],
+  ];
+  const wissen = [
+    ["Bücher & Learnings", "04 Ressourcen/Bücher & Learnings/Bücher & Learnings"],
+    ["Wiki", "04 Ressourcen/Wiki/Wiki"],
+    ["Physik", "04 Ressourcen/Physik/Physik"],
+    ["Mathematik", "04 Ressourcen/Mathematik/Mathematik"],
+    ["KI & Digitalisierung", "04 Ressourcen/KI & Digitalisierung/KI & Digitalisierung"],
+    ["Führung & Management", "04 Ressourcen/Führung & Management/Führung & Management"],
+    ["Triathlon & Training", "04 Ressourcen/Triathlon & Training/Triathlon & Training"],
+    ["Lernwissenschaft & Pädagogik", "04 Ressourcen/Lernwissenschaft & Pädagogik/Lernwissenschaft & Pädagogik"],
+    ["Energie & Klimapolitik", "04 Ressourcen/Energie & Klimapolitik/Energie & Klimapolitik"],
+  ];
+  const row = ([name, file]) => `<a class="proj" href="${obs(file)}"><span class="t">${esc(name)}</span></a>`;
+  $("bereicheBody").innerHTML = bereiche.map(row).join("");
+  $("wissenBody").innerHTML = wissen.map(row).join("");
 }
 
 function heatDays() {
