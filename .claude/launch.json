@@ -58,7 +58,7 @@
     {
       "name": "active-recall",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8744", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bereiche/Active Recall"],
+      "runtimeArgs": ["/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bereiche/Active Recall/server.py"],
       "port": 8744
     },
     {

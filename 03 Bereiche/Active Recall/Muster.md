@@ -19,3 +19,4 @@ _Noch keine Daten._
 ## Verlauf
 
 - 2026-08-29: System eingerichtet.
+- 2026-08-29, Test (Classroom Management, S. 9–10): Einzelbeobachtung, noch kein Muster. Sinn und Praxisbezug stark abgerufen, drei von vier Bausteinen inhaltlich da. Verpasst: die ordnende Struktur (vier benannte Bausteine), ein ganzer Baustein, die namentlich genannte Methode (SLANT/Lemov) und die konkrete Zahl (10 Min/Stunde). Hypothese fürs Weiterbeobachten: gutes Gist-Gedächtnis, schwächer bei Gliederung, Eigennamen und Zahlen.

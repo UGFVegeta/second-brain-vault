@@ -484,28 +484,80 @@ async function renderRecall(dir) {
   };
 }
 
+async function applyRating(dir, sessFm, rating) {
+  const projTxt = await readFile(`${PROJ}/${dir}/projekt.md`);
+  const { fm, body } = parseFM(projTxt);
+  const lvl = nextLevel(Number(sessFm.sr_level_vor) || 0, rating);
+  fm.sr_level = lvl;
+  fm.zuletzt = todayISO();
+  fm.faellig = dueFrom(lvl);
+  await writeFile(`${PROJ}/${dir}/projekt.md`, serializeFM(fm, body));
+}
+
+async function requestFeedback(dir, file, btn) {
+  const sessTxt = await readFile(`${PROJ}/${dir}/sessions/${file}`);
+  const { fm, body } = parseFM(sessTxt);
+  const abruf = body.split(/^## Feedback\s*$/m)[0].replace(/^##\s*Abruf\s*/m, "").trim();
+  const ref = parseFM((await readFile(`${PROJ}/${dir}/referenz.md`)) || "");
+  if (ref.fm.status !== "bereit") return toast("Referenz noch nicht extrahiert");
+
+  btn.disabled = true;
+  const label = btn.textContent;
+  btn.textContent = "Claude denkt … (~30 s)";
+  try {
+    const r = await fetch("/api/feedback", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ referenz: ref.body.trim(), abruf, selbst: fm.selbsteinschaetzung || "?", projekt: fm.projekt || dir }),
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || `HTTP ${r.status}`);
+
+    const newBody = body.replace(/##\s*Feedback[\s\S]*$/m, () => `## Feedback\n\n${data.feedback}\n`);
+    fm.feedback_status = "erledigt";
+    fm.muster = "offen";
+    await writeFile(`${PROJ}/${dir}/sessions/${file}`, serializeFM(fm, newBody));
+    await applyRating(dir, fm, data.rating || "gut");
+    toast("Feedback da");
+    renderSession(dir, file);
+  } catch (e) {
+    console.error(e);
+    toast("Fehler: " + e.message);
+    btn.disabled = false; btn.textContent = label;
+  }
+}
+
 async function renderSession(dir, file) {
   const txt = await readFile(`${PROJ}/${dir}/sessions/${file}`);
   if (!txt) return go(`/p/${encodeURIComponent(dir)}`);
   const { fm, body } = parseFM(txt);
+  const ref = parseFM((await readFile(`${PROJ}/${dir}/referenz.md`)) || "");
   crumbs([{ t: "Übersicht", h: "/" }, { t: fm.projekt || dir, h: `/p/${encodeURIComponent(dir)}` }, { t: fm.datum || file }]);
 
   const [abruf, feedback] = body.split(/^## Feedback\s*$/m);
   const clean = (s) => (s || "").replace(/^##\s*Abruf\s*/m, "").trim();
+  const done = fm.feedback_status === "erledigt";
+  const refReady = ref.fm.status === "bereit";
 
   view.innerHTML = `
     <h2>Session ${esc(fm.datum || file)}</h2>
     <div class="meta">
       <span>${esc(fm.modus || "")}</span>
       <span>Selbst: ${esc(fm.selbsteinschaetzung || "—")}</span>
-      <span class="tag ${fm.feedback_status === "erledigt" ? "ok" : "pending"}">${fm.feedback_status === "erledigt" ? "Feedback da" : "Feedback offen"}</span>
+      <span class="tag ${done ? "ok" : "pending"}">${done ? "Feedback da" : "Feedback offen"}</span>
     </div>
     <h3>Abruf</h3>
     <pre class="md">${esc(clean(abruf))}</pre>
     <h3>Feedback</h3>
-    <pre class="md">${esc((feedback || "").trim())}</pre>
+    ${done
+      ? `<pre class="md">${esc((feedback || "").trim())}</pre>`
+      : refReady
+        ? `<p class="muted">Noch kein Feedback.</p><div class="actions"><button id="fb">Feedback von Claude holen</button></div>`
+        : `<div class="hint">Die Referenz stammt aus einem Upload und ist noch nicht extrahiert.
+           Einmal „Active Recall durchgehen" in einer Claude-Session, danach geht der Knopf hier.</div>`}
     <div class="actions"><button class="subtle" id="back">Zurück</button></div>`;
+
   $("#back").onclick = () => go(`/p/${encodeURIComponent(dir)}`);
+  if ($("#fb")) $("#fb").onclick = (e) => requestFeedback(dir, file, e.currentTarget);
 }
 
 /* ---------- Verbindung ---------- */

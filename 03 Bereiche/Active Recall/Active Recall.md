@@ -18,19 +18,29 @@ Belegt ist das gut. Abrufen schlägt Wiederlesen und Markieren deutlich (Testing
 
 1. **App öffnen.** Server starten (siehe unten), dann `http://localhost:8744/App/` in Chrome. Beim ersten Mal den Ordner `03 Bereiche/Active Recall` freigeben.
 2. **Neues Projekt** anlegen: Titel, Quelle (Text einfügen oder PDF/Bild hochladen), optional Umfang.
-3. **Abruf starten:** frei schreiben oder diktieren, dann selbst einschätzen (nochmal / schwer / gut / leicht), speichern.
-4. **Feedback holen:** Claude-Code-Session öffnen, „Active Recall durchgehen" sagen. Claude bewertet die offenen Sessions, aktualisiert SR-Level und Fälligkeit und schreibt [[Muster]] fort.
+3. **Abruf starten:** frei schreiben oder per WhisperBar ins Feld diktieren, dann selbst einschätzen (nochmal / schwer / gut / leicht), speichern.
+4. **Feedback holen:**
+   - Bei Text-Referenzen: in der App auf „Feedback von Claude holen". Läuft direkt, Ergebnis steht nach ~30 Sekunden in der Session.
+   - Bei PDF/Bild beim ersten Mal: Claude-Code-Session öffnen, „Active Recall durchgehen" sagen (Claude liest die Datei aus). Danach geht auch hier der Knopf.
 5. **Wiederholen,** wenn das Dashboard ein Projekt als fällig zeigt.
 
-Für projektübergreifende Fragen („Wo hänge ich immer?", „Fass zusammen, was ich diesen Monat gelernt habe") ebenfalls die Claude-Session nutzen.
+Für [[Muster]] (wiederkehrende Schwächen) und projektübergreifende Fragen („Wo hänge ich immer?", „Fass zusammen, was ich diesen Monat gelernt habe") die Claude-Session nutzen. Der App-Knopf pflegt [[Muster]] nicht.
 
 ## Server starten
 
+Einmalig, damit der Feedback-Knopf funktioniert:
+
 ```bash
-python3 -m http.server 8744 --directory "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bereiche/Active Recall"
+claude setup-token
 ```
 
-Oder über die Claude-Code-Session: „Active-Recall-App starten".
+Dann jeweils:
+
+```bash
+python3 "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bereiche/Active Recall/server.py"
+```
+
+Oder über die Claude-Code-Session: „Active-Recall-App starten". Der Server nutzt beim Feedback dein Claude-Abo-Kontingent, kein API-Key.
 
 ## Struktur
 
