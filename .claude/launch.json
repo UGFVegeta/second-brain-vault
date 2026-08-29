@@ -56,6 +56,12 @@
       "port": 8752
     },
     {
+      "name": "active-recall",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8744", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bereiche/Active Recall"],
+      "port": 8744
+    },
+    {
       "name": "artefakt-test",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/135f954a-4211-45e3-989a-4dd2081564ab/scratchpad'); socketserver.TCPServer(('', 8751), h).serve_forever()"],
