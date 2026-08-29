@@ -6,10 +6,10 @@ title: Test
 angelegt: 2026-08-29
 quelle: pdf
 umfang: ""
-sr_level: 0
-zuletzt: ""
-faellig: 2026-08-29
-sessions: 0
+sr_level: 1
+zuletzt: 2026-08-29
+faellig: 2026-08-31
+sessions: 1
 ---
 
 # Test

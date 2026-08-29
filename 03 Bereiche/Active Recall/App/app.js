@@ -428,7 +428,6 @@ async function renderRecall(dir) {
   const { fm } = parseFM(txt);
   crumbs([{ t: "Übersicht", h: "/" }, { t: fm.title || dir, h: `/p/${encodeURIComponent(dir)}` }, { t: "Abruf" }]);
 
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   view.innerHTML = `
     <h2>Abruf – ${esc(fm.title || dir)}</h2>
     <p class="hint">Quelle zu. Schreib oder diktiere frei, was du noch weißt – nicht abschreiben,
@@ -436,14 +435,13 @@ async function renderRecall(dir) {
     ${fm.umfang ? `<br><strong>Umfang:</strong> ${esc(fm.umfang)}` : ""}</p>
 
     <textarea id="recallBox" placeholder="Aus dem Kopf …"></textarea>
-    <div class="seg" style="margin-top:.6rem">
-      <button id="mic" ${SR ? "" : "disabled title='Im Browser nicht verfügbar'"}>🎙 Diktieren</button>
-      <span id="micState" class="muted"></span>
+    <p class="muted" style="font-size:.8rem;margin-top:.35rem">Diktieren: Cursor ins Feld, dann per WhisperBar / System-Diktat direkt hineinsprechen.</p>
+
+    <h3>Erfasst per</h3>
+    <div class="seg" id="modus">
+      <button data-v="getippt" class="on">getippt</button>
+      <button data-v="diktiert">diktiert</button>
     </div>
-    <p class="muted" style="font-size:.8rem;margin-top:.35rem">
-      Falls das hakt: macOS-Diktat nutzen (Systemeinstellungen › Tastatur › Diktat, Kurzbefehl 2× drücken) –
-      Cursor ins Feld, dann sprechen. Läuft zuverlässiger und offline.
-    </p>
 
     <h3>Wie sicher fühlst du dich – vor dem Abgleich?</h3>
     <p class="muted" style="font-size:.85rem">Erst einschätzen, dann kommt das Feedback. Das trainiert die Selbsteinschätzung mit.</p>
@@ -459,82 +457,27 @@ async function renderRecall(dir) {
       <button class="subtle" id="cancel">Abbrechen</button>
     </div>`;
 
-  let selbst = null;
+  let selbst = null, modus = "getippt";
+  const setSave = () => ($("#save").disabled = !($("#recallBox").value.trim() && selbst));
+
+  view.querySelectorAll("#modus button").forEach((b) => (b.onclick = () => {
+    modus = b.dataset.v;
+    view.querySelectorAll("#modus button").forEach((x) => x.classList.toggle("on", x === b));
+  }));
   view.querySelectorAll("#selbst button").forEach((b) => (b.onclick = () => {
     selbst = b.dataset.v;
     view.querySelectorAll("#selbst button").forEach((x) => x.classList.toggle("on", x === b));
-    $("#save").disabled = !$("#recallBox").value.trim();
+    setSave();
   }));
-  $("#recallBox").oninput = () => ($("#save").disabled = !($("#recallBox").value.trim() && selbst));
+  $("#recallBox").oninput = setSave;
 
-  // Diktat (Web Speech API, nur Chrome, braucht Internet)
-  let rec = null, listening = false, baseText = "", lastStart = 0, fatal = false;
-  const micState = $("#micState");
-  const setSave = () => ($("#save").disabled = !($("#recallBox").value.trim() && selbst));
-  const resetMicBtn = () => { $("#mic").textContent = "🎙 Diktieren"; $("#mic").classList.remove("rec-on"); };
-  const startRec = () => { try { lastStart = Date.now(); rec.start(); } catch (err) { console.warn("[speech] start():", err.name); } };
-
-  if (SR) {
-    rec = new SR(); rec.lang = "de-DE"; rec.continuous = true; rec.interimResults = true;
-    rec.onstart = () => { console.log("[speech] start"); micState.textContent = "Mikro aktiv – sprich jetzt"; };
-    rec.onspeechstart = () => (micState.textContent = "… hört zu");
-    rec.onresult = (e) => {
-      let fin = "", interim = "";
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        const r = e.results[i];
-        if (r.isFinal) fin += r[0].transcript; else interim += r[0].transcript;
-      }
-      if (fin) baseText = (baseText ? baseText + " " : "") + fin.trim();
-      $("#recallBox").value = (baseText + (interim ? " " + interim : "")).trim();
-      setSave();
-    };
-    rec.onerror = (e) => {
-      console.warn("[speech] error:", e.error, e.message || "");
-      const msg = {
-        "not-allowed": "Mikrofon blockiert. Im Schloss-Symbol der Adressleiste Mikrofon erlauben, dann Seite neu laden.",
-        "service-not-allowed": "Chrome-Spracherkennung blockiert (System-/Firmenrichtlinie oder kein Internet).",
-        "audio-capture": "Kein Mikrofon gefunden.",
-        "network": "Keine Verbindung zum Spracherkennungs-Dienst. Chrome braucht dafür Internet.",
-        "no-speech": "Nichts gehört – näher ans Mikro oder lauter.",
-      };
-      if (["not-allowed", "service-not-allowed", "audio-capture", "network"].includes(e.error)) {
-        fatal = true; listening = false; resetMicBtn();
-        micState.innerHTML = `<span style="color:var(--bad)">${msg[e.error]}</span>`;
-      } else if (msg[e.error]) {
-        micState.textContent = msg[e.error];
-      }
-    };
-    rec.onend = () => {
-      console.log("[speech] end (listening=" + listening + ", fatal=" + fatal + ")");
-      if (listening && !fatal) {
-        const wait = Math.max(0, 500 - (Date.now() - lastStart));
-        setTimeout(() => { if (listening && !fatal) startRec(); }, wait);
-      } else {
-        resetMicBtn();
-      }
-    };
-  }
-
-  $("#mic").onclick = () => {
-    if (!rec) return;
-    if (!listening) {
-      fatal = false; baseText = $("#recallBox").value.trim(); listening = true;
-      $("#mic").textContent = "⏹ Stopp"; $("#mic").classList.add("rec-on");
-      micState.textContent = "starte …";
-      startRec();
-    } else {
-      listening = false; rec.stop(); resetMicBtn(); micState.textContent = "gestoppt";
-    }
-  };
-
-  $("#cancel").onclick = () => { if (rec && listening) { listening = false; rec.stop(); } go(`/p/${encodeURIComponent(dir)}`); };
+  $("#cancel").onclick = () => go(`/p/${encodeURIComponent(dir)}`);
   $("#save").onclick = async () => {
-    if (rec && listening) { listening = false; rec.stop(); }
     const text = $("#recallBox").value.trim();
     if (!text || !selbst) return toast("Text und Einschätzung nötig");
     $("#save").disabled = true;
     try {
-      await saveSession(dir, { text, modus: rec && baseText ? "diktiert" : "getippt", umfang: fm.umfang, selbst });
+      await saveSession(dir, { text, modus, umfang: fm.umfang, selbst });
       toast("Gespeichert – Feedback in der nächsten Claude-Session");
       go(`/p/${encodeURIComponent(dir)}`);
     } catch (e) { console.error(e); toast("Fehler beim Speichern"); $("#save").disabled = false; }
