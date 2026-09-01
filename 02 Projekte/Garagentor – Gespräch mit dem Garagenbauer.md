@@ -15,7 +15,7 @@ Sektionaltor, elektrisch, Anthrazitgrau. Optik wie im Konfigurator zusammengeste
 ## Fragen, die er mir stellen wird – meine Antworten schon parat
 
 - **Maueröffnung Breite × Höhe?** 3,00 m breit (gemessen ~2,995). Höhe fertig ~2,06–2,07 m; Rohbau laut Statik 2,13 m (vor Putz). → *Er misst selbst nach, meine Werte zum Abgleich.*
-- **Sturzhöhe (Oberkante Öffnung bis Decke)?** Noch nachmessen. Wichtig: Sektionaltor braucht je nach Beschlag ~100–210 mm Sturz.
+- **Sturzhöhe (Oberkante Öffnung bis Decke)?** ca. 23 cm. Reicht für Standardbeschlag (Normalbeschlag braucht ~12–21 cm), auch mit Motorantrieb. Kein Sonderbeschlag nötig.
 - **Seitenraum links/rechts (Öffnung bis Wand)?** Je ca. 0,30 m Torpfeiler vorhanden. Führungsschienen brauchen ~100 mm je Seite.
 - **Raumtiefe (Öffnung bis Rückwand)?** Garage ca. 5,80 m tief, für Deckenlaufschienen reichlich.
 - **Deckenaufbau?** Stahlbetondecke 20 cm, umlaufende Attika 20/20 cm (aus Statik-Plan 23-169).
@@ -29,7 +29,7 @@ Sektionaltor, elektrisch, Anthrazitgrau. Optik wie im Konfigurator zusammengeste
 ## Was ich ihn fragen will
 
 - Welche **lichte Durchfahrtshöhe** bleibt am Ende übrig, nach Beschlag und Führung? (Bei 2,06–2,07 m Öffnung ist das knapp – Dachbox auf dem Auto bedenken.)
-- Reicht mein **Sturz** für Standardbeschlag, oder braucht es einen Sonderbeschlag mit Aufpreis?
+- Mein **Sturz** ist ca. 23 cm – bestätige, dass Standardbeschlag reicht (ich gehe davon aus).
 - Passt der **Deckenantrieb** bei meiner Deckenhöhe, oder besser Zugentlastung/Zargenantrieb?
 - **Lieferzeit** und **Preis inkl. Montage** – ein Festpreis, keine Position offen.
 - **Gewährleistung** und ob eine **Wartung** empfohlen/nötig ist.
@@ -38,6 +38,6 @@ Sektionaltor, elektrisch, Anthrazitgrau. Optik wie im Konfigurator zusammengeste
 
 ## Offene Messwerte (vor dem Termin erledigen)
 
-- [ ] Sturzhöhe (Oberkante Öffnung bis Fertigdecke)
+- [x] Sturzhöhe (Oberkante Öffnung bis Fertigdecke) – ca. 23 cm
 - [ ] Lichte Deckenhöhe in der Garage
 - [ ] Öffnungsbreite und -höhe final an mehreren Stellen, jeweils kleinster Wert
