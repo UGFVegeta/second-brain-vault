@@ -14,7 +14,7 @@ Maßstab 1 m = 100 px · Statik-Plan 23-169 · Aufmaß 2025 ^subtitle
 Garage 3,60 × 5,80 m ^garage_lbl
 Hinterraum 2,87 × 3,60 m ^back_lbl
 Garagentor ^tor_lbl
-Öffnung 3,00 × 2,13 m ^tor_mass
+Öffnung 3,00 × 2,06 m ^tor_mass
 Auto 4,60 m ^auto_txt
 8 Winterreifen an Wandhaltern ^reifen_txt
 Werkbank ^werkbank_txt
@@ -30,7 +30,7 @@ Rennrad ^rad1_txt
 Rennrad ^rad2_txt
 Rollentrainer ^rolle_txt
 gestrichelt = Türschwenk und meine Ergänzungen ^legend_line_txt
-Toröffnung 3,00 × 2,13 m bestätigt aus Statik-Plan 23-169; Torpfeiler je ~0,30 m (grau) ^note_txt
+Toröffnung gemessen 3,00 × 2,06 m (fertig); Plan-Rohbau 2,13 m war vor Putz; Torpfeiler je ~0,30 m ^note_txt
 
 %%
 ## Drawing
@@ -945,11 +945,11 @@ Toröffnung 3,00 × 2,13 m bestätigt aus Statik-Plan 23-169; Torpfeiler je ~0,3
    "locked": false,
    "fontSize": 15,
    "fontFamily": 3,
-   "text": "Öffnung\n3,00 × 2,13 m",
+   "text": "Öffnung\n3,00 × 2,06 m",
    "textAlign": "left",
    "verticalAlign": "top",
    "containerId": null,
-   "originalText": "Öffnung\n3,00 × 2,13 m",
+   "originalText": "Öffnung\n3,00 × 2,06 m",
    "lineHeight": 1.25,
    "autoResize": true
   },
@@ -1563,11 +1563,11 @@ Toröffnung 3,00 × 2,13 m bestätigt aus Statik-Plan 23-169; Torpfeiler je ~0,3
    "locked": false,
    "fontSize": 13,
    "fontFamily": 3,
-   "text": "Toröffnung 3,00 × 2,13 m bestätigt aus Statik-Plan 23-169; Torpfeiler je ~0,30 m (grau)",
+   "text": "Toröffnung gemessen 3,00 × 2,06 m (fertig); Plan-Rohbau 2,13 m war vor Putz; Torpfeiler je ~0,30 m",
    "textAlign": "left",
    "verticalAlign": "top",
    "containerId": null,
-   "originalText": "Toröffnung 3,00 × 2,13 m bestätigt aus Statik-Plan 23-169; Torpfeiler je ~0,30 m (grau)",
+   "originalText": "Toröffnung gemessen 3,00 × 2,06 m (fertig); Plan-Rohbau 2,13 m war vor Putz; Torpfeiler je ~0,30 m",
    "lineHeight": 1.25,
    "autoResize": true
   }
