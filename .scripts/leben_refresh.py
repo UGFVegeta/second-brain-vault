@@ -173,6 +173,70 @@ def _training():
     return {"ctl": ctl, "atl": atl, "tsb": tsb, "heat": heat, "weeks": week_list, "recent": recent}
 
 
+# --- Gesundheit (Wellness + Gewicht + Logbuch) ------------------------------
+@section("gesundheit")
+def _gesundheit():
+    import re as _re
+    from statistics import median
+    from intervals_live import api_get, load_config
+
+    conf = load_config()
+    aid, key = conf["ATHLETE_ID"], conf["API_KEY"]
+    newest = datetime.now().date()
+    wl = api_get(f"/athlete/{aid}/wellness?oldest={newest - timedelta(days=59)}&newest={newest}", key)
+
+    days = []
+    for w in sorted(wl, key=lambda x: x.get("id", "")):
+        sl = w.get("sleepSecs")
+        days.append({"d": w.get("id"), "rhr": w.get("restingHR"), "hrv": w.get("hrv"),
+                     "sleep": round(sl / 3600, 1) if sl else None, "score": w.get("sleepScore")})
+
+    def vals(k, n=None):
+        src = days[-n:] if n else days
+        return [d[k] for d in src if d.get(k)]
+
+    rhr_b = round(median(vals("rhr")), 1) if vals("rhr") else None
+    hrv_b = round(median(vals("hrv")), 1) if vals("hrv") else None
+    sl14, sl3 = vals("sleep", 14), vals("sleep", 3)
+    heute = days[-1] if days else {}
+
+    # Gewicht aus den RENPHO-Rohwerten (wird nur alle ein bis zwei Wochen exportiert)
+    gew = []
+    gp = VAULT / "03 Bereiche" / "Gesundheit & Longevity" / "Messwerte Körpergewicht (RENPHO).md"
+    if gp.exists():
+        pat = _re.compile(r"^\|\s*(\d{2})\.(\d{2})\.(\d{2})\s*\|[^|]*\|\s*([\d.,]+)\s*\|[^|]*\|\s*([\d.,]+)\s*\|", _re.M)
+        for dd, mm, yy, kg, kf in pat.findall(gp.read_text(encoding="utf-8")):
+            gew.append({"d": f"20{yy}-{mm}-{dd}", "kg": float(kg.replace(",", ".")),
+                        "kf": float(kf.replace(",", "."))})
+        gew.sort(key=lambda x: x["d"])
+
+    # Befinden 1-5 aus dem Gesundheitslogbuch
+    log = []
+    lp = VAULT / "03 Bereiche" / "Gesundheit & Longevity" / "Gesundheitslogbuch.md"
+    if lp.exists():
+        pat = _re.compile(r"^\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([1-5])?\s*\|\s*([^|]*)\|", _re.M)
+        for d, b, sym in pat.findall(lp.read_text(encoding="utf-8")):
+            log.append({"d": d, "b": int(b) if b else None, "sym": sym.strip()})
+        log.sort(key=lambda x: x["d"], reverse=True)
+
+    warn = []
+    if heute.get("rhr") and rhr_b and heute["rhr"] >= rhr_b + 3:
+        warn.append(f"Ruhepuls {heute['rhr']} liegt {round(heute['rhr'] - rhr_b, 1)} über der Basis von {rhr_b}")
+    if heute.get("hrv") and hrv_b and heute["hrv"] < hrv_b * 0.85:
+        warn.append(f"HRV {heute['hrv']} liegt klar unter der Basis von {hrv_b}")
+    if len(sl3) >= 2 and sum(sl3) / len(sl3) < 5.5:
+        warn.append(f"Schlaf zuletzt im Schnitt nur {round(sum(sl3) / len(sl3), 1)} h")
+    if log and log[0].get("b") and log[0]["b"] <= 2:
+        warn.append(f"Befinden am {log[0]['d']} mit {log[0]['b']}/5 eingetragen")
+
+    return {"days": days[-30:], "heute": heute, "basis": {"rhr": rhr_b, "hrv": hrv_b},
+            "sleep14": round(sum(sl14) / len(sl14), 1) if sl14 else None,
+            "sleep3": round(sum(sl3) / len(sl3), 1) if sl3 else None,
+            "gewicht": gew[-14:], "gewicht_n": len(gew),
+            "befinden": log[:10], "letzter_log": log[0]["d"] if log else None,
+            "warnungen": warn}
+
+
 # --- Vault-Aktivität (Git) --------------------------------------------------
 @section("vault")
 def _vault():

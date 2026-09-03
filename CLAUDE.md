@@ -241,11 +241,33 @@ Der Vault wird per Git nach GitHub gesichert (privates Repo).
 ### Bei Session-Start
 Prüfe 01 Inbox/ auf neue Notizen, zeige kurz was drin liegt, und biete an die Einträge in die passenden Ordner einzusortieren.
 
+### Gesundheits-Check (donnerstags und sonntags)
+
+Wenn Oskar **donnerstags oder sonntags zum ersten Mal am Tag** schreibt, ungefragt einen kurzen Gesundheits-Check machen. Daten holen mit:
+
+```bash
+python3 .scripts/intervals_live.py
+```
+
+Für die Details (Ruhepuls, HRV, Schlaf) die intervals.icu-Wellnessdaten der letzten 30 bis 60 Tage direkt abfragen. Bewerten und in **drei bis fünf Sätzen** zurückmelden:
+
+1. **Ruhepuls** gegen den Median der letzten 60 Tage. Ein Anstieg um 3 und mehr Schläge ist das früheste Infektzeichen. Basis liegt bei etwa 36.
+2. **HRV** gegen den Median der letzten 60 Tage (etwa 82). Deutlich darunter heißt: noch nicht erholt.
+3. **Schlaf** der letzten 7 und 14 Tage. Das ist Oskars Dauerbaustelle, der Schnitt liegt bei rund 6,1 Stunden. Mehrere Nächte unter 5 Stunden immer ansprechen.
+4. **Form** (CTL/ATL/TSB) und was daraus für die nächsten Tage folgt.
+5. Die Einträge im [[Gesundheitslogbuch]] mitlesen.
+
+Klares Fazit geben: fit, angeschlagen, oder bahnt sich etwas an. Keine Diagnosen stellen, bei anhaltenden Auffälligkeiten zum Arzt raten. Nicht jeden Tag machen, nur an diesen beiden Tagen oder wenn Oskar danach fragt.
+
 ### Kontext bei Bedarf
 Wenn Oskar fragt "Was ist gerade aktuell?", "Wo war ich stehen geblieben?" oder ähnliches: Lies die letzten 2–3 Daily Notes in 05 Daily Notes/ und die aktiven Projekt-Dateien in 02 Projekte/ um ein kurzes Briefing zu geben.
 
 ### Bei Session-Ende
-Am Ende jeder Session IMMER aktiv nachfragen: "Soll ich eine Daily Note für heute erstellen?" Dann gemeinsam festhalten:
+Am Ende jeder Session IMMER aktiv nachfragen: "Soll ich eine Daily Note für heute erstellen?"
+
+**Vorher nach dem Befinden fragen**, wenn für heute noch kein Eintrag im [[Gesundheitslogbuch]] steht: "Wie war dein Befinden heute, auf einer Skala von 1 bis 5?" Antwort direkt als Zeile in `03 Bereiche/Gesundheit & Longevity/Gesundheitslogbuch.md` eintragen, neueste Zeile oben. Oskar vergisst das sonst, deshalb aktiv nachfragen statt darauf zu warten.
+
+Dann gemeinsam festhalten:
 1. Was wurde heute geschafft / besprochen / entschieden?
 2. Welche neuen Erkenntnisse gibt es die als Notizen gespeichert werden sollen?
 3. Was ist offen geblieben oder als nächstes geplant?

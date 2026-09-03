@@ -40,6 +40,20 @@ Ausgangslage am 03.09.26: rund **78–79 kg** im Alltag (Einzelwerte 79,3 und 80
 
 **Datenqualität:** ein paar offensichtliche Fehlmessungen (13.09.25 mit 30,5 % KF, einzelne Zeilen nur mit Gewicht). Für den Trend ignorieren.
 
+## Ernährungsansatz
+
+Was 2025 funktioniert hat und jetzt wieder gilt. Kein Verzicht im engeren Sinn, sondern ein paar feste Regeln:
+
+- Keine Süßigkeiten.
+- Keine süßen Getränke (macht Oskar ohnehin nicht).
+- Kein Alkohol (ohnehin nicht).
+- Nicht über den Hunger hinaus essen. Aufhören, wenn satt, nicht erst wenn voll. Keine dritten Teller.
+- Sonst normal essen, nichts weglassen.
+
+**Historie:** Ab August 2025 so umgestellt, hat "extrem was gebracht" und sich gut angefühlt (Gewicht von ~76 auf ~73 kg bis Anfang Oktober). Im Oktober 2025 Verletzung, danach krank, dann alles über den Haufen geworfen und wieder wie früher gegessen. Ergebnis: über den Winter ~4 kg hoch. Die Regeln funktionieren also, der Bruch kam durch Verletzung plus Krankheit, nicht durch den Ansatz.
+
+Ergänzung fürs Muskelerhalten (siehe unten): auf genug Eiweiß achten, das ist das Einzige, was beim "satt essen" leicht untergeht.
+
 ## Wie das mit "nur Fett" realistisch ist
 
 Ehrliche Einordnung: 74 kg **rein über Fett** ist knapp. Im Herbst 2025 wog Oskar bei rund 74 kg laut Waage etwa 12 % / ~9 kg Fett / ~65 kg FFM. Wenn seither wirklich Muskel dazugekommen ist (Krafttraining Hüfte), läge man bei 74 kg und unveränderter Muskelmasse rechnerisch bei sehr niedrigem Körperfett – schwer zu halten für einen 41-Jährigen mit vollem Job.
@@ -67,6 +81,18 @@ Pragmatisch:
 - Krafttraining beibehalten, nicht reduzieren – das ist das Signal "Muskel behalten".
 - Moderates Defizit (~350–400 kcal/Tag), nicht mehr. Aggressiver bringt bei dem Zeithorizont nichts außer Muskel- und Leistungsverlust.
 - Schlaf priorisieren.
+
+## Waage: lohnt sich eine bessere?
+
+Kurz: Eine neue Waage löst das Kernproblem nicht. Alle Haushaltswaagen mit Fuß-zu-Fuß-Messung (auch die teuren) messen Körperfett ungenau und folgen im Wesentlichen dem Gewicht. Fettabbau vs. Muskelabbau sauber trennen kann keine davon.
+
+Wenn es Oskar wichtig ist, hier die Optionen:
+
+- **Garmin Index S2** (~130 €): fügt sich in Oskars Garmin-/intervals.icu-Ökosystem ein, Werte laufen automatisch nach Garmin Connect. Technisch aber dieselbe Fuß-zu-Fuß-Methode wie bisher, nur besser integriert.
+- **Withings Body Comp / Body Smart** (~100–200 €): 2026 Testsieger bei den Smart-Waagen, Mehrfrequenz-BIA, gute App mit Trendkurven. Etwas verlässlichere Trends, absolute Fettwerte trotzdem mit Vorsicht.
+- **DEXA-Scan** (~50–100 € pro Messung, in Sportkliniken/Radiologie): der echte Goldstandard für Körperzusammensetzung. Für so ein Projekt reichen 2 Messungen, eine jetzt als Referenz, eine im Dezember. Sagt exakt, wie viel vom Verlust Fett war.
+
+**Empfehlung:** Bei der RENPHO bleiben, zusätzlich Bauchumfang wöchentlich messen. Wenn am Ende Genauigkeit über Fett vs. Muskel zählt, ist ein DEXA-Scan das Geld wert, nicht eine neue Waage. Falls doch neue Waage: Garmin Index S2 wegen der Integration.
 
 ## Nächste Schritte
 

@@ -213,6 +213,11 @@
     </section>
 
     <section class="card">
+      <div class="chead"><span class="ico">❤️</span><span class="ct">Gesundheit</span><span class="meta" id="gesMeta"></span></div>
+      <div id="gesBody"></div>
+    </section>
+
+    <section class="card">
       <div class="chead"><span class="ico">🏫</span><span class="ct">Schule</span><span class="meta" id="schuleMeta"></span></div>
       <div id="schuleBody"></div>
     </section>
@@ -291,6 +296,7 @@ function render(L) {
   if (L.training) renderHeat($("hmTrain"), d => trainLevel(L.training.heat[d]), d => trainTip(d, L.training.heat[d]), ["--h0","--h1","--h2","--h3"]);
   if (L.vault) renderHeat($("hmVault"), d => vaultLevel(L.vault.heat[d]), d => vaultTip(d, L.vault.heat[d]), ["--v0","--v1","--v2","--v3"]);
   renderTraining(L.training);
+  renderGesundheit(L.gesundheit);
   renderSchule(L.schule);
   renderLesen(L.lesen || []);
   renderPV(L.pv);
@@ -405,6 +411,44 @@ function renderTraining(t) {
     <div class="wlbl">${t.weeks.map(w => `<span>${parseInt(w.w.slice(-2))}</span>`).join("")}</div>
     ${t.recent.slice(0, 5).map(a => `<div class="act"><span class="d">${fmtD(a.d).slice(3)}</span><span class="typ">${esc(a.typ)}</span><span class="n">${esc(a.name)}</span><span class="du">${a.dur}${a.km ? " · " + a.km + " km" : ""}</span></div>`).join("")}`;
   $("trainMeta").textContent = "Wochen-Ø " + (t.weeks.reduce((s, w) => s + w.h, 0) / Math.max(t.weeks.length, 1)).toFixed(1) + " h";
+}
+
+function renderGesundheit(g) {
+  if (!g) { $("gesBody").innerHTML = '<div class="empty">keine Daten \u2013 intervals.icu nicht erreichbar</div>'; return; }
+  const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f.replace(/\.md$/, ""));
+  const h = g.heute || {}, b = g.basis || {};
+  const red = ' style="color:var(--red)"';
+  const rhrBad = h.rhr != null && b.rhr != null && h.rhr >= b.rhr + 3;
+  const hrvBad = h.hrv != null && b.hrv != null && h.hrv < b.hrv * 0.85;
+  const slBad  = g.sleep14 != null && g.sleep14 < 6.5;
+  const gw = g.gewicht || [];
+  const last = gw.length ? gw[gw.length - 1] : null;
+  const first = gw.length ? gw[0] : null;
+  const dkg = (last && first && gw.length > 1) ? (last.kg - first.kg) : null;
+  const mn = gw.length ? Math.min(...gw.map(x => x.kg)) : 0;
+  const mx = gw.length ? Math.max(...gw.map(x => x.kg)) : 1;
+  const face = ["", "\ud83d\ude16", "\ud83d\ude15", "\ud83d\ude10", "\ud83d\ude42", "\ud83d\ude03"];
+  $("gesBody").innerHTML = `
+    <div class="formrow">
+      <div class="f"><div class="lbl">Ruhepuls</div><div class="v"${rhrBad ? red : ""}>${h.rhr ?? "\u2013"}</div></div>
+      <div class="f"><div class="lbl">HRV</div><div class="v"${hrvBad ? red : ""}>${h.hrv ?? "\u2013"}</div></div>
+      <div class="f"><div class="lbl">Schlaf \u00d8 14 T.</div><div class="v"${slBad ? red : ""}>${g.sleep14 != null ? g.sleep14 + " h" : "\u2013"}</div></div>
+      <div class="f"><div class="lbl">Gewicht</div><div class="v">${last ? last.kg.toFixed(1) : "\u2013"}</div></div>
+    </div>
+    ${(g.warnungen || []).length
+      ? `<div class="chips">${g.warnungen.map(w => `<span class="chip" style="border-color:var(--red);color:var(--red)">\u26a0\ufe0f ${esc(w)}</span>`).join("")}</div>`
+      : `<div class="chips"><span class="chip" style="border-color:var(--green);color:var(--green)">\u2713 keine Auff\u00e4lligkeiten</span></div>`}
+    ${gw.length > 1 ? `<div class="wbars">${gw.map(x => `<div class="wb" data-tip="${fmtD(x.d)} \u00b7 ${x.kg.toFixed(2)} kg \u00b7 KF ${x.kf} %"><i style="height:${Math.max(4, Math.round((x.kg - mn) / Math.max(mx - mn, 0.1) * 100))}%"></i></div>`).join("")}</div>` : ""}
+    <div class="chips">
+      ${dkg != null ? `<span class="chip">seit ${fmtD(first.d)} <b>${dkg > 0 ? "+" : ""}${dkg.toFixed(1)} kg</b></span>` : ""}
+      ${g.gewicht_n ? `<span class="chip">${g.gewicht_n} Messungen gesamt</span>` : ""}
+      ${last ? `<span class="chip">K\u00f6rperfett <b>${last.kf} %</b></span>` : ""}
+    </div>
+    ${(g.befinden || []).length
+      ? `<div class="chips">${g.befinden.slice(0, 7).map(e => `<span class="chip" data-tip="${esc(e.sym || "ohne Notiz")}">${fmtD(e.d).slice(3)} ${e.b ? face[e.b] + " <b>" + e.b + "</b>" : "\u2013"}</span>`).join("")}</div>`
+      : `<div class="empty">Noch kein Befinden eingetragen.</div>`}
+    <a class="linkbtn" href="${obs("03 Bereiche/Gesundheit & Longevity/Gesundheitslogbuch.md")}"><span>Gesundheitslogbuch</span><span class="arr">\u2192</span></a>`;
+  $("gesMeta").textContent = g.letzter_log ? "Logbuch bis " + fmtD(g.letzter_log) : "Logbuch leer";
 }
 
 function renderSchule(s) {
