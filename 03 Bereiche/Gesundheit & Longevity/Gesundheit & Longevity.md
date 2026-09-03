@@ -15,6 +15,7 @@ Langfristige Gesundheit und Fitness als Fundament für alles andere. Das Ziel is
 
 ## Laufende Themen
 - [[Hüfte – Übersicht & Entscheidungsstand]] – Coxarthrose: Nachtschmerz, Krafttraining, OP-Entscheidung
+- [[Körpergewicht & Körperzusammensetzung]] – Ziel ~74 kg bis Ende November 2026 über Fettabbau; Tracking via RENPHO ([[Messwerte Körpergewicht (RENPHO)]])
 
 ## Referenzen
 - [[03 Bereiche/Sport & Triathlon]]
