@@ -134,8 +134,8 @@ Die sechs Sprüche:
 1. Dein Gehirn wächst wie ein Muskel
 2. „Ich kann das noch nicht“
 3. Lernen heißt abrufen, nicht nochmal lesen
-4. Wer keine Fehler macht, übt zu leicht
-5. Langsam ist nicht dumm, es läuft nur noch nicht von allein
+4. Aus Fehlern lernst du am meisten
+5. Wer langsamer geht, sieht mehr
 6. Tests helfen dir beim Lernen, auch alte Arbeiten
 
 Arbeitsform: Plakatkarton, Gruppen bekommen je einen Spruch und gestalten ihr Feld, ein bis zwei Schüler kleben die Grafik. Wenn es größer als A3 werden soll, Karton aus dem Kunstraum, gedruckt wird nur das A4-Blatt.
