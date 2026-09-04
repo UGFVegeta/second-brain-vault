@@ -43,4 +43,4 @@ Werte, bei denen es sich lohnt, genauer hinzuschauen. Alle kommen automatisch vo
 
 ## Verwandte Notizen
 
-[[Blutwerte & Supplemente]] · [[Körpergewicht & Körperzusammensetzung]] · [[Hüfte – Übersicht & Entscheidungsstand]] · [[Hüftarthrose – Zweitmeinung, Klinikoptionen & Fragenliste]] · [[Gesundheit & Longevity]]
+[[Tägliche Kraftroutine]] · [[Blutwerte & Supplemente]] · [[Körpergewicht & Körperzusammensetzung]] · [[Hüfte – Übersicht & Entscheidungsstand]] · [[Hüftarthrose – Zweitmeinung, Klinikoptionen & Fragenliste]] · [[Gesundheit & Longevity]]

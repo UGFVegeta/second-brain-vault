@@ -42,7 +42,7 @@
   .divider{background:var(--accent); color:#fff}
   .divider .kicker{color:#bfe6d1}
   .divider h1{font-size:4vw}
-  .quote{font-size:2.1vw; line-height:1.5; font-style:italic; border-left:5px solid var(--accent2); padding-left:.8em; max-width:40em}
+  .quote{font-size:2.1vw; line-height:1.5; font-style:italic; border-left:3px solid var(--line); padding-left:.8em; max-width:40em}
   .note{margin-top:1.1em; font-size:1.35vw; color:var(--muted)}
   .row{display:flex; gap:4%; align-items:center}
   .col{flex:1}
@@ -60,13 +60,14 @@
   /* curve */
   svg.curve{width:34vw; height:auto}
   /* progress */
-  #dots{position:absolute; bottom:2.4%; left:0; right:0; display:flex; gap:.5vw; justify-content:center}
+  #dots{position:absolute; bottom:2.4%; left:26%; right:26%; display:flex; gap:.5vw; justify-content:center}
   #dots i{width:.7vw; height:.7vw; border-radius:50%; background:var(--line); transition:background .2s}
   #dots i.on{background:var(--accent)}
   #counter{position:absolute; bottom:2%; right:3%; font-size:1.1vw; color:var(--muted)}
-  #hint{position:absolute; bottom:2%; left:3%; font-size:1.1vw; color:var(--muted)}
-  .reveal{opacity:0; transition:opacity .35s}
-  .reveal.show{opacity:1}
+  #hint{position:absolute; bottom:2%; left:3%; font-size:.95vw; color:var(--muted)}
+  /* Schrittweises Aufdecken: Platz bleibt reserviert, damit nichts springt */
+  [data-step]{opacity:0; transition:opacity .28s}
+  [data-step].shown{opacity:1}
   @media (max-width:700px){
     h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
   }
@@ -92,44 +93,55 @@
   <section class="slide">
     <div class="kicker">Kleines Experiment</div>
     <h2>Merkt euch das. 10 Sekunden.</h2>
-    <p class="mono" style="font-size:3.4vw">K A I H Z D S N H</p>
-    <p class="note">Blatt zu. Aufschreiben. … Schwer, oder?</p>
+    <p class="mono" style="font-size:3.4vw" data-step>K A I H Z D S N H</p>
+    <p class="note" data-step>Blatt zu. Aufschreiben. … Schwer, oder?</p>
   </section>
 
   <!-- 4 -->
   <section class="slide">
     <div class="kicker">Und jetzt das</div>
     <h2>Merkt euch das. 10 Sekunden.</h2>
-    <p class="mono" style="font-size:3.4vw; color:var(--accent)">K O N Z E N T R A T I O N</p>
-    <p class="note">Gleich viele Buchstaben. Trotzdem einfach. Warum?</p>
+    <p class="mono" style="font-size:3.4vw; color:var(--accent)" data-step>K O N Z E N T R A T I O N</p>
+    <p class="note" data-step>Gleich viele Buchstaben. Trotzdem einfach. Warum?</p>
   </section>
 
   <!-- 5 -->
   <section class="slide">
-    <h2>Dein Arbeitsgedächtnis ist ein Schreibtisch</h2>
-    <p>Darauf passen nur etwa <b>vier Dinge</b> gleichzeitig.</p>
-    <p>„KONZENTRATION“ kennst du schon. Das ist <b>ein Päckchen</b>, ein Platz.
-       Die neun Zufallsbuchstaben sind <b>neun einzelne Dinge</b>. Schreibtisch voll.</p>
-    <p class="note">nach Barbara Oakley, „Uncommon Sense Teaching“</p>
+    <h2>Warum das zweite leichter war</h2>
+    <p data-step>„KONZENTRATION“ kennst du schon. Für deinen Kopf ist das <b>ein Päckchen</b>.
+       Die neun Zufallsbuchstaben sind <b>neun einzelne Teile</b>.</p>
+    <p class="big" data-step style="color:var(--accent); margin-top:.7em">Dein Kopf schafft nur drei bis vier Sachen gleichzeitig.</p>
   </section>
 
   <!-- 6 -->
   <section class="slide">
-    <h2>Üben räumt den Schreibtisch auf</h2>
-    <div class="flow">
-      <div class="box">Neu<br><small>liegt auf dem Schreibtisch</small></div>
-      <div class="arrow">→</div>
-      <div class="box">Üben &amp; Wiederholen</div>
-      <div class="arrow">→</div>
-      <div class="box" style="border-color:var(--accent); color:var(--accent)">Im Schrank<br><small>Langzeitgedächtnis</small></div>
+    <h2>Kraulschwimmen, erster Versuch</h2>
+    <div class="flow" style="font-size:1.5vw">
+      <div class="box">Armzug</div>
+      <div class="box">Beinschlag</div>
+      <div class="box">Kopf drehen</div>
+      <div class="box">Ausatmen</div>
     </div>
-    <p class="note">Was im Schrank liegt, belegt keinen Platz mehr. Dann ist wieder Raum für Neues.</p>
+    <p style="margin-top:1em">Vier Sachen gleichzeitig. Du schluckst Wasser und bleibst stehen.</p>
+    <p class="big" data-step style="color:var(--accent2)">Nicht weil du zu dumm bist. Weil vier auf einmal nicht gehen.</p>
   </section>
 
   <!-- 7 -->
   <section class="slide">
+    <h2>Nach ein paar Wochen im Becken</h2>
+    <div class="flow">
+      <div class="box" style="border-color:var(--accent); color:var(--accent); font-weight:700">Kraulen</div>
+    </div>
+    <p style="margin-top:1em">Aus vier Sachen ist eine geworden. Du denkst an keinen einzelnen Teil mehr,
+       es läuft von allein.</p>
+    <p class="big" data-step style="color:var(--accent)">Jetzt ist dein Kopf frei fürs Rennen.</p>
+    <p class="note" data-step>Genau dafür übst du in Mathe das Kopfrechnen. Damit du in der Aufgabe an die Aufgabe denken kannst und nicht ans Rechnen.</p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
     <h1>Langsam ist nicht dumm.</h1>
-    <p class="big">Der Schreibtisch ist nur noch voller. Mit Übung wird er frei.</p>
+    <p class="big" data-step>Es läuft nur noch nicht von allein.</p>
   </section>
 
   <!-- 8 -->
@@ -206,13 +218,13 @@
         <text x="395" y="202">lernen</text>
       </g>
     </svg>
-    <p class="note" style="margin-top:.4em">Dem einen sieht man an, dass gerade etwas passiert. Dem anderen nicht.</p>
+    <p class="note" style="margin-top:.4em" data-step>Dem einen sieht man an, dass gerade etwas passiert. Dem anderen nicht.</p>
   </section>
 
   <!-- 12 -->
   <section class="slide">
     <h1 style="font-size:3.6vw">Lernen ist anstrengend.<br>Und genau deshalb wirkt es.</h1>
-    <p class="big" style="margin-top:1em">Wenn du dich beim Lernen wohlfühlst, passiert wahrscheinlich gerade wenig.</p>
+    <p class="big" style="margin-top:1em" data-step>Wenn du dich beim Lernen wohlfühlst, passiert wahrscheinlich gerade wenig.</p>
   </section>
 
   <!-- 13 -->
@@ -220,7 +232,7 @@
     <h2>„Ich kann das nicht“</h2>
     <p>Das ist der bequeme Satz. Wer ihn sagt, muss sich nicht anstrengen.
        Verständlich, aber er bringt dich nirgendwohin.</p>
-    <p class="big" style="margin-top:.7em; color:var(--accent2)">Der andere Satz ist anstrengender. Er funktioniert aber.</p>
+    <p class="big" style="margin-top:.7em; color:var(--accent2)" data-step>Der andere Satz ist anstrengender. Er funktioniert aber.</p>
   </section>
 
   <!-- 14 -->
@@ -235,8 +247,8 @@
     <h2>Anstrengen allein reicht nicht</h2>
     <p>Wenn du eine Stunde lang das Gleiche probierst und es geht nicht,
        hilft dir nicht <i>noch mehr</i> vom Gleichen.</p>
-    <p class="big" style="margin-top:.6em; color:var(--accent)">Dann brauchst du einen anderen Weg, oder Hilfe.</p>
-    <p class="note">Beides ist erlaubt. Fragen ist keine Schwäche, sondern eine Strategie.</p>
+    <p class="big" style="margin-top:.6em; color:var(--accent)" data-step>Dann brauchst du einen anderen Weg, oder Hilfe.</p>
+    <p class="note" data-step>Beides ist erlaubt. Fragen ist keine Schwäche, sondern eine Strategie.</p>
   </section>
 
   <!-- 12 -->
@@ -244,7 +256,7 @@
     <h2>Schnell fertig ≠ gut</h2>
     <p>Ein Profimusiker übt eine schwere Stelle <b>langsam</b>, wieder und wieder, bis sie sitzt.
        Er sucht die Fehler absichtlich, statt sie zu überspringen.</p>
-    <p class="big" style="margin-top:.8em; color:var(--accent)">Gut werden dauert. Das ist normal.</p>
+    <p class="big" style="margin-top:.8em; color:var(--accent)" data-step>Gut werden dauert. Das ist normal.</p>
   </section>
 
   <!-- 12 -->
@@ -259,7 +271,7 @@
     <h2>Legt eure zwei Blätter nebeneinander</h2>
     <p>Das von letzter Woche und das von heute. Gleiches Thema, gleiche Zeit.</p>
     <p class="big" style="margin-top:.6em; color:var(--accent)">Wer hat heute mehr aufs Blatt bekommen?</p>
-    <p class="note">Dazwischen lag kein Wunder. Nur einmal abrufen und einmal üben.</p>
+    <p class="note" data-step>Dazwischen lag kein Wunder. Nur einmal abrufen und einmal üben.</p>
   </section>
 
   <!-- 15 -->
@@ -268,17 +280,17 @@
     <p>Du liest die Zusammenfassung dreimal. Fühlt sich sicher an.
        In der Arbeit ist alles weg.</p>
     <p>Der Text kommt dir <b>bekannt</b> vor. Und bekannt fühlt sich an wie <b>können</b>.</p>
-    <p class="big" style="color:var(--accent2); margin-top:.6em">Wiedererkennen ist nicht dasselbe wie Können.</p>
+    <p class="big" style="color:var(--accent2); margin-top:.6em" data-step>Wiedererkennen ist nicht dasselbe wie Können.</p>
   </section>
 
   <!-- 14 -->
   <section class="slide">
     <h2>Lesen oder sich testen?</h2>
-    <div class="bars">
+    <div class="bars" data-step>
       <div class="bar read"><span>weniger</span><small>3× gelesen</small></div>
       <div class="bar test"><span>deutlich mehr</span><small>1× gelesen, dann selbst getestet</small></div>
     </div>
-    <p class="note">Was nach einer Woche noch da war. Roediger &amp; Karpicke, 2006.</p>
+    <p class="note" data-step>Was nach einer Woche noch da war. Roediger &amp; Karpicke, 2006.</p>
   </section>
 
   <!-- 17 -->
@@ -286,7 +298,7 @@
     <div class="kicker">Der wichtigste Satz heute</div>
     <h1 style="font-size:3.4vw">Wenn Lernen sich leicht anfühlt,<br>lernst du gerade wenig.</h1>
     <p style="margin-top:1em">Lesen ist leicht. Abrufen ist anstrengend. Deshalb wirkt Abrufen.</p>
-    <p class="big" style="color:var(--accent); margin-top:.5em">Das Ziehen im Kopf ist kein Zeichen, dass du zu dumm bist.<br>Es ist das Geräusch, das Lernen macht.</p>
+    <p class="big" style="color:var(--accent); margin-top:.5em" data-step>Das Ziehen im Kopf ist kein Zeichen, dass du zu dumm bist.<br>Es ist das Geräusch, das Lernen macht.</p>
   </section>
 
   <!-- 18 -->
@@ -316,7 +328,7 @@
     <div class="kicker">Nur für Mathe</div>
     <h2>Erst gleich, dann gemischt</h2>
     <p><b>Neues Verfahren:</b> erst mal viele Aufgaben derselben Art, bis es sicher sitzt.</p>
-    <p><b>Wenn es sitzt:</b> Aufgabentypen mischen. Sonst übst du nur das Rechnen und nicht das Erkennen.</p>
+    <p data-step><b>Wenn es sitzt:</b> Aufgabentypen mischen. Sonst übst du nur das Rechnen und nicht das Erkennen.</p>
     <p class="note">In der Arbeit steht nicht dabei, welches Verfahren dran ist. Genau das musst du üben.</p>
   </section>
 
@@ -372,7 +384,7 @@
 
   <div id="dots"></div>
   <div id="counter"></div>
-  <div id="hint">← → blättern · F Vollbild</div>
+  <div id="hint">→ aufdecken · ← zurück · F Vollbild</div>
 </div>
 
 <script>
@@ -405,23 +417,41 @@
   const dotEls=[...dots.children];
   const counter=document.getElementById('counter');
   let i=0;
-  function show(n){
+  const steps = n => [...slides[n].querySelectorAll('[data-step]')];
+
+  function show(n, revealAll){
     i=Math.max(0,Math.min(slides.length-1,n));
     slides.forEach((s,k)=>s.classList.toggle('active',k===i));
     dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
-    counter.textContent=(i+1)+' / '+slides.length;
+    steps(i).forEach(el=>el.classList.toggle('shown', !!revealAll));
+    label();
   }
-  show(0);
+  function label(){
+    const st=steps(i), open=st.filter(e=>e.classList.contains('shown')).length;
+    counter.textContent=(i+1)+' / '+slides.length+(st.length?'  ·  '+open+'/'+st.length:'');
+  }
+  // Vorwärts: erst den nächsten verdeckten Teil aufdecken, dann die nächste Folie
+  function next(){
+    const hidden = steps(i).find(e=>!e.classList.contains('shown'));
+    if(hidden){ hidden.classList.add('shown'); label(); return; }
+    show(i+1,false);
+  }
+  // Rückwärts: ganze Folie zurück, alles sichtbar
+  function prev(){ show(i-1,true); }
+
+  show(0,false);
   const stage=document.getElementById('stage');
   stage.focus();
   document.addEventListener('keydown',e=>{
-    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){show(i+1);e.preventDefault();}
-    else if(e.key==='ArrowLeft'||e.key==='PageUp'){show(i-1);e.preventDefault();}
-    else if(e.key==='Home')show(0);
-    else if(e.key==='End')show(slides.length-1);
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){next();e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){prev();e.preventDefault();}
+    else if(e.key==='ArrowDown'){show(i+1,false);e.preventDefault();}   // Folie überspringen
+    else if(e.key==='ArrowUp'){show(i,true);e.preventDefault();}        // alles auf dieser Folie zeigen
+    else if(e.key==='Home')show(0,false);
+    else if(e.key==='End')show(slides.length-1,true);
     else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   });
-  stage.addEventListener('click',e=>{ show(i + (e.clientX < window.innerWidth/2 ? -1 : 1)); });
+  stage.addEventListener('click',e=>{ e.clientX < window.innerWidth/2 ? prev() : next(); });
 </script>
 </body>
 </html>

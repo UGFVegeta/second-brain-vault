@@ -40,13 +40,19 @@ Nur eine Routine dauerhaft durchziehen, sonst schläft alles ein. Das ist das St
 
 Zwischen Durchgang 1 und 2 liegen mindestens drei Tage. Die Blätter aus Durchgang 1 nehme ich mit und bringe sie in Woche 2 wieder mit, sonst sind sie weg. Wer beim ersten Mal gefehlt hat, schreibt in Woche 2 einfach mit, ohne Vergleich.
 
+## Das Leitbild: Kraulschwimmen
+
+Statt der üblichen Schreibtisch-Metapher (Arbeitsgedächtnis als kleine Arbeitsfläche, Langzeitgedächtnis als Schrank) läuft alles über das Schwimmbild. Gründe: Ein Schrank ist ein passives Lager, das Gedächtnis ist es nicht. Der Schrank erklärt nicht, warum Lernen anstrengend ist. Und er widerspricht dem Muskelbild, das in derselben Stunde vorkommt.
+
+Das Schwimmbild trägt dagegen alles auf einmal: die Kapazitätsgrenze (vier Teilbewegungen gleichzeitig gehen nicht), die Automatisierung (daraus wird eine Bewegung, der Kopf wird frei), die Anstrengung (niemand glaubt, dass man Kraulen durch Zuschauen lernt) und den Bezug zu Mathe (Kopfrechnen und Gleichungen sind der Beinschlag).
+
 ## Block 1 (40 min, Klassenlehrerstunde)
 
 | Zeit | Phase | Inhalt |
 |---|---|---|
 | 4 min | Einstieg | An die Tafel: `K A I H Z D S N H`. Zehn Sekunden anschauen, abdecken, aufschreiben. Dann `KONZENTRATION`, gleiche Aufgabe. Fast alle schaffen das zweite. Warum? |
-| 9 min | Arbeitsgedächtnis | Schreibtisch-Bild: Platz für etwa vier Dinge. Bekanntes ist ein Päckchen und braucht einen Platz, Neues braucht viele. Wer langsamer ist, hat einen volleren Schreibtisch, das hat nichts mit Dummheit zu tun. |
-| 10 min | Üben räumt auf | Wiederholen schiebt Wissen vom Schreibtisch in den Schrank, dann ist wieder Platz. Dazu die Studie mit Siebtklässlern (Blackwell, Trzesniewski & Dweck 2007). |
+| 9 min | Kapazität | Auflösung der Buchstabenübung: Bekanntes ist ein Päckchen, Unbekanntes sind viele Einzelteile. Der Kopf schafft nur drei bis vier Sachen gleichzeitig. |
+| 10 min | Kraulbild | Anfänger denkt gleichzeitig an Armzug, Beinschlag, Kopf drehen und Ausatmen und bleibt stehen. Nach ein paar Wochen ist daraus eine Bewegung geworden, der Kopf ist frei fürs Rennen. Übertragung: Kopfrechnen und Gleichungen sind der Beinschlag. Dazu die Studie mit Siebtklässlern (Blackwell, Trzesniewski & Dweck 2007). |
 | 10 min | Anstrengung | Das Bild von den zwei Kindern: konsumieren gegen lernen. Lernen sieht anstrengend aus, weil es das ist, und nur dann bringt es etwas. „Ich kann das nicht“ ist die bequeme Variante, weil man sich dann nicht anstrengen muss. Dazu meine Ansage: Fragen kostet nichts, auch beim zehnten Mal. Ich behandle alle gleich. Sehen will ich die Bereitschaft. |
 | 7 min | Abschluss | „Ich kann das noch nicht.“ Jeder schreibt einen Satz: Etwas, das ich früher nicht konnte und heute kann. Ein paar vorlesen. |
 
@@ -78,7 +84,7 @@ Kurz zur Prüfungsangst: Etwas Aufregung hilft eher als sie schadet, erst zu vie
 
 **Mathe.** Zwei Phasen, nicht eine. Beim Erstlernen blockweise üben, bis das Verfahren steht, sonst rät das Kind nur herum. Erst wenn es sitzt, Aufgabentypen mischen. Blockweises Üben fühlt sich danach weiter besser an und wirkt schlechter (Rohrer & Taylor), deshalb muss ich das Mischen aktiv anordnen. Für das weiße Blatt in Mathe: Verfahren aufschreiben statt Ergebnisse, eine Beispielaufgabe selbst erfinden.
 
-Dazu die Menge: Das Buch gibt zu wenig Aufgaben her, es braucht zusätzliches Übungsmaterial. Und der Schwerpunkt liegt auf den Grundlagen, die in der Prüfung tragen, also Kopfrechnen und Gleichungen lösen. Das ist derselbe Mechanismus wie in Block 1: Was automatisiert ist, belegt keinen Platz mehr auf dem Schreibtisch und macht den Kopf frei für die eigentliche Aufgabe. Eigenes Trainingskonzept dafür steht aus.
+Dazu die Menge: Das Buch gibt zu wenig Aufgaben her, es braucht zusätzliches Übungsmaterial. Und der Schwerpunkt liegt auf den Grundlagen, die in der Prüfung tragen, also Kopfrechnen und Gleichungen lösen. Das ist derselbe Mechanismus wie in Block 1: Was automatisiert ist, braucht keine Aufmerksamkeit mehr und macht den Kopf frei für die eigentliche Aufgabe. Kopfrechnen und Gleichungen sind der Beinschlag. Eigenes Trainingskonzept dafür steht aus.
 
 **Sport.** Fortschritt ist hier sichtbar und schnell. Ein Satz im richtigen Moment reicht, keine eigene Einheit.
 
