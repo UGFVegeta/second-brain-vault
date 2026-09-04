@@ -6,113 +6,193 @@ date: 2026-09-04
 
 # Lernen lernen – Konzept Schulstart Klasse 7
 
-Baustein für die ersten ein bis zwei Wochen als Klassenlehrer. Getragen von der Klassenlehrerstunde und dem eigenen Fachunterricht (Mathe, Physik, Sport). Ziel: Die Klasse versteht, dass Können aus Arbeit entsteht und nicht aus Talent, und lernt zwei, drei Techniken, die danach das ganze Jahr weiterlaufen.
+Baustein für die ersten beiden Schulwochen als Klassenlehrer, getragen von der Klassenlehrerstunde und dem eigenen Fachunterricht. Die Klasse soll verstehen, dass Können aus Arbeit entsteht, und zwei bis drei Techniken lernen, die danach das ganze Jahr weiterlaufen.
 
-Ergänzt wird das durch [[Klassenführung – Regeln und Rituale Klasse 7]] (Reinkommen, Stundenbeginn, Übergänge, Konzentrationssignal).
+Die organisatorische Seite steht in [[Klassenführung – Regeln und Rituale Klasse 7]].
 
 ## Grundidee
 
-Zwei Ebenen, klar getrennt:
+Zwei Ebenen, klar getrennt. Die erste ist der Rahmen: das Selbstbild nach Carol Dweck, „ich kann mich entwickeln" statt „meine Fähigkeit ist festgelegt". Das ist die Geschichte, die den Kindern Lust macht, sich anzustrengen. Die zweite ist der Kern: wie man tatsächlich lernt, also abrufen statt wiederlesen, sich selbst testen, verteilt üben.
 
-1. **Rahmen (Motivation):** Das Selbstbild nach Carol Dweck. „Ich kann mich entwickeln" statt „meine Fähigkeit ist festgelegt". Das ist die Geschichte, die den Kindern Lust macht, sich anzustrengen.
-2. **Kern (Technik):** Wie man tatsächlich lernt. Abrufen statt Wiederlesen, sich selbst testen, verteilt üben. Das ist der Teil mit der stabilen Wirkung.
+Zur Einordnung für mich: Die Lerntechniken sind sehr gut belegt und wirken zuverlässig. Die reine Mindset-Intervention, also nur über Denkweisen reden, hat in großen Wiederholungsstudien (Sisk u.a. 2018, Yeager u.a. 2019) nur kleine Durchschnittseffekte, am ehesten bei leistungsschwächeren Schülern und nur dann, wenn die Umgebung mitzieht. Deshalb: Mindset als Aufhänger, das Gewicht auf die Techniken. Dann verspreche ich der Klasse nichts, was die Studien nicht hergeben.
 
-**Ehrlicher Forschungsstand, für mich zur Einordnung:** Die Lerntechniken (Testeffekt, verteiltes Üben) sind sehr gut belegt und wirken zuverlässig. Die reine Mindset-Intervention, also nur über Denkweisen reden, hat in großen Wiederholungsstudien (Sisk u.a. 2018, Yeager u.a. 2019) nur kleine Durchschnittseffekte, am ehesten bei schwächeren Schülern. Deshalb: Mindset als Aufhänger nutzen, das Gewicht auf die Techniken legen. Dann verspreche ich der Klasse nichts, was die Studien nicht hergeben.
+## Der rote Faden: der Selbstversuch
 
-## Block 1 – kurz (ca. 40 Minuten, Klassenlehrerstunde)
+Das Konzept steht und fällt damit, ob die Kinder den Effekt selbst erleben oder nur davon hören. Deshalb ist der Ablauf umgedreht: erst erleben, dann erklären.
 
-**Titel für die Klasse:** „Warum manche Sachen leichtfallen und andere nicht"
+Zu einem Thema aus Physik oder Mathe schreiben alle ein weißes Blatt (Durchgang 1). Die Blätter kommen ins Heft. Dazwischen liegt eine Hausaufgabe, die aus Abrufen besteht, nicht aus Lesen. Drei bis vier Tage später dasselbe Thema, dasselbe leere Blatt (Durchgang 2). Fast alle haben mehr auf dem Papier. Erst danach kommt die Erklärung, warum das so ist.
+
+Damit ist „dein Gehirn wächst" keine Behauptung von mir, sondern etwas, das die Kinder an ihrem eigenen Blatt sehen. Das ist der entscheidende Unterschied zu einer reinen Motivationsstunde.
+
+## Drei Fallen, die ich vermeiden muss
+
+### Falle 1: Growth Mindset als Vorwurf
+
+Das ist das größte Risiko in dieser Altersstufe. Ein Kind, das sich in Mathe als „nicht der Typ dafür" einsortiert hat, schützt damit seinen Selbstwert. „Ich bin nicht begabt" tut weniger weh als „ich habe mich nicht genug angestrengt". Wenn ich sage „du schaffst alles, wenn du dich nur anstrengst", hört dieses Kind: also bin ich selbst schuld.
+
+Dweck hat das 2016 selbst aufgegriffen und den Begriff „false growth mindset" geprägt. Ihre Punkte, die ich mitnehmen muss:
+
+- Growth Mindset ist nicht Anstrengung allein. Wer sich anstrengt und trotzdem nicht weiterkommt, braucht eine andere Strategie oder Hilfe, nicht mehr vom Gleichen.
+- Anstrengungslob als Trostpreis ist schädlich. Wenn ein Kind scheitert und ich sage „du hast dich aber angestrengt", ist das eine Herabsetzung. Besser: „Das hat nicht funktioniert. Lass uns einen anderen Weg suchen."
+- Niemand hat ein reines Growth Mindset. Jeder hat Auslöser, die ihn ins feste Selbstbild kippen: Kritik, Vergleich, Rückschlag. Das gilt auch für mich, und das darf ich der Klasse sagen.
+- Growth Mindset ist keine Ausrede für schlechten Unterricht. Wenn die Klasse etwas nicht versteht, liegt es zuerst an meiner Erklärung.
+
+Praktische Konsequenz: Ich rede nie über Anstrengung ohne im selben Satz über Strategie und Hilfe zu reden. Die Formel lautet nicht „streng dich mehr an", sondern „probier einen anderen Weg, und wenn du nicht weiterkommst, frag".
+
+### Falle 2: Alte Klassenarbeiten verstärken Ungleichheit
+
+Der Tipp „besorgt euch alte Arbeiten von älteren Schülern" ist richtig, aber er ist nicht für alle gleich einlösbar. Wer ältere Geschwister hat, gut vernetzt ist oder Eltern hat, die so etwas organisieren, profitiert. Die anderen hören einen Tipp, den sie nicht umsetzen können.
+
+Lösung, die mich fast nichts kostet: Ich gebe den allgemeinen Tipp wie geplant und lege zusätzlich selbst einen Satz alter Aufgaben für alle bereit. Damit ist der Tipp echt für jeden einlösbar, und aus einem netten Hinweis wird eine strukturelle Maßnahme.
+
+### Falle 3: Die Routinen schlafen nach drei Wochen ein
+
+Der übliche Verlauf: zwei Wochen Begeisterung, dann kommt der Stoffdruck, und die Abschlussroutine fällt als Erstes weg. Dagegen hilft nur Reduktion und ein sichtbarer Auslöser.
+
+Deshalb ist genau eine Routine nicht verhandelbar, nämlich das Stundenende. Alles andere ist Kür. Das Plakat hängt so, dass ich es vom Pult aus sehe. Und im Kalender steht ein Termin für die vierte und die achte Woche, an dem ich prüfe, ob es noch läuft.
+
+## Ablauf über zwei Wochen
+
+Die Bausteine sind auf meine Stunden verteilt. Wichtig ist der Abstand zwischen Durchgang 1 und Durchgang 2 des weißen Blattes, mindestens drei Tage.
+
+| Baustein | Wo | Dauer |
+|---|---|---|
+| Block 1: Warum manche Sachen leichtfallen | Klassenlehrerstunde, Woche 1 | 40 min |
+| Weißes Blatt, Durchgang 1 | Fachstunde Woche 1, kurz nach Block 1 | 10 min |
+| Abruf-Hausaufgabe statt Lese-Hausaufgabe | Woche 1 | – |
+| Block 2 Teil A: Abrufen statt Wiederlesen, mit Durchgang 2 | Fachstunde Woche 2 | 40 min |
+| Block 2 Teil B: Sich testen, alte Arbeiten, verteilt üben | Fachstunde Woche 2 | 40 min |
+| Plakat bauen | Klassenlehrerstunde Woche 2 | 25 min |
+
+Ab Woche 3 laufen nur noch die Routinen.
+
+## Block 1 (ca. 40 Minuten, Klassenlehrerstunde)
+
+Titel für die Klasse: „Warum manche Sachen leichtfallen und andere nicht"
 
 | Zeit | Phase | Inhalt |
 |---|---|---|
-| 4 min | Einstieg | An die Tafel: `K A I H Z D S N H`. 10 Sekunden anschauen, abdecken, aufschreiben lassen. Dann `KONZENTRATION`, gleiche Aufgabe. Fast alle schaffen das zweite, kaum jemand das erste. Warum? |
-| 10 min | Arbeitsgedächtnis | Bild vom Schreibtisch: Platz für nur etwa vier Dinge gleichzeitig. Neues muss da drüber. Bekanntes ist ein Päckchen und braucht nur einen Platz. Wer langsamer ist, hat oft einfach einen volleren Schreibtisch, das hat nichts mit Dummheit zu tun. (nach Oakley, *Uncommon Sense Teaching*) |
-| 12 min | Gehirn wächst | Üben verschiebt Wissen vom Schreibtisch in den Schrank (Langzeitgedächtnis). Dann ist der Schreibtisch wieder frei für Neues. Das Gehirn baut dabei Verbindungen auf, ähnlich wie ein Muskel bei Training. Studie: Blackwell, Trzesniewski & Dweck 2007, Siebtklässler, die das über ihr Gehirn lernten, verbesserten ihre Mathenoten, die Vergleichsgruppe nicht. |
-| 8 min | Zwei Sätze | „Ich kann das **noch** nicht" statt „Ich kann das nicht". Und: schnell fertig ist nicht dasselbe wie gut. Bild vom Profimusiker, der schwere Stellen bewusst langsam übt, bis sie sitzen. |
-| 6 min | Abschluss | Jeder schreibt einen Satz auf: „Etwas, das ich früher nicht konnte und heute kann." Ein paar vorlesen. |
+| 4 min | Einstieg | An die Tafel: `K A I H Z D S N H`. Zehn Sekunden anschauen, abdecken, aufschreiben lassen. Dann `KONZENTRATION`, gleiche Aufgabe. Fast alle schaffen das zweite, kaum jemand das erste. Warum? |
+| 10 min | Arbeitsgedächtnis | Bild vom Schreibtisch: Platz für etwa vier Dinge gleichzeitig. Neues muss da drauf. Bekanntes ist ein Päckchen und braucht nur einen Platz. Wer langsamer ist, hat oft einen volleren Schreibtisch, das hat nichts mit Dummheit zu tun. |
+| 12 min | Üben räumt auf | Wiederholen verschiebt Wissen vom Schreibtisch in den Schrank. Dann ist wieder Platz. Das Gehirn baut dabei Verbindungen auf, ähnlich wie ein Muskel bei Training. Dazu die Studie mit Siebtklässlern (Blackwell, Trzesniewski & Dweck 2007). |
+| 8 min | Zwei Sätze | „Ich kann das noch nicht" statt „Ich kann das nicht". Und: schnell fertig ist nicht dasselbe wie gut. Bild vom Musiker, der schwere Stellen bewusst langsam übt. |
+| 6 min | Abschluss | Jeder schreibt einen Satz: „Etwas, das ich früher nicht konnte und heute kann." Ein paar vorlesen. |
 
-**Material:** Tafel, sonst nichts.
+Material: Tafel, sonst nichts.
 
-## Block 2 – länger, in zwei Teilen (je ca. 35–45 Minuten, Fachstunden)
+Wichtig an dieser Stelle: Ich sage dazu, dass auch ich Dinge habe, die mir schwerfallen, und dass ich selbst in bestimmten Situationen ins feste Selbstbild rutsche. Sonst wirkt der Block wie eine Aufforderung an die Kinder, sich zusammenzureißen.
 
-**Titel für die Klasse:** „Wie man richtig lernt"
+## Block 2 Teil A: Abrufen statt Wiederlesen
 
-### Teil A – Abrufen statt Wiederlesen
+Beginn mit Durchgang 2 des weißen Blattes, bevor irgendetwas erklärt wird. Danach vergleichen die Kinder mit ihrem eigenen Blatt aus Woche 1. Handzeichen: Wer hat beim zweiten Mal mehr geschafft?
 
-- Einstieg: Wer kennt das, man liest die Zusammenfassung dreimal, fühlt sich sicher, und in der Arbeit ist es weg? Das ist die **Illusion des Verstehens**. Wiedererkennen ist nicht dasselbe wie Können.
-- Studie: Roediger & Karpicke 2006. Zwei Gruppen, gleicher Text. Die eine liest mehrfach, die andere testet sich nach dem Lesen. Nach einer Woche erinnert die Testgruppe deutlich mehr als die Lesegruppe, obwohl die Lesegruppe sich direkt nach dem Lernen sicherer fühlte. (Der Klasse gegenüber „deutlich mehr" sagen, nicht mit festen Prozentzahlen arbeiten, die je nach Experiment schwanken.)
-- **Das weiße Blatt** direkt ausprobieren, an einem konkreten Thema aus der letzten Physik- oder Mathestunde. Anleitung siehe unten.
-- Vorher klarstellen: unbenotet, niemand schaut auf das Blatt des anderen, es ist nur für dich selbst. Das nimmt den Kindern die Angst, sich bloßzustellen.
-- Übung besprechen: Was war schwer? Genau die Lücken zeigen, wo man noch üben muss. Das ist der Sinn, nicht die Note.
+Erst dann die Erklärung. Wer eine Zusammenfassung dreimal liest, fühlt sich sicher, und in der Arbeit ist es weg. Der Grund ist die Flüssigkeitsillusion: Der Text kommt einem bekannt vor, und Bekanntheit fühlt sich an wie Können. Wiedererkennen ist aber nicht dasselbe wie Abrufen.
 
-### Teil B – Sich testen, auch mit alten Arbeiten
+Dazu die Studie von Roediger und Karpicke (2006). Zwei Gruppen, gleicher Text, die eine liest mehrfach, die andere testet sich. Direkt nach dem Lernen fühlt sich die Lesegruppe sicherer. Nach einer Woche kann die Testgruppe deutlich mehr. Der Klasse gegenüber „deutlich mehr" sagen, keine festen Prozentzahlen, die schwanken je nach Experiment.
 
-- Testen ist ein Lernwerkzeug, keine Strafe. Jede Abfrage verankert das Wissen tiefer.
-- **Alte Klassenarbeiten besorgen ist schlau und kein Betrug.** Betrug wäre nur die aktuelle Arbeit, und die gibt es nicht. Ältere Schüler fragen, sich alte Arbeiten geben lassen, damit üben: genau so macht man das später in Ausbildung und Studium. Formulierung für die Klasse siehe unten.
-- **Eigene Quizfragen schreiben:** Nach einem Thema fünf Fragen aufschreiben, die in einer Arbeit drankommen könnten. Am nächsten Tag beantworten, ohne nachzuschauen. Zu zweit gegenseitig abfragen.
-- **Verteilt üben statt Nacht davor:** Dreimal 20 Minuten über eine Woche bringt mehr als einmal 60 Minuten am Vorabend.
-- Kurzer Punkt gegen Prüfungsangst: Ein bisschen Aufregung vor einer Arbeit ist normal und hilft sogar, bis zu einem Punkt (umgekehrtes U, Yerkes-Dodson). Wer geübt hat, bei dem kippt es seltener in Blockade.
+Der Punkt, auf den es mir ankommt, ist das Prinzip der wünschenswerten Erschwernisse (Bjork). Was sich beim Lernen leicht und flüssig anfühlt, bleibt schlecht hängen. Was anstrengend ist und langsam geht, bleibt. Für die Klasse übersetzt: Wenn Lernen sich leicht anfühlt, lernst du gerade wenig. Das Ziehen beim Abrufen ist kein Zeichen dafür, dass du zu dumm bist, sondern das Geräusch, das Lernen macht.
 
-## Dauer-Routinen fürs ganze Jahr
+Vor dem Schreiben klarstellen: unbenotet, niemand schaut auf das Blatt des anderen, das Blatt ist nur für dich. Ein fast leeres Blatt beim ersten Mal ist normal.
 
-In Mathe, Physik und der Klassenlehrerstunde gleich handhaben, damit es sich einschleift:
+## Block 2 Teil B: Sich testen
 
-- **Stundenanfang:** Entweder drei schnelle Fragen zur letzten Stunde, oder fünf Minuten weißes Blatt.
-- **Stundenende:** Exit Ticket oder Mini-Test. „Was war das Wichtigste heute? Erkläre in zwei Sätzen …" Auf Zettel oder mündlich im Blitzlicht.
-- **Fehler-Blitzlicht:** Am Stundenende einmal fragen „Wer hat heute einen Fehler gemacht, und was hast du daraus gelernt?" Ein paar Antworten sammeln. Macht Fehler zur Normalität.
-- **Sprachroutine beim Loben:** Für Konzentration und Ausdauer loben, nicht für Schnelligkeit oder Talent.
-  - statt „du bist schnell / ein Mathe-Ass" → „ich hab gesehen, wie konzentriert du drangeblieben bist"
-  - statt „das war ja einfach für dich" → „du hast die schwierige Stelle so lange geübt, bis sie saß"
+Testen ist ein Lernwerkzeug, keine Kontrolle. Jede Abfrage verankert das Wissen tiefer.
+
+Alte Klassenarbeiten sind erlaubt und schlau. Formulierung für die Klasse steht weiter unten. Dazu lege ich selbst einen Satz alter Aufgaben bereit, damit der Tipp für alle einlösbar ist.
+
+Eigene Prüfungsfragen schreiben: Nach einem Thema fünf Fragen aufschreiben, die drankommen könnten. Am nächsten Tag beantworten, ohne nachzuschauen. Zu zweit gegenseitig abfragen.
+
+Verteilt üben statt Nacht davor: dreimal zwanzig Minuten über eine Woche schlägt einmal sechzig Minuten am Vorabend. Der Grund ist derselbe wie beim weißen Blatt. Wenn zwischen zwei Durchgängen etwas Vergessen liegt, ist das Abrufen anstrengender, und genau deshalb wirkt es besser.
+
+Zum Schluss kurz zur Prüfungsangst: Ein bisschen Aufregung vor einer Arbeit ist normal und hilft eher, als dass sie schadet. Erst wenn sie zu groß wird, blockiert sie. Wer geübt hat, landet öfter im guten Bereich. (Das wird gern mit der Yerkes-Dodson-Kurve von 1908 belegt. Die stammt aus Tierversuchen und wird in der Populärliteratur stark überdehnt, deshalb erzähle ich das Prinzip, ohne eine Studie dahinter zu behaupten.)
+
+## Fachspezifisch
+
+**Physik.** Das weiße Blatt heißt hier: Zusammenhang erklären, Versuchsaufbau skizzieren, „erkläre einem Fünftklässler, warum …". Der Testeffekt greift direkt.
+
+**Mathe.** Reines Abrufen ist hier schwächer als in Physik, weil es um Verfahren geht, nicht um Wissen. Der stärkere Hebel ist gemischtes Üben: nicht zwanzig gleichartige Aufgaben hintereinander, sondern verschiedene Aufgabentypen durcheinander. Dann muss das Kind bei jeder Aufgabe erst entscheiden, welches Verfahren dran ist, und genau das wird in der Arbeit verlangt. Blockweises Üben fühlt sich besser an und wirkt schlechter (Rohrer & Taylor). Für das weiße Blatt in Mathe gilt: Verfahren aufschreiben, nicht Ergebnisse, und eine Beispielaufgabe selbst erfinden.
+
+**Sport.** Der beste Ort, um die Sache erlebbar zu machen, weil Fortschritt dort sichtbar und schnell ist. Wenn eine Technik nach drei Wochen sitzt, die vorher nicht ging, ist das dasselbe Prinzip. Ein Satz im richtigen Moment reicht, das braucht keine eigene Einheit.
+
+## Routinen ab Woche 3
+
+Nicht verhandelbar ist das Stundenende. Zwei bis drei Minuten, jede Stunde, in Mathe und Physik gleich: „Was war das Wichtigste heute? Erkläre es in zwei Sätzen." Schriftlich auf Zettel oder mündlich im Blitzlicht.
+
+Alles Weitere ist Kür und kommt dazu, wenn das Stundenende sitzt: drei kurze Fragen zur letzten Stunde am Anfang, fünf Minuten weißes Blatt vor einem Kapitelabschluss, gelegentlich das Fehler-Blitzlicht („Wer hat heute einen Fehler gemacht, und was hast du daraus gelernt?").
+
+Dazu meine eigene Sprachroutine beim Loben: für Konzentration, Ausdauer und den gewählten Weg loben, nicht für Schnelligkeit oder Talent. Statt „du bist ein Mathe-Ass" also „ich hab gesehen, wie du drangeblieben bist, als es schwer wurde". Und wenn es nicht geklappt hat, nicht auf die Anstrengung ausweichen, sondern auf die nächste Strategie: „Der Weg hat nicht funktioniert. Welchen probieren wir als Nächstes?"
+
+## Die erste Klassenarbeit
+
+Das ist der eigentliche Test des Konzepts, nicht Woche 1. Hier entscheidet sich, ob die Kinder die Technik anwenden oder in „Zusammenfassung dreimal lesen" zurückfallen.
+
+Eine Woche vorher eine halbe Stunde einplanen: gemeinsam einen Lernplan über die verbleibenden Tage aufschreiben, ein angeleitetes weißes Blatt zum Stoff, dazu der Hinweis auf die bereitgelegten alten Aufgaben.
+
+Nach der Rückgabe kurz auswerten, mit Handzeichen und ohne Namen: Wer hat mit dem weißen Blatt geübt? Wer hat verteilt geübt, wer am Abend davor? Nicht als Kontrolle, sondern damit die Klasse den Zusammenhang selbst sieht.
 
 ## Anleitung: Das weiße Blatt
 
 1. Buch und Heft zu. Leeres Blatt, Stift.
-2. Fünf bis zehn Minuten: alles aufschreiben, was man zum Thema noch weiß. Stichworte, Skizzen, Formeln, egal.
+2. Fünf bis zehn Minuten alles aufschreiben, was noch da ist. Stichworte, Skizzen, Formeln.
 3. Erst danach Heft aufschlagen und mit anderer Farbe ergänzen, was gefehlt hat.
-4. Die Ergänzungen in anderer Farbe sind der Lernplan für die nächste Runde.
+4. Die Ergänzungen in der anderen Farbe sind der Lernplan für die nächste Runde.
 
-Wichtig für die Klasse: Das Blatt ist unbenotet und privat. Es geht nicht darum, viel zu wissen, sondern zu sehen, wo man noch üben muss. Ein fast leeres Blatt beim ersten Versuch ist normal und kein schlechtes Zeichen.
+Für die Klasse: Das Blatt ist unbenotet und privat. Es geht nicht darum, viel zu wissen, sondern zu sehen, wo noch etwas fehlt.
 
-Nach zwei, drei Durchgängen merken die Kinder selbst, dass beim zweiten Mal mehr auf dem Blatt steht.
+## Formulierungen
 
-## Formulierung: alte Klassenarbeiten
+**Alte Klassenarbeiten:**
 
-> Wenn ihr euch von älteren Schülern alte Klassenarbeiten besorgt und damit übt, ist das kein Betrug, sondern clever. Betrug wäre, die Aufgaben der aktuellen Arbeit vorher zu kennen. Die gibt es aber nicht, ich schreibe sie jedes Jahr neu. Alte Arbeiten zeigen euch nur, welche Art von Aufgaben kommt und wie viel Zeit ihr braucht. Genau das macht man im Studium und in der Ausbildung auch, da gibt es sogar Sammlungen davon.
+> Wenn ihr euch von älteren Schülern alte Klassenarbeiten besorgt und damit übt, ist das kein Betrug, sondern clever. Betrug wäre, die Aufgaben der aktuellen Arbeit vorher zu kennen. Die gibt es aber nicht, ich schreibe sie jedes Jahr neu. Alte Arbeiten zeigen euch nur, welche Art von Aufgaben kommt und wie viel Zeit ihr braucht. Genau das macht man im Studium und in der Ausbildung auch. Damit das für alle gilt und nicht nur für die mit älteren Geschwistern, lege ich euch selbst einen Satz alter Aufgaben hin.
+
+**Wenn ein Kind sagt, das sei doch Quatsch:**
+
+> Kann sein, dass es für dich nicht passt. Probier es zweimal aus, dann reden wir nochmal. Wenn es dir nichts bringt, suchen wir was anderes für dich.
+
+Nicht rechtfertigen und nicht überzeugen wollen. Der Selbstversuch mit den zwei Blättern macht das Argument von allein.
+
+**Wenn ein Kind sich anstrengt und trotzdem scheitert:**
+
+Nicht auf die Anstrengung ausweichen. Sondern: „Das hat so nicht funktioniert. Zeig mir, wie du es gemacht hast, dann suchen wir einen anderen Weg."
+
+## Wirkung prüfen
+
+Damit ich am Ende weiß, ob es etwas gebracht hat: fünf Fragen in Woche 1 und dieselben fünf im Februar. Anonym, auf Papier oder digital, keine Namen. Zum Beispiel: Wie lernst du normalerweise für eine Arbeit? Wie oft liest du dabei nur? Wie sicher fühlst du dich in Mathe? Was machst du, wenn du eine Aufgabe nicht kannst? Kann man in Mathe besser werden oder ist das Talent?
+
+Das ist keine Forschung, sondern eine Selbstkontrolle. Nebeneffekt: Ich habe etwas Konkretes in der Hand, wenn ich über datengestützte Schulentwicklung spreche.
 
 ## Plakat
 
-Querformat, zum Selbstbebauen. Die Kinder schreiben die Kernsätze im Unterricht selbst darauf, die Gehirn-als-Muskel-Grafik wird ausgedruckt und aufgeklebt. Kernsätze:
+Querformat A2, zum Selbstbebauen. Sechs Felder mit vorgedruckten Kernsätzen, in die die Kinder ihr eigenes Beispiel schreiben. Die Gehirn-Grafik wird ausgedruckt und aufgeklebt.
 
-- Dein Gehirn wächst wie ein Muskel
-- „Ich kann das **noch** nicht"
-- Lernen heißt abrufen, nicht nochmal lesen
-- Fehler sind Daten, kein Versagen
-- Langsam ist nicht dumm, der Schreibtisch ist nur voll
-- Tests helfen dir beim Lernen, auch alte Arbeiten
+Kernsätze: Dein Gehirn wächst wie ein Muskel. „Ich kann das noch nicht." Lernen heißt abrufen, nicht nochmal lesen. Fehler sind Daten, kein Versagen. Langsam ist nicht dumm, der Schreibtisch ist nur voll. Tests helfen dir beim Lernen, auch alte Arbeiten.
 
-→ Vorlage: `Lernen lernen – Plakat A2.html` (A2 quer, sechs beschriftete Felder zum Selbstausfüllen) und `Lernen lernen – Gehirn-Grafik.html` (A4, zum Ausdrucken, Ausschneiden, Aufkleben). Beide im Browser öffnen und als PDF drucken.
+Vorlagen: `Lernen lernen – Plakat A2.html` und `Lernen lernen – Gehirn-Grafik.html`, beide im Browser öffnen und als PDF drucken.
 
 ## Quellen
 
 - Carol Dweck: *Selbstbild. Wie unser Denken Erfolge oder Niederlagen bewirkt* (Original *Mindset*)
+- Dweck (2016): Recognizing and Overcoming False Growth Mindset. *Education Week*
 - Blackwell, Trzesniewski & Dweck (2007): Implicit Theories of Intelligence Predict Achievement Across an Adolescent Transition. *Child Development*
-- Mueller & Dweck (1998): Lob für Intelligenz vs. Anstrengung
+- Mueller & Dweck (1998): Lob für Intelligenz gegen Lob für Anstrengung
+- Sisk u.a. (2018), Metaanalyse, und Yeager u.a. (2019), National Study of Learning Mindsets: kleine Effekte von Mindset-Interventionen
 - Roediger & Karpicke (2006): Test-Enhanced Learning. *Psychological Science*
-- Oakley, Sejnowski & McConville (2021): *Uncommon Sense Teaching*
-- Yerkes & Dodson (1908): umgekehrte U-Kurve, Erregung und Leistung
-- Sisk u.a. (2018), Yeager u.a. (2019): Metaanalyse und große Feldstudie zu Mindset-Interventionen, kleinere Effekte
+- Bjork: wünschenswerte Erschwernisse (desirable difficulties)
+- Rohrer & Taylor: gemischtes gegen blockweises Üben in Mathematik
+- Oakley, Rogowsky & Sejnowski (2021): *Uncommon Sense Teaching*
 - Lemov: *Teach Like a Champion* (Exit Tickets)
-- Anregungen aus zwei gekauften Materialien (Emily Horbach, *Classroom Management 101*; „3 Fakten über erfolgreiches Lernen"), Studien oben sind die Originalquellen
+- Anregungen aus zwei gekauften Materialien (Emily Horbach, *Classroom Management 101*, und „3 Fakten über erfolgreiches Lernen"). Die Studien oben sind die Originalquellen.
 
 ## Material im selben Ordner
 
-- `Lernen lernen – Präsentation.html` – Foliensatz für Block 1 und Block 2, zum Dranhangeln im Unterricht (Pfeiltasten oder Klick, F für Vollbild)
-- `Lernen lernen – Plakat A2.html` – Plakatvorlage zum Selbstausfüllen
-- `Lernen lernen – Gehirn-Grafik.html` – Grafik zum Aufkleben
+- `Lernen lernen – Präsentation.html`, Foliensatz für beide Blöcke, Klick oder Pfeiltasten, F für Vollbild
+- `Lernen lernen – Plakat A2.html`
+- `Lernen lernen – Gehirn-Grafik.html`
 - [[Klassenführung – Regeln und Rituale Klasse 7]]
 
-## Offen / nächste Schritte
+## Offen
 
-- Druckversion des Konzepts als PDF (bei Bedarf über pandoc)
-- Elterninfo für den ersten Elternabend: kurz erklären, was gemacht wurde und warum
-- nach ein paar Wochen prüfen, ob die Routinen noch laufen
+- Satz alter Aufgaben für die Klasse zusammenstellen
+- die fünf Fragen zur Wirkungsprüfung ausformulieren
+- Elterninfo für den ersten Elternabend
+- Kalendereintrag für Woche 4 und Woche 8: laufen die Routinen noch?
