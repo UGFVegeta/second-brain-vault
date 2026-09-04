@@ -24,28 +24,28 @@ Regeln nicht als meine Regeln verkaufen, sondern als gemeinsame Vereinbarung mit
 
 - Vor der Tür kurz sammeln, nicht als Pulk reinströmen. Ich stehe an der Tür, kurzer Blickkontakt oder Gruß pro Kind.
 - Rein, Jacke über den Stuhl, Ranzen an den Haken, Material raus (steht an fester Stelle an der Tafel), hinsetzen.
-- Sitzplan ab Tag eins. Fester Platz gibt Sicherheit und spart die „Wo sitzen wir?"-Diskussion.
+- Sitzplan ab Tag eins. Fester Platz gibt Sicherheit und spart die „Wo sitzen wir?“-Diskussion.
 
 ### 2. Stundenbeginn
 
 - **Signal:** Ich hebe die Hand und zähle von 5 runter. Bei 1 ist Stille, Blick nach vorne, Stifte weg. Einmal einführen, mehrfach üben, auch wenn es beim ersten Mal 30 Sekunden dauert.
 - **Material sichtbar machen:** An der Tafel steht links der Ablauf der Stunde, rechts das benötigte Material. Erstes, was die Kinder tun: das checken.
-- **Zielklarheit:** Ein Satz, was heute gelernt wird, konkret. „Am Ende der Stunde könnt ihr erklären, warum …" / „… den Flächeninhalt eines Kreises berechnen."
+- **Zielklarheit:** Ein Satz, was heute gelernt wird, konkret. „Am Ende der Stunde könnt ihr erklären, warum …“ / „… den Flächeninhalt eines Kreises berechnen.“
 
 ### 3. Arbeitsphase starten
 
 Feste Ansage, damit alle gleichzeitig loskommen und die Schnellen nicht auf die Langsameren warten:
 
-- „Zeig mir": „In 5-4-3-2-1 möchte ich das Heft aufgeschlagen in der Luft sehen." Wenn nicht alle: „Das waren noch keine 100 Prozent, nochmal."
-- Dann: „Jetzt will ich sehen, dass sich alle Stifte bewegen."
-- Alternativ Startposition: „Rücken gerade, Füße auf dem Boden, Material offen, Stift in der Hand."
+- „Zeig mir“: „In 5-4-3-2-1 möchte ich das Heft aufgeschlagen in der Luft sehen.“ Wenn nicht alle: „Das waren noch keine 100 Prozent, nochmal.“
+- Dann: „Jetzt will ich sehen, dass sich alle Stifte bewegen.“
+- Alternativ Startposition: „Rücken gerade, Füße auf dem Boden, Material offen, Stift in der Hand.“
 
 ### 4. Arbeitsphase beenden
 
 Das ist schwerer als der Start. Vorher ankündigen, nicht abrupt:
 
-- Countdown: „In 5 Minuten beenden wir." Dann „Alle Stifte in die Luft in 5-4-3-2-1, danke für die konzentrierte Arbeit."
-- Partner-Check (Turn & Talk): „Dreht euch zum Sitznachbarn. Ein Satz, was ihr verstanden habt, ein Satz, wo ihr noch Hilfe braucht. Nach 60 Sekunden sammeln wir."
+- Countdown: „In 5 Minuten beenden wir.“ Dann „Alle Stifte in die Luft in 5-4-3-2-1, danke für die konzentrierte Arbeit.“
+- Partner-Check (Turn & Talk): „Dreht euch zum Sitznachbarn. Ein Satz, was ihr verstanden habt, ein Satz, wo ihr noch Hilfe braucht. Nach 60 Sekunden sammeln wir.“
 
 ### 5. Fertig-Signal
 
@@ -58,7 +58,7 @@ Eindeutiges Zeichen, dass ein Kind fertig ist, ohne zu rufen: Arbeitsheft leicht
 
 ### 7. Stundenende und Aufräumen
 
-- Nicht signalisieren „wir haben nur noch 5 Minuten", sonst schalten alle ab. Stattdessen mit einer Abschlussroutine bis zum Schluss strukturieren (Exit Ticket, Mini-Test, Fehler-Blitzlicht, siehe Lernkonzept).
+- Nicht signalisieren „wir haben nur noch 5 Minuten“, sonst schalten alle ab. Stattdessen mit einer Abschlussroutine bis zum Schluss strukturieren (Exit Ticket, Mini-Test, Fehler-Blitzlicht, siehe Lernkonzept).
 - Aufräum-Routine 3-2-1:
   - 3: Stuhl hoch, Müll weg, Tisch leer
   - 2: leise aufstehen, hinter den Stuhl
@@ -66,7 +66,7 @@ Eindeutiges Zeichen, dass ein Kind fertig ist, ohne zu rufen: Arbeitsheft leicht
 
 ### 8. Konzentrationssignal während der Stunde
 
-- Feste Formulierung statt „hört mal zu": „Alle Augen zu mir" oder das 5-4-3-2-1 mit erhobener Hand.
+- Feste Formulierung statt „hört mal zu“: „Alle Augen zu mir“ oder das 5-4-3-2-1 mit erhobener Hand.
 - Konsequent durchziehen: erst weiterreden, wenn es wirklich still ist. Sonst lernt die Klasse, dass das Signal optional ist.
 
 ### 9. Handys
@@ -77,8 +77,8 @@ Eindeutiges Zeichen, dass ein Kind fertig ist, ohne zu rufen: Arbeitsheft leicht
 
 1. Pro Tag ein bis zwei Rituale einführen, nicht alle auf einmal.
 2. Jedes Ritual: erklären, warum es hilft (immer mit Lernerfolg verknüpfen), einmal vormachen, zwei-, dreimal üben.
-3. Bei Nachlässigkeit ruhig zurücksteuern: „Das waren noch keine 100 Prozent, nochmal." Ohne Ärger, einfach Wiederholung.
-4. Beschwerden („in anderen Fächern machen wir das nicht") sind normal. Antwort: „Diese Struktur hilft uns allen, in ein paar Wochen läuft das von allein."
+3. Bei Nachlässigkeit ruhig zurücksteuern: „Das waren noch keine 100 Prozent, nochmal.“ Ohne Ärger, einfach Wiederholung.
+4. Beschwerden („in anderen Fächern machen wir das nicht“) sind normal. Antwort: „Diese Struktur hilft uns allen, in ein paar Wochen läuft das von allein.“
 5. Wenn möglich mit dem Klassenteam zwei, drei gemeinsame Routinen absprechen (Ruhesignal, Stundenbeginn, Material), dann ist es klassenübergreifend gleich.
 
 ## Quellen
@@ -93,4 +93,4 @@ Eindeutiges Zeichen, dass ein Kind fertig ist, ohne zu rufen: Arbeitsheft leicht
 
 - entscheiden, welche Rituale in welcher Reihenfolge in Woche 1 dran sind
 - mit dem Klassenteam über gemeinsame Routinen sprechen
-- kurzes Merkblatt für mich mit den festen Formulierungen (5-4-3-2-1, „Alle Augen zu mir", 3-2-1-Aufräumen)
+- kurzes Merkblatt für mich mit den festen Formulierungen (5-4-3-2-1, „Alle Augen zu mir“, 3-2-1-Aufräumen)
