@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Gehirn wächst wie ein Muskel – Grafik</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9e5dc; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:#1c2230}
+  .sheet{width:210mm; height:297mm; background:#fffdf9; margin:8mm auto; padding:18mm; display:flex; align-items:center; justify-content:center; box-shadow:0 3mm 14mm rgba(0,0,0,.15)}
+  .cut{border:1mm dashed #c9c2b4; border-radius:8mm; padding:14mm 10mm; width:100%; display:flex; flex-direction:column; align-items:center; gap:8mm; text-align:center}
+  .cut h1{font-size:16mm; line-height:1.1; letter-spacing:-.01em}
+  .cut p{font-size:8mm; color:#6b7280; max-width:150mm; line-height:1.4}
+  svg{width:130mm; height:auto}
+  .scissors{position:absolute; font-size:7mm; color:#9a9484}
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff}
+    .sheet{margin:0; box-shadow:none}
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="cut">
+      <h1>Dein Gehirn wächst<br>wie ein Muskel</h1>
+      <svg viewBox="0 0 240 250" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#1c2230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M70 120 C40 110 40 70 72 62 C70 36 106 22 130 40 C150 24 190 32 192 60
+                   C222 62 228 104 200 116 C206 142 176 160 152 148 C142 170 102 170 96 146
+                   C72 152 60 136 70 120 Z" fill="#fffdf9"/>
+          <path d="M100 58 C112 70 100 84 114 96 M136 44 L136 150 M158 68 C146 80 160 92 150 106 M104 122 C118 122 124 134 140 130"/>
+        </g>
+        <g stroke="#2f6f4f" stroke-width="4" stroke-linecap="round" fill="none">
+          <path d="M206 44 l0 -14 M199 37 l14 0"/>
+          <path d="M188 26 l0 -10 M183 21 l10 0"/>
+        </g>
+        <g fill="#1c2230">
+          <rect x="66" y="200" width="108" height="10" rx="5"/>
+          <rect x="54" y="185" width="15" height="40" rx="4"/>
+          <rect x="39" y="192" width="12" height="26" rx="4"/>
+          <rect x="171" y="185" width="15" height="40" rx="4"/>
+          <rect x="189" y="192" width="12" height="26" rx="4"/>
+        </g>
+        <text x="120" y="245" font-size="13" text-anchor="middle" font-family="sans-serif" fill="#6b7280">üben  →  stärker</text>
+      </svg>
+      <p>Jede Wiederholung baut neue Verbindungen auf. Anstrengung ist das Zeichen, dass es gerade passiert.</p>
+    </div>
+  </div>
+</body>
+</html>

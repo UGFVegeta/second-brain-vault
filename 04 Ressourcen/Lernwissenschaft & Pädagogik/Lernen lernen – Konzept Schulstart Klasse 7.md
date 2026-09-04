@@ -90,7 +90,7 @@ Querformat, zum Selbstbebauen. Die Kinder schreiben die Kernsätze im Unterricht
 - Langsam ist nicht dumm, der Schreibtisch ist nur voll
 - Tests helfen dir beim Lernen, auch alte Arbeiten
 
-→ Vorlage: (folgt, Datei im selben Ordner)
+→ Vorlage: `Lernen lernen – Plakat A2.html` (A2 quer, sechs beschriftete Felder zum Selbstausfüllen) und `Lernen lernen – Gehirn-Grafik.html` (A4, zum Ausdrucken, Ausschneiden, Aufkleben). Beide im Browser öffnen und als PDF drucken.
 
 ## Quellen
 
@@ -104,8 +104,15 @@ Querformat, zum Selbstbebauen. Die Kinder schreiben die Kernsätze im Unterricht
 - Lemov: *Teach Like a Champion* (Exit Tickets)
 - Anregungen aus zwei gekauften Materialien (Emily Horbach, *Classroom Management 101*; „3 Fakten über erfolgreiches Lernen"), Studien oben sind die Originalquellen
 
+## Material im selben Ordner
+
+- `Lernen lernen – Präsentation.html` – Foliensatz für Block 1 und Block 2, zum Dranhangeln im Unterricht (Pfeiltasten oder Klick, F für Vollbild)
+- `Lernen lernen – Plakat A2.html` – Plakatvorlage zum Selbstausfüllen
+- `Lernen lernen – Gehirn-Grafik.html` – Grafik zum Aufkleben
+- [[Klassenführung – Regeln und Rituale Klasse 7]]
+
 ## Offen / nächste Schritte
 
-- Plakat-Vorlage bauen (Querformat) + Gehirn-Grafik zum Ausdrucken
+- Druckversion des Konzepts als PDF (bei Bedarf über pandoc)
 - Elterninfo für den ersten Elternabend: kurz erklären, was gemacht wurde und warum
 - nach ein paar Wochen prüfen, ob die Routinen noch laufen

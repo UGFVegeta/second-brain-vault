@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Lernen lernen – Plakat A2</title>
+<style>
+  :root{ --ink:#1c2230; --bg:#fffdf9; --accent:#2f6f4f; --accent2:#c2531e; --line:#c9c2b4; --muted:#6b7280; }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{ background:#e9e5dc; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); }
+
+  .sheet{
+    width:594mm; height:420mm; background:var(--bg);
+    padding:20mm; margin:10mm auto; display:flex; flex-direction:column; gap:12mm;
+    box-shadow:0 4mm 20mm rgba(0,0,0,.15);
+  }
+  header{display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2mm solid var(--accent); padding-bottom:6mm}
+  header h1{font-size:34mm; line-height:.95; letter-spacing:-.02em}
+  header .sub{font-size:9mm; color:var(--muted); text-align:right; line-height:1.3}
+
+  .body{flex:1; display:flex; gap:12mm}
+  .graphic{
+    width:150mm; border:1.5mm dashed var(--line); border-radius:6mm;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6mm; padding:10mm; text-align:center;
+  }
+  .graphic span{font-size:8mm; color:var(--muted); line-height:1.35}
+  .graphic .icon{font-size:40mm}
+
+  .grid{flex:1; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr 1fr; gap:8mm}
+  .tile{border:0.8mm solid var(--line); border-radius:5mm; padding:7mm 8mm; display:flex; flex-direction:column; gap:4mm}
+  .tile .n{width:13mm; height:13mm; border-radius:50%; background:var(--accent); color:#fff; font-size:8mm; font-weight:700; display:flex; align-items:center; justify-content:center}
+  .tile h2{font-size:11mm; line-height:1.12}
+  .tile .write{flex:1; border-top:0.5mm dashed var(--line); margin-top:2mm; padding-top:3mm; font-size:6mm; color:var(--muted)}
+  .tile em{color:var(--accent2); font-style:normal}
+
+  footer{font-size:7mm; color:var(--muted); text-align:center}
+
+  @media print{
+    @page{ size:594mm 420mm; margin:0; }
+    body{background:#fff}
+    .sheet{margin:0; box-shadow:none; width:100%; height:100%}
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <h1>So lernt man wirklich</h1>
+      <div class="sub">Klasse 7 · Schuljahr ________<br>unser Klassenzimmer</div>
+    </header>
+
+    <div class="body">
+      <div class="graphic">
+        <div class="icon">🧠</div>
+        <span>Hier kommt die<br>Gehirn-Grafik hin<br>(ausdrucken &amp; aufkleben)</span>
+      </div>
+
+      <div class="grid">
+        <div class="tile">
+          <div class="n">1</div>
+          <h2>Dein Gehirn wächst wie ein Muskel</h2>
+          <div class="write">Dein Beispiel: Was konntest du früher nicht und kannst es heute?</div>
+        </div>
+        <div class="tile">
+          <div class="n">2</div>
+          <h2>„Ich kann das <em>noch</em> nicht"</h2>
+          <div class="write">Ein Satz mit „noch", den du dir merken willst:</div>
+        </div>
+        <div class="tile">
+          <div class="n">3</div>
+          <h2>Lernen heißt abrufen, nicht nochmal lesen</h2>
+          <div class="write">Wie machst du das? (weißes Blatt, abfragen, …)</div>
+        </div>
+        <div class="tile">
+          <div class="n">4</div>
+          <h2>Fehler sind Daten, kein Versagen</h2>
+          <div class="write">Ein Fehler, aus dem du etwas gelernt hast:</div>
+        </div>
+        <div class="tile">
+          <div class="n">5</div>
+          <h2>Langsam ist nicht dumm, der Schreibtisch ist nur voll</h2>
+          <div class="write">Was hilft dir, wenn es zu viel wird?</div>
+        </div>
+        <div class="tile">
+          <div class="n">6</div>
+          <h2>Tests helfen beim Lernen, auch alte Arbeiten</h2>
+          <div class="write">Wen fragst du nach alten Arbeiten? Wann übst du?</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Drucken: A2, Querformat, „tatsächliche Größe" / 100 %. Die sechs Felder füllt die Klasse im Unterricht selbst aus.</footer>
+  </div>
+</body>
+</html>
