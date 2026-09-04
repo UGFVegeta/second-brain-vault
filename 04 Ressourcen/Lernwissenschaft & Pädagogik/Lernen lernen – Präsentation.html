@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernen lernen – Präsentation Klasse 7</title>
+<style>
+  :root{
+    --ink:#1c2230; --bg:#f5f2ec; --paper:#fffdf9;
+    --accent:#2f6f4f; --accent2:#c2531e; --muted:#6b7280; --line:#d9d3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--ink); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  #stage{
+    position:relative;
+    width:min(96vw, calc(96vh * 16/9));
+    height:min(96vh, calc(96vw * 9/16));
+    background:var(--bg);
+    border-radius:14px; overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+  }
+  .slide{
+    position:absolute; inset:0; padding:6.2% 7.5%;
+    display:none; flex-direction:column; justify-content:center;
+  }
+  .slide.active{display:flex}
+  .kicker{font-size:1.15vw; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:1.4em}
+  h1{font-size:4.4vw; line-height:1.05; letter-spacing:-.02em}
+  h2{font-size:3.1vw; line-height:1.12; letter-spacing:-.01em; margin-bottom:.7em}
+  p{font-size:1.9vw; line-height:1.5; max-width:42em; color:#333}
+  p + p{margin-top:.7em}
+  .big{font-size:2.4vw}
+  ul{margin:.6em 0 0 1.1em; font-size:1.9vw; line-height:1.6}
+  li{margin:.35em 0}
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; letter-spacing:.22em; font-weight:700}
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .divider{background:var(--accent); color:#fff}
+  .divider .kicker{color:#bfe6d1}
+  .divider h1{font-size:4vw}
+  .quote{font-size:2.1vw; line-height:1.5; font-style:italic; border-left:5px solid var(--accent2); padding-left:.8em; max-width:40em}
+  .note{margin-top:1.1em; font-size:1.35vw; color:var(--muted)}
+  .row{display:flex; gap:4%; align-items:center}
+  .col{flex:1}
+  /* bar chart */
+  .bars{display:flex; gap:2.5vw; align-items:flex-end; height:26vh; margin-top:1em}
+  .bar{width:9vw; background:var(--line); border-radius:8px 8px 0 0; position:relative; display:flex; justify-content:center}
+  .bar span{position:absolute; top:-2.2em; font-size:1.5vw; font-weight:700}
+  .bar small{position:absolute; bottom:-2.4em; font-size:1.3vw; color:var(--muted); text-align:center; width:12vw; left:50%; transform:translateX(-50%)}
+  .bar.read{height:42%}
+  .bar.test{height:80%; background:var(--accent)}
+  /* desk -> shelf */
+  .flow{display:flex; align-items:center; gap:2.5vw; margin-top:1em; font-size:1.7vw}
+  .flow .box{background:var(--paper); border:2px solid var(--ink); border-radius:10px; padding:1.1em 1.3em; text-align:center; flex:1}
+  .flow .arrow{font-size:3vw; color:var(--accent)}
+  /* curve */
+  svg.curve{width:34vw; height:auto}
+  /* progress */
+  #dots{position:absolute; bottom:2.4%; left:0; right:0; display:flex; gap:.5vw; justify-content:center}
+  #dots i{width:.7vw; height:.7vw; border-radius:50%; background:var(--line); transition:background .2s}
+  #dots i.on{background:var(--accent)}
+  #counter{position:absolute; bottom:2%; right:3%; font-size:1.1vw; color:var(--muted)}
+  #hint{position:absolute; bottom:2%; left:3%; font-size:1.1vw; color:var(--muted)}
+  .reveal{opacity:0; transition:opacity .35s}
+  .reveal.show{opacity:1}
+  @media (max-width:700px){
+    h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
+  }
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0">
+
+  <!-- 1 -->
+  <section class="slide">
+    <div class="kicker">Klassenlehrerstunde · Klasse 7</div>
+    <h1>Wie Lernen wirklich funktioniert</h1>
+    <p class="note">Zwei Blöcke. Block 1: warum manche Sachen leichtfallen. Block 2: wie man richtig lernt.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide divider">
+    <div class="kicker">Block 1</div>
+    <h1>Warum fällt manches leicht<br>und anderes nicht?</h1>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="kicker">Kleines Experiment</div>
+    <h2>Merkt euch das. 10 Sekunden.</h2>
+    <p class="mono" style="font-size:3.4vw">K A I H Z D S N H</p>
+    <p class="note">Blatt zu. Aufschreiben. … Schwer, oder?</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="kicker">Und jetzt das</div>
+    <h2>Merkt euch das. 10 Sekunden.</h2>
+    <p class="mono" style="font-size:3.4vw; color:var(--accent)">K O N Z E N T R A T I O N</p>
+    <p class="note">Gleich viele Buchstaben. Trotzdem einfach. Warum?</p>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <h2>Dein Arbeitsgedächtnis ist ein Schreibtisch</h2>
+    <p>Darauf passen nur etwa <b>vier Dinge</b> gleichzeitig.</p>
+    <p>„KONZENTRATION" kennst du schon. Das ist <b>ein Päckchen</b>, ein Platz.
+       Die neun Zufallsbuchstaben sind <b>neun einzelne Dinge</b>. Schreibtisch voll.</p>
+    <p class="note">nach Barbara Oakley, „Uncommon Sense Teaching"</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <h2>Üben räumt den Schreibtisch auf</h2>
+    <div class="flow">
+      <div class="box">Neu<br><small>liegt auf dem Schreibtisch</small></div>
+      <div class="arrow">→</div>
+      <div class="box">Üben &amp; Wiederholen</div>
+      <div class="arrow">→</div>
+      <div class="box" style="border-color:var(--accent); color:var(--accent)">Im Schrank<br><small>Langzeitgedächtnis</small></div>
+    </div>
+    <p class="note">Was im Schrank liegt, belegt keinen Platz mehr. Dann ist wieder Raum für Neues.</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <h1>Langsam ist nicht dumm.</h1>
+    <p class="big">Der Schreibtisch ist nur noch voller. Mit Übung wird er frei.</p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <div class="row">
+      <div class="col">
+        <h2>Dein Gehirn wächst<br>wie ein Muskel</h2>
+        <p>Jedes Mal, wenn du etwas Schwieriges übst, baut dein Gehirn neue Verbindungen auf. Das kostet Kraft und fühlt sich anstrengend an. Genau dann passiert das Wachstum.</p>
+      </div>
+      <div class="col" id="brainSlot"></div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide">
+    <div class="kicker">Eine echte Studie</div>
+    <h2>Siebtklässler wie ihr</h2>
+    <p>Eine Gruppe lernte, dass das Gehirn beim Üben wächst. Eine andere nicht.
+       Nach zwei Jahren hatte die erste Gruppe <b>bessere Mathenoten</b>. Die andere nicht.</p>
+    <p class="note">Blackwell, Trzesniewski &amp; Dweck, 2007</p>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide divider">
+    <h1>„Ich kann das<br><span style="color:var(--accent2)">noch</span> nicht."</h1>
+    <p style="color:#d7 efe1; color:#cfe9db; font-size:2vw; margin-top:1em">Ein Wort. Es ändert alles.</p>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide">
+    <h2>Schnell fertig ≠ gut</h2>
+    <p>Ein Profimusiker übt eine schwere Stelle <b>langsam</b>, wieder und wieder, bis sie sitzt.
+       Er sucht die Fehler absichtlich, statt sie zu überspringen.</p>
+    <p class="big" style="margin-top:.8em; color:var(--accent)">Gut werden dauert. Das ist normal.</p>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide divider">
+    <div class="kicker">Block 2</div>
+    <h1>Wie man richtig lernt</h1>
+  </section>
+
+  <!-- 13 -->
+  <section class="slide">
+    <h2>Die Falle</h2>
+    <p>Du liest die Zusammenfassung dreimal. Fühlt sich sicher an.
+       In der Arbeit ist alles weg.</p>
+    <p class="big" style="color:var(--accent2); margin-top:.6em">Wiedererkennen ist nicht dasselbe wie Können.</p>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide">
+    <h2>Lesen oder sich testen?</h2>
+    <div class="bars">
+      <div class="bar read"><span>weniger</span><small>3× gelesen</small></div>
+      <div class="bar test"><span>deutlich mehr</span><small>1× gelesen, dann selbst getestet</small></div>
+    </div>
+    <p class="note" style="margin-top:2.5em">Was nach einer Woche noch da war. Roediger &amp; Karpicke, 2006.</p>
+  </section>
+
+  <!-- 15 -->
+  <section class="slide">
+    <h2>Das weiße Blatt</h2>
+    <ul>
+      <li>Buch und Heft zu. Leeres Blatt, Stift.</li>
+      <li>5 bis 10 Minuten: alles aufschreiben, was du noch weißt. Stichworte, Skizzen, Formeln.</li>
+      <li>Erst dann Heft auf, mit anderer Farbe ergänzen, was gefehlt hat.</li>
+      <li>Die andere Farbe ist dein Lernplan für morgen.</li>
+    </ul>
+    <p class="note">Unbenotet. Privat. Ein fast leeres Blatt beim ersten Mal ist völlig normal.</p>
+  </section>
+
+  <!-- 16 -->
+  <section class="slide">
+    <h2>Dich selbst testen</h2>
+    <ul>
+      <li>Nach einem Thema <b>5 eigene Prüfungsfragen</b> aufschreiben. Am nächsten Tag beantworten, ohne nachzuschauen.</li>
+      <li>Zu zweit gegenseitig abfragen.</li>
+      <li><b>Verteilt üben:</b> 3× 20 Minuten über die Woche schlägt 1× 60 Minuten am Abend davor.</li>
+    </ul>
+  </section>
+
+  <!-- 17 -->
+  <section class="slide">
+    <h2>Alte Klassenarbeiten sind erlaubt</h2>
+    <p class="quote">Sich von älteren Schülern alte Arbeiten geben lassen und damit üben ist clever, kein Betrug. Betrug wäre nur die aktuelle Arbeit, und die gibt es nicht. Alte Arbeiten zeigen dir, welche Art Aufgaben kommt und wie viel Zeit du brauchst. Im Studium und in der Ausbildung macht man das genauso.</p>
+  </section>
+
+  <!-- 18 -->
+  <section class="slide">
+    <div class="row">
+      <div class="col">
+        <h2>Ein bisschen Aufregung hilft</h2>
+        <p>Zu wenig: dir ist es egal. Zu viel: Blackout.
+           Dazwischen liegt dein bester Punkt. Wer geübt hat, landet öfter dort.</p>
+      </div>
+      <div class="col">
+        <svg class="curve" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="30" y1="170" x2="285" y2="170" stroke="#1c2230" stroke-width="2"/>
+          <line x1="30" y1="170" x2="30" y2="15" stroke="#1c2230" stroke-width="2"/>
+          <path d="M30 165 Q150 -20 285 165" fill="none" stroke="#2f6f4f" stroke-width="4"/>
+          <circle cx="157" cy="40" r="6" fill="#c2531e"/>
+          <text x="150" y="30" font-size="12" text-anchor="middle" font-family="sans-serif">bester Punkt</text>
+          <text x="160" y="188" font-size="11" text-anchor="middle" font-family="sans-serif" fill="#6b7280">Aufregung</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 -->
+  <section class="slide">
+    <h2>Was ab jetzt jede Stunde läuft</h2>
+    <ul>
+      <li><b>Am Anfang:</b> 3 kurze Fragen zur letzten Stunde oder 5 Minuten weißes Blatt.</li>
+      <li><b>Am Ende:</b> „Was war das Wichtigste heute? Erkläre es in zwei Sätzen."</li>
+      <li><b>Fehler-Blitzlicht:</b> Wer hat heute einen Fehler gemacht, und was hast du daraus gelernt?</li>
+    </ul>
+  </section>
+
+  <!-- 20 -->
+  <section class="slide divider">
+    <div class="kicker">Merksätze fürs Plakat</div>
+    <ul style="font-size:2.1vw; line-height:1.7; list-style:none; margin-left:0">
+      <li>→ Dein Gehirn wächst wie ein Muskel</li>
+      <li>→ „Ich kann das noch nicht"</li>
+      <li>→ Lernen heißt abrufen, nicht nochmal lesen</li>
+      <li>→ Fehler sind Daten, kein Versagen</li>
+      <li>→ Langsam ist nicht dumm, der Schreibtisch ist nur voll</li>
+      <li>→ Tests helfen dir beim Lernen, auch alte Arbeiten</li>
+    </ul>
+  </section>
+
+  <div id="dots"></div>
+  <div id="counter"></div>
+  <div id="hint">← → blättern · F Vollbild</div>
+</div>
+
+<script>
+  const brainSVG = `
+  <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" style="width:24vw;height:auto">
+    <g fill="none" stroke="#1c2230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M70 120 C40 110 40 70 72 62 C70 36 106 22 130 40 C150 24 190 32 192 60
+               C222 62 228 104 200 116 C206 142 176 160 152 148 C142 170 102 170 96 146
+               C72 152 60 136 70 120 Z" fill="#fffdf9"/>
+      <path d="M100 58 C112 70 100 84 114 96 M136 44 L136 150 M158 68 C146 80 160 92 150 106 M104 122 C118 122 124 134 140 130"/>
+    </g>
+    <g stroke="#2f6f4f" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M206 44 l0 -14 M199 37 l14 0"/>
+      <path d="M186 26 l0 -10 M181 21 l10 0"/>
+    </g>
+    <g fill="#1c2230">
+      <rect x="70" y="196" width="100" height="9" rx="4"/>
+      <rect x="58" y="182" width="14" height="37" rx="4"/>
+      <rect x="44" y="188" width="12" height="25" rx="4"/>
+      <rect x="168" y="182" width="14" height="37" rx="4"/>
+      <rect x="184" y="188" width="12" height="25" rx="4"/>
+    </g>
+    <text x="120" y="234" font-size="13" text-anchor="middle" font-family="sans-serif" fill="#6b7280">üben  →  stärker</text>
+  </svg>`;
+  document.getElementById('brainSlot').innerHTML = brainSVG;
+
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((_,i)=>{const d=document.createElement('i'); if(i===0)d.className='on'; dots.appendChild(d);});
+  const dotEls=[...dots.children];
+  const counter=document.getElementById('counter');
+  let i=0;
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+    counter.textContent=(i+1)+' / '+slides.length;
+  }
+  show(0);
+  const stage=document.getElementById('stage');
+  stage.focus();
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){show(i+1);e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){show(i-1);e.preventDefault();}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  stage.addEventListener('click',e=>{ show(i + (e.clientX < window.innerWidth/2 ? -1 : 1)); });
+</script>
+</body>
+</html>

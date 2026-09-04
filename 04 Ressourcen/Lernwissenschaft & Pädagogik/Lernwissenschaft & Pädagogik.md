@@ -19,5 +19,9 @@ Aktuelle Forschung zum Lernen, effektive Unterrichtsmethoden und der Einsatz von
 ## Links und Quellen
 -
 
+## Unterrichtskonzepte
+- [[Lernen lernen – Konzept Schulstart Klasse 7]] – Mindset nach Dweck plus Lerntechniken (weißes Blatt, Testeffekt, alte Arbeiten), zwei Blöcke + Dauer-Routinen
+- [[Klassenführung – Regeln und Rituale Klasse 7]] – Reinkommen, Stundenbeginn, Übergänge, Konzentrationssignal, Handys
+
 ## Notizen
 -
