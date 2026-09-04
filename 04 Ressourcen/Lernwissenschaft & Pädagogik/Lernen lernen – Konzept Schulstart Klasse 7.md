@@ -46,6 +46,10 @@ Statt der üblichen Schreibtisch-Metapher (Arbeitsgedächtnis als kleine Arbeits
 
 Das Schwimmbild trägt dagegen alles auf einmal: die Kapazitätsgrenze (vier Teilbewegungen gleichzeitig gehen nicht), die Automatisierung (daraus wird eine Bewegung, der Kopf wird frei), die Anstrengung (niemand glaubt, dass man Kraulen durch Zuschauen lernt) und den Bezug zu Mathe (Kopfrechnen und Gleichungen sind der Beinschlag).
 
+Für alle, die mit Schwimmen nichts anfangen können, gibt es denselben Gedanken als Zweitzugang: ein neuer Controller. Am Anfang muss man bei jedem Knopf überlegen, nach einiger Zeit machen es die Finger von allein und der Kopf ist frei fürs Spiel. Das lässt sich glaubwürdig aus eigener Erfahrung erzählen.
+
+Aufgehoben für eine spätere Wiederholungsstunde: Beim Zocken verliert man dreißigmal an derselben Stelle und sagt trotzdem nie „ich bin kein Talent dafür“, sondern „gleich hab ich's“. In Mathe sagen dieselben Kinder nach dem dritten Versuch, sie könnten es nicht. Die Frage danach ist scharf und lohnt sich, passt aber nicht mehr in Block 1.
+
 ## Block 1 (40 min, Klassenlehrerstunde)
 
 | Zeit | Phase | Inhalt |
@@ -121,6 +125,21 @@ Unbenotet und privat. Es geht darum zu sehen, wo noch etwas fehlt.
 
 Nicht rechtfertigen. Der Vergleich der zwei Blätter macht das Argument von allein.
 
+## Plakat (25 min, KL-Stunde Woche 2)
+
+Wird nicht gedruckt, sondern von der Klasse gebaut. Nur die Gehirn-Grafik kommt aus dem Drucker (A4, `Lernen lernen – Gehirn-Grafik.html`) und wird in die Mitte geklebt. Drumherum schreiben die Schüler die sechs Sprüche selbst, groß und lesbar. Layout und Spruchliste stehen auf den letzten beiden Folien der Präsentation.
+
+Die sechs Sprüche:
+
+1. Dein Gehirn wächst wie ein Muskel
+2. „Ich kann das noch nicht“
+3. Lernen heißt abrufen, nicht nochmal lesen
+4. Wer keine Fehler macht, übt zu leicht
+5. Langsam ist nicht dumm, es läuft nur noch nicht von allein
+6. Tests helfen dir beim Lernen, auch alte Arbeiten
+
+Arbeitsform: Plakatkarton, Gruppen bekommen je einen Spruch und gestalten ihr Feld, ein bis zwei Schüler kleben die Grafik. Wenn es größer als A3 werden soll, Karton aus dem Kunstraum, gedruckt wird nur das A4-Blatt.
+
 ## Quellen
 
 - Dweck: *Selbstbild* (Original *Mindset*); dazu Dweck (2016), Recognizing and Overcoming False Growth Mindset, *Education Week*
@@ -134,8 +153,9 @@ Nicht rechtfertigen. Der Vergleich der zwei Blätter macht das Argument von alle
 
 ## Material im selben Ordner
 
+- `Lernen lernen – Ablauf.excalidraw`, der ganze Ablauf auf einen Blick, zum Danebenlegen
 - `Lernen lernen – Präsentation.html`, Folien für alle drei Einheiten, Klick oder Pfeiltasten, F für Vollbild
-- `Lernen lernen – Plakat A2.html` und `Lernen lernen – Gehirn-Grafik.html`, im Browser als PDF drucken
+- `Lernen lernen – Gehirn-Grafik.html`, A4 im Browser als PDF drucken, kommt in die Plakatmitte
 - [[Klassenführung – Regeln und Rituale Klasse 7]]
 
 ## Offen
