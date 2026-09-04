@@ -778,10 +778,6 @@
         {
           "type": "text",
           "id": "wb1_text"
-        },
-        {
-          "id": "arrow_selbstversuch",
-          "type": "arrow"
         }
       ],
       "updated": 1,
@@ -814,13 +810,13 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "text": "Fachstunde · 10 min\nWeißes Blatt, Durchgang 1",
-      "fontSize": 20,
+      "text": "Sachtext lesen (3 min)\ndann weißes Blatt + rot ergänzen",
+      "fontSize": 18,
       "fontFamily": 2,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "wb1_rect",
-      "originalText": "Fachstunde · 10 min\nWeißes Blatt, Durchgang 1",
+      "originalText": "Sachtext lesen (3 min)\ndann weißes Blatt + rot ergänzen",
       "lineHeight": 1.25
     },
     {
@@ -849,108 +845,13 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "text": "Blätter einsammeln und mitnehmen, sonst sind sie weg",
+      "text": "Text nach dem Lesen einsammeln, sonst liegt er beim Abruf auf dem Tisch",
       "fontSize": 17,
       "fontFamily": 2,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Blätter einsammeln und mitnehmen, sonst sind sie weg",
-      "lineHeight": 1.25
-    },
-    {
-      "id": "arrow_selbstversuch",
-      "type": "arrow",
-      "x": 650,
-      "y": 936,
-      "width": 250,
-      "height": 376,
-      "angle": 0,
-      "strokeColor": "#c2410c",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 2,
-      "strokeStyle": "dashed",
-      "roughness": 0,
-      "opacity": 100,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": {
-        "type": 2
-      },
-      "seed": 300001,
-      "version": 1,
-      "versionNonce": 1,
-      "isDeleted": false,
-      "boundElements": [],
-      "updated": 1,
-      "link": null,
-      "locked": false,
-      "points": [
-        [
-          0,
-          0
-        ],
-        [
-          180,
-          0
-        ],
-        [
-          180,
-          -376
-        ],
-        [
-          250,
-          -376
-        ]
-      ],
-      "lastCommittedPoint": null,
-      "startBinding": {
-        "elementId": "wb1_rect",
-        "focus": 0,
-        "gap": 4
-      },
-      "endBinding": {
-        "elementId": "wb2_rect",
-        "focus": 0,
-        "gap": 4
-      },
-      "startArrowhead": null,
-      "endArrowhead": "arrow"
-    },
-    {
-      "id": "sv_label",
-      "type": "text",
-      "x": 662,
-      "y": 992,
-      "width": 175,
-      "height": 57,
-      "angle": 0,
-      "strokeColor": "#c2410c",
-      "backgroundColor": "transparent",
-      "fillStyle": "solid",
-      "strokeWidth": 1,
-      "strokeStyle": "solid",
-      "roughness": 0,
-      "opacity": 100,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": null,
-      "seed": 300002,
-      "version": 1,
-      "versionNonce": 1,
-      "isDeleted": false,
-      "boundElements": [],
-      "updated": 1,
-      "link": null,
-      "locked": false,
-      "text": "Selbstversuch\ndasselbe Blatt,\n3 Tage später",
-      "fontSize": 15,
-      "fontFamily": 2,
-      "textAlign": "left",
-      "verticalAlign": "top",
-      "containerId": null,
-      "originalText": "Selbstversuch\ndasselbe Blatt,\n3 Tage später",
+      "originalText": "Text nach dem Lesen einsammeln, sonst liegt er beim Abruf auf dem Tisch",
       "lineHeight": 1.25
     },
     {
@@ -1016,10 +917,6 @@
         {
           "type": "text",
           "id": "wb2_text"
-        },
-        {
-          "id": "arrow_selbstversuch",
-          "type": "arrow"
         }
       ],
       "updated": 1,
@@ -1052,13 +949,13 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "text": "Weißes Blatt, Durchgang 2\ndann still vergleichen",
+      "text": "Rückgriff: euer rotes Blatt\nVerstehen ist nicht Können",
       "fontSize": 20,
       "fontFamily": 2,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "wb2_rect",
-      "originalText": "Weißes Blatt, Durchgang 2\ndann still vergleichen",
+      "originalText": "Rückgriff: euer rotes Blatt\nVerstehen ist nicht Können",
       "lineHeight": 1.25
     },
     {

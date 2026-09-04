@@ -93,7 +93,7 @@
   <section class="slide">
     <div class="kicker">Kleines Experiment</div>
     <h2>Merkt euch das. 10 Sekunden.</h2>
-    <p class="mono" style="font-size:3.4vw" data-step>K A I H Z D S N H</p>
+    <p class="mono" style="font-size:3.4vw" data-step data-hide>K A I H Z D S N H</p>
     <p class="note" data-step>Blatt zu. Aufschreiben. … Schwer, oder?</p>
   </section>
 
@@ -101,7 +101,7 @@
   <section class="slide">
     <div class="kicker">Und jetzt das</div>
     <h2>Merkt euch das. 10 Sekunden.</h2>
-    <p class="mono" style="font-size:3.4vw; color:var(--accent)" data-step>K O N Z E N T R A T I O N</p>
+    <p class="mono" style="font-size:3.4vw; color:var(--accent)" data-step data-hide>K O N Z E N T R A T I O N</p>
     <p class="note" data-step>Gleich viele Buchstaben. Trotzdem einfach. Warum?</p>
   </section>
 
@@ -167,21 +167,65 @@
   <!-- 8: Zweitzugang für alle, die nicht schwimmen -->
   <section class="slide">
     <div class="kicker">Geht auch ohne Schwimmbad</div>
-    <h2>Neuer Controller</h2>
-    <p>Ich habe mir gerade eine neue Konsole gekauft. Und ich drücke ständig den falschen Knopf,
-       weil ich jedes Mal überlegen muss: war X jetzt springen oder Y?</p>
-    <p data-step>Wer ein Jahr lang spielt, überlegt nicht mehr. Die Finger machen das von allein,
-       und der Kopf ist frei fürs Spiel.</p>
-    <p class="big" data-step style="color:var(--accent)">Gleiches Prinzip. Nur ohne nasse Haare.</p>
+    <h2 style="margin-bottom:.2em">Neuer Controller</h2>
+    <svg viewBox="0 0 460 230" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:36vh" aria-hidden="true">
+      <g fill="none" stroke="#1c2230" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M150 62 h160 a52 52 0 0 1 52 52 v10 a44 44 0 0 1 -44 44 h-6
+                 a26 26 0 0 1 -24 -16 l-10 -24 h-96 l-10 24 a26 26 0 0 1 -24 16 h-6
+                 a44 44 0 0 1 -44 -44 v-10 a52 52 0 0 1 52 -52 Z" fill="#fffdf9"/>
+        <path d="M130 112 h44 M152 90 v44"/>
+      </g>
+      <g fill="#fffdf9" stroke="#1c2230" stroke-width="5">
+        <circle cx="312" cy="88" r="17"/><circle cx="340" cy="114" r="17"/>
+        <circle cx="312" cy="140" r="17"/><circle cx="284" cy="114" r="17"/>
+      </g>
+      <g font-family="sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#1c2230">
+        <text x="312" y="95">X</text><text x="340" y="121">A</text>
+        <text x="312" y="147">B</text><text x="284" y="121">Y</text>
+      </g>
+      <g fill="none" stroke="#c2531e" stroke-width="4" stroke-linecap="round">
+        <path d="M366 78 q18 -14 34 -4"/><path d="M374 60 q26 -20 50 -8"/>
+      </g>
+      <text x="404" y="192" font-family="sans-serif" font-size="17" fill="#c2531e" text-anchor="middle">war X jetzt springen?</text>
+    </svg>
+    <p class="big" data-step style="color:var(--accent); margin-top:.4em">Gleiches Prinzip. Nur ohne nasse Haare.</p>
   </section>
 
   <!-- 9 -->
   <section class="slide">
-    <h2>Rennauto oder Wanderer</h2>
-    <p>Das Rennauto ist als Erstes am Ziel. Unterwegs sieht es nur verschwommene Streifen.</p>
-    <p data-step>Der Wanderer braucht länger. Dafür sieht er die Abzweigung, die Blumen am Rand
-       und den Fehler im Wegweiser.</p>
-    <p class="big" data-step style="color:var(--accent); margin-top:.7em">Beide kommen an. Wer langsamer geht, sieht mehr.</p>
+    <h2 style="margin-bottom:.2em">Rennauto oder Wanderer</h2>
+    <svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:36vh" aria-hidden="true">
+      <g fill="none" stroke="#1c2230" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M52 138 h34 l22 -26 h56 l16 26 h46" fill="#fffdf9"/>
+        <path d="M44 138 h16 M226 138 h18"/>
+        <path d="M40 120 h20 v18" />
+        <path d="M232 116 h22 v22"/>
+      </g>
+      <g fill="#fffdf9" stroke="#1c2230" stroke-width="5">
+        <circle cx="106" cy="152" r="20"/><circle cx="204" cy="152" r="20"/>
+      </g>
+      <g fill="none" stroke="#c2531e" stroke-width="4" stroke-linecap="round">
+        <path d="M8 108 h44 M0 128 h34 M10 148 h30"/>
+      </g>
+      <line x1="310" y1="24" x2="310" y2="196" stroke="#c9c2b4" stroke-width="2" stroke-dasharray="7 7"/>
+      <g fill="none" stroke="#1c2230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M440 92 v40"/>
+        <path d="M440 104 l-20 16 M440 104 l22 12"/>
+        <path d="M440 132 l-16 34 M440 132 l18 34"/>
+        <path d="M462 116 v54"/>
+        <path d="M424 74 q16 -14 32 0 q6 18 -16 20 q-22 -2 -16 -20 Z" fill="#fffdf9"/>
+        <path d="M414 96 q-16 6 -14 28 q2 16 16 14" />
+      </g>
+      <path d="M348 178 q60 -10 120 -2 q60 8 130 -6" fill="none" stroke="#bcd9ea" stroke-width="4" stroke-linecap="round"/>
+      <g fill="none" stroke="#2f6f4f" stroke-width="4" stroke-linecap="round">
+        <path d="M520 120 v-16 M512 112 h16"/>
+        <path d="M556 142 v-14 M549 135 h14"/>
+      </g>
+      <g font-family="sans-serif" font-size="19" text-anchor="middle" fill="#6b7280">
+        <text x="140" y="208">Rennauto</text><text x="450" y="208">Wanderer</text>
+      </g>
+    </svg>
+    <p class="big" data-step style="color:var(--accent); margin-top:.3em">Beide kommen an. Wer langsamer geht, sieht mehr.</p>
   </section>
 
   <!-- 8 -->
@@ -293,10 +337,23 @@
 
   <!-- 12 -->
   <section class="slide">
-    <h2>Schnell fertig ≠ gut</h2>
-    <p>Ein Profimusiker übt eine schwere Stelle <b>langsam</b>, wieder und wieder, bis sie sitzt.
-       Er sucht die Fehler absichtlich, statt sie zu überspringen.</p>
-    <p class="big" style="margin-top:.8em; color:var(--accent)" data-step>Gut werden dauert. Das ist normal.</p>
+    <h2 style="margin-bottom:.2em">Schnell fertig ist nicht gut gemacht</h2>
+    <svg viewBox="0 0 460 230" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:34vh" aria-hidden="true">
+      <g fill="none" stroke="#1c2230" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M150 116 q0 -34 30 -42 q26 -6 34 16 q4 14 22 14 q18 0 22 -14 q8 -22 34 -16 q30 8 30 42
+                 q0 34 -30 42 q-26 6 -34 -16 q-4 -14 -22 -14 q-18 0 -22 14 q-8 22 -34 16 q-30 -8 -30 -42 Z" fill="#fffdf9"/>
+        <circle cx="236" cy="116" r="15"/>
+        <path d="M312 116 h94"/>
+        <path d="M406 104 h22 v24 h-22 Z" fill="#fffdf9"/>
+        <path d="M330 108 v16 M356 108 v16 M382 108 v16"/>
+      </g>
+      <g fill="none" stroke="#c2531e" stroke-width="3.5" stroke-linecap="round">
+        <path d="M120 84 q-16 12 -2 26"/>
+        <path d="M100 68 q-26 22 -2 50"/>
+      </g>
+      <text x="230" y="206" font-family="sans-serif" font-size="18" fill="#6b7280" text-anchor="middle">die schwere Stelle, langsam, immer wieder</text>
+    </svg>
+    <p class="big" data-step style="color:var(--accent); margin-top:.3em">Gut werden dauert. Das ist normal.</p>
   </section>
 
   <!-- 12 -->
@@ -307,11 +364,11 @@
 
   <!-- 14 -->
   <section class="slide">
-    <div class="kicker">Zuerst: euer Selbstversuch</div>
-    <h2>Legt eure zwei Blätter nebeneinander</h2>
-    <p>Das von letzter Woche und das von heute. Gleiches Thema, gleiche Zeit.</p>
-    <p class="big" style="margin-top:.6em; color:var(--accent)">Wer hat heute mehr aufs Blatt bekommen?</p>
-    <p class="note" data-step>Dazwischen lag kein Wunder. Nur einmal abrufen und einmal üben.</p>
+    <div class="kicker">Erinnert ihr euch?</div>
+    <h2>Euer rotes Blatt</h2>
+    <p>Ihr habt den Text gelesen und dabei alles verstanden.
+       Eine Stunde später war die Hälfte weg.</p>
+    <p class="big" data-step style="color:var(--accent2)">Verstehen und Können sind zwei verschiedene Sachen.</p>
   </section>
 
   <!-- 15 -->
@@ -392,8 +449,8 @@
           <line x1="30" y1="170" x2="285" y2="170" stroke="#1c2230" stroke-width="2"/>
           <line x1="30" y1="170" x2="30" y2="15" stroke="#1c2230" stroke-width="2"/>
           <path d="M30 165 Q150 -20 285 165" fill="none" stroke="#2f6f4f" stroke-width="4"/>
-          <circle cx="157" cy="40" r="6" fill="#c2531e"/>
-          <text x="150" y="30" font-size="12" text-anchor="middle" font-family="sans-serif">bester Punkt</text>
+          <circle cx="154" cy="72" r="6" fill="#c2531e"/>
+          <text x="154" y="58" font-size="12" text-anchor="middle" font-family="sans-serif">bester Punkt</text>
           <text x="160" y="188" font-size="11" text-anchor="middle" font-family="sans-serif" fill="#6b7280">Aufregung</text>
         </svg>
       </div>
@@ -486,27 +543,34 @@
   slides.forEach((_,i)=>{const d=document.createElement('i'); if(i===0)d.className='on'; dots.appendChild(d);});
   const dotEls=[...dots.children];
   const counter=document.getElementById('counter');
-  let i=0;
+  let i=0, stepIdx=0;
   const steps = n => [...slides[n].querySelectorAll('[data-step]')];
 
+  // data-hide: nur sichtbar, solange es der zuletzt aufgedeckte Schritt ist
+  function applySteps(){
+    const st=steps(i);
+    st.forEach((el,k)=>{
+      const offen = k < stepIdx;
+      const wiederWeg = el.hasAttribute('data-hide') && k < stepIdx-1;
+      el.classList.toggle('shown', offen && !wiederWeg);
+    });
+    label();
+  }
   function show(n, revealAll){
     i=Math.max(0,Math.min(slides.length-1,n));
     slides.forEach((s,k)=>s.classList.toggle('active',k===i));
     dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
-    steps(i).forEach(el=>el.classList.toggle('shown', !!revealAll));
-    label();
+    stepIdx = revealAll ? steps(i).length : 0;
+    applySteps();
   }
   function label(){
-    const st=steps(i), open=st.filter(e=>e.classList.contains('shown')).length;
-    counter.textContent=(i+1)+' / '+slides.length+(st.length?'  ·  '+open+'/'+st.length:'');
+    const n=steps(i).length;
+    counter.textContent=(i+1)+' / '+slides.length+(n?'  ·  '+stepIdx+'/'+n:'');
   }
-  // Vorwärts: erst den nächsten verdeckten Teil aufdecken, dann die nächste Folie
   function next(){
-    const hidden = steps(i).find(e=>!e.classList.contains('shown'));
-    if(hidden){ hidden.classList.add('shown'); label(); return; }
+    if(stepIdx < steps(i).length){ stepIdx++; applySteps(); return; }
     show(i+1,false);
   }
-  // Rückwärts: ganze Folie zurück, alles sichtbar
   function prev(){ show(i-1,true); }
 
   show(0,false);

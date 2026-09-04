@@ -32,13 +32,36 @@ Nur eine Routine dauerhaft durchziehen, sonst schläft alles ein. Das ist das St
 
 | Baustein | Wo | Dauer |
 |---|---|---|
+| Sachtext lesen (Grönlandhai), danach einsammeln | Beginn oder Ende von Block 1 | 4 min |
 | Block 1: Warum manche Sachen leichtfallen | KL-Stunde Woche 1 | 40 min |
-| Weißes Blatt, Durchgang 1 (Blätter einsammeln) | Fachstunde Woche 1 | 10 min |
-| Block 2A: Abrufen statt Wiederlesen, mit Durchgang 2 | Fachstunde Woche 2 | 40 min |
+| Weißes Blatt zum Sachtext, dann rot ergänzen | 40 min bis 1 Tag nach dem Lesen | 12 min |
+| Block 2A: Abrufen statt Wiederlesen | Fachstunde Woche 2 | 40 min |
 | Block 2B: Sich testen, alte Arbeiten, verteilt üben | Fachstunde Woche 2 | 40 min |
 | Plakat bauen | KL-Stunde Woche 2 | 25 min |
 
-Zwischen Durchgang 1 und 2 liegen mindestens drei Tage. Die Blätter aus Durchgang 1 nehme ich mit und bringe sie in Woche 2 wieder mit, sonst sind sie weg. Wer beim ersten Mal gefehlt hat, schreibt in Woche 2 einfach mit, ohne Vergleich.
+### Der Sachtext als Klammer
+
+Das weiße Blatt braucht Inhalt, und in der ersten Woche gibt es noch keinen eigenen Stoff. Deshalb bringe ich ihn mit: `Sachtext Grönlandhai.html`, 228 Wörter, rund 18 Einzelfakten, für alle gleich neu. Ablauf je nach Stundenplan:
+
+**Bei einer Doppelstunde:** Text ganz am Anfang austeilen, drei Minuten lesen lassen, ohne zu sagen wozu. Wieder einsammeln. Dann Block 1 komplett. Ganz am Ende der Abruf. Zwischen Lesen und Abrufen liegen etwa 40 Minuten.
+
+**Bei Einzelstunden:** Text ans Ende der ersten Stunde, drei Minuten lesen, einsammeln, kein Hinweis. Der Abruf kommt am Anfang der nächsten Stunde. Der Abstand ist dann ein Tag, das Blatt wird lückenhafter und der Effekt eher stärker. Nebenbei startet die zweite Stunde sofort mit einer Aktivität.
+
+Wichtig in beiden Fällen: Der Text wird nach dem Lesen eingesammelt, sonst liegt er beim Abruf auf dem Tisch. Zum Ergänzen wird er erneut ausgeteilt.
+
+### Der Abruf, wörtlich
+
+> Heft zu, Buch zu, alles vom Tisch außer einem leeren Blatt und einem Stift. Ihr habt fünf Minuten. Schreibt auf, was ihr von dem Text noch wisst. Stichworte reichen. Wird nicht eingesammelt und nicht benotet.
+
+Danach Text austeilen:
+
+> Jetzt nehmt einen roten Stift und ergänzt alles, was gefehlt hat.
+
+Und dann der eigentliche Moment:
+
+> Schaut euch euer Blatt an. Nicht das Schwarze, sondern wie viel Rot draufsteht. Genau das ist der Unterschied zwischen „kommt mir bekannt vor“ und „kann ich“. Vor einer Stunde hättet ihr gesagt, ihr habt den Text verstanden. Hattet ihr auch. Verstehen und Können sind aber zwei verschiedene Sachen.
+
+Kein Vergleich zwischen zwei Durchgängen, keine Vorhersage, die schiefgehen kann. Der Effekt tritt beim ersten Mal ein und ist bei jeder Klasse zuverlässig.
 
 ## Das Leitbild: Kraulschwimmen
 
@@ -64,9 +87,7 @@ Material: Tafel.
 
 ## Block 2A: Abrufen statt Wiederlesen
 
-Beginn mit Durchgang 2 des weißen Blattes, bevor etwas erklärt wird. Danach Vergleich mit dem eigenen Blatt aus Woche 1. Stille Selbsteinschätzung, kein Handzeichen, damit niemand vorgeführt wird, bei dem es nicht mehr geworden ist.
-
-Danach erst die Erklärung. Wer eine Zusammenfassung dreimal liest, fühlt sich sicher und kann es trotzdem nicht. Der Text kommt einem bekannt vor, und Bekanntheit fühlt sich an wie Können. Dazu Roediger & Karpicke (2006): Die Lesegruppe fühlt sich direkt danach sicherer, die Testgruppe kann nach einer Woche deutlich mehr. Keine festen Prozentzahlen nennen, die schwanken je nach Experiment.
+Rückgriff auf das rote Blatt aus Block 1, dann die Erklärung. Wer eine Zusammenfassung dreimal liest, fühlt sich sicher und kann es trotzdem nicht. Der Text kommt einem bekannt vor, und Bekanntheit fühlt sich an wie Können. Dazu Roediger & Karpicke (2006): Die Lesegruppe fühlt sich direkt danach sicherer, die Testgruppe kann nach einer Woche deutlich mehr. Keine festen Prozentzahlen nennen, die schwanken je nach Experiment.
 
 Der Punkt, auf den es ankommt (Bjork, wünschenswerte Erschwernisse): Was sich beim Lernen leicht anfühlt, bleibt schlecht hängen. Für die Klasse: Wenn Lernen sich leicht anfühlt, lernst du gerade wenig. Das Ziehen beim Abrufen ist nicht das Zeichen, dass du zu dumm bist, sondern das Geräusch, das Lernen macht.
 
