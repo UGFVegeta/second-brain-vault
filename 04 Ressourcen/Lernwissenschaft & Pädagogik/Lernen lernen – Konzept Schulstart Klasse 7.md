@@ -189,6 +189,7 @@ Arbeitsform: Plakatkarton, Gruppen bekommen je einen Spruch und gestalten ihr Fe
 - `Lernen lernen – Präsentation.html`, Folien für alle drei Einheiten, Klick oder Pfeiltasten, F für Vollbild
 - `Lernen lernen – Sprechzettel.html`, was ich zu jeder Folie sage, zum Ausdrucken
 - `Lernen lernen – Reader.html`, vier Seiten für die Schüler, doppelseitig auf zwei Blättern
+- `bild-*.jpg`, die acht Illustrationen. Sie müssen im selben Ordner liegen wie die Präsentation, sonst sind die Folien leer.
 - `Sachtext Grönlandhai.html`, zwei Exemplare pro A4-Seite
 - `Lernen lernen – Gehirn-Grafik.html`, A4 im Browser als PDF drucken, kommt in die Plakatmitte
 - [[Klassenführung – Regeln und Rituale Klasse 7]]
