@@ -115,7 +115,7 @@ Dazu die Menge: Das Buch gibt zu wenig Aufgaben her, es braucht zusätzliches Ü
 
 ## Routine ab Woche 3
 
-Zwei Minuten am Ende jeder Mathe- und Physikstunde, ohne Heft: „Was war das Wichtigste heute? Erkläre es in zwei Sätzen.“
+Fünf Minuten am Ende jeder Mathe- und Physikstunde, ohne Heft: „Was war das Wichtigste heute? Erkläre es in zwei Sätzen.“
 
 Kür, wenn das sitzt: drei Fragen zur letzten Stunde am Anfang, gelegentlich die Frage, wer heute einen Fehler gemacht und was er daraus gelernt hat.
 
@@ -176,6 +176,8 @@ Arbeitsform: Plakatkarton, Gruppen bekommen je einen Spruch und gestalten ihr Fe
 
 - `Lernen lernen – Ablauf.excalidraw`, der ganze Ablauf auf einen Blick, zum Danebenlegen
 - `Lernen lernen – Präsentation.html`, Folien für alle drei Einheiten, Klick oder Pfeiltasten, F für Vollbild
+- `Lernen lernen – Sprechzettel.html`, was ich zu jeder Folie sage, zum Ausdrucken
+- `Sachtext Grönlandhai.html`, zwei Exemplare pro A4-Seite
 - `Lernen lernen – Gehirn-Grafik.html`, A4 im Browser als PDF drucken, kommt in die Plakatmitte
 - [[Klassenführung – Regeln und Rituale Klasse 7]]
 
