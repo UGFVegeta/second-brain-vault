@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Lernen lernen – Reader</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{background:#e9e5dc; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:#000}
+  .sheet{width:210mm; height:297mm; background:#fff; margin:8mm auto; padding:15mm 16mm 14mm;
+         display:flex; flex-direction:column; box-shadow:0 3mm 14mm rgba(0,0,0,.15)}
+  .kopf{display:flex; justify-content:space-between; align-items:baseline;
+        border-bottom:1mm solid #000; padding-bottom:2mm; margin-bottom:6mm}
+  .kopf h1{font-size:17pt}
+  .kopf .seite{font-size:9pt; color:#555}
+  h2{font-size:12pt; margin:5mm 0 2mm}
+  h2 .nr{display:inline-block; width:7mm; height:7mm; border:.4mm solid #000; border-radius:50%;
+         font-size:9pt; text-align:center; line-height:6.4mm; margin-right:2mm; font-weight:400}
+  p{font-size:10.5pt; line-height:1.5; margin-bottom:2.5mm}
+  .klein{font-size:9.5pt; color:#444}
+  .kasten{border:.4mm solid #000; border-radius:2mm; padding:4mm; margin-bottom:4mm}
+  .leer{border:.4mm dashed #666; border-radius:2mm}
+  .zeile{border-bottom:.3mm solid #999; height:9mm}
+  .zeile:last-child{border-bottom:none}
+  .luecke{display:inline-block; border-bottom:.4mm solid #000; min-width:22mm; height:5mm}
+  .luecke.kurz{min-width:12mm}
+  .luecke.lang{min-width:60mm}
+  .reihe{display:flex; gap:3mm; margin-bottom:3mm}
+  .reihe .feld{flex:1; border:.4mm solid #000; border-radius:2mm; height:14mm;
+               display:flex; align-items:flex-end; justify-content:center; padding-bottom:2mm;
+               font-size:8pt; color:#777}
+  .pfeil{text-align:center; font-size:14pt; margin:1mm 0 3mm}
+  .breit{border:.4mm solid #000; border-radius:2mm; height:17mm; display:flex;
+         align-items:center; justify-content:center; font-size:11pt; letter-spacing:.06em; margin-bottom:4mm}
+  .fuss{margin-top:auto; border-top:.3mm solid #999; padding-top:2.5mm; font-size:8.5pt; color:#555}
+  .zwei{display:flex; gap:5mm}
+  .zwei > div{flex:1}
+  ol{margin-left:5mm; font-size:10.5pt; line-height:1.6}
+  ol li{margin-bottom:1mm}
+  .satzliste{font-size:10.5pt; line-height:1.55}
+  .satzliste div{padding:1.1mm 0; border-bottom:.2mm dotted #aaa}
+  @media print{ @page{size:A4; margin:0} body{background:#fff} .sheet{margin:0; box-shadow:none} }
+</style>
+</head>
+<body>
+
+<!-- ============ SEITE 1 ============ -->
+<div class="sheet">
+  <div class="kopf">
+    <h1>Lernen lernen</h1>
+    <div class="seite">Name: ________________________ &nbsp;&nbsp; Klasse 7</div>
+  </div>
+
+  <h2><span class="nr">1</span>Zwei Merkversuche</h2>
+  <p class="klein">Schreib auf, was du behalten hast. Nicht abgucken, es wird nichts eingesammelt.</p>
+  <div class="zwei">
+    <div>
+      <div class="klein" style="margin-bottom:1.5mm">Versuch 1</div>
+      <div class="kasten leer" style="height:29mm"></div>
+    </div>
+    <div>
+      <div class="klein" style="margin-bottom:1.5mm">Versuch 2</div>
+      <div class="kasten leer" style="height:29mm"></div>
+    </div>
+  </div>
+
+  <p>Beim zweiten Versuch war es leichter, weil das Wort für meinen Kopf
+     <span class="luecke lang"></span> ist.</p>
+  <p>Mein Kopf hält nur <span class="luecke kurz"></span> bis <span class="luecke kurz"></span>
+     Sachen gleichzeitig fest.</p>
+
+  <h2><span class="nr">2</span>Kraulschwimmen</h2>
+  <p class="klein">Trag die vier Sachen ein, an die ein Anfänger gleichzeitig denken muss.</p>
+  <div class="reihe">
+    <div class="feld">1</div><div class="feld">2</div><div class="feld">3</div><div class="feld">4</div>
+  </div>
+  <div class="pfeil">nach vielen Wochen Üben &nbsp;↓</div>
+  <div class="breit">EINE BEWEGUNG</div>
+  <p>Dann ist der Kopf frei für <span class="luecke lang"></span>.</p>
+
+  <p style="margin-top:4mm">Etwas, das bei dir schon <b>von allein</b> läuft und am Anfang aus vielen
+     Einzelteilen bestand:</p>
+  <div class="kasten leer" style="padding:2mm"><div class="zeile"></div></div>
+
+  <div class="fuss">In Mathe ist das Kopfrechnen der Beinschlag: Wenn es von allein läuft, hast du den Kopf frei für die eigentliche Aufgabe.</div>
+</div>
+
+<!-- ============ SEITE 2 ============ -->
+<div class="sheet">
+  <div class="kopf">
+    <h1>Lernen kostet etwas</h1>
+    <div class="seite">Seite 2</div>
+  </div>
+
+  <h2><span class="nr">3</span>Der wichtigste Satz</h2>
+  <div class="kasten">
+    <p style="font-size:13pt; margin:0">Lernen ist anstrengend.<br>Und genau deshalb wirkt es.</p>
+  </div>
+  <p>Wenn du dich beim Lernen wohlfühlst, passiert gerade <span class="luecke"></span>.</p>
+
+  <h2><span class="nr">4</span>Zwei Sätze, die alles ändern</h2>
+  <p><b>Der bequeme Satz:</b> „Ich kann das nicht.“ Wer ihn sagt, muss sich nicht anstrengen.</p>
+  <p><b>Der andere Satz:</b> „Ich kann das <b>noch</b> nicht.“ Anstrengender, aber er funktioniert.</p>
+  <p style="margin-top:4mm">Etwas, das ich <b>noch</b> nicht kann und dieses Jahr können will:</p>
+  <div class="kasten leer"><div class="zeile"></div><div class="zeile"></div></div>
+
+  <h2><span class="nr">5</span>Unsere Abmachung</h2>
+  <div class="kasten">
+    <p><b>Was Herr Klein zusagt:</b> Fragen kostet nichts, auch beim zehnten Mal.
+       Alle werden gleich behandelt, egal ob gerade gut oder schwach.</p>
+    <p style="margin-bottom:0"><b>Was ich zusage:</b> Ich zeige, dass ich bereit bin zu arbeiten.
+       Wenn ein Weg nicht funktioniert, probiere ich einen anderen oder frage.</p>
+  </div>
+
+  <h2><span class="nr">6</span>Rennauto oder Wanderer</h2>
+  <p class="klein">Das Rennauto ist zuerst am Ziel und sieht nur verschwommene Streifen.
+     Der Wanderer braucht länger und sieht die Abzweigung, die Blumen und den Fehler im Wegweiser.</p>
+  <p>Beide kommen an. Wer langsamer geht, <span class="luecke lang"></span>.</p>
+
+  <div class="fuss">Anstrengen allein reicht nicht. Wenn eine Stunde dasselbe Probieren nicht hilft, ist der Weg falsch. Dann: anderer Weg oder fragen.</div>
+</div>
+
+<!-- ============ SEITE 3 ============ -->
+<div class="sheet">
+  <div class="kopf">
+    <h1>Das weiße Blatt</h1>
+    <div class="seite">Seite 3</div>
+  </div>
+
+  <p class="klein" style="margin-bottom:4mm">Heft zu, Buch zu. Schreib auf, was du noch weißt.
+     Stichworte reichen. Wird nicht benotet und nicht eingesammelt.<br>
+     Danach: mit <b>rotem Stift</b> ergänzen, was gefehlt hat.</p>
+
+  <div class="leer" style="flex:1; border-radius:2mm"></div>
+
+  <div class="fuss" style="margin-top:5mm">
+    Das Rote auf deinem Blatt ist der Unterschied zwischen „kommt mir bekannt vor“ und „kann ich“.
+    Es ist keine schlechte Note, sondern dein Lernplan für das nächste Mal.
+  </div>
+</div>
+
+<!-- ============ SEITE 4 ============ -->
+<div class="sheet">
+  <div class="kopf">
+    <h1>So lernst du wirklich</h1>
+    <div class="seite">Seite 4</div>
+  </div>
+
+  <h2><span class="nr">7</span>Lesen oder sich testen?</h2>
+  <p class="klein">Zwei Gruppen, gleicher Text. Eine liest dreimal, die andere testet sich selbst.
+     Wer kann nach einer Woche mehr? Kreuze an, <b>bevor</b> aufgelöst wird.</p>
+  <p style="margin-bottom:4mm">
+     <span style="border:.4mm solid #000; display:inline-block; width:4mm; height:4mm"></span> die Lesegruppe
+     &nbsp;&nbsp;&nbsp;
+     <span style="border:.4mm solid #000; display:inline-block; width:4mm; height:4mm"></span> die Testgruppe</p>
+
+  <h2><span class="nr">8</span>Das weiße Blatt, so geht es</h2>
+  <ol>
+    <li>Buch und Heft zu. Leeres Blatt, Stift.</li>
+    <li>Fünf bis zehn Minuten alles aufschreiben, was noch da ist.</li>
+    <li>Erst danach Heft auf und mit anderer Farbe ergänzen.</li>
+    <li>Die andere Farbe ist dein Lernplan für morgen.</li>
+  </ol>
+
+  <h2><span class="nr">9</span>Dich selbst testen</h2>
+  <p class="klein">Schreib nach einem Thema fünf Fragen auf, die drankommen könnten.
+     Beantworte sie am nächsten Tag, ohne nachzuschauen.</p>
+  <div class="kasten leer" style="padding:3mm">
+    <div class="zeile"></div><div class="zeile"></div>
+    <div class="zeile"></div><div class="zeile"></div>
+  </div>
+
+  <h2><span class="nr">10</span>Alte Klassenarbeiten</h2>
+  <p class="klein">Damit üben ist clever, kein Betrug. Wen kannst du fragen?</p>
+  <p style="margin-bottom:5mm"><span class="luecke lang"></span> <span class="luecke lang"></span></p>
+
+  <h2><span class="nr">11</span>Unsere sechs Sätze</h2>
+  <div class="satzliste">
+    <div>1 &nbsp;Dein Gehirn wächst wie ein Muskel</div>
+    <div>2 &nbsp;„Ich kann das noch nicht“</div>
+    <div>3 &nbsp;Lernen heißt abrufen, nicht nochmal lesen</div>
+    <div>4 &nbsp;Aus Fehlern lernst du am meisten</div>
+    <div>5 &nbsp;Wer langsamer geht, sieht mehr</div>
+    <div>6 &nbsp;Tests helfen dir beim Lernen, auch alte Arbeiten</div>
+  </div>
+
+  <div class="fuss">Verteilt üben schlägt alles: dreimal zwanzig Minuten über die Woche bringt mehr als einmal sechzig Minuten am Abend davor.</div>
+</div>
+
+</body>
+</html>

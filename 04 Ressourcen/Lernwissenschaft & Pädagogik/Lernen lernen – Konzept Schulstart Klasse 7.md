@@ -146,6 +146,17 @@ Unbenotet und privat. Es geht darum zu sehen, wo noch etwas fehlt.
 
 Nicht rechtfertigen. Der Vergleich der zwei Blätter macht das Argument von allein.
 
+## Der Reader
+
+Vier Seiten A4, doppelseitig auf zwei Blättern, bewusst schwarzweiß druckbar. Die Schüler tragen an festen Stellen etwas ein, der Rest ist vorgedruckt. Damit sind sie nicht nur Zuhörer, ohne dass viel Schreibzeit draufgeht.
+
+- Seite 1: die beiden Merkversuche, Lückensätze zur Kapazität, die vier Kraul-Teile und was bei ihnen selbst schon von allein läuft
+- Seite 2: der Kernsatz, die zwei Sätze („kann ich nicht“ gegen „noch nicht“), unsere Abmachung zum Nachlesen, Rennauto und Wanderer
+- Seite 3: eine leere Seite für das weiße Blatt zum Sachtext, mit Anleitung im Kopf und dem Hinweis zum roten Stift im Fuß
+- Seite 4: Schätzfrage Lesen gegen Testen zum Ankreuzen vor der Auflösung, die vier Schritte des weißen Blattes, Platz für eigene Prüfungsfragen, wen sie nach alten Arbeiten fragen, und die sechs Sätze
+
+Der Reader wird in Block 1 ausgeteilt und bleibt bei den Schülern. Seite 3 ersetzt das lose Blatt für den Abruf.
+
 ## Plakat (25 min, KL-Stunde Woche 2)
 
 Wird nicht gedruckt, sondern von der Klasse gebaut. Nur die Gehirn-Grafik kommt aus dem Drucker (A4, `Lernen lernen – Gehirn-Grafik.html`) und wird in die Mitte geklebt. Drumherum schreiben die Schüler die sechs Sprüche selbst, groß und lesbar. Layout und Spruchliste stehen auf den letzten beiden Folien der Präsentation.
@@ -177,6 +188,7 @@ Arbeitsform: Plakatkarton, Gruppen bekommen je einen Spruch und gestalten ihr Fe
 - `Lernen lernen – Ablauf.excalidraw`, der ganze Ablauf auf einen Blick, zum Danebenlegen
 - `Lernen lernen – Präsentation.html`, Folien für alle drei Einheiten, Klick oder Pfeiltasten, F für Vollbild
 - `Lernen lernen – Sprechzettel.html`, was ich zu jeder Folie sage, zum Ausdrucken
+- `Lernen lernen – Reader.html`, vier Seiten für die Schüler, doppelseitig auf zwei Blättern
 - `Sachtext Grönlandhai.html`, zwei Exemplare pro A4-Seite
 - `Lernen lernen – Gehirn-Grafik.html`, A4 im Browser als PDF drucken, kommt in die Plakatmitte
 - [[Klassenführung – Regeln und Rituale Klasse 7]]
