@@ -508,25 +508,62 @@
 
 <script>
   const brainSVG = `
-  <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" style="width:24vw;height:auto">
-    <g fill="none" stroke="#1c2230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M70 120 C40 110 40 70 72 62 C70 36 106 22 130 40 C150 24 190 32 192 60
-               C222 62 228 104 200 116 C206 142 176 160 152 148 C142 170 102 170 96 146
-               C72 152 60 136 70 120 Z" fill="#fffdf9"/>
-      <path d="M100 58 C112 70 100 84 114 96 M136 44 L136 150 M158 68 C146 80 160 92 150 106 M104 122 C118 122 124 134 140 130"/>
+  <svg viewBox="0 0 420 400" xmlns="http://www.w3.org/2000/svg" style="width:20vw;height:auto">
+  <g fill="none" stroke="#1c2230" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Grosshirn mit ausgepraegtem Temporallappen -->
+    <path d="M74 168 C68 112, 108 62, 164 56 C224 49, 278 68, 310 106
+             C338 140, 338 186, 312 212 C298 226, 276 236, 250 236
+             L214 236 C206 256, 188 268, 164 270
+             C132 272, 102 256, 88 232 C80 216, 76 190, 74 168 Z"
+          fill="#fffdf9" stroke-width="5"/>
+    <!-- Sylvische Furche -->
+    <path d="M92 206 C134 222, 182 224, 212 206" stroke-width="4"/>
+    <!-- Zentralfurche -->
+    <path d="M196 64 C204 94, 212 126, 226 152" stroke-width="4"/>
+    <!-- Windungen Grosshirn -->
+    <g stroke-width="3.4">
+      <path d="M104 122 C132 102, 166 98, 190 110"/>
+      <path d="M120 92 C146 78, 178 76, 200 86"/>
+      <path d="M216 78 C242 86, 264 102, 274 124"/>
+      <path d="M244 134 C266 146, 278 164, 274 184"/>
+      <path d="M148 144 C174 134, 198 136, 214 150"/>
+      <path d="M110 162 C136 154, 158 158, 172 172"/>
+      <path d="M232 106 C250 116, 262 130, 266 144"/>
+      <path d="M236 174 C252 184, 262 196, 262 208"/>
     </g>
-    <g stroke="#2f6f4f" stroke-width="4" stroke-linecap="round" fill="none">
-      <path d="M206 44 l0 -14 M199 37 l14 0"/>
-      <path d="M186 26 l0 -10 M181 21 l10 0"/>
+    <!-- Windungen Temporallappen -->
+    <g stroke-width="3">
+      <path d="M104 232 C128 244, 158 248, 184 240"/>
+      <path d="M112 248 C134 258, 158 262, 178 258"/>
     </g>
-    <g fill="#1c2230">
-      <rect x="70" y="196" width="100" height="9" rx="4"/>
-      <rect x="58" y="182" width="14" height="37" rx="4"/>
-      <rect x="44" y="188" width="12" height="25" rx="4"/>
-      <rect x="168" y="182" width="14" height="37" rx="4"/>
-      <rect x="184" y="188" width="12" height="25" rx="4"/>
+    <!-- Kleinhirn -->
+    <path d="M252 232 C282 226, 306 236, 312 256 C317 276, 301 292, 277 294
+             C253 296, 236 283, 234 263 C233 247, 241 235, 252 232 Z"
+          fill="#fffdf9" stroke-width="5"/>
+    <g stroke-width="2.6">
+      <path d="M242 248 C264 242, 290 244, 308 252"/>
+      <path d="M238 262 C262 256, 290 258, 312 266"/>
+      <path d="M243 276 C264 270, 287 272, 304 280"/>
     </g>
-    <text x="120" y="234" font-size="13" text-anchor="middle" font-family="sans-serif" fill="#6b7280">üben  →  stärker</text>
+    <!-- Hirnstamm, kurz -->
+    <path d="M212 240 C208 258, 210 276, 218 292" stroke-width="5"/>
+    <path d="M230 244 C228 260, 230 276, 236 290" stroke-width="5"/>
+    <path d="M218 292 C224 298, 230 298, 236 290" stroke-width="5"/>
+  </g>
+  <!-- Wachstums-Zeichen -->
+  <g stroke="#2f6f4f" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M338 72 v-20 M328 62 h20"/>
+    <path d="M366 40 v-14 M359 33 h14"/>
+    <path d="M306 44 v-12 M300 38 h12"/>
+  </g>
+  <!-- Hantel, klar abgesetzt -->
+  <g fill="#1c2230">
+    <rect x="128" y="346" width="164" height="13" rx="6"/>
+    <rect x="106" y="329" width="21" height="47" rx="6"/>
+    <rect x="85" y="338" width="17" height="29" rx="5"/>
+    <rect x="293" y="329" width="21" height="47" rx="6"/>
+    <rect x="318" y="338" width="17" height="29" rx="5"/>
+  </g>
   </svg>`;
   document.getElementById('brainSlot').innerHTML = brainSVG;
 

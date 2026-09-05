@@ -1,0 +1,22 @@
+<script>
+(function(){
+  function initShareFix(){
+    var link = document.querySelector('.share-simple-wrapper .icons a.facebook');
+    if(!link) return;
+    link.addEventListener('click', function(e){
+      if(navigator.share){
+        e.preventDefault();
+        navigator.share({
+          title: document.title,
+          url: window.location.href
+        }).catch(function(){});
+      }
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initShareFix);
+  } else {
+    initShareFix();
+  }
+})();
+</script>

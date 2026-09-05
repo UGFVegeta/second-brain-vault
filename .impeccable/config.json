@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "createdAt": "2026-09-05T06:08:39.750Z",
+        "reason": "Claude: Sachtext und Sprechzettel sind reine A4-Druckvorlagen fuer den Schulkopierer, keine Web-UI. Helvetica ist dort als neutrale, ueberall vorhandene Systemschrift bewusst gewaehlt."
+      }
+    ]
+  }
+}
