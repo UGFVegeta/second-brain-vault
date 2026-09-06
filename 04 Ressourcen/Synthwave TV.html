@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--ARTIFACT-HEAD-START-->
+<title>Synthwave TV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Monoton&family=VT323&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --void:#08040f; --deep:#170a2c; --panel:#150b26; --panel-hi:#241338;
+  --magenta:#ff2d95; --cyan:#22e4ff; --sun:#ff8a3d; --sunhi:#ffd66b;
+  --dust:#a394c8; --dim:#6f5f94;
+  --ok:#45ffb2; --warn:#ffc247; --crit:#ff4d5e;
+  --screen:#0d0420;
+  --tvw: min(94vw, 86vh, 940px);
+  --display:"Monoton", "Chakra Petch", sans-serif;
+  --ui:"Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --term:"VT323", "Courier New", monospace;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--void); color:var(--dust);
+  font-family:var(--ui);
+  min-height:100vh; overflow-x:hidden;
+}
+#bg{position:fixed; inset:0; width:100%; height:100%; z-index:0; display:block}
+.room{
+  position:relative; z-index:1;
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:clamp(10px,1.6vh,20px); padding:clamp(12px,2.5vh,32px) 12px;
+}
+
+/* ---------- Das Gerät ---------- */
+.set{width:var(--tvw); filter:drop-shadow(0 30px 60px rgba(255,45,149,.18))}
+.bezel{
+  background:linear-gradient(168deg,#3a2450 0%, #1d1030 38%, #120a1f 100%);
+  border-radius:20px 20px 8px 8px;
+  padding:2.4% 2.4% 2.1%;
+  box-shadow:
+    inset 0 1px 0 rgba(255,214,107,.22),
+    inset 0 -2px 6px rgba(0,0,0,.8),
+    0 0 0 1px rgba(255,45,149,.28);
+}
+.screen{
+  position:relative; aspect-ratio:4/3; overflow:hidden;
+  border-radius:9% / 12%;
+  background:radial-gradient(120% 110% at 50% 45%, #1a0733 0%, var(--screen) 62%, #05010d 100%);
+  container-type:inline-size;
+  box-shadow: inset 0 0 0 2px #05010d, inset 0 0 40px rgba(0,0,0,.9);
+}
+.face{position:absolute; inset:0; padding:6cqw 6.5cqw 9.5cqw; display:flex; flex-direction:column; overflow:hidden}
+
+/* CRT-Effekte */
+.scan{position:absolute; inset:0; pointer-events:none; z-index:6;
+  background:repeating-linear-gradient(to bottom, rgba(0,0,0,.34) 0 1px, rgba(0,0,0,0) 1px 3px);
+  mix-blend-mode:multiply}
+.roll{position:absolute; left:0; right:0; height:14%; pointer-events:none; z-index:7;
+  background:linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.045), rgba(255,255,255,0));
+  animation:roll 7s linear infinite}
+@keyframes roll{from{top:-16%}to{top:104%}}
+.glare{position:absolute; inset:0; pointer-events:none; z-index:8;
+  background:
+    radial-gradient(60% 40% at 24% 12%, rgba(255,255,255,.09), rgba(255,255,255,0) 70%),
+    radial-gradient(130% 120% at 50% 50%, rgba(0,0,0,0) 52%, rgba(0,0,0,.72) 100%)}
+.noise{position:absolute; inset:-20%; pointer-events:none; z-index:9; opacity:0;
+  background-repeat:repeat; background-size:180px 180px; transition:opacity .09s linear}
+.noise.on{opacity:.9; animation:jitter .09s steps(2) infinite}
+@keyframes jitter{0%{transform:translate(0,0)}50%{transform:translate(-14px,9px)}100%{transform:translate(7px,-11px)}}
+.flick{position:absolute; inset:0; pointer-events:none; z-index:5; background:var(--cyan); mix-blend-mode:overlay;
+  opacity:.03; animation:flick 4.2s steps(9) infinite}
+@keyframes flick{0%,96%{opacity:.028}97%{opacity:.075}98%{opacity:.02}99%{opacity:.06}}
+
+/* On-Screen-Display */
+.osd{position:absolute; top:5cqw; left:6.5cqw; z-index:4; display:flex; align-items:baseline; gap:1.6cqw;
+  font-family:var(--term); font-size:3.4cqw; line-height:1; color:var(--cyan);
+  text-shadow:0 0 12px rgba(34,228,255,.65); transition:opacity .5s}
+.osd .num{color:var(--sunhi); text-shadow:0 0 12px rgba(255,214,107,.6)}
+.osd.fade{opacity:0}
+.clock{position:absolute; top:5cqw; right:6.5cqw; z-index:4;
+  font-family:var(--term); font-size:3.4cqw; line-height:1; color:var(--magenta);
+  text-shadow:0 0 12px rgba(255,45,149,.6); font-variant-numeric:tabular-nums}
+.demo-tag{position:absolute; top:9.4cqw; right:6.5cqw; z-index:4;
+  font-family:var(--term); font-size:2.4cqw; color:var(--warn); letter-spacing:.12em}
+
+/* Kanalinhalt */
+.chan{display:flex; flex-direction:column; height:100%; gap:2.4cqw; padding-top:5.5cqw; min-height:0}
+.chan h2{margin:0; font-size:3cqw; font-weight:700; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--magenta); text-shadow:0 0 16px rgba(255,45,149,.5); text-wrap:balance}
+.chan h2 small{display:block; margin-top:.7cqw; font-family:var(--term); font-size:2.8cqw;
+  letter-spacing:.06em; color:var(--dim); text-transform:none; text-shadow:none}
+.body{display:grid; grid-template-columns:1.05fr .95fr; gap:4cqw; align-items:start; flex:1; min-height:0}
+.body.solo{grid-template-columns:1fr}
+
+.lead{display:flex; flex-direction:column; gap:.4cqw}
+.lead .val{font-size:13.5cqw; line-height:.86; font-weight:700; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; color:var(--cyan); text-shadow:0 0 26px rgba(34,228,255,.45)}
+.lead .val.warn{color:var(--warn); text-shadow:0 0 26px rgba(255,194,71,.4)}
+.lead .val.crit{color:var(--crit); text-shadow:0 0 26px rgba(255,77,94,.4)}
+.lead .val.ok{color:var(--ok); text-shadow:0 0 26px rgba(69,255,178,.4)}
+.lead .unit{font-size:4.6cqw; font-weight:500; color:var(--dust); letter-spacing:.02em}
+.lead .cap{font-family:var(--term); font-size:3cqw; color:var(--dim); letter-spacing:.05em}
+
+.rows{display:flex; flex-direction:column; gap:1.4cqw}
+.row{display:flex; align-items:baseline; justify-content:space-between; gap:2cqw;
+  border-bottom:1px solid rgba(163,148,200,.16); padding-bottom:1cqw}
+.row:last-child{border-bottom:0}
+.row .k{font-family:var(--term); font-size:2.8cqw; color:var(--dim); letter-spacing:.05em; white-space:nowrap}
+.row .v{font-size:3.5cqw; font-weight:600; color:var(--dust); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+.row .v em{font-style:normal; font-size:2.6cqw; color:var(--dim); margin-left:.6cqw}
+.v.ok{color:var(--ok)} .v.warn{color:var(--warn)} .v.crit{color:var(--crit)} .v.cy{color:var(--cyan)}
+
+.list{display:flex; flex-direction:column; gap:2cqw}
+.item{display:grid; grid-template-columns:auto 1fr auto; gap:2.2cqw; align-items:baseline}
+.item .when{font-family:var(--term); font-size:3cqw; color:var(--sunhi); white-space:nowrap}
+.item .what{font-size:3.4cqw; font-weight:500; color:var(--dust); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.item .tagx{font-family:var(--term); font-size:2.6cqw; color:var(--dim); white-space:nowrap}
+
+.viz{width:100%}
+.viz svg{display:block; width:100%; height:auto; overflow:visible}
+.vizcap{font-family:var(--term); font-size:2.5cqw; color:var(--dim); letter-spacing:.06em; margin-top:.8cqw}
+
+.meter{display:flex; gap:.7cqw; height:5cqw; align-items:stretch}
+.meter i{flex:1; border-radius:1px; background:rgba(163,148,200,.14)}
+.meter i.f{background:var(--ok); box-shadow:0 0 8px rgba(69,255,178,.5)}
+.meter i.f.warn{background:var(--warn); box-shadow:0 0 8px rgba(255,194,71,.5)}
+.meter i.f.crit{background:var(--crit); box-shadow:0 0 8px rgba(255,77,94,.5)}
+
+.ticker{position:absolute; left:0; right:0; bottom:0; z-index:3; overflow:hidden;
+  border-top:1px solid rgba(255,45,149,.55); background:rgba(5,1,13,.88);
+  padding:1.4cqw 0; font-family:var(--term); font-size:3cqw; color:var(--sunhi); letter-spacing:.05em}
+.ticker span{display:inline-block; white-space:nowrap; padding-left:100%; animation:marq 34s linear infinite}
+@keyframes marq{to{transform:translateX(-100%)}}
+.nodata{font-family:var(--term); font-size:4cqw; color:var(--warn); align-self:center; margin:auto; text-align:center}
+
+/* ---------- Gehäuse ---------- */
+.chassis{
+  display:flex; align-items:center; gap:3%; padding:1.8% 3% 2.2%;
+  background:linear-gradient(180deg,#241338 0%, #150b26 70%, #0d0618 100%);
+  border-radius:0 0 16px 16px;
+  box-shadow:inset 0 1px 0 rgba(255,214,107,.14), 0 14px 26px rgba(0,0,0,.55);
+}
+.brand{font-family:var(--display); font-size:clamp(15px,2.4vw,26px); color:var(--magenta);
+  text-shadow:0 0 18px rgba(255,45,149,.7); line-height:1; padding-right:2%}
+.chans{display:flex; flex-wrap:wrap; gap:6px; flex:1}
+.chans button{
+  font-family:var(--ui); font-size:clamp(9px,1.05vw,12px); font-weight:600; letter-spacing:.16em;
+  color:var(--dim); background:#0e0619; border:1px solid rgba(163,148,200,.22);
+  border-radius:4px; padding:6px 9px; cursor:pointer; transition:.16s; text-transform:uppercase;
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.6);
+}
+.chans button:hover{color:var(--cyan); border-color:rgba(34,228,255,.5)}
+.chans button[aria-pressed="true"]{color:var(--void); background:var(--magenta); border-color:var(--magenta);
+  box-shadow:0 0 16px rgba(255,45,149,.55)}
+.chans button:focus-visible, .aux button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+.aux{display:flex; gap:6px; align-items:center}
+.aux button{font-family:var(--term); font-size:clamp(12px,1.4vw,17px); color:var(--dust);
+  background:transparent; border:1px solid rgba(163,148,200,.22); border-radius:4px;
+  padding:2px 9px; cursor:pointer; transition:.16s; line-height:1.4}
+.aux button:hover{color:var(--sunhi); border-color:rgba(255,214,107,.45)}
+.led{width:9px; height:9px; border-radius:50%; background:var(--ok); box-shadow:0 0 10px var(--ok); margin-left:6px}
+.led.pause{background:var(--warn); box-shadow:0 0 10px var(--warn)}
+.feet{display:flex; justify-content:space-between; width:78%; margin:0 auto}
+.feet i{width:16%; height:clamp(6px,1vh,11px); background:#0d0618; border-radius:0 0 5px 5px}
+
+.hint{font-family:var(--term); font-size:clamp(13px,1.5vw,17px); color:var(--dim);
+  letter-spacing:.05em; text-align:center; max-width:70ch; line-height:1.5}
+.hint b{color:var(--dust); font-weight:400}
+.hint .warnx{color:var(--warn)}
+kbd{font-family:var(--ui); font-size:.8em; font-weight:600; border:1px solid rgba(163,148,200,.3);
+  border-radius:3px; padding:1px 5px; color:var(--dust)}
+
+@media (max-width:640px){
+  .body{grid-template-columns:1fr; gap:2.5cqw}
+  .brand{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .roll,.flick,.noise.on{animation:none}
+  .roll{display:none}
+  .ticker span{animation:none; padding-left:0}
+}
+</style>
+<!--ARTIFACT-HEAD-END-->
+</head>
+<body>
+<!--ARTIFACT-BODY-START-->
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<main class="room">
+  <div class="set">
+    <div class="bezel">
+      <div class="screen">
+        <div class="face" id="stage"></div>
+        <div class="osd" id="osd"><span class="num" id="osdNum">CH 01</span><span id="osdName">SOLAR</span></div>
+        <div class="clock" id="clock">--:--</div>
+        <div class="ticker"><span id="tick"></span></div>
+        <div class="flick" aria-hidden="true"></div>
+        <div class="scan" aria-hidden="true"></div>
+        <div class="roll" aria-hidden="true"></div>
+        <div class="glare" aria-hidden="true"></div>
+        <div class="noise" id="noise" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="chassis">
+      <div class="brand">VIBE</div>
+      <div class="chans" id="chans"></div>
+      <div class="aux">
+        <button id="btnPause" title="Automatischen Kanalwechsel anhalten (Leertaste)">II</button>
+        <button id="btnFull" title="Vollbild (F)">[ ]</button>
+        <span class="led" id="led" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="feet" aria-hidden="true"><i></i><i></i></div>
+  </div>
+  <p class="hint" id="hint"></p>
+</main>
+
+<script src="leben_data.js"></script>
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const nf = (n,d=0) => (n===null||n===undefined||isNaN(n)) ? "–"
+  : Number(n).toLocaleString("de-DE",{minimumFractionDigits:d,maximumFractionDigits:d});
+const iso = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const dayBack = n => { const d=new Date(); d.setDate(d.getDate()-n); return d; };
+const WD = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- Demo-Daten (nur wenn leben_data.js fehlt) ---------- */
+const DEMO = (function(){
+  const load  = [0,42,0,95,18,0,66,0,31,110,0,24,58,0];       // TSS je Tag, ältester zuerst
+  const sleep = [6.8,5.4,7.1,6.2,4.9,7.6,6.5,6.0,7.2,5.8,6.9,6.4,7.0,6.3];
+  const rhr   = [39,40,38,39,41,38,38,39,38,40,38,37,38,38];
+  const hrv   = [74,68,81,77,66,84,79,75,82,71,80,78,83,79];
+  const heat = {}, ghd = [], vheat = {};
+  for (let i=13;i>=0;i--){
+    const d = iso(dayBack(i)), k = 13-i;
+    heat[d]  = { s: Math.round(load[k]*62), txt: load[k] ? ["Einheit "+load[k]+" TSS"] : [] };
+    ghd.push({ d, rhr: rhr[k], hrv: hrv[k], sleep: sleep[k], score: 70+k });
+    vheat[d] = { c: k%4, e: (k*3)%11 };
+  }
+  return {
+    generated: iso(new Date())+"T18:20",
+    pv: { pv_w:2140, home_w:520, soc:74, grid_w:-1620, bat_w:-1100, export_kwh:4210,
+          heute:{prod:28.4,verbrauch:11.2,netzbezug:0.4,einspeisung:14.9,eigen:10.8,autark:96},
+          gestern:{prod:41.7,verbrauch:13.9,netzbezug:1.1,einspeisung:26.0,eigen:12.8,autark:92},
+          sparHeute:4.10, sparGestern:6.80 },
+    training: { ctl:48.2, atl:39.5, tsb:8.7, heat,
+      recent:[{d:iso(dayBack(1)),typ:"Rad",name:"Grundlage",dur:"1:45 h",km:52.1,load:66},
+              {d:iso(dayBack(3)),typ:"Lauf",name:"Tempodauerlauf",dur:"52 min",km:11.4,load:95}],
+      weeks:[{w:"KW 33",h:6.4},{w:"KW 34",h:8.1},{w:"KW 35",h:5.2},{w:"KW 36",h:7.6}] },
+    gesundheit: { days:ghd, basis:{rhr:38,hrv:78}, sleep14:6.4, sleep3:6.6,
+      befinden:[{d:iso(dayBack(1)),b:4,sym:"–"}], letzter_log:iso(dayBack(1)), warnungen:[] },
+    kalender: [{d:iso(dayBack(-1)),s:"08:00",e:"13:00",allday:false,cal:"Schule",t:"Unterricht + Fachkonferenz"},
+               {d:iso(dayBack(-2)),s:"18:30",e:"20:00",allday:false,cal:"Sport",t:"Schwimmtraining"},
+               {d:iso(dayBack(-4)),s:"",e:"",allday:true,cal:"Familie",t:"Ausflug"}],
+    projekte: [{name:"Beispielprojekt A",status:"aktiv"},{name:"Beispielprojekt B",status:"aktiv"},
+               {name:"Beispielprojekt C",status:"pausiert"}],
+    vault: { heat:vheat, inbox:3, nDailies:52, lastDaily:iso(dayBack(1)), offenTotal:19,
+             offenAlle:[{t:"Beispiel: offener Punkt aus einer Daily Note"}] },
+    lesen: [{t:"Beispieltitel",a:"Beispielautor",pct:42}],
+    wissenskarte: "Wissenskarte: 312 Notizen, 180 Verbindungen, 11 Cluster"
+  };
+})();
+
+const LIVE = (window.LEBEN && window.LEBEN.generated) ? window.LEBEN : null;
+const L = LIVE || DEMO;
+const isDemo = !LIVE;
+
+/* ---------- Bausteine ---------- */
+function lead(val, unit, cap, tone){
+  return '<div class="lead"><div class="val '+(tone||"")+'">'+val+
+         (unit?'<span class="unit"> '+unit+'</span>':"")+'</div><div class="cap">'+cap+'</div></div>';
+}
+function rows(list){
+  return '<div class="rows">'+list.map(r =>
+    '<div class="row"><span class="k">'+r[0]+'</span><span class="v '+(r[2]||"")+'">'+r[1]+'</span></div>'
+  ).join("")+'</div>';
+}
+function meter(pct, tone){
+  const seg = 20, on = Math.round(Math.max(0,Math.min(100,pct))/100*seg);
+  let s = '<div class="meter" role="img" aria-label="Ladestand '+nf(pct)+' Prozent">';
+  for (let i=0;i<seg;i++) s += '<i class="'+(i<on?"f "+(tone||""):"")+'"></i>';
+  return s+'</div>';
+}
+function bars(vals, cap){
+  const max = Math.max(0.001, ...vals.map(v=>v.v));
+  const W=100, H=27, gap=1.2, bw=(W-gap*(vals.length-1))/vals.length;
+  let s = '<svg viewBox="0 0 100 34" role="img" aria-label="'+esc(cap)+'">';
+  s += '<line x1="0" y1="27" x2="100" y2="27" style="stroke:rgba(163,148,200,.25)" stroke-width=".4"/>';
+  vals.forEach((d,i)=>{
+    const h = d.v>0 ? Math.max(0.9, d.v/max*(H-1.5)) : 0;
+    const x = i*(bw+gap);
+    if (h) s += '<rect x="'+x.toFixed(2)+'" y="'+(H-h).toFixed(2)+'" width="'+bw.toFixed(2)+
+                '" height="'+h.toFixed(2)+'" rx=".35" style="fill:'+(d.c||"var(--magenta)")+'"/>';
+    s += '<text x="'+(x+bw/2).toFixed(2)+'" y="32.4" text-anchor="middle" style="fill:var(--dim);'+
+         'font-family:var(--term);font-size:3.6px">'+esc(d.l)+'</text>';
+  });
+  return s+'</svg>';
+}
+function spark(vals, ref, refLabel, cap){
+  const nums = vals.filter(v=>v!=null && !isNaN(v));
+  if (!nums.length) return "";
+  const hi = Math.max(...nums, ref), lo = Math.min(...nums, ref);
+  const top = hi + (hi-lo)*0.25 + 0.2, bot = lo - (hi-lo)*0.25 - 0.2;
+  const W=100, H=26;
+  const X = i => (i/(vals.length-1))*(W-8);
+  const Y = v => H - (v-bot)/(top-bot)*H;
+  let pts = [], last = null;
+  vals.forEach((v,i)=>{ if(v!=null && !isNaN(v)){ pts.push(X(i).toFixed(2)+","+Y(v).toFixed(2)); last={x:X(i),y:Y(v),v}; }});
+  let s = '<svg viewBox="0 0 100 32" role="img" aria-label="'+esc(cap)+'">';
+  s += '<line x1="0" y1="'+Y(ref).toFixed(2)+'" x2="'+(W-8)+'" y2="'+Y(ref).toFixed(2)+
+       '" stroke-dasharray="1.6 1.6" style="stroke:rgba(163,148,200,.4)" stroke-width=".4"/>';
+  s += '<text x="'+(W-6.5)+'" y="'+(Y(ref)+1.3).toFixed(2)+'" style="fill:var(--dim);font-family:var(--term);font-size:3.6px">'+esc(refLabel)+'</text>';
+  s += '<polyline points="'+pts.join(" ")+'" fill="none" style="stroke:var(--cyan)" stroke-width="1.1" stroke-linejoin="round"/>';
+  if (last) s += '<circle cx="'+last.x.toFixed(2)+'" cy="'+last.y.toFixed(2)+'" r="1.7" style="fill:var(--sunhi)"/>'+
+                 '<text x="'+last.x.toFixed(2)+'" y="'+(last.y-3).toFixed(2)+'" text-anchor="end" style="fill:var(--sunhi);font-family:var(--term);font-size:4px">'+nf(last.v,1)+'</text>';
+  return s+'</svg>';
+}
+function viz(inner, cap){ return '<div class="viz">'+inner+'<div class="vizcap">'+esc(cap)+'</div></div>'; }
+function head(t, sub){ return '<h2>'+esc(t)+'<small>'+esc(sub)+'</small></h2>'; }
+function nodata(t){ return '<div class="chan"><div class="nodata">'+esc(t)+'</div></div>'; }
+function lastN(obj, n){
+  const out = [];
+  for (let i=n-1;i>=0;i--){ const d = iso(dayBack(i)); out.push({d, v: obj ? obj[d] : undefined}); }
+  return out;
+}
+
+/* ---------- Kanäle ---------- */
+function chSolar(){
+  const p = L.pv; if (!p) return nodata("Keine PV-Daten im Feed");
+  const kw = Math.abs(p.pv_w) >= 1000;
+  const soc = p.soc, socTone = soc<20 ? "crit" : soc<40 ? "warn" : "";
+  const grid = p.grid_w||0;
+  const gridTxt = grid === 0 ? "0 W" : grid < 0 ? nf(Math.abs(grid))+" W <em>Einspeisung</em>" : nf(grid)+" W <em>Bezug</em>";
+  const bat = p.bat_w||0;
+  const batTxt = bat === 0 ? "0 W" : nf(Math.abs(bat))+" W <em>"+(bat>0?"entlädt":"lädt")+"</em>";
+  return '<div class="chan">'+head("Photovoltaik","13 kWp Süd · 13 kWh Speicher")+
+    '<div class="body"><div>'+
+      lead(kw ? nf(p.pv_w/1000,2) : nf(p.pv_w), kw?"kW":"W", "Erzeugung jetzt")+
+    '</div>'+
+    rows([
+      ["Hausverbrauch", nf(p.home_w)+" W"],
+      ["Netz", gridTxt, grid>0?"warn":"ok"],
+      ["Batterie", batTxt],
+      ["Erzeugung heute", nf(p.heute&&p.heute.prod,1)+" kWh", "cy"],
+      ["Autarkie heute", nf(p.heute&&p.heute.autark)+" %", (p.heute&&p.heute.autark>=80)?"ok":""],
+      ["Gespart heute", p.sparHeute!=null ? nf(p.sparHeute,2)+" €" : "–"]
+    ])+
+    '</div>'+viz(meter(soc, socTone), "Speicher "+nf(soc)+" % von 13 kWh · Skala 0–100 %")+
+    '</div>';
+}
+function chForm(){
+  const t = L.training; if (!t) return nodata("Keine Trainingsdaten im Feed");
+  const tsb = t.tsb, tone = tsb>=5 ? "ok" : tsb>=-10 ? "" : tsb>=-25 ? "warn" : "crit";
+  const state = tsb>=15 ? "sehr frisch" : tsb>=5 ? "frisch" : tsb>=-10 ? "im Gleichgewicht"
+              : tsb>=-25 ? "belastet" : "stark belastet";
+  const days = lastN(t.heat, 14).map(x => ({
+    l: WD[new Date(x.d+"T12:00").getDay()],
+    v: x.v ? x.v.s/3600 : 0,
+    c: x.v && x.v.s/3600 > 1.5 ? "var(--cyan)" : "var(--magenta)"
+  }));
+  const mx = Math.max(...days.map(d=>d.v));
+  const r = (t.recent||[])[0];
+  const w = (t.weeks||[]).slice(-1)[0];
+  return '<div class="chan">'+head("Form","Trainingsbelastung aus intervals.icu")+
+    '<div class="body"><div>'+
+      lead((tsb>0?"+":"")+nf(tsb,1), "", "Form (TSB) · "+state, tone)+
+    '</div>'+
+    rows([
+      ["Fitness (CTL)", nf(t.ctl,1), "cy"],
+      ["Ermüdung (ATL)", nf(t.atl,1)],
+      ["Letzte Einheit", r ? esc(r.typ)+" <em>"+esc(r.dur)+"</em>" : "–"],
+      ["Umfang", w ? nf(w.h,1)+" h <em>"+esc(w.w)+"</em>" : "–"]
+    ])+
+    '</div>'+viz(bars(days, "Trainingsstunden der letzten 14 Tage"),
+      "14 Tage · Balkenhöhe = Dauer · Maximum "+nf(mx,1)+" h")+
+    '</div>';
+}
+function chVitals(){
+  const g = L.gesundheit; if (!g || !g.days) return nodata("Keine Gesundheitsdaten im Feed");
+  const days = g.days.slice(-14);
+  const withSleep = days.filter(d=>d.sleep!=null);
+  const last = withSleep.length ? withSleep[withSleep.length-1] : null;
+  const sl = last ? last.sleep : null;
+  const tone = sl==null ? "" : sl<5 ? "crit" : sl<6 ? "warn" : "ok";
+  const basis = g.basis||{};
+  const lastVital = days.filter(d=>d.rhr!=null).slice(-1)[0] || {};
+  const dR = (lastVital.rhr!=null && basis.rhr!=null) ? lastVital.rhr - basis.rhr : null;
+  const dH = (lastVital.hrv!=null && basis.hrv!=null) ? lastVital.hrv - basis.hrv : null;
+  const bf = (g.befinden||[])[0];
+  return '<div class="chan">'+head("Vitals","Schlaf, Ruhepuls, HRV")+
+    '<div class="body"><div>'+
+      lead(nf(sl,1), "h", "Schlaf letzte Nacht"+(last?" · "+last.d.slice(8)+"."+last.d.slice(5,7)+".":""), tone)+
+    '</div>'+
+    rows([
+      ["Ruhepuls", nf(lastVital.rhr)+(dR!=null?' <em>'+(dR>0?"+":"")+dR+" vs. Basis</em>":""), dR!=null&&dR>=3?"warn":"ok"],
+      ["HRV", nf(lastVital.hrv)+(dH!=null?' <em>'+(dH>0?"+":"")+nf(dH)+"</em>":""), dH!=null&&dH<-10?"warn":"ok"],
+      ["Schlaf Ø 14 Tage", nf(g.sleep14,1)+" h", g.sleep14!=null&&g.sleep14<6?"warn":""],
+      ["Befinden", bf ? bf.b+"/5 <em>"+esc(bf.sym||"")+"</em>" : "–"]
+    ])+
+    '</div>'+viz(spark(days.map(d=>d.sleep), 6, "6 h", "Schlafdauer der letzten 14 Tage"),
+      "14 Nächte Schlaf · gestrichelt: 6-Stunden-Marke")+
+    '</div>';
+}
+function chAgenda(){
+  const heute = iso(new Date());
+  const term = (L.kalender||[]).filter(e => e.d >= heute).slice(0,4);
+  const aktiv = (L.projekte||[]).filter(p => p.status === "aktiv");
+  const v = L.vault||{};
+  return '<div class="chan">'+head("Programm","Termine & laufende Projekte")+
+    '<div class="body"><div class="list">'+
+      (term.length ? term.map(e => {
+        const dt = new Date(e.d+"T12:00");
+        const tag = dt.toDateString()===new Date().toDateString() ? "HEUTE"
+                  : WD[dt.getDay()]+" "+e.d.slice(8)+"."+e.d.slice(5,7)+".";
+        return '<div class="item"><span class="when">'+tag+(e.allday?"":" "+esc(e.s))+
+               '</span><span class="what">'+esc(e.t)+'</span><span class="tagx">'+esc(e.cal)+'</span></div>';
+      }).join("") : '<div class="item"><span class="what">Nichts eingetragen</span></div>')+
+    '</div>'+
+    rows([
+      ["Aktive Projekte", nf(aktiv.length), "cy"],
+      ["Inbox", nf(v.inbox)+" Notizen", v.inbox>=5?"warn":""],
+      ["Offene Punkte", nf(v.offenTotal)],
+      ["Letzte Daily", v.lastDaily ? v.lastDaily.slice(8)+"."+v.lastDaily.slice(5,7)+"." : "–"]
+    ])+
+    '</div></div>';
+}
+function chVault(){
+  const v = L.vault; if (!v) return nodata("Keine Vault-Daten im Feed");
+  const wk = String(L.wissenskarte||"");
+  const num = wk.match(/(\d+)\s*Notizen/), clu = wk.match(/(\d+)\s*Cluster/);
+  const hd = lastN(v.heat, 21).map(x => ({
+    l: "", v: x.v ? (x.v.e||0)+(x.v.c||0) : 0, c:"var(--sun)"
+  }));
+  const total = hd.reduce((a,b)=>a+b.v,0);
+  const mx = Math.max(...hd.map(d=>d.v));
+  return '<div class="chan">'+head("Archiv","Zweites Gehirn · Aktivität")+
+    '<div class="body"><div>'+
+      lead(nf(v.offenTotal), "", "offene Punkte aus Daily Notes", v.offenTotal>60?"warn":"")+
+    '</div>'+
+    rows([
+      ["Notizen gesamt", num ? nf(+num[1]) : "–", "cy"],
+      ["Cluster", clu ? clu[1] : "–"],
+      ["Daily Notes", nf(v.nDailies)],
+      ["Inbox", nf(v.inbox), v.inbox>=5?"warn":""]
+    ])+
+    '</div>'+viz(bars(hd, "Vault-Änderungen der letzten 21 Tage"),
+      "21 Tage · "+nf(total)+" Änderungen · Spitze "+nf(mx)+" am Tag")+
+    '</div>';
+}
+
+const CH = [
+  {n:"01", name:"Solar",    r:chSolar},
+  {n:"02", name:"Form",     r:chForm},
+  {n:"03", name:"Vitals",   r:chVitals},
+  {n:"04", name:"Programm", r:chAgenda},
+  {n:"05", name:"Archiv",   r:chVault}
+];
+
+/* ---------- Gerätesteuerung ---------- */
+const stage=$("#stage"), osd=$("#osd"), osdNum=$("#osdNum"), osdName=$("#osdName"),
+      noise=$("#noise"), led=$("#led");
+let cur=0, playing=!reduce, timer=null, osdTimer=null;
+
+function noiseTexture(){
+  const c=document.createElement("canvas"); c.width=c.height=96;
+  const x=c.getContext("2d"), img=x.createImageData(96,96);
+  for (let i=0;i<img.data.length;i+=4){
+    const v=Math.random()*255|0;
+    img.data[i]=v; img.data[i+1]=v; img.data[i+2]=v; img.data[i+3]=200;
+  }
+  x.putImageData(img,0,0);
+  noise.style.backgroundImage = "url("+c.toDataURL()+")";
+}
+
+function paint(i, withStatic){
+  cur = (i + CH.length) % CH.length;
+  const c = CH[cur];
+  const draw = () => {
+    stage.innerHTML = c.r();
+    osdNum.textContent = "CH "+c.n;
+    osdName.textContent = c.name.toUpperCase();
+    osd.classList.remove("fade");
+    clearTimeout(osdTimer);
+    osdTimer = setTimeout(()=>osd.classList.add("fade"), 2600);
+    document.querySelectorAll("#chans button").forEach((b,k)=>b.setAttribute("aria-pressed", k===cur));
+  };
+  if (withStatic && !reduce){
+    noiseTexture(); noise.classList.add("on");
+    setTimeout(()=>{ draw(); noise.classList.remove("on"); }, 130);
+  } else draw();
+}
+function schedule(){
+  clearInterval(timer);
+  if (playing) timer = setInterval(()=>paint(cur+1, true), 14000);
+}
+function setPlaying(p){
+  playing = p;
+  led.classList.toggle("pause", !p);
+  $("#btnPause").textContent = p ? "II" : "▶";
+  $("#btnPause").title = p ? "Automatischen Kanalwechsel anhalten (Leertaste)" : "Automatisch weiterschalten (Leertaste)";
+  schedule();
+}
+
+$("#chans").innerHTML = CH.map((c,i)=>
+  '<button type="button" aria-pressed="false" data-i="'+i+'">'+c.n+" "+esc(c.name)+"</button>").join("");
+$("#chans").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  paint(+b.dataset.i, true); schedule();
+});
+$("#btnPause").addEventListener("click", ()=>setPlaying(!playing));
+$("#btnFull").addEventListener("click", ()=>{
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+});
+document.addEventListener("keydown", e => {
+  if (e.key==="ArrowRight"){ paint(cur+1,true); schedule(); }
+  else if (e.key==="ArrowLeft"){ paint(cur-1,true); schedule(); }
+  else if (e.key===" "){ e.preventDefault(); setPlaying(!playing); }
+  else if (e.key==="f"||e.key==="F"){ $("#btnFull").click(); }
+  else if (/^[1-9]$/.test(e.key) && +e.key<=CH.length){ paint(+e.key-1,true); schedule(); }
+});
+
+function clock(){
+  const d=new Date();
+  $("#clock").textContent = String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+}
+clock(); setInterval(clock, 20000);
+
+/* Laufband */
+(function(){
+  const bits = [];
+  const b = (L.lesen||[])[0];
+  if (b) bits.push("LIEST: "+b.t+" — "+b.a+" ("+b.pct+" %)");
+  const w = (L.gesundheit&&L.gesundheit.warnungen)||[];
+  w.forEach(x => bits.push("ACHTUNG: "+(typeof x==="string"?x:JSON.stringify(x))));
+  const o = (L.vault&&L.vault.offenAlle)||[];
+  o.slice(0,3).forEach(x => bits.push("OFFEN: "+String(x.t).replace(/[`*]/g,"").slice(0,110)));
+  if (L.wissenskarte) bits.push(String(L.wissenskarte).toUpperCase());
+  if (!bits.length) bits.push("ZWEITES GEHIRN — ALLE SYSTEME NORMAL");
+  $("#tick").textContent = bits.join("   ///   ")+"   ///   ";
+})();
+
+/* Statusleiste */
+(function(){
+  const stand = String(L.generated||"").replace("T"," · ");
+  $("#hint").innerHTML = (isDemo
+      ? '<span class="warnx">Demo-Daten</span> — <b>leben_data.js</b> nicht gefunden. '+
+        'Im Vault neben der Datei ablegen oder <b>Lebens-Dashboard aktualisieren.command</b> starten.'
+      : 'Live aus <b>leben_data.js</b> · Stand '+esc(stand))+
+    '<br><kbd>←</kbd> <kbd>→</kbd> Kanal · <kbd>1</kbd>–<kbd>5</kbd> direkt · <kbd>Leer</kbd> Pause · <kbd>F</kbd> Vollbild';
+  if (isDemo){
+    const t=document.createElement("div");
+    t.className="demo-tag"; t.textContent="DEMO";
+    document.querySelector(".screen").appendChild(t);
+  }
+})();
+
+/* ---------- Hintergrund: Sonne + Gitter ---------- */
+(function(){
+  const cv=$("#bg"), ctx=cv.getContext("2d");
+  let w=0,h=0,dpr=1,off=0,t0=0;
+  function size(){
+    dpr = Math.min(window.devicePixelRatio||1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    cv.width = w*dpr; cv.height = h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  const stars = Array.from({length:90}, ()=>({x:Math.random(), y:Math.random()*0.55, r:Math.random()*1.1+.3}));
+  function draw(){
+    const hz = h*0.70;
+    const sky = ctx.createLinearGradient(0,0,0,hz);
+    sky.addColorStop(0,"#06030c"); sky.addColorStop(.5,"#1c0836"); sky.addColorStop(1,"#5d1250");
+    ctx.fillStyle=sky; ctx.fillRect(0,0,w,hz);
+    ctx.fillStyle="rgba(255,255,255,.55)";
+    stars.forEach(s=>{ ctx.beginPath(); ctx.arc(s.x*w, s.y*hz, s.r, 0, 6.3); ctx.fill(); });
+
+    const cx=w/2, r=Math.min(w,h)*0.30, cy=hz-r*0.34;
+    ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,r,0,6.3); ctx.clip();
+    const sun = ctx.createLinearGradient(0,cy-r,0,cy+r);
+    sun.addColorStop(0,"#ffd66b"); sun.addColorStop(.45,"#ff8a3d"); sun.addColorStop(1,"#ff2d95");
+    ctx.fillStyle=sun; ctx.fillRect(cx-r,cy-r,r*2,r*2);
+    ctx.fillStyle="rgba(8,4,15,.9)";
+    for (let i=0;i<9;i++) ctx.fillRect(cx-r, cy-r*0.08 + i*(r*0.135), r*2, 1.5+i*1.3);
+    ctx.restore();
+
+    ctx.fillStyle="#090317"; ctx.fillRect(0,hz,w,h-hz);
+    ctx.lineWidth=1;
+    ctx.strokeStyle="rgba(255,45,149,.42)";
+    for (let i=-16;i<=16;i++){
+      const x = cx + i*(w*0.075);
+      ctx.beginPath(); ctx.moveTo(cx,hz); ctx.lineTo(cx+(x-cx)*7, h*1.6); ctx.stroke();
+    }
+    for (let i=0;i<20;i++){
+      const t = ((i+off)%20)/20;
+      const y = hz + (h-hz)*Math.pow(t,2.6) + .5;
+      ctx.strokeStyle = "rgba(34,228,255," + (0.12+t*0.5).toFixed(3) + ")";
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke();
+    }
+    ctx.strokeStyle="rgba(255,214,107,.5)";
+    ctx.beginPath(); ctx.moveTo(0,hz); ctx.lineTo(w,hz); ctx.stroke();
+  }
+  function loop(ts){
+    if (!t0) t0=ts;
+    off = (off + (ts-t0)/1000*0.55) % 20; t0 = ts;
+    draw(); requestAnimationFrame(loop);
+  }
+  window.addEventListener("resize", ()=>{ size(); draw(); });
+  size();
+  if (reduce) draw(); else requestAnimationFrame(loop);
+})();
+
+paint(0,false); setPlaying(!reduce); noiseTexture();
+})();
+</script>
+<!--ARTIFACT-BODY-END-->
+</body>
+</html>
