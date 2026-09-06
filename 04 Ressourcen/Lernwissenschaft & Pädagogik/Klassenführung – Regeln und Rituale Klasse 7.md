@@ -91,6 +91,7 @@ Eindeutiges Zeichen, dass ein Kind fertig ist, ohne zu rufen: Arbeitsheft leicht
 
 ## Offen / nächste Schritte
 
-- entscheiden, welche Rituale in welcher Reihenfolge in Woche 1 dran sind
+Reihenfolge in Woche 1 und die festen Formulierungen stehen jetzt in [[Erste Stunde – So läuft es bei mir]]. Dort auch der Ablauf der Kennenlernstunde.
+
 - mit dem Klassenteam über gemeinsame Routinen sprechen
-- kurzes Merkblatt für mich mit den festen Formulierungen (5-4-3-2-1, „Alle Augen zu mir“, 3-2-1-Aufräumen)
+- entscheiden, wie ich mit vergessenem Material umgehe (zwei Wege stehen in der Erste-Stunde-Notiz)
