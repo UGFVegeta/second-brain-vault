@@ -10,6 +10,7 @@ Unterrichtsmaterial für den Sportunterricht (Realschule BW): Curriculum und Bew
 ## Inhalte
 - **Sportcurriculum Realschule** – Fachschafts-Curriculum Klasse 5–10
 - **LA Sprengeltabelle Remstal (männlich)** – Bewertungswerte Leichtathletik Klasse 5–10
+- **Sportcurriculum.html** – druckfertige Fassung der beiden Notizen für die Schul-Cloud, Klassenwahl 5 bis 10 mit Druckfunktion je Klasse
 
 ## Notizen
 -

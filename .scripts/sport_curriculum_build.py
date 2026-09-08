@@ -104,6 +104,7 @@ def tabelle(nr, t):
         f'<div class="tabellenfeld"><table class="noten">'
         f"<caption>Bewertung Klasse {nr}, Schüler (männlich)</caption>"
         f"<thead><tr>{kopf}</tr></thead><tbody>{''.join(zeilen)}</tbody></table></div>"
+        f'<p class="wisch">Tabelle seitlich wischen, die Notenspalte bleibt stehen.</p>'
     )
 
 
@@ -193,12 +194,14 @@ def bereiche(d):
             if k in b["klassen"]:
                 zellen += f'<td>{PUNKT_VOLL}<span class="sr">Klasse {k}: ja</span></td>'
             else:
-                zellen += '<td><span class="strich" aria-hidden="true">·</span></td>'
+                zellen += '<td><span class="strich">–</span><span class="sr">nein</span></td>'
         zeilen.append(f"<tr>{zellen}</tr>")
     return (
         f'<div class="tabellenfeld"><table class="matrix">'
         f'<thead><tr><th scope="col">Bereich</th>{kopf}</tr></thead>'
         f"<tbody>{''.join(zeilen)}</tbody></table></div>"
+        f'<p class="legende">{PUNKT_VOLL} im Jahrgang vorgesehen &nbsp; '
+        f'<span class="strich">–</span> nicht vorgesehen</p>'
     )
 
 
@@ -308,6 +311,7 @@ main{max-width:var(--masz);margin:0 auto;padding:0 24px 64px}
 .schwer{margin:0;color:var(--gedaempft);font-size:.94rem;flex:1 1 240px}
 .klasse-kopf .druck{margin-left:auto}
 .spalten{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:34px}
+.inhalt,.bewertung{min-width:0}
 .spalten h3{margin:0 0 16px;font-size:.76rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.1em;color:var(--gedaempft)}
 .gruppe{margin:0 0 20px}
@@ -366,13 +370,23 @@ footer{border-top:1.5px solid var(--linie);margin-top:10px;padding:22px 0 0;
 footer b{color:var(--tinte)}
 
 @media (max-width:860px){
-  .spalten{grid-template-columns:1fr;gap:26px}
-  .bahnen{grid-template-columns:repeat(3,1fr)}
-  .bahn{padding:10px 9px 11px}
+  .spalten{grid-template-columns:minmax(0,1fr);gap:26px}
+  .bahnband-innen{padding:0 14px;gap:0}
+  .bahn-marke{display:none}
+  .bahn{padding:9px 8px 10px;text-align:center}
+  .bahn-nr{font-size:1.32rem}
   main{padding:0 14px 48px}
   .klasse{padding:20px 16px 24px}
   .klasse-kopf .druck{margin-left:0;width:100%;justify-content:center}
+  .kopf-innen{padding:20px 14px 18px}
+  .kopf-akt .druck{width:100%;justify-content:center}
+  /* Note bleibt beim seitlichen Wischen stehen */
+  .noten th.note{position:sticky;left:0;background:var(--papier);
+    box-shadow:1px 0 0 var(--linie)}
+  .noten .ist-ganz th.note{background:#F2F6F3}
+  .wisch{display:block}
 }
+.wisch{display:none;margin:7px 2px 0;font-size:.76rem;color:var(--gedaempft)}
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
 }
@@ -381,7 +395,8 @@ footer b{color:var(--tinte)}
 @media print{
   @page{size:A4;margin:14mm 12mm}
   html,body{background:#fff;font-size:10.5pt}
-  .bahnband,.kopf-akt,.druck,.tabellenfeld::-webkit-scrollbar{display:none !important}
+  .bahnband,.kopf-akt,.druck,.wisch,.tabellenfeld::-webkit-scrollbar{display:none !important}
+  .noten th.note{position:static;box-shadow:none}
   .kopf{background:#fff;color:#000;border-bottom:2pt solid #000}
   .kopf-innen{padding:0 0 8pt;max-width:none;display:block}
   .kopf h1{font-size:17pt}
@@ -392,14 +407,16 @@ footer b{color:var(--tinte)}
   .js .klasse + .klasse{margin-top:0}
   .klasse-kopf{border-bottom:1pt solid #000;padding-bottom:5pt;margin-bottom:10pt}
   .klasse-kopf h2{font-size:14pt}
-  .spalten{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:14pt}
+  .spalten{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:12pt}
   .gruppe li::before{background:#000}
   .tabellenfeld{overflow:visible;border:.5pt solid #666;border-radius:0}
   thead th{background:#E8E8E8 !important;color:#000 !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact;position:static}
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;position:static;
+    white-space:normal;vertical-align:bottom;line-height:1.15}
   .noten .ist-ganz td,.noten .ist-ganz th{background:#F2F2F2 !important;
     -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  th,td{padding:2.2pt 6pt;font-size:8.6pt}
+  th,td{padding:2pt 4.5pt;font-size:8.4pt}
+  table{width:100%;table-layout:auto}
   caption{padding:5pt 6pt;font-size:8pt}
   .vermerk{background:#F2F2F2 !important;-webkit-print-color-adjust:exact;
     print-color-adjust:exact;border:.5pt solid #999}

@@ -7,6 +7,7 @@ tags:
   - bildungsplan-bw
 status: aktiv
 erstellt: 2026-06-01
+aktualisiert: 2026-09-08
 aliases:
   - Sportlehrplan
   - Sportunterricht Curriculum
@@ -16,6 +17,7 @@ aliases:
 
 Gemeinsam erarbeitetes Curriculum der Sportfachschaft. Orientiert am **Bildungsplan BW Sport Realschule**.
 → Bewertungstabellen: [[LA Sprengeltabelle Remstal (männlich)]]
+→ Fassung zum Weitergeben und Drucken: `Sportcurriculum.html` im selben Ordner. Sie wird aus dieser Notiz erzeugt, also hier ändern und danach `python3 .scripts/sport_curriculum_build.py` laufen lassen.
 
 > [!info] Struktur
 > Das Curriculum gliedert sich in sechs Jahrgangsstufen (5–10) mit verbindlichen Inhalten und steigender Eigenverantwortung der Schülerinnen und Schüler ab Klasse 9.
@@ -193,4 +195,4 @@ Hier können Kolleg:innen interne Anmerkungen, Erfahrungswerte oder geplante Än
 
 ---
 
-*Erarbeitet von der Sportfachschaft · Stand: Schuljahr 2025/26 · Bildungsplan BW Realschule Sport*
+*Erarbeitet von der Sportfachschaft · Stand: Schuljahr 2026/27 · Bildungsplan BW Realschule Sport*
