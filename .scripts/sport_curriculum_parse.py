@@ -53,10 +53,12 @@ def parse_curriculum(path):
                 note["text"].append(inhalt)
             continue
 
-        # Gruppenueberschrift innerhalb des example-Callouts: > **Turnen**
-        m = re.match(r"^>\s*\*\*(.+?)\*\*\s*$", line)
+        # Gruppenueberschrift im example-Callout, mit optionalem Zusatz:
+        # > **Turnen**   oder   > **Turnen** *(bis Halbjahr)*
+        m = re.match(r"^>\s*\*\*(.+?)\*\*\s*(\*[^*]+\*)?\s*$", line)
         if m:
-            gruppe = {"titel": m.group(1).strip(), "items": []}
+            zusatz = (m.group(2) or "").strip("*").strip()
+            gruppe = {"titel": m.group(1).strip(), "zusatz": zusatz, "items": []}
             aktuell["gruppen"].append(gruppe)
             continue
 

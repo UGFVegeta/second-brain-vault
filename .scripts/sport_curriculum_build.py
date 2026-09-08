@@ -76,9 +76,19 @@ def bahnleiste(d):
 def inhalte(k):
     gruppen = []
     for g in k["gruppen"]:
-        punkte = "".join(f"<li>{markup(i)}</li>" for i in g["items"])
+        zusatz = (
+            f' <span class="nb">{e(g["zusatz"])}</span>' if g.get("zusatz") else ""
+        )
+        if g["items"]:
+            punkte = "".join(f"<li>{markup(i)}</li>" for i in g["items"])
+            rumpf = f"<ul>{punkte}</ul>"
+            leer = ""
+        else:
+            # Bereich ohne Ausdifferenzierung im Curriculum
+            rumpf = ""
+            leer = " ist-knapp"
         gruppen.append(
-            f'<section class="gruppe"><h4>{markup(g["titel"])}</h4><ul>{punkte}</ul></section>'
+            f'<section class="gruppe{leer}"><h4>{markup(g["titel"])}{zusatz}</h4>{rumpf}</section>'
         )
     block = "".join(gruppen)
     if k.get("note"):
@@ -117,10 +127,16 @@ def hinweise(nr, abweichungen):
             zeilen.append(
                 f'<li><b>{e(a["disziplin"])}</b> läuft optional mit, je nach Lehrkraft.</li>'
             )
-        else:
+        elif a["status"].startswith("nur "):
             zeilen.append(
                 f'<li>Der Sprengel führt zusätzlich <b>{e(a["disziplin"])}</b>. '
                 f'Bei uns bewertet wird {e(a["status"])}.</li>'
+            )
+        else:
+            # Status wie "nicht aufgeführt": kein Satzbaustein, eigene Formulierung
+            zeilen.append(
+                f'<li>Der Sprengel führt zusätzlich <b>{e(a["disziplin"])}</b>. '
+                f"Bei uns steht das nicht im Curriculum und wird nicht bewertet.</li>"
             )
     liste = f"<ul class=\"hinweise\">{''.join(zeilen)}</ul>" if zeilen else ""
     return (
@@ -189,7 +205,7 @@ def bereiche(d):
     kopf = "".join(f'<th scope="col">{k}</th>' for k in klassen)
     zeilen = []
     for b in d["bereiche"]:
-        zellen = f'<th scope="row">{e(b["name"])}</th>'
+        zellen = f'<th scope="row">{markup(b["name"])}</th>'
         for k in klassen:
             if k in b["klassen"]:
                 zellen += f'<td>{PUNKT_VOLL}<span class="sr">Klasse {k}: ja</span></td>'
@@ -301,7 +317,7 @@ button{font:inherit;cursor:pointer}
 /* Inhalt */
 main{max-width:var(--masz);margin:0 auto;padding:0 24px 64px}
 .klasse{background:var(--papier);border:1px solid var(--linie);border-top:0;
-  padding:26px 26px 30px}
+  padding:26px 26px 30px;scroll-margin-top:72px}
 /* Ohne JavaScript bleiben alle Jahrgaenge sichtbar, das Skript blendet sie erst aus. */
 .klasse + .klasse{border-top:1px solid var(--linie);margin-top:20px}
 .js .klasse + .klasse{border-top:0;margin-top:0}
@@ -315,6 +331,7 @@ main{max-width:var(--masz);margin:0 auto;padding:0 24px 64px}
 .spalten h3{margin:0 0 16px;font-size:.76rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.1em;color:var(--gedaempft)}
 .gruppe{margin:0 0 20px}
+.gruppe.ist-knapp{margin-bottom:14px}
 .gruppe h4{margin:0 0 7px;font-size:1rem;font-weight:700;letter-spacing:-.01em}
 .gruppe ul{margin:0;padding:0;list-style:none}
 .gruppe li{position:relative;padding:3px 0 3px 17px;font-size:.95rem}
