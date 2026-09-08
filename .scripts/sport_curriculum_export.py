@@ -4,6 +4,7 @@
 Erzeugt:
   Sportcurriculum 2026-27/
     Sportcurriculum Klasse 5 bis 10.html      interaktive Fassung
+    sportcurriculum.css, sportcurriculum.js   gehoeren zur HTML-Datei
     Sportcurriculum Klasse 5 bis 10.pdf       alle Jahrgaenge, sieben Seiten
     Einzelne Klassen/Klasse 5.pdf ... 10.pdf  je ein Blatt
     Hinweise.txt
@@ -18,6 +19,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import sport_curriculum_build as build
+
 VAULT = Path(__file__).resolve().parent.parent
 QUELLE = VAULT / "04 Ressourcen/Sport/Sportcurriculum.html"
 BUILD = Path(__file__).resolve().parent / "sport_curriculum_build.py"
@@ -31,7 +35,7 @@ HINWEISE = """Sportcurriculum der Sportfachschaft
 Stand Schuljahr 2026/27
 
 In diesem Ordner liegen dieselben Inhalte zweimal: einmal als PDF zum Lesen und
-Drucken auf jedem Gerät, einmal als HTML zum Nachschlagen am Rechner.
+Drucken auf jedem Gerät, einmal als HTML zum Nachschlagen und Klicken.
 
 
 Sportcurriculum Klasse 5 bis 10.pdf
@@ -45,9 +49,9 @@ Sportcurriculum Klasse 5 bis 10.html
 Die Fassung zum Klicken: oben die Klassenstufe wählen, dann stehen die Inhalte
 und die Bewertungstabelle dieser Stufe nebeneinander. Zwei Druckknöpfe, einer
 für die angezeigte Klasse, einer für das gesamte Curriculum.
-In IServ über das Drei-Punkte-Menü der Datei auf "Öffnen" gehen. Wird die Datei
-dabei stattdessen heruntergeladen, im Download-Ordner doppelklicken. Sie öffnet
-sich dann im Browser und braucht kein Internet.
+Wichtig: Die beiden Dateien sportcurriculum.css und sportcurriculum.js gehören
+dazu und müssen im selben Ordner liegen. Ohne sie erscheint nur nackter Text.
+Zum Herunterladen deshalb den ganzen Ordner nehmen, nicht die einzelne Datei.
 
 
 Die Bewertungstabellen stammen vom Sprengel Remstal, Stand 10.09.2011, und
@@ -84,9 +88,12 @@ def main():
     einzel = ZIEL / "Einzelne Klassen"
     einzel.mkdir(parents=True)
 
-    # 1. interaktive Fassung
-    name_html = ZIEL / "Sportcurriculum Klasse 5 bis 10.html"
-    shutil.copy2(QUELLE, name_html)
+    # 1. interaktive Fassung, CSS und Skript getrennt.
+    # IServ blockiert eingebettetes CSS und JavaScript ueber die Regel
+    # "default-src 'self'". Dateien aus demselben Ordner laesst es zu.
+    html, css, js = build.getrennt_schreiben(seite, ZIEL)
+    (ZIEL / "Sportcurriculum Klasse 5 bis 10.html").write_text(html, encoding="utf-8")
+    print(f"HTML getrennt: {len(css)//1024} KB Stil, {len(js)//1024} KB Skript")
 
     with tempfile.TemporaryDirectory() as tmpdir:
         arbeit = Path(tmpdir)

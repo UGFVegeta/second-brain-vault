@@ -576,6 +576,35 @@ __PANELS__
 """
 
 
+def getrennt_schreiben(seite, ordner, basis="sportcurriculum"):
+    """Zerlegt die Seite in HTML, CSS und JS.
+
+    IServ liefert Dateien mit der Regel "default-src 'self'" aus. Eingebettetes
+    CSS und JavaScript wird davon blockiert, Dateien aus demselben Ordner nicht.
+    Diese Fassung ist deshalb die, die in der Schul-Cloud funktioniert.
+    """
+    css = re.search(r"<style>\n(.*?)\n</style>", seite, re.S).group(1)
+    js = re.search(r"<script>\n(.*?)\n</script>", seite, re.S).group(1)
+
+    html = re.sub(
+        r"<style>\n.*?\n</style>",
+        f'<link rel="stylesheet" href="{basis}.css">',
+        seite,
+        flags=re.S,
+    )
+    html = re.sub(
+        r"<script>\n.*?\n</script>",
+        f'<script src="{basis}.js"></script>',
+        html,
+        flags=re.S,
+    )
+
+    ordner.mkdir(parents=True, exist_ok=True)
+    (ordner / f"{basis}.css").write_text(css, encoding="utf-8")
+    (ordner / f"{basis}.js").write_text(js, encoding="utf-8")
+    return html, css, js
+
+
 def main():
     d = daten()
     seite = VORLAGE
