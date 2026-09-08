@@ -65,6 +65,22 @@ Einordnung zur Effizienz: Verhältnis Leistung zu Herzfrequenz bei 2,33 und dami
 
 ⚠️ **Rad-Herzfrequenz nicht mit Laufwerten vergleichen.** Auf dem Rad liegt sie durchgängig rund 15 Schläge tiefer: selbst in den Rennen Erbach und Schluchsee nur 136 bzw. 137 im Schnitt. HF taugt auf dem Rad deshalb nicht zur Intensitätssteuerung, dafür die Wattzahl nehmen.
 
+## ⚠️ FTP-Korrektur (07.09.2026): Arbeitswert ist 300 W
+
+**Die 330 W sind durch keine Messung der letzten zwölf Monate gedeckt.** Auswertung der 22 Fahrten mit der höchsten Normalized Power ergibt folgende Leistungskurve:
+
+| Dauer | 1 min | 5 min | 10 min | 20 min | 30 min | 60 min |
+|---|---|---|---|---|---|---|
+| Watt | 470 | 381 | 337 | **314** | 300 | 290 |
+
+Der beste 20-Minuten-Wert liegt bei 314 W (Stuttgart, 14.09.2025), in **jeder** Position. Daraus ergibt sich eine FTP von 298 bis 301. Die 60 Minuten bei 290 W stützen das von unten.
+
+**Arbeitswert bis zum Test am 18.09.2026: 300 W.** Gilt vorerst für beide Positionen, weil die Zeitrad-FTP ebenfalls ungemessen ist (siehe unten).
+
+⚠️ **Die Positionslücke ist unbelegt.** Der beste 20-Minuten-Wert in Zeitfahrposition liegt bei 284 W — der stammt aber aus dem Rennen in Malterdingen, das bewusst bei NP 270 eingeteilt wurde. Das ist Pacing, kein Maximalwert. Die tatsächliche Zeitrad-Maximalleistung über 20 Minuten ist **nie gemessen worden**. Die Lücke kann 30 Watt betragen oder 5. Erst der Doppeltest (Rennrad und Zeitfahrposition, gleiches Protokoll, wenige Tage Abstand) beantwortet das.
+
+⚠️ **Stufentests sind für Oskar das falsche Werkzeug.** Sein Verhältnis von 1-Minuten- zu 60-Minuten-Leistung liegt bei 470 zu 290, also Faktor 1,62 — typisch sind 1,9 bis 2,2. Er ist ein aerober Typ mit schmalem Spitzenbereich und hat nach eigener Aussage „Schwierigkeiten bei hohen Wattwerten". Ein Rampentest endet genau an dieser Schwäche und misst damit nicht das, was die FTP abbilden soll. **Stattdessen 20-Minuten-Test, besser 2 × 20 min mit 10 min Pause, Faktor 0,96 statt 0,95.**
+
 ## ⚠️ Zwei verschiedene FTP-Werte (geklärt am 09.08.2026)
 
 **Die 330 W stammen aus einem Indoor-Test auf dem Rennrad in aufrechter Position.** Für das Zeitrad im Aerolenker gilt dieser Wert nicht. Der Unterschied liegt bei den meisten bei 5 bis 10 %, und Oskar hat das selbst beschrieben („in der Aeroposition trete ich nicht so viel Watt wie aufrecht"). Realistische Zeitrad-FTP: **295 bis 310 W**.

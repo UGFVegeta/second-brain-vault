@@ -457,6 +457,90 @@ def _schule():
             "icloud": str(ICLOUD_GDRS)}
 
 
+# --- Trainingskalender (eigene Datei, weil deutlich größer) -----------------
+@section("kalender_training")
+def _kalender_training():
+    from intervals_live import api_get, load_config
+
+    conf = load_config()
+    aid, key = conf["ATHLETE_ID"], conf["API_KEY"]
+    heute = datetime.now().date()
+    von = (heute - timedelta(days=430)).isoformat()
+    acts = api_get(f"/athlete/{aid}/activities?oldest={von}&newest={heute}", key)
+    well = api_get(f"/athlete/{aid}/wellness?oldest={von}&newest={heute}", key)
+
+    typ_de = {"Run": "Lauf", "Ride": "Rad", "VirtualRide": "Rolle", "Swim": "Schwimmen",
+              "WeightTraining": "Kraft", "Workout": "Kraft", "Walk": "Gehen",
+              "Hike": "Wandern", "Yoga": "Mobilität", "Transition": "Wechsel",
+              "Elliptical": "Crosstrainer", "Rowing": "Rudern"}
+    gruppe = {"Lauf": "lauf", "Rad": "rad", "Rolle": "rad", "Schwimmen": "schwimm",
+              "Kraft": "kraft", "Mobilität": "kraft"}
+
+    tage = {}
+    for a in acts:
+        d = (a.get("start_date_local") or "")[:10]
+        if not d:
+            continue
+        sec = int(a.get("moving_time") or a.get("elapsed_time") or 0)
+        if sec < 120:
+            continue
+        typ = typ_de.get(a.get("type", ""), a.get("type") or "?")
+        km = round((a.get("distance") or 0) / 1000, 2)
+        e = {"typ": typ, "g": gruppe.get(typ, "sonst"), "name": (a.get("name") or typ)[:44],
+             "sec": sec, "km": km, "hm": int(a.get("total_elevation_gain") or 0),
+             "tss": int(a.get("icu_training_load") or 0), "id": a.get("id"),
+             "zeit": (a.get("start_date_local") or "")[11:16]}
+        if a.get("icu_average_watts"):
+            e["w"] = int(a["icu_average_watts"])
+        if a.get("icu_weighted_avg_watts"):
+            e["np"] = int(a["icu_weighted_avg_watts"])
+        if a.get("average_heartrate"):
+            e["hf"] = int(a["average_heartrate"])
+        if typ in ("Lauf",) and km > 0.3:
+            e["pace"] = round(sec / km)          # Sekunden je km
+        tage.setdefault(d, {"akt": []})["akt"].append(e)
+
+    for w in well:
+        d = w.get("id")
+        if not d:
+            continue
+        t = tage.setdefault(d, {"akt": []})
+        if w.get("restingHR"):
+            t["rhr"] = w["restingHR"]
+        if w.get("hrv"):
+            t["hrv"] = round(w["hrv"])
+        if w.get("sleepSecs"):
+            t["schlaf"] = round(w["sleepSecs"] / 3600, 1)
+        if w.get("ctl") is not None:
+            t["ctl"] = round(w["ctl"], 1)
+            if w.get("atl") is not None:
+                t["atl"] = round(w["atl"], 1)
+                t["tsb"] = round(w["ctl"] - w["atl"], 1)
+
+    for d in tage:
+        for e in tage[d]["akt"]:
+            e.pop("_", None)
+        tage[d]["akt"].sort(key=lambda x: x.get("zeit") or "")
+
+    # Geplantes aus dem Vault, falls vorhanden (eine Zeile je Termin)
+    plan = {}
+    pf = VAULT / "03 Bereiche" / "Triathlon" / "Trainingsplan.md"
+    if pf.exists():
+        import re as _re
+        pat = _re.compile(r"^\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]+)\|\s*([^|]*)\|", _re.M)
+        for d, was, notiz in pat.findall(pf.read_text(encoding="utf-8")):
+            plan.setdefault(d, []).append({"was": was.strip(), "notiz": notiz.strip()})
+
+    out = VAULT / "04 Ressourcen" / "training_data.js"
+    payload = "window.TRAINING = " + json.dumps(
+        {"generated": datetime.now().strftime("%Y-%m-%dT%H:%M"),
+         "von": von, "bis": heute.isoformat(), "tage": tage, "plan": plan},
+        ensure_ascii=False, separators=(",", ":")) + ";\n"
+    out.write_text(payload, encoding="utf-8")
+    return {"tage": len(tage), "aktivitaeten": sum(len(v["akt"]) for v in tage.values()),
+            "geplant": sum(len(v) for v in plan.values()), "kb": len(payload) // 1024}
+
+
 # --- Wissenskarte mit aktualisieren ----------------------------------------
 @section("wissenskarte")
 def _wissenskarte():

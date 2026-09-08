@@ -4,68 +4,118 @@
     {
       "name": "wsc-preview",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "cd /private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/344ce7ba-8289-491c-a8db-be7397c682e6/scratchpad/wsc && exec python3 -m http.server 8734"],
+      "runtimeArgs": [
+        "-c",
+        "cd /private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/344ce7ba-8289-491c-a8db-be7397c682e6/scratchpad/wsc && exec python3 -m http.server 8734"
+      ],
       "port": 8734
     },
     {
       "name": "physik-mc",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/7fdb90cc-7cfe-4310-ba5e-fc97befeab43/scratchpad/physikmc' && exec python3 -m http.server 8736"],
+      "runtimeArgs": [
+        "-c",
+        "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/7fdb90cc-7cfe-4310-ba5e-fc97befeab43/scratchpad/physikmc' && exec python3 -m http.server 8736"
+      ],
       "port": 8736
     },
     {
       "name": "matheaufgaben",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/518e2dd8-693b-43dc-aa48-75d69e5d33e8/scratchpad/mathe' && exec python3 -m http.server 8738"],
+      "runtimeArgs": [
+        "-c",
+        "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/518e2dd8-693b-43dc-aa48-75d69e5d33e8/scratchpad/mathe' && exec python3 -m http.server 8738"
+      ],
       "port": 8738
     },
     {
       "name": "pruefungsarchiv",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8737", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen/Mathematik/Prüfungsaufgaben/Prüfungsarchiv"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8737",
+        "--directory",
+        "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen/Mathematik/Prüfungsaufgaben/Prüfungsarchiv"
+      ],
       "port": 8737
     },
     {
       "name": "pruefungsapp",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/ea4a42c3-9343-4a09-b3cc-56a699ab9b0d/scratchpad/pruefungsapp' && exec python3 -m http.server 8735"],
+      "runtimeArgs": [
+        "-c",
+        "cd '/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/ea4a42c3-9343-4a09-b3cc-56a699ab9b0d/scratchpad/pruefungsapp' && exec python3 -m http.server 8735"
+      ],
       "port": 8735
     },
     {
       "name": "unterricht",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8739", "--directory", "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8739",
+        "--directory",
+        "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude"
+      ],
       "port": 8739
     },
     {
       "name": "lesedashboard",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/c1ae9ec8-4f6a-4262-989d-41b9354c00bd/scratchpad/lesedash'); socketserver.TCPServer(('', 8743), h).serve_forever()"],
+      "runtimeArgs": [
+        "-c",
+        "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/c1ae9ec8-4f6a-4262-989d-41b9354c00bd/scratchpad/lesedash'); socketserver.TCPServer(('', 8743), h).serve_forever()"
+      ],
       "port": 8743
     },
     {
       "name": "elektro",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/a72909c3-0e8e-4b82-a669-2ad0285b4be6/scratchpad'); socketserver.TCPServer(('', 8742), h).serve_forever()"],
+      "runtimeArgs": [
+        "-c",
+        "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/a72909c3-0e8e-4b82-a669-2ad0285b4be6/scratchpad'); socketserver.TCPServer(('', 8742), h).serve_forever()"
+      ],
       "port": 8742
     },
     {
       "name": "wsc-parken",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/Users/oskarklein/Library/Mobile Documents/com~apple~CloudDocs/Homepage WeinstadtCross/2026'); socketserver.TCPServer(('', 8752), h).serve_forever()"],
+      "runtimeArgs": [
+        "-c",
+        "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/Users/oskarklein/Library/Mobile Documents/com~apple~CloudDocs/Homepage WeinstadtCross/2026'); socketserver.TCPServer(('', 8752), h).serve_forever()"
+      ],
       "port": 8752
     },
     {
       "name": "active-recall",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bereiche/Active Recall/server.py"],
+      "runtimeArgs": [
+        "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bereiche/Active Recall/server.py"
+      ],
       "port": 8744
     },
     {
       "name": "artefakt-test",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-c", "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/135f954a-4211-45e3-989a-4dd2081564ab/scratchpad'); socketserver.TCPServer(('', 8751), h).serve_forever()"],
+      "runtimeArgs": [
+        "-c",
+        "import sys; sys.path.pop(0); import http.server, socketserver, functools; h = functools.partial(http.server.SimpleHTTPRequestHandler, directory='/private/tmp/claude-501/-Users-oskarklein-Documents-Obsidian-Claude-Second-Brain-Claude/135f954a-4211-45e3-989a-4dd2081564ab/scratchpad'); socketserver.TCPServer(('', 8751), h).serve_forever()"
+      ],
       "port": 8751
+    },
+    {
+      "name": "dashboards",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8753",
+        "--directory",
+        "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen"
+      ],
+      "port": 8753
     }
   ]
 }

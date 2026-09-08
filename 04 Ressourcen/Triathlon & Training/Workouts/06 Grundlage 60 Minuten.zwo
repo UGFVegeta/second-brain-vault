@@ -1,0 +1,18 @@
+<workout_file>
+  <author>Oskar Klein</author>
+  <name>Grundlage 60 min</name>
+  <description>Lockere Abendeinheit. Bewusst Trittfrequenz 85 bis 95 statt der gewohnten 71.</description>
+  <sportType>bike</sportType>
+  <tags/>
+  <workout>
+    <Warmup Duration="600" PowerLow="0.45" PowerHigh="0.60"/>
+    <SteadyState Duration="1200" Power="0.63">
+      <textevent timeoffset="0" message="Ruhig. Trittfrequenz bewusst hoch, 85 bis 90"/>
+    </SteadyState>
+    <IntervalsT Repeat="4" OnDuration="60" OffDuration="120" OnPower="0.68" OffPower="0.60">
+      <textevent timeoffset="0" message="1 min bei 100+ Umdrehungen, Leistung bleibt locker"/>
+    </IntervalsT>
+    <SteadyState Duration="720" Power="0.63"/>
+    <Cooldown Duration="360" PowerLow="0.55" PowerHigh="0.40"/>
+  </workout>
+</workout_file>

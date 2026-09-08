@@ -36,64 +36,75 @@ Nach dem Breisgau Triathlon (23.08., Platz 3 AK) folgte eine Infektwoche mit Mag
 
 ## Rahmenbedingungen
 
-- **Gesamtumfang:** 8 h ist das Minimum, im Schnitt eher 10 h, in guten Wochen 12 h.
-- **Radfahren nur auf der Rolle**, abends ab etwa 20 Uhr, wenn die Kinder schlafen. Rollenzeit ist dichter als Straßenzeit, drei Stunden dort entsprechen gut vier draußen.
-- **Schwimmen fällt nie aus.** Meist donnerstags um 20 Uhr.
-- **Stundenplan** kommt voraussichtlich Montag, 07.09. Die Lücken darin ergeben vermutlich eine weitere Einheit.
-- **Krafttraining** ab Eröffnung des Fitomat Rudersberg (27.09.), zweimal 45 Minuten. Dazu täglich die [[Tägliche Kraftroutine]] und die Hüftübungen.
+- **Gesamtumfang: rund 12 Stunden.** Anfang des Schuljahres ist der Stress gering, das ist machbar.
+- **Stundenplan (ab 07.09.):** Mittwoch endet der Unterricht um 11:00, Donnerstag um 12:00, Freitag um 11:00. Damit liegen drei Vormittagsfenster frei — der wichtigste Gewinn, weil die harten Einheiten nicht mehr abends nach einem Schultag stattfinden müssen.
+- **Schwimmen:** donnerstags 20:00 im Verein, 3000–3500 m. Abends ist Schwimmen sonst nicht möglich, deshalb wird die zweite Einheit (rund 2000 m) von Woche zu Woche in ein freies Vormittagsfenster geschoben und nicht fest verplant.
+- **Radfahren:** drei Einheiten, davon eine harte am Freitagvormittag. Die lockeren abends, wenn die Kinder schlafen.
+- **Krafttraining** ab Eröffnung des Fitomat Rudersberg (27.09.), zweimal 30–45 Minuten. Dazu täglich die [[Tägliche Kraftroutine]] und die Hüftübungen.
+- **Planungsprinzip:** Mit zwei Kindern ist ein fester Stundenplan illusorisch. Der Plan ist ein Gerüst zum Verschieben, nicht zum Abarbeiten.
 
 ## Aufbau des Laufumfangs
 
 Der Weg zurück auf 40 km ist **Wiedererlangen** (39 km waren in KW 32 schon da) und darf zügig gehen. Alles darüber ist Neuland, dort gilt höchstens zehn Prozent pro Woche.
 
-**Wichtig: Der Schutz für Sehnen und Bänder kommt nicht davon, den Umfang früh zu erreichen, sondern davon, ihn lange zu halten.** Deshalb 45 km ab Mitte Oktober und dann fünf Wochen stehen lassen, statt kurz vor der DM auf 50 zu spitzen.
+**Wichtig: Der Schutz für Sehnen und Bänder kommt nicht davon, den Umfang früh zu erreichen, sondern davon, ihn lange zu halten.** Deshalb 50 km ab Mitte Oktober und die dann vier Wochen stehen lassen, statt kurz vor der DM zu spitzen.
 
 | Woche | Laufen | Schwerpunkt |
 |---|---|---|
-| KW 37 (07.–13.09.) | 18 km | Wiederaufbau nach Infekt, alles locker |
-| KW 38 | 25 km | erste Steigerungen am Ende der Woche |
-| KW 39 (–27.09.) | 32 km | Weinstadt Triathlon am 27.09. läuft mit |
-| KW 40 | 36 km | erste Bergintervalle, Kraft startet |
-| KW 41 | 40 km | |
-| KW 42 | 44 km | |
-| KW 43 | 47 km | Gelände dazu, Spikes einlaufen |
-| KW 44 | 48 km | |
+| KW 37 (07.–13.09.) | 34 km | Wiederaufbau nach Infekt, noch keine Härte |
+| KW 38 | 40 km | erste Bergsprints |
+| KW 39 (–27.09.) | 33 km | Weinstadt Triathlon am 27.09., Fitomat öffnet |
+| KW 40 | 46 km | Bergintervalle, Kraft startet |
+| KW 41 | 48 km | |
+| KW 42 | **50 km** | höchster Umfang erreicht |
+| KW 43 | 50 km | Umstellung: Samstag wird Geländetag, Freitagsfahrt locker |
+| KW 44 | 50 km | Spikes einlaufen |
 | KW 45 | 48 km | |
-| KW 46 | 45 km | Pforzheim-Cross als Trainingsrennen |
-| KW 47 | 38 km | Schärfen, hartes Sa/So-Paar |
-| KW 48 | 25 km | Taper, DM am 28./29.11. |
+| KW 46 | 42 km | **Sparkassen Cross Pforzheim, Sa 14.11.** |
+| KW 47 | 42 km | Schärfen, DM-Kurs abgehen |
+| KW 48 | 25 km | Taper, **DM 28./29.11.** |
 
-## Wochengerüst nach Priorität
+**Vier Wochen auf 50 km halten statt kurz zu spitzen.** Sehnen und Bänder passen sich über Dauer an, nicht über Spitzen.
 
-Wenn eine Woche eng wird, von unten streichen:
+Der Sprung von 33 auf 46 km zwischen KW 39 und 40 ist ein Rechenartefakt der Triathlonwoche; gegenüber KW 38 sind es +15 % über zwei Wochen.
 
-1. **Qualitätseinheit Laufen.** Die Schlüsseleinheit, unantastbar. Bis Mitte Oktober Bergintervalle, danach VO2max-Arbeit.
-2. **Zweiter Laufreiz.** Tempo oder Berg.
-3. **Langer Lauf, 16 bis 20 km.** Gern bergig, bis etwa 300 Höhenmeter. ⚠️ **Die Abfahrten bewusst kontrolliert laufen** — bergauf ist der Nutzen, bergab liegt das Risiko für Hüfte und Knie.
-4. **Ruhige Läufe** zum Auffüllen des Umfangs.
-5. **Drei Radeinheiten auf der Rolle**, aerob. Keine harten Intervalle um 21 Uhr, das kostet Schlaf, und der ist ohnehin die Schwachstelle.
-6. **Schwimmen**, donnerstags 20 Uhr, Technik und Wasserlage.
-7. **Zwei Krafteinheiten** ab Ende September.
+Ausgeschrieben Tag für Tag in [[Trainingsplan]].
+
+## Wochengerüst
+
+| Tag | mittags | abends |
+|---|---|---|
+| Mo | – | Rad locker 60 min |
+| Di | – | Lauf ruhig |
+| **Mi** | **Laufintervalle, 11:30 Bahn oder Berg** | – |
+| Do | Kraft 45 min | Schwimmen Verein 3000–3500 m |
+| **Fr** | **Rad hart 75–90 min, ab 11:00** | – |
+| Sa | Lauf ruhig bzw. ab KW 43 Gelände | – |
+| **So** | **Langer Lauf** | – |
+
+Die harte Radeinheit bleibt bewusst im Laufblock: Sie liefert **Intensität ohne Gelenkstoß** und ist damit genau der richtige Weg, das Herz-Kreislauf-System zu fordern, wenn der Laufumfang begrenzt ist. Ab KW 43 wird sie locker, weil dann die Geländeeinheit am Samstag den zweiten harten Reiz stellt.
+
+**Prioritäten, wenn eine Woche eng wird** (von unten streichen): Mittwochsintervalle · langer Lauf · Schwimmen Verein · ruhige Läufe · Kraft · harte Radeinheit · lockere Radeinheiten · zweites Schwimmen.
 
 ## Phasen
 
 **Phase 1 – Wiederaufbau (KW 37–38).** Zurück auf die Beine, keine Qualität. Ziel ist, die CTL wieder anzuheben, ohne den Infekt zurückzuholen. Erst wenn Ruhepuls zwei bis drei Tage stabil bei 35–36 liegt und die HRV wieder Richtung 82 geht, wird Tempo gelaufen.
 
-**Phase 2 – Umfang und erste Härte (KW 39–42).** Umfang von 32 auf 44 km. Eine Qualitätseinheit pro Woche, Bergintervalle bevorzugt, weil hüftschonender als schnelle Ebene. Weinstadt Triathlon am 27.09. als scharfer Reiz, nicht als Test.
+**Phase 2 – Umfang und erste Härte (KW 39–42).** Umfang von 33 auf 50 km. Eine Qualitätseinheit pro Woche, Bergintervalle bevorzugt, weil hüftschonender als schnelle Ebene. Weinstadt Triathlon am 27.09. als scharfer Reiz, nicht als Test.
 
-**Phase 3 – Spezifisch (KW 43–46).** Umfang auf 45–48 km und halten. Zwei Qualitätseinheiten: eine VO2max-Einheit auf gutem Untergrund, eine im Gelände mit Spikes. Höchstens eine echte Geländeeinheit pro Woche wegen der Gelenkbelastung auf engem Kurs. Pforzheim-Cross als Trainingsrennen.
+**Phase 3 – Spezifisch (KW 43–46).** Umfang bei 50 km halten, in der Wettkampfwoche auf 42 zurück. Zwei Qualitätseinheiten: eine VO2max-Einheit auf gutem Untergrund, eine im Gelände mit Spikes. Höchstens eine echte Geländeeinheit pro Woche wegen der Gelenkbelastung auf engem Kurs. Pforzheim-Cross als Trainingsrennen.
 
 **Phase 4 – Schärfen und Taper (KW 47–48).** Umfang runter, Intensität kurz und scharf. Mindestens einmal ein hartes Samstag-Sonntag-Paar, weil am Renntag genau das ansteht.
 
 ## Warum das dem Radjahr 2027 nicht schadet
 
-Vier Stunden Laufen statt bisher 1,8 kosten dem Rad rund zwei Stunden pro Woche. Das ist kein Verlust, weil der eigentliche Radaufbau erst im Dezember mit Krafttraining und den freien Rollen beginnt. Drei aerobe Rollenstunden halten die Basis, und Bergintervalle wie Krafttraining zahlen ohnehin auf beides ein.
+Vier Stunden Laufen statt bisher 1,8 kosten dem Rad rund zwei Stunden pro Woche. Das ist kein Verlust, weil der eigentliche Radaufbau erst im Dezember mit Krafttraining und den freien Rollen beginnt. Drei aerobe Radstunden halten die Basis, und Bergintervalle wie Krafttraining zahlen ohnehin auf beides ein.
 
 ## ⚠️ Offen
 
-- **Hüfte.** Den Laufumfang binnen zwei Monaten mehr als zu verdoppeln ist bei fortgeschrittener Coxarthrose kein Selbstläufer. Gehört auf die Fragenliste in [[Hüftarthrose – Zweitmeinung, Klinikoptionen & Fragenliste]], zusammen mit der Frage nach dem engen Rundkurs. Die täglichen Hüftübungen wirken seit zwei Wochen gut (kein Nachtschmerz mehr), werden aber bei fast null Laufbelastung getestet. Der echte Test kommt bei 45 km.
-- **Termin Pforzheim-Cross** noch bestätigen, vermutlich Ende Oktober, eventuell zugleich Baden-Württembergische Meisterschaften.
-- **Stundenplan** ab 07.09., danach die Wochenstruktur konkret festlegen.
-- **FTP-Test in Zeitfahrposition** Ende September als Ausgangswert für den Winter.
+- **Meldung Sparkassen Cross Pforzheim** bis 07.11.2026 online. Meldung zur DM übernimmt der Verein, es reicht Bescheid zu geben (angemeldet wird für beide Tage, die Entscheidung für nur einen Start bleibt kurzfristig offen).
+- **FTP-Doppeltest** Ende September, einmal Rennrad und einmal Zeitfahrposition, als Ausgangswert für den Winter. Siehe [[Radleistung – Hebel und Szenarien 2027]].
+
+**Erledigt:** Die Hüftfrage. Oskar ist früher 100 bis 120 km pro Woche gelaufen, damals bereits mit Beschwerden. 45 bis 50 km sind damit erfahrungsgemäß unkritisch, und die täglichen Hüftübungen laufen seit Ende August ohne Nachtschmerz.
 
 Siehe [[Rennauswertung Breisgau Triathlon 2026]], [[Laufform & Renntempo Mitteldistanz]], [[Gesundheitslogbuch]].

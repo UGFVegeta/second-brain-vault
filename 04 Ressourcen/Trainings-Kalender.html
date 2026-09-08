@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trainings-Kalender</title>
+<style>
+  :root {
+    --bg: #0e1218; --card: #151a23; --card2: #1c2330; --line: #222a38;
+    --t1: #e8ecf2; --t2: #c6cdd8; --t3: #8b94a3; --t4: #657084;
+    --blue: #5aa2f0; --purple: #a78bfa; --green: #2dd4a7; --amber: #f0b954;
+    --coral: #f28b6b; --yellow: #ffd75e; --pink: #f27ba8; --red: #f0716b;
+    --lauf: #f28b6b; --rad: #5aa2f0; --schwimm: #2dd4a7; --kraft: #a78bfa; --sonst: #657084;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--t1);
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    padding: 22px 20px 60px; -webkit-font-smoothing: antialiased;
+  }
+  header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+  h1 { font-size: 24px; margin: 0; font-weight: 650; letter-spacing: -.01em; }
+  .stand { font-size: 12.5px; color: var(--t3); }
+  .spacer { margin-left: auto; }
+  button {
+    background: var(--card2); color: var(--t2); border: 1px solid var(--line);
+    border-radius: 9px; padding: 6px 13px; font-size: 13px; cursor: pointer;
+    font-family: inherit;
+  }
+  button:hover { border-color: var(--amber); color: var(--t1); }
+  button.on { background: var(--amber); border-color: var(--amber); color: #1a1408; font-weight: 600; }
+  .nav { display: flex; align-items: center; gap: 6px; }
+  .titel { font-size: 16px; font-weight: 650; min-width: 230px; text-align: center; }
+
+  .sum { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+         padding: 9px 15px; min-width: 96px; }
+  .kpi .l { font-size: 10.5px; color: var(--t3); text-transform: uppercase; letter-spacing: .04em; }
+  .kpi .v { font-size: 19px; font-weight: 650; margin-top: 2px; }
+
+  .woche { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .tag { background: var(--card); border: 1px solid var(--line); border-radius: 13px;
+         padding: 10px 10px 8px; min-height: 190px; display: flex; flex-direction: column; }
+  .tag.heute { border-color: var(--amber); }
+  .tag.leer { opacity: .55; }
+  .th { display: flex; align-items: baseline; gap: 6px; margin-bottom: 8px; }
+  .th .wd { font-size: 12px; font-weight: 650; color: var(--t2); }
+  .th .dt { font-size: 11px; color: var(--t4); }
+  .th .sm { margin-left: auto; font-size: 11px; color: var(--t3); }
+
+  .akt { background: var(--card2); border-radius: 9px; padding: 7px 9px; margin-bottom: 6px;
+         text-decoration: none; display: block; color: inherit; }
+  .akt:hover { background: #242c3b; }
+  .akt .a1 .sp { color: var(--sonst); }
+  .akt.lauf .a1 .sp { color: var(--lauf); }
+  .akt.rad .a1 .sp { color: var(--rad); }
+  .akt.schwimm .a1 .sp { color: var(--schwimm); }
+  .akt.kraft .a1 .sp { color: var(--kraft); }
+  .akt .a1 { font-size: 12px; font-weight: 600; display: flex; gap: 6px; align-items: baseline; }
+  .akt .a1 .zeit { font-size: 10px; color: var(--t4); font-weight: 400; margin-left: auto; }
+  .akt .a2 { font-size: 11px; color: var(--t3); margin-top: 2px; }
+  .plan { background: transparent; border: 1px dashed var(--line); border-radius: 9px;
+          padding: 6px 9px; margin-bottom: 6px; font-size: 11.5px; color: var(--t3); }
+  .plan b { color: var(--t2); font-weight: 600; }
+
+  .tf { margin-top: auto; padding-top: 7px; border-top: 1px solid var(--line);
+        font-size: 10.5px; color: var(--t4); display: flex; gap: 8px; flex-wrap: wrap; }
+  .tf span b { color: var(--t3); font-weight: 600; }
+
+  .monat { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .mkopf { font-size: 11px; color: var(--t4); text-align: center; padding-bottom: 3px; font-weight: 600; }
+  .mz { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+        padding: 7px 8px; min-height: 84px; display: flex; flex-direction: column; gap: 4px; }
+  .mz.aus { opacity: .3; }
+  .mz.heute { border-color: var(--amber); }
+  .mz .d { font-size: 11px; color: var(--t3); font-weight: 600; }
+  .mz .bars { display: flex; gap: 3px; align-items: flex-end; height: 30px; }
+  .mz .bars i { display: block; width: 7px; border-radius: 2px; min-height: 3px; }
+  .mz .tot { font-size: 10.5px; color: var(--t4); margin-top: auto; }
+
+  .leg { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; font-size: 11.5px; color: var(--t3); }
+  .leg i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; }
+  footer { margin-top: 26px; font-size: 11.5px; color: var(--t4); }
+  footer a { color: var(--t3); }
+  .empty { color: var(--t4); font-size: 12px; padding: 30px 0; }
+  @media (max-width: 900px) {
+    .woche { grid-template-columns: 1fr; }
+    .tag { min-height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Trainings-Kalender</h1>
+  <span class="stand" id="stand"></span>
+  <span class="spacer"></span>
+  <div class="nav">
+    <button id="prev">‹</button>
+    <span class="titel" id="titel"></span>
+    <button id="next">›</button>
+    <button id="heute">heute</button>
+  </div>
+  <div class="nav">
+    <button id="bWoche" class="on">Woche</button>
+    <button id="bMonat">Monat</button>
+  </div>
+</header>
+
+<div class="sum" id="sum"></div>
+<div id="inhalt"></div>
+
+<div class="leg">
+  <span><i style="background:var(--lauf)"></i>Laufen</span>
+  <span><i style="background:var(--rad)"></i>Rad</span>
+  <span><i style="background:var(--schwimm)"></i>Schwimmen</span>
+  <span><i style="background:var(--kraft)"></i>Kraft &amp; Mobilität</span>
+  <span><i style="background:var(--sonst)"></i>Sonstiges</span>
+</div>
+
+<footer>
+  ← <a href="Lebens-Dashboard.html">Lebens-Dashboard</a> ·
+  Pfeiltasten blättern, <b>W</b> und <b>M</b> wechseln die Ansicht ·
+  Klick auf eine Einheit öffnet sie in intervals.icu
+</footer>
+
+<script src="training_data.js"></script>
+<script>
+const T = window.TRAINING || null;
+const $ = id => document.getElementById(id);
+const WD = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+const MON = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const heuteISO = iso(new Date());
+function montag(d) { const x = new Date(d); const s = (x.getDay()+6)%7; x.setDate(x.getDate()-s); x.setHours(12,0,0,0); return x; }
+const dauer = s => { const h = Math.floor(s/3600), m = Math.round((s%3600)/60); return h ? `${h}:${String(m).padStart(2,"0")} h` : `${m} min`; };
+const pace = s => `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}/km`;
+
+let ansicht = "woche";
+let anker = montag(new Date());
+
+function tagDaten(k) { return (T && T.tage && T.tage[k]) || null; }
+
+function kennzahl(label, wert, farbe) {
+  return `<div class="kpi"><div class="l">${label}</div><div class="v"${farbe?` style="color:${farbe}"`:""}>${wert}</div></div>`;
+}
+
+function summe(keys) {
+  const s = { sec:0, tss:0, lauf:0, rad:0, schwimm:0, n:0 };
+  keys.forEach(k => {
+    const t = tagDaten(k); if (!t) return;
+    (t.akt||[]).forEach(a => {
+      s.sec += a.sec; s.tss += a.tss||0; s.n++;
+      if (a.g === "lauf") s.lauf += a.km;
+      else if (a.g === "rad") s.rad += a.km;
+      else if (a.g === "schwimm") s.schwimm += a.km;
+    });
+  });
+  return s;
+}
+
+function aktKarte(a) {
+  const m = [];
+  if (a.km) m.push(a.km.toFixed(a.g === "schwimm" ? 2 : 1) + " km");
+  if (a.hm) m.push(a.hm + " hm");
+  if (a.w) m.push(a.w + " W");
+  else if (a.pace) m.push(pace(a.pace));
+  if (a.hf) m.push("HF " + a.hf);
+  const href = a.id ? `https://intervals.icu/activities/${a.id}` : null;
+  const inner = `<div class="a1"><span class="sp">${esc(a.typ)}</span><span class="zeit">${esc(a.zeit||"")}</span></div>
+     <div class="a2">${dauer(a.sec)}${m.length ? " · " + m.join(" · ") : ""}${a.tss ? " · TSS " + a.tss : ""}</div>`;
+  return href
+    ? `<a class="akt ${a.g}" href="${href}" target="_blank" title="${esc(a.name)}">${inner}</a>`
+    : `<div class="akt ${a.g}" title="${esc(a.name)}">${inner}</div>`;
+}
+
+function renderWoche() {
+  const keys = [...Array(7)].map((_, i) => { const d = new Date(anker); d.setDate(d.getDate()+i); return iso(d); });
+  const s = summe(keys);
+  const letzter = keys.map(tagDaten).filter(t => t && t.ctl != null).pop();
+
+  $("titel").textContent = (() => {
+    const a = new Date(anker), b = new Date(anker); b.setDate(b.getDate()+6);
+    return `${a.getDate()}. ${MON[a.getMonth()].slice(0,3)} – ${b.getDate()}. ${MON[b.getMonth()].slice(0,3)} ${b.getFullYear()}`;
+  })();
+
+  $("sum").innerHTML =
+    kennzahl("Gesamt", dauer(s.sec)) +
+    kennzahl("Einheiten", s.n) +
+    kennzahl("TSS", s.tss) +
+    kennzahl("Laufen", s.lauf.toFixed(1) + " km", "var(--lauf)") +
+    kennzahl("Rad", s.rad.toFixed(0) + " km", "var(--rad)") +
+    kennzahl("Schwimmen", s.schwimm.toFixed(1) + " km", "var(--schwimm)") +
+    (letzter ? kennzahl("Form (TSB)", (letzter.tsb > 0 ? "+" : "") + letzter.tsb,
+        letzter.tsb >= 0 ? "var(--green)" : "var(--amber)") : "") +
+    (letzter ? kennzahl("Fitness (CTL)", letzter.ctl) : "");
+
+  $("inhalt").innerHTML = `<div class="woche">` + keys.map((k, i) => {
+    const t = tagDaten(k);
+    const d = new Date(anker); d.setDate(d.getDate()+i);
+    const akt = (t && t.akt) || [];
+    const gepl = (T.plan && T.plan[k]) || [];
+    const tagSec = akt.reduce((x, a) => x + a.sec, 0);
+    const fuss = [];
+    if (t && t.rhr) fuss.push(`<span>Puls <b>${t.rhr}</b></span>`);
+    if (t && t.hrv) fuss.push(`<span>HRV <b>${t.hrv}</b></span>`);
+    if (t && t.schlaf) fuss.push(`<span>Schlaf <b>${t.schlaf} h</b></span>`);
+    return `<div class="tag${k === heuteISO ? " heute" : ""}${akt.length ? "" : " leer"}">
+      <div class="th"><span class="wd">${WD[i]}</span><span class="dt">${d.getDate()}.${d.getMonth()+1}.</span>
+        ${tagSec ? `<span class="sm">${dauer(tagSec)}</span>` : ""}</div>
+      ${gepl.map(p => `<div class="plan"><b>${esc(p.was)}</b>${p.notiz ? "<br>" + esc(p.notiz) : ""}</div>`).join("")}
+      ${akt.map(aktKarte).join("")}
+      ${fuss.length ? `<div class="tf">${fuss.join("")}</div>` : ""}
+    </div>`;
+  }).join("") + `</div>`;
+}
+
+function renderMonat() {
+  const erst = new Date(anker.getFullYear(), anker.getMonth(), 1, 12);
+  const start = montag(erst);
+  $("titel").textContent = `${MON[erst.getMonth()]} ${erst.getFullYear()}`;
+
+  const alle = [];
+  for (let i = 0; i < 42; i++) { const d = new Date(start); d.setDate(d.getDate()+i); alle.push(d); }
+  while (alle.length > 28 && alle[alle.length-1].getMonth() !== erst.getMonth()
+         && alle[alle.length-8].getMonth() !== erst.getMonth()) alle.splice(-7);
+
+  const imMonat = alle.filter(d => d.getMonth() === erst.getMonth()).map(iso);
+  const s = summe(imMonat);
+  $("sum").innerHTML =
+    kennzahl("Gesamt", dauer(s.sec)) + kennzahl("Einheiten", s.n) + kennzahl("TSS", s.tss) +
+    kennzahl("Laufen", s.lauf.toFixed(0) + " km", "var(--lauf)") +
+    kennzahl("Rad", s.rad.toFixed(0) + " km", "var(--rad)") +
+    kennzahl("Schwimmen", s.schwimm.toFixed(1) + " km", "var(--schwimm)");
+
+  const maxSec = Math.max(1, ...alle.map(d => {
+    const t = tagDaten(iso(d)); return t ? (t.akt||[]).reduce((x,a)=>x+a.sec,0) : 0; }));
+
+  $("inhalt").innerHTML =
+    `<div class="monat">${WD.map(w => `<div class="mkopf">${w}</div>`).join("")}</div>` +
+    `<div class="monat">` + alle.map(d => {
+      const k = iso(d), t = tagDaten(k), akt = (t && t.akt) || [];
+      const tagSec = akt.reduce((x,a)=>x+a.sec,0);
+      const grp = {};
+      akt.forEach(a => grp[a.g] = (grp[a.g]||0) + a.sec);
+      const bars = Object.entries(grp).map(([g, sec]) =>
+        `<i style="background:var(--${g === "sonst" ? "sonst" : g});height:${Math.max(3, Math.round(sec/maxSec*30))}px" title="${g}: ${dauer(sec)}"></i>`).join("");
+      return `<div class="mz${d.getMonth() === erst.getMonth() ? "" : " aus"}${k === heuteISO ? " heute" : ""}">
+        <div class="d">${d.getDate()}</div>
+        <div class="bars">${bars}</div>
+        <div class="tot">${tagSec ? dauer(tagSec) : ""}</div>
+      </div>`;
+    }).join("") + `</div>`;
+}
+
+function render() {
+  if (!T) { $("inhalt").innerHTML = '<div class="empty">training_data.js fehlt – bitte einmal den Lebens-Dashboard-Refresh laufen lassen.</div>'; return; }
+  $("stand").textContent = "Stand " + (T.generated || "").replace("T", ", ") + " Uhr";
+  $("bWoche").classList.toggle("on", ansicht === "woche");
+  $("bMonat").classList.toggle("on", ansicht === "monat");
+  ansicht === "woche" ? renderWoche() : renderMonat();
+}
+
+function blaettern(richtung) {
+  if (ansicht === "woche") anker.setDate(anker.getDate() + 7*richtung);
+  else anker = new Date(anker.getFullYear(), anker.getMonth() + richtung, 1, 12);
+  render();
+}
+
+$("prev").onclick = () => blaettern(-1);
+$("next").onclick = () => blaettern(1);
+$("heute").onclick = () => { anker = ansicht === "woche" ? montag(new Date()) : new Date(); render(); };
+$("bWoche").onclick = () => { ansicht = "woche"; anker = montag(anker); render(); };
+$("bMonat").onclick = () => { ansicht = "monat"; render(); };
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") blaettern(-1);
+  else if (e.key === "ArrowRight") blaettern(1);
+  else if (e.key.toLowerCase() === "w") { ansicht = "woche"; anker = montag(anker); render(); }
+  else if (e.key.toLowerCase() === "m") { ansicht = "monat"; render(); }
+});
+
+render();
+</script>
+</body>
+</html>

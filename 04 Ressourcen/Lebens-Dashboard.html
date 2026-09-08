@@ -410,6 +410,8 @@ function renderTraining(t) {
     <div class="wbars">${t.weeks.map(w => `<div class="wb" data-tip="KW ${parseInt(w.w.slice(-2))} · ${w.h} h Training"><i style="height:${Math.max(3, Math.round(w.h / maxH * 100))}%"></i></div>`).join("")}</div>
     <div class="wlbl">${t.weeks.map(w => `<span>${parseInt(w.w.slice(-2))}</span>`).join("")}</div>
     ${t.recent.slice(0, 5).map(a => `<div class="act"><span class="d">${fmtD(a.d).slice(3)}</span><span class="typ">${esc(a.typ)}</span><span class="n">${esc(a.name)}</span><span class="du">${a.dur}${a.km ? " · " + a.km + " km" : ""}</span></div>`).join("")}`;
+  $("trainBody").insertAdjacentHTML("beforeend",
+    '<a class="linkbtn" href="Trainings-Kalender.html"><span>Trainings-Kalender</span><span class="arr">\u2192</span></a>');
   $("trainMeta").textContent = "Wochen-Ø " + (t.weeks.reduce((s, w) => s + w.h, 0) / Math.max(t.weeks.length, 1)).toFixed(1) + " h";
 }
 

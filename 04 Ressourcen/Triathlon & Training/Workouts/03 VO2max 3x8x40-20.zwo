@@ -1,0 +1,33 @@
+<workout_file>
+  <author>Oskar Klein</author>
+  <name>VO2max 3x8 x 40/20</name>
+  <description>Mikrointervalle. 40 s bei 115 % FTP, 20 s locker, 8 mal am Stueck, drei Bloecke mit 5 min Pause. Watt bleiben ueber den ganzen Block gleich - gesteigert wird nur die Zahl der Wiederholungen. Gesamt rund 59 Minuten, davon 24 Minuten Arbeit.</description>
+  <sportType>bike</sportType>
+  <tags/>
+  <workout>
+    <Warmup Duration="720" PowerLow="0.50" PowerHigh="0.75"/>
+    <IntervalsT Repeat="3" OnDuration="30" OffDuration="60" OnPower="1.10" OffPower="0.50">
+      <textevent timeoffset="0" message="Drei kurze Oeffner"/>
+    </IntervalsT>
+    <SteadyState Duration="180" Power="0.55"/>
+    <IntervalsT Repeat="8" OnDuration="40" OffDuration="20" OnPower="1.15" OffPower="0.50">
+      <textevent timeoffset="0" message="Block 1 von 3 - 8 x 40/20 bei 115 %"/>
+      <textevent timeoffset="240" message="Haelfte im Block, Leistung halten"/>
+    </IntervalsT>
+    <SteadyState Duration="300" Power="0.50">
+      <textevent timeoffset="0" message="5 min locker, Block 2 kommt"/>
+    </SteadyState>
+    <IntervalsT Repeat="8" OnDuration="40" OffDuration="20" OnPower="1.15" OffPower="0.50">
+      <textevent timeoffset="0" message="Block 2 von 3 - 8 x 40/20 bei 115 %"/>
+      <textevent timeoffset="240" message="Haelfte im Block, Leistung halten"/>
+    </IntervalsT>
+    <SteadyState Duration="300" Power="0.50">
+      <textevent timeoffset="0" message="5 min locker, Block 3 kommt"/>
+    </SteadyState>
+    <IntervalsT Repeat="8" OnDuration="40" OffDuration="20" OnPower="1.15" OffPower="0.50">
+      <textevent timeoffset="0" message="Block 3 von 3 - 8 x 40/20 bei 115 %"/>
+      <textevent timeoffset="240" message="Haelfte im Block, Leistung halten"/>
+    </IntervalsT>
+    <Cooldown Duration="600" PowerLow="0.55" PowerHigh="0.40"/>
+  </workout>
+</workout_file>

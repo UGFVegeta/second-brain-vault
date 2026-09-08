@@ -49,9 +49,11 @@ Gerechnet auf zwei echten Strecken: Malterdingen (80 km, 893 hm) und der Ligastr
 
 | Quelle | Größenordnung | Sicherheit |
 |---|---|---|
-| **Positionslücke schließen** (Aero-FTP ~300 → Rennrad-FTP 330) | +20 bis 30 W | hoch |
+| **Positionslücke schließen** | +0 bis 30 W | ⚠️ **unbelegt** |
 | **Physiologisch**, inkl. erstmals systematischem Krafttraining | +10 bis 15 W | mittel |
-| **Summe** | **+30 bis 45 W** | |
+| **Summe** | **+10 bis 45 W** | |
+
+⚠️ **Korrektur vom 07.09.2026.** Die Positionslücke stand hier als „hoch" gesichert mit 20 bis 30 Watt. Das war eine Annahme, keine Messung. Die gemessene Leistungskurve ergibt eine Rennrad-FTP von rund **300 W statt der notierten 330** (bester 20-Minuten-Wert in zwölf Monaten: 314 W in jeder Position). Und der beste Zeitfahr-Wert von 284 W stammt aus einem bewusst eingeteilten Rennen, ist also kein Maximum. **Damit ist der größte Posten dieser Rechnung offen.** Details in [[Sitzposition Zeitfahrrad (Cube Aerium C68)]].
 
 Der größere Teil ist **keine Fitness, sondern Gewöhnung**. Trainingsansatz: in Aeroposition am Berg fahren, wo hohe Leistung und Position gleichzeitig gehalten werden müssen. Über den Winter auf den freien Rollen systematisch machbar.
 
