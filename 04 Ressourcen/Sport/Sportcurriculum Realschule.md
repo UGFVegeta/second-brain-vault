@@ -104,6 +104,9 @@ Gemeinsam erarbeitetes Curriculum der Sportfachschaft. Orientiert am **Bildungsp
 > - Badminton
 >
 > **Schwimmen**
+> - 25 m Brust *(Zeit, Technik und Ausdauer 15 min)*
+> - Tauchen **25 m**
+> - Kraul *(optional, Technik und 25 m)*
 
 ---
 
