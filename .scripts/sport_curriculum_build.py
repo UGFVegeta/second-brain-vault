@@ -52,25 +52,82 @@ def daten():
 
 # --- Bausteine ---------------------------------------------------------------
 
+def radios(d):
+    """Die Auswahl liegt in versteckten Optionsfeldern.
+
+    So schaltet der Browser die Jahrgaenge allein ueber CSS um. Das ist noetig,
+    weil IServ ausgeliefertes JavaScript blockiert.
+    """
+    felder = []
+    for k in d["klassen"]:
+        nr = k["klasse"]
+        erst = " checked" if nr == 5 else ""
+        felder.append(
+            f'<input class="wahl" type="radio" name="stufe" id="stufe-{nr}"{erst}>'
+        )
+    felder.append('<input class="wahl" type="radio" name="stufe" id="stufe-alle">')
+    return "".join(felder)
+
+
 def bahnleiste(d):
     teile = []
     for k in d["klassen"]:
         nr = k["klasse"]
-        erst = " ist-aktiv" if nr == 5 else ""
         teile.append(
-            f'<button class="bahn{erst}" role="tab" id="tab-{nr}" aria-controls="klasse-{nr}" '
-            f'aria-selected="{"true" if nr == 5 else "false"}" tabindex="{"0" if nr == 5 else "-1"}" '
-            f'data-klasse="{nr}">'
+            f'<label class="bahn" for="stufe-{nr}">'
             f'<span class="sr">Klasse </span><span class="bahn-nr">{nr}</span>'
-            f"</button>"
+            f"</label>"
         )
+    teile.append(
+        '<label class="bahn ist-alle" for="stufe-alle">'
+        '<span class="bahn-nr">Alle</span></label>'
+    )
     return (
         '<div class="bahnband-innen">'
         '<p class="bahn-marke" aria-hidden="true">Klassenstufe</p>'
-        '<div class="bahnen" role="tablist" aria-label="Klassenstufe wählen">'
+        '<div class="bahnen" role="group" aria-label="Klassenstufe wählen">'
         + "".join(teile)
         + "</div></div>"
     )
+
+
+def wahlregeln(d):
+    """CSS, das je Auswahl den passenden Jahrgang zeigt."""
+    zeilen = [".klasse{display:none}"]
+    for k in d["klassen"]:
+        nr = k["klasse"]
+        zeilen.append(f"#stufe-{nr}:checked ~ main #klasse-{nr}{{display:block}}")
+        zeilen.append(
+            f'#stufe-{nr}:checked ~ .bahnband label[for="stufe-{nr}"],'
+            f'#stufe-{nr}:checked ~ .kopf .bahnband label[for="stufe-{nr}"]'
+            "{background:var(--papier);color:var(--tinte)}"
+        )
+        zeilen.append(
+            f'#stufe-{nr}:checked ~ .bahnband label[for="stufe-{nr}"]::after'
+            "{transform:scaleX(1)}"
+        )
+        zeilen.append(
+            f'#stufe-{nr}:focus-visible ~ .bahnband label[for="stufe-{nr}"]'
+            "{outline:2.5px solid var(--signal);outline-offset:-3px}"
+        )
+    # Alle Jahrgaenge zeigen
+    zeilen.append("#stufe-alle:checked ~ main .klasse{display:block}")
+    zeilen.append(
+        '#stufe-alle:checked ~ main .klasse + .klasse{border-top:1px solid var(--linie);'
+        "margin-top:20px}"
+    )
+    zeilen.append(
+        '#stufe-alle:checked ~ .bahnband label[for="stufe-alle"]'
+        "{background:var(--papier);color:var(--tinte)}"
+    )
+    zeilen.append(
+        '#stufe-alle:checked ~ .bahnband label[for="stufe-alle"]::after{transform:scaleX(1)}'
+    )
+    zeilen.append(
+        '#stufe-alle:focus-visible ~ .bahnband label[for="stufe-alle"]'
+        "{outline:2.5px solid var(--signal);outline-offset:-3px}"
+    )
+    return "\n".join(zeilen)
 
 
 def inhalte(k):
@@ -151,13 +208,15 @@ def klassenpanels(d):
         nr = k["klasse"]
         t = d["tabellen"].get(str(nr))
         panels.append(
-            f'<section class="klasse" id="klasse-{nr}" role="tabpanel" aria-labelledby="tab-{nr}" '
-            f'data-klasse="{nr}">'
+            f'<section class="klasse" id="klasse-{nr}" data-klasse="{nr}" '
+            f'aria-label="Klasse {nr}">'
             f'<header class="klasse-kopf">'
             f"<h2>Klasse {nr}</h2>"
             f'<p class="schwer">{e(d["uebersicht"].get(str(nr), ""))}</p>'
             f'<button class="druck" data-druck="klasse" data-nr="{nr}">'
             f"{DRUCKER}Klasse {nr} drucken</button>"
+            f'<p class="druckhinweis">Zum Drucken Strg&#8239;+&#8239;P, am Mac '
+            f"Cmd&#8239;+&#8239;P. Gedruckt wird die angezeigte Klasse.</p>"
             f"</header>"
             f'<div class="spalten">'
             f'<div class="inhalt"><h3>Verbindliche Inhalte</h3>{inhalte(k)}</div>'
@@ -266,6 +325,9 @@ body{margin:0;background:var(--grund);color:var(--tinte);font-family:var(--schri
 :focus-visible{outline:2.5px solid var(--signal);outline-offset:2px;border-radius:2px}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* Auswahl der Klassenstufe: unsichtbar, aber mit der Tastatur bedienbar */
+.wahl{position:absolute;top:0;left:0;width:1px;height:1px;opacity:0;margin:0;
+  pointer-events:none}
 .nb{color:var(--gedaempft);font-style:normal;font-size:.92em}
 
 /* Kopfband, Kalklinie auf Rasen */
@@ -282,12 +344,16 @@ body{margin:0;background:var(--grund);color:var(--tinte);font-family:var(--schri
 
 /* Knoepfe */
 button{font:inherit;cursor:pointer}
-.druck{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:7px;
+.druck{display:none;align-items:center;gap:7px;padding:9px 14px;border-radius:7px;
   border:1.5px solid var(--linie);background:var(--papier);color:var(--tinte);
   font-size:.88rem;font-weight:600;letter-spacing:.005em;
   transition:background .16s ease-out,border-color .16s ease-out,transform .16s ease-out}
 .druck:hover{background:var(--feld-hell);border-color:var(--feld)}
 .druck:active{transform:translateY(1px)}
+.js .druck{display:inline-flex}
+.druckhinweis{margin:0;font-size:.82rem;color:#BFD4C9;max-width:24em;line-height:1.45}
+.js .druckhinweis{display:none}
+.klasse-kopf .druckhinweis{color:var(--gedaempft)}
 .kopf-akt .druck{background:transparent;color:var(--kalk);border-color:rgba(255,255,255,.4)}
 .kopf-akt .druck:hover{background:rgba(255,255,255,.12);border-color:var(--kalk)}
 .kopf-akt .druck .ikon path[fill]{fill:var(--feld)}
@@ -300,17 +366,18 @@ button{font:inherit;cursor:pointer}
   display:flex;align-items:stretch;gap:20px}
 .bahn-marke{margin:0;align-self:center;color:#8FB0A2;font-size:.7rem;font-weight:600;
   text-transform:uppercase;letter-spacing:.14em;white-space:nowrap}
-.bahnen{flex:1;display:grid;grid-template-columns:repeat(6,1fr);gap:1px;
+.bahnen{flex:1;display:grid;grid-template-columns:repeat(6,1fr) .8fr;gap:1px;
   background:rgba(255,255,255,.14)}
 .bahn{position:relative;border:0;background:var(--feld-tief);color:#B9D0C6;
-  padding:11px 8px 12px;display:block;
+  padding:11px 8px 12px;display:block;text-align:center;cursor:pointer;
+  user-select:none;-webkit-user-select:none;
   transition:background .18s cubic-bezier(.2,.7,.3,1),color .18s ease-out}
 .bahn::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
   background:var(--signal);transform:scaleX(0);transform-origin:left;
   transition:transform .34s cubic-bezier(.16,.84,.24,1)}
 .bahn:hover{background:#143B31;color:var(--kalk)}
-.bahn.ist-aktiv{background:var(--papier);color:var(--tinte)}
-.bahn.ist-aktiv::after{transform:scaleX(1)}
+.bahn.ist-alle .bahn-nr{font-size:1rem;letter-spacing:0;padding-top:.28em}
+__WAHLREGELN__
 .bahn-nr{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.035em;
   line-height:1.1;font-variant-numeric:tabular-nums}
 
@@ -318,9 +385,7 @@ button{font:inherit;cursor:pointer}
 main{max-width:var(--masz);margin:0 auto;padding:0 24px 64px}
 .klasse{background:var(--papier);border:1px solid var(--linie);border-top:0;
   padding:26px 26px 30px;scroll-margin-top:72px}
-/* Ohne JavaScript bleiben alle Jahrgaenge sichtbar, das Skript blendet sie erst aus. */
-.klasse + .klasse{border-top:1px solid var(--linie);margin-top:20px}
-.js .klasse + .klasse{border-top:0;margin-top:0}
+
 .klasse-kopf{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px 18px;
   padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid var(--tinte)}
 .klasse-kopf h2{margin:0;font-size:1.9rem;font-weight:800;letter-spacing:-.03em;line-height:1}
@@ -412,7 +477,8 @@ footer b{color:var(--tinte)}
 @media print{
   @page{size:A4;margin:14mm 12mm}
   html,body{background:#fff;font-size:10.5pt}
-  .bahnband,.kopf-akt,.druck,.wisch,.tabellenfeld::-webkit-scrollbar{display:none !important}
+  .bahnband,.kopf-akt,.druck,.druckhinweis,.wisch,
+  .tabellenfeld::-webkit-scrollbar{display:none !important}
   .noten th.note{position:static;box-shadow:none}
   .kopf{background:#fff;color:#000;border-bottom:2pt solid #000}
   .kopf-innen{padding:0 0 8pt;max-width:none;display:block}
@@ -420,8 +486,6 @@ footer b{color:var(--tinte)}
   .kopf .unter{color:#333;margin-top:3pt}
   main{max-width:none;padding:0}
   .klasse{border:0;padding:0;margin:0 0 10pt;break-inside:auto}
-  .klasse[hidden]{display:block}
-  .js .klasse + .klasse{margin-top:0}
   .klasse-kopf{border-bottom:1pt solid #000;padding-bottom:5pt;margin-bottom:10pt}
   .klasse-kopf h2{font-size:14pt}
   .spalten{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:12pt}
@@ -440,13 +504,13 @@ footer b{color:var(--tinte)}
   .progression td,.matrix td{color:#000}
   .gesamt-block{border:.5pt solid #999;border-radius:0;padding:10pt 12pt;break-inside:avoid}
   footer{margin-top:12pt;padding-top:8pt;border-top:.5pt solid #999;font-size:8pt}
-  /* eine Klasse drucken */
-  body[data-druck="klasse"] .klasse:not(.drucken){display:none !important}
-  body[data-druck="klasse"] .gesamt{display:none !important}
-  /* alles drucken, jede Klasse auf eigener Seite */
-  body[data-druck="alles"] .klasse{break-before:page}
-  body[data-druck="alles"] .klasse:first-of-type{break-before:auto}
-  body[data-druck="alles"] .gesamt{break-before:page}
+  /* Gedruckt wird die Auswahl, die am Bildschirm sichtbar ist. */
+  .gesamt{display:none}
+  #stufe-alle:checked ~ main .gesamt{display:block}
+  #stufe-alle:checked ~ main .klasse{break-before:page}
+  #stufe-alle:checked ~ main .klasse:first-of-type{break-before:auto}
+  #stufe-alle:checked ~ main .klasse + .klasse{border-top:0;margin-top:0}
+  #stufe-alle:checked ~ main .gesamt{break-before:page}
 }
 </style>
 </head>
@@ -464,6 +528,7 @@ FORM: Jahrgangsregister statt Dokumentgliederung.
 FINISH: unreviewed und undokumentiert ist unfertig; der Bau endet mit Pruefung im Browser,
 Druckkontrolle und einem Vermerk in der Vault-Notiz.
 -->
+__RADIOS__
 <header class="kopf">
   <div class="kopf-innen">
     <div>
@@ -472,6 +537,8 @@ Druckkontrolle und einem Vermerk in der Vault-Notiz.
     </div>
     <div class="kopf-akt">
       <button class="druck" data-druck="alles">__DRUCKER__Gesamtes Curriculum drucken</button>
+      <p class="druckhinweis">Zum Drucken oben eine Klassenstufe wählen, für das gesamte
+      Curriculum <b>Alle</b>, dann Strg&#8239;+&#8239;P drücken (am Mac Cmd&#8239;+&#8239;P).</p>
     </div>
   </div>
 </header>
@@ -509,66 +576,38 @@ __PANELS__
 </main>
 
 <script>
+/* Das Umschalten der Jahrgaenge laeuft ueber CSS und braucht kein Skript.
+   Hier stehen nur die Druckknoepfe. Wo Skripte blockiert sind, bleiben sie
+   verborgen und der Hinweis auf Strg+P tritt an ihre Stelle. */
 (function(){
   document.documentElement.className += " js";
 
-  var bahnen = Array.prototype.slice.call(document.querySelectorAll(".bahn"));
-  var panels = Array.prototype.slice.call(document.querySelectorAll(".klasse"));
-
-  function zeige(nr, fokus, stumm){
-    bahnen.forEach(function(b){
-      var an = b.dataset.klasse === String(nr);
-      b.classList.toggle("ist-aktiv", an);
-      b.setAttribute("aria-selected", an ? "true" : "false");
-      b.tabIndex = an ? 0 : -1;
-      if(an && fokus){ b.focus(); }
-    });
-    panels.forEach(function(p){
-      p.hidden = p.dataset.klasse !== String(nr);
-    });
-    if(stumm){ return; }
-    try{ history.replaceState(null, "", "#klasse-" + nr); }catch(err){}
+  function gewaehlt(){
+    var an = document.querySelector(".wahl:checked");
+    return an ? an.id : "stufe-5";
   }
 
-  bahnen.forEach(function(b){
-    b.addEventListener("click", function(){ zeige(b.dataset.klasse, false); });
-  });
-
-  document.querySelector(".bahnen").addEventListener("keydown", function(ev){
-    var i = bahnen.indexOf(document.activeElement);
-    if(i < 0){ return; }
-    var ziel = null;
-    if(ev.key === "ArrowRight"){ ziel = (i + 1) % bahnen.length; }
-    if(ev.key === "ArrowLeft"){ ziel = (i - 1 + bahnen.length) % bahnen.length; }
-    if(ev.key === "Home"){ ziel = 0; }
-    if(ev.key === "End"){ ziel = bahnen.length - 1; }
-    if(ziel === null){ return; }
-    ev.preventDefault();
-    zeige(bahnen[ziel].dataset.klasse, true);
-  });
-
-  // Druck
-  function drucken(modus, nr){
-    panels.forEach(function(p){
-      p.classList.toggle("drucken", modus === "klasse" && p.dataset.klasse === String(nr));
-    });
-    document.body.dataset.druck = modus;
-    window.print();
-  }
-  window.addEventListener("afterprint", function(){
-    delete document.body.dataset.druck;
-    panels.forEach(function(p){ p.classList.remove("drucken"); });
-  });
   document.addEventListener("click", function(ev){
-    var b = ev.target.closest("[data-druck]");
-    if(!b || b.tagName !== "BUTTON"){ return; }
-    drucken(b.dataset.druck, b.dataset.nr);
+    var knopf = ev.target.closest("button[data-druck]");
+    if(!knopf){ return; }
+
+    if(knopf.dataset.druck === "alles"){
+      var vorher = gewaehlt();
+      var alle = document.getElementById("stufe-alle");
+      if(alle){ alle.checked = true; }
+      window.addEventListener("afterprint", function zurueck(){
+        window.removeEventListener("afterprint", zurueck);
+        var el = document.getElementById(vorher);
+        if(el){ el.checked = true; }
+      });
+    }
+    window.print();
   });
 
-  // Einstieg ueber Adresszeile, z. B. .../Sportcurriculum.html#klasse-8
+  // Einstieg ueber die Adresszeile, z. B. .../Sportcurriculum.html#klasse-8
   var start = (location.hash.match(/^#klasse-(\d+)$/) || [])[1];
-  if(!start || !document.getElementById("klasse-" + start)){ start = "5"; }
-  zeige(start, false, true);
+  var feld = start && document.getElementById("stufe-" + start);
+  if(feld){ feld.checked = true; }
 })();
 </script>
 </body>
@@ -614,6 +653,8 @@ def main():
         "__QUELLE__": e(QUELLE_TABELLE),
         "__SCHULEN__": e(SPRENGELSCHULEN),
         "__DRUCKER__": DRUCKER,
+        "__RADIOS__": radios(d),
+        "__WAHLREGELN__": wahlregeln(d),
         "__BAHNEN__": bahnleiste(d),
         "__PANELS__": klassenpanels(d),
         "__PROGRESSION__": progression(d),
