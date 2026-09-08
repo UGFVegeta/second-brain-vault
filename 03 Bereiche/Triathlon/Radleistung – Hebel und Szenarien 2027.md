@@ -22,7 +22,44 @@ Aus der Fahrt vom 23.08.2026 (79,66 km, 893 hm, Ø 246 W) angepasst:
 
 **Güte:** Die Referenzsimulation liefert 2:20:01 gegen real 2:17:34, also 1,8 % daneben. Für Vergleiche brauchbar, weil sich der systematische Fehler herauskürzt. Absolutwerte mit Vorsicht.
 
-⚠️ **CdA 0,282 m² ist für eine Zeitfahrposition nicht gut.** Gut sitzende Altersklassenfahrer liegen bei 0,25 bis 0,26, ambitionierte bei 0,24. Der Wert ist zudem ein Durchschnitt über die ganze Fahrt — jede Minute aufrecht am Berg treibt ihn nach oben.
+✅ **Der CdA von 0,282 ist ein Fahrt-Durchschnitt, nicht die Position.** Am 08.09.2026 direkt gemessen (siehe unten): Die reine Aeroposition liegt bei **0,250 m²**, aufrecht auf dem Basislenker bei 0,324. Der Rennwert von 0,282 liegt also **0,032 über der Position** — das ist die Zeit, die im Rennen aufrecht gefahren wurde, vor allem an den drei Anstiegen.
+
+## Aerodynamik-Feldtest vom 08.09.2026
+
+Vier Durchgänge über dieselbe 1,74-km-Strecke zwischen Plüderhausen und Waldhausen, Muster aufrecht–aero–aero–aufrecht, damit sich Wind und Steigung herauskürzen. Runden 6, 8, 10 und 12 der Garmin-Originaldatei.
+
+| | Strecke | Zeit | Tempo | Leistung |
+|---|---|---|---|---|
+| aufrecht (Runden 6 + 12) | 3476 m | 365 s | 34,28 km/h | 198,0 W |
+| **aero (Runden 8 + 10)** | 3481 m | 337 s | **37,19 km/h** | 197,5 W |
+
+**+2,91 km/h bei einem halben Watt Leistungsunterschied, also +8,5 %. 14 Sekunden auf 1,74 km.**
+
+| | CdA aufrecht | CdA aero | Differenz |
+|---|---|---|---|
+| Basisannahme (ρ 1,19, Crr 0,0032) | 0,324 | **0,250** | **23 %** |
+| Bandbreite über plausible Annahmen | 0,303–0,335 | 0,232–0,258 | immer 23 % |
+
+Die 23 Prozent sind belastbar, weil sie ein Verhältnis sind und sich Annahmefehler herauskürzen. Der Absolutwert hängt an Luftdichte und Rollwiderstand.
+
+**Der Test ist wiederholbar.** Gleiche Strecke, rund 197 W, gleiches Muster. Nach dem Aerofitting im April lässt sich damit belegen statt vermuten, ob Helm und Position etwas gebracht haben.
+
+⚠️ **Zur Datenqualität:** Ohne die Garmin-Originaldatei war der Test nicht auswertbar. intervals.icu übernimmt die Gerätrunden nicht — im API-Datensatz stand nur ein einziges Intervall. Vier Rekonstruktionsversuche aus dem Rohstream schlugen fehl. **Lehre: Bei Messfahrten die Originaldatei heranziehen, nicht den intervals.icu-Datensatz.**
+
+## Was Positionsdisziplin allein bringt
+
+Gerechnet auf beiden echten Strecken, nur der CdA verändert, Leistung und Gewicht unverändert:
+
+| Ziel-CdA im Rennschnitt | Malterdingen | Ligarennen |
+|---|---|---|
+| 0,270 | −1:32 | −0:28 |
+| **0,260 (realistisches Ziel)** | **−2:52** | **−0:53** |
+| 0,250 (dein gemessener Positionswert) | −4:13 | −1:17 |
+| 0,240 (zusätzlich Aerofitting und Helm) | −5:36 | −1:43 |
+
+**Das ist der billigste Hebel, den es gibt:** kein Training, kein Material, nur die vorhandene Position auch benutzen. In der Liga entspricht das der Hälfte dessen, was ein ganzer Winter mit +40 Watt bringt (2:35). In Malterdingen sind 4:13 fast so viel wie +20 Watt (5:00).
+
+Realistisch ist **0,26**, nicht 0,25 — an einem steilen Anstieg mit 300 W bleibt man nicht zwingend auf den Aufliegern. Genau diese Fähigkeit, die Position auch bei hoher Leistung zu halten, ist das erklärte Ziel des Winterblocks.
 
 ## Einzelhebel im Vergleich
 
@@ -54,6 +91,8 @@ Gerechnet auf zwei echten Strecken: Malterdingen (80 km, 893 hm) und der Ligastr
 | **Summe** | **+10 bis 45 W** | |
 
 ⚠️ **Korrektur vom 07.09.2026.** Die Positionslücke stand hier als „hoch" gesichert mit 20 bis 30 Watt. Das war eine Annahme, keine Messung. Die gemessene Leistungskurve ergibt eine Rennrad-FTP von rund **300 W statt der notierten 330** (bester 20-Minuten-Wert in zwölf Monaten: 314 W in jeder Position). Und der beste Zeitfahr-Wert von 284 W stammt aus einem bewusst eingeteilten Rennen, ist also kein Maximum. **Damit ist der größte Posten dieser Rechnung offen.** Details in [[Sitzposition Zeitfahrrad (Cube Aerium C68)]].
+
+**Unabhängig davon steht seit dem 08.09. ein zweiter, sicherer Hebel fest:** die Positionsdisziplin im Rennen, wert bis zu 4:13 in Malterdingen. Die kostet nichts und hängt an keiner ungemessenen FTP.
 
 Der größere Teil ist **keine Fitness, sondern Gewöhnung**. Trainingsansatz: in Aeroposition am Berg fahren, wo hohe Leistung und Position gleichzeitig gehalten werden müssen. Über den Winter auf den freien Rollen systematisch machbar.
 

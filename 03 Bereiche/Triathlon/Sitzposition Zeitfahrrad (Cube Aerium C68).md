@@ -65,6 +65,18 @@ Einordnung zur Effizienz: Verhältnis Leistung zu Herzfrequenz bei 2,33 und dami
 
 ⚠️ **Rad-Herzfrequenz nicht mit Laufwerten vergleichen.** Auf dem Rad liegt sie durchgängig rund 15 Schläge tiefer: selbst in den Rennen Erbach und Schluchsee nur 136 bzw. 137 im Schnitt. HF taugt auf dem Rad deshalb nicht zur Intensitätssteuerung, dafür die Wattzahl nehmen.
 
+## ✅ Aerodynamik gemessen (08.09.2026): CdA 0,250
+
+Feldtest zwischen Plüderhausen und Waldhausen, vier Durchgänge über 1,74 km im Muster aufrecht–aero–aero–aufrecht bei konstant rund 197 W.
+
+- **Aeroposition: CdA 0,250 m²** — ein guter Wert, im Bereich gut sitzender Altersklassenfahrer
+- **Aufrecht auf dem Basislenker: CdA 0,324 m²**
+- **Unterschied 23 %**, entspricht +8,5 % Geschwindigkeit bei gleicher Leistung
+
+**Damit ist die Position selbst kein Problem mehr.** Der Rennschnitt von 0,282 aus Malterdingen liegt 0,032 darüber — das ist reine Zeit im Basislenker an den Anstiegen. Diese Lücke zu schließen ist in Malterdingen bis zu 4:13 wert, ohne Training und ohne neues Material. Details und Szenarien in [[Radleistung – Hebel und Szenarien 2027]].
+
+⚠️ Nicht verwechseln: Das betrifft die **Aerodynamik**, nicht die **Positionslücke bei der FTP**. Ob Oskar in Aeroposition dieselbe Leistung treten kann wie aufrecht, ist weiter ungemessen — dafür braucht es den Doppeltest nahe der Schwelle. Bei den 197 W dieses Tests war kein Pulsaufschlag durch die Position erkennbar, was zu erwarten war.
+
 ## ⚠️ FTP-Korrektur (07.09.2026): Arbeitswert ist 300 W
 
 **Die 330 W sind durch keine Messung der letzten zwölf Monate gedeckt.** Auswertung der 22 Fahrten mit der höchsten Normalized Power ergibt folgende Leistungskurve:
