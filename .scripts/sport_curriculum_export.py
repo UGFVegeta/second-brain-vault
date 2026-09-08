@@ -98,18 +98,21 @@ def main():
     with tempfile.TemporaryDirectory() as tmpdir:
         arbeit = Path(tmpdir)
 
+        # Die Klassenauswahl laeuft rein ueber CSS und ein "checked"-Optionsfeld
+        # (kein JavaScript mehr, IServ blockiert es). Fuer den Druck muss deshalb
+        # das passende Feld markiert werden, statt eines data-druck-Attributs.
+        def waehle(seite_text, feld_id):
+            ohne = seite_text.replace(' id="stufe-5" checked', ' id="stufe-5"', 1)
+            return ohne.replace(f' id="{feld_id}"', f' id="{feld_id}" checked', 1)
+
         # 2. alles als ein PDF
-        alles = seite.replace("<body>", '<body data-druck="alles">', 1)
+        alles = waehle(seite, "stufe-alle")
         n = pdf(alles, ZIEL / "Sportcurriculum Klasse 5 bis 10.pdf", arbeit)
         print(f"Gesamt-PDF: {n} Seiten")
 
         # 3. je Klasse ein Blatt
         for k in KLASSEN:
-            eine = seite.replace("<body>", '<body data-druck="klasse">', 1)
-            eine = eine.replace(
-                f'<section class="klasse" id="klasse-{k}"',
-                f'<section class="klasse drucken" id="klasse-{k}"',
-            )
+            eine = waehle(seite, f"stufe-{k}")
             n = pdf(eine, einzel / f"Klasse {k}.pdf", arbeit)
             print(f"  Klasse {k}: {n} Seite(n)")
 
