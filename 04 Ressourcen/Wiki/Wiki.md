@@ -10,7 +10,7 @@ Das LLM-Wiki (nach einer Idee von Andrej Karpathy): Claude pflegt hier **Themens
 
 ## Seiten
 
-- [[Lernen & Gedächtnis]] – Abrufen, verteiltes Üben, Arbeitsgedächtnis, Lern-Mythen
+- [[Lernen & Gedächtnis]] – Abrufen, verteiltes Üben, Arbeitsgedächtnis, Lern-Mythen, Wissen vs. Kompetenz
 - [[Selbstbild & Gewohnheiten]] – Dweck, Gewohnheitsschleife, Systeme statt Ziele
 - [[Energie & Klima]] – Energie-Größenordnungen, Klimadebatte samt echter Widersprüche
 - [[Bewegung & Gehirn]] – exekutive Funktionen, Fitness und Lernleistung, Stoffwechsel

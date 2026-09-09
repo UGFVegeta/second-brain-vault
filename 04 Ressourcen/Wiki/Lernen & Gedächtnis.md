@@ -26,6 +26,8 @@ date: 2026-07-18
 
 **Grundwissen ist kein Gegensatz zu Kreativität.** Auswendiglernen und kreatives Denken bedingen einander („Verraten Sie das Ihrem Neurochirurgen", Make it stick). Selbstzuschreibungen wie „ich habe ein schlechtes Gedächtnis" bremsen messbar – Erinnern stärkt Verbindungen, Neuroplastizität bleibt bis ins Alter ([[Limitless - Jim Kwik|Limitless]]) → [[Selbstbild & Gewohnheiten]].
 
+**Wissen im Langzeitgedächtnis trägt das Denken.** Verstehen, Problemlösen und Leseverständnis hängen laut Kognitionsforschung vor allem davon ab, wie viel bereichsspezifisches Wissen abrufbar gespeichert ist – man kann nicht „kritisch denken" über etwas, das man nicht kennt (E. D. Hirsch, D. Willingham; [[PISA 2025 – Befunde und internationale Vergleiche]]). Daraus folgt der „knowledge-rich"-Ansatz: konkret benannte Inhalte statt offener Kompetenzformulierungen, klar sequenziert. Unterrichtlich passt dazu explizite Instruktion (Rosenshine: kleine Schritte, Modell bzw. Worked Example, ständiges Prüfen des Verständnisses, hohe Erfolgsquote). England hat 2014 so umgestellt und hält bei PISA sein Niveau; Schottland ist mit einem kompetenzorientierten Lehrplan von der Spitze auf OECD-Schnitt gefallen. ⚠️ Estland fährt einen eher kompetenzorientierten Lehrplan und ist trotzdem europäische Spitze – die Gegenüberstellung erklärt den Fall England/Schottland, ist aber kein Naturgesetz.
+
 ## ⚠️ Spannungen
 
 - **Markieren/Highlighting:** Make it stick zählt Markieren zu den unproduktiven Strategien; McPherson differenziert: als Konzentrationshilfe wirksam, wenn sparsam (≤ 10 % des Texts), nur für Unbekanntes und bei niedriger Textdichte. → Nicht „verboten", sondern an Bedingungen geknüpft.
@@ -34,9 +36,12 @@ date: 2026-07-18
 ## Für die Praxis
 
 - **Unterricht:** regelmäßige *unbenotete* Abruf-Tests mit Feedback (Achtklässler-Studie in Make it stick); Karteikarten/freie Antworten statt nur MC; Aufgabentypen mischen; Stoff konkret und persönlich machen.
+- **Lehrplan/Sequenz:** Inhalte wo möglich konkret und in Reihenfolge festlegen, dann mit Abruf sichern; explizite Instruktion (Modell, kontrolliertes Üben) vor offenen „Kompetenz"-Aufgaben. Deckt sich mit den Abruf- und Übe-Prinzipien oben.
 - **Eigenes Lernen (z. B. Schulrecht für Konrektor-Rolle):** Ultralearning-Vorgehen – erst Landkarte (Konzepte/Fakten/Prozeduren trennen, ~10 % der Zeit in Meta-Recherche), dann direkt am Zielmaterial üben, sich selbst testen.
 - **Notizen/Vault:** Zettelkasten-Logik ist genau das, was dieses Wiki tut – in eigenen Worten verdichten und verlinken statt sammeln.
 
 ## Quellen
 
 [[Das merk ich mir! - Peter C Brown Prof Dr Henry Roediger III Prof Dr Mark A McDaniel|Make it stick (Brown/Roediger/McDaniel)]] · [[Ultralearning - Scott H Young|Ultralearning (Young)]] · [[Effective Notetaking - Fiona McPherson|Effective Notetaking (McPherson)]] · [[Das Zettelkasten-Prinzip - Sönke Ahrens|Zettelkasten-Prinzip (Ahrens)]] · [[How to Become a Straight-a Student|Straight-A Student (Newport)]] · [[Bewegung macht schlau - Frieder Beck|Bewegung macht schlau (Beck)]] · [[Limitless - Jim Kwik|Limitless (Kwik)]] – alle mit Kindle-Highlights in Readwise/Books/.
+
+Zum knowledge-rich-Abschnitt: [[PISA 2025 – Befunde und internationale Vergleiche]] (mit Primärquellen zu Rosenshine, Hirsch/Willingham, England und Schottland).

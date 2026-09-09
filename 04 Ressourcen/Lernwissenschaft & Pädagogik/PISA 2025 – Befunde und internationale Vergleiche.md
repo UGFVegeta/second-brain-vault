@@ -48,6 +48,7 @@ Zwei Relativierungen, die das Bild nicht aufheben:
 
 1. „Migration" ist keine einheitliche Gruppe. Spätaussiedler aus der früheren Sowjetunion, in den frühen PISA-Jahren stark vertreten, schnitten im Schnitt besser ab. Die stärkere Benachteiligung betrifft vor allem türkeistämmige Jugendliche, die in der zweiten Generation den größeren Anteil stellen.
 2. Innerhalb derselben Herkunftsgruppe liegt die zweite Generation durchweg über der ersten. Beispiel Mathematik 2003, türkeistämmig: erste Generation 382, zweite Generation 411. Die Lesekompetenz der Jugendlichen mit Migrationshintergrund ist über die PISA-Jahre um 26 Punkte gestiegen.
+3. Auch die Herkunftsregion war ausgewählt. Die Anwerbung ab 1961 zog überproportional aus ländlichem Zentral- und Ostanatolien und aus kleinstädtischen Räumen, ein erheblicher Teil aus kurdisch geprägten Südostprovinzen mit den damals niedrigsten Beschulungsquoten, besonders für Mädchen. „Almancı"-Kettenmigration verband einzelne Dörfer mit einzelnen deutschen Städten; Zuwanderer aus Istanbul, İzmir oder Ankara sind selten. Das Bild „nur ungebildete Männer vom Land" überzeichnet aber: rund 31 Prozent der aus Anatolien Angeworbenen hatten eine berufliche Qualifikation, mehr als bei jedem anderen Anwerbeland, und die frühen Jahrgänge waren städtischer und qualifizierter als die späteren. Die jüngste türkische Migration nach Deutschland, vor allem seit dem Putschversuch 2016, ist eine andere: überwiegend Akademiker, Ingenieure, Ärzte. Deren Kinder erreichen erst jetzt das PISA-Alter.
 
 ## Was England anders macht
 
@@ -83,8 +84,16 @@ Kanada wählt über ein Punktesystem nach Bildung und Qualifikation aus, mehr al
 
 **Grenze:** Das „Rausrechnen" ist weich. Der Sozialindex steckt zu großen Teilen aus Schülerangaben zusammen (Bücher zu Hause, Beruf der Eltern), 15-Jährige schätzen ungenau. Ein Regressionsmodell entfernt nur den gemessenen Teil eines Störfaktors. Läuft ein Teil des Migrationseffekts echt über die soziale Lage, rechnet man beim Kontrollieren einen realen Effekt teilweise weg. Die einzelne bereinigte Zahl (−18 Punkte) ist eine Illustration, kein Messwert. Robuster ist das Muster über viele Studien: Sprache und soziale Lage tragen den größten Teil des Abstands.
 
+**Elternbildung schlägt Migrationsstatus.**
+Der einzelne stärkste Prädiktor für die Kompetenz eines Kindes ist die Bildung der Eltern, vor allem der Mutter, und das gilt innerhalb der Einheimischen wie innerhalb der Zugewanderten. Ein großer Teil des Migrationsabstands ist in Wahrheit ein Herkunfts- und Klassenabstand; die Gruppenmittelwerte unterscheiden sich vor allem, weil die Klassenzusammensetzung sich unterscheidet. Kommentatoren zu PISA 2025 formulieren es so: nicht Zuwanderung, sondern soziale Herkunft entscheidet.
+
+Drei Verfeinerungen:
+- Abschlüsse aus dem Herkunftsland übertragen sich nicht sauber. Ein Ingenieur oder Lehrer aus Aleppo oder Istanbul arbeitet hier oft nicht im Beruf (Anerkennung, Sprache), die tatsächlichen Ressourcen der Familie in Deutschland (Einkommen, Netzwerke, Systemkenntnis, Hilfe bei deutschen Hausaufgaben) liegen dann unter der Herkunftsbildung. Auch gebildete Zuwandererfamilien zeigen deshalb einen Abstand.
+- Die Auswahl unterscheidet sich je Zuwanderungswelle. Die Gastarbeitermigration war bildungsmäßig negativ ausgewählt (ländliches Anatolien), die Fluchtmigration ab 2015 dagegen positiv gegenüber der Herkunftsgesellschaft (DIW), aber getroffen von Nicht-Anerkennung und unterbrochener Schulbiografie.
+- Ein Restabstand bleibt auch nach Kontrolle der sozialen Herkunft (österreichisches Beispiel: 58 auf 25 Punkte). Dieser Rest liegt bei Systemfaktoren: frühe Aufteilung, Lehrererwartung, Schulsegregation, Zugehörigkeitsgefühl.
+
 **Einstellung zu Bildung: gemischter Befund.**
-Umfragen zeigen für türkeistämmige Familien höhere Bildungsaspirationen als bei deutschen Familien mit gleicher Note des Kindes (Salikutluk 2016; nicht für Familien aus der früheren Sowjetunion). Das ist eine Aussage über gesetzte Ziele, nicht über die häusliche Lernumgebung. Ziel, Alltagsunterstützung und der Eindruck im Klassenzimmer sind drei verschiedene Dinge. Der Klassenzimmer-Eindruck an einer Realschule ist zudem eine ausgewählte Stichprobe: die stark unterstützten Kinder sitzen häufiger am Gymnasium.
+Umfragen zeigen für türkeistämmige Familien höhere Bildungsaspirationen als bei deutschen Familien mit gleicher Note des Kindes (Salikutluk 2016; nicht für Familien aus der früheren Sowjetunion). Was mit der Elternbildung variiert, ist die konkrete schulnahe Unterstützung zu Hause: Vorlesen, Hausaufgaben begleiten, das System kennen. Das ist kulturelles Kapital und hängt an der Klasse, nicht an der Ethnie. „Einstellung" als eigenständiger kultureller Faktor, losgelöst von Klasse, eigener Schulbiografie der Eltern, Systemkenntnis und der Schulerfahrung des Kindes, lässt sich empirisch kaum isolieren. Der Klassenzimmer-Eindruck an einer Realschule ist zudem eine ausgewählte Stichprobe: die stark unterstützten Kinder sitzen häufiger am Gymnasium.
 
 **Der englische Weg wirkt, ist aber kein Automatismus.**
 England gegen Schottland ist so nah an einem natürlichen Experiment, wie Bildungspolitik kommt. Aber: Estland fährt einen eher kompetenzorientierten Lehrplan und ist trotzdem Spitze, die Gegenüberstellung Wissen gegen Kompetenz ist kein Naturgesetz. England hat außerdem bezahlt (London Challenge, Maths Hubs, EEF), die Linie über rund 15 Jahre und mehrere Regierungen gehalten und Nachteile in Kauf genommen: hohe Testlast, wenig Lesefreude, Streit um Schulausschlüsse. Der rote Faden ist das Verkleinern von Streuung: Inhalt, Verhalten, Unterricht festlegen und dann über Klassen und Schulen hinweg dranbleiben. Die Kausalgeschichte „Lehrplan erklärt den Unterschied" ist plausibel und wird breit vertreten, bleibt aber eine Korrelation über Zeit.
@@ -101,9 +110,15 @@ England gegen Schottland ist so nah an einem natürlichen Experiment, wie Bildun
 - Statistisches Bundesamt, Bildungsstand: https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bildung-Forschung-Kultur/Bildungsstand/_inhalt.html
 - Mediendienst Integration, Bildung: https://mediendienst-integration.de/integration/bildung.html – laufend gepflegte Zahlen und Studienlage, faktenorientiert.
 - SVR, Fakten zu ungleichen Bildungschancen: https://www.svr-migration.de/wp-content/uploads/2021/10/SVR-Fakten-zu-ungleichen-Bildungschancen.pdf
+- bpb, Die Anwerbung türkischer Arbeitnehmer und ihre Folgen: https://www.bpb.de/themen/europa/tuerkei/184981/die-anwerbung-tuerkischer-arbeitnehmer-und-ihre-folgen/ – zu Herkunftsregionen und Auswahl.
+- Migazin, „Die aus Anatolien kamen" (60 Jahre Anwerbeabkommen): https://www.migazin.de/2021/10/22/60-jahre-anwerbeabkommen-die-aus-anatolien-kamen/ – korrigiert das Bild „nur ungebildet vom Land".
+- bpb, Migrationsziel Türkei (türkeistämmige Hochqualifizierte): https://www.bpb.de/themen/europa/tuerkei/179546/migrationsziel-tuerkei/ – zur jüngeren, akademisch geprägten Migration.
 
-### Aspirationen / „immigrant optimism"
+### Herkunft vs. Migrationsstatus, Aspirationen
 - Salikutluk (2016), Why Do Immigrant Students Aim High? European Sociological Review 32(5): 581–592: https://academic.oup.com/esr/article-abstract/32/5/581/2197547 – Kernbeleg für den Aspirations-Achievement-Widerspruch in Deutschland.
+- Migazin zu PISA 2025, „Nicht Zuwanderung, sondern soziale Herkunft entscheidet": https://www.migazin.de/2026/09/08/pisa-absturz-deutschlands-schueler-trennlinie/
+- science.apa.at, Herkunft weiter mit großem Einfluss: https://science.apa.at/power-search/2730335377861065723 – zum Restabstand nach Kontrolle der sozialen Herkunft.
+- DIW-Wochenbericht 34/2020, Mehrheit der Geflüchteten hat höhere Bildung als die Herkunftsgesellschaft: https://www.diw.de/de/diw_01.c.797258.de/publikationen/wochenberichte/2020_34_2/mehrheit_der_gefluechteten_hat_hoehere_bildung_im_vergleich_zur_herkunftsgesellschaft.html
 
 ### England – Lehrplanreform (knowledge-rich)
 - Gove, Regierungserklärung zum neuen National Curriculum: https://www.gov.uk/government/speeches/education-reform-new-national-curriculum-for-schools
