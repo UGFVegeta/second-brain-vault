@@ -71,6 +71,20 @@ Der aussagekräftigste Vergleich ist England gegen Schottland: gleicher Staat, g
 - **Einheitlichkeit über Strukturen.** Multi-academy trusts mit gemeinsamem Lehrplan, gemeinsamen Tests, gemeinsamer Fortbildung, gemeinsamer Verhaltensordnung. Neue Lehrkraft bekommt Material und Routine. Dazu rund 40 Maths Hubs mit geprüften Mastery-Lehrwerken, England–Shanghai-Austausch (2014–2019), Education Endowment Foundation als Was-wirkt-Institut.
 - **London Challenge (2003–2011).** Rund 80 Millionen Pfund über acht Jahre für die schwächsten Schulen: Daten, erfahrene Berater, Führungskräfteentwicklung, Schule hilft Schule. London wurde von unterdurchschnittlich zur besten Region, der Abstand der Kinder aus armen Familien ist dort bis heute kleiner als anderswo.
 
+## Warum Ostasien vorn liegt
+
+Spitze PISA 2025: Singapur, die vier chinesischen Regionen (Peking, Shanghai, Jiangsu, Zhejiang), Macau, Taiwan, Japan, Korea, Hongkong. Ein Bündel von Gründen:
+
+- **Systemdesign von oben.** Singapur, Shanghai, Korea planen Lehrplan, Lehrwerke, Lehrerausbildung zentral. Wenig Schulartenvielfalt, klare Standards.
+- **Kohärenter, anspruchsvoller Unterricht, vor allem Mathe.** „Mastery": Ganzklassenunterricht, streng sequenziert, Tiefe vor Tempo, Erwartung an alle. Näher am englischen knowledge-rich-Weg; England hat es über den Shanghai-Austausch übernommen.
+- **Lehrkräfte** aus stärkeren Abiturjahrgängen, hoher Status, strukturierte gemeinsame Unterrichtsentwicklung. Geringe Streuung zwischen Schulen (Japan besonders).
+- **Schattenbildung.** In Korea und Japan 70 bis 80 Prozent der Schüler in privater Nachhilfe; die Asiatische Entwicklungsbank nennt das den Hauptfaktor. Ein großer Teil des Vorsprungs wird außerhalb der Schule gekauft, mit Kosten bei Schlaf, Wohlbefinden, Chancengleichheit nach Einkommen.
+- **Zusammensetzung.** Japan und Korea homogen, fast keine Zuwanderung. Die chinesischen Regionen nicht landesrepräsentativ (reiches, städtisches China). Singapur, Macau, Hongkong sind Stadtstaaten.
+
+„Passt deren Unterricht besser zu PISA?" Teilweise ja, prüfungsgetriebene Systeme. Aber sie führen auch bei TIMSS und halten sich bei kreativem und kooperativem Problemlösen. Reines Lernen für den Test ist es nicht.
+
+„Wirtschaftlicher Erfolg gibt ihnen recht?" Schwächer als es klingt. Hanushek/Woessmann zeigen einen starken Zusammenhang zwischen Kompetenzniveau und Wachstum (ernstzunehmend, aber umstritten, Henne-Ei). Gegenbeispiele: USA mit mittelmäßigem PISA sind die innovativste große Wirtschaft; Japan führt seit 40 Jahren und hatte 30 Jahre Stagnation. Belastbarer ist die Kehrseite: ein großer leistungsschwacher Sockel ist eine echte wirtschaftliche Last, das zählt mehr als der Rang.
+
 ## Die belastbaren Argumente – und ihre Grenzen
 
 **Ergebnisgleichheit ist nicht das Ziel, der Gradient ist es.**
@@ -78,6 +92,13 @@ Niemand in der Forschung erwartet identische Ergebnisse für einzelne Kinder. Me
 
 **Genetik erklärt keine Gruppenunterschiede.**
 Erblichkeit ist eine Größe innerhalb einer Gruppe unter ähnlichen Bedingungen. Aus „Begabung ist teils erblich" folgt nichts über die Ursache von Mittelwertunterschieden zwischen Gruppen (Lewontins Saatgut-Beispiel). Konkret gegen eine genetische Lesart der Migrationsabstände: Sie schrumpfen stark, sobald man die zu Hause gesprochene Sprache herausrechnet. Eine Anlage würde das nicht tun. PISA misst außerdem angewandte Schulkompetenz in der Testsprache, nicht rohe Denkfähigkeit.
+
+**Warum Genetik in der Bildungsdebatte fast nie vorkommt.**
+Zwei Gründe, ein politischer und ein methodischer.
+- Der Tabu-Anteil ist real. Das Feld ist historisch mit Eugenik und NS-Rassenkunde belastet, dazu die Jensen- und „Bell Curve"-Kontroversen. Forscher berichten selbst von Selbstzensur und öffentlichem Gegenwind (Turkheimer, Plomin, Harden; Pinker, „The Blank Slate"). Dass Anlageunterschiede zwischen Einzelnen existieren, ist unter Fachleuten unstrittig; Zwillingsstudien schätzen die Erblichkeit von Schulleistung auf rund 60 Prozent. In der bildungspolitischen Debatte kommt das kaum vor (Plomins „elephant in the room").
+- Der methodische Anteil trägt die Hauptlast. PISA hat keinerlei genetische Daten, eine Querschnittsbefragung kann das gar nicht schätzen. Erblichkeit ist kontext- und umweltabhängig, nicht übertragbar. Und die Innerhalb-zwischen-Sperre (Lewontin) macht den Schluss von individueller Erblichkeit auf Gruppenmittelwerte ungültig. Molekular messbar sind bisher nur wenige Prozent der Bildungsvarianz (polygene Scores ~4 bis 9 Prozent), der Rest ist stark mit Umwelt verwoben (Anlagen formen die Umwelt mit).
+- „Alle können alles schaffen" ist die schwache Version der Gleichheitsposition. Die belastbare Version zielt auf Chancen und darauf, dass Ergebnisse nicht so stark aus der Herkunft vorhersagbar sein sollten, nicht auf identische Endpunkte. Die politische Zuordnung ist unsauber: Harden argumentiert von links, dass Genetik den Fall für Umverteilung stärkt (Pech in der „genetischen Lotterie" spricht für Unterstützung, nicht dagegen).
+- Pädagogischer Vorbehalt, unabhängig von Politik: Eine genetische Rahmung lädt zu Fatalismus ein, und Lehrererwartungen wirken messbar auf Leistung. „Das Kind kann nicht" wird zur selbsterfüllenden Prophezeiung.
 
 **Die Zusammensetzung der Zuwanderung ist real und relevant.**
 Kanada wählt über ein Punktesystem nach Bildung und Qualifikation aus, mehr als die Hälfte kommt über die Erwerbsschiene, die Zugewanderten sind im Schnitt besser gebildet als die Einheimischen. In Deutschland überwiegen Familiennachzug, Asyl, Spätaussiedlung. Rohe Migrantenabstände zwischen beiden Ländern zu vergleichen führt in die Irre. Deshalb kontrollieren die PISA-Berichte den sozialen Status.
@@ -153,6 +174,17 @@ England gegen Schottland ist so nah an einem natürlichen Experiment, wie Bildun
 - Wikipedia, London Challenge: https://en.wikipedia.org/wiki/London_Challenge – guter Überblick mit Quellen.
 - University of Manchester, The London Effect – Literature Review: https://documents.manchester.ac.uk/display.aspx?DocID=37617
 - DfE, Lessons from London Schools: https://assets.publishing.service.gov.uk/media/5a7eac95e5274a2e8ab47796/London_Schools_-_FINAL.pdf
+
+### Anlage, Erblichkeit, Tabu
+- Silventoinen et al. (2020), Genetic and environmental variation in educational attainment, 28 Zwillingskohorten, Scientific Reports: https://www.nature.com/articles/s41598-020-69526-6
+- Turkheimer, Weak Genetic Explanation 20 Years Later (Reply to Plomin): https://uva.theopenscholar.com/files/eric-turkheimer/files/weak_genetic_explanation_8.pdf – interner Kritiker zur Reichweite von Erblichkeitsbefunden.
+- Plomin (2014), Genetics and intelligence differences: five special findings, Molecular Psychiatry: https://www.nature.com/articles/mp2014105
+- Bücher: R. Plomin, Blueprint (2018); K. P. Harden, The Genetic Lottery (2021, linke Lesart); S. Pinker, The Blank Slate (2002).
+
+### Ostasien
+- The Conversation, Four reasons why East Asia continues to top the leaderboard: https://theconversation.com/pisa-results-four-reasons-why-east-asia-continues-to-top-the-leaderboard-69951
+- Stratified support: shadow education and maths achievement in East Asia's six top-performing jurisdictions (Univ. Bristol, 2025): https://www.tandfonline.com/doi/full/10.1080/01425692.2025.2596164
+- Hanushek & Woessmann, The Knowledge Capital of Nations (MIT Press, 2015): https://mitpress.mit.edu/9780262548953/the-knowledge-capital-of-nations/ – der Wachstumszusammenhang, plus die Kritik „Test scores, noncognitive skills and economic growth" (J. Public Economics).
 
 ### Bücher zum Hintergrund
 - E. D. Hirsch, Why Knowledge Matters (2016) und The Knowledge Deficit (2006).
