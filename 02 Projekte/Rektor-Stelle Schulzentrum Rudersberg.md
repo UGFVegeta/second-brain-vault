@@ -94,7 +94,7 @@ Quelle: „Informationen zum Schulleiterbesetzungsverfahren für Bewerberinnen u
 
 ## Stand 10.09.2026, abends
 
-Oskar wartet ab, ob seine Schulleiterin über die Schulamtsleitung (Frau Hagenmüller-Gering) oder über Ade-Thurow ein Signal bekommt. Kommt das Signal, bewirbt er sich. Denkbar ist auch, dass sich niemand bewirbt und das Schulamt von sich aus auf ihn zukommt.
+Oskar wartet ab, ob seine Schulleiterin über die Schulamtsleitung (Sabine Hagenmüller-Gehring, Amtsleiterin des Staatlichen Schulamts Backnang) oder über Ade-Thurow ein Signal bekommt. Kommt das Signal, bewirbt er sich. Denkbar ist auch, dass sich niemand bewirbt und das Schulamt von sich aus auf ihn zukommt.
 
 **Der erweiterte Ausschreibungstext fehlt.** Oskar hat sich in Lehrer Online BW eingeloggt. Winnenden ist dort gelistet, Rudersberg nicht. Mögliche Erklärungen: der Text ist noch nicht eingestellt, oder die Schule läuft unter der Schulkategorie Schulverbund statt Realschule und taucht deshalb bei einem Realschul-Filter nicht auf. Zu prüfen, notfalls beim Staatlichen Schulamt Backnang nachfragen. Das Amtsblatt bezeichnet die erweiterten Texte ausdrücklich als Bestandteil der Ausschreibung und als Grundlage des Verfahrens.
 

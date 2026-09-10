@@ -14,7 +14,9 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
-| 2026-09-08 | 4 | – | Lauf 12 km locker | Erster 12er solo nach dem Infekt, Hüfte ohne Probleme. Puls 111 bei 382 W, sehr gleichmäßig. Erholungswerte zurück auf Basis, 7,9 h Schlaf. |
+| 2026-09-10 | 4 | Nase, abklingend | Mobilität 7 min | Ruhetag. Hüfte fast schmerzfrei. |
+| 2026-09-09 | 4 | Nase, abklingend | Lauf 10,5 km, 51 min | Hüfte fast schmerzfrei. |
+| 2026-09-08 | 4 | – | Lauf 12 km locker, Rennrad 40,3 km 1:15 h | Erster 12er solo nach dem Infekt, Hüfte ohne Probleme. Puls 111 bei 382 W, sehr gleichmäßig. Erholungswerte zurück auf Basis, 7,9 h Schlaf. |
 | 2026-09-07 | 4,5 | – | Rennrad 39,6 km, 638 hm, 1:25 h | Bester Tag seit dem Infekt. Puls 105, weiter im Wiederaufbau. |
 | 2026-09-06 | 4 | – | Lauf 10,25 km mit Thule (beide Kinder, ~45 kg), Rennrad 32,8 km 1:20 h | Erste Laufbelastung nach dem Infekt. |
 | 2026-09-05 | 4 | – | Rennrad 31,8 km, 498 hm, 1:16 h locker | Erste Einheit nach dem Infekt. |

@@ -44,6 +44,20 @@ Oskar bewirbt sich grundsätzlich nur noch auf **Konrektorstellen an Realschulen
 
 Im Schulamtsbezirk Backnang ist im Amtsblatt Nr. 15–16 vom 07.09.2026 **keine** Konrektorstelle an einer Realschule ausgeschrieben. In Winnenden ist die Rektorstelle offen, nicht die erste Konrektorstelle. Die würde erst frei, wenn der dortige erste Konrektor nachrückt.
 
+## Haltung (10.09.2026)
+Kein Zeitdruck. Oskar ist an seiner jetzigen Schule zufrieden und bleibt dort gern, solange nichts Passendes kommt. Der Konrektor-Schritt ist für ihn ausdrücklich auch ein Erkenntnisschritt: In der engen Zusammenarbeit mit einer Schulleitung will er herausfinden, ob er überhaupt mehr will, bevor er sich für Rektor entscheidet. Deshalb kein Ausweichen auf halb passende Stellen.
+
+## Automatischer Stellen-Radar
+Das Skript `.scripts/kuu_stellen.py` lädt die Stellenteile von Kultus und Unterricht, verarbeitet nur neue Hefte und filtert auf Postleitzahlen im Raum Rems-Murr. Merkliste liegt unter `~/.config/claude-kuu/gesehen.txt`.
+
+```bash
+python3 .scripts/kuu_stellen.py          # nur neue Hefte
+python3 .scripts/kuu_stellen.py --alle   # auch bekannte Hefte
+python3 .scripts/kuu_stellen.py --reset  # Merkliste leeren
+```
+
+Dazu läuft der geplante Task **kuu-stellen-check** jeweils am 8. und 22. jeden Monats um 17:12 Uhr. Zweimal im Monat deshalb, weil die Bewerbungsfristen nur rund drei Wochen betragen und ein rein monatlicher Blick ein Heft fast bis zum Fristende liegen lassen könnte. Der Task läuft nur, wenn die Claude-App offen ist, sonst beim nächsten Start nach.
+
 ## Entwicklungsplan (aus dem Gespräch abgeleitet)
 1. **Präsentations-/Demonstrationsskill** (höchste Priorität) – der rote Faden ist ein *Zeig-Defizit*, kein reines Wissensdefizit. Mock-Präsentationen unter Druck + ein verlässlicher Präsentations-Ablauf, der das Gewusste sichtbar macht.
 2. **Schulrecht** sicher beherrschen – strukturiert (z.B. Anki), mit belastbaren Quellen (SchG BW, KM-Vorschriften), nicht aus dem Bauch.
