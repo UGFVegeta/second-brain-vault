@@ -6,7 +6,7 @@ date: 2026-07-18
 
 # Lernen & Gedächtnis
 
-> Kernsatz über alle Quellen hinweg: **Lernen wirkt dauerhaft, wenn es Mühe kostet – Abrufen schlägt Wiederlesen.** „Müheloses Lernen ist wie in den Sand zu schreiben – heute ist es da, morgen verschwunden." (Make it stick)
+> Kernsatz über alle Quellen hinweg: **Lernen wirkt dauerhaft, wenn es Mühe kostet – Abrufen schlägt Wiederlesen.** „Der Lernprozess verläuft gründlicher und nachhaltiger, wenn er Mühe macht. Müheloses Lernen ist, wie in den Sand zu schreiben – heute ist es da, morgen verschwunden." (Brown/Roediger/McDaniel: *Das merk ich mir!*, Goldmann 2019, Pos. 111)
 
 ## Kernaussagen
 
