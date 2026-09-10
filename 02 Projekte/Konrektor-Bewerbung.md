@@ -36,6 +36,9 @@ Ziel: Konrektor-Stelle, angestrebte Übernahme September 2026. Profil/Unterlagen
 
 **Fazit Ade-Thurow:** „Fähige Leute sind gesucht" – Oskar ist fähig, er sieht ihn dort. Jetzt: abwarten welche Stellen frei werden, dann bewerben.
 
+## Neu am 10.09.2026: Rektorstelle Rudersberg
+Im Amtsblatt vom 07.09.2026 ist die Rektorstelle A 15 am Schulzentrum Rudersberg ausgeschrieben, Frist 28.09.2026. Das ist Oskars Wohn- und Heimatort und wäre nach seiner eigenen Einschätzung seine letzte Stelle. Eigene Projektnotiz: [[Rektor-Stelle Schulzentrum Rudersberg]].
+
 ## Entwicklungsplan (aus dem Gespräch abgeleitet)
 1. **Präsentations-/Demonstrationsskill** (höchste Priorität) – der rote Faden ist ein *Zeig-Defizit*, kein reines Wissensdefizit. Mock-Präsentationen unter Druck + ein verlässlicher Präsentations-Ablauf, der das Gewusste sichtbar macht.
 2. **Schulrecht** sicher beherrschen – strukturiert (z.B. Anki), mit belastbaren Quellen (SchG BW, KM-Vorschriften), nicht aus dem Bauch.
