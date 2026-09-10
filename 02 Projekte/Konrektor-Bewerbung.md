@@ -39,6 +39,11 @@ Ziel: Konrektor-Stelle, angestrebte Übernahme September 2026. Profil/Unterlagen
 ## Neu am 10.09.2026: Rektorstelle Rudersberg
 Im Amtsblatt vom 07.09.2026 ist die Rektorstelle A 15 am Schulzentrum Rudersberg ausgeschrieben, Frist 28.09.2026. Das ist Oskars Wohn- und Heimatort und wäre nach seiner eigenen Einschätzung seine letzte Stelle. Eigene Projektnotiz: [[Rektor-Stelle Schulzentrum Rudersberg]].
 
+## Kriterien-Entscheidung 10.09.2026
+Oskar bewirbt sich grundsätzlich nur noch auf **Konrektorstellen an Realschulen**. Damit ist die frühere Offenheit für Gemeinschaftsschulen vom Tisch. Einzige Ausnahme ist die Rektorstelle am Schulzentrum Rudersberg, und die nur, weil es der Heimatort ist und weil ein Signal vom Schulamt kommt. Siehe [[Rektor-Stelle Schulzentrum Rudersberg]].
+
+Im Schulamtsbezirk Backnang ist im Amtsblatt Nr. 15–16 vom 07.09.2026 **keine** Konrektorstelle an einer Realschule ausgeschrieben. In Winnenden ist die Rektorstelle offen, nicht die erste Konrektorstelle. Die würde erst frei, wenn der dortige erste Konrektor nachrückt.
+
 ## Entwicklungsplan (aus dem Gespräch abgeleitet)
 1. **Präsentations-/Demonstrationsskill** (höchste Priorität) – der rote Faden ist ein *Zeig-Defizit*, kein reines Wissensdefizit. Mock-Präsentationen unter Druck + ein verlässlicher Präsentations-Ablauf, der das Gewusste sichtbar macht.
 2. **Schulrecht** sicher beherrschen – strukturiert (z.B. Anki), mit belastbaren Quellen (SchG BW, KM-Vorschriften), nicht aus dem Bauch.

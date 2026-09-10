@@ -52,15 +52,63 @@ Was schwierig ist: Der Sprung geht von A 13 direkt auf A 15, ohne Konrektor-Erfa
 
 Die Heimatort-Lage schneidet in beide Richtungen. Sie ist ein starkes Argument in der Bewerbung, sie erhöht aber auch den Preis einer Absage vor Ort.
 
+## Stand 10.09.2026 nach Oskars Rückmeldung
+
+**Die interne Konkurrenzlage sieht anders aus als zunächst angenommen.** Oskar kennt beide Konrektoren. Nach seiner Kenntnis fällt der kommissarische Schulleiter als Bewerber sehr wahrscheinlich aus, der zweite Konrektor ist erst seit kurzem an der Schule und kommt von auswärts. Es ist also derzeit nicht damit zu rechnen, dass ein eingearbeiteter interner Kandidat mit Amtsbonus antritt. Gründe bleiben aus Datenschutzgründen hier außen vor.
+
+**Oskars Bezüge zur Schule.** Er war dort selbst Grundschüler, hat 2009 sein Blockpraktikum am Schulzentrum gemacht und im vergangenen Jahr ein Jahr lang Kinderturnen in der Wieslaufhalle geleitet, also in den Sportanlagen der Schule. Das Sportprofil der Schule passt zu ihm. Seine Schulleiterin hält ihn für geeignet und nennt den Sportbereich ausdrücklich als Anknüpfungspunkt.
+
+**Oskars Bedingung.** Er bewirbt sich nur, wenn vom Schulamt ein Signal kommt, dass es Sinn hat. Grund: Gegen Bewerber, die bereits in A 14 sind, sieht er sich chancenlos, und der Verfahrensaufwand ist deutlich höher als bei einer Konrektorstelle. Ohne realistische Chance ist ihm der Aufwand nicht wert. Seine Schulleiterin erkundigt sich ihrerseits, gegebenenfalls bei der Schulamtsleitung oder bei Ade-Thurow.
+
+**Motivation.** Kein Zeitverlust durch Zwischenstationen, Ortskenntnis, kurzer Weg, sehr langfristige Perspektive. Nachteil aus seiner Sicht: als Rektor deutlich weniger Unterricht als in einer Konrektorrolle.
+
+## Die anderen Stellen im selben Heft, Schulamtsbezirk Backnang
+
+- **Winnenden, Geschwister-Scholl-Realschule, Realschulrektorin / Realschulrektor, A 15.** Ausgeschrieben ist die Rektorstelle, nicht die erste Konrektorstelle. Die würde erst frei, wenn der dortige erste Konrektor die Rektorstelle bekommt und nachrückt.
+- Sulzbach an der Murr, Gemeinschaftsschule, Rektorin / Rektor, A 15, zum 1. August 2027.
+- Backnang, Gemeinschaftsschule in der Taus, Zweite Konrektorin / Zweiter Konrektor, A 14. Von Oskar bereits abgelehnt.
+- Burgstetten, Grundschule, Rektorin / Rektor, A 13 + Amtszulage. Nicht seine Schulart.
+
+Im Bezirk Backnang ist in diesem Heft **keine** erste Konrektorstelle an einer Realschule ausgeschrieben. Die von Oskar bevorzugte Alternative existiert derzeit also nicht als offene Stelle.
+
+## Das Besetzungsverfahren
+
+Quelle: „Informationen zum Schulleiterbesetzungsverfahren für Bewerberinnen und Bewerber", Kultusministerium, Stand September 2025. Rechtsgrundlage § 40 Schulgesetz und VwV Funktionsstellen.
+
+**Auswahlkommission:** zwei Vertreter der Schulaufsichtsbehörde, je ein Vertreter der Schulkonferenz und des Schulträgers. Nehmen die beiden Gremienvertreter als Beobachter teil, haben sie Stimmrecht beim Besetzungsvorschlag. Für Rudersberg heißt das: Kollegium und Gemeinde sitzen mit am Tisch.
+
+**Anlassbeurteilung** durch die eigene Schulleitung. Sie wird neu erstellt, wenn die letzte im Zeitpunkt der Auswahlentscheidung über zwei Jahre zurückliegt oder sich Aufgaben beziehungsweise Statusamt geändert haben. Die Beurteilung aus dem Fellbach-Verfahren dürfte noch innerhalb der Frist liegen, das ist zu prüfen.
+
+**Vier Überprüfungsmaßnahmen**, Termine und Reihenfolge legt das Regierungspräsidium fest, Einladung erfolgt schriftlich mit Angaben zu Kommission und Ablauf.
+
+| Modul | Inhalt | Zeiten |
+|---|---|---|
+| A Unterrichtsanalyse mit Beratung | Fremde Stunde beobachten und die Lehrkraft aus der Rolle der Schulleitung beraten, in einem **nicht affinen Fach** | 45 Min. Mitschau, 20 Min. Vorbereitung, 30 Min. Beratungsgespräch, 5 Min. Selbstreflexion mit Notenvorschlag |
+| B Strukturiertes Interview | Fragen unter anderem zu den Schulspezifika aus dem erweiterten Ausschreibungstext, gleiche Leitfragen für alle | ca. 45 Min. |
+| C Mediengestützte Präsentation | Thema, Zielgruppe und Situation werden vorgegeben, Rolle ist die der Schulleitung, Flipchart und Moderationswand | Aufgabe 15 Min. vorher, Präsentation ca. 10 Min. |
+| D Schwierige Alltagssituation | Rollenspiel oder Fallanalyse, wird vorab im Einladungsschreiben festgelegt | 15 Min. Vorbereitung, ca. 15 Min. Durchführung |
+
+**Zum nicht affinen Fach:** Das ist Absicht und gilt für alle Bewerber gleich. Geprüft wird ausdrücklich die allgemeine Pädagogik, Didaktik und Methodik, **nicht** die Fachkompetenz in einem bestimmten Schulfach. Erwartet wird eine merkmalsgestützte Beratung, genannt werden EMU, Materialien des IBBW und die zehn Merkmale guten Unterrichts nach Hilbert Meyer. Kein Instrument ist vorgeschrieben.
+
+**Einordnung:** Die Module C und D sind genau die Stellen, an denen es in Fellbach gekippt ist. Der Unterschied jetzt: Format, Zeiten und Rolle sind vorher bekannt und damit trainierbar. Das deckt sich mit dem Entwicklungsplan aus dem Schulratsgespräch, siehe [[Konrektor-Bewerbung]].
+
+## Stand 10.09.2026, abends
+
+Oskar wartet ab, ob seine Schulleiterin über die Schulamtsleitung (Frau Hagenmüller-Gering) oder über Ade-Thurow ein Signal bekommt. Kommt das Signal, bewirbt er sich. Denkbar ist auch, dass sich niemand bewirbt und das Schulamt von sich aus auf ihn zukommt.
+
+**Der erweiterte Ausschreibungstext fehlt.** Oskar hat sich in Lehrer Online BW eingeloggt. Winnenden ist dort gelistet, Rudersberg nicht. Mögliche Erklärungen: der Text ist noch nicht eingestellt, oder die Schule läuft unter der Schulkategorie Schulverbund statt Realschule und taucht deshalb bei einem Realschul-Filter nicht auf. Zu prüfen, notfalls beim Staatlichen Schulamt Backnang nachfragen. Das Amtsblatt bezeichnet die erweiterten Texte ausdrücklich als Bestandteil der Ausschreibung und als Grundlage des Verfahrens.
+
 ## Offene Fragen
 
 - Warum ist Silke Nutsch weg, und wie geht es dem Kollegium damit?
-- Bewirbt sich Daniel Schnepf? Gibt es weitere interne Kandidaten?
+- Wer bewirbt sich sonst? Vor allem: sind Bewerber in A 14 dabei?
 - Was sagt Schulrat Ade-Thurow zu einer Direktbewerbung auf A 15?
 - Was steht im erweiterten Ausschreibungstext auf lehrer-online-bw.de?
 - Wie ist die Haushaltslage der Gemeinde nach dem Hochwasser, und was ist für das Schulzentrum eingeplant?
 - Steht der Werkrealschulzweig zur Disposition, und gibt es Überlegungen Richtung Gemeinschaftsschule?
 - Wie steht Julia dazu?
+- Liegt die Anlassbeurteilung aus dem Fellbach-Verfahren noch innerhalb der Zwei-Jahres-Frist?
+- Was bringt die Erkundigung der Schulleiterin?
 
 ## Nächste Schritte
 
