@@ -10,7 +10,7 @@ Ergänzt [[Trainingsplan]] um das, was dort nur als Stichwort steht. Der Plan sa
 
 ## Radeinheiten als Dateien
 
-Sechs `.zwo`-Dateien, direkt fahrbar. TrainingPeaks braucht es nicht.
+Sechs `.zwo`-Dateien. Ziel ist **TrainingPeaks** (aktuell kein Zwift-Abo), gefahren wird über **TrainingPeaks Virtual** — dieselbe Infrastruktur, die schon `.scripts/intervals_tpv_upload.py` für die Rollenfahrten nutzt.
 
 | Datei | Einheit | Arbeit | Dauer | Wann |
 |---|---|---|---|---|
@@ -21,9 +21,11 @@ Sechs `.zwo`-Dateien, direkt fahrbar. TrainingPeaks braucht es nicht.
 | 05 | VO2max 3 × 10 × 40/20 | 30 min | 1:05 | Fr 16.10. |
 | 06 | Grundlage 60 min | – | 1:00 | jeden Montagabend |
 
-Die Dateien liegen im Vault unter `04 Ressourcen/Triathlon & Training/Workouts/` und sind zusätzlich nach `~/Documents/Zwift/Workouts/975277/` kopiert, wo sie direkt in der App erscheinen.
+Die Dateien liegen im Vault unter `04 Ressourcen/Triathlon & Training/Workouts/`. Von dort per Drag & Drop auf den jeweiligen Tag im TrainingPeaks-Kalender ziehen, dann als geplantes Workout in TrainingPeaks Virtual öffnen. Laut TrainingPeaks Help Center werden `.zwo`-Dateien für die Workout Library und TP Virtual gleichermaßen unterstützt. ⚠️ Den genauen Klickpfad konnte ich nicht gegenprüfen, die Hilfeseiten blocken automatisierte Abrufe — bei Problemen nachfragen.
 
-**Aufbau der VO2max-Einheiten:** 40 Sekunden bei 115 % FTP, 20 Sekunden locker, sieben bis zehn Mal am Stück, drei Blöcke mit fünf Minuten Pause dazwischen. **Die Watt bleiben über den ganzen Block gleich, gesteigert wird nur die Zahl der Wiederholungen** — genau das Schema, das schon in deinem Zwift-Ordner liegt.
+Zusätzlich liegen Kopien in `~/Documents/Zwift/Workouts/975277/` (unangetastet, falls das Zwift-Abo zurückkommt), das ist aber nicht mehr der vorgesehene Weg.
+
+**Aufbau der VO2max-Einheiten:** 40 Sekunden bei 115 % FTP, 20 Sekunden locker, sieben bis zehn Mal am Stück, drei Blöcke mit fünf Minuten Pause dazwischen. **Die Watt bleiben über den ganzen Block gleich, gesteigert wird nur die Zahl der Wiederholungen.**
 
 **Arbeitswert FTP: 300 W** (Stand 07.09.2026, aus der gemessenen Leistungskurve). Daraus die absoluten Zielwerte:
 
