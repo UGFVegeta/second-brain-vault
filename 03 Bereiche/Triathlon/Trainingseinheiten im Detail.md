@@ -10,15 +10,21 @@ Ergänzt [[Trainingsplan]] um das, was dort nur als Stichwort steht. Der Plan sa
 
 ## Radeinheiten als Dateien
 
-Sechs `.zwo`-Dateien. Ziel ist **TrainingPeaks** (aktuell kein Zwift-Abo), gefahren wird über **TrainingPeaks Virtual** — dieselbe Infrastruktur, die schon `.scripts/intervals_tpv_upload.py` für die Rollenfahrten nutzt.
+Sechs Workouts, je als `.zwo`, `.mrc` und `.fit`. Ziel ist **TrainingPeaks** (aktuell kein Zwift-Abo), gefahren wird über **TrainingPeaks Virtual** — dieselbe Infrastruktur, die schon `.scripts/intervals_tpv_upload.py` für die Rollenfahrten nutzt.
+
+⚠️ **`.zwo` wurde beim Hochladen von TrainingPeaks nicht akzeptiert (getestet 11.09.2026).** Ausprobieren in dieser Reihenfolge:
+1. **`.mrc`** — älteres, weit verbreitetes Format für Intervall-Workouts, arbeitet in Prozent der FTP.
+2. **`.fit`**, falls `.mrc` auch scheitert — echte Garmin-Workout-Dateien, selbst gebaut und Schritt für Schritt mit einem unabhängigen Decoder gegen die Sollwerte geprüft (Dauer und Wattziele stimmen exakt). ⚠️ Diese Dateien enthalten **absolute Watt bei FTP 300**, nicht Prozent — nach dem FTP-Test am 18.09. müssen sie bei einem geänderten Wert neu erzeugt werden, anders als `.zwo`/`.mrc`. Ob TrainingPeaks selbst sie akzeptiert, konnte ich nicht testen (kein eigener Zugang) — nur dass sie spezifikationsgerecht kodiert sind.
+
+Sag mir, welches Format funktioniert, dann weiß ich es für den Rest der Saison.
 
 | Datei | Einheit | Arbeit | Dauer | Wann |
 |---|---|---|---|---|
 | 01 | FTP-Test 20 Minuten | – | 0:56 | Fr 18.09. |
-| 02 | VO2max 3 × 7 × 40/20 | 21 min | 0:56 | Fr 25.09. |
-| 03 | VO2max 3 × 8 × 40/20 | 24 min | 0:59 | Fr 02.10. |
-| 04 | VO2max 3 × 9 × 40/20 | 27 min | 1:02 | Fr 09.10. |
-| 05 | VO2max 3 × 10 × 40/20 | 30 min | 1:05 | Fr 16.10. |
+| 02 | VO2max 3 × 7 × 40/20 | 21 min | **1:00:30** | Fr 25.09. |
+| 03 | VO2max 3 × 8 × 40/20 | 24 min | **1:03:30** | Fr 02.10. |
+| 04 | VO2max 3 × 9 × 40/20 | 27 min | **1:06:30** | Fr 09.10. |
+| 05 | VO2max 3 × 10 × 40/20 | 30 min | **1:09:30** | Fr 16.10. |
 | 06 | Grundlage 60 min | – | 1:00 | jeden Montagabend |
 
 Die Dateien liegen im Vault unter `04 Ressourcen/Triathlon & Training/Workouts/`. Von dort per Drag & Drop auf den jeweiligen Tag im TrainingPeaks-Kalender ziehen, dann als geplantes Workout in TrainingPeaks Virtual öffnen. Laut TrainingPeaks Help Center werden `.zwo`-Dateien für die Workout Library und TP Virtual gleichermaßen unterstützt. ⚠️ Den genauen Klickpfad konnte ich nicht gegenprüfen, die Hilfeseiten blocken automatisierte Abrufe — bei Problemen nachfragen.
