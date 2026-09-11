@@ -9,6 +9,9 @@ kann diese Datei auch einzeln aufgerufen werden, um den Schluessel auszudrucken.
 """
 
 # --- Grundlagen Klasse 5-6 (neue 7. Klasse) ---------------------------------
+# Wird an zwei Tagen ausgeteilt (Grundlagen Klasse 5-6 Teil 1 = Block A+B,
+# Teil 2 = Block C+D), aber als EIN Schluessel gefuehrt: die Auswertung
+# braucht beide Teile, um ein vollstaendiges Bild pro Nummer zu zeigen.
 
 SCHLUESSEL_5_6 = {
     "A · Grundrechenarten und Rechenregeln": {
