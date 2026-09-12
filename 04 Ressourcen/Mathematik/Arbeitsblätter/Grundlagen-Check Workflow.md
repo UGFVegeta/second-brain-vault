@@ -32,9 +32,7 @@ Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von dr
 ## Ablauf
 
 1. **Aufgabenblatt austeilen** (Teil 1 zuerst, Teil 2 im zweiten Block – egal ob am selben oder an einem anderen Tag), Rechenwege gehen ins Heft oder auf Schmierpapier, nicht aufs Blatt.
-2. **Antwortbogen separat austeilen.** Bei der Klasse-5–6-Version gibt es zwei Varianten:
-   - **Zwei Tage:** [[Antwortbogen Grundlagen Klasse 5-6 Teil 1]] und [[Antwortbogen Grundlagen Klasse 5-6 Teil 2]] als getrennte Bögen.
-   - **Gleicher Tag, zwei Blöcke** (z. B. Teil 1 im ersten Block, Teil 2 nach einer Zwischenstunde): [[Antwortbogen Grundlagen Klasse 5-6 komplett]] – ein Bogen, Seite 1 = Teil 1, Seite 2 = Teil 2. Nach Teil 1 einsammeln, im zweiten Block wieder austeilen und Seite 2 ausfüllen lassen. Spart Papier, braucht aber Zwischenlagerung der Bögen in der Pause.
+2. **Antwortbogen separat austeilen**, jeweils den passenden Teil: [[Antwortbogen Grundlagen Klasse 5-6 Teil 1]] und [[Antwortbogen Grundlagen Klasse 5-6 Teil 2]] als getrennte Bögen – auch wenn beide Blöcke am selben Tag laufen. **Bewusst zwei Bögen, nicht einer**, der zwischendurch eingesammelt und wieder ausgeteilt wird: Sobald ein Schüler seinen eigenen Bogen zwischen den Blöcken noch einmal in der Hand hat (z. B. nach Absprache mit Mitschülern), lässt sich eine Antwort unbemerkt durchstreichen und ersetzen. Zwei getrennte Bögen schließen das aus, auch wenn es etwas mehr Papier ist.
 
    Oben trägt jeder Schüler nur seine zugeteilte Nummer ein, keinen Namen. Nur Endergebnisse in die Kästchen, ein Kästchen pro Teilaufgabe. Leer bleiben ist erlaubt und ist selbst schon eine Information. Die Nummer eines Schülers bleibt über beide Teile gleich.
 3. **Nur die Antwortbögen einsammeln und scannen** (Foto oder Scanner, eine Datei pro Bogen oder ein Sammel-PDF). Die Aufgabenblätter bleiben bei den Schülern oder im Klassensatz, sie werden nicht digitalisiert.

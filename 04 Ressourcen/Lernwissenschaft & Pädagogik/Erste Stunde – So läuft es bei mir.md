@@ -24,7 +24,7 @@ Das Reinkommen üben wir nicht heute. Eine siebte Klasse am ersten Tag vor die T
 
 ## Vor der Stunde vorbereiten
 
-An der Tafel steht bereits das Tafelbild, wie es später jede Stunde aussieht: links der Ablauf, rechts das Material. Ich zeige damit nicht nur, wie es geht, sondern es steht schon so da.
+Auf der Hausaufgabentafel links steht im Mathe-Bereich schon das Material für die nächste Stunde. Damit sehen die Kinder das Prinzip, statt dass ich es nur beschreibe. Den Ablauf der Stunde sage ich, ich schreibe ihn nicht an; für ein zweites Whiteboard rechts gibt es wegen des Einkaufsstopps derzeit keine Aussicht.
 
 Daneben die drei Fragen, um die es geht:
 
@@ -32,15 +32,15 @@ Daneben die drei Fragen, um die es geht:
 2. Wie bereite ich mich auf die Stunde vor?
 3. Was erwarten wir voneinander?
 
-Dazu Sitzplan fertig, Handykiste auf dem Pult, Haken für die Ranzen gezeigt bekommen.
+Dazu Sitzplan fertig und geklärt, wo die Ranzen stehen.
 
 ## Ablauf, Kernversion 19 Minuten
 
 | Zeit | Was passiert | Wortlaut |
 |---|---|---|
 | 1 min | Rahmen setzen | „Ihr habt jetzt viel gehört, was die Schule von euch will. Der Rest der Stunde gehört uns. Ich sage euch, wie Unterricht bei mir abläuft. Nicht damit ihr brav seid, sondern damit keiner raten muss." |
-| 3 min | Frage 1, Reinkommen | „Ihr sammelt euch vor der Tür, ihr strömt nicht als Pulk rein. Ich stehe an der Tür und begrüße jeden von euch. Dann Jacke über den Stuhl, Ranzen an den Haken, Handy in die Kiste, Material raus, hinsetzen. Jeder hat seinen festen Platz. Das spart uns jede Stunde fünf Minuten Diskussion." |
-| 3 min | Frage 2, Vorbereitung | „Schaut auf die Tafel. Links steht immer, was wir machen. Rechts steht, was ihr dafür braucht. Das ist das Erste, was ihr anschaut, noch bevor ihr sitzt. Wer da hinschaut, muss nie fragen, was er rausholen soll." |
+| 3 min | Frage 1, Reinkommen | „Ihr sammelt euch vor der Tür, ihr strömt nicht als Pulk rein. Jacke über den Stuhl, Ranzen an den Platz. Das Handy bleibt aus und im Schulranzen. Material raus, hinsetzen, jeder hat seinen festen Platz. Dann begrüße ich euch: Ich sage Guten Morgen, ihr steht auf und grüßt zurück. Das spart uns jede Stunde fünf Minuten Diskussion." |
+| 3 min | Frage 2, Vorbereitung | „Schaut auf die Hausaufgabentafel. Bei Mathe steht dort, was ihr für die Stunde braucht. Das ist das Erste, was ihr anschaut, noch bevor ihr sitzt. Wer da hinschaut, muss nie fragen, was er rausholen soll. Was wir in der Stunde machen, sage ich euch am Anfang." |
 | 4 min | Frage 3, die Abmachung | Meine Seite und ihre Seite, siehe unten. |
 | 4 min | Wie bei mir gelernt wird | Das Versprechen, dann ein Durchgang „Alle hoch". Siehe unten. |
 | 3 min | Startsignal einführen und üben | „Eine Sache üben wir heute. Wenn ich die Hand hebe und von fünf runterzähle, seid ihr bei eins still, Blick nach vorne, Stifte liegen. Ich zähle." Zweimal üben. Beim ersten Mal fast sicher: „Das waren noch keine hundert Prozent, nochmal." |
@@ -60,19 +60,23 @@ Das passt zu den Trennfolien aus der Präsentation und sollte gleich klingen, da
 
 Der Teil, der aus der englischen Mastery-Linie kommt. Er gehört in die Kennenlernstunde, weil er erklärt, warum der Unterricht danach anders aussieht als gewohnt. Die Routinen selbst stehen ausführlich in [[Mastery-Routinen im Unterricht (Klasse 7)]].
 
+Bewusst kein Versprechen „wir bleiben bei einer Sache, bis alle sie können". Der Bildungsplan lässt das in Mathematik nicht immer zu, und ein Versprechen, das ich absehbar breche, ist schlechter als gar keines. Zugesagt wird deshalb nur, was in meiner Hand liegt: nachschauen, wer mitkommt, und Hilfe geben.
+
 Falls ich die Klasse nur als Klassenlehrer habe und in keinem Fach unterrichte, gehört dieser Block nicht hierher, sondern in die erste Fachstunde.
 
 „Noch eine Sache, dann seid ihr durch. Wie bei mir gelernt wird."
 
-„Erstens: Wir bleiben bei einer Sache, bis ihr sie könnt. Alle, nicht die Hälfte. Das heißt, wir sind manchmal langsamer als andere Klassen. Dafür lassen wir niemanden hinten liegen."
+„Erstens: Ich schaue in jeder Stunde nach, wer mitkommt. Nicht erst in der Klassenarbeit. Wer hängt, bekommt Hilfe, möglichst noch am selben Tag."
 
-„Zweitens, und das ist die Bedingung dafür: Ich muss in jeder Stunde sehen, was in euren Köpfen vorgeht. Deshalb antwortet bei mir jeder. Es meldet sich niemand, ich frage. Und bei Rechenfragen schreiben alle gleichzeitig auf und halten gleichzeitig hoch."
+„Zweitens, und das ist die Bedingung dafür: Ich muss sehen, was ihr könnt und was noch nicht. Melden ist erlaubt und erwünscht. Ich frage aber auch die, die sich nicht melden. Nach jeder Frage gebe ich euch drei Sekunden zum Denken."
 
-„Falsch ist dabei ausdrücklich erlaubt. Wenn die halbe Klasse etwas falsch hat, ist das kein schlechter Tag, sondern genau die Auskunft, für die ich frage. Dann bleiben wir eben noch eine Runde."
+„Und: Aus Fehlern lernt man. Wichtig ist nur, denselben Fehler nicht immer wieder zu machen. Dafür frage ich nach, und dafür frage ich euch."
 
 Danach einmal ausprobieren, damit es kein Vortrag bleibt:
 
 „Probieren wir es sofort. Jeder nimmt ein Blatt. Ich stelle eine Frage, ihr schreibt, und auf mein Kommando ‚Alle hoch' heben alle gleichzeitig. Vorher liegt das Blatt flach auf dem Tisch."
+
+Wichtig: Erst die Signale nennen, dann üben. Ohne die Folie „Meine Signale" davor wissen die Kinder nicht, was von ihnen verlangt wird.
 
 Als Frage nehme ich etwas aus dieser Stunde, dann ist es zugleich der erste kleine Abruf: „Was macht ihr, wenn ihr reinkommt? Ein Stichwort genügt." Wer lieber eine Rechenfrage will, nimmt etwas, das jeder kann, damit die Routine gelingt und nicht der Inhalt im Weg steht.
 
@@ -86,7 +90,11 @@ Ruhe herstellen: Hand heben, „Fünf, vier, drei, zwei, eins." Danach warten, b
 
 Aufmerksamkeit während der Stunde: „Alle Augen zu mir."
 
-Arbeitsphase starten: „In fünf, vier, drei, zwei, eins sehe ich das Heft aufgeschlagen." Danach: „Jetzt will ich sehen, dass sich alle Stifte bewegen."
+Arbeitsphase starten und beenden: „Fünf, vier, drei, zwei, eins, los." und „Fünf, vier, drei, zwei, eins, Stopp." Bei eins ist es so weit, nicht kurz danach.
+
+Kurzer Blick, ob alle so weit sind: „Heft hoch." Ich schaue, dann wieder hinlegen. Oder „Stift hoch", damit alle gleichzeitig starten.
+
+Antwort von allen einsammeln: „Alle hoch." Alle halten ihr Blatt gleichzeitig hoch.
 
 Nachsteuern, wenn es schlampig war: „Das waren noch keine hundert Prozent, nochmal." Ruhig, ohne Ärger.
 

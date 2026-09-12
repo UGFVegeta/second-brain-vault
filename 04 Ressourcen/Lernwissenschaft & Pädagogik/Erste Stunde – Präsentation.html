@@ -79,6 +79,9 @@
   .zwei ul{font-size:1.75vw; margin:0 0 0 1em}
   .kommando{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
             letter-spacing:.12em; font-size:4.6vw; color:var(--accent2)}
+  .signale{display:grid; grid-template-columns:auto 1fr; gap:.55em 1.4em; margin-top:.6em; font-size:1.85vw; align-items:baseline}
+  .signale .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+                color:var(--accent2); white-space:nowrap; letter-spacing:.04em}
   @media (max-width:700px){
     h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
   }
@@ -87,6 +90,7 @@
 <body>
 <div id="stage" tabindex="0">
 
+
   <!-- 1 Titel -->
   <section class="slide">
     <div class="kicker">Klassenlehrerstunde · Klasse 7</div>
@@ -94,15 +98,9 @@
     <p class="note">Drei Fragen. Danach weiß jeder von euch, wie meine Stunden ablaufen.</p>
   </section>
 
-  <!-- 2 Rahmen -->
-  <section class="slide divider">
-    <h1 style="font-size:3.6vw">Der Rest der Stunde<br>gehört uns.</h1>
-    <p style="color:#cfe9db; font-size:1.9vw; margin-top:1em">Nicht damit ihr brav seid.<br>Damit keiner raten muss.</p>
-  </section>
-
-  <!-- 3 Die drei Fragen -->
+  <!-- 2 Übersicht -->
   <section class="slide">
-    <h2>Darum geht es</h2>
+    <h2>So läuft jede Stunde bei mir</h2>
     <ul class="schritte">
       <li data-step><b>1</b><span>Was mache ich, wenn ich reinkomme?</span></li>
       <li data-step><b>2</b><span>Wie bereite ich mich auf die Stunde vor?</span></li>
@@ -110,61 +108,59 @@
     </ul>
   </section>
 
-  <!-- 4 -->
+  <!-- 3 -->
   <section class="slide divider">
     <div class="kicker">Frage 1</div>
     <h1>Was mache ich,<br>wenn ich reinkomme?</h1>
   </section>
 
-  <!-- 5 Reinkommen -->
+  <!-- 4 Reinkommen -->
   <section class="slide">
     <h2 style="margin-bottom:.3em">Jedes Mal dieselbe Reihenfolge</h2>
     <ul class="schritte">
       <li data-step><b>1</b><span>Vor der Tür sammeln. Kein Pulk.</span></li>
-      <li data-step><b>2</b><span>Ich begrüße jeden von euch an der Tür.</span></li>
-      <li data-step><b>3</b><span>Jacke über den Stuhl, Ranzen an den Haken.</span></li>
-      <li data-step><b>4</b><span>Handy in die Kiste.</span></li>
-      <li data-step><b>5</b><span>Material raus, hinsetzen. Fester Platz.</span></li>
+      <li data-step><b>2</b><span>Jacke über den Stuhl, Ranzen an den Platz.</span></li>
+      <li data-step><b>3</b><span>Handy bleibt aus, im Schulranzen.</span></li>
+      <li data-step><b>4</b><span>Material raus, hinsetzen. Fester Platz.</span></li>
+      <li data-step><b>5</b><span>Begrüßung: Ich sage Guten Morgen, ihr steht auf und grüßt zurück.</span></li>
     </ul>
     <p class="note" data-step>Das spart uns jede Stunde fünf Minuten Diskussion.</p>
     <div class="src">Verhalten wird unterrichtet, nicht vorausgesetzt: Bennett (2017), Independent Review of Behaviour in Schools.</div>
   </section>
 
-  <!-- 6 -->
+  <!-- 5 -->
   <section class="slide divider">
     <div class="kicker">Frage 2</div>
     <h1>Wie bereite ich mich<br>auf die Stunde vor?</h1>
   </section>
 
-  <!-- 7 Tafelbild -->
+  <!-- 6 Material -->
   <section class="slide">
-    <h2 style="margin-bottom:.4em">An der Tafel steht alles</h2>
-    <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:40vh" aria-hidden="true">
-      <rect x="6" y="6" width="548" height="188" rx="8" fill="#fffdf6" stroke="#1c2230" stroke-width="3"/>
-      <line x1="280" y1="22" x2="280" y2="178" stroke="#d9d3c7" stroke-width="2" stroke-dasharray="7 6"/>
-      <text x="40" y="48" font-size="19" font-family="sans-serif" font-weight="700" fill="#2f6f4f">Ablauf</text>
-      <g font-size="16" font-family="sans-serif" fill="#1c2230">
-        <text x="40" y="82">1  Abfragen</text>
-        <text x="40" y="110">2  Neues</text>
-        <text x="40" y="138">3  Üben</text>
-      </g>
-      <text x="320" y="48" font-size="19" font-family="sans-serif" font-weight="700" fill="#c2531e">Material</text>
-      <g font-size="16" font-family="sans-serif" fill="#1c2230">
-        <text x="320" y="82">Heft</text>
-        <text x="320" y="110">Buch S. 24</text>
-        <text x="320" y="138">Lineal</text>
+    <h2 style="margin-bottom:.4em">Was ihr braucht, steht an der Tafel</h2>
+    <svg viewBox="0 0 560 190" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:36vh" aria-hidden="true">
+      <rect x="6" y="6" width="548" height="178" rx="8" fill="#fffdf6" stroke="#1c2230" stroke-width="3"/>
+      <text x="28" y="36" font-size="15" font-family="sans-serif" font-weight="700" fill="#6b7280" letter-spacing="1.5">HAUSAUFGABENTAFEL</text>
+      <line x1="28" y1="50" x2="532" y2="50" stroke="#d9d3c7" stroke-width="2"/>
+      <g font-family="sans-serif">
+        <text x="28" y="82" font-size="18" font-weight="700" fill="#2f6f4f">Mathe</text>
+        <text x="150" y="82" font-size="17" fill="#1c2230">Heft, Buch S. 24, Lineal</text>
+        <text x="28" y="120" font-size="18" font-weight="700" fill="#9a9484">Physik</text>
+        <text x="150" y="120" font-size="17" fill="#9a9484">…</text>
+        <text x="28" y="158" font-size="18" font-weight="700" fill="#9a9484">Deutsch</text>
+        <text x="150" y="158" font-size="17" fill="#9a9484">…</text>
       </g>
     </svg>
-    <p class="big" data-step style="color:var(--accent); margin-top:.4em">Das schaut ihr an, bevor ihr sitzt.</p>
+    <p class="big" data-step style="color:var(--accent); margin-top:.3em">Das schaut ihr an, bevor ihr sitzt.</p>
+    <p class="note" data-step>Was wir in der Stunde machen, sage ich euch am Anfang.</p>
   </section>
 
-  <!-- 8 -->
+  <!-- 7 -->
   <section class="slide divider">
     <div class="kicker">Frage 3</div>
     <h1>Was erwarten wir<br>voneinander?</h1>
   </section>
 
-  <!-- 9 Die Abmachung -->
+  <!-- 8 Die Abmachung -->
   <section class="slide">
     <h2 style="margin-bottom:.3em">Die Abmachung</h2>
     <div class="zwei">
@@ -181,77 +177,94 @@
         <ul>
           <li>Ich behandle alle gleich</li>
           <li>Fragen kostet nichts</li>
-          <li>Ich werde nicht genervt</li>
+          <li>Ruhe zum Arbeiten</li>
         </ul>
       </div>
     </div>
     <p class="note" data-step>Was ich nicht erwarte: dass ihr alles sofort könnt.</p>
   </section>
 
-  <!-- 10 -->
+  <!-- 9 -->
   <section class="slide divider">
     <div class="kicker">Mein Teil der Abmachung</div>
     <h1 style="font-size:3.4vw">Fragen kostet nichts.<br>Auch beim zehnten Mal.</h1>
     <p style="color:#cfe9db; font-size:1.9vw; margin-top:1em">Die einzige Bedingung: Ich sehe, dass ihr arbeiten wollt.</p>
   </section>
 
-  <!-- 11 -->
+  <!-- 10 -->
   <section class="slide divider">
-    <div class="kicker">Noch eine Sache</div>
-    <h1>Wie bei mir<br>gelernt wird</h1>
+    <div class="kicker">Und noch etwas</div>
+    <h1>Wie wir arbeiten</h1>
   </section>
 
-  <!-- 12 Versprechen -->
+  <!-- 11 Niemand bleibt hängen -->
   <section class="slide">
-    <h1 style="font-size:3.2vw">Wir bleiben bei einer Sache,<br>bis ihr sie könnt.</h1>
-    <p class="big" data-step style="color:var(--accent2); margin-top:.6em">Alle. Nicht die Hälfte.</p>
-    <p class="note" data-step>Wir sind dadurch manchmal langsamer als andere Klassen. Dafür bleibt niemand hinten.</p>
-  </section>
-
-  <!-- 13 Deshalb jeder -->
-  <section class="slide">
-    <h2 style="margin-bottom:.3em">Deshalb antwortet bei mir jeder</h2>
+    <h2 style="margin-bottom:.3em">Ich schaue nach, wer mitkommt</h2>
     <ul class="schritte">
-      <li data-step><b>→</b><span>Es meldet sich niemand. Ich frage.</span></li>
-      <li data-step><b>→</b><span>Nach der Frage: drei Sekunden Ruhe zum Denken.</span></li>
-      <li data-step><b>→</b><span>Bei Rechenfragen schreiben alle. Und heben gleichzeitig.</span></li>
+      <li data-step><b>→</b><span>Ich prüfe in jeder Stunde, ob ihr es könnt. Nicht erst in der Arbeit.</span></li>
+      <li data-step><b>→</b><span>Wer hängt, bekommt Hilfe. Möglichst am selben Tag.</span></li>
+      <li data-step><b>→</b><span>Dafür muss ich sehen, was ihr könnt und was noch nicht.</span></li>
     </ul>
-    <p class="note" data-step>Ich muss sehen, was in euren Köpfen vorgeht. Sonst weiß ich es von fünf von euch und rate beim Rest.</p>
-    <div class="src">Fragen an alle und prüfen vor dem Weitergehen: Rosenshine (2012). Aufrufen statt Melden: Lemov (2015).</div>
   </section>
 
-  <!-- 14 Falsch ist erlaubt -->
+  <!-- 12 Melden und gefragt werden -->
   <section class="slide">
-    <h1 style="font-size:3.6vw; color:var(--accent2)">Falsch ist erlaubt.</h1>
-    <p class="big" data-step style="margin-top:.7em">Wenn die halbe Klasse etwas falsch hat, ist das kein schlechter Tag.</p>
-    <p class="big" data-step style="color:var(--accent)">Es ist genau die Auskunft, für die ich frage.</p>
+    <h2 style="margin-bottom:.3em">Melden und gefragt werden</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Melden ist erlaubt und erwünscht.</span></li>
+      <li data-step><b>→</b><span>Ich frage aber auch die, die sich nicht melden.</span></li>
+      <li data-step><b>→</b><span>Nach jeder Frage: drei Sekunden Ruhe zum Denken.</span></li>
+    </ul>
+    <p class="note" data-step>Deshalb lohnt es sich, immer eine Antwort im Kopf zu haben.</p>
+    <div class="src">Fragen an alle und prüfen vor dem Weitergehen: Rosenshine (2012).</div>
   </section>
 
-  <!-- 15 Alle hoch -->
+  <!-- 13 Fehler -->
   <section class="slide">
-    <div class="kicker">Probieren wir es sofort</div>
+    <h1 style="font-size:3.6vw; color:var(--accent2)">Aus Fehlern lernt man.</h1>
+    <p class="big" data-step style="margin-top:.7em">Wichtig ist nur, denselben Fehler nicht immer wieder zu machen.</p>
+    <p class="big" data-step style="color:var(--accent)">Dafür frage ich nach. Und dafür frage ich euch.</p>
+  </section>
+
+  <!-- 14 Signale -->
+  <section class="slide">
+    <h2 style="margin-bottom:.2em">Meine Signale</h2>
+    <p class="note" style="margin-top:0">Immer dieselben Wörter. Ihr müsst sie nicht auswendig lernen, ihr werdet sie tausendmal hören.</p>
+    <div class="signale">
+      <div class="cmd" data-step>5 4 3 2 1 los</div><div data-step>Ab jetzt wird gearbeitet.</div>
+      <div class="cmd" data-step>5 4 3 2 1 Stopp</div><div data-step>Stifte weg, Blick nach vorne.</div>
+      <div class="cmd" data-step>Heft hoch</div><div data-step>Heft hochhalten, ich schaue, dann wieder hinlegen.</div>
+      <div class="cmd" data-step>Stift hoch</div><div data-step>Stift in die Luft. Dann geht es gleichzeitig los.</div>
+      <div class="cmd" data-step>Alle hoch</div><div data-step>Alle halten ihr Blatt gleichzeitig hoch.</div>
+    </div>
+  </section>
+
+  <!-- 15 Countdown -->
+  <section class="slide">
+    <h2 style="margin-bottom:.2em">Das üben wir jetzt</h2>
+    <div class="mono" style="font-size:5.4vw; color:var(--accent)">5 4 3 2 1 los</div>
+    <div class="mono" data-step style="font-size:5.4vw; color:var(--accent2)">5 4 3 2 1 Stopp</div>
+    <p class="note" data-step>Bei eins ist es so weit. Nicht bei null, nicht kurz danach.</p>
+  </section>
+
+  <!-- 16 Alle hoch -->
+  <section class="slide">
+    <div class="kicker">Und dann das hier</div>
     <div class="kommando">Alle hoch</div>
-    <ul class="schritte" style="margin-top:.5em">
+    <ul class="schritte" style="margin-top:.4em">
       <li data-step><b>1</b><span>Blatt liegt flach auf dem Tisch.</span></li>
       <li data-step><b>2</b><span>Ich stelle die Frage.</span></li>
       <li data-step><b>3</b><span>Schreiben.</span></li>
-      <li data-step><b>4</b><span>Auf mein Kommando heben alle gleichzeitig.</span></li>
+      <li data-step><b>4</b><span>Auf „Alle hoch" heben alle gleichzeitig.</span></li>
     </ul>
+    <p class="note" data-step>Gleichzeitig, damit keiner beim Nachbarn abschaut.</p>
   </section>
 
-  <!-- 16 Die Frage -->
+  <!-- 17 Die Frage -->
   <section class="slide">
     <div class="kicker">Eure Frage</div>
     <h1 style="font-size:3.4vw">Was macht ihr,<br>wenn ihr reinkommt?</h1>
     <p class="big" style="color:var(--muted); margin-top:.6em">Ein Stichwort genügt.</p>
-  </section>
-
-  <!-- 17 Startsignal -->
-  <section class="slide">
-    <h2 style="margin-bottom:.2em">Das Startsignal</h2>
-    <div class="mono" style="font-size:6vw; color:var(--accent)">5 4 3 2 1</div>
-    <p class="big" data-step style="margin-top:.4em">Hand oben heißt: still, Blick nach vorne, Stifte liegen.</p>
-    <p class="note" data-step>Bei eins ist Ruhe. Wir üben es gleich zweimal.</p>
   </section>
 
   <!-- 18 Abschluss -->
