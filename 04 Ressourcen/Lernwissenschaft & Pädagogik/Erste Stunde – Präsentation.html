@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erste Stunde – So läuft es bei mir</title>
+<style>
+  :root{
+    --ink:#1c2230; --bg:#fcf8ef; --paper:#fffdf6;
+    --accent:#2f6f4f; --accent2:#c2531e; --muted:#6b7280; --line:#d9d3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--ink); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  #stage{
+    position:relative;
+    width:min(96vw, calc(96vh * 16/9));
+    height:min(96vh, calc(96vw * 9/16));
+    background:var(--bg);
+    border-radius:14px; overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+  }
+  .slide{
+    position:absolute; inset:0; padding:6.2% 7.5%;
+    display:none; flex-direction:column; justify-content:center;
+  }
+  .slide.active{display:flex}
+  .kicker{font-size:1.15vw; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:1.4em}
+  h1{font-size:4.4vw; line-height:1.05; letter-spacing:-.02em}
+  h2{font-size:3.1vw; line-height:1.12; letter-spacing:-.01em; margin-bottom:.7em}
+  p{font-size:1.9vw; line-height:1.5; max-width:42em; color:#333}
+  p + p{margin-top:.7em}
+  .big{font-size:2.4vw}
+  ul{margin:.6em 0 0 1.1em; font-size:1.9vw; line-height:1.6}
+  li{margin:.35em 0}
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; letter-spacing:.22em; font-weight:700}
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .divider{background:var(--accent); color:#fff}
+  .divider .kicker{color:#bfe6d1}
+  .divider h1{font-size:4vw}
+  .quote{font-size:2.1vw; line-height:1.5; font-style:italic; border-left:3px solid var(--line); padding-left:.8em; max-width:40em}
+  .note{margin-top:1.1em; font-size:1.35vw; color:var(--muted)}
+  .src{position:absolute; left:7.5%; right:7.5%; bottom:7.4%; font-size:1.02vw; color:#9a9484; line-height:1.35}
+  .divider .src{color:#a8d5c0}
+  .row{display:flex; gap:4%; align-items:center}
+  .col{flex:1}
+  /* bar chart */
+  .bars{display:flex; gap:4vw; align-items:flex-end; height:32vh; margin:1.4em 0 5em}
+  .bar{width:10vw; background:var(--line); border-radius:8px 8px 0 0; position:relative; display:flex; justify-content:center}
+  .bar span{position:absolute; top:-2.6em; font-size:1.5vw; font-weight:700; white-space:nowrap}
+  .bar small{position:absolute; bottom:-3.6em; font-size:1.3vw; color:var(--muted); text-align:center; width:14vw; left:50%; transform:translateX(-50%)}
+  .bar.read{height:42%}
+  .bar.test{height:80%; background:var(--accent)}
+  /* desk -> shelf */
+  .flow{display:flex; align-items:center; gap:2.5vw; margin-top:1em; font-size:1.7vw}
+  .flow .box{background:var(--paper); border:2px solid var(--ink); border-radius:10px; padding:1.1em 1.3em; text-align:center; flex:1}
+  .flow .arrow{font-size:3vw; color:var(--accent)}
+  /* curve */
+  svg.curve{width:34vw; height:auto}
+  /* progress */
+  #dots{position:absolute; bottom:2.4%; left:26%; right:26%; display:flex; gap:.5vw; justify-content:center}
+  #dots i{width:.7vw; height:.7vw; border-radius:50%; background:var(--line); transition:background .2s}
+  #dots i.on{background:var(--accent)}
+  #counter{position:absolute; bottom:2%; right:3%; font-size:1.1vw; color:var(--muted)}
+  #hint{position:absolute; bottom:2%; left:3%; font-size:.95vw; color:var(--muted)}
+  /* Schrittweises Aufdecken: Platz bleibt reserviert, damit nichts springt */
+  [data-step]{opacity:0; transition:opacity .28s}
+  [data-step].shown{opacity:1}
+  .schritte{list-style:none; margin:.4em 0 0 0; font-size:2.05vw; line-height:1.5}
+  .schritte li{margin:.42em 0; display:flex; align-items:baseline; gap:.7em}
+  .schritte b{color:var(--accent); font-variant-numeric:tabular-nums; min-width:1.4em}
+  .zwei{display:flex; gap:4%; align-items:stretch; margin-top:.5em}
+  .zwei > div{flex:1; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .zwei h3{font-size:1.5vw; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.6em}
+  .zwei ul{font-size:1.75vw; margin:0 0 0 1em}
+  .kommando{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+            letter-spacing:.12em; font-size:4.6vw; color:var(--accent2)}
+  @media (max-width:700px){
+    h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
+  }
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0">
+
+  <!-- 1 Titel -->
+  <section class="slide">
+    <div class="kicker">Klassenlehrerstunde · Klasse 7</div>
+    <h1>So läuft es bei mir</h1>
+    <p class="note">Drei Fragen. Danach weiß jeder von euch, wie meine Stunden ablaufen.</p>
+  </section>
+
+  <!-- 2 Rahmen -->
+  <section class="slide divider">
+    <h1 style="font-size:3.6vw">Der Rest der Stunde<br>gehört uns.</h1>
+    <p style="color:#cfe9db; font-size:1.9vw; margin-top:1em">Nicht damit ihr brav seid.<br>Damit keiner raten muss.</p>
+  </section>
+
+  <!-- 3 Die drei Fragen -->
+  <section class="slide">
+    <h2>Darum geht es</h2>
+    <ul class="schritte">
+      <li data-step><b>1</b><span>Was mache ich, wenn ich reinkomme?</span></li>
+      <li data-step><b>2</b><span>Wie bereite ich mich auf die Stunde vor?</span></li>
+      <li data-step><b>3</b><span>Was erwarten wir voneinander?</span></li>
+    </ul>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide divider">
+    <div class="kicker">Frage 1</div>
+    <h1>Was mache ich,<br>wenn ich reinkomme?</h1>
+  </section>
+
+  <!-- 5 Reinkommen -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Jedes Mal dieselbe Reihenfolge</h2>
+    <ul class="schritte">
+      <li data-step><b>1</b><span>Vor der Tür sammeln. Kein Pulk.</span></li>
+      <li data-step><b>2</b><span>Ich begrüße jeden von euch an der Tür.</span></li>
+      <li data-step><b>3</b><span>Jacke über den Stuhl, Ranzen an den Haken.</span></li>
+      <li data-step><b>4</b><span>Handy in die Kiste.</span></li>
+      <li data-step><b>5</b><span>Material raus, hinsetzen. Fester Platz.</span></li>
+    </ul>
+    <p class="note" data-step>Das spart uns jede Stunde fünf Minuten Diskussion.</p>
+    <div class="src">Verhalten wird unterrichtet, nicht vorausgesetzt: Bennett (2017), Independent Review of Behaviour in Schools.</div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide divider">
+    <div class="kicker">Frage 2</div>
+    <h1>Wie bereite ich mich<br>auf die Stunde vor?</h1>
+  </section>
+
+  <!-- 7 Tafelbild -->
+  <section class="slide">
+    <h2 style="margin-bottom:.4em">An der Tafel steht alles</h2>
+    <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-height:40vh" aria-hidden="true">
+      <rect x="6" y="6" width="548" height="188" rx="8" fill="#fffdf6" stroke="#1c2230" stroke-width="3"/>
+      <line x1="280" y1="22" x2="280" y2="178" stroke="#d9d3c7" stroke-width="2" stroke-dasharray="7 6"/>
+      <text x="40" y="48" font-size="19" font-family="sans-serif" font-weight="700" fill="#2f6f4f">Ablauf</text>
+      <g font-size="16" font-family="sans-serif" fill="#1c2230">
+        <text x="40" y="82">1  Abfragen</text>
+        <text x="40" y="110">2  Neues</text>
+        <text x="40" y="138">3  Üben</text>
+      </g>
+      <text x="320" y="48" font-size="19" font-family="sans-serif" font-weight="700" fill="#c2531e">Material</text>
+      <g font-size="16" font-family="sans-serif" fill="#1c2230">
+        <text x="320" y="82">Heft</text>
+        <text x="320" y="110">Buch S. 24</text>
+        <text x="320" y="138">Lineal</text>
+      </g>
+    </svg>
+    <p class="big" data-step style="color:var(--accent); margin-top:.4em">Das schaut ihr an, bevor ihr sitzt.</p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide divider">
+    <div class="kicker">Frage 3</div>
+    <h1>Was erwarten wir<br>voneinander?</h1>
+  </section>
+
+  <!-- 9 Die Abmachung -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Die Abmachung</h2>
+    <div class="zwei">
+      <div data-step>
+        <h3 style="color:var(--accent2)">Ich erwarte</h3>
+        <ul>
+          <li>Pünktlich da sein</li>
+          <li>Material dabei haben</li>
+          <li>Arbeiten, wenn gearbeitet wird</li>
+        </ul>
+      </div>
+      <div data-step>
+        <h3 style="color:var(--accent)">Ihr bekommt</h3>
+        <ul>
+          <li>Ich behandle alle gleich</li>
+          <li>Fragen kostet nichts</li>
+          <li>Ich werde nicht genervt</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note" data-step>Was ich nicht erwarte: dass ihr alles sofort könnt.</p>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide divider">
+    <div class="kicker">Mein Teil der Abmachung</div>
+    <h1 style="font-size:3.4vw">Fragen kostet nichts.<br>Auch beim zehnten Mal.</h1>
+    <p style="color:#cfe9db; font-size:1.9vw; margin-top:1em">Die einzige Bedingung: Ich sehe, dass ihr arbeiten wollt.</p>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide divider">
+    <div class="kicker">Noch eine Sache</div>
+    <h1>Wie bei mir<br>gelernt wird</h1>
+  </section>
+
+  <!-- 12 Versprechen -->
+  <section class="slide">
+    <h1 style="font-size:3.2vw">Wir bleiben bei einer Sache,<br>bis ihr sie könnt.</h1>
+    <p class="big" data-step style="color:var(--accent2); margin-top:.6em">Alle. Nicht die Hälfte.</p>
+    <p class="note" data-step>Wir sind dadurch manchmal langsamer als andere Klassen. Dafür bleibt niemand hinten.</p>
+  </section>
+
+  <!-- 13 Deshalb jeder -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Deshalb antwortet bei mir jeder</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Es meldet sich niemand. Ich frage.</span></li>
+      <li data-step><b>→</b><span>Nach der Frage: drei Sekunden Ruhe zum Denken.</span></li>
+      <li data-step><b>→</b><span>Bei Rechenfragen schreiben alle. Und heben gleichzeitig.</span></li>
+    </ul>
+    <p class="note" data-step>Ich muss sehen, was in euren Köpfen vorgeht. Sonst weiß ich es von fünf von euch und rate beim Rest.</p>
+    <div class="src">Fragen an alle und prüfen vor dem Weitergehen: Rosenshine (2012). Aufrufen statt Melden: Lemov (2015).</div>
+  </section>
+
+  <!-- 14 Falsch ist erlaubt -->
+  <section class="slide">
+    <h1 style="font-size:3.6vw; color:var(--accent2)">Falsch ist erlaubt.</h1>
+    <p class="big" data-step style="margin-top:.7em">Wenn die halbe Klasse etwas falsch hat, ist das kein schlechter Tag.</p>
+    <p class="big" data-step style="color:var(--accent)">Es ist genau die Auskunft, für die ich frage.</p>
+  </section>
+
+  <!-- 15 Alle hoch -->
+  <section class="slide">
+    <div class="kicker">Probieren wir es sofort</div>
+    <div class="kommando">Alle hoch</div>
+    <ul class="schritte" style="margin-top:.5em">
+      <li data-step><b>1</b><span>Blatt liegt flach auf dem Tisch.</span></li>
+      <li data-step><b>2</b><span>Ich stelle die Frage.</span></li>
+      <li data-step><b>3</b><span>Schreiben.</span></li>
+      <li data-step><b>4</b><span>Auf mein Kommando heben alle gleichzeitig.</span></li>
+    </ul>
+  </section>
+
+  <!-- 16 Die Frage -->
+  <section class="slide">
+    <div class="kicker">Eure Frage</div>
+    <h1 style="font-size:3.4vw">Was macht ihr,<br>wenn ihr reinkommt?</h1>
+    <p class="big" style="color:var(--muted); margin-top:.6em">Ein Stichwort genügt.</p>
+  </section>
+
+  <!-- 17 Startsignal -->
+  <section class="slide">
+    <h2 style="margin-bottom:.2em">Das Startsignal</h2>
+    <div class="mono" style="font-size:6vw; color:var(--accent)">5 4 3 2 1</div>
+    <p class="big" data-step style="margin-top:.4em">Hand oben heißt: still, Blick nach vorne, Stifte liegen.</p>
+    <p class="note" data-step>Bei eins ist Ruhe. Wir üben es gleich zweimal.</p>
+  </section>
+
+  <!-- 18 Abschluss -->
+  <section class="slide divider">
+    <h1 style="font-size:3.4vw">Nächste Stunde<br>fangen wir genau so an.</h1>
+    <p style="color:#cfe9db; font-size:1.9vw; margin-top:1em">Wenn es nicht sofort klappt, üben wir es nochmal.<br>Ohne Ärger. Einfach nochmal.</p>
+  </section>
+
+  <div id="dots"></div>
+  <div id="counter"></div>
+  <div id="hint">→ aufdecken · ← zurück · F Vollbild</div>
+</div>
+
+<script>
+  
+
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((_,i)=>{const d=document.createElement('i'); if(i===0)d.className='on'; dots.appendChild(d);});
+  const dotEls=[...dots.children];
+  const counter=document.getElementById('counter');
+  let i=0, stepIdx=0;
+  const steps = n => [...slides[n].querySelectorAll('[data-step]')];
+
+  // data-hide: nur sichtbar, solange es der zuletzt aufgedeckte Schritt ist
+  function applySteps(){
+    const st=steps(i);
+    st.forEach((el,k)=>{
+      const offen = k < stepIdx;
+      const wiederWeg = el.hasAttribute('data-hide') && k < stepIdx-1;
+      el.classList.toggle('shown', offen && !wiederWeg);
+    });
+    label();
+  }
+  function show(n, revealAll){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+    stepIdx = revealAll ? steps(i).length : 0;
+    applySteps();
+  }
+  function label(){
+    const n=steps(i).length;
+    counter.textContent=(i+1)+' / '+slides.length+(n?'  ·  '+stepIdx+'/'+n:'');
+  }
+  function next(){
+    if(stepIdx < steps(i).length){ stepIdx++; applySteps(); return; }
+    show(i+1,false);
+  }
+  function prev(){ show(i-1,true); }
+
+  show(0,false);
+  const stage=document.getElementById('stage');
+  stage.focus();
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){next();e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){prev();e.preventDefault();}
+    else if(e.key==='ArrowDown'){show(i+1,false);e.preventDefault();}   // Folie überspringen
+    else if(e.key==='ArrowUp'){show(i,true);e.preventDefault();}        // alles auf dieser Folie zeigen
+    else if(e.key==='Home')show(0,false);
+    else if(e.key==='End')show(slides.length-1,true);
+    else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  stage.addEventListener('click',e=>{ e.clientX < window.innerWidth/2 ? prev() : next(); });
+</script>
+</body>
+</html>

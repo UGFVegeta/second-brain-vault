@@ -10,6 +10,8 @@ Der Teil der Kennenlernstunde, der nach den Schulinformationen kommt. Nach diese
 
 Gehört zu [[Klassenführung – Regeln und Rituale Klasse 7]], [[Lernen lernen – Konzept Schulstart Klasse 7]] und [[Mastery-Routinen im Unterricht (Klasse 7)]].
 
+Zum Mitlaufen an der Wand: `Erste Stunde – Präsentation.html`, 18 Folien, gleiche Bedienung wie die Lernen-lernen-Präsentation. Diese Notiz ist zugleich der Sprechzettel dazu, der Wortlaut unten passt Folie für Folie.
+
 ## Die Grundentscheidung: alles sagen, eine Sache üben
 
 Die Rituale-Notiz sagt, pro Tag ein bis zwei Rituale einführen und jedes davon üben. Das gilt weiter. Für die erste Stunde trenne ich aber zwei Dinge.

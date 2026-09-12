@@ -23,12 +23,20 @@ Diagnose-Test zum Schuljahresstart: Schüler bekommen eine Rückmeldung, was sie
 
 Die Klasse-6–9-Version wurde letztes Schuljahr fürs Ende der 9. Klasse gebaut – für die jetzige 10. passt sie unverändert als „hat es über den Sommer gehalten"-Check, an einem Stück.
 
-Die Klasse-5–6-Version ist neu, zugeschnitten auf das, was eine neue 7. Klasse aus Klasse 5/6 mitbringen sollte (Prozent, Terme und Pythagoras kommen bewusst nicht vor, das haben sie noch nicht gelernt). Sie läuft bewusst an **zwei verschiedenen Tagen**, damit es für die neue Klasse nicht zu viel auf einmal wird: Teil 1 deckt Block A und B ab (Grundrechenarten, Brüche), Teil 2 Block C und D (Dezimalzahlen, Größen und Geometrie). Beide Teile zusammen ergeben das komplette Bild – die Auswertung fasst sie am Ende zu einer Rückmeldung pro Nummer zusammen, siehe unten.
+Die Klasse-5–6-Version ist neu, zugeschnitten auf das, was eine neue 7. Klasse aus Klasse 5/6 mitbringen sollte (Prozent, Terme und Pythagoras kommen bewusst nicht vor, das haben sie noch nicht gelernt). Sie läuft bewusst **in zwei Blöcken**, damit es für die neue Klasse nicht zu viel auf einmal wird: Teil 1 deckt Block A und B ab (Grundrechenarten, Brüche), Teil 2 Block C und D (Dezimalzahlen, Größen und Geometrie). Ob dazwischen ein ganzer Tag oder nur eine Pause/Sportstunde liegt, ist egal – Hauptsache derselbe Ablauf, dieselbe Nummer. Beide Teile zusammen ergeben das komplette Bild – die Auswertung fasst sie am Ende zu einer Rückmeldung pro Nummer zusammen, siehe unten.
+
+## Selbsteinschätzung auf dem Antwortbogen
+
+Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von drei Smileys an (sicher / ging so / unsicher). Das ist reine Selbsteinschätzung, kein Teil der automatischen Auswertung – hilft aber beim Blick auf die Scans: „sicher, aber falsch" oder „unsicher, aber richtig" sind oft die aufschlussreichsten Fälle fürs Coaching-Gespräch. Fließt nicht in die JSON-Ergebnisdatei oder den Bericht ein, nur manuell mitgelesen.
 
 ## Ablauf
 
-1. **Aufgabenblatt austeilen** (bei der neuen 7. an Tag 1 nur Teil 1, an Tag 2 nur Teil 2), Rechenwege gehen ins Heft oder auf Schmierpapier, nicht aufs Blatt.
-2. **Antwortbogen separat austeilen**, jeweils den passenden Teil. Oben trägt jeder Schüler nur seine zugeteilte Nummer ein, keinen Namen. Nur Endergebnisse in die Kästchen, ein Kästchen pro Teilaufgabe. Leer bleiben ist erlaubt und ist selbst schon eine Information. Die Nummer eines Schülers bleibt an beiden Tagen gleich.
+1. **Aufgabenblatt austeilen** (Teil 1 zuerst, Teil 2 im zweiten Block – egal ob am selben oder an einem anderen Tag), Rechenwege gehen ins Heft oder auf Schmierpapier, nicht aufs Blatt.
+2. **Antwortbogen separat austeilen.** Bei der Klasse-5–6-Version gibt es zwei Varianten:
+   - **Zwei Tage:** [[Antwortbogen Grundlagen Klasse 5-6 Teil 1]] und [[Antwortbogen Grundlagen Klasse 5-6 Teil 2]] als getrennte Bögen.
+   - **Gleicher Tag, zwei Blöcke** (z. B. Teil 1 im ersten Block, Teil 2 nach einer Zwischenstunde): [[Antwortbogen Grundlagen Klasse 5-6 komplett]] – ein Bogen, Seite 1 = Teil 1, Seite 2 = Teil 2. Nach Teil 1 einsammeln, im zweiten Block wieder austeilen und Seite 2 ausfüllen lassen. Spart Papier, braucht aber Zwischenlagerung der Bögen in der Pause.
+
+   Oben trägt jeder Schüler nur seine zugeteilte Nummer ein, keinen Namen. Nur Endergebnisse in die Kästchen, ein Kästchen pro Teilaufgabe. Leer bleiben ist erlaubt und ist selbst schon eine Information. Die Nummer eines Schülers bleibt über beide Teile gleich.
 3. **Nur die Antwortbögen einsammeln und scannen** (Foto oder Scanner, eine Datei pro Bogen oder ein Sammel-PDF). Die Aufgabenblätter bleiben bei den Schülern oder im Klassensatz, sie werden nicht digitalisiert.
 4. **Scans in einer Claude-Code-Session zeigen** (z. B. hier im Vault-Ordner öffnen lassen). Ich lese die Antworten aus den Bildern und trage sie in eine Ergebnisdatei ein – reine Zahlen und Nummern, siehe Format unten. Bei der neuen 7. füllt Tag 1 die Blöcke A und B, Tag 2 ergänzt C und D in derselben Datei, pro Nummer.
 5. **Auswertung erzeugen**, erst wenn beide Teile eingetragen sind:
