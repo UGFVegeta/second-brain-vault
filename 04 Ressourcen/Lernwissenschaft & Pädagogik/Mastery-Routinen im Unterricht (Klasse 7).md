@@ -8,11 +8,23 @@ date: 2026-09-09
 
 Die englische Linie hat zwei Hälften. Die eine ist der Stoff: weniger Themen, dafür tiefer, Variation statt Zufallsdrill. Das steht in [[Prozent nach dem Mastery-Prinzip (Klasse 7)]]. Die andere Hälfte ist das Verhalten, und ohne sie funktioniert die erste nicht.
 
-Der Grund ist schlicht: Mastery verspricht, dass die Klasse zusammen an einer Sache bleibt, bis alle sie können. Dieses Versprechen kann ich nur halten, wenn ich in jeder Minute sehe, was in jedem Kopf vorgeht. Sobald nur der antwortet, der sich meldet, weiß ich es von fünf Kindern und rate bei den anderen zweiundzwanzig.
+Der Grund ist schlicht: Ich kann nur dann nachsteuern, wenn ich sehe, was in den Köpfen vorgeht. Sobald nur der antwortet, der sich meldet, weiß ich es von fünf Kindern und rate bei den anderen zweiundzwanzig.
+
+Ein Punkt, den ich am 12.09.2026 korrigiert habe: Das reine Mastery-Versprechen „wir bleiben bei einer Sache, bis alle sie können" gebe ich der Klasse nicht. Der Bildungsplan in Mathematik lässt das nicht durchgängig zu, und ein Versprechen, das ich absehbar breche, schadet mehr als es nützt. Zugesagt wird nur, was in meiner Hand liegt: Ich prüfe in jeder Stunde, wer mitkommt, und wer hängt, bekommt Hilfe, möglichst am selben Tag.
 
 Der Rahmen dazu steht im PISA-Dossier unter „Verhalten als eigenes Curriculum" ([[PISA 2025 – Befunde und internationale Vergleiche]]). Die organisatorischen Routinen, also Reinkommen, Ruhesignal, Aufräumen, stehen in [[Klassenführung – Regeln und Rituale Klasse 7]]. Hier geht es nur um das, was während des Denkens passiert.
 
-Ein Hinweis zu den Signalwörtern: Das Kommando heißt „Alle hoch" und nicht „Zeig mir". „Zeig mir" ist in der Rituale-Notiz schon belegt für das Hochhalten des Hefts beim Start einer Arbeitsphase. Zwei fast gleiche Kommandos für zwei verschiedene Handlungen wären in der Klasse eine sichere Fehlerquelle.
+Die Signalwörter, alle an einer Stelle, damit sie sich nicht ins Gehege kommen:
+
+| Kommando | Was passiert |
+|---|---|
+| Fünf, vier, drei, zwei, eins, los | Ab jetzt wird gearbeitet |
+| Fünf, vier, drei, zwei, eins, Stopp | Stifte weg, Blick nach vorne |
+| Heft hoch | Heft hochhalten, ich schaue, dann wieder hinlegen |
+| Stift hoch | Stift in die Luft, dann geht es gleichzeitig los |
+| Alle hoch | Alle halten ihr Blatt gleichzeitig hoch |
+
+„Alle hoch" heißt bewusst nicht „Zeig mir". Zwei fast gleiche Kommandos für zwei verschiedene Handlungen wären in der Klasse eine sichere Fehlerquelle.
 
 ## Was ich mit einer Klasse allein erreichen kann
 
@@ -34,15 +46,17 @@ Das Gleichzeitige ist der ganze Trick. Wer erst hochhält, wenn er die Nachbarn 
 
 Wortlaut beim Einführen: „Ich will nicht wissen, ob einer von euch es kann. Ich will wissen, ob ihr es könnt, alle. Deshalb schreibt jeder, und alle heben gleichzeitig."
 
-Wenn viele falsch liegen, ist das ein Ergebnis und kein Ärgernis: „Gut, dann bleiben wir noch eine Runde hier." Genau dieser Satz macht das Mastery-Versprechen für die Kinder sichtbar.
+Wenn viele falsch liegen, ist das ein Ergebnis und kein Ärgernis: „Gut, dann bleiben wir noch eine Runde hier." Gegenüber der Klasse formuliere ich das über die Fehler, nicht über die Quote: Aus Fehlern lernt man, wichtig ist nur, denselben Fehler nicht immer wieder zu machen.
 
-### 2. Keine Meldungen, ich frage
+### 2. Melden bleibt erlaubt, ich frage trotzdem auch die anderen
 
-Bei einer mündlichen Frage melden sich die Kinder nicht, ich rufe auf. Der Grund lässt sich in einem Satz sagen und leuchtet Siebtklässlern ein: Wer weiß, dass er nicht drankommt, weil er sich nicht meldet, denkt nicht mit.
+Die englische Vorlage kennt das Melden gar nicht: Es meldet sich niemand, die Lehrkraft ruft auf. Diese harte Form übernehme ich nicht. Wer etwas beitragen will, soll sich melden dürfen, das gehört zu einem Unterricht, in dem Fragen nichts kostet.
 
-Wortlaut: „Bei Fragen meldet sich niemand. Ich frage. Dann muss jeder von euch eine Antwort im Kopf haben, und genau das will ich."
+Was ich übernehme, ist die Hälfte, auf die es ankommt: Ich frage auch die, die sich nicht melden. Damit lohnt es sich für jedes Kind, eine Antwort im Kopf zu haben, ohne dass ich das Melden verbiete.
 
-Das braucht ein Sicherheitsnetz, sonst ist es Angstmacherei. Zwei Zusätze, die ich von Anfang an mitsage: Falsche Antworten sind erlaubt und nützlich, ich sage nur „noch nicht" und frage weiter. Und wer wirklich nicht weiß, sagt „ich brauche noch", dann komme ich nach zwei anderen Antworten zurück, und dann will ich etwas hören. Nicht drankommen ist keine Option, ausweichen dürfen sie nur einmal.
+Wortlaut: „Melden ist erlaubt und erwünscht. Ich frage aber auch die, die sich nicht melden. Deshalb lohnt es sich, immer eine Antwort im Kopf zu haben."
+
+Das braucht trotzdem ein Sicherheitsnetz. Zwei Zusätze, die ich von Anfang an mitsage: Falsche Antworten sind nützlich, ich sage nur „noch nicht" und frage weiter. Und wer wirklich nicht weiß, sagt „ich brauche noch", dann komme ich nach zwei anderen Antworten zurück, und dann will ich etwas hören.
 
 ### 3. Denkzeit vor der Antwort
 
@@ -76,7 +90,7 @@ Nicht mehr als eine Routine pro Stunde, jede erklären, vormachen, zwei- bis dre
 |---|---|
 | Kennenlernstunde am Montag | Das Versprechen aussprechen, „Alle hoch" einmal ausprobieren |
 | Erste Fachstunde | „Alle hoch" richtig einüben, mit Signal und flacher Tafel |
-| Zweite Fachstunde | Keine Meldungen, mit beiden Sicherheitszusätzen |
+| Zweite Fachstunde | Ich frage auch ohne Meldung, mit beiden Sicherheitszusätzen |
 | Dritte Fachstunde | Denkzeit, kann man an dieselbe Stunde hängen |
 | Vierte Fachstunde | Antworten im ganzen Satz, erster Satzbaustein an der Tafel |
 | Danach laufend | „Ich hänge" beim ersten echten Anlass, nicht künstlich einführen |

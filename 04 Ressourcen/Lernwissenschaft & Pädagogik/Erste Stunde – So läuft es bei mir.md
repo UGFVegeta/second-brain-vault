@@ -22,6 +22,14 @@ Geübt werden heute zwei Dinge, beide kurz. Das Startsignal, weil es zwei Minute
 
 Das Reinkommen üben wir nicht heute. Eine siebte Klasse am ersten Tag vor die Tür zu schicken und nochmal reinkommen zu lassen, kippt schnell ins Grundschulhafte, und ich habe die Klasse noch nicht kennengelernt. Ich kündige es an und mache es am Anfang der nächsten Stunde, wo es ohnehin ansteht und nichts Künstliches hat.
 
+## Wie das Reinkommen bei uns tatsächlich abläuft
+
+Kein Sammeln in Reih und Glied vor der Tür. Der Gang ist morgens voll, weil die anderen Klassen auch dort stehen, das lässt sich nicht ordnen und wäre ein Kampf um nichts. Real läuft es so: Die Kinder dürfen ab halb acht ins Gebäude und warten vor dem Klassenzimmer, ich komme zwei, drei Minuten vor dem Klingeln, grüße schon auf dem Weg durch die Menge, schließe auf und gehe zuerst hinein. Ich stelle mich ans Pult, die Klasse kommt nach und geht auf ihre Plätze.
+
+Die förmliche Begrüßung kommt erst, wenn alle sitzen, im Stehen und im Wechsel. Das ist der eigentliche Startpunkt der Stunde.
+
+Nach den beiden großen Pausen gilt dasselbe. Es klingelt nach einem Viertel der Pause, danach machen sich die Kinder auf den Weg zum Klassenzimmer oder zur Sporthalle, und ab der Tür läuft es wie am Morgen.
+
 ## Vor der Stunde vorbereiten
 
 Auf der Hausaufgabentafel links steht im Mathe-Bereich schon das Material für die nächste Stunde. Damit sehen die Kinder das Prinzip, statt dass ich es nur beschreibe. Den Ablauf der Stunde sage ich, ich schreibe ihn nicht an; für ein zweites Whiteboard rechts gibt es wegen des Einkaufsstopps derzeit keine Aussicht.
@@ -39,7 +47,7 @@ Dazu Sitzplan fertig und geklärt, wo die Ranzen stehen.
 | Zeit | Was passiert | Wortlaut |
 |---|---|---|
 | 1 min | Rahmen setzen | „Ihr habt jetzt viel gehört, was die Schule von euch will. Der Rest der Stunde gehört uns. Ich sage euch, wie Unterricht bei mir abläuft. Nicht damit ihr brav seid, sondern damit keiner raten muss." |
-| 3 min | Frage 1, Reinkommen | „Ihr sammelt euch vor der Tür, ihr strömt nicht als Pulk rein. Jacke über den Stuhl, Ranzen an den Platz. Das Handy bleibt aus und im Schulranzen. Material raus, hinsetzen, jeder hat seinen festen Platz. Dann begrüße ich euch: Ich sage Guten Morgen, ihr steht auf und grüßt zurück. Das spart uns jede Stunde fünf Minuten Diskussion." |
+| 4 min | Frage 1, Reinkommen | „Ihr wartet vor dem Klassenzimmer. Ich schließe auf und gehe vor, dann kommt ihr rein. Jacke über den Stuhl, Ranzen an den Platz. Das Handy bleibt aus und im Schulranzen. Material raus, hinsetzen, jeder hat seinen festen Platz. Dann begrüße ich euch: Ich sage Guten Morgen, ihr steht auf und grüßt zurück." Dazu: nach dem Klingeln in der großen Pause machen sie sich auf den Weg, ab der Tür läuft alles gleich. |
 | 3 min | Frage 2, Vorbereitung | „Schaut auf die Hausaufgabentafel. Bei Mathe steht dort, was ihr für die Stunde braucht. Das ist das Erste, was ihr anschaut, noch bevor ihr sitzt. Wer da hinschaut, muss nie fragen, was er rausholen soll. Was wir in der Stunde machen, sage ich euch am Anfang." |
 | 4 min | Frage 3, die Abmachung | Meine Seite und ihre Seite, siehe unten. |
 | 4 min | Wie bei mir gelernt wird | Das Versprechen, dann ein Durchgang „Alle hoch". Siehe unten. |

@@ -8,6 +8,8 @@ erstellt: 2026-09-09
 
 Diagnose-Test zum Schuljahresstart: Schüler bekommen eine Rückmeldung, was sie können und was nicht, ohne Note. Oskar bekommt zusätzlich eine Klassenübersicht, um Unterrichtsschwerpunkte zu setzen. Dasselbe Muster funktioniert auch während des Jahres für ungenotete Zwischenchecks zu neuen Themen.
 
+Läuft jedes Jahr wieder, deshalb eigener Unterordner: **Klasse 5-6/** und **Klasse 6-9/** liegen hier direkt unter `Arbeitsblätter/Grundlagen-Check/`, statt in den klassenweise sortierten Ordnern der übrigen Arbeitsblätter.
+
 ## Datenschutz – die eine Regel, die alles trägt
 
 **Kein Name kommt in irgendeine Datei, die Claude sieht, und keiner ins Vault.** Die Schüler tragen nur eine zugeteilte Nummer ein, nie ihren Namen. Die Zuordnung Nummer → Name bleibt bei Oskar – auf Papier oder in einer Datei außerhalb dieses Vaults. Ohne diese Zuordnung sind Antwortbögen, Scans und Auswertungen anonym.
@@ -55,7 +57,7 @@ Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von dr
   }
 }
 ```
-`test` ist `"5-6"` oder `"6-9"`. Die Aufgaben- und Teilaufgaben-Schlüssel (z. B. `"A1"` → `"a"`) müssen zum jeweiligen Lösungsschlüssel in `.scripts/grundlagen_check_schluessel.py` passen. Ein Beispiel mit erfundenen Nummern liegt in [[Grundlagen-Check Beispiel/beispiel_ergebnisse_5-6.json]], die dazugehörige erzeugte Auswertung in [[Grundlagen-Check Beispiel/Rückmeldungen Grundlagen Klasse 5-6.html]].
+`test` ist `"5-6"` oder `"6-9"`. Die Aufgaben- und Teilaufgaben-Schlüssel (z. B. `"A1"` → `"a"`) müssen zum jeweiligen Lösungsschlüssel in `.scripts/grundlagen_check_schluessel.py` passen. Ein Beispiel mit erfundenen Nummern liegt in [[Klasse 5-6/Grundlagen-Check Beispiel/beispiel_ergebnisse_5-6.json|beispiel_ergebnisse_5-6.json]], die dazugehörige erzeugte Auswertung in [[Klasse 5-6/Grundlagen-Check Beispiel/Rückmeldungen Grundlagen Klasse 5-6.html|Rückmeldungen Grundlagen Klasse 5-6.html]].
 
 ## Grenzen der automatischen Prüfung
 
