@@ -24,7 +24,7 @@ Stattdessen schreibe ich in Ruhe diesen Text ab. Ich lasse mir dafür Zeit und z
 
 Vergessene Sportsachen werden von der Lehrkraft eingetragen. Wer an einem Tag keine Sportsachen dabei hat, bekommt für diesen Tag die Note 6.
 
-Zur Sportkleidung gehören eine eigene Sporthose, ein eigenes Sportoberteil und eigene Sportschuhe. Ich ziehe mich vollständig um, auch die Schuhe wechsle ich, damit ich nach der Stunde nicht verschwitzt im Klassenzimmer sitze.
+Zur Sportkleidung gehören eine eigene Sporthose, ein eigenes Sportoberteil und eigene Sportschuhe. Nach der Stunde ziehe ich mich wieder komplett um, Kleidung und Schuhe, damit ich nicht verschwitzt im Klassenzimmer sitze.
 
 Mein Handy lasse ich nicht in der Umkleide liegen. Dafür gibt es die Wertsachenbox, dort ist es sicher aufbewahrt. Wer sein Handy trotzdem in der Umkleide lässt, trägt das Risiko selbst.
 
