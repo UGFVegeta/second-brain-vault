@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Unsere Signale – Plakat</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9e5dc; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:#14181f}
+  .blatt{width:210mm; height:297mm; background:#fff; margin:8mm auto; padding:16mm 15mm 14mm;
+         display:flex; flex-direction:column; box-shadow:0 3mm 14mm rgba(0,0,0,.15)}
+  h1{font-size:23mm; line-height:1; letter-spacing:-.02em; padding-bottom:6mm;
+     border-bottom:1.8mm solid #14181f}
+  .gruppe{font-size:6.2mm; letter-spacing:.32em; text-transform:uppercase; font-weight:700;
+          color:#6b7280; margin:11.5mm 0 4mm}
+  .gruppe:first-of-type{margin-top:10mm}
+  .zeile{margin-bottom:8mm}
+  .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-size:15mm; font-weight:700;
+       letter-spacing:.02em; line-height:1.08}
+  .was{font-size:7.2mm; color:#3f4551; margin-top:1.2mm; line-height:1.25}
+  @media print{
+    @page{size:A4 portrait; margin:0}
+    body{background:#fff}
+    .blatt{margin:0; box-shadow:none}
+  }
+</style>
+</head>
+<body>
+  <div class="blatt">
+    <h1>Unsere Signale</h1>
+
+    <div class="gruppe">Bevor es losgeht</div>
+    <div class="zeile">
+      <div class="cmd">Heft hoch</div>
+      <div class="was">Ich sehe, ob alle so weit sind. Dann wieder hinlegen.</div>
+    </div>
+    <div class="zeile">
+      <div class="cmd">Stift hoch</div>
+      <div class="was">Alle startklar.</div>
+    </div>
+
+    <div class="gruppe">Arbeiten</div>
+    <div class="zeile">
+      <div class="cmd">5 4 3 2 1 los</div>
+      <div class="was">Ab jetzt wird gearbeitet.</div>
+    </div>
+    <div class="zeile">
+      <div class="cmd">5 4 3 2 1 Stopp</div>
+      <div class="was">Stifte weg, Blick nach vorne.</div>
+    </div>
+
+    <div class="gruppe">Antworten zeigen</div>
+    <div class="zeile">
+      <div class="cmd">Alle hoch</div>
+      <div class="was">Alle zeigen gleichzeitig ihre Antwort.</div>
+    </div>
+  </div>
+</body>
+</html>

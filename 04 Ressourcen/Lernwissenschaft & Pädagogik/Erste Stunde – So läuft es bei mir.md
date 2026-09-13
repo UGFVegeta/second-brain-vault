@@ -74,9 +74,11 @@ Falls ich die Klasse nur als Klassenlehrer habe und in keinem Fach unterrichte, 
 
 „Noch eine Sache, dann seid ihr durch. Wie bei mir gelernt wird."
 
-„Erstens: Ich schaue in jeder Stunde nach, wer mitkommt. Nicht erst in der Klassenarbeit. Wer hängt, bekommt Hilfe, möglichst noch am selben Tag."
+„Erstens: Mir ist wichtig, dass alle mitkommen. Deshalb schaue ich jede Stunde danach, nicht erst in der Klassenarbeit. Wer Hilfe braucht, bekommt sie, und fragen sollt ihr auf jeden Fall."
 
-„Zweitens, und das ist die Bedingung dafür: Ich muss sehen, was ihr könnt und was noch nicht. Melden ist erlaubt und erwünscht. Ich frage aber auch die, die sich nicht melden. Nach jeder Frage gebe ich euch drei Sekunden zum Denken."
+„Zweitens, und das ist die Bedingung dafür: Ich will wissen, was ihr könnt und was noch nicht. Und damit alle aufpassen, nehme ich auch mal jemanden dran, der sich nicht meldet."
+
+Dass Melden erlaubt ist, sage ich nicht eigens. Das ist in meinem Unterricht selbstverständlich, und wer es ausdrücklich betont, macht daraus ein Thema. Die drei Sekunden Wartezeit nach einer Frage sind meine Technik, kein Schülerverhalten. Die kündige ich nicht an, ich mache sie einfach.
 
 „Und: Aus Fehlern lernt man. Wichtig ist nur, denselben Fehler nicht immer wieder zu machen. Dafür frage ich nach, und dafür frage ich euch."
 
@@ -98,11 +100,13 @@ Ruhe herstellen: Hand heben, „Fünf, vier, drei, zwei, eins." Danach warten, b
 
 Aufmerksamkeit während der Stunde: „Alle Augen zu mir."
 
-Arbeitsphase starten und beenden: „Fünf, vier, drei, zwei, eins, los." und „Fünf, vier, drei, zwei, eins, Stopp." Bei eins ist es so weit, nicht kurz danach.
+Die Signale in der Reihenfolge, in der sie tatsächlich fallen:
 
-Kurzer Blick, ob alle so weit sind: „Heft hoch." Ich schaue, dann wieder hinlegen. Oder „Stift hoch", damit alle gleichzeitig starten.
+Bereitschaft prüfen: „Heft hoch." Ich schaue, dann wieder hinlegen. Danach „Stift hoch", damit alle gleichzeitig startklar sind.
 
-Antwort von allen einsammeln: „Alle hoch." Alle halten ihr Blatt gleichzeitig hoch.
+Arbeitsphase starten und beenden: „Fünf, vier, drei, zwei, eins, los." und am Ende „Fünf, vier, drei, zwei, eins, Stopp." Bei eins ist es so weit, nicht kurz danach.
+
+Antworten einsammeln: „Alle hoch." Das gehört zur kurzen Abfrage, nicht ans Ende einer langen Übungsphase. Dafür ist „Stopp" da.
 
 Nachsteuern, wenn es schlampig war: „Das waren noch keine hundert Prozent, nochmal." Ruhig, ohne Ärger.
 

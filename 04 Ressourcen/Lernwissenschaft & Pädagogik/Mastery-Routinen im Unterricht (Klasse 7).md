@@ -16,13 +16,15 @@ Der Rahmen dazu steht im PISA-Dossier unter „Verhalten als eigenes Curriculum"
 
 Die Signalwörter, alle an einer Stelle, damit sie sich nicht ins Gehege kommen:
 
-| Kommando | Was passiert |
-|---|---|
-| Fünf, vier, drei, zwei, eins, los | Ab jetzt wird gearbeitet |
-| Fünf, vier, drei, zwei, eins, Stopp | Stifte weg, Blick nach vorne |
-| Heft hoch | Heft hochhalten, ich schaue, dann wieder hinlegen |
-| Stift hoch | Stift in die Luft, dann geht es gleichzeitig los |
-| Alle hoch | Alle halten ihr Blatt gleichzeitig hoch |
+| Wann | Kommando | Was passiert |
+|---|---|---|
+| Bevor es losgeht | Heft hoch | Ich sehe, ob alle so weit sind. Dann wieder hinlegen |
+| Bevor es losgeht | Stift hoch | Alle startklar |
+| Arbeiten | Fünf, vier, drei, zwei, eins, los | Ab jetzt wird gearbeitet |
+| Arbeiten | Fünf, vier, drei, zwei, eins, Stopp | Stifte weg, Blick nach vorne |
+| Antworten zeigen | Alle hoch | Alle zeigen gleichzeitig ihre Antwort, ich lese sie ab |
+
+„Alle hoch" und „Stopp" schließen zwei verschiedene Dinge ab. „Alle hoch" beendet eine kurze Abfrage von dreißig Sekunden, bei der ich sehen will, wo die Klasse steht. „Stopp" beendet eine richtige Übungsphase. Wer beides vermischt, bekommt Blätter hoch, wenn er Ruhe wollte.
 
 „Alle hoch" heißt bewusst nicht „Zeig mir". Zwei fast gleiche Kommandos für zwei verschiedene Handlungen wären in der Klasse eine sichere Fehlerquelle.
 
@@ -43,6 +45,10 @@ Jedes Kind schreibt seine Antwort auf ein Mini-Whiteboard und hält es auf mein 
 Ablauf: Frage stellen, Denkzeit lassen, dann „Schreiben." Nach der Schreibzeit „Alle hoch." Alle Tafeln gehen gleichzeitig hoch, nicht wenn einer fertig ist. Ich lese ab, sage was ich sehe, und entscheide daraus, ob wir weitergehen oder eine Runde bleiben.
 
 Das Gleichzeitige ist der ganze Trick. Wer erst hochhält, wenn er die Nachbarn gesehen hat, produziert keine eigene Antwort. Deshalb ist das auch das Erste, was eingeübt wird: Tafel flach auf dem Tisch bis zum Signal.
+
+Der Sinn ist nicht zu kontrollieren, ob jemand gearbeitet hat. Der Sinn ist, die **Verteilung der Antworten** zu sehen. Bei einer Meldung erfahre ich, dass ein Kind es kann. Hier sehe ich in drei Sekunden, wie viele richtig liegen, welcher Fehler der häufigste ist und wie viele gar nichts haben. Der häufigste falsche Wert sagt mir, was ich nochmal erklären muss, und das ist die eigentliche Ausbeute.
+
+Damit das funktioniert, muss die Frage eine kurze, eindeutige Antwort haben: eine Zahl, ein Wort, ein Buchstabe. Keine Sätze. Und groß geschrieben, sonst kann ich es von vorne nicht lesen. Ein leeres Blatt ist ebenfalls eine Antwort und darf folgenlos bleiben.
 
 Wortlaut beim Einführen: „Ich will nicht wissen, ob einer von euch es kann. Ich will wissen, ob ihr es könnt, alle. Deshalb schreibt jeder, und alle heben gleichzeitig."
 
@@ -95,11 +101,34 @@ Nicht mehr als eine Routine pro Stunde, jede erklären, vormachen, zwei- bis dre
 | Vierte Fachstunde | Antworten im ganzen Satz, erster Satzbaustein an der Tafel |
 | Danach laufend | „Ich hänge" beim ersten echten Anlass, nicht künstlich einführen |
 
-## Material
+## Material für „Alle hoch"
 
-Für „Alle hoch" brauche ich einen Klassensatz Mini-Whiteboards, Stifte und Wischtücher. Wenn das nicht rechtzeitig da ist, tut es eine Klarsichthülle mit einem weißen Blatt darin und ein Folienstift, das kostet fast nichts und funktioniert genauso. Ein Stück Küchenpapier oder ein alter Socken pro Kind zum Wischen.
+Die Routine steht und fällt damit, dass jedes Kind etwas zum Schreiben und Wischen hat. Der Plan:
 
-Realistisch für Montag: Wenn keine Tafeln da sind, kündige ich die Routine an und probiere sie mit einem Blatt Papier aus, das hochgehalten wird. Das Prinzip sitzt danach genauso.
+**Ich laminiere 26 weiße Blätter.** Ein Klassensatz hält jahrelang. Eine Laminierhülle kostet etwa zehn Cent, das ist der ganze Aufwand. Überlegenswert: eine Seite weiß, die andere mit hellem Karomuster. Dann kann ich dieselbe Tafel in Mathematik auch für eine Skizze oder ein Achsenkreuz nutzen.
+
+**Die Stifte kommen über die Materialliste**, damit jedes Kind seinen eigenen hat und ich keine verwalten muss.
+
+**Zum Wischen** genügt ein alter Socken oder ein Mikrofasertuch, das kann auf dieselbe Liste.
+
+### Die Stolperstelle: Edding heißt nicht abwaschbar
+
+Wenn auf der Materialliste „Edding" steht, kommen zur Hälfte Permanentmarker in die Klasse, und die gehen vom Laminat nicht mehr herunter. Edding stellt beides her. Gebraucht wird ein **Whiteboardmarker**, auch Boardmarker genannt, ausdrücklich **trocken abwischbar**, mit dicker Rundspitze von etwa zwei bis drei Millimetern. Eine feine Spitze ist von vorne nicht lesbar.
+
+Nicht geeignet ist der klassische Permanentmarker. Ein nicht permanenter Folienstift (OHP, wasserlöslich) funktioniert zwar, schmiert aber und braucht ein feuchtes Tuch.
+
+Formulierungsvorschlag für die Materialliste:
+
+> 1 Whiteboardmarker (Boardmarker, trocken abwischbar, dicke Spitze, z. B. edding 360 oder Stabilo Plan) – **kein Permanentmarker**
+> 1 altes Tuch oder Socke zum Wischen
+
+### Wenn es noch nicht da ist
+
+Bis die Sätze fertig sind, tut eine Klarsichthülle mit einem weißen Blatt darin denselben Dienst. Und für den ersten Probedurchgang in der Kennenlernstunde genügt ein Blatt Papier, das hochgehalten wird. Das Prinzip sitzt danach genauso.
+
+### Wann ich es einsetze
+
+Nicht jede Stunde und nicht für jede Frage. Nur dort, wo eine kurze eindeutige Antwort möglich ist und ich wissen will, wie die Klasse verteilt steht. An Tagen ohne Tafeln fällt die Routine ersatzlos aus, das ist kein Problem.
 
 ## Grenzen, die ich mitdenken sollte
 
