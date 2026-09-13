@@ -42,8 +42,9 @@ Datei: `01 Erster Schultag / 1 Präsentation Teil 1 – Schule`
 ☐ Amokfall kurz erläutern
 ☐ Beides im Klassenbuch vermerken
 ☐ Zeugnisse einsammeln, Unterschrift prüfen, in der Klassenliste abhaken, alphabetisch sortiert ins Sekretariat
+☐ **Zum Schluss, vor der Pause:** die letzte Folie „So kommt ihr nach der Pause rein" durchgehen. Ohne das wissen sie nach der Pause nicht, was von ihnen erwartet wird, und das Üben in der dritten Stunde läuft ins Leere.
 
-Der Fluchtweg kostet realistisch eine Viertelstunde. Wenn die Zeit knapp wird, geht die Präsentation schneller als der Gang, also lieber bei den Folien kürzen.
+Der Fluchtweg kostet realistisch eine Viertelstunde. Wenn die Zeit knapp wird, geht die Präsentation schneller als der Gang, also lieber bei den Folien kürzen. Die letzte Folie zum Reinkommen darf dabei nicht wegfallen.
 
 ## Große Pause
 
@@ -51,8 +52,8 @@ Der Fluchtweg kostet realistisch eine Viertelstunde. Wenn die Zeit knapp wird, g
 
 Datei: `01 Erster Schultag / 2 Präsentation Teil 2 – So läuft es bei mir`
 
-☐ Das Reinkommen sofort üben, solange sie gerade von der Pause hereinkommen. Wenn es nicht sitzt: nochmal, ruhig und ohne Ärger
-☐ Präsentation Teil 2 durchgehen: die drei Fragen, die Abmachung, wie wir arbeiten
+☐ Das Reinkommen läuft jetzt zum ersten Mal richtig, sie wissen seit der Pause, wie es geht. Wenn es nicht sitzt: nochmal, ruhig und ohne Ärger
+☐ Präsentation Teil 2 durchgehen: die drei Fragen, die Abmachung, wie wir arbeiten. Die Folie zum Reinkommen ist bewusst eine Wiederholung, da kann ich schnell durch, sie haben es ja gerade getan
 ☐ Startsignal zweimal üben, beim ersten Mal fast sicher „das waren noch keine hundert Prozent, nochmal"
 ☐ „Alle hoch" einmal ausprobieren, Frage: „Was macht ihr, wenn ihr reinkommt? Ein Stichwort genügt."
 ☐ Ankündigen, dass wir in den nächsten Tagen ein Ritual pro Tag dazunehmen

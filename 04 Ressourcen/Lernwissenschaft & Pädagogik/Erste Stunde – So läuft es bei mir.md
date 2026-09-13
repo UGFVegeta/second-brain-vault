@@ -20,7 +20,9 @@ Ich sage einmal komplett, wie es läuft. Das dauert fünf Minuten und sorgt daf�
 
 Geübt werden heute zwei Dinge, beide kurz. Das Startsignal, weil es zwei Minuten dauert, sofort funktioniert und sich für Siebtklässler eher nach Wette als nach Dressur anfühlt. Und ein einziger Durchgang „Alle hoch", weil das Versprechen sonst eine Rede bleibt, die keiner glaubt. Beim zweiten geht es heute nur um das Prinzip, sauber eingeübt wird es in der ersten Fachstunde.
 
-Das Reinkommen üben wir nicht heute. Eine siebte Klasse am ersten Tag vor die Tür zu schicken und nochmal reinkommen zu lassen, kippt schnell ins Grundschulhafte, und ich habe die Klasse noch nicht kennengelernt. Ich kündige es an und mache es am Anfang der nächsten Stunde, wo es ohnehin ansteht und nichts Künstliches hat.
+Das Reinkommen üben wir nicht künstlich. Eine siebte Klasse am ersten Tag vor die Tür zu schicken und nochmal reinkommen zu lassen, kippt schnell ins Grundschulhafte, und ich habe die Klasse noch nicht kennengelernt.
+
+Stattdessen erkläre ich es am Ende der Doppelstunde, kurz vor der großen Pause, und dann läuft es nach der Pause zum ersten Mal richtig. Das ist keine Übung, sondern der Ernstfall, und genau deshalb funktioniert es. Wichtig ist nur die Reihenfolge: erst erklären, dann tun. Wer das Erklären in die Stunde danach legt, lässt die Klasse etwas ausführen, das sie noch nicht kennt.
 
 ## Wie das Reinkommen bei uns tatsächlich abläuft
 

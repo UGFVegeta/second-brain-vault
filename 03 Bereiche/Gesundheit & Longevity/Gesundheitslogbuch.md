@@ -14,6 +14,7 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-09-13 | 2,5 | Hals kratzig, Schleim beim Sprechen, beginnende Erkältung | nein | Schlecht geschlafen, mehrfach wach. HRV zwei Tage in Folge unter Schwelle (77, dann 70), Ruhepuls noch bei Basis (36). Bewusst komplett ausgesetzt wegen erstem Schultag morgen. |
 | 2026-09-10 | 4 | Nase, abklingend | Mobilität 7 min | Ruhetag. Hüfte fast schmerzfrei. |
 | 2026-09-09 | 4 | Nase, abklingend | Lauf 10,5 km, 51 min | Hüfte fast schmerzfrei. |
 | 2026-09-08 | 4 | – | Lauf 12 km locker, Rennrad 40,3 km 1:15 h | Erster 12er solo nach dem Infekt, Hüfte ohne Probleme. Puls 111 bei 382 W, sehr gleichmäßig. Erholungswerte zurück auf Basis, 7,9 h Schlaf. |

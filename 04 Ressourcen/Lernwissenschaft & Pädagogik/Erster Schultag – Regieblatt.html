@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Erster Schultag – Regieblatt</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9e5dc; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:#1c2230; font-size:10pt; line-height:1.38}
+  .blatt{width:297mm; height:210mm; background:#fff; margin:8mm auto; padding:11mm 11mm 9mm;
+         display:flex; flex-direction:column; box-shadow:0 3mm 14mm rgba(0,0,0,.15)}
+  header{display:flex; align-items:baseline; gap:5mm; border-bottom:.9mm solid #1c2230;
+         padding-bottom:2.6mm; margin-bottom:4.5mm}
+  h1{font-size:18pt; letter-spacing:-.01em; line-height:1}
+  header .sub{font-size:9.6pt; color:#6b7280}
+  .spalten{display:flex; gap:4.5mm; flex:1; align-items:stretch}
+  .karte{flex:1; border:.3mm solid #cfc8b8; border-radius:2.5mm; padding:3.8mm 4mm; display:flex; flex-direction:column}
+  .karte.tag{background:#f6f2e8; border-color:#b9cfc2}
+  .nr{font-size:7.8pt; letter-spacing:.2em; text-transform:uppercase; color:#9a9484; font-weight:700}
+  .karte h2{font-size:12.2pt; line-height:1.12; margin:.7mm 0 1mm}
+  .karte.tag h2{color:#2f6f4f}
+  .datei{font-size:8.2pt; color:#6b7280; margin-bottom:2.2mm; font-style:italic}
+  ul{list-style:none; margin:0}
+  li{margin:0 0 2.4mm; padding-left:4.6mm; position:relative}
+  li::before{content:"–"; position:absolute; left:.6mm; color:#9a9484}
+  ul.haken li{padding-left:5.4mm}
+  ul.haken li::before{content:""; position:absolute; left:0; top:.85mm;
+      width:3.4mm; height:3.4mm; border:.28mm solid #1c2230; border-radius:.5mm}
+  .fuss{margin-top:auto; padding-top:2.6mm; border-top:.2mm solid #e2ddd2; font-size:8.2pt; color:#6b7280}
+  .warnung{margin-top:4mm; font-size:8.6pt; color:#444; border-left:.8mm solid #c2531e; padding-left:2.6mm}
+  @media print{
+    @page{size:A4 landscape; margin:0}
+    body{background:#fff}
+    .blatt{margin:0; box-shadow:none}
+  }
+</style>
+</head>
+<body>
+<div class="blatt">
+
+  <header>
+    <h1>Erster Schultag – Regieblatt</h1>
+    <div class="sub">Klasse 7c · Doppelstunde, große Pause, dritte Stunde</div>
+  </header>
+
+  <div class="spalten">
+
+    <div class="karte">
+      <div class="nr">Vorher</div>
+      <h2>Drucken und vorbereiten</h2>
+      <div class="datei">am Abend davor</div>
+      <ul class="haken">
+        <li>Ablauf und Wortlaut ausdrucken</li>
+        <li>Plakat Signale: A4 drucken, am Kopierer auf A3, Faktor 141 %</li>
+        <li>Sitzplan fertig, Namen den Plätzen zugeordnet</li>
+        <li>Hausaufgabentafel: im Mathe-Bereich das Material eintragen</li>
+        <li>Beide Präsentationen einmal durchklicken</li>
+        <li>Timer und Stage Manager testen</li>
+        <li>Leere Blätter für „Alle hoch", eins pro Kind</li>
+        <li>Entscheiden: Was gilt bei vergessenem Material?</li>
+      </ul>
+      <div class="fuss">Reader, Sachtext und Gehirn-Grafik erst für den Lernen-lernen-Block.</div>
+    </div>
+
+    <div class="karte tag">
+      <div class="nr">1. und 2. Stunde</div>
+      <h2>Was für die ganze Schule gilt</h2>
+      <div class="datei">1 Präsentation Teil 1 – Schule</div>
+      <ul>
+        <li>Begrüßung, Sitzplan, Plätze einnehmen</li>
+        <li>Präsentation Teil 1 durchgehen</li>
+        <li>Schulplaner austeilen und die Nutzung erklären</li>
+        <li>Regeln unterschreiben: die Schüler hier, die Eltern zu Hause</li>
+        <li>Bücher: Namen eintragen, einbinden, Schäden. Fehlende notieren</li>
+        <li>Fluchtweg ablaufen, Sammelstelle kleiner roter Sportplatz</li>
+        <li>Amokfall kurz erläutern</li>
+        <li>Beides im Klassenbuch vermerken</li>
+        <li>Zeugnisse einsammeln, sortiert ins Sekretariat</li>
+        <li><b>Zuletzt:</b> Folie „So kommt ihr nach der Pause rein"</li>
+      </ul>
+      <div class="warnung">Der Fluchtweg kostet eine Viertelstunde. Bei Zeitnot bei den Folien kürzen, nicht beim Gang. Die letzte Folie muss bleiben.</div>
+    </div>
+
+    <div class="karte tag">
+      <div class="nr">3. Stunde</div>
+      <h2>So läuft es bei mir</h2>
+      <div class="datei">2 Präsentation Teil 2 – So läuft es bei mir</div>
+      <ul>
+        <li>Das Reinkommen läuft jetzt zum ersten Mal richtig. Klappt es nicht: nochmal, ohne Ärger</li>
+        <li>Präsentation Teil 2 durchgehen</li>
+        <li>Die Reinkommen-Folie ist Wiederholung, da schnell durch</li>
+        <li>Startsignal zweimal üben. Beim ersten Mal: „Das waren noch keine hundert Prozent, nochmal"</li>
+        <li>„Alle hoch" einmal ausprobieren. Frage: „Was macht ihr, wenn ihr reinkommt? Ein Stichwort genügt"</li>
+        <li>Ankündigen: ab jetzt ein Ritual pro Tag</li>
+      </ul>
+    </div>
+
+    <div class="karte">
+      <div class="nr">Danach</div>
+      <h2>In den nächsten Tagen</h2>
+      <div class="datei">nicht liegen lassen</div>
+      <ul class="haken">
+        <li>Plakat Signale aufhängen</li>
+        <li>Aushänge: Stundenplan, Ordnungsdienst, Hausordnung, Brandfallordnung, Fluchtplan</li>
+        <li>Ein Ritual pro Tag einführen</li>
+        <li>Klassensprecherwahl in der dritten Schulwoche</li>
+        <li>Blätter laminieren, eine Seite weiß, eine kariert</li>
+        <li>Whiteboardmarker einsammeln lassen, keine Permanentmarker</li>
+        <li>Klassenteam: zwei, drei gemeinsame Routinen absprechen</li>
+        <li>Zwei pädagogische Klassenkonferenzen planen</li>
+        <li>Lernen-lernen-Block terminieren</li>
+      </ul>
+      <div class="fuss">Von Mitte März bis Ende Mai keine Projekte planen, wenn Referendare in der Klasse unterrichten. Lehrproben.</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
