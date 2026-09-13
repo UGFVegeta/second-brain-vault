@@ -62,11 +62,12 @@
   /* curve */
   svg.curve{width:34vw; height:auto}
   /* progress */
-  #dots{position:absolute; bottom:2.4%; left:26%; right:26%; display:flex; gap:.5vw; justify-content:center}
-  #dots i{width:.7vw; height:.7vw; border-radius:50%; background:var(--line); transition:background .2s}
+  #dots{position:absolute; bottom:1.9%; left:20%; right:20%; display:flex; gap:.25vw; justify-content:center}
+  #dots i{width:1.2vw; height:1.2vw; border:.25vw solid transparent; background-clip:padding-box;
+          border-radius:50%; background-color:var(--line); transition:background-color .2s; cursor:pointer}
+  #dots i:hover{background-color:#b3a98f}
   #dots i.on{background:var(--accent)}
   #counter{position:absolute; bottom:2%; right:3%; font-size:1.1vw; color:var(--muted)}
-  #hint{position:absolute; bottom:2%; left:3%; font-size:.95vw; color:var(--muted)}
   /* Schrittweises Aufdecken: Platz bleibt reserviert, damit nichts springt */
   [data-step]{opacity:0; transition:opacity .28s}
   [data-step].shown{opacity:1}
@@ -290,7 +291,6 @@
 
   <div id="dots"></div>
   <div id="counter"></div>
-  <div id="hint">→ aufdecken · ← zurück · F Vollbild</div>
 </div>
 
 <script>
@@ -298,9 +298,18 @@
 
   const slides=[...document.querySelectorAll('.slide')];
   const dots=document.getElementById('dots');
-  slides.forEach((_,i)=>{const d=document.createElement('i'); if(i===0)d.className='on'; dots.appendChild(d);});
+  slides.forEach((s,k)=>{
+    const d=document.createElement('i');
+    if(k===0)d.className='on';
+    const t=s.querySelector('h1,h2') || s.querySelector('.kicker');
+    const roh=t ? t.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]*>/g,'') : '';
+    d.title=(k+1)+' · '+(roh.replace(/\s+/g,' ').trim().slice(0,46) || 'Folie');
+    d.addEventListener('click',ev=>{ ev.stopPropagation(); show(k, k<i); });
+    dots.appendChild(d);
+  });
   const dotEls=[...dots.children];
   const counter=document.getElementById('counter');
+  counter.title='→ Schritt · ← zurück · ↑↓ ganze Folie · a alles aufdecken · F Vollbild';
   let i=0, stepIdx=0;
   const steps = n => [...slides[n].querySelectorAll('[data-step]')];
 
@@ -329,7 +338,10 @@
     if(stepIdx < steps(i).length){ stepIdx++; applySteps(); return; }
     show(i+1,false);
   }
-  function prev(){ show(i-1,true); }
+  function prev(){
+    if(stepIdx > 0){ stepIdx--; applySteps(); return; }   // erst Schritt zurück
+    show(i-1,true);                                        // dann Folie zurück, alles sichtbar
+  }
 
   show(0,false);
   const stage=document.getElementById('stage');
@@ -337,8 +349,9 @@
   document.addEventListener('keydown',e=>{
     if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){next();e.preventDefault();}
     else if(e.key==='ArrowLeft'||e.key==='PageUp'){prev();e.preventDefault();}
-    else if(e.key==='ArrowDown'){show(i+1,false);e.preventDefault();}   // Folie überspringen
-    else if(e.key==='ArrowUp'){show(i,true);e.preventDefault();}        // alles auf dieser Folie zeigen
+    else if(e.key==='ArrowDown'){show(i+1,false);e.preventDefault();}   // ganze Folie vor
+    else if(e.key==='ArrowUp'){show(i-1,true);e.preventDefault();}      // ganze Folie zurück
+    else if(e.key.toLowerCase()==='a'){show(i,true);e.preventDefault();} // alles auf dieser Folie zeigen
     else if(e.key==='Home')show(0,false);
     else if(e.key==='End')show(slides.length-1,true);
     else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
