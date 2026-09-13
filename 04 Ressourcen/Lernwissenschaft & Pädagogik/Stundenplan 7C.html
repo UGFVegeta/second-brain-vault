@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Stundenplan 7C</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9e5dc; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:#1c2230; font-size:9pt}
+  .blatt{width:297mm; height:210mm; background:#fff; margin:8mm auto; padding:9mm 10mm 7mm;
+         display:flex; flex-direction:column; box-shadow:0 3mm 14mm rgba(0,0,0,.15)}
+  header{display:flex; align-items:baseline; gap:5mm; border-bottom:.9mm solid #1c2230;
+         padding-bottom:2.4mm; margin-bottom:3.4mm}
+  h1{font-size:19pt; letter-spacing:-.01em; line-height:1}
+  header .sub{font-size:9.4pt; color:#6b7280}
+  header .rechts{margin-left:auto; font-size:9pt; color:#6b7280; text-align:right}
+
+  table{border-collapse:separate; border-spacing:1mm; width:100%; table-layout:fixed}
+  th{font-size:10.5pt; font-weight:700; padding:1.4mm 0}
+  td{vertical-align:top; height:12.4mm}
+  tr.kurz td{height:8.6mm}
+  .zeit{width:19mm; text-align:right; padding-right:1.6mm; color:#6b7280; font-size:8.2pt; line-height:1.2}
+  .zeit b{display:block; font-size:13pt; color:#1c2230; line-height:1}
+  .pause td{height:auto; padding:0}
+  .pausenbalken{background:#f2efe6; border-radius:1mm; text-align:center; font-size:7.6pt;
+                color:#9a9484; letter-spacing:.18em; padding:.7mm 0; text-transform:uppercase}
+
+  .f{border-radius:1.6mm; padding:1.5mm 2mm 1.5mm 2.4mm; height:100%; border-left:1.6mm solid #c3bca9;
+     background:#f3efe3}
+  .f .fach{font-weight:700; font-size:10pt; line-height:1.1}
+  .f .wer{font-size:8pt; color:#555; margin-top:.5mm; line-height:1.25}
+  .f.leer{background:transparent; border-left-color:#e8e3d8}
+  .f .zeile{font-size:8pt; line-height:1.3}
+  .f .zeile b{font-size:8.6pt}
+
+  .d{background:#fadcdc; border-left-color:#b8312a}
+  .e{background:#fbedc0; border-left-color:#bd8a00}
+  .m{background:#d9e6f7; border-left-color:#2166a8}
+  .ph{background:#e0e0e5; border-left-color:#14181f}
+  .bio{background:#d6eadd; border-left-color:#24694a}
+  .geo{background:#ebdecf; border-left-color:#7d5530}
+  .gk{background:#cfecea; border-left-color:#0d8c85}
+  .aes{background:#fbd9e8; border-left-color:#bf3f7d}
+  .kl{background:#dfeae2; border-left-color:#2f6f4f}
+
+  .legende{margin-top:auto; padding-top:2.2mm; border-top:.2mm solid #e2ddd2;
+           display:flex; gap:6mm; font-size:7.9pt; color:#555; line-height:1.35}
+  .legende div{flex:1}
+  .legende b{color:#1c2230}
+  @media print{
+    @page{size:A4 landscape; margin:0}
+    body{background:#fff}
+    .blatt{margin:0; box-shadow:none}
+  }
+</style>
+</head>
+<body>
+<div class="blatt">
+
+  <header>
+    <h1>Stundenplan 7C</h1>
+    <div class="sub">Schuljahr 2026/27</div>
+    <div class="rechts">Gottlieb-Daimler-Realschule Schorndorf<br>Klassenlehrer: Herr Klein</div>
+  </header>
+
+  <table>
+    <tr>
+      <th></th><th>Montag</th><th>Dienstag</th><th>Mittwoch</th><th>Donnerstag</th><th>Freitag</th>
+    </tr>
+
+    <tr>
+      <td class="zeit"><b>1</b>7:40–8:25</td>
+      <td><div class="f kl"><div class="fach">Klassenlehrer</div><div class="wer">Kl · 1.24</div></div></td>
+      <td rowspan="2"><div class="f m"><div class="fach">Mathematik</div><div class="wer">Kl · 1.24</div></div></td>
+      <td rowspan="2"><div class="f aes"><div class="fach">AES / Technik</div><div class="wer">nach Gruppe, siehe unten</div></div></td>
+      <td rowspan="2"><div class="f ph"><div class="fach">Physik</div><div class="wer">Kl · Bü. 0.01 PH</div></div></td>
+      <td rowspan="2"><div class="f e"><div class="fach">Englisch</div><div class="wer">Rü · 1.24</div></div></td>
+    </tr>
+    <tr>
+      <td class="zeit"><b>2</b>8:25–9:10</td>
+      <td><div class="f geo"><div class="fach">Geografie</div><div class="wer">Rü · 1.24</div></div></td>
+    </tr>
+
+    <tr class="pause"><td></td><td colspan="5"><div class="pausenbalken">Große Pause · 9:10–9:30</div></td></tr>
+
+    <tr>
+      <td class="zeit"><b>3</b>9:30–10:15</td>
+      <td rowspan="2"><div class="f d"><div class="fach">Deutsch</div><div class="wer">Ma · 1.24</div></div></td>
+      <td><div class="f bio"><div class="fach">Biologie</div><div class="wer">Mo · 1.07 Bio</div></div></td>
+      <td><div class="f aes"><div class="fach">AES / Technik</div><div class="wer">nach Gruppe</div></div></td>
+      <td rowspan="2"><div class="f d"><div class="fach">Deutsch</div><div class="wer">Ma · 1.24</div></div></td>
+      <td><div class="f"><div class="fach">Sport</div><div class="wer">Jungen: Kl · Mädchen: HR</div></div></td>
+    </tr>
+    <tr>
+      <td class="zeit"><b>4</b>10:15–11:00</td>
+      <td><div class="f"><div class="fach">Musik</div><div class="wer">Kp · 1.24</div></div></td>
+      <td><div class="f m"><div class="fach">Mathematik</div><div class="wer">Kl · 1.24</div></div></td>
+      <td><div class="f gk"><div class="fach">Gemeinschaftskunde</div><div class="wer">Ma · 1.24</div></div></td>
+    </tr>
+
+    <tr class="pause"><td></td><td colspan="5"><div class="pausenbalken">Große Pause · 11:00–11:20</div></td></tr>
+
+    <tr>
+      <td class="zeit"><b>5</b>11:20–12:05</td>
+      <td rowspan="2"><div class="f"><div class="fach">IF7 ME</div><div class="wer">Kl · 1.24</div></div></td>
+      <td rowspan="2"><div class="f"><div class="fach">WBS</div><div class="wer">Fon · 1.24</div></div></td>
+      <td rowspan="2"><div class="f"><div class="fach">Religion / Ethik</div>
+        <div class="zeile">kath. Rel · Rd · 1.34</div>
+        <div class="zeile">ev. Rel · Het · 1.33</div>
+        <div class="zeile">Ethik · HP · 1.25</div></div></td>
+      <td><div class="f m"><div class="fach">Mathematik</div><div class="wer">Kl · 1.24</div></div></td>
+      <td rowspan="2"><div class="f"><div class="fach">Informatik</div><div class="wer">Ju · 1.05 IT 1</div>
+        <div class="zeile" style="margin-top:1mm">ab 15.2.: Kunst · Sch</div></div></td>
+    </tr>
+    <tr>
+      <td class="zeit"><b>6</b>12:05–12:50</td>
+      <td><div class="f e"><div class="fach">Englisch</div><div class="wer">Rü · 1.24</div></div></td>
+    </tr>
+
+    <tr class="pause"><td></td><td colspan="5"><div class="pausenbalken">12:50–12:55</div></td></tr>
+
+    <tr class="kurz">
+      <td class="zeit"><b>7</b>12:55–13:40</td>
+      <td><div class="f leer"></div></td><td><div class="f leer"></div></td><td><div class="f leer"></div></td>
+      <td><div class="f leer"></div></td><td><div class="f leer"></div></td>
+    </tr>
+
+    <tr class="pause"><td></td><td colspan="5"><div class="pausenbalken">13:40–13:45</div></td></tr>
+
+    <tr class="kurz">
+      <td class="zeit"><b>8</b>13:45–14:30</td>
+      <td rowspan="2"><div class="f"><div class="fach">Sport / Schwimmen</div>
+        <div class="zeile">Jungen: Kl · Mädchen: HR</div>
+        <div class="zeile">Schwimmen · Sie · Hallenbad</div></div></td>
+      <td><div class="f leer"></div></td><td><div class="f leer"></div></td>
+      <td><div class="f leer"></div></td><td><div class="f leer"></div></td>
+    </tr>
+    <tr class="kurz">
+      <td class="zeit"><b>9</b>14:30–15:15</td>
+      <td><div class="f leer"></div></td><td><div class="f leer"></div></td>
+      <td><div class="f leer"></div></td><td><div class="f leer"></div></td>
+    </tr>
+  </table>
+
+  <div class="legende">
+    <div><b>AES und Technik</b> (Mi 1.–3. Stunde): AES bei Schuska (Sch) im TW-Raum 0.10, bei Ir in Küche 2 (0.12) oder bei Hi in Küche 1 (0.11). Technik bei Pi in Te2 (0.26) oder bei HR in Te1 (0.22).</div>
+    <div><b>Sport</b> (Fr 3. Stunde und Mo 8./9.): Jungen bei Herrn Klein, Mädchen bei Frau Ransinger. Am Montagnachmittag geht eine Gruppe zum Schwimmen ins Hallenbad zu Sie.</div>
+    <div><b>Religion und Ethik</b> (Mi 5./6.): Es gilt nur das gewählte Fach. <b>Informatik</b> läuft bis 14. Februar, danach Kunst bei Sch. <b>IF7 ME</b> ab Woche 30 bei Rü in 1.35.</div>
+    <div><b>Kürzel:</b> Kl Herr Klein · HR Frau Ransinger · Het Frau Hettinger · Sch Schuska.<br><b>Farben</b> nach der Materialliste: Deutsch rot, Englisch gelb, Mathematik blau, Physik schwarz, Biologie dunkelgrün, Geografie braun, Gemeinschaftskunde türkis, AES und Technik pink.</div>
+  </div>
+
+</div>
+</body>
+</html>
