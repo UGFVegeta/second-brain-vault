@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erster Schultag – Teil 1: Schule</title>
+<style>
+  :root{
+    --ink:#1c2230; --bg:#fcf8ef; --paper:#fffdf6;
+    --accent:#2f6f4f; --accent2:#c2531e; --muted:#6b7280; --line:#d9d3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--ink); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  #stage{
+    position:relative;
+    width:min(96vw, calc(96vh * 16/9));
+    height:min(96vh, calc(96vw * 9/16));
+    background:var(--bg);
+    border-radius:14px; overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+  }
+  .slide{
+    position:absolute; inset:0; padding:6.2% 7.5%;
+    display:none; flex-direction:column; justify-content:center;
+  }
+  .slide.active{display:flex}
+  .kicker{font-size:1.15vw; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:1.4em}
+  h1{font-size:4.4vw; line-height:1.05; letter-spacing:-.02em}
+  h2{font-size:3.1vw; line-height:1.12; letter-spacing:-.01em; margin-bottom:.7em}
+  p{font-size:1.9vw; line-height:1.5; max-width:42em; color:#333}
+  p + p{margin-top:.7em}
+  .big{font-size:2.4vw}
+  ul{margin:.6em 0 0 1.1em; font-size:1.9vw; line-height:1.6}
+  li{margin:.35em 0}
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; letter-spacing:.22em; font-weight:700}
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .divider{background:var(--accent); color:#fff}
+  .divider .kicker{color:#bfe6d1}
+  .divider h1{font-size:4vw}
+  .quote{font-size:2.1vw; line-height:1.5; font-style:italic; border-left:3px solid var(--line); padding-left:.8em; max-width:40em}
+  .note{margin-top:1.1em; font-size:1.35vw; color:var(--muted)}
+  .src{position:absolute; left:7.5%; right:7.5%; bottom:7.4%; font-size:1.02vw; color:#9a9484; line-height:1.35}
+  .divider .src{color:#a8d5c0}
+  .row{display:flex; gap:4%; align-items:center}
+  .col{flex:1}
+  /* bar chart */
+  .bars{display:flex; gap:4vw; align-items:flex-end; height:32vh; margin:1.4em 0 5em}
+  .bar{width:10vw; background:var(--line); border-radius:8px 8px 0 0; position:relative; display:flex; justify-content:center}
+  .bar span{position:absolute; top:-2.6em; font-size:1.5vw; font-weight:700; white-space:nowrap}
+  .bar small{position:absolute; bottom:-3.6em; font-size:1.3vw; color:var(--muted); text-align:center; width:14vw; left:50%; transform:translateX(-50%)}
+  .bar.read{height:42%}
+  .bar.test{height:80%; background:var(--accent)}
+  /* desk -> shelf */
+  .flow{display:flex; align-items:center; gap:2.5vw; margin-top:1em; font-size:1.7vw}
+  .flow .box{background:var(--paper); border:2px solid var(--ink); border-radius:10px; padding:1.1em 1.3em; text-align:center; flex:1}
+  .flow .arrow{font-size:3vw; color:var(--accent)}
+  /* curve */
+  svg.curve{width:34vw; height:auto}
+  /* progress */
+  #dots{position:absolute; bottom:1.9%; left:20%; right:20%; display:flex; gap:.25vw; justify-content:center}
+  #dots i{width:1.2vw; height:1.2vw; border:.25vw solid transparent; background-clip:padding-box;
+          border-radius:50%; background-color:var(--line); transition:background-color .2s; cursor:pointer}
+  #dots i:hover{background-color:#b3a98f}
+  #dots i.on{background:var(--accent)}
+  #counter{position:absolute; bottom:2%; right:3%; font-size:1.1vw; color:var(--muted)}
+  /* Schrittweises Aufdecken: Platz bleibt reserviert, damit nichts springt */
+  [data-step]{opacity:0; transition:opacity .28s}
+  [data-step].shown{opacity:1}
+  .schritte{list-style:none; margin:.4em 0 0 0; font-size:2.05vw; line-height:1.5}
+  .schritte li{margin:.42em 0; display:flex; align-items:baseline; gap:.7em}
+  .schritte b{color:var(--accent); font-variant-numeric:tabular-nums; min-width:1.4em}
+  .zwei{display:flex; gap:4%; align-items:stretch; margin-top:.5em}
+  .zwei > div{flex:1; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .zwei h3{font-size:1.5vw; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.6em}
+  .zwei ul{font-size:1.75vw; margin:0 0 0 1em}
+  .kommando{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+            letter-spacing:.12em; font-size:4.6vw; color:var(--accent2)}
+  .signale{display:grid; grid-template-columns:auto 1fr; gap:.55em 1.4em; margin-top:.6em; font-size:1.85vw; align-items:baseline}
+  .signale .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+                color:var(--accent2); white-space:nowrap; letter-spacing:.04em}
+  .sigliste{display:flex; flex-direction:column; gap:.42em; margin-top:.5em; font-size:1.8vw}
+  .sigliste .gruppe{font-size:1.1vw; letter-spacing:.15em; text-transform:uppercase;
+                    color:var(--muted); font-weight:700; margin-top:.55em}
+  .sigliste .gruppe:first-child{margin-top:0}
+  .sigliste .zeile{display:flex; gap:1.3em; align-items:baseline}
+  .sigliste .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+                 color:var(--accent2); white-space:nowrap; letter-spacing:.04em; min-width:11.5em}
+  @media (max-width:700px){
+    h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
+  }
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0">
+
+
+
+  <!-- 1 Titel -->
+  <section class="slide">
+    <div class="kicker">Erster Schultag · Klasse 7</div>
+    <h1>Willkommen zurück</h1>
+    <p class="note">Teil 1: alles, was für die ganze Schule gilt. Nach der Pause kommt Teil 2.</p>
+  </section>
+
+  <!-- 2 Überblick -->
+  <section class="slide">
+    <h2>Was heute dran ist</h2>
+    <ul class="schritte">
+      <li data-step><b>1</b><span>Regeln und Organisatorisches, das für die ganze Schule gilt.</span></li>
+      <li data-step><b>2</b><span>Wie eine Stunde bei mir abläuft.</span></li>
+      <li data-step><b>3</b><span>Einmal ausprobieren.</span></li>
+    </ul>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide divider">
+    <div class="kicker">Teil 1</div>
+    <h1>Was für die ganze<br>Schule gilt</h1>
+  </section>
+
+  <!-- 4 Hausordnung -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Schul- und Hausordnung</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Rauchen, Kaugummi und Handy sind verboten.</span></li>
+      <li data-step><b>→</b><span>Nicht aus dem Fenster lehnen.</span></li>
+      <li data-step><b>→</b><span>Bushaltestelle und Fahrradständer sind kein Pausenbereich.</span></li>
+      <li data-step><b>→</b><span>Schulgelände verlassen: Rehhaldenmarkt und Pausenhof MPG.</span></li>
+    </ul>
+    <p class="note" data-step>Die Regeln stehen im Schulplaner. Ihr und eure Eltern unterschreiben sie dort.</p>
+  </section>
+
+  <!-- 5 Notfall -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Wenn etwas passiert</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Brandfall: Wir laufen den Fluchtweg heute gemeinsam ab.</span></li>
+      <li data-step><b>→</b><span>Sammelstelle ist der kleine rote Sportplatz.</span></li>
+      <li data-step><b>→</b><span>Für den Amokfall gibt es ein eigenes Vorgehen. Das erkläre ich euch.</span></li>
+    </ul>
+  </section>
+
+  <!-- 6 Schulweg -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Auf dem Schulweg</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Schulweg und Fahrradweg</span></li>
+      <li data-step><b>→</b><span>Verhalten an der Bushaltestelle</span></li>
+      <li data-step><b>→</b><span>Verhalten im Bus</span></li>
+    </ul>
+  </section>
+
+  <!-- 7 Krank -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Wenn ihr krank seid</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Spätestens am zweiten Fehltag über WebUntis bei mir melden.</span></li>
+      <li data-step><b>→</b><span>Kein Anruf im Sekretariat.</span></li>
+      <li data-step><b>→</b><span>Sport: Ihr seid immer da. Ob ihr mitmacht, entscheidet der Sportlehrer.</span></li>
+    </ul>
+  </section>
+
+  <!-- 8 Bücher -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Bücher und Schulplaner</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Namen eintragen und einbinden.</span></li>
+      <li data-step><b>→</b><span>Für Schäden müsst ihr aufkommen.</span></li>
+      <li data-step><b>→</b><span>Fehlende Bücher gibt es in der Büchersprechstunde am Mittwoch.</span></li>
+      <li data-step><b>→</b><span>Den Schulplaner bekommt ihr heute. Wie er benutzt wird, zeige ich euch.</span></li>
+    </ul>
+  </section>
+
+  <!-- 9 Sauberkeit -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Sauberkeit und Dienste</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Ordnungsdienst im Klassenzimmer</span></li>
+      <li data-step><b>→</b><span>Hofdienst: Klassen 5 bis 7, also wir</span></li>
+      <li data-step><b>→</b><span>Altpapier entsorgen wir selbst</span></li>
+      <li data-step><b>→</b><span>Letzte Stunde: aufstuhlen</span></li>
+    </ul>
+    <p class="note" data-step>Dazu ein Wort zu den Toiletten. Der Plan hängt im Klassenzimmer aus.</p>
+  </section>
+
+  <!-- 10 Gut zu wissen -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Gut zu wissen</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Stundenplan: Den gehen wir gleich zusammen durch.</span></li>
+      <li data-step><b>→</b><span>Aula: von 7:15 bis 7:30 Uhr nutzbar.</span></li>
+      <li data-step><b>→</b><span>Keine Wertsachen in den Umkleideräumen lassen.</span></li>
+      <li data-step><b>→</b><span>AGs: Aushang beachten, Beginn in der zweiten Schulwoche.</span></li>
+    </ul>
+  </section>
+
+  <!-- 11 Ansprechpartner -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Wenn ihr jemanden braucht</h2>
+    <div class="signale">
+      <div class="cmd" data-step>SMV</div><div data-step>Verbindungslehrer: Herr Vock und Frau Neutzner</div>
+      <div class="cmd" data-step>Beratung</div><div data-step>Beratungslehrerin: Frau Tran</div>
+      <div class="cmd" data-step>Seelsorge</div><div data-step>Schulseelsorge: Frau Sieber</div>
+    </div>
+    <p class="note" data-step>Ihr könnt immer auch zu mir kommen.</p>
+  </section>
+
+  <!-- 12 Demnächst -->
+  <section class="slide">
+    <h2 style="margin-bottom:.3em">Was demnächst ansteht</h2>
+    <ul class="schritte">
+      <li data-step><b>→</b><span>Zeugnisse: unterschrieben mitbringen, ich sammle sie ein.</span></li>
+      <li data-step><b>→</b><span>Klassensprecherwahl in der dritten Schulwoche.</span></li>
+    </ul>
+  </section>
+
+
+  <!-- Abschluss Teil 1 -->
+  <section class="slide divider">
+    <h1 style="font-size:3.4vw">Das war der<br>Pflichtteil.</h1>
+    <p style="color:#cfe9db; font-size:1.9vw; margin-top:1em">Nach der Pause geht es darum,<br>wie eine Stunde bei mir abläuft.</p>
+  </section>
+  <div id="dots"></div>
+  <div id="counter"></div>
+</div>
+
+<script>
+  
+
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((s,k)=>{
+    const d=document.createElement('i');
+    if(k===0)d.className='on';
+    const t=s.querySelector('h1,h2') || s.querySelector('.kicker');
+    const roh=t ? t.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]*>/g,'') : '';
+    d.title=(k+1)+' · '+(roh.replace(/\s+/g,' ').trim().slice(0,46) || 'Folie');
+    d.addEventListener('click',ev=>{ ev.stopPropagation(); show(k, k<i); });
+    dots.appendChild(d);
+  });
+  const dotEls=[...dots.children];
+  const counter=document.getElementById('counter');
+  counter.title='→ Schritt · ← zurück · ↑↓ ganze Folie · a alles aufdecken · F Vollbild';
+  let i=0, stepIdx=0;
+  const steps = n => [...slides[n].querySelectorAll('[data-step]')];
+
+  // data-hide: nur sichtbar, solange es der zuletzt aufgedeckte Schritt ist
+  function applySteps(){
+    const st=steps(i);
+    st.forEach((el,k)=>{
+      const offen = k < stepIdx;
+      const wiederWeg = el.hasAttribute('data-hide') && k < stepIdx-1;
+      el.classList.toggle('shown', offen && !wiederWeg);
+    });
+    label();
+  }
+  function show(n, revealAll){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+    stepIdx = revealAll ? steps(i).length : 0;
+    applySteps();
+  }
+  function label(){
+    const n=steps(i).length;
+    counter.textContent=(i+1)+' / '+slides.length+(n?'  ·  '+stepIdx+'/'+n:'');
+  }
+  function next(){
+    if(stepIdx < steps(i).length){ stepIdx++; applySteps(); return; }
+    show(i+1,false);
+  }
+  function prev(){
+    if(stepIdx > 0){ stepIdx--; applySteps(); return; }   // erst Schritt zurück
+    show(i-1,true);                                        // dann Folie zurück, alles sichtbar
+  }
+
+  show(0,false);
+  const stage=document.getElementById('stage');
+  stage.focus();
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){next();e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){prev();e.preventDefault();}
+    else if(e.key==='ArrowDown'){show(i+1,false);e.preventDefault();}   // ganze Folie vor
+    else if(e.key==='ArrowUp'){show(i-1,true);e.preventDefault();}      // ganze Folie zurück
+    else if(e.key.toLowerCase()==='a'){show(i,true);e.preventDefault();} // alles auf dieser Folie zeigen
+    else if(e.key==='Home')show(0,false);
+    else if(e.key==='End')show(slides.length-1,true);
+    else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  stage.addEventListener('click',e=>{ e.clientX < window.innerWidth/2 ? prev() : next(); });
+</script>
+</body>
+</html>
