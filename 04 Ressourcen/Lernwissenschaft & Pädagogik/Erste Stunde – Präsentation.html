@@ -82,6 +82,13 @@
   .signale{display:grid; grid-template-columns:auto 1fr; gap:.55em 1.4em; margin-top:.6em; font-size:1.85vw; align-items:baseline}
   .signale .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
                 color:var(--accent2); white-space:nowrap; letter-spacing:.04em}
+  .sigliste{display:flex; flex-direction:column; gap:.42em; margin-top:.5em; font-size:1.8vw}
+  .sigliste .gruppe{font-size:1.1vw; letter-spacing:.15em; text-transform:uppercase;
+                    color:var(--muted); font-weight:700; margin-top:.55em}
+  .sigliste .gruppe:first-child{margin-top:0}
+  .sigliste .zeile{display:flex; gap:1.3em; align-items:baseline}
+  .sigliste .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+                 color:var(--accent2); white-space:nowrap; letter-spacing:.04em; min-width:11.5em}
   @media (max-width:700px){
     h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
   }
@@ -151,7 +158,7 @@
       <line x1="28" y1="50" x2="532" y2="50" stroke="#d9d3c7" stroke-width="2"/>
       <g font-family="sans-serif">
         <text x="28" y="82" font-size="18" font-weight="700" fill="#2f6f4f">Mathe</text>
-        <text x="150" y="82" font-size="17" fill="#1c2230">Heft, Buch S. 24, Lineal</text>
+        <text x="150" y="82" font-size="17" fill="#1c2230">Heft, Buch, Lineal</text>
         <text x="28" y="120" font-size="18" font-weight="700" fill="#9a9484">Physik</text>
         <text x="150" y="120" font-size="17" fill="#9a9484">…</text>
         <text x="28" y="158" font-size="18" font-weight="700" fill="#9a9484">Deutsch</text>
@@ -212,18 +219,8 @@
       <li data-step><b>→</b><span>Ich prüfe in jeder Stunde, ob ihr es könnt. Nicht erst in der Arbeit.</span></li>
       <li data-step><b>→</b><span>Wer hängt, bekommt Hilfe. Möglichst am selben Tag.</span></li>
       <li data-step><b>→</b><span>Dafür muss ich sehen, was ihr könnt und was noch nicht.</span></li>
+      <li data-step><b>→</b><span>Deshalb frage ich auch die, die sich nicht melden.</span></li>
     </ul>
-  </section>
-
-  <!-- 12 Melden und gefragt werden -->
-  <section class="slide">
-    <h2 style="margin-bottom:.3em">Melden und gefragt werden</h2>
-    <ul class="schritte">
-      <li data-step><b>→</b><span>Melden ist erlaubt und erwünscht.</span></li>
-      <li data-step><b>→</b><span>Ich frage aber auch die, die sich nicht melden.</span></li>
-      <li data-step><b>→</b><span>Nach jeder Frage: drei Sekunden Ruhe zum Denken.</span></li>
-    </ul>
-    <p class="note" data-step>Deshalb lohnt es sich, immer eine Antwort im Kopf zu haben.</p>
     <div class="src">Fragen an alle und prüfen vor dem Weitergehen: Rosenshine (2012).</div>
   </section>
 
@@ -238,12 +235,15 @@
   <section class="slide">
     <h2 style="margin-bottom:.2em">Meine Signale</h2>
     <p class="note" style="margin-top:0">Immer dieselben Wörter. Ihr müsst sie nicht auswendig lernen, ihr werdet sie tausendmal hören.</p>
-    <div class="signale">
-      <div class="cmd" data-step>5 4 3 2 1 los</div><div data-step>Ab jetzt wird gearbeitet.</div>
-      <div class="cmd" data-step>5 4 3 2 1 Stopp</div><div data-step>Stifte weg, Blick nach vorne.</div>
-      <div class="cmd" data-step>Heft hoch</div><div data-step>Heft hochhalten, ich schaue, dann wieder hinlegen.</div>
-      <div class="cmd" data-step>Stift hoch</div><div data-step>Stift in die Luft. Dann geht es gleichzeitig los.</div>
-      <div class="cmd" data-step>Alle hoch</div><div data-step>Alle halten ihr Blatt gleichzeitig hoch.</div>
+    <div class="sigliste">
+      <div class="gruppe">Bevor es losgeht</div>
+      <div class="zeile" data-step><span class="cmd">Heft hoch</span><span>Ich sehe, ob alle so weit sind. Dann wieder hinlegen.</span></div>
+      <div class="zeile" data-step><span class="cmd">Stift hoch</span><span>Alle startklar.</span></div>
+      <div class="gruppe">Arbeiten</div>
+      <div class="zeile" data-step><span class="cmd">5 4 3 2 1 los</span><span>Ab jetzt wird gearbeitet.</span></div>
+      <div class="zeile" data-step><span class="cmd">5 4 3 2 1 Stopp</span><span>Stifte weg, Blick nach vorne.</span></div>
+      <div class="gruppe">Antworten zeigen</div>
+      <div class="zeile" data-step><span class="cmd">Alle hoch</span><span>Alle halten ihr Blatt gleichzeitig hoch.</span></div>
     </div>
   </section>
 
