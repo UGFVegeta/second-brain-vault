@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Wertet einen Grundlagen-Check aus und erzeugt zwei Ausgaben:
+"""Wertet einen Grundlagen-Check aus und erzeugt:
 
   1. Eine Rückmeldung pro Nummer (für das Coaching-Gespräch), gruppiert nach
      Themenblock, ohne Note.
   2. Eine Klassenübersicht: wie viel Prozent pro Themenblock richtig war,
      schwächster Block zuerst - als Grundlage für Unterrichtsschwerpunkte.
+  3. Optional, wenn Selbsteinschätzungs-Daten mitgegeben werden: ein Diagramm,
+     das zeigt, ob "sicher gefühlt" auch "richtig war" bedeutet hat - über die
+     ganze Klasse und je Nummer als Warnhinweis bei Selbstüberschätzung.
 
 Datenschutz: Diese Datei sieht nur Nummern, nie Namen. Die Zuordnung
 Nummer -> Name bleibt bei Oskar, auf Papier oder außerhalb dieses Ordners.
@@ -14,6 +17,10 @@ Eingabe: eine JSON-Datei mit den eingelesenen Antworten, Format:
   "test": "5-6",                     // oder "6-9", siehe grundlagen_check_schluessel.py
   "ergebnisse": {
     "07": {"A1": {"a": "8292", "b": "3146", ...}, "A4": {"a": "1,2,3,4,6,8,12,24", ...}, ...},
+    "12": {...}
+  },
+  "selbsteinschaetzung": {            // optional, pro Aufgabe (nicht pro Teilaufgabe)
+    "07": {"A1": "sicher", "A2": "unsicher", ...},   // Werte: sicher/ging_so/unsicher
     "12": {...}
   }
 }
@@ -37,6 +44,13 @@ from pathlib import Path
 from grundlagen_check_schluessel import TESTS
 
 TOLERANZ = 0.006
+
+# Statusfarben, validiert (siehe dataviz-Skill, references/palette.md).
+FARBE_RICHTIG = "#0ca30c"
+FARBE_FALSCH = "#d03b3b"
+FARBE_OFFEN = "#9a9992"
+KONFIDENZ_REIHENFOLGE = ["sicher", "ging_so", "unsicher"]
+KONFIDENZ_LABEL = {"sicher": "War ich mir sicher", "ging_so": "Ging so", "unsicher": "War ich unsicher"}
 
 
 # --- Antworten interpretieren ------------------------------------------------
@@ -161,6 +175,125 @@ def block_quote(eintraege):
     return richtig / len(bearbeitet)
 
 
+def aufgabe_status(antworten_aufgabe, teile):
+    """Status einer ganzen Aufgabe (z. B. 'A1' mit Teilaufgaben a,b), fuer den
+    Vergleich mit der Selbsteinschaetzung, die pro Aufgabe erfasst wird, nicht
+    pro Teilaufgabe. "richtig" heisst: alles Bearbeitete war richtig, mindestens
+    ein Teil bearbeitet. "falsch" heisst: mindestens ein bearbeiteter Teil war
+    falsch. "offen" heisst: nichts bearbeitet."""
+    ergebnisse_teil = [pruefe((antworten_aufgabe or {}).get(teil), erwartet)
+                        for teil, erwartet in teile.items()]
+    if all(r is None for r in ergebnisse_teil):
+        return "offen"
+    if any(r is False for r in ergebnisse_teil):
+        return "falsch"
+    return "richtig"
+
+
+# --- Selbsteinschaetzung vs. Ergebnis ---------------------------------------
+
+def kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel):
+    """counts[konfidenz][status] = Anzahl Aufgaben (ueber alle Nummern), bei
+    denen die Nummer diese Selbsteinschaetzung angekreuzt hat."""
+    counts = {k: {"richtig": 0, "falsch": 0, "offen": 0} for k in KONFIDENZ_REIHENFOLGE}
+    for nummer, antworten in ergebnisse.items():
+        einschaetzung = selbsteinschaetzung.get(nummer, {})
+        for aufgaben in schluessel.values():
+            for aufgabe, teile in aufgaben.items():
+                konf = einschaetzung.get(aufgabe)
+                if konf not in counts:
+                    continue
+                status = aufgabe_status(antworten.get(aufgabe), teile)
+                counts[konf][status] += 1
+    return counts
+
+
+def ueberschaetzung_je_nummer(ergebnisse, selbsteinschaetzung, schluessel):
+    """Anzahl Aufgaben pro Nummer, die als 'sicher' markiert waren, aber falsch
+    ausfielen - der konkrete Hinweis fuers Coaching-Gespraech."""
+    ergebnis = {}
+    for nummer, antworten in ergebnisse.items():
+        einschaetzung = selbsteinschaetzung.get(nummer, {})
+        treffer = []
+        for aufgaben in schluessel.values():
+            for aufgabe, teile in aufgaben.items():
+                if einschaetzung.get(aufgabe) != "sicher":
+                    continue
+                if aufgabe_status(antworten.get(aufgabe), teile) == "falsch":
+                    treffer.append(aufgabe)
+        ergebnis[nummer] = treffer
+    return ergebnis
+
+
+def balken_svg(counts, breite=460, hoehe=260):
+    """100%-gestapeltes Balkendiagramm: 3 Balken (sicher/ging so/unsicher),
+    gestapelt richtig/falsch/offen. Duenne Balken, gerundete Aussenkanten,
+    2px Fuge zwischen den Segmenten, Legende, direkte Beschriftung."""
+    rand_unten, rand_oben, rand_links = 62, 14, 6
+    plot_h = hoehe - rand_unten - rand_oben
+    n = len(KONFIDENZ_REIHENFOLGE)
+    balken_breite = 64
+    luecke = (breite - 2 * rand_links - n * balken_breite) / (n - 1)
+
+    teile = []
+    for i, konf in enumerate(KONFIDENZ_REIHENFOLGE):
+        werte = counts[konf]
+        gesamt = sum(werte.values())
+        x = rand_links + i * (balken_breite + luecke)
+        if gesamt == 0:
+            teile.append(
+                f'<text x="{x + balken_breite/2:.0f}" y="{rand_oben + plot_h/2:.0f}" '
+                f'text-anchor="middle" font-size="9.5" fill="#9a9992">keine Daten</text>'
+            )
+        else:
+            y = rand_oben + plot_h
+            for status, farbe in (("richtig", FARBE_RICHTIG), ("falsch", FARBE_FALSCH), ("offen", FARBE_OFFEN)):
+                anteil = werte[status] / gesamt
+                seg_h = anteil * plot_h
+                if seg_h <= 0:
+                    continue
+                y -= seg_h
+                radius = 4 if (status == "richtig" and y <= rand_oben + 0.5) else 0
+                teile.append(
+                    f'<rect x="{x:.1f}" y="{y:.1f}" width="{balken_breite}" height="{max(seg_h-1.5,0):.1f}" '
+                    f'rx="{radius}" fill="{farbe}"><title>{KONFIDENZ_LABEL[konf]}: {status} '
+                    f'({werte[status]} von {gesamt}, {anteil*100:.0f}%)</title></rect>'
+                )
+                if seg_h > 16:
+                    teile.append(
+                        f'<text x="{x + balken_breite/2:.0f}" y="{y + seg_h/2 + 3.5:.0f}" '
+                        f'text-anchor="middle" font-size="9" fill="#fff" font-weight="600">'
+                        f'{anteil*100:.0f}%</text>'
+                    )
+        teile.append(
+            f'<text x="{x + balken_breite/2:.0f}" y="{rand_oben + plot_h + 14:.0f}" '
+            f'text-anchor="middle" font-size="9.5" fill="#333">{KONFIDENZ_LABEL[konf]}</text>'
+        )
+        teile.append(
+            f'<text x="{x + balken_breite/2:.0f}" y="{rand_oben + plot_h + 26:.0f}" '
+            f'text-anchor="middle" font-size="8.5" fill="#888">n={gesamt}</text>'
+        )
+
+    legende_y = hoehe - 6
+    legende = (
+        f'<g font-size="9" fill="#333">'
+        f'<rect x="{rand_links}" y="{legende_y-9}" width="9" height="9" rx="2" fill="{FARBE_RICHTIG}"/>'
+        f'<text x="{rand_links+13}" y="{legende_y-1}">richtig</text>'
+        f'<rect x="{rand_links+70}" y="{legende_y-9}" width="9" height="9" rx="2" fill="{FARBE_FALSCH}"/>'
+        f'<text x="{rand_links+83}" y="{legende_y-1}">falsch</text>'
+        f'<rect x="{rand_links+140}" y="{legende_y-9}" width="9" height="9" rx="2" fill="{FARBE_OFFEN}"/>'
+        f'<text x="{rand_links+153}" y="{legende_y-1}">nicht bearbeitet</text>'
+        f'</g>'
+    )
+
+    return (
+        f'<svg viewBox="0 0 {breite} {hoehe}" width="{breite}" height="{hoehe}" '
+        f'xmlns="http://www.w3.org/2000/svg" role="img" '
+        f'aria-label="Selbsteinschätzung gegen tatsächliches Ergebnis">'
+        f'{"".join(teile)}{legende}</svg>'
+    )
+
+
 # --- Ausgabe: Ruckmeldungen pro Nummer + Klassenuebersicht -----------------
 
 def stufe_text(quote):
@@ -200,6 +333,9 @@ VORLAGE = """<!DOCTYPE html>
   .uebersicht table {{ border-collapse: collapse; width: 100%; }}
   .uebersicht th, .uebersicht td {{ border: 0.6pt solid #999; padding: 1.6mm 2.5mm; text-align: left; font-size: 9.5pt; }}
   .uebersicht th {{ background: #eee; }}
+  .selbst {{ margin: 0 0 8mm; border: 0.6pt solid #999; border-radius: 2mm; padding: 4mm 5mm; page-break-inside: avoid; }}
+  .selbst h3 {{ margin: 0 0 1mm; font-size: 11pt; }}
+  .selbst p {{ margin: 0 0 3mm; font-size: 9.3pt; color: #555; }}
   .karte {{ border: 1pt solid #000; border-radius: 2mm; padding: 5mm 6mm; margin-bottom: 6mm; page-break-inside: avoid; }}
   .karte h3 {{ margin: 0 0 3mm; font-size: 12.5pt; }}
   .zeile {{ display:flex; justify-content:space-between; gap:4mm; margin: 1mm 0; font-size: 10pt; }}
@@ -210,6 +346,7 @@ VORLAGE = """<!DOCTYPE html>
   .stufe.braucht-uebung {{ color: #b3261e; }}
   .stufe.nicht-bearbeitet {{ color: #666; font-style: italic; }}
   .fokus {{ margin-top: 3mm; font-size: 9.6pt; color:#333; }}
+  .warnung {{ margin-top: 1.5mm; font-size: 9.6pt; color: #b3261e; }}
   footer {{ margin-top: 6mm; font-size: 8pt; color:#666; }}
 </style></head><body>
 
@@ -223,6 +360,8 @@ VORLAGE = """<!DOCTYPE html>
   </table>
 </div>
 
+{selbstabschnitt}
+
 {karten}
 
 <footer>Erzeugt aus den anonymisierten Antwortbögen (nur Nummern). Zuordnung Nummer &rarr; Name liegt außerhalb dieser Datei.</footer>
@@ -234,6 +373,7 @@ def bauen(daten, ziel_ordner: Path):
     test = TESTS[daten["test"]]
     schluessel = test["schluessel"]
     ergebnisse = daten["ergebnisse"]
+    selbsteinschaetzung = daten.get("selbsteinschaetzung", {})
 
     # Klassenuebersicht: Quote je Block ueber alle Nummern
     block_quoten = {block: [] for block in schluessel}
@@ -258,6 +398,22 @@ def bauen(daten, ziel_ordner: Path):
         for b, q in sortierte_bloecke
     )
 
+    # Selbsteinschaetzung vs. Ergebnis, nur wenn Daten vorhanden
+    selbstabschnitt = ""
+    ueberschaetzt = {}
+    if selbsteinschaetzung:
+        counts = kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel)
+        ueberschaetzt = ueberschaetzung_je_nummer(ergebnisse, selbsteinschaetzung, schluessel)
+        n_sicher_falsch = counts["sicher"]["falsch"]
+        n_sicher_gesamt = sum(counts["sicher"].values())
+        selbstabschnitt = (
+            '<div class="selbst"><h3>Selbsteinschätzung gegen Ergebnis</h3>'
+            '<p>Je Aufgabe verglichen mit dem angekreuzten Smiley. '
+            f'Bei „War ich mir sicher" lag die Klasse in {n_sicher_falsch} von {n_sicher_gesamt} '
+            'Aufgaben trotzdem daneben – das sind die Stellen, an denen jemand nicht weiß, dass er es nicht weiß.</p>'
+            f'{balken_svg(counts)}</div>'
+        )
+
     karten = []
     for nummer in sorted(ergebnisse):
         auswertung = pro_nummer[nummer]
@@ -278,14 +434,23 @@ def bauen(daten, ziel_ordner: Path):
         if schwaechste:
             namen = ", ".join(b.split(" · ", 1)[-1] for b, _ in schwaechste)
             fokus = f'<div class="fokus">Fokus fürs Gespräch: {html.escape(namen)}</div>'
+        warnung = ""
+        treffer = ueberschaetzt.get(nummer) or []
+        if treffer:
+            liste = ", ".join(treffer)
+            warnung = (
+                f'<div class="warnung">Sicher gefühlt, aber falsch: {html.escape(liste)} '
+                f'– lohnt einen genaueren Blick im Gespräch.</div>'
+            )
         karten.append(
-            f'<div class="karte"><h3>Nummer {html.escape(nummer)}</h3>{"".join(zeilen)}{fokus}</div>'
+            f'<div class="karte"><h3>Nummer {html.escape(nummer)}</h3>{"".join(zeilen)}{fokus}{warnung}</div>'
         )
 
     seite = VORLAGE.format(
         titel=f"Grundlagen-Check – {test['name']}",
         untertitel="Rückmeldung ohne Note · nur Nummern, keine Namen",
         klassenzeilen=klassenzeilen,
+        selbstabschnitt=selbstabschnitt,
         karten="\n".join(karten),
     )
 

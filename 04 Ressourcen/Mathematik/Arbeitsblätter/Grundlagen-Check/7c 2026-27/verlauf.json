@@ -1,0 +1,316 @@
+{
+ "verlauf": {
+  "16": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 42,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 33,
+     "B · Brüche": 50,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "26": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 83,
+     "B · Brüche": 17,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "9": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 0,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 0,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "15": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 29,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 29,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "13": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 55,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 67,
+     "B · Brüche": 40,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "21": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 78,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 80,
+     "B · Brüche": 75,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "24": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 40,
+     "B · Brüche": 60,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "7": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 64,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 75,
+     "B · Brüche": 50,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "10": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 33,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 38,
+     "B · Brüche": 29,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "19": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 36,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 40,
+     "B · Brüche": 33,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "6": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 40,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 50,
+     "B · Brüche": 29,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "2": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 100,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 100,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "17": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 25,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 50,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "18": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 8,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 14,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "14": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 44,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 57,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "5": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 50,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "25": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 20,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 25,
+     "B · Brüche": 14,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "11": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 15,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 29,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "23": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 67,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "4": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 25,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 38,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "20": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 62,
+     "B · Brüche": 0,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "22": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 46,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 50,
+     "B · Brüche": 40,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "12": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 21,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 25,
+     "B · Brüche": 17,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ],
+  "3": [
+   {
+    "datum": "2026-09-14",
+    "test": "Grundlagen 5-6 Teil 1",
+    "gesamt_prozent": 38,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": 50,
+     "B · Brüche": 20,
+     "C · Dezimalzahlen": null,
+     "D · Größen und Geometrie": null
+    }
+   }
+  ]
+ }
+}

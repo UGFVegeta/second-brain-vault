@@ -29,7 +29,11 @@ Die Klasse-5–6-Version ist neu, zugeschnitten auf das, was eine neue 7. Klasse
 
 ## Selbsteinschätzung auf dem Antwortbogen
 
-Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von drei Smileys an (sicher / ging so / unsicher). Das ist reine Selbsteinschätzung, kein Teil der automatischen Auswertung – hilft aber beim Blick auf die Scans: „sicher, aber falsch" oder „unsicher, aber richtig" sind oft die aufschlussreichsten Fälle fürs Coaching-Gespräch. Fließt nicht in die JSON-Ergebnisdatei oder den Bericht ein, nur manuell mitgelesen.
+Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von drei Smileys an (sicher / ging so / unsicher), eine Einschätzung pro Aufgabe, nicht pro Teilaufgabe.
+
+Seit der Auswertung für 7c fließt das mit ein: die Ergebnisdatei bekommt ein optionales `selbsteinschaetzung`-Feld (Format unten), der Bericht zeigt dann zusätzlich ein Diagramm – wie oft „sicher gefühlt" auch wirklich richtig war – und bei jeder Nummer einen Warnhinweis, welche Aufgaben sicher gefühlt, aber falsch waren. Genau diese Fälle sind oft die aufschlussreichsten fürs Coaching-Gespräch: nicht wissen, dass man es nicht weiß.
+
+Das Lesen der Smileys aus dem Scan ist spürbar unsicherer als das Lesen der Antworten selbst (viele Kinder markieren zwei Smileys überlappend) – vor einer wichtigen Verwendung gegen die Originalbögen prüfen. Ohne `selbsteinschaetzung`-Feld läuft der Bericht wie bisher, ganz ohne diesen Abschnitt.
 
 ## Ablauf
 
@@ -54,10 +58,14 @@ Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von dr
   "ergebnisse": {
     "07": {"A1": {"a": "8292", "b": "3146", "c": "13104", "d": "117"}, "A4": {"a": "1,2,3,4,6,8,12,24", ...}, ...},
     "12": {...}
+  },
+  "selbsteinschaetzung": {
+    "07": {"A1": "sicher", "A2": "unsicher", "A4": "ging_so", ...},
+    "12": {...}
   }
 }
 ```
-`test` ist `"5-6"` oder `"6-9"`. Die Aufgaben- und Teilaufgaben-Schlüssel (z. B. `"A1"` → `"a"`) müssen zum jeweiligen Lösungsschlüssel in `.scripts/grundlagen_check_schluessel.py` passen. Ein Beispiel mit erfundenen Nummern liegt in [[Klasse 5-6/Grundlagen-Check Beispiel/beispiel_ergebnisse_5-6.json|beispiel_ergebnisse_5-6.json]], die dazugehörige erzeugte Auswertung in [[Klasse 5-6/Grundlagen-Check Beispiel/Rückmeldungen Grundlagen Klasse 5-6.html|Rückmeldungen Grundlagen Klasse 5-6.html]].
+`test` ist `"5-6"` oder `"6-9"`. Die Aufgaben- und Teilaufgaben-Schlüssel (z. B. `"A1"` → `"a"`) müssen zum jeweiligen Lösungsschlüssel in `.scripts/grundlagen_check_schluessel.py` passen. `selbsteinschaetzung` ist optional und pro Aufgabe (nicht pro Teilaufgabe), Werte `sicher` / `ging_so` / `unsicher`. Ein Beispiel mit erfundenen Nummern liegt in [[Klasse 5-6/Grundlagen-Check Beispiel/beispiel_ergebnisse_5-6.json|beispiel_ergebnisse_5-6.json]], die dazugehörige erzeugte Auswertung in [[Klasse 5-6/Grundlagen-Check Beispiel/Rückmeldungen Grundlagen Klasse 5-6.html|Rückmeldungen Grundlagen Klasse 5-6.html]]. Ein echter Lauf mit Selbsteinschätzung liegt in [[7c 2026-27/README|7c 2026-27]].
 
 ## Grenzen der automatischen Prüfung
 
@@ -68,3 +76,21 @@ Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von dr
 ## Für neue Themen im Schuljahr wiederverwenden
 
 Dasselbe Muster – Aufgabenblatt, separater Antwortbogen mit Nummer statt Name, Scan, Auswertung ohne Note – funktioniert für jeden Zwischencheck. Neu bauen müssen sich dann: das Aufgabenblatt, der passende Antwortbogen und ein neuer Eintrag in `.scripts/grundlagen_check_schluessel.py` mit dem Lösungsschlüssel des neuen Themas. `grundlagen_check_bericht.py` bleibt unverändert.
+
+## Verlauf übers Jahr
+
+Ziel: bei den Diagnosegesprächen im Januar für jede Nummer sehen, wie sich das Ergebnis über die Diagnosetests des Jahres entwickelt hat – egal wie viele es am Ende werden (optimistisch geplant: sechs) und egal ob sie dasselbe Thema oder verschiedene Themen abdecken.
+
+`.scripts/grundlagen_check_verlauf.py` führt dafür pro Klasse einen eigenen Speicher `verlauf.json`, der mit jedem Testlauf wächst:
+
+```bash
+# nach jedem Testlauf, nachdem grundlagen_check_bericht.py gelaufen ist:
+python3 .scripts/grundlagen_check_verlauf.py eintragen <ergebnisse.json> <verlauf.json> "<Test-Label>" <YYYY-MM-DD>
+
+# Übersicht erzeugen (ein Diagramm pro Nummer):
+python3 .scripts/grundlagen_check_verlauf.py bauen <verlauf.json> <ausgabe-ordner>
+```
+
+Jeder Testlauf liefert pro Nummer nur *eine* Gesamt-Prozentzahl (über alle in diesem Testlauf ausgewerteten Aufgaben), nicht die Themenblöcke einzeln – so bleiben unterschiedliche Testläufe zu unterschiedlichen Themen in derselben Zeitreihe vergleichbar. Bei nur einem Testlauf zeigt die Übersicht einen einzelnen Punkt statt einer Linie, mit dem Hinweis „weitere Punkte folgen mit dem nächsten Test" – eine Linie durch einen einzigen Punkt würde eine Entwicklung vortäuschen, die es noch nicht gibt. Ab dem zweiten Testlauf wird daraus eine echte Linie.
+
+Beispiel für 7c: [[7c 2026-27/README|7c 2026-27]], `verlauf.json` und `Verlauf.html` dort.
