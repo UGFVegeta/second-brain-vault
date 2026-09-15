@@ -32,6 +32,9 @@
   i { font-style: italic; }
   b.erg { font-weight: bold; }
   .w { font-size: 9.2pt; color: #444; }
+  .frac { display: inline-block; vertical-align: -0.55em; text-align: center; font-size: 0.86em; }
+  .frac > span { display: block; padding: 0 0.15em; min-width: 0; margin: 0; }
+  .frac .u { border-top: 0.6pt solid #000; }
   footer { margin-top: 3mm; border-top: 0.6pt solid #999; padding-top: 1.5mm; font-size: 8pt; color: #555; }
 </style>
 </head>
@@ -93,7 +96,7 @@
   </div>
 </div>
 
-<h2>D · Pythagoras und Zinsrechnung</h2>
+<h2>D · Pythagoras und Wahrscheinlichkeit</h2>
 
 <div class="a"><span class="nr">D1</span>
   <div class="items voll">
@@ -103,7 +106,12 @@
   </div>
 </div>
 
-<div class="a"><span class="nr">D2</span> 3000 € · 0,025 = <b class="erg">75 €</b></div>
+<div class="a"><span class="nr">D2</span> Mit Zurücklegen (die Kugel kommt vor dem zweiten Zug zurück): beide Male 10 Kugeln.
+  <div class="items voll">
+    <span>a) <span class="frac"><span>4</span><span class="u">10</span></span> · <span class="frac"><span>4</span><span class="u">10</span></span> = <b class="erg">0,16</b></span>
+    <span>b) Gegenereignis von „beide rot": 1 − 0,16 = <b class="erg">0,84</b></span>
+  </div>
+</div>
 
 <footer>Lösungen · Grundlagen Mathematik Klasse 8–9 · Kurzer Grundlagen-Check</footer>
 

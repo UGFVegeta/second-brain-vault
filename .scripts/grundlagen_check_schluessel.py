@@ -80,7 +80,9 @@ SCHLUESSEL_6_9 = {
 # Schlankere Variante von SCHLUESSEL_6_9: laesst Block A (Kl. 5/6) und die
 # Prozent-/rationale-Zahlen-Aufgaben aus Block B weg, behaelt nur Terme/
 # Gleichungen/lineare Funktionen (Kl. 8) und Potenzen/Wurzeln/Pythagoras/
-# Zinsrechnung (Kl. 8-9), jeweils mit weniger Teilaufgaben pro Aufgabe.
+# Wahrscheinlichkeit (Kl. 8-9), jeweils mit weniger Teilaufgaben pro Aufgabe.
+# D2 ist eine Stochastik-Aufgabe (Behaelter mit drei Kugelfarben, zweimal
+# ziehen) statt Zinsrechnung - siehe Kommentar bei D2 unten.
 #
 # Zwei Versionen (A/B) gegen Abschreiben: identischer Aufbau, andere Zahlen.
 # Sitzordnung im Schachbrettmuster. Siehe "Zwei Versionen (A/B) gegen
@@ -100,9 +102,11 @@ SCHLUESSEL_8_9_A = {
         "C1": {"a": 81, "b": 256, "c": 100},
         "C2": {"a": 12, "b": 0.5, "c": ("5√2", "7,07")},
     },
-    "D · Pythagoras und Zinsrechnung": {
+    "D · Pythagoras und Wahrscheinlichkeit": {
         "D1": {"a": 10, "b": 12, "c": ("5√2", "7,07")},
-        "D2": {"ergebnis": 60},
+        # Behaelter mit 5 rot, 3 blau, 2 gruen (10 Kugeln), zweimal ziehen ohne
+        # Zurueklegen (aus der Aufgabenstellung ablesbar, nicht explizit benannt).
+        "D2": {"a": 2/9, "b": 7/9},
     },
 }
 
@@ -119,9 +123,11 @@ SCHLUESSEL_8_9_B = {
         "C1": {"a": 16, "b": 243, "c": 1000},
         "C2": {"a": 13, "b": 0.6, "c": ("6√2", "8,49")},
     },
-    "D · Pythagoras und Zinsrechnung": {
+    "D · Pythagoras und Wahrscheinlichkeit": {
         "D1": {"a": 15, "b": 15, "c": ("6√2", "8,49")},
-        "D2": {"ergebnis": 75},
+        # Behaelter mit 4 rot, 3 gelb, 3 gruen (10 Kugeln), zweimal ziehen mit
+        # Zurueklegen (aus der Aufgabenstellung ablesbar, nicht explizit benannt).
+        "D2": {"a": 0.16, "b": 0.84},
     },
 }
 
