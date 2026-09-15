@@ -18,7 +18,7 @@ import json
 import sys
 from pathlib import Path
 
-from grundlagen_check_schluessel import TESTS
+from grundlagen_check_schluessel import TESTS, schluessel_fuer_nummer
 from grundlagen_check_bericht import werte_nummer_aus, block_quote, aufgabe_status
 from grundlagen_check_verlauf import gesamt_quote
 from grundlagen_check_praesentation import status_farbe, FARBE_OFFEN
@@ -123,13 +123,13 @@ def zettel_html(nummer, gesamt, bloecke, selbst):
 
 def bauen(daten, ziel_ordner: Path):
     test = TESTS[daten["test"]]
-    schluessel = test["schluessel"]
     ergebnisse = daten["ergebnisse"]
     selbsteinschaetzung = daten.get("selbsteinschaetzung", {})
 
     zettel = []
     for nummer in sorted(ergebnisse, key=int):
         antworten = ergebnisse[nummer]
+        schluessel = schluessel_fuer_nummer(test, daten, nummer)
         auswertung = werte_nummer_aus(antworten, schluessel)
         gesamt = gesamt_quote(auswertung)
         bloecke = [(b, block_quote(e)) for b, e in auswertung.items()]

@@ -81,8 +81,13 @@ SCHLUESSEL_6_9 = {
 # Prozent-/rationale-Zahlen-Aufgaben aus Block B weg, behaelt nur Terme/
 # Gleichungen/lineare Funktionen (Kl. 8) und Potenzen/Wurzeln/Pythagoras/
 # Zinsrechnung (Kl. 8-9), jeweils mit weniger Teilaufgaben pro Aufgabe.
+#
+# Zwei Versionen (A/B) gegen Abschreiben: identischer Aufbau, andere Zahlen.
+# Sitzordnung im Schachbrettmuster. Siehe "Zwei Versionen (A/B) gegen
+# Abschreiben" in der Workflow-Doku - ab jetzt Standard fuer neue Tests in
+# allen Klassenstufen.
 
-SCHLUESSEL_8_9 = {
+SCHLUESSEL_8_9_A = {
     "A · Terme und Gleichungen": {
         "A1": {"a": "2x+7y", "b": "6a-22"},
         "A2": {"a": "3(2x+3)", "b": "4a(a-3)"},
@@ -101,11 +106,46 @@ SCHLUESSEL_8_9 = {
     },
 }
 
+SCHLUESSEL_8_9_B = {
+    "A · Terme und Gleichungen": {
+        "A1": {"a": "3x+7y", "b": "4a-10"},
+        "A2": {"a": "4(2x+3)", "b": "6a(a-3)"},
+        "A3": {"a": 7, "b": 5},
+    },
+    "B · Lineare Funktionen": {
+        "B1": {"m": 2, "b": -4, "liegt": "ja", "nullstelle": 2},
+    },
+    "C · Potenzen und Wurzeln": {
+        "C1": {"a": 16, "b": 243, "c": 1000},
+        "C2": {"a": 13, "b": 0.6, "c": ("6√2", "8,49")},
+    },
+    "D · Pythagoras und Zinsrechnung": {
+        "D1": {"a": 15, "b": 15, "c": ("6√2", "8,49")},
+        "D2": {"ergebnis": 75},
+    },
+}
+
 TESTS = {
     "5-6": {"name": "Grundlagen Klasse 5-6", "schluessel": SCHLUESSEL_5_6},
     "6-9": {"name": "Grundlagen Klasse 6-9", "schluessel": SCHLUESSEL_6_9},
-    "8-9": {"name": "Grundlagen Klasse 8-9", "schluessel": SCHLUESSEL_8_9},
+    "8-9": {
+        "name": "Grundlagen Klasse 8-9",
+        "schluessel_varianten": {"A": SCHLUESSEL_8_9_A, "B": SCHLUESSEL_8_9_B},
+    },
 }
+
+
+def schluessel_fuer_nummer(test, daten, nummer):
+    """Liefert den passenden Loesungsschluessel fuer eine Nummer. Tests ohne
+    A/B-Varianten (aeltere "schluessel"-Form) liefern immer denselben
+    Schluessel. Tests mit "schluessel_varianten" schauen in daten["versionen"]
+    nach, welche Version (A/B) diese Nummer geschrieben hat - Standard "A",
+    wenn nichts vermerkt ist (z. B. bei Tests ohne A/B-Aufteilung)."""
+    varianten = test.get("schluessel_varianten")
+    if varianten is None:
+        return test["schluessel"]
+    version = daten.get("versionen", {}).get(nummer, "A")
+    return varianten[version]
 
 
 if __name__ == "__main__":

@@ -91,6 +91,43 @@ Authentische lokale Verwurzelung: Abitur 2004 am Gymnasium Welzheim, lebt/traini
 - **Wunschschule:** Kastell-Realschule Welzheim. Dort könnte mittelfristig eine Konrektor-Stelle frei werden (Zeitpunkt unklar – evtl. nächstes Schuljahr, evtl. später).
 - **Strategie:** nicht alles auf eine Karte setzen. Risiko: ein bereits A14-eingestufter Mitbewerber würde formal bevorzugt.
 
+## Argumentations-Baustein: Evidenzbasierte Schulentwicklung statt Trend-Konzepte (15.09.2026)
+
+Entstanden aus einem Gespräch über die neue Tiegelschule Essen (jahrgangsübergreifende Lernateliers, offenes Raumkonzept). Passt direkt zu Oskars Profil-Schwerpunkt „datengestützte Schulentwicklung" und ist als Positionierung für Modul C (mediengestützte Präsentation), Modul B (strukturiertes Interview) und das Realschul-Innovations-Narrativ nutzbar.
+
+**Kernthese:** Strukturreformen wie offene Lernlandschaften, Jahrgangsmischung oder stark selbstgesteuertes Lernen wirken nach außen modern und überzeugend, sind aber in der Forschung die am schwächsten belegten Hebel für Lernerfolg. Die eigentlich wirksamen Hebel liegen auf der Ebene des Lehrerhandelns, nicht der Schularchitektur.
+
+**Beleglage (Hattie, „Visible Learning", 139 Metaanalysen; Schwelle für „bedeutsame Wirkung" bei Effektstärke d = 0,4):**
+
+| Strukturelement | d |
+|---|---|
+| Offene Klassenzimmer | 0,01 |
+| Jahrgangsübergreifende Klassen | 0,04 |
+| Schülergesteuertes/selbstgesteuertes Lernen | 0,03 |
+| Individualisierung | 0,23 |
+
+Gegenüber den tatsächlich starken Hebeln:
+
+| Wirksamer Hebel | d |
+|---|---|
+| Formative Evaluation des Unterrichts | 0,90 |
+| Feedback | 0,73 |
+| Lehrer-Schüler-Beziehung | 0,72 |
+| Direkte Instruktion | 0,59 |
+| Mastery Learning | 0,58 |
+
+Hattie hat das im Oktober 2025 auf der Konferenz „Bildung Digitalisierung" nochmal zugespitzt: Das Versprechen von individualisiertem/personalisiertem/selbstgesteuertem Lernen sei „größtenteils rhetorisch", die Forschungslage dafür dünn. Effektstärken dort: 0,03 für schülergesteuertes, 0,26 für individualisiertes Lernen – beides unter der Bedeutsamkeitsschwelle.
+
+**Theoretischer Unterbau:** Kirschner, Sweller & Clark (2006), *„Why Minimal Guidance During Instruction Does Not Work"* (Educational Psychologist) – der Klassiker der Entdeckendes-Lernen-Debatte. These: Minimal angeleitetes, konstruktivistisches Lernen überlastet bei Novizen das Arbeitsgedächtnis, weil sie gleichzeitig neuen Stoff *und* den Lösungsweg selbst finden müssen. Der Vorteil von Anleitung schwindet erst mit viel Vorwissen. ⚠️ Nicht unumstritten – Gegenkritik u. a. von Hmelo-Silver et al. (2007) –, aber inhaltlich deckungsgleich mit Hatties quantitativen Befunden.
+
+**Abgleich mit PISA-Spitzenreitern:** Singapur, Estland und Japan setzen gerade nicht auf offene, individualisierte Formate, sondern auf strukturierten, lehrergeführten Unterricht mit hohem Anspruch. Der Hebel dort ist Lehrerqualität und -kooperation: Singapur gibt Lehrkräften 100 Fortbildungsstunden/Jahr, feste wöchentliche Kleingruppen (5–7 Lehrkräfte) zur gemeinsamen Unterrichtsentwicklung, gegenseitige Hospitation. Estland lässt Lehrkräften methodische Freiheit bei klar vorgegebenen Lernzielen und legt Wert darauf, schwache Schüler früh aufzufangen. Fazit: Die international erfolgreichsten Systeme investieren in die Lehrkraft, nicht primär in Raumkonzepte.
+
+**Fallbeispiel Tiegelschule Essen (Nordviertel, Eröffnung Sommer 2026):** Neue Grundschule mit jahrgangsübergreifenden „Lernateliers" statt Klassenräumen, Kooperation mit Uni Duisburg-Essen. Wissenschaftlich *begleitet*, aber nicht vorab *belegt* – die Uni-Kooperation ist Begleitforschung im laufenden Betrieb, kein Wirksamkeitsnachweis. Bezeichnend: Die Schule selbst baut als Absicherung „Pflichtaufgaben" ein, damit trotz offenem Format am Ende alle rechnen und schreiben können – ein stillschweigendes Eingeständnis des Risikos, das die Forschung genau hier sieht.
+
+**Nutzen für die Bewerbung:** Eigene Positionierung als jemand, der Schulentwicklung an Wirksamkeitsnachweisen statt an Trends ausrichtet – konkret anschlussfähig an Oskars Mastery-Learning-Arbeit in Mathe (siehe [[Mastery-Routinen im Unterricht (Klasse 7)]] und [[Prozent nach dem Mastery-Prinzip (Klasse 7)]], dort ebenfalls Hattie-gestützt) und an sein Profil „datengestützte Schulentwicklung". Als Beispiel in Modul C oder im Interview verwendbar: kritische Reflexion eines aktuellen Bildungstrends (Tiegelschule) statt unreflektiertem Vorzeigen von „Innovation".
+
+**Quellen:** essen.de/leben/bildung/schule/tiegelschule, radioessen.de (Artikel „Neue Grundschule in Essen wird anders"), gve-essen.de/projektmanagement/tiegelschule; visible-learning.org (Hattie-Rangliste), deutsches-schulportal.de (Hattie-Keynote Bildung Digitalisierung 2025), news4teachers.de (31.10.2025); Kirschner/Sweller/Clark (2006), Educational Psychologist; br.de „Was Deutschland von den Pisa-Spitzenreitern lernen kann" (18.12.2023).
+
 ## Hinweise
 - Strategischer, wichtiger Termin → für die Vorbereitung **Opus + Extended Thinking** nutzen, dazu Selbstkritik-Schleife (siehe CLAUDE.md).
 - Verwandte Projekte: [[Führungsskills erwerben]], [[Rhetorik und Kommunikation]].

@@ -14,6 +14,7 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-09-15 | 3,5 | Nase frei, Erkältung durch. Schwere Oberschenkel | Schulweg locker, Lauf 10 km mit Kindern (Thule) | Beine schwer nach der Rolleneinheit vom Vortag, unauffällig nach der Trainingspause. Schlaf weiter nicht gut, HRV heute niedriger (72). |
 | 2026-09-13 | 2,5 | Hals kratzig, Schleim beim Sprechen, beginnende Erkältung | nein | Schlecht geschlafen, mehrfach wach. HRV zwei Tage in Folge unter Schwelle (77, dann 70), Ruhepuls noch bei Basis (36). Bewusst komplett ausgesetzt wegen erstem Schultag morgen. |
 | 2026-09-10 | 4 | Nase, abklingend | Mobilität 7 min | Ruhetag. Hüfte fast schmerzfrei. |
 | 2026-09-09 | 4 | Nase, abklingend | Lauf 10,5 km, 51 min | Hüfte fast schmerzfrei. |

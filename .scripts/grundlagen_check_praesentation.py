@@ -16,7 +16,7 @@ import json
 import sys
 from pathlib import Path
 
-from grundlagen_check_schluessel import TESTS
+from grundlagen_check_schluessel import TESTS, schluessel_fuer_nummer
 from grundlagen_check_bericht import (
     werte_nummer_aus, block_quote, kreuztabelle, balken_svg,
     FARBE_RICHTIG, FARBE_FALSCH, FARBE_OFFEN,
@@ -156,13 +156,14 @@ SELBST_VORLAGE = """<section>
 
 def bauen(daten, ziel_ordner: Path, klasse: str):
     test = TESTS[daten["test"]]
-    schluessel = test["schluessel"]
     ergebnisse = daten["ergebnisse"]
     selbsteinschaetzung = daten.get("selbsteinschaetzung", {})
+    schluessel_je_nummer = {n: schluessel_fuer_nummer(test, daten, n) for n in ergebnisse}
+    schluessel_struktur = next(iter(schluessel_je_nummer.values())) if schluessel_je_nummer else {}
 
-    block_quoten = {block: [] for block in schluessel}
-    for antworten in ergebnisse.values():
-        auswertung = werte_nummer_aus(antworten, schluessel)
+    block_quoten = {block: [] for block in schluessel_struktur}
+    for nummer, antworten in ergebnisse.items():
+        auswertung = werte_nummer_aus(antworten, schluessel_je_nummer[nummer])
         for block, eintraege in auswertung.items():
             q = block_quote(eintraege)
             if q is not None:
@@ -176,7 +177,7 @@ def bauen(daten, ziel_ordner: Path, klasse: str):
 
     selbst_slide = ""
     if selbsteinschaetzung:
-        counts = kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel)
+        counts = kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel_je_nummer)
         n_sicher_falsch = counts["sicher"]["falsch"]
         n_sicher_gesamt = sum(counts["sicher"].values())
         if n_sicher_gesamt:

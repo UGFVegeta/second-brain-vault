@@ -6,11 +6,11 @@
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#e9e5dc; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-       color:#1c2230; font-size:10pt; line-height:1.38}
+       color:#1c2230; font-size:9.6pt; line-height:1.32}
   .blatt{width:297mm; height:210mm; background:#fff; margin:8mm auto; padding:11mm 11mm 9mm;
          display:flex; flex-direction:column; box-shadow:0 3mm 14mm rgba(0,0,0,.15)}
   header{display:flex; align-items:baseline; gap:5mm; border-bottom:.9mm solid #1c2230;
-         padding-bottom:2.6mm; margin-bottom:4.5mm}
+         padding-bottom:2mm; margin-bottom:3.2mm}
   h1{font-size:18pt; letter-spacing:-.01em; line-height:1}
   header .sub{font-size:9.6pt; color:#6b7280}
   .spalten{display:flex; gap:4.5mm; flex:1; align-items:stretch}
@@ -21,7 +21,7 @@
   .karte.tag h2{color:#2f6f4f}
   .datei{font-size:8.2pt; color:#6b7280; margin-bottom:2.2mm; font-style:italic}
   ul{list-style:none; margin:0}
-  li{margin:0 0 2.4mm; padding-left:4.6mm; position:relative}
+  li{margin:0 0 1.9mm; padding-left:4.6mm; position:relative}
   li::before{content:"–"; position:absolute; left:.6mm; color:#9a9484}
   ul.haken li{padding-left:5.4mm}
   ul.haken li::before{content:""; position:absolute; left:0; top:.85mm;
@@ -41,7 +41,7 @@
 
   <header>
     <h1>Grundlagen-Check – Regieblatt</h1>
-    <div class="sub">Diagnose ohne Note · Klasse 7 in zwei Blöcken, Klasse 10 an einem Stück</div>
+    <div class="sub">Diagnose ohne Note · Klasse 7 in zwei Blöcken, Klasse 10 an einem Stück · ab jetzt immer Version A/B</div>
   </header>
 
   <div class="spalten">
@@ -54,8 +54,8 @@
         <li><b>Nummernliste anlegen</b>, Nummer zu Name. Bleibt bei mir, kommt in keine Datei im Vault</li>
         <li>Klasse 7: Aufgabenblatt Teil 1 und Teil 2, je einer pro Kind</li>
         <li>Klasse 7: Antwortbogen Teil 1 und Teil 2 als getrennte Bögen</li>
-        <li>Klasse 10: Grundlagen 6–9 (komplett) <b>oder</b> Grundlagen 8–9 (kurz, nur Kl. 8/9-Stoff) – Aufgabenblatt und Antwortbogen</li>
-        <li>Lösungen einmal für mich, nicht austeilen</li>
+        <li>Klasse 10: Grundlagen 6–9 <b>oder</b> 8–9 – je Version A/B Aufgabenblatt, gemeinsamer Antwortbogen</li>
+        <li>Lösungen für mich, A und B getrennt, nicht austeilen</li>
         <li>Schmierpapier bereitlegen</li>
       </ul>
       <div class="fuss">Prozent, Terme und Pythagoras kommen im 5–6-Test bewusst nicht vor, das hatte die neue Siebte noch nicht.</div>
@@ -66,8 +66,9 @@
       <h2>Durchführung</h2>
       <div class="datei">Aufgabenblatt + Antwortbogen</div>
       <ul>
+        <li><b>Sitzordnung Schachbrettmuster:</b> Nachbarn bekommen unterschiedliche Version – gegen Abschreiben</li>
         <li>Aufgabenblatt austeilen, Antwortbogen <b>separat</b></li>
-        <li>Oben nur die zugeteilte Nummer eintragen, keinen Namen</li>
+        <li>Oben nur Nummer eintragen, keinen Namen. Version A/B ankreuzen</li>
         <li>Rechenwege ins Heft oder auf Schmierpapier, nicht aufs Blatt</li>
         <li>Nur Endergebnisse in die Kästchen, eins pro Teilaufgabe</li>
         <li>Leer lassen ist erlaubt und selbst schon eine Information</li>
@@ -85,6 +86,7 @@
       <ul>
         <li>Antwortbögen scannen, eine Datei pro Bogen oder ein Sammel-PDF</li>
         <li>Scans in einer Claude-Code-Session zeigen, Ergebnisse werden in die JSON eingetragen</li>
+        <li>Bei A/B-Tests: Version je Nummer ins `"versionen"`-Feld der JSON übernehmen</li>
         <li>Bericht erzeugen:<br><code>python3 .scripts/grundlagen_check_bericht.py ergebnisse.json ordner</code></li>
         <li>Bei Klasse 7 erst, wenn beide Teile drin sind. Ein Zwischenstand geht aber auch, Fehlendes erscheint als „nicht bearbeitet"</li>
       </ul>

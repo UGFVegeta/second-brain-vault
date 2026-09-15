@@ -41,7 +41,7 @@ import sys
 from fractions import Fraction
 from pathlib import Path
 
-from grundlagen_check_schluessel import TESTS
+from grundlagen_check_schluessel import TESTS, schluessel_fuer_nummer
 
 TOLERANZ = 0.006
 
@@ -192,13 +192,15 @@ def aufgabe_status(antworten_aufgabe, teile):
 
 # --- Selbsteinschaetzung vs. Ergebnis ---------------------------------------
 
-def kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel):
+def kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel_je_nummer):
     """counts[konfidenz][status] = Anzahl Aufgaben (ueber alle Nummern), bei
-    denen die Nummer diese Selbsteinschaetzung angekreuzt hat."""
+    denen die Nummer diese Selbsteinschaetzung angekreuzt hat.
+    schluessel_je_nummer: {nummer: schluessel} - bei Tests ohne A/B-Varianten
+    fuer jede Nummer derselbe Schluessel, sonst je nach Version."""
     counts = {k: {"richtig": 0, "falsch": 0, "offen": 0} for k in KONFIDENZ_REIHENFOLGE}
     for nummer, antworten in ergebnisse.items():
         einschaetzung = selbsteinschaetzung.get(nummer, {})
-        for aufgaben in schluessel.values():
+        for aufgaben in schluessel_je_nummer[nummer].values():
             for aufgabe, teile in aufgaben.items():
                 konf = einschaetzung.get(aufgabe)
                 if konf not in counts:
@@ -208,14 +210,14 @@ def kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel):
     return counts
 
 
-def ueberschaetzung_je_nummer(ergebnisse, selbsteinschaetzung, schluessel):
+def ueberschaetzung_je_nummer(ergebnisse, selbsteinschaetzung, schluessel_je_nummer):
     """Anzahl Aufgaben pro Nummer, die als 'sicher' markiert waren, aber falsch
     ausfielen - der konkrete Hinweis fuers Coaching-Gespraech."""
     ergebnis = {}
     for nummer, antworten in ergebnisse.items():
         einschaetzung = selbsteinschaetzung.get(nummer, {})
         treffer = []
-        for aufgaben in schluessel.values():
+        for aufgaben in schluessel_je_nummer[nummer].values():
             for aufgabe, teile in aufgaben.items():
                 if einschaetzung.get(aufgabe) != "sicher":
                     continue
@@ -371,15 +373,18 @@ VORLAGE = """<!DOCTYPE html>
 
 def bauen(daten, ziel_ordner: Path):
     test = TESTS[daten["test"]]
-    schluessel = test["schluessel"]
     ergebnisse = daten["ergebnisse"]
     selbsteinschaetzung = daten.get("selbsteinschaetzung", {})
+    schluessel_je_nummer = {n: schluessel_fuer_nummer(test, daten, n) for n in ergebnisse}
+    # Block-Namen/Struktur sind zwischen A/B-Varianten identisch (nur die
+    # Zahlen unterscheiden sich) - fuer Ueberschriften reicht eine Variante.
+    schluessel_struktur = next(iter(schluessel_je_nummer.values())) if schluessel_je_nummer else {}
 
     # Klassenuebersicht: Quote je Block ueber alle Nummern
-    block_quoten = {block: [] for block in schluessel}
+    block_quoten = {block: [] for block in schluessel_struktur}
     pro_nummer = {}
     for nummer, antworten in ergebnisse.items():
-        auswertung = werte_nummer_aus(antworten, schluessel)
+        auswertung = werte_nummer_aus(antworten, schluessel_je_nummer[nummer])
         pro_nummer[nummer] = auswertung
         for block, eintraege in auswertung.items():
             q = block_quote(eintraege)
@@ -402,8 +407,8 @@ def bauen(daten, ziel_ordner: Path):
     selbstabschnitt = ""
     ueberschaetzt = {}
     if selbsteinschaetzung:
-        counts = kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel)
-        ueberschaetzt = ueberschaetzung_je_nummer(ergebnisse, selbsteinschaetzung, schluessel)
+        counts = kreuztabelle(ergebnisse, selbsteinschaetzung, schluessel_je_nummer)
+        ueberschaetzt = ueberschaetzung_je_nummer(ergebnisse, selbsteinschaetzung, schluessel_je_nummer)
         n_sicher_falsch = counts["sicher"]["falsch"]
         n_sicher_gesamt = sum(counts["sicher"].values())
         selbstabschnitt = (

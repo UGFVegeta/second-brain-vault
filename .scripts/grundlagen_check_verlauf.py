@@ -27,7 +27,7 @@ import json
 import sys
 from pathlib import Path
 
-from grundlagen_check_schluessel import TESTS
+from grundlagen_check_schluessel import TESTS, schluessel_fuer_nummer
 from grundlagen_check_bericht import werte_nummer_aus, block_quote
 
 
@@ -56,7 +56,7 @@ def lade_verlauf(pfad: Path):
 
 def eintragen(ergebnisse_pfad: Path, verlauf_pfad: Path, test_label: str, datum: str):
     daten = json.loads(ergebnisse_pfad.read_text(encoding="utf-8"))
-    schluessel = TESTS[daten["test"]]["schluessel"]
+    test = TESTS[daten["test"]]
     ergebnisse = daten["ergebnisse"]
 
     verlauf = lade_verlauf(verlauf_pfad)
@@ -64,6 +64,7 @@ def eintragen(ergebnisse_pfad: Path, verlauf_pfad: Path, test_label: str, datum:
 
     aktualisiert = 0
     for nummer, antworten in ergebnisse.items():
+        schluessel = schluessel_fuer_nummer(test, daten, nummer)
         auswertung = werte_nummer_aus(antworten, schluessel)
         quote = gesamt_quote(auswertung)
         bloecke = {b: block_quote(e) for b, e in auswertung.items()}

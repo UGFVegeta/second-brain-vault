@@ -26,7 +26,7 @@ Läuft jedes Jahr wieder, deshalb eigener Unterordner: **Klasse 5-6/** und **Kla
 
 Die Klasse-6–9-Version wurde letztes Schuljahr fürs Ende der 9. Klasse gebaut – „hat es über den Sommer gehalten"-Check, an einem Stück, alle vier Blöcke (Brüche/Dezimalzahlen/Größen, Prozent/Zinsen/rationale Zahlen, Terme/Gleichungen/lineare Funktionen, Potenzen/Wurzeln/Pythagoras).
 
-Die Klasse-8–9-Version (September 2026) ist eine bewusst schlankere Variante davon: nur Kl.-8/9-Stoff (Terme/Gleichungen, lineare Funktionen, Potenzen/Wurzeln, Pythagoras, Zinsrechnung), Block A (Kl. 5/6: Brüche/Dezimalzahlen/Größen) und die Prozent-/rationale-Zahlen-Aufgaben aus Block B fallen komplett weg. Auch pro Aufgabe weniger Teilaufgaben (meist 2–3 statt 4–6) – insgesamt 8 Aufgaben, ca. 20 Minuten. Sinnvoll, wenn der volle 6–9-Test zu lang ist oder gezielt nur die neueren Themen geprüft werden sollen. Der Lösungsschlüssel `SCHLUESSEL_8_9` ist eine Teilmenge von `SCHLUESSEL_6_9` (dieselben Aufgabentypen, weniger Teilaufgaben) – bei Änderungen an einem der beiden Tests im Blick behalten, ob der andere auch betroffen ist. Ausgedruckte Fassung liegt auch in iCloud unter `GDRS ICloud/Schuljahr 26 27/Mathematik/Grundlagen-Check/Klasse 8-9 (für die 10, nur Kl. 8-9)/`, das gemeinsame [[Grundlagen-Check – Regieblatt]] verweist auf beide Klasse-10-Varianten.
+Die Klasse-8–9-Version (September 2026) ist eine bewusst schlankere Variante davon: nur Kl.-8/9-Stoff (Terme/Gleichungen, lineare Funktionen, Potenzen/Wurzeln, Pythagoras, Zinsrechnung), Block A (Kl. 5/6: Brüche/Dezimalzahlen/Größen) und die Prozent-/rationale-Zahlen-Aufgaben aus Block B fallen komplett weg. Auch pro Aufgabe weniger Teilaufgaben (meist 2–3 statt 4–6) – insgesamt 8 Aufgaben, ca. 20 Minuten. Sinnvoll, wenn der volle 6–9-Test zu lang ist oder gezielt nur die neueren Themen geprüft werden sollen. Die Lösungsschlüssel `SCHLUESSEL_8_9_A`/`SCHLUESSEL_8_9_B` sind eine Teilmenge von `SCHLUESSEL_6_9` (dieselben Aufgabentypen, weniger Teilaufgaben) – bei Änderungen an einem der Tests im Blick behalten, ob die anderen auch betroffen sind. Läuft von Anfang an als A/B-Test, siehe "Zwei Versionen (A/B) gegen Abschreiben" oben. Ausgedruckte Fassung liegt auch in iCloud unter `GDRS ICloud/Schuljahr 26 27/Mathematik/Grundlagen-Check/Klasse 8-9 (für die 10, nur Kl. 8-9)/`, das gemeinsame [[Grundlagen-Check – Regieblatt]] verweist auf beide Klasse-10-Varianten.
 
 Die Klasse-5–6-Version ist zugeschnitten auf das, was eine neue 7. Klasse aus Klasse 5/6 mitbringen sollte (Prozent, Terme und Pythagoras kommen bewusst nicht vor, das haben sie noch nicht gelernt). Sie läuft bewusst **in zwei Blöcken**, damit es für die neue Klasse nicht zu viel auf einmal wird: Teil 1 deckt Block A und B ab (Grundrechenarten, Brüche), Teil 2 Block C und D (Dezimalzahlen, Größen und Geometrie). Ob dazwischen ein ganzer Tag oder nur eine Pause/Sportstunde liegt, ist egal – Hauptsache derselbe Ablauf, dieselbe Nummer. Beide Teile zusammen ergeben das komplette Bild – die Auswertung fasst sie am Ende zu einer Rückmeldung pro Nummer zusammen, siehe unten.
 
@@ -42,12 +42,22 @@ Das Lesen der Smileys aus dem Scan ist spürbar unsicherer als das Lesen der Ant
 
 Beobachtung aus 7c (September 2026): Bei mehr Zeit wird nach links/rechts geschaut, das verfälscht das Ergebnis – gerade bei einem Diagnosetest kontraproduktiv, der ja das tatsächliche Können zeigen soll.
 
-**Ab dem nächsten Diagnosetest**: zwei Versionen (A und B) mit identischem Aufbau (gleiche Aufgabentypen, gleiche Reihenfolge, gleiche Blöcke), aber anderen Zahlenwerten. Sitzordnung im Schachbrettmuster, sodass jeder Nachbar die andere Version hat. Der Aufwand bleibt klein, weil sich nur die Zahlen ändern, nicht das Konzept – die Aufgabenblätter lassen sich aus derselben Vorlage ableiten.
+**Standard ab September 2026, für alle Klassenstufen und alle künftigen Grundlagen-Checks**: zwei Versionen (A und B) mit identischem Aufbau (gleiche Aufgabentypen, gleiche Reihenfolge, gleiche Blöcke), aber anderen Zahlenwerten. Sitzordnung im Schachbrettmuster, sodass jeder Nachbar die andere Version hat. Der Aufwand bleibt klein, weil sich nur die Zahlen ändern, nicht das Konzept. Zuerst umgesetzt für [[Klasse 8-9/Grundlagen Klasse 8-9 – Version A|Klasse 8-9]] (September 2026); `5-6` und `6-9` bekommen ihre B-Variante beim jeweils nächsten Einsatz, nicht rückwirkend für bereits gelaufene Tests.
 
-Praktische Umsetzung, sobald ein neuer Test gebaut wird:
-- Aufgabenblatt und Antwortbogen bekommen eine kleine, sichtbare Kennung "A" / "B" (unproblematisch für die Anonymität, verrät nur die Version, keine Identität).
-- `.scripts/grundlagen_check_schluessel.py` braucht zwei Lösungsschlüssel-Varianten für den Test (z. B. `SCHLUESSEL_..._A` und `SCHLUESSEL_..._B`).
-- Die Auswertungspipeline (`grundlagen_check_bericht.py`, `grundlagen_check_verlauf.py`) geht bisher von *einem* Schlüssel pro Ergebnisdatei aus (`daten["test"]`) – für A/B muss das um eine Version pro Nummer erweitert werden. Das bauen wir dann, wenn der nächste Test tatsächlich ansteht, nicht auf Vorrat.
+**So ist es gebaut** (Referenz für neue Tests):
+- Aufgabenblatt und Lösungen gibt es als zwei Dateien (`... – Version A.html` / `... – Version B.html`), der **Antwortbogen bleibt eine gemeinsame Datei** – die Kästchen-Struktur ist ja identisch, nur die Zahlen im Aufgabenblatt unterscheiden sich. Der Antwortbogen bekommt zusätzlich ein kleines Versionsfeld ("A" / "B" zum Ankreuzen) neben dem Nummernfeld – unproblematisch für die Anonymität, verrät nur die Version, keine Identität.
+- `.scripts/grundlagen_check_schluessel.py`: pro Test entweder `"schluessel"` (eine Variante, ältere/noch nicht auf A/B umgestellte Tests) oder `"schluessel_varianten": {"A": ..., "B": ...}` (zwei Varianten, gleiche Block-/Aufgaben-Struktur, andere Zahlen). Die Helper-Funktion `schluessel_fuer_nummer(test, daten, nummer)` liefert den richtigen Schlüssel – bei Tests ohne A/B einfach immer denselben.
+- Die Ergebnisdatei bekommt ein optionales `"versionen"`-Feld: `{"07": "A", "12": "B", ...}` – beim Übertragen der Scans einfach ablesen, welches Kästchen auf dem Antwortbogen angekreuzt ist. Fehlt eine Nummer darin (oder das ganze Feld), gilt Version A als Standard.
+- `grundlagen_check_bericht.py`, `_verlauf.py`, `_praesentation.py` und `_schnipsel.py` lösen den Schlüssel jetzt **pro Nummer** auf (`schluessel_fuer_nummer`) statt einmal global – rückwärtskompatibel getestet: bei Tests ohne `"versionen"` ist die Ausgabe byte-identisch zu vorher.
+
+Neues Format der Ergebnisdatei mit A/B (Ergänzung zu unten):
+```json
+{
+  "test": "8-9",
+  "versionen": {"07": "A", "12": "B"},
+  "ergebnisse": { "07": {...}, "12": {...} }
+}
+```
 
 ## Ablauf
 
