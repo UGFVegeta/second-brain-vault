@@ -7,12 +7,14 @@ gelistet (Nummer, Item, Grund) - dort steht in ERGEBNISSE bewusst "" statt
 einer geratenen Zahl, damit das Auswerteskript sie als "nicht bearbeitet"
 zaehlt statt eine Falschlesung als Fehler zu werten.
 
-Teil 1 und Teil 2 hatten nicht exakt dieselben Nummern anwesend: 12, 16, 18
-und 21 fehlen in Teil 2 (zeigen im Bericht "nicht bearbeitet" bei C/D).
-Nummer 1 und 29 fehlen in Teil 1 (zeigen "nicht bearbeitet" bei A/B) - 29
-ist komplett neu, kam in Teil 1 nicht vor. Zwei Teil-2-Bögen hatten statt
+Teil 1 und Teil 2 hatten nicht exakt dieselben Nummern anwesend: 12 fehlt
+in Teil 2 (zeigt im Bericht "nicht bearbeitet" bei C/D). Nummer 1 fehlt in
+Teil 1 (zeigt "nicht bearbeitet" bei A/B). Zwei Teil-2-Bögen hatten statt
 einer Ziffer nur eine schwer lesbare Schleife - vorlaeufig als 8 und 9
-eingetragen (9 existierte schon aus Teil 1), siehe UNSICHER.
+eingetragen (9 existierte schon aus Teil 1), siehe UNSICHER. 16, 18 und 21
+kamen zunaechst in einem anderen Scan nicht vor bzw. wurden falsch gelesen
+(21 zuerst faelschlich als "29" transkribiert) und sind aus einem
+Nachtrags-Scan ergaenzt.
 """
 
 ERGEBNISSE = {
@@ -115,6 +117,14 @@ ERGEBNISSE = {
         "B3": {"a": "2/3", "b": "3/4"},
         "B4": {"reihenfolge": "0,6;3/8;2/5;1/2"},
         "B5": {"ergebnis": ""},
+        "C1": {"a": "19,53", "b": "40"},
+        "C2": {"a": "", "b": "25,00"},
+        "C3": {"a": "4,600", "b": "12,30"},
+        "C4": {"a": "<", "b": "<"},
+        "D1": {"a": "3500", "b": "2,4"},
+        "D2": {"a": "40", "b": ""},
+        "D3": {"a": "60", "b": ""},
+        "D4": {"a": "", "b": ""},
     },
     "24": {
         "A1": {"a": "8292", "b": "1310"},      # b unklar, letzte Ziffer verwischt
@@ -467,17 +477,25 @@ ERGEBNISSE = {
         "D3": {"a": "", "b": ""},               # durchgestrichen, unleserlich
         "D4": {"a": "19", "b": "21"},
     },
-    "29": {
-        # Neue Nummer, kam in Teil 1 nicht vor. Bogen hatte einen (nicht
-        # uebernommenen) Vornamen im Klasse-Feld - siehe README.
-        "C1": {"a": "19,53", "b": "40"},
-        "C2": {"a": "", "b": "25,00"},
+    "16": {
+        "C1": {"a": "20,25", "b": "480"},       # b evtl. "4,80" gemeint
+        "C2": {"a": "0,12", "b": "52"},
         "C3": {"a": "4,600", "b": "12,30"},
-        "C4": {"a": "<", "b": "<"},
-        "D1": {"a": "3500", "b": "2,4"},
-        "D2": {"a": "40", "b": ""},
-        "D3": {"a": "60", "b": ""},
-        "D4": {"a": "", "b": ""},
+        "C4": {"a": ">", "b": "<"},
+        "D1": {"a": "3.500", "b": "2,4"},
+        "D2": {"a": "27", "b": "26"},
+        "D3": {"a": "24", "b": "36"},
+        "D4": {"a": "19,28", "b": "19"},        # a: Korrekturschreibweise, unsicher
+    },
+    "18": {
+        "C1": {"a": "2,025", "b": "4,2"},
+        "C2": {"a": "", "b": "0,25"},
+        "C3": {"a": "5000", "b": "11,60"},
+        "C4": {"a": "<", "b": ">"},
+        "D1": {"a": "35", "b": "24000"},        # so geschrieben, beide Werte unueblich
+        "D2": {"a": "", "b": ""},
+        "D3": {"a": "38", "b": "38"},
+        "D4": {"a": "19", "b": "19"},
     },
 }
 
@@ -511,14 +529,18 @@ UNSICHER = [
     ("11", "C1", "Antwort weicht stark vom erwarteten Wert ab (189,620/5 statt "
      "20,25/0,48) - so auf dem Bogen, keine Lesefehler-Korrektur"),
     ("26", "D1b, D4a", "Ziffer unsicher: evtl. 2,4 statt 9,4 bzw. 19,0 statt 39,0"),
-    ("29", "Klasse-Feld, C2a, D3b, D4", "Klasse-Feld enthielt einen Vornamen "
-     "(nicht übernommen); mehrere Felder durchgestrichen/unleserlich. Neue "
-     "Nummer, kam in Teil 1 nicht vor."),
+    ("21", "C2a, D3b, D4", "mehrere Felder durchgestrichen/unleserlich; "
+     "Nummer wurde zuerst falsch als '29' gelesen (Verwechslung 2/1 mit "
+     "Schleife), von Oskar korrigiert"),
     ("3", "D1a, D3a, D4a", "mehrfach durchgestrichen/übermalt, nicht lesbar"),
     ("6", "C1, C3, D3", "Antworten korrigiert (durchgestrichen + neu geschrieben), "
      "hier steht jeweils die finale Korrektur"),
+    ("16", "C1b, C4, D4a", "b evtl. anders gemeint, C4-Kreise mehrdeutig, "
+     "D4a mehrfach korrigiert"),
+    ("18", "D1", "beide Werte (35/24000) unüblich, evtl. Lesefehler auf dem "
+     "Bogen selbst - vor Verwendung mit Original abgleichen"),
 ]
 
-# In Teil 1 vorhanden, in Teil 2 kein Bogen gefunden (zeigen "nicht bearbeitet"
+# In Teil 1 vorhanden, in Teil 2 kein Bogen gefunden (zeigt "nicht bearbeitet"
 # bei den Bloecken C/D im Bericht):
-FEHLT_IN_TEIL2 = ["12", "16", "18", "21"]
+FEHLT_IN_TEIL2 = ["12"]

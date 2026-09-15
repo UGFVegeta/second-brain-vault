@@ -32,7 +32,9 @@ SELBSTEINSCHAETZUNG = {
            "C1": "ging_so", "C2": "unsicher", "C3": "ging_so", "C4": "sicher",
            "D1": "sicher", "D2": "ging_so", "D3": "ging_so", "D4": "ging_so"},
     "21": {"A1": "sicher", "A2": "sicher", "A3": "", "A4": "ging_so",
-           "B1": "sicher", "B2": "unsicher", "B3": "", "B4": "", "B5": "unsicher"},
+           "B1": "sicher", "B2": "unsicher", "B3": "", "B4": "", "B5": "unsicher",
+           "C1": "sicher", "C2": "sicher", "C3": "sicher", "C4": "sicher",
+           "D1": "sicher", "D2": "ging_so", "D3": "ging_so", "D4": "unsicher"},
     "24": {"A1": "unsicher", "A2": "unsicher", "A3": "sicher", "A4": "sicher",
            "B1": "sicher", "B2": "sicher", "B3": "sicher", "B4": "", "B5": "sicher",
            "C1": "ging_so", "C2": "ging_so", "C3": "sicher", "C4": "sicher",
@@ -105,8 +107,10 @@ SELBSTEINSCHAETZUNG = {
            "D1": "", "D2": "", "D3": "", "D4": ""},
     "8":  {"C1": "sicher", "C2": "sicher", "C3": "sicher", "C4": "sicher",
            "D1": "sicher", "D2": "sicher", "D3": "sicher", "D4": "sicher"},
-    "29": {"C1": "sicher", "C2": "sicher", "C3": "sicher", "C4": "sicher",
-           "D1": "sicher", "D2": "ging_so", "D3": "ging_so", "D4": "unsicher"},
+    "16": {"C1": "ging_so", "C2": "ging_so", "C3": "ging_so", "C4": "",
+           "D1": "ging_so", "D2": "ging_so", "D3": "ging_so", "D4": "ging_so"},
+    "18": {"C1": "ging_so", "C2": "unsicher", "C3": "ging_so", "C4": "",
+           "D1": "", "D2": "unsicher", "D3": "unsicher", "D4": "unsicher"},
 }
 
 SELBSTEINSCHAETZUNG_OHNE_NUMMER = {

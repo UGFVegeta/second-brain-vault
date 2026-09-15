@@ -4,12 +4,12 @@
    {
     "datum": "2026-09-15",
     "test": "Grundlagen 5-6",
-    "gesamt_prozent": 42,
+    "gesamt_prozent": 19,
     "bloecke": {
-     "A · Grundrechenarten und Rechenregeln": 33,
-     "B · Brüche": 50,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "A · Grundrechenarten und Rechenregeln": null,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": 25,
+     "D · Größen und Geometrie": 12
     }
    }
   ],
@@ -69,12 +69,12 @@
    {
     "datum": "2026-09-15",
     "test": "Grundlagen 5-6",
-    "gesamt_prozent": 78,
+    "gesamt_prozent": 55,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 80,
      "B · Brüche": 75,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 29,
+     "D · Größen und Geometrie": 50
     }
    }
   ],
@@ -173,12 +173,12 @@
    {
     "datum": "2026-09-15",
     "test": "Grundlagen 5-6",
-    "gesamt_prozent": 8,
+    "gesamt_prozent": 23,
     "bloecke": {
-     "A · Grundrechenarten und Rechenregeln": 14,
-     "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "A · Grundrechenarten und Rechenregeln": null,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": 29,
+     "D · Größen und Geometrie": 17
     }
    }
   ],
@@ -335,19 +335,6 @@
      "B · Brüche": null,
      "C · Dezimalzahlen": 75,
      "D · Größen und Geometrie": 100
-    }
-   }
-  ],
-  "29": [
-   {
-    "datum": "2026-09-15",
-    "test": "Grundlagen 5-6",
-    "gesamt_prozent": 36,
-    "bloecke": {
-     "A · Grundrechenarten und Rechenregeln": null,
-     "B · Brüche": null,
-     "C · Dezimalzahlen": 29,
-     "D · Größen und Geometrie": 50
     }
    }
   ]
