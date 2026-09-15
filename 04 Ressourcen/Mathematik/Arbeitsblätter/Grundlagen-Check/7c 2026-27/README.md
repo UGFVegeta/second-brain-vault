@@ -24,6 +24,7 @@ Laufende Auswertung für Oskars eigene Klasse 7c, siehe [[../Grundlagen-Check Wo
 - `Rückmeldungen Grundlagen Klasse 5-6.html` – erzeugter Bericht: Klassenübersicht, Diagramm Selbsteinschätzung-gegen-Ergebnis, Karte pro Nummer (mit Warnhinweis bei „sicher gefühlt, aber falsch"). Kopie liegt auch in iCloud unter `GDRS ICloud/Schuljahr 26 27/Mathematik/Mathematik 7c/`.
 - `verlauf.json` – Mehrjahres-Speicher: pro Nummer die Gesamt-Prozentzahl jedes Testlaufs, wächst mit jedem weiteren Diagnosetest im Jahr
 - `Verlauf.html` – aus `verlauf.json` erzeugte Übersicht, ein Diagramm pro Nummer. Bei nur einem Testlauf ein einzelner Punkt statt einer Linie, wächst zur echten Linie ab dem zweiten Test. Grundlage für die Diagnosegespräche im Januar. Kopie auch in iCloud.
+- `Praesentation.html` – Beamer-Ansicht für die ganze Klasse, erzeugt mit `.scripts/grundlagen_check_praesentation.py`: nur Klassen-Gesamtwerte (Balken je Themenblock, Selbsteinschätzung-gegen-Ergebnis groß), keine Nummern-Ebene – bewusst nicht dieselbe Datei wie die Rückmeldungen, weil bei einer Projektion vor der Klasse selbst anonyme Einzelwerte nichts zu suchen haben. Zum Zeigen einfach im Browser öffnen und per Scrollen/Pfeiltaste durch die drei Abschnitte gehen. Kopie auch in iCloud.
 - Originalscan: `~/Library/Mobile Documents/com~apple~CloudDocs/scans/Antwortbogen Grundlage Mathematik Klasse 5 bis 6 Teil - Ergebnisse Klasse 7c.pdf`
 
 ## Genauigkeit

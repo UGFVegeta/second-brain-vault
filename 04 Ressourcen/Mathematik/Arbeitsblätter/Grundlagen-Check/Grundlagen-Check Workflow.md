@@ -94,3 +94,13 @@ python3 .scripts/grundlagen_check_verlauf.py bauen <verlauf.json> <ausgabe-ordne
 Jeder Testlauf liefert pro Nummer nur *eine* Gesamt-Prozentzahl (über alle in diesem Testlauf ausgewerteten Aufgaben), nicht die Themenblöcke einzeln – so bleiben unterschiedliche Testläufe zu unterschiedlichen Themen in derselben Zeitreihe vergleichbar. Bei nur einem Testlauf zeigt die Übersicht einen einzelnen Punkt statt einer Linie, mit dem Hinweis „weitere Punkte folgen mit dem nächsten Test" – eine Linie durch einen einzigen Punkt würde eine Entwicklung vortäuschen, die es noch nicht gibt. Ab dem zweiten Testlauf wird daraus eine echte Linie.
 
 Beispiel für 7c: [[7c 2026-27/README|7c 2026-27]], `verlauf.json` und `Verlauf.html` dort.
+
+## Präsentation vor der ganzen Klasse
+
+Für den Beamer im Klassenzimmer eignet sich der normale Bericht nicht direkt: er ist für den Druck gebaut und zeigt Karten pro Nummer, die vor der ganzen Klasse projiziert die Anonymität der Antwortbögen untergraben würden.
+
+```bash
+python3 .scripts/grundlagen_check_praesentation.py <ergebnisse.json> <ausgabe-ordner> "<Klassenbezeichnung>"
+```
+
+Erzeugt `Praesentation.html`: nur die Klassenebene, großformatig – ein Balken je Themenblock (Ampelfarben) und, falls `selbsteinschaetzung` vorhanden ist, das Diagramm „sicher gefühlt gegen tatsächlich richtig" mit der Kernaussage als Schlagzeile. Drei Abschnitte, im Browser einfach durchscrollen. Beispiel: [[7c 2026-27/README|7c 2026-27]], `Praesentation.html` dort.
