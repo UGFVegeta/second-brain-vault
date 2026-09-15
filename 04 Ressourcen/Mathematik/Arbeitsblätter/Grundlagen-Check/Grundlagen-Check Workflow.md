@@ -14,18 +14,21 @@ Läuft jedes Jahr wieder, deshalb eigener Unterordner: **Klasse 5-6/** und **Kla
 
 **Kein Name kommt in irgendeine Datei, die Claude sieht, und keiner ins Vault.** Die Schüler tragen nur eine zugeteilte Nummer ein, nie ihren Namen. Die Zuordnung Nummer → Name bleibt bei Oskar – auf Papier oder in einer Datei außerhalb dieses Vaults. Ohne diese Zuordnung sind Antwortbögen, Scans und Auswertungen anonym.
 
-## Die beiden Tests
+## Die drei Tests
 
-| | Klasse 7 (neu) | Klasse 10 (weiterführend) |
-|---|---|---|
-| Aufgabenblatt | [[Grundlagen Klasse 5-6 Teil 1]] + [[Grundlagen Klasse 5-6 Teil 2]] | [[Grundlagen Klasse 6-9]] |
-| Lösungen (nur für Oskar) | [[Grundlagen Klasse 5-6 Teil 1 Lösungen]] + [[Grundlagen Klasse 5-6 Teil 2 Lösungen]] | [[Grundlagen Klasse 6-9 Lösungen]] |
-| Antwortbogen | [[Antwortbogen Grundlagen Klasse 5-6 Teil 1]] + [[Antwortbogen Grundlagen Klasse 5-6 Teil 2]] | [[Antwortbogen Grundlagen Klasse 6-9]] |
-| Ablauf | zwei Tage, Teil 1 dann Teil 2 | ein Tag, komplett |
+| | Klasse 7 (neu) | Klasse 10, nur Kl. 8/9-Stoff | Klasse 10, komplett Kl. 6–9 |
+|---|---|---|---|
+| Aufgabenblatt | [[Grundlagen Klasse 5-6 Teil 1]] + [[Grundlagen Klasse 5-6 Teil 2]] | [[Klasse 8-9/Grundlagen Klasse 8-9|Grundlagen Klasse 8-9]] | [[Grundlagen Klasse 6-9]] |
+| Lösungen (nur für Oskar) | [[Grundlagen Klasse 5-6 Teil 1 Lösungen]] + [[Grundlagen Klasse 5-6 Teil 2 Lösungen]] | [[Klasse 8-9/Grundlagen Klasse 8-9 Lösungen|Grundlagen Klasse 8-9 Lösungen]] | [[Grundlagen Klasse 6-9 Lösungen]] |
+| Antwortbogen | [[Antwortbogen Grundlagen Klasse 5-6 Teil 1]] + [[Antwortbogen Grundlagen Klasse 5-6 Teil 2]] | [[Klasse 8-9/Antwortbogen Grundlagen Klasse 8-9|Antwortbogen Grundlagen Klasse 8-9]] | [[Antwortbogen Grundlagen Klasse 6-9]] |
+| Ablauf | zwei Tage, Teil 1 dann Teil 2 | ein Tag, kurz (8 Aufgaben) | ein Tag, komplett |
+| Schlüssel in `grundlagen_check_schluessel.py` | `"5-6"` | `"8-9"` | `"6-9"` |
 
-Die Klasse-6–9-Version wurde letztes Schuljahr fürs Ende der 9. Klasse gebaut – für die jetzige 10. passt sie unverändert als „hat es über den Sommer gehalten"-Check, an einem Stück.
+Die Klasse-6–9-Version wurde letztes Schuljahr fürs Ende der 9. Klasse gebaut – „hat es über den Sommer gehalten"-Check, an einem Stück, alle vier Blöcke (Brüche/Dezimalzahlen/Größen, Prozent/Zinsen/rationale Zahlen, Terme/Gleichungen/lineare Funktionen, Potenzen/Wurzeln/Pythagoras).
 
-Die Klasse-5–6-Version ist neu, zugeschnitten auf das, was eine neue 7. Klasse aus Klasse 5/6 mitbringen sollte (Prozent, Terme und Pythagoras kommen bewusst nicht vor, das haben sie noch nicht gelernt). Sie läuft bewusst **in zwei Blöcken**, damit es für die neue Klasse nicht zu viel auf einmal wird: Teil 1 deckt Block A und B ab (Grundrechenarten, Brüche), Teil 2 Block C und D (Dezimalzahlen, Größen und Geometrie). Ob dazwischen ein ganzer Tag oder nur eine Pause/Sportstunde liegt, ist egal – Hauptsache derselbe Ablauf, dieselbe Nummer. Beide Teile zusammen ergeben das komplette Bild – die Auswertung fasst sie am Ende zu einer Rückmeldung pro Nummer zusammen, siehe unten.
+Die Klasse-8–9-Version (September 2026) ist eine bewusst schlankere Variante davon: nur Kl.-8/9-Stoff (Terme/Gleichungen, lineare Funktionen, Potenzen/Wurzeln, Pythagoras, Zinsrechnung), Block A (Kl. 5/6: Brüche/Dezimalzahlen/Größen) und die Prozent-/rationale-Zahlen-Aufgaben aus Block B fallen komplett weg. Auch pro Aufgabe weniger Teilaufgaben (meist 2–3 statt 4–6) – insgesamt 8 Aufgaben, ca. 20 Minuten. Sinnvoll, wenn der volle 6–9-Test zu lang ist oder gezielt nur die neueren Themen geprüft werden sollen. Der Lösungsschlüssel `SCHLUESSEL_8_9` ist eine Teilmenge von `SCHLUESSEL_6_9` (dieselben Aufgabentypen, weniger Teilaufgaben) – bei Änderungen an einem der beiden Tests im Blick behalten, ob der andere auch betroffen ist. Ausgedruckte Fassung liegt auch in iCloud unter `GDRS ICloud/Schuljahr 26 27/Mathematik/Grundlagen-Check/Klasse 8-9 (für die 10, nur Kl. 8-9)/`, das gemeinsame [[Grundlagen-Check – Regieblatt]] verweist auf beide Klasse-10-Varianten.
+
+Die Klasse-5–6-Version ist zugeschnitten auf das, was eine neue 7. Klasse aus Klasse 5/6 mitbringen sollte (Prozent, Terme und Pythagoras kommen bewusst nicht vor, das haben sie noch nicht gelernt). Sie läuft bewusst **in zwei Blöcken**, damit es für die neue Klasse nicht zu viel auf einmal wird: Teil 1 deckt Block A und B ab (Grundrechenarten, Brüche), Teil 2 Block C und D (Dezimalzahlen, Größen und Geometrie). Ob dazwischen ein ganzer Tag oder nur eine Pause/Sportstunde liegt, ist egal – Hauptsache derselbe Ablauf, dieselbe Nummer. Beide Teile zusammen ergeben das komplette Bild – die Auswertung fasst sie am Ende zu einer Rückmeldung pro Nummer zusammen, siehe unten.
 
 ## Selbsteinschätzung auf dem Antwortbogen
 
@@ -34,6 +37,17 @@ Rechts bei jeder Aufgabe kreuzen und malen die Schüler zusätzlich einen von dr
 Seit der Auswertung für 7c fließt das mit ein: die Ergebnisdatei bekommt ein optionales `selbsteinschaetzung`-Feld (Format unten), der Bericht zeigt dann zusätzlich ein Diagramm – wie oft „sicher gefühlt" auch wirklich richtig war – und bei jeder Nummer einen Warnhinweis, welche Aufgaben sicher gefühlt, aber falsch waren. Genau diese Fälle sind oft die aufschlussreichsten fürs Coaching-Gespräch: nicht wissen, dass man es nicht weiß.
 
 Das Lesen der Smileys aus dem Scan ist spürbar unsicherer als das Lesen der Antworten selbst (viele Kinder markieren zwei Smileys überlappend) – vor einer wichtigen Verwendung gegen die Originalbögen prüfen. Ohne `selbsteinschaetzung`-Feld läuft der Bericht wie bisher, ganz ohne diesen Abschnitt.
+
+## Zwei Versionen (A/B) gegen Abschreiben
+
+Beobachtung aus 7c (September 2026): Bei mehr Zeit wird nach links/rechts geschaut, das verfälscht das Ergebnis – gerade bei einem Diagnosetest kontraproduktiv, der ja das tatsächliche Können zeigen soll.
+
+**Ab dem nächsten Diagnosetest**: zwei Versionen (A und B) mit identischem Aufbau (gleiche Aufgabentypen, gleiche Reihenfolge, gleiche Blöcke), aber anderen Zahlenwerten. Sitzordnung im Schachbrettmuster, sodass jeder Nachbar die andere Version hat. Der Aufwand bleibt klein, weil sich nur die Zahlen ändern, nicht das Konzept – die Aufgabenblätter lassen sich aus derselben Vorlage ableiten.
+
+Praktische Umsetzung, sobald ein neuer Test gebaut wird:
+- Aufgabenblatt und Antwortbogen bekommen eine kleine, sichtbare Kennung "A" / "B" (unproblematisch für die Anonymität, verrät nur die Version, keine Identität).
+- `.scripts/grundlagen_check_schluessel.py` braucht zwei Lösungsschlüssel-Varianten für den Test (z. B. `SCHLUESSEL_..._A` und `SCHLUESSEL_..._B`).
+- Die Auswertungspipeline (`grundlagen_check_bericht.py`, `grundlagen_check_verlauf.py`) geht bisher von *einem* Schlüssel pro Ergebnisdatei aus (`daten["test"]`) – für A/B muss das um eine Version pro Nummer erweitert werden. Das bauen wir dann, wenn der nächste Test tatsächlich ansteht, nicht auf Vorrat.
 
 ## Ablauf
 
@@ -65,7 +79,7 @@ Das Lesen der Smileys aus dem Scan ist spürbar unsicherer als das Lesen der Ant
   }
 }
 ```
-`test` ist `"5-6"` oder `"6-9"`. Die Aufgaben- und Teilaufgaben-Schlüssel (z. B. `"A1"` → `"a"`) müssen zum jeweiligen Lösungsschlüssel in `.scripts/grundlagen_check_schluessel.py` passen. `selbsteinschaetzung` ist optional und pro Aufgabe (nicht pro Teilaufgabe), Werte `sicher` / `ging_so` / `unsicher`. Ein Beispiel mit erfundenen Nummern liegt in [[Klasse 5-6/Grundlagen-Check Beispiel/beispiel_ergebnisse_5-6.json|beispiel_ergebnisse_5-6.json]], die dazugehörige erzeugte Auswertung in [[Klasse 5-6/Grundlagen-Check Beispiel/Rückmeldungen Grundlagen Klasse 5-6.html|Rückmeldungen Grundlagen Klasse 5-6.html]]. Ein echter Lauf mit Selbsteinschätzung liegt in [[7c 2026-27/README|7c 2026-27]].
+`test` ist `"5-6"`, `"8-9"` oder `"6-9"`. Die Aufgaben- und Teilaufgaben-Schlüssel (z. B. `"A1"` → `"a"`) müssen zum jeweiligen Lösungsschlüssel in `.scripts/grundlagen_check_schluessel.py` passen. `selbsteinschaetzung` ist optional und pro Aufgabe (nicht pro Teilaufgabe), Werte `sicher` / `ging_so` / `unsicher`. Ein Beispiel mit erfundenen Nummern liegt in [[Klasse 5-6/Grundlagen-Check Beispiel/beispiel_ergebnisse_5-6.json|beispiel_ergebnisse_5-6.json]], die dazugehörige erzeugte Auswertung in [[Klasse 5-6/Grundlagen-Check Beispiel/Rückmeldungen Grundlagen Klasse 5-6.html|Rückmeldungen Grundlagen Klasse 5-6.html]]. Ein echter Lauf mit Selbsteinschätzung liegt in [[7c 2026-27/README|7c 2026-27]].
 
 ## Grenzen der automatischen Prüfung
 

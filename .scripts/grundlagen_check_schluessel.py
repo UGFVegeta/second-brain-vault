@@ -76,9 +76,35 @@ SCHLUESSEL_6_9 = {
     },
 }
 
+# --- Grundlagen Klasse 8-9 (10. Klasse, nur Kl. 8/9-Stoff) ------------------
+# Schlankere Variante von SCHLUESSEL_6_9: laesst Block A (Kl. 5/6) und die
+# Prozent-/rationale-Zahlen-Aufgaben aus Block B weg, behaelt nur Terme/
+# Gleichungen/lineare Funktionen (Kl. 8) und Potenzen/Wurzeln/Pythagoras/
+# Zinsrechnung (Kl. 8-9), jeweils mit weniger Teilaufgaben pro Aufgabe.
+
+SCHLUESSEL_8_9 = {
+    "A · Terme und Gleichungen": {
+        "A1": {"a": "2x+7y", "b": "6a-22"},
+        "A2": {"a": "3(2x+3)", "b": "4a(a-3)"},
+        "A3": {"a": 8, "b": 7},
+    },
+    "B · Lineare Funktionen": {
+        "B1": {"m": -2, "b": 3, "liegt": "ja", "nullstelle": 1.5},
+    },
+    "C · Potenzen und Wurzeln": {
+        "C1": {"a": 81, "b": 256, "c": 100},
+        "C2": {"a": 12, "b": 0.5, "c": ("5√2", "7,07")},
+    },
+    "D · Pythagoras und Zinsrechnung": {
+        "D1": {"a": 10, "b": 12, "c": ("5√2", "7,07")},
+        "D2": {"ergebnis": 60},
+    },
+}
+
 TESTS = {
     "5-6": {"name": "Grundlagen Klasse 5-6", "schluessel": SCHLUESSEL_5_6},
     "6-9": {"name": "Grundlagen Klasse 6-9", "schluessel": SCHLUESSEL_6_9},
+    "8-9": {"name": "Grundlagen Klasse 8-9", "schluessel": SCHLUESSEL_8_9},
 }
 
 
