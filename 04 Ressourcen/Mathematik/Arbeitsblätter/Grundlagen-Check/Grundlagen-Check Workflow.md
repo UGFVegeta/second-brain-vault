@@ -104,3 +104,19 @@ python3 .scripts/grundlagen_check_praesentation.py <ergebnisse.json> <ausgabe-or
 ```
 
 Erzeugt `Praesentation.html`: nur die Klassenebene, großformatig – ein Balken je Themenblock (Ampelfarben) und, falls `selbsteinschaetzung` vorhanden ist, das Diagramm „sicher gefühlt gegen tatsächlich richtig" mit der Kernaussage als Schlagzeile. Drei Abschnitte, im Browser einfach durchscrollen. Beispiel: [[7c 2026-27/README|7c 2026-27]], `Praesentation.html` dort.
+
+## Ergebnis-Schnipsel zum Austeilen
+
+Für die einzelnen Schüler (nicht die Klasse als Ganzes) eignet sich ein Zettel pro Nummer zum Ausschneiden:
+
+```bash
+python3 .scripts/grundlagen_check_schnipsel.py <ergebnisse.json> <ausgabe-ordner>
+```
+
+Erzeugt eine HTML-Seite mit 2 Spalten x 5 Zeilen pro A4-Seite (10 Zettel), gepunkteten Schnittlinien – einmal senkrecht, viermal waagrecht schneiden. Jeder Zettel zeigt Gesamtergebnis, die vier Themenblöcke und, falls vorhanden, den Selbsteinschätzung-Vergleich („Sicher gefühlt, aber falsch: X von Y"). Für den Druck als PDF exportieren:
+
+```bash
+google-chrome --headless=new --disable-gpu --print-to-pdf="Schnipsel.pdf" --no-pdf-header-footer "file:///pfad/zur/Schnipsel-Seite.html"
+```
+
+Beispiel: [[7c 2026-27/README|7c 2026-27]], `Schnipsel Grundlagen Klasse 5-6.pdf` dort.
