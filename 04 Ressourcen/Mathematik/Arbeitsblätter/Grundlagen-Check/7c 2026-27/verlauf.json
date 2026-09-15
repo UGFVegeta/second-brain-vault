@@ -2,8 +2,8 @@
  "verlauf": {
   "16": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
     "gesamt_prozent": 42,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 33,
@@ -15,60 +15,60 @@
   ],
   "26": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 50,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 54,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 83,
      "B · Brüche": 17,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 71,
+     "D · Größen und Geometrie": 40
     }
    }
   ],
   "9": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 0,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 32,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 0,
      "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 38,
+     "D · Größen und Geometrie": 100
     }
    }
   ],
   "15": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 29,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 50,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 29,
      "B · Brüche": null,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 60,
+     "D · Größen und Geometrie": 100
     }
    }
   ],
   "13": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 55,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 48,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 67,
      "B · Brüche": 40,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 50,
+     "D · Größen und Geometrie": 38
     }
    }
   ],
   "21": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
     "gesamt_prozent": 78,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 80,
@@ -80,99 +80,99 @@
   ],
   "24": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 50,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 58,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 40,
      "B · Brüche": 60,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 57,
+     "D · Größen und Geometrie": 71
     }
    }
   ],
   "7": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 64,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 57,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 75,
      "B · Brüche": 50,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 38,
+     "D · Größen und Geometrie": 62
     }
    }
   ],
   "10": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 33,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 55,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 38,
      "B · Brüche": 29,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 86,
+     "D · Größen und Geometrie": 71
     }
    }
   ],
   "19": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 36,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 52,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 40,
      "B · Brüche": 33,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 50,
+     "D · Größen und Geometrie": 75
     }
    }
   ],
   "6": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 40,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 35,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 50,
      "B · Brüche": 29,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 25,
+     "D · Größen und Geometrie": 38
     }
    }
   ],
   "2": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 100,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 54,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 100,
      "B · Brüche": null,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 33,
+     "D · Größen und Geometrie": 33
     }
    }
   ],
   "17": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 25,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 48,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 50,
      "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 83,
+     "D · Größen und Geometrie": 60
     }
    }
   ],
   "18": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
     "gesamt_prozent": 8,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 14,
@@ -184,112 +184,112 @@
   ],
   "14": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 44,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 39,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 57,
      "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 20,
+     "D · Größen und Geometrie": 50
     }
    }
   ],
   "5": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 50,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 41,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 50,
      "B · Brüche": null,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 50,
+     "D · Größen und Geometrie": 20
     }
    }
   ],
   "25": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 20,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 32,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 25,
      "B · Brüche": 14,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 50,
+     "D · Größen und Geometrie": 38
     }
    }
   ],
   "11": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 15,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 8,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 29,
      "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 0,
+     "D · Größen und Geometrie": 0
     }
    }
   ],
   "23": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 50,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 42,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 67,
      "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
+     "C · Dezimalzahlen": 25,
      "D · Größen und Geometrie": null
     }
    }
   ],
   "4": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 25,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 44,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 38,
      "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 50,
+     "D · Größen und Geometrie": 80
     }
    }
   ],
   "20": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 50,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 58,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 62,
      "B · Brüche": 0,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 71,
+     "D · Größen und Geometrie": 57
     }
    }
   ],
   "22": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 46,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 48,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 50,
      "B · Brüche": 40,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 57,
+     "D · Größen und Geometrie": 43
     }
    }
   ],
   "12": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
     "gesamt_prozent": 21,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 25,
@@ -301,14 +301,53 @@
   ],
   "3": [
    {
-    "datum": "2026-09-14",
-    "test": "Grundlagen 5-6 Teil 1",
-    "gesamt_prozent": 38,
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 46,
     "bloecke": {
      "A · Grundrechenarten und Rechenregeln": 50,
      "B · Brüche": 20,
-     "C · Dezimalzahlen": null,
-     "D · Größen und Geometrie": null
+     "C · Dezimalzahlen": 62,
+     "D · Größen und Geometrie": 40
+    }
+   }
+  ],
+  "1": [
+   {
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 62,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": null,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": 43,
+     "D · Größen und Geometrie": 83
+    }
+   }
+  ],
+  "8": [
+   {
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 86,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": null,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": 75,
+     "D · Größen und Geometrie": 100
+    }
+   }
+  ],
+  "29": [
+   {
+    "datum": "2026-09-15",
+    "test": "Grundlagen 5-6",
+    "gesamt_prozent": 36,
+    "bloecke": {
+     "A · Grundrechenarten und Rechenregeln": null,
+     "B · Brüche": null,
+     "C · Dezimalzahlen": 29,
+     "D · Größen und Geometrie": 50
     }
    }
   ]

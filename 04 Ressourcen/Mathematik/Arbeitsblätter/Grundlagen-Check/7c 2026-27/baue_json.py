@@ -9,7 +9,7 @@ daten = {
     "ergebnisse": ERGEBNISSE,
     "selbsteinschaetzung": SELBSTEINSCHAETZUNG,
 }
-with open("ergebnisse_7c_teil1.json", "w", encoding="utf-8") as f:
+with open("ergebnisse_7c_komplett.json", "w", encoding="utf-8") as f:
     json.dump(daten, f, ensure_ascii=False, indent=1)
 
 print(f"{len(ERGEBNISSE)} Schueler geschrieben.")
