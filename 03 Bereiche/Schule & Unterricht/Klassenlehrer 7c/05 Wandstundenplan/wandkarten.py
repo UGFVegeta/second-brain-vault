@@ -132,6 +132,27 @@ SYMBOLE = {
       </g>
       <circle cx="50" cy="50" r="12" {BG}/>''',
 
+    "tasche": f'''
+      <path d="M14 32 L86 32 L80 90 C79.6 93.5,77 95,73.5 95 L26.5 95
+               C23 95,20.4 93.5,20 90 Z" {FG}/>
+      <path d="M34 34 L34 23 C34 13,41 5,50 5 C59 5,66 13,66 23 L66 34"
+            {SFG} stroke-width="8" fill="none" stroke-linecap="round"/>
+      <circle cx="50" cy="62" r="13" {BG}/>
+      <path d="M50 49 C50 44,54 41,58 41 C58 46,54 49,50 49 Z" {BG}/>''',
+
+    "teller": f'''
+      <circle cx="50" cy="52" r="33" {FG}/>
+      <circle cx="50" cy="52" r="21" {BG}/>
+      <rect x="6" y="18" width="7" height="68" rx="3.5" {FG}/>
+      <path d="M87 18 C93 24,93 34,87 40 L87 86" {SFG} stroke-width="7"
+            fill="none" stroke-linecap="round" stroke-linejoin="round"/>''',
+
+    "haushalt": f'''
+      <path d="M50 8 L95 46 L84 46 L84 92 L16 92 L16 46 L5 46 Z" {FG}/>
+      <path d="M50 82 C50 82,30 70,30 59 C30 52,35 48,41 48
+               C45 48,48 50,50 53 C52 50,55 48,59 48 C65 48,70 52,70 59
+               C70 70,50 82,50 82 Z" {BG}/>''',
+
     "kreuz": f'''
       <rect x="41" y="8" width="18" height="84" rx="4" {FG}/>
       <rect x="16" y="32" width="68" height="18" rx="4" {FG}/>''',
@@ -194,7 +215,6 @@ FACHKARTEN = [
     dict(name="WBS", bg="#0E9C94", sym="diagramm", gross=35, anzahl=2),
     dict(name="Musik", bg="#7CB342", sym="noten", gross=35, anzahl=1),
     dict(name="Informatik", bg="#6B7280", sym="monitor", gross=30, anzahl=2),
-    dict(name="IF7 ME", bg="#6B7280", sym="monitor", gross=35, anzahl=2),
     dict(name="Kunst", bg="#A8329E", sym="palette", gross=35, anzahl=2),
     dict(name="Sport", bg="#E2691B", sym="ball", gross=35, anzahl=1),
     dict(name="Klassen-|lehrerstunde", bg="#2E3A4E", sym="personen", gross=24,
@@ -203,8 +223,12 @@ FACHKARTEN = [
 
 GETEILTE_KARTEN = [
     dict(anzahl=3,
-         links=dict(name="AES", bg="#E8629F", sym="topf", gross=25),
+         links=dict(name="AES", bg="#E8629F", sym="tasche", gross=25),
          rechts=dict(name="Technik", bg="#B02E72", sym="zahnrad", gross=25)),
+    dict(anzahl=2,
+         links=dict(name="Mathe", bg="#1B63A8", sym="geodreieck", gross=22),
+         rechts=dict(name="Englisch", bg="#F0C000", sym="sprechblase",
+                     gross=22)),
     dict(anzahl=2,
          links=dict(name="Religion", bg="#7B4FA8", sym="kreuz", gross=26,
                     breite=55),
