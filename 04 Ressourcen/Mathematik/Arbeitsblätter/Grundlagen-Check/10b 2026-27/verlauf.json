@@ -1,0 +1,355 @@
+{
+ "verlauf": {
+  "1": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 100,
+    "bloecke": {
+     "A · Terme und Gleichungen": 100,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": null,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "2": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 88,
+    "bloecke": {
+     "A · Terme und Gleichungen": 75,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 100,
+     "D · Pythagoras und Wahrscheinlichkeit": 50
+    }
+   }
+  ],
+  "3": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 42,
+    "bloecke": {
+     "A · Terme und Gleichungen": 0,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 83,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "4": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 71,
+    "bloecke": {
+     "A · Terme und Gleichungen": 67,
+     "B · Lineare Funktionen": 33,
+     "C · Potenzen und Wurzeln": 100,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "5": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 60,
+    "bloecke": {
+     "A · Terme und Gleichungen": 50,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 50,
+     "D · Pythagoras und Wahrscheinlichkeit": 100
+    }
+   }
+  ],
+  "6": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 25,
+    "bloecke": {
+     "A · Terme und Gleichungen": 33,
+     "B · Lineare Funktionen": 0,
+     "C · Potenzen und Wurzeln": null,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "7": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 85,
+    "bloecke": {
+     "A · Terme und Gleichungen": 83,
+     "B · Lineare Funktionen": 75,
+     "C · Potenzen und Wurzeln": 100,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "8": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 89,
+    "bloecke": {
+     "A · Terme und Gleichungen": 100,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 80,
+     "D · Pythagoras und Wahrscheinlichkeit": 80
+    }
+   }
+  ],
+  "9": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Terme und Gleichungen": 20,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 83,
+     "D · Pythagoras und Wahrscheinlichkeit": 40
+    }
+   }
+  ],
+  "10": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Terme und Gleichungen": 0,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 75,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "11": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 84,
+    "bloecke": {
+     "A · Terme und Gleichungen": 67,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 100,
+     "D · Pythagoras und Wahrscheinlichkeit": 75
+    }
+   }
+  ],
+  "12": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 36,
+    "bloecke": {
+     "A · Terme und Gleichungen": 40,
+     "B · Lineare Funktionen": 0,
+     "C · Potenzen und Wurzeln": 50,
+     "D · Pythagoras und Wahrscheinlichkeit": 33
+    }
+   }
+  ],
+  "13": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 62,
+    "bloecke": {
+     "A · Terme und Gleichungen": 75,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 100,
+     "D · Pythagoras und Wahrscheinlichkeit": 0
+    }
+   }
+  ],
+  "14": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 75,
+    "bloecke": {
+     "A · Terme und Gleichungen": 83,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 50,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "16": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Terme und Gleichungen": 50,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 67,
+     "D · Pythagoras und Wahrscheinlichkeit": 0
+    }
+   }
+  ],
+  "17": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 25,
+    "bloecke": {
+     "A · Terme und Gleichungen": 100,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 0,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "18": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 72,
+    "bloecke": {
+     "A · Terme und Gleichungen": 67,
+     "B · Lineare Funktionen": 0,
+     "C · Potenzen und Wurzeln": 67,
+     "D · Pythagoras und Wahrscheinlichkeit": 100
+    }
+   }
+  ],
+  "19": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 60,
+    "bloecke": {
+     "A · Terme und Gleichungen": 67,
+     "B · Lineare Funktionen": 50,
+     "C · Potenzen und Wurzeln": 80,
+     "D · Pythagoras und Wahrscheinlichkeit": 40
+    }
+   }
+  ],
+  "20": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 55,
+    "bloecke": {
+     "A · Terme und Gleichungen": 83,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 33,
+     "D · Pythagoras und Wahrscheinlichkeit": 0
+    }
+   }
+  ],
+  "21": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 62,
+    "bloecke": {
+     "A · Terme und Gleichungen": 100,
+     "B · Lineare Funktionen": 75,
+     "C · Potenzen und Wurzeln": 50,
+     "D · Pythagoras und Wahrscheinlichkeit": 20
+    }
+   }
+  ],
+  "22": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 86,
+    "bloecke": {
+     "A · Terme und Gleichungen": 83,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 75,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "23": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 100,
+    "bloecke": {
+     "A · Terme und Gleichungen": 100,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": null,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ],
+  "24": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 55,
+    "bloecke": {
+     "A · Terme und Gleichungen": 75,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": 33,
+     "D · Pythagoras und Wahrscheinlichkeit": 100
+    }
+   }
+  ],
+  "25": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 60,
+    "bloecke": {
+     "A · Terme und Gleichungen": 100,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 50,
+     "D · Pythagoras und Wahrscheinlichkeit": 0
+    }
+   }
+  ],
+  "26": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 69,
+    "bloecke": {
+     "A · Terme und Gleichungen": 83,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 100,
+     "D · Pythagoras und Wahrscheinlichkeit": 0
+    }
+   }
+  ],
+  "27": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 50,
+    "bloecke": {
+     "A · Terme und Gleichungen": 33,
+     "B · Lineare Funktionen": 100,
+     "C · Potenzen und Wurzeln": 50,
+     "D · Pythagoras und Wahrscheinlichkeit": 0
+    }
+   }
+  ],
+  "28": [
+   {
+    "datum": "2026-09-16",
+    "test": "Grundlagen 8-9",
+    "gesamt_prozent": 33,
+    "bloecke": {
+     "A · Terme und Gleichungen": 33,
+     "B · Lineare Funktionen": null,
+     "C · Potenzen und Wurzeln": null,
+     "D · Pythagoras und Wahrscheinlichkeit": null
+    }
+   }
+  ]
+ }
+}

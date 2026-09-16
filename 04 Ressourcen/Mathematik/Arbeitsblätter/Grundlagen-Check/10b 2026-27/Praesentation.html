@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grundlagen-Check – Klasse</title>
+<style>
+  html { scroll-snap-type: y mandatory; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color:#111; margin:0; background:#fcfcfb; }
+  section {
+    min-height: 100vh; box-sizing: border-box; scroll-snap-align: start;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6vh 6vw; border-bottom: 1px solid #e1e0d9;
+  }
+  h1 { font-size: 3em; margin: 0 0 0.2em; }
+  h2 { font-size: 1.4em; margin: 0 0 1.2em; color:#52514e; font-weight: 500; }
+  .fund { font-size: 1.7em; font-weight: 700; margin: 0.8em 0 0.3em; }
+  .fund .zahl { color: #d03b3b; }
+  .erklaerung { font-size: 1.15em; color:#333; max-width: 60ch; line-height:1.5; }
+  .legende { display:flex; gap:2em; margin-top:2em; font-size:1em; color:#333; flex-wrap:wrap; }
+  .legende span { display:inline-flex; align-items:center; gap:0.5em; }
+  .swatch { width:16px; height:16px; border-radius:4px; display:inline-block; }
+  .hinweis { font-size:0.9em; color:#898781; margin-top:2em; }
+  footer.seite { position: fixed; bottom: 1.2vh; right: 1.5vw; font-size:0.8em; color:#c3c2b7; }
+</style></head><body>
+
+<section>
+  <h1>Grundlagen-Check &ndash; Grundlagen Klasse 8-9</h1>
+  <h2>Rückmeldung ohne Note &middot; 10b</h2>
+  <p class="erklaerung">Was ihr aus Klasse 5 und 6 sicher könnt &ndash; und wo wir im Unterricht noch üben.</p>
+</section>
+
+<section>
+  <h1>Ergebnis je Themenblock</h1>
+  <h2>Über die ganze Klasse gemittelt</h2>
+  <svg viewBox="0 0 1000 278" width="100%" style="max-width:1000px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ergebnis je Themenblock"><text x="0" y="36" font-size="19" fill="#111">D · Pythagoras und Wahrscheinlichkeit</text><rect x="400" y="6" width="510" height="46" rx="6" fill="#e1e0d9"/><rect x="400" y="6" width="203.5" height="46" rx="6" fill="#d03b3b"/><text x="924" y="37" font-size="22" font-weight="700" fill="#111">40&#160;%</text><text x="0" y="104" font-size="19" fill="#111">A · Terme und Gleichungen</text><rect x="400" y="74" width="510" height="46" rx="6" fill="#e1e0d9"/><rect x="400" y="74" width="334.0" height="46" rx="6" fill="#fab219"/><text x="924" y="105" font-size="22" font-weight="700" fill="#111">65&#160;%</text><text x="0" y="172" font-size="19" fill="#111">C · Potenzen und Wurzeln</text><rect x="400" y="142" width="510" height="46" rx="6" fill="#e1e0d9"/><rect x="400" y="142" width="349.6" height="46" rx="6" fill="#fab219"/><text x="924" y="173" font-size="22" font-weight="700" fill="#111">69&#160;%</text><text x="0" y="240" font-size="19" fill="#111">B · Lineare Funktionen</text><rect x="400" y="210" width="510" height="46" rx="6" fill="#e1e0d9"/><rect x="400" y="210" width="351.3" height="46" rx="6" fill="#fab219"/><text x="924" y="241" font-size="22" font-weight="700" fill="#111">69&#160;%</text></svg>
+  <div class="legende">
+    <span><span class="swatch" style="background:#0ca30c"></span>sicher</span>
+    <span><span class="swatch" style="background:#fab219"></span>größtenteils sicher</span>
+    <span><span class="swatch" style="background:#ec835a"></span>noch unsicher</span>
+    <span><span class="swatch" style="background:#d03b3b"></span>braucht Übung</span>
+  </div>
+</section>
+
+<section>
+  <h1>Wie sicher habt ihr euch gefühlt?</h1>
+  <h2>Smiley-Einschätzung je Aufgabe gegen das tatsächliche Ergebnis</h2>
+  <svg viewBox="0 0 700 340" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Selbsteinschätzung gegen tatsächliches Ergebnis"><rect x="6.0" y="137.9" width="64" height="138.6" rx="0" fill="#0ca30c"><title>War ich mir sicher: richtig (26 von 49, 53%)</title></rect><text x="38" y="211" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">53%</text><rect x="6.0" y="24.8" width="64" height="111.6" rx="0" fill="#d03b3b"><title>War ich mir sicher: falsch (21 von 49, 43%)</title></rect><text x="38" y="85" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">43%</text><rect x="6.0" y="14.0" width="64" height="9.3" rx="0" fill="#9a9992"><title>War ich mir sicher: offen (2 von 49, 4%)</title></rect><text x="38" y="292" text-anchor="middle" font-size="9.5" fill="#333">War ich mir sicher</text><text x="38" y="304" text-anchor="middle" font-size="8.5" fill="#888">n=49</text><rect x="318.0" y="213.8" width="64" height="62.7" rx="0" fill="#0ca30c"><title>Ging so: richtig (9 von 37, 24%)</title></rect><text x="350" y="249" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">24%</text><rect x="318.0" y="49.7" width="64" height="162.6" rx="0" fill="#d03b3b"><title>Ging so: falsch (23 von 37, 62%)</title></rect><text x="350" y="135" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">62%</text><rect x="318.0" y="14.0" width="64" height="34.2" rx="0" fill="#9a9992"><title>Ging so: offen (5 von 37, 14%)</title></rect><text x="350" y="35" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">14%</text><text x="350" y="292" text-anchor="middle" font-size="9.5" fill="#333">Ging so</text><text x="350" y="304" text-anchor="middle" font-size="8.5" fill="#888">n=37</text><rect x="630.0" y="240.3" width="64" height="36.2" rx="0" fill="#0ca30c"><title>War ich unsicher: richtig (2 von 14, 14%)</title></rect><text x="662" y="263" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">14%</text><rect x="630.0" y="183.7" width="64" height="55.1" rx="0" fill="#d03b3b"><title>War ich unsicher: falsch (3 von 14, 21%)</title></rect><text x="662" y="216" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">21%</text><rect x="630.0" y="14.0" width="64" height="168.2" rx="0" fill="#9a9992"><title>War ich unsicher: offen (9 von 14, 64%)</title></rect><text x="662" y="102" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">64%</text><text x="662" y="292" text-anchor="middle" font-size="9.5" fill="#333">War ich unsicher</text><text x="662" y="304" text-anchor="middle" font-size="8.5" fill="#888">n=14</text><g font-size="9" fill="#333"><rect x="6" y="325" width="9" height="9" rx="2" fill="#0ca30c"/><text x="19" y="333">richtig</text><rect x="76" y="325" width="9" height="9" rx="2" fill="#d03b3b"/><text x="89" y="333">falsch</text><rect x="146" y="325" width="9" height="9" rx="2" fill="#9a9992"/><text x="159" y="333">nicht bearbeitet</text></g></svg>
+  <p class="fund">Bei &bdquo;war ich mir sicher&ldquo; lag die Klasse trotzdem in
+    <span class="zahl">43&#160;%</span> der Fälle daneben.</p>
+  <p class="erklaerung">Das ist völlig normal &ndash; und die wichtigste Erkenntnis aus dem ganzen Test:
+    Nicht wissen, dass man etwas nicht weiß, ist der Moment, an dem man am wenigsten übt. Deshalb lohnt sich
+    ein zweiter Blick genau bei den Aufgaben, bei denen ihr euch sicher gefühlt habt.</p>
+</section>
+
+
+<footer class="seite">nur Klassen-Gesamtwerte, keine Namen oder Nummern</footer>
+</body></html>
