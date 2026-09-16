@@ -93,6 +93,21 @@ def balken_bloecke_svg(sortierte_bloecke, breite=1000):
     )
 
 
+# Einleitungssatz auf der Titelfolie - haengt davon ab, welcher Stoff
+# abgefragt wurde. Faellt auf einen neutralen Satz zurueck, wenn ein neuer
+# Test hier noch nicht eingetragen ist.
+UNTERTITEL = {
+    "5-6": "Was ihr aus Klasse 5 und 6 sicher könnt &ndash; und wo wir im "
+           "Unterricht noch üben.",
+    "6-9": "Was ihr aus Klasse 6 bis 9 sicher könnt &ndash; und wo wir vor "
+           "der Prüfung noch üben.",
+    "8-9": "Was ihr aus Klasse 8 und 9 sicher könnt &ndash; und wo wir vor "
+           "der Prüfung noch üben.",
+}
+UNTERTITEL_STANDARD = ("Was ihr sicher könnt &ndash; und wo wir im Unterricht "
+                       "noch üben.")
+
+
 VORLAGE = """<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -120,7 +135,7 @@ VORLAGE = """<!DOCTYPE html>
 <section>
   <h1>{titel}</h1>
   <h2>Rückmeldung ohne Note &middot; {klasse}</h2>
-  <p class="erklaerung">Was ihr aus Klasse 5 und 6 sicher könnt &ndash; und wo wir im Unterricht noch üben.</p>
+  <p class="erklaerung">{untertitel}</p>
 </section>
 
 <section>
@@ -188,6 +203,7 @@ def bauen(daten, ziel_ordner: Path, klasse: str):
     seite = VORLAGE.format(
         titel=f"Grundlagen-Check &ndash; {html.escape(test['name'])}",
         klasse=html.escape(klasse),
+        untertitel=UNTERTITEL.get(daten["test"], UNTERTITEL_STANDARD),
         balken_bloecke=balken_bloecke_svg(sortierte_bloecke),
         selbst_slide=selbst_slide,
         farbe_richtig=FARBE_RICHTIG, farbe_warnung=FARBE_WARNUNG,
