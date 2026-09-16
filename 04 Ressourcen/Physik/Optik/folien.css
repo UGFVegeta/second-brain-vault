@@ -299,3 +299,17 @@ svg .hilfslinie { stroke: #999; stroke-width: 0.8; stroke-dasharray: 4 3; fill: 
 svg .beschriftung { font-family: "Avenir Next", Helvetica, sans-serif; font-size: 11px; fill: #111; }
 svg .beschriftung.klein { font-size: 9.5px; }
 svg .kursiv { font-style: italic; }
+
+/* --- Materialhinweis: wann welches AB ausgeteilt wird ------------ */
+
+.ab-hinweis {
+  position: absolute;
+  left: 40.16pt; bottom: 4pt;
+  background: var(--magenta);
+  color: #fff;
+  font-size: 8.5pt;
+  font-weight: 600;
+  padding: 3pt 9pt;
+  border-radius: 3pt;
+  z-index: 5;
+}

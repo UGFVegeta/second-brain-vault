@@ -152,6 +152,10 @@ table.zuordnen td.antwort { color: var(--magenta); font-weight: 600; }
   flex: 0 0 42mm; width: 42mm; height: 32mm; object-fit: cover;
   border: 0.6pt solid var(--kararand); margin-top: 7mm;
 }
+.versuchskopf .versuchsskizze {
+  flex: 0 0 42mm; width: 42mm; height: 32mm;
+  border: 0.6pt solid var(--kararand); margin-top: 7mm; background: #fff;
+}
 
 .rot { color: var(--rot); font-weight: 600; }
 .tuerkis { color: var(--tuerkis); font-weight: 600; }
