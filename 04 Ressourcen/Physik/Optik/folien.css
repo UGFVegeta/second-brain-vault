@@ -313,3 +313,31 @@ svg .kursiv { font-style: italic; }
   border-radius: 3pt;
   z-index: 5;
 }
+
+/* --- Schritte-Liste: naturwissenschaftliche Arbeitsweise, vertikal - */
+
+.schritte {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 66pt; bottom: 22pt;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.schritt {
+  display: flex; align-items: center; gap: 16pt;
+  border-bottom: 0.6pt solid var(--kararand);
+  padding-bottom: 6pt;
+}
+.schritt:last-child { border-bottom: none; }
+.schritt .icon { width: 34pt; height: 34pt; flex: 0 0 34pt; }
+.schritt .label { font-size: 14.5pt; font-weight: 600; width: 118pt; flex: 0 0 118pt; }
+.schritt .inhalt { font-size: 12pt; line-height: 1.32; flex: 1; }
+.schritt .inhalt.leer { border-bottom: 0.6pt solid #b8bec7; align-self: stretch; height: 18pt; }
+
+/* Variante innerhalb der Karo-Zeichenzone: kein eigener Rahmen/Abstand,
+   fuellt die Zone komplett (nur auf der Vorlagenseite verwendet). */
+.schritte.schritte-in-zone {
+  position: absolute; inset: 10pt 16pt;
+  left: 10pt; right: 16pt; top: 10pt; bottom: 10pt;
+}
+.schritte-in-zone .schritt { border-bottom-color: #dfe2e7; }
+.schritte-in-zone .label { font-size: 13pt; width: 108pt; flex: 0 0 108pt; }
+.schritte-in-zone .inhalt { font-size: 11pt; }
