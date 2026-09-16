@@ -4,7 +4,7 @@
    damit ABs und Folien optisch zusammengehoeren.
    ------------------------------------------------------------------ */
 
-@page { size: A4 portrait; margin: 16mm 16mm 14mm 16mm; }
+@page { size: A4 portrait; margin: 13mm 16mm 12mm 16mm; }
 
 :root {
   --magenta:   #FF1F8A;
@@ -31,7 +31,7 @@ html, body {
 /* Kopfzeile: Wochen-Chip, Titel, Loesungs-Marker */
 .kopf {
   display: flex; align-items: baseline; justify-content: space-between;
-  border-bottom: 1.6pt solid var(--magenta); padding-bottom: 3mm; margin-bottom: 5mm;
+  border-bottom: 1.6pt solid var(--magenta); padding-bottom: 2mm; margin-bottom: 3.5mm;
 }
 .kopf .chip {
   display: inline-block; font-size: 8.5pt; font-weight: 700; letter-spacing: 0.06em;
@@ -47,7 +47,7 @@ html, body {
 /* Namensfeld nur auf Aufgabenblaettern */
 .namensfeld {
   display: flex; gap: 8mm; font-size: 9.5pt; color: var(--blaurand);
-  margin-bottom: 5mm;
+  margin-bottom: 3.5mm;
 }
 .namensfeld span { border-bottom: 0.6pt solid #b8bec7; padding-bottom: 1mm; flex: 1; }
 .namensfeld span.kurz { flex: 0 0 32mm; }
@@ -55,7 +55,7 @@ html, body {
 /* Merksatz-Kasten, magenta wie auf den Folien */
 .merksatz {
   border: 0.9pt solid var(--magenta); background: rgba(255,31,138,0.04);
-  padding: 3mm 4mm; font-size: 10pt; line-height: 1.4; margin-bottom: 5mm;
+  padding: 2.5mm 4mm; font-size: 10pt; line-height: 1.4; margin-bottom: 4mm;
 }
 .merksatz .label {
   font-size: 8pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
@@ -63,20 +63,20 @@ html, body {
 }
 
 h2.aufgabe {
-  font-size: 11pt; font-weight: 600; margin: 5mm 0 2mm;
+  font-size: 11pt; font-weight: 600; margin: 3.5mm 0 1.6mm;
 }
 h2.aufgabe .nr {
   display: inline-block; width: 6mm; height: 6mm; line-height: 6mm; text-align: center;
   background: var(--blaugrau); color: #fff; border-radius: 50%; font-size: 9pt;
   margin-right: 2mm; font-weight: 700;
 }
-p.frage { margin: 0 0 2mm; }
+p.frage { margin: 0 0 1.5mm; }
 ol.liste, ul.liste { margin: 1mm 0 2mm; padding-left: 6mm; }
 ol.liste li, ul.liste li { margin-bottom: 1.4mm; }
 
 /* Antwortlinien zum Ausfuellen */
-.linien { margin: 2mm 0 4mm; }
-.linien .linie { border-bottom: 0.5pt solid #b8bec7; height: 6.5mm; }
+.linien { margin: 1.5mm 0 3mm; }
+.linien .linie { border-bottom: 0.5pt solid #b8bec7; height: 5.5mm; }
 
 /* Zuordnungstabelle */
 table.zuordnen { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 10pt; }
@@ -124,6 +124,18 @@ table.zuordnen td.antwort { color: var(--magenta); font-weight: 600; }
 .protokoll ol, .protokoll ul { margin: 0; padding-left: 5mm; font-size: 9.5pt; }
 .protokoll li { margin-bottom: 1.2mm; }
 .protokoll .vorgabe { font-size: 9.5pt; color: #3d444e; }
+
+/* Bildraster fuer Zuordnungsaufgaben (Lichtquellen etc.) */
+.bildgrid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2mm 4mm; margin: 2mm 0 3mm;
+}
+.bildkarte { border: 0.5pt solid #dfe2e7; padding: 1.4mm 1.4mm 1.6mm; text-align: center; }
+.bildkarte img { width: 100%; height: 12mm; object-fit: contain; display: block; margin-bottom: 0.8mm; }
+.bildkarte .name-linie { border-bottom: 0.5pt solid #b8bec7; height: 4.5mm; margin-bottom: 2mm; }
+.bildkarte .tick { font-size: 7.6pt; color: var(--blaurand); display: flex; flex-direction: column; gap: 0.8mm; text-align: left; }
+.bildkarte .tick span { display: inline-block; }
+.bildkarte.loesung .name-linie { border-bottom: none; font-size: 9.5pt; font-weight: 600; color: var(--magenta); height: auto; }
+.bildkarte.loesung .tick .ja { color: var(--magenta); font-weight: 700; }
 
 .rot { color: var(--rot); font-weight: 600; }
 .tuerkis { color: var(--tuerkis); font-weight: 600; }
