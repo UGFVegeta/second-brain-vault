@@ -1,0 +1,133 @@
+/* ------------------------------------------------------------------
+   Arbeitsblatt-Vorlage Physik Klasse 7 (Oskar Klein)
+   A4 Hochformat, Druck. Farben und Karo aus folien.css uebernommen,
+   damit ABs und Folien optisch zusammengehoeren.
+   ------------------------------------------------------------------ */
+
+@page { size: A4 portrait; margin: 16mm 16mm 14mm 16mm; }
+
+:root {
+  --magenta:   #FF1F8A;
+  --blaugrau:  #8DA6C2;
+  --blaurand:  #66798E;
+  --violett:   #AD7FBA;
+  --karo:      #A3B7D3;
+  --kararand:  #C3D0E2;
+  --tuerkis:   #00A0A0;
+  --rot:       #E3000F;
+  --raster:    5mm;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #14171c; font-size: 11pt; line-height: 1.42;
+}
+
+.seite { page-break-after: always; position: relative; min-height: 265mm; }
+.seite:last-child { page-break-after: auto; }
+
+/* Kopfzeile: Wochen-Chip, Titel, Loesungs-Marker */
+.kopf {
+  display: flex; align-items: baseline; justify-content: space-between;
+  border-bottom: 1.6pt solid var(--magenta); padding-bottom: 3mm; margin-bottom: 5mm;
+}
+.kopf .chip {
+  display: inline-block; font-size: 8.5pt; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #fff; background: var(--blaurand);
+  padding: 1.6mm 3mm; border-radius: 2pt; margin-right: 3mm;
+}
+.kopf h1 { display: inline; font-size: 15pt; font-weight: 600; margin: 0; }
+.kopf .loesung-marker {
+  font-size: 9pt; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--magenta);
+}
+
+/* Namensfeld nur auf Aufgabenblaettern */
+.namensfeld {
+  display: flex; gap: 8mm; font-size: 9.5pt; color: var(--blaurand);
+  margin-bottom: 5mm;
+}
+.namensfeld span { border-bottom: 0.6pt solid #b8bec7; padding-bottom: 1mm; flex: 1; }
+.namensfeld span.kurz { flex: 0 0 32mm; }
+
+/* Merksatz-Kasten, magenta wie auf den Folien */
+.merksatz {
+  border: 0.9pt solid var(--magenta); background: rgba(255,31,138,0.04);
+  padding: 3mm 4mm; font-size: 10pt; line-height: 1.4; margin-bottom: 5mm;
+}
+.merksatz .label {
+  font-size: 8pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--magenta); display: block; margin-bottom: 1mm;
+}
+
+h2.aufgabe {
+  font-size: 11pt; font-weight: 600; margin: 5mm 0 2mm;
+}
+h2.aufgabe .nr {
+  display: inline-block; width: 6mm; height: 6mm; line-height: 6mm; text-align: center;
+  background: var(--blaugrau); color: #fff; border-radius: 50%; font-size: 9pt;
+  margin-right: 2mm; font-weight: 700;
+}
+p.frage { margin: 0 0 2mm; }
+ol.liste, ul.liste { margin: 1mm 0 2mm; padding-left: 6mm; }
+ol.liste li, ul.liste li { margin-bottom: 1.4mm; }
+
+/* Antwortlinien zum Ausfuellen */
+.linien { margin: 2mm 0 4mm; }
+.linien .linie { border-bottom: 0.5pt solid #b8bec7; height: 6.5mm; }
+
+/* Zuordnungstabelle */
+table.zuordnen { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 10pt; }
+table.zuordnen th {
+  text-align: left; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--blaurand); border-bottom: 1pt solid #14171c; padding: 1.4mm 2mm;
+}
+table.zuordnen td { border-bottom: 0.4pt solid #dfe2e7; padding: 1.8mm 2mm; vertical-align: top; }
+table.zuordnen td.antwort { color: var(--magenta); font-weight: 600; }
+
+/* Karo-Zeichenfeld, exakt wie auf den Folien */
+.zeichenfeld {
+  border: 0.6pt solid var(--kararand);
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><path d='M100 0H0v100' fill='none' stroke='%23A3B7D3' stroke-width='1.6'/></svg>");
+  background-size: var(--raster) var(--raster);
+  margin: 2mm 0 4mm;
+  position: relative;
+}
+.zeichenfeld svg { width: 100%; height: 100%; display: block; }
+.beschriftung {
+  margin: 1.5mm 0 4mm; font-size: 8.5pt; color: var(--blaurand);
+}
+
+/* Hazard-Symbole (Warnzeichen), einfache Dreiecke */
+.symbole { display: flex; gap: 6mm; margin: 3mm 0 5mm; flex-wrap: wrap; }
+.symbol { text-align: center; width: 30mm; }
+.symbol svg { width: 20mm; height: 18mm; }
+.symbol .txt { font-size: 8pt; margin-top: 1mm; color: var(--blaurand); }
+
+/* Versuchsprotokoll: 2x2 Raster wie .versuch auf den Folien */
+.protokoll {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 6mm; margin-top: 3mm;
+}
+.protokoll .feld { border: 0.7pt solid var(--blaugrau); padding: 3mm 4mm; min-height: 42mm; }
+.protokoll .feld.karo {
+  border-color: var(--kararand);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><path d='M100 0H0v100' fill='none' stroke='%23A3B7D3' stroke-width='1.6'/></svg>");
+  background-size: var(--raster) var(--raster);
+}
+.protokoll h3 {
+  margin: 0 0 1.5mm; font-size: 10pt; font-weight: 700; color: var(--blaurand);
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.protokoll ol, .protokoll ul { margin: 0; padding-left: 5mm; font-size: 9.5pt; }
+.protokoll li { margin-bottom: 1.2mm; }
+.protokoll .vorgabe { font-size: 9.5pt; color: #3d444e; }
+
+.rot { color: var(--rot); font-weight: 600; }
+.tuerkis { color: var(--tuerkis); font-weight: 600; }
+b, strong { font-weight: 600; }
+
+.loesungstext { color: var(--magenta); font-weight: 600; }
+.fussnote { position: absolute; bottom: 0; left: 0; right: 0; font-size: 7.5pt; color: #9096a0; }
