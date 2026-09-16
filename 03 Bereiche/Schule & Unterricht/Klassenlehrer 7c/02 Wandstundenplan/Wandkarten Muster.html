@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Wandkarten Muster 7C</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5dc;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#1c2230}
+
+/* ---------- Blatt: A4 quer ---------- */
+.blatt{width:297mm;height:210mm;background:#fff;margin:6mm auto;
+       padding:18mm 25.5mm;display:flex;flex-direction:column;
+       box-shadow:0 3mm 14mm rgba(0,0,0,.15)}
+.blatt.zwei{padding:20mm 26.5mm}
+
+/* ---------- Karte allgemein ----------
+   Farbfläche = Endmaß + 3 mm Anschnitt ringsum.
+   Die weißen Eckwinkel markieren die Schnittlinie (Endmaß).       */
+.karte{position:relative;overflow:hidden;display:flex;align-items:center;
+       background:var(--bg);color:var(--fg,#fff);--mark:rgba(255,255,255,.6)}
+.karte.hell{--mark:rgba(0,0,0,.35)}
+
+.fachkarte{width:246mm;height:86mm}          /* Endmaß 240 x 80 */
+.tageskarte{width:246mm;height:46mm}         /* Endmaß 240 x 40 */
+.zeitkarte{width:76mm;height:86mm}           /* Endmaß  70 x 80 */
+.pausenkarte{width:76mm;height:37mm}         /* Endmaß  70 x 31 */
+
+/* Schnittmarken */
+.m{position:absolute;width:11mm;height:11mm;border:0 solid var(--mark);z-index:5}
+.tl{top:3mm;left:3mm;border-top-width:.3mm;border-left-width:.3mm}
+.tr{top:3mm;right:3mm;border-top-width:.3mm;border-right-width:.3mm}
+.bl{bottom:3mm;left:3mm;border-bottom-width:.3mm;border-left-width:.3mm}
+.br{bottom:3mm;right:3mm;border-bottom-width:.3mm;border-right-width:.3mm}
+
+/* ---------- Fachkarte innen ---------- */
+.inhalt{display:flex;align-items:center;gap:13mm;padding:0 16mm;width:100%}
+.sym{width:50mm;height:50mm;flex:none}
+.sym svg{width:100%;height:100%;display:block}
+.txt{min-width:0}
+.name{font-size:33mm;font-weight:700;line-height:.92;letter-spacing:-.015em}
+.name.lang{font-size:24mm}
+.zusatz{font-size:8mm;font-weight:500;line-height:1;margin-top:4mm;opacity:.82;
+        letter-spacing:.02em}
+
+/* ---------- geteilte Karte ---------- */
+.geteilt{padding:0}
+.haelfte{width:50%;height:100%;display:flex;flex-direction:column;
+         justify-content:center;align-items:flex-start;gap:5mm;
+         padding:0 12mm;background:var(--hbg);color:var(--hfg,#fff)}
+.haelfte .sym{width:27mm;height:27mm}
+.haelfte .name{font-size:20mm}
+.haelfte .zusatz{font-size:6.5mm;margin-top:2.5mm}
+
+/* ---------- Tageskarte ---------- */
+.tageskarte .tag{width:100%;text-align:center;font-size:21mm;font-weight:700;
+                 letter-spacing:.14em;text-transform:uppercase}
+
+/* ---------- Zeitkarte ---------- */
+.zeitkarte{flex-direction:column;justify-content:center;text-align:center}
+.zeitkarte .nr{font-size:34mm;font-weight:700;line-height:.9}
+.zeitkarte .von{font-size:8mm;font-weight:600;margin-top:5mm;line-height:1.25;
+                letter-spacing:.01em}
+.pausenkarte{flex-direction:column;justify-content:center;text-align:center}
+.pausenkarte .pl{font-size:6mm;font-weight:700;letter-spacing:.16em;
+                 text-transform:uppercase}
+.pausenkarte .pz{font-size:7.5mm;font-weight:600;margin-top:2.5mm}
+.pausenkarte .m{width:6mm;height:6mm}
+
+.reihe{display:flex;gap:8mm;align-items:flex-start;margin-top:10mm}
+
+@media print{
+  @page{size:A4 landscape;margin:0}
+  body{background:#fff}
+  .blatt{margin:0;box-shadow:none;page-break-after:always}
+  .blatt:last-child{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= Seite 1: Fachkarten ================= -->
+<div class="blatt">
+
+  <!-- Deutsch -->
+  <div class="karte fachkarte" style="--bg:#C2231C">
+    <i class="m tl"></i><i class="m tr"></i><i class="m bl"></i><i class="m br"></i>
+    <div class="inhalt">
+      <div class="sym">
+        <svg viewBox="0 0 120 100" aria-hidden="true">
+          <path d="M57 24 C45 13,25 11,9 15 L9 79 C25 75,45 77,57 87 Z" fill="#fff"/>
+          <path d="M63 24 C75 13,95 11,111 15 L111 79 C95 75,75 77,63 87 Z" fill="#fff"/>
+          <path d="M19 30 L47 34 M19 42 L47 46 M19 54 L41 57" stroke="#C2231C"
+                stroke-width="3.4" stroke-linecap="round" opacity=".55"/>
+          <path d="M101 30 L73 34 M101 42 L73 46 M101 54 L79 57" stroke="#C2231C"
+                stroke-width="3.4" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      </div>
+      <div class="txt">
+        <div class="name">Deutsch</div>
+        <div class="zusatz">Ma · Raum 1.24</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:8mm"></div>
+
+  <!-- AES / Technik, geteilt -->
+  <div class="karte fachkarte geteilt">
+    <i class="m tl"></i><i class="m tr"></i><i class="m bl"></i><i class="m br"></i>
+
+    <div class="haelfte" style="--hbg:#E8629F">
+      <div class="sym">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="16" y="30" width="68" height="9" rx="4.5" fill="#fff"/>
+          <circle cx="50" cy="21" r="6.5" fill="#fff"/>
+          <path d="M20 44 L80 44 L74 84 C73.4 88,70 90.5,66 90.5 L34 90.5
+                   C30 90.5,26.6 88,26 84 Z" fill="#fff"/>
+          <rect x="4" y="50" width="14" height="8.5" rx="4" fill="#fff"/>
+          <rect x="82" y="50" width="14" height="8.5" rx="4" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="txt">
+        <div class="name">AES</div>
+        <div class="zusatz">Küche · TW</div>
+      </div>
+    </div>
+
+    <div class="haelfte" style="--hbg:#B02E72">
+      <div class="sym">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <g fill="#fff">
+            <circle cx="50" cy="50" r="31"/>
+            <g>
+              <rect x="43" y="5" width="14" height="17" rx="3"/>
+              <rect x="43" y="5" width="14" height="17" rx="3" transform="rotate(45 50 50)"/>
+              <rect x="43" y="5" width="14" height="17" rx="3" transform="rotate(90 50 50)"/>
+              <rect x="43" y="5" width="14" height="17" rx="3" transform="rotate(135 50 50)"/>
+              <rect x="43" y="5" width="14" height="17" rx="3" transform="rotate(180 50 50)"/>
+              <rect x="43" y="5" width="14" height="17" rx="3" transform="rotate(225 50 50)"/>
+              <rect x="43" y="5" width="14" height="17" rx="3" transform="rotate(270 50 50)"/>
+              <rect x="43" y="5" width="14" height="17" rx="3" transform="rotate(315 50 50)"/>
+            </g>
+          </g>
+          <circle cx="50" cy="50" r="12" fill="#B02E72"/>
+        </svg>
+      </div>
+      <div class="txt">
+        <div class="name">Technik</div>
+        <div class="zusatz">Te 1 · Te 2</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= Seite 2: Tag, Stunden, Pause ================= -->
+<div class="blatt zwei">
+
+  <!-- Wochentag -->
+  <div class="karte tageskarte" style="--bg:#1C2230">
+    <i class="m tl"></i><i class="m tr"></i><i class="m bl"></i><i class="m br"></i>
+    <div class="tag">Montag</div>
+  </div>
+
+  <div class="reihe">
+
+    <div class="karte zeitkarte hell" style="--bg:#EAE4D6;--fg:#1c2230">
+      <i class="m tl"></i><i class="m tr"></i><i class="m bl"></i><i class="m br"></i>
+      <div class="nr">1</div>
+      <div class="von">7:40<br>8:25</div>
+    </div>
+
+    <div class="karte zeitkarte hell" style="--bg:#EAE4D6;--fg:#1c2230">
+      <i class="m tl"></i><i class="m tr"></i><i class="m bl"></i><i class="m br"></i>
+      <div class="nr">2</div>
+      <div class="von">8:25<br>9:10</div>
+    </div>
+
+    <div class="karte pausenkarte hell" style="--bg:#D8D2C1;--fg:#43402f">
+      <i class="m tl"></i><i class="m tr"></i><i class="m bl"></i><i class="m br"></i>
+      <div class="pl">Große Pause</div>
+      <div class="pz">9:10 – 9:30</div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
