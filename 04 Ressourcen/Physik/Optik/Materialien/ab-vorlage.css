@@ -97,6 +97,9 @@ table.zuordnen td.antwort { color: var(--magenta); font-weight: 600; }
   position: relative;
 }
 .zeichenfeld svg { width: 100%; height: 100%; display: block; }
+.zeichenfeld .beobachtungstext {
+  margin: 0; padding: 2.5mm 3.5mm; font-size: 9pt; line-height: 1.4;
+}
 .beschriftung {
   margin: 1.5mm 0 4mm; font-size: 8.5pt; color: var(--blaurand);
 }
