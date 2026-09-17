@@ -39,7 +39,22 @@ Maßgeblich ist das Inbetriebnahmedatum 20.03.2025, das fällt in den EEG-Zeitra
 - **Solarspitzengesetz:** Für Anlagen ab dem 25.02.2025 entfällt die Vergütung in Zeiten negativer Börsenpreise (2025: 573 Stunden, überwiegend mittags). Bei Anlagen unter 100 kW greift das erst nach Ablauf des Jahres, in dem das intelligente Messsystem eingebaut wird. Ob es hier schon zieht, ist ungeklärt.
 - **60-Prozent-Regel:** Neuanlagen von 2 bis 100 kWp ohne Smart Meter dürfen höchstens 60 % der installierten Leistung einspeisen. Ob und wie das hier umgesetzt ist, ist nicht geprüft.
 
-Die tatsächlich ausgezahlten Beträge stehen auf der Gutschrift von Syna. **Offen:** Im web.de-Postfach liegt seit der Inbetriebnahme keine einzige Einspeisegutschrift. Prüfen, ob sie per Post kommt oder an eine andere Adresse geht.
+### Auszahlungen von Syna (Stand 17.09.2026)
+
+Syna zahlt monatliche Abschläge und rechnet einmal im Jahr ab. Die Abrechnung kommt per Post, im Postfach liegt dazu nichts. Belegt über die Kontoumsätze, Kundennummer 310223665.
+
+| Zeitraum | Zahlungen | Summe |
+|---|---|---|
+| 15.04. bis 15.12.2025, monatlich 61 € | 9 | 549,00 € |
+| 22.05.2026, Jahresabrechnung | 1 | 389,84 € |
+| 15.06. bis 15.09.2026, monatlich 39 € | 4 | 156,00 € |
+| **Gesamt seit Inbetriebnahme** | **14** | **1.094,84 €** |
+
+Von Januar bis April 2026 kam nichts, die Abrechnung im Mai hat das aufgefangen.
+
+**Der Mischsatz von 7,72 ct/kWh ist damit bestätigt:** Abschläge und Abrechnung der ersten Periode ergeben zusammen 938,84 €, das entspricht 12.161 kWh. Genau so viel hat die Anlage bis Ende April/Mai 2026 eingespeist. Umsatzsteuer kommt nicht obendrauf, es gilt also die Kleinunternehmerregelung.
+
+⚠️ **Der Abschlag ist seit Juni 2026 zu niedrig.** Syna hat von 61 € auf 39 € gesenkt, also von 732 € auf 468 € im Jahr. Bei rund 9.000 kWh Einspeisung stehen aber etwa 700 € im Jahr zu. Gegenprobe über den Zähler: 17.100 kWh × 7,72 ct sind 1.320 €, ausgezahlt sind 1.094,84 €. Es liegen also rund 225 € bei Syna, die erst bei der nächsten Abrechnung kommen. Bei Syna anrufen und den Abschlag wieder auf 60 € setzen lassen.
 
 ---
 
@@ -49,13 +64,55 @@ Die tatsächlich ausgezahlten Beträge stehen auf der Gutschrift von Syna. **Off
 |---|---|---|
 | Vertragsnummer | 701055910928 | 701055470353 |
 | Tarif | EnBW Planbar und Sicher Privatstrom (seit 20.05.2025) | EnBW Grün und Sicher Privatstrom |
+| **Zählernummer** | **1ISK0092257941** | **1ISK0092257936** |
+| Marktlokation | 50283471560 | 50283471362 |
 | Abschlag | 44 €/Monat (seit 17.04.2026) | 60 €/Monat |
-| Preise | – | 38,57 ct/kWh brutto, 18,30 €/Monat Grundpreis |
+| Preise brutto | 40,07 ct/kWh, 18,30 €/Monat Grundpreis | 38,57 ct/kWh, 18,30 €/Monat Grundpreis |
 | Letzte Abrechnung | 17.03.2026 für 17.03.2025 bis 16.03.2026 | noch keine |
+
+Der alte Gewerbevertrag 701044438696 (Zähler 1ISK0071589912) wurde im Juli 2026 gekündigt.
 
 **Jahresrechnung Haushalt (17.03.2025 bis 16.03.2026):** 755 kWh Netzbezug, 522,14 € Stromkosten, 760 € Abschläge gezahlt, 9,38 € Messkosten erstattet → **247,24 € Guthaben**.
 
-⚠️ **Offen: Die Wärmepumpe wurde noch nie abgerechnet.** Seit Mai 2025 laufen 60 € im Monat. Bei dem Jahresverbrauch von 2.400 kWh, der in der Willenserklärung steht, kämen rechnerisch rund 1.145 € im Jahr zusammen (~geschätzt). Der Abschlag liegt damit etwa 425 € zu niedrig, eine Nachzahlung ist wahrscheinlich. Bei EnBW nachfragen, wo die Jahresabrechnung bleibt.
+Der Abschlag von 44 € ist belastbar: EnBW hat ihn nach einem vollen Jahr mit gemessenem Verbrauch festgelegt, vorher waren es 60 € und es gab 247,24 € zurück.
+
+### Zählerstände vom 17.09.2026 (abfotografiert)
+
+Zähler 1ISK0092257936 ist ein Zweirichtungszähler, über ihn läuft auch die PV-Einspeisung:
+
+| Register | Stand | Bedeutung |
+|---|---|---|
+| 1.8.0 | 2.519 kWh | Bezug aus dem Netz seit Zählerbeginn (~20.03.2025) |
+| 2.8.0 | 17.100 kWh | Einspeisung ins Netz |
+
+Die 17.100 kWh bestätigen die Wechselrichterdaten: Der Kostal hatte am selben Tag 16.875 kWh errechnet, 1,3 % Abweichung. Anzeige in ganzen kWh, ohne Nachkommastelle.
+
+**Damit ist der Verbrauch der Wärmepumpe bekannt: 2.519 kWh in rund 18 Monaten, also etwa 1.680 kWh im Jahr** — mit einem vollen Winter darin. Das liegt unter den 2.400 kWh aus dem Formular und über den 1.300 kWh, die EnBWs Abschlag unterstellt.
+
+| | pro Jahr |
+|---|---|
+| 1.680 kWh × 38,57 ct | 648 € |
+| Grundpreis | 220 € |
+| **Kosten Wärmepumpe** | **868 €** |
+| Abschlag | 720 € |
+| **Unterdeckung** | **rund 150 €** |
+
+Bei einer ersten Abrechnung über 16 bis 17 Monate sind das grob 200 bis 260 € Nachzahlung (~geschätzt).
+
+⚠️ Offen bleibt, welches Register 1.8.0 und welches 2.8.0 ist. Die Zuordnung stammt aus der unscharfen Displaybeschriftung plus dem Abgleich mit dem Wechselrichter. Am Zähler durchtippen und prüfen, ob bei 2.8.0 wirklich die 17.100 stehen.
+
+---
+
+## Stromkosten unterm Strich
+
+| Posten | pro Jahr | Grundlage |
+|---|---|---|
+| Haushalt | 522 € | abgerechnet 17.03.2025 bis 16.03.2026 |
+| Wärmepumpe | 868 € | Zählerstand 17.09.2026, hochgerechnet |
+| Einspeisung Syna | −750 € | Kontoauszüge, ~geschätzt über das Jahr |
+| **Netto** | **rund 640 €** | etwa 53 € im Monat |
+
+Bestätigt wird das erst mit der Abrechnung der Wärmepumpe. Zum Vergleich: dasselbe Haus ohne PV käme auf 8.000 bis 9.000 kWh Zukauf und damit auf 3.300 bis 3.700 € im Jahr (~geschätzt). Die Anlage spart also grob 2.200 bis 2.500 € jährlich.
 
 ---
 
@@ -177,8 +234,11 @@ Die Kostal-API kann jederzeit prüfen ob genug PV-Überschuss da ist → Ladefre
 ---
 
 ## Offene Punkte
-- [ ] Bei EnBW nachfragen, warum es für die Wärmepumpe (Vertrag 701055470353) noch keine Jahresabrechnung gibt
-- [ ] Klären, ob und wie Syna die Einspeisung vergütet – es liegt keine Gutschrift vor
+- [x] Zähler 1ISK0092257936 abgelesen am 17.09.2026: 1.8.0 = 2.519 kWh, 2.8.0 = 17.100 kWh
+- [ ] Im Frühjahr 2027 erneut ablesen, dann lässt sich die Heizsaison sauber vom Warmwasser trennen
+- [ ] Mitte Oktober 2026: Jahresabrechnung Wärmepumpe (Vertrag 701055470353) prüfen. Kommt sie nicht, bei EnBW nachhaken – der Zählerstand wurde im März 2026 abgefragt, die Daten liegen dort also vor
+- [ ] Bei Syna den Abschlag von 39 € wieder auf 60 € anheben lassen – er deckt die tatsächliche Einspeisung nicht
+- [ ] Die Syna-Jahresabrechnung vom Mai 2026 raussuchen (kommt per Post) und die abgerechnete kWh-Menge gegen die Wechselrichter-Daten halten
 - [ ] Prüfen, ob ein intelligentes Messsystem eingebaut ist (relevant für 60-Prozent-Regel und Solarspitzengesetz)
 - [ ] Abschlag für die Wärmepumpe anpassen, bevor sich eine große Nachzahlung ansammelt
 
