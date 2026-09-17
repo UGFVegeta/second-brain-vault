@@ -85,6 +85,9 @@ Zähler 1ISK0092257936 ist ein Zweirichtungszähler, über ihn läuft auch die P
 | 1.8.0 | 2.519 kWh | Bezug aus dem Netz seit Zählerbeginn (~20.03.2025) |
 | 2.8.0 | 17.100 kWh | Einspeisung ins Netz |
 
+![[Zählerstand 1ISK0092257936 2026-09-17 Bezug.jpg]]
+![[Zählerstand 1ISK0092257936 2026-09-17 Einspeisung.jpg]]
+
 Die 17.100 kWh bestätigen die Wechselrichterdaten: Der Kostal hatte am selben Tag 16.875 kWh errechnet, 1,3 % Abweichung. Anzeige in ganzen kWh, ohne Nachkommastelle.
 
 **Damit ist der Verbrauch der Wärmepumpe bekannt: 2.519 kWh in rund 18 Monaten, also etwa 1.680 kWh im Jahr** — mit einem vollen Winter darin. Das liegt unter den 2.400 kWh aus dem Formular und über den 1.300 kWh, die EnBWs Abschlag unterstellt.
@@ -112,7 +115,13 @@ Bei einer ersten Abrechnung über 16 bis 17 Monate sind das grob 200 bis 260 €
 | Einspeisung Syna | −750 € | Kontoauszüge, ~geschätzt über das Jahr |
 | **Netto** | **rund 640 €** | etwa 53 € im Monat |
 
-Bestätigt wird das erst mit der Abrechnung der Wärmepumpe. Zum Vergleich: dasselbe Haus ohne PV käme auf 8.000 bis 9.000 kWh Zukauf und damit auf 3.300 bis 3.700 € im Jahr (~geschätzt). Die Anlage spart also grob 2.200 bis 2.500 € jährlich.
+Bestätigt wird das erst mit der Abrechnung der Wärmepumpe. ### Einordnung
+
+Das Haus verbraucht insgesamt rund 7.000 kWh im Jahr für Haushalt, Warmwasser und Heizung: 2.435 kWh aus dem Netz (beide Zähler) und etwa 4.300 kWh aus eigener PV und Batterie. Für 190 m² und vier Personen ist das ein normaler Wert — gespart wird nicht am Verbrauch, sondern am Zukauf.
+
+Ohne PV müssten diese 7.000 kWh voll gekauft werden, je nach Tarif 2.600 bis 3.200 € im Jahr (~geschätzt). Die Anlage spart also grob 2.100 bis 2.550 € jährlich. Auf die Wohnfläche gerechnet zahlt ihr 3,37 € pro m² und Jahr für Strom und Heizung, üblich sind eher 14 bis 17 €.
+
+Ohne die Einspeisevergütung gerechnet liegt der reine Energieeinkauf bei 1.390 € im Jahr. Nicht enthalten sind die Anschaffungskosten der Anlage.
 
 ---
 
