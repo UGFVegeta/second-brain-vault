@@ -14,6 +14,7 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-09-19 | 3 | Rechte Achillessehne: Schmerz beim Abdrücken über den Vorfuß, kaum Auftreten, rechte Wade hart. Kein Knall, schleichend schlimmer geworden, Zehenstand möglich | Lauf 10 km am 18.09., vorzeitig abgebrochen | Gleiches Muster wie im Januar 2026, damals nach ESWT (05.02. und 12.02., Dr. Roser) weg. Davor 15.09. Lauf 10 km, 16.09. Bergsprints (Spitzen bis 870 W), 18.09. Lauf 10 km. Laufpause, Arzttermin geplant. |
 | 2026-09-15 | 3,5 | Nase frei, Erkältung durch. Schwere Oberschenkel | Schulweg locker, Lauf 10 km mit Kindern (Thule) | Beine schwer nach der Rolleneinheit vom Vortag, unauffällig nach der Trainingspause. Schlaf weiter nicht gut, HRV heute niedriger (72). |
 | 2026-09-13 | 2,5 | Hals kratzig, Schleim beim Sprechen, beginnende Erkältung | nein | Schlecht geschlafen, mehrfach wach. HRV zwei Tage in Folge unter Schwelle (77, dann 70), Ruhepuls noch bei Basis (36). Bewusst komplett ausgesetzt wegen erstem Schultag morgen. |
 | 2026-09-10 | 4 | Nase, abklingend | Mobilität 7 min | Ruhetag. Hüfte fast schmerzfrei. |
