@@ -46,7 +46,19 @@ Diese Aufteilung passt zur Vault-Regel: keine Schülerdaten in die Cloud.
 - Handy-Zugriff über Messaging-Gateway: Telegram, WhatsApp, **Signal** (am privatesten), SMS, iMessage, E-Mail.
 - Modell-agnostisch: kann Claude (Anthropic), Gemini, lokale Modelle (über Ollama/LM Studio/llama.cpp/MLX) u.v.m. nutzen, umschaltbar per `hermes model`.
 - Liest `CLAUDE.md`, hat eigenes Gedächtnis (`MEMORY.md`, `USER.md`), Skills, Cron-Routinen, MCP-Anbindung.
-- Frühe Version (0.x), also noch mit Ecken und Kanten.
+- Im Juni noch frühe Version (0.x). Stand 19.09.2026 sehr aktiv entwickelt, inzwischen mit datierten Releases (v2026.9.14 vom 14.09.2026). Ob die Ecken und Kanten weg sind, zeigt erst ein Test.
+
+## Weitere Kandidaten für den Dauerläufer
+
+Aus dem Video „15 Open-Source-Tools, die deine teuren Abos ersetzen" von Julian Ivanov (18.09.2026), durchgesehen am 19.09.2026.
+
+- Paperless-ngx läuft schon auf dem Raspberry Pi und bleibt dort. Der Mac mini bringt etwas anderes dazu: Seit Version 3.0 (22.07.2026) hat Paperless eigene KI-Funktionen, also Vorschläge für Titel, Schlagworte und Absender und einen Chat über die eigenen Dokumente. Das Modell dafür muss nicht auf dem Pi laufen. In der Konfiguration lässt sich ein Ollama-Endpunkt auf einem anderen Rechner eintragen (`PAPERLESS_AI_LLM_BACKEND=ollama`, `PAPERLESS_AI_LLM_ENDPOINT`, dazu das Embedding-Backend). Damit bleibt der Pi das Archiv und der Mac mini rechnet, die Dokumente verlassen das Haus nicht. Voraussetzung: Paperless auf dem Pi mindestens auf 3.0. Offen: welches Pi-Modell, SD-Karte oder SSD, wie gesichert wird. https://github.com/paperless-ngx/paperless-ngx
+- Open WebUI, eine Chat-Oberfläche vor einem lokalen Modell, mit Dokumentensuche und Fundstellen in der Antwort. Erst sinnvoll mit einem Rechner, der lokale Modelle stemmt. Für Einzelnutzung reicht eventuell LM Studio. https://github.com/open-webui/open-webui
+- Stirling PDF entfällt, PDF Expert läuft schon auf Mac, iPad und iPhone.
+
+Einrichtung: Claude Code kann sich per SSH mit dem Mac mini (und dem Pi) verbinden und die Dienste dort aufsetzen (Tipp aus dem Video). Den gemieteten Server, den das Video empfiehlt, braucht es dafür nicht. Mit dem Mac mini zu Hause bleiben die Daten im Haus, und es fallen keine Monatskosten an.
+
+Für den privaten Bereich nicht übernommen: Nextcloud (am 01.06.2026 für iCloud mit erweitertem Datenschutz entschieden) und Vaultwarden (ein selbst gehosteter Passwort-Tresor ist das falsche Risiko). Die Firmenwerkzeuge aus dem Video (n8n, Postiz, Supabase, Invoice Ninja, Cal.com) gehören thematisch zu [[Alternatives Einkommen]]. Falls dort etwas davon gebraucht wird, läuft es ebenfalls auf dem Mac mini.
 
 ## Offene Punkte / Nächste Schritte
 
@@ -54,3 +66,5 @@ Diese Aufteilung passt zur Vault-Regel: keine Schülerdaten in die Cloud.
 - Bei Anschaffung: Hermes testweise auf einem Gerät aufsetzen, erst mit Cloud-Modell, dann lokal.
 - Messaging-Kanal wählen (Signal bevorzugt).
 - Realistische Kosten gegenüberstellen (Hardware + ggf. Claude Max / Nous Portal Abo).
+- Pi prüfen: Modell, Speicher, Paperless-Version, Backup. Für den SSH-Zugang von Claude Code fehlt noch der Benutzername.
+- Bei Anschaffung des Mac mini: Ollama einrichten und Paperless AI auf dem Pi darauf zeigen lassen.
