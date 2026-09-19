@@ -92,5 +92,5 @@ Einschätzung: Mit 32 GB (M6) passt ein Modell der 27B-Klasse, aber nur eins zur
 - Messaging-Kanal wählen (Signal bevorzugt).
 - Realistische Kosten gegenüberstellen (Hardware + ggf. Claude Max / Nous Portal Abo).
 - Pi: automatisches Backup außerhalb der SD-Karte einrichten. Bisher gibt es nur die einmalige Sicherung vom 19.09.2026 auf dem Mac. SSH-Zugang für Claude Code steht seit 19.09.2026 (`ugfvegeta@raspberrypi.local`).
-- AdGuard Home fertig einrichten: Assistent unter http://192.168.178.68:3000 durchklicken (Passwort setzt Oskar selbst), in der Fritzbox feste IP für den Pi und den Pi als lokalen DNS-Server eintragen.
+- AdGuard Home: Assistent erledigt, Weboberfläche unter http://192.168.178.68. In der Fritzbox feste IP für den Pi und `192.168.178.68` als lokaler DNS-Server (IPv4) eingetragen (19.09.2026). `fritz.box` und Gerätenamen löst AdGuard über die Fritzbox auf. Offen: in der Fritzbox auch den lokalen DNSv6-Server auf die Pi-Adresse `fdfe:bdd8:3b4f:0:cd03:6553:adc3:26e9` setzen, sonst fragen Geräte per IPv6 an AdGuard vorbei.
 - Bei Anschaffung des Mac mini: Ollama einrichten und Paperless AI auf dem Pi darauf zeigen lassen.
