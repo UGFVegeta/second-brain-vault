@@ -148,6 +148,7 @@
     <iframe id="frame" style="display:none"></iframe>
   </div>
 </main>
+<iframe id="druckframe" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;border:0"></iframe>
 <script src="daten.js"></script>
 <script src="inhalte.js"></script>
 <script>
@@ -428,11 +429,16 @@
       "</div>" + teile + loes +
       // Chrome leert per document.write erzeugte Tabs nach dem Druckdialog manchmal
       // (bzw. zeichnet sie nicht neu). Inhalt sichern und bei Bedarf wiederherstellen.
+      // Nur auf 'afterprint'/'pageshow' reagieren, NICHT auf 'visibilitychange'/'focus':
+      // Letztere feuern schon beim Öffnen des Druckdialogs, also während Chrome die Seite
+      // für die PDF-Ausgabe rendert – ein Reflow genau dann kann die PDF leer aussehen
+      // lassen oder (bei file://-Tabs, die sich einen Renderer-Prozess teilen) andere
+      // offene lokale Tabs mit abstürzen lassen.
       "<script>(function(){var g=document.body.innerHTML;function h(){" +
-      "if(!document.body.children.length||!document.body.innerHTML.trim()){document.body.innerHTML=g;}" +
-      "document.body.style.display='none';void document.body.offsetHeight;document.body.style.display='';}" +
-      "window.addEventListener('afterprint',h);window.addEventListener('pageshow',h);" +
-      "window.addEventListener('focus',h);document.addEventListener('visibilitychange',h);})();<\/script>" +
+      "if(!document.body.children.length||!document.body.innerHTML.trim()){" +
+      "document.body.innerHTML=g;document.body.style.display='none';void document.body.offsetHeight;document.body.style.display='';}" +
+      "}" +
+      "window.addEventListener('afterprint',h);window.addEventListener('pageshow',h);})();<\/script>" +
       "</body></html>";
   }
 
@@ -471,11 +477,25 @@
     alert("Bitte zuerst oben einen Jahrgang (Jahr-Auswahl) oder genau einen Übungssatz anklicken.");
   }
 
+  // Druck direkt über einen unsichtbaren iframe in dieser (schon normal geladenen)
+  // Seite statt über ein per document.write befülltes Popup-Fenster: Safari erzeugt bei
+  // "Als PDF sichern" aus einem document.write-Fenster eine leere oder riesige Datei,
+  // weil der PDF-Export dafür eine andere Pipeline nutzt als die Bildschirmvorschau.
+  // Ein iframe innerhalb der echten Seite läuft über den normalen Renderpfad.
+  function druckenUeberIframe(html) {
+    var frame = document.getElementById("druckframe");
+    frame.onload = function () {
+      setTimeout(function () {
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+      }, 100);
+    };
+    frame.srcdoc = html;
+  }
+
   function druck(mitLoesung) {
     if (!auswahl.length) return;
-    var w = window.open("", "_blank");
-    if (!w) { alert("Popup wurde blockiert – bitte Popups für diese Seite erlauben."); return; }
-    schreibeDok(w, baueDruckHTML(mitLoesung));
+    druckenUeberIframe(baueDruckHTML(mitLoesung));
   }
   window.baueDruckHTML = baueDruckHTML;
 
