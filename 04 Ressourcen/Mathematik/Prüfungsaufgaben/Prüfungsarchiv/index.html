@@ -389,7 +389,22 @@
       }
       // Aufgaben passen auf eine Seite (nicht trennen); Lösungen dürfen umbrechen.
       var klasse = art === "l" ? "task" : "task ganz";
-      return '<div class="' + klasse + '">' + kopf(a, i, art) + '<div class="fit">' + html + "</div></div>";
+      // Inhalt bei seiner echten Originalbreite rendern (aus daten.js: ba/bl) und als
+      // Ganzes per transform:scale verkleinern, statt ihn in die schmale Druckspalte
+      // umbrechen zu lassen. Sonst brechen Sätze an anderen Stellen um und Bilder wirken
+      // kleiner als im Original, weil sie durch mehrere verschachtelte %-Container
+      // zusätzlich schrumpfen. "zoom" (nicht standardisiert) wird von Safaris PDF-Export
+      // ignoriert -> transform:scale, das ist Standard-CSS und im Druckpfad verlässlich.
+      // transform ändert nicht die Layout-Box, daher hs = Höhe * s als Wrapper-Höhe.
+      var box = (art === "l" ? a.bl : a.ba) || [DRUCKBREITE, 0, 0];
+      var w = box[0];
+      var hoehe = Math.max(box[1] - box[2], 1);
+      var s = Math.min(1, DRUCKBREITE / w);
+      var hs = Math.ceil(hoehe * s) + 2;
+      return '<div class="' + klasse + '">' + kopf(a, i, art) +
+        '<div style="height:' + hs + 'px;overflow:hidden">' +
+        '<div class="fit" style="width:' + w + 'px;transform:scale(' + s.toFixed(4) +
+        ');transform-origin:top left">' + html + "</div></div></div>";
     }
 
     function sektion(art) {
