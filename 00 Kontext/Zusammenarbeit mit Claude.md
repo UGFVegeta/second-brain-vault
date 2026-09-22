@@ -40,6 +40,28 @@ Stattdessen ein **Grundgerüst pro Woche**:
 
 Das Verschieben auf konkrete Tage mache ich selbst, je nach Zeit. Siehe [[Laufform & Renntempo Mitteldistanz]] als Anwendungsfall.
 
+## Texte an Personen: fertig in die Zwischenablage
+
+Mails und Nachrichten, die ich an Personen schicke, soll Claude mir **direkt in die Zwischenablage legen**, damit ich nichts nachformatieren muss. Das Kopieren aus dem Chat verliert in meinem Mail-Editor die Leerzeilen zwischen den Absätzen.
+
+- Reiner Text per `pbcopy`, mit `LANG=en_US.UTF-8` (sonst kommen Umlaute als „Ã¼“ an).
+- Leerzeilen als Zeile mit einem geschützten Leerzeichen (U+00A0), sonst schluckt der Editor sie.
+- Kein RTF/HTML, das hat es schlimmer gemacht. Keine Aufzählungszeichen.
+- Betreff getrennt ausgeben, nicht im Text. Kurz sagen, dass die Zwischenablage überschrieben wurde.
+- Den Mailtext immer auch im Chat zeigen, damit ich ihn prüfen kann. Eingefügt wird aber aus der Zwischenablage, nicht aus dem Chat (Kopieren aus dem Chat verändert die Formatierung).
+
+Ablauf über das Skript `.scripts/mail_clip.py` (bereitet auf, prüft, legt in die Zwischenablage). Keine Aufzählungen in Mails.
+
+## Claude-Kosten: bei Pro bleiben (21.09.2026)
+
+Ich habe Claude Pro (20 $ im Monat) und will nicht mehr ausgeben. API-Guthaben habe ich getestet, 10 € waren viel schneller weg als das Abo hergibt. Deshalb nichts empfehlen, das einen API-Schlüssel oder Claude Max voraussetzt. Massenarbeit lieber an ein lokales Modell auslagern (Projekt [[KI-Assistent Setup (Hermes & Hardware)]]), damit das Pro-Kontingent für anspruchsvolle Aufgaben reicht.
+
+*Stand: 21.09.2026.*
+
+## Unterrichtsvorbereitung: eine HTML, PDFs nur für Folien (21.09.2026)
+
+Jede Stundenvorbereitung entsteht als **eine HTML-Datei** mit Tabs: Vor der Stunde (Drucken/Kopieren-Liste, digital vorbereiten), Verlauf als Tabelle, Folien, Tafelbild, Merkheft, Aufgaben, Lösungen, Ausblick. Das spart Token, weil Änderungen nur eine Datei betreffen. PDFs gibt es erst am Ende und nur für die **Folien** (16:9, für Notability, mit Platz zum Daraufschreiben). Merkheft und Übungsheft werden überall getrennt markiert, Buchaufgaben immer mit Seite und Nummer. Lösungen kommen aus dem digitalen Lösungsbuch, das Oskar mitgibt. Referenz: `04 Ressourcen/Mathematik/Rationale Zahlen/` (Generator `baue_stunde1.py`). Ablage in iCloud nach nummerierten Themenordnern pro Klasse.
+
 ---
 
 *Stand: 18.06.2026, aus dem Kennenlern-Interview (Bereich „Zusammenarbeit"). Weitere Bereiche – Prioritäten, Entscheidungsstil, Tagesablauf – folgen.*
