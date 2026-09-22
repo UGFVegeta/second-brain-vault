@@ -397,7 +397,18 @@
       // ignoriert -> transform:scale, das ist Standard-CSS und im Druckpfad verlässlich.
       // transform ändert nicht die Layout-Box, daher hs = Höhe * s als Wrapper-Höhe.
       var box = (art === "l" ? a.bl : a.ba) || [DRUCKBREITE, 0, 0];
-      var w = box[0];
+      // Die alten Jahrgänge (2011-2024, Dateien "aufgabe_*.html"/"loesung_*.html" direkt
+      // im Archiv-Ordner) nutzen alle exakt dieselbe FrontPage-Vorlage mit einer 1048px
+      // breiten Bearbeitungsfläche, und einzelne Spalten darin haben feste Pixelbreiten
+      // (z.B. eine 501px breite Frage-Spalte), die gegen dieses 1048px-Raster kalibriert
+      // sind. Die in daten.js gespeicherte Breite (ba/bl) ist teils schmaler (z.B. 821px,
+      // gemessen am tatsächlich benutzten Inhalt) - dann bleibt für eine feste Spalte
+      // daneben zu wenig Platz übrig und der Text bricht komisch um. Deshalb hier immer
+      // die bekannte 1048px-Vorlagenbreite verwenden, nicht den (teils zu schmalen)
+      // gemessenen Wert.
+      var altesFormat = /^(aufgabe|loesung)_[^/]+\.html$/i;
+      var quelle = art === "l" ? a.loesung : a.aufgabe;
+      var w = (quelle && altesFormat.test(quelle)) ? 1048 : box[0];
       var hoehe = Math.max(box[1] - box[2], 1);
       var s = Math.min(1, DRUCKBREITE / w);
       var hs = Math.ceil(hoehe * s) + 2;
