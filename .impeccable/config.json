@@ -8,6 +8,12 @@
         "value": "helvetica",
         "createdAt": "2026-09-05T06:08:39.750Z",
         "reason": "Claude: Sachtext und Sprechzettel sind reine A4-Druckvorlagen fuer den Schulkopierer, keine Web-UI. Helvetica ist dort als neutrale, ueberall vorhandene Systemschrift bewusst gewaehlt."
+      },
+      {
+        "rule": "side-tab",
+        "value": "border-left:4px solid #e0a100",
+        "createdAt": "2026-09-22T20:27:00.649Z",
+        "reason": "matches Oskar's established .knapp callout style, reused verbatim from existing approved lesson files (Rationale Zahlen ALLES.html)"
       }
     ]
   }

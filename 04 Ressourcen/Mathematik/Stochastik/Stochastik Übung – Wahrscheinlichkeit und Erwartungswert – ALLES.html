@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stochastik: Üben – Wahrscheinlichkeit und Erwartungswert</title><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b;margin-bottom:0}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav a{padding:5px 13px;border-radius:16px;text-decoration:none;color:#1b1b1b;font-size:14px;background:#f1f1ed}
+nav a:hover{background:#e3e3dc}
+section{padding:34px 0 8px;scroll-margin-top:50px}
+h2{font-size:22px;margin:0 0 6px}h2+.lead{margin-top:0}
+.lead{color:#555;margin:0 0 16px}
+h3{font-size:17px;margin:26px 0 8px}
+.ziel{background:#f5f5f1;border-radius:8px;padding:12px 16px;margin:16px 0}
+.knapp{background:#fff6e0;border-left:4px solid #e0a100;padding:7px 12px;margin:10px 0 4px;font-size:15px}
+.nicht{color:#555;font-size:15px;margin:10px 0}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15.5px}
+th,td{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#f5f5f1;font-weight:600}
+.chip{display:inline-block;padding:1px 9px;border-radius:10px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.orange{background:#fdebd3;color:#8a4b00}.gruen{background:#dcf1dc;color:#1d6b1d}.alle{background:#e2ecf8;color:#1a56a0}
+.pflicht{background:#e2ecf8;color:#1a56a0}.ew{background:#f3e2f8;color:#7a1a9c}.leicht{background:#dcf1dc;color:#1d6b1d}.schwer{background:#fbeeee;color:#b3261e}
+.loes{margin:8px 0 18px}.loes h4{margin:18px 0 6px;font-size:16.5px}
+.loes p{margin:5px 0}
+.kl{columns:2;column-gap:28px;margin:6px 0}.kl div{break-inside:avoid;margin:2px 0}
+footer{margin-top:40px;padding:14px 0 40px;border-top:1px solid #d3d3cc;color:#666;font-size:13.5px}
+.vt th:first-child,.vt td.mn{width:52px;text-align:right;white-space:nowrap;color:#555}
+.vt tr.grp td{background:#eeeeea;font-weight:700;font-size:15.5px}
+.vt tr.grp td span{float:right;font-weight:400;color:#555;font-size:14px}
+.aufgblock{border:1px solid #d3d3cc;border-radius:9px;margin:18px 0;overflow:hidden}
+.aufgblock>header{display:flex;align-items:center;gap:12px;background:#f5f5f1;padding:9px 16px;border-bottom:1px solid #d3d3cc}
+.aufgblock .nr{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;font-size:14px}
+.aufgblock h3{margin:0;font-size:17px;flex:1}
+.aufgblock .body{padding:12px 18px 16px}
+.aufgblock .body p{margin:6px 0}
+.aufgblock .body ol,.aufgblock .body ul{margin:8px 0;padding-left:22px}
+.aufgblock .body li{margin:6px 0}
+.quelle{color:#888;font-size:13px;margin-top:8px}
+.aufgblock .body img{display:block;max-width:100%;height:auto;border:1px solid #d3d3cc;border-radius:6px}
+@media print{nav{display:none}section{page-break-before:always}.aufgblock{break-inside:avoid}body{font-size:11pt}}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Stochastik üben: Wahrscheinlichkeit und Erwartungswert</h1>
+<p class="sub">Klasse 10 · Doppelstunde (90 Minuten) · reine Übungsstunde, alles in einer Datei</p></header></div>
+<nav><div class="wrap"><a href="#ablauf">Ablauf</a><a href="#pflicht">Pflichtbereich</a>
+<a href="#erwartungswert">Erwartungswert</a><a href="#loesungen">Lösungen</a></div></nav>
+<div class="wrap">
+
+<section id="ablauf"><h2>Ablauf</h2>
+<p class="lead">Die Klasse kann bereits alles: Wahrscheinlichkeiten mit und ohne Zurücklegen, Baumdiagramme,
+Erwartungswert. Heute geht es nur um Übung und Tempo, keine neue Theorie.</p>
+<div class="ziel"><b>Ziel:</b> Sicherheit im Umgang mit mehrstufigen Zufallsexperimenten ohne Zurücklegen und mit
+Erwartungswertaufgaben, auch bei anspruchsvolleren, mehrschrittigen Aufgabenstellungen. <b>Nicht Ziel:</b> neue
+Inhalte oder Begriffe.</p>
+<table class="vt"><tr><th>Min</th><th>Was</th><th>Wer</th></tr>
+<tr class="grp"><td colspan="3">0 · Start<span>Minute 0–5</span></td></tr>
+<tr><td class="mn">5′</td><td>Ankommen, Ablauf ansagen: heute nur üben, vier Aufgaben, unterschiedlicher Schwierigkeitsgrad</td><td>Plenum</td></tr>
+<tr class="grp"><td colspan="3">1 · Pflichtbereich<span>Minute 5–40</span></td></tr>
+<tr><td class="mn">35′</td><td>Aufgabe 1 und 2 (ohne Erwartungswert, mittel bis schwer) in Einzelarbeit, bei Bedarf Partnerabgleich</td><td>Einzel / Partner</td></tr>
+<tr class="grp"><td colspan="3">2 · Erwartungswert<span>Minute 40–80</span></td></tr>
+<tr><td class="mn">40′</td><td>Aufgabe 3 (leichter) und Aufgabe 4 (schwerer) in Einzelarbeit</td><td>Einzel</td></tr>
+<tr class="grp"><td colspan="3">3 · Abschluss<span>Minute 80–90</span></td></tr>
+<tr><td class="mn">10′</td><td>Ergebnisse mit den Lösungen vergleichen, offene Fragen klären</td><td>Plenum</td></tr>
+</table>
+<div class="knapp"><b>Wenn es knapp wird:</b> Aufgabe 4 wird Hausaufgabe, Reihenfolge sonst unverändert lassen –
+der Pflichtbereich zuerst gibt Sicherheit für die Erwartungswertaufgaben danach.</div>
+<p class="nicht">Nichts an die Tafel. Alle vier Aufgaben stehen unten als Originalausschnitt aus dem Buch, kein zusätzliches Abfotografieren nötig.</p>
+</section>
+
+<section id="pflicht"><h2>Pflichtbereich – ohne Erwartungswert</h2>
+<p class="lead">Zwei Aufgaben zu mehrstufigen Zufallsexperimenten ohne Zurücklegen. <span class="chip pflicht">Pflicht</span></p>
+
+<div class="aufgblock"><header><span class="nr">1</span><h3>Kartenspiel ohne Zurücklegen</h3><span class="chip pflicht">Pflicht</span></header>
+<div class="body">
+<img src="Aufgaben-Screenshots/Aufgabe 1 – Kartenspiel.png" alt="Aufgabe: Kartenspiel ohne Zurücklegen">
+</div></div>
+
+<div class="aufgblock"><header><span class="nr">2</span><h3>Blaue und rote Kugeln</h3><span class="chip pflicht">Pflicht</span></header>
+<div class="body">
+<img src="Aufgaben-Screenshots/Aufgabe 2 – Blaue und rote Kugeln.png" alt="Aufgabe: blaue und rote Kugeln">
+</div></div>
+</section>
+
+<section id="erwartungswert"><h2>Erwartungswert</h2>
+<p class="lead">Eine leichtere und eine schwerere Aufgabe zum Erwartungswert bei Glücksspielen. <span class="chip ew">Erwartungswert</span></p>
+
+<div class="aufgblock"><header><span class="nr">3</span><h3>Tombola</h3><span class="chip ew">Erwartungswert</span><span class="chip leicht">leicht</span></header>
+<div class="body">
+<img src="Aufgaben-Screenshots/Aufgabe 3 – Tombola.png" alt="Aufgabe: Tombola">
+</div></div>
+
+<div class="aufgblock"><header><span class="nr">4</span><h3>Herr Tober und die Gaststätte</h3><span class="chip ew">Erwartungswert</span><span class="chip schwer">schwerer</span></header>
+<div class="body">
+<img src="Aufgaben-Screenshots/Aufgabe 4 – Herr Tober.png" alt="Aufgabe: Herr Tober und die Gaststätte">
+</div></div>
+</section>
+
+<section id="loesungen"><h2>Lösungen</h2>
+<p class="lead">Selbst gerechnet, noch nicht mit dem digitalen Lösungsbuch abgeglichen.</p>
+<div class="loes">
+
+<h4>Aufgabe 1: Kartenspiel</h4>
+<p>32 Karten, davon 8 Pik, 16 rote (Herz + Karo), 4 Asse, jeweils genau 1 Kreuzbube und 1 Herz-Ass.</p>
+<div class="kl">
+<div>a) 8/32 · 7/31 = 56/992 ≈ <b>5,6 %</b></div>
+<div>b) 16/32 · 15/31 = 240/992 ≈ <b>24,2 %</b></div>
+<div>c) 4/32 · 3/31 = 12/992 ≈ <b>1,2 %</b></div>
+<div>d) 1/32 · 1/31 = 1/992 ≈ <b>0,1 %</b></div>
+</div>
+
+<h4>Aufgabe 2: Blaue und rote Kugeln</h4>
+<p>a) Mit r roten und b = r + 1 blauen Kugeln (n = 2r + 1 insgesamt) gilt P(B,B) = C(b,2)/C(n,2).
+Für r = 2, b = 3, n = 5 ergibt sich C(3,2)/C(5,2) = 3/10 = 30 % – passt. Also <b>2 rote und 3 blaue Kugeln</b>.</p>
+<p>b) P(unterschiedliche Farben) = (3 · 2)/C(5,2) = 6/10 = <b>60 %</b></p>
+
+<h4>Aufgabe 3: Tombola</h4>
+<p>Erwartete Auszahlung pro Los: (160 · 0,40 € + 20 · 3,50 € + 17 · 7,50 € + 3 · 80,00 €) / 500
+= (64 + 70 + 127,50 + 240) / 500 = 501,50 € / 500 = 1,003 €.<br>
+Gewinn des Betreibers pro Los: 2,00 € − 1,003 € ≈ <b>1,00 €</b> (genau 0,997 €).</p>
+
+<h4>Aufgabe 4: Herr Tober</h4>
+<p>Gaststätte Innenstadt: konstanter Gewinn, also E = <b>250 €</b>.<br>
+Ausflugslokal: E = 0,4 · 500 € + 0,6 · 50 € = 200 € + 30 € = <b>230 €</b>.<br>
+Da 250 € &gt; 230 €, sollte sich Herr Tober im Erwartungswert für die <b>Gaststätte in der Innenstadt</b>
+entscheiden. Das Ausflugslokal bringt zwar an guten Tagen mehr, ist aber im Schnitt und wegen der 60 % Regenwahrscheinlichkeit schlechter, dazu risikoreicher.</p>
+
+</div></section>
+
+</div>
+<footer>Entwurf. Aufgaben nach Schulbuch-Quelle (Klasse 10, Kapitel Stochastik, S. 145 und S. 149), Lösungen selbst gerechnet.</footer>
+</body></html>

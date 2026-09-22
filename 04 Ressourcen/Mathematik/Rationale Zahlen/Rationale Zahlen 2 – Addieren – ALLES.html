@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rationale Zahlen 2 – Addieren</title><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b;margin-bottom:0}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav a{padding:5px 13px;border-radius:16px;text-decoration:none;color:#1b1b1b;font-size:14px;background:#f1f1ed}
+nav a:hover{background:#e3e3dc}
+section{padding:34px 0 8px;scroll-margin-top:50px}
+h2{font-size:22px;margin:0 0 6px}h2+.lead{margin-top:0}
+.lead{color:#555;margin:0 0 16px}
+h3{font-size:17px;margin:26px 0 8px}
+.ziel{background:#f5f5f1;border-radius:8px;padding:12px 16px;margin:16px 0}
+.bl{border:1px solid #d3d3cc;border-radius:9px;margin:16px 0;overflow:hidden}
+.bl>header{display:flex;align-items:center;gap:12px;background:#f5f5f1;padding:9px 16px;border-bottom:1px solid #d3d3cc}
+.bl .nr{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;font-size:14px}
+.bl h3{margin:0;font-size:17px;flex:1}.bl .min{color:#555;font-size:14px;white-space:nowrap}
+.bl .body{padding:6px 18px 12px}
+.bl ul{margin:8px 0;padding-left:20px}.bl li{margin:6px 0}
+.t{display:inline-block;min-width:52px;color:#555;font-size:13.5px}
+.knapp{background:#fff6e0;border-left:4px solid #e0a100;padding:7px 12px;margin:10px 0 4px;font-size:15px}
+.fehler{background:#fbeeee;border-left:4px solid #b3261e;padding:8px 14px;margin:16px 0}
+.fehler ol{margin:6px 0 2px;padding-left:20px}
+.nicht{color:#555;font-size:15px;margin:10px 0}
+.stift{vertical-align:-2px;margin:0 2px}
+figure{margin:10px 0 12px}figure svg{display:block;max-width:100%;height:auto;border:1px solid #c8d0dc}
+figcaption{font-size:13.5px;color:#555;margin-top:4px}
+.tafelblock{margin:18px 0 26px}
+.tafelblock>h3{display:flex;justify-content:space-between;align-items:baseline;background:#eeeeea;border-left:5px solid #1b1b1b;padding:5px 12px;margin:0 0 10px;font-size:16.5px}
+.tafelblock>h3 span{font-weight:400;font-size:13.5px;color:#555;font-style:italic}
+.heft{border-left:5px solid #1b1b1b;padding-left:14px;margin:12px 0}
+.merk{background:#eef3fb;border:1.5px solid #1a56a0;border-radius:6px;padding:8px 13px;margin:9px 0;font-weight:600}
+.merk.neg{border-color:#b3261e;background:#fbeeee}
+.merk table{background:transparent;margin:8px 0 0}.merk td,.merk th{border:none;padding:2px 8px 2px 0;font-weight:400}
+.merk th{font-weight:700}
+.sprech{font-size:14.5px;color:#555;font-style:italic;margin:6px 0}
+.uheft{border-left:5px dashed #1a56a0;padding-left:14px;margin:12px 0}
+.chip.ueb{background:#e2ecf8;color:#1a56a0;border:1px dashed #1a56a0}
+.chip.mk{background:#eee;color:#1b1b1b;border:1px solid #1b1b1b}
+.legende{border:1px solid #c9c9c2;border-radius:6px;padding:7px 12px;font-size:14.5px;margin:12px 0}
+.aufg{font-size:16.5px;font-weight:600;margin:6px 0}
+.neg{color:#b3261e;font-weight:600}.pos{color:#1a56a0;font-weight:600}
+.heftseite{border:2px solid #1b1b1b;border-radius:4px;padding:18px 24px;margin:16px 0;background:#fff;box-shadow:4px 4px 0 #e3e3dc}
+.heftseite h3{font-size:20px;margin:0 0 4px;text-decoration:underline}
+.heftseite p{margin:8px 0}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15.5px}
+th,td{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#f5f5f1;font-weight:600}
+.chip{display:inline-block;padding:1px 9px;border-radius:10px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.orange{background:#fdebd3;color:#8a4b00}.gruen{background:#dcf1dc;color:#1d6b1d}.alle{background:#e2ecf8;color:#1a56a0}
+.loes{margin:8px 0 18px}.loes h4{margin:18px 0 6px;font-size:16.5px}
+.loes p{margin:5px 0}
+.kl{columns:2;column-gap:28px;margin:6px 0}.kl div{break-inside:avoid;margin:2px 0}
+footer{margin-top:40px;padding:14px 0 40px;border-top:1px solid #d3d3cc;color:#666;font-size:13.5px}
+.zeige{background:#e7f3e7;border-left:4px solid #1d6b1d;padding:6px 12px;margin:0 0 10px;font-size:15px}
+.nichts{background:#e7f3e7;border-left:4px solid #1d6b1d;padding:9px 14px;margin:8px 0}
+.warn{background:#fff6e0;border-left:4px solid #e0a100;padding:9px 14px;margin:8px 0;font-size:14.5px}
+.vt th:first-child,.vt td.mn{width:52px;text-align:right;white-space:nowrap;color:#555}
+.vt tr.grp td{background:#eeeeea;font-weight:700;font-size:15.5px}
+.vt tr.grp td span{float:right;font-weight:400;color:#555;font-size:14px}
+@media print{nav{display:none}section{page-break-before:always}.bl,figure,.heftseite,.tafelblock{break-inside:avoid}body{font-size:11pt}}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Rationale Zahlen 2: Addieren</h1>
+<p class="sub">Klasse 7c · Mittwoch + Donnerstag, je Einzelstunde · Buch S. 18–19 · alles in einer Datei</p></header></div>
+<nav><div class="wrap"><a href="#mittwoch">Mittwoch</a><a href="#donnerstag">Donnerstag</a><a href="#merkheft">Merkheft</a>
+<a href="#aufgaben">Aufgaben</a><a href="#loesungen">Lösungen</a><a href="#ausblick">Ausblick</a></div></nav>
+<div class="wrap">
+<section id="mittwoch"><h2>Mittwoch · Einzelstunde</h2>
+<p class="lead">45 Minuten. Ziel dieser Stunde ist Masse: die Regel einmal klar herausarbeiten, dann viel selbst
+rechnen. <svg class="stift" viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M3 21 L4.8 16.2 L16 5 L19 8 L7.8 19.2 Z" fill="none" stroke="#1b1b1b" stroke-width="1.9" stroke-linejoin="round"/><path d="M14 7 L17 10" stroke="#1b1b1b" stroke-width="1.9"/></svg> = wird ins <span class="chip mk">Merkheft</span> geschrieben. Alle Übungen kommen ins <span class="chip ueb">Übungsheft</span>.</p>
+<div class="ziel"><b>Ziel:</b> Die Klasse kennt die Regel „gleiche Vorzeichen: Beträge addieren, Vorzeichen bleibt“
+und „verschiedene Vorzeichen: Beträge subtrahieren, Vorzeichen der betragsmäßig größeren Zahl“ und wendet sie in
+vielen Kopf- und Übungsaufgaben sicher an. <b>Nicht Ziel:</b> Sachaufgaben, Subtraktion – das kommt am Donnerstag
+bzw. nächste Woche.</p>
+<table class="vt"><tr><th>Min</th><th>Was</th><th>Buch und Material</th><th>Wer</th></tr><tr class="grp"><td colspan="4">0 · Start<span>Minute 0–4</span></td></tr><tr><td class="mn">4′</td><td>Ankommen. Rückblick in einem Satz: gestern Zahlengerade und Vergleichen, heute wird auf der Geraden gerechnet</td><td>&ndash;</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">1 · Einstieg: Bogenmodell<span>Minute 4–12</span></td></tr><tr><td class="mn">4′</td><td>Erste Rechnung an die Tafel: (−2) + (+7). Wo stehen wir, wohin bewegen wir uns?</td><td>Tafel</td><td>Plenum</td></tr><tr><td class="mn">4′</td><td>Zweite Rechnung: (−1) + (−6). Vergleich beider Bögen: <b>positiv</b> addieren = nach rechts, <b>negativ</b> addieren = nach links</td><td>Tafel</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">2 · Merksatz<span>Minute 12–20</span></td></tr><tr><td class="mn">8′</td><td><svg class="stift" viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M3 21 L4.8 16.2 L16 5 L19 8 L7.8 19.2 Z" fill="none" stroke="#1b1b1b" stroke-width="1.9" stroke-linejoin="round"/><path d="M14 7 L17 10" stroke="#1b1b1b" stroke-width="1.9"/></svg> Regel in zwei Fällen (gleiche / verschiedene Vorzeichen) mit den vier Buch-Beispielen, dann Schreibweise vereinfachen</td><td>Tafel &rarr; <span class="chip mk">Merkheft</span></td><td>Plenum, abschreiben</td></tr><tr class="grp"><td colspan="4">3 · Viel rechnen<span>Minute 20–40</span></td></tr><tr><td class="mn">4′</td><td>Aufgabe 1: fehlenden Wert an der Zahlengeraden ergänzen</td><td>S. 18 Nr. 1 <span class="chip alle">alle</span></td><td>Einzel</td></tr><tr><td class="mn">4′</td><td>Aufgabe 2: gleiche Vorzeichen, im Kopf</td><td>S. 18 Nr. 2 <span class="chip alle">alle</span></td><td>Einzel<br><span class="chip ueb">Übungsheft</span></td></tr><tr><td class="mn">6′</td><td>Aufgabe 3: erst Vorzeichen des Ergebnisses überlegen, dann rechnen</td><td>S. 18 Nr. 3 <span class="chip alle">alle</span></td><td>Einzel<br><span class="chip ueb">Übungsheft</span></td></tr><tr><td class="mn">6′</td><td>Aufgabe 4: Schreibweise vereinfachen, dann berechnen</td><td>S. 18 Nr. 4 <span class="chip alle">alle</span></td><td>Einzel<br><span class="chip ueb">Übungsheft</span></td></tr><tr><td class="mn">5′</td><td>Kontrolle in Partnerarbeit, offene Fragen sammeln</td><td>&ndash;</td><td>Partner</td></tr><tr><td class="mn">+′</td><td>Wer schnell fertig ist: <b>Alles klar? A</b> und <b>B</b>, dazu der Fördern-Link 2pq6ev</td><td>S. 18/19 „Alles klar?“</td><td>Einzel</td></tr><tr class="grp"><td colspan="4">4 · Ausstieg<span>Minute 40–45</span></td></tr><tr><td class="mn">3′</td><td>Exit-Ticket: zwei Aufgaben aus <b>Alles klar? A</b> auf einen Zettel</td><td>S. 19 A a), c)</td><td>Einzel<br><span class="chip ueb">Übungsheft</span></td></tr><tr><td class="mn">2′</td><td>Hausaufgabe ansagen</td><td>Rest von Nr. 3, 4 · Alles klar? B</td><td>Zu Hause<br><span class="chip ueb">Übungsheft</span></td></tr></table>
+<div class="knapp"><b>Wenn es knapp wird:</b> Aufgabe 4 wird Hausaufgabe, „Alles klar?“ nur für Schnelle.</div>
+<div class="fehler"><b>Worauf du achten kannst</b>
+<ol>
+<li>Vorzeichen und Rechenzeichen werden verwechselt, besonders wenn beide − sind: (−12) + (−15) sieht aus wie eine
+Subtraktion. Klammern lesen lassen.</li>
+<li>Bei verschiedenen Vorzeichen wird addiert statt subtrahiert: (+28) + (−10) wird zu 38 statt 18.</li>
+<li>Das Vorzeichen des Ergebnisses wird vergessen oder falsch übernommen, besonders wenn die negative Zahl den
+größeren Betrag hat: (−30) + (+20) landet bei +10 statt −10.</li>
+<li>Beim Vereinfachen (Aufgabe 4) geht ein Vorzeichen verloren, z. B. (−25) + (+17) wird zu −25 + 17 = 42 statt −8
+(Vorzeichenwechsel beim Weglassen der Klammer nicht beachtet).</li>
+</ol></div>
+</section>
+<div class="tafelblock-wrap">
+<div class="tafelblock"><h3>Bogenmodell <span>Minute 4–12</span></h3>
+<div class="heft"><figure><svg class="gerade" viewBox="0 0 800 118" width="800" height="118" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif"><defs><pattern id="k1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#c8d0dc" stroke-width="1"/></pattern></defs><rect width="800" height="118" fill="#fff"/><rect width="800" height="118" fill="url(#k1)"/><path d="M800 0V118H0" fill="none" stroke="#c8d0dc"/><line x1="20" y1="78" x2="780" y2="78" stroke="#222" stroke-width="1.7"/><polygon points="780,78 770,73 770,83" fill="#222"/><polygon points="20,78 30,73 30,83" fill="#222"/><line x1="40.0" y1="71" x2="40.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="40.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−3</text><line x1="120.0" y1="71" x2="120.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="120.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−2</text><line x1="200.0" y1="71" x2="200.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="200.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−1</text><line x1="280.0" y1="68" x2="280.0" y2="88" stroke="#222" stroke-width="2.2"/><text x="280.0" y="102" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b1b1b">0</text><line x1="360.0" y1="71" x2="360.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="360.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+1</text><line x1="440.0" y1="71" x2="440.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="440.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+2</text><line x1="520.0" y1="71" x2="520.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="520.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+3</text><line x1="600.0" y1="71" x2="600.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="600.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+4</text><line x1="680.0" y1="71" x2="680.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="680.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+5</text><line x1="760.0" y1="71" x2="760.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="760.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+6</text><path d="M120.0 73 Q400.0 18.0 680.0 73" fill="none" stroke="#1a56a0" stroke-width="2.2" marker-end="url(#ar1)"/><defs><marker id="ar1" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1a56a0"/></marker></defs><rect x="374.0" y="14.0" width="52" height="20" rx="5" fill="#1a56a0"/><text x="400.0" y="28.5" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">+7</text><circle cx="120.0" cy="78" r="5" fill="#1b1b1b" stroke="#fff" stroke-width="1.4"/><circle cx="680.0" cy="78" r="5.5" fill="#1a56a0" stroke="#fff" stroke-width="1.4"/><text x="120.0" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#1b1b1b">−2</text><text x="680.0" y="102" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1a56a0">+5</text></svg><figcaption>1 = 4 Kästchen. Bei −2 starten, Bogen +7 nach rechts, Landung bei +5.</figcaption></figure>
+<figure><svg class="gerade" viewBox="0 0 620 118" width="620" height="118" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif"><defs><pattern id="k2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#c8d0dc" stroke-width="1"/></pattern></defs><rect width="620" height="118" fill="#fff"/><rect width="620" height="118" fill="url(#k2)"/><path d="M620 0V118H0" fill="none" stroke="#c8d0dc"/><line x1="20" y1="78" x2="600" y2="78" stroke="#222" stroke-width="1.7"/><polygon points="600,78 590,73 590,83" fill="#222"/><polygon points="20,78 30,73 30,83" fill="#222"/><line x1="40.0" y1="71" x2="40.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="40.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−8</text><line x1="100.0" y1="71" x2="100.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="100.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−7</text><line x1="160.0" y1="71" x2="160.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="160.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−6</text><line x1="220.0" y1="71" x2="220.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="220.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−5</text><line x1="280.0" y1="71" x2="280.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="280.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−4</text><line x1="340.0" y1="71" x2="340.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="340.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−3</text><line x1="400.0" y1="71" x2="400.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="400.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−2</text><line x1="460.0" y1="71" x2="460.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="460.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−1</text><line x1="520.0" y1="68" x2="520.0" y2="88" stroke="#222" stroke-width="2.2"/><text x="520.0" y="102" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b1b1b">0</text><line x1="580.0" y1="71" x2="580.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="580.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+1</text><path d="M460.0 73 Q280.0 18.0 100.0 73" fill="none" stroke="#b3261e" stroke-width="2.2" marker-end="url(#ar2)"/><defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#b3261e"/></marker></defs><rect x="254.0" y="14.0" width="52" height="20" rx="5" fill="#b3261e"/><text x="280.0" y="28.5" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">−6</text><circle cx="460.0" cy="78" r="5" fill="#1b1b1b" stroke="#fff" stroke-width="1.4"/><circle cx="100.0" cy="78" r="5.5" fill="#b3261e" stroke="#fff" stroke-width="1.4"/><text x="460.0" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#1b1b1b">−1</text><text x="100.0" y="102" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b3261e">−7</text></svg><figcaption>1 = 3 Kästchen. Bei −1 starten, Bogen −6 nach links, Landung bei −7.</figcaption></figure>
+<div class="merk">Addiert man eine <span class="pos">positive</span> Zahl, bewegt man sich auf der Zahlengeraden
+nach rechts.<br>Addiert man eine <span class="neg">negative</span> Zahl, bewegt man sich nach links.</div></div>
+<p class="sprech">Erst die Startzahl markieren, dann fragen: „Addiere ich etwas Positives oder Negatives – wohin
+geht der Bogen?“ Erst danach zählen lassen.</p></div>
+
+<div class="tafelblock"><h3>Merksatz: Rationale Zahlen addieren <span>Minute 12–20</span></h3>
+<div class="heft"><div class="merk"><b>Gleiche Vorzeichen</b><br>Man addiert die Zahlen, ohne ihr Vorzeichen zu
+berücksichtigen. Das Ergebnis erhält das gemeinsame Vorzeichen.</div>
+<div class="merk"><b>Verschiedene Vorzeichen</b><br>Man subtrahiert die Zahlen, ohne ihr Vorzeichen zu
+berücksichtigen. Das Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</div>
+<p>(+12) + (+8) = +(12 + 8) = +20 &nbsp;&middot;&nbsp; (−15) + (−10) = −(15 + 10) = −25<br>
+(+18) + (−6) = +(18 − 6) = +12 &nbsp;&middot;&nbsp; (−14) + (+9) = −(14 − 9) = −5</p>
+<div class="merk">Zur <b>Vereinfachung der Schreibweise</b> darf man das Vorzeichen + und die zugehörige Klammer
+weglassen. Beginnt ein Rechenausdruck mit einer negativen Zahl, kann man bei dieser Zahl die Klammer weglassen.</p>
+(+12) + (+8) = 12 + 8 = 20 &nbsp;&middot;&nbsp; (−15) + (−10) = −15 + (−10) = −25<br>
+(+18) + (−6) = 18 + (−6) = 12 &nbsp;&middot;&nbsp; (−14) + (+9) = −14 + 9 = −5</div></div></div>
+
+<div class="tafelblock"><h3>Viel rechnen <span>Minute 20–40</span></h3>
+<div class="uheft"><p class="aufg"><span class="chip ueb">Übungsheft</span> S. 18 Nr. 1, 2, 3, 4 – der Reihe nach, im eigenen Tempo.</p>
+<p class="sprech">Bei Nr. 3 immer erst das Vorzeichen des Ergebnisses überlegen, dann erst rechnen. Bei Nr. 4 erst
+die Klammern weglassen (Schreibweise vereinfachen), dann rechnen.</p></div>
+<p>Für Schnelle: „Alles klar?“ A (Kopfrechnen) und B (Kärtchen zuordnen), dazu der Fördern-Link <b>2pq6ev</b> für
+alle, die noch mehr Übung brauchen.</p></div>
+</div>
+<section id="donnerstag"><h2>Donnerstag · Einzelstunde</h2>
+<p class="lead">45 Minuten. Nach der reinen Rechenroutine vom Mittwoch geht es heute um Anwenden: eine
+Sachaufgabe im Sachzusammenhang und Aufgaben, die zeigen, wo Fehler typischerweise passieren.</p>
+<div class="ziel"><b>Ziel:</b> Die Klasse wendet die Additionsregel in Sachzusammenhängen an (Temperatur, Höhe,
+Kontostand) und erkennt typische Fehler in fremden Rechnungen. <b>Nicht Ziel:</b> neue Regeln – die Regel von
+Mittwoch wird nur angewendet, nicht erweitert.</p>
+<table class="vt"><tr><th>Min</th><th>Was</th><th>Buch und Material</th><th>Wer</th></tr><tr class="grp"><td colspan="4">0 · Start<span>Minute 0–5</span></td></tr><tr><td class="mn">5′</td><td>Kopfrechenkette mündlich: fünf kurze Additionen im Wechsel, als Auffrischung von gestern</td><td>&ndash;</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">1 · Sachaufgabe: Skitour<span>Minute 5–15</span></td></tr><tr><td class="mn">10′</td><td>Bildaufgabe Gamshütte &rarr; Enzianstüble &rarr; Falkenhütte: Temperatur am Enzianstüble, Vergleich Auf-/Abstieg, Höhe und Temperatur an der Falkenhütte</td><td>S. 18 Bildaufgabe</td><td>Plenum, dann Partner</td></tr><tr class="grp"><td colspan="4">2 · Anwenden und üben<span>Minute 15–35</span></td></tr><tr><td class="mn">6′</td><td>Fahnenaufgabe: Ergebnis ablesen und nachrechnen</td><td>S. 19 Nr. 5 <span class="chip alle">alle</span></td><td>Einzel<br><span class="chip ueb">Übungsheft</span></td></tr><tr><td class="mn">6′</td><td>Fehlersuche: fünf falsch gerechnete Additionen korrigieren</td><td>S. 19 Nr. 6 <span class="chip alle">alle</span></td><td>Partner</td></tr><tr><td class="mn">8′</td><td>Je nach Tempo: Kärtchen kombinieren oder Hochhaus-Aufgabe</td><td>S. 19 Nr. 9 links <span class='chip orange'>orange</span> oder Nr. 10 links <span class='chip gruen'>grün</span></td><td>Einzel<br><span class="chip ueb">Übungsheft</span></td></tr><tr><td class="mn">+′</td><td>Für Schnelle: Mitgliederentwicklung Sportverein</td><td>S. 19 Nr. 11 links <span class='chip gruen'>grün</span></td><td>Einzel</td></tr><tr class="grp"><td colspan="4">3 · Sicherung<span>Minute 35–40</span></td></tr><tr><td class="mn">5′</td><td>Fehlersuche (Nr. 6) gemeinsam an der Tafel besprechen – guter Anlass für die typischen Fehler</td><td>Tafel</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">4 · Ausstieg<span>Minute 40–45</span></td></tr><tr><td class="mn">5′</td><td>Wenn Zeit bleibt: Start des Würfelspiels zu zweit, sonst Hausaufgabe ansagen</td><td>S. 19 Nr. 12</td><td>Partner oder<br>Hausaufgabe</td></tr></table>
+<div class="knapp"><b>Wenn es knapp wird:</b> Nr. 9/10/11 nur eine Aufgabe statt Auswahl, das Würfelspiel (Nr. 12)
+ganz weglassen oder als Hausaufgabe ankündigen.</div>
+</section>
+<div class="tafelblock-wrap">
+<div class="tafelblock"><h3>Sachaufgabe: Skitour <span>Minute 5–15</span></h3>
+<p class="aufg">Gamshütte 2350 m, −12,5 °C. Abstieg 750 m zum Enzianstüble (+8,5 °C Temperaturänderung). Aufstieg
+920 m zur Falkenhütte (−10,5 °C Temperaturänderung).</p>
+<div class="heft"><p><b>Temperatur am Enzianstüble:</b> −12,5 + 8,5 = −4 °C<br>
+<b>Aufstieg minus Abstieg:</b> 920 − 750 = 170 m, der Aufstieg ist 170 m größer als der Abstieg<br>
+<b>Höhe Falkenhütte:</b> 2350 − 750 + 920 = 2520 m &nbsp;&middot;&nbsp; <b>Temperatur:</b> −4 + (−10,5) = −14,5 °C</p></div>
+<p class="sprech">Erst die Situation an der Tafel skizzieren (Höhenprofil als Linie), dann für jede Frage einzeln
+den passenden Rechenausdruck aufschreiben lassen, bevor gerechnet wird.</p></div>
+
+<div class="tafelblock"><h3>Fehlersuche <span>Minute 20–40</span></h3>
+<p class="aufg">S. 19 Nr. 6 rechts: „Hier hat sich ein Fehler eingeschlichen.“</p>
+<div class="uheft"><p>a) (+12) + (−10) = 22 &nbsp;&rarr;&nbsp; richtig: +2<br>
+b) (−25) + (+20) = 5 &nbsp;&rarr;&nbsp; richtig: −5<br>
+c) (+24) + (−30) = −54 &nbsp;&rarr;&nbsp; richtig: −6<br>
+d) (−16) + (−24) = −8 &nbsp;&rarr;&nbsp; richtig: −40<br>
+e) −4,25 + (−0,5) = −3,75 &nbsp;&rarr;&nbsp; richtig: −4,75</p></div>
+<p class="sprech">Fragen: Welcher Fehler wiederholt sich (a, b, c – Vorzeichen des Ergebnisses)? Welcher ist anders
+(d – Beträge addiert statt richtig verrechnet)?</p></div>
+</div>
+<section id="merkheft"><h2>Merkheft</h2>
+<p class="lead">Das schreiben die Schüler am Mittwoch ab.</p>
+<div class="heftseite">
+<h3>Rationale Zahlen addieren</h3>
+<figure><svg class="gerade" viewBox="0 0 800 118" width="800" height="118" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif"><defs><pattern id="k1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#c8d0dc" stroke-width="1"/></pattern></defs><rect width="800" height="118" fill="#fff"/><rect width="800" height="118" fill="url(#k1)"/><path d="M800 0V118H0" fill="none" stroke="#c8d0dc"/><line x1="20" y1="78" x2="780" y2="78" stroke="#222" stroke-width="1.7"/><polygon points="780,78 770,73 770,83" fill="#222"/><polygon points="20,78 30,73 30,83" fill="#222"/><line x1="40.0" y1="71" x2="40.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="40.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−3</text><line x1="120.0" y1="71" x2="120.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="120.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−2</text><line x1="200.0" y1="71" x2="200.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="200.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">−1</text><line x1="280.0" y1="68" x2="280.0" y2="88" stroke="#222" stroke-width="2.2"/><text x="280.0" y="102" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b1b1b">0</text><line x1="360.0" y1="71" x2="360.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="360.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+1</text><line x1="440.0" y1="71" x2="440.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="440.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+2</text><line x1="520.0" y1="71" x2="520.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="520.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+3</text><line x1="600.0" y1="71" x2="600.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="600.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+4</text><line x1="680.0" y1="71" x2="680.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="680.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+5</text><line x1="760.0" y1="71" x2="760.0" y2="85" stroke="#222" stroke-width="1.3"/><text x="760.0" y="102" text-anchor="middle" font-size="12.5" font-weight="400" fill="#1b1b1b">+6</text><path d="M120.0 73 Q400.0 18.0 680.0 73" fill="none" stroke="#1a56a0" stroke-width="2.2" marker-end="url(#ar1)"/><defs><marker id="ar1" markerWidth="9" markerHeight="9" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1a56a0"/></marker></defs><rect x="374.0" y="14.0" width="52" height="20" rx="5" fill="#1a56a0"/><text x="400.0" y="28.5" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">+7</text><circle cx="120.0" cy="78" r="5" fill="#1b1b1b" stroke="#fff" stroke-width="1.4"/><circle cx="680.0" cy="78" r="5.5" fill="#1a56a0" stroke="#fff" stroke-width="1.4"/><text x="120.0" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#1b1b1b">−2</text><text x="680.0" y="102" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1a56a0">+5</text></svg><figcaption>1 = 4 Kästchen</figcaption></figure>
+<p><span class="pos">Positive</span> Zahl addieren: Bewegung nach rechts.<br>
+<span class="neg">Negative</span> Zahl addieren: Bewegung nach links.</p>
+<p><b>Gleiche Vorzeichen:</b> Man addiert die Zahlen, ohne ihr Vorzeichen zu berücksichtigen. Das Ergebnis erhält
+das gemeinsame Vorzeichen.</p>
+<p><b>Verschiedene Vorzeichen:</b> Man subtrahiert die Zahlen, ohne ihr Vorzeichen zu berücksichtigen. Das
+Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</p>
+<p>(+12) + (+8) = +20 &nbsp;&middot;&nbsp; (−15) + (−10) = −25 &nbsp;&middot;&nbsp; (+18) + (−6) = +12
+&nbsp;&middot;&nbsp; (−14) + (+9) = −5</p>
+<p><b>Vereinfachte Schreibweise:</b> das Vorzeichen + und seine Klammer dürfen weggelassen werden, ebenso die
+Klammer der ersten Zahl, wenn sie negativ ist.</p>
+<p>12 + 8 = 20 &nbsp;&middot;&nbsp; −15 + (−10) = −25 &nbsp;&middot;&nbsp; 18 + (−6) = 12 &nbsp;&middot;&nbsp;
+−14 + 9 = −5</p>
+</div>
+</section>
+
+<section id="aufgaben"><h2>Aufgaben</h2>
+<p class="lead">Alles steht im Buch S. 18–19. Alle Übungen kommen ins <span class="chip ueb">Übungsheft</span>, Merksätze ins <span class="chip mk">Merkheft</span>.
+<span class='chip orange'>orange</span> und <span class='chip gruen'>grün</span> sind Differenzierungsangebote, <span class="chip alle">alle</span> sind Pflichtaufgaben für alle.</p>
+<table><tr><th>Tag</th><th>Buch</th><th>Niveau</th><th>Aufgabe</th></tr>
+<tr><td>Mi</td><td>Tafel</td><td><span class="chip alle">alle</span></td><td>Bogenmodell: (−2) + (+7) und (−1) + (−6)</td></tr>
+<tr><td>Mi</td><td>S. 18 Nr. 1</td><td><span class="chip alle">alle</span></td><td>Fehlenden Wert an der Zahlengeraden ergänzen</td></tr>
+<tr><td>Mi</td><td>S. 18 Nr. 2</td><td><span class="chip alle">alle</span></td><td>Gleiche Vorzeichen, im Kopf addieren</td></tr>
+<tr><td>Mi</td><td>S. 18 Nr. 3</td><td><span class="chip alle">alle</span></td><td>Erst Vorzeichen überlegen, dann berechnen</td></tr>
+<tr><td>Mi</td><td>S. 18 Nr. 4</td><td><span class="chip alle">alle</span></td><td>Schreibweise vereinfachen, dann berechnen</td></tr>
+<tr><td>Mi</td><td>S. 18/19 „Alles klar?“ A, B</td><td>für Schnelle</td><td>Kopfrechnen · Kärtchen den Summen zuordnen</td></tr>
+<tr><td>Do</td><td>S. 18 Bildaufgabe</td><td><span class="chip alle">alle</span></td><td>Skitour Gamshütte–Enzianstüble–Falkenhütte</td></tr>
+<tr><td>Do</td><td>S. 19 Nr. 5</td><td><span class="chip alle">alle</span></td><td>Fahnenaufgabe: Ergebnis ablesen, nachrechnen</td></tr>
+<tr><td>Do</td><td>S. 19 Nr. 6</td><td><span class="chip alle">alle</span></td><td>Fehlersuche: fünf Additionen korrigieren</td></tr>
+<tr><td>Do</td><td>S. 19 Nr. 9 links</td><td><span class='chip orange'>orange</span></td><td>Kärtchen kombinieren: größte/kleinste Summe, Summe −12</td></tr>
+<tr><td>Do</td><td>S. 19 Nr. 10 links</td><td><span class='chip gruen'>grün</span></td><td>Hochhaus: Ein- und Ausstieg berechnen</td></tr>
+<tr><td>Do</td><td>S. 19 Nr. 11 links</td><td><span class='chip gruen'>grün</span></td><td>Sportverein: Mitgliederentwicklung über drei Monate</td></tr>
+<tr><td>Do</td><td>S. 19 Nr. 12</td><td>Zusatz</td><td>Würfelspiel zu zweit, wenn Zeit bleibt</td></tr>
+<tr><td>HA</td><td>Rest Nr. 3, 4</td><td><span class="chip alle">alle</span></td><td>Was am Mittwoch nicht fertig wurde</td></tr>
+<tr><td>HA</td><td>„Alles klar?“ B</td><td><span class="chip alle">alle</span></td><td>Kärtchen den Summen zuordnen</td></tr></table>
+<p class="nicht">Nichts zu drucken. Für die Tafel: die beiden Bogen-Zahlengeraden, die vier Merksatz-Beispiele
+und die fünf Fehlersuche-Aufgaben abschreiben, der Rest steht im Buch.</p>
+</section>
+
+<section id="loesungen"><h2>Lösungen</h2>
+<p class="lead">Selbst gerechnet, noch nicht mit dem digitalen Lösungsbuch abgeglichen.</p>
+<div class="loes">
+<h4>S. 18 Nr. 1 (Zahlengerade ergänzen)</h4>
+<div class="kl"><div>a) −3 + 5 = <b>+2</b></div><div>b) −6 + 4 = <b>−2</b></div>
+<div>c) ? + (−7) = +2 &rarr; <b>+9</b></div><div>d) ? + (−6) = −5 &rarr; <b>+1</b></div></div>
+<p class="warn">Bei c) und d) war die Pfeilrichtung auf dem Foto nicht ganz sicher zu lesen – bitte kurz mit dem
+Buch gegenprüfen, bevor du sie an die Tafel schreibst.</p>
+<h4>S. 18 Nr. 2 (gleiche Vorzeichen)</h4>
+<div class="kl"><div>a) +20</div><div>b) +40</div><div>c) −8</div><div>d) −20</div></div>
+<h4>S. 18 Nr. 3 (Vorzeichen überlegen)</h4>
+<div class="kl"><div>a) +18</div><div>b) +5</div><div>c) −10</div><div>d) −12</div>
+<div>e) −60</div><div>f) −4</div><div>g) −20</div><div>h) −7</div></div>
+<h4>S. 18 Nr. 4 (Schreibweise vereinfachen)</h4>
+<div class="kl"><div>a) −3</div><div>b) +5</div><div>c) −30</div><div>d) −8</div>
+<div>e) +77</div><div>f) −14</div><div>g) −50</div><div>h) −70</div></div>
+<h4>„Alles klar?“ A</h4>
+<div class="kl"><div>a) +20</div><div>b) −40</div><div>c) +10</div><div>d) −56</div></div>
+<h4>„Alles klar?“ B</h4>
+<div class="kl"><div>a) (−25)+(+30) = +5</div><div>b) (−25)+(−30) = −55</div>
+<div>c) (+25)+(+30) = +55</div><div>d) (+25)+(−30) = −5</div></div>
+
+<h4>S. 18 Bildaufgabe (Skitour)</h4>
+<p>Enzianstüble: −12,5 + 8,5 = −4 °C.<br>Der Aufstieg (920 m) ist 170 m größer als der Abstieg (750 m).<br>
+Falkenhütte: 2350 − 750 + 920 = 2520 m Höhe, −4 + (−10,5) = −14,5 °C.</p>
+
+<h4>S. 19 Nr. 5 (Fahnen)</h4>
+<div class="kl"><div>a) +25+(−38) = −13</div><div>b) (−46)+(+31) = −15</div>
+<div>c) (+19)+(+22) = +41</div><div>d) (−51)+(−18) = −69</div>
+<div>e) (+95)+(−59) = +36</div><div>f) (−57)+(−75) = −132</div></div>
+
+<h4>S. 19 Nr. 6 (Fehlersuche)</h4>
+<p>a) 22 &rarr; richtig <b>+2</b> &nbsp;&middot;&nbsp; b) 5 &rarr; richtig <b>−5</b> &nbsp;&middot;&nbsp;
+c) −54 &rarr; richtig <b>−6</b> &nbsp;&middot;&nbsp; d) −8 &rarr; richtig <b>−40</b> &nbsp;&middot;&nbsp;
+e) −3,75 &rarr; richtig <b>−4,75</b></p>
+
+<h4>S. 19 Nr. 9 links (Kärtchen, gelb 12/−10/18, rot −15/−5/−24)</h4>
+<p>a) Größte Summe: 18 + (−5) = <b>13</b><br>b) Kleinste Summe: −10 + (−24) = <b>−34</b><br>
+c) Summe −12: 12 + (−24) = <b>−12</b></p>
+
+<h4>S. 19 Nr. 10 links (Hochhaus)</h4>
+<p>a) Tim: 0 + 7 − 9 + 6 = +4, er steigt im <b>4. Obergeschoss</b> aus.<br>
+b) Tom kommt im 7. Geschoss an, die Bewegungen ergeben zusammen +2 (−4 + 12 − 6). Start: 7 − 2 = <b>5. Geschoss</b>.</p>
+
+<h4>S. 19 Nr. 11 links (Sportverein)</h4>
+<p>−26 + 31 − 17 = <b>−12</b>. Ende März hat der Verein 12 Mitglieder weniger als zu Jahresbeginn.</p>
+
+<h4>S. 19 Nr. 12 (Würfelspiel)</h4>
+<p>Offenes Spiel, keine feste Lösung – Regeln stehen im Buch.</p>
+</div></section>
+
+<section id="ausblick"><h2>Ausblick</h2>
+<p class="lead">Nach dem Stoffverteilungsplan 26/27. Vergleichen (Woche 2) ist erledigt, diese beiden Stunden
+decken den Einstieg in die Addition (Woche 3) ab.</p>
+<h3>Offen</h3>
+<ul><li>Alle Lösungen hier sind selbst gerechnet, noch nicht mit dem digitalen Lösungsbuch abgeglichen –
+besonders S. 18 Nr. 1 c) und d) einmal gegenlesen (Pfeilrichtung auf dem Foto unsicher).</li>
+<li>S. 19 Nr. 7 (Lösungswort-Rätsel) und Nr. 6 links (Kärtchen mit Lösungswort) sind bewusst nicht eingebaut,
+weil die kleine Beschriftung auf dem Foto nicht sicher lesbar war. Wenn du die Aufgabe willst, bitte nochmal
+scharf fotografieren.</li>
+<li>Nr. 10 rechts (Zahlenkärtchen frei kombinieren) ist offen, eignet sich gut als Zusatzaufgabe für Schnelle.</li>
+<li>Donnerstag ist als Einzelstunde (45 min) geplant – falls es doch eine Doppelstunde ist, gerne sagen, dann
+baue ich Nr. 7, 10 rechts und mehr von Nr. 12 mit ein.</li></ul>
+</section>
+
+<footer>Entwurf. PDFs erst nach Freigabe. Generator: baue_stunde2.py</footer></div></body></html>
