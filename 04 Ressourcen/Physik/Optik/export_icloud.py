@@ -72,34 +72,25 @@ for src, ziel in [(MAT / "Lichtquellen W03.pdf", F1 / "Arbeitsblatt F1.pdf"),
                   (MAT / "Kern- und Halbschatten W06.pdf", F4 / "Arbeitsblatt F4.pdf")]:
     shutil.copyfile(src, ziel)
 
-# 3) Materiallisten F1/F2 auf Stand bringen
-def ml(ordner, von, nach):
-    p = ordner / "Materialliste.html"
-    s = p.read_text(encoding="utf-8")
-    for a, b in zip(von, nach):
-        s = s.replace(a, b)
-    p.write_text(s, encoding="utf-8")
-    subprocess.run([CHROME, "--headless", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={ordner / 'Materialliste.pdf'}",
-                    "--virtual-time-budget=3000", f"file://{p}"], check=True, capture_output=True)
+# 3) Materiallisten F1/F2 (gleicher Aufbau wie F3/F4: Demo / Schülerversuch, mit Anzahl)
+from stunde_vorlage import materialliste
+materialliste(F1, "W03", "F1 — Lichtquellen und beleuchtete Körper", {
+    "demo": [("Glühlampe mit Fassung", "1×", "für den Licht-an/Licht-aus-Impuls"),
+             ("zwei unterschiedlich schwere Bälle", "2", "Einstieg naturwissenschaftliche Arbeitsweise, Fallversuch")],
+    "schueler": [],
+    "hinweis": "Raum verdunkeln, nur die Lampe vorne an. Das Arbeitsblatt Lichtquellen braucht kein Material."})
+materialliste(F2, "W04", "F2 — Licht trifft auf einen Körper", {
+    "demo": [],
+    "schueler": [("Ray-Box mit Stromanschluss", "1×", ""),
+                 ("weißes Blatt Papier", "1×", ""),
+                 ("schwarzer oder dunkler Karton", "1×", "dunkelblau, dunkelgrün oder Tonpapier gehen auch"),
+                 ("klare Glasscheibe", "1×", "Kanten abkleben")],
+    "hinweis": "Raum abdunkeln. Versuchsblatt vor dem Versuch austeilen."})
 
-
-ml(F1, ['<tr><td>Büroklammer + flache Schale Wasser</td><td>für den Einstiegsversuch (naturwissenschaftliche Arbeitsweise)</td></tr>\n<tr><td>ein Tropfen Spülmittel</td><td>zerstört die Oberflächenspannung, Klammer sinkt</td></tr>'],
-       ['<tr><td>zwei unterschiedlich schwere Bälle</td><td>für den Einstieg (naturwissenschaftliche Arbeitsweise, Fallversuch)</td></tr>'])
-s2 = (F2 / "Materialliste.html").read_text(encoding="utf-8")
-neu2 = re.sub(r"<h2>Demo-Material \(für dich\)</h2>.*?</div>",
-              "<h2>Demo-Material (für dich)</h2>\n<table><tr><th>Material</th><th>Hinweis</th></tr><tr><td colspan=\"2\" class=\"leer\">nicht nötig</td></tr></table>\n"
-              "<h2>Schülermaterial (pro Gruppe)</h2>\n<table><tr><th>Material</th><th>Hinweis</th></tr>"
-              "<tr><td>Ray-Box mit Stromanschluss</td><td>1×</td></tr><tr><td>weißes Blatt Papier</td><td>1×</td></tr>"
-              "<tr><td>schwarzer oder dunkler Karton</td><td>1× (dunkelblau, dunkelgrün oder Tonpapier gehen auch)</td></tr>"
-              "<tr><td>klare Glasscheibe</td><td>1×, Kanten abkleben</td></tr></table>\n"
-              "<div class=\"hinweis\">Raum abdunkeln. Versuchsblatt vor dem Versuch austeilen (Folie 3 in Folien F2).</div>", s2, flags=re.S)
-(F2 / "Materialliste.html").write_text(neu2, encoding="utf-8")
-ml(F2, [], [])
-
-# 4) Gesamt.pdf neu
-for o in (F1, F2, F3, F4):
+# 4) Gesamt.pdf neu (F3/F4 macht baue_stunden_f3_f4.py export)
+for o, n in ((F1, "F1"), (F2, "F2")):
     w = PdfWriter()
-    for part in ["Materialliste.pdf", next(o.glob("Folien F*.pdf")).name, next(o.glob("Arbeitsblatt F*.pdf")).name]:
+    for part in ["Materialliste.pdf", f"Folien {n}.pdf", f"Arbeitsblatt {n}.pdf"]:
         w.append(str(o / part))
     with open(o / "Gesamt.pdf", "wb") as f:
         w.write(f)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Baut 'Rationale Zahlen 2 – Addieren – ALLES.html' (Klasse 7c, zwei Einzelstunden Mi + Do).
+"""Baut 'Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html' (Klasse 7c, zwei Einzelstunden Mi + Do).
 
 Alles in einer Datei: Verlauf, Tafelbild, Merkheft, Aufgaben, Lösungen.
 Änderungen: hier im Skript, dann `python3 baue_stunde2.py`.
@@ -93,6 +93,44 @@ def bogengerade(von, bis, start, delta, schritt=1, kpe=3):
               f'fill="{farbe}">{num(ende)}</text>')
     s.append("</svg>")
     return "".join(s)
+
+
+
+def skitour():
+    """Höhenprofil Gamshütte - Enzianstüble - Falkenhütte auf Karo (32 x 13 Kästchen)."""
+    W, H = 640, 260
+    P = {"G": (100, 80), "E": (330, 210), "F": (560, 50)}
+    s = [f'<svg class="gerade" viewBox="0 0 {W} {H}" width="{W}" height="{H}" xmlns="http://www.w3.org/2000/svg" '
+         'font-family="Helvetica, Arial, sans-serif">',
+         f'<defs><pattern id="ks" width="{K}" height="{K}" patternUnits="userSpaceOnUse"><path d="M{K} 0H0V{K}" '
+         'fill="none" stroke="#c8d0dc" stroke-width="1"/></pattern>'
+         '<marker id="sa" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#222"/></marker></defs>',
+         f'<rect width="{W}" height="{H}" fill="#fff"/><rect width="{W}" height="{H}" fill="url(#ks)"/>',
+         f'<path d="M{W} 0V{H}H0" fill="none" stroke="#c8d0dc"/>']
+    for a, b in (("G", "E"), ("E", "F")):
+        (x1, y1), (x2, y2) = P[a], P[b]
+        s.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="#222" stroke-width="2" marker-end="url(#sa)"/>')
+    for k, (x, y) in P.items():
+        s.append(f'<circle cx="{x}" cy="{y}" r="6" fill="#1b1b1b"/>')
+
+    def t(x, y, txt, col=INK, w=400, size=14, anchor="middle"):
+        s.append(f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="{size}" font-weight="{w}" fill="{col}">{txt}</text>')
+
+    t(100, 50, "Gamshütte", w=700, size=15)
+    t(100, 68, "2350 m · −12,5 °C")
+    t(330, 240, "Enzianstüble", w=700, size=15)
+    t(330, 254, "1600 m · −4 °C", col=NEG, w=700)
+    t(560, 20, "Falkenhütte", w=700, size=15)
+    t(560, 37, "2520 m · −14,5 °C", col=NEG, w=700)
+    t(205, 172, "−750 m", col=NEG, w=700, anchor="end")
+    t(205, 189, "+8,5 °C", col=POS, w=700, anchor="end")
+    t(455, 172, "+920 m", col=POS, w=700, anchor="start")
+    t(455, 189, "−10,5 °C", col=NEG, w=700, anchor="start")
+    s.append("</svg>")
+    return "".join(s)
+
+
+SKITOUR = skitour()
 
 
 BSP1 = bogengerade(-3, 6, -2, 7, kpe=4)
@@ -311,11 +349,12 @@ tafel_do = f"""
 <div class="tafelblock"><h3>Sachaufgabe: Skitour <span>Minute 5–15</span></h3>
 <p class="aufg">Gamshütte 2350 m, −12,5 °C. Abstieg 750 m zum Enzianstüble (+8,5 °C Temperaturänderung). Aufstieg
 920 m zur Falkenhütte (−10,5 °C Temperaturänderung).</p>
+{fig(SKITOUR, "1 Kästchen = 20 px auf dem Bildschirm. Zuerst nur Gamshütte anschreiben, die Pfeile mit den Änderungen ergänzen, dann bei den anderen beiden Hütten die Ergebnisse suchen lassen.")}
 <div class="heft"><p><b>Temperatur am Enzianstüble:</b> −12,5 + 8,5 = −4 °C<br>
 <b>Aufstieg minus Abstieg:</b> 920 − 750 = 170 m, der Aufstieg ist 170 m größer als der Abstieg<br>
-<b>Höhe Falkenhütte:</b> 2350 − 750 + 920 = 2520 m &nbsp;&middot;&nbsp; <b>Temperatur:</b> −4 + (−10,5) = −14,5 °C</p></div>
-<p class="sprech">Erst die Situation an der Tafel skizzieren (Höhenprofil als Linie), dann für jede Frage einzeln
-den passenden Rechenausdruck aufschreiben lassen, bevor gerechnet wird.</p></div>
+<b>Höhe Falkenhütte:</b> 2350 − 750 + 920 = 2520 m &nbsp;&middot;&nbsp; <b>Temperatur:</b> −4 − 10,5 = −14,5 °C</p></div>
+<p class="sprech">Erst die Skizze an die Tafel, dann für jede Frage einzeln den passenden Rechenausdruck
+aufschreiben lassen, bevor gerechnet wird.</p></div>
 
 <div class="tafelblock"><h3>Fehlersuche <span>Minute 20–40</span></h3>
 <p class="aufg">S. 19 Nr. 6 rechts: „Hier hat sich ein Fehler eingeschlichen.“</p>
@@ -399,7 +438,7 @@ Buch gegenprüfen, bevor du sie an die Tafel schreibst.</p>
 
 <h4>S. 18 Bildaufgabe (Skitour)</h4>
 <p>Enzianstüble: −12,5 + 8,5 = −4 °C.<br>Der Aufstieg (920 m) ist 170 m größer als der Abstieg (750 m).<br>
-Falkenhütte: 2350 − 750 + 920 = 2520 m Höhe, −4 + (−10,5) = −14,5 °C.</p>
+Falkenhütte: 2350 − 750 + 920 = 2520 m Höhe, −4 − 10,5 = −14,5 °C.</p>
 
 <h4>S. 19 Nr. 5 (Fahnen)</h4>
 <div class="kl"><div>a) +25+(−38) = −13</div><div>b) (−46)+(+31) = −15</div>
@@ -446,14 +485,14 @@ baue ich Nr. 7, 10 rechts und mehr von Nr. 12 mit ein.</li></ul>
 
 html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rationale Zahlen 2 – Addieren</title><style>{CSS}</style></head><body>
-<div class="wrap"><header class="kopf"><h1>Rationale Zahlen 2: Addieren</h1>
+<title>Rationale Zahlen 2 – Plus und Minus</title><style>{CSS}</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Rationale Zahlen 2: Addieren und Subtrahieren</h1>
 <p class="sub">Klasse 7c · Mittwoch + Donnerstag, je Einzelstunde · Buch S. 18–19 · alles in einer Datei</p></header></div>
 <nav><div class="wrap"><a href="#mittwoch">Mittwoch</a><a href="#donnerstag">Donnerstag</a><a href="#merkheft">Merkheft</a>
 <a href="#aufgaben">Aufgaben</a><a href="#loesungen">Lösungen</a><a href="#ausblick">Ausblick</a></div></nav>
 <div class="wrap">{verlauf_mi}<div class="tafelblock-wrap">{tafel_mi}</div>{verlauf_do}<div class="tafelblock-wrap">{tafel_do}</div>{merkheft}{aufgaben}{loesungen}{ausblick}
 <footer>Entwurf. PDFs erst nach Freigabe. Generator: baue_stunde2.py</footer></div></body></html>"""
 
-ziel = Path(__file__).with_name("Rationale Zahlen 2 – Addieren – ALLES.html")
+ziel = Path(__file__).with_name("Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html")
 ziel.write_text(html, encoding="utf-8")
 print("geschrieben:", ziel, f"({len(html) // 1024} KB)")
