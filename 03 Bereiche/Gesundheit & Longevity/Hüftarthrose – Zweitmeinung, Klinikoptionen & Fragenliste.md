@@ -93,7 +93,7 @@ Ausdrucken oder auf dem Handy mitnehmen. Die ersten drei entscheiden alles Weite
 1. Welcher Arthrosegrad liegt vor (Kellgren-Lawrence), und wie sieht der Hüftkopf konkret aus: Zysten, Entrundung, Nekrose?
 2. **Ist mein Hüftkopf für einen Oberflächenersatz überhaupt noch geeignet?** Wenn nein, woran genau scheitert es?
 3. Wie ist mein DXA-T-Score, und reicht er für eine Kappenprothese (üblich gefordert: −1,5 oder besser)?
-4. Gibt es eine Beinlängendifferenz oder ein Impingement, das mitbehandelt werden müsste?
+4. Gibt es eine Beinlängendifferenz oder ein Impingement, das mitbehandelt werden müsste? **Update 22.09.2026:** Beim Einlagen-Fachmann (Klotz, Rudersberg) wurde klinisch eine Beinlängendifferenz von 7 mm rechts festgestellt, mit Verordnung von Bettungseinlagen mit Supinationskeil und 7-mm-Ausgleich rechts. Die Arthrose sitzt ebenfalls rechts. Vorher war die Differenz nicht bekannt, Befund also neu, nicht schon immer bekannt gewesen. Ärztlich bisher nicht bestätigt (kein Röntgen im Stehen). Nachfragen: Kann eine Differenz dieser Größenordnung über Jahre zur einseitigen Coxarthrose beigetragen haben, und sollte sie bei einer OP mit ausgeglichen werden?
 
 ### Verfahren
 5. Welches Verfahren würden Sie bei mir wählen: Oberflächenersatz, Kurzschaft oder Standard-TEP, und warum genau bei mir?
