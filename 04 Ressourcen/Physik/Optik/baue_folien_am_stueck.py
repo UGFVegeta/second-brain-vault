@@ -123,11 +123,15 @@ zeilen = [("schwarzes T-Shirt in der Sonne", "Absorption", "Licht wird verschluc
           ("Sonnenbrille", "Absorption und Transmission", "ein Teil wird verschluckt, der Rest geht hindurch")]
 D_tab = ('<table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was passiert</th><th>warum</th></tr>'
          + "".join(f"<tr><td>{a}</td><td><b>{b}</b></td><td>{c}</td></tr>" for a, b, c in zeilen) + "</table>")
-D = folie("Licht trifft auf einen Körper im Alltag", D_tab, "Meist geschieht <b>mehreres gleichzeitig</b>.")
+D = folie("Licht trifft auf einen Körper im Alltag", D_tab, "<b>Frage:</b> Wo passiert mehreres gleichzeitig?")
 
 
 def basis(p):
     return re.sub(r'\s*<div class="ab-hinweis">.*?</div>', "", folien[p - 1], flags=re.S)
+
+
+def ohne_merksatz(folie_html):
+    return re.sub(r'\s*<div class="merksatz[^"]*">.*?</div>', "", folie_html, count=1, flags=re.S)
 
 
 def austeilen(folie_html, text):
@@ -184,7 +188,7 @@ FOLGE = [
     basis(12), basis(13), basis(14),
     basis(15), basis(16),
     blatt("w04", "Versuchsblatt austeilen · Versuch in Gruppen"),
-    basis(18), D,
+    ohne_merksatz(basis(18)), D,
     basis(19), basis(20), basis(21),
 ]
 karten = "".join(
@@ -197,7 +201,7 @@ SCHRITTE = [
     ("Check zu Leitfrage 1", "Antwort, Handzeichen, Lösung.", [5, 6, 7]),
     ("Leitfrage 2", "Dieselbe Lampe, drei Gegenstände. Vermutungen sammeln.", [8, 9]),
     ("Versuch", "Blatt, Karton, Glasscheibe in Gruppen, Versuchsblatt.", [10]),
-    ("Erklären", "Vier Situationen, Alltag, Antwort auf Leitfrage 2.", [11, 12, 13]),
+    ("Erklären", "Vier Situationen zeichnen, Alltag mündlich, Antwort auf Leitfrage 2 ins Heft.", [11, 12, 13]),
     ("Check zu Leitfrage 2", "Handzeichen, Lösung.", [14, 15]),
 ]
 zeit = "".join(f'<div class="z{i % 6}" style="flex:1">{i + 1} · {t}</div>' for i, (t, d, ks) in enumerate(SCHRITTE))
