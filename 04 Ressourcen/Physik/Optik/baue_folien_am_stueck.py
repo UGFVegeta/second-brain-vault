@@ -256,6 +256,18 @@ Wann gibt es zwei Schatten, wann nur einen? Der dritte Versuch entspricht deinem
 <tr><td>S. 48–49</td><td><b>Lerncheck</b> mit 25 Aufgaben, gut als Aufgabenpool vor der Klassenarbeit.</td><td>Wiederholung</td></tr></table></div>
 """
 
+import importlib.util as _iu
+_spec = _iu.spec_from_file_location("stunde_vorlage", hier / "stunde_vorlage.py"); _sv = _iu.module_from_spec(_spec); _spec.loader.exec_module(_sv)
+MATERIAL = {
+    "demo": [],
+    "schueler": [("Ray-Box mit Stromanschluss", "1×", "Versuch Folie 10"),
+                 ("weißes Blatt Papier", "1×", ""),
+                 ("schwarzer oder dunkler Karton", "1×", "dunkelblau, dunkelgrün oder Tonpapier gehen auch"),
+                 ("klare Glasscheibe", "1×", "Kanten abkleben; Geodreieck geht auch")],
+    "hinweis": "Raum abdunkeln.",
+}
+MATERIAL_HTML = _sv.material_tabellen(MATERIAL)
+
 html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{TITEL}</title>
@@ -293,6 +305,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 
 .blattkarte{{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}}.blattbild{{display:block;width:100%;border:1px solid #c8d0dc}}
 .austeil{{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}}
+{_sv.MT_CSS}
 .fchip{{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}}
 </style></head><body>
 <div class="wrap"><header class="kopf"><h1>Optik: Lichtquellen und Licht trifft auf einen Körper</h1>
@@ -302,11 +315,9 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul>
 <li>Arbeitsblatt Lichtquellen: Seite 1, eins pro Schüler.</li>
-<li>Versuchsblatt Licht trifft auf einen Körper: Seite 1, eins pro Schüler.</li>
+<li>Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.</li>
 <li>Folien und Lösungen: nicht drucken.</li></ul></div>
-<div class="box"><h3>Material</h3><ul>
-<li><b>Versuch Folie 10, pro Gruppe:</b> Ray-Box mit Stromanschluss, weißes Blatt, schwarzer Karton, klare Glasscheibe mit abgeklebten Kanten.</li>
-<li>Raum abdunkeln.</li></ul></div>
+<div class="box"><h3>Material</h3>{MATERIAL_HTML}</div>
 <div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen_u}</div>
 </div>
 
@@ -320,7 +331,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 <p><b>Lösung:</b> Lichtquelle (L): Kerze, Glühlampe, Lagerfeuer, Blitz, Taschenlampe, Sonne. Beleuchtet (B): Mond, Tafel, Buch, Zimmerpflanze, Spielzeugauto.
 Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Laser. Aufgabe 3: Glühlampe und Taschenlampe.</p></div>
 <div class="box"><h3>Versuchsblatt Licht trifft auf einen Körper {chip(10)}</h3>
-<a class="btn" href="Materialien/Licht trifft auf einen Koerper W04.pdf">PDF öffnen</a>
+<a class="btn" href="Materialien/Licht trifft auf einen Koerper W04.pdf">PDF öffnen</a><a class="btn" href="Materialien/Licht trifft auf einen Koerper W04 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
 <p><b>Lösung:</b> Weißes Blatt: heller, breiter Lichtfleck, Licht wird in viele Richtungen zurückgeworfen (<b>gestreut</b>). Schwarzer Karton: dunkel, Licht wird
 <b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div></div>
 </div>

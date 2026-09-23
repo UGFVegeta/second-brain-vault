@@ -67,6 +67,7 @@ schreibe(F2 / "Folien F2.pdf", seitenliste(8, len(FOLGE)))
 # 2) Arbeitsblätter (aktueller Stand)
 for src, ziel in [(MAT / "Lichtquellen W03.pdf", F1 / "Arbeitsblatt F1.pdf"),
                   (MAT / "Licht trifft auf einen Koerper W04.pdf", F2 / "Arbeitsblatt F2.pdf"),
+                  (MAT / "Licht trifft auf einen Koerper W04 – 2 auf 1.pdf", F2 / "Arbeitsblatt F2 – Kopiervorlage 2 auf 1.pdf"),
                   (MAT / "Lichtausbreitung und Blende W05.pdf", F3 / "Arbeitsblatt F3.pdf"),
                   (MAT / "Kern- und Halbschatten W06.pdf", F4 / "Arbeitsblatt F4.pdf")]:
     shutil.copyfile(src, ziel)
@@ -117,6 +118,7 @@ def data(m):
 html = re.sub(r'(src|href)="((?:assets|Materialien/assets)/[^"]+\.(?:png|jpg))"', data, html)
 html = html.replace('href="Materialien/Lichtquellen W03.pdf"', 'href="../F1 Lichtquellen (W03)/Arbeitsblatt F1.pdf"')
 html = html.replace('href="Materialien/Licht trifft auf einen Koerper W04.pdf"', 'href="Arbeitsblatt F2.pdf"')
+html = html.replace('href="Materialien/Licht trifft auf einen Koerper W04 – 2 auf 1.pdf"', 'href="Arbeitsblatt F2 – Kopiervorlage 2 auf 1.pdf"')
 (F2 / "Stunde Do 24.09.html").write_text(html, encoding="utf-8")
 
 exp.unlink(); tmp.unlink()

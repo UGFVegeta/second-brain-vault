@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optik: Warum können wir nicht um die Ecke sehen?</title>
+<link rel="stylesheet" href="folien.css">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav button{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}
+nav button:hover{background:#e3e3dc}nav button.on{background:#1b1b1b;color:#fff}
+.tab{display:none;padding:26px 0 60px}.tab.on{display:block}
+h2{font-size:22px;margin:0 0 10px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}.box h3{margin:8px 0 6px;font-size:17px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.schr{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}.schr:last-child{border:0}
+.schr .n{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}
+.schr .m{color:#555;font-size:15px}.go{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.go button{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}
+.karte{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}
+.karte .folie{page-break-after:auto}
+.atab{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}
+.atab th,.atab td{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}.atab th{color:#66798e;font-size:10pt}
+a.btn{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}.t th{background:#f5f5f1}
+
+
+.bildzone{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}.bildzone svg{width:100%;height:100%;display:block}
+.fnr{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}
+
+.blattkarte{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}.blattbild{display:block;width:100%;border:1px solid #c8d0dc}
+.austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
+.box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
+.fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Optik: Warum können wir nicht um die Ecke sehen?</h1>
+<p class="sub">Klasse 7c · Physik · Leitfrage 3 · Lichtausbreitung und Blende (W05)</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Drucken</h3><ul><li>Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
+<div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td colspan="3" class="leer">nicht nötig</td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Ray-Box mit Stromanschluss</td><td class="anz">1×</td><td>Lampenseite zur Blende</td></tr><tr><td>Blende mit Loch</td><td class="anz">1×</td><td></td></tr><tr><td>Schirm</td><td class="anz">1×</td><td>oder ein weißes Blatt, als Wand gefaltet</td></tr></table><div class="mhinweis">Raum abdunkeln. Reichen die Ray-Boxen nicht für alle Gruppen, den Versuch vorne als Demo zeigen.</div></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Einstieg</div><div class="z1" style="flex:1">2 · Versuch</div><div class="z2" style="flex:1">3 · Erklären</div><div class="z3" style="flex:1">4 · Alltag</div><div class="z4" style="flex:1">5 · Antwort und Check</div></div><div class="schr"><span class="n">1</span><div><b>Einstieg</b><br><span class="m">Ball hinter der Mauer, Leitfrage 3, Vermutungen.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Versuch</b><br><span class="m">Ray-Box und Blende in Gruppen, Versuchsblatt.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Erklären</b><br><span class="m">Lichtbündel, Blende, Lichtstrahlenmodell.</span></div><div class="go"><button data-go=f4>Folie 4</button><button data-go=f5>Folie 5</button></div></div><div class="schr"><span class="n">4</span><div><b>Alltag</b><br><span class="m">Beispiele mündlich, Frage zum Nebel.</span></div><div class="go"><button data-go=f6>Folie 6</button></div></div><div class="schr"><span class="n">5</span><div><b>Antwort und Check</b><br><span class="m">Antwort auf Leitfrage 3 ins Heft, Handzeichen, Lösung.</span></div><div class="go"><button data-go=f7>Folie 7</button><button data-go=f8>Folie 8</button><button data-go=f9>Folie 9</button></div></div></div>
+</div>
+<div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- Hausecke -->
+      <path d="M300 20 h150 v170 h-150 z" fill="#E4DCCB" stroke="#8A7B5E"/>
+      <path d="M300 20 v170" stroke="#8A7B5E" stroke-width="2"/>
+      <text class="beschriftung klein" x="344" y="112">Mauer</text>
+      <!-- Ball dahinter -->
+      <circle cx="510" cy="150" r="22" fill="#D24B4B" stroke="#8E2B2B"/>
+      <text class="beschriftung klein" x="486" y="192">Ball</text>
+      <!-- Person davor -->
+      <circle cx="130" cy="96" r="15" fill="#F0D2B4" stroke="#9C7B5A"/>
+      <path d="M130 111 v44" stroke="#3A5A8C" stroke-width="9"/>
+      <path d="M130 155 l-14 30 M130 155 l14 30" stroke="#3A5A8C" stroke-width="6" fill="none"/>
+      <text class="beschriftung klein" x="104" y="212">Beobachter</text>
+      <!-- Blickrichtung -->
+      <line class="hilfslinie" x1="150" y1="96" x2="300" y2="96"/>
+      <line class="hilfslinie" x1="150" y1="96" x2="292" y2="150"/>
+      <text class="beschriftung klein" x="176" y="86">Blickrichtung</text>
+    </svg>
+  </div>
+  <div class="impulstext">Der Ball liegt hinter der Mauer. Warum siehst du ihn nicht?</div>
+</section></div><div class="fnr">Folie 2</div><div class="karte" id="f2"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 3</div>
+    <h2>Warum können wir nicht um die Ecke sehen?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section></div><div class="fnr">Folie 3 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f3"><div class="austeil">📄 Versuchsblatt austeilen · Versuch in Gruppen</div><img class="blattbild" src="Materialien/assets/blatt-w05-loesung.png" alt=""></div><div class="fnr">Folie 4</div><div class="karte" id="f4"><section class="folie">
+  <div class="titelband"><h1>4. Wie breitet sich Licht aus?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <g class="licht">
+        <line x1="60" y1="106" x2="24"  y2="70"/>
+        <line x1="60" y1="106" x2="12"  y2="106"/>
+        <line x1="60" y1="106" x2="24"  y2="142"/>
+        <line x1="60" y1="106" x2="60"  y2="44"/>
+        <line x1="60" y1="106" x2="60"  y2="168"/>
+      </g>
+      <g class="licht">
+        <line x1="60" y1="106" x2="324" y2="14"/>
+        <line x1="60" y1="106" x2="324" y2="46"/>
+        <line x1="60" y1="106" x2="324" y2="78"/>
+        <line x1="60" y1="106" x2="324" y2="134"/>
+        <line x1="60" y1="106" x2="324" y2="166"/>
+        <line x1="60" y1="106" x2="324" y2="198"/>
+      </g>
+      <g class="licht">
+        <line x1="60" y1="106" x2="616" y2="88"/>
+        <line x1="60" y1="106" x2="616" y2="106"/>
+        <line x1="60" y1="106" x2="616" y2="124"/>
+      </g>
+      <circle cx="60" cy="106" r="8" fill="#FFD34D" stroke="#B98900" stroke-width="1.2"/>
+      <rect x="324" y="8"   width="10" height="83" fill="#4A4A4A"/>
+      <rect x="324" y="121" width="10" height="83" fill="#4A4A4A"/>
+      <text class="beschriftung" x="30" y="132">Lichtquelle</text>
+      <text class="beschriftung" x="126" y="32">divergentes Lichtbündel</text>
+      <text class="beschriftung" x="342" y="196">Blende</text>
+      <text class="beschriftung" x="350" y="178">Spalt</text>
+      <line class="hilfslinie" x1="348" y1="174" x2="332" y2="110"/>
+      <text class="beschriftung" x="436" y="58">nahezu paralleles</text>
+      <text class="beschriftung" x="436" y="72">Lichtbündel</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Das Licht einer Lichtquelle breitet sich in verschiedene Richtungen aus. → es läuft
+    auseinander (<span class="rot">divergent</span>). Mithilfe von <b>Blenden</b> oder
+    <b>Spalten</b> kann man daraus parallele Lichtbündel erzeugen.
+  </div>
+</section></div><div class="fnr">Folie 5</div><div class="karte" id="f5"><section class="folie">
+  <div class="titelband"><h1>5. Das Lichtstrahlenmodell</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="pfeil" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M0 0 L7 3.5 L0 7 z" fill="#E8B400"/>
+        </marker>
+      </defs>
+      <text class="beschriftung" x="60" y="30" font-weight="600">Wirklichkeit: Lichtbündel</text>
+      <polygon points="60,88 60,124 268,138 268,74" fill="#FFE38A" stroke="#E8B400"/>
+      <circle cx="52" cy="106" r="9" fill="#FFD34D" stroke="#B98900"/>
+
+      <!-- Modellpfeil -->
+      <path d="M286 106 h44" stroke="#66798E" stroke-width="2" fill="none"/>
+      <path d="M330 100 l12 6 l-12 6 z" fill="#66798E"/>
+      <text class="beschriftung klein" x="284" y="96">Modell</text>
+
+      <text class="beschriftung" x="368" y="30" font-weight="600">Modell: Lichtstrahlen</text>
+      <g class="licht" marker-end="url(#pfeil)">
+        <line x1="368" y1="82" x2="600" y2="72"/>
+        <line x1="368" y1="106" x2="600" y2="106"/>
+        <line x1="368" y1="130" x2="600" y2="140"/>
+      </g>
+      <circle cx="360" cy="106" r="9" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung klein" x="404" y="176">Ein Lichtstrahl hat keine Breite.</text>
+      <text class="beschriftung klein" x="404" y="190">Er zeigt nur die Richtung des Lichts.</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Ein <span class="rot">Lichtstrahl</span> ist ein <b>Modell</b>: ein gedachter, unendlich dünner
+    Teil eines Lichtbündels. Modelle vereinfachen die Wirklichkeit, damit wir sie zeichnen und erklären können.
+  </div>
+</section></div><div class="fnr">Folie 6</div><div class="karte" id="f6"><section class="folie"><div class="titelband"><h1>Geradlinige Ausbreitung im Alltag</h1></div><div class="zeichenzone karo"><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was man sieht</th><th>warum</th></tr><tr><td>Sonne hinter Wolken</td><td><b>helle, gerade Streifen</b></td><td>Das Licht läuft geradlinig durch die Wolkenlücken. Dunst und Staub machen den Weg sichtbar.</td></tr><tr><td>Scheinwerfer im Nebel</td><td><b>ein gerades Lichtbündel</b></td><td>Die Nebeltröpfchen streuen einen Teil des Lichts zu uns.</td></tr><tr><td>Blick durchs Schlüsselloch</td><td><b>nur ein kleiner Teil des Zimmers</b></td><td>Nur Licht, das auf gerader Linie durch das Loch kommt, erreicht das Auge.</td></tr><tr><td>Verkehrsspiegel an einer Ausfahrt</td><td><b>man sieht um die Ecke</b></td><td>Das Licht geht nicht um die Ecke. Der Spiegel lenkt es um.</td></tr><tr><td>Kreuzlinienlaser beim Fliesenlegen</td><td><b>eine gerade rote Linie an der Wand</b></td><td>Weil Licht geradlinig läuft, dient es als Lineal.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Warum sieht man das Lichtbündel im Nebel, in klarer Luft aber nicht?</div></section></div><div class="fnr">Folie 7</div><div class="karte" id="f7"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 3</div>
+    <h2>Warum können wir nicht um die Ecke sehen?</h2>
+  </div>
+  <div class="antwortzone">
+    Weil sich Licht <span class="rot">geradlinig</span> ausbreitet. Es läuft von der Lichtquelle
+    aus in alle Richtungen auseinander, macht aber keinen Bogen um Hindernisse.
+    Diese Ausbreitung beschreiben wir mit dem <b>Lichtstrahlenmodell</b>.
+  </div>
+</section></div><div class="fnr">Folie 8</div><div class="karte" id="f8"><section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 3</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Wie breitet sich Licht in Luft aus?</p>
+      <ol>
+        <li>In Bögen um Hindernisse herum</li>
+        <li>Geradlinig</li>
+        <li>Nur nach unten</li>
+        <li>In Wellenlinien um die Ecke</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Was ist ein Lichtstrahl?</p>
+      <ol>
+        <li>Ein besonders helles Lichtbündel</li>
+        <li>Ein Gerät im Physikraum</li>
+        <li>Ein Modell, das die Richtung des Lichts zeigt</li>
+        <li>Ein sehr dünnes Kabel</li>
+      </ol>
+    </div>
+  </div>
+</section></div><div class="fnr">Folie 9</div><div class="karte" id="f9"><section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) c</div>
+</section></div></div>
+<div class="tab" id="t_hg">
+<div class="box"><h3>Wie breitet sich Licht aus? <button class="fchip" data-go="f4">Folie 4</button></h3><ul>
+<li><b>Geradlinig</b>, solange der Stoff gleich bleibt (Luft, Wasser, Glas). An der Grenze zwischen zwei Stoffen kann es die Richtung ändern, das kommt später.</li>
+<li><b>Sehr schnell:</b> knapp 300 000 km pro Sekunde. Von der Sonne zur Erde braucht das Licht gut 8 Minuten.</li>
+<li><b>Lichtbündel:</b> Eine Lichtquelle sendet in alle Richtungen, das Licht läuft auseinander (divergent). Eine Blende lässt nur einen Teil durch. Mit einem schmalen Spalt wird das Bündel fast parallel.</li>
+<li><b>Typische Fehlvorstellungen:</b> Licht „füllt“ den Raum wie Luft. Licht bleibt in der Lampe, bis es hell ist. Nur dort, wo es hell aussieht, ist Licht.</li></ul></div>
+
+<div class="box"><h3>Das Lichtstrahlenmodell <button class="fchip" data-go="f5">Folie 5</button></h3><ul>
+<li>Einen Lichtstrahl gibt es in Wirklichkeit nicht. Auch das schmalste Lichtbündel hat eine Breite.</li>
+<li>Das Modell zeigt nur Weg und Richtung. Helligkeit und Farbe zeigt es nicht.</li>
+<li>Gute Frage an die Klasse: Was stimmt am Modell, was ist vereinfacht, was fehlt? So bewertet das Buch auf S. 32 Modelle.</li>
+<li><b>Typische Fehlvorstellung:</b> Der gezeichnete Strahl sei das, was man im Versuch sieht.</li></ul></div>
+
+<div class="box"><h3>Tipps zum Versuch <button class="fchip" data-go="f3">Folie 3</button></h3><ul>
+<li>Raum abdunkeln, sonst ist der Lichtpunkt kaum zu sehen.</li>
+<li>Ray-Box, Blende und Schirm an einer Tischkante oder einem Lineal ausrichten. Dann finden die Gruppen den Lichtpunkt schneller.</li>
+<li>Beim seitlichen Verschieben verschwindet der Lichtpunkt, weil das Loch nicht mehr auf der geraden Linie liegt. Das ist der Kern des Versuchs.</li>
+<li>Zusatz für schnelle Gruppen: eine zweite Blende dazwischen. Der Punkt erscheint nur, wenn beide Löcher auf einer Linie liegen.</li></ul></div>
+
+<div class="box"><h3>Sichtbare Lichtwege <button class="fchip" data-go="f6">Folie 6</button></h3><ul>
+<li>Ein Lichtbündel sieht man von der Seite nur, wenn Staub, Nebel oder Rauch einen Teil des Lichts zum Auge streuen. Das knüpft an Leitfrage 2 an.</li>
+<li>Sonnenstrahlen durch Wolkenlücken wirken fächerförmig. Eigentlich laufen sie fast parallel. Das Auffächern ist ein Perspektiv-Effekt wie bei Bahngleisen.</li>
+<li>Laser nie auf Augen richten.</li></ul></div>
+
+<div class="box"><h3>Warum nicht um die Ecke? <button class="fchip" data-go="f7">Folie 7</button></h3><ul>
+<li>Schall hört man um die Ecke, Licht sieht man nicht um die Ecke. Das ist ein guter Vergleich für die Klasse.</li>
+<li>Um die Ecke sehen geht nur, wenn etwas das Licht umlenkt: Spiegel, Periskop, Handykamera.</li></ul></div>
+
+<div class="box"><h3>Ideen aus Erlebnis Physik 7–9</h3>
+<table class="t"><tr><th style="width:90px">Seite</th><th>Idee und so geht's</th><th style="width:130px">Passt zu</th></tr>
+<tr><td>S. 33 A</td><td><b>Teelicht durch einen Gummischlauch.</b> Durch den geraden Schlauch (etwa 15 cm) sieht man die Flamme, durch den gebogenen nicht.
+Kurzer Einstieg oder Zusatz zum Versuch. Material: Teelicht, Feuerzeug, Gummischlauch.</td><td>Folie 2 oder 3</td></tr>
+<tr><td>S. 33 B</td><td><b>Lichtwege sichtbar machen.</b> Kleine Löcher in Alufolie stechen, damit die Handylampe abdecken, Raum abdunkeln. Rauch von einem
+ausgepusteten Teelicht macht die geraden Lichtwege sichtbar. Vorsicht Rauchmelder, Kreidestaub oder ein Wassersprüher gehen auch.</td><td>Folie 4 und 6</td></tr>
+<tr><td>S. 32</td><td><b>Modelle bewerten.</b> Was am Modell stimmt, was vereinfacht ist und was fehlt. Passt zum Lichtstrahlenmodell.</td><td>Folie 5</td></tr></table></div>
+</div>
+<div class="tab" id="t_ab">
+<div class="box"><h3>Versuchsblatt Ray-Box und Blenden <button class="fchip" data-go="f3">Folie 3</button></h3>
+<a class="btn" href="Materialien/Lichtausbreitung und Blende W05.pdf">PDF öffnen</a><a class="btn" href="Materialien/Lichtausbreitung und Blende W05 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
+<p><b>Lösung:</b> Der Lichtpunkt erscheint nur, wenn das Loch genau auf der geraden Linie zwischen Lampe und Schirm liegt. Wird die Blende seitlich verschoben,
+verschwindet er. Lücken: <b>geradlinig</b>, <b>gerade Linie</b>.</p></div></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+</script></body></html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optik: Warum hat ein Schatten manchmal weiche Ränder?</title>
+<link rel="stylesheet" href="folien.css">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav button{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}
+nav button:hover{background:#e3e3dc}nav button.on{background:#1b1b1b;color:#fff}
+.tab{display:none;padding:26px 0 60px}.tab.on{display:block}
+h2{font-size:22px;margin:0 0 10px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}.box h3{margin:8px 0 6px;font-size:17px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.schr{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}.schr:last-child{border:0}
+.schr .n{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}
+.schr .m{color:#555;font-size:15px}.go{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.go button{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}
+.karte{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}
+.karte .folie{page-break-after:auto}
+.atab{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}
+.atab th,.atab td{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}.atab th{color:#66798e;font-size:10pt}
+a.btn{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}.t th{background:#f5f5f1}
+
+
+.bildzone{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}.bildzone svg{width:100%;height:100%;display:block}
+.fnr{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}
+
+.blattkarte{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}.blattbild{display:block;width:100%;border:1px solid #c8d0dc}
+.austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
+.box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
+.fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Optik: Warum hat ein Schatten manchmal weiche Ränder?</h1>
+<p class="sub">Klasse 7c · Physik · Leitfrage 4 · Kern- und Halbschatten (W06–07)</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Drucken</h3><ul><li>Versuchsblatt: Seite 1, eins pro Schüler. Für „2 auf 1“ ist es mit zwei Versuchen zu lang.</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
+<div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td colspan="3" class="leer">nicht nötig</td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Ray-Box mit Stromanschluss</td><td class="anz">1×</td><td>Lampenseite zum Körper</td></tr><tr><td>zweite Lichtquelle</td><td class="anz">1×</td><td>Leuchtbox oder zweite Ray-Box, an die Buchse am Tisch</td></tr><tr><td>weißes Blatt Papier</td><td class="anz">1×</td><td>als Bildwand gefaltet</td></tr><tr><td>undurchsichtiger Körper</td><td class="anz">1×</td><td>z. B. Glühbirnenpackung</td></tr></table><div class="mhinweis">Raum abdunkeln. Leitfrage 4 ist für zwei Wochen geplant (W06–07).</div></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Einstieg</div><div class="z1" style="flex:1">2 · Versuch</div><div class="z2" style="flex:1">3 · Erklären</div><div class="z3" style="flex:1">4 · Alltag</div><div class="z4" style="flex:1">5 · Antwort und Check</div></div><div class="schr"><span class="n">1</span><div><b>Einstieg</b><br><span class="m">Eine Lampe, zwei Lampen: Was ist anders? Leitfrage 4.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Versuch</b><br><span class="m">In Gruppen, erst eine Lichtquelle, dann zwei. Versuchsblatt.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Erklären</b><br><span class="m">Schattenraum und Schattenbild, Kern- und Halbschatten zeichnen.</span></div><div class="go"><button data-go=f4>Folie 4</button><button data-go=f5>Folie 5</button></div></div><div class="schr"><span class="n">4</span><div><b>Alltag</b><br><span class="m">Beispiele mündlich, Frage nach dem Halbschatten.</span></div><div class="go"><button data-go=f6>Folie 6</button></div></div><div class="schr"><span class="n">5</span><div><b>Antwort und Check</b><br><span class="m">Antwort auf Leitfrage 4 ins Heft, Handzeichen, Lösung.</span></div><div class="go"><button data-go=f7>Folie 7</button><button data-go=f8>Folie 8</button><button data-go=f9>Folie 9</button></div></div></div>
+</div>
+<div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg">
+      <!-- links: eine Lampe, scharfer Schatten -->
+      <circle cx="58" cy="100" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <rect x="150" y="76" width="10" height="48" fill="#6E6E6E" stroke="#333"/>
+      <polygon points="160,76 160,124 268,140 268,60" fill="#3A3A3A" opacity="0.35"/>
+      <line x1="268" y1="24" x2="268" y2="182" stroke="#333" stroke-width="2.5"/>
+      <rect x="264" y="60" width="8" height="80" fill="#3A3A3A"/>
+      <text class="beschriftung" x="86" y="212" font-weight="600">eine Lampe</text>
+
+      <line x1="318" y1="16" x2="318" y2="196" stroke="#A3B7D3" stroke-width="1" stroke-dasharray="5 4"/>
+
+      <!-- rechts: zwei Lampen, weiche Raender -->
+      <circle cx="376" cy="84" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <circle cx="376" cy="118" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <rect x="470" y="76" width="10" height="48" fill="#6E6E6E" stroke="#333"/>
+      <polygon points="480,76 480,124 588,146 588,54" fill="#3A3A3A" opacity="0.28"/>
+      <polygon points="480,76 588,54 588,28" fill="#9A9A9A" opacity="0.35"/>
+      <polygon points="480,124 588,146 588,172" fill="#9A9A9A" opacity="0.35"/>
+      <line x1="588" y1="16" x2="588" y2="190" stroke="#333" stroke-width="2.5"/>
+      <rect x="584" y="54" width="8" height="92" fill="#3A3A3A"/>
+      <rect x="584" y="28" width="8" height="26" fill="#9A9A9A"/>
+      <rect x="584" y="146" width="8" height="26" fill="#9A9A9A"/>
+      <text class="beschriftung" x="400" y="212" font-weight="600">zwei Lampen</text>
+    </svg>
+  </div>
+  <div class="impulstext">Derselbe Körper, einmal mit einer und einmal mit zwei Lampen. Was fällt am Schatten auf?</div>
+</section></div><div class="fnr">Folie 2</div><div class="karte" id="f2"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 4</div>
+    <h2>Warum hat ein Schatten manchmal weiche Ränder?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section></div><div class="fnr">Folie 3 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f3"><div class="austeil">📄 Versuchsblatt austeilen · Versuch in Gruppen</div><img class="blattbild" src="Materialien/assets/blatt-w06-loesung.png" alt=""></div><div class="fnr">Folie 4</div><div class="karte" id="f4"><section class="folie">
+  <div class="titelband"><h1>6. Schattenraum und Schattenbild</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <!-- Schattenraum -->
+      <polygon points="250,64 250,148 520,190 520,22" fill="#3A3A3A" opacity="0.25"/>
+      <!-- Randstrahlen -->
+      <g class="licht">
+        <line x1="60" y1="106" x2="520" y2="22"/>
+        <line x1="60" y1="106" x2="520" y2="190"/>
+        <line x1="60" y1="106" x2="250" y2="34"/>
+        <line x1="60" y1="106" x2="250" y2="178"/>
+      </g>
+      <!-- Koerper -->
+      <rect x="244" y="64" width="12" height="84" fill="#6E6E6E" stroke="#333"/>
+      <!-- Schirm -->
+      <line x1="520" y1="10" x2="520" y2="202" stroke="#333" stroke-width="2.5"/>
+      <rect x="516" y="22" width="9" height="168" fill="#3A3A3A"/>
+      <!-- Lichtquelle -->
+      <circle cx="60" cy="106" r="8" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="30" y="132">Lichtquelle</text>
+      <text class="beschriftung klein" x="206" y="170">Körper</text>
+      <text class="beschriftung klein" x="330" y="100">Schattenraum</text>
+      <text class="beschriftung klein" x="534" y="112">Schattenbild</text>
+      <text class="beschriftung klein" x="486" y="206">Schirm</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Hinter einem undurchsichtigen Körper entsteht ein Raum, in den kein Licht gelangt:
+    der <b>Schattenraum</b>. Trifft er auf eine Fläche, sieht man dort das <b>Schattenbild</b>.
+  </div>
+</section></div><div class="fnr">Folie 5</div><div class="karte" id="f5"><section class="folie">
+  <div class="titelband"><h1>7. Kern- und Halbschatten</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="300,76 300,136 540,193 540,70" fill="#3A3A3A" opacity="0.30"/>
+      <polygon points="300,76 540,70 540,18"  fill="#9A9A9A" opacity="0.32"/>
+      <polygon points="300,136 540,193 540,143" fill="#9A9A9A" opacity="0.32"/>
+      <g class="licht">
+        <line x1="56" y1="82" x2="540" y2="70"/>
+        <line x1="56" y1="82" x2="540" y2="193"/>
+        <line x1="56" y1="130" x2="540" y2="18"/>
+        <line x1="56" y1="130" x2="540" y2="143"/>
+      </g>
+      <rect x="294" y="76" width="12" height="60" fill="#6E6E6E" stroke="#333" stroke-width="1"/>
+      <line x1="540" y1="8" x2="540" y2="204" stroke="#333" stroke-width="2.5"/>
+      <rect x="536" y="70" width="9" height="73"  fill="#3A3A3A"/>
+      <rect x="536" y="18" width="9" height="52"  fill="#9A9A9A"/>
+      <rect x="536" y="143" width="9" height="50" fill="#9A9A9A"/>
+      <circle cx="56" cy="82"  r="7" fill="#FFD34D" stroke="#B98900"/>
+      <circle cx="56" cy="130" r="7" fill="#FFD34D" stroke="#B98900"/>
+      <text class="beschriftung" x="30" y="76">L<tspan font-size="8" dy="3">1</tspan></text>
+      <text class="beschriftung" x="30" y="150">L<tspan font-size="8" dy="3">2</tspan></text>
+      <text class="beschriftung klein" x="250" y="162">undurchsichtiger</text>
+      <text class="beschriftung klein" x="250" y="173">Körper</text>
+      <text class="beschriftung klein" x="552" y="46">Halbschatten</text>
+      <text class="beschriftung klein" x="552" y="110">Kernschatten</text>
+      <text class="beschriftung klein" x="552" y="174">Halbschatten</text>
+    </svg>
+  </div>
+  <div class="merksatz">
+    Jede Lichtquelle erzeugt hinter einem <b>lichtundurchlässigen Körper</b> einen <b>Schatten</b>.
+    Beleuchten zwei Lichtquellen den Körper gemeinsam, so <span class="rot">überlagern</span> sich die beiden Schattengebiete.
+  </div>
+</section></div><div class="fnr">Folie 6</div><div class="karte" id="f6"><section class="folie"><div class="titelband"><h1>Schatten im Alltag</h1></div><div class="zeichenzone karo"><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was man sieht</th><th>warum</th></tr><tr><td>Flutlicht im Stadion</td><td><b>jeder Spieler hat vier Schatten</b></td><td>Vier Masten sind vier Lichtquellen. Jede erzeugt einen Schatten.</td></tr><tr><td>OP-Lampe</td><td><b>fast kein Schatten auf dem Tisch</b></td><td>Viele Lampen leuchten aus vielen Richtungen in jeden Schatten hinein.</td></tr><tr><td>Sonne an einem klaren Tag</td><td><b>dunkler, fast scharfer Schatten</b></td><td>Es gibt nur eine Lichtquelle, und sie ist sehr weit weg.</td></tr><tr><td>bewölkter Tag</td><td><b>kaum ein Schatten</b></td><td>Die ganze Wolkendecke leuchtet, das Licht kommt von überall.</td></tr><tr><td>Hand unter Schreibtisch- und Deckenlampe</td><td><b>zwei Schatten, in der Mitte dunkler</b></td><td>Wo beide Lampen verdeckt sind, ist Kernschatten, sonst Halbschatten.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Du stehst im Halbschatten. Wie viele Lampen kannst du von dort sehen?</div></section></div><div class="fnr">Folie 7</div><div class="karte" id="f7"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 4</div>
+    <h2>Warum hat ein Schatten manchmal weiche Ränder?</h2>
+  </div>
+  <div class="antwortzone">
+    Weil meistens <span class="rot">mehrere oder ausgedehnte Lichtquellen</span> leuchten.
+    Im <b>Kernschatten</b> kommt von keiner Lichtquelle Licht an, im <b>Halbschatten</b>
+    nur von einem Teil. Der Halbschatten macht den Rand weich.
+  </div>
+</section></div><div class="fnr">Folie 8</div><div class="karte" id="f8"><section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 4</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Wo entsteht ein Kernschatten?</p>
+      <ol>
+        <li>Dort, wo Licht von allen Lichtquellen ankommt</li>
+        <li>Dort, wo von keiner Lichtquelle Licht ankommt</li>
+        <li>Nur bei Sonnenlicht</li>
+        <li>Direkt an der Lampe</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Zwei Lampen beleuchten einen Körper. Was siehst du auf dem Schirm?</p>
+      <ol>
+        <li>Nur einen scharf begrenzten Schatten</li>
+        <li>Gar keinen Schatten</li>
+        <li>Einen Kernschatten und zwei Halbschatten</li>
+        <li>Zwei Kernschatten ohne Halbschatten</li>
+      </ol>
+    </div>
+  </div>
+</section></div><div class="fnr">Folie 9</div><div class="karte" id="f9"><section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) c</div>
+</section></div></div>
+<div class="tab" id="t_hg">
+<div class="box"><h3>Schattenraum und Schattenbild <button class="fchip" data-go="f4">Folie 4</button></h3><ul>
+<li>Ein Schatten ist kein Ding, sondern ein Gebiet ohne Licht. Der Schattenraum ist dreidimensional, das Schattenbild ist nur der Teil, der auf eine Fläche trifft.</li>
+<li><b>Größe:</b> Je näher der Körper an der Lampe steht, desto größer wird das Schattenbild. Man sieht es an den geraden Linien von der Lampe über die Ränder des Körpers.
+Das Buch zeigt das auf S. 34 an einer Dinosaurier-Figur.</li>
+<li><b>Typische Fehlvorstellungen:</b> Der Schatten sei ein dunkles Abbild mit allen Einzelheiten. Der Schatten gehöre zum Körper und sei auch im Dunkeln da.</li></ul></div>
+
+<div class="box"><h3>Kern- und Halbschatten <button class="fchip" data-go="f5">Folie 5</button><button class="fchip" data-go="f7">Folie 7</button></h3><ul>
+<li><b>Zwei Lampen:</b> Im Kernschatten kommt von keiner Lampe Licht an, im Halbschatten von einer. Bei mehr Lampen gibt es mehrere, unterschiedlich helle Halbschatten.</li>
+<li><b>Ausgedehnte Lichtquellen</b> (Leuchtstoffröhre, Fenster, Sonne) kann man sich als viele kleine Lichtquellen nebeneinander denken. Dann geht der Schatten ohne Stufe
+ins Helle über, der Rand wird weich. Eine punktförmige Lichtquelle gibt einen scharfen Rand.</li>
+<li><b>Blick von der Wand zur Lampe:</b> Aus dem Kernschatten sieht man keine Lampe, aus dem Halbschatten eine, aus dem hellen Bereich beide. Das beantwortet die Frage auf Folie 6.</li>
+<li>Die Sonne ist auch eine ausgedehnte Lichtquelle. Das ist die Brücke zu Leitfrage 5 (Sonnen- und Mondfinsternis).</li>
+<li><b>Typische Fehlvorstellung:</b> Der Halbschatten sei „ein halber Schatten“ des Körpers, also nur seine halbe Größe.</li></ul></div>
+
+<div class="box"><h3>Tipps zum Versuch <button class="fchip" data-go="f3">Folie 3</button></h3><ul>
+<li>Raum abdunkeln. Den Körper etwa 10 cm vor die Lampe stellen, dann ist der Schatten gut zu sehen.</li>
+<li>Die beiden Lampen dicht nebeneinander stellen. Rücken sie weiter auseinander, rücken auch die Schatten auseinander.</li>
+<li>Überlappen sich die beiden Schatten nicht mehr, gibt es keinen Kernschatten mehr, nur zwei Halbschatten. Gute Zusatzfrage für schnelle Gruppen.</li></ul></div>
+
+<div class="box"><h3>Schatten im Alltag <button class="fchip" data-go="f6">Folie 6</button></h3><ul>
+<li>Im Stadion stehen die Flutlichtmasten in den Ecken. Deshalb hat jeder Spieler vier Schatten, das Buch zeigt das auf S. 35.</li>
+<li>Die OP-Lampe hat viele Einzellampen in einem großen Ring. So wirft die Hand des Arztes keinen dunklen Schatten auf die Wunde.</li></ul></div>
+
+<div class="box"><h3>Ideen aus Erlebnis Physik 7–9</h3>
+<table class="t"><tr><th style="width:90px">Seite</th><th>Idee und so geht's</th><th style="width:130px">Passt zu</th></tr>
+<tr><td>S. 34</td><td><b>Schattengröße.</b> Eine Figur zwischen Lampe und Wand verschieben. Näher an der Lampe wird der Schatten größer. Gut als Je-desto-Satz.</td><td>Folie 4</td></tr>
+<tr><td>S. 35</td><td><b>Flutlicht.</b> Ein Foto eines Spielers mit vier Schatten als Gesprächsanlass: Woher kommen die Schatten?</td><td>Folie 6</td></tr>
+<tr><td>S. 36–37</td><td><b>Schattenversuche.</b> Taschenlampe und Radiergummi auf gefaltetem Papier (Schattenbild). Zwei Taschenlampen auf einen Mitschüler an der Wand:
+Wann gibt es zwei Schatten, wann nur einen? Geht auch als Demo vorne, wenn Ray-Boxen fehlen.</td><td>Folie 3 bis 5</td></tr></table></div>
+</div>
+<div class="tab" id="t_ab">
+<div class="box"><h3>Versuchsblatt Kern- und Halbschatten <button class="fchip" data-go="f3">Folie 3</button></h3>
+<a class="btn" href="Materialien/Kern- und Halbschatten W06.pdf">PDF öffnen</a>
+<p><b>Lösung Versuch 1:</b> Je näher der Körper an der Lampe steht, desto größer und unschärfer wird der Schatten. Lücken: <b>undurchsichtiger Körper</b>,
+<b>Lichtquelle</b>, <b>hinter</b>.</p>
+<p><b>Lösung Versuch 2:</b> Ein zweiter, versetzter Schatten kommt dazu. In der Mitte bleibt es am dunkelsten (Kernschatten), an den Rändern wird es heller (Halbschatten).
+Lücken: <b>lichtundurchlässigen Körper</b>, <b>Schatten</b>, <b>überlagern</b>, <b>Halbschattengebiete</b>, <b>Kernschattengebiete</b>.</p></div></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+</script></body></html>
