@@ -190,10 +190,10 @@ def vier_situationen():
           f'{pfeil(530, 100, 588, 100)}{pfeil(618, 100, 636, 100)}')
     lab = "".join(f'<text x="{x}" y="{y}" font-size="{fs}" font-weight="{fw}" fill="{c}">{t}</text>'
                   for x, y, fs, fw, c, t in [
-        (52, 20, 16, 700, INK, "Emission"), (55, 165, 13, 400, MUT, "Körper sendet Licht aus"),
-        (200, 20, 16, 700, INK, "Streuung"), (172, 165, 13, 400, MUT, "Licht wird zurückgeworfen"),
-        (356, 20, 16, 700, INK, "Absorption"), (352, 165, 13, 400, MUT, "Licht wird verschluckt"),
-        (498, 20, 16, 700, INK, "Transmission"), (500, 165, 13, 400, MUT, "Licht geht hindurch")])
+        (52, 20, 16, 700, INK, "Emission"), (40, 160, 13, 400, MUT, "Körper sendet"), (40, 176, 13, 400, MUT, "Licht aus"),
+        (200, 20, 16, 700, INK, "Streuung"), (190, 160, 13, 400, MUT, "Licht wird"), (190, 176, 13, 400, MUT, "zurückgeworfen"),
+        (356, 20, 16, 700, INK, "Absorption"), (356, 160, 13, 400, MUT, "Licht wird"), (356, 176, 13, 400, MUT, "verschluckt"),
+        (498, 20, 16, 700, INK, "Transmission"), (500, 160, 13, 400, MUT, "Licht geht"), (500, 176, 13, 400, MUT, "hindurch")])
     return (f'<svg viewBox="0 0 680 190" xmlns="http://www.w3.org/2000/svg" width="680">{fallen}'
             f'<rect width="680" height="190" fill="#fff"/>{em}{st}{ab}{tr}{lab}</svg>')
 
