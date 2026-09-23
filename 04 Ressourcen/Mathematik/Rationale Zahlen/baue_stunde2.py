@@ -97,35 +97,45 @@ def bogengerade(von, bis, start, delta, schritt=1, kpe=3):
 
 
 def skitour():
-    """Höhenprofil Gamshütte - Enzianstüble - Falkenhütte auf Karo (32 x 13 Kästchen)."""
+    """Höhenprofil Gamshütte - Enzianstüble - Falkenhütte. Mit Foto skitour_hintergrund.jpg (falls vorhanden), sonst Karo."""
+    import base64
     W, H = 640, 260
-    P = {"G": (100, 80), "E": (330, 210), "F": (560, 50)}
+    P = {"G": (88, 122), "E": (368, 164), "F": (570, 100)}
+    foto = Path(__file__).parent / "skitour_hintergrund.jpg"
     s = [f'<svg class="gerade" viewBox="0 0 {W} {H}" width="{W}" height="{H}" xmlns="http://www.w3.org/2000/svg" '
          'font-family="Helvetica, Arial, sans-serif">',
          f'<defs><pattern id="ks" width="{K}" height="{K}" patternUnits="userSpaceOnUse"><path d="M{K} 0H0V{K}" '
          'fill="none" stroke="#c8d0dc" stroke-width="1"/></pattern>'
-         '<marker id="sa" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#222"/></marker></defs>',
-         f'<rect width="{W}" height="{H}" fill="#fff"/><rect width="{W}" height="{H}" fill="url(#ks)"/>',
-         f'<path d="M{W} 0V{H}H0" fill="none" stroke="#c8d0dc"/>']
+         '<marker id="sa" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#222"/></marker></defs>']
+    if foto.exists():
+        d = base64.b64encode(foto.read_bytes()).decode()
+        s.append(f'<image href="data:image/jpeg;base64,{d}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice"/>')
+        lin, halo = "#fff", ' stroke="#fff" stroke-width="4" paint-order="stroke"'
+    else:
+        s.append(f'<rect width="{W}" height="{H}" fill="#fff"/><rect width="{W}" height="{H}" fill="url(#ks)"/>')
+        lin, halo = "#222", ""
+    s.append(f'<path d="M{W} 0V{H}H0" fill="none" stroke="#c8d0dc"/>')
     for a, b in (("G", "E"), ("E", "F")):
         (x1, y1), (x2, y2) = P[a], P[b]
-        s.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="#222" stroke-width="2" marker-end="url(#sa)"/>')
+        if lin == "#fff":
+            s.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>')
+        s.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{lin}" stroke-width="2.5" marker-end="url(#sa)"/>')
     for k, (x, y) in P.items():
-        s.append(f'<circle cx="{x}" cy="{y}" r="6" fill="#1b1b1b"/>')
+        s.append(f'<circle cx="{x}" cy="{y}" r="6" fill="#1b1b1b" stroke="#fff" stroke-width="1.5"/>')
 
     def t(x, y, txt, col=INK, w=400, size=14, anchor="middle"):
-        s.append(f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="{size}" font-weight="{w}" fill="{col}">{txt}</text>')
+        s.append(f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="{size}" font-weight="{w}" fill="{col}"{halo}>{txt}</text>')
 
-    t(100, 50, "Gamshütte", w=700, size=15)
-    t(100, 68, "2350 m · −12,5 °C")
-    t(330, 240, "Enzianstüble", w=700, size=15)
-    t(330, 254, "1600 m · −4 °C", col=NEG, w=700)
-    t(560, 20, "Falkenhütte", w=700, size=15)
-    t(560, 37, "2520 m · −14,5 °C", col=NEG, w=700)
-    t(205, 172, "−750 m", col=NEG, w=700, anchor="end")
-    t(205, 189, "+8,5 °C", col=POS, w=700, anchor="end")
-    t(455, 172, "+920 m", col=POS, w=700, anchor="start")
-    t(455, 189, "−10,5 °C", col=NEG, w=700, anchor="start")
+    t(88, 92, "Gamshütte", w=700, size=15)
+    t(88, 109, "2350 m · −12,5 °C")
+    t(368, 196, "Enzianstüble", w=700, size=15)
+    t(368, 213, "1600 m · −4 °C", col=NEG, w=700)
+    t(555, 66, "Falkenhütte", w=700, size=15)
+    t(555, 83, "2520 m · −14,5 °C", col=NEG, w=700)
+    t(228, 172, "−750 m", col=NEG, w=700)
+    t(228, 189, "+8,5 °C", col=POS, w=700)
+    t(490, 160, "+920 m", col=POS, w=700, anchor="start")
+    t(490, 177, "−10,5 °C", col=NEG, w=700, anchor="start")
     s.append("</svg>")
     return "".join(s)
 
@@ -235,7 +245,7 @@ zeilen_mi = "".join([
     vz(4, "Zweite Rechnung: −1 − 6. Vergleich beider Bögen: <b>plus</b> bewegt nach rechts, "
           "<b>minus</b> bewegt nach links", "Tafel", "Plenum"),
     grp(2, "Merksatz", 12, 20),
-    vz(8, "Regel in zwei Fällen (gleiche / verschiedene Vorzeichen) mit den vier Buch-Beispielen", f"Tafel &rarr; {MK}",
+    vz(8, "Plus nach rechts, Minus nach links ins Heft, dazu vier Beispiele ohne Klammern", f"Tafel &rarr; {MK}",
        "Plenum, abschreiben", True),
     grp(3, "Viel rechnen", 20, 40),
     vz(4, "Aufgabe 1: fehlenden Wert an der Zahlengeraden ergänzen", f"S. 18 Nr. 1 {ALL}", "Einzel"),
@@ -255,9 +265,7 @@ verlauf_mi = f"""
 <section id="mittwoch"><h2>Mittwoch · Einzelstunde</h2>
 <p class="lead">45 Minuten. Ziel dieser Stunde ist Masse: die Regel einmal klar herausarbeiten, dann viel selbst
 rechnen. {E} = wird ins {MK} geschrieben. Alle Übungen kommen ins {UE}.</p>
-<div class="ziel"><b>Ziel:</b> Die Klasse kennt die Regel „gleiche Vorzeichen: Beträge addieren, Vorzeichen bleibt“
-und „verschiedene Vorzeichen: Beträge subtrahieren, Vorzeichen der betragsmäßig größeren Zahl“ und wendet sie in
-vielen Kopf- und Übungsaufgaben sicher an. <b>Nicht Ziel:</b> Sachaufgaben, Subtraktion – das kommt am Donnerstag
+<div class="ziel"><b>Ziel:</b> Die Klasse hat das Bogenmodell im Kopf (Plus nach rechts, Minus nach links) und rechnet damit in vielen Kopf- und Übungsaufgaben sicher. <b>Nicht Ziel:</b> Sachaufgaben, Subtraktion – das kommt am Donnerstag
 bzw. nächste Woche.</p>
 {zeitleiste([(4, "Start"), (8, "1 · Bogenmodell"), (8, "2 · Merksatz"), (20, "3 · Viel rechnen"), (5, "4 · Ausstieg")])}
 <table class="vt"><tr><th>Min</th><th>Was</th><th>Buch und Material</th><th>Wer</th></tr>{zeilen_mi}</table>
@@ -290,12 +298,8 @@ Minus bewegt sich nach <span class="neg">links</span>.</div></div>
 <p class="sprech">Erst die Rechnung anschreiben, dann die Startzahl auf der Geraden markieren und fragen: „Geht der
 Bogen nach rechts oder nach links?“ Erst danach zählen und das Ergebnis ergänzen.</p></div>
 
-<div class="tafelblock"><h3>Merksatz: Rationale Zahlen addieren <span>Minute 12–20</span></h3>
-<div class="heft"><div class="merk"><b>Gleiche Vorzeichen</b><br>Man addiert die Zahlen, ohne ihr Vorzeichen zu
-berücksichtigen. Das Ergebnis erhält das gemeinsame Vorzeichen.</div>
-<div class="merk"><b>Verschiedene Vorzeichen</b><br>Man subtrahiert die Zahlen, ohne ihr Vorzeichen zu
-berücksichtigen. Das Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</div>
-<p>12 + 8 = 20 &nbsp;&middot;&nbsp; −15 − 10 = −25<br>
+<div class="tafelblock"><h3>Merksatz: Addieren und Subtrahieren <span>Minute 12–20 · = Heftseite im Tab Merkheft</span></h3>
+<div class="heft"><p>12 + 8 = 20 &nbsp;&middot;&nbsp; −15 − 10 = −25<br>
 18 − 6 = 12 &nbsp;&middot;&nbsp; −14 + 9 = −5</p></div></div>
 
 <div class="tafelblock"><h3>Viel rechnen <span>Minute 20–40</span></h3>
@@ -315,8 +319,8 @@ zeilen_do = "".join([
     vz(5, "Kopfrechenkette mündlich: fünf kurze Additionen im Wechsel, als Auffrischung von gestern", "&ndash;",
        "Plenum"),
     grp(1, "Sachaufgabe: Skitour", 5, 15),
-    vz(10, "Bildaufgabe Gamshütte &rarr; Enzianstüble &rarr; Falkenhütte: Temperatur am Enzianstüble, Vergleich "
-           "Auf-/Abstieg, Höhe und Temperatur an der Falkenhütte", "S. 18 Bildaufgabe", "Plenum, dann Partner"),
+    vz(10, "Bild zeigen: Gamshütte &rarr; Enzianstüble &rarr; Falkenhütte. Temperatur am Enzianstüble, Vergleich "
+           "Auf-/Abstieg, Höhe und Temperatur an der Falkenhütte", "S. 18 Bildaufgabe", f"Plenum, dann Partner<br>{UE}"),
     grp(2, "Anwenden und üben", 15, 35),
     vz(6, "Fahnenaufgabe: Ergebnis ablesen und nachrechnen", f"S. 19 Nr. 5 {ALL}", f"Einzel<br>{UE}"),
     vz(6, "Fehlersuche: fünf falsch gerechnete Additionen korrigieren", f"S. 19 Nr. 6 {ALL}", "Partner"),
@@ -349,8 +353,9 @@ tafel_do = f"""
 <div class="tafelblock"><h3>Sachaufgabe: Skitour <span>Minute 5–15</span></h3>
 <p class="aufg">Gamshütte 2350 m, −12,5 °C. Abstieg 750 m zum Enzianstüble (+8,5 °C Temperaturänderung). Aufstieg
 920 m zur Falkenhütte (−10,5 °C Temperaturänderung).</p>
-{fig(SKITOUR, "1 Kästchen = 20 px auf dem Bildschirm. Zuerst nur Gamshütte anschreiben, die Pfeile mit den Änderungen ergänzen, dann bei den anderen beiden Hütten die Ergebnisse suchen lassen.")}
-<div class="heft"><p><b>Temperatur am Enzianstüble:</b> −12,5 + 8,5 = −4 °C<br>
+<p class="zeige">▶ Als Bild (Screenshot) am Beamer zeigen, nichts zeichnen. Erst ohne die roten Ergebnisse besprechen.</p>
+{fig(SKITOUR, "Ergebnisse (rot) bei Enzianstüble und Falkenhütte sind die Lösung. Die Schüler finden sie selbst.")}
+<div class="uheft"><p class="aufg">{UE} Rechnungen und Antwortsätze</p><p><b>Temperatur am Enzianstüble:</b> −12,5 + 8,5 = −4 °C<br>
 <b>Aufstieg minus Abstieg:</b> 920 − 750 = 170 m, der Aufstieg ist 170 m größer als der Abstieg<br>
 <b>Höhe Falkenhütte:</b> 2350 − 750 + 920 = 2520 m &nbsp;&middot;&nbsp; <b>Temperatur:</b> −4 − 10,5 = −14,5 °C</p></div>
 <p class="sprech">Erst die Skizze an die Tafel, dann für jede Frage einzeln den passenden Rechenausdruck
@@ -370,16 +375,16 @@ e) −4,25 + (−0,5) = −3,75 &nbsp;&rarr;&nbsp; richtig: −4,75</p></div>
 # ================================================================== Merkheft
 merkheft = f"""
 <section id="merkheft"><h2>Merkheft</h2>
-<p class="lead">Das schreiben die Schüler am Mittwoch ab.</p>
+<p class="lead">Ein einziger Eintrag, am Mittwoch. Das ist genau der Merksatz-Block aus dem Mittwoch-Tafelbild, hier
+als fertige Heftseite zum Nachlesen. Am Donnerstag gibt es keinen Merkheft-Eintrag, alles kommt ins Übungsheft.</p>
 <div class="heftseite">
-<h3>Rationale Zahlen addieren</h3>
+<h3>Addieren und Subtrahieren</h3>
+<p><span class="pos">Plus</span> bedeutet: Bewegung nach rechts auf der Zahlengeraden.<br>
+<span class="neg">Minus</span> bedeutet: Bewegung nach links.</p>
+<p>−2 + 7 = 5</p>
 {fig(BSP1, "1 = 4 Kästchen")}
-<p><span class="pos">Positive</span> Zahl addieren: Bewegung nach rechts.<br>
-<span class="neg">Negative</span> Zahl addieren: Bewegung nach links.</p>
-<p><b>Gleiche Vorzeichen:</b> Man addiert die Zahlen, ohne ihr Vorzeichen zu berücksichtigen. Das Ergebnis erhält
-das gemeinsame Vorzeichen.</p>
-<p><b>Verschiedene Vorzeichen:</b> Man subtrahiert die Zahlen, ohne ihr Vorzeichen zu berücksichtigen. Das
-Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</p>
+<p>−1 − 6 = −7</p>
+{fig(BSP2, "1 = 3 Kästchen")}
 <p>12 + 8 = 20 &nbsp;&middot;&nbsp; −15 − 10 = −25 &nbsp;&middot;&nbsp; 18 − 6 = 12
 &nbsp;&middot;&nbsp; −14 + 9 = −5</p>
 </div>
