@@ -148,23 +148,39 @@ V = (
     'Das Blatt <b>streut</b> das Licht, der Karton <b>absorbiert</b> es, die Glasscheibe <b>lässt es durch</b> (Transmission).'
     '</div></div></div></section>')
 
+import subprocess
+BLAETTER = {"lq": "Materialien/Lichtquellen W03.pdf", "w04": "Materialien/Licht trifft auf einen Koerper W04.pdf"}
+for k, pdf in BLAETTER.items():   # Lösungsseite (Seite 2) als Bild, 1:1 wie das Schülerblatt
+    subprocess.run(["pdftoppm", "-png", "-r", "110", "-f", "2", "-l", "2", "-singlefile", str(hier / pdf),
+                    str(hier / "Materialien" / "assets" / f"blatt-{k}-loesung")], check=True)
+
+
+def blatt(k, hinweis):
+    return ("blatt", f'<div class="austeil">📄 {hinweis}</div>'
+            f'<img class="blattbild" src="Materialien/assets/blatt-{k}-loesung.png" alt="">')
+
+
 FOLGE = [
-    austeilen(basis(11), "Arbeitsblatt Lichtquellen austeilen"), A, B,
+    basis(11), A, B,
+    blatt("lq", "Arbeitsblatt Lichtquellen austeilen"),
     basis(12), basis(13), basis(14),
     basis(15), basis(16),
-    austeilen(V, "Versuchsblatt austeilen"),
+    blatt("w04", "Versuchsblatt austeilen · Versuch in Gruppen"),
     basis(18), D,
     basis(19), basis(20), basis(21),
 ]
-karten = "".join(f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>' for i, h in enumerate(FOLGE, 1))
+karten = "".join(
+    (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
+     if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>')
+    for i, h in enumerate(FOLGE, 1))
 
 SCHRITTE = [
-    ("Lichtquellen", "Natürliche und künstliche Lichtquellen, sehen und gesehen werden, Arbeitsblatt.", [1, 2, 3]),
-    ("Check zu Leitfrage 1", "Antwort, Handzeichen, Lösung.", [4, 5, 6]),
-    ("Leitfrage 2", "Dieselbe Lampe, drei Gegenstände. Vermutungen sammeln.", [7, 8]),
-    ("Versuch", "Blatt, Karton, Glasscheibe in Gruppen, Versuchsblatt.", [9]),
-    ("Erklären", "Vier Situationen, Alltag, Antwort auf Leitfrage 2.", [10, 11, 12]),
-    ("Check zu Leitfrage 2", "Handzeichen, Lösung.", [13, 14]),
+    ("Lichtquellen", "Natürliche und künstliche Lichtquellen, sehen und gesehen werden, Arbeitsblatt.", [1, 2, 3, 4]),
+    ("Check zu Leitfrage 1", "Antwort, Handzeichen, Lösung.", [5, 6, 7]),
+    ("Leitfrage 2", "Dieselbe Lampe, drei Gegenstände. Vermutungen sammeln.", [8, 9]),
+    ("Versuch", "Blatt, Karton, Glasscheibe in Gruppen, Versuchsblatt.", [10]),
+    ("Erklären", "Vier Situationen, Alltag, Antwort auf Leitfrage 2.", [11, 12, 13]),
+    ("Check zu Leitfrage 2", "Handzeichen, Lösung.", [14, 15]),
 ]
 zeit = "".join(f'<div class="z{i % 6}" style="flex:1">{i + 1} · {t}</div>' for i, (t, d, ks) in enumerate(SCHRITTE))
 zeilen_u = "".join(
@@ -190,14 +206,14 @@ hintergrund = f"""
 <li><b>Richtwerte bei Abblendlicht:</b> dunkle Kleidung ist erst auf etwa 25 m zu sehen, helle auf etwa 40 m, mit Reflektoren auf etwa 140 m. Die Zahlen werden von Verkehrssicherheitsverbänden genannt und schwanken je nach Quelle.</li>
 <li>Guter Gesprächsanlass: Wer von euch hat Reflektoren an Jacke oder Ranzen?</li></ul></div>
 
-<div class="box"><h3>Tipps zum Versuch {chip(9)}</h3><ul>
+<div class="box"><h3>Tipps zum Versuch {chip(10)}</h3><ul>
 <li>Raum abdunkeln, sonst ist der Unterschied zwischen Blatt und Karton schwer zu sehen.</li>
 <li>Ray-Box mit einem schmalen Spalt, flach auf den Tisch. Blatt und Karton senkrecht aufstellen.</li>
 <li><b>Blatt:</b> Den Lichtfleck von links, rechts und von oben anschauen lassen. Er ist von überall zu sehen, das ist Streuung.</li>
 <li><b>Karton:</b> Nach einer Minute die Hand auflegen lassen. Er wird warm, das absorbierte Licht ist nicht „weg“.</li>
 <li><b>Glasscheibe:</b> Neben dem Lichtfleck dahinter ist auch ein schwaches Spiegelbild zu sehen. Das zeigt: Meist passiert mehreres gleichzeitig. Kanten der Scheibe abkleben.</li></ul></div>
 
-<div class="box"><h3>Licht trifft auf einen Körper {chip(10, 11, 12)}</h3><ul>
+<div class="box"><h3>Licht trifft auf einen Körper {chip(11, 12, 13)}</h3><ul>
 <li><b>Streuung</b> ist eine ungeordnete Reflexion an einer rauen Oberfläche. Die regelmäßige Reflexion am Spiegel kommt später (Leitfrage 6).</li>
 <li><b>Farben:</b> Ein roter Apfel absorbiert fast alle Farben des Lichts und streut vor allem Rot zurück. Weiß streut alle Farben, Schwarz absorbiert fast alle.</li>
 <li><b>Typische Fehlvorstellungen:</b> Das Licht „bleibt“ auf dem Gegenstand liegen. Schwarz werfe „schwarzes Licht“ zurück. Beim Glas „verschwindet“ das Licht.</li></ul></div>
@@ -250,6 +266,9 @@ a.btn{{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:
 table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}}.t th{{background:#f5f5f1}}
 
 .fnr{{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}}
+
+.blattkarte{{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}}.blattbild{{display:block;width:100%;border:1px solid #c8d0dc}}
+.austeil{{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}}
 .fchip{{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}}
 </style></head><body>
 <div class="wrap"><header class="kopf"><h1>Optik: Lichtquellen und Licht trifft auf einen Körper</h1>
@@ -262,7 +281,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 <li>Versuchsblatt Licht trifft auf einen Körper: Seite 1, eins pro Schüler.</li>
 <li>Folien und Lösungen: nicht drucken.</li></ul></div>
 <div class="box"><h3>Material</h3><ul>
-<li><b>Versuch Folie 9, pro Gruppe:</b> Ray-Box mit Stromanschluss, weißes Blatt, schwarzer Karton, klare Glasscheibe mit abgeklebten Kanten.</li>
+<li><b>Versuch Folie 10, pro Gruppe:</b> Ray-Box mit Stromanschluss, weißes Blatt, schwarzer Karton, klare Glasscheibe mit abgeklebten Kanten.</li>
 <li>Raum abdunkeln.</li></ul></div>
 <div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen_u}</div>
 </div>
@@ -272,11 +291,11 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 <div class="tab" id="t_hg">{hintergrund}</div>
 
 <div class="tab" id="t_ab">
-<div class="box"><h3>Arbeitsblatt Lichtquellen {chip(1)}</h3>
+<div class="box"><h3>Arbeitsblatt Lichtquellen {chip(4)}</h3>
 <a class="btn" href="Materialien/Lichtquellen W03.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Lichtquelle (L): Kerze, Glühlampe, Lagerfeuer, Blitz, Taschenlampe, Sonne. Beleuchtet (B): Mond, Tafel, Buch, Zimmerpflanze, Spielzeugauto.
 Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Laser. Aufgabe 3: Glühlampe und Taschenlampe.</p></div>
-<div class="box"><h3>Versuchsblatt Licht trifft auf einen Körper {chip(9)}</h3>
+<div class="box"><h3>Versuchsblatt Licht trifft auf einen Körper {chip(10)}</h3>
 <a class="btn" href="Materialien/Licht trifft auf einen Koerper W04.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Weißes Blatt: heller, breiter Lichtfleck, Licht wird in viele Richtungen zurückgeworfen (<b>gestreut</b>). Schwarzer Karton: dunkel, Licht wird
 <b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div></div>
