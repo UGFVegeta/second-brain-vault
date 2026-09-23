@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Baut die schlanke Stunden-HTML mit echten Tabs (Umschalten statt Scrollen).
-Tab 1 "Folien": die AUSGEFÜLLTEN Folien aus 'Optik I.html' am Stück (Folie = Tafelbild, keine Zeiten).
-Seitenzahl = Seite in Optik I.pdf (eine Folie pro Seite). Aufruf: python3 baue_folien_am_stueck.py
+"""Stunden-HTML mit echten Tabs: Überblick | Folien | Arbeitsblätter | Ideen.
+Folien = ausgefüllte Folien aus 'Optik I.html' (Seitenzahl = Seite in Optik I.pdf) PLUS neue Folien (Alltag/Buch) im gleichen Stil.
+Folie = Tafelbild. Keine Zeiten. Neue Folien stehen nur hier, Optik I.html/.pdf bleiben unverändert bis zur Freigabe.
+Aufruf: python3 baue_folien_am_stueck.py
 """
 import re
 from pathlib import Path
@@ -9,94 +10,286 @@ from pathlib import Path
 hier = Path(__file__).parent
 quelle = (hier / "Optik I.html").read_text(encoding="utf-8")
 folien = re.findall(r'<section class="folie[^"]*">.*?</section>', quelle, flags=re.S)
-SEITEN = [11, 12, 13, 14, 15, 16, 18, 19, 20, 21]   # 17 (leere Fassung) bewusst weggelassen
 TITEL = "Optik · Do 24.09.2026"
+INK, GR = "#111", "#66798E"
 
-karten = []
-for p in SEITEN:
-    f = re.sub(r'\s*<div class="ab-hinweis">.*?</div>', "", folien[p - 1], flags=re.S)  # keine Marker
-    karten.append(f'<div class="karte">{f}</div>')
 
-alltag = [
-    ("Wolke am Himmel", "beleuchtet", "wirft Sonnenlicht zurück"),
-    ("Rückstrahler, Katzenaugen", "beleuchtet", "leuchten nur, wenn sie angestrahlt werden"),
-    ("Fahrrad-Rücklicht (LED)", "Lichtquelle", "erzeugt selbst Licht"),
-    ("Sterne / Planeten", "Sterne: Lichtquellen, Planeten: beleuchtet", "Sterne sind ferne Sonnen"),
-    ("Schwarzes T-Shirt in der Sonne", "Absorption", "Licht wird verschluckt, das Shirt wird warm"),
-    ("Weiße Wand", "Streuung", "Licht geht in alle Richtungen, Wand von überall sichtbar"),
-    ("Fensterscheibe", "Transmission", "Licht geht (fast) ungehindert hindurch"),
-    ("Milchglas (Badfenster)", "Transmission und Streuung", "hell, aber nur Umrisse erkennbar"),
+# ------------------------------------------------------------------ Icons für die neuen Folien
+def sun(x, y, r=12):
+    rays = "".join(f'<line x1="{x + (r + 3) * c:.1f}" y1="{y + (r + 3) * s:.1f}" x2="{x + (r + 9) * c:.1f}" y2="{y + (r + 9) * s:.1f}" stroke="#b98900" stroke-width="2"/>'
+                   for c, s in [(1, 0), (.7, .7), (0, 1), (-.7, .7), (-1, 0), (-.7, -.7), (0, -1), (.7, -.7)])
+    return f'{rays}<circle cx="{x}" cy="{y}" r="{r}" fill="#ffd34d" stroke="#b98900" stroke-width="2"/>'
+
+
+def star(x, y, r):
+    import math
+    pts = " ".join(f"{x + (r if i % 2 == 0 else r * .45) * math.sin(i * math.pi / 5):.1f},{y - (r if i % 2 == 0 else r * .45) * math.cos(i * math.pi / 5):.1f}" for i in range(10))
+    return f'<polygon points="{pts}" fill="#ffd34d" stroke="#b98900"/>'
+
+
+def bulb(x, y, fill="#fff2a8"):
+    return (f'<circle cx="{x}" cy="{y}" r="13" fill="{fill}" stroke="#b98900" stroke-width="2"/>'
+            f'<rect x="{x - 6}" y="{y + 12}" width="12" height="9" fill="#bbb" stroke="#777"/>')
+
+
+def candle(x, y):
+    return (f'<rect x="{x - 6}" y="{y - 4}" width="12" height="28" fill="#f5e6c8" stroke="#777"/>'
+            f'<path d="M{x} {y - 22} q7 9 0 17 q-7 -8 0 -17z" fill="#ffb02e" stroke="#c76b00"/>')
+
+
+def label(x, y, t, cls="klein"):
+    fw = ' font-weight="600"' if cls == "" else ""
+    return f'<text class="beschriftung {cls}" x="{x}" y="{y}"{fw}>{t}</text>'
+
+
+def pfeil(x1, y1, x2, y2, col, dash=""):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    return f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{col}" stroke-width="2.2"{d} marker-end="url(#p{col[1:]})"/>'
+
+
+def marker(col):
+    return (f'<marker id="p{col[1:]}" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">'
+            f'<path d="M0,0 L8,4 L0,8 Z" fill="{col}"/></marker>')
+
+
+def folie(titel, svg, merksatz):
+    return (f'<section class="folie"><div class="titelband"><h1>{titel}</h1></div>'
+            f'<div class="zeichenzone karo">{svg}</div><div class="merksatz">{merksatz}</div></section>')
+
+
+# ---- Neu A: natürliche und künstliche Lichtquellen
+A_svg = (
+    '<svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">'
+    '<line x1="318" y1="10" x2="318" y2="200" stroke="#c8d0dc" stroke-dasharray="5 5"/>'
+    + label(70, 24, "natürliche Lichtquellen", "") + label(392, 24, "künstliche Lichtquellen", "")
+    + sun(50, 84) + label(36, 128, "Sonne")
+    + '<polygon points="130,64 118,90 127,90 120,110 138,82 129,82" fill="#ffd34d" stroke="#b98900"/>' + label(112, 128, "Blitz")
+    + star(200, 78, 9) + star(216, 96, 7) + label(185, 128, "Sterne")
+    + '<ellipse cx="270" cy="88" rx="10" ry="5" fill="#6b8e23"/><circle cx="282" cy="90" r="9" fill="#f3ff8a" opacity=".7"/>' + label(246, 128, "Glühwürmchen")
+    + bulb(372, 84) + label(345, 128, "Glühlampe")
+    + candle(444, 80) + label(431, 128, "Kerze")
+    + bulb(516, 84, "#e6f6ff") + label(492, 128, "LED-Lampe")
+    + '<rect x="574" y="70" width="46" height="30" fill="#2c3e50" stroke="#111"/><rect x="578" y="74" width="38" height="22" fill="#6fb1e8"/><line x1="597" y1="100" x2="597" y2="108" stroke="#111" stroke-width="3"/>'
+    + label(570, 128, "Bildschirm")
+    + label(60, 176, "gibt es in der Natur") + label(392, 176, "hat der Mensch gebaut")
+    + '</svg>')
+A = folie("Natürliche und künstliche Lichtquellen", A_svg,
+          "<b>Natürliche Lichtquellen</b> gibt es in der Natur. <b>Künstliche Lichtquellen</b> hat der Mensch gebaut.")
+
+# ---- Neu B: Sehen und gesehen werden
+B_svg = (
+    '<svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs>' + marker("#c62828") + marker("#e08a00") + '</defs>'
+    '<line x1="10" y1="172" x2="626" y2="172" stroke="#555" stroke-width="2"/>'
+    '<polygon points="150,140 330,112 330,170 150,146" fill="rgba(255,211,77,.35)"/>'
+    '<rect x="26" y="126" width="118" height="34" rx="6" fill="#8da6c2" stroke="#66798E" stroke-width="2"/>'
+    '<rect x="52" y="104" width="64" height="26" rx="5" fill="#8da6c2" stroke="#66798E" stroke-width="2"/>'
+    '<circle cx="56" cy="162" r="10" fill="#333"/><circle cx="112" cy="162" r="10" fill="#333"/>'
+    '<rect x="141" y="132" width="8" height="12" fill="#ffd34d" stroke="#b98900"/>'
+    '<ellipse cx="88" cy="116" rx="9" ry="5" fill="#fff" stroke="#66798E"/><circle cx="88" cy="116" r="2.6" fill="#333"/>'
+    '<circle cx="352" cy="150" r="20" fill="none" stroke="#333" stroke-width="3"/><circle cx="430" cy="150" r="20" fill="none" stroke="#333" stroke-width="3"/>'
+    '<path d="M352 150 L385 150 L402 118 L360 118 Z M385 150 L430 150 L402 118" fill="none" stroke="#333" stroke-width="3"/>'
+    '<circle cx="392" cy="82" r="9" fill="#f4c7a1" stroke="#333"/><line x1="392" y1="92" x2="380" y2="126" stroke="#f2c94c" stroke-width="12" stroke-linecap="round"/>'
+    '<rect x="330" y="114" width="8" height="8" fill="#e53935" stroke="#7a1b1b"/><rect x="332" y="136" width="6" height="12" fill="#ff7043" stroke="#7a1b1b"/>'
+    + pfeil(326, 119, 154, 122, "#c62828") + pfeil(328, 142, 154, 143, "#e08a00", "6 4")
+    + label(20, 52, "Scheinwerfer: Lichtquelle") + label(20, 68, "(sendet Licht aus)", "klein")
+    + label(230, 52, "Rücklicht: Lichtquelle") + '<line x1="285" y1="58" x2="328" y2="112" stroke="#999" stroke-width="1"/>'
+    + label(452, 60, "Rückstrahler und Warnweste:") + label(452, 76, "beleuchtet, sie werfen das") + label(452, 92, "Scheinwerferlicht zurück")
+    + '</svg>')
+B = folie("Sehen und gesehen werden", B_svg,
+          "Das <b>Rücklicht</b> ist eine Lichtquelle. <b>Rückstrahler</b> und <b>Warnweste</b> sind beleuchtete Körper: Sie werfen das Scheinwerferlicht zurück.")
+
+# ---- Neu D: Alltag zu Leitfrage 2
+zeilen = [("schwarzes T-Shirt in der Sonne", "Absorption", "Licht wird verschluckt, das Shirt wird warm"),
+          ("weiße Wand", "Streuung", "Licht geht in alle Richtungen, die Wand ist von überall zu sehen"),
+          ("Fensterscheibe", "Transmission", "Licht geht (fast) ungehindert hindurch"),
+          ("Milchglas (Badfenster)", "Transmission und Streuung", "hell, aber man erkennt nur Umrisse"),
+          ("Sonnenbrille", "Absorption und Transmission", "ein Teil wird verschluckt, der Rest geht hindurch")]
+D_tab = ('<table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was passiert</th><th>warum</th></tr>'
+         + "".join(f"<tr><td>{a}</td><td><b>{b}</b></td><td>{c}</td></tr>" for a, b, c in zeilen) + "</table>")
+D = folie("Licht trifft auf einen Körper im Alltag", D_tab, "Meist geschieht <b>mehreres gleichzeitig</b>.")
+
+
+def basis(p):
+    return re.sub(r'\s*<div class="ab-hinweis">.*?</div>', "", folien[p - 1], flags=re.S)
+
+
+def austeilen(folie_html, text):
+    i = folie_html.rindex("</section>")
+    return folie_html[:i] + f'<div class="ab-hinweis">📄 {text}</div>' + folie_html[i:]
+
+
+# ---- Neu V: Versuchsfolie Leitfrage 2 (ausgefüllt, im Stil von „Versuch: Kern- und Halbschatten“)
+V_aufbau = (
+    '<svg viewBox="0 0 300 142" xmlns="http://www.w3.org/2000/svg">'
+    '<line x1="6" y1="118" x2="294" y2="118" stroke="#555" stroke-width="2"/>'
+    '<rect x="14" y="80" width="62" height="34" fill="#8DA6C2" stroke="#66798E" stroke-width="1.5"/>'
+    '<rect x="76" y="92" width="4" height="10" fill="#FFD34D" stroke="#B98900"/>'
+    '<polygon points="80,93 196,90 196,104 80,101" fill="rgba(255,211,77,.45)"/>'
+    '<rect x="196" y="52" width="9" height="66" fill="#fff" stroke="#333" stroke-width="1.5"/>'
+    '<ellipse cx="195" cy="97" rx="4" ry="9" fill="#FFD34D" opacity=".8"/>'
+    '<text class="beschriftung klein" x="16" y="72">Ray-Box</text>'
+    '<text class="beschriftung klein" x="150" y="34">Blatt, Karton oder Glasscheibe</text>'
+    '<text class="beschriftung klein" x="182" y="46">(nacheinander)</text>'
+    '<text class="beschriftung klein" x="100" y="136">Lichtbündel</text>'
+    '</svg>')
+V = (
+    '<section class="folie"><div class="titelband"><h1>Versuch: Licht trifft auf einen Körper</h1></div>'
+    '<div class="versuch">'
+    f'<div class="zelle"><h2>Aufbau</h2><div class="feld karo">{V_aufbau}</div></div>'
+    '<div class="zelle"><h2>Beschreibung</h2><div class="feld"><ol>'
+    '<li>Richte die Ray-Box auf ein weißes Blatt Papier.</li>'
+    '<li>Richte die Ray-Box auf einen schwarzen Karton.</li>'
+    '<li>Halte eine klare Glasscheibe in den Lichtweg.</li>'
+    '<li>Beobachte jedes Mal, was mit dem Licht passiert.</li></ol></div></div>'
+    '<div class="zelle"><h2>Beobachtung</h2><div class="feld">'
+    'Weißes Blatt: heller, breiter Lichtfleck, von überall zu sehen. Schwarzer Karton: kein Lichtfleck, er bleibt dunkel. '
+    'Glasscheibe: Das Licht geht fast ungehindert hindurch.</div></div>'
+    '<div class="zelle"><h2>Ergebnis</h2><div class="feld">'
+    'Das Blatt <b>streut</b> das Licht, der Karton <b>absorbiert</b> es, die Glasscheibe <b>lässt es durch</b> (Transmission).'
+    '</div></div></div></section>')
+
+FOLGE = [
+    austeilen(basis(11), "Arbeitsblatt Lichtquellen austeilen"), A, B,
+    basis(12), basis(13), basis(14),
+    basis(15), basis(16),
+    austeilen(V, "Versuchsblatt austeilen"),
+    basis(18), D,
+    basis(19), basis(20), basis(21),
 ]
-alltag_tab = "".join(f"<tr><td>{a}</td><td><b>{b}</b></td><td>{c}</td></tr>" for a, b, c in alltag)
+karten = "".join(f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>' for i, h in enumerate(FOLGE, 1))
 
-buch = [
-    ("S. 27–28", "Fahrrad-Aufgabe, sechs Fotos zuordnen (Glühwürmchen, Vollmond, Blitz, LED …)", "Lichtquellen"),
-    ("S. 33", "Teelicht durch Gummischlauch sehen, Weg des Lichts mit Alufolie und Rauch", "Lichtausbreitung"),
-    ("S. 36–37", "Drei Schattenversuche (C = dein Ray-Box-Versuch)", "Schatten"),
-    ("S. 40", "Globus, Lampe, Papierkugel: Tag und Nacht, Mondphasen", "Mond"),
-    ("S. 45", "glatte und zerknitterte Alufolie, Reflexionsgesetz mit Faden", "Reflexion"),
-    ("S. 48–49", "Lerncheck mit 25 Aufgaben", "Wiederholung"),
+SCHRITTE = [
+    ("Lichtquellen", "Natürliche und künstliche Lichtquellen, sehen und gesehen werden, Arbeitsblatt.", [1, 2, 3]),
+    ("Check zu Leitfrage 1", "Antwort, Handzeichen, Lösung.", [4, 5, 6]),
+    ("Leitfrage 2", "Dieselbe Lampe, drei Gegenstände. Vermutungen sammeln.", [7, 8]),
+    ("Versuch", "Blatt, Karton, Glasscheibe in Gruppen, Versuchsblatt.", [9]),
+    ("Erklären", "Vier Situationen, Alltag, Antwort auf Leitfrage 2.", [10, 11, 12]),
+    ("Check zu Leitfrage 2", "Handzeichen, Lösung.", [13, 14]),
 ]
-buch_tab = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in buch)
+zeit = "".join(f'<div class="z{i % 6}" style="flex:1">{i + 1} · {t}</div>' for i, (t, d, ks) in enumerate(SCHRITTE))
+zeilen_u = "".join(
+    f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b><br><span class="m">{d}</span></div>'
+    f'<div class="go">{"".join(f"<button data-go=f{k}>Folie {k}</button>" for k in ks)}</div></div>'
+    for i, (t, d, ks) in enumerate(SCHRITTE, 1))
+
+
+def chip(*nr):
+    return "".join(f'<button class="fchip" data-go="f{n}">Folie {n}</button>' for n in nr)
+
+
+hintergrund = f"""
+<div class="box"><h3>Warum leuchtet etwas? {chip(1, 2)}</h3><ul>
+<li><b>Heiße Körper glühen:</b> Sonne (Oberfläche etwa 5500 °C), Glühdraht (etwa 2500 °C), Kerzenflamme (bis etwa 1400 °C). Je heißer, desto heller und weißer.</li>
+<li><b>Kalte Lichtquellen:</b> LED und Bildschirm erzeugen Licht elektrisch, ohne heiß zu werden. Das Glühwürmchen erzeugt Licht mit einer chemischen Reaktion im Körper (Biolumineszenz).</li>
+<li><b>Mond:</b> Er wirft nur etwa ein Achtel des Sonnenlichts zurück. Er wirkt hell, weil der Nachthimmel dunkel ist.</li>
+<li><b>Sterne und Planeten:</b> Sterne sind ferne Sonnen, also Lichtquellen. Planeten leuchten nicht selbst. Der „Abendstern“ ist die Venus, also ein beleuchteter Körper.</li>
+<li><b>Typische Fehlvorstellungen:</b> Was hell ist, sei eine Lichtquelle (Mond, weiße Wand, Spiegel). Katzenaugen und Rückstrahler „leuchten“.</li></ul></div>
+
+<div class="box"><h3>Sehen und gesehen werden {chip(3)}</h3><ul>
+<li><b>Rückstrahler</b> werfen das Licht genau in die Richtung zurück, aus der es kommt. Deshalb sieht gerade der Autofahrer sie hell aufleuchten, ein Fußgänger daneben kaum.</li>
+<li><b>Richtwerte bei Abblendlicht:</b> dunkle Kleidung ist erst auf etwa 25 m zu sehen, helle auf etwa 40 m, mit Reflektoren auf etwa 140 m. Die Zahlen werden von Verkehrssicherheitsverbänden genannt und schwanken je nach Quelle.</li>
+<li>Guter Gesprächsanlass: Wer von euch hat Reflektoren an Jacke oder Ranzen?</li></ul></div>
+
+<div class="box"><h3>Tipps zum Versuch {chip(9)}</h3><ul>
+<li>Raum abdunkeln, sonst ist der Unterschied zwischen Blatt und Karton schwer zu sehen.</li>
+<li>Ray-Box mit einem schmalen Spalt, flach auf den Tisch. Blatt und Karton senkrecht aufstellen.</li>
+<li><b>Blatt:</b> Den Lichtfleck von links, rechts und von oben anschauen lassen. Er ist von überall zu sehen, das ist Streuung.</li>
+<li><b>Karton:</b> Nach einer Minute die Hand auflegen lassen. Er wird warm, das absorbierte Licht ist nicht „weg“.</li>
+<li><b>Glasscheibe:</b> Neben dem Lichtfleck dahinter ist auch ein schwaches Spiegelbild zu sehen. Das zeigt: Meist passiert mehreres gleichzeitig. Kanten der Scheibe abkleben.</li></ul></div>
+
+<div class="box"><h3>Licht trifft auf einen Körper {chip(10, 11, 12)}</h3><ul>
+<li><b>Streuung</b> ist eine ungeordnete Reflexion an einer rauen Oberfläche. Die regelmäßige Reflexion am Spiegel kommt später (Leitfrage 6).</li>
+<li><b>Farben:</b> Ein roter Apfel absorbiert fast alle Farben des Lichts und streut vor allem Rot zurück. Weiß streut alle Farben, Schwarz absorbiert fast alle.</li>
+<li><b>Typische Fehlvorstellungen:</b> Das Licht „bleibt“ auf dem Gegenstand liegen. Schwarz werfe „schwarzes Licht“ zurück. Beim Glas „verschwindet“ das Licht.</li></ul></div>
+
+<div class="box"><h3>Ideen aus Erlebnis Physik 7–9</h3>
+<table class="t"><tr><th style="width:90px">Seite</th><th>Idee und so geht's</th><th style="width:130px">Passt zu</th></tr>
+<tr><td>S. 26–29</td><td><b>Licht als Signal.</b> Ampel, leuchtendes Hundehalsband, Leuchtturm: Die Lichtquelle ist der Sender, das Auge der Empfänger.
+Die Fernbedienung sendet unsichtbares Infrarotlicht, das man mit der Handykamera sichtbar machen kann.</td><td>Leitfrage 1</td></tr>
+<tr><td>S. 45 A</td><td><b>Glatte und zerknitterte Alufolie.</b> Beide im dunklen Raum mit der Taschenlampe schräg anleuchten. Die glatte wirft einen hellen Fleck in eine Richtung
+(Spiegelung), die zerknitterte leuchtet von überall schwach (Streuung). Material: Alufolie, Taschenlampe.</td><td>Leitfrage 2 (Zusatz), Leitfrage 6</td></tr>
+<tr><td>S. 33 A</td><td><b>Teelicht durch einen Gummischlauch.</b> Durch den geraden Schlauch (etwa 15 cm) sieht man die Flamme, durch den gebogenen nicht. Licht breitet sich geradlinig aus.
+Material: Teelicht, Feuerzeug, Gummischlauch.</td><td>Leitfrage 3</td></tr>
+<tr><td>S. 33 B</td><td><b>Lichtwege sichtbar machen.</b> Kleine Löcher in Alufolie stechen, damit die Handylampe abdecken, Raum abdunkeln. Ein ausgepustetes Teelicht
+gibt Rauch, in dem die geraden Lichtwege sichtbar werden. Material: Alufolie, Bleistift, Smartphone, Teelicht.</td><td>Leitfrage 3</td></tr>
+<tr><td>S. 36–37</td><td><b>Schattenversuche.</b> Taschenlampe und Radiergummi auf gefaltetem Papier (Schattenbild, Je-desto-Satz). Zwei Taschenlampen auf einen Mitschüler an der Wand:
+Wann gibt es zwei Schatten, wann nur einen? Der dritte Versuch entspricht deinem Ray-Box-Versuch.</td><td>Leitfrage 4</td></tr>
+<tr><td>S. 40</td><td><b>Globus und Lampe.</b> Deutschland und Japan mit Knete markieren, den Globus drehen: Tag und Nacht. Eine Papierkugel am Faden kreist als Mond um den Globus: Mondphasen.</td><td>Leitfrage 5</td></tr>
+<tr><td>S. 48–49</td><td><b>Lerncheck</b> mit 25 Aufgaben, gut als Aufgabenpool vor der Klassenarbeit.</td><td>Wiederholung</td></tr></table></div>
+"""
 
 html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{TITEL}</title>
 <link rel="stylesheet" href="folien.css">
 <style>
-body{{background:#e9eaee;margin:0;font:16px/1.5 -apple-system,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b}}
-header{{background:#fff;border-bottom:1px solid #d3d6dd;position:sticky;top:0;z-index:10}}
-.in{{width:956px;max-width:100%;margin:0 auto;padding:0 8px}}
-h1{{font-size:18px;margin:0;padding:12px 0 8px}}
-.tabs{{display:flex;gap:6px;padding-bottom:10px}}
-.tabs button{{border:0;background:#f0f1f4;padding:7px 16px;border-radius:16px;font:inherit;font-size:14.5px;cursor:pointer}}
-.tabs button.on{{background:#1b1b1b;color:#fff}}
-.tab{{display:none;padding:22px 0 60px}}.tab.on{{display:block}}
-.karte{{width:956px;height:539px;margin:0 auto 22px;box-shadow:0 2px 10px rgba(0,0,0,.18)}}
+*{{box-sizing:border-box}}html{{scroll-behavior:smooth}}
+body{{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}}
+.wrap{{max-width:1000px;margin:0 auto;padding:0 22px}}
+header.kopf{{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}}
+h1{{font-size:27px;margin:0 0 4px;line-height:1.2}}.sub{{color:#555;margin:0}}
+nav{{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}}
+nav .wrap{{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}}
+nav button{{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}}
+nav button:hover{{background:#e3e3dc}}nav button.on{{background:#1b1b1b;color:#fff}}
+.tab{{display:none;padding:26px 0 60px}}.tab.on{{display:block}}
+h2{{font-size:22px;margin:0 0 10px}}
+.box{{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}}.box h3{{margin:8px 0 6px;font-size:17px}}.box ul{{margin:6px 0;padding-left:20px}}.box li{{margin:5px 0}}
+.zeitleiste{{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}}
+.zeitleiste div{{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}}
+.z0{{background:#eeeeea}}.z1{{background:#e3eaf6}}.z2{{background:#d3dff2}}.z3{{background:#e3eaf6}}.z4{{background:#d3dff2}}.z5{{background:#eeeeea}}
+.schr{{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}}.schr:last-child{{border:0}}
+.schr .n{{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}}
+.schr .m{{color:#555;font-size:15px}}.go{{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}}
+.go button{{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}}
+.karte{{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}}
 .karte .folie{{page-break-after:auto}}
-.card{{background:#fff;border-radius:10px;padding:14px 20px;margin:0 0 16px;box-shadow:0 1px 4px rgba(0,0,0,.1)}}
-.card h2{{font-size:16px;margin:0 0 6px}}.card ul{{margin:6px 0;padding-left:20px}}
-a.btn{{display:inline-block;margin:4px 8px 4px 0;padding:6px 14px;border-radius:16px;background:#eef3fb;color:#1a56a0;text-decoration:none;font-size:14.5px}}
-table{{border-collapse:collapse;width:100%;font-size:15px}}td,th{{border-bottom:1px solid #e1e3e8;padding:6px 8px;text-align:left;vertical-align:top}}
-.warn{{background:#fff6e0;border-left:4px solid #e0a100;padding:8px 12px;font-size:14.5px;margin-top:10px}}
+.atab{{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}}
+.atab th,.atab td{{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}}.atab th{{color:#66798e;font-size:10pt}}
+a.btn{{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}}
+table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}}.t th{{background:#f5f5f1}}
+
+.fnr{{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}}
+.fchip{{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}}
 </style></head><body>
-<header><div class="in"><h1>{TITEL}</h1>
-<div class="tabs"><button data-t="folien">Folien</button><button data-t="ab">Arbeitsblätter</button>
-<button data-t="vorher">Vorher</button><button data-t="alltag">Alltag</button><button data-t="buch">Buch-Ideen</button></div></div></header>
-<div class="in">
-<div class="tab" id="t_folien">{''.join(karten)}</div>
+<div class="wrap"><header class="kopf"><h1>Optik: Lichtquellen und Licht trifft auf einen Körper</h1>
+<p class="sub">Klasse 7c · Physik · Doppelstunde Do 24.09.2026</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Drucken</h3><ul>
+<li>Arbeitsblatt Lichtquellen: Seite 1, eins pro Schüler.</li>
+<li>Versuchsblatt Licht trifft auf einen Körper: Seite 1, eins pro Schüler.</li>
+<li>Folien und Lösungen: nicht drucken.</li></ul></div>
+<div class="box"><h3>Material</h3><ul>
+<li><b>Versuch Folie 9, pro Gruppe:</b> Ray-Box mit Stromanschluss, weißes Blatt, schwarzer Karton, klare Glasscheibe mit abgeklebten Kanten.</li>
+<li>Raum abdunkeln.</li></ul></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen_u}</div>
+</div>
+
+<div class="tab" id="t_folien">{karten}</div>
+
+<div class="tab" id="t_hg">{hintergrund}</div>
 
 <div class="tab" id="t_ab">
-<div class="card"><h2>Arbeitsblatt Lichtquellen</h2>
+<div class="box"><h3>Arbeitsblatt Lichtquellen {chip(1)}</h3>
 <a class="btn" href="Materialien/Lichtquellen W03.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Lichtquelle (L): Kerze, Glühlampe, Lagerfeuer, Blitz, Taschenlampe, Sonne. Beleuchtet (B): Mond, Tafel, Buch, Zimmerpflanze, Spielzeugauto.
-Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Laser. Aufgabe 3: Glühlampe und Taschenlampe.</p>
-<div class="warn">Aufgabe 3 sagt „erst seit etwa 200 Jahren“. Das ist zu ungenau (Glühlampe ab ca. 1880). Besser „gut 100 Jahre“. Ich ändere das Blatt auf Zuruf.</div></div>
-<div class="card"><h2>Versuchsblatt Blatt, Karton, Glasscheibe</h2>
+Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Laser. Aufgabe 3: Glühlampe und Taschenlampe.</p></div>
+<div class="box"><h3>Versuchsblatt Licht trifft auf einen Körper {chip(9)}</h3>
 <a class="btn" href="Materialien/Licht trifft auf einen Koerper W04.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Weißes Blatt: heller, breiter Lichtfleck, Licht wird in viele Richtungen zurückgeworfen (<b>gestreut</b>). Schwarzer Karton: dunkel, Licht wird
-<b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div>
-</div>
-
-<div class="tab" id="t_vorher"><div class="card"><h2>Vorher</h2><ul>
-<li>Kopieren: Arbeitsblatt Lichtquellen (Seite 1), Versuchsblatt (Seite 1).</li>
-<li>Material: Ray-Box(en), weißes Blatt, schwarzer Karton, klare Glasscheibe. Raum abdunkeln.</li>
-<li>Die Folien laufen ab Folie 12. Folien 1–11 hast du schon gehalten.</li>
-<li>Notability: leere Karoseite, Bilder per Screenshot (Ctrl + Cmd + Shift + 4) aus dem Tab „Folien“ holen.</li></ul></div></div>
-
-<div class="tab" id="t_alltag"><div class="card"><h2>Alltagsbeispiele</h2>
-<table><tr><th>Beispiel</th><th>Antwort</th><th>Warum</th></tr>{alltag_tab}</table></div></div>
-
-<div class="tab" id="t_buch"><div class="card"><h2>Erlebnis Physik 7–9 (nur für dich)</h2>
-<table><tr><th>Seite</th><th>Idee</th><th>Passt zu</th></tr>{buch_tab}</table></div></div>
+<b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div></div>
 </div>
 <script>
-const tabs=[...document.querySelectorAll('.tabs button')],secs=[...document.querySelectorAll('.tab')];
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
 function show(id){{tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}}
 tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
-history.scrollRestoration='manual';show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'folien');
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)}});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
 </script></body></html>"""
 
 ziel = hier / "Optik – Do 24.09. – Stunde.html"
 ziel.write_text(html, encoding="utf-8")
-print("geschrieben:", ziel.name, f"({len(html) // 1024} KB), Folien:", len(karten))
+print("geschrieben:", ziel.name, f"({len(html) // 1024} KB), Folien:", len(FOLGE))
