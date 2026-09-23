@@ -17,6 +17,7 @@ Physik, interessante wissenschaftliche Erkenntnisse und Science-Themen die begei
 - **Prüfungsaufgaben/** – Physik MC Generator (Multiple-Choice-Arbeitsblätter)
 
 ## Dashboard
+- **Bildungs-Dashboard.html** (in 04 Ressourcen, Kachel im Lebens-Dashboard) – übergeordnet für Physik 7c/10, Mathe 7c und Sport: Stunden mit Status (geplant, vorbereitet, gehalten, per Klick) und Links auf Stunden-HTML, Folien, Arbeitsblätter. Neue Stunden im Skript `.scripts/bildungs_dashboard_bauen.py` eintragen, dann neu bauen.
 - **Physik Dashboard.html** – Nachschlagewerk zu Jahresplan, Inhalten und Versuchen. Neu bauen und öffnen per Doppelklick auf „Dashboard öffnen.command", erzeugt von `dashboard_bauen.py` aus den Foliensätzen
 
 ## Planung
