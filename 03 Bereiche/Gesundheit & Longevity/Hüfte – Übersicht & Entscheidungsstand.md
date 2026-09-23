@@ -119,7 +119,7 @@ Der **Nachtschmerz ist die Leitgröße**, nicht das Röntgenbild und nicht das G
 
 Hier wird fortgeschrieben, was passiert. Neue Einträge oben.
 
-**22.09.2026** – Beim Einlagen-Fachmann Klotz (Rudersberg) klinisch eine Beinlängendifferenz von 7 mm rechts festgestellt, bisher nicht bekannt gewesen. Diagnose auf dem Beleg: Beinlängendifferenz rechts 7 mm, "KSSF" (vermutlich Knick-Senk-Spreizfuß, Lesart unsicher), statische Beschwerden. Verordnet: 2 Paar Bettungseinlagen mit Supinationskeil, 7-mm-Ausgleich rechts. Die Arthrose sitzt ebenfalls rechts, also dieselbe Seite. Ärztlich noch nicht bestätigt (kein Röntgen im Stehen). Offene Frage, ob die Differenz über Jahre zur einseitigen Coxarthrose beigetragen hat, siehe Fragenliste Punkt 4 in [[Hüftarthrose – Zweitmeinung, Klinikoptionen & Fragenliste]].
+**22.09.2026** – Bei Aspacher & Klotzbücher (Einlagen-Fachgeschäft, Rudersberg) klinisch eine Beinlängendifferenz von 7 mm rechts festgestellt, bisher nicht bekannt gewesen. Diagnose auf dem Beleg: Beinlängendifferenz rechts 7 mm, "KSSF" (vermutlich Knick-Senk-Spreizfuß, Lesart unsicher), statische Beschwerden. Verordnet: 2 Paar Bettungseinlagen mit Supinationskeil, 7-mm-Ausgleich rechts. Die Arthrose sitzt ebenfalls rechts, also dieselbe Seite. Ärztlich noch nicht bestätigt (kein Röntgen im Stehen). Offene Frage, ob die Differenz über Jahre zur einseitigen Coxarthrose beigetragen hat, siehe Fragenliste Punkt 4 in [[Hüftarthrose – Zweitmeinung, Klinikoptionen & Fragenliste]].
 
 **15.08.2026** – Zweiter schmerzfreier Tag in Folge. Zählung für das Trigger-Kriterium Nachtschmerz läuft ab dem 14.08. Siehe [[2026-08-15]].
 

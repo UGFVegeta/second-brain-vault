@@ -41,3 +41,18 @@ Sektionaltor, elektrisch, Anthrazitgrau. Optik wie im Konfigurator zusammengeste
 - [x] Sturzhöhe (Oberkante Öffnung bis Fertigdecke) – ca. 23 cm
 - [ ] Lichte Deckenhöhe in der Garage
 - [ ] Öffnungsbreite und -höhe final an mehreren Stellen, jeweils kleinster Wert
+
+## Entscheidung (23.09.2026)
+
+Zwei Angebote eingeholt und verglichen: **Konzept Torbau GbR** (Angebot AG0528, 07.09.2026) vs. **Torbau Fuchs**.
+
+| | Konzept Torbau | Torbau Fuchs |
+|---|---|---|
+| Sektionaltor 2990×2055 mm, RAL 7016 Anthrazit, Antrieb, Montage, Fracht | 2.843,21 € (inkl. 5 % Rabatt) | 3.888,92 € (mit Zahlencode-Schloss Cody-light) |
+| Mit Fingerprint-Schloss | ~3.243,21 € (Schätzwert Oskar, noch nicht schriftlich bestätigt) | 4.007,92 € (bestätigt: +100 € netto Aufpreis ggü. Zahlencode) |
+| Zahlung | 50 % Anzahlung / 50 % Schlussrechnung | nach Rechnungserhalt, 10 Tage |
+| Lieferzeit | nicht angegeben | Dezember 2026 / Januar 2027 |
+
+**Entscheidung: Konzept Torbau GbR.** Deutlich günstiger (ca. 650–1.000 € je nach Ausstattung), technisch vergleichbar. Maueröffnung reicht für die volle Torgröße 2990×2055 mm, Einbau erfolgt von innen.
+
+**Offen:** Fingerprint-Sensor wird noch aufgenommen. Neuer Aufmaß-Termin **Samstag, 26.09.2026**, danach kommt ein aktualisiertes Angebot mit Fingerprint-Preis von Konzept Torbau.

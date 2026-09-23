@@ -39,7 +39,7 @@ Am **11.07.2026** beim Triathlon am Schluchsee beim Bergablaufen in ein Loch get
 
 ## Verlaufsnotizen
 - **19.09.2026:** Nach drei Läufen in vier Tagen (15., 16., 18.09., dazu Bergsprints am 16.09.) Schmerz rechts, Innenseite oberhalb des Knöchels, beim Abdrücken über den Vorfuß, kaum Auftreten möglich. Nach eigener Einschätzung nicht die Achillessehne. Details und Verlauf im [[Gesundheitslogbuch]].
-- **22.09.2026:** Beim Einlagen-Fachmann Klotz (Rudersberg) Beinlängendifferenz 7 mm rechts festgestellt (bisher unbekannt), Einlagen mit Ausgleich verordnet. Oskars Überlegung: könnte über ein verändertes Abrollverhalten zum Fußproblem vom 19.09. beigetragen haben. Nicht belegt, aber plausibel. Details in [[Hüfte – Übersicht & Entscheidungsstand]].
+- **22.09.2026:** Bei Aspacher & Klotzbücher (Einlagen-Fachgeschäft, Rudersberg) Beinlängendifferenz 7 mm rechts festgestellt (bisher unbekannt), Einlagen mit Ausgleich verordnet. Oskars Überlegung: könnte über ein verändertes Abrollverhalten zum Fußproblem vom 19.09. beigetragen haben. Nicht belegt, aber plausibel. Details in [[Hüfte – Übersicht & Entscheidungsstand]].
 - *(hier künftige Updates zum Heilungsverlauf eintragen)*
 
 ---
