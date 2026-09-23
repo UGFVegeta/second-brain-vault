@@ -160,6 +160,9 @@ footer{margin-top:40px;padding:14px 0 40px;border-top:1px solid #d3d3cc;color:#6
 .vt th:first-child,.vt td.mn{width:52px;text-align:right;white-space:nowrap;color:#555}
 .vt tr.grp td{background:#eeeeea;font-weight:700;font-size:15.5px}
 .vt tr.grp td span{float:right;font-weight:400;color:#555;font-size:14px}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:16px 0 4px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 3px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
 @media print{nav{display:none}section{page-break-before:always}.bl,figure,.heftseite,.tafelblock{break-inside:avoid}body{font-size:11pt}}
 """
 
@@ -177,15 +180,22 @@ def vz(m, was, buch, wer, e=False):
     return f'<tr><td class="mn">{m}′</td><td>{E + " " if e else ""}{was}</td><td>{buch}</td><td>{wer}</td></tr>'
 
 
+def zeitleiste(bloecke):
+    tot = sum(m for m, _ in bloecke)
+    z = "".join(f'<div class="z{i}" style="width:{m / tot * 100:.2f}%" title="{m} min">{n}<br>{m}′</div>'
+                for i, (m, n) in enumerate(bloecke))
+    return f'<div class="zeitleiste">{z}</div>'
+
+
 # ================================================================== MITTWOCH – Verlauf
 zeilen_mi = "".join([
     grp(0, "Start", 0, 4),
     vz(4, "Ankommen. Rückblick in einem Satz: gestern Zahlengerade und Vergleichen, heute wird auf der "
           "Geraden gerechnet", "&ndash;", "Plenum"),
     grp(1, "Einstieg: Bogenmodell", 4, 12),
-    vz(4, "Erste Rechnung an die Tafel: (−2) + (+7). Wo stehen wir, wohin bewegen wir uns?", "Tafel", "Plenum"),
-    vz(4, "Zweite Rechnung: (−1) + (−6). Vergleich beider Bögen: <b>positiv</b> addieren = nach rechts, "
-          "<b>negativ</b> addieren = nach links", "Tafel", "Plenum"),
+    vz(4, "Erste Rechnung an die Tafel: −2 + 7. Wo stehen wir, wohin bewegen wir uns?", "Tafel", "Plenum"),
+    vz(4, "Zweite Rechnung: −1 − 6. Vergleich beider Bögen: <b>plus</b> bewegt nach rechts, "
+          "<b>minus</b> bewegt nach links", "Tafel", "Plenum"),
     grp(2, "Merksatz", 12, 20),
     vz(8, "Regel in zwei Fällen (gleiche / verschiedene Vorzeichen) mit den vier Buch-Beispielen", f"Tafel &rarr; {MK}",
        "Plenum, abschreiben", True),
@@ -211,6 +221,7 @@ rechnen. {E} = wird ins {MK} geschrieben. Alle Übungen kommen ins {UE}.</p>
 und „verschiedene Vorzeichen: Beträge subtrahieren, Vorzeichen der betragsmäßig größeren Zahl“ und wendet sie in
 vielen Kopf- und Übungsaufgaben sicher an. <b>Nicht Ziel:</b> Sachaufgaben, Subtraktion – das kommt am Donnerstag
 bzw. nächste Woche.</p>
+{zeitleiste([(4, "Start"), (8, "1 · Bogenmodell"), (8, "2 · Merksatz"), (20, "3 · Viel rechnen"), (5, "4 · Ausstieg")])}
 <table class="vt"><tr><th>Min</th><th>Was</th><th>Buch und Material</th><th>Wer</th></tr>{zeilen_mi}</table>
 <div class="knapp"><b>Wenn es knapp wird:</b> Aufgabe 4 wird Hausaufgabe, „Alles klar?“ nur für Schnelle.</div>
 <div class="fehler"><b>Worauf du achten kannst</b>
@@ -229,20 +240,25 @@ verrechnet, z. B. (−25) + (+17) wird zu 25 + 17 = 42 statt −8.</li>
 # Tafelbild Mittwoch
 tafel_mi = f"""
 <div class="tafelblock"><h3>Bogenmodell <span>Minute 4–12</span></h3>
-<div class="heft">{fig(BSP1, "1 = 4 Kästchen. Bei −2 starten, Bogen +7 nach rechts, Landung bei +5.")}
+<div class="heft">
+<p class="aufg">−2 + 7 = ?</p>
+{fig(BSP1, "1 = 4 Kästchen. Bei −2 starten, Bogen +7 nach rechts, Landung bei 5.")}
+<p>−2 + 7 = <b>5</b></p>
+<p class="aufg">−1 − 6 = ?</p>
 {fig(BSP2, "1 = 3 Kästchen. Bei −1 starten, Bogen −6 nach links, Landung bei −7.")}
-<div class="merk">Addiert man eine <span class="pos">positive</span> Zahl, bewegt man sich auf der Zahlengeraden
-nach rechts.<br>Addiert man eine <span class="neg">negative</span> Zahl, bewegt man sich nach links.</div></div>
-<p class="sprech">Erst die Startzahl markieren, dann fragen: „Addiere ich etwas Positives oder Negatives – wohin
-geht der Bogen?“ Erst danach zählen lassen.</p></div>
+<p>−1 − 6 = <b>−7</b></p>
+<div class="merk">Plus bewegt sich auf der Zahlengeraden nach <span class="pos">rechts</span>.<br>
+Minus bewegt sich nach <span class="neg">links</span>.</div></div>
+<p class="sprech">Erst die Rechnung anschreiben, dann die Startzahl auf der Geraden markieren und fragen: „Geht der
+Bogen nach rechts oder nach links?“ Erst danach zählen und das Ergebnis ergänzen.</p></div>
 
 <div class="tafelblock"><h3>Merksatz: Rationale Zahlen addieren <span>Minute 12–20</span></h3>
 <div class="heft"><div class="merk"><b>Gleiche Vorzeichen</b><br>Man addiert die Zahlen, ohne ihr Vorzeichen zu
 berücksichtigen. Das Ergebnis erhält das gemeinsame Vorzeichen.</div>
 <div class="merk"><b>Verschiedene Vorzeichen</b><br>Man subtrahiert die Zahlen, ohne ihr Vorzeichen zu
 berücksichtigen. Das Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</div>
-<p>(+12) + (+8) = +(12 + 8) = +20 &nbsp;&middot;&nbsp; (−15) + (−10) = −(15 + 10) = −25<br>
-(+18) + (−6) = +(18 − 6) = +12 &nbsp;&middot;&nbsp; (−14) + (+9) = −(14 − 9) = −5</p></div></div>
+<p>12 + 8 = 20 &nbsp;&middot;&nbsp; −15 − 10 = −25<br>
+18 − 6 = 12 &nbsp;&middot;&nbsp; −14 + 9 = −5</p></div></div>
 
 <div class="tafelblock"><h3>Viel rechnen <span>Minute 20–40</span></h3>
 <div class="uheft"><p class="aufg">{UE} S. 18 Nr. 1, 2, 3, 4 – der Reihe nach, im eigenen Tempo.</p>
@@ -284,6 +300,7 @@ Sachaufgabe im Sachzusammenhang und Aufgaben, die zeigen, wo Fehler typischerwei
 <div class="ziel"><b>Ziel:</b> Die Klasse wendet die Additionsregel in Sachzusammenhängen an (Temperatur, Höhe,
 Kontostand) und erkennt typische Fehler in fremden Rechnungen. <b>Nicht Ziel:</b> neue Regeln – die Regel von
 Mittwoch wird nur angewendet, nicht erweitert.</p>
+{zeitleiste([(5, "Start"), (10, "1 · Skitour"), (20, "2 · Anwenden"), (5, "3 · Sicherung"), (5, "4 · Ausstieg")])}
 <table class="vt"><tr><th>Min</th><th>Was</th><th>Buch und Material</th><th>Wer</th></tr>{zeilen_do}</table>
 <div class="knapp"><b>Wenn es knapp wird:</b> Nr. 9/10/11 nur eine Aufgabe statt Auswahl, das Würfelspiel (Nr. 12)
 ganz weglassen oder als Hausaufgabe ankündigen.</div>
@@ -324,8 +341,8 @@ merkheft = f"""
 das gemeinsame Vorzeichen.</p>
 <p><b>Verschiedene Vorzeichen:</b> Man subtrahiert die Zahlen, ohne ihr Vorzeichen zu berücksichtigen. Das
 Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</p>
-<p>(+12) + (+8) = +20 &nbsp;&middot;&nbsp; (−15) + (−10) = −25 &nbsp;&middot;&nbsp; (+18) + (−6) = +12
-&nbsp;&middot;&nbsp; (−14) + (+9) = −5</p>
+<p>12 + 8 = 20 &nbsp;&middot;&nbsp; −15 − 10 = −25 &nbsp;&middot;&nbsp; 18 − 6 = 12
+&nbsp;&middot;&nbsp; −14 + 9 = −5</p>
 </div>
 </section>
 """
@@ -336,7 +353,7 @@ aufgaben = f"""
 <p class="lead">Alles steht im Buch S. 18–19. Alle Übungen kommen ins {UE}, Merksätze ins {MK}.
 {ORA} und {GRU} sind Differenzierungsangebote, {ALL} sind Pflichtaufgaben für alle.</p>
 <table><tr><th>Tag</th><th>Buch</th><th>Niveau</th><th>Aufgabe</th></tr>
-<tr><td>Mi</td><td>Tafel</td><td>{ALL}</td><td>Bogenmodell: (−2) + (+7) und (−1) + (−6)</td></tr>
+<tr><td>Mi</td><td>Tafel</td><td>{ALL}</td><td>Bogenmodell: −2 + 7 und −1 − 6</td></tr>
 <tr><td>Mi</td><td>S. 18 Nr. 1</td><td>{ALL}</td><td>Fehlenden Wert an der Zahlengeraden ergänzen</td></tr>
 <tr><td>Mi</td><td>S. 18 Nr. 2</td><td>{ALL}</td><td>Gleiche Vorzeichen, im Kopf addieren</td></tr>
 <tr><td>Mi</td><td>S. 18 Nr. 3</td><td>{ALL}</td><td>Erst Vorzeichen überlegen, dann berechnen</td></tr>
