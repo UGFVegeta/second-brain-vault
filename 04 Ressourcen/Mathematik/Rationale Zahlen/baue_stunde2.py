@@ -41,7 +41,7 @@ def fig(svg, cap=""):
 _uid = [0]
 
 
-def bogengerade(von, bis, start, delta, schritt=1, kpe=3):
+def bogengerade(von, bis, start, delta, schritt=1, kpe=3, arc=True):
     """Zahlengerade mit Bogen-Pfeil von `start` nach `start+delta` (Additions-Modell wie im Buch)."""
     _uid[0] += 1
     uid = _uid[0]
@@ -78,48 +78,54 @@ def bogengerade(von, bis, start, delta, schritt=1, kpe=3):
         s.append(f'<text x="{x:.1f}" y="{ax + 24}" text-anchor="middle" font-size="12.5" '
                  f'font-weight="{wt}" fill="{INK}">{num(v)}</text>')
     ay = ax - 2 * ah
-    s.append(f'<path d="M{x1:.1f} {ax - 5} Q{xm:.1f} {ay:.1f} {x2:.1f} {ax - 5}" fill="none" '
-              f'stroke="{farbe}" stroke-width="2.2" marker-end="url(#ar{uid})"/>')
-    s.append(f'<defs><marker id="ar{uid}" markerWidth="9" markerHeight="9" refX="6" refY="4" '
-              f'orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="{farbe}"/></marker></defs>')
-    s.append(f'<rect x="{xm - 26:.1f}" y="{ay - 4:.1f}" width="52" height="20" rx="5" fill="{farbe}"/>')
-    s.append(f'<text x="{xm:.1f}" y="{ay + 10.5:.1f}" text-anchor="middle" font-size="14" font-weight="700" '
-              f'fill="#fff">{num(delta)}</text>')
+    if arc:
+        s.append(f'<path d="M{x1:.1f} {ax - 5} Q{xm:.1f} {ay:.1f} {x2:.1f} {ax - 5}" fill="none" '
+                 f'stroke="{farbe}" stroke-width="2.2" marker-end="url(#ar{uid})"/>')
+        s.append(f'<defs><marker id="ar{uid}" markerWidth="9" markerHeight="9" refX="6" refY="4" '
+                 f'orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="{farbe}"/></marker></defs>')
+        s.append(f'<rect x="{xm - 26:.1f}" y="{ay - 4:.1f}" width="52" height="20" rx="5" fill="{farbe}"/>')
+        s.append(f'<text x="{xm:.1f}" y="{ay + 10.5:.1f}" text-anchor="middle" font-size="14" font-weight="700" '
+                 f'fill="#fff">{num(delta)}</text>')
+        s.append(f'<circle cx="{x2:.1f}" cy="{ax}" r="5.5" fill="{farbe}" stroke="#fff" stroke-width="1.4"/>')
+        s.append(f'<text x="{x2:.1f}" y="{ax + 24}" text-anchor="middle" font-size="13.5" font-weight="700" '
+                 f'fill="{farbe}">{num(ende)}</text>')
     s.append(f'<circle cx="{x1:.1f}" cy="{ax}" r="5" fill="{INK}" stroke="#fff" stroke-width="1.4"/>')
-    s.append(f'<circle cx="{x2:.1f}" cy="{ax}" r="5.5" fill="{farbe}" stroke="#fff" stroke-width="1.4"/>')
     s.append(f'<text x="{x1:.1f}" y="{ax + 24}" text-anchor="middle" font-size="13" font-weight="700" '
-              f'fill="{INK}">{num(start)}</text>')
-    s.append(f'<text x="{x2:.1f}" y="{ax + 24}" text-anchor="middle" font-size="13.5" font-weight="700" '
-              f'fill="{farbe}">{num(ende)}</text>')
+             f'fill="{INK}">{num(start)}</text>')
     s.append("</svg>")
     return "".join(s)
 
 
 
-def skitour():
-    """Höhenprofil Gamshütte - Enzianstüble - Falkenhütte. Mit Foto skitour_hintergrund.jpg (falls vorhanden), sonst Karo."""
+def skitour(zeig=True):
+    """Höhenprofil Gamshütte - Enzianstüble - Falkenhütte. zeig=False: Ergebnisse als Fragezeichen."""
     import base64
+    _uid[0] += 1
+    u = _uid[0]
     W, H = 640, 260
     P = {"G": (88, 122), "E": (368, 164), "F": (570, 100)}
-    foto = Path(__file__).parent / "skitour_hintergrund.jpg"
+    hier = Path(__file__).parent
+    foto = hier / "skitour_hintergrund_web.jpg"
+    if not foto.exists():
+        foto = hier / "skitour_hintergrund.jpg"
     s = [f'<svg class="gerade" viewBox="0 0 {W} {H}" width="{W}" height="{H}" xmlns="http://www.w3.org/2000/svg" '
          'font-family="Helvetica, Arial, sans-serif">',
-         f'<defs><pattern id="ks" width="{K}" height="{K}" patternUnits="userSpaceOnUse"><path d="M{K} 0H0V{K}" '
+         f'<defs><pattern id="ks{u}" width="{K}" height="{K}" patternUnits="userSpaceOnUse"><path d="M{K} 0H0V{K}" '
          'fill="none" stroke="#c8d0dc" stroke-width="1"/></pattern>'
-         '<marker id="sa" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#222"/></marker></defs>']
+         f'<marker id="sa{u}" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#222"/></marker></defs>']
     if foto.exists():
         d = base64.b64encode(foto.read_bytes()).decode()
         s.append(f'<image href="data:image/jpeg;base64,{d}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice"/>')
         lin, halo = "#fff", ' stroke="#fff" stroke-width="4" paint-order="stroke"'
     else:
-        s.append(f'<rect width="{W}" height="{H}" fill="#fff"/><rect width="{W}" height="{H}" fill="url(#ks)"/>')
+        s.append(f'<rect width="{W}" height="{H}" fill="#fff"/><rect width="{W}" height="{H}" fill="url(#ks{u})"/>')
         lin, halo = "#222", ""
     s.append(f'<path d="M{W} 0V{H}H0" fill="none" stroke="#c8d0dc"/>')
-    for a, b in (("G", "E"), ("E", "F")):
-        (x1, y1), (x2, y2) = P[a], P[b]
+    for a_, b_ in (("G", "E"), ("E", "F")):
+        (x1, y1), (x2, y2) = P[a_], P[b_]
         if lin == "#fff":
             s.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="#1b1b1b" stroke-width="5" stroke-linecap="round"/>')
-        s.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{lin}" stroke-width="2.5" marker-end="url(#sa)"/>')
+        s.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{lin}" stroke-width="2.5" marker-end="url(#sa{u})"/>')
     for k, (x, y) in P.items():
         s.append(f'<circle cx="{x}" cy="{y}" r="6" fill="#1b1b1b" stroke="#fff" stroke-width="1.5"/>')
 
@@ -129,9 +135,13 @@ def skitour():
     t(88, 92, "Gamshütte", w=700, size=15)
     t(88, 109, "2350 m · −12,5 °C")
     t(368, 196, "Enzianstüble", w=700, size=15)
-    t(368, 213, "1600 m · −4 °C", col=NEG, w=700)
     t(555, 66, "Falkenhütte", w=700, size=15)
-    t(555, 83, "2520 m · −14,5 °C", col=NEG, w=700)
+    if zeig:
+        t(368, 213, "1600 m · −4 °C", col=NEG, w=700)
+        t(555, 83, "2520 m · −14,5 °C", col=NEG, w=700)
+    else:
+        t(368, 213, "? m · ? °C", w=700)
+        t(555, 83, "? m · ? °C", w=700)
     t(228, 172, "−750 m", col=NEG, w=700)
     t(228, 189, "+8,5 °C", col=POS, w=700)
     t(490, 160, "+920 m", col=POS, w=700, anchor="start")
@@ -141,6 +151,9 @@ def skitour():
 
 
 SKITOUR = skitour()
+SKITOUR_FRAGE = skitour(False)
+OFFEN1 = bogengerade(-3, 6, -2, 7, kpe=4, arc=False)
+OFFEN2 = bogengerade(-8, 1, -1, -6, kpe=3, arc=False)
 
 
 BSP1 = bogengerade(-3, 6, -2, 7, kpe=4)
@@ -211,6 +224,10 @@ footer{margin-top:40px;padding:14px 0 40px;border-top:1px solid #d3d3cc;color:#6
 .zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:16px 0 4px;font-size:12.5px;border:1px solid #c9c9c2}
 .zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 3px}
 .z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.folie{border:2px solid #1b1b1b;border-radius:10px;padding:14px 20px 8px;margin:18px 0}
+.folie h3{margin:0 0 10px;font-size:21px}.folie h3 span{font-weight:400;font-size:14px;color:#555;margin-left:8px}
+.ausdruck{font-size:26px;font-weight:700;margin:8px 0 4px}
+.fr3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;font-size:17px;margin:8px 0 12px}
 @media print{nav{display:none}section{page-break-before:always}.bl,figure,.heftseite,.tafelblock{break-inside:avoid}body{font-size:11pt}}
 """
 
@@ -241,9 +258,9 @@ zeilen_mi = "".join([
     vz(4, "Ankommen. Rückblick in einem Satz: gestern Zahlengerade und Vergleichen, heute wird auf der "
           "Geraden gerechnet", "&ndash;", "Plenum"),
     grp(1, "Einstieg: Bogenmodell", 4, 12),
-    vz(4, "Erste Rechnung an die Tafel: −2 + 7. Wo stehen wir, wohin bewegen wir uns?", "Tafel", "Plenum"),
+    vz(4, "Erste Rechnung: −2 + 7. Wo stehen wir, wohin bewegen wir uns?", "Folie 1 (oder Tafel)", "Plenum"),
     vz(4, "Zweite Rechnung: −1 − 6. Vergleich beider Bögen: <b>plus</b> bewegt nach rechts, "
-          "<b>minus</b> bewegt nach links", "Tafel", "Plenum"),
+          "<b>minus</b> bewegt nach links", "Folie 1 (oder Tafel)", "Plenum"),
     grp(2, "Merksatz", 12, 20),
     vz(8, "Plus nach rechts, Minus nach links ins Heft, dazu vier Beispiele ohne Klammern", f"Tafel &rarr; {MK}",
        "Plenum, abschreiben", True),
@@ -320,7 +337,7 @@ zeilen_do = "".join([
        "Plenum"),
     grp(1, "Sachaufgabe: Skitour", 5, 15),
     vz(10, "Bild zeigen: Gamshütte &rarr; Enzianstüble &rarr; Falkenhütte. Temperatur am Enzianstüble, Vergleich "
-           "Auf-/Abstieg, Höhe und Temperatur an der Falkenhütte", "S. 18 Bildaufgabe", f"Plenum, dann Partner<br>{UE}"),
+           "Auf-/Abstieg, Höhe und Temperatur an der Falkenhütte", "Folie 2 · S. 18 Bildaufgabe", f"Plenum, dann Partner<br>{UE}"),
     grp(2, "Anwenden und üben", 15, 35),
     vz(6, "Fahnenaufgabe: Ergebnis ablesen und nachrechnen", f"S. 19 Nr. 5 {ALL}", f"Einzel<br>{UE}"),
     vz(6, "Fehlersuche: fünf falsch gerechnete Additionen korrigieren", f"S. 19 Nr. 6 {ALL}", "Partner"),
@@ -331,8 +348,9 @@ zeilen_do = "".join([
     vz(5, "Fehlersuche (Nr. 6) gemeinsam an der Tafel besprechen – guter Anlass für die typischen Fehler",
        "Tafel", "Plenum"),
     grp(4, "Ausstieg", 40, 45),
-    vz(5, "Wenn Zeit bleibt: Start des Würfelspiels zu zweit, sonst Hausaufgabe ansagen", f"S. 19 Nr. 12",
-       f"Partner oder<br>Hausaufgabe"),
+    vz(5, "<b>Arbeitsblatt „Addieren und Subtrahieren“ austeilen</b> und als Hausaufgabe ansagen (Termin in Untis). "
+          "Wenn vorher Zeit bleibt: Start des Würfelspiels zu zweit", "Arbeitsblatt (Druckliste: Vor der Stunde) · S. 19 Nr. 12 optional",
+       "Zu Hause"),
 ])
 
 verlauf_do = f"""
@@ -353,8 +371,8 @@ tafel_do = f"""
 <div class="tafelblock"><h3>Sachaufgabe: Skitour <span>Minute 5–15</span></h3>
 <p class="aufg">Gamshütte 2350 m, −12,5 °C. Abstieg 750 m zum Enzianstüble (+8,5 °C Temperaturänderung). Aufstieg
 920 m zur Falkenhütte (−10,5 °C Temperaturänderung).</p>
-<p class="zeige">▶ Als Bild (Screenshot) am Beamer zeigen, nichts zeichnen. Erst ohne die roten Ergebnisse besprechen.</p>
-{fig(SKITOUR, "Ergebnisse (rot) bei Enzianstüble und Falkenhütte sind die Lösung. Die Schüler finden sie selbst.")}
+<p class="zeige">▶ Erst <b>Folie 2</b> zeigen (Ergebnisse als Fragezeichen), nichts zeichnen. Die Lösung ist <b>Folie 3</b>.</p>
+{fig(SKITOUR, "Lösung (Folie 3): Die roten Werte bei Enzianstüble und Falkenhütte finden die Schüler selbst.")}
 <div class="uheft"><p class="aufg">{UE} Rechnungen und Antwortsätze</p><p><b>Temperatur am Enzianstüble:</b> −12,5 + 8,5 = −4 °C<br>
 <b>Aufstieg minus Abstieg:</b> 920 − 750 = 170 m, der Aufstieg ist 170 m größer als der Abstieg<br>
 <b>Höhe Falkenhütte:</b> 2350 − 750 + 920 = 2520 m &nbsp;&middot;&nbsp; <b>Temperatur:</b> −4 − 10,5 = −14,5 °C</p></div>
@@ -410,8 +428,9 @@ aufgaben = f"""
 <tr><td>Do</td><td>S. 19 Nr. 10 links</td><td>{GRU}</td><td>Hochhaus: Ein- und Ausstieg berechnen</td></tr>
 <tr><td>Do</td><td>S. 19 Nr. 11 links</td><td>{GRU}</td><td>Sportverein: Mitgliederentwicklung über drei Monate</td></tr>
 <tr><td>Do</td><td>S. 19 Nr. 12</td><td>Zusatz</td><td>Würfelspiel zu zweit, wenn Zeit bleibt</td></tr>
-<tr><td>HA</td><td>Rest Nr. 3, 4</td><td>{ALL}</td><td>Was am Mittwoch nicht fertig wurde</td></tr>
-<tr><td>HA</td><td>„Alles klar?“ B</td><td>{ALL}</td><td>Kärtchen den Summen zuordnen</td></tr></table>
+<tr><td>HA Mi</td><td>Rest Nr. 3, 4</td><td>{ALL}</td><td>Was am Mittwoch nicht fertig wurde</td></tr>
+<tr><td>HA Mi</td><td>„Alles klar?“ B</td><td>{ALL}</td><td>Kärtchen den Summen zuordnen</td></tr>
+<tr><td>HA Do</td><td>Arbeitsblatt „Addieren und Subtrahieren“</td><td>○ ◐ ●</td><td>Sechs Aufgaben nach Schwierigkeit: 1, 2 leicht · 3, 4 mittel · 5, 6 schwer. Lösungen als eigene PDF „nur für mich“.</td></tr></table>
 <p class="nicht">Nichts zu drucken. Für die Tafel: die beiden Bogen-Zahlengeraden, die vier Merksatz-Beispiele
 und die fünf Fehlersuche-Aufgaben abschreiben, der Rest steht im Buch.</p>
 </section>
@@ -488,16 +507,96 @@ baue ich Nr. 7, 10 rechts und mehr von Nr. 12 mit ein.</li></ul>
 </section>
 """
 
+
+DRUCK = [("Arbeitsblatt „Addieren und Subtrahieren“ (Datei: Rationale Zahlen 2 – Arbeitsblatt Plus und Minus.pdf)", "Klassenstärke",
+          "Einseitig A4. Wird am Ende der Donnerstagsstunde als Hausaufgabe ausgeteilt. Lösungen (nur für dich) liegen als eigene PDF daneben.")]
+DIGITAL = [
+    ("Folien in Notability importieren", "Rationale Zahlen 2 – Folien für den Beamer.pdf (iCloud, Mathematik 7c, 04 Rationale Zahlen). Folie 1 Mittwoch, Folie 2 und 3 Donnerstag"),
+    ("Lösungsbuch bereit", "S. 18 Nr. 1 bis 4 und „Alles klar?“ (Mi) · S. 19 Nr. 5, 6, 9, 10, 11 (Do)"),
+]
+RAUM = ["Beamer und Spiegelung vom iPad", "Die Klasse hat: Buch, Übungsheft (kariert), Merkheft, Stift"]
+_druck = ("<table><tr><th>Ausdrucken / kopieren</th><th>Anzahl</th><th>Hinweis</th></tr>"
+          + "".join(f"<tr><td>{a}</td><td>{n}</td><td>{h}</td></tr>" for a, n, h in DRUCK) + "</table>")
+vorher = f"""
+<section id="vorher"><h2>Vor der Stunde</h2>
+<p class="lead">Was du vorher tun musst. Was unter „Drucken“ steht, muss vor der Stunde ausgedruckt sein.</p>
+<h3>Drucken und kopieren</h3>{_druck}
+<h3>Digital vorbereiten</h3>
+<table><tr><th>Was</th><th>Wo, wie</th></tr>{"".join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in DIGITAL)}</table>
+<h3>Im Raum</h3><ul>{"".join(f"<li>{r}</li>" for r in RAUM)}</ul>
+</section>
+"""
+
+fragen3 = ('<div class="fr3"><div><b>1</b> Welche Temperatur wird am Enzianstüble gemessen?</div>'
+           '<div><b>2</b> Wie viel Meter ist der Aufstieg größer als der Abstieg?</div>'
+           '<div><b>3</b> In welcher Höhe liegt die Falkenhütte und welche Temperatur wird dort gemessen?</div></div>')
+loes3 = ('<div class="fr3"><div><b>1</b> −12,5 + 8,5 = <b>−4 °C</b></div>'
+         '<div><b>2</b> 920 − 750 = <b>170 m</b> (Aufstieg größer)</div>'
+         '<div><b>3</b> 2350 − 750 + 920 = <b>2520 m</b><br>−4 − 10,5 = <b>−14,5 °C</b></div></div>')
+
+folien = f"""
+<section id="folien"><h2>Folien</h2>
+<p class="lead">Für Beamer und Notability, als PDF im iCloud-Ordner: Rationale Zahlen 2 – Folien für den Beamer.pdf.
+Folie 1 ist Mittwoch, Folie 2 und 3 sind Donnerstag.</p>
+<div class="folie"><h3>Folie 1 · Wohin geht der Bogen? <span>Mittwoch, Einstieg (oder gleich an der Tafel)</span></h3>
+<div class="ausdruck">−2 + 7 = ?</div>{fig(OFFEN1)}
+<div class="ausdruck">−1 − 6 = ?</div>{fig(OFFEN2)}</div>
+<div class="folie"><h3>Folie 2 · Skitour <span>Donnerstag, Aufgabe</span></h3>
+{fig(SKITOUR_FRAGE)}{fragen3}</div>
+<div class="folie"><h3>Folie 3 · Skitour, Lösung <span>Donnerstag, Sicherung</span></h3>
+{fig(SKITOUR)}{loes3}</div>
+</section>
+"""
+
+tafel = f"""
+<section id="tafel"><h2>Tafelbild</h2>
+<p class="lead">So sieht die Tafel am Ende aus. Kursiv steht, was du sagst.</p>
+<div class="legende">{E} <b>Dicker schwarzer Balken</b> = wird ins {MK} abgeschrieben.<br><b>Gestrichelter blauer Balken</b> = Übung, kommt ins {UE}. Alles ohne Balken bleibt an der Tafel oder auf der Folie.</div>
+<h3>Mittwoch</h3>{tafel_mi}
+<h3>Donnerstag</h3>{tafel_do}
+</section>
+"""
+
 html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rationale Zahlen 2 – Plus und Minus</title><style>{CSS}</style></head><body>
 <div class="wrap"><header class="kopf"><h1>Rationale Zahlen 2: Addieren und Subtrahieren</h1>
 <p class="sub">Klasse 7c · Mittwoch + Donnerstag, je Einzelstunde · Buch S. 18–19 · alles in einer Datei</p></header></div>
-<nav><div class="wrap"><a href="#mittwoch">Mittwoch</a><a href="#donnerstag">Donnerstag</a><a href="#merkheft">Merkheft</a>
+<nav><div class="wrap"><a href="#vorher">Vor der Stunde</a><a href="#mittwoch">Mittwoch</a><a href="#donnerstag">Donnerstag</a><a href="#folien">Folien</a><a href="#tafel">Tafelbild</a><a href="#merkheft">Merkheft</a>
 <a href="#aufgaben">Aufgaben</a><a href="#loesungen">Lösungen</a><a href="#ausblick">Ausblick</a></div></nav>
-<div class="wrap">{verlauf_mi}<div class="tafelblock-wrap">{tafel_mi}</div>{verlauf_do}<div class="tafelblock-wrap">{tafel_do}</div>{merkheft}{aufgaben}{loesungen}{ausblick}
-<footer>Entwurf. PDFs erst nach Freigabe. Generator: baue_stunde2.py</footer></div></body></html>"""
+<div class="wrap">{vorher}{verlauf_mi}{verlauf_do}{folien}{tafel}{merkheft}{aufgaben}{loesungen}{ausblick}
+<footer>Entwurf. PDF nur für die Folien. Generator: baue_stunde2.py</footer></div></body></html>"""
 
 ziel = Path(__file__).with_name("Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html")
 ziel.write_text(html, encoding="utf-8")
 print("geschrieben:", ziel, f"({len(html) // 1024} KB)")
+
+# ---------------------------------------------------------------- Folien als eigene Datei (PDF, Beamer)
+FCSS = """
+@page{size:13.333in 7.5in;margin:0}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;color:#1b1b1b;background:#fff}
+.slide{width:13.333in;height:7.5in;padding:.4in .6in .3in;page-break-after:always;overflow:hidden}
+.slide:last-child{page-break-after:auto}
+h1{font-size:40px;margin:0 0 .1in;line-height:1.1}
+.ausdruck{font-size:38px;font-weight:700;margin:.12in 0 .02in}
+svg{display:block;border-radius:8px}
+.fr3{display:grid;grid-template-columns:repeat(3,1fr);gap:.3in;font-size:24px;line-height:1.3;margin:.14in 0 0}
+"""
+
+
+def _fz(svg, w):
+    return svg.replace('class="gerade"', f'class="gerade" style="width:{w}in;height:auto"', 1)
+
+
+folien_html = f"""<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>Folien – Addieren und Subtrahieren</title>
+<style>{FCSS}</style></head><body>
+<div class="slide"><h1>Wohin geht der Bogen?</h1>
+<div class="ausdruck">−2 + 7 = ?</div>{_fz(OFFEN1, 12.1)}
+<div class="ausdruck">−1 − 6 = ?</div>{_fz(OFFEN2, 9.4)}</div>
+<div class="slide"><h1>Skitour</h1>{_fz(SKITOUR_FRAGE, 11.8)}{fragen3.replace('class="fr3"','class="fr3"')}</div>
+<div class="slide"><h1>Skitour: Lösung</h1>{_fz(SKITOUR, 11.8)}{loes3}</div>
+</body></html>"""
+Path(__file__).with_name("Folien – Addieren und Subtrahieren.html").write_text(folien_html, encoding="utf-8")
+print("Folien-HTML geschrieben (PDF: Chrome headless --print-to-pdf)")

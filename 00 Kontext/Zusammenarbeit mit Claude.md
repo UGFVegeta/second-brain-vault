@@ -62,6 +62,14 @@ Ich habe Claude Pro (20 $ im Monat) und will nicht mehr ausgeben. API-Guthaben h
 
 Jede Stundenvorbereitung entsteht als **eine HTML-Datei** mit Tabs: Vor der Stunde (Drucken/Kopieren-Liste, digital vorbereiten), Verlauf als Tabelle, Folien, Tafelbild, Merkheft, Aufgaben, Lösungen, Ausblick. Das spart Token, weil Änderungen nur eine Datei betreffen. PDFs gibt es erst am Ende und nur für die **Folien** (16:9, für Notability, mit Platz zum Daraufschreiben). Merkheft und Übungsheft werden überall getrennt markiert, Buchaufgaben immer mit Seite und Nummer. Lösungen kommen aus dem digitalen Lösungsbuch, das Oskar mitgibt. Referenz: `04 Ressourcen/Mathematik/Rationale Zahlen/` (Generator `baue_stunde1.py`). Ablage in iCloud nach nummerierten Themenordnern pro Klasse.
 
+## Arbeitsblätter mit Schwierigkeitsstufen (23.09.2026)
+
+Arbeitsblätter, Übungsblätter und Diagnosearbeiten (Grundlagen-Check) bekommen bei jeder Aufgabe das Kreis-Symbol wie im Mathebuch: leerer Kreis = leicht, halber Kreis = mittel, voller Kreis = schwer, dazu eine Legende oben. Die Schüler sollen so selbst einschätzen können, ob eine Aufgabe eher leicht oder schwer ist. Stil sonst wie die Buchaufgaben: nummeriert, a) b) c) in Spalten, ohne unnötige Klammern, A4, Lösungsblatt „nur für mich“ separat. Referenz: `04 Ressourcen/Mathematik/Rationale Zahlen/baue_arbeitsblatt2.py`.
+
+## Erst mein Konzept, dann das Buch (23.09.2026)
+
+Bei Stundenvorbereitung erkläre ich zuerst, wie ich das Thema unterrichten will. Danach wird mit dem Buch verglichen und das Buch an meinen Stil angepasst, nicht umgekehrt. Beispiel Rationale Zahlen: Bogenmodell (Plus nach rechts, Minus nach links) ohne Klammern, ohne auswendig zu lernende Regeltexte; Klammern erst bei Rechenvorteilen und Multiplikation.
+
 ---
 
 *Stand: 18.06.2026, aus dem Kennenlern-Interview (Bereich „Zusammenarbeit"). Weitere Bereiche – Prioritäten, Entscheidungsstil, Tagesablauf – folgen.*
