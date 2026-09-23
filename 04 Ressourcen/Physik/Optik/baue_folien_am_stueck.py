@@ -76,27 +76,44 @@ A_svg = (
 A = folie("Natürliche und künstliche Lichtquellen", A_svg,
           "<b>Natürliche Lichtquellen</b> gibt es in der Natur. <b>Künstliche Lichtquellen</b> hat der Mensch gebaut.")
 
-# ---- Neu B: Sehen und gesehen werden
+# ---- Neu B: Sehen und gesehen werden (Bild von Gemini, Pfeile und Beschriftung selbst gezeichnet)
+def _pf(x1, y1, x2, y2, col, dash=""):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    return (f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{col}" stroke-width="7" stroke-linecap="round"{d} '
+            f'marker-end="url(#m{col[1:]})"/>')
+
+
+def _mk(col):
+    return (f'<marker id="m{col[1:]}" markerWidth="5" markerHeight="5" refX="3.2" refY="2.5" orient="auto">'
+            f'<path d="M0,0 L5,2.5 L0,5 Z" fill="{col}"/></marker>')
+
+
+def _lab(x, y, zeilen, lx, ly, w):
+    h = 40 * len(zeilen) + 14
+    t = "".join(f'<text x="{x + 14}" y="{y + 38 + 40 * i}" font-size="30" fill="#111" '
+                f'font-family="Avenir Next, Helvetica, sans-serif">{z}</text>' for i, z in enumerate(zeilen))
+    return (f'<line x1="{lx}" y1="{ly}" x2="{x + w / 2}" y2="{y + h if ly > y else y}" stroke="#333" stroke-width="2.5"/>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="#fff" stroke="#333" stroke-width="2.5"/>{t}')
+
+
+GELB, ROT, ORANGE = "#e0b400", "#d32f2f", "#ef7d00"
+AUGE = (182, 338)
 B_svg = (
-    '<svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs>' + marker("#c62828") + marker("#e08a00") + '</defs>'
-    '<line x1="10" y1="172" x2="626" y2="172" stroke="#555" stroke-width="2"/>'
-    '<polygon points="150,140 330,112 330,170 150,146" fill="rgba(255,211,77,.35)"/>'
-    '<rect x="26" y="126" width="118" height="34" rx="6" fill="#8da6c2" stroke="#66798E" stroke-width="2"/>'
-    '<rect x="52" y="104" width="64" height="26" rx="5" fill="#8da6c2" stroke="#66798E" stroke-width="2"/>'
-    '<circle cx="56" cy="162" r="10" fill="#333"/><circle cx="112" cy="162" r="10" fill="#333"/>'
-    '<rect x="141" y="132" width="8" height="12" fill="#ffd34d" stroke="#b98900"/>'
-    '<ellipse cx="88" cy="116" rx="9" ry="5" fill="#fff" stroke="#66798E"/><circle cx="88" cy="116" r="2.6" fill="#333"/>'
-    '<circle cx="352" cy="150" r="20" fill="none" stroke="#333" stroke-width="3"/><circle cx="430" cy="150" r="20" fill="none" stroke="#333" stroke-width="3"/>'
-    '<path d="M352 150 L385 150 L402 118 L360 118 Z M385 150 L430 150 L402 118" fill="none" stroke="#333" stroke-width="3"/>'
-    '<circle cx="392" cy="82" r="9" fill="#f4c7a1" stroke="#333"/><line x1="392" y1="92" x2="380" y2="126" stroke="#f2c94c" stroke-width="12" stroke-linecap="round"/>'
-    '<rect x="330" y="114" width="8" height="8" fill="#e53935" stroke="#7a1b1b"/><rect x="332" y="136" width="6" height="12" fill="#ff7043" stroke="#7a1b1b"/>'
-    + pfeil(326, 119, 154, 122, "#c62828") + pfeil(328, 142, 154, 143, "#e08a00", "6 4")
-    + label(20, 52, "Scheinwerfer: Lichtquelle") + label(20, 68, "(sendet Licht aus)", "klein")
-    + label(230, 52, "Rücklicht: Lichtquelle") + '<line x1="285" y1="58" x2="328" y2="112" stroke="#999" stroke-width="1"/>'
-    + label(452, 60, "Rückstrahler und Warnweste:") + label(452, 76, "beleuchtet, sie werfen das") + label(452, 92, "Scheinwerferlicht zurück")
+    '<svg viewBox="0 60 1358 684" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">'
+    f'<defs>{_mk(GELB)}{_mk(ROT)}{_mk(ORANGE)}</defs>'
+    '<image href="assets/sehen-und-gesehen-werden.jpg" x="0" y="0" width="1358" height="744"/>'
+    + _pf(606, 494, 1010, 446, GELB)
+    + _pf(912, 563, AUGE[0] + 14, AUGE[1] + 8, ROT)
+    + _pf(1016, 436, AUGE[0] + 16, AUGE[1] - 4, ORANGE, "22 16")
+    + _lab(360, 110, ["Scheinwerfer:", "Lichtquelle"], 590, 482, 250)
+    + _lab(20, 150, ["Auge des Fahrers", "(Empfänger)"], AUGE[0], AUGE[1] - 12, 270)
+    + _lab(900, 110, ["Warnweste: beleuchtet,", "wirft Licht zurück"], 1055, 402, 350)
+    + _lab(640, 612, ["Rücklicht: Lichtquelle"], 905, 575, 330)
     + '</svg>')
-B = folie("Sehen und gesehen werden", B_svg,
-          "Das <b>Rücklicht</b> ist eine Lichtquelle. <b>Rückstrahler</b> und <b>Warnweste</b> sind beleuchtete Körper: Sie werfen das Scheinwerferlicht zurück.")
+B = ('<section class="folie"><div class="titelband"><h1>Sehen und gesehen werden</h1></div>'
+     f'<div class="bildzone">{B_svg}</div>'
+     '<div class="merksatz tief">Das <b>Rücklicht</b> ist eine Lichtquelle. Die <b>Warnweste</b> ist ein beleuchteter Körper: '
+     'Sie wirft das Scheinwerferlicht zurück ins Auge des Fahrers.</div></section>')
 
 # ---- Neu D: Alltag zu Leitfrage 2
 zeilen = [("schwarzes T-Shirt in der Sonne", "Absorption", "Licht wird verschluckt, das Shirt wird warm"),
@@ -161,8 +178,9 @@ def blatt(k, hinweis):
 
 
 FOLGE = [
-    basis(11), A, B,
+    basis(11),
     blatt("lq", "Arbeitsblatt Lichtquellen austeilen"),
+    A, B,
     basis(12), basis(13), basis(14),
     basis(15), basis(16),
     blatt("w04", "Versuchsblatt austeilen · Versuch in Gruppen"),
@@ -175,7 +193,7 @@ karten = "".join(
     for i, h in enumerate(FOLGE, 1))
 
 SCHRITTE = [
-    ("Lichtquellen", "Natürliche und künstliche Lichtquellen, sehen und gesehen werden, Arbeitsblatt.", [1, 2, 3, 4]),
+    ("Lichtquellen", "Kurz wiederholen, Arbeitsblatt, dann natürlich und künstlich, sehen und gesehen werden.", [1, 2, 3, 4]),
     ("Check zu Leitfrage 1", "Antwort, Handzeichen, Lösung.", [5, 6, 7]),
     ("Leitfrage 2", "Dieselbe Lampe, drei Gegenstände. Vermutungen sammeln.", [8, 9]),
     ("Versuch", "Blatt, Karton, Glasscheibe in Gruppen, Versuchsblatt.", [10]),
@@ -194,14 +212,14 @@ def chip(*nr):
 
 
 hintergrund = f"""
-<div class="box"><h3>Warum leuchtet etwas? {chip(1, 2)}</h3><ul>
+<div class="box"><h3>Warum leuchtet etwas? {chip(1, 3)}</h3><ul>
 <li><b>Heiße Körper glühen:</b> Sonne (Oberfläche etwa 5500 °C), Glühdraht (etwa 2500 °C), Kerzenflamme (bis etwa 1400 °C). Je heißer, desto heller und weißer.</li>
 <li><b>Kalte Lichtquellen:</b> LED und Bildschirm erzeugen Licht elektrisch, ohne heiß zu werden. Das Glühwürmchen erzeugt Licht mit einer chemischen Reaktion im Körper (Biolumineszenz).</li>
 <li><b>Mond:</b> Er wirft nur etwa ein Achtel des Sonnenlichts zurück. Er wirkt hell, weil der Nachthimmel dunkel ist.</li>
 <li><b>Sterne und Planeten:</b> Sterne sind ferne Sonnen, also Lichtquellen. Planeten leuchten nicht selbst. Der „Abendstern“ ist die Venus, also ein beleuchteter Körper.</li>
 <li><b>Typische Fehlvorstellungen:</b> Was hell ist, sei eine Lichtquelle (Mond, weiße Wand, Spiegel). Katzenaugen und Rückstrahler „leuchten“.</li></ul></div>
 
-<div class="box"><h3>Sehen und gesehen werden {chip(3)}</h3><ul>
+<div class="box"><h3>Sehen und gesehen werden {chip(4)}</h3><ul>
 <li><b>Rückstrahler</b> werfen das Licht genau in die Richtung zurück, aus der es kommt. Deshalb sieht gerade der Autofahrer sie hell aufleuchten, ein Fußgänger daneben kaum.</li>
 <li><b>Richtwerte bei Abblendlicht:</b> dunkle Kleidung ist erst auf etwa 25 m zu sehen, helle auf etwa 40 m, mit Reflektoren auf etwa 140 m. Die Zahlen werden von Verkehrssicherheitsverbänden genannt und schwanken je nach Quelle.</li>
 <li>Guter Gesprächsanlass: Wer von euch hat Reflektoren an Jacke oder Ranzen?</li></ul></div>
@@ -265,6 +283,8 @@ h2{{font-size:22px;margin:0 0 10px}}
 a.btn{{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}}
 table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}}.t th{{background:#f5f5f1}}
 
+
+.bildzone{{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}}.bildzone svg{{width:100%;height:100%;display:block}}
 .fnr{{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}}
 
 .blattkarte{{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}}.blattbild{{display:block;width:100%;border:1px solid #c8d0dc}}
@@ -291,7 +311,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 <div class="tab" id="t_hg">{hintergrund}</div>
 
 <div class="tab" id="t_ab">
-<div class="box"><h3>Arbeitsblatt Lichtquellen {chip(4)}</h3>
+<div class="box"><h3>Arbeitsblatt Lichtquellen {chip(2)}</h3>
 <a class="btn" href="Materialien/Lichtquellen W03.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Lichtquelle (L): Kerze, Glühlampe, Lagerfeuer, Blitz, Taschenlampe, Sonne. Beleuchtet (B): Mond, Tafel, Buch, Zimmerpflanze, Spielzeugauto.
 Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Laser. Aufgabe 3: Glühlampe und Taschenlampe.</p></div>
