@@ -187,14 +187,14 @@ zeilen_mi = "".join([
     vz(4, "Zweite Rechnung: (−1) + (−6). Vergleich beider Bögen: <b>positiv</b> addieren = nach rechts, "
           "<b>negativ</b> addieren = nach links", "Tafel", "Plenum"),
     grp(2, "Merksatz", 12, 20),
-    vz(8, "Regel in zwei Fällen (gleiche / verschiedene Vorzeichen) mit den vier Buch-Beispielen, dann "
-          "Schreibweise vereinfachen", f"Tafel &rarr; {MK}", "Plenum, abschreiben", True),
+    vz(8, "Regel in zwei Fällen (gleiche / verschiedene Vorzeichen) mit den vier Buch-Beispielen", f"Tafel &rarr; {MK}",
+       "Plenum, abschreiben", True),
     grp(3, "Viel rechnen", 20, 40),
     vz(4, "Aufgabe 1: fehlenden Wert an der Zahlengeraden ergänzen", f"S. 18 Nr. 1 {ALL}", "Einzel"),
     vz(4, "Aufgabe 2: gleiche Vorzeichen, im Kopf", f"S. 18 Nr. 2 {ALL}", f"Einzel<br>{UE}"),
     vz(6, "Aufgabe 3: erst Vorzeichen des Ergebnisses überlegen, dann rechnen", f"S. 18 Nr. 3 {ALL}",
        f"Einzel<br>{UE}"),
-    vz(6, "Aufgabe 4: Schreibweise vereinfachen, dann berechnen", f"S. 18 Nr. 4 {ALL}", f"Einzel<br>{UE}"),
+    vz(6, "Aufgabe 4: direkt berechnen (Klammern einfach mitschreiben)", f"S. 18 Nr. 4 {ALL}", f"Einzel<br>{UE}"),
     vz(5, "Kontrolle in Partnerarbeit, offene Fragen sammeln", "&ndash;", "Partner"),
     vz("+", "Wer schnell fertig ist: <b>Alles klar? A</b> und <b>B</b>, dazu der Fördern-Link 2pq6ev",
        "S. 18/19 „Alles klar?“", "Einzel"),
@@ -220,8 +220,8 @@ Subtraktion. Klammern lesen lassen.</li>
 <li>Bei verschiedenen Vorzeichen wird addiert statt subtrahiert: (+28) + (−10) wird zu 38 statt 18.</li>
 <li>Das Vorzeichen des Ergebnisses wird vergessen oder falsch übernommen, besonders wenn die negative Zahl den
 größeren Betrag hat: (−30) + (+20) landet bei +10 statt −10.</li>
-<li>Beim Vereinfachen (Aufgabe 4) geht ein Vorzeichen verloren, z. B. (−25) + (+17) wird zu −25 + 17 = 42 statt −8
-(Vorzeichenwechsel beim Weglassen der Klammer nicht beachtet).</li>
+<li>Bei Aufgabe 4 (größere Beispiele) wird die Klammer beim Ablesen ignoriert und nur die nackten Zahlen
+verrechnet, z. B. (−25) + (+17) wird zu 25 + 17 = 42 statt −8.</li>
 </ol></div>
 </section>
 """
@@ -242,16 +242,12 @@ berücksichtigen. Das Ergebnis erhält das gemeinsame Vorzeichen.</div>
 <div class="merk"><b>Verschiedene Vorzeichen</b><br>Man subtrahiert die Zahlen, ohne ihr Vorzeichen zu
 berücksichtigen. Das Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</div>
 <p>(+12) + (+8) = +(12 + 8) = +20 &nbsp;&middot;&nbsp; (−15) + (−10) = −(15 + 10) = −25<br>
-(+18) + (−6) = +(18 − 6) = +12 &nbsp;&middot;&nbsp; (−14) + (+9) = −(14 − 9) = −5</p>
-<div class="merk">Zur <b>Vereinfachung der Schreibweise</b> darf man das Vorzeichen + und die zugehörige Klammer
-weglassen. Beginnt ein Rechenausdruck mit einer negativen Zahl, kann man bei dieser Zahl die Klammer weglassen.</p>
-(+12) + (+8) = 12 + 8 = 20 &nbsp;&middot;&nbsp; (−15) + (−10) = −15 + (−10) = −25<br>
-(+18) + (−6) = 18 + (−6) = 12 &nbsp;&middot;&nbsp; (−14) + (+9) = −14 + 9 = −5</div></div></div>
+(+18) + (−6) = +(18 − 6) = +12 &nbsp;&middot;&nbsp; (−14) + (+9) = −(14 − 9) = −5</p></div></div>
 
 <div class="tafelblock"><h3>Viel rechnen <span>Minute 20–40</span></h3>
 <div class="uheft"><p class="aufg">{UE} S. 18 Nr. 1, 2, 3, 4 – der Reihe nach, im eigenen Tempo.</p>
-<p class="sprech">Bei Nr. 3 immer erst das Vorzeichen des Ergebnisses überlegen, dann erst rechnen. Bei Nr. 4 erst
-die Klammern weglassen (Schreibweise vereinfachen), dann rechnen.</p></div>
+<p class="sprech">Bei jeder Aufgabe erst das Vorzeichen des Ergebnisses überlegen, dann erst rechnen. Die Klammern
+bleiben einfach stehen, wie in der Aufgabe vorgegeben – kein Umschreiben nötig.</p></div>
 <p>Für Schnelle: „Alles klar?“ A (Kopfrechnen) und B (Kärtchen zuordnen), dazu der Fördern-Link <b>2pq6ev</b> für
 alle, die noch mehr Übung brauchen.</p></div>
 """
@@ -330,10 +326,6 @@ das gemeinsame Vorzeichen.</p>
 Ergebnis erhält das Vorzeichen der Zahl, die von Null weiter entfernt ist.</p>
 <p>(+12) + (+8) = +20 &nbsp;&middot;&nbsp; (−15) + (−10) = −25 &nbsp;&middot;&nbsp; (+18) + (−6) = +12
 &nbsp;&middot;&nbsp; (−14) + (+9) = −5</p>
-<p><b>Vereinfachte Schreibweise:</b> das Vorzeichen + und seine Klammer dürfen weggelassen werden, ebenso die
-Klammer der ersten Zahl, wenn sie negativ ist.</p>
-<p>12 + 8 = 20 &nbsp;&middot;&nbsp; −15 + (−10) = −25 &nbsp;&middot;&nbsp; 18 + (−6) = 12 &nbsp;&middot;&nbsp;
-−14 + 9 = −5</p>
 </div>
 </section>
 """
@@ -348,7 +340,7 @@ aufgaben = f"""
 <tr><td>Mi</td><td>S. 18 Nr. 1</td><td>{ALL}</td><td>Fehlenden Wert an der Zahlengeraden ergänzen</td></tr>
 <tr><td>Mi</td><td>S. 18 Nr. 2</td><td>{ALL}</td><td>Gleiche Vorzeichen, im Kopf addieren</td></tr>
 <tr><td>Mi</td><td>S. 18 Nr. 3</td><td>{ALL}</td><td>Erst Vorzeichen überlegen, dann berechnen</td></tr>
-<tr><td>Mi</td><td>S. 18 Nr. 4</td><td>{ALL}</td><td>Schreibweise vereinfachen, dann berechnen</td></tr>
+<tr><td>Mi</td><td>S. 18 Nr. 4</td><td>{ALL}</td><td>Direkt berechnen (größere Zahlen)</td></tr>
 <tr><td>Mi</td><td>S. 18/19 „Alles klar?“ A, B</td><td>für Schnelle</td><td>Kopfrechnen · Kärtchen den Summen zuordnen</td></tr>
 <tr><td>Do</td><td>S. 18 Bildaufgabe</td><td>{ALL}</td><td>Skitour Gamshütte–Enzianstüble–Falkenhütte</td></tr>
 <tr><td>Do</td><td>S. 19 Nr. 5</td><td>{ALL}</td><td>Fahnenaufgabe: Ergebnis ablesen, nachrechnen</td></tr>
@@ -379,7 +371,7 @@ Buch gegenprüfen, bevor du sie an die Tafel schreibst.</p>
 <h4>S. 18 Nr. 3 (Vorzeichen überlegen)</h4>
 <div class="kl"><div>a) +18</div><div>b) +5</div><div>c) −10</div><div>d) −12</div>
 <div>e) −60</div><div>f) −4</div><div>g) −20</div><div>h) −7</div></div>
-<h4>S. 18 Nr. 4 (Schreibweise vereinfachen)</h4>
+<h4>S. 18 Nr. 4</h4>
 <div class="kl"><div>a) −3</div><div>b) +5</div><div>c) −30</div><div>d) −8</div>
 <div>e) +77</div><div>f) −14</div><div>g) −50</div><div>h) −70</div></div>
 <h4>„Alles klar?“ A</h4>

@@ -14,6 +14,24 @@
         "value": "border-left:4px solid #e0a100",
         "createdAt": "2026-09-22T20:27:00.649Z",
         "reason": "matches Oskar's established .knapp callout style, reused verbatim from existing approved lesson files (Rationale Zahlen ALLES.html)"
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "files": [
+          "04 Ressourcen/Mathematik/Prüfungsaufgaben/Prüfungsarchiv/index.html"
+        ],
+        "createdAt": "2026-09-23T07:43:16.486Z",
+        "reason": "Zeile 431 ist die CSS-Schrift des gedruckten Arbeitsblatts (PDF-Export), kein UI-Design – Arial/Helvetica ist dort die übliche, gut lesbare Druckschrift für Schulmaterial, kein 'AI-UI-Trend'"
+      },
+      {
+        "rule": "side-tab",
+        "value": "3px",
+        "files": [
+          "04 Ressourcen/Mathematik/Prüfungsaufgaben/Prüfungsarchiv/index.html"
+        ],
+        "createdAt": "2026-09-23T07:43:25.023Z",
+        "reason": "Zeile 57 ist die Auswahl-Markierung eines Listeneintrags (wie eine ausgewählte Zeile im Dateibrowser), keine dekorative Card-Umrahmung – funktionale Statusanzeige, kein AI-Slop-Muster"
       }
     ]
   }
