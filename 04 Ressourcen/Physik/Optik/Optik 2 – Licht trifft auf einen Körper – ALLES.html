@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optik 2 – Licht trifft auf einen Körper</title><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav a{padding:5px 13px;border-radius:16px;text-decoration:none;color:#1b1b1b;font-size:14px;background:#f1f1ed}
+nav a:hover{background:#e3e3dc}
+section{padding:34px 0 8px;scroll-margin-top:50px}
+h2{font-size:22px;margin:0 0 6px}.lead{color:#555;margin:0 0 16px}
+h3{font-size:17px;margin:24px 0 8px}h4{margin:16px 0 6px;font-size:16.5px}
+.ziel{background:#f5f5f1;border-radius:8px;padding:12px 16px;margin:16px 0}
+.knapp{background:#fff6e0;border-left:4px solid #e0a100;padding:7px 12px;margin:10px 0 4px;font-size:15px}
+.fehler{background:#fbeeee;border-left:4px solid #b3261e;padding:8px 14px;margin:16px 0}
+.fehler ol{margin:6px 0 2px;padding-left:20px}
+.warn{background:#fff6e0;border-left:4px solid #e0a100;padding:9px 14px;margin:8px 0;font-size:14.5px}
+.opt{background:#eef3fb;border-left:4px solid #1a56a0;padding:9px 14px;margin:8px 0;font-size:14.5px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:6px 18px 12px;margin:14px 0}
+.box h3{margin:10px 0 6px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+figure{margin:10px 0 12px}figure svg{display:block;max-width:100%;height:auto;border:1px solid #c8d0dc}
+figcaption{font-size:13.5px;color:#555;margin-top:4px}
+.tafelblock{margin:18px 0 26px}
+.tafelblock>h3{display:flex;justify-content:space-between;align-items:baseline;background:#eeeeea;border-left:5px solid #1b1b1b;padding:5px 12px;margin:0 0 10px;font-size:16.5px}
+.tafelblock>h3 span{font-weight:400;font-size:13.5px;color:#555;font-style:italic}
+.heft{border-left:5px solid #1b1b1b;padding-left:14px;margin:12px 0}
+.uheft{border-left:5px dashed #1a56a0;padding-left:14px;margin:12px 0}
+.merk{background:#eef3fb;border:1.5px solid #1a56a0;border-radius:6px;padding:8px 13px;margin:9px 0;font-weight:600}
+.sprech{font-size:14.5px;color:#555;font-style:italic;margin:6px 0}
+.zeige{background:#e7f3e7;border-left:4px solid #1d6b1d;padding:6px 12px;margin:0 0 10px;font-size:15px}
+.heftseite{border:2px solid #1b1b1b;border-radius:4px;padding:18px 24px;margin:16px 0;background:#fff;box-shadow:4px 4px 0 #e3e3dc}
+.heftseite h3{font-size:20px;margin:0 0 4px;text-decoration:underline}.heftseite p{margin:8px 0}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15.5px}
+th,td{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#f5f5f1;font-weight:600}
+.chip{display:inline-block;padding:1px 9px;border-radius:10px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.orange{background:#fdebd3;color:#8a4b00}.gruen{background:#dcf1dc;color:#1d6b1d}.alle{background:#e2ecf8;color:#1a56a0}
+.chip.ueb{background:#e2ecf8;color:#1a56a0;border:1px dashed #1a56a0}.chip.mk{background:#eee;color:#1b1b1b;border:1px solid #1b1b1b}
+.loes p{margin:5px 0}.kl{columns:2;column-gap:28px;margin:6px 0}.kl div{break-inside:avoid;margin:2px 0}
+footer{margin-top:40px;padding:14px 0 40px;border-top:1px solid #d3d3cc;color:#666;font-size:13.5px}
+.vt th:first-child,.vt td.mn{width:52px;text-align:right;white-space:nowrap;color:#555}
+.vt tr.grp td{background:#eeeeea;font-weight:700;font-size:15.5px}
+.vt tr.grp td span{float:right;font-weight:400;color:#555;font-size:14px}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:16px 0 4px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 3px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#e3eaf6}.z6{background:#eeeeea}
+.baustein{margin:16px 0 22px}.bslabel{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#1a56a0;margin:0 0 4px}
+.bsbox{background:#fff;border:1px dashed #9db4d6;border-radius:6px;padding:14px 18px}.bsbox figure{margin:0}.bsbox figure svg{border:none;width:100%}.bsbox p{margin:4px 0}.bsbox table{margin:4px 0}
+.tip{background:#eef3fb;border-left:4px solid #1a56a0;padding:10px 14px;margin:14px 0;font-size:15px}
+pre.prompt{white-space:pre-wrap;background:#f5f5f1;border:1px solid #d3d3cc;border-radius:6px;padding:10px 14px;font:13.5px/1.5 ui-monospace,Menlo,monospace}
+@media print{nav{display:none}section{page-break-before:always}figure,.heftseite,.tafelblock{break-inside:avoid}body{font-size:11pt}}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Optik 2: Lichtquellen üben, Licht trifft auf einen Körper</h1>
+<p class="sub">Klasse 7c · Physik · Doppelstunde Do 24.09.2026 · Leitfrage 1 Abschluss, Leitfrage 2 · alles in einer Datei</p></header></div>
+<nav><div class="wrap"><a href="#vorher">Vor der Stunde</a><a href="#verlauf">Verlauf</a><a href="#folien">Folien</a>
+<a href="#tafel">Tafelbild</a><a href="#heft">Notability-Seite</a><a href="#aufgaben">Aufgaben</a><a href="#alltag">Alltag</a>
+<a href="#loesungen">Lösungen</a><a href="#ausblick">Ausblick</a></div></nav>
+<div class="wrap">
+<section id="vorher"><h2>Vor der Stunde</h2>
+<p class="lead">Klasse 7c · Doppelstunde Do 24.09.2026 (90 Minuten angenommen). Neu ist heute nur das Arbeitsblatt Lichtquellen,
+danach geht es mit Leitfrage 2 weiter.</p>
+<div class="tip"><b>So arbeitest du:</b> Notability mit leerer Karoseite, das MacBook mit dieser HTML daneben. Aus den Tabs „Tafelbild“ und
+„Notability-Seite“ nimmst du nur, was du brauchst. Bilder: Bereich mit <b>Ctrl + Cmd + Shift + 4</b> aufnehmen (landet in der
+Zwischenablage) und in Notability einfügen oder rüberziehen. Texte: markieren, kopieren. Jeder Baustein hat einen gestrichelten Rahmen, das ist die
+Screenshot-Fläche. Komplette PDFs brauchst du nur für die Arbeitsblätter.</div>
+<div class="box"><h3>Schon gehalten (Stand nach deiner Beschreibung)</h3>
+<ul><li>Mindmap „Was ist Physik?“, naturwissenschaftliche Arbeitsweise, Fallversuch mit zwei Bällen.</li>
+<li>Licht an/aus, „Wie sehen wir?“, Lichtquellen und beleuchtete Körper (Folien 1–11).</li>
+<li><b>Ich nehme an:</b> Folie 12 (Antwort auf Leitfrage 1) und der Check 1 waren noch nicht dran. Falls doch, wird Block 2 kürzer.</li></ul></div>
+<div class="box"><h3>Drucken und Kopieren</h3>
+<ul><li><b>Arbeitsblatt Lichtquellen</b>, nur Seite 1 (Aufgaben), einmal pro Schüler.<br>
+<span style="color:#555">iCloud: Physik/Physik Klasse 7/Optik 2026-27/F1 Lichtquellen (W03)/Arbeitsblatt F1.pdf</span></li>
+<li><b>Versuchsblatt „Blatt, Karton, Glasscheibe“</b>, nur Seite 1, einmal pro Gruppe oder pro Schüler.<br>
+<span style="color:#555">iCloud: …/F2 Licht trifft auf einen Koerper (W04)/Arbeitsblatt F2.pdf</span></li>
+<li>Die Lösungsseiten bleiben bei dir (Tab „Lösungen“).</li></ul></div>
+<div class="box"><h3>Digitales vorbereiten</h3>
+<ul><li><b>Folien sind optional.</b> Willst du sie zeigen: <i>Optik I.pdf</i>, Seiten 10–21 (Tab „Folien“). Sonst reichen die Bausteine aus dem Tafelbild.</li></ul></div>
+<div class="box"><h3>Raum und Material</h3>
+<ul><li>Raum verdunkelbar.</li>
+<li><b>Ray-Box(en)</b>, <b>weißes Blatt</b>, <b>schwarzer Karton</b>, <b>klare Glasscheibe</b>. Für jede Gruppe ein Set, wenn die Ray-Boxen reichen.
+Sonst zeigst du den Versuch vorn und die Klasse beobachtet (Block 4 dann kürzer).</li>
+<li>Optional: zerknitterte Alufolie und eine Taschenlampe für den Zusatz „Streuung an rauer Fläche“.</li></ul></div>
+<div class="opt"><b>Optional: ein Gemini-Prompt für ein Alltagsbild zu Leitfrage 2 (6 Fotos in einem Bild).</b>
+<pre class="prompt">Erstelle ein Bild mit einem Raster aus 6 Alltagsfotos (3 Spalten, 2 Zeilen, dünner weißer Rand dazwischen, keine Beschriftung, keine Wasserzeichen), realistischer Foto-Stil:
+1. Ein schwarzes T-Shirt auf einer Wäscheleine in der prallen Sonne
+2. Eine weiße Zimmerwand, von einer Lampe angestrahlt
+3. Ein sauberes Fenster mit Blick nach draußen
+4. Ein Badezimmerfenster aus Milchglas, dahinter nur Umrisse zu erkennen
+5. Eine Sonnenbrille auf einem Tisch im Sonnenlicht
+6. Ein zerknittertes Stück Alufolie, von einer Taschenlampe angestrahlt</pre>Die Stunde läuft auch ohne. Tab „Alltag“ hat die Beispiele als Tabelle.</div>
+</section>
+
+<section id="verlauf"><h2>Verlauf</h2>
+<p class="lead">90 Minuten. ✎ = wird ins <span class="chip mk">Heft</span> geschrieben (Physik hat nur ein Heft oder einen Ordner). Keine Hausaufgaben.</p>
+<div class="ziel"><b>Ziel:</b> Die Klasse ordnet Lichtquellen und beleuchtete Körper sicher zu. Sie beobachtet, was mit Licht an
+einem weißen Blatt, einem schwarzen Karton und einer Glasscheibe passiert, und benennt Streuung, Absorption und Transmission.
+<b>Nicht Ziel:</b> Spiegelung und Reflexionsgesetz (später), Farben.</div>
+<div class="zeitleiste"><div class="z0" style="width:5.56%" title="5 min">Start<br>5′</div><div class="z1" style="width:27.78%" title="25 min">1 · Üben<br>25′</div><div class="z2" style="width:11.11%" title="10 min">2 · Check 1<br>10′</div><div class="z3" style="width:11.11%" title="10 min">3 · LF 2<br>10′</div><div class="z4" style="width:27.78%" title="25 min">4 · Versuch<br>25′</div><div class="z5" style="width:11.11%" title="10 min">5 · Tafel<br>10′</div><div class="z6" style="width:5.56%" title="5 min">Check 2<br>5′</div></div>
+<table class="vt"><tr><th>Min</th><th>Was</th><th>Material</th><th>Wer</th></tr><tr class="grp"><td colspan="4">0 · Start<span>Minute 0–5</span></td></tr><tr><td class="mn">5′</td><td>Ankommen. Rückblick in einem Satz: Wir sehen etwas, wenn Licht ins Auge fällt. Lichtquellen senden selbst Licht aus, beleuchtete Körper werfen fremdes Licht zurück. Folie 11 zur Erinnerung</td><td>Folie 11</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">1 · Üben: Lichtquellen<span>Minute 5–30</span></td></tr><tr><td class="mn">12′</td><td>Arbeitsblatt „Verschiedene Arten von Lichtquellen“: 11 Bilder benennen, L oder B umkreisen, Aufgaben 2 und 3</td><td>Arbeitsblatt <span class="chip alle">alle</span></td><td>Einzel<br><span class="chip mk">Heft</span></td></tr><tr><td class="mn">5′</td><td>Kontrolle mit dem Partner, dann die Lösungsseite kurz zeigen</td><td>Tab „Lösungen“</td><td>Partner</td></tr><tr><td class="mn">8′</td><td>Alltagskarten: drei Beispiele von der Tabelle (z. B. Wolke, Rückstrahler, Katzenaugen). Erst überlegen, dann Handzeichen: Lichtquelle oder beleuchtet? Immer mit Begründung</td><td>Tab „Alltag“ (Beamer)</td><td>Partner, dann Plenum</td></tr><tr class="grp"><td colspan="4">2 · Sicherung: Leitfrage 1<span>Minute 30–40</span></td></tr><tr><td class="mn">2′</td><td>Antwort auf Leitfrage 1 lesen und in eigenen Worten wiederholen lassen</td><td>Folie 12</td><td>Plenum</td></tr><tr><td class="mn">5′</td><td>Check zu Leitfrage 1: Handzeichen a–d, dann Lösung</td><td>Folien 13–14</td><td>Plenum</td></tr><tr><td class="mn">3′</td><td>Offene Fragen</td><td>&ndash;</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">3 · Leitfrage 2: Einstieg<span>Minute 40–50</span></td></tr><tr><td class="mn">4′</td><td>Folie „Beobachte“: dieselbe Lampe, drei Gegenstände (weißes Blatt, schwarzer Karton, Glasscheibe). Was passiert jeweils mit dem Licht?</td><td>Folie 15</td><td>Plenum</td></tr><tr><td class="mn">6′</td><td>✎ Leitfrage 2 lesen. Vermutungen sammeln und an die Tafel schreiben, noch ohne Wertung. Material zeigen</td><td>Folie 16, Material</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">4 · Versuch: Blatt, Karton, Glasscheibe<span>Minute 50–75</span></td></tr><tr><td class="mn">5′</td><td>Versuchsblatt austeilen, Versuchsbeschreibung lesen, Sicherheit (Ray-Box), Gruppen bilden</td><td>Versuchsblatt <span class="chip alle">alle</span></td><td>Plenum</td></tr><tr><td class="mn">15′</td><td>Versuch durchführen. Beobachtung ins Feld auf dem Blatt schreiben. Zwei Minuten Zeit pro Material</td><td>Ray-Box, Blatt, Karton, Glas</td><td>Gruppen<br><span class="chip mk">Heft</span></td></tr><tr><td class="mn">5′</td><td>✎ Beobachtungen sammeln: Tafel-Tabelle Gegenstand · Was sieht man? entsteht, Fachbegriff noch offen</td><td>Tafelbild 2</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">5 · Erarbeiten: Licht trifft auf einen Körper<span>Minute 75–85</span></td></tr><tr><td class="mn">5′</td><td>✎ Folie „3. Licht trifft auf einen Körper“ (leer): vier Situationen zeichnen, Fachbegriffe den Beobachtungen zuordnen</td><td>Folie 17 &rarr; Tafelbild 1</td><td>Plenum</td></tr><tr><td class="mn">3′</td><td>Merksatz ins Heft, Erklärung (Lückentext) auf dem Versuchsblatt ausfüllen</td><td>Tafelbild 1 &rarr; <span class="chip mk">Heft</span></td><td>Einzel</td></tr><tr><td class="mn">2′</td><td>Antwort auf Leitfrage 2 lesen</td><td>Folie 19</td><td>Plenum</td></tr><tr class="grp"><td colspan="4">6 · Check<span>Minute 85–90</span></td></tr><tr><td class="mn">5′</td><td>Check zu Leitfrage 2: Handzeichen, Lösung. Keine Hausaufgabe</td><td>Folien 20–21</td><td>Plenum</td></tr></table>
+<div class="knapp"><b>Wenn es knapp wird:</b> Alltagskarten auf eine Karte kürzen. Versuch als Demo vorn statt in Gruppen. Check 2 auf die
+nächste Stunde schieben.</div>
+<div class="fehler"><b>Worauf du achten kannst</b>
+<ol>
+<li>Der schwarze Karton „sieht schwarz aus“, also „wirft er schwarzes Licht zurück“. Besser: von ihm kommt (fast) kein Licht.</li>
+<li>Bei der Glasscheibe wird „es geht durch“ und „es verschwindet“ verwechselt. Den Lichtfleck dahinter zeigen.</li>
+<li>Streuung wird mit Spiegelung verwechselt. Das weiße Blatt wirft Licht in alle Richtungen zurück, die Spiegelung kommt später.</li>
+<li>„Absorbieren“ heißt nicht „weg“: Der Karton wird dabei warm.</li>
+</ol></div>
+</section>
+
+<section id="folien"><h2>Folien</h2>
+<p class="lead">Alle Folien gibt es schon in <i>Optik I.pdf</i>. Es entsteht kein neues PDF.</p>
+<table><tr><th>Seite</th><th>Folie</th><th>Wann</th></tr>
+<tr><td>10–11</td><td>2. Lichtquellen und beleuchtete Körper</td><td>Start, nur zur Erinnerung (Seite 11)</td></tr>
+<tr><td>12</td><td>Antwort auf Leitfrage 1</td><td>Block 2</td></tr>
+<tr><td>13–14</td><td>Check zu Leitfrage 1 mit Lösung (1) b, 2) c)</td><td>Block 2</td></tr>
+<tr><td>15</td><td>Beobachte (Blatt, Karton, Glas)</td><td>Block 3</td></tr>
+<tr><td>16</td><td>Leitfrage 2 mit Vermutungsfläche</td><td>Block 3</td></tr>
+<tr><td>17–18</td><td>3. Licht trifft auf einen Körper (leer, gefüllt)</td><td>Block 5, hier entsteht das Tafelbild</td></tr>
+<tr><td>19</td><td>Antwort auf Leitfrage 2</td><td>Block 5</td></tr>
+<tr><td>20–21</td><td>Check zu Leitfrage 2 mit Lösung (1) a, 2) c)</td><td>Check am Ende</td></tr></table>
+<div class="warn"><b>Zwei Marker passen nicht zu deinem Ablauf:</b> „AB austeilen: Lichtquellen“ steht auf Seite 13, du verteilst das Blatt aber
+schon nach Seite 11. „AB austeilen: Licht trifft auf einen Körper“ steht auf Seite 20, du verteilst es vor dem Versuch (nach Seite 16).
+Soll ich die beiden Marker auf Seite 11 und Seite 16 verschieben? Dann muss <i>Optik I.pdf</i> neu gebaut werden.</div>
+</section>
+
+<section id="tafel"><h2>Tafelbild</h2>
+<p class="lead">So sieht die Tafel am Ende aus. Alles ins <span class="chip mk">Heft</span> (schwarzer Balken). Physik hat nur ein Heft oder einen Ordner.</p>
+<div class="tafelblock"><h3>Vermutungen sammeln <span>Minute 44–50</span></h3>
+<div class="zeige">Erst Folie „Leitfrage 2“ (Seite 16) zeigen.</div>
+<div class="baustein"><div class="bslabel">Baustein · Überschrift und Leitfrage</div><div class="bsbox"><p><b>Leitfrage 2:</b> Was passiert mit dem Licht, wenn es auf einen Körper trifft?</p>
+<p><b>Vermutungen:</b> <span style="color:#777">hier schreibst du, was die Klasse sagt (z. B. „das Licht prallt ab“, „es verschwindet“, „es geht durch“)</span></p></div></div></div>
+
+<div class="tafelblock"><h3>Beobachtungen zum Versuch <span>Minute 70–75</span></h3>
+<div class="baustein"><div class="bslabel">Baustein · Tabelle Beobachtungen</div><div class="bsbox"><table>
+<tr><th>Gegenstand</th><th>Was sieht man?</th><th>Fachbegriff</th></tr>
+<tr><td>weißes Blatt</td><td>heller, breiter Lichtfleck, man sieht ihn von überall</td><td>Streuung</td></tr>
+<tr><td>schwarzer Karton</td><td>kein Lichtfleck, bleibt dunkel</td><td>Absorption</td></tr>
+<tr><td>Glasscheibe</td><td>Licht geht (fast) ungehindert hindurch</td><td>Transmission</td></tr></table></div></div>
+<p class="sprech">Die Spalte „Fachbegriff“ erst leer lassen und nach Folie 17 ausfüllen.</p></div>
+
+<div class="tafelblock"><h3>Licht trifft auf einen Körper <span>Minute 75–80</span></h3>
+<div class="zeige">Erst Folie „3. Licht trifft auf einen Körper“ (Seite 17, leer) zeigen.</div>
+<div class="baustein"><div class="bslabel">Baustein · Bild: vier Situationen</div><div class="bsbox"><figure><svg viewBox="0 0 680 190" xmlns="http://www.w3.org/2000/svg" width="680"><defs><marker id="sp" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#b98900"/></marker></defs><rect width="680" height="190" fill="#fff"/><circle cx="80" cy="90" r="16" fill="#fff2a8" stroke="#b98900" stroke-width="2"/><line x1="102.0" y1="90.0" x2="120.0" y2="90.0" stroke="#b98900" stroke-width="2.4"/><line x1="95.4" y1="105.4" x2="108.0" y2="118.0" stroke="#b98900" stroke-width="2.4"/><line x1="80.0" y1="112.0" x2="80.0" y2="130.0" stroke="#b98900" stroke-width="2.4"/><line x1="64.6" y1="105.4" x2="52.0" y2="118.0" stroke="#b98900" stroke-width="2.4"/><line x1="58.0" y1="90.0" x2="40.0" y2="90.0" stroke="#b98900" stroke-width="2.4"/><line x1="64.6" y1="74.6" x2="52.0" y2="62.0" stroke="#b98900" stroke-width="2.4"/><line x1="80.0" y1="68.0" x2="80.0" y2="50.0" stroke="#b98900" stroke-width="2.4"/><line x1="95.4" y1="74.6" x2="108.0" y2="62.0" stroke="#b98900" stroke-width="2.4"/><line x1="200" y1="125" x2="310" y2="125" stroke="#1b1b1b" stroke-width="3"/><line x1="205" y1="55" x2="250" y2="122" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="250" y1="122" x2="232" y2="62" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="250" y1="122" x2="262" y2="62" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="250" y1="122" x2="292" y2="62" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><rect x="440" y="70" width="44" height="60" fill="#3a3a3a" stroke="#111"/><line x1="370" y1="100" x2="438" y2="100" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><rect x="590" y="65" width="26" height="70" fill="#d7ecf7" stroke="#66798e" stroke-width="2"/><line x1="530" y1="100" x2="588" y2="100" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="618" y1="100" x2="636" y2="100" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><text x="52" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Emission</text><text x="55" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Körper sendet Licht aus</text><text x="200" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Streuung</text><text x="172" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Licht wird zurückgeworfen</text><text x="356" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Absorption</text><text x="352" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Licht wird verschluckt</text><text x="498" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Transmission</text><text x="500" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Licht geht hindurch</text></svg></figure></div></div>
+<div class="baustein"><div class="bslabel">Baustein · Merksatz</div><div class="bsbox"><p>Licht kann <b>ausgesendet</b> (Emission), <b>zurückgeworfen</b> (Streuung),
+<b>verschluckt</b> (Absorption) oder <b>durchgelassen</b> (Transmission) werden.</p></div></div>
+<p class="sprech">Vier Situationen zeichnen lassen oder als Bild rüberziehen. Danach die Beobachtungen aus der Tabelle zuordnen.</p></div>
+
+<div class="tafelblock"><h3>Antwort auf Leitfrage 2 <span>Minute 83–85</span></h3>
+<div class="baustein"><div class="bslabel">Baustein · Antworttext</div><div class="bsbox"><p>Das Licht wird zurückgeworfen (Streuung), verschluckt (Absorption) oder durchgelassen (Transmission).
+Meist geschieht mehreres gleichzeitig. Sendet ein Körper selbst Licht aus, spricht man von Emission.</p></div></div></div>
+</section>
+
+<section id="heft"><h2>Notability-Seite</h2>
+<p class="lead">So soll die fertige Seite aussehen. Die Formulierungen stammen aus deinen Folien. Nimm dir daraus, was du brauchst.</p>
+<div class="heftseite">
+<h3>Licht trifft auf einen Körper</h3>
+<figure><svg viewBox="0 0 680 190" xmlns="http://www.w3.org/2000/svg" width="680"><defs><marker id="sp" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#b98900"/></marker></defs><rect width="680" height="190" fill="#fff"/><circle cx="80" cy="90" r="16" fill="#fff2a8" stroke="#b98900" stroke-width="2"/><line x1="102.0" y1="90.0" x2="120.0" y2="90.0" stroke="#b98900" stroke-width="2.4"/><line x1="95.4" y1="105.4" x2="108.0" y2="118.0" stroke="#b98900" stroke-width="2.4"/><line x1="80.0" y1="112.0" x2="80.0" y2="130.0" stroke="#b98900" stroke-width="2.4"/><line x1="64.6" y1="105.4" x2="52.0" y2="118.0" stroke="#b98900" stroke-width="2.4"/><line x1="58.0" y1="90.0" x2="40.0" y2="90.0" stroke="#b98900" stroke-width="2.4"/><line x1="64.6" y1="74.6" x2="52.0" y2="62.0" stroke="#b98900" stroke-width="2.4"/><line x1="80.0" y1="68.0" x2="80.0" y2="50.0" stroke="#b98900" stroke-width="2.4"/><line x1="95.4" y1="74.6" x2="108.0" y2="62.0" stroke="#b98900" stroke-width="2.4"/><line x1="200" y1="125" x2="310" y2="125" stroke="#1b1b1b" stroke-width="3"/><line x1="205" y1="55" x2="250" y2="122" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="250" y1="122" x2="232" y2="62" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="250" y1="122" x2="262" y2="62" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="250" y1="122" x2="292" y2="62" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><rect x="440" y="70" width="44" height="60" fill="#3a3a3a" stroke="#111"/><line x1="370" y1="100" x2="438" y2="100" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><rect x="590" y="65" width="26" height="70" fill="#d7ecf7" stroke="#66798e" stroke-width="2"/><line x1="530" y1="100" x2="588" y2="100" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><line x1="618" y1="100" x2="636" y2="100" stroke="#b98900" stroke-width="2.4" marker-end="url(#sp)"/><text x="52" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Emission</text><text x="55" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Körper sendet Licht aus</text><text x="200" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Streuung</text><text x="172" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Licht wird zurückgeworfen</text><text x="356" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Absorption</text><text x="352" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Licht wird verschluckt</text><text x="498" y="20" font-size="16" font-weight="700" fill="#1b1b1b">Transmission</text><text x="500" y="165" font-size="13" font-weight="400" fill="#5a5a5a">Licht geht hindurch</text></svg></figure>
+<p>Licht kann <b>ausgesendet</b> (Emission), <b>zurückgeworfen</b> (Streuung), <b>verschluckt</b> (Absorption) oder
+<b>durchgelassen</b> (Transmission) werden. Meist geschieht mehreres gleichzeitig.</p>
+<table><tr><th>weißes Blatt</th><td>Streuung</td></tr><tr><th>schwarzer Karton</th><td>Absorption</td></tr>
+<tr><th>Glasscheibe</th><td>Transmission</td></tr></table>
+</div></section>
+
+<section id="aufgaben"><h2>Aufgaben</h2>
+<p class="lead">Alles findet im Unterricht statt, es gibt keine Hausaufgaben. <span class="chip alle">alle</span> = Pflicht, <span class="chip orange">Zusatz</span> = für Schnelle.</p>
+<table><tr><th>Block</th><th>Wo</th><th>Niveau</th><th>Aufgabe</th></tr>
+<tr><td>1</td><td>Arbeitsblatt Lichtquellen</td><td><span class="chip alle">alle</span></td><td>11 Bilder: L oder B, weitere Beispiele, alt oder neu</td></tr>
+<tr><td>1</td><td>Tab „Alltag“ (Teil 1)</td><td><span class="chip alle">alle</span></td><td>Drei Alltagsbeispiele: Lichtquelle oder beleuchtet, mit Begründung</td></tr>
+<tr><td>4</td><td>Versuchsblatt</td><td><span class="chip alle">alle</span></td><td>Beobachtung zu Blatt, Karton, Glasscheibe, Erklärung als Lückentext</td></tr>
+<tr><td>4</td><td>Tafel</td><td><span class="chip alle">alle</span></td><td>Beobachtungen in die Tabelle, Fachbegriffe zuordnen</td></tr>
+<tr><td>Zusatz</td><td>Z1</td><td><span class="chip orange">Zusatz</span></td><td>Nenne je zwei Alltagsbeispiele für Streuung, Absorption und Transmission.</td></tr>
+<tr><td>Zusatz</td><td>Z2</td><td><span class="chip orange">Zusatz</span></td><td>Ein schwarzes T-Shirt wird in der Sonne heißer als ein weißes. Erkläre das mit dem Fachbegriff.</td></tr></table>
+</section>
+
+<section id="alltag"><h2>Alltag</h2>
+<p class="lead">Angeregt durch LEIFIphysik (Wolke am Himmel, Nebel im Wald, Sehen im Zimmer) und dein Buch. Formulierungen sind eigene.
+Für die Stunde reichen drei Zeilen aus Teil 1 und ein paar aus Teil 2.</p>
+<h3>Teil 1: Lichtquelle oder beleuchtet? (Block 1)</h3>
+<table><tr><th style="width:32%">Beispiel</th><th style="width:22%">Antwort</th><th>Begründung</th></tr><tr><td>Wolke am Himmel</td><td><b>beleuchtet</b></td><td>Sie wirft Sonnenlicht zurück.</td></tr><tr><td>Mond</td><td><b>beleuchtet</b></td><td>Er wirft Sonnenlicht zurück.</td></tr><tr><td>Sterne am Nachthimmel</td><td><b>Lichtquellen</b></td><td>Sterne sind ferne Sonnen. Planeten wie die Venus sind beleuchtet.</td></tr><tr><td>Rückstrahler am Fahrrad oder Schulranzen</td><td><b>beleuchtet</b></td><td>Er leuchtet nur, wenn ein Scheinwerfer ihn anstrahlt.</td></tr><tr><td>Katzenaugen im Scheinwerferlicht</td><td><b>beleuchtet</b></td><td>Sie werfen das Scheinwerferlicht zurück.</td></tr><tr><td>Fahrrad-Rücklicht (LED)</td><td><b>Lichtquelle</b></td><td>Es leuchtet mit Batterie oder Dynamo.</td></tr><tr><td>Spiegel</td><td><b>beleuchtet</b></td><td>Er erzeugt kein Licht, er wirft Licht zurück.</td></tr></table>
+<h3>Teil 2: Streuung, Absorption oder Transmission? (Block 5 oder als Puffer)</h3>
+<table><tr><th style="width:32%">Beispiel</th><th style="width:22%">Antwort</th><th>Begründung</th></tr><tr><td>Schwarzes T-Shirt in der Sonne</td><td><b>Absorption</b></td><td>Das Licht wird verschluckt, das Shirt erwärmt sich.</td></tr><tr><td>Weiße Wand</td><td><b>Streuung</b></td><td>Sie wirft Licht in alle Richtungen zurück, deshalb ist sie von überall zu sehen.</td></tr><tr><td>Fensterscheibe</td><td><b>Transmission</b></td><td>Der größte Teil des Lichts geht hindurch.</td></tr><tr><td>Milchglas (Badfenster)</td><td><b>Transmission und Streuung</b></td><td>Licht geht hindurch, wird aber zerstreut. Man erkennt nur Umrisse.</td></tr><tr><td>Sonnenbrille</td><td><b>Absorption und Transmission</b></td><td>Ein Teil des Lichts wird verschluckt, der Rest geht hindurch.</td></tr><tr><td>Solarkollektor mit dunkler Fläche</td><td><b>Absorption</b></td><td>Dunkle Flächen verschlucken viel Licht und werden dadurch warm.</td></tr><tr><td>Zerknitterte Alufolie</td><td><b>Streuung</b></td><td>Die raue Fläche wirft das Licht in viele Richtungen zurück.</td></tr></table>
+<h3>Denkfragen</h3>
+<ol>
+<li><b>D1</b> Im dunklen Zimmer machst du das Licht aus. Warum siehst du nichts mehr, obwohl die Möbel noch da sind?</li>
+<li><b>D2</b> Warum tragen Kinder im Winter Reflexstreifen am Schulranzen?</li>
+<li><b>D3</b> Warum siehst du den Strahl einer Taschenlampe im Nebel, aber nicht in klarer Luft? <span class="chip orange">Zusatz</span></li>
+</ol></section>
+
+<section id="loesungen"><h2>Lösungen</h2>
+<p class="lead">Selbst erstellt.</p>
+<div class="loes">
+<h4>Arbeitsblatt Lichtquellen, Aufgabe 1</h4>
+<div class="kl"><div>Kerze: <b>L</b></div><div>Glühlampe: <b>L</b></div><div>Lagerfeuer: <b>L</b></div><div>Blitz: <b>L</b></div>
+<div>Taschenlampe: <b>L</b></div><div>Sonne: <b>L</b></div><div>Mond: <b>B</b></div><div>Tafel: <b>B</b></div>
+<div>Buch: <b>B</b></div><div>Zimmerpflanze: <b>B</b></div><div>Spielzeugauto: <b>B</b></div></div>
+<h4>Arbeitsblatt Lichtquellen, Aufgabe 2 und 3</h4>
+<p>2 a) z. B. Glühwürmchen, Polarlicht, Sterne. b) z. B. Feuerwerk, Bildschirm, Laser.<br>
+3 Glühlampe und Taschenlampe (beide brauchen elektrischen Strom).</p>
+<div class="warn"><b>Korrektur für Aufgabe 3:</b> Auf dem Blatt steht „erst seit etwa 200 Jahren“. Das ist zu ungenau, die Glühlampe gibt es
+praktisch erst seit etwa 1880. Besser: „erst seit gut 100 Jahren“. Ich ändere das Blatt, sobald du es sagst.</div>
+<h4>Check zu Leitfrage 1 und 2</h4><p>Check 1: 1) b, 2) c. Check 2: 1) a, 2) c.</p>
+<h4>Versuchsblatt „Blatt, Karton, Glasscheibe“</h4>
+<p><b>Beobachtung:</b> Auf dem weißen Blatt ist ein heller, breiter Lichtfleck zu sehen, das Licht wird in viele Richtungen zurückgeworfen.
+Der schwarze Karton bleibt dunkel, das Licht wird verschluckt. Hinter der Glasscheibe ist der Lichtstrahl fast unverändert zu sehen.<br>
+<b>Erklärung:</b> In viele Richtungen <b>gestreut</b>, größtenteils <b>absorbiert</b>, größtenteils <b>durchgelassen</b>.</p>
+<h4>Zusatz</h4>
+<p><b>Z1</b> Streuung: weiße Wand, Papier, Mond. Absorption: schwarze Kleidung, dunkler Asphalt, Solarkollektor. Transmission: Fensterglas, Wasser, klare Folie.<br>
+<b>Z2</b> Das schwarze Shirt absorbiert mehr Licht. Die aufgenommene Energie erwärmt es. Das weiße Shirt streut mehr Licht zurück und bleibt kühler.</p>
+<h4>Denkfragen</h4>
+<p><b>D1</b> Ohne Lichtquelle gibt es kein Licht, das die Möbel zurückwerfen. Es gelangt kein Licht ins Auge.<br>
+<b>D2</b> Die Streifen werfen das Scheinwerferlicht zurück, der Autofahrer sieht das Kind früher.<br>
+<b>D3</b> Im Nebel werfen viele Wassertröpfchen das Licht in dein Auge, in klarer Luft trifft fast nichts dein Auge.</p>
+</div></section>
+
+<section id="ausblick"><h2>Ausblick</h2>
+<p class="lead">Danach: Leitfrage 3 (Lichtausbreitung, Blende, Versuch mit Ray-Box und Blende).</p>
+<h3>Was im Buch noch steckt</h3>
+<p>Das Erlebnis-Physik-Buch (S. 26–49) ist deine Fundgrube, kein Schülerbuch. Ideen und Aufgaben werden abgewandelt und
+in deine Folien oder Blätter gebaut. Reihenfolge im Buch weicht von deiner ab.</p>
+<table><tr><th>Seite</th><th>Inhalt</th><th>Passt zu</th></tr><tr><td style='white-space:nowrap'>S. 27</td><td>Fahrrad: Vorderlicht, Rücklicht, Reflektoren als Aufgabe. Weg des Lichts beim Sehen</td><td>Leitfrage 1, als eigene Aufgabe abgewandelt</td></tr><tr><td style='white-space:nowrap'>S. 28 A</td><td>Sechs Fotos (Glühwürmchen, Vollmond, Radfahrer, Blitz, Freiheitsstatue, LED-Streifen) als Zuordnung</td><td>Leitfrage 1, Folienidee</td></tr><tr><td style='white-space:nowrap'>S. 30–33</td><td>Lichtbündel, Randstrahlen, Modell Lichtstrahl. Schülerversuche: Teelicht durch Gummischlauch, Weg des Lichts mit Alufolie und Rauch</td><td>Leitfrage 3</td></tr><tr><td style='white-space:nowrap'>S. 34–37</td><td>Schatten, Kern- und Halbschatten, drei Schülerversuche (C entspricht deinem Ray-Box-Versuch)</td><td>Leitfrage 4</td></tr><tr><td style='white-space:nowrap'>S. 38–41</td><td>Tag und Nacht, Mondphasen, Finsternisse, Modellversuche mit Globus, Lampe, Papierkugel</td><td>Leitfrage 5</td></tr><tr><td style='white-space:nowrap'>S. 42–45</td><td>Reflexion, Streuung, Absorption, Reflexionsgesetz. Versuche: glatte und zerknitterte Alufolie, Reflexionsgesetz mit Faden und Geodreieck</td><td>Leitfrage 2 und 6</td></tr><tr><td style='white-space:nowrap'>S. 46–49</td><td>Auf einen Blick und Lerncheck mit 25 Aufgaben</td><td>Wiederholung, Klassenarbeit</td></tr></table>
+<h3>Offen</h3>
+<ul>
+<li><b>Wie viele Ray-Boxen hast du?</b> Bei vier oder mehr Gruppenversuch, sonst Demo vorn.</li>
+<li>Stimmt die Annahme, dass Folie 12 (Antwort Leitfrage 1) und Check 1 noch nicht dran waren?</li>
+<li>Arbeitsblatt Lichtquellen, Aufgabe 3: Jahreszahl „200 Jahre“ (siehe „Lösungen“).</li>
+<li>Marker „AB austeilen“ in <i>Optik I.pdf</i> passen nicht zu deinem Ablauf (siehe „Folien“).</li>
+<li>Stoffverteilungsplan: Du liegst eine Woche vor dem Plan. Ich ziehe ihn auf Wunsch nach.</li>
+</ul></section>
+
+<footer>Entwurf. Keine neuen PDFs vor deiner Freigabe. Generator: baue_optik2.py</footer></div></body></html>
