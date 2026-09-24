@@ -120,7 +120,7 @@ show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ue
 
 
 # ------------------------------------------------------------------ Kopiervorlage 2 auf 1
-def zwei_auf_eins(html_name, pdf_name, feld="27mm"):
+def zwei_auf_eins(html_name, pdf_name, feld="27mm", extra_css=""):
     src = (MAT / html_name).read_text(encoding="utf-8")
     a = src.index('<div class="seite">')
     b = src.index('<div class="seite">', a + 10)
@@ -136,7 +136,7 @@ def zwei_auf_eins(html_name, pdf_name, feld="27mm"):
            ".haelfte ol.liste{margin:0 0 1mm}.haelfte ol.liste li{margin-bottom:0.6mm}"
            ".haelfte .versuchskopf .versuchsskizze{flex:0 0 38mm;width:38mm;height:28mm;margin-top:5mm}"
            ".haelfte p.frage{margin:0 0 1mm}.haelfte .zeichenfeld{height:" + feld + "!important;margin:1mm 0 1mm}"
-           ".haelfte .lt{line-height:2.25}.haelfte .luecke{min-width:36mm}</style>")
+           ".haelfte .lt{line-height:2.25}.haelfte .luecke{min-width:36mm}" + extra_css + "</style>")
     tmp = MAT / ("_2auf1_" + html_name)
     tmp.write_text('<!doctype html><html lang="de"><head><meta charset="utf-8"><link rel="stylesheet" href="ab-vorlage.css">'
                    + css + f'</head><body><div class="haelfte">{inner}</div><div class="haelfte"><span class="schere">✂</span>{zweit}</div></body></html>',

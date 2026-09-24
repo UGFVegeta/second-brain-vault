@@ -8,7 +8,7 @@ date: 2026-09-24
 
 Interaktive Unterrichtsseiten im Stil des [[Schattenlabor Halbschatten|Schattenlabors]], eine pro Leitfrage. Zum Zeigen im Unterricht (was im Versuch nicht geht) und als Link für die Schüler zu Hause.
 
-**Startseite:** [Optik-Labore.html](<Optik-Labore.html>) verlinkt alle vier Labore.
+**Startseite:** [Optik-Labore.html](<Optik-Labore.html>) verlinkt alle sechs Labore.
 
 | Leitfrage | Labor | Inhalt |
 |---|---|---|
@@ -16,6 +16,8 @@ Interaktive Unterrichtsseiten im Stil des [[Schattenlabor Halbschatten|Schattenl
 | 2 Was passiert mit dem Licht, wenn es auf einen Körper trifft? | [Körperlabor](<Körperlabor Licht trifft auf Körper.html>) | Versuch W04 nachgestellt, sieben Körper mit Anteilen Streuung/Absorption/Transmission, zerknitterte vs. glatte Alufolie (Buch S. 45 A) |
 | 3 Warum können wir nicht um die Ecke sehen? | [Strahlenlabor](<Strahlenlabor Lichtausbreitung.html>) | Ball hinter Mauer, Versuch W05 mit ein oder zwei Blenden, Teelicht und Schlauch (Buch S. 33 A), Spalt und Lichtbündel, Lichtstrahlenmodell, Nebel, Verkehrsspiegel |
 | 4 Warum hat ein Schatten manchmal weiche Ränder? | [Schattenlabor](<Schattenlabor Halbschatten.html>) | zwei Lichtpunkte, Kern- und Halbschatten mit Reglern, vier Flutlicht-Schatten im Stadion (Buch S. 35), Finsternisse als Ausblick |
+| 5 Warum sieht der Mond nicht immer gleich aus? | [Mondlabor](<Mondlabor Mondphasen und Finsternisse.html>) | vier Wochen Mond, Mondbahn mit Tag-Regler und Ansicht von der Erde, Kugelversuch W08, Sonnenfinsternis mit schiefer Mondbahn, Mondfinsternis mit Blutmond |
+| Lochkamera | [Lochkameralabor](<Lochkameralabor.html>) | Weg des Lichts, Regler für Abstände und Lochgröße (Bildgröße, Unschärfe, Helligkeit), ein/zwei/viele Löcher, Sonnenbilder unter dem Baum |
 
 Jedes Labor hat Kurz-Check, Zusammenfassung mit den Merksätzen der Folien und ein „Probier's aus“ (keine Hausaufgabe). Taste **L** blendet Hinweise für die Lehrkraft ein, **F** schaltet Vollbild, `#s3` am Ende der Adresse springt zu Folie 3.
 

@@ -125,7 +125,8 @@ def w09(loesung):
         + f'<p class="frage lt">{lt}</p>')
 
 
-for html, pdf, titel, fn in (("mondphasen-modell.html", "Mondphasen im Modell W08.pdf", "Versuch Mondphasen im Modell – W08", w08),
-                             ("lochkamera.html", "Lochkamera W09.pdf", "Versuch Lochkamera – W09", w09)):
-    (HIER / html).write_text(dokument(titel, [fn(False), fn(True)]), encoding="utf-8")
-    drucke(html, pdf)
+if __name__ == "__main__":
+    for html, pdf, titel, fn in (("mondphasen-modell.html", "Mondphasen im Modell W08.pdf", "Versuch Mondphasen im Modell – W08", w08),
+                                 ("lochkamera.html", "Lochkamera W09.pdf", "Versuch Lochkamera – W09", w09)):
+        (HIER / html).write_text(dokument(titel, [fn(False), fn(True)]), encoding="utf-8")
+        drucke(html, pdf)

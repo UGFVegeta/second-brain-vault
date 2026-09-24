@@ -531,17 +531,242 @@ def sicheln():
     return z.svg()
 
 
+# ================================================================ Optik II (Spiegel, Brechung, Linsen)
+WASSER, GLAS, SPIEGEL = "#BFE0F0", "#CFE4F2", "#66798E"
+N_WASSER = 1.33
+
+
+def spiegel_senkrecht(z, x, y0, y1, rechts=True):
+    """Spiegel als dicke Linie mit Schraffur auf der Rückseite."""
+    z.rect(x - 2, y0, 4, y1 - y0, SPIEGEL)
+    d = 10 if rechts else -10
+    for y in range(int(y0) + 8, int(y1), 16):
+        z.line(x + (2 if rechts else -2), y, x + d, y - 8, "#9AAAC0", 1.2)
+    return z
+
+
+def person(z, x, kopf, fuss, op=1.0, arm=0):
+    """Strichfigur: Kopf oben bei y=kopf (Scheitel), Füße bei y=fuss. arm = +1 rechts gehoben, -1 links gehoben."""
+    h = fuss - kopf
+    r = h * 0.09
+    cy = kopf + r
+    z.add(f'<g opacity="{op}"><circle cx="{x}" cy="{cy:.1f}" r="{r:.1f}" fill="#C9B6A0"/>'
+          f'<rect x="{x - r * 0.75:.1f}" y="{cy + r:.1f}" width="{r * 1.5:.1f}" height="{h * 0.4:.1f}" rx="{r * 0.4:.1f}" fill="#3B4A63"/>'
+          f'<line x1="{x - r * 0.4:.1f}" y1="{cy + r + h * 0.4:.1f}" x2="{x - r * 0.6:.1f}" y2="{fuss}" stroke="#3B4A63" stroke-width="{r * 0.6:.1f}" stroke-linecap="round"/>'
+          f'<line x1="{x + r * 0.4:.1f}" y1="{cy + r + h * 0.4:.1f}" x2="{x + r * 0.6:.1f}" y2="{fuss}" stroke="#3B4A63" stroke-width="{r * 0.6:.1f}" stroke-linecap="round"/>')
+    if arm:
+        z.add(f'<line x1="{x + arm * r * 0.7:.1f}" y1="{cy + r * 1.6:.1f}" x2="{x + arm * r * 2.4:.1f}" y2="{cy - r * 0.6:.1f}" stroke="#3B4A63" stroke-width="{r * 0.55:.1f}" stroke-linecap="round"/>')
+    return z.add('</g>')
+
+
+def winkelbogen(z, M, a0, a1, r, col="#66798E"):
+    """Bogen um M von Winkel a0 bis a1 (Grad, mathematisch, y nach oben)."""
+    x0, y0 = M[0] + r * math.cos(math.radians(a0)), M[1] - r * math.sin(math.radians(a0))
+    x1, y1 = M[0] + r * math.cos(math.radians(a1)), M[1] - r * math.sin(math.radians(a1))
+    sweep = 0 if a1 > a0 else 1
+    return z.add(f'<path d="M{x0:.1f} {y0:.1f} A{r} {r} 0 0 {sweep} {x1:.1f} {y1:.1f}" fill="none" stroke="{col}" stroke-width="1.3"/>')
+
+
+def beobachte_spiegel():
+    z = Z("bs", 245)
+    spiegel_senkrecht(z, 318, 30, 200)
+    person(z, 190, 64, 196, arm=-1)
+    person(z, 446, 64, 196, op=0.45, arm=1)
+    z.line(190, 214, 314, 214, "#9AAAC0", 1, "4 4").line(322, 214, 446, 214, "#9AAAC0", 1, "4 4")
+    z.text(190, 236, "du", "middle").text(318, 236, "Spiegel", "middle").text(446, 236, "dein Spiegelbild", "middle")
+    return z.svg()
+
+
+def reflexionsgesetz():
+    z = Z("rg")
+    M, L, a = (320, 160), 110, 40
+    z.rect(118, 160, 402, 4, SPIEGEL)
+    for x in range(126, 520, 22):
+        z.line(x, 166, x - 8, 176, "#9AAAC0", 1.2)
+    z.line(320, 24, 320, 160, "#9AAAC0", 1.2, "4 4").text(328, 34, "Lot")
+    ex, ey = M[0] - L * math.sin(math.radians(a)), M[1] - L * math.cos(math.radians(a))
+    rx, ry = M[0] + L * math.sin(math.radians(a)), M[1] - L * math.cos(math.radians(a))
+    z.pfeil(ex - (M[0] - ex) * .2, ey - (M[1] - ey) * .2, M[0] - 1, M[1] - 1, GELB, 2.4)
+    z.pfeil(M[0], M[1], rx + (rx - M[0]) * .2, ry + (ry - M[1]) * .2, GELB, 2.4)
+    winkelbogen(z, M, 90, 90 + a, 46)
+    winkelbogen(z, M, 90 - a, 90, 52)
+    z.formel(302, 110, "α", anchor="middle").formel(340, 110, "β", anchor="middle")
+    z.text(ex - 30, ey - 22, "einfallender Strahl", "middle").text(rx + 30, ry - 22, "reflektierter Strahl", "middle")
+    z.formel(250, 202, "α = β", anchor="middle")
+    z.text(282, 200, "Einfallswinkel = Reflexionswinkel", size=10)
+    return z.svg()
+
+
+def spiegelbild():
+    z = Z("sb")
+    SX, g = 318, 140
+    spiegel_senkrecht(z, SX, 16, 190)
+    G, B = 178, SX + (SX - 178)
+    E = (208, 168)
+    kerze_oben, kerze_fuss = 68, 142
+    for x, op in ((G, 1), (B, .4)):
+        z.add(f'<g opacity="{op}"><rect x="{x - 8}" y="96" width="16" height="46" rx="2" fill="#F5E6C8" stroke="#C6B48E"/>'
+              f'<path d="M{x} 96 q-10 -14 0 -28 q10 14 0 28z" fill="#FFB627" stroke="{ORANGE}" stroke-width="1.2"/></g>')
+    z.glow(G, 80, 22)
+    for (yo, c) in ((kerze_oben, ORANGE), (kerze_fuss, CYAN)):
+        ym = gerade((B, yo), E, SX)  # Sichtlinie vom Bildpunkt zum Auge trifft den Spiegel
+        z.line(G, yo, SX, ym, c, 2).pfeil(SX, ym, E[0] + 16, gerade((SX, ym), E, E[0] + 16), c, 2)
+        z.line(SX, ym, B, yo, c, 1.4, "5 4", .7)
+    z.auge(*E, -1, .75)
+    z.line(G, 200, SX - 4, 200, "#9AAAC0", 1, "3 4").line(SX + 4, 200, B, 200, "#9AAAC0", 1, "3 4")
+    z.formel((G + SX) / 2, 198, "g", anchor="middle").formel((SX + B) / 2, 198, "g", anchor="middle")
+    z.text(G - 16, 124, "Gegenstand", "end").text(B + 16, 124, "virtuelles Bild").text(SX, 208, "Spiegel", "middle", 9)
+    return z.svg()
+
+
+def spiegelgroesse():
+    z = Z("sg")
+    SX, P = 360, 150
+    kopf, fuss = 26, 190
+    auge = kopf + 0.07 * (fuss - kopf)
+    B = SX + (SX - P)
+    oben, unten = (kopf + auge) / 2, (auge + fuss) / 2
+    z.rect(SX - 1, 8, 2, 196, "#C8A57A")
+    z.rect(SX - 3, oben, 6, unten - oben, SPIEGEL)
+    person(z, P, kopf, fuss)
+    person(z, B, kopf, fuss, op=.4)
+    z.add(f'<circle cx="{P + 5}" cy="{auge:.1f}" r="2.4" fill="#05080F"/>')
+    for yk, c in ((kopf, ORANGE), (fuss, CYAN)):
+        ym = (yk + auge) / 2
+        z.line(P, yk, SX, ym, c, 2).pfeil(SX, ym, P + 8, auge, c, 2)
+        z.line(SX, ym, B, yk, c, 1.3, "5 4", .7)
+    z.line(SX + 12, oben, SX + 12, unten, "#66798E", 1.2)
+    z.text(SX + 18, (oben + unten) / 2 - 4, "Spiegel:", size=9.5).text(SX + 18, (oben + unten) / 2 + 10, "halbe Körpergröße", size=9.5)
+    z.text(P, 208, "Betrachter", "middle").text(B, 208, "Spiegelbild", "middle")
+    return z.svg()
+
+
+def beobachte_strohhalm():
+    z = Z("sh", 245)
+    z.add(f'<path d="M232 40 h150 l-14 160 h-122z" fill="#F4F9FC" stroke="#9AAAC0" stroke-width="1.5"/>'
+          f'<path d="M239 96 h136 l-9 104 h-118z" fill="{WASSER}" fill-opacity=".8"/>')
+    z.line(239, 96, 375, 96, "#6E9BB8", 1.5)
+    z.add('<line x1="286" y1="18" x2="316" y2="96" stroke="#D2553A" stroke-width="7" stroke-linecap="round"/>'
+          '<line x1="316" y1="96" x2="332" y2="190" stroke="#D2553A" stroke-width="7" stroke-linecap="round" opacity=".85"/>')
+    z.text(392, 100, "Wasseroberfläche").text(180, 40, "Strohhalm", "middle").text(404, 170, "Warum sieht er").text(404, 184, "geknickt aus?")
+    return z.svg()
+
+
+def brechung_winkel(a_deg, n1, n2):
+    s = n1 * math.sin(math.radians(a_deg)) / n2
+    return math.degrees(math.asin(s)) if abs(s) <= 1 else None
+
+
+def lichtbrechung():
+    z = Z("lb2")
+    M, a = (318, 120), 45
+    b = brechung_winkel(a, 1.0, N_WASSER)
+    z.rect(90, 120, 456, 78, WASSER, .75)
+    z.line(90, 120, 546, 120, "#6E9BB8", 2)
+    z.text(100, 112, "Luft").text(100, 146, "Wasser")
+    z.line(318, 26, 318, 198, "#9AAAC0", 1.2, "4 4").text(324, 36, "Lot")
+    L1, L2 = 100, 90
+    E = (M[0] - L1 * math.sin(math.radians(a)), M[1] - L1 * math.cos(math.radians(a)))
+    Bp = (M[0] + L2 * math.sin(math.radians(b)), M[1] + L2 * math.cos(math.radians(b)))
+    R = (M[0] + L1 * math.sin(math.radians(a)), M[1] - L1 * math.cos(math.radians(a)))
+    z.pfeil(*E, M[0] - 1, M[1] - 1, GELB, 2.4)
+    z.pfeil(*M, *Bp, GELB, 2.4)
+    z.pfeil(*M, *R, GELB, 1.4)
+    winkelbogen(z, M, 90, 90 + a, 40)
+    winkelbogen(z, M, -90, -90 + b, 44)
+    z.formel(300, 94, "α", anchor="middle").formel(330, 168, "β", anchor="middle")
+    z.text(E[0] - 16, E[1] - 12, "einfallender Strahl", "end").text(Bp[0] + 12, Bp[1] - 2, "gebrochener Strahl")
+    z.text(R[0] + 10, R[1] - 6, "ein kleiner Teil wird reflektiert", size=9.5)
+    z.formel(470, 160, "β &lt; α", anchor="middle").text(470, 176, "zum Lot hin gebrochen", "middle", 9.5)
+    return z.svg()
+
+
+def brechungsrichtung():
+    z = Z("br")
+    z.line(318, 14, 318, 198, "#A3B7D3", 1, "5 4")
+    a = 45
+    b = brechung_winkel(a, 1.0, N_WASSER)
+    for X0, von_luft in ((155, True), (481, False)):
+        z.rect(X0 - 125, 94, 250, 76, WASSER, .75).line(X0 - 125, 94, X0 + 125, 94, "#6E9BB8", 1.6)
+        z.line(X0, 26, X0, 188, "#9AAAC0", 1.1, "4 4")
+        M = (X0, 94)
+        pl = (X0 - 70 * math.sin(math.radians(a)), 94 - 70 * math.cos(math.radians(a)))
+        pw = (X0 + 80 * math.sin(math.radians(b)), 94 + 80 * math.cos(math.radians(b)))
+        if von_luft:
+            z.pfeil(*pl, M[0] - 1, M[1] - 1, GELB, 2.2).pfeil(*M, *pw, GELB, 2.2)
+        else:
+            q = (X0 - 80 * math.sin(math.radians(b)), 94 + 80 * math.cos(math.radians(b)))
+            r = (X0 + 70 * math.sin(math.radians(a)), 94 - 70 * math.cos(math.radians(a)))
+            z.pfeil(*q, M[0] - 1, M[1] + 1, GELB, 2.2).pfeil(*M, *r, GELB, 2.2)
+        z.text(X0 - 118, 46, "Luft").text(X0 - 118, 120, "Wasser")
+    z.text(155, 206, "zum Lot hin", "middle", weight=600).text(481, 206, "vom Lot weg", "middle", weight=600)
+    return z.svg()
+
+
+def beobachte_lupe():
+    z = Z("bl2", 245)
+    z.rect(60, 40, 516, 160, "#FFFDF6", 1, 4).add('<rect x="60" y="40" width="516" height="160" rx="4" fill="none" stroke="#C8A57A"/>')
+    for y, w in ((72, 204), (96, 164), (152, 204), (176, 144)):
+        z.line(96, y, 96 + w, y, "#9AAAC0", 3)
+    z.add(f'<circle cx="410" cy="122" r="66" fill="#FFFFFF" stroke="{SPIEGEL}" stroke-width="5"/>'
+          f'<circle cx="410" cy="122" r="62" fill="{GLAS}" fill-opacity=".25"/>')
+    for y, w in ((104, 104), (140, 78)):
+        z.line(362, y, 362 + w, y, "#9AAAC0", 7)
+    z.line(456, 170, 510, 216, SPIEGEL, 9)
+    z.text(190, 222, "Text auf dem Blatt", "middle").text(410, 222, "unter der Lupe", "middle")
+    return z.svg()
+
+
+def linsen():
+    z = Z("li")
+    z.line(318, 14, 318, 198, "#A3B7D3", 1, "5 4")
+    # Sammellinse
+    A, LX, f = 106, 150, 80
+    z.line(30, A, 296, A, "#9AAAC0", 1, "4 4")
+    z.add(f'<path d="M{LX} 56 Q{LX + 26} 106 {LX} 156 Q{LX - 26} 106 {LX} 56z" fill="{GLAS}" stroke="#6E9BB8" stroke-width="1.4"/>')
+    F = LX + f
+    for y in (76, 106, 136):
+        z.line(36, y, LX, y, GELB, 2)
+        xe = 292
+        z.pfeil(LX, y, xe, gerade((LX, y), (F, A), xe), GELB, 2)
+    z.add(f'<circle cx="{F}" cy="{A}" r="3.2" fill="{INK}"/>').formel(F, A + 22, "F", anchor="middle")
+    z.text(150, 186, "Sammellinse", "middle", weight=600).text(150, 200, "bündelt das Licht", "middle", 9.5)
+    # Zerstreuungslinse
+    LX2, f2 = 470, 72
+    z.line(346, A, 606, A, "#9AAAC0", 1, "4 4")
+    z.add(f'<path d="M{LX2 - 18} 56 Q{LX2} 106 {LX2 - 18} 156 L{LX2 + 18} 156 Q{LX2} 106 {LX2 + 18} 56z" fill="{GLAS}" stroke="#6E9BB8" stroke-width="1.4"/>')
+    F2 = LX2 - f2
+    for y in (86, 106, 126):
+        z.line(352, y, LX2, y, GELB, 2)
+        xe = 600
+        z.pfeil(LX2, y, xe, gerade((F2, A), (LX2, y), xe), GELB, 2)
+        if y != A:
+            z.line(LX2, y, F2, A, "#9AAAC0", 1.1, "4 4")
+    z.add(f'<circle cx="{F2}" cy="{A}" r="3.2" fill="{INK}"/>').formel(F2, A + 22, "F", anchor="middle")
+    z.text(470, 186, "Zerstreuungslinse", "middle", weight=600).text(470, 200, "zerstreut das Licht", "middle", 9.5)
+    return z.svg()
+
+
+ZEICHNUNGEN_II = {2: beobachte_spiegel, 5: reflexionsgesetz, 9: spiegelbild, 11: spiegelgroesse, 15: beobachte_strohhalm,
+                  18: lichtbrechung, 20: brechungsrichtung, 24: beobachte_lupe, 27: linsen}
+
+
 ZEICHNUNGEN = {1: einstieg_baelle, 6: beobachte_licht_an, 9: wie_sehen, 11: lichtquellen_beleuchtet, 15: beobachte_drei_koerper, 18: vier_moeglichkeiten,
                22: beobachte_mauer, 25: ausbreitung, 27: modell, 31: beobachte_lampen, 34: schattenraum, 36: kern_halbschatten,
                42: beobachte_mond, 45: mondbahn, 47: mondphasen, 49: sonnenfinsternis, 51: mondfinsternis, 56: lochkamera, 61: sicheln}
 
-if __name__ == "__main__":
-    p = HIER / "Optik I.html"
+def ersetze(datei, tabelle):
+    p = HIER / datei
     s = p.read_text(encoding="utf-8")
     teile = re.split(r'(<section class="folie[^"]*">.*?</section>)', s, flags=re.S)
     idx = [i for i, t in enumerate(teile) if t.startswith('<section class="folie')]
-    for seite, fn in ZEICHNUNGEN.items():
+    for seite, fn in tabelle.items():
         i = idx[seite - 1]
         teile[i] = re.sub(r"<svg.*?</svg>", lambda m: fn(), teile[i], count=1, flags=re.S)
     p.write_text("".join(teile), encoding="utf-8")
-    print("ersetzt:", ", ".join(f"S. {k}" for k in ZEICHNUNGEN))
+    print(datei, "ersetzt:", ", ".join(f"S. {k}" for k in tabelle))
+
+
+if __name__ == "__main__":
+    ersetze("Optik I.html", ZEICHNUNGEN)
+    ersetze("Optik II.html", ZEICHNUNGEN_II)

@@ -152,3 +152,31 @@ bau_stunde("Optik – Lochkamera – Stunde.html", "Optik: Die Lochkamera und R�
            ["Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.",
             "Folien und Lösungen: nicht drucken."],
            LK_MATERIAL, LK_SCHRITTE, LK, LK_HG, LK_AB)
+
+# ====================================================================== Export nach iCloud (freigegeben 24.09.2026)
+import shutil, sys
+if "export" in sys.argv:
+    from stunde_vorlage import exportiere, materialliste, MAT, ICL
+    VORLAGE = ICL / "F4 Kern- und Halbschatten (W06-07)"
+    for ordner, chip_text, titel, mat, ab, ab21, folge, fpdf, shtml, hname, links in (
+        (ICL / "F5 Mondphasen und Finsternisse (W08)", "W08", "F5 — Mondphasen und Finsternisse", F5_MATERIAL,
+         "Mondphasen im Modell W08.pdf", "Mondphasen im Modell W08 – 2 auf 1.pdf", F5, "Folien F5.pdf", "Stunde Leitfrage 5.html",
+         "Optik – Leitfrage 5 – Stunde.html", {"Mondlabor Mondphasen und Finsternisse.html": "../Labore/Mondlabor Mondphasen und Finsternisse.html"}),
+        (ICL / "Lochkamera und Rückblick (W09)", "W09", "Lochkamera und Rückblick Optik I", LK_MATERIAL,
+         "Lochkamera W09.pdf", "Lochkamera W09 – 2 auf 1.pdf", LK, "Folien Lochkamera.pdf", "Stunde Lochkamera.html",
+         "Optik – Lochkamera – Stunde.html", {"Lochkameralabor.html": "../Labore/Lochkameralabor.html"}),
+    ):
+        ordner.mkdir(exist_ok=True)
+        kurz = "F5" if "F5" in fpdf else "Lochkamera"
+        shutil.copy(VORLAGE / "Materialliste.html", ordner / "Materialliste.html")
+        (ordner / "Gesamt.html").write_text((VORLAGE / "Gesamt.html").read_text(encoding="utf-8").replace("W06–07", chip_text), encoding="utf-8")
+        shutil.copy(MAT / ab, ordner / f"Arbeitsblatt {kurz}.pdf")
+        shutil.copy(MAT / ab21, ordner / f"Arbeitsblatt {kurz} – Kopiervorlage 2 auf 1.pdf")
+        materialliste(ordner, chip_text, titel, mat)
+        links = dict(links, **{f"Materialien/{ab}": f"Arbeitsblatt {kurz}.pdf", f"Materialien/{ab21}": f"Arbeitsblatt {kurz} – Kopiervorlage 2 auf 1.pdf",
+                               "Optik-Labore.html": "../Labore/Optik-Labore.html"})
+        exportiere(folge, ordner, fpdf, f"Arbeitsblatt {kurz}.pdf", shtml, hname, links)
+    for f in ("Optik-Labore.html", "Sehlabor Lichtquellen.html", "Körperlabor Licht trifft auf Körper.html", "Strahlenlabor Lichtausbreitung.html",
+              "Schattenlabor Halbschatten.html", "Mondlabor Mondphasen und Finsternisse.html", "Lochkameralabor.html"):
+        shutil.copy(f, ICL / "Labore" / f)
+    print("Labore kopiert")
