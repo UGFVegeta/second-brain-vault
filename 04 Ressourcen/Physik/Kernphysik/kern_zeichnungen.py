@@ -218,6 +218,48 @@ def durchdringung():
     return z.svg()
 
 
+# ---------------------------------------------------------------- neue Folien (nicht in Kernphysik.html)
+def zeitstrahl():
+    """Wie man das Atom entdeckte: vom Begriff bis zum Neutron."""
+    z = Z("zt")
+    z.pfeil(20, 120, 620, 120, "#66798E", 2.2, 10)
+    daten = [(60, "ca. 400 v. Chr.", "Demokrit", "Begriff Atom"), (160, "1803", "Dalton", "Atomsorten"),
+             (260, "1897", "Thomson, Wiechert", "Elektron"), (360, "1911", "Rutherford", "Kern und Hülle"),
+             (460, "1919", "Rutherford", "Proton"), (560, "1932", "Chadwick", "Neutron")]
+    for i, (x, j, n, w) in enumerate(daten):
+        z.add(f'<circle cx="{x}" cy="120" r="6" fill="#FFFFFF" stroke="#66798E" stroke-width="2"/>')
+        oben = i % 2 == 0
+        y1, y2, y3 = (72, 88, 104) if oben else (144, 160, 176)
+        z.text(x, y1, j, "middle", 10, 600).text(x, y2, n, "middle", 9.5).text(x, y3, w, "middle", 9.5)
+    kern(z, 360, 30, 3, 3, r=5)
+    elektron(z, 260, 30, 5)
+    teilchen(z, 460, 30, 7, PROTON)
+    teilchen(z, 560, 30, 7, NEUTRON)
+    z.text(318, 206, "Von der Idee zum Kern-Hülle-Modell", "middle", 9.5)
+    return z.svg()
+
+
+def efeld():
+    """Ablenkung von α, β und γ im elektrischen Feld."""
+    z = Z("ef")
+    z.rect(150, 20, 330, 10, "#E8604A", .9).rect(150, 182, 330, 10, "#0B8FB8", .9)
+    z.text(490, 29, "+ Pluspol").text(490, 191, "− Minuspol")
+    z.add('<path d="M40 118 h60 l-8 -24 h-44z" fill="#9FB2CF"/>')
+    z.glow(70, 100, 14)
+    z.text(70, 136, "Strahler", "middle", 9.5)
+    # gamma geradeaus
+    welle(z, 100, 106, 600, VIOLETT)
+    # alpha leicht zum Minuspol, beta stark zum Pluspol (Parabelbahnen, qualitativ)
+    import math as _m
+    pa = " ".join(f"{x:.0f},{106 + 0.00022 * (x - 100) ** 2:.1f}" for x in range(100, 601, 20))
+    pb = " ".join(f"{x:.0f},{106 - 0.0040 * (x - 100) ** 2:.1f}" for x in range(100, 262, 6))
+    z.add(f'<polyline points="{pa}" fill="none" stroke="{ORANGE}" stroke-width="2.4"/>')
+    z.add(f'<polyline points="{pb}" fill="none" stroke="{CYAN}" stroke-width="2.4"/>')
+    z.text(606, 170, "α", size=12).text(248, 40, "β", size=12).text(606, 100, "γ", size=12)
+    z.text(318, 206, "α zum Minuspol, β stark zum Pluspol, γ gar nicht", "middle", 9.5)
+    return z.svg()
+
+
 ZEICHNUNGEN = {2: stadion, 5: aufbau, 7: isotope, 11: zaehlrohr, 14: radioaktivitaet, 16: abg, 18: gleichungen, 20: durchdringung}
 
 if __name__ == "__main__":
