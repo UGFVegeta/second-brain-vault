@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kernphysik: Woraus besteht Materie?</title>
+<link rel="stylesheet" href="../Optik/folien.css">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav button{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}
+nav button:hover{background:#e3e3dc}nav button.on{background:#1b1b1b;color:#fff}
+.tab{display:none;padding:26px 0 60px}.tab.on{display:block}
+h2{font-size:22px;margin:0 0 10px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}.box h3{margin:8px 0 6px;font-size:17px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.schr{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}.schr:last-child{border:0}
+.schr .n{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}
+.schr .m{color:#555;font-size:15px}.go{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.go button{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}
+.karte{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}
+.karte .folie{page-break-after:auto}
+.atab{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}
+.atab th,.atab td{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}.atab th{color:#66798e;font-size:10pt}
+a.btn{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}.t th{background:#f5f5f1}
+
+
+.bildzone{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}.bildzone svg{width:100%;height:100%;display:block}
+.fnr{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}
+
+.blattkarte{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}.blattbild{display:block;width:100%;border:1px solid #c8d0dc}
+.austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
+.box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
+.fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
+
+  /* Farbcode der Kernbausteine, gilt fuer den ganzen Satz */
+  svg .proton   { fill: #D24B4B; stroke: #8E2B2B; stroke-width: .8; }
+  svg .neutron  { fill: #8DA6C2; stroke: #4E6480; stroke-width: .8; }
+  svg .elektron { fill: #E6C72E; stroke: #B98900; stroke-width: .8; }
+  svg .kernlinie{ stroke: #8A8A8A; stroke-width: 1; fill: none; }
+  svg .nuklid   { font-family: "Avenir Next", Helvetica, sans-serif; font-size: 19px; fill: #111; }
+  svg .nuklid .idx { font-size: 10.5px; }
+  svg .strahl-a { stroke: #D24B4B; stroke-width: 2.6; fill: none; }
+  svg .strahl-b { stroke: #2E6BB8; stroke-width: 2.6; fill: none; }
+  svg .strahl-g { stroke: #7A4BAF; stroke-width: 2.6; fill: none; }
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Kernphysik: Woraus besteht Materie?</h1>
+<p class="sub">Klasse 10 · Physik · W01 (Woche ab 14.09.2026) · Einstieg Leitfrage 1</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Drucken</h3><ul><li>Arbeitsblatt Wiederholung Atombau: Seite 1, eins pro Schüler.</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
+<div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td colspan="3" class="leer">nicht nötig</td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Periodensystem</td><td class="anz">1×</td><td>aus dem Chemiebuch oder als Kopie</td></tr></table></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Einstieg</div><div class="z1" style="flex:1">2 · Größen</div><div class="z2" style="flex:1">3 · Vorwissen</div></div><div class="schr"><span class="n">1</span><div><b>Einstieg</b><br><span class="m">Stadion und Erbse, Leitfrage 1, Vermutungen.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Größen</b><br><span class="m">Wie klein ist ein Atom? Zoom im Atomlabor.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Vorwissen</b><br><span class="m">Arbeitsblatt Wiederholung Atombau.</span></div><div class="go"><button data-go=f4>Folie 4</button></div></div></div>
+</div>
+<div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ksgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="kswa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="ksball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><ellipse cx="180" cy="130" rx="130" ry="82" fill="#E6F0DC" stroke="#9AAAC0" stroke-width="2"/><ellipse cx="180" cy="130" rx="98" ry="58" fill="#D3E6C4"/><circle cx="180" cy="130" r="10" fill="url(#ksgl)"/><circle cx="180" cy="130" r="3" fill="#E8604A"/><text x="180.0" y="34.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="600" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Modell: ein Fußballstadion</text><text x="180.0" y="160.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Kern: eine Erbse</text><text x="180.0" y="230.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Wäre das Atom so groß wie ein Stadion,</text><text x="180.0" y="243.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">wäre der Kern eine Erbse in der Mitte.</text><line x1="330.0" y1="130.0" x2="376.0" y2="130.0" stroke="#66798E" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="384.0,130.0 375.0,134.1 375.0,126.0" fill="#66798E" fill-opacity="1"/><circle cx="500" cy="130" r="78" fill="none" stroke="#9AAAC0" stroke-width="1.1" stroke-dasharray="4 4"/><circle cx="500" cy="130" r="48" fill="none" stroke="#9AAAC0" stroke-width="1.1" stroke-dasharray="4 4"/><circle cx="504.5" cy="130.0" r="6" fill="#E8604A" stroke="#FFFFFF" stroke-width="1"/><circle cx="494.3" cy="135.2" r="6" fill="#E8604A" stroke="#FFFFFF" stroke-width="1"/><circle cx="500.9" cy="120.1" r="6" fill="#E8604A" stroke="#FFFFFF" stroke-width="1"/><circle cx="507.2" cy="139.4" r="6" fill="#8FA3BD" stroke="#FFFFFF" stroke-width="1"/><circle cx="486.8" cy="127.7" r="6" fill="#8FA3BD" stroke="#FFFFFF" stroke-width="1"/><circle cx="512.5" cy="122.1" r="6" fill="#8FA3BD" stroke="#FFFFFF" stroke-width="1"/><circle cx="495.8" cy="145.5" r="6" fill="#8FA3BD" stroke="#FFFFFF" stroke-width="1"/><circle cx="573.3" cy="103.3" r="9" fill="#0B8FB8" fill-opacity=".18"/><circle cx="573.3" cy="103.3" r="5" fill="#0B8FB8"/><circle cx="458.4" cy="106.0" r="9" fill="#0B8FB8" fill-opacity=".18"/><circle cx="458.4" cy="106.0" r="5" fill="#0B8FB8"/><circle cx="486.5" cy="206.8" r="9" fill="#0B8FB8" fill-opacity=".18"/><circle cx="486.5" cy="206.8" r="5" fill="#0B8FB8"/><text x="500.0" y="34.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="600" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Atom</text><text x="590.0" y="134.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Hülle</text></svg>
+  </div>
+  <div class="impulstext">Fast das ganze Atom ist leer. Trotzdem steckt im winzigen Kern fast die gesamte Masse.</div>
+</section></div><div class="fnr">Folie 2</div><div class="karte" id="f2"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 1</div>
+    <h2>Woraus besteht Materie?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section></div><div class="fnr">Folie 3</div><div class="karte" id="f3"><section class="folie"><div class="titelband"><h1>Wie klein ist ein Atom?</h1></div><div class="zeichenzone karo"><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>Gegenstand</th><th>Größe</th><th>zum Vergleich</th></tr><tr><td>Haar</td><td><b>etwa 0,1 mm dick</b></td><td>Nebeneinander passen etwa eine Million Atome darauf.</td></tr><tr><td>Bakterie</td><td><b>etwa 0,001 mm</b></td><td>Im Lichtmikroskop gerade noch zu sehen.</td></tr><tr><td>Atom</td><td><b>etwa 0,000 000 1 mm</b></td><td>Kein Lichtmikroskop kann es zeigen.</td></tr><tr><td>Atomkern</td><td><b>etwa 100 000-mal kleiner als das Atom</b></td><td>Fast die ganze Masse steckt darin.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Wie viele Atome liegen nebeneinander auf der Dicke eines Haars?</div></section></div><div class="fnr">Folie 4 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f4"><div class="austeil">📄 Arbeitsblatt austeilen: Vorwissen aus Chemie</div><img class="blattbild" src="Materialien/assets/blatt-k01-loesung.png" alt=""></div></div>
+<div class="tab" id="t_hg">
+<div class="box"><h3>Größenordnungen <button class="fchip" data-go="f1">Folie 1</button><button class="fchip" data-go="f3">Folie 3</button></h3><ul>
+<li>Atomdurchmesser etwa 10⁻¹⁰ m, Kerndurchmesser etwa 10⁻¹⁵ bis 10⁻¹⁴ m. Das Verhältnis liegt bei 10 000 bis 100 000.</li>
+<li>Fast die gesamte Masse steckt im Kern. Ein Proton ist rund 1800-mal so schwer wie ein Elektron.</li>
+<li>Der Nachweis kam mit Rutherfords Streuversuch (1909 bis 1911): Fast alle α-Teilchen fliegen durch eine Goldfolie, nur sehr wenige prallen zurück. Im Atomlabor als Simulation.</li>
+<li><b>Typische Fehlvorstellungen:</b> Das Atom ist eine volle Kugel. Elektronen kreisen auf festen Bahnen wie Planeten. Atome kann man mit dem Mikroskop sehen.</li></ul></div>
+<div class="box"><h3>Vorwissen aus Chemie <button class="fchip" data-go="f4">Folie 4</button></h3><ul>
+<li>Das Arbeitsblatt holt das Schalenmodell und das Periodensystem aus Klasse 8 und 9 zurück. Lücken zeigen, was in der nächsten Stunde noch einmal kommen muss.</li></ul></div>
+<div class="box"><h3>Atomlabor</h3><a class="btn" href="Atomlabor Atombau und Isotope.html">Labor öffnen</a><p>Zoom vom Atom auf den Kern, Rutherfords Streuversuch mit Teilchenzahl-Regler, Atom bauen, Isotope.</p></div></div>
+<div class="tab" id="t_ab"><div class="box"><h3>Arbeitsblatt Wiederholung Atombau <button class="fchip" data-go="f4">Folie 4</button></h3><a class="btn" href="Materialien/Wiederholung Atombau.pdf">PDF öffnen</a>
+<p><b>Lösung:</b> Seite 2 des PDFs.</p></div></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+</script></body></html>

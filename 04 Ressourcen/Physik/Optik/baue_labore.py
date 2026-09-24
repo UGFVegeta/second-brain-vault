@@ -91,60 +91,66 @@ LABORE = [
     ("Linsenlabor Sammel- und Zerstreuungslinse.html", "Linsenlabor", "Physik · Optik · Klasse 7 · Leitfrage 8", "linsenlabor.js"),
 ]
 
-for datei, titel, brand, js in LABORE:
-    html = seite(titel, brand, (Q / js).read_text(encoding="utf-8"))
-    (HIER / datei).write_text(html, encoding="utf-8")
+def baue(ziel, datei, titel, brand, js_pfad):
+    html = seite(titel, brand, Path(js_pfad).read_text(encoding="utf-8"))
+    (Path(ziel) / datei).write_text(html, encoding="utf-8")
     print("geschrieben:", datei, f"({len(html) // 1024} KB)")
 
-# Schattenlabor: Schriften einbetten statt von Google laden
-if FONT_LINKS.search(_src):
-    neu = FONT_LINKS.sub("", _src).replace("<style>", "<style>\n" + FONT_CSS, 1)
-    SCHATTEN.write_text(neu, encoding="utf-8")
-    print("Schattenlabor: Schriften eingebettet")
 
-# Startseite mit allen Laboren (ein Link für die Schüler)
-KARTEN = [
-    ("Leitfrage 1", "Sehlabor", "Warum sehen wir überhaupt etwas? Sender, Empfänger, Lichtquellen und beleuchtete Körper.", "Sehlabor Lichtquellen.html"),
-    ("Leitfrage 2", "Körperlabor", "Was passiert mit dem Licht, wenn es auf einen Körper trifft? Streuung, Absorption, Transmission.", "Körperlabor Licht trifft auf Körper.html"),
-    ("Leitfrage 3", "Strahlenlabor", "Warum können wir nicht um die Ecke sehen? Blenden, Lichtbündel und das Lichtstrahlenmodell.", "Strahlenlabor Lichtausbreitung.html"),
-    ("Leitfrage 4", "Schattenlabor", "Warum hat ein Schatten manchmal weiche Ränder? Kernschatten und Halbschatten.", "Schattenlabor Halbschatten.html"),
-    ("Leitfrage 5", "Mondlabor", "Warum sieht der Mond nicht immer gleich aus? Mondphasen, Sonnen- und Mondfinsternis.", "Mondlabor Mondphasen und Finsternisse.html"),
-    ("Lochkamera", "Lochkameralabor", "Warum steht das Bild auf dem Kopf? Größe, Schärfe und Helligkeit, Sonnenbilder unter dem Baum.", "Lochkameralabor.html"),
-    ("Leitfrage 6", "Spiegellabor", "Was passiert mit dem Licht am Spiegel? Reflexionsgesetz, Spiegelbild, Spiegelgröße.", "Spiegellabor Reflexion.html"),
-    ("Leitfrage 7", "Brechungslabor", "Warum sieht der Strohhalm im Wasser geknickt aus? Brechung, Halbzylinder, Münze im Becher.", "Brechungslabor Lichtbrechung.html"),
-    ("Leitfrage 8", "Linsenlabor", "Wie kann eine Lupe vergrößern? Sammel- und Zerstreuungslinse, Brennglas, Bilder.", "Linsenlabor Sammel- und Zerstreuungslinse.html"),
-]
-karten = "".join(
-    f'<a class="karte" href="{href}"><span class="kicker">{k}</span><h2>{t}</h2><p>{d}</p><span class="los">Öffnen →</span></a>'
-    for k, t, d, href in KARTEN)
-start = f"""<!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Optik-Labore</title>
-<style>
-{FONT_CSS}{BASIS_CSS}
-.wrap{{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:18px}}
-.wrap h1{{font-family:var(--font-d);font-weight:700;font-size:clamp(2rem,4.5vw,3.3rem);line-height:1.05;margin:4px 0 0}}
-.wrap>p{{font-size:1.15rem;line-height:1.5;max-width:62ch;margin:0}}
-.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}}
-.karte{{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;color:var(--ink);text-decoration:none}}
-.karte:hover{{border-color:var(--accent)}}
-.karte h2{{font-family:var(--font-d);font-size:1.6rem;margin:0}}
-.karte p{{margin:0;line-height:1.45;flex:1}}
-.los{{font-family:var(--font-m);font-size:.85rem;color:var(--accent)}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<span class="brand">Physik · Optik · Klasse 7</span>
-<h1>Optik-Labore</h1>
-<p>Zu jeder Leitfrage ein Labor zum Ausprobieren. Du kannst Regler verschieben, Dinge umschalten und am Ende dein Wissen prüfen.</p>
-<div class="grid">{karten}</div>
-</div>
-</body>
-</html>
-"""
-(HIER / "Optik-Labore.html").write_text(start, encoding="utf-8")
-print("geschrieben: Optik-Labore.html")
+if __name__ == "__main__":
+  for datei, titel, brand, js in LABORE:
+    baue(HIER, datei, titel, brand, Q / js)
+
+if __name__ == "__main__":
+  # Schattenlabor: Schriften einbetten statt von Google laden
+  if FONT_LINKS.search(_src):
+      neu = FONT_LINKS.sub("", _src).replace("<style>", "<style>\n" + FONT_CSS, 1)
+      SCHATTEN.write_text(neu, encoding="utf-8")
+      print("Schattenlabor: Schriften eingebettet")
+
+  # Startseite mit allen Laboren (ein Link für die Schüler)
+  KARTEN = [
+      ("Leitfrage 1", "Sehlabor", "Warum sehen wir überhaupt etwas? Sender, Empfänger, Lichtquellen und beleuchtete Körper.", "Sehlabor Lichtquellen.html"),
+      ("Leitfrage 2", "Körperlabor", "Was passiert mit dem Licht, wenn es auf einen Körper trifft? Streuung, Absorption, Transmission.", "Körperlabor Licht trifft auf Körper.html"),
+      ("Leitfrage 3", "Strahlenlabor", "Warum können wir nicht um die Ecke sehen? Blenden, Lichtbündel und das Lichtstrahlenmodell.", "Strahlenlabor Lichtausbreitung.html"),
+      ("Leitfrage 4", "Schattenlabor", "Warum hat ein Schatten manchmal weiche Ränder? Kernschatten und Halbschatten.", "Schattenlabor Halbschatten.html"),
+      ("Leitfrage 5", "Mondlabor", "Warum sieht der Mond nicht immer gleich aus? Mondphasen, Sonnen- und Mondfinsternis.", "Mondlabor Mondphasen und Finsternisse.html"),
+      ("Lochkamera", "Lochkameralabor", "Warum steht das Bild auf dem Kopf? Größe, Schärfe und Helligkeit, Sonnenbilder unter dem Baum.", "Lochkameralabor.html"),
+      ("Leitfrage 6", "Spiegellabor", "Was passiert mit dem Licht am Spiegel? Reflexionsgesetz, Spiegelbild, Spiegelgröße.", "Spiegellabor Reflexion.html"),
+      ("Leitfrage 7", "Brechungslabor", "Warum sieht der Strohhalm im Wasser geknickt aus? Brechung, Halbzylinder, Münze im Becher.", "Brechungslabor Lichtbrechung.html"),
+      ("Leitfrage 8", "Linsenlabor", "Wie kann eine Lupe vergrößern? Sammel- und Zerstreuungslinse, Brennglas, Bilder.", "Linsenlabor Sammel- und Zerstreuungslinse.html"),
+  ]
+  karten = "".join(
+      f'<a class="karte" href="{href}"><span class="kicker">{k}</span><h2>{t}</h2><p>{d}</p><span class="los">Öffnen →</span></a>'
+      for k, t, d, href in KARTEN)
+  start = f"""<!doctype html>
+  <html lang="de">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Optik-Labore</title>
+  <style>
+  {FONT_CSS}{BASIS_CSS}
+  .wrap{{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:18px}}
+  .wrap h1{{font-family:var(--font-d);font-weight:700;font-size:clamp(2rem,4.5vw,3.3rem);line-height:1.05;margin:4px 0 0}}
+  .wrap>p{{font-size:1.15rem;line-height:1.5;max-width:62ch;margin:0}}
+  .grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}}
+  .karte{{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;color:var(--ink);text-decoration:none}}
+  .karte:hover{{border-color:var(--accent)}}
+  .karte h2{{font-family:var(--font-d);font-size:1.6rem;margin:0}}
+  .karte p{{margin:0;line-height:1.45;flex:1}}
+  .los{{font-family:var(--font-m);font-size:.85rem;color:var(--accent)}}
+  </style>
+  </head>
+  <body>
+  <div class="wrap">
+  <span class="brand">Physik · Optik · Klasse 7</span>
+  <h1>Optik-Labore</h1>
+  <p>Zu jeder Leitfrage ein Labor zum Ausprobieren. Du kannst Regler verschieben, Dinge umschalten und am Ende dein Wissen prüfen.</p>
+  <div class="grid">{karten}</div>
+  </div>
+  </body>
+  </html>
+  """
+  (HIER / "Optik-Labore.html").write_text(start, encoding="utf-8")
+  print("geschrieben: Optik-Labore.html")
