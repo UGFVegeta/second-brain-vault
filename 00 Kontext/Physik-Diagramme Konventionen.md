@@ -26,3 +26,7 @@ Physik-Zeichnungen entstehen als **berechnete SVG-Konstruktionen**, nicht als KI
 ## Zusammenspiel
 
 Passt zur bestehenden SVG-Pipeline im Vault (u. a. der Prüfungsaufgaben-Generator, der SVG-Figuren erzeugt). Bei neuen Versuchsaufbauten (Stromkreise, schiefe Ebene, Optik) diese Regeln automatisch anwenden.
+
+## Folien-Stil „B“: Labor-Look auf hellem Karo (24.09.2026)
+
+Seit 24.09.2026 Standard für alle neuen Folien-Zeichnungen (Optik und weitere Themen): die Zeichensprache der interaktiven Labore ([[Optik-Labore]]) auf dem hellen Karo-Grund der Folie. Leuchtende Lampen (Glow + heller Kern mit farbigem Ring), Strahlen in Bernstein, bei zwei Lichtquellen Orange und Cyan, Schatten abgestuft (Kernschatten dunkel, Halbschatten hell), Körper hellblau-grau, Schirm als gelber Streifen, Begriffe in IBM Plex Mono, Formelzeichen weiter kursiv in Serifenschrift mit echtem Index (L₁). Randstrahlen werden berechnet. Die dunkle Bühne bleibt den Laboren vorbehalten, weil Oskar auf den Folien in Notability schreibt und die Schüler abzeichnen. Generator: `04 Ressourcen/Physik/Optik/folien_zeichnungen.py`.

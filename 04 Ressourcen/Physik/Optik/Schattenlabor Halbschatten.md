@@ -15,16 +15,17 @@ Animierte, interaktive Unterrichtsseite zu Leitfrage 4 **„Warum hat ein Schatt
 
 Ergänzt die Folien `Optik I` und die Stunde `Optik – Leitfrage 4 – Stunde.html`. Passt als Einstieg oder Sicherung, ersetzt aber nicht das Paar-Prinzip (Arbeitsseite leer, Vorlagenseite gefüllt) fürs Notability-Tafelbild.
 
-## Ablauf (8 Folien)
+## Ablauf (9 Folien)
 
 1. Einstieg: Hand über dem Tisch, scharfer und weicher Schattenrand, Vermutungen sammeln
 2. Licht breitet sich geradlinig aus (punktförmige Lichtquelle, scharfer Schatten)
 3. Zwei Lichtpunkte A und B: zwei Schatten, Überlappung = kein Licht
 4. Kernschatten, Halbschatten, voll beleuchteter Bereich
 5. Experiment mit Reglern (Lampengröße, Abstand Lampe–Gegenstand, Abstand Gegenstand–Wand), Breiten live in cm, Je-desto-Regeln per Klick
-6. Anwendung: Sonnen- und Mondfinsternis (Kernschatten, Halbschatten, nicht maßstabsgetreu)
-7. Kurz-Check mit 4 Fragen und Sofort-Rückmeldung
-8. Tafelbild und Aufgabe
+6. Alltag: vier Schatten im Stadion (Flutlicht, Buchidee S. 35), Spieler verschiebbar, Lupe mit Schattenlängen
+7. Anwendung: Sonnen- und Mondfinsternis (Kernschatten, Halbschatten, nicht maßstabsgetreu)
+8. Kurz-Check mit 4 Fragen und Sofort-Rückmeldung
+9. Zusammenfassung und „Probier's aus“
 
 ## Bedienung
 

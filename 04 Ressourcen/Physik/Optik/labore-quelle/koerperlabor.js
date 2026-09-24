@@ -3,7 +3,7 @@
    Fensterglas ~8 % Spiegelung an zwei Oberflächen und ~90 % Transmission). */
 (function(){
 "use strict";
-var S={mat:"weiss", mat2:"butter", fl:"rau", th:20};
+var S={mat:"weiss", mat2:"butter", fl:"alu_k", th:20};
 var M={
  weiss:{n:"weißes Blatt",s:80,a:20,t:0,fill:"#F2F2EE",op:1},
  schwarz:{n:"schwarzer Karton",s:5,a:95,t:0,fill:"#15171C",op:1},
@@ -58,10 +58,12 @@ function plate(cfg){
 
 function eyeview(){
   var o=[], Q=[420,330], inc=40*Math.PI/180, Lp=[Q[0]-260*Math.sin(inc),Q[1]-260*Math.cos(inc)];
-  var th=+S.th*Math.PI/180, E=[Q[0]+230*Math.sin(th),Q[1]-230*Math.cos(th)], rau=S.fl==="rau", i, a, hit;
+  var th=+S.th*Math.PI/180, E=[Q[0]+230*Math.sin(th),Q[1]-230*Math.cos(th)], rau=S.fl!=="alu_g", i, a, hit;
+  var FL={rau:["#E8E4DA","Papier"],alu_k:["#C9CFD8","zerknitterte Alufolie"],alu_g:["#DDE6F2","glatte Alufolie"]}[S.fl];
   o.push('<g clip-path="url(#sc)">');
-  o.push(G.rect(170,330,500,14,rau?"#E8E4DA":"#C9D6E8",1,' rx="2"'));
+  o.push(G.rect(170,330,500,14,FL[0],1,' rx="2"'));
   if(!rau) o.push(G.rect(170,330,500,3,"#FFFFFF",0.8));
+  if(S.fl==="alu_k") for(i=0;i<25;i++) o.push(G.rect(172+i*20,331,10,3,"#FFFFFF",0.5));
   o.push(G.arrow(Lp[0],Lp[1],Q[0],Q[1],"#FFC53D",3,0));
   if(rau){
     for(i=0;i<11;i++){ a=(-75+i*15)*Math.PI/180; o.push(G.ray(Q[0],Q[1],Q[0]+160*Math.sin(a),Q[1]-160*Math.cos(a),"#FFC53D",1.6,0.8+0.03*i,0.45)); }
@@ -75,7 +77,7 @@ function eyeview(){
   o.push(G.bulb(Lp[0],Lp[1],true,14));
   o.push(G.eye(E[0],E[1],+S.th>0?-1:1,0.9));
   o.push('</g>');
-  o.push(G.txt(Q[0],378,rau?"raue Fläche (Papier)":"glatte Fläche (Spiegel)","mid dim"));
+  o.push(G.txt(Q[0],378,FL[1],"mid dim"));
   o.push(G.txt(Lp[0]-10,Lp[1]-24,"Lampe","mid dim"));
   return {svg:o.join(""), readout:'<span class="chip">Licht im Auge <b>'+(hit?"ja":"kaum")+'</b></span>'+(rau?'<span class="chip">Von jedem Platz aus zu sehen</span>':'<span class="chip">Nur aus einer Richtung hell</span>')};
 }
@@ -136,11 +138,11 @@ window.LAB={state:S,
    controls:{btn:[{k:"mat2",label:"Körper:",opts:[["weiss","weißes Blatt"],["schwarz","schwarzer Karton"],["glas","Glasscheibe"],["butter","Butterbrotpapier"],["brille","Sonnenbrille"],["alu","Alufolie, zerknittert"],["holz","Holzbrett"]]}]},
    cfg:{mode:"plate",key:"mat2"}, alt:"Aufteilung des Lichts bei verschiedenen Körpern"},
 
-  {kicker:"Schritt 2", title:"Warum sehen wir das Blatt von überall?",
-   html:"<p>Verschiebe dein Auge. Vergleiche die raue Fläche mit einer glatten Fläche.</p><p class=\"small\">Die glatte Fläche ist ein Ausblick: Spiegel sind später dran.</p>",
-   ask:"Warum siehst du den Lichtfleck auf dem Papier von jedem Platz aus, beim Spiegel aber nur von einer Stelle?",
-   note:"Streuung heißt: Licht geht von der rauen Fläche in viele Richtungen. Der Spiegel wirft es nur in eine Richtung.",
-   controls:{btn:[{k:"fl",label:"Fläche:",opts:[["rau","rau (Papier)"],["glatt","glatt (Spiegel)"]]}],
+  {kicker:"Schritt 2", title:"Zerknittert oder glatt?",
+   html:"<p>Eine Taschenlampe leuchtet schräg auf Alufolie. Einmal ist die Folie zerknittert, einmal ganz glatt. Verschiebe dein Auge.</p><p class=\"small\">Die glatte Folie wirkt wie ein Spiegel. Spiegel sind später dran.</p>",
+   ask:"Warum siehst du die zerknitterte Folie von jedem Platz aus, die glatte aber nur von einer Stelle hell?",
+   note:"Idee aus Erlebnis Physik 7–9, S. 45 A. Echt vorführbar im dunklen Raum mit Taschenlampe und zwei Stücken Alufolie. Zerknittert: Streuung in alle Richtungen. Glatt: heller Fleck nur in einer Richtung.",
+   controls:{btn:[{k:"fl",label:"Fläche:",opts:[["alu_k","Alufolie zerknittert"],["alu_g","Alufolie glatt"],["rau","Papier"]]}],
      sl:[{k:"th",label:"Wo ist dein Auge?",min:-15,max:80,step:1,fmt:function(v){return v+"°"}}]},
    cfg:{mode:"eye"}, alt:"Raue und glatte Fläche mit Auge"},
 

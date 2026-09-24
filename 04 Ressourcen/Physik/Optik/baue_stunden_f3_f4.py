@@ -74,7 +74,7 @@ F3_AB = f"""
 verschwindet er. Lücken: <b>geradlinig</b>, <b>gerade Linie</b>.</p></div>
 <div class="box"><h3>Strahlenlabor</h3>
 <a class="btn" href="Strahlenlabor Lichtausbreitung.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a>
-<p>Zum Zeigen, was im Versuch nicht geht: Blende 2 dazuschalten, Spaltbreite ändern, Lichtweg im Nebel, Verkehrsspiegel. Auch für zu Hause geeignet.</p></div>"""
+<p>Zum Zeigen, was im Versuch nicht geht: Blende 2 dazuschalten, Teelicht durch geraden und gebogenen Schlauch, Spaltbreite ändern, Lichtweg im Nebel, Verkehrsspiegel. Auch für zu Hause geeignet.</p></div>"""
 
 F3_SCHRITTE = [
     ("Einstieg", "Ball hinter der Mauer, Leitfrage 3, Vermutungen.", [1, 2]),
@@ -150,7 +150,7 @@ F4_AB = f"""
 Lücken: <b>lichtundurchlässigen Körper</b>, <b>Schatten</b>, <b>überlagern</b>, <b>Halbschattengebiete</b>, <b>Kernschattengebiete</b>.</p></div>
 <div class="box"><h3>Schattenlabor</h3>
 <a class="btn" href="Schattenlabor Halbschatten.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a>
-<p>Passt nach Folie 5: Im Labor Folie 3 bis 5 zeigen (zwei Lichtpunkte, Kern- und Halbschatten, Regler für Lampengröße und Abstände). Die Lampengröße kann man mit der Ray-Box nicht verändern. Folie 6 (Finsternisse) als Ausblick.</p></div>"""
+<p>Passt nach Folie 5: Im Labor Folie 3 bis 5 zeigen (zwei Lichtpunkte, Kern- und Halbschatten, Regler für Lampengröße und Abstände). Die Lampengröße kann man mit der Ray-Box nicht verändern. Folie 6 zeigt die vier Flutlicht-Schatten im Stadion (passt zu unserer Alltagsfolie), Folie 7 die Finsternisse als Ausblick.</p></div>"""
 
 F4_SCHRITTE = [
     ("Einstieg", "Eine Lampe, zwei Lampen: Was ist anders? Leitfrage 4.", [1, 2]),

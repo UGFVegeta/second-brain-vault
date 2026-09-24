@@ -58,21 +58,10 @@ def folie(titel, svg, merksatz):
 
 
 # ---- Neu A: natürliche und künstliche Lichtquellen
-A_svg = (
-    '<svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg">'
-    '<line x1="318" y1="10" x2="318" y2="200" stroke="#c8d0dc" stroke-dasharray="5 5"/>'
-    + label(70, 24, "natürliche Lichtquellen", "") + label(392, 24, "künstliche Lichtquellen", "")
-    + sun(50, 84) + label(36, 128, "Sonne")
-    + '<polygon points="130,64 118,90 127,90 120,110 138,82 129,82" fill="#ffd34d" stroke="#b98900"/>' + label(112, 128, "Blitz")
-    + star(200, 78, 9) + star(216, 96, 7) + label(185, 128, "Sterne")
-    + '<ellipse cx="270" cy="88" rx="10" ry="5" fill="#6b8e23"/><circle cx="282" cy="90" r="9" fill="#f3ff8a" opacity=".7"/>' + label(246, 128, "Glühwürmchen")
-    + bulb(372, 84) + label(345, 128, "Glühlampe")
-    + candle(444, 80) + label(431, 128, "Kerze")
-    + bulb(516, 84, "#e6f6ff") + label(492, 128, "LED-Lampe")
-    + '<rect x="574" y="70" width="46" height="30" fill="#2c3e50" stroke="#111"/><rect x="578" y="74" width="38" height="22" fill="#6fb1e8"/><line x1="597" y1="100" x2="597" y2="108" stroke="#111" stroke-width="3"/>'
-    + label(570, 128, "Bildschirm")
-    + label(60, 176, "gibt es in der Natur") + label(392, 176, "hat der Mensch gebaut")
-    + '</svg>')
+import sys as _sys
+_sys.path.insert(0, str(hier))
+import folien_zeichnungen as _fz
+A_svg = _fz.lichtquellen_arten()  # Labor-Stil B
 A = folie("Natürliche und künstliche Lichtquellen", A_svg,
           "<b>Natürliche Lichtquellen</b> gibt es in der Natur. <b>Künstliche Lichtquellen</b> hat der Mensch gebaut.")
 

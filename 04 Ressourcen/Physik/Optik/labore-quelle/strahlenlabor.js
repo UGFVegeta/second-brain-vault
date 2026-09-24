@@ -1,7 +1,7 @@
 /* Strahlenlabor · Leitfrage 3: Warum können wir nicht um die Ecke sehen?  (1 px = 1 mm) */
 (function(){
 "use strict";
-var S={x:250, h1:220, h2:220, zwei:"0", a:200, b:20, ansicht:"wirklich", luft:"klar", spiegel:"0"};
+var S={x:250, h1:220, h2:220, zwei:"0", a:200, b:20, ansicht:"wirklich", luft:"klar", spiegel:"0", schlauch:"gerade"};
 
 /* Schnittpunkt Strecke P->Q mit Rechteck, liefert Parameter t des Eintritts oder null */
 function hitRect(P,Q,R){
@@ -156,8 +156,35 @@ function spiegel(){
   return {svg:o.join(""), readout:'<span class="chip">Auto sichtbar <b>'+(on?"ja, über den Spiegel":"nein")+'</b></span>'};
 }
 
+function schlauch(){
+  var o=[], F=[130,196], gerade=S.schlauch==="gerade";
+  o.push('<g clip-path="url(#sc)">');
+  o.push('<rect x="116" y="204" width="28" height="52" rx="3" fill="#F5E6C8"/>');
+  o.push(G.circ(F[0],F[1],34,"url(#gGlow)")+'<path d="M130 176 q12 14 0 26 q-12 -12 0 -26z" fill="#FFB627"/>');
+  [[-60,24],[60,24],[-120,30],[120,30],[-160,26],[160,26]].forEach(function(a,i){ var r=a[0]*Math.PI/180; o.push(G.ray(F[0],F[1],F[0]+90*Math.cos(r),F[1]+90*Math.sin(r)*-1,"#FFC53D",1.4,0.03*i,0.35)); });
+  function rohr(len,rot){
+    return '<g transform="rotate('+rot+' 400 200)">'+G.rect(rot?400:240,186,len,28,"#4D5E77",1,' rx="4"')+G.rect(rot?400:240,192,len,16,"#0A1120")+'</g>';
+  }
+  if(gerade){
+    o.push(rohr(360,0));
+    o.push(G.arrow(F[0]+14,200,626,200,"#FFC53D",3,0.2));
+    o.push(G.eye(662,200,-1,1));
+  }else{
+    o.push(rohr(160,0)+rohr(220,-30));
+    o.push(G.circ(400,200,14,"#4D5E77")+G.circ(400,200,8,"#0A1120"));
+    o.push(G.ray(F[0]+14,200,416,200,"#FFC53D",3,0.2));
+    o.push('<path class="fade" style="--d:.9s" d="M407 191 l18 18 M425 191 l-18 18" stroke="#FF7A59" stroke-width="4" stroke-linecap="round"/>');
+    o.push(G.eye(628,70,-1,1));
+  }
+  o.push('</g>');
+  o.push(G.txt(130,288,"Teelicht","mid dim"));
+  o.push(G.txt(gerade?420:300,250,"Gummischlauch","mid dim"));
+  o.push(G.txt(gerade?662:628,gerade?246:116,"Auge","mid dim"));
+  return {svg:o.join(""), readout:'<span class="chip">Flamme sichtbar <b>'+(gerade?"ja":"nein")+'</b></span>'+(gerade?'':'<span class="chip">Das Licht läuft geradeaus in die Schlauchwand.</span>')};
+}
+
 window.LAB={state:S,
- draw:function(cfg){ return {ecke:ecke,blende:blende,buendel:buendel,modell:modell,nebel:nebel,spiegel:spiegel}[cfg.mode](cfg); },
+ draw:function(cfg){ return {ecke:ecke,blende:blende,schlauch:schlauch,buendel:buendel,modell:modell,nebel:nebel,spiegel:spiegel}[cfg.mode](cfg); },
  QZ:[
   {q:"Hinter einer Hausecke hörst du ein Auto, siehst es aber nicht. Warum?",
    o:["Licht breitet sich geradlinig aus, Schall kommt um die Ecke","Das Auto sendet kein Licht aus","Licht ist langsamer als Schall"],a:0,
@@ -189,6 +216,13 @@ window.LAB={state:S,
          {k:"h2",label:"Blende 2 verschieben",min:110,max:330,step:2,fmt:function(v){return ((v-220)/10).toFixed(1).replace(".",",")+" cm"}}],
      reset:{h1:220,h2:220}},
    cfg:{mode:"blende"}, alt:"Ray-Box, Blende mit Loch und Schirm"},
+
+  {kicker:"Versuch", title:"Teelicht und Schlauch",
+   html:"<p>Schau durch einen Gummischlauch auf eine brennende Kerze. Einmal ist der Schlauch gerade, einmal gebogen.</p>",
+   ask:"Warum siehst du die Flamme durch den gebogenen Schlauch nicht?",
+   note:"Idee aus Erlebnis Physik 7–9, S. 33 A. Auch als echter Versuch in Paaren möglich: Teelicht, Feuerzeug, Gummischlauch (etwa 15 cm).",
+   controls:{btn:[{k:"schlauch",label:"Schlauch:",opts:[["gerade","gerade"],["gebogen","gebogen"]]}]},
+   cfg:{mode:"schlauch"}, alt:"Kerze, Gummischlauch und Auge"},
 
   {kicker:"Schritt 1", title:"Wie breitet sich Licht aus?",
    html:"<p>Eine Lampe sendet Licht in alle Richtungen. Es läuft auseinander (<span class=\"term\">divergent</span>). Ein Spalt lässt nur ein schmales Lichtbündel durch.</p>",

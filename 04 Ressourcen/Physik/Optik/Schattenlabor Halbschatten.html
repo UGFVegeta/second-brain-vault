@@ -129,7 +129,7 @@ button{font:inherit;cursor:pointer;color:inherit}
   <div class="bar">
     <span class="brand">Physik · Optik · Klasse 7</span>
     <div class="tools">
-      <span class="brand" id="counter">1 / 8</span>
+      <span class="brand" id="counter">1 / 9</span>
       <button class="btn" id="btnNotes" type="button" aria-pressed="false">Lehrkraft</button>
       <button class="btn" id="btnFs" type="button">Vollbild</button>
     </div>
@@ -197,7 +197,47 @@ function txt(x,y,s,cls){
   return '<text class="lbl '+(cls||"")+'" x="'+f1(x)+'" y="'+f1(y)+'">'+s+'</text>';
 }
 
+
+/* Flutlicht: vier Masten (Höhe 40 m), Spieler 1,8 m. Schattenlänge = h*d/(H-h), Dunkelheit nach Lichtanteil des Masts */
+var FL={x:30,y:24}, MH=40, PH=1.8;
+var MASTE=[[-6,-6],[111,-6],[-6,74],[111,74]];
+function flutDaten(){
+  var inv=MASTE.map(function(m){var d=Math.hypot(FL.x-m[0],FL.y-m[1]); return {m:m,d:d,L:PH*d/(MH-PH),w:1/(d*d+MH*MH)};});
+  var sum=inv.reduce(function(a,b){return a+b.w},0); inv.forEach(function(q){q.share=q.w/sum}); return inv;
+}
+function flut(){
+  var o=[], X0=62, Y0=74, K=3.95, C=[682,214], R=146, Z=22, D=flutDaten();
+  function px(m){return [X0+m[0]*K, Y0+m[1]*K]}
+  o.push('<defs><clipPath id="lupe"><circle cx="'+C[0]+'" cy="'+C[1]+'" r="'+R+'"/></clipPath><radialGradient id="gGlowF"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient></defs>');
+  o.push(rect(X0,Y0,105*K,68*K,"#123524"));
+  o.push('<rect x="'+X0+'" y="'+Y0+'" width="'+f1(105*K)+'" height="'+f1(68*K)+'" fill="none" stroke="#E7EDF6" stroke-opacity=".5" stroke-width="1.5"/>');
+  o.push('<line x1="'+f1(X0+52.5*K)+'" y1="'+Y0+'" x2="'+f1(X0+52.5*K)+'" y2="'+f1(Y0+68*K)+'" stroke="#E7EDF6" stroke-opacity=".5" stroke-width="1.5"/>');
+  o.push('<circle cx="'+f1(X0+52.5*K)+'" cy="'+f1(Y0+34*K)+'" r="'+f1(9.15*K)+'" fill="none" stroke="#E7EDF6" stroke-opacity=".5" stroke-width="1.5"/>');
+  var P=px([FL.x,FL.y]);
+  D.forEach(function(q){var M=px(q.m); o.push('<line x1="'+f1(M[0])+'" y1="'+f1(M[1])+'" x2="'+f1(P[0])+'" y2="'+f1(P[1])+'" stroke="#FFC53D" stroke-opacity=".35" stroke-width="1.2"/>');});
+  D.forEach(function(q){var M=px(q.m); o.push('<circle cx="'+f1(M[0])+'" cy="'+f1(M[1])+'" r="24" fill="url(#gGlowF)"/><circle cx="'+f1(M[0])+'" cy="'+f1(M[1])+'" r="6" fill="#FFF3C4"/>');});
+  o.push('<circle cx="'+f1(P[0])+'" cy="'+f1(P[1])+'" r="5" fill="#E7EDF6"/>');
+  o.push('<circle cx="'+f1(P[0])+'" cy="'+f1(P[1])+'" r="16" fill="none" stroke="#9DB8FF" stroke-width="1.5"/>');
+  o.push('<line x1="'+f1(P[0]+16)+'" y1="'+f1(P[1])+'" x2="'+(C[0]-R)+'" y2="'+C[1]+'" stroke="#9DB8FF" stroke-width="1" stroke-dasharray="4 5"/>');
+  /* Lupe */
+  o.push('<g clip-path="url(#lupe)">'+rect(C[0]-R,C[1]-R,2*R,2*R,"#123524"));
+  D.forEach(function(q){
+    var ux=(FL.x-q.m[0])/q.d, uy=(FL.y-q.m[1])/q.d, L=q.L*Z;
+    o.push('<line x1="'+C[0]+'" y1="'+C[1]+'" x2="'+f1(C[0]+ux*Math.min(L,R-8))+'" y2="'+f1(C[1]+uy*Math.min(L,R-8))+'" stroke="#05080F" stroke-opacity="'+f1(0.2+q.share*1.6)+'" stroke-width="12" stroke-linecap="round"/>');
+    var LL=Math.min(L+30,R-34); o.push(txt(C[0]+ux*LL,C[1]+uy*LL+6,cm(q.L*10)+" m","mid"));
+  });
+  o.push('<circle cx="'+C[0]+'" cy="'+C[1]+'" r="9" fill="#E7EDF6"/></g>');
+  o.push('<circle cx="'+C[0]+'" cy="'+C[1]+'" r="'+R+'" fill="none" stroke="#9DB8FF" stroke-width="2"/>');
+  o.push(txt(X0,48,"Draufsicht Spielfeld",""));
+  o.push(txt(C[0],C[1]+R+22>430?430:C[1]+R+22,"Lupe","mid dim"));
+  return o.join("");
+}
+function flutReadout(){
+  var D=flutDaten().slice().sort(function(a,b){return a.L-b.L});
+  return '<span class="chip">kürzester Schatten <b>'+cm(D[0].L*10)+' m</b></span><span class="chip">längster Schatten <b>'+cm(D[3].L*10)+' m</b></span><span class="chip">Jeder Schatten wird von drei Masten aufgehellt</span>';
+}
 function build(cfg){
+  if(cfg.flut) return {svg:flut(),g:null};
   var p=params(cfg), g=geom(p), o=[];
   var mode=cfg.mode, ecl=!!cfg.eclipse;
   var xs=g.xs, xo=g.xo, xw=g.xw;
@@ -352,7 +392,7 @@ function readoutHTML(g){
   return out;
 }
 
-window.__SL={build:build,readoutHTML:readoutHTML,P:P,DEF:DEF,cm:cm,
+window.__SL={build:build,readoutHTML:readoutHTML,flutReadout:flutReadout,FL:FL,P:P,DEF:DEF,cm:cm,
   getPts:function(){return pts},setPts:function(v){pts=v},
   getRev:function(){return rev},setRev:function(v){rev=v}};
 })();
@@ -410,6 +450,12 @@ var scenes=[
   note:"Regler in Gruppen aufteilen: Jede Gruppe verändert genau eine Größe. Erst danach \"Ergebnisse zeigen\".",
   controls:"sliders", cfg:{mode:"full",rays:"edge",labels:true,live:true,readout:true}, alt:"Schattenbildung mit einstellbarer Lampengröße und Abständen"},
 
+ {kicker:"Alltag", title:"Vier Schatten im Stadion",
+  html:"<p>Bei einem Abendspiel hat jeder Spieler vier Schatten. In jeder Ecke steht ein Flutlichtmast.</p><p>Schiebe den Spieler über das Feld und beobachte die Schatten in der Lupe.</p><p class=\"small\">Masthöhe 40 m, Spieler 1,8 m. Die Schatten sind vergrößert gezeichnet.</p>",
+  ask:"Warum sind die vier Schatten nicht ganz schwarz? Welcher Mast macht den längsten Schatten?",
+  note:"Idee aus Erlebnis Physik 7–9, S. 35. Antwort: Jeder Schatten wird von den drei anderen Masten aufgehellt, er ist also ein Halbschatten. Der längste Schatten kommt vom Mast, der am weitesten weg ist. Der Schatten des nächsten Masts ist am kürzesten und am dunkelsten.",
+  controls:"flut", cfg:{flut:true}, alt:"Spielfeld mit vier Flutlichtmasten und vier Schatten eines Spielers"},
+
  {kicker:"Anwendung", title:"Finsternisse sind Schatten im Weltall",
   html:"<p>Die Sonne ist eine riesige, ausgedehnte Lichtquelle. Der Mond wirft deshalb Kernschatten und Halbschatten auf die Erde.</p><ul class=\"list\"><li>Im <span class=\"term\">Kernschatten</span> ist die Sonne ganz verdeckt: totale Sonnenfinsternis.</li><li>Im <span class=\"term\">Halbschatten</span> ist sie nur teilweise verdeckt: partielle Sonnenfinsternis.</li><li>Bei einer Mondfinsternis wirft die Erde ihren Schatten auf den Mond.</li></ul><p class=\"small\">Der Kernschatten des Mondes ist auf der Erde höchstens rund 270 km breit. Zeichnung nicht maßstabsgetreu.</p>",
   ask:"Eine Person steht im Halbschatten des Mondes. Was sieht sie am Himmel?",
@@ -451,7 +497,7 @@ function drawStage(){
   svg.setAttribute("class", drawStage.anim?"anim":"");
   svg.setAttribute("aria-label", s.alt||"Schattenbildung");
   svg.innerHTML=b.svg;
-  readout.innerHTML=s.cfg.readout?SL.readoutHTML(b.g):"";
+  readout.innerHTML=s.cfg.flut?SL.flutReadout():(s.cfg.readout?SL.readoutHTML(b.g):"");
 }
 
 function ctrlHTML(kind){
@@ -460,6 +506,11 @@ function ctrlHTML(kind){
     function bt(k,l){return "<button type=\"button\" class=\"btn\" data-pts=\""+k+"\" aria-pressed=\""+(v===k)+"\">"+l+"</button>";}
     return "<div class=\"ctrl pts\"><span>Zeige:</span>"+
       bt("A","<i class=\"dotA\"></i>Punkt A")+bt("B","<i class=\"dotB\"></i>Punkt B")+bt("AB","Beide")+"</div>";
+  }
+  if(kind==="flut"){
+    return "<div class=\"ctrl\">"+
+     "<label for=\"sFX\"><span class=\"row\"><span>Spieler: Längsrichtung</span><output id=\"oFX\"></output></span><input id=\"sFX\" type=\"range\" min=\"2\" max=\"103\" step=\"1\" value=\""+SL.FL.x+"\"></label>"+
+     "<label for=\"sFY\"><span class=\"row\"><span>Spieler: Querrichtung</span><output id=\"oFY\"></output></span><input id=\"sFY\" type=\"range\" min=\"2\" max=\"66\" step=\"1\" value=\""+SL.FL.y+"\"></label></div>";
   }
   if(kind==="sliders"){
     return "<div class=\"ctrl\">"+
@@ -471,6 +522,7 @@ function ctrlHTML(kind){
   return "";
 }
 function syncOut(){
+  var fx=$("#oFX"); if(fx){ fx.textContent=SL.FL.x+" m"; $("#oFY").textContent=SL.FL.y+" m"; }
   var a=$("#oH"); if(!a) return;
   a.textContent=P.h===0?"Punkt (0 cm)":cm(P.h)+" cm";
   $("#oD1").textContent=cm(P.d1)+" cm";
@@ -483,7 +535,7 @@ function show(i,anim){
   $("#app").classList.toggle("nostage",!!s.nostage);
   copy.innerHTML="<span class=\"kicker\">"+s.kicker+"</span><h1>"+s.title+"</h1>"+s.html+
     (s.quiz?"<div id=\"quiz\">"+quizHTML()+"</div>":"")+
-    (s.ask&&s.cfg&&cur!==7?"<div class=\"ask\"><span>Frage</span><p>"+s.ask+"</p></div>":"")+
+    (s.ask&&s.cfg&&cur!==scenes.length-1?"<div class=\"ask\"><span>Frage</span><p>"+s.ask+"</p></div>":"")+
     "<aside class=\"notes\"><b>Hinweis für die Lehrkraft</b>"+s.note+"</aside>";
   if(cur===4) $("#rules").innerHTML=rulesHTML();
   ctrl.innerHTML=ctrlHTML(s.controls);
@@ -552,7 +604,7 @@ ctrl.addEventListener("click",function(e){
 });
 ctrl.addEventListener("input",function(e){
   var id=e.target.id, v=+e.target.value;
-  if(id==="sH") P.h=v; else if(id==="sD1") P.d1=v; else if(id==="sD2") P.d2=v; else return;
+  if(id==="sH") P.h=v; else if(id==="sD1") P.d1=v; else if(id==="sD2") P.d2=v; else if(id==="sFX") SL.FL.x=v; else if(id==="sFY") SL.FL.y=v; else return;
   syncOut(); drawStage.anim=false; drawStage();
 });
 
