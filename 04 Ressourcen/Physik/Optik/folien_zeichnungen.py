@@ -340,8 +340,200 @@ def lichtquellen_arten():
     return z.svg()
 
 
+# ---------------------------------------------------------------- Leitfrage 5 und Lochkamera
+HELL, DUNKEL, ERDE = "#FFF6D8", "#3B4A63", "#3B7CC4"
+
+
+def phase_pfad(x, y, r, f):
+    """Beleuchteter Teil des Mondes, von der Erde (Nordhalbkugel) aus gesehen. f = Anteil am Umlauf (0 Neumond, 0.25 zunehmender Halbmond, 0.5 Vollmond)."""
+    f %= 1
+    if f < 0.005 or f > 0.995:
+        return ""
+    k = math.cos(2 * math.pi * f)
+    rechts = f < 0.5
+    rx = abs(k) * r
+    s1 = 1 if rechts else 0
+    if k > 0:   # Sichel: Ellipse schneidet in die helle Seite
+        s2 = 0 if rechts else 1
+    else:       # Dreiviertel: Ellipse wölbt sich in die dunkle Seite
+        s2 = 1 if rechts else 0
+    return (f'<path d="M{x:.1f} {y - r:.1f} A{r:.1f} {r:.1f} 0 0 {s1} {x:.1f} {y + r:.1f} '
+            f'A{max(rx, .01):.1f} {r:.1f} 0 0 {s2} {x:.1f} {y - r:.1f}Z" fill="{HELL}"/>')
+
+
+def mond_ansicht(z, x, y, r, f):
+    z.add(f'<circle cx="{x}" cy="{y}" r="{r}" fill="{DUNKEL}"/>' + phase_pfad(x, y, r, f))
+    return z.add(f'<circle cx="{x}" cy="{y}" r="{r}" fill="none" stroke="#9AAAC0" stroke-width="1"/>')
+
+
+def mond_von_oben(z, x, y, r, licht_links=True):
+    """Mond in der Draufsicht: die zur Sonne gewandte Hälfte ist hell."""
+    s = 0 if licht_links else 1
+    return z.add(f'<circle cx="{x}" cy="{y}" r="{r}" fill="{DUNKEL}"/>'
+                 f'<path d="M{x} {y - r} A{r} {r} 0 0 {s} {x} {y + r}Z" fill="{HELL}"/>'
+                 f'<circle cx="{x}" cy="{y}" r="{r}" fill="none" stroke="#9AAAC0" stroke-width="1"/>')
+
+
+def erde(z, x, y, r, nacht_rechts=True):
+    z.add(f'<circle cx="{x}" cy="{y}" r="{r}" fill="{ERDE}"/>')
+    s = 1 if nacht_rechts else 0
+    return z.add(f'<path d="M{x} {y - r} A{r} {r} 0 0 {s} {x} {y + r}Z" fill="#05080F" fill-opacity=".35"/>')
+
+
+def beobachte_mond():
+    z = Z("bo", 245)
+    z.rect(40, 22, 556, 156, "#0A1120", 1, 10)
+    for sx, sy in ((90, 48), (200, 40), (330, 52), (470, 38), (556, 60), (150, 150), (410, 156), (270, 148)):
+        z.add(f'<circle cx="{sx}" cy="{sy}" r="1.5" fill="#FFFFFF" fill-opacity=".7"/>')
+    for i, f in enumerate((0.0, 0.25, 0.5, 0.75)):
+        x = 112 + i * 142
+        mond_ansicht(z, x, 100, 28, f)
+        z.text(x, 204, f"{i + 1}. Woche", "middle")
+    return z.svg()
+
+
+def mondbahn():
+    z = Z("mb")
+    E, R = (330, 106), 78
+    for y in (26, 66, 106, 146, 186):
+        z.pfeil(14, y, 118, y, GELB, 2, 8)
+    z.text(14, 14, "Sonnenlicht")
+    z.add(f'<circle cx="{E[0]}" cy="{E[1]}" r="{R}" fill="none" stroke="#9AAAC0" stroke-width="1.2" stroke-dasharray="5 4"/>')
+    erde(z, *E, 20)
+    for (dx, dy) in ((-R, 0), (0, R), (R, 0), (0, -R)):
+        mond_von_oben(z, E[0] + dx, E[1] + dy, 11)
+    # Umlauf gegen den Uhrzeigersinn (Blick von oben): links -> unten -> rechts -> oben
+    a1, a2, RR = math.radians(62), math.radians(24), R + 18
+    z.add(f'<path d="M{E[0] + RR * math.cos(a1):.1f} {E[1] + RR * math.sin(a1):.1f} A{RR} {RR} 0 0 0 {E[0] + RR * math.cos(a2):.1f} {E[1] + RR * math.sin(a2):.1f}" fill="none" stroke="#66798E" stroke-width="1.6"/>')
+    ex, ey = E[0] + RR * math.cos(a2), E[1] + RR * math.sin(a2)
+    z.poly([(ex + 3, ey - 9), (ex - 5, ey + 1), (ex + 6, ey + 2)], "#66798E", 1)
+    z.text(E[0] + 104, E[1] + 76, "Umlauf")
+    z.text(E[0], E[1] + 4, "Erde", "middle", 9, col="#FFFFFF", halo=ERDE)
+    z.text(E[0] - R - 16, E[1] + 30, "Neumond", "end")
+    z.text(E[0] + 18, E[1] + R + 16, "zunehmender Mond")
+    z.text(E[0] + R + 18, E[1] + 4, "Vollmond")
+    z.text(E[0] + 18, E[1] - R - 4, "abnehmender Mond")
+    z.text(622, 204, "Blick von oben auf den Nordpol", "end", 9)
+    return z.svg()
+
+
+def mondphasen():
+    z = Z("mp")
+    namen = (("Neumond", ""), ("zunehmender", "Halbmond"), ("Vollmond", ""), ("abnehmender", "Halbmond"))
+    for i, f in enumerate((0.0, 0.25, 0.5, 0.75)):
+        x = 80 + i * 142
+        mond_ansicht(z, x, 84, 34, f)
+        z.text(x, 144, namen[i][0], "middle")
+        if namen[i][1]:
+            z.text(x, 158, namen[i][1], "middle")
+    z.pfeil(46, 184, 598, 184, "#66798E", 1.6, 9)
+    z.text(322, 202, "etwa 29,5 Tage", "middle", 10)
+    return z.svg()
+
+
+def tangenten(S, rs, K, rk):
+    """Randstrahlen für Kern- und Halbschatten (Näherung über oberste und unterste Punkte)."""
+    kern = ((S[0], S[1] - rs), (K[0], K[1] - rk)), ((S[0], S[1] + rs), (K[0], K[1] + rk))
+    halb = ((S[0], S[1] - rs), (K[0], K[1] + rk)), ((S[0], S[1] + rs), (K[0], K[1] - rk))
+    return kern, halb
+
+
+def sonnenfinsternis():
+    z = Z("sf")
+    S, M, E = (40, 106), (360, 106), (560, 106)
+    rs, rm, re_ = 40, 14, 34
+    (k1, k2), (h1, h2) = tangenten(S, rs, M, rm)
+    apex_x = S[0] + (S[1] - rs - (S[1])) / ((k1[1][1] - k1[0][1]) / (k1[1][0] - k1[0][0])) * -1
+    ax = k1[0][0] + (S[1] - k1[0][1]) * (k1[1][0] - k1[0][0]) / (k1[1][1] - k1[0][1])
+    X = E[0] - re_ + 6
+    yh1, yh2 = gerade(h1[0], h1[1], X), gerade(h2[0], h2[1], X)
+    z.poly([(M[0], M[1] - rm), (X, yh2), (X, yh1), (M[0], M[1] + rm)], "#05080F", HALB)
+    z.poly([(M[0], M[1] - rm), (ax, S[1]), (M[0], M[1] + rm)], "#05080F", KERN)
+    for a, b in (k1, k2):
+        z.line(*a, ax, S[1], GELB, 1.8)
+    for a, b in (h1, h2):
+        z.line(*a, X, gerade(a, b, X), GELB, 1.8)
+    z.add(f'<circle cx="{S[0]}" cy="{S[1]}" r="{rs * 1.6}" fill="url(#sfgl)"/><circle cx="{S[0]}" cy="{S[1]}" r="{rs}" fill="#FFD34D"/>')
+    z.add(f'<circle cx="{M[0]}" cy="{M[1]}" r="{rm}" fill="#9AAAC0"/>')
+    erde(z, *E, re_, nacht_rechts=True)
+    z.add(f'<circle cx="{E[0] - re_ + 3}" cy="{E[1]}" r="3.5" fill="#05080F"/>')
+    z.text(S[0], 170, "Sonne", "middle").text(M[0], 142, "Mond", "middle").text(E[0], 164, "Erde", "middle")
+    z.text(400, 86, "Kernschatten").text(410, 180, "Halbschatten").line(450, 172, 480, 140, "#66798E", 1.2)
+    z.text(622, 204, "nicht maßstabsgetreu", "end", 9)
+    return z.svg()
+
+
+def mondfinsternis():
+    z = Z("mf")
+    S, E, M = (40, 106), (330, 106), (520, 106)
+    rs, re_, rm = 40, 26, 11
+    (k1, k2), (h1, h2) = tangenten(S, rs, E, re_)
+    X = 610
+    yk1, yk2 = gerade(*k1, X), gerade(*k2, X)
+    yh1, yh2 = gerade(*h1, X), gerade(*h2, X)
+    z.poly([(E[0], E[1] - re_), (X, yh2), (X, yh1), (E[0], E[1] + re_)], "#05080F", HALB)
+    z.poly([(E[0], E[1] - re_), (X, yk1), (X, yk2), (E[0], E[1] + re_)], "#05080F", KERN)
+    for a, b in (k1, k2):
+        z.line(*a, X, gerade(a, b, X), GELB, 1.8)
+    z.add(f'<circle cx="{S[0]}" cy="{S[1]}" r="{rs * 1.6}" fill="url(#mfgl)"/><circle cx="{S[0]}" cy="{S[1]}" r="{rs}" fill="#FFD34D"/>')
+    erde(z, *E, re_, nacht_rechts=True)
+    z.add(f'<circle cx="{M[0]}" cy="{M[1]}" r="{rm}" fill="#8A4A3A"/>')
+    z.text(S[0], 170, "Sonne", "middle").text(E[0], 156, "Erde", "middle").text(M[0], 140, "Mond", "middle")
+    z.text(400, 66, "Kernschatten der Erde").line(446, 72, 456, 96, "#66798E", 1.2)
+    z.text(622, 204, "nicht maßstabsgetreu", "end", 9)
+    return z.svg()
+
+
+def lochkamera():
+    z = Z("lk")
+    A, LX, SX = 106, 300, 480
+    top, fuss = (62, 58), (62, 152)
+    z.line(40, A, 500, A, "#9AAAC0", 1, "4 4")
+    z.wash(40, 14, LX - 40, 184)
+    for P, c in ((top, ORANGE), (fuss, CYAN)):
+        y = gerade(P, (LX + 4, A), SX)
+        z.line(*P, SX, y, c, 2.2)
+    yt, yf = gerade(top, (LX + 4, A), SX), gerade(fuss, (LX + 4, A), SX)
+    z.rect(LX, 14, 9, A - 4 - 14, WAND).rect(LX, A + 4, 9, 198 - A - 4, WAND)
+    z.rect(SX, 14, 12, 186, SCHIRM)
+    # Kerze
+    z.glow(62, 76, 30)
+    z.add('<rect x="52" y="96" width="20" height="56" rx="2" fill="#F5E6C8" stroke="#C6B48E"/>'
+          f'<path d="M62 96 q-13 -18 0 -38 q13 20 0 38z" fill="#FFB627" stroke="{ORANGE}" stroke-width="1.2"/>')
+    # Bild (umgekehrt, maßstäblich)
+    h = (yt - yf)
+    sk = h / (152 - 58)
+    by0 = yf
+    z.add(f'<g transform="translate({SX + 6:.1f} {yt:.1f}) scale({sk:.3f} {-sk:.3f}) translate(-62 -58)">'
+          '<rect x="52" y="96" width="20" height="56" rx="2" fill="#F5E6C8" stroke="#C6B48E"/>'
+          f'<path d="M62 96 q-13 -18 0 -38 q13 20 0 38z" fill="#FFB627" stroke="{ORANGE}" stroke-width="1.2"/></g>')
+    z.text(62, 176, "Gegenstand", "middle").text(LX + 4, 10, "Lochblende", "middle").text(SX + 6, 212, "Schirm", "middle")
+    z.text(SX + 24, (yt + yf) / 2 - 4, "Bild").text(SX + 24, (yt + yf) / 2 + 10, "(umgekehrt)")
+    z.text(110, 40, "Spitze oben").text(330, 172, "trifft unten auf").text(330, 186, "den Schirm")
+    return z.svg()
+
+
+def sicheln():
+    z = Z("si")
+    z.text(24, 30, "Bei einer Sonnenfinsternis sind die Lichtflecken unter einem Baum", size=11.5)
+    z.text(24, 48, "nicht rund, sondern kleine Sicheln. Warum?", size=11.5)
+    z.add('<rect x="300" y="146" width="12" height="46" rx="1" fill="#8B5A2B"/><circle cx="306" cy="120" r="40" fill="#5E9B45"/>')
+    for gx, gy in ((290, 108), (320, 126), (300, 136)):
+        z.add(f'<circle cx="{gx}" cy="{gy}" r="3" fill="#FFF6D8"/>')
+    z.rect(60, 194, 516, 3, "#C8A57A")
+    for x in (150, 220, 400, 470):
+        z.glow(x, 186, 16)
+        z.add(f'<path transform="rotate(180 {x} 184)" d="M{x} {192} a9 9 0 1 0 0 -16 a7 7 0 1 1 0 16z" fill="#FFD34D" stroke="{GELB}" stroke-width=".8"/>')
+    z.glow(560, 70, 30)
+    z.add(f'<path d="M560 52 a18 18 0 1 0 0 36 a14 14 0 1 1 0 -36z" fill="#FFD34D" stroke="{GELB}" stroke-width="1.2"/>')
+    z.text(560, 108, "Sonne", "middle", 9).text(560, 120, "(Finsternis)", "middle", 9)
+    z.text(185, 172, "Lichtflecken auf dem Boden", "middle", 9.5)
+    return z.svg()
+
+
 ZEICHNUNGEN = {1: einstieg_baelle, 6: beobachte_licht_an, 9: wie_sehen, 11: lichtquellen_beleuchtet, 15: beobachte_drei_koerper, 18: vier_moeglichkeiten,
-               22: beobachte_mauer, 25: ausbreitung, 27: modell, 31: beobachte_lampen, 34: schattenraum, 36: kern_halbschatten}
+               22: beobachte_mauer, 25: ausbreitung, 27: modell, 31: beobachte_lampen, 34: schattenraum, 36: kern_halbschatten,
+               42: beobachte_mond, 45: mondbahn, 47: mondphasen, 49: sonnenfinsternis, 51: mondfinsternis, 56: lochkamera, 61: sicheln}
 
 if __name__ == "__main__":
     p = HIER / "Optik I.html"

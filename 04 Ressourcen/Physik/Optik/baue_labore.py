@@ -84,6 +84,8 @@ LABORE = [
     ("Sehlabor Lichtquellen.html", "Sehlabor", "Physik · Optik · Klasse 7 · Leitfrage 1", "sehlabor.js"),
     ("Körperlabor Licht trifft auf Körper.html", "Körperlabor", "Physik · Optik · Klasse 7 · Leitfrage 2", "koerperlabor.js"),
     ("Strahlenlabor Lichtausbreitung.html", "Strahlenlabor", "Physik · Optik · Klasse 7 · Leitfrage 3", "strahlenlabor.js"),
+    ("Mondlabor Mondphasen und Finsternisse.html", "Mondlabor", "Physik · Optik · Klasse 7 · Leitfrage 5", "mondlabor.js"),
+    ("Lochkameralabor.html", "Lochkameralabor", "Physik · Optik · Klasse 7 · Lochkamera", "lochkameralabor.js"),
 ]
 
 for datei, titel, brand, js in LABORE:
@@ -103,6 +105,8 @@ KARTEN = [
     ("Leitfrage 2", "Körperlabor", "Was passiert mit dem Licht, wenn es auf einen Körper trifft? Streuung, Absorption, Transmission.", "Körperlabor Licht trifft auf Körper.html"),
     ("Leitfrage 3", "Strahlenlabor", "Warum können wir nicht um die Ecke sehen? Blenden, Lichtbündel und das Lichtstrahlenmodell.", "Strahlenlabor Lichtausbreitung.html"),
     ("Leitfrage 4", "Schattenlabor", "Warum hat ein Schatten manchmal weiche Ränder? Kernschatten und Halbschatten.", "Schattenlabor Halbschatten.html"),
+    ("Leitfrage 5", "Mondlabor", "Warum sieht der Mond nicht immer gleich aus? Mondphasen, Sonnen- und Mondfinsternis.", "Mondlabor Mondphasen und Finsternisse.html"),
+    ("Lochkamera", "Lochkameralabor", "Warum steht das Bild auf dem Kopf? Größe, Schärfe und Helligkeit, Sonnenbilder unter dem Baum.", "Lochkameralabor.html"),
 ]
 karten = "".join(
     f'<a class="karte" href="{href}"><span class="kicker">{k}</span><h2>{t}</h2><p>{d}</p><span class="los">Öffnen →</span></a>'

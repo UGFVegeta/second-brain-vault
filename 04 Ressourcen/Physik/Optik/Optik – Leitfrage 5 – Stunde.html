@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optik: Warum sieht der Mond nicht immer gleich aus?</title>
+<link rel="stylesheet" href="folien.css">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav button{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}
+nav button:hover{background:#e3e3dc}nav button.on{background:#1b1b1b;color:#fff}
+.tab{display:none;padding:26px 0 60px}.tab.on{display:block}
+h2{font-size:22px;margin:0 0 10px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}.box h3{margin:8px 0 6px;font-size:17px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.schr{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}.schr:last-child{border:0}
+.schr .n{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}
+.schr .m{color:#555;font-size:15px}.go{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.go button{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}
+.karte{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}
+.karte .folie{page-break-after:auto}
+.atab{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}
+.atab th,.atab td{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}.atab th{color:#66798e;font-size:10pt}
+a.btn{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}.t th{background:#f5f5f1}
+
+
+.bildzone{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}.bildzone svg{width:100%;height:100%;display:block}
+.fnr{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}
+
+.blattkarte{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}.blattbild{display:block;width:100%;border:1px solid #c8d0dc}
+.austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
+.box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
+.fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Optik: Warum sieht der Mond nicht immer gleich aus?</h1>
+<p class="sub">Klasse 7c · Physik · Leitfrage 5 · Mondphasen und Finsternisse · voraussichtlich Do 15.10.2026</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Drucken</h3><ul><li>Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
+<div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Tellurium beleuchtet (Phywe)</td><td class="anz">1×</td><td>Mondphasen und Finsternisse vorne zeigen</td></tr><tr><td>helle Lampe ohne Schirm</td><td class="anz">1×</td><td>als Sonne für den Schülerversuch, mitten im Raum oder vorne</td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Styroporkugel, etwa 5 cm</td><td class="anz">1×</td><td>pro Paar, einer dreht sich, einer beobachtet mit</td></tr><tr><td>Bleistift oder Schaschlikspieß</td><td class="anz">1×</td><td>als Griff für die Kugel</td></tr></table><div class="mhinweis">Raum gut abdunkeln. Für die Lochkamera in der nächsten Stunde ankündigen: Chipsdose, Transparent- oder Butterbrotpapier, schwarzer Zeichenkarton, Schere, Kleber mitbringen.</div></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Einstieg</div><div class="z1" style="flex:1">2 · Tellurium</div><div class="z2" style="flex:1">3 · Versuch</div><div class="z3" style="flex:1">4 · Mondphasen</div><div class="z4" style="flex:1">5 · Finsternisse</div><div class="z5" style="flex:1">6 · Alltag, Antwort, Check</div></div><div class="schr"><span class="n">1</span><div><b>Einstieg</b><br><span class="m">Vier Wochen Mond, Leitfrage 5, Vermutungen.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Tellurium</b><br><span class="m">Vorne am Tellurium zeigen, wo der Mond steht. Folie dazu.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Versuch</b><br><span class="m">Kopf, Kugel, Lampe in Paaren, Versuchsblatt.</span></div><div class="go"><button data-go=f4>Folie 4</button></div></div><div class="schr"><span class="n">4</span><div><b>Mondphasen</b><br><span class="m">Phasen von der Erde aus, 29,5 Tage.</span></div><div class="go"><button data-go=f5>Folie 5</button></div></div><div class="schr"><span class="n">5</span><div><b>Finsternisse</b><br><span class="m">Am Tellurium oder im Mondlabor, dann Folien.</span></div><div class="go"><button data-go=f6>Folie 6</button><button data-go=f7>Folie 7</button></div></div><div class="schr"><span class="n">6</span><div><b>Alltag, Antwort, Check</b><br><span class="m">Alltag mündlich, Antwort ins Heft, Handzeichen.</span></div><div class="go"><button data-go=f8>Folie 8</button><button data-go=f9>Folie 9</button><button data-go=f10>Folie 10</button><button data-go=f11>Folie 11</button></div></div></div>
+</div>
+<div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="bogl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="bowa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="boball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><rect x="40.0" y="22.0" width="556.0" height="156.0" rx="10" fill="#0A1120" fill-opacity="1"/><circle cx="90" cy="48" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="200" cy="40" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="330" cy="52" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="470" cy="38" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="556" cy="60" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="150" cy="150" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="410" cy="156" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="270" cy="148" r="1.5" fill="#FFFFFF" fill-opacity=".7"/><circle cx="112" cy="100" r="28" fill="#3B4A63"/><circle cx="112" cy="100" r="28" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="112.0" y="204.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">1. Woche</text><circle cx="254" cy="100" r="28" fill="#3B4A63"/><path d="M254.0 72.0 A28.0 28.0 0 0 1 254.0 128.0 A0.0 28.0 0 0 0 254.0 72.0Z" fill="#FFF6D8"/><circle cx="254" cy="100" r="28" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="254.0" y="204.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">2. Woche</text><circle cx="396" cy="100" r="28" fill="#3B4A63"/><path d="M396.0 72.0 A28.0 28.0 0 0 0 396.0 128.0 A28.0 28.0 0 0 0 396.0 72.0Z" fill="#FFF6D8"/><circle cx="396" cy="100" r="28" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="396.0" y="204.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">3. Woche</text><circle cx="538" cy="100" r="28" fill="#3B4A63"/><path d="M538.0 72.0 A28.0 28.0 0 0 0 538.0 128.0 A0.0 28.0 0 0 0 538.0 72.0Z" fill="#FFF6D8"/><circle cx="538" cy="100" r="28" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="538.0" y="204.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">4. Woche</text></svg>
+  </div>
+  <div class="impulstext">Vier Aufnahmen des Mondes im Abstand von je einer Woche. Was fällt dir auf?</div>
+</section></div><div class="fnr">Folie 2</div><div class="karte" id="f2"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 5</div>
+    <h2>Warum sieht der Mond nicht immer gleich aus?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section></div><div class="fnr">Folie 3</div><div class="karte" id="f3"><section class="folie">
+  <div class="titelband"><h1>8. Wo steht der Mond?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="mbgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="mbwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="mbball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><line x1="14.0" y1="26.0" x2="111.0" y2="26.0" stroke="#E39B00" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="118.0,26.0 110.0,29.6 110.0,22.4" fill="#E39B00" fill-opacity="1"/><line x1="14.0" y1="66.0" x2="111.0" y2="66.0" stroke="#E39B00" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="118.0,66.0 110.0,69.6 110.0,62.4" fill="#E39B00" fill-opacity="1"/><line x1="14.0" y1="106.0" x2="111.0" y2="106.0" stroke="#E39B00" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="118.0,106.0 110.0,109.6 110.0,102.4" fill="#E39B00" fill-opacity="1"/><line x1="14.0" y1="146.0" x2="111.0" y2="146.0" stroke="#E39B00" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="118.0,146.0 110.0,149.6 110.0,142.4" fill="#E39B00" fill-opacity="1"/><line x1="14.0" y1="186.0" x2="111.0" y2="186.0" stroke="#E39B00" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="118.0,186.0 110.0,189.6 110.0,182.4" fill="#E39B00" fill-opacity="1"/><text x="14.0" y="14.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Sonnenlicht</text><circle cx="330" cy="106" r="78" fill="none" stroke="#9AAAC0" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="330" cy="106" r="20" fill="#3B7CC4"/><path d="M330 86 A20 20 0 0 1 330 126Z" fill="#05080F" fill-opacity=".35"/><circle cx="252" cy="106" r="11" fill="#3B4A63"/><path d="M252 95 A11 11 0 0 0 252 117Z" fill="#FFF6D8"/><circle cx="252" cy="106" r="11" fill="none" stroke="#9AAAC0" stroke-width="1"/><circle cx="330" cy="184" r="11" fill="#3B4A63"/><path d="M330 173 A11 11 0 0 0 330 195Z" fill="#FFF6D8"/><circle cx="330" cy="184" r="11" fill="none" stroke="#9AAAC0" stroke-width="1"/><circle cx="408" cy="106" r="11" fill="#3B4A63"/><path d="M408 95 A11 11 0 0 0 408 117Z" fill="#FFF6D8"/><circle cx="408" cy="106" r="11" fill="none" stroke="#9AAAC0" stroke-width="1"/><circle cx="330" cy="28" r="11" fill="#3B4A63"/><path d="M330 17 A11 11 0 0 0 330 39Z" fill="#FFF6D8"/><circle cx="330" cy="28" r="11" fill="none" stroke="#9AAAC0" stroke-width="1"/><path d="M375.1 190.8 A96 96 0 0 0 417.7 145.0" fill="none" stroke="#66798E" stroke-width="1.6"/><polygon points="420.7,136.0 412.7,146.0 423.7,147.0" fill="#66798E" fill-opacity="1"/><text x="434.0" y="182.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Umlauf</text><text x="330.0" y="110.0" font-family="PlexMono, Menlo, monospace" font-size="9" font-weight="500" fill="#FFFFFF" text-anchor="middle" paint-order="stroke" stroke="#3B7CC4" stroke-width="3" stroke-linejoin="round">Erde</text><text x="236.0" y="136.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Neumond</text><text x="348.0" y="200.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">zunehmender Mond</text><text x="426.0" y="110.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Vollmond</text><text x="348.0" y="24.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">abnehmender Mond</text><text x="622.0" y="204.0" font-family="PlexMono, Menlo, monospace" font-size="9" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Blick von oben auf den Nordpol</text></svg>
+  </div>
+  <div class="merksatz">
+    Der Mond ist ein <b>beleuchteter Körper</b>. Die Sonne beleuchtet immer genau eine Hälfte.
+    Auf seiner Bahn um die Erde sehen wir davon <span class="rot">unterschiedlich viel</span>.
+  </div>
+</section></div><div class="fnr">Folie 4 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f4"><div class="austeil">📄 Versuchsblatt austeilen · Versuch in Paaren</div><img class="blattbild" src="Materialien/assets/blatt-w08-loesung.png" alt=""></div><div class="fnr">Folie 5</div><div class="karte" id="f5"><section class="folie">
+  <div class="titelband"><h1>9. Die Mondphasen</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="mpgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="mpwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="mpball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><circle cx="80" cy="84" r="34" fill="#3B4A63"/><circle cx="80" cy="84" r="34" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="80.0" y="144.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Neumond</text><circle cx="222" cy="84" r="34" fill="#3B4A63"/><path d="M222.0 50.0 A34.0 34.0 0 0 1 222.0 118.0 A0.0 34.0 0 0 0 222.0 50.0Z" fill="#FFF6D8"/><circle cx="222" cy="84" r="34" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="222.0" y="144.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">zunehmender</text><text x="222.0" y="158.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Halbmond</text><circle cx="364" cy="84" r="34" fill="#3B4A63"/><path d="M364.0 50.0 A34.0 34.0 0 0 0 364.0 118.0 A34.0 34.0 0 0 0 364.0 50.0Z" fill="#FFF6D8"/><circle cx="364" cy="84" r="34" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="364.0" y="144.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Vollmond</text><circle cx="506" cy="84" r="34" fill="#3B4A63"/><path d="M506.0 50.0 A34.0 34.0 0 0 0 506.0 118.0 A0.0 34.0 0 0 0 506.0 50.0Z" fill="#FFF6D8"/><circle cx="506" cy="84" r="34" fill="none" stroke="#9AAAC0" stroke-width="1"/><text x="506.0" y="144.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">abnehmender</text><text x="506.0" y="158.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Halbmond</text><line x1="46.0" y1="184.0" x2="590.0" y2="184.0" stroke="#66798E" stroke-width="1.6" stroke-opacity="1" stroke-linecap="round"/><polygon points="598.0,184.0 589.0,188.1 589.0,179.9" fill="#66798E" fill-opacity="1"/><text x="322.0" y="202.0" font-family="PlexMono, Menlo, monospace" font-size="10" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">etwa 29,5 Tage</text></svg>
+  </div>
+  <div class="merksatz">
+    So sehen wir den Mond <b>von der Erde aus</b>. Von Neumond bis zum nächsten Neumond
+    vergehen etwa <span class="rot">29,5 Tage</span>.
+  </div>
+</section></div><div class="fnr">Folie 6</div><div class="karte" id="f6"><section class="folie">
+  <div class="titelband"><h1>10. Sonnenfinsternis</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sfgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="sfwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="sfball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><polygon points="360.0,92.0 532.0,63.0 532.0,149.0 360.0,120.0" fill="#05080F" fill-opacity="0.28"/><polygon points="360.0,92.0 532.3,106.0 360.0,120.0" fill="#05080F" fill-opacity="0.78"/><line x1="40.0" y1="66.0" x2="532.3" y2="106.0" stroke="#E39B00" stroke-width="1.8" stroke-opacity="1" stroke-linecap="round"/><line x1="40.0" y1="146.0" x2="532.3" y2="106.0" stroke="#E39B00" stroke-width="1.8" stroke-opacity="1" stroke-linecap="round"/><line x1="40.0" y1="66.0" x2="532.0" y2="149.0" stroke="#E39B00" stroke-width="1.8" stroke-opacity="1" stroke-linecap="round"/><line x1="40.0" y1="146.0" x2="532.0" y2="63.0" stroke="#E39B00" stroke-width="1.8" stroke-opacity="1" stroke-linecap="round"/><circle cx="40" cy="106" r="64.0" fill="url(#sfgl)"/><circle cx="40" cy="106" r="40" fill="#FFD34D"/><circle cx="360" cy="106" r="14" fill="#9AAAC0"/><circle cx="560" cy="106" r="34" fill="#3B7CC4"/><path d="M560 72 A34 34 0 0 1 560 140Z" fill="#05080F" fill-opacity=".35"/><circle cx="529" cy="106" r="3.5" fill="#05080F"/><text x="40.0" y="170.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Sonne</text><text x="360.0" y="142.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Mond</text><text x="560.0" y="164.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Erde</text><text x="400.0" y="86.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Kernschatten</text><text x="410.0" y="180.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Halbschatten</text><line x1="450.0" y1="172.0" x2="480.0" y2="140.0" stroke="#66798E" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><text x="622.0" y="204.0" font-family="PlexMono, Menlo, monospace" font-size="9" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">nicht maßstabsgetreu</text></svg>
+  </div>
+  <div class="merksatz">
+    Bei einer <b>Sonnenfinsternis</b> steht der <span class="rot">Mond zwischen Sonne und Erde</span>.
+    Sein Kernschatten trifft die Erde. Nur dort ist die Sonne ganz verdeckt.
+  </div>
+</section></div><div class="fnr">Folie 7</div><div class="karte" id="f7"><section class="folie">
+  <div class="titelband"><h1>11. Mondfinsternis</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="mfgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="mfwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="mfball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><polygon points="330.0,80.0 610.0,16.3 610.0,195.7 330.0,132.0" fill="#05080F" fill-opacity="0.28"/><polygon points="330.0,80.0 610.0,93.5 610.0,118.5 330.0,132.0" fill="#05080F" fill-opacity="0.78"/><line x1="40.0" y1="66.0" x2="610.0" y2="93.5" stroke="#E39B00" stroke-width="1.8" stroke-opacity="1" stroke-linecap="round"/><line x1="40.0" y1="146.0" x2="610.0" y2="118.5" stroke="#E39B00" stroke-width="1.8" stroke-opacity="1" stroke-linecap="round"/><circle cx="40" cy="106" r="64.0" fill="url(#mfgl)"/><circle cx="40" cy="106" r="40" fill="#FFD34D"/><circle cx="330" cy="106" r="26" fill="#3B7CC4"/><path d="M330 80 A26 26 0 0 1 330 132Z" fill="#05080F" fill-opacity=".35"/><circle cx="520" cy="106" r="11" fill="#8A4A3A"/><text x="40.0" y="170.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Sonne</text><text x="330.0" y="156.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Erde</text><text x="520.0" y="140.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Mond</text><text x="400.0" y="66.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Kernschatten der Erde</text><line x1="446.0" y1="72.0" x2="456.0" y2="96.0" stroke="#66798E" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><text x="622.0" y="204.0" font-family="PlexMono, Menlo, monospace" font-size="9" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">nicht maßstabsgetreu</text></svg>
+  </div>
+  <div class="merksatz">
+    Bei einer <b>Mondfinsternis</b> steht die <span class="rot">Erde zwischen Sonne und Mond</span>.
+    Der Mond taucht in den Kernschatten der Erde ein.
+  </div>
+</section></div><div class="fnr">Folie 8</div><div class="karte" id="f8"><section class="folie"><div class="titelband"><h1>Mond und Finsternis im Alltag</h1></div><div class="zeichenzone karo"><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was man sieht</th><th>warum</th></tr><tr><td>Halbmond am Nachmittag</td><td><b>Mond am hellen Himmel</b></td><td>Die Sonne beleuchtet ihn auch tagsüber. Der zunehmende Halbmond steht nachmittags schon am Himmel.</td></tr><tr><td>Vollmond am Abend</td><td><b>Er geht auf, wenn die Sonne untergeht</b></td><td>Er steht der Sonne genau gegenüber.</td></tr><tr><td>Blutmond</td><td><b>Mond bei Mondfinsternis rötlich</b></td><td>Die Lufthülle der Erde lenkt etwas rotes Licht in den Erdschatten.</td></tr><tr><td>Finsternisbrille</td><td><b>Sonnenfinsternis nur mit Schutz ansehen</b></td><td>Das Sonnenlicht kann die Netzhaut dauerhaft schädigen.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Warum darf man eine Mondfinsternis ohne Brille ansehen, eine Sonnenfinsternis aber nicht?</div></section></div><div class="fnr">Folie 9</div><div class="karte" id="f9"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 5</div>
+    <h2>Warum sieht der Mond nicht immer gleich aus?</h2>
+  </div>
+  <div class="antwortzone">
+    Der Mond ist ein <b>beleuchteter Körper</b>. Die Sonne beleuchtet immer genau eine Hälfte.
+    Weil der Mond die Erde umläuft, sehen wir von dieser hellen Hälfte
+    <span class="rot">unterschiedlich viel</span>. Stehen Sonne, Erde und Mond auf einer Linie,
+    entsteht eine Finsternis.
+  </div>
+</section></div><div class="fnr">Folie 10</div><div class="karte" id="f10"><section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 5</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Warum können wir den Mond sehen?</p>
+      <ol>
+        <li>Er sendet eigenes Licht aus.</li>
+        <li>Die Sonne beleuchtet ihn und er wirft das Licht zurück.</li>
+        <li>Er glüht von innen.</li>
+        <li>Die Erde beleuchtet ihn.</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Bei einer Sonnenfinsternis …</p>
+      <ol>
+        <li>steht der Mond zwischen Sonne und Erde.</li>
+        <li>steht die Erde zwischen Sonne und Mond.</li>
+        <li>ist die Sonne für kurze Zeit erloschen.</li>
+        <li>steht die Sonne zwischen Erde und Mond.</li>
+      </ol>
+    </div>
+  </div>
+</section></div><div class="fnr">Folie 11</div><div class="karte" id="f11"><section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) b &nbsp;&nbsp; 2) a</div>
+</section></div></div>
+<div class="tab" id="t_hg">
+<div class="box"><h3>Wo steht der Mond? <button class="fchip" data-go="f3">Folie 3</button></h3><ul>
+<li>Der Mond läuft in etwa 27,3 Tagen einmal um die Erde. Von Neumond bis Neumond dauert es 29,5 Tage, weil die Erde in dieser Zeit ein Stück um die Sonne weiterwandert.</li>
+<li><b>Umlaufsinn:</b> Von Norden aus gesehen läuft der Mond gegen den Uhrzeigersinn. Liegt die Sonne in der Zeichnung links, steht der zunehmende Mond unten, der abnehmende oben.</li>
+<li><b>Tellurium:</b> Zeigt Mondphasen und beide Finsternisse direkt vorne. Den Raum gut abdunkeln, dann ist die beleuchtete Hälfte klar zu sehen.</li>
+<li><b>Typische Fehlvorstellungen:</b> Die Phasen entstehen durch den Erdschatten. Der Mond leuchtet selbst. Bei Neumond ist der Mond „weg“.</li></ul></div>
+
+<div class="box"><h3>Tipps zum Versuch <button class="fchip" data-go="f4">Folie 4</button></h3><ul>
+<li>Eine helle Lampe ohne Schirm, sonst sind die Phasen blass. Raum ganz abdunkeln.</li>
+<li>Die Kugel etwas höher als den Kopf halten. Sonst steht sie bei „Lampe hinter dir“ im Kopfschatten, das ist dann eine Mondfinsternis. Das kann man gezielt als Zusatz zeigen.</li>
+<li>Drehen nach links, also gegen den Uhrzeigersinn. Dann stimmen die Phasen mit der Nordhalbkugel überein: Lampe rechts von dir heißt zunehmender Halbmond, rechte Seite hell.</li>
+<li>Das Buch zeigt auf S. 40 einen ähnlichen Versuch mit Globus, Lampe und einer Papierkugel am Faden.</li></ul></div>
+
+<div class="box"><h3>Mondphasen <button class="fchip" data-go="f5">Folie 5</button></h3><ul>
+<li>Faustregel für die Nordhalbkugel: rechts hell heißt zunehmend, links hell heißt abnehmend. Auf der Südhalbkugel ist es umgekehrt.</li>
+<li>Der zunehmende Halbmond steht am Nachmittag und Abend am Himmel, der abnehmende am Morgen. Der Vollmond geht beim Sonnenuntergang auf.</li></ul></div>
+
+<div class="box"><h3>Finsternisse <button class="fchip" data-go="f6">Folie 6</button><button class="fchip" data-go="f7">Folie 7</button></h3><ul>
+<li>Die Mondbahn ist um etwa 5° gegen die Erdbahn geneigt. Deshalb gibt es nicht bei jedem Neumond eine Sonnenfinsternis und nicht bei jedem Vollmond eine Mondfinsternis. Im Mondlabor lässt sich der Mond dafür nach oben und unten schieben.</li>
+<li>Der Kernschatten des Mondes ist auf der Erde höchstens rund 270 km breit. Eine totale Sonnenfinsternis sieht man deshalb nur in einem schmalen Streifen, eine Mondfinsternis dagegen überall, wo gerade Nacht ist.</li>
+<li><b>Blutmond:</b> Die Lufthülle der Erde lenkt etwas Sonnenlicht in den Kernschatten. Dabei bleibt vor allem rotes Licht übrig, wie beim Sonnenuntergang.</li>
+<li><b>Sicherheit:</b> Sonnenfinsternis nie ohne Finsternisbrille ansehen, auch keine normale Sonnenbrille. Eine Lochkamera ist ein sicherer Weg. Eine Mondfinsternis kann man ohne Schutz ansehen.</li></ul></div>
+
+<div class="box"><h3>Mondlabor</h3>
+<a class="btn" href="Mondlabor Mondphasen und Finsternisse.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a>
+<p>Mondbahn mit Regler für den Tag seit Neumond und der Ansicht von der Erde, euer Kugelversuch, Sonnenfinsternis mit schiefer Mondbahn, Mondfinsternis mit Blutmond. Auch für zu Hause.</p></div>
+</div>
+<div class="tab" id="t_ab">
+<div class="box"><h3>Versuchsblatt Mondphasen im Modell <button class="fchip" data-go="f4">Folie 4</button></h3>
+<a class="btn" href="Materialien/Mondphasen im Modell W08.pdf">PDF öffnen</a><a class="btn" href="Materialien/Mondphasen im Modell W08 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
+<p><b>Lösung:</b> zur Lampe: Neumond (ganz dunkel). Lampe rechts: zunehmender Halbmond (rechts hell). Lampe hinter dir: Vollmond. Lampe links: abnehmender Halbmond (links hell).
+Lücken: <b>Hälfte</b>, <b>unterschiedlich viel</b>, <b>Mondfinsternis</b>.</p></div>
+<div class="box"><h3>Mondlabor</h3>
+<a class="btn" href="Mondlabor Mondphasen und Finsternisse.html">Labor öffnen</a>
+<p>Dein H5P „Mondphasen Klasse 7“ liegt unter <code>04 Ressourcen/Physik/Mondphasen/H5P/</code> und passt als Wiederholung.</p></div></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+</script></body></html>

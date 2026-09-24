@@ -166,3 +166,12 @@ b, strong { font-weight: 600; }
 
 .loesungstext { color: var(--magenta); font-weight: 600; }
 .fussnote { position: absolute; bottom: 0; left: 0; right: 0; font-size: 7.5pt; color: #9096a0; }
+
+/* Mondphasen-Kreise (W08) */
+.phasen{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin:2mm 0 3mm}
+.phase{border:0.6pt solid #7C8592;border-radius:2mm;padding:2mm;text-align:center;font-size:9.5pt}
+.phase svg{width:22mm;height:22mm;display:block;margin:1mm auto}
+.phase .stellung{min-height:9mm;color:#3b4150}
+.phase .name{border-bottom:0.6pt solid #14171c;min-height:6mm;margin-top:1mm}
+.phase .name.loesungstext{border-bottom:none}
+.haelfte .phase svg{width:13mm;height:13mm;margin:0.5mm auto}.haelfte .phasen{gap:2.5mm;margin:0.5mm 0 1mm}.haelfte .phase{padding:1mm 1.5mm;font-size:8.5pt}.haelfte .phase .stellung{min-height:0}.haelfte .phase .name{min-height:4.5mm}
