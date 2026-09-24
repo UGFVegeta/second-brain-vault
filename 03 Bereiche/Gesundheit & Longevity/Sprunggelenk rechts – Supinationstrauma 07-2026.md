@@ -40,6 +40,7 @@ Am **11.07.2026** beim Triathlon am Schluchsee beim Bergablaufen in ein Loch get
 ## Verlaufsnotizen
 - **19.09.2026:** Nach drei Läufen in vier Tagen (15., 16., 18.09., dazu Bergsprints am 16.09.) Schmerz rechts, Innenseite oberhalb des Knöchels, beim Abdrücken über den Vorfuß, kaum Auftreten möglich. Nach eigener Einschätzung nicht die Achillessehne. Details und Verlauf im [[Gesundheitslogbuch]].
 - **22.09.2026:** Bei Aspacher & Klotzbücher (Einlagen-Fachgeschäft, Rudersberg) Beinlängendifferenz 7 mm rechts festgestellt (bisher unbekannt), Einlagen mit Ausgleich verordnet. Oskars Überlegung: könnte über ein verändertes Abrollverhalten zum Fußproblem vom 19.09. beigetragen haben. Nicht belegt, aber plausibel. Details in [[Hüfte – Übersicht & Entscheidungsstand]].
+- **24.09.2026:** Orthopädie Zentrum Fellbach (Dr. Roller). Laut Karteikarte Beschwerden rechter Fuß nach Joggen am Freitag, Schmerz im OSG/AS (AS vermutlich Achillessehne, Abkürzung nicht sicher), Treppensteigen schmerzhaft, Tape und Ibu 400 ohne Besserung. Behandlung: funktioneller Kinesio-Tape-Verband, Lokalanästhetikum und Lipotalon (Kortison-Präparat) peritendinös am Fuß injiziert. Rezept: 2 Paar stützende Supinationseinlagen mit durchgehender Weichbettung, Fersenschale, Verkürzungsausgleich rechts 7 mm. Zum gleichen Termin am Oberschenkel rechts: Diagnose Muskelzerrung Becken/Oberschenkel (M62.65 R), Ultraschall ohne Hinweis auf strukturelle Schädigung. Schonfrist nach der Injektion noch zu klären.
 - *(hier künftige Updates zum Heilungsverlauf eintragen)*
 
 ---
