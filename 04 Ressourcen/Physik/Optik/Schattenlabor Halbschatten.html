@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Schattenlabor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#EAEFF6; --surface:#F8FAFD; --ink:#101A2B; --muted:#4D5E77; --line:#C6D1E1;
+  --accent:#1F3FA0; --accent-ink:#FFFFFF; --soft:#DCE5F3;
+  --ok:#0F6B47; --okbg:#DDF3E8; --bad:#A3332B; --badbg:#F8E1DE;
+  --amber:#B36B00; --coral:#B8391F; --cyan:#0B6E8F;
+  --font-d:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-b:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --font-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C121B; --surface:#141C28; --ink:#E7EDF6; --muted:#9AAAC0; --line:#27344A;
+    --accent:#9DB8FF; --accent-ink:#0C121B; --soft:#1D283A;
+    --ok:#6FD3A2; --okbg:#12291F; --bad:#FF9C92; --badbg:#3A1B19;
+    --amber:#FFC53D; --coral:#FF8E73; --cyan:#6ED3F2;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C121B; --surface:#141C28; --ink:#E7EDF6; --muted:#9AAAC0; --line:#27344A;
+  --accent:#9DB8FF; --accent-ink:#0C121B; --soft:#1D283A;
+  --ok:#6FD3A2; --okbg:#12291F; --bad:#FF9C92; --badbg:#3A1B19;
+  --amber:#FFC53D; --coral:#FF8E73; --cyan:#6ED3F2;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-b);padding-inline:16px;padding-block:16px 24px;font-size:16px}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.app{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.app:fullscreen{background:var(--bg);padding:24px;overflow:auto;max-width:none}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--font-m);font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{white-space:nowrap;border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:8px;min-height:40px;line-height:1.2}
+.btn:hover{border-color:var(--accent)}
+.btn[aria-pressed="true"]{background:var(--soft);border-color:var(--accent)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.progress{height:4px;background:var(--soft);border-radius:2px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s ease}
+.main{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px;align-items:start}
+.nostage .main{grid-template-columns:minmax(0,1fr)}
+.nostage .stagewrap{display:none}
+@media (max-width:860px){.main{grid-template-columns:minmax(0,1fr);gap:18px}}
+.copy{display:flex;flex-direction:column;gap:12px;min-width:0}
+.kicker{font-family:var(--font-m);font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.copy h1{font-family:var(--font-d);font-weight:700;font-size:clamp(1.9rem,4.2vw,3.2rem);line-height:1.04;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.copy p{font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.5;max-width:60ch;margin:0}
+.term{font-weight:600}
+.ask{display:flex;gap:12px;align-items:baseline;background:var(--soft);padding:12px 14px;border-radius:10px}
+.ask span{font-family:var(--font-m);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);flex:none}
+.ask p{font-size:clamp(1rem,1.4vw,1.15rem);max-width:none}
+.terms{display:grid;gap:10px;margin:0}
+.terms div{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:baseline}
+.terms dt{font-weight:600;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.terms dd{margin:0;line-height:1.45;font-size:1.05rem}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
+.sw.k{background:#05080F}.sw.h{background:linear-gradient(90deg,#8a7a4a,#05080F)}.sw.l{background:#FFE29A}
+.list{margin:0;padding-left:1.2em;display:grid;gap:8px;font-size:clamp(1.02rem,1.45vw,1.2rem);line-height:1.45;max-width:60ch}
+.small{font-size:.9rem!important;color:var(--muted)}
+.notes{display:none;background:var(--surface);border:1px dashed var(--muted);border-radius:10px;padding:10px 14px;font-size:.95rem;line-height:1.45}
+.notes b{font-family:var(--font-m);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.shownotes .notes{display:block}
+.stagewrap{display:flex;flex-direction:column;gap:10px;min-width:0}
+.stage{background:#0A1120;border-radius:14px;overflow:hidden;line-height:0}
+.stage svg{width:100%;height:auto;display:block}
+.lbl{font-family:var(--font-m);font-size:18px;fill:#fff;paint-order:stroke;stroke:#0A1120;stroke-width:4px;stroke-linejoin:round}
+.lbl.dim{fill:#B7C3D9}
+.lbl.mid{text-anchor:middle}.lbl.end{text-anchor:end}
+.readout{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--font-m);font-size:.86rem}
+.chip{background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:8px}
+.chip b{font-weight:500;font-variant-numeric:tabular-nums}
+.ctrl{display:grid;gap:12px 18px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.ctrl label{display:flex;flex-direction:column;gap:4px;font-size:.95rem}
+.ctrl .row{display:flex;justify-content:space-between;gap:8px}
+.ctrl output{white-space:nowrap;font-family:var(--font-m);font-variant-numeric:tabular-nums}
+.ctrl input[type=range]{width:100%;accent-color:var(--accent);min-height:28px}
+.ctrl.pts{display:flex;flex-wrap:wrap;align-items:center}
+.ctrl.pts>span{font-size:.95rem;color:var(--muted);margin-right:4px}
+.dotA,.dotB{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}
+.dotA{background:#FF8A3D}.dotB{background:#4CC9F0}
+.quiz{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.copy .q p.qt{font-size:1.1rem;line-height:1.4;margin:0}
+.qn{font-family:var(--font-m);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--bg);padding:10px 12px;border-radius:8px;line-height:1.3}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad)}
+.copy .q p.why{font-size:.95rem;color:var(--muted);line-height:1.4}
+.score{font-family:var(--font-m);font-size:1rem}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.dot{width:14px;height:14px;padding:0;border-radius:50%;border:2px solid var(--muted);background:transparent}
+.dot[aria-current="true"]{background:var(--accent);border-color:var(--accent)}
+.ray{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.anim .ray{stroke-dashoffset:1;animation:draw .9s ease-out forwards;animation-delay:var(--d,0s)}
+.anim .fade{opacity:0;animation:fadein .7s ease-out forwards;animation-delay:var(--d,.9s)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadein{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .anim .ray{animation:none;stroke-dashoffset:0}
+  .anim .fade{animation:none;opacity:1}
+  .progress i{transition:none}
+}
+@media (max-width:520px){
+  .foot .btn{padding-inline:12px}
+  .dots{display:none}
+  .foot{justify-content:space-between}
+  .lbl{font-size:27px;stroke-width:6px}
+}
+</style>
+
+<div class="app" id="app">
+  <div class="bar">
+    <span class="brand">Physik · Optik · Klasse 7</span>
+    <div class="tools">
+      <span class="brand" id="counter">1 / 8</span>
+      <button class="btn" id="btnNotes" type="button" aria-pressed="false">Lehrkraft</button>
+      <button class="btn" id="btnFs" type="button">Vollbild</button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  <div class="main" id="main">
+    <section class="copy" id="copy" aria-live="polite"></section>
+    <section class="stagewrap" id="stagewrap">
+      <div class="stage"><svg id="svg" viewBox="0 0 840 440" role="img" aria-label="Schattenbildung"></svg></div>
+      <div class="readout" id="readout"></div>
+      <div id="ctrl"></div>
+    </section>
+  </div>
+  <div class="foot">
+    <button class="btn" id="prev" type="button">← Zurück</button>
+    <div class="dots" id="dots"></div>
+    <button class="btn primary" id="next" type="button">Weiter →</button>
+  </div>
+</div>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var CY=220, XS=90;
+var DEF={h:100,r:40,d1:260,d2:340};
+var ECL={h:140,r:46,d1:180,d2:210};
+var P={h:DEF.h,r:DEF.r,d1:DEF.d1,d2:DEF.d2};
+var pts="AB";
+var rev=false;
+
+function cm(n){return (n/10).toFixed(1).replace(".",",")}
+function f1(n){return Math.round(n*10)/10}
+
+function params(cfg){
+  if(cfg.eclipse) return ECL;
+  var p=cfg.live?P:DEF;
+  return {h:cfg.h0?0:p.h,r:p.r,d1:p.d1,d2:p.d2};
+}
+
+function geom(p){
+  var xs=XS, xo=xs+p.d1, xw=xo+p.d2, r=p.r;
+  var yT=CY-p.h/2, yB=CY+p.h/2, yOt=CY-r, yOb=CY+r;
+  function at(yS,yO,x){return yS+(yO-yS)*(x-xs)/(xo-xs)}
+  var A0=at(yT,yOt,xw), A1=at(yT,yOb,xw), B0=at(yB,yOt,xw), B1=at(yB,yOb,xw);
+  var lo=Math.min(A0,B0), hi=Math.max(A1,B1);
+  var luo=Math.max(A0,B0), hiu=Math.min(A1,B1);
+  var xe=xw;
+  if(p.h>2*r){var xt=xs+p.h/(p.h-2*r)*p.d1; xe=Math.min(xw,xt);}
+  return {xs:xs,xo:xo,xw:xw,r:r,h:p.h,yT:yT,yB:yB,yOt:yOt,yOb:yOb,at:at,
+    A0:A0,A1:A1,B0:B0,B1:B1,lo:lo,hi:hi,luo:luo,hiu:hiu,xe:xe,hasU:(hiu-luo)>0.5};
+}
+
+function ray(x1,y1,x2,y2,col,w,d,op){
+  return '<line class="ray" pathLength="1" x1="'+f1(x1)+'" y1="'+f1(y1)+'" x2="'+f1(x2)+'" y2="'+f1(y2)+'" stroke="'+col+'" stroke-width="'+w+'" stroke-opacity="'+(op||1)+'" style="--d:'+d+'s"/>';
+}
+function poly(pp,fill,op,cls,d){
+  return '<polygon class="'+(cls||'')+'" style="--d:'+(d||0)+'s" points="'+pp.map(function(q){return f1(q[0])+","+f1(q[1])}).join(" ")+'" fill="'+fill+'" fill-opacity="'+op+'"/>';
+}
+function rect(x,y,w,h,fill,op){
+  if(h<0.5) return "";
+  return '<rect x="'+f1(x)+'" y="'+f1(y)+'" width="'+f1(w)+'" height="'+f1(h)+'" fill="'+fill+'"'+(op!=null?' fill-opacity="'+op+'"':'')+'/>';
+}
+function txt(x,y,s,cls){
+  y=Math.max(22,Math.min(430,y));
+  return '<text class="lbl '+(cls||"")+'" x="'+f1(x)+'" y="'+f1(y)+'">'+s+'</text>';
+}
+
+function build(cfg){
+  var p=params(cfg), g=geom(p), o=[];
+  var mode=cfg.mode, ecl=!!cfg.eclipse;
+  var xs=g.xs, xo=g.xo, xw=g.xw;
+  var nm=ecl?{lamp:"Sonne",obj:"Mond",wall:"Erde"}:{lamp:"Lampe",obj:"Gegenstand",wall:"Wand"};
+  var earthR=120, ex=xw+earthR;
+  var sw=ecl?earthR*2:26;
+
+  o.push('<defs>'+
+    '<clipPath id="sc"><rect x="0" y="0" width="840" height="440"/></clipPath>'+
+    '<clipPath id="ec"><circle cx="'+ex+'" cy="'+CY+'" r="'+earthR+'"/></clipPath>'+
+    '<linearGradient id="gLight" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".07"/></linearGradient>'+
+    '<linearGradient id="gPU" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></linearGradient>'+
+    '<linearGradient id="gPL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".85"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'+
+    '<linearGradient id="gPM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".5" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'+
+    '<radialGradient id="gGlow"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient>'+
+    '<radialGradient id="gSun" cx=".4" cy=".4" r=".7"><stop offset="0" stop-color="#FFF3C4"/><stop offset="1" stop-color="#FFB627"/></radialGradient>'+
+    '<linearGradient id="gLamp" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFB627"/><stop offset="1" stop-color="#FFF0B8"/></linearGradient>'+
+    '</defs>');
+
+  o.push('<g clip-path="url(#sc)">');
+  var lop=(mode==="two")?0.55:1;
+  o.push('<rect x="'+xs+'" y="0" width="'+(xw-xs)+'" height="440" fill="url(#gLight)" fill-opacity="'+lop+'"/>');
+
+  /* wall */
+  if(ecl){
+    o.push('<circle cx="'+ex+'" cy="'+CY+'" r="'+earthR+'" fill="#3B7CC4"/>');
+    o.push('<circle cx="'+ex+'" cy="'+CY+'" r="'+earthR+'" fill="none" stroke="#8DB8EA" stroke-opacity=".5" stroke-width="2"/>');
+  }else{
+    o.push('<rect x="'+xw+'" y="0" width="26" height="440" fill="#FFE29A"/>');
+  }
+
+  /* shadow volumes in space */
+  if(mode==="two"){
+    if(pts.indexOf("A")>=0) o.push(poly([[xo,g.yOt],[xw,g.A0],[xw,g.A1],[xo,g.yOb]],"#FF8A3D",0.5,"fade",0.8));
+    if(pts.indexOf("B")>=0) o.push(poly([[xo,g.yOt],[xw,g.B0],[xw,g.B1],[xo,g.yOb]],"#4CC9F0",0.5,"fade",0.8));
+  }else{
+    if(g.h>0) o.push(poly([[xo,g.yOt],[xw,g.B0<g.A0?g.B0:g.A0],[xw,g.A1>g.B1?g.A1:g.B1],[xo,g.yOb]],"#000",0.32,"fade",0.9));
+    o.push(poly([[xo,g.yOt],[g.xe,g.at(g.yT,g.yOt,g.xe)],[g.xe,g.at(g.yB,g.yOb,g.xe)],[xo,g.yOb]],"#000",g.h>0?0.55:0.8,"fade",0.9));
+  }
+
+  /* shading on wall */
+  o.push('<g'+(ecl?' clip-path="url(#ec)"':'')+' class="fade" style="--d:.9s">');
+  if(mode==="two"){
+    if(pts.indexOf("A")>=0) o.push(rect(xw,g.A0,sw,g.A1-g.A0,"#000",0.4));
+    if(pts.indexOf("B")>=0) o.push(rect(xw,g.B0,sw,g.B1-g.B0,"#000",0.4));
+  }else if(g.hasU){
+    o.push(rect(xw,g.lo,sw,g.luo-g.lo,"url(#gPU)"));
+    o.push(rect(xw,g.hiu,sw,g.hi-g.hiu,"url(#gPL)"));
+    o.push(rect(xw,g.luo,sw,g.hiu-g.luo,"#000",0.86));
+  }else{
+    o.push(rect(xw,g.lo,sw,g.hi-g.lo,"url(#gPM)"));
+  }
+  o.push('</g>');
+
+  /* rays */
+  if(cfg.rays==="fan"){
+    var N=17, smax=(CY-24)/(xw-xs), i, s, yo, ends, dly;
+    for(i=0;i<N;i++){
+      s=(i/(N-1)*2-1)*smax;
+      yo=s*g.xo-s*xs;
+      ends=(Math.abs(yo)<=g.r)?xo:xw;
+      dly=(0.05*Math.abs(i-(N-1)/2)).toFixed(2);
+      o.push(ray(xs,CY,ends,CY+s*(ends-xs),"#FFC53D",1.8,dly,0.9));
+    }
+  }else if(cfg.rays==="edge"){
+    o.push(ray(xs,g.yT,xw,g.A0,"#FF7A59",2.4,0.1));
+    o.push(ray(xs,g.yB,xw,g.B1,"#FF7A59",2.4,0.2));
+    if(g.h>0){
+      o.push(ray(xs,g.yB,xw,g.B0,"#FFC53D",2.4,0.3));
+      o.push(ray(xs,g.yT,xw,g.A1,"#FFC53D",2.4,0.4));
+    }
+  }else if(cfg.rays==="two"){
+    if(pts.indexOf("A")>=0){
+      o.push(ray(xs,g.yT,xw,g.A0,"#FF8A3D",2.4,0.05));
+      o.push(ray(xs,g.yT,xw,g.A1,"#FF8A3D",2.4,0.15));
+    }
+    if(pts.indexOf("B")>=0){
+      o.push(ray(xs,g.yB,xw,g.B0,"#4CC9F0",2.4,0.05));
+      o.push(ray(xs,g.yB,xw,g.B1,"#4CC9F0",2.4,0.15));
+    }
+  }
+
+  /* object */
+  if(ecl){
+    o.push('<circle cx="'+xo+'" cy="'+CY+'" r="'+g.r+'" fill="#C4CCD8"/>');
+    o.push('<circle cx="'+(xo-14)+'" cy="'+(CY-12)+'" r="9" fill="#A9B3C2"/><circle cx="'+(xo+12)+'" cy="'+(CY+16)+'" r="6" fill="#A9B3C2"/>');
+  }else{
+    o.push('<rect x="'+(xo-6)+'" y="'+g.yOt+'" width="12" height="'+(2*g.r)+'" rx="2" fill="#9FB2CF"/>');
+  }
+
+  /* lamp */
+  if(ecl){
+    o.push('<circle cx="'+xs+'" cy="'+CY+'" r="'+(g.h/2+34)+'" fill="url(#gGlow)" opacity=".55"/>');
+    o.push('<circle cx="'+xs+'" cy="'+CY+'" r="'+(g.h/2)+'" fill="url(#gSun)"/>');
+  }else if(g.h>0){
+    o.push('<rect x="'+(xs-40)+'" y="'+(g.yT-14)+'" width="40" height="'+(g.h+28)+'" rx="10" fill="url(#gGlow)" opacity=".5"/>');
+    o.push('<rect x="'+(xs-16)+'" y="'+g.yT+'" width="16" height="'+g.h+'" rx="4" fill="url(#gLamp)"/>');
+  }else{
+    o.push('<circle cx="'+xs+'" cy="'+CY+'" r="30" fill="url(#gGlow)"/>');
+    o.push('<circle cx="'+xs+'" cy="'+CY+'" r="7" fill="#FFF3C4"/>');
+  }
+  if(mode==="two"){
+    o.push('<circle cx="'+xs+'" cy="'+g.yT+'" r="8" fill="#FF8A3D" stroke="#0A1120" stroke-width="2"/>');
+    o.push('<circle cx="'+xs+'" cy="'+g.yB+'" r="8" fill="#4CC9F0" stroke="#0A1120" stroke-width="2"/>');
+    o.push(txt(xs-22,g.yT+6,"A","end"));
+    o.push(txt(xs-22,g.yB+6,"B","end"));
+  }
+  o.push('</g>');
+
+  /* labels */
+  var L=cfg.lab||{}, lx=xw-12;
+  var top=ecl?(CY-g.h/2-16):(g.h>0?g.yT-24:CY-38);
+  o.push(txt(xs,top,nm.lamp,"mid dim"));
+  o.push(txt(xo,g.yOb+30,nm.obj,"mid dim"));
+  o.push(txt(ecl?ex:xw+13,ecl?CY+earthR+30:26,nm.wall,"mid dim"));
+  o.push('<g class="fade" style="--d:1.1s">');
+  if(mode==="two"){
+    if(pts==="AB"){
+      if(g.hasU&&g.hiu-g.luo>=18) o.push(txt(lx,(g.luo+g.hiu)/2+6,"beide Schatten","end"));
+      if(g.luo-g.lo>=18) o.push(txt(lx,(g.lo+g.luo)/2+6,"nur Schatten B","end"));
+      if(g.hi-g.hiu>=18) o.push(txt(lx,(g.hiu+g.hi)/2+6,"nur Schatten A","end"));
+    }else if(pts==="A"){
+      o.push(txt(lx,(g.A0+g.A1)/2+6,"Schatten von A","end"));
+    }else{
+      o.push(txt(lx,(g.B0+g.B1)/2+6,"Schatten von B","end"));
+    }
+  }else if(cfg.labels){
+    if(g.hasU){
+      if(g.hiu-g.luo>=18) o.push(txt(lx,(g.luo+g.hiu)/2+6,L.umb||"Kernschatten","end"));
+      if(g.h>0&&g.luo-g.lo>=18) o.push(txt(lx,(g.lo+g.luo)/2+6,"Halbschatten","end"));
+      if(g.h>0&&g.hi-g.hiu>=18) o.push(txt(lx,(g.hiu+g.hi)/2+6,"Halbschatten","end"));
+    }else{
+      o.push(txt(lx,(g.lo+g.hi)/2+6,"Halbschatten","end"));
+    }
+    if(g.lo>=70) o.push(txt(lx,g.lo/2+6,"hell","end dim"));
+    if(440-g.hi>=54) o.push(txt(lx,(g.hi+440)/2+6,"hell","end dim"));
+  }
+  o.push('</g>');
+  return {svg:o.join(""),g:g};
+}
+
+function readoutHTML(g){
+  var u=g.hasU?g.hiu-g.luo:0;
+  var out='<span class="chip">Kernschatten <b>'+cm(u)+' cm</b></span>';
+  if(g.h<=0) return out+'<span class="chip">Halbschatten <b>0,0 cm</b></span>';
+  if(g.hasU){
+    out+='<span class="chip">Halbschatten oben <b>'+cm(g.luo-g.lo)+' cm</b></span>';
+    out+='<span class="chip">Halbschatten unten <b>'+cm(g.hi-g.hiu)+' cm</b></span>';
+  }else{
+    out+='<span class="chip">Halbschatten gesamt <b>'+cm(g.hi-g.lo)+' cm</b></span>';
+  }
+  return out;
+}
+
+window.__SL={build:build,readoutHTML:readoutHTML,P:P,DEF:DEF,cm:cm,
+  getPts:function(){return pts},setPts:function(v){pts=v},
+  getRev:function(){return rev},setRev:function(v){rev=v}};
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var SL=window.__SL, P=SL.P, DEF=SL.DEF, cm=SL.cm;
+var $=function(s){return document.querySelector(s)};
+var svg=$("#svg"), copy=$("#copy"), readout=$("#readout"), ctrl=$("#ctrl");
+var cur=0, qa=[null,null,null,null];
+
+var QZ=[
+ {q:"Ein Gegenstand wird von einer sehr kleinen, punktförmigen Lampe beleuchtet. Was entsteht?",
+  o:["Kernschatten und Halbschatten","Nur ein Kernschatten mit scharfem Rand","Nur ein Halbschatten"],a:1,
+  w:"Bei einem einzigen Lichtpunkt ist jeder Strahl entweder gestoppt oder nicht. Für einen Halbschatten fehlt der Übergang."},
+ {q:"Du schiebst den Gegenstand näher an die Wand. Der Halbschatten wird …",
+  o:["breiter","schmaler","bleibt gleich"],a:1,
+  w:"Je kürzer der Weg zwischen Gegenstand und Wand, desto weniger können sich die Schatten der einzelnen Lichtpunkte verschieben."},
+ {q:"Was siehst du von einem Punkt im Halbschatten aus in Richtung Lampe?",
+  o:["Die ganze Lampe","Einen Teil der Lampe","Nichts von der Lampe"],a:1,
+  w:"Im Halbschatten verdeckt der Gegenstand nur einen Teil der Lampe. Der Rest leuchtet noch."},
+ {q:"Wo steht man bei einer totalen Sonnenfinsternis?",
+  o:["Im Kernschatten des Mondes","Im Halbschatten des Mondes","Im Kernschatten der Erde"],a:0,
+  w:"Im Kernschatten des Mondes ist die Sonne vollständig verdeckt. Im Halbschatten ist sie nur teilweise verdeckt."}
+];
+
+var scenes=[
+ {kicker:"Optik · Klasse 7", title:"Schatten und Halbschatten",
+  html:"<p>Halte deine Hand dicht über den Tisch: Der Schatten ist scharf. Hebe sie höher an: Der Rand wird weich und verläuft.</p><p>Heute klären wir, warum das so ist.</p>",
+  ask:"Was vermutest du? Sammle Ideen, bevor es weitergeht.",
+  note:"Einstieg live: Hand im Schein einer Deckenlampe, dann Handy-Taschenlampe. Vermutungen an der Tafel sammeln, nicht bewerten.",
+  cfg:{mode:"full",rays:"edge",labels:true,live:false}, alt:"Lampe, Gegenstand und Wand mit Kernschatten und Halbschatten"},
+
+ {kicker:"Schritt 1", title:"Licht breitet sich geradlinig aus",
+  html:"<p>Eine punktförmige Lichtquelle sendet Lichtstrahlen in alle Richtungen. Sie laufen geradeaus.</p><p>Trifft ein Strahl den Gegenstand, wird er aufgehalten. Dahinter bleibt ein Raum ohne Licht, der <span class=\"term\">Schattenraum</span>. Auf der Wand entsteht das Schattenbild.</p>",
+  ask:"Warum ist der Rand dieses Schattens scharf?",
+  note:"Erwartung: Jeder Strahl wird entweder aufgehalten oder nicht, dazwischen gibt es nichts. Bezug: Laserpointer oder LED-Punktlicht.",
+  cfg:{mode:"point",rays:"fan",labels:true,h0:true,lab:{umb:"Schatten"}}, alt:"Punktförmige Lampe wirft einen scharfen Schatten"},
+
+ {kicker:"Schritt 2", title:"Eine echte Lampe hat viele Lichtpunkte",
+  html:"<p>Eine Glühlampe oder die Sonne ist keine einzelne Stelle. Sie besteht aus sehr vielen leuchtenden Punkten. Wir betrachten erst zwei davon: den obersten Punkt A und den untersten Punkt B.</p><p>Jeder Punkt wirft seinen eigenen Schatten. Wo sich beide Schatten überlappen, kommt von der Lampe gar kein Licht an.</p>",
+  ask:"Wechsle zwischen Punkt A, Punkt B und beiden. Wo ist es am dunkelsten, und warum?",
+  note:"Schüler kommen nacheinander nach vorn und schalten um. Die Überlappung als \"beide Punkte verdeckt\" benennen lassen.",
+  controls:"pts", cfg:{mode:"two",rays:"two",labels:true}, alt:"Zwei Lichtpunkte werfen zwei überlappende Schatten"},
+
+ {kicker:"Schritt 3", title:"Kernschatten und Halbschatten",
+  html:"<p>Nimmt man alle Lichtpunkte zusammen, entstehen drei Bereiche auf der Wand.</p><dl class=\"terms\"><div><dt><i class=\"sw k\"></i>Kernschatten</dt><dd>Alle Lichtpunkte sind verdeckt. Es ist dunkel.</dd></div><div><dt><i class=\"sw h\"></i>Halbschatten</dt><dd>Nur ein Teil der Lampe ist verdeckt. Ein Teil des Lichts kommt an.</dd></div><div><dt><i class=\"sw l\"></i>Voll beleuchtet</dt><dd>Die ganze Lampe ist sichtbar.</dd></div></dl>",
+  ask:"Warum wird es im Halbschatten nach außen langsam heller?",
+  note:"Antwort: Nach außen sieht man immer mehr von der Lampe. Im Heft die vier Randstrahlen mit Lineal und zwei Farben einzeichnen lassen.",
+  cfg:{mode:"full",rays:"edge",labels:true,live:false,readout:true}, alt:"Kernschatten, Halbschatten und beleuchteter Bereich auf der Wand"},
+
+ {kicker:"Experiment", title:"Was verändert den Halbschatten?",
+  html:"<p>Verändere die Regler und beobachte Kernschatten und Halbschatten. Formuliere drei Je-desto-Sätze.</p><p class=\"small\">Alle Längen in echten Zentimetern, wie bei einem Tischversuch mit Lampe, Pappscheibe und Wand.</p><div id=\"rules\"></div>",
+  note:"Regler in Gruppen aufteilen: Jede Gruppe verändert genau eine Größe. Erst danach \"Ergebnisse zeigen\".",
+  controls:"sliders", cfg:{mode:"full",rays:"edge",labels:true,live:true,readout:true}, alt:"Schattenbildung mit einstellbarer Lampengröße und Abständen"},
+
+ {kicker:"Anwendung", title:"Finsternisse sind Schatten im Weltall",
+  html:"<p>Die Sonne ist eine riesige, ausgedehnte Lichtquelle. Der Mond wirft deshalb Kernschatten und Halbschatten auf die Erde.</p><ul class=\"list\"><li>Im <span class=\"term\">Kernschatten</span> ist die Sonne ganz verdeckt: totale Sonnenfinsternis.</li><li>Im <span class=\"term\">Halbschatten</span> ist sie nur teilweise verdeckt: partielle Sonnenfinsternis.</li><li>Bei einer Mondfinsternis wirft die Erde ihren Schatten auf den Mond.</li></ul><p class=\"small\">Der Kernschatten des Mondes ist auf der Erde höchstens rund 270 km breit. Zeichnung nicht maßstabsgetreu.</p>",
+  ask:"Eine Person steht im Halbschatten des Mondes. Was sieht sie am Himmel?",
+  note:"Antwort: Eine Sonne mit \"angeknabbertem\" Rand. Sicherheitshinweis: Nie ohne Filterbrille in die Sonne schauen.",
+  cfg:{mode:"full",rays:"edge",labels:true,eclipse:true}, alt:"Sonne, Mond und Erde mit Kernschatten und Halbschatten"},
+
+ {kicker:"Kurz-Check", title:"Was hast du verstanden?", nostage:true, quiz:true,
+  html:"<p>Wähle jeweils eine Antwort. Die Erklärung erscheint sofort.</p>",
+  note:"Als Kahoot oder mit Handzeichen möglich. Frage 2 gezielt nachbesprechen: Wird häufig verwechselt."},
+
+ {kicker:"Tafelbild", title:"Das solltest du mitnehmen",
+  html:"<ul class=\"list\"><li>Eine <span class=\"term\">punktförmige</span> Lichtquelle wirft nur einen Kernschatten mit scharfem Rand.</li><li>Eine <span class=\"term\">ausgedehnte</span> Lichtquelle wirft Kernschatten und Halbschatten.</li><li>Je größer die Lampe und je weiter die Wand vom Gegenstand entfernt ist, desto breiter der Halbschatten.</li></ul><div class=\"ask\"><span>Aufgabe</span><p>Halte einen Stift erst vor eine Schreibtischlampe, dann vor eine kleine LED-Taschenlampe. Beschreibe die Schattenränder und erkläre den Unterschied.</p></div>",
+  note:"Hausaufgabe mit Foto der beiden Schatten möglich. Sicherung: Skizze mit Randstrahlen ins Heft übertragen.",
+  cfg:{mode:"full",rays:"edge",labels:true,live:false}, alt:"Zusammenfassung mit Kernschatten und Halbschatten"}
+];
+
+function rulesHTML(){
+  if(!SL.getRev()) return "<button class=\"btn\" type=\"button\" id=\"btnRev\">Ergebnisse zeigen</button>";
+  return "<ul class=\"list\"><li>Je <b>größer</b> die Lampe, desto <b>breiter</b> der Halbschatten und desto kleiner der Kernschatten.</li><li>Je <b>näher</b> der Gegenstand an der Wand, desto <b>schärfer</b> der Schatten.</li><li>Je <b>weiter</b> die Lampe entfernt ist, desto <b>schmaler</b> der Halbschatten.</li></ul>";
+}
+
+function quizHTML(){
+  var done=0, right=0;
+  var h="<div class=\"quiz\">"+QZ.map(function(z,i){
+    var s=qa[i]; if(s!=null){done++; if(s===z.a) right++;}
+    return "<div class=\"q\"><p class=\"qt\"><span class=\"qn\">Frage "+(i+1)+"</span>"+z.q+"</p><div class=\"opts\">"+
+      z.o.map(function(t,j){
+        var c="opt"; if(s!=null){ if(j===z.a) c+=" right"; else if(j===s) c+=" wrong"; }
+        return "<button type=\"button\" class=\""+c+"\" data-q=\""+i+"\" data-o=\""+j+"\""+(s!=null?" disabled":"")+">"+t+"</button>";
+      }).join("")+"</div>"+(s!=null?"<p class=\"why\">"+z.w+"</p>":"")+"</div>";
+  }).join("")+"</div>";
+  if(done===QZ.length) h+="<p class=\"score\">Ergebnis: "+right+" von "+QZ.length+" richtig</p>";
+  return h;
+}
+
+function drawStage(){
+  var s=scenes[cur]; if(!s.cfg) return;
+  var b=SL.build(s.cfg);
+  svg.setAttribute("class", drawStage.anim?"anim":"");
+  svg.setAttribute("aria-label", s.alt||"Schattenbildung");
+  svg.innerHTML=b.svg;
+  readout.innerHTML=s.cfg.readout?SL.readoutHTML(b.g):"";
+}
+
+function ctrlHTML(kind){
+  if(kind==="pts"){
+    var v=SL.getPts();
+    function bt(k,l){return "<button type=\"button\" class=\"btn\" data-pts=\""+k+"\" aria-pressed=\""+(v===k)+"\">"+l+"</button>";}
+    return "<div class=\"ctrl pts\"><span>Zeige:</span>"+
+      bt("A","<i class=\"dotA\"></i>Punkt A")+bt("B","<i class=\"dotB\"></i>Punkt B")+bt("AB","Beide")+"</div>";
+  }
+  if(kind==="sliders"){
+    return "<div class=\"ctrl\">"+
+     "<label for=\"sH\"><span class=\"row\"><span>Größe der Lampe</span><output id=\"oH\"></output></span><input id=\"sH\" type=\"range\" min=\"0\" max=\"200\" step=\"10\" value=\""+P.h+"\"></label>"+
+     "<label for=\"sD1\"><span class=\"row\"><span>Lampe bis Gegenstand</span><output id=\"oD1\"></output></span><input id=\"sD1\" type=\"range\" min=\"120\" max=\"420\" step=\"10\" value=\""+P.d1+"\"></label>"+
+     "<label for=\"sD2\"><span class=\"row\"><span>Gegenstand bis Wand</span><output id=\"oD2\"></output></span><input id=\"sD2\" type=\"range\" min=\"40\" max=\"280\" step=\"10\" value=\""+P.d2+"\"></label>"+
+     "<button type=\"button\" class=\"btn\" id=\"btnReset\">Ausgangswerte</button></div>";
+  }
+  return "";
+}
+function syncOut(){
+  var a=$("#oH"); if(!a) return;
+  a.textContent=P.h===0?"Punkt (0 cm)":cm(P.h)+" cm";
+  $("#oD1").textContent=cm(P.d1)+" cm";
+  $("#oD2").textContent=cm(P.d2)+" cm";
+}
+
+function show(i,anim){
+  cur=Math.max(0,Math.min(scenes.length-1,i));
+  var s=scenes[cur];
+  $("#app").classList.toggle("nostage",!!s.nostage);
+  copy.innerHTML="<span class=\"kicker\">"+s.kicker+"</span><h1>"+s.title+"</h1>"+s.html+
+    (s.quiz?"<div id=\"quiz\">"+quizHTML()+"</div>":"")+
+    (s.ask&&s.cfg&&cur!==7?"<div class=\"ask\"><span>Frage</span><p>"+s.ask+"</p></div>":"")+
+    "<aside class=\"notes\"><b>Hinweis für die Lehrkraft</b>"+s.note+"</aside>";
+  if(cur===4) $("#rules").innerHTML=rulesHTML();
+  ctrl.innerHTML=ctrlHTML(s.controls);
+  syncOut();
+  drawStage.anim=(anim!==false);
+  drawStage();
+  $("#counter").textContent=(cur+1)+" / "+scenes.length;
+  $("#bar").style.width=((cur+1)/scenes.length*100)+"%";
+  $("#prev").disabled=cur===0; $("#next").disabled=cur===scenes.length-1;
+  Array.prototype.forEach.call(document.querySelectorAll(".dot"),function(d,k){
+    if(k===cur) d.setAttribute("aria-current","true"); else d.removeAttribute("aria-current");
+  });
+}
+
+/* nav dots */
+scenes.forEach(function(s,i){
+  var b=document.createElement("button");
+  b.type="button"; b.className="dot"; b.setAttribute("aria-label","Folie "+(i+1)+": "+s.title);
+  b.addEventListener("click",function(){show(i)});
+  $("#dots").appendChild(b);
+});
+$("#prev").addEventListener("click",function(){show(cur-1)});
+$("#next").addEventListener("click",function(){show(cur+1)});
+
+$("#btnNotes").addEventListener("click",function(){
+  var on=!document.body.classList.contains("shownotes");
+  document.body.classList.toggle("shownotes",on);
+  this.setAttribute("aria-pressed",String(on));
+});
+$("#btnFs").addEventListener("click",function(){
+  try{
+    if(document.fullscreenElement){ document.exitFullscreen(); }
+    else{ var r=$("#app").requestFullscreen&&$("#app").requestFullscreen(); if(r&&r.catch) r.catch(function(){}); }
+  }catch(e){}
+});
+
+document.addEventListener("keydown",function(e){
+  var t=e.target&&e.target.tagName;
+  if(t==="INPUT"||e.ctrlKey||e.metaKey||e.altKey) return;
+  if(e.key==="ArrowRight"||e.key==="PageDown"){ e.preventDefault(); show(cur+1); }
+  else if(e.key==="ArrowLeft"||e.key==="PageUp"){ e.preventDefault(); show(cur-1); }
+  else if(e.key==="f"||e.key==="F"){ $("#btnFs").click(); }
+  else if(e.key==="l"||e.key==="L"){ $("#btnNotes").click(); }
+});
+
+/* delegated interactions */
+copy.addEventListener("click",function(e){
+  var t=e.target.closest("button"); if(!t) return;
+  if(t.id==="btnRev"){ SL.setRev(true); $("#rules").innerHTML=rulesHTML(); return; }
+  if(t.hasAttribute("data-q")){
+    qa[+t.getAttribute("data-q")]=+t.getAttribute("data-o");
+    $("#quiz").innerHTML=quizHTML();
+  }
+});
+ctrl.addEventListener("click",function(e){
+  var t=e.target.closest("button"); if(!t) return;
+  if(t.hasAttribute("data-pts")){
+    SL.setPts(t.getAttribute("data-pts"));
+    ctrl.innerHTML=ctrlHTML("pts");
+    drawStage.anim=true; drawStage();
+  }else if(t.id==="btnReset"){
+    P.h=DEF.h; P.r=DEF.r; P.d1=DEF.d1; P.d2=DEF.d2;
+    ctrl.innerHTML=ctrlHTML("sliders"); syncOut();
+    drawStage.anim=false; drawStage();
+  }
+});
+ctrl.addEventListener("input",function(e){
+  var id=e.target.id, v=+e.target.value;
+  if(id==="sH") P.h=v; else if(id==="sD1") P.d1=v; else if(id==="sD2") P.d2=v; else return;
+  syncOut(); drawStage.anim=false; drawStage();
+});
+
+var start=0;
+try{ var m=/^#s(\d)$/.exec(location.hash); if(m) start=Math.min(scenes.length-1,+m[1]-1); }catch(e){}
+show(Math.max(0,start));
+})();
+</script>
+</body>
+</html>
