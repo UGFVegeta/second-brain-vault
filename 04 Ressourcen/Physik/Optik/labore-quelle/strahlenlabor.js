@@ -63,7 +63,7 @@ function blende(){
   o.push(G.txt(67,280,"Ray-Box","mid dim"));
   o.push(G.txt(X1,432,"Blende","mid dim"));
   if(zwei) o.push(G.txt(X2,432,"2. Blende","mid dim"));
-  o.push(G.txt(XS+12,26,"Schirm","mid dim"));
+  o.push(G.txt(XS-8,26,"Schirm","end dim"));
   var why=!inBeam?"Das Loch liegt außerhalb des Lichtbündels.":(!pass2?"Die Löcher liegen nicht auf einer Geraden mit der Lampe.":"Lampe, Loch und Lichtpunkt liegen auf einer Geraden.");
   return {svg:o.join(""), readout:'<span class="chip">Lichtpunkt auf dem Schirm <b>'+(spot?"ja":"nein")+'</b></span><span class="chip">'+why+'</span>'};
 }

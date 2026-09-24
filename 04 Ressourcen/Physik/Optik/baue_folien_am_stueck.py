@@ -333,7 +333,10 @@ Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Las
 <div class="box"><h3>Versuchsblatt Licht trifft auf einen Körper {chip(10)}</h3>
 <a class="btn" href="Materialien/Licht trifft auf einen Koerper W04.pdf">PDF öffnen</a><a class="btn" href="Materialien/Licht trifft auf einen Koerper W04 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
 <p><b>Lösung:</b> Weißes Blatt: heller, breiter Lichtfleck, Licht wird in viele Richtungen zurückgeworfen (<b>gestreut</b>). Schwarzer Karton: nur ein schwacher Lichtfleck, das meiste Licht wird
-<b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div></div>
+<b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div>
+<div class="box"><h3>Sehlabor und Körperlabor</h3>
+<a class="btn" href="Sehlabor Lichtquellen.html">Sehlabor</a><a class="btn" href="Körperlabor Licht trifft auf Körper.html">Körperlabor</a><a class="btn" href="Optik-Labore.html">Alle Labore</a>
+<p>Sehlabor: Sender und Empfänger, Lichtquellen zuordnen, Sehen und gesehen werden auf der Straße. Körperlabor: weitere Körper wie Butterbrotpapier oder Sonnenbrille, dazu die Aufteilung in Streuung, Absorption und Transmission. Beide sind auch für zu Hause geeignet.</p></div></div>
 </div>
 <script>
 const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];

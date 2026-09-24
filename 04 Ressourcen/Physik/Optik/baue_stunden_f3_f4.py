@@ -71,7 +71,10 @@ F3_AB = f"""
 <div class="box"><h3>Versuchsblatt Ray-Box und Blenden {chip(3)}</h3>
 <a class="btn" href="Materialien/Lichtausbreitung und Blende W05.pdf">PDF öffnen</a><a class="btn" href="Materialien/Lichtausbreitung und Blende W05 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
 <p><b>Lösung:</b> Der Lichtpunkt erscheint nur, wenn das Loch genau auf der geraden Linie zwischen Lampe und Schirm liegt. Wird die Blende seitlich verschoben,
-verschwindet er. Lücken: <b>geradlinig</b>, <b>gerade Linie</b>.</p></div>"""
+verschwindet er. Lücken: <b>geradlinig</b>, <b>gerade Linie</b>.</p></div>
+<div class="box"><h3>Strahlenlabor</h3>
+<a class="btn" href="Strahlenlabor Lichtausbreitung.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a>
+<p>Zum Zeigen, was im Versuch nicht geht: Blende 2 dazuschalten, Spaltbreite ändern, Lichtweg im Nebel, Verkehrsspiegel. Auch für zu Hause geeignet.</p></div>"""
 
 F3_SCHRITTE = [
     ("Einstieg", "Ball hinter der Mauer, Leitfrage 3, Vermutungen.", [1, 2]),
@@ -144,7 +147,10 @@ F4_AB = f"""
 <p><b>Lösung Versuch 1:</b> Je näher der Körper an der Lampe steht, desto größer und unschärfer wird der Schatten. Lücken: <b>undurchsichtiger Körper</b>,
 <b>Lichtquelle</b>, <b>hinter</b>.</p>
 <p><b>Lösung Versuch 2:</b> Ein zweiter, versetzter Schatten kommt dazu. In der Mitte bleibt es am dunkelsten (Kernschatten), an den Rändern wird es heller (Halbschatten).
-Lücken: <b>lichtundurchlässigen Körper</b>, <b>Schatten</b>, <b>überlagern</b>, <b>Halbschattengebiete</b>, <b>Kernschattengebiete</b>.</p></div>"""
+Lücken: <b>lichtundurchlässigen Körper</b>, <b>Schatten</b>, <b>überlagern</b>, <b>Halbschattengebiete</b>, <b>Kernschattengebiete</b>.</p></div>
+<div class="box"><h3>Schattenlabor</h3>
+<a class="btn" href="Schattenlabor Halbschatten.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a>
+<p>Passt nach Folie 5: Im Labor Folie 3 bis 5 zeigen (zwei Lichtpunkte, Kern- und Halbschatten, Regler für Lampengröße und Abstände). Die Lampengröße kann man mit der Ray-Box nicht verändern. Folie 6 (Finsternisse) als Ausblick.</p></div>"""
 
 F4_SCHRITTE = [
     ("Einstieg", "Eine Lampe, zwei Lampen: Was ist anders? Leitfrage 4.", [1, 2]),
@@ -177,6 +183,8 @@ if "export" in sys.argv:
     materialliste(O4, "W06–07", "F4 — Kern- und Halbschatten", F4_MATERIAL)
     exportiere(F3, O3, "Folien F3.pdf", "Arbeitsblatt F3.pdf", "Stunde Leitfrage 3.html", "Optik – Leitfrage 3 – Stunde.html",
                {"Materialien/Lichtausbreitung und Blende W05.pdf": "Arbeitsblatt F3.pdf",
+                "Strahlenlabor Lichtausbreitung.html": "../Labore/Strahlenlabor Lichtausbreitung.html", "Optik-Labore.html": "../Labore/Optik-Labore.html",
                 "Materialien/Lichtausbreitung und Blende W05 – 2 auf 1.pdf": "Arbeitsblatt F3 – Kopiervorlage 2 auf 1.pdf"})
     exportiere(F4, O4, "Folien F4.pdf", "Arbeitsblatt F4.pdf", "Stunde Leitfrage 4.html", "Optik – Leitfrage 4 – Stunde.html",
-               {"Materialien/Kern- und Halbschatten W06.pdf": "Arbeitsblatt F4.pdf"})
+               {"Materialien/Kern- und Halbschatten W06.pdf": "Arbeitsblatt F4.pdf",
+                "Schattenlabor Halbschatten.html": "../Labore/Schattenlabor Halbschatten.html", "Optik-Labore.html": "../Labore/Optik-Labore.html"})

@@ -3,7 +3,7 @@
    Fensterglas ~8 % Spiegelung an zwei Oberflächen und ~90 % Transmission). */
 (function(){
 "use strict";
-var S={mat:"weiss", mat2:"butter", fl:"rau", th:-30};
+var S={mat:"weiss", mat2:"butter", fl:"rau", th:20};
 var M={
  weiss:{n:"weißes Blatt",s:80,a:20,t:0,fill:"#F2F2EE",op:1},
  schwarz:{n:"schwarzer Karton",s:5,a:95,t:0,fill:"#15171C",op:1},
@@ -23,7 +23,7 @@ function plate(cfg){
   /* Streuung nach links */
   if(m.s>0) for(i=0;i<11;i++){
     ang=(105+i*15)*Math.PI/180;
-    o.push(G.ray(P[0],P[1],P[0]+190*Math.cos(ang),P[1]+190*Math.sin(ang),"#FFC53D",1.2+m.s/100*1.8,0.9+0.03*i,0.12+m.s/100*0.8));
+    o.push(G.ray(P[0],P[1],P[0]+150*Math.cos(ang),P[1]+150*Math.sin(ang),"#FFC53D",1.2+m.s/100*1.8,0.9+0.03*i,0.12+m.s/100*0.8));
   }
   /* Spiegelung (glatte Oberfläche) */
   if(m.spec) o.push(G.ray(P[0],P[1],P[0]-ux*330,P[1]+uy*330,"#FFC53D",1.5+m.s/100*8,0.9,0.3+m.s/100*3));
@@ -31,12 +31,12 @@ function plate(cfg){
   if(m.t>0){
     if(m.diffT) for(i=0;i<9;i++){
       ang=(-60+i*15)*Math.PI/180;
-      o.push(G.ray(P[0],P[1],P[0]+200*Math.cos(ang),P[1]+200*Math.sin(ang),"#FFC53D",1.4+m.t/100*1.6,1.0+0.03*i,0.15+m.t/100*0.7));
+      o.push(G.ray(P[0],P[1],P[0]+150*Math.cos(ang),P[1]+150*Math.sin(ang),"#FFC53D",1.4+m.t/100*1.6,1.0+0.03*i,0.15+m.t/100*0.7));
     } else o.push(G.ray(P[0],P[1],P[0]+ux*420,P[1]+uy*420,"#FFC53D",1+5*m.t/100,1.0,0.25+0.75*m.t/100));
   }
   /* Platte und Absorption */
   o.push(G.rect(P[0]-9,80,18,280,m.fill,m.op,' stroke="#C6D1E1" stroke-opacity=".6" rx="2"'));
-  if(m.a>0){
+  if(m.a>=30){
     o.push(G.circ(P[0],P[1],28+m.a*0.3,"url(#gHeat)",' class="fade" style="--d:1s" opacity="'+(m.a/100)+'"'));
     for(k=-1;k<=1;k++) o.push('<path class="fade" style="--d:1.2s" d="M'+(P[0]+k*14)+' 74 q6 -9 0 -18 q-6 -9 0 -18" fill="none" stroke="#FF7A59" stroke-width="2.4" stroke-linecap="round" opacity="'+(m.a/100)+'"/>');
   }
@@ -141,7 +141,7 @@ window.LAB={state:S,
    ask:"Warum siehst du den Lichtfleck auf dem Papier von jedem Platz aus, beim Spiegel aber nur von einer Stelle?",
    note:"Streuung heißt: Licht geht von der rauen Fläche in viele Richtungen. Der Spiegel wirft es nur in eine Richtung.",
    controls:{btn:[{k:"fl",label:"Fläche:",opts:[["rau","rau (Papier)"],["glatt","glatt (Spiegel)"]]}],
-     sl:[{k:"th",label:"Wo ist dein Auge?",min:-75,max:75,step:1,fmt:function(v){return v<0?"links":(v>0?"rechts":"Mitte")}}]},
+     sl:[{k:"th",label:"Wo ist dein Auge?",min:-15,max:80,step:1,fmt:function(v){return v+"°"}}]},
    cfg:{mode:"eye"}, alt:"Raue und glatte Fläche mit Auge"},
 
   {kicker:"Kurz-Check", title:"Was hast du verstanden?", nostage:true, quiz:true,

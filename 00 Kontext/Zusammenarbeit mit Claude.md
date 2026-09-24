@@ -70,6 +70,10 @@ Arbeitsblätter, Übungsblätter und Diagnosearbeiten (Grundlagen-Check) bekomme
 
 Bei Stundenvorbereitung erkläre ich zuerst, wie ich das Thema unterrichten will. Danach wird mit dem Buch verglichen und das Buch an meinen Stil angepasst, nicht umgekehrt. Beispiel Rationale Zahlen: Bogenmodell (Plus nach rechts, Minus nach links) ohne Klammern, ohne auswendig zu lernende Regeltexte; Klammern erst bei Rechenvorteilen und Multiplikation.
 
+## Interaktive Labore im Stil des Schattenlabors (24.09.2026)
+
+Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Strahlen, Reglern, Kurz-Check) gefällt mir sehr. Solche Labore nutze ich als Werkzeug: im Unterricht für das, was sich weder im Schüler- noch im Lehrerversuch zeigen lässt, und als Link für die Schüler zum Nachschauen zu Hause. Jede Leitfrage bekommt ein eigenes Labor. Keine Hausaufgaben darin, Begriffe wie auf Folie und Versuchsblatt, Schriften eingebettet (keine Google-Anfragen). Überblick: [[Optik-Labore]].
+
 ---
 
 *Stand: 18.06.2026, aus dem Kennenlern-Interview (Bereich „Zusammenarbeit"). Weitere Bereiche – Prioritäten, Entscheidungsstil, Tagesablauf – folgen.*

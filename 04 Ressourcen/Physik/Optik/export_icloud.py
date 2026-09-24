@@ -110,6 +110,8 @@ html = re.sub(r'(src|href)="((?:assets|Materialien/assets)/[^"]+\.(?:png|jpg))"'
 html = html.replace('href="Materialien/Lichtquellen W03.pdf"', 'href="../F1 Lichtquellen (W03)/Arbeitsblatt F1.pdf"')
 html = html.replace('href="Materialien/Licht trifft auf einen Koerper W04.pdf"', 'href="Arbeitsblatt F2.pdf"')
 html = html.replace('href="Materialien/Licht trifft auf einen Koerper W04 – 2 auf 1.pdf"', 'href="Arbeitsblatt F2 – Kopiervorlage 2 auf 1.pdf"')
+for lab in ("Sehlabor Lichtquellen.html", "Körperlabor Licht trifft auf Körper.html", "Optik-Labore.html"):
+    html = html.replace(f'href="{lab}"', f'href="../Labore/{lab}"')
 (F2 / "Stunde Do 24.09.html").write_text(html, encoding="utf-8")
 
 exp.unlink(); tmp.unlink()

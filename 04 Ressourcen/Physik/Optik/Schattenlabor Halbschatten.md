@@ -42,7 +42,8 @@ Ergänzt die Folien `Optik I` und die Stunde `Optik – Leitfrage 4 – Stunde.h
 ## Technik
 
 - Schatten werden aus den Randstrahlen berechnet (Funktion `geom()`, 1 Einheit = 0,1 cm), die Zeichnung ist ein SVG (`build()`), die Folien stehen im Array `scenes`.
-- Google Fonts brauchen Internet, sonst greifen Ersatzschriften.
+- Schriften sind seit 24.09.2026 eingebettet (keine Google-Anfragen, läuft offline). Begriffe an Folien angeglichen (Körper, Schirm), Hausaufgabe entfernt, letzte Folie heißt „Zusammenfassung“ mit „Probier's aus“.
+- Gehört zu den [[Optik-Labore]]n (Sehlabor, Körperlabor, Strahlenlabor, Schattenlabor).
 - Ausgangsversion als Artifact: https://claude.ai/artifact/WijdaccDkExrD7H62PdrJr
 
 ## Ideen zum Weiterbauen
