@@ -17,7 +17,7 @@ function kreisscheibe(cfg){
   o.push('<g clip-path="url(#sc)">');
   o.push('<path d="M'+(M[0]-R)+' '+M[1]+' A'+R+' '+R+' 0 0 1 '+(M[0]+R)+' '+M[1]+'Z" fill="#141C28" stroke="#4D5E77" stroke-width="2"/>');
   for(i=0;i<=180;i+=5){ t=i%10===0?16:8; o.push('<line x1="'+G.f1(M[0]+R*Math.cos(i*RAD))+'" y1="'+G.f1(M[1]-R*Math.sin(i*RAD))+'" x2="'+G.f1(M[0]+(R-t)*Math.cos(i*RAD))+'" y2="'+G.f1(M[1]-(R-t)*Math.sin(i*RAD))+'" stroke="#4D5E77" stroke-width="1.5"/>'); }
-  for(i=0;i<=90;i+=30){ [90-i,90+i].forEach(function(w){ o.push(G.txt(M[0]+(R-34)*Math.cos(w*RAD),M[1]-(R-34)*Math.sin(w*RAD)+6,i+"°","mid dim")); }); }
+  for(i=0;i<=60;i+=30){ [90-i,90+i].forEach(function(w){ o.push(G.txt(M[0]+(R-34)*Math.cos(w*RAD),M[1]-(R-34)*Math.sin(w*RAD)+6,i+"°","mid dim")); }); }
   /* Spiegel (gekippt um k Grad), Lot senkrecht dazu */
   var lot=90+k, sx=Math.cos(k*RAD), sy=Math.sin(k*RAD);
   o.push('<line x1="'+G.f1(M[0]-200*sx)+'" y1="'+G.f1(M[1]+200*sy)+'" x2="'+G.f1(M[0]+200*sx)+'" y2="'+G.f1(M[1]-200*sy)+'" stroke="#C6D1E1" stroke-width="7" stroke-linecap="round"/>');

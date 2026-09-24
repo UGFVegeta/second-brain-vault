@@ -8,7 +8,7 @@ date: 2026-09-24
 
 Interaktive Unterrichtsseiten im Stil des [[Schattenlabor Halbschatten|Schattenlabors]], eine pro Leitfrage. Zum Zeigen im Unterricht (was im Versuch nicht geht) und als Link für die Schüler zu Hause.
 
-**Startseite:** [Optik-Labore.html](<Optik-Labore.html>) verlinkt alle sechs Labore.
+**Startseite:** [Optik-Labore.html](<Optik-Labore.html>) verlinkt alle neun Labore.
 
 | Leitfrage | Labor | Inhalt |
 |---|---|---|
@@ -18,6 +18,9 @@ Interaktive Unterrichtsseiten im Stil des [[Schattenlabor Halbschatten|Schattenl
 | 4 Warum hat ein Schatten manchmal weiche Ränder? | [Schattenlabor](<Schattenlabor Halbschatten.html>) | zwei Lichtpunkte, Kern- und Halbschatten mit Reglern, vier Flutlicht-Schatten im Stadion (Buch S. 35), Finsternisse als Ausblick |
 | 5 Warum sieht der Mond nicht immer gleich aus? | [Mondlabor](<Mondlabor Mondphasen und Finsternisse.html>) | vier Wochen Mond, Mondbahn mit Tag-Regler und Ansicht von der Erde, Kugelversuch W08, Sonnenfinsternis mit schiefer Mondbahn, Mondfinsternis mit Blutmond |
 | Lochkamera | [Lochkameralabor](<Lochkameralabor.html>) | Weg des Lichts, Regler für Abstände und Lochgröße (Bildgröße, Unschärfe, Helligkeit), ein/zwei/viele Löcher, Sonnenbilder unter dem Baum |
+| 6 Was passiert mit dem Licht am Spiegel? | [Spiegellabor](<Spiegellabor Reflexion.html>) | Kreisscheibe (W10), gekippter Spiegel mit Lot, Spiegelbild, Spiegelgröße (W11), Spiegelschrift Krankenwagen |
+| 7 Warum sieht der Strohhalm im Wasser geknickt aus? | [Brechungslabor](<Brechungslabor Lichtbrechung.html>) | Strohhalm, Halbzylinder beide Richtungen (W12) mit Totalreflexion, Wasser/Glas/Diamant, Wellenfronten, Münze im Becher |
+| 8 Wie kann eine Lupe vergrößern? | [Linsenlabor](<Linsenlabor Sammel- und Zerstreuungslinse.html>) | Lupe, drei parallele Strahlen (W13), Wölbung und Brennweite, Brennglas, Bildentstehung mit Lupenbild |
 
 Jedes Labor hat Kurz-Check, Zusammenfassung mit den Merksätzen der Folien und ein „Probier's aus“ (keine Hausaufgabe). Taste **L** blendet Hinweise für die Lehrkraft ein, **F** schaltet Vollbild, `#s3` am Ende der Adresse springt zu Folie 3.
 

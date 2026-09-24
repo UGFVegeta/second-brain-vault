@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optik: Warum sieht der Strohhalm im Wasser geknickt aus?</title>
+<link rel="stylesheet" href="folien.css">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav button{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}
+nav button:hover{background:#e3e3dc}nav button.on{background:#1b1b1b;color:#fff}
+.tab{display:none;padding:26px 0 60px}.tab.on{display:block}
+h2{font-size:22px;margin:0 0 10px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}.box h3{margin:8px 0 6px;font-size:17px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.schr{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}.schr:last-child{border:0}
+.schr .n{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}
+.schr .m{color:#555;font-size:15px}.go{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.go button{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}
+.karte{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}
+.karte .folie{page-break-after:auto}
+.atab{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}
+.atab th,.atab td{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}.atab th{color:#66798e;font-size:10pt}
+a.btn{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}.t th{background:#f5f5f1}
+
+
+.bildzone{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}.bildzone svg{width:100%;height:100%;display:block}
+.fnr{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}
+
+.blattkarte{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}.blattbild{display:block;width:100%;border:1px solid #c8d0dc}
+.austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
+.box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
+.fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Optik: Warum sieht der Strohhalm im Wasser geknickt aus?</h1>
+<p class="sub">Klasse 7c · Physik · Leitfrage 7 · Lichtbrechung · voraussichtlich Do 19.11.2026</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Drucken</h3><ul><li>Versuchsblatt: Seite 1, eins pro Schüler (zwei Tabellen, zu lang für „2 auf 1“).</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
+<div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Glas mit Wasser und Strohhalm</td><td class="anz">1×</td><td>für den Einstieg</td></tr><tr><td>Tasse und Münze</td><td class="anz">1×</td><td>Münzversuch, Wasser langsam eingießen</td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Ray-Box mit einem Spalt</td><td class="anz">1×</td><td></td></tr><tr><td>Halbzylinder aus Glas oder Acryl</td><td class="anz">1×</td><td></td></tr><tr><td>Winkelscheibe</td><td class="anz">1×</td><td></td></tr></table><div class="mhinweis">Raum abdunkeln. Der Strahl muss genau durch den Mittelpunkt gehen, sonst wird er an der runden Seite zusätzlich gebrochen.</div></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Einstieg</div><div class="z1" style="flex:1">2 · Versuch</div><div class="z2" style="flex:1">3 · Erklären</div><div class="z3" style="flex:1">4 · Alltag</div><div class="z4" style="flex:1">5 · Antwort und Check</div></div><div class="schr"><span class="n">1</span><div><b>Einstieg</b><br><span class="m">Strohhalm im Glas, Leitfrage 7, Vermutungen.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Versuch</b><br><span class="m">Halbzylinder in Gruppen, zwei Richtungen, Versuchsblatt.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Erklären</b><br><span class="m">Lichtbrechung und Richtung zum Lot.</span></div><div class="go"><button data-go=f4>Folie 4</button><button data-go=f5>Folie 5</button></div></div><div class="schr"><span class="n">4</span><div><b>Alltag</b><br><span class="m">Münzversuch vorne, Beispiele mündlich.</span></div><div class="go"><button data-go=f6>Folie 6</button></div></div><div class="schr"><span class="n">5</span><div><b>Antwort und Check</b><br><span class="m">Antwort auf Leitfrage 7 ins Heft, Handzeichen, Lösung.</span></div><div class="go"><button data-go=f7>Folie 7</button><button data-go=f8>Folie 8</button><button data-go=f9>Folie 9</button></div></div></div>
+</div>
+<div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="shgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="shwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="shball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><path d="M232 40 h150 l-14 160 h-122z" fill="#F4F9FC" stroke="#9AAAC0" stroke-width="1.5"/><path d="M239 96 h136 l-9 104 h-118z" fill="#BFE0F0" fill-opacity=".8"/><line x1="239.0" y1="96.0" x2="375.0" y2="96.0" stroke="#6E9BB8" stroke-width="1.5" stroke-opacity="1" stroke-linecap="round"/><line x1="286" y1="18" x2="316" y2="96" stroke="#D2553A" stroke-width="7" stroke-linecap="round"/><line x1="316" y1="96" x2="332" y2="190" stroke="#D2553A" stroke-width="7" stroke-linecap="round" opacity=".85"/><text x="392.0" y="100.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Wasseroberfläche</text><text x="180.0" y="40.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Strohhalm</text><text x="404.0" y="170.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Warum sieht er</text><text x="404.0" y="184.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">geknickt aus?</text></svg>
+  </div>
+  <div class="impulstext">Ein gerader Strohhalm steht schräg im Wasserglas. Was siehst du?</div>
+</section></div><div class="fnr">Folie 2</div><div class="karte" id="f2"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 7</div>
+    <h2>Warum sieht der Strohhalm im Wasser geknickt aus?</h2>
+  </div>
+  <img class="schreibicon" src="assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section></div><div class="fnr">Folie 3 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f3"><div class="austeil">📄 Versuchsblatt austeilen · Versuch in Gruppen</div><img class="blattbild" src="Materialien/assets/blatt-w12-loesung.png" alt=""></div><div class="fnr">Folie 4</div><div class="karte" id="f4"><section class="folie">
+  <div class="titelband"><h1>15. Die Lichtbrechung</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="lb2gl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="lb2wa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="lb2ball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><rect x="90.0" y="120.0" width="456.0" height="78.0" rx="0" fill="#BFE0F0" fill-opacity="0.75"/><line x1="90.0" y1="120.0" x2="546.0" y2="120.0" stroke="#6E9BB8" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><text x="100.0" y="112.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Luft</text><text x="100.0" y="146.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Wasser</text><line x1="318.0" y1="26.0" x2="318.0" y2="198.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="4 4"/><text x="324.0" y="36.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Lot</text><line x1="247.3" y1="49.3" x2="311.3" y2="113.3" stroke="#E39B00" stroke-width="2.4" stroke-opacity="1" stroke-linecap="round"/><polygon points="317.0,119.0 307.8,115.5 313.5,109.8" fill="#E39B00" fill-opacity="1"/><line x1="318.0" y1="120.0" x2="361.6" y2="189.5" stroke="#E39B00" stroke-width="2.4" stroke-opacity="1" stroke-linecap="round"/><polygon points="365.8,196.2 357.6,190.8 364.5,186.5" fill="#E39B00" fill-opacity="1"/><line x1="318.0" y1="120.0" x2="383.1" y2="54.9" stroke="#E39B00" stroke-width="1.4" stroke-opacity="1" stroke-linecap="round"/><polygon points="388.7,49.3 385.2,58.5 379.5,52.8" fill="#E39B00" fill-opacity="1"/><path d="M318.0 80.0 A40 40 0 0 0 289.7 91.7" fill="none" stroke="#66798E" stroke-width="1.3"/><path d="M318.0 164.0 A44 44 0 0 0 341.4 157.3" fill="none" stroke="#66798E" stroke-width="1.3"/><text x="300.0" y="94.0" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="14" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">α</text><text x="330.0" y="168.0" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="14" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">β</text><text x="231.3" y="37.3" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">einfallender Strahl</text><text x="377.8" y="194.2" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">gebrochener Strahl</text><text x="398.7" y="43.3" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">ein kleiner Teil wird reflektiert</text><text x="470.0" y="160.0" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="14" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">β &lt; α</text><text x="470.0" y="176.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">zum Lot hin gebrochen</text></svg>
+  </div>
+  <div class="merksatz">
+    Beim Übergang in ein anderes Material ändert Licht seine Richtung. Man sagt, es wird
+    <span class="rot">gebrochen</span>. Der Grund: Licht ist in Wasser und Glas
+    <b>langsamer</b> als in Luft.
+  </div>
+</section></div><div class="fnr">Folie 5</div><div class="karte" id="f5"><section class="folie">
+  <div class="titelband"><h1>16. In welche Richtung wird gebrochen?</h1></div>
+  <div class="zeichenzone karo">
+    <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="brgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="brwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="brball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><line x1="318.0" y1="14.0" x2="318.0" y2="198.0" stroke="#A3B7D3" stroke-width="1" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="5 4"/><rect x="30.0" y="94.0" width="250.0" height="76.0" rx="0" fill="#BFE0F0" fill-opacity="0.75"/><line x1="30.0" y1="94.0" x2="280.0" y2="94.0" stroke="#6E9BB8" stroke-width="1.6" stroke-opacity="1" stroke-linecap="round"/><line x1="155.0" y1="26.0" x2="155.0" y2="188.0" stroke="#9AAAC0" stroke-width="1.1" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="105.5" y1="44.5" x2="148.3" y2="87.3" stroke="#E39B00" stroke-width="2.2" stroke-opacity="1" stroke-linecap="round"/><polygon points="154.0,93.0 144.8,89.5 150.5,83.8" fill="#E39B00" fill-opacity="1"/><line x1="155.0" y1="94.0" x2="193.3" y2="155.0" stroke="#E39B00" stroke-width="2.2" stroke-opacity="1" stroke-linecap="round"/><polygon points="197.5,161.8 189.3,156.3 196.2,152.0" fill="#E39B00" fill-opacity="1"/><text x="37.0" y="46.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Luft</text><text x="37.0" y="120.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Wasser</text><rect x="356.0" y="94.0" width="250.0" height="76.0" rx="0" fill="#BFE0F0" fill-opacity="0.75"/><line x1="356.0" y1="94.0" x2="606.0" y2="94.0" stroke="#6E9BB8" stroke-width="1.6" stroke-opacity="1" stroke-linecap="round"/><line x1="481.0" y1="26.0" x2="481.0" y2="188.0" stroke="#9AAAC0" stroke-width="1.1" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="438.5" y1="161.8" x2="475.8" y2="101.8" stroke="#E39B00" stroke-width="2.2" stroke-opacity="1" stroke-linecap="round"/><polygon points="480.0,95.0 478.7,104.8 471.8,100.5" fill="#E39B00" fill-opacity="1"/><line x1="481.0" y1="94.0" x2="524.8" y2="50.2" stroke="#E39B00" stroke-width="2.2" stroke-opacity="1" stroke-linecap="round"/><polygon points="530.5,44.5 527.0,53.7 521.3,48.0" fill="#E39B00" fill-opacity="1"/><text x="363.0" y="46.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Luft</text><text x="363.0" y="120.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Wasser</text><text x="155.0" y="206.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="600" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">zum Lot hin</text><text x="481.0" y="206.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="600" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">vom Lot weg</text></svg>
+  </div>
+  <div class="merksatz">
+    Von Luft ins Wasser (optisch dünner → dichter): <b>zum Lot hin</b>.
+    Von Wasser in die Luft (dichter → dünner): <b>vom Lot weg</b>.
+  </div>
+</section></div><div class="fnr">Folie 6</div><div class="karte" id="f6"><section class="folie"><div class="titelband"><h1>Brechung im Alltag</h1></div><div class="zeichenzone karo"><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was man sieht</th><th>warum</th></tr><tr><td>Schwimmbecken</td><td><b>es sieht flacher aus, als es ist</b></td><td>Das Licht vom Boden wird an der Oberfläche vom Lot weg gebrochen.</td></tr><tr><td>Münze im Becher</td><td><b>sie taucht auf, wenn Wasser hineinkommt</b></td><td>Das gebrochene Licht gelangt über den Rand ins Auge.</td></tr><tr><td>Reiher beim Fischen</td><td><b>er zielt unter den Fisch, den er sieht</b></td><td>Der Fisch ist tiefer, als er von oben aussieht.</td></tr><tr><td>Flimmern über heißer Straße</td><td><b>die Luft scheint zu wabern</b></td><td>Warme und kalte Luft brechen das Licht verschieden stark.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Warum sieht ein Schwimmbecken flacher aus, als es ist?</div></section></div><div class="fnr">Folie 7</div><div class="karte" id="f7"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 7</div>
+    <h2>Warum sieht der Strohhalm im Wasser geknickt aus?</h2>
+  </div>
+  <div class="antwortzone">
+    Das Licht vom Strohhalm wird beim Übergang von Wasser zu Luft <b>gebrochen</b>.
+    Unser Gehirn nimmt aber an, dass Licht <span class="rot">geradlinig</span> verläuft,
+    und verlängert die Strahlen gerade nach hinten. Deshalb erscheint der Strohhalm verschoben.
+  </div>
+</section></div><div class="fnr">Folie 8</div><div class="karte" id="f8"><section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 7</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Licht geht von Luft in Wasser über. Wie wird es gebrochen?</p>
+      <ol>
+        <li>Zum Lot hin</li>
+        <li>Vom Lot weg</li>
+        <li>Gar nicht</li>
+        <li>Immer um genau 90°</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Warum wird Licht an der Grenzfläche überhaupt gebrochen?</p>
+      <ol>
+        <li>Weil Wasser schwerer ist als Luft</li>
+        <li>Weil Licht im Wasser langsamer ist als in Luft</li>
+        <li>Weil das Wasser das Licht anzieht</li>
+        <li>Weil das Glas im Weg steht</li>
+      </ol>
+    </div>
+  </div>
+</section></div><div class="fnr">Folie 9</div><div class="karte" id="f9"><section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) a &nbsp;&nbsp; 2) b</div>
+</section></div></div>
+<div class="tab" id="t_hg">
+<div class="box"><h3>Lichtbrechung <button class="fchip" data-go="f4">Folie 4</button><button class="fchip" data-go="f5">Folie 5</button></h3><ul>
+<li>Licht ist in Wasser etwa 25 % langsamer als in Luft, in Glas etwa 33 %. Je langsamer, desto „optisch dichter“ heißt der Stoff. Mit der Dichte in kg/m³ hat das nichts zu tun.</li>
+<li>Richtwerte von Luft in Wasser: 30° → 22°, 45° → 32°, 60° → 41°. Von Luft in Glas: 30° → 19°, 45° → 28°.</li>
+<li>Bei senkrechtem Einfall (0°) wird nichts gebrochen, das Licht wird nur langsamer.</li>
+<li>Ein kleiner Teil des Lichts wird an jeder Grenzfläche reflektiert. Von Glas nach Luft gibt es ab etwa 42° gar keinen gebrochenen Strahl mehr (Totalreflexion). Das kommt beim Glasfaserkabel wieder.</li>
+<li><b>Typische Fehlvorstellungen:</b> Der Strohhalm ist wirklich geknickt. Licht wird immer zum Lot hin gebrochen. Brechung passiert im Wasser statt an der Grenzfläche.</li></ul></div>
+<div class="box"><h3>Tipps zum Versuch <button class="fchip" data-go="f3">Folie 3</button></h3><ul>
+<li>Der Strahl muss genau durch den Mittelpunkt der Scheibe gehen. Dann trifft er die runde Seite senkrecht und wird dort nicht noch einmal gebrochen.</li>
+<li>Beim zweiten Versuch (von Glas in Luft) bei 50° kein gebrochener Strahl: nicht als Fehler werten, sondern als Frage für die nächste Stunde stehen lassen.</li></ul></div>
+<div class="box"><h3>Brechungslabor</h3><a class="btn" href="Brechungslabor Lichtbrechung.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a><p>Strohhalm im Glas, Halbzylinder in beiden Richtungen, Wasser, Glas und Diamant, Wellenfronten als Erklärung, Münze im Becher.</p></div>
+</div>
+<div class="tab" id="t_ab">
+<div class="box"><h3>Versuchsblatt Lichtbrechung <button class="fchip" data-go="f3">Folie 3</button></h3>
+<a class="btn" href="Materialien/Lichtbrechung W12.pdf">PDF öffnen</a>
+<p><b>Lösung (Glas, gerundet):</b> Luft → Glas: 10° → 7°, 20° → 13°, 30° → 19°, 40° → 25°, 50° → 31°. Glas → Luft: 10° → 15°, 20° → 31°, 30° → 49°, 40° → 75°, 50° → kein gebrochener Strahl.
+Reflexionswinkel jeweils gleich dem Einfallswinkel. Lücken: <b>zum Lot hin</b>, <b>vom Lot weg</b>, <b>reflektiert</b>.</p></div></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+</script></body></html>

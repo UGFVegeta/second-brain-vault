@@ -86,6 +86,9 @@ LABORE = [
     ("Strahlenlabor Lichtausbreitung.html", "Strahlenlabor", "Physik · Optik · Klasse 7 · Leitfrage 3", "strahlenlabor.js"),
     ("Mondlabor Mondphasen und Finsternisse.html", "Mondlabor", "Physik · Optik · Klasse 7 · Leitfrage 5", "mondlabor.js"),
     ("Lochkameralabor.html", "Lochkameralabor", "Physik · Optik · Klasse 7 · Lochkamera", "lochkameralabor.js"),
+    ("Spiegellabor Reflexion.html", "Spiegellabor", "Physik · Optik · Klasse 7 · Leitfrage 6", "spiegellabor.js"),
+    ("Brechungslabor Lichtbrechung.html", "Brechungslabor", "Physik · Optik · Klasse 7 · Leitfrage 7", "brechungslabor.js"),
+    ("Linsenlabor Sammel- und Zerstreuungslinse.html", "Linsenlabor", "Physik · Optik · Klasse 7 · Leitfrage 8", "linsenlabor.js"),
 ]
 
 for datei, titel, brand, js in LABORE:
@@ -107,6 +110,9 @@ KARTEN = [
     ("Leitfrage 4", "Schattenlabor", "Warum hat ein Schatten manchmal weiche Ränder? Kernschatten und Halbschatten.", "Schattenlabor Halbschatten.html"),
     ("Leitfrage 5", "Mondlabor", "Warum sieht der Mond nicht immer gleich aus? Mondphasen, Sonnen- und Mondfinsternis.", "Mondlabor Mondphasen und Finsternisse.html"),
     ("Lochkamera", "Lochkameralabor", "Warum steht das Bild auf dem Kopf? Größe, Schärfe und Helligkeit, Sonnenbilder unter dem Baum.", "Lochkameralabor.html"),
+    ("Leitfrage 6", "Spiegellabor", "Was passiert mit dem Licht am Spiegel? Reflexionsgesetz, Spiegelbild, Spiegelgröße.", "Spiegellabor Reflexion.html"),
+    ("Leitfrage 7", "Brechungslabor", "Warum sieht der Strohhalm im Wasser geknickt aus? Brechung, Halbzylinder, Münze im Becher.", "Brechungslabor Lichtbrechung.html"),
+    ("Leitfrage 8", "Linsenlabor", "Wie kann eine Lupe vergrößern? Sammel- und Zerstreuungslinse, Brennglas, Bilder.", "Linsenlabor Sammel- und Zerstreuungslinse.html"),
 ]
 karten = "".join(
     f'<a class="karte" href="{href}"><span class="kicker">{k}</span><h2>{t}</h2><p>{d}</p><span class="los">Öffnen →</span></a>'

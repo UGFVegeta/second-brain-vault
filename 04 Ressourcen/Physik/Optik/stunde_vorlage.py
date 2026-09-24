@@ -38,6 +38,18 @@ def basis(p):
     return re.sub(r'\s*<div class="ab-hinweis">.*?</div>', "", FOLIEN[p - 1], flags=re.S)
 
 
+FOLIEN2 = re.findall(r'<section class="folie[^"]*">.*?</section>', (HIER / "Optik II.html").read_text(encoding="utf-8"), flags=re.S)
+
+
+def folien_aus(pfad):
+    return re.findall(r'<section class="folie[^"]*">.*?</section>', Path(pfad).read_text(encoding="utf-8"), flags=re.S)
+
+
+def basis2(p):
+    """Ausgefüllte Folie aus Optik II (Seitenzahl = Seite in Optik II.pdf)."""
+    return re.sub(r'\s*<div class="ab-hinweis">.*?</div>', "", FOLIEN2[p - 1], flags=re.S)
+
+
 def ohne_merksatz(h):
     return re.sub(r'\s*<div class="merksatz[^"]*">.*?</div>', "", h, count=1, flags=re.S)
 
@@ -65,10 +77,12 @@ def versuchsfolie(titel, aufbau_svg, schritte, beobachtung, ergebnis):
             f'<div class="zelle"><h2>Ergebnis</h2><div class="feld">{ergebnis}</div></div></div></section>')
 
 
-def blatt(pdf_name, key, hinweis):
+def blatt(pdf_name, key, hinweis, mat=None):
     """Lösungsseite (Seite 2) des Schülerblatts als Bild, 1:1 wie auf dem Blatt."""
-    subprocess.run(["pdftoppm", "-png", "-r", "110", "-f", "2", "-l", "2", "-singlefile", str(MAT / pdf_name),
-                    str(MAT / "assets" / f"blatt-{key}-loesung")], check=True)
+    mat = mat or MAT
+    (mat / "assets").mkdir(exist_ok=True)
+    subprocess.run(["pdftoppm", "-png", "-r", "110", "-f", "2", "-l", "2", "-singlefile", str(mat / pdf_name),
+                    str(mat / "assets" / f"blatt-{key}-loesung")], check=True)
     return ("blatt", f'<div class="austeil">📄 {hinweis}</div>'
                      f'<img class="blattbild" src="Materialien/assets/blatt-{key}-loesung.png" alt="">', pdf_name)
 
@@ -78,7 +92,7 @@ def chip(*nr):
 
 
 # ------------------------------------------------------------------ HTML
-def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen):
+def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css=""):
     karten = "".join(
         (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
          if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>')
@@ -92,8 +106,8 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
     html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{h1}</title>
-<link rel="stylesheet" href="folien.css">
-{CSS}</head><body>
+<link rel="stylesheet" href="{css_href}">
+{CSS.replace("</style>", extra_css + "</style>")}</head><body>
 <div class="wrap"><header class="kopf"><h1>{h1}</h1>
 <p class="sub">{sub}</p></header></div>
 <nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
@@ -115,7 +129,7 @@ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien')
 history.scrollRestoration='manual';
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
 </script></body></html>"""
-    (HIER / datei).write_text(html, encoding="utf-8")
+    ((ziel or HIER) / datei).write_text(html, encoding="utf-8")
     print("geschrieben:", datei, f"({len(html) // 1024} KB), Folien:", len(folge))
 
 
