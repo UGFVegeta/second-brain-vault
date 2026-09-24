@@ -116,7 +116,7 @@ B = ('<section class="folie"><div class="titelband"><h1>Sehen und gesehen werden
      'Sie wirft das Scheinwerferlicht zurück ins Auge des Fahrers.</div></section>')
 
 # ---- Neu D: Alltag zu Leitfrage 2
-zeilen = [("schwarzes T-Shirt in der Sonne", "Absorption", "Licht wird verschluckt, das Shirt wird warm"),
+zeilen = [("schwarzes T-Shirt in der Sonne", "Absorption", "fast alles Licht wird verschluckt, das Shirt wird warm"),
           ("weiße Wand", "Streuung", "Licht geht in alle Richtungen, die Wand ist von überall zu sehen"),
           ("Fensterscheibe", "Transmission", "Licht geht (fast) ungehindert hindurch"),
           ("Milchglas (Badfenster)", "Transmission und Streuung", "hell, aber man erkennt nur Umrisse"),
@@ -163,10 +163,10 @@ V = (
     '<li>Halte eine klare Glasscheibe in den Lichtweg.</li>'
     '<li>Beobachte jedes Mal, was mit dem Licht passiert.</li></ol></div></div>'
     '<div class="zelle"><h2>Beobachtung</h2><div class="feld">'
-    'Weißes Blatt: heller, breiter Lichtfleck, von überall zu sehen. Schwarzer Karton: kein Lichtfleck, er bleibt dunkel. '
+    'Weißes Blatt: heller, breiter Lichtfleck, von überall zu sehen. Schwarzer Karton: nur ein schwacher Lichtfleck. '
     'Glasscheibe: Das Licht geht fast ungehindert hindurch.</div></div>'
     '<div class="zelle"><h2>Ergebnis</h2><div class="feld">'
-    'Das Blatt <b>streut</b> das Licht, der Karton <b>absorbiert</b> es, die Glasscheibe <b>lässt es durch</b> (Transmission).'
+    'Das Blatt <b>streut</b> das Licht, der Karton <b>absorbiert</b> das meiste, die Glasscheibe <b>lässt es durch</b> (Transmission).'
     '</div></div></div></section>')
 
 import subprocess
@@ -232,7 +232,7 @@ hintergrund = f"""
 <li>Raum abdunkeln, sonst ist der Unterschied zwischen Blatt und Karton schwer zu sehen.</li>
 <li>Ray-Box mit einem schmalen Spalt, flach auf den Tisch. Blatt und Karton senkrecht aufstellen.</li>
 <li><b>Blatt:</b> Den Lichtfleck von links, rechts und von oben anschauen lassen. Er ist von überall zu sehen, das ist Streuung.</li>
-<li><b>Karton:</b> Nach einer Minute die Hand auflegen lassen. Er wird warm, das absorbierte Licht ist nicht „weg“.</li>
+<li><b>Karton:</b> Ganz dunkel wird der Fleck nicht. Auch schwarzer Karton streut einige Prozent des Lichts zurück, sonst könnte man ihn gar nicht sehen. Deshalb heißt es im Lückentext „größtenteils absorbiert“. Nach einer Minute die Hand auflegen lassen: Er wird warm, das absorbierte Licht ist nicht „weg“.</li>
 <li><b>Glasscheibe:</b> Neben dem Lichtfleck dahinter ist auch ein schwaches Spiegelbild zu sehen. Das zeigt: Meist passiert mehreres gleichzeitig. Kanten der Scheibe abkleben.</li></ul></div>
 
 <div class="box"><h3>Licht trifft auf einen Körper {chip(11, 12, 13)}</h3><ul>
@@ -332,7 +332,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Laser. Aufgabe 3: Glühlampe und Taschenlampe.</p></div>
 <div class="box"><h3>Versuchsblatt Licht trifft auf einen Körper {chip(10)}</h3>
 <a class="btn" href="Materialien/Licht trifft auf einen Koerper W04.pdf">PDF öffnen</a><a class="btn" href="Materialien/Licht trifft auf einen Koerper W04 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
-<p><b>Lösung:</b> Weißes Blatt: heller, breiter Lichtfleck, Licht wird in viele Richtungen zurückgeworfen (<b>gestreut</b>). Schwarzer Karton: dunkel, Licht wird
+<p><b>Lösung:</b> Weißes Blatt: heller, breiter Lichtfleck, Licht wird in viele Richtungen zurückgeworfen (<b>gestreut</b>). Schwarzer Karton: nur ein schwacher Lichtfleck, das meiste Licht wird
 <b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div></div>
 </div>
 <script>
