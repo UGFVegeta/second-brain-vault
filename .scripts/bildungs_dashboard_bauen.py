@@ -100,6 +100,7 @@ PHYSIK = [
             {"id": "ph10-folien", "titel": "Foliensatz Kernphysik (alle 71 Folien)", "wann": "", "status": "vorbereitet",
              "links": [f("HTML", PH + "Kernphysik/Kernphysik.html")]},
         ], "material": [
+            {"titel": "Klassenarbeit Nr. 1 Kernphysik (W10, Entwurf)", "links": [f("Arbeit", PH + "Klassenarbeiten/Klassenarbeit Nr. 1 Klasse 10 Kernphysik 2026.html"), f("Lösung", PH + "Klassenarbeiten/Klassenarbeit Nr. 1 Klasse 10 Kernphysik 2026 – Lösung.html"), f("Was muss ich wissen", PH + "Klassenarbeiten/Klassenarbeit Nr. 1 Klasse 10 Kernphysik 2026 – Was muss ich wissen.html")]},
             {"titel": "Kernphysik-Labore (Startseite für IServ)", "links": [f("öffnen", PH + "Kernphysik/Kernphysik-Labore.html")]},
             {"titel": "Atomlabor", "links": [f("öffnen", PH + "Kernphysik/Atomlabor Atombau und Isotope.html")]},
             {"titel": "Strahlungslabor", "links": [f("öffnen", PH + "Kernphysik/Strahlungslabor Radioaktivitaet.html")]},
