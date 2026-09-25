@@ -163,6 +163,18 @@ def bild_mit_karo(bild, svg, h_mm=62):
             f'<div class="karo" style="flex:1;height:{h_mm}mm">{svg}</div></div>')
 
 
+def energie_bild():
+    """Gemini-Bild (2000 x 661) mit Beschriftung: jede Menge allein liefert so viel Wärme wie 1 kg Uran-235."""
+    t = lambda x, y, s, size=40, w=700, anchor="middle": (f'<text x="{x}" y="{y}" font-family="Open Sans" font-size="{size}" font-weight="{w}" '
+                                                          f'text-anchor="{anchor}" fill="#1d1d1b" paint-order="stroke" stroke="#fff" stroke-width="10">{s}</text>')
+    o = ['<svg viewBox="0 0 2000 661" style="position:absolute;inset:0;width:100%;height:100%">',
+         t(540, 640, "1 kg Uran-235"),
+         t(705, 215, "ca. 2000 t Erdöl"), t(1085, 245, "ca. 3000 t Steinkohle"), t(1505, 140, "ca. 5500 t Holz"),
+         t(900, 330, "oder", 46, 600), t(1275, 330, "oder", 46, 600), "</svg>"]
+    return (f'<div style="position:relative;width:160mm;margin:1.5mm auto 0">{img("energiedichte.jpg")}{"".join(o)}</div>'
+            '<p style="text-align:center;font-size:9.5pt;margin:0">Jede dieser Mengen liefert allein so viel Wärme wie 1&nbsp;kg Uran-235.</p>')
+
+
 # ------------------------------------------------------------------ Seiten
 def s1(l):
     return ('<span class="stunde">STUNDE 1 · DIE KERNSPALTUNG</span>'
@@ -172,6 +184,7 @@ def s1(l):
             + f'<p class="lt">Bei vollständiger Verbrennung bzw. Spaltung lassen sich aus 1 kg Steinkohle ca. {L("8", l, 14)} kWh, aus 1 kg Erdöl ca. {L("12", l, 14)} kWh '
               f'und aus 1 kg Uran-235 rund {L("23&thinsp;000&thinsp;000", l, 34)} kWh Wärme gewinnen. Für dieselbe Wärme wie 1 kg Uran-235 braucht man etwa {L("3000", l, 18)} Tonnen Kohle. '
               f'Uran hat eine viel größere {L("Energiedichte", l)} als alle anderen Brennstoffe.</p>'
+            + energie_bild()
             + h(2, "Atome lassen sich spalten", 0, "W16")
             + '<ul class="pkt">'
               f'<li>1938 beschossen {L("Otto Hahn", l)} und Fritz Straßmann in Berlin Uran (92 Protonen) mit langsamen {L("Neutronen", l)}.</li>'
@@ -180,7 +193,7 @@ def s1(l):
               f'<li>Lise Meitner, die kurz zuvor aus Deutschland fliehen musste, lieferte die Erklärung: Der Urankern wurde {L("gespalten", l)}. '
               f'Gespalten wurde nur das Isotop {L("Uran-235", l)}.</li></ul>'
             + h(3, "Warum Uran-235 und nicht Uran-238?", 1, "W16")
-            + f'<div style="float:right;width:36mm;margin:1mm 0 1mm 4mm;text-align:center">{img("uranerz.png")}<span style="font-size:8pt">Uranerz</span></div>'
+            + f'<div style="float:right;width:28mm;margin:0 0 0 4mm;text-align:center">{img("uranerz.png")}<span style="font-size:8pt">Uranerz</span></div>'
             + f'<p class="lt">Uran-235 hat {L("143", l, 14)} Neutronen (Massenzahl 235 − {L("92", l, 14)} Protonen).<br>'
               f'Uran-238 hat {L("146", l, 14)} Neutronen (Massenzahl 238 − {L("92", l, 14)} Protonen).<br>'
               f'Beide sind {L("Isotope", l)} des Urans. Natururan besteht zu über 99 % aus {L("Uran-238", l)}, nur 0,7 % sind Uran-235. '
