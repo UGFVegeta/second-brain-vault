@@ -224,5 +224,6 @@ STUNDEN = [
      S5, S5_HG, S5_AB),
 ]
 
-for datei, h1, sub, drucken, mat, schritte, folge, hg, ab in STUNDEN:
+if __name__ == "__main__":
+  for datei, h1, sub, drucken, mat, schritte, folge, hg, ab in STUNDEN:
     bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab, ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS)

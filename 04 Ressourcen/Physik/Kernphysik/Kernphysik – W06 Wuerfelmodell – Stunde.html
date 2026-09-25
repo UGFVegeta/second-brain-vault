@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kernphysik: Der Zufall beim Zerfall</title>
+<link rel="stylesheet" href="../Optik/folien.css">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav button{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}
+nav button:hover{background:#e3e3dc}nav button.on{background:#1b1b1b;color:#fff}
+.tab{display:none;padding:26px 0 60px}.tab.on{display:block}
+h2{font-size:22px;margin:0 0 10px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}.box h3{margin:8px 0 6px;font-size:17px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.schr{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}.schr:last-child{border:0}
+.schr .n{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}
+.schr .m{color:#555;font-size:15px}.go{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.go button{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}
+.karte{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}
+.karte .folie{page-break-after:auto}
+.atab{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}
+.atab th,.atab td{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}.atab th{color:#66798e;font-size:10pt}
+a.btn{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}.t th{background:#f5f5f1}
+
+
+.bildzone{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}.bildzone svg{width:100%;height:100%;display:block}
+.fnr{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}
+
+.blattkarte{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}.blattbild{display:block;width:100%;border:1px solid #c8d0dc}
+.austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
+.box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
+.fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
+
+  /* Farbcode der Kernbausteine, gilt fuer den ganzen Satz */
+  svg .proton   { fill: #D24B4B; stroke: #8E2B2B; stroke-width: .8; }
+  svg .neutron  { fill: #8DA6C2; stroke: #4E6480; stroke-width: .8; }
+  svg .elektron { fill: #E6C72E; stroke: #B98900; stroke-width: .8; }
+  svg .kernlinie{ stroke: #8A8A8A; stroke-width: 1; fill: none; }
+  svg .nuklid   { font-family: "Avenir Next", Helvetica, sans-serif; font-size: 19px; fill: #111; }
+  svg .nuklid .idx { font-size: 10.5px; }
+  svg .strahl-a { stroke: #D24B4B; stroke-width: 2.6; fill: none; }
+  svg .strahl-b { stroke: #2E6BB8; stroke-width: 2.6; fill: none; }
+  svg .strahl-g { stroke: #7A4BAF; stroke-width: 2.6; fill: none; }
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Kernphysik: Der Zufall beim Zerfall</h1>
+<p class="sub">Klasse 10 · Physik · W06 (Woche ab 19.10.2026) · Abschluss Leitfrage 2, Einstieg Leitfrage 3</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Drucken</h3><ul><li>Versuchsblatt Zerfall mit Würfeln: Seite 1, eins pro Schüler.</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
+<div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td colspan="3" class="leer">nicht nötig</td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Würfel</td><td class="anz">30×</td><td>aus der Mathe-Sammlung</td></tr><tr><td>Würfelbecher oder Schale</td><td class="anz">1×</td><td></td></tr></table><div class="mhinweis">Die Werte aller Gruppen an der Tafel addieren.</div></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Abschluss Leitfrage 2</div><div class="z1" style="flex:1">2 · Einstieg Leitfrage 3</div><div class="z2" style="flex:1">3 · Versuch</div><div class="z3" style="flex:1">4 · Alltag</div></div><div class="schr"><span class="n">1</span><div><b>Abschluss Leitfrage 2</b><br><span class="m">Antwort ins Heft, Check.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">2</span><div><b>Einstieg Leitfrage 3</b><br><span class="m">Würfel, Vermutungen.</span></div><div class="go"><button data-go=f4>Folie 4</button><button data-go=f5>Folie 5</button></div></div><div class="schr"><span class="n">3</span><div><b>Versuch</b><br><span class="m">Würfelversuch in Gruppen, Diagramm.</span></div><div class="go"><button data-go=f6>Folie 6</button></div></div><div class="schr"><span class="n">4</span><div><b>Alltag</b><br><span class="m">Zufall im Einzelnen, sicher in der Menge.</span></div><div class="go"><button data-go=f7>Folie 7</button></div></div></div>
+</div>
+<div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Antwort auf Leitfrage 2</div>
+    <h2>Warum zerfallen manche Atomkerne von selbst?</h2>
+  </div>
+  <div class="antwortzone">
+    Weil sie <span class="rot">instabil</span> sind: Das Verhältnis von Protonen zu Neutronen passt
+    nicht. Der Kern wandelt sich spontan in einen stabileren um und gibt dabei
+    <b>α</b>-, <b>β</b>- oder <b>γ</b>-Strahlung ab. Massenzahl und Ladung bleiben dabei erhalten.
+  </div>
+</section></div><div class="fnr">Folie 2</div><div class="karte" id="f2"><section class="folie">
+  <div class="titelband"><h1>Check zu Leitfrage 2</h1></div>
+  <div class="check">
+    <div class="aufgabe">
+      <p>1) Ein Kern sendet ein α-Teilchen aus. Wie ändern sich A und Z?</p>
+      <ol>
+        <li>A minus 4, Z minus 2</li>
+        <li>A minus 2, Z minus 4</li>
+        <li>A bleibt, Z plus 1</li>
+        <li>Beide bleiben gleich</li>
+      </ol>
+    </div>
+    <div class="aufgabe">
+      <p>2) Welche Strahlung wird von einem Blatt Papier gestoppt?</p>
+      <ol>
+        <li>γ-Strahlung</li>
+        <li>β-Strahlung</li>
+        <li>α-Strahlung</li>
+        <li>Keine davon</li>
+      </ol>
+    </div>
+  </div>
+</section></div><div class="fnr">Folie 3</div><div class="karte" id="f3"><section class="folie">
+  <div class="titelband"><h1>Lösung</h1></div>
+  <div class="loesung">1) a &nbsp;&nbsp; 2) c</div>
+</section></div><div class="fnr">Folie 4</div><div class="karte" id="f4"><section class="folie">
+  <div class="titelband"><h1>Beobachte</h1></div>
+  <div class="impulszone">
+    <svg viewBox="0 0 636 245" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="kwgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="kwwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="kwball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><rect x="60" y="60" width="42" height="42" rx="7.6" fill="#FFFFFF" stroke="#101A2B" stroke-width="1.6"/><circle cx="70.5" cy="70.5" r="3.4" fill="#101A2B"/><circle cx="91.5" cy="91.5" r="3.4" fill="#101A2B"/><rect x="116" y="60" width="42" height="42" rx="7.6" fill="#FFFFFF" stroke="#101A2B" stroke-width="1.6"/><circle cx="126.5" cy="70.5" r="3.4" fill="#101A2B"/><circle cx="137.0" cy="81.0" r="3.4" fill="#101A2B"/><circle cx="147.5" cy="91.5" r="3.4" fill="#101A2B"/><rect x="172" y="60" width="42" height="42" rx="7.6" fill="#E8604A" stroke="#101A2B" stroke-width="1.6"/><circle cx="183.8" cy="69.2" r="3.4" fill="#FFFFFF"/><circle cx="183.8" cy="81.0" r="3.4" fill="#FFFFFF"/><circle cx="183.8" cy="92.8" r="3.4" fill="#FFFFFF"/><circle cx="202.2" cy="69.2" r="3.4" fill="#FFFFFF"/><circle cx="202.2" cy="81.0" r="3.4" fill="#FFFFFF"/><circle cx="202.2" cy="92.8" r="3.4" fill="#FFFFFF"/><text x="137.0" y="128.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Eine Sechs heißt: „zerfallen“</text><text x="137.0" y="142.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Dieser Würfel scheidet aus.</text><line x1="300.0" y1="200.0" x2="625.0" y2="200.0" stroke="#66798E" stroke-width="1.6" stroke-opacity="1" stroke-linecap="round"/><polygon points="632.0,200.0 624.0,203.6 624.0,196.4" fill="#66798E" fill-opacity="1"/><line x1="300.0" y1="200.0" x2="300.0" y2="37.0" stroke="#66798E" stroke-width="1.6" stroke-opacity="1" stroke-linecap="round"/><polygon points="300.0,30.0 303.6,38.0 296.4,38.0" fill="#66798E" fill-opacity="1"/><text x="632.0" y="192.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Wurf</text><text x="306.0" y="34.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">übrige Würfel</text><rect x="312.0" y="50.0" width="22.0" height="150.0" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="323.0" y="45.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">100</text><text x="323.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">0</text><rect x="345.0" y="75.0" width="22.0" height="125.0" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="356.0" y="70.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">83</text><text x="356.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">1</text><rect x="378.0" y="95.8" width="22.0" height="104.2" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="389.0" y="90.8" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">69</text><text x="389.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">2</text><rect x="411.0" y="113.2" width="22.0" height="86.8" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="422.0" y="108.2" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">58</text><text x="422.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">3</text><rect x="444.0" y="127.7" width="22.0" height="72.3" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="455.0" y="122.7" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">48</text><text x="455.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">4</text><rect x="477.0" y="139.7" width="22.0" height="60.3" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="488.0" y="134.7" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">40</text><text x="488.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">5</text><rect x="510.0" y="149.8" width="22.0" height="50.2" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="521.0" y="144.8" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">33</text><text x="521.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">6</text><rect x="543.0" y="158.1" width="22.0" height="41.9" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="554.0" y="153.1" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">28</text><text x="554.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">7</text><rect x="576.0" y="165.1" width="22.0" height="34.9" rx="2" fill="#8FA3BD" fill-opacity="1"/><text x="587.0" y="160.1" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">23</text><text x="587.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="8.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">8</text><text x="137.0" y="200.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">100 Würfel, alle werfen gleichzeitig.</text><text x="137.0" y="214.0" font-family="PlexMono, Menlo, monospace" font-size="9.5" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Jede Runde fällt etwa ein Sechstel weg.</text></svg>
+  </div>
+  <div class="impulstext">Niemand weiß, welcher Würfel als Nächstes fällt. Über die Menge ist der Verlauf trotzdem sicher.</div>
+</section></div><div class="fnr">Folie 5</div><div class="karte" id="f5"><section class="folie">
+  <div class="frageband">
+    <div class="nr">Leitfrage 3</div>
+    <h2>Wie schnell zerfällt ein radioaktiver Stoff?</h2>
+  </div>
+  <img class="schreibicon" src="../Optik/assets/hand-stift.png" alt="">
+  <div class="vermutungslabel">Was vermutest du? Wir sammeln eure Vermutungen.</div>
+  <div class="zeichenzone karo tief"></div>
+</section></div><div class="fnr">Folie 6 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f6"><div class="austeil">📄 Versuchsblatt austeilen · 30 Würfel pro Gruppe</div><img class="blattbild" src="Materialien/assets/blatt-k06-loesung.png" alt=""></div><div class="fnr">Folie 7</div><div class="karte" id="f7"><section class="folie"><div class="titelband"><h1>Zufall im Einzelnen, sicher in der Menge</h1></div><div class="zeichenzone karo"><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was man sieht</th><th>warum</th></tr><tr><td>Popcorn</td><td><b>Welches Korn zuerst platzt, weiß keiner.</b></td><td>Nach drei Minuten sind trotzdem fast alle aufgeplatzt.</td></tr><tr><td>Glühlampen einer Lieferung</td><td><b>Jede hält unterschiedlich lange.</b></td><td>Der Hersteller kennt trotzdem die mittlere Lebensdauer.</td></tr><tr><td>Würfel im Versuch</td><td><b>Welcher Würfel eine Sechs hat, ist Zufall.</b></td><td>Pro Wurf fällt trotzdem etwa ein Sechstel weg.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Warum kann man für einen einzelnen Kern nichts vorhersagen, für ein ganzes Präparat aber schon?</div></section></div></div>
+<div class="tab" id="t_hg"><div class="box"><h3>Abschluss Leitfrage 2 <button class="fchip" data-go="f1">Folie 1</button><button class="fchip" data-go="f2">Folie 2</button><button class="fchip" data-go="f3">Folie 3</button></h3><ul><li>Die Antwortfolie ins Heft, der Check per Handzeichen. Lösung: 1 a, 2 c.</li><li>Wer die Zerfallsgleichungen noch nicht sicher kann: Übung im Strahlungslabor.</li></ul></div><div class="box"><h3>Das Würfelmodell <button class="fchip" data-go="f4">Folie 4</button><button class="fchip" data-go="f6">Folie 6</button></h3><ul><li>Jede Runde fällt im Mittel ein Sechstel weg, übrig bleiben 5/6. Nach etwa 3,8 Würfen ist die Hälfte weg. Das ist die „Halbwertszeit“ des Modells.</li><li>Die Gruppenwerte streuen stark. Die Summe der ganzen Klasse passt viel besser zur Kurve. Deshalb die Klassenwerte an der Tafel addieren.</li><li>Grenze des Modells: Echte Kerne zerfallen nicht in Runden, sondern zu jedem beliebigen Zeitpunkt. Die Wahrscheinlichkeit pro Zeit ist aber genauso fest.</li><li><b>Typische Fehlvorstellungen:</b> Nach zwei Halbwertszeiten ist alles zerfallen. Ein Kern, der lange nicht zerfallen ist, ist „bald dran“.</li></ul></div><div class="box"><h3>Material <button class="fchip" data-go="f6">Folie 6</button></h3><ul><li>Würfel aus der Mathe-Sammlung. Alternative: 30 Münzen pro Gruppe, „Zahl“ scheidet aus. Dann halbiert sich die Zahl schon pro Wurf.</li></ul></div><div class="box"><h3>Zerfallslabor</h3><a class="btn" href="Zerfallslabor Halbwertszeit.html">Labor öffnen</a><p>100 Würfel Wurf für Wurf, drei Zufallsserien, dazu 400 Kerne mit zufälligem Zerfall.</p></div></div>
+<div class="tab" id="t_ab"><div class="box"><h3>Versuchsblatt Zerfall mit Würfeln <button class="fchip" data-go="f6">Folie 6</button></h3><a class="btn" href="Materialien/Zerfall mit Wuerfeln W06.pdf">PDF öffnen</a><p><b>Lösung:</b> Erwartete Werte 30, 25, 21, 17, 14, 12, 10, 8, 7. Hälfte nach knapp 4 Würfen. Würfel = Kern, Sechs = Zerfall, die Abweichung kommt vom Zufall.</p></div></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+</script></body></html>

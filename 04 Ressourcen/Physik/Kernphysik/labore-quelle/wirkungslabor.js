@@ -59,8 +59,8 @@ function dosis(){
   teile.forEach(function(t){ var w=t[1]*sk; if(w>0.5){ o.push(G.rect(x,150,w,70,t[2],1)); if(w>40) o.push('<text x="'+G.f1(x+w/2)+'" y="190" font-family="IBM Plex Mono,monospace" font-size="12" fill="#0A1120" text-anchor="middle">'+t[0]+'</text>'); } x+=w; });
   o.push(G.txt(80,130,"deine Jahresdosis: "+komma(sum,2)+" mSv",""));
   for(i=0;i<=Math.max(8,sum);i+=(sum>10?2:1)){ var X=80+i*sk; o.push('<line x1="'+G.f1(X)+'" y1="226" x2="'+G.f1(X)+'" y2="234" stroke="#9AAAC0"/>'+G.txt(X,252,""+i,"mid dim")); }
-  o.push(G.txt(80,300,"Vergleich:","")+G.txt(80,326,"Durchschnitt in Deutschland: etwa 3,6 mSv (2,1 natürlich, 1,5 Medizin)","dim")+
-         G.txt(80,350,"Grenzwert für Menschen, die beruflich mit Strahlung arbeiten: 20 mSv pro Jahr","dim")+
+  o.push(G.txt(80,300,"Vergleich:","")+G.txt(80,326,"Durchschnitt Deutschland: etwa 3,6 mSv (2,1 natürlich, 1,5 Medizin)","dim")+
+         G.txt(80,350,"Grenzwert bei beruflicher Arbeit mit Strahlung: 20 mSv pro Jahr","dim")+
          G.txt(80,374,"ab etwa 100 mSv: Krebsrisiko messbar erhöht","dim")+G.txt(80,398,"ab etwa 1000 mSv auf einmal: Strahlenkrankheit","dim"));
   return {svg:o.join(""), readout:'<span class="chip">Jahresdosis <b>'+komma(sum,2)+' mSv</b></span><span class="chip">davon natürlich '+komma(+S.radon+1,1)+' mSv</span>'};
 }

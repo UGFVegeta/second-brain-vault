@@ -390,7 +390,7 @@ def abfall():
 def argumente():
     z = Z("kg2", 230)
     dafuer = ["im Betrieb kaum CO₂", "sehr viel Energie aus wenig Brennstoff", "liefert Strom unabhängig vom Wetter", "Strahlung hilft in der Medizin"]
-    dagegen = ["Abfall strahlt sehr lange", "noch kein Endlager in Betrieb", "schwere Unfälle möglich (Tschernobyl, Fukushima)", "hohe Kosten für Bau und Rückbau"]
+    dagegen = ["Abfall strahlt sehr lange", "noch kein Endlager in Betrieb", "schwere Unfälle möglich (z. B. Fukushima)", "hohe Kosten für Bau und Rückbau"]
     for x, t, liste, f, r in ((24, "spricht dafür", dafuer, "#E4F2E3", GRUEN), (328, "spricht dagegen", dagegen, "#FBE3E0", ROT)):
         z.add(f'<rect x="{x}" y="14" width="284" height="200" rx="8" fill="{f}" stroke="{r}" stroke-width="1.6"/>')
         z.text(x + 12, 36, t, weight=600, halo=f)

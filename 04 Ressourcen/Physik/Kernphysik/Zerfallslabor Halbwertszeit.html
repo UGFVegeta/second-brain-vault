@@ -220,7 +220,7 @@ function kurve(x0,y0,w,h,f,tmax,col){
 function achsen(x0,y0,w,h,xl,yl){
   return '<line x1="'+x0+'" y1="'+y0+'" x2="'+(x0+w+10)+'" y2="'+y0+'" stroke="#9AAAC0" stroke-width="1.5"/>'+
          '<line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+(y0-h-10)+'" stroke="#9AAAC0" stroke-width="1.5"/>'+
-         G.txt(x0+w+10,y0-10,xl,"end dim")+G.txt(x0+8,y0-h-6,yl,"dim");
+         G.txt(x0+w/2,y0+40,xl,"mid dim")+G.txt(x0+8,y0-h-6,yl,"dim");
 }
 
 /* 1 · 100 Würfel */
@@ -265,10 +265,10 @@ function kerne(){
 }
 
 /* 3 · Halbwertszeit verschiedener Nuklide */
-var NUK={F20:["Fluor-20",11,"s"],Rn220:["Radon-220",56,"s"],I131:["Iod-131",8,"Tage"],Cs137:["Cäsium-137",30,"Jahre"],C14:["Kohlenstoff-14",5730,"Jahre"],U238:["Uran-238",4.5e9,"Jahre"]};
+var NUK={F20:["Fluor-20",11,"s","s"],Rn220:["Radon-220",56,"s","s"],I131:["Iod-131",8,"Tage","Tagen"],Cs137:["Cäsium-137",30,"Jahre","Jahren"],C14:["Kohlenstoff-14",5730,"Jahre","Jahren"],U238:["Uran-238",4.5e9,"Jahre","Jahren"]};
 function hwz(){
   var d=NUK[S.nuk], T=d[1], k=+S.tn, t=k*T, o=[], x0=100, y0=390, w=660, h=320, i;
-  o.push(achsen(x0,y0,w,h,"Zeit in "+d[2],"Anteil in %"));
+  o.push(achsen(x0,y0,w,h,"Zeit in "+d[3],"Anteil in %"));
   o.push(kurve(x0,y0,w,h,function(tt){return Math.pow(0.5,tt/T);},5*T,CYAN));
   for(i=1;i<=5;i++){
     var X=x0+i*w/5, Y=y0-h/Math.pow(2,i);
@@ -281,7 +281,7 @@ function hwz(){
   var an=Math.pow(0.5,k);
   o.push(G.circ(x0+k*w/5,y0-h*an,8,GELB));
   var tl=T>=1e6?komma(t/1e9,2)+" Mrd.":(t<100?komma(t,1):Math.round(t).toLocaleString("de-DE"));
-  return {svg:o.join(""), readout:'<span class="chip"><b>'+d[0]+'</b>: Halbwertszeit '+(T>=1e6?"4,5 Mrd.":T.toLocaleString("de-DE"))+' '+d[2]+'</span><span class="chip">nach '+tl+' '+d[2]+': <b>'+komma(100*an,1)+' %</b> übrig</span>'};
+  return {svg:o.join(""), readout:'<span class="chip"><b>'+d[0]+'</b>: Halbwertszeit '+(T>=1e6?"4,5 Mrd.":T.toLocaleString("de-DE"))+' '+d[2]+'</span><span class="chip">nach '+tl+' '+d[3]+': <b>'+komma(100*an,1)+' %</b> übrig</span>'};
 }
 
 /* 4 · Aktivität und Zählrate */
@@ -294,7 +294,7 @@ function aktiv(){
   o.push(G.dash(px,300,tx,300,"#9AAAC0",1.5,0,0.8)+G.txt((px+tx)/2,324,d+" cm","mid"));
   o.push('<rect x="600" y="40" width="200" height="110" rx="12" fill="#26324A"/><rect x="614" y="54" width="172" height="52" rx="5" fill="#05080F"/>'+
          '<text x="700" y="92" font-family="IBM Plex Mono,monospace" font-size="30" fill="#6FE39A" text-anchor="middle">'+rate+'</text>'+G.txt(700,134,"Impulse pro Minute","mid dim"));
-  o.push(G.txt(px,280,"Präparat","mid dim")+G.txt(40,410,"Das Zählrohr hat ein Fenster von etwa 1 cm Radius. Es sieht nur einen kleinen Teil der Strahlung.","dim"));
+  o.push(G.txt(px,280,"Präparat","mid dim")+G.txt(40,410,"Das Zählrohr fängt nur einen kleinen Teil der Strahlung auf.","dim"));
   return {svg:o.join(""), readout:'<span class="chip">Aktivität <b>'+A.toLocaleString("de-DE")+' Bq</b> = '+(60*A).toLocaleString("de-DE")+' Zerfälle pro Minute</span><span class="chip">davon ins Zählrohr: <b>'+komma(100*anteil,anteil<0.01?2:1)+' %</b></span>'};
 }
 

@@ -205,7 +205,7 @@ window.G={f1:f1,ray:ray,dash:dash,head:head,arrow:arrow,poly:poly,rect:rect,circ
 })();
 </script>
 <script>/* Kernenergielabor · Kernphysik Klasse 10 · Leitfragen 5 und 6
-   Kernspaltung, Kettenreaktion, Steuerstaebe, Kreisläufe im Kraftwerk, Kernfusion, Abklingen des Abfalls. */
+   Kernspaltung, Kettenreaktion, Steuerstäbe, Kreisläufe im Kraftwerk, Kernfusion, Abklingen des Abfalls. */
 (function(){
 "use strict";
 var S={sp:"ba", k:"1", gen:4, stab:50, kreis:"p", temp:15, jahre:0};
@@ -261,7 +261,7 @@ function kette(){
   return {svg:o.join(""), readout:'<span class="chip">wirksame Neutronen pro Spaltung: <b>'+komma(k,1)+'</b></span><span class="chip"><b>'+txt+'</b></span>'};
 }
 
-/* 3 · Steuerstaebe */
+/* 3 · Steuerstäbe */
 function staebe(){
   var s=+S.stab, k=1+(50-s)*0.004, o=[], i, x0=120, y0=60;
   o.push(G.rect(x0,y0,320,300,"#10324D",1,' rx="24" stroke="#6E8FB5" stroke-width="3"'));
@@ -272,9 +272,9 @@ function staebe(){
   for(i=0;i<n;i++) o.push(G.circ(x0+30+r()*260,y0+100+r()*190,4,NEUT));
   var P=k>1.005?"steigt":(k<0.995?"sinkt":"bleibt gleich");
   var x1=520,y1=320; o.push('<line x1="'+x1+'" y1="'+y1+'" x2="'+(x1+260)+'" y2="'+y1+'" stroke="#9AAAC0" stroke-width="1.5"/>'+G.txt(x1,70,"Leistung über der Zeit","dim"));
-  var p=[]; for(i=0;i<=26;i++){ var v=Math.min(220,100*Math.pow(k,i*4)); p.push(G.f1(x1+i*10)+","+G.f1(y1-v)); }
+  var p=[]; for(i=0;i<=26;i++){ var v=Math.min(220,100*Math.pow(k,i*1.5)); p.push(G.f1(x1+i*10)+","+G.f1(y1-v)); }
   o.push('<polyline points="'+p.join(" ")+'" fill="none" stroke="'+(k>1.005?"#FF7A59":(k<0.995?CYAN:GRUEN))+'" stroke-width="3"/>');
-  return {svg:o.join(""), readout:'<span class="chip">Steuerstaebe <b>'+s+' %</b> eingefahren</span><span class="chip">Leistung <b>'+P+'</b></span>'};
+  return {svg:o.join(""), readout:'<span class="chip">Steuerstäbe <b>'+s+' %</b> eingefahren</span><span class="chip">Leistung <b>'+P+'</b></span>'};
 }
 
 /* 4 · Kreisläufe */
@@ -302,7 +302,7 @@ function fusion(){
   o.push(G.txt(420,40,"Deuterium und Tritium bei "+T+" Mio. °C","mid"));
   if(!geht){ o.push(kern(420-abst,200,1,1,10,2)+kern(420+abst,200,1,2,10,3)); o.push(G.arrow(420-abst+30,200,420-abst+60,200,"#9AAAC0",2,0)+G.arrow(420+abst-34,200,420+abst-64,200,"#9AAAC0",2,0)); o.push(G.txt(420,300,"Die positiven Kerne stoßen sich ab.","mid dim")); }
   else { o.push(G.circ(420,200,80,"url(#gGlow)")+kern(420,200,2,2,12,5)+G.arrow(460,200,640,120,NEUT,2.5,0)+G.circ(650,115,10,NEUT)+G.txt(660,100,"Neutron","")+G.txt(420,320,"Fusion: Helium, ein Neutron und viel Energie","mid")); }
-  o.push(G.txt(60,410,"Sonne: etwa 15 Mio. °C, dafür riesiger Druck und Milliarden Jahre Zeit. Auf der Erde braucht man über 100 Mio. °C.","dim"));
+  o.push(G.txt(420,410,"Sonne: 15 Mio. °C bei riesigem Druck. Auf der Erde: über 100 Mio. °C nötig.","mid dim"));
   return {svg:o.join(""), readout:'<span class="chip">Temperatur <b>'+T+' Mio. °C</b></span><span class="chip"><b>'+(geht?"Die Kerne verschmelzen.":"zu kalt für ein Fusionskraftwerk")+'</b></span>'};
 }
 
@@ -325,7 +325,7 @@ window.LAB={state:S,
  draw:function(cfg){ return {spaltung:spaltung,kette:kette,stab:staebe,kreise:kreise,fusion:fusion,abfall:abfall}[cfg.mode](cfg); },
  QZ:[
   {q:"Was löst die Spaltung eines Uran-235-Kerns aus?", o:["ein Proton","ein langsames Neutron","ein Elektron"],a:1, w:"Das Neutron ist ungeladen und wird vom Kern nicht abgestoßen. Langsame Neutronen werden besonders gut eingefangen."},
-  {q:"Wozu dienen die Steuerstaebe?", o:["Sie liefern Neutronen","Sie fangen überschüssige Neutronen ein","Sie kühlen den Reaktor"],a:1, w:"Bor oder Cadmium schlucken Neutronen. So bleibt im Mittel genau ein wirksames Neutron pro Spaltung."},
+  {q:"Wozu dienen die Steuerstäbe?", o:["Sie liefern Neutronen","Sie fangen überschüssige Neutronen ein","Sie kühlen den Reaktor"],a:1, w:"Bor oder Cadmium schlucken Neutronen. So bleibt im Mittel genau ein wirksames Neutron pro Spaltung."},
   {q:"Warum gibt es im Kraftwerk getrennte Wasserkreisläufe?", o:["damit radioaktives Wasser im Reaktorgebäude bleibt","weil Wasser sonst zu schnell fließt","damit es billiger ist"],a:0, w:"Nur der Primärkreislauf kommt mit dem Reaktorkern in Kontakt. Turbine und Fluss bleiben sauber."},
   {q:"Was passiert bei der Kernfusion?", o:["Ein schwerer Kern zerbricht","Leichte Kerne verschmelzen","Ein Kern sendet ein Elektron aus"],a:1, w:"Deuterium und Tritium verschmelzen zu Helium. So erzeugt die Sonne ihre Energie."},
   {q:"Uran-235 + n → Barium-144 + Krypton-89 + ? Neutronen", o:["2","3","4"],a:1, w:"Oben: 1 + 235 = 236 = 144 + 89 + 3."},
@@ -346,12 +346,12 @@ window.LAB={state:S,
    controls:{btn:[{k:"k",label:"wirksame Neutronen:",opts:[["0.8","0,8"],["1","1"],["2","2"],["3","3"]]}],sl:[{k:"gen",label:"Generation",min:0,max:10,step:1,fmt:function(v){return v}}],reset:{gen:4}},
    cfg:{mode:"kette"}, alt:"Zahl der Spaltungen pro Generation"},
 
-  {kicker:"Schritt 2", title:"Steuerstaebe regeln den Reaktor",
-   html:"<p>Steuerstaebe aus Bor oder Cadmium fangen Neutronen ein. Fahre sie hinein oder heraus.</p>",
+  {kicker:"Schritt 2", title:"Steuerstäbe regeln den Reaktor",
+   html:"<p>Steuerstäbe aus Bor oder Cadmium fangen Neutronen ein. Fahre sie hinein oder heraus.</p>",
    ask:"Wie weit müssen die Stäbe drin sein, damit die Leistung gleich bleibt?",
    note:"Stark vereinfacht: Bei 50 % ist der Reaktor hier genau kritisch. In echten Reaktoren wirken zusätzlich Borsäure im Wasser und Temperatureffekte. Ganz eingefahren stoppt die Kettenreaktion (Schnellabschaltung).",
-   controls:{sl:[{k:"stab",label:"Steuerstaebe eingefahren",min:0,max:100,step:5,fmt:function(v){return v+" %"}}],reset:{stab:50}},
-   cfg:{mode:"stab"}, alt:"Reaktorkern mit Brennstaeben und Steuerstaeben"},
+   controls:{sl:[{k:"stab",label:"Steuerstäbe eingefahren",min:0,max:100,step:5,fmt:function(v){return v+" %"}}],reset:{stab:50}},
+   cfg:{mode:"stab"}, alt:"Reaktorkern mit Brennstaeben und Steuerstäben"},
 
   {kicker:"Schritt 3", title:"Drei Wasserkreisläufe",
    html:"<p>Ein Druckwasserreaktor hat drei getrennte Kreisläufe. Wähle einen aus.</p>",
@@ -378,7 +378,7 @@ window.LAB={state:S,
    html:"<p>Wähle jeweils eine Antwort. Die Erklärung erscheint sofort.</p>", note:"Auch mit Handzeichen möglich."},
 
   {kicker:"Zusammenfassung", title:"Das solltest du mitnehmen",
-   html:"<ul class=\"list\"><li>Bei der Kernspaltung zerbricht Uran-235 nach einem Neutronentreffer in zwei mittelschwere Kerne, dazu 2 oder 3 Neutronen und viel Energie.</li><li>Im Reaktor bleibt im Mittel genau ein Neutron wirksam, dafür sorgen Steuerstaebe. Moderator-Wasser bremst die Neutronen.</li><li>Bei der Kernfusion verschmelzen leichte Kerne. Das braucht extrem hohe Temperaturen.</li><li>Radioaktiver Abfall strahlt je nach Stoff Jahrzehnte bis Millionen Jahre.</li></ul>",
+   html:"<ul class=\"list\"><li>Bei der Kernspaltung zerbricht Uran-235 nach einem Neutronentreffer in zwei mittelschwere Kerne, dazu 2 oder 3 Neutronen und viel Energie.</li><li>Im Reaktor bleibt im Mittel genau ein Neutron wirksam, dafür sorgen Steuerstäbe. Moderator-Wasser bremst die Neutronen.</li><li>Bei der Kernfusion verschmelzen leichte Kerne. Das braucht extrem hohe Temperaturen.</li><li>Radioaktiver Abfall strahlt je nach Stoff Jahrzehnte bis Millionen Jahre.</li></ul>",
    askLabel:"Probier's aus", ask:"Stell 30 Dominosteine so auf, dass jeder Stein zwei weitere umwirft. Was passiert?",
    cfg:{mode:"kette"}, alt:"Kettenreaktion"}
  ]};
