@@ -70,7 +70,7 @@ Startseite für IServ: `Kernphysik-Labore.html` (ein Link, fünf Labore).
 
 - **Atomlabor**: Zoom vom Atom zum Kern, Rutherford, Atom bauen, Isotope, Nuklidkarte.
 - **Strahlungslabor**: Nullrate, Luftballon, Präparat und Abstand, α/β/γ, elektrisches Feld, Zerfallsgleichungen, Absorber, Bleidicke.
-- **Zerfallslabor**: 100 Würfel, 400 Kerne mit Zufallszerfall, Halbwertszeit für sechs Nuklide, Aktivität und Zählrate, Alltag (Luftdruck, Koffein, Bierschaum), C-14-Uhr.
+- **Zerfallslabor**: 100 Würfel, Zerfall von Fluor-20 als Animation (nach LEIFIphysik: Uhr, Kernraster, Messpunkte alle 2 s, danach Kurve und Halbwertszeiten, Start/Pause/Neustart, 100/225/900 Kerne, Tempo), Halbwertszeit für sechs Nuklide, Aktivität und Zählrate, Alltag (Luftdruck, Koffein, Bierschaum), C-14-Uhr.
 - **Wirkungslabor**: Ionisation durch α/β/γ, Nebelkammer, Treffer in der Zelle, persönliche Jahresdosis, Schutzregeln mit Reglern.
 - **Kernenergielabor**: Spaltung mit drei Bruchstückpaaren, Kettenreaktion, Steuerstäbe, drei Wasserkreisläufe, Fusion mit Temperatur, Abklingen des Abfalls.
 

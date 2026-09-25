@@ -35,7 +35,7 @@ S6_HG = (box("Abschluss Leitfrage 2", ["Die Antwortfolie ins Heft, der Check per
                                     "Grenze des Modells: Echte Kerne zerfallen nicht in Runden, sondern zu jedem beliebigen Zeitpunkt. Die Wahrscheinlichkeit pro Zeit ist aber genauso fest.",
                                     "<b>Typische Fehlvorstellungen:</b> Nach zwei Halbwertszeiten ist alles zerfallen. Ein Kern, der lange nicht zerfallen ist, ist „bald dran“."], 4, 6)
          + box("Material", ["Würfel aus der Mathe-Sammlung. Alternative: 30 Münzen pro Gruppe, „Zahl“ scheidet aus. Dann halbiert sich die Zahl schon pro Wurf."], 6)
-         + LAB(ZERF, "Zerfallslabor", "100 Würfel Wurf für Wurf, drei Zufallsserien, dazu 400 Kerne mit zufälligem Zerfall."))
+         + LAB(ZERF, "Zerfallslabor", "100 Würfel Wurf für Wurf, drei Zufallsserien, dazu der Zerfall von Fluor-20 als Animation mit Uhr und Messpunkten (nach der LEIFI-Animation)."))
 S6_AB = ab_box("Versuchsblatt Zerfall mit Würfeln", "Zerfall mit Wuerfeln W06.pdf",
                "Erwartete Werte 30, 25, 21, 17, 14, 12, 10, 8, 7. Hälfte nach knapp 4 Würfen. Würfel = Kern, Sechs = Zerfall, die Abweichung kommt vom Zufall.", 6)
 
@@ -62,7 +62,7 @@ S7_HG = (box("Halbwertszeit", ["Nach n Halbwertszeiten ist der Anteil (1/2)ⁿ �
                                      "Den Anfangswert erst ablesen, wenn sich die Grenze zwischen Schaum und Flüssigkeit gebildet hat."], 2)
          + box("Im Alltag", ["Cäsium-137 aus Tschernobyl ist nach 40 Jahren erst gut zur Hälfte zerfallen. Wildschweine im Süden Deutschlands sind deshalb teils noch belastet.",
                              "Luftdruck und Koffein folgen demselben Muster, das zeigt die Mathematik der Abnahme."], 3, 4)
-         + LAB(ZERF, "Zerfallslabor", "Halbwertszeit für sechs Nuklide mit Regler, exponentielle Abnahme im Alltag."))
+         + LAB(ZERF, "Zerfallslabor", "Fluor-20-Animation: 225 Kerne, Uhr, alle 2 s ein Messpunkt, danach Kurve mit Halbwertszeiten bei 11, 22 und 33 s. Dazu Halbwertszeit für sechs Nuklide und exponentielle Abnahme im Alltag."))
 S7_AB = ab_box("Arbeitsblatt Die Halbwertszeit", "Halbwertszeit W07.pdf",
                "Schaum (Beispiel): 10,0 bis 1,9 cm, Halbierung nach etwa 100 s. Lücken: Hälfte, ein Viertel, ein Achtel, feste. Iod-131: 500, 250, 125, 62,5, 31,25 Kerne. Die Kurve halbiert immer nur und erreicht nie null.", 2)
 

@@ -208,7 +208,7 @@ window.G={f1:f1,ray:ray,dash:dash,head:head,arrow:arrow,poly:poly,rect:rect,circ
    Würfelmodell, zufälliger Zerfall vieler Kerne, Halbwertszeit, Aktivität und Zählrate, exponentielle Abnahme im Alltag, C-14-Uhr. */
 (function(){
 "use strict";
-var S={wurf:0, serie:"1", thw:0, nuk:"F20", tn:0, akt:1000, dz:5, alltag:"druck", xa:0, alter:0};
+var S={wurf:0, serie:"1", tf:0, lauf:"pause", nf:"225", tempo:"1", zufall:1, nuk:"F20", tn:0, akt:1000, dz:5, alltag:"druck", xa:0, alter:0};
 var PROT="#FF7A59", NEUT="#9FB2CF", GRUEN="#6FE39A", GELB="#FFC53D", CYAN="#4CC9F0";
 
 function rnd(seed){ var s=seed%233280; return function(){ s=(s*9301+49297)%233280; return s/233280; }; }
@@ -247,21 +247,65 @@ function wuerfel(){
   return {svg:o.join(""), readout:'<span class="chip">nach Wurf '+w+': <b>'+d.rest[w]+' Würfel übrig</b></span>'+(w>0?'<span class="chip">in diesem Wurf ausgeschieden: '+(d.rest[w-1]-d.rest[w])+'</span>':'')+'<span class="chip">grün gestrichelt: erwarteter Verlauf</span>'};
 }
 
-/* 2 · 400 Kerne, jeder zerfällt zu einem zufälligen Zeitpunkt */
-function kerne(){
-  var o=[], t=+S.thw, r=rnd(4711), n=0, i;
-  for(i=0;i<400;i++){
-    var z=-Math.log(1-r()*0.99999)/Math.LN2; /* Lebensdauer in Halbwertszeiten */
-    var x=60+(i%20)*19, y=40+Math.floor(i/20)*19, weg=z<=t;
-    if(!weg) n++;
-    o.push(G.circ(x,y,7,weg?"#26324A":PROT,weg?' stroke="#4D5E77"':''));
+/* 2 · Zerfall von Fluor-20 als Animation (Uhr, Kernraster, Messpunkte alle 2 s, danach Kurve und Halbwertszeiten) */
+var TF=11, TMAX=60, timer=null, cache={};
+function zeiten(){
+  var key=S.nf+"_"+S.zufall; if(cache[key]) return cache[key];
+  var n=+S.nf, r=rnd(S.zufall*7919+n), z=[], i; for(i=0;i<n;i++) z.push(-Math.log(1-r()*0.999999)/Math.LN2*TF);
+  return (cache[key]=z);
+}
+function nuk(x,y,sym,A,Z,size,col){
+  var k=size*0.5; return '<text x="'+(x-2)+'" y="'+G.f1(y-size*0.42)+'" font-family="IBM Plex Mono,monospace" font-size="'+k+'" fill="'+col+'" text-anchor="end">'+A+'</text>'+
+    '<text x="'+(x-2)+'" y="'+G.f1(y+size*0.14)+'" font-family="IBM Plex Mono,monospace" font-size="'+k+'" fill="'+col+'" text-anchor="end">'+Z+'</text>'+
+    '<text x="'+x+'" y="'+y+'" font-family="Georgia,serif" font-size="'+size+'" fill="'+col+'">'+sym+'</text>';
+}
+function fluor(){
+  var o=[], z=zeiten(), n=z.length, t=+S.tf, i, rest=0, seite=Math.round(Math.sqrt(n)), d=280/seite, rr=d*0.42;
+  /* Gleichung */
+  o.push(G.txt(40,28,"β⁻-Zerfall von Fluor-20","dim"));
+  o.push(nuk(62,64,"F",20,9,24,"#FF7A59")+G.txt(96,58,"→","")+nuk(140,64,"Ne",20,10,24,"#E7EDF6")+G.txt(186,58,"+","")+nuk(214,64,"e",0,"−1",24,"#4CC9F0")+G.txt(238,58,"+","")+
+         nuk(264,64,"ν̄",0,0,24,"#9AAAC0"));
+  /* Raster */
+  for(i=0;i<n;i++){ var x=40+(i%seite)*d+d/2, y=84+Math.floor(i/seite)*d+d/2, lebt=z[i]>t; if(lebt) rest++;
+    o.push(G.circ(x,y,rr,lebt?"#FF7A59":"#3B4150",lebt?"":' stroke="#6E7F99" stroke-width="'+(d>12?1:0.5)+'"')); }
+  o.push(G.circ(48,387,7,"#FF7A59")+G.txt(62,393,"Fluor-20","dim")+G.circ(48,421,7,"#3B4150",' stroke="#6E7F99"')+G.txt(62,427,"Neon-20 (stabil)","dim"));
+  /* Diagramm */
+  var x0=420, y0=390, w=380, h=280, sx=w/TMAX, sy=h/n;
+  o.push('<line x1="'+x0+'" y1="'+y0+'" x2="'+(x0+w+10)+'" y2="'+y0+'" stroke="#9AAAC0" stroke-width="1.5"/><line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+(y0-h-14)+'" stroke="#9AAAC0" stroke-width="1.5"/>');
+  for(i=10;i<=TMAX;i+=10) o.push(G.txt(x0+i*sx,y0+18,""+i,"mid dim"));
+  o.push(G.txt(x0+w+10,y0+36,"t in s","end dim")+G.txt(x0+8,y0-h-18,"unzerfallene Kerne N","dim"));
+  [n,n/2,n/4,n/8].forEach(function(v){ o.push(G.txt(x0-6,y0-v*sy+4,""+Math.round(v),"end dim")); });
+  var fertig=t>=TMAX-0.001;
+  if(fertig){
+    var p=[]; for(i=0;i<=120;i++){ var tt=TMAX*i/120; p.push(G.f1(x0+tt*sx)+","+G.f1(y0-n*Math.pow(0.5,tt/TF)*sy)); }
+    o.push('<polyline points="'+p.join(" ")+'" fill="none" stroke="#FF7A59" stroke-width="2" stroke-opacity=".8"/>');
+    [1,2,3].forEach(function(k){ var X=x0+k*TF*sx, Y=y0-n/Math.pow(2,k)*sy; o.push(G.dash(x0,Y,X,Y,"#D07CFF",1.4,0,0.9)+G.dash(X,Y,X,y0,"#D07CFF",1.4,0,0.9)); });
   }
-  var x0=480,y0=380;
-  o.push(achsen(x0,y0,320,300,"Zeit in Halbwertszeiten","übrige Kerne"));
-  o.push(kurve(x0,y0,320,300,function(tt){return Math.pow(0.5,tt);},5));
-  for(i=1;i<=5;i++) o.push(G.txt(x0+i*64,y0+18,""+i,"mid dim"));
-  o.push(G.circ(x0+t*64,y0-300*n/400,7,GELB));
-  return {svg:o.join(""), readout:'<span class="chip">Zeit: <b>'+komma(t,1)+' Halbwertszeiten</b></span><span class="chip">noch da: <b>'+n+' von 400</b></span><span class="chip">erwartet: '+Math.round(400*Math.pow(0.5,t))+'</span>'};
+  for(i=0;i<=Math.floor(t/2+1e-9)*2;i+=2){ var m=0; z.forEach(function(q){ if(q>i) m++; }); o.push(G.circ(x0+i*sx,y0-m*sy,3.6,"#FF7A59")); }
+  /* Uhr */
+  o.push('<rect x="690" y="6" width="118" height="54" rx="8" fill="#26324A" stroke="#6E7F99"/><rect x="700" y="16" width="98" height="34" rx="4" fill="#05080F"/>'+
+         '<text x="749" y="41" font-family="IBM Plex Mono,monospace" font-size="24" fill="#6FE39A" text-anchor="middle">'+Math.floor(t)+' s</text>');
+  var k=Math.floor(t/TF+1e-9), txt="";
+  if(k>=1) txt=["","1 Halbwertszeit: noch ½","2 Halbwertszeiten: noch ¼","3 Halbwertszeiten: noch ⅛"][Math.min(k,3)];
+  if(k>=4) txt="alle 11 s wieder die Hälfte";
+  if(txt) o.push(G.rect(440,104,370,40,"#131D2E",1,' rx="6" stroke="#D07CFF"')+G.txt(625,130,txt,"mid"));
+  return {svg:o.join(""), readout:'<span class="chip">t = <b>'+Math.floor(t)+' s</b></span><span class="chip">unzerfallen: <b>'+rest+' von '+n+'</b></span><span class="chip">erwartet: '+Math.round(n*Math.pow(0.5,t/TF))+'</span>'};
+}
+function fluorLauf(){
+  if(timer){ clearInterval(timer); timer=null; }
+  if(S.lauf==="reset"){ S.tf=0; S.zufall++; S.lauf="pause";
+    setTimeout(function(){ var sl=document.getElementById("s_tf"), out=document.getElementById("o_tf"); if(sl) sl.value=0; if(out) out.textContent="0 s";
+      Array.prototype.forEach.call(document.querySelectorAll('[data-k="lauf"]'),function(e){ e.setAttribute("aria-pressed",String(e.getAttribute("data-v")==="pause")); }); },0); }
+  if(S.lauf!=="play") return;
+  if(+S.tf>=TMAX) S.tf=0;
+  timer=setInterval(function(){
+    S.tf=Math.min(TMAX,+S.tf+0.1*(+S.tempo));
+    var svg=document.getElementById("svg"), ro=document.getElementById("readout"), sl=document.getElementById("s_tf"), out=document.getElementById("o_tf");
+    if(!svg||!sl){ clearInterval(timer); timer=null; return; }
+    var b=fluor(); svg.innerHTML=G.defs()+b.svg; if(ro) ro.innerHTML=b.readout; sl.value=S.tf; if(out) out.textContent=Math.floor(S.tf)+" s";
+    if(+S.tf>=TMAX){ clearInterval(timer); timer=null; S.lauf="pause";
+      var bt=document.querySelectorAll('[data-k="lauf"]'); Array.prototype.forEach.call(bt,function(e){ e.setAttribute("aria-pressed",String(e.getAttribute("data-v")==="pause")); }); }
+  },100);
 }
 
 /* 3 · Halbwertszeit verschiedener Nuklide */
@@ -331,7 +375,7 @@ function c14(){
 }
 
 window.LAB={state:S,
- draw:function(cfg){ return {wuerfel:wuerfel,kerne:kerne,hwz:hwz,aktiv:aktiv,alltag:alltag,c14:c14}[cfg.mode](cfg); },
+ draw:function(cfg){ if(cfg.mode==="fluor") fluorLauf(); else if(timer){ clearInterval(timer); timer=null; S.lauf="pause"; } return {wuerfel:wuerfel,fluor:fluor,hwz:hwz,aktiv:aktiv,alltag:alltag,c14:c14}[cfg.mode](cfg); },
  QZ:[
   {q:"Von 800 Kernen sind nach zwei Halbwertszeiten noch wie viele übrig?", o:["400","200","0"],a:1, w:"Jede Halbwertszeit halbiert: 800, 400, 200."},
   {q:"Kann man vorhersagen, wann ein bestimmter Kern zerfällt?", o:["Ja, genau nach einer Halbwertszeit","Nein, das ist Zufall","Nur bei kurzen Halbwertszeiten"],a:1, w:"Die Halbwertszeit gilt nur für sehr viele Kerne. Der einzelne Kern zerfällt zufällig."},
@@ -348,12 +392,13 @@ window.LAB={state:S,
    controls:{btn:[{k:"serie",label:"Versuch:",opts:[["1","1"],["2","2"],["3","3"]]}],sl:[{k:"wurf",label:"Wurf",min:0,max:15,step:1,fmt:function(v){return v}}],reset:{wurf:0}},
    cfg:{mode:"wuerfel"}, alt:"100 Würfel und Säulendiagramm der übrigen Würfel"},
 
-  {kicker:"Schritt 1", title:"Jeder Kern zerfällt zufällig",
-   html:"<p>400 radioaktive Kerne. Jeder zerfällt zu einem zufälligen Zeitpunkt. Verschiebe die Zeit.</p>",
-   ask:"Wie viele Kerne sind nach einer, zwei und drei Halbwertszeiten noch da?",
-   note:"Die Zerfallszeiten sind zufällig, deshalb weicht die Zahl etwas vom erwarteten Wert ab. Je mehr Kerne, desto genauer passt die Kurve.",
-   controls:{sl:[{k:"thw",label:"Zeit",min:0,max:5,step:0.1,fmt:function(v){return komma(v,1)+" T½"}}],reset:{thw:0}},
-   cfg:{mode:"kerne"}, alt:"Viele Kerne, ein Teil zerfallen, daneben die Zerfallskurve"},
+  {kicker:"Schritt 1", title:"Zerfall von Fluor-20",
+   html:"<p>Viele Fluor-20-Kerne zerfallen in stabiles Neon-20. Starte die Uhr und beobachte die Kerne und das Diagramm. Alle 2 Sekunden wird gezählt.</p>",
+   ask:"Wie viele Kerne sind nach 11, 22 und 33 Sekunden noch nicht zerfallen? Welcher Kern als Nächstes zerfällt, weiß niemand.",
+   note:"Nachgebaut nach der Animation auf LEIFIphysik (Halbwertszeit). Fluor-20 hat eine Halbwertszeit von etwa 11 s. Jeder Durchlauf ist neu gewürfelt: Mit „Neustart“ zerfallen andere Kerne, der Verlauf bleibt fast gleich. Mit 900 Kernen liegen die Punkte näher an der Kurve als mit 100. Nach 60 s erscheinen Kurve und Halbwertszeiten. Der Zeitregler geht auch von Hand.",
+   controls:{btn:[{k:"lauf",label:"Uhr:",opts:[["play","▶ Start"],["pause","Pause"],["reset","Neustart"]]},{k:"nf",label:"Kerne:",opts:[["100","100"],["225","225"],["900","900"]]},{k:"tempo",label:"Tempo:",opts:[["1","1×"],["2","2×"],["4","4×"]]}],
+             sl:[{k:"tf",label:"Zeit",min:0,max:60,step:1,fmt:function(v){return Math.floor(v)+" s"}}]},
+   cfg:{mode:"fluor"}, alt:"Kerne von Fluor-20 zerfallen, daneben Uhr und Zerfallsdiagramm"},
 
   {kicker:"Schritt 2", title:"Die Halbwertszeit",
    html:"<p>Die <span class=\"term\">Halbwertszeit</span> ist die Zeit, nach der die Hälfte der Kerne zerfallen ist. Sie ist für jedes Nuklid fest.</p>",
