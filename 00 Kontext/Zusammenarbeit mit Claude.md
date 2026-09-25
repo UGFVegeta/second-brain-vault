@@ -85,3 +85,9 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 - Mehrstündige Begleithefte kopiert er als A3-Bogen doppelseitig, also genau 4 A4-Seiten. Dann nur auf Seite 1 Name, Titel und Datum, keine Fußzeilen, keine „Stunde 1/2/3“-Einteilung. Lösungen müssen in die Kästchen passen.
 - Beurteilt wird am PDF, nicht am HTML. Bei Layoutfragen gleich das PDF liefern.
 - Beispiel: [[04 Ressourcen/Physik/Kernphysik/Materialien/Begleitheft Kernspaltung.pdf]]
+
+## Wenige Arbeitsblätter, viel selbst aufschreiben (25.09.2026)
+
+- Oskar teilt wenig Arbeitsblätter aus. Standard ist das gemeinsame Tafelbild, das die Schüler selbst ins Heft schreiben und zeichnen. Nur Lücken ausfüllen ist ihm zu leicht und zu passiv.
+- Ein Blatt gibt es nur, wenn es sich lohnt, etwa bei vielen Zeichnungen (Begleitheft Kernspaltung) oder bei Versuchen.
+- Vorhandene Blätter bleiben als Alternative stehen, sind aber nicht der Normalfall. Nicht automatisch pro Stunde ein Blatt bauen, sondern erst fragen.
