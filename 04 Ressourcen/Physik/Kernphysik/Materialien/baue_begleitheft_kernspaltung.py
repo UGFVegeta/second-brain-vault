@@ -22,22 +22,23 @@ def font(w):
 
 
 CSS = ("<style>" + "".join(f"@font-face{{font-family:'Open Sans';font-weight:{w};src:url(data:font/woff2;base64,{font(w)}) format('woff2')}}" for w in (400, 600, 700)) + f"""
-@page{{size:A4;margin:11mm 17mm 10mm 17mm}}
+@page{{size:A4;margin:9mm 14mm 8mm 14mm}}
 *{{box-sizing:border-box}}
-body{{margin:0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:11pt;color:#1d1d1b;line-height:1.5}}
+body{{margin:0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:10.5pt;color:#1d1d1b;line-height:1.45}}
 .seite{{position:relative;height:274mm;page-break-after:always;overflow:hidden}}
 .seite:last-child{{page-break-after:auto}}
+section.abs{{break-inside:avoid;page-break-inside:avoid}}h2{{break-after:avoid}}
 .kz{{display:grid;grid-template-columns:1fr 1fr 1fr;font-size:9pt;margin-bottom:5mm}}
 .kz span:nth-child(2){{text-align:center}}.kz span:nth-child(3){{text-align:right;padding-right:22mm}}
 .fz{{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 1fr;font-size:9pt}}
 .fz span:nth-child(2){{text-align:center}}.fz span:nth-child(3){{text-align:right}}
-h2{{font-size:13.5pt;font-weight:400;color:{BLAU};border-bottom:.8pt solid #1d1d1b;margin:4.5mm 0 2.5mm;padding-bottom:.3mm;display:flex;justify-content:space-between;align-items:baseline}}
+h2{{font-size:13.5pt;font-weight:400;color:{BLAU};border-bottom:.8pt solid #1d1d1b;margin:3.2mm 0 1.8mm;padding-bottom:.3mm;display:flex;justify-content:space-between;align-items:baseline}}
 h2 .w{{font-size:8pt;color:#9aa3ae;font-weight:600}}h2 .lvl{{vertical-align:-2px;margin-right:1.5mm}}
 .stunde{{font-size:8pt;font-weight:700;letter-spacing:.06em;color:#fff;background:#8DA6C2;display:inline-block;padding:.6mm 2.4mm;border-radius:2pt;margin-top:1mm}}
-p{{margin:0 0 1mm}}.lt{{line-height:2.45}}ul.pkt{{margin:0;padding-left:5mm;line-height:2.45}}ul.pkt li{{margin:0}}
-.box{{display:inline-block;height:7.6mm;border:.9pt solid #1d1d1b;border-radius:5px;vertical-align:middle;margin:0 1.2mm;text-align:center;
-     line-height:7.2mm;font-weight:600;color:{MAG};font-size:10pt;white-space:nowrap;overflow:hidden}}
-.zeile{{display:flex;align-items:center;gap:2mm;margin:2mm 0}}.zeile b{{font-weight:400;min-width:5mm}}.zeile .box{{flex:1;margin:0;text-align:left;padding:1.2mm 2.5mm;height:auto;min-height:8.4mm;line-height:1.35;white-space:normal}}
+p{{margin:0 0 .8mm}}.lt{{line-height:2.25}}ul.pkt{{margin:0;padding-left:5mm;line-height:2.25}}ul.pkt li{{margin:0}}
+.box{{display:inline-block;height:7.2mm;border:.9pt solid #1d1d1b;border-radius:5px;vertical-align:middle;margin:0 1.2mm;text-align:center;
+     line-height:6.8mm;font-weight:600;color:{MAG};font-size:9.5pt;white-space:nowrap;overflow:hidden}}
+.zeile{{display:flex;align-items:center;gap:2mm;margin:1.4mm 0}}.zeile b{{font-weight:400;min-width:5mm}}.zeile .box{{flex:1;margin:0;text-align:left;padding:1.2mm 2.5mm;height:auto;min-height:7.6mm;line-height:1.3;white-space:normal}}
 .karo{{border:.8pt solid #555;background-color:#fff;background-image:linear-gradient(#8a8a8a .5pt,transparent .5pt),linear-gradient(90deg,#8a8a8a .5pt,transparent .5pt);
       background-size:5mm 5mm;background-position:-.25pt -.25pt;position:relative}}
 .karo svg{{position:absolute;inset:0;width:100%;height:100%}}
@@ -55,7 +56,7 @@ def L(antwort, l, breite=None):
     """Lücke als abgerundetes Kästchen, Breite nach Länge der Antwort (gleich in Schüler- und Lösungsfassung)."""
     import re
     rein = re.sub(r"<[^>]+>", "", antwort)
-    w = breite or max(20, round(len(rein) * 2.25 + 7))
+    w = max(breite or 0, 18, round(len(rein) * 2.0 + 6))
     return f'<span class="box" style="width:{w}mm">{antwort if l else ""}</span>'
 
 
@@ -64,8 +65,8 @@ def zeile(nr, antwort, l):
     return f'<div class="zeile"><b>{marke}</b><span class="box">{antwort if l else ""}</span></div>'
 
 
-def h(nr, titel, stufe, stunde):
-    return f'<h2><span>{nr} {titel}</span><span class="w">{kreis(stufe)}{stunde}</span></h2>'
+def h(nr, titel, stufe, stunde=""):
+    return f'<h2><span>{nr} {titel}</span><span class="w">{kreis(stufe)}</span></h2>'
 
 
 def img(datei, stil="width:100%"):
@@ -81,7 +82,7 @@ def seite(inhalt, nr, n, l):
 # ------------------------------------------------------------------ Lösungszeichnungen
 def kette_bild(l):
     """Oskars Vier-Felder-Bild in voller Breite, in der Lösung mit Neutronen (Bildkoordinaten 1702 x 1300)."""
-    o = ['<svg viewBox="0 0 1702 1300" style="position:absolute;inset:0;width:100%;height:100%">',
+    o = ['<svg viewBox="0 0 1702 1190" style="position:absolute;inset:0;width:100%;height:100%">',
          '<rect x="10" y="420" width="40" height="80" fill="#FFFFFF"/>']
     if l:
         def n(x, y): o.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="17" fill="{MAG}"/>')
@@ -153,7 +154,7 @@ EIG_UNKONTROLLIERT = ["Jede Spaltung löst 2 bis 3 neue Spaltungen aus, die Zahl
 def eigenschaften(liste, l):
     if not l:
         return ""
-    return ('<ul style="margin:0;padding:2.5mm 3mm 0 7mm;font-size:9.8pt;line-height:1.45;color:' + MAG + ';font-weight:600;position:relative;background:rgba(255,255,255,.75)">'
+    return ('<ul style="margin:0;padding:2.5mm 3mm 0 7mm;font-size:9pt;line-height:1.35;color:' + MAG + ';font-weight:600;position:relative;background:rgba(255,255,255,.75)">'
             + "".join(f"<li>{e}</li>" for e in liste) + "</ul>")
 
 
@@ -169,7 +170,7 @@ def s1(l):
             + h(1, "Wie viel Energie steckt im Uran?", 0, "W16")
             + f'<img src="{B}warnzeichen.png" style="float:right;width:13mm;margin:-12mm 0 0 3mm" alt="">'
             + f'<p class="lt">Bei vollständiger Verbrennung bzw. Spaltung lassen sich aus 1 kg Steinkohle ca. {L("8", l, 14)} kWh, aus 1 kg Erdöl ca. {L("12", l, 14)} kWh '
-              f'und aus 1 kg Uran-235 rund {L("23 000 000", l, 34)} kWh Wärme gewinnen. Für dieselbe Wärme wie 1 kg Uran-235 braucht man etwa {L("3000", l, 18)} Tonnen Kohle. '
+              f'und aus 1 kg Uran-235 rund {L("23&thinsp;000&thinsp;000", l, 34)} kWh Wärme gewinnen. Für dieselbe Wärme wie 1 kg Uran-235 braucht man etwa {L("3000", l, 18)} Tonnen Kohle. '
               f'Uran hat eine viel größere {L("Energiedichte", l)} als alle anderen Brennstoffe.</p>'
             + h(2, "Atome lassen sich spalten", 0, "W16")
             + '<ul class="pkt">'
@@ -191,13 +192,13 @@ def s1(l):
 
 
 def s2(l):
-    gl = (f'<p class="gl" style="margin:0;padding:5mm 3mm 0;color:{MAG};font-weight:600;position:relative">{nk("n", 1, 0)} + {nk("U", 235, 92)} → {nk("U", 236, 92)} → {nk("Ba", 141, 56)} + '
+    gl = (f'<p class="gl" style="margin:0;padding:3mm 3mm 0;color:{MAG};font-weight:600;position:relative">{nk("n", 1, 0)} + {nk("U", 235, 92)} → {nk("U", 236, 92)} → {nk("Ba", 141, 56)} + '
           f'{nk("Kr", 92, 36)} + 3 {nk("n", 1, 0)} + Energie</p>') if l else ""
     return (h(5, "Wie funktioniert eine Kettenreaktion?", 1, "W16")
             + '<p>Zeichne in die Felder 1, 3 und 4 die Neutronen mit Pfeilen ein.</p>'
             + kette_bild(l)
-            + '<p style="font-size:13pt">Reaktionsgleichung:</p>' + f'<div class="karo" style="height:20mm">{gl}</div>'
-            + f'<ul class="pkt" style="margin-top:2mm"><li>Bei jeder Kernspaltung entstehen {L("2 oder 3", l)} Neutronen mit sehr großer Geschwindigkeit (ca. 20 000 km/s).</li>'
+            + '<p style="font-size:13pt">Reaktionsgleichung:</p>' + f'<div class="karo" style="height:15mm">{gl}</div>'
+            + f'<ul class="pkt" style="margin-top:2mm"><li>Bei jeder Kernspaltung entstehen {L("2 oder 3", l)} Neutronen mit sehr großer Geschwindigkeit (ca.&nbsp;20&thinsp;000&nbsp;km/s).</li>'
               f'<li>Uran-235 wird vor allem von {L("langsamen", l)} Neutronen gespalten. Dabei entstehen dann wieder {L("2 oder 3", l)} Neutronen.</li>'
               f'<li>Bei jeder Spaltung wird eine große Menge {L("Energie", l)} frei.</li></ul>')
 
@@ -213,17 +214,17 @@ def s3(l):
             + zeile("Bombe", "Schritt 2: Die Zahl der fallenden Steine verdoppelt sich immer wieder.", l)
             + h(7, "Was ist eine kontrollierte Kettenreaktion?", 1, "W17")
             + '<p>Im Kernkraftwerk läuft eine kontrollierte Kettenreaktion ab. Notiere rechts mindestens drei Eigenschaften.</p>'
-            + bild_mit_karo("kernkraftwerk.png", eigenschaften(EIG_KONTROLLIERT, l), 66)
+            + bild_mit_karo("kernkraftwerk.png", eigenschaften(EIG_KONTROLLIERT, l), 50)
             + h(8, "Was ist eine unkontrollierte Kettenreaktion?", 1, "W17")
             + '<p>In einer Atombombe läuft eine unkontrollierte Kettenreaktion ab. Notiere rechts mindestens drei Eigenschaften.</p>'
-            + bild_mit_karo("atompilz.png", eigenschaften(EIG_UNKONTROLLIERT, l), 66))
+            + bild_mit_karo("atompilz.png", eigenschaften(EIG_UNKONTROLLIERT, l), 50))
 
 
 def s4(l):
     teile = ["Uran-235", "Uran-238", "1. Spaltung", "Regelstab", "Brennelement", "1. Neutron", "Moderator (Wasser)"]
     return (h(9, "Was ist die kritische Masse?", 2, "W17")
             + f'<ul class="pkt"><li>Die Mindestmasse, ab der eine Kettenreaktion möglich ist, nennt man {L("kritische Masse", l)}. '
-              'Bei Uran-235 in Kugelform sind das ca. 50 kg (Durchmesser ca. 17 cm).</li>'
+              'Bei Uran-235 in Kugelform sind das ca.&nbsp;50&nbsp;kg (Durchmesser ca.&nbsp;17&nbsp;cm).</li>'
               f'<li>Natururan enthält nur 0,7 % Uran-235. Deshalb wird es in Anreicherungsanlagen {L("angereichert", l)}.</li>'
               f'<li>Für ein Kraftwerk reichen 3 bis 5 % Uran-235, für eine Bombe braucht man etwa 90 %. Ein Kernkraftwerk kann deshalb {L("nicht", l, 16)} wie eine Atombombe explodieren.</li></ul>'
             + h(10, "Wie funktioniert die Kettenreaktion im Reaktor?", 0, "W17")
@@ -232,7 +233,7 @@ def s4(l):
               f'Brennstäbe geschoben werden. Sie „{L("schlucken", l)}“ Neutronen und {L("regeln", l)} so die Kettenreaktion oder brechen sie ab.</p>'
             + '<span class="stunde">STUNDE 3 · DAS KERNKRAFTWERK</span>'
             + h(11, "Wie ist der Kernreaktor aufgebaut?", 0, "W18")
-            + f'<div class="bildzeile"><div style="flex:0 0 47%">{img("reaktor.png")}</div><div style="flex:1">'
+            + f'<div class="bildzeile"><div style="flex:0 0 38%">{img("reaktor.png")}</div><div style="flex:1">'
             + "".join(zeile(i + 1, t, l) for i, t in enumerate(teile)) + '</div></div>')
 
 
@@ -240,7 +241,7 @@ def s5(l):
     fus = (f'<p class="gl lt">{nk("H", 2, 1)} + {nk("H", 3, 1)} → {L(nk("He", 4, 2), l, 20)} + {L(nk("n", 1, 0), l, 20)} + Energie</p>')
     return (h(12, "Welche Aufgaben hat das Wasser?", 1, "W18")
             + '<p>Die Bilder zeigen schnelle Neutronen aus einer Spaltung, das Wasser und langsame Neutronen am nächsten Kern.</p>'
-            + f'<div style="width:150mm;margin:1mm auto 2mm">{img("wasser-moderator.png")}</div>'
+            + f'<div style="width:96mm;margin:1mm auto 1mm">{img("wasser-moderator.png")}</div>'
             + zeile(1, "Moderator: bremst die schnellen Neutronen ab, damit sie Uran-235 spalten können", l)
             + zeile(2, "Kühlmittel: transportiert die Wärme aus dem Reaktor zum Dampferzeuger", l)
             + zeile(3, "Abschirmung: hält einen Teil der Strahlung zurück", l)
@@ -248,14 +249,25 @@ def s5(l):
             + f'<p class="lt">Kernenergie → {L("Wärme", l, 26)} → {L("Bewegungsenergie", l)} → {L("elektrische Energie", l)}<br>'
               'Ab der Wärme arbeitet ein Kohlekraftwerk genauso.</p>'
             + h(14, "Ausblick: Kernfusion", 2, "W18")
-            + '<p>In der Sonne verschmelzen leichte Kerne. Ergänze die Gleichung für die Fusion von Deuterium und Tritium.</p>' + fus
-            + (f'<div style="margin:2mm 0">{img("fusion.png")}</div>' if (HIER / B / "fusion.png").exists() else ""))
+            + '<p>In der Sonne verschmelzen leichte Kerne. Ergänze die Gleichung für die Fusion von Deuterium und Tritium.</p>'
+            + '<div style="display:flex;gap:4mm;align-items:center"><div style="flex:1">' + fus
+            + f'<p class="lt">1 kg Deuterium-Tritium liefert bei der Fusion etwa 94&nbsp;Millionen kWh. Das ist rund {L("4", l, 14)}-mal so viel wie 1&nbsp;kg Uran-235.</p></div>'
+            + (f'<div style="flex:0 0 78mm">{img("fusion.png")}</div>' if (HIER / B / "fusion.png").exists() else "") + '</div>')
+
+
+def heft(l):
+    """Fließender Satz für den A3-Bogen: Kopfzeile nur auf Seite 1, keine Fußzeilen, kein Umbruch mitten im Abschnitt."""
+    import re
+    inhalt = re.sub(r'<span class="stunde">.*?</span>', "", "".join(fn(l) for fn in (s1, s2, s3, s4, s5)))
+    teile = inhalt.split("<h2>")
+    kopf = teile[0]
+    abschnitte = "".join(f'<section class="abs">{kopf if i == 0 else ""}<h2>{t}</section>' for i, t in enumerate(teile[1:]))
+    kz = f'<div class="kz"><span>{"Lösung" if l else "Name:"}</span><span>{TITEL}</span><span>{"" if l else "Datum:"}</span></div>'
+    return f'<div class="heft">{kz}{abschnitte}</div>'
 
 
 if __name__ == "__main__":
-    fns = [s1, s2, s3, s4, s5]
-    n = len(fns)
-    seiten = [seite(fn(False), i + 1, n, False) for i, fn in enumerate(fns)] + [seite(fn(True), i + 1, n, True) for i, fn in enumerate(fns)]
-    html = f'<!doctype html><html lang="de"><head><meta charset="utf-8"><title>{TITEL}</title>{CSS}</head><body>{"".join(seiten)}</body></html>'
+    html = (f'<!doctype html><html lang="de"><head><meta charset="utf-8"><title>{TITEL}</title>{CSS}</head><body>'
+            f'{heft(False)}<div style="page-break-before:always"></div>{heft(True)}</body></html>')
     (HIER / "Begleitheft Kernspaltung.html").write_text(html, encoding="utf-8")
     print("geschrieben: Begleitheft Kernspaltung.html")
