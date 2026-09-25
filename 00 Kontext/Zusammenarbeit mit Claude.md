@@ -77,3 +77,11 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 ---
 
 *Stand: 18.06.2026, aus dem Kennenlern-Interview (Bereich „Zusammenarbeit"). Weitere Bereiche – Prioritäten, Entscheidungsstil, Tagesablauf – folgen.*
+
+## Begleithefte und Arbeitsblätter im Tutory-Stil (25.09.2026)
+
+- Oskars eigene Blätter (in Tutory gebaut) sind die Vorlage für Layout und Bilder: Open Sans, blaue Fragen als Überschriften mit Linie, Lücken als abgerundete Kästchen statt Unterstrichen, Bilder groß bis volle Breite, Karofelder zum Zeichnen und Schreiben.
+- Seine selbst gezeichneten Bilder gehen vor neu generierten Zeichnungen. Fehlende Bilder macht er mit Gemini. Die Zahlen und Beschriftungen kommen nicht ins KI-Bild, sondern werden danach aufgesetzt. Die Physik im KI-Bild vorher prüfen (Kugelzahlen, Größenordnungen).
+- Mehrstündige Begleithefte kopiert er als A3-Bogen doppelseitig, also genau 4 A4-Seiten. Dann nur auf Seite 1 Name, Titel und Datum, keine Fußzeilen, keine „Stunde 1/2/3“-Einteilung. Lösungen müssen in die Kästchen passen.
+- Beurteilt wird am PDF, nicht am HTML. Bei Layoutfragen gleich das PDF liefern.
+- Beispiel: [[04 Ressourcen/Physik/Kernphysik/Materialien/Begleitheft Kernspaltung.pdf]]

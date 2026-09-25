@@ -22,10 +22,10 @@ Alle Einzelstunden des Kernphysik-Blocks W01 bis W22 nach dem [[Stoffverteilungs
 | W12 | [[Kernphysik – W12 Ionisierende Strahlung – Stunde.html\|Ionisierende Strahlung]] | W12 Ionisierende Strahlung | Wirkungslabor |
 | W13 | [[Kernphysik – W13 Wirkung auf den Koerper – Stunde.html\|Wirkung auf den Körper]] | W13 Wirkung auf den Körper | Wirkungslabor |
 | W15 | [[Kernphysik – W15 Schutz und Anwendungen – Stunde.html\|Schutz und Anwendungen]] | W15 Schutz und Anwendungen | Wirkungslabor |
-| W16 | [[Kernphysik – W16 Kernspaltung – Stunde.html\|Die Kernspaltung]] | W16 Kernspaltung | Kernenergielabor |
-| W17 | [[Kernphysik – W17 Kettenreaktion – Stunde.html\|Kettenreaktion und Reaktor]] | W17 Dominoversuch | Kernenergielabor |
-| W18 | [[Kernphysik – W18 Kraftwerk und Fusion – Stunde.html\|Kernkraftwerk und Kernfusion]] | W18 Kernkraftwerk und Kernfusion | Kernenergielabor |
-| W19 | [[Kernphysik – W19 Uebungen Kernenergie – Stunde.html\|Leitfrage 5 abschließen]] | W19 Übungen, Reaktorunfälle | Kernenergielabor |
+| W16 | [[Kernphysik – W16 Kernspaltung – Stunde.html\|Die Kernspaltung]] | Begleitheft Kernspaltung (austeilen, Abschnitte 1–5) | Kernenergielabor |
+| W17 | [[Kernphysik – W17 Kettenreaktion – Stunde.html\|Kettenreaktion und Reaktor]] | Begleitheft Abschnitte 6–10 (Dominoversuch) | Kernenergielabor |
+| W18 | [[Kernphysik – W18 Kraftwerk und Fusion – Stunde.html\|Kernkraftwerk und Kernfusion]] | Begleitheft Abschnitte 11–14 | Kernenergielabor |
+| W19 | [[Kernphysik – W19 Uebungen Kernenergie – Stunde.html\|Leitfrage 5 abschließen]] | W19 Übungen (inkl. Generationen, Güterwagen, Wasserstoff), Reaktorunfälle | Kernenergielabor |
 | W20 | [[Kernphysik – W20 Radioaktiver Abfall – Stunde.html\|Wohin mit dem Abfall?]] | W20 Abfall, Endlager, Rückbau | Kernenergielabor |
 | W21 | [[Kernphysik – W21 Argumente abwaegen – Stunde.html\|Nutzen und Risiko abwägen]] | W21 Fakt oder Meinung, Diskussion mit Rollen | Kernenergielabor |
 | W22 | [[Kernphysik – W22 Rueckblick und C-14 – Stunde.html\|Rückblick und Altersbestimmung]] | W22 Altersbestimmung mit C-14 | Zerfallslabor |
@@ -51,6 +51,10 @@ Ideen aus „Erlebnis Physik“ Kl. 10, in eigenen Worten.
   - Tschernobyl und Fukushima, Rückbau (kontaminiert und aktiviert), Wirtsgesteine
   - Lerncheck-Fragen als Übungen und Kurz-Checks
 - Alle Aufgaben auf den Blättern tragen Schwierigkeitskreise.
+
+## Begleitheft Kernspaltung (W16–W18)
+
+`Materialien/Begleitheft Kernspaltung.pdf`: Oskars Tutory-Blatt „Kettenreaktion“ neu gesetzt, mit seinen Zeichnungen, ergänzt um Energiedichte-Bild und Fusionsbild (Gemini, nachkorrigiert). Vier Seiten für den A3-Bogen, Lösung Seiten 5–8. Die Lösung jedes der 14 Abschnitte erscheint in den Stunden als eigene Folie (`assets/heft-lsg-XX.png`). Builder: `Materialien/baue_begleitheft_kernspaltung.py`. Die alten Einzelblätter W16–W18 liegen in `Materialien/_alt/`, ihre Übungen stecken jetzt im Übungsblatt W19.
 
 ## Wo vom Buch abgewichen wurde
 

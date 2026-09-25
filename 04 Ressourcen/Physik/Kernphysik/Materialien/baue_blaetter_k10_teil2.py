@@ -277,6 +277,9 @@ def w19(l):
            + "".join(f'<tr><td class="v" style="text-align:left">{a}</td>' + (f'<td class="l">{b}</td><td class="l">{c}</td>' if l else "<td></td><td></td>") + "</tr>"
                      for a, b, c in (("Datum", "26.04.1986", "11.03.2011"), ("Auslöser", "missglückter Test, Reaktor gerät außer Kontrolle", "Erdbeben und Tsunami, Kühlung fällt aus"),
                                      ("Folge", "Explosion, Graphitbrand, radioaktive Wolke über Europa", "Kernschmelze, Wasserstoffexplosionen, verseuchtes Wasser"))) + "</table>")
+    gen = ('<table class="mess" style="width:100%"><tr><th>Generation</th>' + "".join(f"<th>{i}</th>" for i in range(1, 6)) + "</tr>"
+           + "".join(f'<tr><td class="v">{t}</td>' + "".join((f'<td class="{"v" if j == 0 else "l"}">{v}</td>' if (l or j == 0) else "<td></td>") for j, v in enumerate(w)) + "</tr>"
+                     for t, w in (("2 Neutronen wirksam", [1, 2, 4, 8, 16]), ("3 Neutronen wirksam", [1, 3, 9, 27, 81]))) + "</table>")
     return (kopf("W19", "F5 — Übungen zur Kernenergie", l)
             + aufg(1, 0, "Nenne zwei Maßnahmen, mit denen eine Kettenreaktion im Reaktor kontrolliert wird.")
             + antwort("Steuerstäbe fangen Neutronen ein. Borsäure im Kühlwasser schluckt ebenfalls Neutronen.", l, 1)
@@ -284,10 +287,16 @@ def w19(l):
             + f'<p class="gl">{nk("n", 1, 0)} + {nk("U", 235, 92)} → {nk("Sn", 131, 50)} + {L(nk("Mo", 103, 42))} + 2 {nk("n", 1, 0)}</p>'
             + aufg(3, 1, "Auch Plutonium-239 lässt sich spalten. Es entstehen Barium-144 und Strontium-94. Wie viele Neutronen werden frei?")
             + f'<p class="gl">{nk("n", 1, 0)} + {nk("Pu", 239, 94)} → {nk("Ba", 144, 56)} + {nk("Sr", 94, 38)} + {L("2")} {nk("n", 1, 0)}</p>'
-            + aufg(4, 1, "Vergleiche die beiden großen Reaktorunfälle.") + unf
-            + aufg(5, 2, "Was bedeutet GAU? Warum spricht man bei Tschernobyl und Fukushima vom „Super-GAU“?")
+            + aufg(4, 1, "Wie viele Spaltungen gibt es in jeder Generation?") + gen
+            + aufg(5, 1, "1 kg Uran-235 liefert so viel Wärme wie etwa 3000 t Steinkohle. Wie viele Güterwagen mit je 60 t Kohle sind das?")
+            + antwort("3000 t : 60 t = 50 Güterwagen, ein ganzer Kohlezug.", l, 1)
+            + aufg(6, 1, "Vergleiche die beiden großen Reaktorunfälle.") + unf
+            + aufg(7, 2, "Was bedeutet GAU? Warum spricht man bei Tschernobyl und Fukushima vom „Super-GAU“?")
             + antwort("GAU heißt größter anzunehmender Unfall: der schwerste Unfall, den die Anlage nach Plan noch beherrschen muss. "
-                      "In Tschernobyl und Fukushima wurde diese Grenze überschritten, Radioaktivität gelangte in großen Mengen nach außen.", l, 2))
+                      "In Tschernobyl und Fukushima wurde diese Grenze überschritten, Radioaktivität gelangte in großen Mengen nach außen.", l, 2)
+            + aufg(8, 2, "Jemand behauptet: „Wasserstoff kann man mit einem Neutron spalten.“ Nimm Stellung.")
+            + antwort("Falsch. Ein Wasserstoffkern besteht nur aus einem Proton, da gibt es nichts zu spalten. Das Neutron kann höchstens eingefangen werden, "
+                      "dann entsteht Deuterium.", l, 2))
 
 
 # ================================================================ W20 Radioaktiver Abfall
@@ -352,6 +361,7 @@ def w22(l):
                       "Die Methode reicht nur bis etwa 50 000 Jahre.", l, 2))
 
 
+# W16 bis W18 ersetzt durch das Begleitheft (baue_begleitheft_kernspaltung.py), alte Blätter liegen in _alt/
 BLAETTER = [
     ("wuerfel.html", "Zerfall mit Wuerfeln W06.pdf", "Zerfall mit Würfeln – W06", w06),
     ("halbwertszeit.html", "Halbwertszeit W07.pdf", "Die Halbwertszeit – W07", w07),
@@ -360,9 +370,6 @@ BLAETTER = [
     ("ionisierend.html", "Ionisierende Strahlung W12.pdf", "Ionisierende Strahlung – W12", w12),
     ("wirkung.html", "Wirkung auf den Koerper W13.pdf", "Wirkung auf den Körper – W13", w13),
     ("schutz.html", "Schutz und Anwendungen W15.pdf", "Schutz und Anwendungen – W15", w15),
-    ("spaltung.html", "Kernspaltung W16.pdf", "Die Kernspaltung – W16", w16),
-    ("kettenreaktion.html", "Kettenreaktion W17.pdf", "Kettenreaktion – W17", w17),
-    ("kraftwerk.html", "Kernkraftwerk und Kernfusion W18.pdf", "Kernkraftwerk und Kernfusion – W18", w18),
     ("uebungen_kernenergie.html", "Uebungen Kernenergie W19.pdf", "Übungen zur Kernenergie – W19", w19),
     ("abfall.html", "Radioaktiver Abfall W20.pdf", "Der radioaktive Abfall – W20", w20),
     ("argumente.html", "Argumente abwaegen W21.pdf", "Nutzen und Risiko abwägen – W21", w21),

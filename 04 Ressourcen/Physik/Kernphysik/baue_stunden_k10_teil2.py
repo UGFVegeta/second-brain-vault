@@ -12,6 +12,20 @@ NICHT_DRUCKEN = "Folien und Lösungen: nicht drucken."
 PSE = ("Periodensystem", "1×", "")
 
 
+HEFT = "Begleitheft Kernspaltung.pdf"
+
+
+def heft(k, hinweis=""):
+    """Lösung zu Abschnitt k des Begleithefts als Folie (Bild aus baue_begleitheft_kernspaltung.py)."""
+    aus = f'<div class="austeil">📄 {hinweis}</div>' if hinweis else ""
+    return ("blatt", f'{aus}<img class="blattbild heftbild" src="Materialien/assets/heft-lsg-{k:02d}.png" alt="">', HEFT)
+
+
+HEFT_AB = (f'<div class="box"><h3>Begleitheft Kernspaltung und Kettenreaktion</h3><a class="btn" href="Materialien/{HEFT}">PDF öffnen</a>'
+           '<p>Ein Heft für W16 bis W18, gebaut nach deinem Tutory-Blatt „Kettenreaktion“ mit deinen Zeichnungen. Seiten 1 bis 4 als A3-Bogen doppelseitig kopieren, '
+           'einmal in W16 austeilen. <b>Lösung:</b> Seiten 5 bis 8 des PDFs, abschnittsweise auch im Folien-Tab.</p></div>')
+
+
 def ab_box(titel, pdf, loesung, *nr):
     return (f'<div class="box"><h3>{titel} {chip(*nr)}</h3><a class="btn" href="Materialien/{pdf}">PDF öffnen</a>'
             f'<p><b>Lösung:</b> {loesung}</p></div>')
@@ -159,17 +173,18 @@ A16 = tabellenfolie("Kernkraft in Baden-Württemberg", [
     ("Philippsburg 1 und 2", "bis 2011 und bis 2019", "Kühltürme 2020 gesprengt, Rückbau läuft"),
     ("Neckarwestheim 1 und 2", "bis 2011 und bis 15. April 2023", "eines der letzten drei Kraftwerke in Deutschland"),
 ], kopf=("Kraftwerk", "in Betrieb", "heute"), frage="Wie weit ist Neckarwestheim von unserer Schule entfernt?")
-S16 = [f(46), f(47), f(49), blatt("Kernspaltung W16.pdf", "k16", "Arbeitsblatt austeilen · mit Periodensystem"), A16]
+S16 = [f(46), f(47), heft(1, "Begleitheft austeilen · A3-Bogen, bleibt bis W18"), heft(2), f(49), heft(3), heft(4), heft(5), A16]
 S16_HG = (box("Einstieg Leitfrage 5", ["1 kg Uran-235 liefert bei vollständiger Spaltung etwa 8 · 10¹³ J. Steinkohle hat etwa 30 MJ pro kg, das ergibt rund 3000 t.",
-                                       "Der Unterschied: Bei der Verbrennung ändern sich nur Elektronenhüllen, bei der Spaltung die Kerne. Kernkräfte sind millionenfach stärker."], 1, 2)
+                                       "Der Unterschied: Bei der Verbrennung ändern sich nur Elektronenhüllen, bei der Spaltung die Kerne. Kernkräfte sind millionenfach stärker.",
+                                       "Heft Abschnitt 1 zeigt die Mengen als Bild: ca. 2000 t Öl oder 3000 t Kohle oder 5500 t Holz für dieselbe Wärme."], 1, 2, 3)
           + box("Die Kernspaltung", ["1938 fanden Otto Hahn und Fritz Straßmann in Berlin Barium in bestrahltem Uran. Lise Meitner und Otto Frisch lieferten die Erklärung. Hahn erhielt den Chemie-Nobelpreis für 1944, Meitner ging leer aus.",
                                      "Nur langsame (thermische) Neutronen spalten Uran-235 gut. Uran-238 wird von ihnen kaum gespalten.",
                                      "Die Bruchstücke sind zufällig verteilt, häufig um die Massenzahlen 95 und 140. Im Mittel werden etwa 2,4 Neutronen frei.",
                                      "Die Energie steckt vor allem in der Bewegungsenergie der Bruchstücke, die im Brennstab zu Wärme wird.",
-                                     "<b>Typische Fehlvorstellung:</b> Bei der Spaltung verschwindet Masse einfach. Genauer: Die Bruchstücke sind zusammen etwas leichter, diese Differenz ist die frei werdende Energie."], 3)
+                                     "<b>Typische Fehlvorstellung:</b> Bei der Spaltung verschwindet Masse einfach. Genauer: Die Bruchstücke sind zusammen etwas leichter, diese Differenz ist die frei werdende Energie.",
+                                     "Im Heft (Abschnitt 3) steht bewusst nur der Befund: Uran-235 wird von langsamen Neutronen gespalten, Uran-238 praktisch nicht. Der Grund (gerade und ungerade Neutronenzahl) ist für Klasse 10 zu schwer."], 4, 5, 6, 7, 8)
           + LAB(KERN, "Kernenergielabor", "Spaltung mit drei möglichen Bruchstückpaaren und Kontrolle der Summen."))
-S16_AB = ab_box("Arbeitsblatt Die Kernspaltung", "Kernspaltung W16.pdf",
-                "Lücken: Otto Hahn, Barium, gespalten, Neutron, mittelschwere, 2 oder 3. Gleichungen: 2 Neutronen, I-137, Sr-90. Neutronen sind ungeladen. 50 Güterwagen. Wasserstoff hat nur ein Proton.", 4)
+S16_AB = HEFT_AB
 
 # ====================================================================== W17
 A17 = tabellenfolie("Kettenreaktionen im Alltag", [
@@ -177,17 +192,18 @@ A17 = tabellenfolie("Kettenreaktionen im Alltag", [
     ("Ansteckung bei Grippe", "Ansteckungszahl R", "R größer 1: Die Welle wächst. R kleiner 1: Sie ebbt ab."),
     ("Lawine", "ein Schneebrett reißt weitere mit", "unkontrolliert, sie wächst immer weiter"),
 ], kopf=("Beispiel", "was weitergegeben wird", "kontrolliert oder nicht?"), frage="Was entspricht im Reaktor der Ansteckungszahl R?")
-S17 = [f(51), blatt("Kettenreaktion W17.pdf", "k17", "Versuchsblatt austeilen · Dominosteine pro Gruppe"), f(53), A17]
+S17 = [heft(6, "Begleitheft weiter · Dominosteine pro Gruppe"), f(51), heft(7), heft(8), heft(9), f(53), heft(10), A17]
 S17_HG = (box("Kettenreaktion", ["Entscheidend ist, wie viele der freien Neutronen im Mittel eine neue Spaltung auslösen (Multiplikationsfaktor k). k = 1 heißt kritisch, der Reaktor läuft gleichmäßig.",
                                  "In einem Kernkraftwerk ist das Uran nur auf 3 bis 5 % Uran-235 angereichert. Eine Explosion wie bei einer Kernwaffe ist damit physikalisch nicht möglich.",
-                                 "Ein kleiner Teil der Neutronen wird erst Sekunden später frei (verzögerte Neutronen). Nur deshalb lässt sich ein Reaktor mit Steuerstäben regeln."], 1)
+                                 "Ein kleiner Teil der Neutronen wird erst Sekunden später frei (verzögerte Neutronen). Nur deshalb lässt sich ein Reaktor mit Steuerstäben regeln.",
+                                 "Heft Abschnitt 7 und 8: Die Schüler notieren Eigenschaften, der Ablauf ist schon in Abschnitt 5 gezeichnet. Abschnitt 9 stellt klar: 3 bis 5 % Uran-235 im Kraftwerk, etwa 90 % in der Bombe."], 2, 3, 4, 5)
           + box("Dominoversuch", ["Pro Gruppe etwa 50 Dominosteine. Schritt 2 braucht Platz auf dem Boden oder einem großen Tisch.",
-                                  "Mausefallen-Modell als Alternative: nur als Video, der Aufbau ist aufwendig."], 2)
+                                  "Mausefallen-Modell als Alternative: nur als Video, der Aufbau ist aufwendig."], 1)
           + box("Aufbau eines Reaktors", ["Brennstäbe mit Uranoxid, Steuerstäbe aus Bor oder Cadmium, Wasser als Moderator und Kühlmittel, alles im Reaktordruckbehälter aus Stahl.",
-                                          "Wasser als Moderator hat einen Sicherheitsvorteil: Wird es zu heiß und verdampft, fehlt der Moderator und die Kettenreaktion wird schwächer. In Tschernobyl war das anders (Graphit)."], 3)
+                                          "Wasser als Moderator hat einen Sicherheitsvorteil: Wird es zu heiß und verdampft, fehlt der Moderator und die Kettenreaktion wird schwächer. In Tschernobyl war das anders (Graphit).",
+                                          "Im Heft heißen die Steuerstäbe wie auf deinem Blatt Regelstäbe, in Abschnitt 10 steht beides."], 6, 7)
           + LAB(KERN, "Kernenergielabor", "Kettenreaktion mit 0,8 bis 3 wirksamen Neutronen, Steuerstäbe mit Leistungskurve."))
-S17_AB = ab_box("Versuchsblatt Kettenreaktion mit Dominosteinen", "Kettenreaktion W17.pdf",
-                "Schritt 2 unkontrolliert, Schritt 3 kontrolliert. 1, 2, 4, 8, 16 und 1, 3, 9, 27, 81. Bauteile siehe Lösungsseite. Die Steuerstäbe übernehmen die Rolle der entfernten Steine.", 2)
+S17_AB = HEFT_AB
 
 # ====================================================================== W18
 A18 = tabellenfolie("Wo man an der Fusion forscht", [
@@ -196,16 +212,17 @@ A18 = tabellenfolie("Wo man an der Fusion forscht", [
     ("ITER, Frankreich", "internationale Anlage im Bau", "soll mehr Energie liefern, als sie zum Heizen braucht"),
     ("NIF, USA", "Laser-Versuch 2022", "erstmals mehr Fusionsenergie als Laserenergie eingestrahlt"),
 ], kopf=("Ort", "was es ist", "was dort passiert"), frage="Warum gibt es trotzdem noch kein Fusionskraftwerk?")
-S18 = [f(55), f(57), blatt("Kernkraftwerk und Kernfusion W18.pdf", "k18", "Arbeitsblatt austeilen"), A18]
+S18 = [heft(11, "Begleitheft weiter"), heft(12), f(55), heft(13), f(57), heft(14), A18]
 S18_HG = (box("Kraftwerk", ["Druckwasserreaktor: Primärkreislauf unter etwa 150 bar, damit das Wasser bei rund 300 °C nicht siedet. Dampferzeuger trennt ihn vom Sekundärkreislauf.",
                             "Wirkungsgrad etwa 33 %. Zwei Drittel der Wärme gehen an Fluss und Luft, deshalb stehen Kraftwerke an Flüssen.",
-                            "Ab dem Dampf gleicht das Kernkraftwerk einem Kohlekraftwerk. Unterschied: kein CO₂ im Betrieb, dafür radioaktiver Abfall."], 1)
+                            "Ab dem Dampf gleicht das Kernkraftwerk einem Kohlekraftwerk. Unterschied: kein CO₂ im Betrieb, dafür radioaktiver Abfall.",
+                            "Reaktorbild im Heft (Abschnitt 11) nach deiner Zuordnung: 1 Uran-235, 2 Uran-238, 3 1. Spaltung, 4 Regelstab, 5 Brennelement, 6 1. Neutron, 7 Moderator (Wasser)."], 1, 2, 3, 4)
           + box("Kernfusion", ["Deuterium gibt es im Meerwasser, Tritium muss aus Lithium erbrütet werden.",
                                "Die Sonne schafft Fusion bei 15 Mio. °C nur wegen des riesigen Drucks und der enormen Menge an Wasserstoff. Einzelne Reaktionen sind dort sehr selten.",
-                               "Fusion erzeugt keinen langlebigen Abfall wie die Spaltung. Die Neutronen aktivieren aber die Wände der Anlage."], 2)
+                               "Fusion erzeugt keinen langlebigen Abfall wie die Spaltung. Die Neutronen aktivieren aber die Wände der Anlage.",
+                               "1 kg Deuterium-Tritium liefert etwa 94 Mio. kWh (17,6 MeV pro Reaktion), rund viermal so viel wie 1 kg Uran-235. Steht als Lücke in Abschnitt 14."], 5, 6)
           + LAB(KERN, "Kernenergielabor", "Drei Wasserkreisläufe zum Anklicken, Fusion mit Temperaturregler."))
-S18_AB = ab_box("Arbeitsblatt Kernkraftwerk und Kernfusion", "Kernkraftwerk und Kernfusion W18.pdf",
-                "1 Reaktor, 2 Dampferzeuger, 3 Turbine, 4 Generator, 5 Kondensator, 6 Kühlturm. Primärkreislauf, Dampferzeuger, Turbine, Kühlkreislauf. Kernenergie, Wärme, Bewegung, elektrische Energie. He-4 und n.", 3)
+S18_AB = HEFT_AB
 
 # ====================================================================== W19
 A19 = tabellenfolie("Kernkraft weltweit", [
@@ -222,7 +239,7 @@ S19_HG = (box("Abschluss Leitfrage 5", ["Antwortfolie ins Heft, Check per Handze
                                    "GAU: größter anzunehmender Unfall, gegen den die Anlage ausgelegt ist. Beide Unfälle gingen darüber hinaus."], 4)
           + LAB(KERN, "Kernenergielabor", "Kurz-Check mit sechs Fragen zu Spaltung, Reaktor, Fusion und Abfall."))
 S19_AB = ab_box("Übungsblatt Kernenergie", "Uebungen Kernenergie W19.pdf",
-                "Steuerstäbe, Borsäure. Mo-103. 2 Neutronen. Tabelle siehe Lösungsseite. GAU: schwerster geplanter Unfall, beide Unfälle gingen darüber hinaus.", 4)
+                "Steuerstäbe, Borsäure. Mo-103. 2 Neutronen. 1, 2, 4, 8, 16 und 1, 3, 9, 27, 81. 50 Güterwagen. Tabelle siehe Lösungsseite. GAU: schwerster geplanter Unfall, beide Unfälle gingen darüber hinaus. Wasserstoff hat nur ein Proton.", 4)
 
 # ====================================================================== W20
 A20 = tabellenfolie("Radioaktiver Abfall in Deutschland", [
@@ -309,16 +326,18 @@ STUNDEN = [
      [("Schutz und Anwendungen", "Folie, Schutzregeln im Labor.", [1]), ("Abschluss Leitfrage 4", "Antwort ins Heft, Check.", [2, 3, 4]),
       ("Üben", "Arbeitsblatt.", [5]), ("Alltag", "Radon zu Hause.", [6])], S15, S15_HG, S15_AB),
     ("W16 Kernspaltung", "Kernphysik: Die Kernspaltung", "W16 (Woche ab 18.01.2027) · Einstieg Leitfrage 5",
-     "Arbeitsblatt Die Kernspaltung", {"demo": [], "schueler": [PSE], "hinweis": ""},
-     [("Einstieg Leitfrage 5", "1 kg gegen 3000 t, Vermutungen.", [1, 2]), ("Kernspaltung", "Folie und Kernenergielabor.", [3]),
-      ("Üben", "Arbeitsblatt.", [4]), ("Alltag", "Kernkraft in Baden-Württemberg.", [5])], S16, S16_HG, S16_AB),
+     "!Begleitheft Kernspaltung: Seiten 1 bis 4 als A3-Bogen doppelseitig, eins pro Schüler, bleibt bis W18.", {"demo": [], "schueler": [PSE], "hinweis": ""},
+     [("Einstieg Leitfrage 5", "1 kg gegen 3000 t, Vermutungen.", [1, 2]), ("Energie und Entdeckung", "Heft austeilen, Abschnitte 1 und 2.", [3, 4]),
+      ("Kernspaltung", "Folie, Heft 3 und 4, Spaltung im Kernenergielabor.", [5, 6, 7]), ("Kettenreaktion", "Heft 5 mit Reaktionsgleichung.", [8]),
+      ("Alltag", "Kernkraft in Baden-Württemberg.", [9])], S16, S16_HG, S16_AB),
     ("W17 Kettenreaktion", "Kernphysik: Kettenreaktion und Reaktor", "W17 (Woche ab 25.01.2027) · Leitfrage 5",
-     "Versuchsblatt Kettenreaktion mit Dominosteinen", {"demo": [], "schueler": [("Dominosteine", "etwa 50", "")], "hinweis": "Für Schritt 2 Platz auf dem Boden einplanen."},
-     [("Kettenreaktion", "Folie, dann Dominoversuch.", [1, 2]), ("Reaktor", "Aufbau an der Folie, Steuerstäbe im Labor.", [3]), ("Alltag", "Kettenreaktionen im Alltag.", [4])], S17, S17_HG, S17_AB),
+     "!Kein neuer Druck: Die Schüler arbeiten im Begleitheft weiter.", {"demo": [], "schueler": [("Dominosteine", "etwa 50", "")], "hinweis": "Für Schritt 2 Platz auf dem Boden einplanen."},
+     [("Dominoversuch", "Heft 6.", [1]), ("Kontrolliert und unkontrolliert", "Folie, Heft 7 und 8.", [2, 3, 4]),
+      ("Kritische Masse", "Heft 9.", [5]), ("Reaktor", "Folie, Heft 10, Steuerstäbe im Labor.", [6, 7]), ("Alltag", "Kettenreaktionen im Alltag.", [8])], S17, S17_HG, S17_AB),
     ("W18 Kraftwerk und Fusion", "Kernphysik: Kernkraftwerk und Kernfusion", "W18 (Woche ab 01.02.2027) · Leitfrage 5",
-     "Arbeitsblatt Kernkraftwerk und Kernfusion", {"demo": [], "schueler": [], "hinweis": ""},
-     [("Kraftwerke", "Kernkraftwerk und Kohlekraftwerk vergleichen.", [1]), ("Kernfusion", "Folie und Labor.", [2]),
-      ("Üben", "Arbeitsblatt.", [3]), ("Alltag", "Wo man an der Fusion forscht.", [4])], S18, S18_HG, S18_AB),
+     "!Kein neuer Druck: Die Schüler arbeiten im Begleitheft weiter.", {"demo": [], "schueler": [], "hinweis": ""},
+     [("Reaktoraufbau", "Heft 11 und 12, Kreisläufe im Labor.", [1, 2]), ("Vom Reaktor zum Strom", "Folie Kraftwerke, Heft 13.", [3, 4]),
+      ("Kernfusion", "Folie, Heft 14, Fusion im Labor.", [5, 6]), ("Alltag", "Wo man an der Fusion forscht.", [7])], S18, S18_HG, S18_AB),
     ("W19 Uebungen Kernenergie", "Kernphysik: Leitfrage 5 abschließen", "W19 (Woche ab 15.02.2027) · Abschluss Leitfrage 5",
      "Übungsblatt Kernenergie", {"demo": [], "schueler": [PSE], "hinweis": ""},
      [("Abschluss Leitfrage 5", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt, Reaktorunfälle.", [4]), ("Alltag", "Kernkraft weltweit.", [5])], S19, S19_HG, S19_AB),
@@ -337,5 +356,5 @@ STUNDEN = [
 if __name__ == "__main__":
     for kurz, h1, sub, blattname, mat, schritte, folge, hg, ab in STUNDEN:
         bau_stunde(f"Kernphysik – {kurz} – Stunde.html", h1, f"Klasse 10 · Physik · {sub}",
-                   [f"{blattname}: Seite 1, eins pro Schüler.", NICHT_DRUCKEN], mat, schritte, folge, hg, ab,
-                   ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS)
+                   [blattname[1:] if blattname.startswith("!") else f"{blattname}: Seite 1, eins pro Schüler.", NICHT_DRUCKEN], mat, schritte, folge, hg, ab,
+                   ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS + ".blattkarte:has(.heftbild){width:900px}")

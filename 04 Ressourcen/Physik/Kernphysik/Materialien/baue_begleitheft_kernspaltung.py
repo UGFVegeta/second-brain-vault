@@ -182,7 +182,7 @@ def s1(l):
             + h(1, "Wie viel Energie steckt im Uran?", 0, "W16")
             + f'<img src="{B}warnzeichen.png" style="float:right;width:13mm;margin:-12mm 0 0 3mm" alt="">'
             + f'<p class="lt">Bei vollständiger Verbrennung bzw. Spaltung lassen sich aus 1 kg Steinkohle ca. {L("8", l, 14)} kWh, aus 1 kg Erdöl ca. {L("12", l, 14)} kWh '
-              f'und aus 1 kg Uran-235 rund {L("23&thinsp;000&thinsp;000", l, 34)} kWh Wärme gewinnen. Für dieselbe Wärme wie 1 kg Uran-235 braucht man etwa {L("3000", l, 18)} Tonnen Kohle. '
+              f'und aus 1 kg Uran-235 rund {L("23&#8239;000&#8239;000", l, 34)} kWh Wärme gewinnen. Für dieselbe Wärme wie 1 kg Uran-235 braucht man etwa {L("3000", l, 18)} Tonnen Kohle. '
               f'Uran hat eine viel größere {L("Energiedichte", l)} als alle anderen Brennstoffe.</p>'
             + energie_bild()
             + h(2, "Atome lassen sich spalten", 0, "W16")
@@ -211,7 +211,7 @@ def s2(l):
             + '<p>Zeichne in die Felder 1, 3 und 4 die Neutronen mit Pfeilen ein.</p>'
             + kette_bild(l)
             + '<p style="font-size:13pt">Reaktionsgleichung:</p>' + f'<div class="karo" style="height:15mm">{gl}</div>'
-            + f'<ul class="pkt" style="margin-top:2mm"><li>Bei jeder Kernspaltung entstehen {L("2 oder 3", l)} Neutronen mit sehr großer Geschwindigkeit (ca.&nbsp;20&thinsp;000&nbsp;km/s).</li>'
+            + f'<ul class="pkt" style="margin-top:2mm"><li>Bei jeder Kernspaltung entstehen {L("2 oder 3", l)} Neutronen mit sehr großer Geschwindigkeit (ca.&nbsp;20&#8239;000&nbsp;km/s).</li>'
               f'<li>Uran-235 wird vor allem von {L("langsamen", l)} Neutronen gespalten. Dabei entstehen dann wieder {L("2 oder 3", l)} Neutronen.</li>'
               f'<li>Bei jeder Spaltung wird eine große Menge {L("Energie", l)} frei.</li></ul>')
 
@@ -279,8 +279,33 @@ def heft(l):
     return f'<div class="heft">{kz}{abschnitte}</div>'
 
 
+def abschnitt_folien():
+    """Jeder Lösungsabschnitt auf eigener Seite -> PNG je Abschnitt (assets/heft-lsg-01.png ...), für die Stunden-HTMLs."""
+    import re, subprocess, glob
+    from PIL import Image, ImageChops
+    inhalt = re.sub(r'<span class="stunde">.*?</span>', "", "".join(fn(True) for fn in (s1, s2, s3, s4, s5)))
+    inhalt = re.sub(r'<div class="legende">.*?</div>', "", inhalt)
+    teile = inhalt.split("<h2>")[1:]
+    seiten = "".join(f'<section style="page-break-after:always"><h2>{t}</section>' for t in teile)
+    tmp = HIER / "_abschnitte.html"
+    tmp.write_text(f'<!doctype html><html lang="de"><head><meta charset="utf-8">{CSS}</head><body>{seiten}</body></html>', encoding="utf-8")
+    pdf = HIER / "_abschnitte.pdf"
+    subprocess.run(["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--headless", "--disable-gpu", "--no-pdf-header-footer",
+                    f"--print-to-pdf={pdf}", "--virtual-time-budget=5000", f"file://{tmp}"], check=True, capture_output=True)
+    for alt in glob.glob(str(HIER / "assets" / "heft-lsg-*.png")):
+        Path(alt).unlink()
+    subprocess.run(["pdftoppm", "-png", "-r", "130", str(pdf), str(HIER / "assets" / "heft-lsg")], check=True)
+    for f in sorted(glob.glob(str(HIER / "assets" / "heft-lsg-*.png"))):
+        im = Image.open(f).convert("RGB")
+        box = ImageChops.difference(im, Image.new("RGB", im.size, "white")).getbbox()
+        im.crop((max(0, box[0] - 20), max(0, box[1] - 20), min(im.width, box[2] + 20), min(im.height, box[3] + 20))).save(f)
+    tmp.unlink(); pdf.unlink()
+    print("Abschnittsbilder:", len(teile))
+
+
 if __name__ == "__main__":
     html = (f'<!doctype html><html lang="de"><head><meta charset="utf-8"><title>{TITEL}</title>{CSS}</head><body>'
             f'{heft(False)}<div style="page-break-before:always"></div>{heft(True)}</body></html>')
     (HIER / "Begleitheft Kernspaltung.html").write_text(html, encoding="utf-8")
     print("geschrieben: Begleitheft Kernspaltung.html")
+    abschnitt_folien()
