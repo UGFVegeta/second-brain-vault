@@ -249,14 +249,20 @@ def efeld():
     z.text(70, 136, "Strahler", "middle", 9.5)
     # gamma geradeaus
     welle(z, 100, 106, 600, VIOLETT)
-    # alpha leicht zum Minuspol, beta stark zum Pluspol (Parabelbahnen, qualitativ)
-    import math as _m
-    pa = " ".join(f"{x:.0f},{106 + 0.00022 * (x - 100) ** 2:.1f}" for x in range(100, 601, 20))
-    pb = " ".join(f"{x:.0f},{106 - 0.0040 * (x - 100) ** 2:.1f}" for x in range(100, 262, 6))
-    z.add(f'<polyline points="{pa}" fill="none" stroke="{ORANGE}" stroke-width="2.4"/>')
-    z.add(f'<polyline points="{pb}" fill="none" stroke="{CYAN}" stroke-width="2.4"/>')
-    z.text(606, 170, "α", size=12).text(248, 40, "β", size=12).text(606, 100, "γ", size=12)
-    z.text(318, 206, "α zum Minuspol, β stark zum Pluspol, γ gar nicht", "middle", 9.5)
+    # alpha leicht zum Minuspol, beta stark zum Pluspol: Parabeln ab Plattenanfang (x = 150), danach geradeaus
+    def bahn_pts(k, x_end):
+        pts, y = [(100, 106), (150, 106)], 106
+        for x in range(155, x_end + 1, 5):
+            dx = min(x, 480) - 150
+            y = 106 + k * dx * dx + (2 * k * 330 * (x - 480) if x > 480 else 0)
+            if x <= 480 and not 30 <= y <= 182:
+                pts.append((x, 30 if y < 30 else 182)); break
+            pts.append((x, y))
+        return " ".join(f"{a:.0f},{b:.1f}" for a, b in pts)
+    z.add(f'<polyline points="{bahn_pts(0.00035, 580)}" fill="none" stroke="{ORANGE}" stroke-width="2.4"/>')
+    z.add(f'<polyline points="{bahn_pts(-0.004, 600)}" fill="none" stroke="{CYAN}" stroke-width="2.4"/>')
+    z.text(590, 180, "α", size=12).text(296, 50, "β⁻", size=12).text(606, 100, "γ", size=12)
+    z.text(318, 206, "α leicht zum Minuspol, β⁻ stark zum Pluspol, γ gar nicht", "middle", 9.5)
     return z.svg()
 
 

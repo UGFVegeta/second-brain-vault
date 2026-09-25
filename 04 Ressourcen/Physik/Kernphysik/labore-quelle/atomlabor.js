@@ -1,7 +1,7 @@
 /* Atomlabor · Kernphysik Klasse 10 · Leitfrage 1: Woraus besteht Materie? */
 (function(){
 "use strict";
-var S={zoom:0, n:1000, p:6, nn:6, e:6, iso:"C14"};
+var S={zoom:0, n:1000, p:6, nn:6, e:6, iso:"C14", kz:6, kn:8};
 var PROT="#FF7A59", NEUT="#9FB2CF", ELEK="#4CC9F0";
 var EL=[null,["H","Wasserstoff"],["He","Helium"],["Li","Lithium"],["Be","Beryllium"],["B","Bor"],["C","Kohlenstoff"],["N","Stickstoff"],["O","Sauerstoff"],["F","Fluor"],["Ne","Neon"],
         ["Na","Natrium"],["Mg","Magnesium"],["Al","Aluminium"],["Si","Silicium"],["P","Phosphor"],["S","Schwefel"],["Cl","Chlor"],["Ar","Argon"],["K","Kalium"],["Ca","Calcium"]];
@@ -81,12 +81,40 @@ function isotop(){
   return {svg:o.join(""), readout:'<span class="chip">'+(d[3]==="stabil"?"stabiler Kern":"<b>radioaktiver</b> Kern")+'</span>'};
 }
 
+
+/* Ausschnitt der Nuklidkarte Z = 1 bis 8. s stabil, m β⁻, p β⁺ bzw. Elektroneneinfang, a zerfällt in α-Teilchen. Leer: Kern existiert nicht. */
+var KARTE={1:{0:"s",1:"s",2:"m"},2:{1:"s",2:"s",4:"m",6:"m"},3:{3:"s",4:"s",5:"m",6:"m",8:"m"},4:{3:"p",4:"a",5:"s",6:"m",7:"m",8:"m"},
+           5:{3:"p",5:"s",6:"s",7:"m",8:"m",9:"m",10:"m"},6:{3:"p",4:"p",5:"p",6:"s",7:"s",8:"m",9:"m",10:"m"},
+           7:{5:"p",6:"p",7:"s",8:"s",9:"m",10:"m"},8:{5:"p",6:"p",7:"p",8:"s",9:"s",10:"s"}};
+var KF={s:["#0A1120","#E7EDF6","stabil"],m:["#4CC9F0","#0A1120","β⁻-Strahler: zu viele Neutronen"],p:["#FF7A59","#0A1120","β⁺-Strahler: zu wenige Neutronen"],a:["#FFD34D","#0A1120","zerfällt sofort in zwei α-Teilchen"]};
+function karte(){
+  var o=[], x0=120, cw=52, ch=40, z, n;
+  for(z=1;z<=8;z++){
+    var y=380-z*42;
+    o.push(G.txt(x0-12,y+26,EL[z][0]+" "+z,"end"));
+    for(n=0;n<=10;n++){
+      var t=(KARTE[z]||{})[n], x=x0+n*cw, ist=(z===+S.kz&&n===+S.kn);
+      if(t){ var f=KF[t]; o.push(G.rect(x+2,y+2,cw-4,ch-4,f[0],1,' rx="4" stroke="#4D5E77" stroke-width="1"'));
+        o.push('<text x="'+(x+cw/2)+'" y="'+(y+25)+'" font-family="IBM Plex Mono,monospace" font-size="11" fill="'+f[1]+'" text-anchor="middle">'+EL[z][0]+"-"+(z+n)+'</text>'); }
+      if(ist) o.push(G.rect(x,y,cw,ch,"none",null,' rx="5" stroke="#FFC53D" stroke-width="3.5"'));
+    }
+  }
+  for(n=0;n<=10;n++) o.push(G.txt(x0+n*cw+cw/2,398,""+n,"mid dim"));
+  o.push(G.txt(x0+5.5*cw,420,"Neutronenzahl N","mid dim")+G.txt(x0-12,22,"Z","end dim"));
+  var lg=[["s","stabil"],["m","β⁻"],["p","β⁺"],["a","α"]];
+  lg.forEach(function(l,i){ o.push(G.rect(x0+600,60+i*34,22,22,KF[l[0]][0],1,' rx="3" stroke="#9FB2CF"')+G.txt(x0+630,77+i*34,l[1],"")); });
+  var t=(KARTE[+S.kz]||{})[+S.kn], A=+S.kz+(+S.kn), name=EL[+S.kz][1]+"-"+A;
+  return {svg:o.join(""), readout:'<span class="chip"><b>'+name+'</b>: '+S.kz+' Protonen, '+S.kn+' Neutronen</span><span class="chip">'+(t?KF[t][2]:"diesen Kern gibt es nicht")+'</span>'};
+}
+
 window.LAB={state:S,
- draw:function(cfg){ return {zoom:zoomen,ruth:rutherford,bauen:bauen,iso:isotop}[cfg.mode](cfg); },
+ draw:function(cfg){ return {zoom:zoomen,ruth:rutherford,bauen:bauen,iso:isotop,karte:karte}[cfg.mode](cfg); },
  QZ:[
   {q:"Was gibt die Kernladungszahl Z an?", o:["die Anzahl der Neutronen","die Anzahl der Protonen","Protonen und Neutronen zusammen"],a:1, w:"Z zählt die Protonen. Sie legt das Element fest."},
   {q:"Ein Atom hat 8 Protonen und 10 Neutronen. Wie lautet die Massenzahl A?", o:["8","10","18"],a:2, w:"A = Protonen + Neutronen = 18. Das ist Sauerstoff-18."},
   {q:"Warum fliegen fast alle α-Teilchen ungehindert durch die Goldfolie?", o:["Gold ist durchsichtig","Das Atom ist fast leer, der Kern winzig","Die Teilchen sind zu schnell"],a:1, w:"Nur wer fast genau einen Kern trifft, wird stark abgelenkt."},
+  {q:"Ein Kern besteht aus 82 Protonen und 124 Neutronen. Welcher ist es?", o:["Blei-206","Blei-124","Wolfram-206"],a:0, w:"Z = 82 ist Blei, A = 82 + 124 = 206."},
+  {q:"In der Nuklidkarte liegt Kohlenstoff-14 rechts von den stabilen Kohlenstoffkernen. Was heißt das?", o:["Er hat zu viele Neutronen und ist ein β⁻-Strahler","Er hat zu viele Protonen","Er ist besonders stabil"],a:0, w:"Rechts heißt mehr Neutronen. Beim β⁻-Zerfall wird ein Neutron zum Proton, aus C-14 wird N-14."},
   {q:"Kohlenstoff-12 und Kohlenstoff-14 unterscheiden sich in …", o:["der Protonenzahl","der Neutronenzahl","der Elektronenzahl"],a:1, w:"Isotope haben gleich viele Protonen, aber verschieden viele Neutronen."}
  ],
  scenes:[
@@ -117,6 +145,13 @@ window.LAB={state:S,
    note:"Deuterium und Tritium sind die Brennstoffe der Kernfusion (Leitfrage 5).",
    controls:{btn:[{k:"iso",label:"Isotop:",opts:[["H1","H-1"],["H2","H-2"],["H3","H-3"],["C12","C-12"],["C13","C-13"],["C14","C-14"],["U235","U-235"],["U238","U-238"]]}]},
    cfg:{mode:"iso"}, alt:"Isotope im Vergleich"},
+
+  {kicker:"Schritt 3", title:"Die Nuklidkarte",
+   html:"<p>In der Nuklidkarte steht jedes Kästchen für einen Kern. Nach oben wächst die Protonenzahl, nach rechts die Neutronenzahl. Wähle einen Kern mit den Reglern.</p>",
+   ask:"Wo liegen die stabilen Kerne? Was passiert mit Kernen, die zu viele Neutronen haben?",
+   note:"Ausschnitt Z = 1 bis 8, N = 0 bis 10. Leere Kästchen: Diese Kerne gibt es nicht, sie zerfallen praktisch sofort. β⁺ (Positron) und Elektroneneinfang sind im Bildungsplan nicht verlangt, sie zeigen nur, dass auch Kerne mit zu wenigen Neutronen zerfallen. Be-7 wandelt sich durch Elektroneneinfang um. Be-8 zerfällt in zwei α-Teilchen.",
+   controls:{sl:[{k:"kz",label:"Protonen Z",min:1,max:8,step:1,fmt:function(v){return v}},{k:"kn",label:"Neutronen N",min:0,max:10,step:1,fmt:function(v){return v}}],reset:{kz:6,kn:8}},
+   cfg:{mode:"karte"}, alt:"Ausschnitt der Nuklidkarte"},
 
   {kicker:"Kurz-Check", title:"Was hast du verstanden?", nostage:true, quiz:true,
    html:"<p>Wähle jeweils eine Antwort. Die Erklärung erscheint sofort.</p>", note:"Auch mit Handzeichen möglich."},
