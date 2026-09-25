@@ -1,325 +1,261 @@
 #!/usr/bin/env python3
 """Begleitheft „Kernspaltung und Kettenreaktion“ für W16 bis W18 (Entwurf).
-Grundlage: Oskars Arbeitsblatt „Kettenreaktion“ (Fragen als Überschriften, Zeichnen, Einsetzen, Schreiben im Wechsel).
-Neu geordnet nach den drei Stunden, fachlich nachgeschärft, Dominoversuch und Kraftwerk/Fusion ergänzt.
-Aufruf: python3 baue_begleitheft_kernspaltung.py  -> Begleitheft Kernspaltung.html (Schülerseiten + Lösungsseiten)"""
-import math, sys
+Grundlage und Layout: Oskars Tutory-Arbeitsblatt „Kettenreaktion“ (Open Sans, blaue Fragen-Überschriften mit Linie,
+Lücken als abgerundete Kästchen, Bilder in voller Breite, Karofelder, Kopfzeile Name/Titel/Datum, Fußzeile Physik/O.Klein/Seite).
+Oskars eigene Zeichnungen liegen in assets/kettenreaktion/.
+Aufruf: python3 baue_begleitheft_kernspaltung.py  -> Begleitheft Kernspaltung.html (5 Schülerseiten + 5 Lösungsseiten)"""
+import base64, sys
 from pathlib import Path
 
 HIER = Path(__file__).parent
 sys.path.insert(0, str(HIER.parent))
-from kern_zeichnungen import Z, INK, ORANGE, PROTON, NEUTRON, kern, teilchen, welle, nuklid  # noqa: E402
-from baue_blaetter_k10 import MAG, NAME, kreis, nk, luecken, dokument  # noqa: E402
+from kern_zeichnungen import Z, kern  # noqa: E402
+from baue_blaetter_k10 import MAG, kreis, nk  # noqa: E402
 
-GRAU, BLAU = "#66798E", "#3B7CC4"
-HEFT_CSS = ('<style>.abs{display:flex;justify-content:space-between;align-items:baseline;color:#1F8FB0;font-size:13pt;font-weight:600;'
-            'border-bottom:.8pt solid #14171c;margin:4.5mm 0 2mm;padding-bottom:.6mm}.abs .w{font-size:8pt;color:#8A94A3;font-weight:600;letter-spacing:.05em}'
-            '.abs .lvl{margin-right:1.5mm}.bild{margin:1mm 0 2mm}.bild svg{width:100%;height:auto;display:block}'
-            '.zwei{display:flex;gap:4mm;align-items:stretch}.zwei>div{flex:1}.klein{font-size:9pt;color:#3b4150}'
-            '.lt{line-height:2.1}.antw{border-bottom:.5pt solid #b8bec7;min-height:6.5mm}.antw.loesungstext{border-bottom:none;min-height:0;margin:0 0 1.5mm}'
-            '.titel{font-size:19pt;font-weight:700;margin:0 0 1mm}.untertitel{font-size:10pt;color:#3b4150;margin:0 0 2mm}'
-            '.stunde{font-size:8.5pt;font-weight:700;letter-spacing:.08em;color:#fff;background:#66798E;display:inline-block;padding:.8mm 2.5mm;border-radius:2pt;margin-top:3mm}</style>')
-
-
-def abschnitt(nr, titel, stufe, stunde=""):
-    return f'<div class="abs"><span>{kreis(stufe)}{nr} {titel}</span><span class="w">{stunde}</span></div>'
-
-
-def antwort(text, l, zeilen=2):
-    return f'<p class="antw loesungstext">{text}</p>' if l else '<div class="antw"></div>' * zeilen
-
-
-def feld(inhalt, h):
-    return f'<div class="zeichenfeld" style="height:{h}mm;margin:1mm 0 2mm">{inhalt}</div>'
-
-
-def pfeil(z, x1, y1, x2, y2, col, w=1.8, s=7):
-    return z.pfeil(x1, y1, x2, y2, col, w, s)
-
-
-def neutron(z, x, y, col=NEUTRON):
-    return z.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{col}" stroke="#FFFFFF" stroke-width="1"/>')
-
-
-def blitz(z, x, y, col):
-    pts = []
-    for k in range(16):
-        r = 22 if k % 2 == 0 else 10
-        a = math.radians(k * 22.5)
-        pts.append((x + r * math.cos(a), y + r * math.sin(a)))
-    return z.poly(pts, col, .55)
-
-
-# ------------------------------------------------------------------ Zeichnungen
-def kette(l):
-    """Vier Felder wie in Oskars Blatt. Die Kerne sind vorgegeben, Neutronen und Pfeile zeichnen die Schüler."""
-    z = Z("bh1", 250)
-    for x in (140, 280, 420):
-        z.line(x, 10, x, 214, "#A3B7D3", 1.2)
-    kern(z, 85, 110, 9, 12, r=5, seed=3)
-    z.add('<ellipse cx="210" cy="110" rx="36" ry="30" fill="none" stroke="#E8604A" stroke-width="1.3" stroke-dasharray="3 3"/>')
-    kern(z, 210, 110, 9, 13, r=5, seed=4)
-    kern(z, 350, 64, 5, 7, r=5, seed=5)
-    kern(z, 350, 160, 4, 6, r=5, seed=6)
-    for y in (40, 110, 180):
-        kern(z, 470, y, 5, 7, r=4, seed=int(y))
-        kern(z, 575, y - 16, 3, 4, r=4, seed=int(y) + 1)
-        kern(z, 575, y + 16, 3, 3, r=4, seed=int(y) + 2)
-    for i, (x, t) in enumerate(((70, "Neutron trifft Uran-235"), (210, "Kern wird instabil"), (350, "Kern spaltet sich"), (528, "Kettenreaktion"))):
-        z.add(f'<circle cx="{x - (55 if i == 0 else 60 if i < 3 else 100)}" cy="20" r="9" fill="#FFFFFF" stroke="{INK}" stroke-width="1.2"/>')
-        z.text(x - (55 if i == 0 else 60 if i < 3 else 100), 24, str(i + 1), "middle", 10, 600)
-        z.text(x, 236, t, "middle", 9)
-    if l:
-        neutron(z, 20, 110, MAG).pfeil(28, 110, 58, 110, MAG, 1.6, 6)
-        for y in (86, 110, 134):
-            z.pfeil(376, 110, 408, y, MAG, 1.4, 6)
-            neutron(z, 412, y, MAG)
-        blitz(z, 350, 112, MAG)
-        z.text(350, 120, "Energie", "middle", 8.5, 600, MAG)
-        for y in (40, 110, 180):
-            neutron(z, 428, y, MAG).pfeil(436, y, 454, y, MAG, 1.4, 5)
-            z.pfeil(488, y, 560, y - 12, "#E8604A", 1, 5).pfeil(488, y, 560, y + 12, "#E8604A", 1, 5)
-            for d in (-8, 0, 8):
-                neutron(z, 610, y + d * 2.2, MAG)
-        z.text(528, 212, "mehr Spaltungen in jedem Schritt", "middle", 8.5, 500, MAG)
-    return z.svg()
-
-
-def kuehlturm(z, x, y):
-    z.add(f'<path d="M{x - 26} {y + 60} Q{x - 14} {y + 20} {x - 20} {y} H{x + 20} Q{x + 14} {y + 20} {x + 26} {y + 60}Z" fill="#E1E7EF" stroke="{GRAU}" stroke-width="1.4"/>')
-    for k, dx in enumerate((-10, 2, 12)):
-        z.add(f'<circle cx="{x + dx}" cy="{y - 10 - k * 6}" r="{9 + k * 2}" fill="#F2F4F7" stroke="#C9D0DA"/>')
-
-
-def pilz(z, x, y):
-    z.add(f'<path d="M{x - 8} {y + 64} Q{x - 4} {y + 30} {x - 8} {y + 14} H{x + 8} Q{x + 4} {y + 30} {x + 8} {y + 64}Z" fill="#E8B79A"/>'
-          f'<ellipse cx="{x}" cy="{y}" rx="34" ry="20" fill="#E8B79A" stroke="#C98B6A"/><ellipse cx="{x}" cy="{y + 66}" rx="30" ry="6" fill="#E8B79A"/>')
-
-
-def kontrolliert(l):
-    z = Z("bh2", 150)
-    if l:
-        for i in range(5):
-            x = 40 + i * 100
-            kern(z, x, 70, 3, 4, r=4, seed=10 + i)
-            if i < 4:
-                z.pfeil(x + 12, 70, x + 86, 70, MAG, 1.6, 6)
-            z.pfeil(x + 4, 80, x - 6, 108, "#A3B7D3", 1.1, 5)
-            z.rect(x - 16, 112, 8, 22, "#3B4150", 1, 1)
-        z.text(240, 30, "je Spaltung bleibt genau 1 Neutron wirksam", "middle", 9, 600, MAG)
-        z.text(240, 146, "die übrigen fangen Steuerstäbe ein", "middle", 8.5, 500, MAG)
-    return z.svg(480)
-
-
-def unkontrolliert(l):
-    z = Z("bh3", 150)
-    if l:
-        lv = [[(40, 75)]]
-        for g in range(1, 4):
-            lv.append([(40 + g * 125, y + d) for (_, y) in lv[-1] for d in (-34 / g, 34 / g)])
-        for g in range(len(lv)):
-            for (x, y) in lv[g]:
-                kern(z, x, y, 2, 3, r=3.4, seed=20 + g)
-                if g + 1 < len(lv):
-                    for (x2, y2) in lv[g + 1]:
-                        if abs(y2 - y) < 36 / (g + 1) + 1:
-                            z.pfeil(x + 8, y, x2 - 8, y2, MAG, 1.2, 5)
-        for g in range(4):
-            z.text(40 + g * 125, 146, str(2 ** g), "middle", 9, 600, MAG)
-    return z.svg(480)
-
-
-def reaktor(l):
-    z = Z("bh4", 252)
-    z.add('<rect x="30" y="20" width="330" height="200" rx="16" fill="#DCEBF7" stroke="#6E8FB5" stroke-width="2.2"/>')
-    for x in (70, 170, 270):
-        z.rect(x, 50, 44, 150, "#FFE7A0", 1, 4)
-        z.add(f'<rect x="{x}" y="50" width="44" height="150" rx="4" fill="none" stroke="#C9A43A" stroke-width="1.2"/>')
-        for k in range(5):
-            z.add(f'<circle cx="{x + 22}" cy="{66 + k * 28}" r="7" fill="#F4B942" stroke="#B8860B" stroke-width=".8"/>')
-    for x in (128, 228):
-        z.rect(x, 20, 12, 130, "#3B4150", 1, 2)
-    for x, y in ((124, 175), (150, 190), (224, 170), (250, 95)):
-        z.add(f'<circle cx="{x}" cy="{y}" r="3" fill="#FFFFFF" stroke="{BLAU}" stroke-width=".8"/>')
-    z.add(f'<polyline points="112,166 126,180 138,164 150,184 158,176" fill="none" stroke="{ORANGE}" stroke-width="1.4"/>')
-    neutron(z, 162, 180)
-    kern(z, 322, 120, 2, 3, r=4, seed=33)
-    kern(z, 336, 140, 2, 2, r=4, seed=34)
-    marken = [(70, 150, 12, 150, "Brennstab mit Uran"), (140, 28, 164, 8, "Steuerstab"), (146, 205, 150, 240, "Wasser (Moderator und Kühlmittel)"),
-              (162, 186, 200, 240, "abgebremstes Neutron"), (292, 60, 292, 8, "Uran-235-Kern"), (340, 140, 380, 116, "Spaltprodukte"),
-              (358, 200, 380, 228, "Reaktordruckbehälter")]
-    for i, (x, y, cx, cy, t) in enumerate(marken):
-        z.line(x, y, cx, cy, GRAU, .8)
-        z.add(f'<circle cx="{cx}" cy="{cy}" r="8" fill="#FFFFFF" stroke="{INK}" stroke-width="1"/>')
-        z.text(cx, cy + 4, str(i + 1), "middle", 9, 600)
-        ly = 26 + i * 31
-        z.text(420, ly, f"{i + 1}.", size=9.5, weight=600)
-        if l:
-            z.text(438, ly, t, size=9, weight=600, col=MAG)
-        else:
-            z.line(438, ly + 3, 630, ly + 3, "#b8bec7", .8)
-    return z.svg()
-
-
-def moderator(l):
-    z = Z("bh5", 150)
-    for i in range(34):
-        x, y = 200 + (i % 9) * 26 + (i // 9 % 2) * 12, 20 + (i // 9) * 32
-        z.add(f'<circle cx="{x}" cy="{y}" r="5" fill="#FFFFFF" stroke="{BLAU}" stroke-width="1"/>')
-    z.text(310, 146, "Wasser", "middle", 8.5)
-    kern(z, 60, 75, 7, 9, r=4, seed=41)
-    z.text(60, 146, "Spaltung", "middle", 8.5)
-    kern(z, 560, 75, 7, 9, r=4, seed=42)
-    z.text(560, 146, "neuer Uran-235-Kern", "middle", 8.5)
-    neutron(z, 100, 75)
-    z.pfeil(108, 75, 180, 75, ORANGE, 2.6, 8)
-    z.text(140, 64, "schnell", "middle", 8.5)
-    if l:
-        z.add(f'<polyline points="186,75 212,52 238,86 262,60 290,92 318,70 344,100 372,74 398,96 426,80 452,84" fill="none" stroke="{MAG}" stroke-width="1.4"/>')
-        neutron(z, 470, 84, MAG)
-        z.pfeil(476, 84, 530, 78, MAG, 1.4, 6)
-        z.text(500, 66, "langsam", "middle", 8.5, 600, MAG)
-    return z.svg()
-
-
-
-# ------------------------------------------------------------------ Oskars eigene Zeichnungen (aus seinem Blatt „Kettenreaktion“)
 B = "assets/kettenreaktion/"
+TITEL = "Kernspaltung und Kettenreaktion"
+BLAU = "#2F87C3"
 
 
-def img(datei, breite="100%", extra=""):
-    return f'<img src="{B}{datei}" style="width:{breite};display:block{extra}" alt="">'
+def font(w):
+    return base64.b64encode((HIER / "assets" / "fonts" / f"opensans-{w}.woff2").read_bytes()).decode()
 
 
+CSS = ("<style>" + "".join(f"@font-face{{font-family:'Open Sans';font-weight:{w};src:url(data:font/woff2;base64,{font(w)}) format('woff2')}}" for w in (400, 600, 700)) + f"""
+@page{{size:A4;margin:11mm 17mm 10mm 17mm}}
+*{{box-sizing:border-box}}
+body{{margin:0;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:11pt;color:#1d1d1b;line-height:1.5}}
+.seite{{position:relative;height:274mm;page-break-after:always;overflow:hidden}}
+.seite:last-child{{page-break-after:auto}}
+.kz{{display:grid;grid-template-columns:1fr 1fr 1fr;font-size:9pt;margin-bottom:5mm}}
+.kz span:nth-child(2){{text-align:center}}.kz span:nth-child(3){{text-align:right;padding-right:22mm}}
+.fz{{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 1fr;font-size:9pt}}
+.fz span:nth-child(2){{text-align:center}}.fz span:nth-child(3){{text-align:right}}
+h2{{font-size:13.5pt;font-weight:400;color:{BLAU};border-bottom:.8pt solid #1d1d1b;margin:4.5mm 0 2.5mm;padding-bottom:.3mm;display:flex;justify-content:space-between;align-items:baseline}}
+h2 .w{{font-size:8pt;color:#9aa3ae;font-weight:600}}h2 .lvl{{vertical-align:-2px;margin-right:1.5mm}}
+.stunde{{font-size:8pt;font-weight:700;letter-spacing:.06em;color:#fff;background:#8DA6C2;display:inline-block;padding:.6mm 2.4mm;border-radius:2pt;margin-top:1mm}}
+p{{margin:0 0 1mm}}.lt{{line-height:2.45}}ul.pkt{{margin:0;padding-left:5mm;line-height:2.45}}ul.pkt li{{margin:0}}
+.box{{display:inline-block;height:7.6mm;border:.9pt solid #1d1d1b;border-radius:5px;vertical-align:middle;margin:0 1.2mm;text-align:center;
+     line-height:7.2mm;font-weight:600;color:{MAG};font-size:10pt;white-space:nowrap;overflow:hidden}}
+.zeile{{display:flex;align-items:center;gap:2mm;margin:2mm 0}}.zeile b{{font-weight:400;min-width:5mm}}.zeile .box{{flex:1;margin:0;text-align:left;padding:1.2mm 2.5mm;height:auto;min-height:8.4mm;line-height:1.35;white-space:normal}}
+.karo{{border:.8pt solid #555;background-color:#fff;background-image:linear-gradient(#8a8a8a .5pt,transparent .5pt),linear-gradient(90deg,#8a8a8a .5pt,transparent .5pt);
+      background-size:5mm 5mm;background-position:-.25pt -.25pt;position:relative}}
+.karo svg{{position:absolute;inset:0;width:100%;height:100%}}
+.nk{{white-space:nowrap}}.nk .az{{display:inline-flex;flex-direction:column;font-size:.62em;line-height:1.05;text-align:right;vertical-align:.4em;margin-right:1px}}
+.nk .s{{font-family:Georgia,serif;font-size:1.15em}}
+.gl{{font-size:12.5pt}}.gl .box{{min-width:18mm}}
+.bildzeile{{display:flex;gap:5mm;align-items:stretch;margin:1mm 0 2mm}}
+ol.liste{{margin:0 0 1mm;padding-left:6mm}}.lsg{{color:{MAG};font-weight:600;font-size:10pt}}
+.legende{{font-size:8.5pt;color:#555;text-align:right;margin:-3mm 0 0}}.legende .lvl{{vertical-align:-2px;margin:0 1mm 0 3mm}}
+</style>""")
+
+
+# ------------------------------------------------------------------ Bausteine
+def L(antwort, l, breite=None):
+    """Lücke als abgerundetes Kästchen, Breite nach Länge der Antwort (gleich in Schüler- und Lösungsfassung)."""
+    import re
+    rein = re.sub(r"<[^>]+>", "", antwort)
+    w = breite or max(20, round(len(rein) * 2.25 + 7))
+    return f'<span class="box" style="width:{w}mm">{antwort if l else ""}</span>'
+
+
+def zeile(nr, antwort, l):
+    marke = f"{nr}." if str(nr).isdigit() else f"{nr}:"
+    return f'<div class="zeile"><b>{marke}</b><span class="box">{antwort if l else ""}</span></div>'
+
+
+def h(nr, titel, stufe, stunde):
+    return f'<h2><span>{nr} {titel}</span><span class="w">{kreis(stufe)}{stunde}</span></h2>'
+
+
+def img(datei, stil="width:100%"):
+    return f'<img src="{B}{datei}" style="{stil};display:block" alt="">'
+
+
+def seite(inhalt, nr, n, l):
+    kz = (f'<div class="kz"><span>{"Lösung" if l else "Name:"}</span><span>{TITEL}</span><span>{"" if l else "Datum:"}</span></div>')
+    fz = f'<div class="fz"><span>Physik</span><span>O.Klein</span><span>Seite {nr}/{n}</span></div>'
+    return f'<div class="seite">{kz}{inhalt}{fz}</div>'
+
+
+# ------------------------------------------------------------------ Lösungszeichnungen
 def kette_bild(l):
-    """Oskars Vier-Felder-Bild, in der Lösung mit Neutronen in Magenta darüber (Koordinaten im Bild: 1702 x 1300)."""
+    """Oskars Vier-Felder-Bild in voller Breite, in der Lösung mit Neutronen (Bildkoordinaten 1702 x 1300)."""
     o = ['<svg viewBox="0 0 1702 1300" style="position:absolute;inset:0;width:100%;height:100%">',
          '<rect x="10" y="420" width="40" height="80" fill="#FFFFFF"/>']
     if l:
-        def n(x, y): o.append(f'<circle cx="{x}" cy="{y}" r="17" fill="{MAG}"/>')
+        def n(x, y): o.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="17" fill="{MAG}"/>')
+
         def a(x1, y1, x2, y2):
             dx, dy = x2 - x1, y2 - y1
-            L = (dx * dx + dy * dy) ** .5
-            ux, uy = dx / L, dy / L
+            d = (dx * dx + dy * dy) ** .5
+            ux, uy = dx / d, dy / d
             o.append(f'<line x1="{x1}" y1="{y1}" x2="{x2 - ux * 22:.0f}" y2="{y2 - uy * 22:.0f}" stroke="{MAG}" stroke-width="7" stroke-linecap="round"/>'
                      f'<polygon points="{x2},{y2} {x2 - ux * 34 - uy * 16:.0f},{y2 - uy * 34 + ux * 16:.0f} {x2 - ux * 34 + uy * 16:.0f},{y2 - uy * 34 - ux * 16:.0f}" fill="{MAG}"/>')
         n(35, 600); a(55, 600, 98, 600)
         for (x2, y2) in ((860, 440), (900, 800), (760, 930)):
             a(640, 620, x2, y2); n(x2 + 18, y2 + (-12 if y2 < 600 else 12))
         for y in (190, 590, 1050):
-            n(1050, y); a(1068, y, 1075, y) if False else a(1068, y, 1080, y)
+            n(1050, y); a(1068, y, 1080, y)
             for dy in (-70, 10, 90):
-                a(1450, y + (dy if y != 1050 else dy - 20), 1560, y + dy * 1.5 + (0 if y != 1050 else -20)); n(1580, y + dy * 1.5 + (0 if y != 1050 else -20))
+                y1 = y + (dy if y != 1050 else dy - 20)
+                y2 = y + dy * 1.5 + (0 if y != 1050 else -20)
+                a(1450, y1, 1560, y2); n(1580, y2)
     o.append("</svg>")
-    return f'<div style="position:relative;width:128mm;margin:1mm auto 2mm">{img("kettenreaktion-felder.png")}{"".join(o)}</div>'
+    return f'<div style="position:relative;margin:1mm 0 2mm">{img("kettenreaktion-felder.png")}{"".join(o)}</div>'
 
 
-def zeichnen_neben_bild(bild, loesung_svg, h=40):
-    return (f'<div class="zwei" style="margin:1mm 0 2mm"><div style="flex:0 0 38mm">{img(bild)}</div>'
-            f'<div>{feld(loesung_svg, h)}</div></div>')
+def kontrolliert_svg(l):
+    z = Z("bh2", 170)
+    if l:
+        for i in range(4):
+            x = 50 + i * 110
+            kern(z, x, 80, 3, 4, r=5, seed=10 + i)
+            if i < 3:
+                z.pfeil(x + 15, 80, x + 93, 80, MAG, 2, 7)
+            z.pfeil(x + 5, 92, x - 6, 124, "#A3B7D3", 1.4, 6)
+            z.rect(x - 20, 128, 9, 26, "#3B4150", 1, 1)
+        z.text(210, 34, "je Spaltung bleibt 1 Neutron wirksam", "middle", 11, 600, MAG)
+        z.text(210, 166, "die übrigen schlucken Steuerstäbe", "middle", 10, 500, MAG)
+    return z.svg(420)
 
 
-def reaktor_bild(l):
-    teile = ["Uran-235 (spaltbar)", "Uran-238", "Spaltprodukte", "Steuerstab (Regelstab)", "Brennstab", "Weg eines Neutrons", "Wasser (Moderator)"]
-    zeilen = "".join(f'<div style="display:flex;gap:2mm;align-items:baseline;margin-bottom:1.2mm"><b style="width:5mm">{i + 1}.</b>'
-                     f'<div style="flex:1">{antwort(t, l, 1)}</div></div>' for i, t in enumerate(teile))
-    return f'<div class="zwei" style="margin:1mm 0 2mm;align-items:center"><div style="flex:0 0 66mm">{img("reaktor.png")}</div><div>{zeilen}</div></div>'
+def unkontrolliert_svg(l):
+    z = Z("bh3", 170)
+    if l:
+        lv = [[(40, 85)]]
+        for g in range(1, 4):
+            lv.append([(40 + g * 115, y + d) for (_, y) in lv[-1] for d in (-38 / g, 38 / g)])
+        for g in range(len(lv)):
+            for (x, y) in lv[g]:
+                kern(z, x, y, 2, 3, r=4, seed=20 + g)
+                if g + 1 < len(lv):
+                    for (x2, y2) in lv[g + 1]:
+                        if abs(y2 - y) < 40 / (g + 1) + 1:
+                            z.pfeil(x + 9, y, x2 - 9, y2, MAG, 1.5, 6)
+        for g in range(4):
+            z.text(40 + g * 115, 166, str(2 ** g), "middle", 11, 700, MAG)
+    return z.svg(420)
+
+
+EIG_KONTROLLIERT = ["Im Mittel löst genau ein Neutron pro Spaltung die nächste Spaltung aus.",
+                    "Steuerstäbe fangen die überschüssigen Neutronen ein.",
+                    "Die Energie wird gleichmäßig über lange Zeit frei und als Wärme genutzt.",
+                    "Das Uran ist nur schwach angereichert (3 bis 5 % Uran-235).",
+                    "Man findet sie im Kernkraftwerk."]
+EIG_UNKONTROLLIERT = ["Jede Spaltung löst 2 bis 3 neue Spaltungen aus, die Zahl wächst lawinenartig.",
+                      "In Bruchteilen einer Sekunde wird riesig viel Energie frei: eine Explosion.",
+                      "Nötig ist fast reines Uran-235 (etwa 90 %) über der kritischen Masse.",
+                      "Sie lässt sich nicht steuern oder stoppen.",
+                      "Man findet sie in der Atombombe."]
+
+
+def eigenschaften(liste, l):
+    if not l:
+        return ""
+    return ('<ul style="margin:0;padding:2.5mm 3mm 0 7mm;font-size:9.8pt;line-height:1.45;color:' + MAG + ';font-weight:600;position:relative;background:rgba(255,255,255,.75)">'
+            + "".join(f"<li>{e}</li>" for e in liste) + "</ul>")
+
+
+def bild_mit_karo(bild, svg, h_mm=62):
+    return (f'<div class="bildzeile"><div style="flex:0 0 42%;display:flex;align-items:center;justify-content:center">{img(bild, f"max-width:100%;max-height:{h_mm}mm;width:auto")}</div>'
+            f'<div class="karo" style="flex:1;height:{h_mm}mm">{svg}</div></div>')
+
 
 # ------------------------------------------------------------------ Seiten
-def seite1(l):
-    lm = '<div class="loesung-marker">Lösung</div>' if l else ""
-    L = lambda s: f'<span class="luecke loesungstext">{s}</span>' if l else '<span class="luecke"></span>'
-    energie = (f'<p class="frage lt">Bei vollständiger Verbrennung oder Spaltung liefert 1 kg Steinkohle etwa {L("8")} kWh Wärme, 1 kg Erdöl etwa {L("12")} kWh '
-               f'und 1 kg Uran-235 rund {L("23 Millionen")} kWh. Für dieselbe Wärme wie 1 kg Uran-235 braucht man also etwa {L("3000")} Tonnen Kohle. '
-               f'Uran hat eine viel größere {L("Energiedichte")} als alle anderen Brennstoffe.</p>')
-    lt1 = luecken("1938 beschossen [[Otto Hahn]] und Fritz Straßmann in Berlin Uran (92 Protonen) mit langsamen [[Neutronen]]. Sie wollten Elemente erzeugen, "
-                  "die [[schwerer]] sind als Uran. Stattdessen fanden sie das viel leichtere [[Barium]]. Die Erklärung lieferte Lise Meitner, die kurz zuvor "
-                  "aus Deutschland fliehen musste: Der Urankern war [[gespalten]] worden. Gespalten wurde nur das Isotop [[Uran-235]].", l)
-    return (f'<div class="kopf"><div><span class="chip">W16–W18</span><h1>Kernspaltung und Kettenreaktion</h1></div>{lm}</div>'
-            + ("" if l else NAME)
-            + f'<div class="legende">Schwierigkeit:{kreis(0)}leicht{kreis(1)}mittel{kreis(2)}schwer</div>'
-            + '<span class="stunde">STUNDE 1 · DIE KERNSPALTUNG</span>'
-            + abschnitt(1, "Wie viel Energie steckt im Uran?", 0, "W16") + energie
-            + abschnitt(2, "Atome lassen sich spalten", 0, "W16") + f'<p class="frage lt">{lt1}</p>'
-            + abschnitt(3, "Wie funktioniert eine Kettenreaktion?", 1, "W16")
-            + '<p class="frage">Zeichne in die Felder 1, 3 und 4 die Neutronen mit Pfeilen ein.</p>'
-            + kette_bild(l))
+def s1(l):
+    return ('<span class="stunde">STUNDE 1 · DIE KERNSPALTUNG</span>'
+            f'<div class="legende">Schwierigkeit:{kreis(0)}leicht{kreis(1)}mittel{kreis(2)}schwer</div>'
+            + h(1, "Wie viel Energie steckt im Uran?", 0, "W16")
+            + f'<img src="{B}warnzeichen.png" style="float:right;width:13mm;margin:-12mm 0 0 3mm" alt="">'
+            + f'<p class="lt">Bei vollständiger Verbrennung bzw. Spaltung lassen sich aus 1 kg Steinkohle ca. {L("8", l, 14)} kWh, aus 1 kg Erdöl ca. {L("12", l, 14)} kWh '
+              f'und aus 1 kg Uran-235 rund {L("23 000 000", l, 34)} kWh Wärme gewinnen. Für dieselbe Wärme wie 1 kg Uran-235 braucht man etwa {L("3000", l, 18)} Tonnen Kohle. '
+              f'Uran hat eine viel größere {L("Energiedichte", l)} als alle anderen Brennstoffe.</p>'
+            + h(2, "Atome lassen sich spalten", 0, "W16")
+            + '<ul class="pkt">'
+              f'<li>1938 beschossen {L("Otto Hahn", l)} und Fritz Straßmann in Berlin Uran (92 Protonen) mit langsamen {L("Neutronen", l)}.</li>'
+              f'<li>Sie wollten Elemente erschaffen, die {L("schwerer", l)} als Uran sind.</li>'
+              f'<li>Sie fanden jedoch das viel leichtere Element {L("Barium", l)}.</li>'
+              f'<li>Lise Meitner, die kurz zuvor aus Deutschland fliehen musste, lieferte die Erklärung: Der Urankern wurde {L("gespalten", l)}. '
+              f'Gespalten wurde nur das Isotop {L("Uran-235", l)}.</li></ul>'
+            + h(3, "Warum Uran-235 und nicht Uran-238?", 1, "W16")
+            + f'<div style="float:right;width:36mm;margin:1mm 0 1mm 4mm;text-align:center">{img("uranerz.png")}<span style="font-size:8pt">Uranerz</span></div>'
+            + f'<p class="lt">Uran-235 hat {L("143", l, 14)} Neutronen (Massenzahl 235 − {L("92", l, 14)} Protonen).<br>'
+              f'Uran-238 hat {L("146", l, 14)} Neutronen (Massenzahl 238 − {L("92", l, 14)} Protonen).<br>'
+              f'Beide sind {L("Isotope", l)} des Urans. Natururan besteht zu über 99 % aus {L("Uran-238", l)}, nur 0,7 % sind Uran-235. '
+              f'Uran-235 wird schon von {L("langsamen", l)} Neutronen gespalten, Uran-238 praktisch nicht.</p>'
+            + h(4, "Warum werden Neutronen zur Kernspaltung benutzt?", 0, "W16")
+            + f'<ul class="pkt"><li>Neutronen haben {L("keine", l, 18)} Ladung.</li>'
+              f'<li>Sie werden vom positiv geladenen Atomkern nicht {L("abgestoßen", l)} und von elektrischen Feldern nicht {L("abgelenkt", l)}.</li>'
+              '<li>Sie werden wie kleine Torpedos auf den Atomkern geschossen.</li></ul>')
 
 
-def seite2(l):
-    L = lambda s: f'<span class="luecke loesungstext">{s}</span>' if l else '<span class="luecke"></span>'
-    gl = (f'<p class="gl" style="font-size:12.5pt">{nk("n", 1, 0)} + {nk("U", 235, 92)} → {nk("U", 236, 92)} → {nk("Ba", 141, 56)} + {nk("Kr", 92, 36)} + 3 {nk("n", 1, 0)} + Energie</p>'
-          if l else "")
-    lt3 = luecken("Bei jeder Kernspaltung werden [[2 oder 3]] Neutronen frei. Sie sind sehr schnell, etwa 20 000 km/s. Uran-235 wird aber vor allem von "
-                  "[[langsamen]] Neutronen gespalten. Trifft ein Neutron einen weiteren Kern, entstehen wieder [[2 oder 3]] Neutronen. "
-                  "Bei jeder Spaltung wird eine große Menge [[Energie]] frei.", l)
-    lt4 = (f'<p class="frage lt">Uran-235 hat {L("143")} Neutronen (Massenzahl 235 − {L("92")} Protonen). Uran-238 hat {L("146")} Neutronen '
-           f'(Massenzahl 238 − {L("92")} Protonen). Beide sind also {L("Isotope")} des Urans. Natürliches Uran besteht zu über 99 % aus {L("Uran-238")}, '
-           f'nur 0,7 % sind Uran-235. Der Unterschied: Uran-235 wird schon von {L("langsamen")} Neutronen gespalten, Uran-238 praktisch nicht.</p>')
-    lt5 = luecken("Neutronen haben [[keine]] Ladung. Deshalb werden sie vom positiv geladenen Atomkern nicht [[abgestoßen]] und von elektrischen Feldern nicht "
-                  "[[abgelenkt]]. Sie treffen den Kern wie kleine Torpedos.", l)
-    return (abschnitt("", "Reaktionsgleichung einer Kernspaltung", 1, "W16")
-            + '<p class="frage">Schreibe die Gleichung zu deiner Zeichnung auf. Beispiel: Es entstehen Barium-141 und Krypton-92.</p>'
-            + feld(gl, 16)
-            + f'<p class="frage lt">{lt3}</p>'
-            + abschnitt(4, "Warum Uran-235 und nicht Uran-238?", 1, "W16")
-            + f'<div style="float:right;width:30mm;margin:0 0 1mm 4mm;text-align:center">{img("uranerz.png")}<span class="klein">Uranerz</span></div>' + lt4
-            + abschnitt(5, "Warum nimmt man Neutronen für die Spaltung?", 0, "W16") + f'<p class="frage lt">{lt5}</p>'
-            + '<span class="stunde">STUNDE 2 · DIE KETTENREAKTION</span>'
-            + abschnitt(6, "Versuch: Kettenreaktion mit Dominosteinen", 1, "W17")
+def s2(l):
+    gl = (f'<p class="gl" style="margin:0;padding:5mm 3mm 0;color:{MAG};font-weight:600;position:relative">{nk("n", 1, 0)} + {nk("U", 235, 92)} → {nk("U", 236, 92)} → {nk("Ba", 141, 56)} + '
+          f'{nk("Kr", 92, 36)} + 3 {nk("n", 1, 0)} + Energie</p>') if l else ""
+    return (h(5, "Wie funktioniert eine Kettenreaktion?", 1, "W16")
+            + '<p>Zeichne in die Felder 1, 3 und 4 die Neutronen mit Pfeilen ein.</p>'
+            + kette_bild(l)
+            + '<p style="font-size:13pt">Reaktionsgleichung:</p>' + f'<div class="karo" style="height:20mm">{gl}</div>'
+            + f'<ul class="pkt" style="margin-top:2mm"><li>Bei jeder Kernspaltung entstehen {L("2 oder 3", l)} Neutronen mit sehr großer Geschwindigkeit (ca. 20 000 km/s).</li>'
+              f'<li>Uran-235 wird vor allem von {L("langsamen", l)} Neutronen gespalten. Dabei entstehen dann wieder {L("2 oder 3", l)} Neutronen.</li>'
+              f'<li>Bei jeder Spaltung wird eine große Menge {L("Energie", l)} frei.</li></ul>')
+
+
+def s3(l):
+    return ('<span class="stunde">STUNDE 2 · DIE KETTENREAKTION</span>'
+            + h(6, "Versuch: Kettenreaktion mit Dominosteinen", 1, "W17")
             + '<ol class="liste"><li><b>Schritt 1:</b> Stellt die Steine in einer Reihe auf und stoßt den ersten an.</li>'
               '<li><b>Schritt 2:</b> Baut so um, dass jeder Stein zwei weitere umwirft. Stoßt nur einen Stein an.</li>'
               '<li><b>Schritt 3:</b> Nehmt aus dem Aufbau von Schritt 2 so viele Steine heraus, dass immer gleich viele Steine fallen.</li></ol>'
-            + '<p class="frage">Welcher Schritt passt zu einem Kraftwerk, welcher zu einer Bombe? Begründe.</p>'
-            + antwort("Schritt 3 passt zum Kraftwerk: Es fallen immer gleich viele Steine, die Reaktion läuft gleichmäßig. "
-                      "Schritt 2 passt zur Bombe: Die Zahl der fallenden Steine verdoppelt sich immer wieder, alles passiert in kürzester Zeit.", l, 3))
+            + '<p>Welcher Schritt passt zu einem Kraftwerk, welcher zu einer Atombombe?</p>'
+            + zeile("Kraftwerk", "Schritt 3: Es fallen immer gleich viele Steine, die Reaktion läuft gleichmäßig.", l)
+            + zeile("Bombe", "Schritt 2: Die Zahl der fallenden Steine verdoppelt sich immer wieder.", l)
+            + h(7, "Was ist eine kontrollierte Kettenreaktion?", 1, "W17")
+            + '<p>Im Kernkraftwerk läuft eine kontrollierte Kettenreaktion ab. Notiere rechts mindestens drei Eigenschaften.</p>'
+            + bild_mit_karo("kernkraftwerk.png", eigenschaften(EIG_KONTROLLIERT, l), 66)
+            + h(8, "Was ist eine unkontrollierte Kettenreaktion?", 1, "W17")
+            + '<p>In einer Atombombe läuft eine unkontrollierte Kettenreaktion ab. Notiere rechts mindestens drei Eigenschaften.</p>'
+            + bild_mit_karo("atompilz.png", eigenschaften(EIG_UNKONTROLLIERT, l), 66))
 
 
-def seite3(l):
-    L = lambda s: f'<span class="luecke loesungstext">{s}</span>' if l else '<span class="luecke"></span>'
-    lt8 = (f'<p class="frage lt">Eine Kettenreaktion läuft nur, wenn genug spaltbares Material zusammen ist. Die kleinste Menge dafür heißt {L("kritische Masse")}. '
-           f'Für eine Kugel aus reinem Uran-235 sind das etwa 50 kg, also eine Kugel mit etwa 17 cm Durchmesser. '
-           f'Weil Natururan nur 0,7 % Uran-235 enthält, wird es in Anreicherungsanlagen {L("angereichert")}. '
-           f'Für ein Kraftwerk reichen 3 bis 5 % Uran-235, für eine Bombe braucht man etwa 90 %. '
-           f'Deshalb kann ein Kernkraftwerk {L("nicht")} wie eine Atombombe explodieren.</p>')
-    lt9 = luecken("Im Reaktor steckt kein reines Uran-235, sondern [[angereichertes Uran]]. Es sitzt in fingerdicken Metallröhren, den [[Brennstäben]]. "
-                  "Die Brennstäbe stehen im [[Wasser]]. Zwischen die Brennstäbe lassen sich Steuerstäbe aus [[Bor]] oder Cadmium schieben. "
-                  "Sie fangen Neutronen ein und [[regeln]] so die Kettenreaktion. Ganz hineingefahren stoppen sie die Kettenreaktion.", l)
-    return (abschnitt(7, "Was ist eine kontrollierte Kettenreaktion?", 1, "W17")
-            + '<p class="frage">Zeichne rechts neben das Kraftwerk, wie die Kettenreaktion abläuft. Erkläre in einem Satz.</p>'
-            + zeichnen_neben_bild("kernkraftwerk.png", kontrolliert(l))
-            + antwort("Von den freien Neutronen löst im Mittel genau eines die nächste Spaltung aus, die Leistung bleibt gleich.", l, 1)
-            + abschnitt(8, "Was ist eine unkontrollierte Kettenreaktion?", 1, "W17")
-            + '<p class="frage">Zeichne rechts, wie die Kettenreaktion abläuft, wenn jede Spaltung zwei neue Spaltungen auslöst.</p>'
-            + zeichnen_neben_bild("atompilz.png", unkontrolliert(l))
-            + antwort("Die Zahl der Spaltungen verdoppelt sich in jedem Schritt. In Bruchteilen einer Sekunde wird riesig viel Energie frei.", l, 1)
-            + abschnitt(9, "Was ist die kritische Masse?", 2, "W17") + lt8
-            + abschnitt(10, "Wie läuft die Kettenreaktion im Reaktor?", 0, "W17") + f'<p class="frage lt">{lt9}</p>')
+def s4(l):
+    teile = ["Uran-235 (spaltbar)", "Uran-238", "Spaltprodukte", "Steuerstab (Regelstab)", "Brennstab", "Weg eines Neutrons", "Wasser (Moderator)"]
+    return (h(9, "Was ist die kritische Masse?", 2, "W17")
+            + f'<ul class="pkt"><li>Die Mindestmasse, ab der eine Kettenreaktion möglich ist, nennt man {L("kritische Masse", l)}. '
+              'Bei Uran-235 in Kugelform sind das ca. 50 kg (Durchmesser ca. 17 cm).</li>'
+              f'<li>Natururan enthält nur 0,7 % Uran-235. Deshalb wird es in Anreicherungsanlagen {L("angereichert", l)}.</li>'
+              f'<li>Für ein Kraftwerk reichen 3 bis 5 % Uran-235, für eine Bombe braucht man etwa 90 %. Ein Kernkraftwerk kann deshalb {L("nicht", l, 16)} wie eine Atombombe explodieren.</li></ul>'
+            + h(10, "Wie funktioniert die Kettenreaktion im Reaktor?", 0, "W17")
+            + f'<p class="lt">Es wird kein reines Uran-235 verwendet, sondern {L("angereichertes Uran", l)}. Es befindet sich in etwa fingerdicken Metallröhren, den '
+              f'{L("Brennstäben", l)}. Die Brennelemente sind in {L("Wasser", l)} getaucht. Steuerstäbe aus {L("Bor", l, 16)} oder Cadmium können schnell zwischen die '
+              f'Brennstäbe geschoben werden. Sie „{L("schlucken", l)}“ Neutronen und {L("regeln", l)} so die Kettenreaktion oder brechen sie ab.</p>'
+            + '<span class="stunde">STUNDE 3 · DAS KERNKRAFTWERK</span>'
+            + h(11, "Wie ist der Kernreaktor aufgebaut?", 0, "W18")
+            + f'<div class="bildzeile"><div style="flex:0 0 47%">{img("reaktor.png")}</div><div style="flex:1">'
+            + "".join(zeile(i + 1, t, l) for i, t in enumerate(teile)) + '</div></div>')
 
 
-def seite4(l):
-    L = lambda s: f'<span class="luecke loesungstext">{s}</span>' if l else '<span class="luecke" style="min-width:34mm"></span>'
-    kette_e = f'<p class="frage lt">Kernenergie → {L("Wärme (innere Energie)")} → {L("Bewegungsenergie (Turbine)")} → {L("elektrische Energie")}</p>'
-    fus = f'<p class="gl" style="font-size:12.5pt">{nk("H", 2, 1)} + {nk("H", 3, 1)} → {L(nk("He", 4, 2)) if l else L("")} + {L(nk("n", 1, 0)) if l else L("")} + Energie</p>'
-    return ('<span class="stunde">STUNDE 3 · DAS KERNKRAFTWERK</span>'
-            + abschnitt(11, "Wie ist der Kernreaktor aufgebaut?", 0, "W18")
-            + '<p class="frage">Beschrifte die Teile 1 bis 7.</p>' + reaktor_bild(l)
-            + abschnitt(12, "Welche Aufgaben hat das Wasser?", 1, "W18")
-            + '<p class="frage">Die Bilder zeigen: schnelle Neutronen aus einer Spaltung, das Wasser, langsame Neutronen am nächsten Kern. Nenne drei Aufgaben des Wassers.</p>'
-            + f'<div style="width:120mm;margin:1mm auto 2mm">{img("wasser-moderator.png")}</div>'
-            + "".join(f'<div style="display:flex;gap:2mm;align-items:baseline"><span>{i}.</span><div style="flex:1">{antwort(t, l, 1)}</div></div>'
-                      for i, t in ((1, "Moderator: bremst die schnellen Neutronen ab, damit sie Uran-235 spalten können"),
-                                   (2, "Kühlmittel: transportiert die Wärme aus dem Reaktor zum Dampferzeuger"),
-                                   (3, "Abschirmung: hält einen Teil der Strahlung zurück")))
-            + abschnitt(13, "Vom Reaktor zum Strom", 1, "W18")
-            + '<p class="frage">Ergänze die Energieumwandlungen. Ab der Wärme arbeitet ein Kohlekraftwerk genauso.</p>' + kette_e
-            + abschnitt(14, "Ausblick: Kernfusion", 2, "W18")
-            + '<p class="frage">In der Sonne verschmelzen leichte Kerne. Ergänze die Gleichung der Fusion von Deuterium und Tritium.</p>' + fus)
+def s5(l):
+    fus = (f'<p class="gl lt">{nk("H", 2, 1)} + {nk("H", 3, 1)} → {L(nk("He", 4, 2), l, 20)} + {L(nk("n", 1, 0), l, 20)} + Energie</p>')
+    return (h(12, "Welche Aufgaben hat das Wasser?", 1, "W18")
+            + '<p>Die Bilder zeigen schnelle Neutronen aus einer Spaltung, das Wasser und langsame Neutronen am nächsten Kern.</p>'
+            + f'<div style="margin:1mm 0 2mm">{img("wasser-moderator.png")}</div>'
+            + zeile(1, "Moderator: bremst die schnellen Neutronen ab, damit sie Uran-235 spalten können", l)
+            + zeile(2, "Kühlmittel: transportiert die Wärme aus dem Reaktor zum Dampferzeuger", l)
+            + zeile(3, "Abschirmung: hält einen Teil der Strahlung zurück", l)
+            + h(13, "Vom Reaktor zum Strom", 1, "W18")
+            + f'<p class="lt">Kernenergie → {L("Wärme", l, 26)} → {L("Bewegungsenergie", l)} → {L("elektrische Energie", l)}<br>'
+              'Ab der Wärme arbeitet ein Kohlekraftwerk genauso.</p>'
+            + h(14, "Ausblick: Kernfusion", 2, "W18")
+            + '<p>In der Sonne verschmelzen leichte Kerne. Ergänze die Gleichung für die Fusion von Deuterium und Tritium.</p>' + fus
+            + (f'<div style="margin:2mm 0">{img("fusion.png")}</div>' if (HIER / B / "fusion.png").exists() else ""))
 
 
 if __name__ == "__main__":
-    seiten_s = [seite1(False), seite2(False), seite3(False), seite4(False)]
-    seiten_l = [seite1(True), seite2(True), seite3(True), seite4(True)]
-    html = dokument("Begleitheft Kernspaltung und Kettenreaktion", seiten_s + seiten_l).replace("</head>", HEFT_CSS + "</head>")
+    fns = [s1, s2, s3, s4, s5]
+    n = len(fns)
+    seiten = [seite(fn(False), i + 1, n, False) for i, fn in enumerate(fns)] + [seite(fn(True), i + 1, n, True) for i, fn in enumerate(fns)]
+    html = f'<!doctype html><html lang="de"><head><meta charset="utf-8"><title>{TITEL}</title>{CSS}</head><body>{"".join(seiten)}</body></html>'
     (HIER / "Begleitheft Kernspaltung.html").write_text(html, encoding="utf-8")
     print("geschrieben: Begleitheft Kernspaltung.html")
