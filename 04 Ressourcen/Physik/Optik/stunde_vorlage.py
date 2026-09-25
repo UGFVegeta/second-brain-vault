@@ -59,11 +59,78 @@ def mit_hinweis(h, text):
     return h[:i] + f'<div class="ab-hinweis">📄 {text}</div>' + h[i:]
 
 
-def tabellenfolie(titel, zeilen, kopf=("im Alltag", "was man sieht", "warum"), frage=""):
+# Antworten zu den Fragen der Alltagsfolien (Folie = Tafelbild, also immer ausgefüllt).
+ANTWORTEN = {
+    # Optik
+    "Du stehst im Halbschatten. Wie viele Lampen kannst du von dort sehen?":
+        "Nicht alle, aber mindestens eine. Bei zwei Lampen genau eine: Die andere ist vom Körper verdeckt.",
+    "Warum darf man eine Mondfinsternis ohne Brille ansehen, eine Sonnenfinsternis aber nicht?":
+        "Bei der Mondfinsternis schaut man auf den schwach beleuchteten Mond. Bei der Sonnenfinsternis blickt man in die Sonne, schon ihr schmaler Rand ist so hell, dass er die Netzhaut schädigt.",
+    "Warum sind die Flecken unter dem Baum rund, obwohl die Lücken im Laub eckig sind?":
+        "Jede kleine Lücke wirkt wie das Loch einer Lochkamera und bildet die runde Sonne ab. Die Form des kleinen Lochs spielt dafür keine Rolle.",
+    "Warum sieht man das Lichtbündel im Nebel, in klarer Luft aber nicht?":
+        "Die Nebeltröpfchen streuen einen Teil des Lichts zur Seite in unser Auge. Klare Luft streut kaum, deshalb sieht man das Bündel von der Seite nicht.",
+    "Warum siehst du dich in einem Spiegel, aber nicht in einem weißen Blatt Papier?":
+        "Der Spiegel reflektiert gerichtet, jeder Strahl nach dem Reflexionsgesetz, so entsteht ein Bild. Weißes Papier streut das Licht in alle Richtungen: Es ist hell, zeigt aber kein Bild.",
+    "Warum steht „AMBULANZ“ vorne auf dem Krankenwagen spiegelverkehrt?":
+        "Wer vorausfährt, sieht den Krankenwagen im Rückspiegel. Der Spiegel dreht die Schrift wieder um, dort ist sie richtig lesbar.",
+    "Warum sieht ein Schwimmbecken flacher aus, als es ist?":
+        "Licht vom Boden wird beim Übergang vom Wasser in die Luft vom Lot weg gebrochen. Das Auge verlängert die Strahlen geradlinig zurück und sieht den Boden höher.",
+    "Woran erkennst du, ob eine Linse sammelt oder zerstreut?":
+        "Eine Sammellinse ist in der Mitte dicker als am Rand, eine Zerstreuungslinse am Rand dicker. Durch eine Sammellinse sieht man nahe Dinge vergrößert, durch eine Zerstreuungslinse verkleinert.",
+    # Kernphysik
+    "Wie viele Atome liegen nebeneinander auf der Dicke eines Haars?":
+        "Etwa eine Million: 0,1 mm : 0,000 000 1 mm = 1 000 000.",
+    "Warum verhalten sich Kohlenstoff-12 und Kohlenstoff-14 chemisch gleich?":
+        "Beide haben 6 Protonen und damit 6 Elektronen in der Hülle. Die Chemie hängt nur von der Hülle ab, die Neutronen spielen keine Rolle.",
+    "Warum misst das Zählrohr im Physikraum auch ohne Präparat Impulse?":
+        "Es misst die natürliche Umgebungsstrahlung (Nullrate): Radon in der Luft, Gestein und Baustoffe, Strahlung aus dem Weltall und aus unserem Körper.",
+    "Warum ist Radon gefährlich, obwohl α-Strahlung schon von Papier gestoppt wird?":
+        "Radon ist ein Gas und wird eingeatmet. In der Lunge liegt keine Haut dazwischen, die α-Teilchen geben ihre ganze Energie direkt an das Lungengewebe ab.",
+    "Welche Strahlung ist außerhalb des Körpers am gefährlichsten, welche innerhalb?":
+        "Außerhalb γ-Strahlung, weil sie tief in den Körper dringt. Innerhalb α-Strahlung, weil sie ihre ganze Energie auf kleinstem Raum an die Zellen abgibt.",
+    "Warum nimmt man für die Dickenmessung von Papier β-Strahlung und nicht γ-Strahlung?":
+        "Dünnes Papier schwächt γ-Strahlung kaum messbar. β-Strahlung wird schon von wenig Material spürbar geschwächt, so fallen kleine Dickenunterschiede auf.",
+    "Warum kann man für einen einzelnen Kern nichts vorhersagen, für ein ganzes Präparat aber schon?":
+        "Wann ein einzelner Kern zerfällt, ist Zufall. Bei Milliarden Kernen gleichen sich die Zufälle aus: In gleicher Zeit zerfällt immer etwa derselbe Anteil.",
+    "Warum gibt es Uran-238 heute noch, Radon-220 aber nur, wenn es ständig neu entsteht?":
+        "Uran-238 hat 4,5 Milliarden Jahre Halbwertszeit, so alt ist etwa die Erde, die Hälfte ist also noch da. Radon-220 ist nach wenigen Minuten zerfallen und entsteht nur, weil Thorium im Gestein ständig zerfällt.",
+    "Wie viele Kerne zerfallen in deinem Körper in einer Minute?":
+        "Etwa 9000 pro Sekunde, also rund 540 000 in einer Minute.",
+    "Was haben alle vier Nachweise gemeinsam?":
+        "Alle nutzen die ionisierende Wirkung: Die Strahlung verändert Atome und Moleküle, das wird gezählt, sichtbar gemacht oder geschwärzt.",
+    "Warum fragt die Ärztin vor einem CT, ob die Untersuchung wirklich nötig ist?":
+        "Ein CT des Kopfes bringt etwa 2 mSv, so viel wie ein Jahr natürliche Strahlung. Jede Dosis erhöht das Krebsrisiko ein wenig, der Nutzen muss größer sein.",
+    "Welche der fünf A-Regeln hilft gegen Radon?":
+        "Vor allem: die Aufnahme in den Körper vermeiden. Regelmäßiges Lüften senkt die Radonmenge in der Atemluft.",
+    "Wie weit ist Neckarwestheim von unserer Schule entfernt?":
+        "Von Schorndorf aus etwa 37 km Luftlinie.",
+    "Was entspricht im Reaktor der Ansteckungszahl R?":
+        "Die Zahl der Neutronen je Spaltung, die wieder eine Spaltung auslösen. Im Reaktor muss sie genau 1 sein.",
+    "Warum gibt es trotzdem noch kein Fusionskraftwerk?":
+        "Das über 100 Mio. °C heiße Plasma muss lange genug eingeschlossen werden, und die Anlage muss dabei mehr Energie liefern, als sie verbraucht. Das gelingt bisher nur kurz im Versuch.",
+    "Warum entscheiden Länder so unterschiedlich?":
+        "Sie gewichten Nutzen und Risiko verschieden: Klimaschutz und sichere Versorgung gegen Unfallrisiko, Abfall und Kosten. Dazu kommen Rohstoffe, Geschichte und die Meinung der Bevölkerung.",
+    "Warum ist die Suche nach einem Endlager so schwierig?":
+        "Der Ort muss eine Million Jahre sicher sein: dichtes, stabiles Gestein ohne Grundwasser und Erdbeben. Und kaum eine Gemeinde möchte ein Endlager in ihrer Nähe.",
+    "Welche Aussagen sind Fakten, welche Meinungen?":
+        "Fakten kann man nachprüfen oder messen, zum Beispiel „kaum CO₂ im Betrieb“. Meinungen bewerten, zum Beispiel „zu gefährlich“. Jede Rolle nutzt beides.",
+    "Warum braucht man für die Messung nur ein winziges Stück des Fundes?":
+        "Schon 1 g Kohlenstoff enthält rund 60 Milliarden C-14-Atome. Moderne Geräte zählen sie direkt, dafür reichen wenige Milligramm.",
+}
+
+
+def tabellenfolie(titel, zeilen, kopf=("im Alltag", "was man sieht", "warum"), frage="", antwort=None):
     tab = ('<table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr>'
            + "".join(f"<th>{k}</th>" for k in kopf) + "</tr>"
            + "".join(f"<tr><td>{a}</td><td><b>{b}</b></td><td>{c}</td></tr>" for a, b, c in zeilen) + "</table>")
-    ms = f'<div class="merksatz"><b>Frage:</b> {frage}</div>' if frage else ""
+    ms = ""
+    if frage:
+        antwort = antwort or ANTWORTEN.get(frage)
+        if not antwort:
+            raise ValueError(f"Alltagsfolie ohne Antwort: {frage}")
+        ms = (f'<div class="merksatz"><b>Frage:</b> {frage}<br>'
+              f'<b style="color:#E6007E">Antwort:</b> <span style="color:#E6007E">{antwort}</span></div>')
     return f'<section class="folie"><div class="titelband"><h1>{titel}</h1></div><div class="zeichenzone karo">{tab}</div>{ms}</section>'
 
 

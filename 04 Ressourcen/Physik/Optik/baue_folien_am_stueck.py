@@ -112,7 +112,8 @@ zeilen = [("schwarzes T-Shirt in der Sonne", "Absorption", "fast alles Licht wir
           ("Sonnenbrille", "Absorption und Transmission", "ein Teil wird verschluckt, der Rest geht hindurch")]
 D_tab = ('<table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was passiert</th><th>warum</th></tr>'
          + "".join(f"<tr><td>{a}</td><td><b>{b}</b></td><td>{c}</td></tr>" for a, b, c in zeilen) + "</table>")
-D = folie("Licht trifft auf einen Körper im Alltag", D_tab, "<b>Frage:</b> Wo passiert mehreres gleichzeitig?")
+D = folie("Licht trifft auf einen Körper im Alltag", D_tab, "<b>Frage:</b> Wo passiert mehreres gleichzeitig?<br>"
+          "<b style=\"color:#E6007E\">Antwort:</b> <span style=\"color:#E6007E\">Beim Milchglas (Transmission und Streuung) und bei der Sonnenbrille (Absorption und Transmission). Genau genommen fast überall: Auch die Fensterscheibe spiegelt ein wenig, und das schwarze T-Shirt streut einen kleinen Rest.</span>")
 
 
 def basis(p):
