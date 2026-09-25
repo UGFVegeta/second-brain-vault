@@ -220,7 +220,7 @@ def s3(l):
 
 
 def s4(l):
-    teile = ["Uran-235 (spaltbar)", "Uran-238", "Spaltprodukte", "Steuerstab (Regelstab)", "Brennstab", "Weg eines Neutrons", "Wasser (Moderator)"]
+    teile = ["Uran-235", "Uran-238", "1. Spaltung", "Regelstab", "Brennelement", "1. Neutron", "Moderator (Wasser)"]
     return (h(9, "Was ist die kritische Masse?", 2, "W17")
             + f'<ul class="pkt"><li>Die Mindestmasse, ab der eine Kettenreaktion möglich ist, nennt man {L("kritische Masse", l)}. '
               'Bei Uran-235 in Kugelform sind das ca. 50 kg (Durchmesser ca. 17 cm).</li>'
@@ -228,7 +228,7 @@ def s4(l):
               f'<li>Für ein Kraftwerk reichen 3 bis 5 % Uran-235, für eine Bombe braucht man etwa 90 %. Ein Kernkraftwerk kann deshalb {L("nicht", l, 16)} wie eine Atombombe explodieren.</li></ul>'
             + h(10, "Wie funktioniert die Kettenreaktion im Reaktor?", 0, "W17")
             + f'<p class="lt">Es wird kein reines Uran-235 verwendet, sondern {L("angereichertes Uran", l)}. Es befindet sich in etwa fingerdicken Metallröhren, den '
-              f'{L("Brennstäben", l)}. Die Brennelemente sind in {L("Wasser", l)} getaucht. Steuerstäbe aus {L("Bor", l, 16)} oder Cadmium können schnell zwischen die '
+              f'{L("Brennstäben", l)}. Die Brennelemente sind in {L("Wasser", l)} getaucht. Regelstäbe (Steuerstäbe) aus {L("Bor", l, 16)} oder Cadmium können schnell zwischen die '
               f'Brennstäbe geschoben werden. Sie „{L("schlucken", l)}“ Neutronen und {L("regeln", l)} so die Kettenreaktion oder brechen sie ab.</p>'
             + '<span class="stunde">STUNDE 3 · DAS KERNKRAFTWERK</span>'
             + h(11, "Wie ist der Kernreaktor aufgebaut?", 0, "W18")
@@ -240,7 +240,7 @@ def s5(l):
     fus = (f'<p class="gl lt">{nk("H", 2, 1)} + {nk("H", 3, 1)} → {L(nk("He", 4, 2), l, 20)} + {L(nk("n", 1, 0), l, 20)} + Energie</p>')
     return (h(12, "Welche Aufgaben hat das Wasser?", 1, "W18")
             + '<p>Die Bilder zeigen schnelle Neutronen aus einer Spaltung, das Wasser und langsame Neutronen am nächsten Kern.</p>'
-            + f'<div style="margin:1mm 0 2mm">{img("wasser-moderator.png")}</div>'
+            + f'<div style="width:150mm;margin:1mm auto 2mm">{img("wasser-moderator.png")}</div>'
             + zeile(1, "Moderator: bremst die schnellen Neutronen ab, damit sie Uran-235 spalten können", l)
             + zeile(2, "Kühlmittel: transportiert die Wärme aus dem Reaktor zum Dampferzeuger", l)
             + zeile(3, "Abschirmung: hält einen Teil der Strahlung zurück", l)
