@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Material Kernphysik 10</title>
+<style>
+:root{--bg:#F4F6F9;--panel:#fff;--ink:#14171c;--muted:#66798E;--line:#D9DFE7;--accent:#2F5E9E;--sel:#E3EBF6;
+--ok:#1E7B4C;--okbg:#E3F3EA;--no:#4A5563;--nobg:#E6E9EE;--buy:#B4232B;--buybg:#FBE6E7;--ord:#8A5A00;--ordbg:#FBF0D9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+header{background:var(--panel);border-bottom:1px solid var(--line);padding:14px 20px 0;position:sticky;top:0;z-index:2}
+h1{font-size:19px;margin:0 0 2px}.sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.zeile{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-bottom:10px}
+.tabs{display:flex;gap:2px}.tabs button{font:inherit;font-size:14px;border:0;background:none;padding:8px 14px;border-bottom:3px solid transparent;cursor:pointer;color:var(--muted)}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.zaehler span{display:inline-block;font-size:12px;padding:3px 9px;border-radius:99px;margin-right:4px}
+label.gr{font-size:13px;color:var(--muted)}label.gr input{width:56px;font:inherit;padding:3px 6px;border:1px solid var(--line);border-radius:6px;margin-left:4px}
+.filter button,.aktion{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 10px;cursor:pointer;color:var(--ink)}
+.filter button.on{background:var(--sel);border-color:var(--accent)}
+main{max-width:1100px;margin:0 auto;padding:16px 20px 40px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:22px 0 6px}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{font-size:12px;text-align:left;color:var(--muted);font-weight:600;padding:7px 10px;border-bottom:1px solid var(--line);background:#FAFBFC}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
+td.name{font-weight:600;width:28%}td.name small,td small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.w{font:600 12px ui-monospace,Menlo,monospace;color:var(--accent);text-decoration:none;white-space:nowrap}.w:hover{text-decoration:underline}
+.einsatz div{margin-bottom:3px}.rolle{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin:0 4px}
+.bedarf{white-space:nowrap}
+.st{display:flex;gap:4px;flex-wrap:nowrap}.st button{font:inherit;font-size:12px;border:1px solid var(--line);background:#fff;border-radius:99px;padding:3px 9px;cursor:pointer;color:var(--muted)}
+.st button.on.v{background:var(--okbg);border-color:var(--ok);color:var(--ok)}.st button.on.b{background:var(--buybg);border-color:var(--buy);color:var(--buy)}
+.st button.on.o{background:var(--ordbg);border-color:var(--ord);color:var(--ord)}.st button.on.n{background:var(--nobg);border-color:var(--no);color:var(--no)}
+tr.n td.name{color:var(--no)}tr.n .nm{text-decoration:line-through;text-decoration-color:#9AA5B1}.ersatz{font-size:12px;color:var(--accent);margin-top:3px}
+.notiz{width:100%;margin-top:5px;font:inherit;font-size:12px;border:1px solid transparent;border-radius:6px;padding:3px 6px;background:transparent;color:var(--ink)}
+.notiz:hover,.notiz:focus{border-color:var(--line);background:#fff}.notiz::placeholder{color:#AAB5C2}
+tr.v td.name{color:var(--ok)}tr.b td.name{color:var(--buy)}tr.o td.name{color:var(--ord)}
+.karte{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.karte h3{margin:0 0 6px;font-size:16px}.karte h3 .w{margin-right:8px}.karte .dat{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
+.karte .nichts{color:var(--muted);font-size:14px}.karte table{border-radius:6px}.karte .hin{font-size:13px;color:var(--muted);margin-top:8px}
+.punkt{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:#C9D1DB}.punkt.v{background:var(--ok)}.punkt.b{background:var(--buy)}.punkt.o{background:#D99A1E}.punkt.n{background:var(--no)}
+.leer{color:var(--muted);padding:20px 0}
+[hidden]{display:none!important}
+@media (max-width:700px){.st{flex-wrap:wrap}header{position:static}td.name{width:auto}table,tbody,tr,td{display:block}tr{border-bottom:1px solid var(--line)}td{border:0;padding:4px 10px}th{display:none}}
+@media print{header .filter,header .tabs,.aktion,label.gr{display:none}header{position:static}.notiz{border:0}.st button:not(.on){display:none}}
+</style></head><body>
+<header>
+<h1>Material Kernphysik Klasse 10</h1>
+<p class="sub">Alles, was in den Stunden W01 bis W22 gebraucht wird. Status anklicken, er bleibt in diesem Browser gespeichert. Bei „nicht vorhanden“ steht der Ersatz aus der Stunde dabei.</p>
+<div class="zeile"><div class="zaehler" id="zaehler"></div>
+<label class="gr">Gruppen in der Klasse<input id="gruppen" type="number" min="1" max="20" placeholder="?"></label>
+<div class="filter" id="filter"><button data-f="alle" class="on">Alle</button><button data-f="offen">Noch nicht geprüft</button><button data-f="n">Nicht vorhanden</button><button data-f="b">Bestellen</button></div>
+<button class="aktion" id="kopieren">Bestellliste kopieren</button></div>
+<div class="tabs"><button data-t="gesamt" class="on">Gesamtliste</button><button data-t="stunden">Nach Stunden</button></div>
+</header>
+<main><div id="gesamt"></div><div id="stunden" hidden></div></main>
+<script>
+const D={"stunden": [{"w": "W01", "woche": "14.09.2026", "titel": "Woraus besteht Materie?", "datei": "Kernphysik – W01 Woraus besteht Materie – Stunde.html", "zeilen": [{"name": "Wasserhahn mit dünnem Strahl", "anz": "1×", "hinweis": "falls kein Waschbecken an den Gruppentischen", "rolle": "demo"}, {"name": "Elektroskop", "anz": "1×", "hinweis": "freiwillig, zeigt die Ladung des Ballons", "rolle": "demo"}, {"name": "Luftballon", "anz": "1×", "hinweis": "", "rolle": "gruppe"}, {"name": "Wolltuch", "anz": "1×", "hinweis": "", "rolle": "gruppe"}, {"name": "Papierschnipsel", "anz": "eine Handvoll", "hinweis": "klein gerissen", "rolle": "gruppe"}], "hinweis": "Bei feuchter Luft klappen die Ladungsversuche schlechter. Ersatzballons bereithalten."}, {"w": "W02", "woche": "21.09.2026", "titel": "Atombau und Isotope", "datei": "Kernphysik – W02 Atombau und Isotope – Stunde.html", "zeilen": [{"name": "Periodensystem", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": ""}, {"w": "W03", "woche": "28.09.2026", "titel": "Das Zählrohr klickt von allein", "datei": "Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html", "zeilen": [{"name": "Geiger-Müller-Zählrohr mit Zählgerät", "anz": "1×", "hinweis": "Lautsprecher an", "rolle": "demo"}, {"name": "Stoppuhr", "anz": "1×", "hinweis": "fünfmal eine Minute", "rolle": "demo"}, {"name": "Luftballon", "anz": "1×", "hinweis": "vor der Stunde gerieben und aufgehängt", "rolle": "demo"}, {"name": "Wolltuch", "anz": "1×", "hinweis": "", "rolle": "demo"}], "hinweis": "Kein Präparat nötig. Das Zählrohr ist vor der Stunde eingeschaltet und steht weit weg von der Präparatesammlung. Ballon 20 bis 30 Minuten vorher im Keller aufhängen."}, {"w": "W04", "woche": "05.10.2026", "titel": "Alpha, Beta und Gamma", "datei": "Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "zeilen": [{"name": "Präparate α, β, γ", "anz": "1", "hinweis": "nur Lehrkraft, nach RiSU", "rolle": "demo"}, {"name": "Geiger-Müller-Zählrohr mit Zählgerät", "anz": "1×", "hinweis": "", "rolle": "demo"}, {"name": "Periodensystem", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": "Ohne Präparatesatz: Zerfälle und Ablenkung im Strahlungslabor zeigen."}, {"w": "W05", "woche": "12.10.2026", "titel": "Zerfallsgleichungen und Durchdringung", "datei": "Kernphysik – W05 Zerfallsgleichungen – Stunde.html", "zeilen": [{"name": "Präparate α, β, γ", "anz": "je 1", "hinweis": "nur Lehrkraft, nach RiSU", "rolle": "demo"}, {"name": "Geiger-Müller-Zählrohr mit Zählgerät", "anz": "1×", "hinweis": "", "rolle": "demo"}, {"name": "Absorber: Papier, Aluminium 5 mm, Bleiplatten", "anz": "je 1", "hinweis": "mehrere gleich dicke Bleiplatten, falls vorhanden", "rolle": "demo"}, {"name": "Periodensystem", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": "Ohne Präparate: Absorberversuch und Bleidicke im Strahlungslabor."}, {"w": "W06", "woche": "19.10.2026", "titel": "Der Zufall beim Zerfall", "datei": "Kernphysik – W06 Wuerfelmodell – Stunde.html", "zeilen": [{"name": "Würfel", "anz": "30×", "hinweis": "500 Stück bestellt, reicht für 16 Gruppen", "rolle": "gruppe"}, {"name": "Würfelbecher oder Schale", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": "Die Werte aller Gruppen an der Tafel addieren."}, {"w": "W07", "woche": "02.11.2026", "titel": "Die Halbwertszeit", "datei": "Kernphysik – W07 Halbwertszeit – Stunde.html", "zeilen": [{"name": "Messzylinder 250 ml", "anz": "1×", "hinweis": "", "rolle": "gruppe"}, {"name": "Malzbier", "anz": "1 Flasche", "hinweis": "zimmerwarm", "rolle": "gruppe"}, {"name": "Lineal", "anz": "1×", "hinweis": "", "rolle": "gruppe"}, {"name": "Stoppuhr", "anz": "1×", "hinweis": "Handy genügt", "rolle": "gruppe"}, {"name": "Lappen", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."}, {"w": "W08", "woche": "09.11.2026", "titel": "Aktivität und Zählrate", "datei": "Kernphysik – W08 Aktivitaet – Stunde.html", "zeilen": [{"name": "γ-Präparat", "anz": "1", "hinweis": "nur Lehrkraft, nach RiSU", "rolle": "demo"}, {"name": "Geiger-Müller-Zählrohr mit Zählgerät", "anz": "1×", "hinweis": "", "rolle": "demo"}, {"name": "Lineal oder Maßband", "anz": "1×", "hinweis": "", "rolle": "demo"}, {"name": "Diätsalz (Kaliumchlorid)", "anz": "1 kg", "hinweis": "freiwillig, aus dem Supermarkt", "rolle": "demo"}], "hinweis": "Nullrate vor der Abstandsreihe messen."}, {"w": "W09", "woche": "16.11.2026", "titel": "Übungen zur Halbwertszeit", "datei": "Kernphysik – W09 Uebungen Halbwertszeit – Stunde.html", "zeilen": [{"name": "Periodensystem", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": ""}, {"w": "W12", "woche": "07.12.2026", "titel": "Warum heißt sie ionisierende Strahlung?", "datei": "Kernphysik – W12 Ionisierende Strahlung – Stunde.html", "zeilen": [{"name": "Nebelkammer", "anz": "1", "hinweis": "falls vorhanden", "rolle": "demo"}, {"name": "Trockeneis", "anz": "nach Anleitung", "hinweis": "erst kurz vorher besorgen, hält nicht lange", "rolle": "demo"}, {"name": "Isopropanol", "anz": "nach Anleitung", "hinweis": "", "rolle": "demo"}], "hinweis": "Ohne Nebelkammer: Szene im Wirkungslabor."}, {"w": "W13", "woche": "14.12.2026", "titel": "Was macht Strahlung mit dem Körper?", "datei": "Kernphysik – W13 Wirkung auf den Koerper – Stunde.html", "zeilen": [], "hinweis": ""}, {"w": "W15", "woche": "11.01.2027", "titel": "Schutz und Anwendungen", "datei": "Kernphysik – W15 Schutz und Anwendungen – Stunde.html", "zeilen": [{"name": "Röntgenbilder", "anz": "einige", "hinweis": "als Anschauung", "rolle": "demo"}], "hinweis": ""}, {"w": "W16", "woche": "18.01.2027", "titel": "Die Kernspaltung", "datei": "Kernphysik – W16 Kernspaltung – Stunde.html", "zeilen": [{"name": "Periodensystem", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": ""}, {"w": "W17", "woche": "25.01.2027", "titel": "Kettenreaktion und Reaktor", "datei": "Kernphysik – W17 Kettenreaktion – Stunde.html", "zeilen": [{"name": "Dominosteine", "anz": "etwa 50", "hinweis": "", "rolle": "gruppe"}], "hinweis": "Für Schritt 2 Platz auf dem Boden einplanen."}, {"w": "W18", "woche": "01.02.2027", "titel": "Kernkraftwerk und Kernfusion", "datei": "Kernphysik – W18 Kraftwerk und Fusion – Stunde.html", "zeilen": [], "hinweis": ""}, {"w": "W19", "woche": "15.02.2027", "titel": "Leitfrage 5 abschließen", "datei": "Kernphysik – W19 Uebungen Kernenergie – Stunde.html", "zeilen": [{"name": "Periodensystem", "anz": "1×", "hinweis": "", "rolle": "gruppe"}], "hinweis": ""}, {"w": "W20", "woche": "22.02.2027", "titel": "Wohin mit dem Abfall?", "datei": "Kernphysik – W20 Radioaktiver Abfall – Stunde.html", "zeilen": [], "hinweis": ""}, {"w": "W21", "woche": "01.03.2027", "titel": "Nutzen und Risiko abwägen", "datei": "Kernphysik – W21 Argumente abwaegen – Stunde.html", "zeilen": [], "hinweis": "Rollenfolie für die Diskussion bereithalten."}, {"w": "W22", "woche": "08.03.2027", "titel": "Rückblick und Altersbestimmung", "datei": "Kernphysik – W22 Rueckblick und C-14 – Stunde.html", "zeilen": [], "hinweis": ""}], "dinge": [{"name": "Präparate α, β, γ", "art": "Präparate (nur Lehrkraft)", "einsatz": [{"w": "W04", "anz": "1", "rolle": "demo", "hinweis": "nur Lehrkraft, nach RiSU"}, {"w": "W05", "anz": "je 1", "rolle": "demo", "hinweis": "nur Lehrkraft, nach RiSU"}]}, {"name": "γ-Präparat", "art": "Präparate (nur Lehrkraft)", "einsatz": [{"w": "W08", "anz": "1", "rolle": "demo", "hinweis": "nur Lehrkraft, nach RiSU"}]}, {"name": "Absorber: Papier, Aluminium 5 mm, Bleiplatten", "art": "Geräte aus der Sammlung", "einsatz": [{"w": "W05", "anz": "je 1", "rolle": "demo", "hinweis": "mehrere gleich dicke Bleiplatten, falls vorhanden"}]}, {"name": "Elektroskop", "art": "Geräte aus der Sammlung", "einsatz": [{"w": "W01", "anz": "1×", "rolle": "demo", "hinweis": "freiwillig, zeigt die Ladung des Ballons"}]}, {"name": "Geiger-Müller-Zählrohr mit Zählgerät", "art": "Geräte aus der Sammlung", "einsatz": [{"w": "W03", "anz": "1×", "rolle": "demo", "hinweis": "Lautsprecher an"}, {"w": "W04", "anz": "1×", "rolle": "demo", "hinweis": ""}, {"w": "W05", "anz": "1×", "rolle": "demo", "hinweis": ""}, {"w": "W08", "anz": "1×", "rolle": "demo", "hinweis": ""}]}, {"name": "Lineal oder Maßband", "art": "Geräte aus der Sammlung", "einsatz": [{"w": "W08", "anz": "1×", "rolle": "demo", "hinweis": ""}]}, {"name": "Messzylinder 250 ml", "art": "Geräte aus der Sammlung", "einsatz": [{"w": "W07", "anz": "1×", "rolle": "gruppe", "hinweis": ""}]}, {"name": "Nebelkammer", "art": "Geräte aus der Sammlung", "einsatz": [{"w": "W12", "anz": "1", "rolle": "demo", "hinweis": "falls vorhanden"}]}, {"name": "Stoppuhr", "art": "Geräte aus der Sammlung", "einsatz": [{"w": "W03", "anz": "1×", "rolle": "demo", "hinweis": "fünfmal eine Minute"}, {"w": "W07", "anz": "1×", "rolle": "gruppe", "hinweis": "Handy genügt"}]}, {"name": "Dominosteine", "art": "Für die Gruppen", "einsatz": [{"w": "W17", "anz": "etwa 50", "rolle": "gruppe", "hinweis": ""}]}, {"name": "Lappen", "art": "Für die Gruppen", "einsatz": [{"w": "W07", "anz": "1×", "rolle": "gruppe", "hinweis": ""}]}, {"name": "Lineal", "art": "Für die Gruppen", "einsatz": [{"w": "W07", "anz": "1×", "rolle": "gruppe", "hinweis": ""}]}, {"name": "Wolltuch", "art": "Für die Gruppen", "einsatz": [{"w": "W01", "anz": "1×", "rolle": "gruppe", "hinweis": ""}, {"w": "W03", "anz": "1×", "rolle": "demo", "hinweis": ""}]}, {"name": "Würfel", "art": "Für die Gruppen", "einsatz": [{"w": "W06", "anz": "30×", "rolle": "gruppe", "hinweis": "500 Stück bestellt, reicht für 16 Gruppen"}]}, {"name": "Würfelbecher oder Schale", "art": "Für die Gruppen", "einsatz": [{"w": "W06", "anz": "1×", "rolle": "gruppe", "hinweis": ""}]}, {"name": "Diätsalz (Kaliumchlorid)", "art": "Einkaufen, kurz vor der Stunde", "einsatz": [{"w": "W08", "anz": "1 kg", "rolle": "demo", "hinweis": "freiwillig, aus dem Supermarkt"}]}, {"name": "Isopropanol", "art": "Einkaufen, kurz vor der Stunde", "einsatz": [{"w": "W12", "anz": "nach Anleitung", "rolle": "demo", "hinweis": ""}]}, {"name": "Luftballon", "art": "Einkaufen, kurz vor der Stunde", "einsatz": [{"w": "W01", "anz": "1×", "rolle": "gruppe", "hinweis": ""}, {"w": "W03", "anz": "1×", "rolle": "demo", "hinweis": "vor der Stunde gerieben und aufgehängt"}]}, {"name": "Malzbier", "art": "Einkaufen, kurz vor der Stunde", "einsatz": [{"w": "W07", "anz": "1 Flasche", "rolle": "gruppe", "hinweis": "zimmerwarm"}]}, {"name": "Trockeneis", "art": "Einkaufen, kurz vor der Stunde", "einsatz": [{"w": "W12", "anz": "nach Anleitung", "rolle": "demo", "hinweis": "erst kurz vorher besorgen, hält nicht lange"}]}, {"name": "Papierschnipsel", "art": "Sonstiges", "einsatz": [{"w": "W01", "anz": "eine Handvoll", "rolle": "gruppe", "hinweis": "klein gerissen"}]}, {"name": "Periodensystem", "art": "Sonstiges", "einsatz": [{"w": "W02", "anz": "1×", "rolle": "gruppe", "hinweis": ""}, {"w": "W04", "anz": "1×", "rolle": "gruppe", "hinweis": ""}, {"w": "W05", "anz": "1×", "rolle": "gruppe", "hinweis": ""}, {"w": "W09", "anz": "1×", "rolle": "gruppe", "hinweis": ""}, {"w": "W16", "anz": "1×", "rolle": "gruppe", "hinweis": ""}, {"w": "W19", "anz": "1×", "rolle": "gruppe", "hinweis": ""}]}, {"name": "Röntgenbilder", "art": "Sonstiges", "einsatz": [{"w": "W15", "anz": "einige", "rolle": "demo", "hinweis": "als Anschauung"}]}, {"name": "Wasserhahn mit dünnem Strahl", "art": "Sonstiges", "einsatz": [{"w": "W01", "anz": "1×", "rolle": "demo", "hinweis": "falls kein Waschbecken an den Gruppentischen"}]}], "arten": ["Präparate (nur Lehrkraft)", "Geräte aus der Sammlung", "Für die Gruppen", "Einkaufen, kurz vor der Stunde", "Sonstiges"], "vorgabe": {"Nebelkammer": {"status": "n", "notiz": "zu teuer, wird nicht bestellt"}, "Würfel": {"status": "o", "notiz": "500 Stück bestellt (09/2026)"}}};
+const ST=[["v","vorhanden"],["n","nicht vorhanden"],["b","bestellen"],["o","bestellt"]];
+const KEY="k10-material";
+let S={};try{S=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){S={}}
+function zust(n){return S[n]||D.vorgabe[n]||{status:"",notiz:""}}
+function setze(n,feld,wert){const z={...zust(n)};z[feld]=wert;S[n]=z;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+let filter="alle",gruppen=null;
+try{gruppen=parseInt(localStorage.getItem(KEY+"-gruppen"))||null}catch(e){}
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const stunde=w=>D.stunden.find(s=>s.w===w);
+const link=w=>`<a class="w" href="${encodeURI(stunde(w).datei)}" target="_blank">${w}</a>`;
+function bedarf(e){
+  if(e.rolle==="demo") return esc(e.anz)+' <span class="rolle">vorne</span>';
+  const m=e.anz.match(/(\d+)/);
+  let t=esc(e.anz.replace("×",""))+' pro Gruppe';
+  if(m&&gruppen) t+=` · <b>${parseInt(m[1])*gruppen} gesamt</b>`;
+  return t;
+}
+function status(n){const z=zust(n);return `<div class="st" data-n="${esc(n)}">${ST.map(([k,t])=>`<button class="${k}${z.status===k?" on":""}" data-k="${k}">${t}</button>`).join("")}</div>
+<input class="notiz" data-n="${esc(n)}" placeholder="Notiz, z. B. wo es steht" value="${esc(z.notiz||"")}">`}
+function passt(n){const s=zust(n).status;return filter==="alle"||(filter==="offen"&&!s)||filter===s}
+function gesamt(){
+  let h="";
+  for(const art of D.arten){
+    const xs=D.dinge.filter(d=>d.art===art&&passt(d.name)); if(!xs.length) continue;
+    h+=`<h2>${esc(art)}</h2><table><tr><th>Material</th><th>Wann und wie viel</th><th style="width:350px">Status</th></tr>`;
+    for(const d of xs){
+      const ein=d.einsatz.map(e=>`<div>${link(e.w)} <span class="bedarf">${bedarf(e)}</span>${e.hinweis?`<small>${esc(e.hinweis)}</small>`:""}</div>`).join("");
+      const ers=zust(d.name).status==="n"?[...new Set(d.einsatz.map(e=>stunde(e.w)).filter(s=>/^Ohne/.test(s.hinweis)).map(s=>s.w+": "+s.hinweis))]:[];
+      h+=`<tr class="${zust(d.name).status}"><td class="name"><span class="nm">${esc(d.name)}</span>${ers.map(x=>`<div class="ersatz">${esc(x)}</div>`).join("")}</td><td class="einsatz">${ein}</td><td>${status(d.name)}</td></tr>`;
+    }
+    h+="</table>";
+  }
+  document.getElementById("gesamt").innerHTML=h||'<p class="leer">Nichts in diesem Filter.</p>';
+}
+function stunden(){
+  let h="";
+  for(const s of D.stunden){
+    const zs=s.zeilen.filter(z=>passt(z.name));
+    if(filter!=="alle"&&!zs.length) continue;
+    h+=`<div class="karte"><h3>${link(s.w)}${esc(s.titel)}<span class="dat">Woche ab ${esc(s.woche)}</span></h3>`;
+    if(!s.zeilen.length) h+='<div class="nichts">Kein Material, nur Folien und Tafel.</div>';
+    else{
+      h+='<table><tr><th>Material</th><th>Anzahl</th><th style="width:350px">Status</th></tr>';
+      for(const z of zs) h+=`<tr class="${zust(z.name).status}"><td class="name"><span class="punkt ${zust(z.name).status}"></span><span class="nm">${esc(z.name)}</span>${z.hinweis?`<small>${esc(z.hinweis)}</small>`:""}</td><td class="bedarf">${bedarf(z)}</td><td>${status(z.name)}</td></tr>`;
+      h+="</table>";
+    }
+    if(s.hinweis) h+=`<div class="hin">${esc(s.hinweis)}</div>`;
+    h+="</div>";
+  }
+  document.getElementById("stunden").innerHTML=h||'<p class="leer">Nichts in diesem Filter.</p>';
+}
+function zaehler(){
+  const c={v:0,n:0,b:0,o:0,"":0};D.dinge.forEach(d=>c[zust(d.name).status||""]++);
+  document.getElementById("zaehler").innerHTML=`<span style="background:#EEF1F5">${D.dinge.length} Dinge</span><span style="background:var(--okbg);color:var(--ok)">${c.v} vorhanden</span><span style="background:var(--nobg);color:var(--no)">${c.n} nicht vorhanden</span><span style="background:var(--buybg);color:var(--buy)">${c.b} bestellen</span><span style="background:var(--ordbg);color:var(--ord)">${c.o} bestellt</span><span style="background:#EEF1F5;color:var(--muted)">${c[""]} nicht geprüft</span>`;
+}
+function alles(){gesamt();stunden();zaehler()}
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".st button");
+  if(b){const n=b.parentElement.dataset.n;setze(n,"status",zust(n).status===b.dataset.k?"":b.dataset.k);alles();return}
+  const t=e.target.closest(".tabs button");
+  if(t){document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===t));
+    document.getElementById("gesamt").hidden=t.dataset.t!=="gesamt";document.getElementById("stunden").hidden=t.dataset.t!=="stunden";
+    try{localStorage.setItem(KEY+"-tab",t.dataset.t)}catch(e){};return}
+  const f=e.target.closest(".filter button");
+  if(f){filter=f.dataset.f;document.querySelectorAll(".filter button").forEach(x=>x.classList.toggle("on",x===f));alles()}
+});
+document.addEventListener("change",e=>{if(e.target.classList.contains("notiz")){setze(e.target.dataset.n,"notiz",e.target.value);alles()}});
+const gi=document.getElementById("gruppen");if(gruppen)gi.value=gruppen;
+gi.addEventListener("input",()=>{gruppen=parseInt(gi.value)||null;try{localStorage.setItem(KEY+"-gruppen",gruppen||"")}catch(e){};alles()});
+document.getElementById("kopieren").onclick=async()=>{
+  const xs=D.dinge.filter(d=>zust(d.name).status==="b");
+  const txt=xs.length?"Bestellen für Kernphysik Klasse 10:\n"+xs.map(d=>"- "+d.name+" ("+d.einsatz.map(e=>e.w+": "+e.anz.replace("×","")+(e.rolle==="gruppe"?(gruppen&&/\d/.test(e.anz)?" pro Gruppe, "+parseInt(e.anz.match(/\d+/)[0])*gruppen+" gesamt":" pro Gruppe"):"")).join("; ")+")"+(zust(d.name).notiz?" – "+zust(d.name).notiz:"")).join("\n"):"Nichts auf „bestellen“ gesetzt.";
+  try{await navigator.clipboard.writeText(txt);document.getElementById("kopieren").textContent="Kopiert"}catch(e){prompt("Zum Kopieren:",txt)}
+  setTimeout(()=>document.getElementById("kopieren").textContent="Bestellliste kopieren",1500);
+};
+try{const t=localStorage.getItem(KEY+"-tab");if(t==="stunden")document.querySelector('.tabs [data-t="stunden"]').click()}catch(e){}
+alles();
+</script></body></html>

@@ -38,6 +38,8 @@ from uebersicht_vorlage import baue_uebersicht  # noqa: E402
 
 gruppen = [(t, [{"id": s["w"], "marke": s["w"], "titel": s["titel"], "sub": s["sub"], "datum": "ab " + s["woche"],
                  "datei": s["datei"], "art": s.get("art", "")} for s in alle if a <= s["w"] <= b]) for t, a, b in GRUPPEN]
+gruppen.insert(0, ("Planung", [{"id": "MAT", "marke": "MAT", "titel": "Materialliste", "sub": "Alles Material W01 bis W22 · vorhanden, bestellen, bestellt",
+                                  "datum": "Gesamtliste und nach Stunden", "datei": "Kernphysik Klasse 10 – Material.html", "art": ""}]))
 zusatz = [("Kernphysik-Labore (Startseite für IServ)", "Kernphysik-Labore.html"), ("Foliensatz Kernphysik (alle Folien)", "Kernphysik.html"),
           ("Begleitheft Kernspaltung (PDF)", "Materialien/Begleitheft Kernspaltung.pdf"), ("Klassenarbeit Nr. 1", KA + ".html"),
           ("Was muss ich wissen? (KA 1)", KA + " – Was muss ich wissen.html"), ("Übersicht Optik Klasse 7", "../Optik/Optik Klasse 7 – Übersicht.html")]
