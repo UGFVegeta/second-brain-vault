@@ -45,8 +45,11 @@ farben = [
 for x in ka:
     x["art"] = "ka"
 
+planung = [{"id": "MAT", "marke": "MAT", "titel": "Materialliste", "sub": "Alles Material Optik I und II · vorhanden, bestellen, bestellt",
+            "datum": "Gesamtliste und nach Stunden", "datei": "Optik Klasse 7 – Material.html", "art": ""}]
+
 links = [("Optik-Labore (Startseite für IServ)", "Optik-Labore.html"), ("Foliensatz Optik I", "Optik I.html"), ("Foliensatz Optik II", "Optik II.html"),
          ("F2 alles in einer Datei", "Optik 2 – Licht trifft auf einen Körper – ALLES.html"), ("Schattenlabor", "Schattenlabor Halbschatten.html"), ("Übersicht Kernphysik Klasse 10", "../Kernphysik/Kernphysik Klasse 10 – Übersicht.html")]
 
 baue_uebersicht(HIER / "Optik Klasse 7 – Übersicht.html", "Optik Klasse 7c", "Alle Doppelstunden Optik · 2026/27",
-                [("Optik I", optik1), ("Optik II", optik2), ("Klassenarbeit", ka), ("Farben", farben)], links, "optik7-stunde")
+                [("Planung", planung), ("Optik I", optik1), ("Optik II", optik2), ("Klassenarbeit", ka), ("Farben", farben)], links, "optik7-stunde")
