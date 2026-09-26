@@ -106,6 +106,9 @@ def warnzeichen(z, x, y, r):
 RX = "Materialien/assets/roentgen/"
 
 
+KB = "Materialien/assets/kettenreaktion/"  # Oskars Bilder aus dem Begleitheft
+
+
 def bild(z, datei, x, y, w, h, rand=True):
     """Foto im SVG, Pfad relativ zu Kernphysik.html und den Stunden."""
     z.add(f'<image href="{RX}{datei}" x="{x}" y="{y}" width="{w}" height="{h}" preserveAspectRatio="xMidYMid meet"/>')
@@ -117,7 +120,7 @@ def beobachte_roentgen():
     z = Z("kb", 245)
     bild(z, "hand.jpg", 116, 24, 138, 185)
     z.text(185, 226, "Röntgenbild beim Arzt", "middle", 9.5)
-    warnzeichen(z, 450, 118, 70)
+    z.add(f'<image href="{KB}warnzeichen.png" x="380" y="48" width="140" height="140"/>')
     z.text(450, 226, "Warnzeichen im Labor", "middle", 9.5)
     z.text(318, 124, "?", "middle", 30, 700, GRAU)
     return z.svg()
@@ -440,9 +443,133 @@ def c14():
     return z.svg()
 
 
+
+# ---------------------------------------------------------------- Folien mit Oskars Bildern aus dem Begleitheft
+PINK = "#E6007E"
+
+
+def foto(z, datei, x, y, w, h, inhalt="", vb=None):
+    """Bild aus dem Begleitheft; inhalt = SVG-Teile in Bildkoordinaten (vb = Bildgröße)."""
+    if vb:
+        z.add(f'<svg x="{x}" y="{y}" width="{w}" height="{h}" viewBox="0 0 {vb[0]} {vb[1]}">'
+              f'<image href="{KB}{datei}" width="{vb[0]}" height="{vb[1]}"/>{inhalt}</svg>')
+    else:
+        z.add(f'<image href="{KB}{datei}" x="{x}" y="{y}" width="{w}" height="{h}" preserveAspectRatio="xMidYMid meet"/>')
+
+
+def btext(x, y, s, size=38, w=600, anchor="middle"):
+    return (f'<text x="{x}" y="{y}" font-family="PlexMono, Menlo, monospace" font-size="{size}" font-weight="{w}" text-anchor="{anchor}" '
+            f'fill="{INK}" paint-order="stroke" stroke="#fff" stroke-width="9" stroke-linejoin="round">{s}</text>')
+
+
+def bpfeil(x1, y1, x2, y2, col=PINK, w=6):
+    a = math.atan2(y2 - y1, x2 - x1)
+    p = [(x2, y2), (x2 - 26 * math.cos(a - .45), y2 - 26 * math.sin(a - .45)), (x2 - 26 * math.cos(a + .45), y2 - 26 * math.sin(a + .45))]
+    return (f'<line x1="{x1}" y1="{y1}" x2="{x2 - 18 * math.cos(a):.1f}" y2="{y2 - 18 * math.sin(a):.1f}" stroke="{col}" stroke-width="{w}" stroke-linecap="round"/>'
+            f'<polygon points="{" ".join(f"{u:.1f},{v:.1f}" for u, v in p)}" fill="{col}"/>')
+
+
+def neutron(x, y, r=15):
+    return f'<circle cx="{x}" cy="{y}" r="{r}" fill="#C9CED6" stroke="#8A93A0" stroke-width="3"/>'
+
+
+def beobachte_energie_bild():
+    z = Z("ke", 235)
+    o = (btext(540, 640, "1 kg Uran-235", 34) + btext(700, 205, "ca. 2000 t Erdöl", 32) + btext(1090, 255, "ca. 3000 t Steinkohle", 32)
+         + btext(1505, 140, "ca. 5500 t Holz", 32) + btext(900, 330, "oder", 44, 500) + btext(1275, 330, "oder", 44, 500))
+    foto(z, "energiedichte-folie.jpg", 13, 4, 610, 201, o, (2000, 661))
+    z.text(318, 226, "Jede dieser Mengen liefert allein so viel Wärme wie 1 kg Uran-235.", "middle", 9.5)
+    return z.svg()
+
+
+def spaltung_bild():
+    z = Z("kp", 240)
+    o = (neutron(40, 560) + bpfeil(60, 560, 102, 572)
+         + bpfeil(690, 545, 900, 400) + neutron(915, 390) + bpfeil(700, 560, 960, 480) + neutron(975, 474)
+         + bpfeil(690, 625, 900, 715) + neutron(915, 722)
+         + btext(760, 470, "Kr-92", 34, 700, "start") + btext(700, 735, "Ba-141", 34, 700, "start"))
+    foto(z, "spaltung-felder-1-3.png", 4, 4, 318, 232, o, (1030, 750))
+    zeilen = [("1", ["Ein Neutron trifft einen", "Uran-235-Kern."]), ("2", ["Der Kern wird zu Uran-236", "und ist instabil."]),
+              ("3", ["Er spaltet sich in Barium-141", "und Krypton-92. Dabei werden", "3 Neutronen und Energie frei."])]
+    y = 34
+    for nr, zs in zeilen:
+        z.add(f'<circle cx="346" cy="{y - 4}" r="10" fill="none" stroke="{INK}" stroke-width="1.5"/>')
+        z.text(346, y, nr, "middle", 10.5, 600)
+        for i, t in enumerate(zs):
+            z.text(364, y + i * 16, t, size=10.5)
+        y += 22 + 16 * len(zs)
+    y, x = 214, 350
+    nuklid(z, x, y, "n", 1, 0, 15).text(x + 16, y, "+", size=11)
+    nuklid(z, x + 46, y, "U", 235, 92, 15).text(x + 68, y, "→", size=11)
+    nuklid(z, x + 100, y, "Ba", 141, 56, 15).text(x + 126, y, "+", size=11)
+    nuklid(z, x + 158, y, "Kr", 92, 36, 15).text(x + 182, y, "+ 3", size=11)
+    nuklid(z, x + 212, y, "n", 1, 0, 15)
+    z.text(x + 180, y + 18, "+ Energie", size=10)
+    return z.svg()
+
+
+def kettenreaktion_bild():
+    z = Z("kk", 235)
+    z.text(24, 18, "kontrolliert: im Kraftwerk", weight=600)
+    foto(z, "kernkraftwerk.png", 50, 28, 198, 150)
+    z.text(24, 196, "Im Mittel löst genau ein Neutron", size=9.5).text(24, 210, "die nächste Spaltung aus.", size=9.5)
+    z.text(24, 226, "gleichmäßige Leistung", size=9.5, weight=600, col=GRUEN)
+    z.line(326, 8, 326, 228, "#A3B7D3", 1, "5 4")
+    z.text(346, 18, "unkontrolliert: Atombombe", weight=600)
+    foto(z, "atompilz.png", 350, 28, 126, 150)
+    z.text(500, 90, "1 → 2 → 4 → 8 → …", size=10, weight=600, col=ROT).text(500, 106, "Spaltungen", size=9)
+    z.text(346, 196, "Jede Spaltung löst mehrere neue aus,", size=9.5).text(346, 210, "die Zahl wächst lawinenartig.", size=9.5)
+    z.text(346, 226, "riesige Energie in Bruchteilen einer Sekunde", size=9.5, weight=600, col=ROT)
+    return z.svg()
+
+
+def reaktor_bild():
+    z = Z("kv", 230)
+    foto(z, "reaktor.png", 16, 6, 229, 216)
+    z.text(290, 26, "Im Reaktor", weight=600)
+    teile = ["Uran-235", "Uran-238", "1. Spaltung", "Regelstab (Steuerstab)", "Brennelement", "1. Neutron", "Moderator (Wasser)"]
+    for i, t in enumerate(teile):
+        y = 52 + i * 21
+        z.add(f'<circle cx="300" cy="{y - 4}" r="9" fill="#FFFFFF" stroke="{INK}" stroke-width="1.5"/>')
+        z.text(300, y, str(i + 1), "middle", 9.5, 600).text(318, y, t, size=10)
+    z.text(290, 212, "Das Wasser bringt die Wärme zum Dampferzeuger,", size=8.8, col=GRAU)
+    z.text(290, 225, "dann treibt der Dampf Turbine und Generator an.", size=8.8, col=GRAU)
+    return z.svg()
+
+
+def fusion_bild():
+    z = Z("ku2", 240)
+    foto(z, "fusion-folie.png", 18, 4, 600, 188)
+    y = 222
+    x = 40
+    nuklid(z, x, y, "H", 2, 1, 18).text(x + 22, y, "+", size=13)
+    nuklid(z, x + 56, y, "H", 3, 1, 18).text(x + 78, y, "→", size=13)
+    nuklid(z, x + 118, y, "He", 4, 2, 18).text(x + 148, y, "+", size=13)
+    nuklid(z, x + 180, y, "n", 1, 0, 18).text(x + 198, y, "+ Energie", size=11)
+    z.text(360, 214, "Sonne: etwa 15 Mio. °C im Inneren,", size=8.8).text(360, 228, "auf der Erde nötig: über 100 Mio. °C", size=8.8)
+    return z.svg()
+
+
 ZEICHNUNGEN2 = {24: beobachte_wuerfel, 27: halbwertszeit, 29: aktivitaet, 33: beobachte_roentgen, 36: ionisation, 38: zelle,
-                40: belastung, 42: schutz, 46: beobachte_energie, 49: spaltung, 51: kettenreaktion, 53: reaktor, 55: kraftwerke,
-                57: fusion, 61: beobachte_zeit, 64: abfall, 66: argumente, 71: c14}
+                40: belastung, 42: schutz, 46: beobachte_energie_bild, 49: spaltung_bild, 51: kettenreaktion_bild, 53: reaktor_bild, 55: kraftwerke,
+                57: fusion_bild, 61: beobachte_zeit, 64: abfall, 66: argumente, 71: c14}
+
+def svg_ersetzen(t, neu):
+    """Ersetzt das erste äußere <svg> einer Folie, auch wenn es verschachtelte <svg> enthält.
+    Räumt Reste auf, die ein früherer Lauf ohne Verschachtelung hinterlassen hat (bis zum nächsten </div>)."""
+    a = t.index("<svg")
+    tiefe = 0
+    for m in re.finditer(r"<svg\b|</svg>", t[a:]):
+        tiefe += 1 if m.group(0) != "</svg>" else -1
+        if tiefe == 0:
+            e = a + m.end()
+            break
+    rest = t[e:]
+    d = rest.find("</div>")
+    if d > 0 and "</svg>" in rest[:d]:
+        rest = rest[rest[:d].rindex("</svg>") + 6:]
+    return t[:a] + neu + rest
+
 
 if __name__ == "__main__":
     p = HIER / "Kernphysik.html"
@@ -451,6 +578,6 @@ if __name__ == "__main__":
     idx = [i for i, t in enumerate(teile) if t.startswith('<section class="folie')]
     for seite, fn in ZEICHNUNGEN2.items():
         i = idx[seite - 1]
-        teile[i] = re.sub(r"<svg.*?</svg>", lambda m: fn(), teile[i], count=1, flags=re.S)
+        teile[i] = svg_ersetzen(teile[i], fn())
     p.write_text("".join(teile), encoding="utf-8")
     print("Kernphysik.html ersetzt:", ", ".join(f"S. {k}" for k in ZEICHNUNGEN2))

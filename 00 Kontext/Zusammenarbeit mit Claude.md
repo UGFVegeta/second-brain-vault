@@ -84,6 +84,7 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 - Seine selbst gezeichneten Bilder gehen vor neu generierten Zeichnungen. Fehlende Bilder macht er mit Gemini. Die Zahlen und Beschriftungen kommen nicht ins KI-Bild, sondern werden danach aufgesetzt. Die Physik im KI-Bild vorher prüfen (Kugelzahlen, Größenordnungen).
 - Mehrstündige Begleithefte kopiert er als A3-Bogen doppelseitig, also genau 4 A4-Seiten. Dann nur auf Seite 1 Name, Titel und Datum, keine Fußzeilen, keine „Stunde 1/2/3“-Einteilung. Lösungen müssen in die Kästchen passen.
 - Beurteilt wird am PDF, nicht am HTML. Bei Layoutfragen gleich das PDF liefern.
+- Dieselben eigenen Bilder gehören auch auf die Unterrichtsfolien. Nachgezeichnete Bilder von Claude nur dort, wo es kein eigenes Bild gibt (26.09.2026).
 - Beispiel: [[04 Ressourcen/Physik/Kernphysik/Materialien/Begleitheft Kernspaltung.pdf]]
 
 ## Wenige Arbeitsblätter, viel selbst aufschreiben (25.09.2026)
