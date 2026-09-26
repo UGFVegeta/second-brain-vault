@@ -103,15 +103,19 @@ def warnzeichen(z, x, y, r):
     z.add(f'<circle cx="{x}" cy="{y}" r="{r * .18:.1f}" fill="{INK}"/>')
 
 
+RX = "Materialien/assets/roentgen/"
+
+
+def bild(z, datei, x, y, w, h, rand=True):
+    """Foto im SVG, Pfad relativ zu Kernphysik.html und den Stunden."""
+    z.add(f'<image href="{RX}{datei}" x="{x}" y="{y}" width="{w}" height="{h}" preserveAspectRatio="xMidYMid meet"/>')
+    if rand:
+        z.add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{HELL}" stroke-width="1"/>')
+
+
 def beobachte_roentgen():
     z = Z("kb", 245)
-    z.rect(110, 34, 150, 170, "#0A1120", 1, 8)
-    finger = [(-38, 60, -8), (-18, 78, -3), (2, 82, 0), (22, 74, 4), (44, 44, 30)]
-    cx, cy = 185, 170
-    z.add(f'<path d="M{cx - 40} {cy + 30} q-6 -40 6 -62 h68 q12 22 6 62z" fill="#DCE6F2" opacity=".9"/>')
-    for dx, L, rot in finger:
-        z.add(f'<g transform="rotate({rot} {cx + dx} {cy - 30})"><rect x="{cx + dx - 6}" y="{cy - 30 - L}" width="12" height="{L}" rx="6" fill="#DCE6F2" opacity=".9"/>'
-              f'<line x1="{cx + dx - 6}" y1="{cy - 30 - L * .45:.1f}" x2="{cx + dx + 6}" y2="{cy - 30 - L * .45:.1f}" stroke="#0A1120" stroke-width="1.5"/></g>')
+    bild(z, "hand.jpg", 116, 24, 138, 185)
     z.text(185, 226, "Röntgenbild beim Arzt", "middle", 9.5)
     warnzeichen(z, 450, 118, 70)
     z.text(450, 226, "Warnzeichen im Labor", "middle", 9.5)
@@ -178,6 +182,8 @@ def belastung():
     z.text(175, 214, "natürlich: zusammen etwa 2,1 mSv", "middle", 9.5, 600, GRUEN)
     z.text(470, 214, "künstlich: etwa 1,5 mSv, fast nur Medizin", "middle", 9.5, 600, ROT)
     kasten(z, 220, 22, 180, 60, "#FFFFFF", HELL, "", ["Flug nach New York und", "zurück: etwa 0,1 mSv", "Röntgen Brustkorb: 0,02 mSv"], 8.5)
+    bild(z, "brustkorb.jpg", 527, 14, 105, 130)
+    z.text(579, 158, "Röntgenbild Brustkorb", "middle", 8.5, col=GRAU)
     z.text(620, 230, "Durchschnitt in Deutschland, Quelle: BfS", "end", 7.5, col=GRAU)
     return z.svg()
 
@@ -199,6 +205,17 @@ def schutz():
     for i, (t, s) in enumerate((("Medizin", "Röntgen, Szintigramm, Strahlentherapie"), ("Technik", "Schweißnähte prüfen, Dicken messen"),
                                  ("Sterilisation", "Spritzen und Verbandszeug keimfrei machen"), ("Forschung", "Altersbestimmung mit C-14"))):
         z.text(392, 50 + i * 42, t, weight=600).text(392, 64 + i * 42, s, size=8.8)
+    return z.svg()
+
+
+def roentgen_damals_heute():
+    z = Z("kx", 245)
+    bild(z, "hand-1895.jpg", 70, 14, 142, 204)
+    z.text(141, 234, "1895: Röntgens Aufnahme der Hand seiner Frau", "middle", 9)
+    bild(z, "hand.jpg", 420, 14, 152, 204)
+    z.text(496, 234, "heute: Röntgenbild einer Hand", "middle", 9)
+    z.text(316, 100, "Knochen und Ring", "middle", 9.5, 600).text(316, 114, "halten mehr Strahlung auf", "middle", 9.5, 600)
+    z.text(316, 146, "1895 als Papierabzug:", "middle", 8.5, col=GRAU).text(316, 159, "hell und dunkel vertauscht", "middle", 8.5, col=GRAU)
     return z.svg()
 
 

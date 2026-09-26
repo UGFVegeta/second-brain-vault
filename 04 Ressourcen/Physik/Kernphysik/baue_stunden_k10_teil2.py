@@ -2,7 +2,8 @@
 """Stunden-HTMLs Kernphysik Klasse 10, W06 bis W22 (Leitfragen 3 bis 6, je eine Einzelstunde).
 W10/W11 Klassenarbeit und W14 Puffer haben keine eigene Stunde. Ideen aus „Erlebnis Physik“ Kl. 10 in eigenen Worten.
 python3 baue_stunden_k10_teil2.py   -> HTMLs im Ordner Kernphysik (Export nach iCloud erst nach Freigabe)"""
-from baue_stunden_k10 import HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde
+from baue_stunden_k10 import HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde, zeichnungsfolie
+from kern_zeichnungen2 import roentgen_damals_heute
 
 STRAHL = "Strahlungslabor Radioaktivitaet.html"
 ZERF = "Zerfallslabor Halbwertszeit.html"
@@ -155,14 +156,18 @@ A15 = tabellenfolie("Radon zu Hause", [
     ("gut gedämmter Neubau", "oft mehr Radon in der Luft", "Die dichte Hülle tauscht weniger Luft aus."),
     ("Stoßlüften", "Werte sinken schnell", "die einfachste und wirksamste Maßnahme"),
 ], kopf=("Ort", "was man misst", "warum"), frage="Welche der fünf A-Regeln hilft gegen Radon?")
-S15 = [f(42), f(43), f(44), f(45), blatt("Schutz und Anwendungen W15.pdf", "k15", "Arbeitsblatt austeilen"), A15]
+ROENTGEN = zeichnungsfolie("Röntgenbild: 1895 und heute", roentgen_damals_heute(),
+                           '<b>Frage:</b> Warum sind Knochen und Ring auf dem Röntgenbild hell?<br><b style="color:#E6007E">Antwort:</b> '
+                           '<span style="color:#E6007E">Knochen halten mehr Röntgenstrahlung auf als Haut und Muskeln, Metall noch mehr. '
+                           'Dahinter kommt wenig Strahlung auf dem Film an, deshalb bleibt er dort hell.</span>')
+S15 = [f(42), ROENTGEN, f(43), f(44), f(45), blatt("Schutz und Anwendungen W15.pdf", "k15", "Arbeitsblatt austeilen"), A15]
 S15_HG = (box("Strahlenschutz", ["Auf der Folie stehen die drei klassischen Regeln. Das Buch nennt fünf A-Regeln: Abstand, Aufenthaltsdauer, Abschirmung, Aktivität verringern, Aufnahme vermeiden. Das Blatt nimmt alle fünf.",
                                  "Abstand wirkt am stärksten (Quadrat), Zeit wirkt proportional, Abschirmung exponentiell.",
                                  "Grenzwerte: 20 mSv pro Jahr beruflich, 1 mSv pro Jahr zusätzlich für die Bevölkerung aus Anlagen und Technik. Für die Medizin gibt es keinen Grenzwert, dort wird im Einzelfall abgewogen."], 1)
-          + box("Anwendungen", ["Röntgen: Knochen absorbieren mehr als Weichgewebe. Szintigramm: kurzlebiger γ-Strahler (meist Technetium-99m, 6 h Halbwertszeit) reichert sich im Organ an.",
+          + box("Anwendungen", ["Röntgenbild 1895: Wilhelm Conrad Röntgen durchleuchtete im Dezember 1895 in Würzburg die Hand seiner Frau, der Ring ist deutlich zu sehen. Die Folie zeigt einen Papierabzug der Glasplatte, deshalb sind hell und dunkel vertauscht. Heutige Röntgenbilder zeigen das Negativ: Knochen hell. Bildquelle: Wikimedia Commons, gemeinfrei. Das moderne Handbild ist mit Gemini erzeugt.", "Röntgen: Knochen absorbieren mehr als Weichgewebe. Szintigramm: kurzlebiger γ-Strahler (meist Technetium-99m, 6 h Halbwertszeit) reichert sich im Organ an.",
                                 "Strahlentherapie: Die Dosis wird aus vielen Richtungen auf den Tumor gebündelt, gesundes Gewebe bekommt wenig ab.",
-                                "Sterilisation mit γ-Strahlung: Die Gegenstände werden dabei nicht radioaktiv."], 1)
-          + box("Abschluss Leitfrage 4", ["Antwortfolie ins Heft, Check per Handzeichen. Lösung: 1 b, 2 c."], 2, 3, 4)
+                                "Sterilisation mit γ-Strahlung: Die Gegenstände werden dabei nicht radioaktiv."], 1, 2)
+          + box("Abschluss Leitfrage 4", ["Antwortfolie ins Heft, Check per Handzeichen. Lösung: 1 b, 2 c."], 3, 4, 5)
           + LAB(WIRK, "Wirkungslabor", "Schutzregeln mit Reglern für Abstand, Aufenthalt und Blei, Kurz-Check."))
 S15_AB = ab_box("Arbeitsblatt Schutz und Anwendungen", "Schutz und Anwendungen W15.pdf",
                 "Abstand, Aufenthaltsdauer, Abschirmung, Aktivität, Aufnahme. 2 µSv, 0,5 µSv, 2 µSv. Anwendungen siehe Lösungsseite. Kurze Halbwertszeit: wenig Dosis nach der Untersuchung. Radon: aus dem Boden, lüften.", 5)
@@ -322,9 +327,9 @@ STUNDEN = [
      [("Wirkung auf die Zelle", "Drei mögliche Folgen.", [1]), ("Strahlenbelastung", "Diagramm, Jahresdosis im Labor.", [2]),
       ("Üben", "Arbeitsblatt.", [3]), ("Alltag", "Wie viel ist ein Millisievert?", [4])], S13, S13_HG, S13_AB),
     ("W15 Schutz und Anwendungen", "Kernphysik: Schutz und Anwendungen", "W15 (Woche ab 11.01.2027) · Abschluss Leitfrage 4",
-     "Arbeitsblatt Schutz und Anwendungen", {"demo": [("Röntgenbilder", "einige", "als Anschauung")], "schueler": [], "hinweis": ""},
-     [("Schutz und Anwendungen", "Folie, Schutzregeln im Labor.", [1]), ("Abschluss Leitfrage 4", "Antwort ins Heft, Check.", [2, 3, 4]),
-      ("Üben", "Arbeitsblatt.", [5]), ("Alltag", "Radon zu Hause.", [6])], S15, S15_HG, S15_AB),
+     "Arbeitsblatt Schutz und Anwendungen", {"demo": [("Echte Röntgenbilder", "einige", "freiwillig, die Folie zeigt schon zwei")], "schueler": [], "hinweis": ""},
+     [("Schutz und Anwendungen", "Folie, Schutzregeln im Labor.", [1]), ("Röntgenbild", "1895 und heute, warum Knochen hell sind.", [2]),
+      ("Abschluss Leitfrage 4", "Antwort ins Heft, Check.", [3, 4, 5]), ("Üben", "Arbeitsblatt.", [6]), ("Alltag", "Radon zu Hause.", [7])], S15, S15_HG, S15_AB),
     ("W16 Kernspaltung", "Kernphysik: Die Kernspaltung", "W16 (Woche ab 18.01.2027) · Einstieg Leitfrage 5",
      "!Begleitheft Kernspaltung: Seiten 1 bis 4 als A3-Bogen doppelseitig, eins pro Schüler, bleibt bis W18.", {"demo": [], "schueler": [PSE], "hinweis": ""},
      [("Einstieg Leitfrage 5", "1 kg gegen 3000 t, Vermutungen.", [1, 2]), ("Energie und Entdeckung", "Heft austeilen, Abschnitte 1 und 2.", [3, 4]),
