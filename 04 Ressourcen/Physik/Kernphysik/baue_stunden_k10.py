@@ -202,7 +202,7 @@ STUNDEN = [
     ("Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html", "Kernphysik: Das Zählrohr klickt von allein", "Klasse 10 · Physik · W03 (Woche ab 28.09.2026) · Abschluss Leitfrage 1, Einstieg Leitfrage 2",
      ["Arbeitsblatt Zählrohr und Nullrate: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "Lautsprecher an"), ("Stoppuhr", "1×", "fünfmal eine Minute"),
-               ("Luftballon und Wolltuch", "je 1", "vor der Stunde gerieben und aufgehängt")], "schueler": [],
+               ("Luftballon", "1×", "vor der Stunde gerieben und aufgehängt"), ("Wolltuch", "1×", "")], "schueler": [],
       "hinweis": "Kein Präparat nötig. Das Zählrohr ist vor der Stunde eingeschaltet und steht weit weg von der Präparatesammlung. Ballon 20 bis 30 Minuten vorher im Keller aufhängen."},
      [("Abschluss Leitfrage 1", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 2", "Zählrohr klickt, Leitfrage 2.", [4, 5]),
       ("Versuch", "Nullrate messen, Arbeitsblatt, dann der Ballon vor dem Zählrohr.", [6]), ("Alltag", "Natürliche Strahlung.", [7])],

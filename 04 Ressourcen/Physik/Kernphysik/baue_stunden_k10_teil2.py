@@ -48,7 +48,7 @@ S6_HG = (box("Abschluss Leitfrage 2", ["Die Antwortfolie ins Heft, der Check per
                                     "Die Gruppenwerte streuen stark. Die Summe der ganzen Klasse passt viel besser zur Kurve. Deshalb die Klassenwerte an der Tafel addieren.",
                                     "Grenze des Modells: Echte Kerne zerfallen nicht in Runden, sondern zu jedem beliebigen Zeitpunkt. Die Wahrscheinlichkeit pro Zeit ist aber genauso fest.",
                                     "<b>Typische Fehlvorstellungen:</b> Nach zwei Halbwertszeiten ist alles zerfallen. Ein Kern, der lange nicht zerfallen ist, ist „bald dran“."], 4, 6)
-         + box("Material", ["Würfel aus der Mathe-Sammlung. Alternative: 30 Münzen pro Gruppe, „Zahl“ scheidet aus. Dann halbiert sich die Zahl schon pro Wurf."], 6)
+         + box("Material", ["500 Würfel sind bestellt, das reicht für 30 Würfel pro Gruppe bei bis zu 16 Gruppen. Alternative: 30 Münzen pro Gruppe, „Zahl“ scheidet aus. Dann halbiert sich die Zahl schon pro Wurf."], 6)
          + LAB(ZERF, "Zerfallslabor", "100 Würfel Wurf für Wurf, drei Zufallsserien, dazu der Zerfall von Fluor-20 als Animation mit Uhr und Messpunkten (nach der LEIFI-Animation)."))
 S6_AB = ab_box("Versuchsblatt Zerfall mit Würfeln", "Zerfall mit Wuerfeln W06.pdf",
                "Erwartete Werte 30, 25, 21, 17, 14, 12, 10, 8, 7. Hälfte nach knapp 4 Würfen. Würfel = Kern, Sechs = Zerfall, die Abweichung kommt vom Zufall.", 6)
@@ -298,12 +298,12 @@ S22_AB = ab_box("Arbeitsblatt Altersbestimmung mit C-14", "Altersbestimmung W22.
 ZAEHLROHR = ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "")
 STUNDEN = [
     ("W06 Wuerfelmodell", "Kernphysik: Der Zufall beim Zerfall", "W06 (Woche ab 19.10.2026) · Abschluss Leitfrage 2, Einstieg Leitfrage 3",
-     "Versuchsblatt Zerfall mit Würfeln", {"demo": [], "schueler": [("Würfel", "30×", "aus der Mathe-Sammlung"), ("Würfelbecher oder Schale", "1×", "")],
+     "Versuchsblatt Zerfall mit Würfeln", {"demo": [], "schueler": [("Würfel", "30×", "500 Stück bestellt, reicht für 16 Gruppen"), ("Würfelbecher oder Schale", "1×", "")],
                                           "hinweis": "Die Werte aller Gruppen an der Tafel addieren."},
      [("Abschluss Leitfrage 2", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 3", "Würfel, Vermutungen.", [4, 5]),
       ("Versuch", "Würfelversuch in Gruppen, Diagramm.", [6]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [7])], S6, S6_HG, S6_AB),
     ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 02.11.2026) · Leitfrage 3",
-     "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt")],
+     "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt"), ("Lappen", "1×", "")],
                                         "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."},
      [("Halbwertszeit", "Kurve von Fluor-20 an der Folie.", [1]), ("Versuch", "Bierschaum messen, Arbeitsblatt.", [2]), ("Vergleich", "Halbwertszeiten und Alltag.", [3, 4])], S7, S7_HG, S7_AB),
     ("W08 Aktivitaet", "Kernphysik: Aktivität und Zählrate", "W08 (Woche ab 09.11.2026) · Leitfrage 3",
@@ -314,7 +314,7 @@ STUNDEN = [
      "Übungsblatt Halbwertszeit", {"demo": [], "schueler": [PSE], "hinweis": ""},
      [("Abschluss Leitfrage 3", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt nach Schwierigkeit.", [4])], S9, S9_HG, S9_AB),
     ("W12 Ionisierende Strahlung", "Kernphysik: Warum heißt sie ionisierende Strahlung?", "W12 (Woche ab 07.12.2026) · Einstieg Leitfrage 4",
-     "Arbeitsblatt Ionisierende Strahlung", {"demo": [("Nebelkammer", "1", "falls vorhanden, mit Trockeneis")], "schueler": [], "hinweis": "Ohne Nebelkammer: Szene im Wirkungslabor."},
+     "Arbeitsblatt Ionisierende Strahlung", {"demo": [("Nebelkammer", "1", "falls vorhanden"), ("Trockeneis", "nach Anleitung", "erst kurz vorher besorgen, hält nicht lange"), ("Isopropanol", "nach Anleitung", "")], "schueler": [], "hinweis": "Ohne Nebelkammer: Szene im Wirkungslabor."},
      [("Einstieg Leitfrage 4", "Röntgenbild und Warnzeichen, Vermutungen.", [1, 2]), ("Ionisation", "Folie und Wirkungslabor.", [3]),
       ("Üben", "Arbeitsblatt.", [4]), ("Alltag", "Strahlung nachweisen.", [5])], S12, S12_HG, S12_AB),
     ("W13 Wirkung auf den Koerper", "Kernphysik: Was macht Strahlung mit dem Körper?", "W13 (Woche ab 14.12.2026) · Leitfrage 4",
