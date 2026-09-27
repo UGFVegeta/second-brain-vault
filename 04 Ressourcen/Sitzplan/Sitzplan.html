@@ -143,7 +143,29 @@ kbd{font:inherit;font-size:10.5px;font-weight:600;border-radius:4px;padding:0 5p
 
 /* Bühne und Raum */
 .stage{position:relative;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 40px 18px;min-height:0}
-.canvasbar{margin-bottom:18px}
+.canvasbar{margin-bottom:14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+.vlabel{font-size:12px;color:var(--ink-3);margin-right:-4px}
+#varTabs button{min-width:30px;padding:0 10px}
+#varTabs .vx{display:inline-flex;margin-left:4px;margin-right:-4px;opacity:.55;border-radius:4px}
+#varTabs .vx:hover{opacity:1;background:var(--fill-2)}
+#varTabs .vx svg{width:12px;height:12px}
+body.discreet #secWish,body.discreet #secRules{display:none}
+#bDiscreet[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+#bDiscreet[aria-pressed="true"] svg{color:var(--accent-ink)}
+.modechip{border:0;border-radius:14px;height:26px;padding:0 12px;font-size:12px;background:var(--fill);color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.modechip b{color:var(--ink);font-weight:600}
+.modechip:hover{background:var(--fill-2)}
+.main.with-cmp{grid-template-columns:268px 1fr 340px}
+.cmp{background:var(--side);box-shadow:-.5px 0 0 var(--sep-2);display:flex;flex-direction:column;gap:10px;padding:16px 14px;overflow:auto;min-height:0}
+.cmp[hidden]{display:none}
+.cmp-head{display:flex;align-items:center;justify-content:space-between}
+.cmp-head h2{font-size:13px;margin:0;font-weight:650}
+.cmp select{height:28px;border:0;border-radius:7px;padding:0 9px;background:var(--panel);box-shadow:var(--shadow-sm)}
+#cmpMini svg{width:100%;max-width:440px;margin:0 auto;height:auto;display:block;background:var(--room);border-radius:8px;box-shadow:0 0 0 .5px var(--sep-2)}
+.mini-seat{fill:var(--desk);stroke:var(--ink-3);stroke-width:.06}
+.mini-seat.chg{stroke:var(--accent);stroke-width:.22}
+.mini-name{font:600 .95px -apple-system,BlinkMacSystemFont,sans-serif;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.cmp-actions{display:flex;flex-direction:column;gap:6px}
 .roomwrap{position:relative}
 #room{
   position:relative;flex:none;border:2.5px solid var(--wall);border-radius:6px;
@@ -370,7 +392,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 
 @media (max-width:860px){
   body{overflow:auto;display:block}
-  .main{grid-template-columns:1fr}
+  .main,.main.with-cmp{grid-template-columns:1fr}
   .stage{min-height:70vh;padding:20px 16px}
   .tiles{grid-template-columns:repeat(2,1fr)}
 }
@@ -384,7 +406,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
     --window:#bbb; --board-1:#444; --board-2:#333; color-scheme:light;
   }
   body{display:block;overflow:visible;background:#fff}
-  .bar,.side,.toast,dialog,.scale,.empty-hint,.canvasbar{display:none!important}
+  .bar,.side,.toast,dialog,.scale,.empty-hint,.canvasbar,.cmp{display:none!important}
   .main{display:block}
   .stage{display:block;padding:0;overflow:visible}
   .roomwrap{margin:0 auto;width:max-content;padding:0 22px}
@@ -397,7 +419,8 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   .ph-meta{display:inline;color:#444}
   .name .wd,.name .lk{display:none}
   .name{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .name.clash{background:none;box-shadow:none}
+  .name.clash{background:transparent;box-shadow:none}
+  .name.g.clash{background:var(--g)}
   .print-foot{display:block;margin-top:12px;font-size:11px;color:#444}
 }
 </style>
@@ -428,6 +451,9 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
   <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+  <symbol id="i-compare" viewBox="0 0 24 24"><rect x="3" y="4" width="11" height="16" rx="1.5"/><rect x="16" y="8" width="5" height="8" rx="1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16.5 9"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a13 13 0 0 1-1.7 2.7"/><path d="M6.6 6.6A13.4 13.4 0 0 0 2 12s3 8 10 8a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="m2 2 20 20"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
 </svg>
 
@@ -460,7 +486,8 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <span class="sep"></span>
   <div class="grp">
     <button class="btn tb" id="bRoom" title="Raumgröße, Fenster und Tür"><svg class="i"><use href="#i-room"/></svg>Raum</button>
-    <button class="btn tb" id="bPrint" title="Drucken oder als PDF sichern (⌘P)"><svg class="i"><use href="#i-print"/></svg>Drucken</button>
+    <button class="btn tb" id="bDone" title="Diesen Stand mit Datum im Verlauf speichern"><svg class="i"><use href="#i-check"/></svg>Fertig</button>
+    <button class="btn tb" id="bPrint" title="Drucken oder als PDF sichern (⌘P). Der Stand landet dabei im Verlauf."><svg class="i"><use href="#i-print"/></svg>Drucken</button>
     <button class="btn icon tb" id="bExport" title="Alle Sitzpläne als Datei sichern" aria-label="Als Datei sichern"><svg class="i"><use href="#i-save"/></svg></button>
     <button class="btn icon tb" id="bImportBackup" title="Gesicherte Sitzpläne öffnen" aria-label="Sicherung öffnen"><svg class="i"><use href="#i-open"/></svg></button>
   </div>
@@ -474,13 +501,13 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
         <p class="stats" id="stats"></p>
         <button class="btn primary wide" id="bImport"><svg class="i"><use href="#i-list"/></svg>Klassenliste laden</button>
       </section>
-      <section>
+      <section id="secWish">
         <h2>Wünsche der Schüler</h2>
         <p class="stats" id="wishStats"></p>
         <button class="btn wide" id="bWishes"><svg class="i"><use href="#i-heart"/></svg>Wünsche eintragen</button>
         <div class="issues" id="wishIssues"></div>
       </section>
-      <section class="rules">
+      <section class="rules" id="secRules">
         <h2>Deine Regeln <span class="count">gehen immer vor</span></h2>
         <label class="check"><input type="checkbox" data-mix="noSingle"> Keine Reihe nur mit Mädchen oder nur mit Jungen</label>
         <label class="check"><input type="checkbox" data-mix="noLone"> Niemand ist das einzige Mädchen oder der einzige Junge seiner Reihe</label>
@@ -543,10 +570,15 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 
   <section class="stage" id="stage">
     <div class="canvasbar">
+      <span class="vlabel">Variante</span>
+      <div class="seg" id="varTabs" role="group" aria-label="Varianten"></div>
       <div class="seg" role="group" aria-label="Ansicht">
         <button id="vPult" title="Tafel unten, so wie du vom Pult in die Klasse schaust">Lehrersicht</button>
         <button id="vKlasse" title="Tafel oben, so wie die Klasse den Raum sieht">Schülersicht</button>
       </div>
+      <button type="button" class="btn tb" id="bDiscreet" title="Wünsche, Regeln und ihre Markierungen ausblenden, etwa wenn der Plan vor der Klasse gezeigt wird"><svg class="i"><use href="#i-eyeoff"/></svg><span>Wünsche ausblenden</span></button>
+      <button type="button" class="btn tb" id="bCompare" title="Andere Variante oder alten Stand verkleinert daneben zeigen"><svg class="i"><use href="#i-compare"/></svg>Vergleich</button>
+      <button type="button" class="modechip" id="modeChip" title="Klicken zum Umschalten. Mit ⌥ beim Ziehen gilt kurz der andere Modus."></button>
     </div>
     <div class="roomwrap">
       <button type="button" class="planhead" id="planHead" title="Klasse, Raum und Fach ändern"><span class="ph-title" id="phTitle"></span><span class="ph-sub" id="phSub"></span><span class="ph-hint">ändern</span><span class="ph-meta" id="printMeta"></span></button>
@@ -555,6 +587,16 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
     </div>
     <div class="scale" id="scale"></div>
   </section>
+  <aside class="cmp" id="cmpPanel" hidden>
+    <div class="cmp-head"><h2>Vergleich</h2><button type="button" class="btn icon tb" id="cmpClose" aria-label="Vergleich schließen" title="Schließen"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <select id="cmpSel" aria-label="Womit vergleichen"></select>
+    <div id="cmpMini"></div>
+    <p class="stats" id="cmpDiff" style="margin:0 2px"></p>
+    <div class="cmp-actions">
+      <button type="button" class="btn" id="cmpTake"></button>
+      <button type="button" class="btn tb" id="cmpDel">Aus dem Verlauf löschen</button>
+    </div>
+  </aside>
 </div>
 
 <!-- Klassenliste -->
@@ -736,6 +778,9 @@ function makePlan(name) {
   p.desks.push(teacherDesk(p.room));
   const out = generate(p.room, 'reihen', 28, 'double');
   p.desks.push(...out.desks.map(materialize));
+  p.variants = [{ id: uid(), name: 'A', desks: p.desks }];
+  p.vid = p.variants[0].id;
+  p.history = [];
   return p;
 }
 function emptyRules() { return { wish: {}, row: {}, apart: [], pair: [], rowMust: {}, locked: [], mix: { noSingle: false, noLone: false, mixedDesk: false } }; }
@@ -789,8 +834,19 @@ function normalize(p) {
   if (ver < 3) p.view = 'pult';     // Lehrersicht ist Standard, ältere Pläne einmalig umstellen
   p.view = p.view === 'klasse' ? 'klasse' : 'pult';
   const ids = new Set(p.students.map(s => s.id));
+  p.desks = normDesks(p.desks, ids);
+  // Varianten: die aktive Variante ist immer p.desks, die anderen liegen in p.variants
+  if (!Array.isArray(p.variants) || !p.variants.length) p.variants = [{ id: uid(), name: 'A', desks: p.desks }];
+  p.variants = p.variants.filter(v => v && v.id).map(v => ({ id: v.id, name: String(v.name || 'A').slice(0, 20), desks: normDesks(v.desks, ids) }));
+  if (!p.variants.length) p.variants = [{ id: uid(), name: 'A', desks: p.desks }];
+  if (!p.variants.some(v => v.id === p.vid)) p.vid = p.variants[0].id;
+  p.variants.find(v => v.id === p.vid).desks = p.desks;
+  p.history = (Array.isArray(p.history) ? p.history : []).filter(h => h && h.id && Array.isArray(h.desks)).slice(-30);
+  return p;
+}
+function normDesks(list, ids) {
   const seen = new Set();
-  p.desks = (Array.isArray(p.desks) ? p.desks : []).filter(d => d && TYPES[d.type]).map(d => {
+  return (Array.isArray(list) ? list : []).filter(d => d && TYPES[d.type]).map(d => {
     const n = TYPES[d.type].seats;
     const seats = Array.from({ length: n }, (_, i) => {
       const sid = d.seats && d.seats[i];
@@ -799,8 +855,8 @@ function normalize(p) {
     });
     return { id: d.id || uid(), type: d.type, x: d.x | 0, y: d.y | 0, rot: [0,90,180,270].includes(d.rot) ? d.rot : 0, seats };
   });
-  return p;
 }
+function syncVariant(p) { const v = p.variants && p.variants.find(v => v.id === p.vid); if (v) v.desks = p.desks; }
 
 function load() {
   try {
@@ -821,6 +877,7 @@ function load() {
   return { version: 1, current: p.id, nameMode: 'vorname', mode: 'tische', colors: { on: true, ...DEF_COLORS }, plans: [p] };
 }
 function persist() {
+  S.plans.forEach(syncVariant);
   try { localStorage.setItem(STORE, JSON.stringify(S)); saveOk = true; }
   catch (e) { saveOk = false; }
   renderSaveState();
@@ -1035,7 +1092,7 @@ function genGroups(R, n, g) {
 
 /* ---------- Anzeige ---------- */
 function render() {
-  renderPlans(); renderSide(); renderRoom(); renderTools();
+  renderDiscreet(); renderPlans(); renderVariants(); renderCompare(); renderSide(); renderRoom(); renderTools();
 }
 function renderPlans() {
   const selEl = $('#planSel');
@@ -1045,6 +1102,7 @@ function renderPlans() {
   $('#vKlasse').setAttribute('aria-pressed', !flipped());
   $('#vPult').setAttribute('aria-pressed', flipped());
   document.querySelectorAll('[data-nm]').forEach(b => b.setAttribute('aria-pressed', b.dataset.nm === S.nameMode));
+  $('#modeChip').innerHTML = `Ziehen bewegt: <b>${mode() === 'tische' ? 'Tische' : 'Schüler'}</b>`;
   $('#mTische').setAttribute('aria-pressed', mode() === 'tische');
   $('#mSchueler').setAttribute('aria-pressed', mode() === 'schueler');
 }
@@ -1205,9 +1263,11 @@ function renderRoom() {
     else inner = d.seats.map((sid, i) => {
       const st = sid && byId.get(sid);
       if (!st) return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span></div>`;
-      const stat = ev.status.get(st.id);
-      const tip = `${st.first} ${st.last}`.trim() + (stat === 'ok' ? ' · Wunsch erfüllt' : stat === 'open' ? ' · Wunsch noch offen' : '') + (lockedSet.has(st.id) ? ' · festgehalten' : '') + (clashSet.has(st.id) ? ' · Regel verletzt' : '');
-      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span><div class="name${clashSet.has(st.id) ? ' clash' : ''}${pick.has(st.id) ? ' picked' : ''}${gColor(st) ? ' g' : ''}" data-sid="${st.id}"${gColor(st) ? ` style="--g:${gColor(st)}"` : ''} title="${esc(tip)}">${lockedSet.has(st.id) ? '<svg class="lk"><use href="#i-lock"/></svg>' : ''}${stat ? `<span class="wd ${stat}"></span>` : ''}${nameHtml(st, dupes)}</div></div>`;
+      const hide = !!S.discreet;
+      const stat = hide ? null : ev.status.get(st.id);
+      const isLocked = !hide && lockedSet.has(st.id), isClash = !hide && clashSet.has(st.id);
+      const tip = `${st.first} ${st.last}`.trim() + (stat === 'ok' ? ' · Wunsch erfüllt' : stat === 'open' ? ' · Wunsch noch offen' : '') + (isLocked ? ' · festgehalten' : '') + (isClash ? ' · Regel verletzt' : '');
+      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span><div class="name${isClash ? ' clash' : ''}${pick.has(st.id) ? ' picked' : ''}${gColor(st) ? ' g' : ''}" data-sid="${st.id}"${gColor(st) ? ` style="--g:${gColor(st)}"` : ''} title="${esc(tip)}">${isLocked ? '<svg class="lk"><use href="#i-lock"/></svg>' : ''}${stat ? `<span class="wd ${stat}"></span>` : ''}${nameHtml(st, dupes)}</div></div>`;
     }).join('');
     h += `<div class="desk t-${d.type} f${face}${sel.has(d.id) ? ' sel' : ''}" data-id="${d.id}" style="${posStyle(s)}" title="${TYPES[d.type].label}">${inner}</div>`;
   }
@@ -1220,7 +1280,8 @@ function renderRoom() {
   $('#phTitle').textContent = kl ? (/^klasse/i.test(kl) ? kl : 'Klasse ' + kl) : P.name;
   $('#phSub').textContent = [nr ? (/^\d/.test(nr) ? 'Raum ' + nr : nr) : '', P.showFach && fach ? fach : ''].filter(Boolean).join(' · ');
   $('#scale').textContent = `1 Kästchen = 25 cm · ${fmtM(R.w)} × ${fmtM(R.h)} m · ${f ? 'Lehrersicht: Tafel unten' : 'Schülersicht: Tafel oben'}`;
-  $('#printMeta').textContent = `Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`;
+  const vv = P.variants.length > 1 ? `Variante ${P.variants.find(v => v.id === P.vid).name} · ` : '';
+  $('#printMeta').textContent = `${vv}Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`;
   const rest = unplaced(P).sort(byName);
   $('#printFoot').textContent = rest.length ? `Ohne Platz: ${rest.map(s => `${s.first} ${s.last}`.trim()).join(', ')}` : '';
 }
@@ -1256,9 +1317,25 @@ function track(e, onMove, onUp) {
   window.addEventListener('pointercancel', up);
 }
 
+let deskHint = false;
 room.addEventListener('pointerdown', e => {
   if (e.button !== 0) return;
-  const nm = e.target.closest('.name');
+  // Mit ⌥ gilt beim Ziehen kurz der andere Modus
+  const eff = e.altKey ? (mode() === 'tische' ? 'schueler' : 'tische') : mode();
+  // Namen über ihre Position suchen: im Modus „Tische stellen“ sind sie für Klicks durchsichtig
+  const under = () => [...room.querySelectorAll('.name')].find(el => { const b = el.getBoundingClientRect(); return e.clientX >= b.left && e.clientX <= b.right && e.clientY >= b.top && e.clientY <= b.bottom; }) || null;
+  const nm = eff === 'schueler' ? (e.target.closest('.name') || under()) : null;
+  if (eff === 'tische') {
+    const dk = e.target.closest('.desk') || (under() && under().closest('.desk'));
+    if (dk) {
+      if (!e.altKey && !deskHint && under()) {
+        deskHint = true;
+        toast('Gerade ist „Tische stellen“ aktiv, deshalb bewegt sich der ganze Tisch. Schüler einzeln verschieben: oben „Schüler setzen“ wählen (Taste S) oder beim Ziehen ⌥ gedrückt halten.');
+      }
+      startDeskDrag(e, dk.dataset.id);
+    } else startLasso(e);
+    return;
+  }
   if (nm) {
     const seat = nm.closest('.seat'), sid = nm.dataset.sid;
     if (e.shiftKey || e.metaKey || e.ctrlKey) { e.preventDefault(); pick.has(sid) ? pick.delete(sid) : pick.add(sid); renderPicks(); return; }
@@ -1267,10 +1344,7 @@ room.addEventListener('pointerdown', e => {
     startNameDrag(e, { kind: 'seat', deskId: seat.dataset.desk, idx: +seat.dataset.idx, sid }, nm);
     return;
   }
-  const dk = e.target.closest('.desk');
-  if (mode() === 'schueler') { startNameLasso(e); return; }
-  if (dk) { startDeskDrag(e, dk.dataset.id); return; }
-  startLasso(e);
+  startNameLasso(e);
 });
 room.addEventListener('dblclick', e => {
   const dk = e.target.closest('.desk');
@@ -1433,7 +1507,7 @@ function startGroupDrag(e, anchorSid) {
     light([], false); $('#pool').classList.remove('hl');
     document.body.classList.remove('dragging-name');
     els.forEach(el => el.classList.remove('lifted'));
-    if (!ghost) { if (!cancel) openWishes(anchorSid); return; }
+    if (!ghost) { if (!cancel && !S.discreet) openWishes(anchorSid); return; }
     ghost.remove();
     if (cancel || !target) return;
     moveGroup(group, new Map(group.map(sid => [sid, seatOf.get(sid).key])), target);
@@ -1491,7 +1565,7 @@ function startNameDrag(e, src, srcEl) {
     setHl(null);
     document.body.classList.remove('dragging-name');
     srcEl.classList.remove('lifted');
-    if (!ghost) { if (!cancel) openWishes(src.sid); return; }
+    if (!ghost) { if (!cancel && !S.discreet) openWishes(src.sid); return; }
     ghost.remove();
     if (cancel || !target) return;
     dropName(src, target);
@@ -1793,6 +1867,7 @@ function distribute(mode) {
   if (nLocked && mode !== 'rest') msg += nLocked === 1 ? ' Ein festgehaltener Schüler ist sitzen geblieben.' : ` ${nLocked} festgehaltene Schüler sind sitzen geblieben.`;
   if (ev.rules.length) msg += ev.rules.length === 1 ? ' Achtung: Eine deiner Regeln ließ sich nicht einhalten, siehe links.' : ` Achtung: ${ev.rules.length} deiner Regeln ließen sich nicht einhalten, siehe links.`;
   if (left) msg += ` ${left} Schüler haben keinen Platz, es fehlen Tische.`;
+  if (S.discreet) msg = { random: 'Neu verteilt.', wish: 'Neu verteilt.', rest: 'Freie Plätze aufgefüllt.', alpha: 'Alphabetisch verteilt.', clear: 'Alle Namen sind zurück in der Liste.' }[mode];
   toast(msg, true);
 }
 
@@ -2191,12 +2266,176 @@ $('#dlgTpl').addEventListener('close', () => {
   });
   sel.clear(); renderSelection();
   const name = TPLS.find(t => t.k === tplKind).t;
-  let msg = `${name} mit ${out.seats} Plätzen aufgestellt.`;
+  let msg = `${name} mit ${out.seats} Plätzen aufgestellt. Jetzt ist „Tische stellen“ aktiv, zum Setzen der Schüler oben auf „Schüler setzen“.`;
   if (!out.fits) msg = `${name}: Es passen nur ${out.seats} Plätze in diesen Raum.`;
   if (tplKind === 'gang') msg = `Mittelgang mit ${+$('#tplL').value || 4} Plätzen links und ${+$('#tplR').value || 4} rechts (vom Pult aus), ${out.seats} Plätze.`;
   if (growW) msg += ` Der Raum ist jetzt ${fmtM(out.w)} m breit.`;
   if (grow) msg += ` Der Raum ist jetzt ${fmtM(out.h)} m tief.`;
   toast(msg, true);
+});
+
+/* ---------- Varianten ---------- */
+const nextVariantName = P => { for (let i = 0; i < 26; i++) { const n = String.fromCharCode(65 + i); if (!P.variants.some(v => v.name === n)) return n; } return 'Neu'; };
+const cloneDesks = desks => desks.map(d => ({ ...d, id: uid(), seats: d.seats.slice() }));
+function renderVariants() {
+  const P = cur(), many = P.variants.length > 1;
+  $('#varTabs').innerHTML = P.variants.map(v => `<button type="button" data-vid="${v.id}" aria-pressed="${v.id === P.vid}" title="Variante ${esc(v.name)}. Doppelklick zum Umbenennen.">${esc(v.name)}${v.id === P.vid && many ? `<span class="vx" data-vdel="${v.id}" title="Variante löschen" aria-label="Variante löschen">${icon('i-x')}</span>` : ''}</button>`).join('')
+    + (P.variants.length < 8 ? `<button type="button" data-vadd title="Neue Variante als Kopie der aktuellen" aria-label="Neue Variante">${icon('i-plus')}</button>` : '');
+}
+function switchVariant(id) {
+  if (id === cur().vid) return;
+  sel.clear(); pick.clear();
+  mutate(P => { syncVariant(P); P.vid = id; P.desks = P.variants.find(v => v.id === id).desks; });
+}
+$('#varTabs').addEventListener('click', e => {
+  const del = e.target.closest('[data-vdel]');
+  if (del) {
+    e.stopPropagation();
+    const P = cur(), v = P.variants.find(x => x.id === del.dataset.vdel);
+    if (!v || P.variants.length < 2 || !confirm(`Variante ${v.name} löschen?`)) return;
+    mutate(P => { P.variants = P.variants.filter(x => x.id !== v.id); P.vid = P.variants[0].id; P.desks = P.variants[0].desks; });
+    toast(`Variante ${v.name} gelöscht.`, true);
+    return;
+  }
+  if (e.target.closest('[data-vadd]')) {
+    const P = cur(), name = nextVariantName(P);
+    sel.clear(); pick.clear();
+    mutate(P => { syncVariant(P); const v = { id: uid(), name, desks: cloneDesks(P.desks) }; P.variants.push(v); P.vid = v.id; P.desks = v.desks; });
+    toast(`Variante ${name} ist eine Kopie. Jetzt umbauen oder neu verteilen, die anderen Varianten bleiben unverändert.`, true);
+    return;
+  }
+  const b = e.target.closest('[data-vid]'); if (b) switchVariant(b.dataset.vid);
+});
+$('#varTabs').addEventListener('dblclick', async e => {
+  const b = e.target.closest('[data-vid]'); if (!b) return;
+  const v = cur().variants.find(x => x.id === b.dataset.vid);
+  const name = await askText('Variante umbenennen', 'Name, zum Beispiel „Nach den Ferien“', v.name);
+  if (name) mutate(P => { P.variants.find(x => x.id === v.id).name = name.slice(0, 20); });
+});
+
+/* ---------- Verlauf ---------- */
+function snapshotEntry(P, label) {
+  syncVariant(P);
+  const seated = placedIds(P), names = {};
+  P.students.forEach(s => { if (seated.has(s.id)) names[s.id] = [s.first, s.last, s.g]; });
+  const v = P.variants.find(x => x.id === P.vid);
+  return { id: uid(), at: Date.now(), label, variant: v ? v.name : '', desks: JSON.parse(JSON.stringify(P.desks)), room: { w: P.room.w, h: P.room.h }, names };
+}
+function addHistory(label, silent) {
+  const P = cur(), e = snapshotEntry(P, label), last = P.history[P.history.length - 1];
+  if (last && JSON.stringify(last.desks) === JSON.stringify(e.desks)) { if (!silent) toast('Dieser Stand ist schon im Verlauf.'); return; }
+  P.history.push(e); if (P.history.length > 30) P.history.shift();
+  persist();
+  if (S.compare) renderCompare();
+  if (!silent) toast('Stand mit Datum im Verlauf gespeichert. Über „Vergleich“ kannst du ihn später neben den aktuellen Plan legen.');
+}
+$('#bDone').addEventListener('click', () => addHistory('fertig'));
+
+/* ---------- Vergleich ---------- */
+const fmtWhen = t => new Date(t).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+function cmpSources(P) {
+  const out = [];
+  P.variants.filter(v => v.id !== P.vid).forEach(v => out.push({ key: 'v:' + v.id, text: `Variante ${v.name}`, group: 'Varianten', desks: v.desks, names: null }));
+  P.history.slice().reverse().forEach(h => out.push({ key: 'h:' + h.id, text: `${fmtWhen(h.at)} · Variante ${h.variant}${h.label === 'gedruckt' ? ' · gedruckt' : ''}`, group: 'Verlauf', desks: h.desks, names: h.names, h }));
+  return out;
+}
+function seatCenters(desks) {
+  const m = new Map();
+  for (const d of desks) {
+    const n = TYPES[d.type].seats; if (!n) continue;
+    const b = box(d), horiz = d.rot % 180 === 0, rev = d.rot === 180 || d.rot === 270;
+    d.seats.forEach((sid, i) => {
+      const k = rev ? n - 1 - i : i;
+      const g = horiz ? { x: b.x + k * b.w / n, y: b.y, w: b.w / n, h: b.h } : { x: b.x, y: b.y + k * b.h / n, w: b.w, h: b.h / n };
+      if (sid) m.set(sid, g);
+      else m.set('empty:' + d.id + ':' + i, g);
+    });
+  }
+  return m;
+}
+function renderCompare() {
+  const P = cur(), panel = $('#cmpPanel');
+  panel.hidden = !S.compare;
+  $('.main').classList.toggle('with-cmp', !!S.compare);
+  $('#bCompare').setAttribute('aria-pressed', !!S.compare);
+  if (!S.compare) return;
+  const src = cmpSources(P);
+  if (!src.some(x => x.key === S.cmpSrc)) S.cmpSrc = (src.find(x => x.group === 'Verlauf') || src[0] || {}).key;
+  const groups = ['Varianten', 'Verlauf'].map(g => { const l = src.filter(x => x.group === g); return l.length ? `<optgroup label="${g}">${l.map(x => `<option value="${x.key}" ${x.key === S.cmpSrc ? 'selected' : ''}>${esc(x.text)}</option>`).join('')}</optgroup>` : ''; }).join('');
+  $('#cmpSel').innerHTML = groups;
+  $('#cmpSel').hidden = !src.length;
+  const cur_ = src.find(x => x.key === S.cmpSrc);
+  if (!cur_) {
+    $('#cmpMini').innerHTML = '<p class="pool-empty" style="padding:18px 6px">Noch nichts zum Vergleichen. Lege über „+“ eine zweite Variante an, oder speichere einen Stand mit „Fertig“. Beim Drucken wird der Stand automatisch gespeichert.</p>';
+    $('#cmpDiff').textContent = ''; $('#cmpTake').hidden = true; $('#cmpDel').hidden = true;
+    return;
+  }
+  const R = P.room, f = flipped(), W = R.w, H = R.h;
+  const byId = new Map(P.students.map(s => [s.id, s]));
+  const info = sid => { const s = byId.get(sid); if (s) return { first: s.first || s.last, g: s.g }; const n = cur_.names && cur_.names[sid]; return n ? { first: n[0] || n[1], g: n[2] } : { first: '?', g: '' }; };
+  const mine = seatCenters(P.desks), theirs = seatCenters(cur_.desks);
+  let changed = 0, total = 0;
+  const chg = new Set();
+  for (const [sid, g] of theirs) {
+    if (sid.startsWith('empty:')) continue;
+    total++;
+    const m = mine.get(sid);
+    if (!m || Math.abs(m.x - g.x) > .01 || Math.abs(m.y - g.y) > .01) { changed++; chg.add(sid); }
+  }
+  const tr = (x, y, w, h) => f ? [W - x - w, H - y - h] : [x, y];
+  let svg = `<svg viewBox="-.5 -.5 ${W + 1} ${H + 1}" role="img" aria-label="Verkleinerter Sitzplan"><rect x="0" y="0" width="${W}" height="${H}" fill="none" stroke="var(--wall)" stroke-width=".25"/>`;
+  const [bx, by] = tr((W - 16) / 2, 0, 16, .7); svg += `<rect class="mini-board" x="${bx}" y="${by}" width="16" height=".7"/>`;
+  for (const d of cur_.desks) {
+    if (d.type !== 'teacher') continue;
+    const b = box(d), [x, y] = tr(b.x, b.y, b.w, b.h);
+    svg += `<rect x="${x}" y="${y}" width="${b.w}" height="${b.h}" rx=".3" fill="var(--teacher)" stroke="var(--ink-3)" stroke-width=".06"/>`;
+  }
+  for (const [sid, g] of theirs) {
+    const [x, y] = tr(g.x, g.y, g.w, g.h);
+    const empty = sid.startsWith('empty:');
+    const inf = empty ? null : info(sid);
+    const fill = inf && S.colors.on && (inf.g === 'w' || inf.g === 'm') ? S.colors[inf.g] : '';
+    svg += `<rect class="mini-seat${!empty && chg.has(sid) ? ' chg' : ''}" x="${x + .06}" y="${y + .06}" width="${g.w - .12}" height="${g.h - .12}" rx=".25"${fill ? ` style="fill:${fill}"` : ''}/>`;
+    if (inf) {
+      const t = inf.first.length > 7 ? inf.first.slice(0, 6) + '.' : inf.first;
+      const fit = Math.min(g.w, g.h * 1.6) - .3;
+      svg += `<text class="mini-name" x="${x + g.w / 2}" y="${y + g.h / 2}"${t.length * .5 > fit ? ` textLength="${fit}" lengthAdjust="spacingAndGlyphs"` : ''}>${esc(t)}</text>`;
+    }
+  }
+  $('#cmpMini').innerHTML = svg + '</svg>';
+  $('#cmpDiff').innerHTML = total ? `<b>${changed}</b> von <b>${total}</b> sitzen heute woanders (blau umrandet).` : 'In diesem Stand sitzt noch niemand.';
+  const isHist = cur_.key.startsWith('h:');
+  $('#cmpTake').hidden = false;
+  $('#cmpTake').textContent = isHist ? 'Als neue Variante übernehmen' : `Zu Variante ${cur_.text.replace('Variante ', '')} wechseln`;
+  $('#cmpDel').hidden = !isHist;
+}
+function renderDiscreet() {
+  document.body.classList.toggle('discreet', !!S.discreet);
+  $('#bDiscreet').setAttribute('aria-pressed', !!S.discreet);
+  $('#bDiscreet span').textContent = S.discreet ? 'Wünsche einblenden' : 'Wünsche ausblenden';
+}
+$('#bDiscreet').addEventListener('click', () => {
+  S.discreet = !S.discreet; persist(); renderDiscreet(); renderRoom();
+  toast(S.discreet ? 'Wünsche und Regeln sind ausgeblendet. Verschieben geht weiter, ein Klick auf einen Namen öffnet keine Wünsche.' : 'Wünsche und Regeln sind wieder sichtbar.');
+});
+$('#bCompare').addEventListener('click', () => { S.compare = !S.compare; persist(); renderCompare(); renderRoom(); });
+$('#cmpClose').addEventListener('click', () => { S.compare = false; persist(); renderCompare(); renderRoom(); });
+$('#cmpSel').addEventListener('change', e => { S.cmpSrc = e.target.value; persist(); renderCompare(); });
+$('#cmpTake').addEventListener('click', () => {
+  const P = cur(), key = S.cmpSrc || '';
+  if (key.startsWith('v:')) { switchVariant(key.slice(2)); return; }
+  const h = P.history.find(x => 'h:' + x.id === key); if (!h) return;
+  if (P.variants.length >= 8) { toast('Es gibt schon 8 Varianten. Lösche erst eine.'); return; }
+  const ids = new Set(P.students.map(s => s.id)), name = nextVariantName(P);
+  sel.clear(); pick.clear();
+  mutate(P => { syncVariant(P); const v = { id: uid(), name, desks: normDesks(cloneDesks(h.desks), ids) }; P.variants.push(v); P.vid = v.id; P.desks = v.desks; });
+  const lost = Object.keys(h.names || {}).filter(id => !ids.has(id)).length;
+  toast(`Stand vom ${fmtWhen(h.at)} ist jetzt Variante ${name}.${lost ? ` ${lost} Schüler aus diesem Stand sind nicht mehr in der Klasse.` : ''}`, true);
+});
+$('#cmpDel').addEventListener('click', () => {
+  const P = cur(), key = S.cmpSrc || '';
+  const h = P.history.find(x => 'h:' + x.id === key); if (!h || !confirm(`Stand vom ${fmtWhen(h.at)} aus dem Verlauf löschen?`)) return;
+  mutate(P => { P.history = P.history.filter(x => x.id !== h.id); });
 });
 
 /* ---------- Mädchen und Jungen zuordnen ---------- */
@@ -2482,7 +2721,7 @@ function askText(title, label, value) {
 }
 
 /* ---------- Pläne ---------- */
-$('#planSel').addEventListener('change', e => { S.current = e.target.value; sel.clear(); pick.clear(); persist(); render(); });
+$('#planSel').addEventListener('change', e => { S.current = e.target.value; S.cmpSrc = null; sel.clear(); pick.clear(); persist(); render(); });
 $('#bNew').addEventListener('click', async () => {
   const name = await askText('Neuer Sitzplan', 'Name, zum Beispiel Klasse und Fach', '');
   if (!name) return;
@@ -2548,6 +2787,7 @@ $('#backupFile').addEventListener('change', async e => {
 
 /* ---------- Drucken ---------- */
 function doPrint() {
+  addHistory('gedruckt', true);
   printing = true; sel.clear(); pick.clear(); renderRoom();
   requestAnimationFrame(() => { window.print(); });
 }
@@ -2572,6 +2812,7 @@ $('#toastBtn').addEventListener('click', () => { const a = toastAction; $('#toas
 /* ---------- Knöpfe und Tasten ---------- */
 document.querySelectorAll('[data-cancel]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close('cancel')));
 $('#mTische').addEventListener('click', () => setMode('tische'));
+$('#modeChip').addEventListener('click', () => setMode(mode() === 'tische' ? 'schueler' : 'tische'));
 $('#mSchueler').addEventListener('click', () => setMode('schueler'));
 $('#bAddSingle').addEventListener('click', () => addDesk('single'));
 $('#bAddDouble').addEventListener('click', () => addDesk('double'));
