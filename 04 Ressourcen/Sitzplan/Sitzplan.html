@@ -245,6 +245,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 .prev .pc button:hover{color:var(--warn)}
 .prev .pc svg{width:12px;height:12px}
 .radios{display:flex;gap:18px;flex-wrap:wrap}
+.radios[hidden]{display:none}
 .radios label{display:flex;gap:6px;align-items:center}
 .fields.aisle{padding:12px;border-radius:10px;background:var(--fill)}
 .fields.aisle[hidden]{display:none}
@@ -1691,10 +1692,10 @@ function impRender() {
   const modeOpt = (v, t) => `<option value="${v}" ${v === modeVal ? 'selected' : ''}>${t}</option>`;
   mapEl.innerHTML = `
     <label class="field">Aufbau der Namen<select id="mMode">
-      ${modeOpt('one:n,v', 'Nachname, Vorname in einer Spalte')}
-      ${modeOpt('one:nv', 'Nachname Vorname in einer Spalte')}
-      ${modeOpt('one:vn', 'Vorname Nachname in einer Spalte')}
-      ${modeOpt('two', 'Vorname und Nachname in zwei Spalten')}
+      ${modeOpt('one:n,v', 'Nachname, Vorname')}
+      ${modeOpt('one:nv', 'Nachname Vorname')}
+      ${modeOpt('one:vn', 'Vorname Nachname')}
+      ${modeOpt('two', 'zwei getrennte Spalten')}
     </select></label>
     ${map.mode === 'two'
       ? `<label class="field">Vorname steht in<select id="mFi">${opts(map.fi)}</select></label>
