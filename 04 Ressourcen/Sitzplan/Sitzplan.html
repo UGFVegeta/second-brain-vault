@@ -283,12 +283,38 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 .name .wd.ok{background:var(--ok)}
 .name .wd.open{box-shadow:inset 0 0 0 1.5px var(--warn)}
 .name .lk{position:absolute;top:2px;left:2px;width:9px;height:9px;fill:none;stroke:var(--ink-3);stroke-width:2.4;stroke-linecap:round}
+.name.g{background:var(--g)}
+.name.g:hover{background:var(--g);box-shadow:inset 0 0 0 1.5px var(--accent)}
+@media (prefers-color-scheme:dark){.name.g,.name.g:hover{background:color-mix(in srgb,var(--g) 30%,transparent)}}
+.name.picked,.name.g.picked{box-shadow:inset 0 0 0 2px var(--accent)}
+.name.picked:not(.g){background:var(--accent-soft)}
+.seat.hlbad{background:var(--warn-soft);box-shadow:inset 0 0 0 2px var(--warn)}
+.gd{width:9px;height:9px;border-radius:50%;flex:none;background:var(--g);box-shadow:inset 0 0 0 .5px rgba(0,0,0,.25)}
+.colors{display:flex;gap:12px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.colors label{display:flex;gap:6px;align-items:center;font-size:12.5px}
+.colors input[type=color]{-webkit-appearance:none;appearance:none;width:28px;height:22px;border:0;padding:0;background:none;border-radius:6px;cursor:pointer}
+.colors input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+.colors input[type=color]::-webkit-color-swatch{border:0;border-radius:6px;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.25)}
+.seg.small button{height:22px;font-size:12px;padding:0 10px}
+#dlgGender{max-width:min(720px,calc(100vw - 32px))}
+.gcount{display:flex;gap:16px;font-size:13px;color:var(--ink-2)}
+.gcount b{color:var(--ink);font-weight:600}
+.glist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 16px;max-height:min(60vh,540px);overflow:auto;padding:2px}
+.grow{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:8px;outline:none}
+.grow:hover{background:var(--fill)}
+.grow:focus-within,.grow:focus{background:var(--accent-soft)}
+.grow .gname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.grow .muted{color:var(--ink-3)}
+.grow [data-set="w"][aria-pressed="true"]{background:var(--cw)}
+.grow [data-set="m"][aria-pressed="true"]{background:var(--cm)}
+@media (prefers-color-scheme:dark){.grow [data-set][aria-pressed="true"]{color:#1d1d1f}}
+@media (max-width:640px){.glist{grid-template-columns:1fr}}
 .name.clash{background:var(--warn-soft);box-shadow:inset 0 0 0 1.5px var(--warn)}
 .issues{display:flex;flex-direction:column;gap:6px;margin-top:8px}
 .issue{font-size:12px;line-height:1.45;color:var(--ink-2)}
 .issue.bad{color:var(--warn);font-weight:500}
-.issue .lnk{border:0;background:none;padding:0;color:var(--accent);font:inherit;cursor:pointer}
-.issue .lnk:hover{text-decoration:underline}
+.lnk{border:0;background:none;padding:0;color:var(--accent);font:inherit;cursor:pointer}
+.lnk:hover{text-decoration:underline}
 #dlgWish{max-width:min(920px,calc(100vw - 32px))}
 .wishgrid{display:grid;grid-template-columns:220px 1fr;gap:18px;min-height:0}
 .wside{display:flex;flex-direction:column;gap:8px;min-height:0}
@@ -357,6 +383,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   .ph-hint{display:none}
   .ph-meta{display:inline;color:#444}
   .name .wd,.name .lk{display:none}
+  .name{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .name.clash{background:none;box-shadow:none}
   .print-foot{display:block;margin-top:12px;font-size:11px;color:#444}
 }
@@ -459,6 +486,17 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
         </div>
       </section>
       <section>
+        <h2>Farben</h2>
+        <label class="check" style="height:auto"><input type="checkbox" id="cOn"> Mädchen und Jungen farbig</label>
+        <div class="colors">
+          <label><input type="color" id="cW" aria-label="Farbe für Mädchen"> Mädchen</label>
+          <label><input type="color" id="cM" aria-label="Farbe für Jungen"> Jungen</label>
+          <button type="button" class="btn tb" id="cReset" style="height:24px;padding:0 8px;font-size:12px">Standard</button>
+        </div>
+        <button class="btn wide" id="bGender" style="margin-top:10px">Mädchen und Jungen zuordnen</button>
+        <p class="stats" id="gStats" style="margin:8px 2px 0;font-size:12px"></p>
+      </section>
+      <section>
         <h2>Noch ohne Platz <span class="count" id="poolCount"></span></h2>
         <div class="pool" id="pool"></div>
         <form class="addrow" id="addForm" autocomplete="off">
@@ -476,6 +514,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
         <li>Auf freier Fläche ziehen: mehrere markieren</li>
         <li>Name auf besetzten Platz: die beiden tauschen</li>
         <li>Klick auf einen Namen: Wünsche und Regeln</li>
+        <li>Schüler setzen: Rahmen ziehen markiert mehrere, die Gruppe lässt sich dann am Stück ziehen</li>
         <li><kbd>⌘Z</kbd> rückgängig, <kbd>Entf</kbd> entfernen</li>
       </ul>
     </div>
@@ -552,11 +591,22 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   </form>
 </dialog>
 
+<!-- Mädchen und Jungen -->
+<dialog id="dlgGender">
+  <form method="dialog" class="dlg">
+    <h3>Mädchen und Jungen zuordnen</h3>
+    <p class="hint">Pro Name einmal klicken. Schneller mit der Tastatur: einen Namen anklicken, dann W für Mädchen oder M für Junge drücken, die App springt zum nächsten.</p>
+    <div class="gcount" id="gCount"></div>
+    <div class="glist" id="gList"></div>
+    <div class="actions"><button class="btn primary" value="ok">Fertig</button></div>
+  </form>
+</dialog>
+
 <!-- Wünsche -->
 <dialog id="dlgWish">
   <form method="dialog" class="dlg">
     <h3>Wünsche und Regeln</h3>
-    <p class="hint">Links einen Schüler wählen, rechts eintragen. Alles wird sofort gespeichert. „Neben“ heißt direkt links oder rechts in derselben Reihe, auch am Nachbartisch.</p>
+    <p class="hint">Links einen Schüler wählen, rechts eintragen. Alles wird sofort gespeichert. „Neben“ heißt direkt links oder rechts in derselben Reihe, auch am Nachbartisch. Mit den Tasten W und M setzt du das Geschlecht und springst zum Nächsten.</p>
     <div class="wishgrid">
       <div class="wside">
         <input type="search" id="wSearch" placeholder="Name suchen" aria-label="Name suchen" autocomplete="off">
@@ -642,11 +692,15 @@ let S = null;              // gesamter Zustand
 let sel = new Set();       // markierte Tische
 let undoStack = [], redoStack = [];
 let px = 20, printing = false, saveOk = true, hintShown = false;
+let pick = new Set();                      // markierte Schüler im Modus „Schüler setzen“
+const DEF_COLORS = { w: '#f8d3dc', m: '#d3e3f8' };
+const gColor = st => S.colors && S.colors.on && (st.g === 'w' || st.g === 'm') ? S.colors[st.g] : '';
 const mode = () => S.mode === 'schueler' ? 'schueler' : 'tische';
 function setMode(m) {
   if (S.mode === m) return;
   S.mode = m;
   if (m === 'schueler') sel.clear();
+  pick.clear();
   persist(); renderPlans(); renderRoom(); renderTools();
 }
 
@@ -707,6 +761,7 @@ function normalize(p) {
   p.showFach = !!p.showFach;
   p.room.v = 3;
   p.students = Array.isArray(p.students) ? p.students.filter(s => s && s.id) : [];
+  p.students.forEach(s => { s.g = s.g === 'w' || s.g === 'm' ? s.g : ''; });
   cleanRules(p);
   if (ver < 3) p.view = 'pult';     // Lehrersicht ist Standard, ältere Pläne einmalig umstellen
   p.view = p.view === 'klasse' ? 'klasse' : 'pult';
@@ -734,12 +789,13 @@ function load() {
         if (!d.plans.some(p => p.id === d.current)) d.current = d.plans[0].id;
         d.nameMode = d.nameMode || 'vorname';
         d.mode = d.mode === 'schueler' ? 'schueler' : 'tische';
+        d.colors = Object.assign({ on: true }, DEF_COLORS, d.colors || {});
         return d;
       }
     }
   } catch (e) {}
   const p = makePlan('Meine Klasse');
-  return { version: 1, current: p.id, nameMode: 'vorname', mode: 'tische', plans: [p] };
+  return { version: 1, current: p.id, nameMode: 'vorname', mode: 'tische', colors: { on: true, ...DEF_COLORS }, plans: [p] };
 }
 function persist() {
   try { localStorage.setItem(STORE, JSON.stringify(S)); saveOk = true; }
@@ -978,12 +1034,13 @@ function renderSide() {
   if (total > seats) st += `<br><span class="miss">Es fehlen ${total - seats} Plätze.</span>`;
   $('#stats').innerHTML = st;
   renderWishSide(P);
+  renderColors(P);
   const list = unplaced(P).sort(byName);
   $('#poolCount').textContent = total ? list.length : '';
   const pool = $('#pool');
   if (!total) pool.innerHTML = `<div class="pool-empty">Lade oben eine CSV- oder Excel-Datei.<br>Oder tippe unten einzelne Namen ein.</div>`;
   else if (!list.length) pool.innerHTML = `<div class="pool-empty">Alle haben einen Platz.<br>Namen hierher ziehen, um sie vom Tisch zu nehmen.</div>`;
-  else pool.innerHTML = list.map(s => `<div class="chip" data-sid="${s.id}" title="Ziehen zum Setzen, Klick für Wünsche und Regeln"><span>${esc(s.first)} <b>${esc(s.last)}</b></span><button type="button" class="x" data-rm="${s.id}" aria-label="${esc(s.first)} ${esc(s.last)} aus der Klasse entfernen" title="Aus der Klasse entfernen">${icon('i-x')}</button></div>`).join('');
+  else pool.innerHTML = list.map(s => `<div class="chip" data-sid="${s.id}" title="Ziehen zum Setzen, Klick für Wünsche und Regeln">${gColor(s) ? `<span class="gd" style="--g:${gColor(s)}"></span>` : ''}<span>${esc(s.first)} <b>${esc(s.last)}</b></span><button type="button" class="x" data-rm="${s.id}" aria-label="${esc(s.first)} ${esc(s.last)} aus der Klasse entfernen" title="Aus der Klasse entfernen">${icon('i-x')}</button></div>`).join('');
 }
 function renderWishSide(P) {
   const ev = evaluate(P), R = P.rules, byId = new Map(P.students.map(s => [s.id, s]));
@@ -998,6 +1055,12 @@ function renderWishSide(P) {
   ev.clash.forEach(([a, b]) => issues.push(`<div class="issue bad">Regel verletzt: ${link(a)} sitzt neben ${link(b)}</div>`));
   if (ev.open.length) issues.push(`<div class="issue">Noch ohne erfüllten Wunsch: ${ev.open.map(link).join(', ')}</div>`);
   $('#wishIssues').innerHTML = issues.join('');
+}
+function renderColors(P) {
+  const C = S.colors;
+  $('#cOn').checked = !!C.on; $('#cW').value = C.w; $('#cM').value = C.m;
+  const w = P.students.filter(s => s.g === 'w').length, m = P.students.filter(s => s.g === 'm').length, o = P.students.length - w - m;
+  $('#gStats').innerHTML = !P.students.length ? '' : `${w} Mädchen, ${m} Jungen${o ? `, <button type="button" class="lnk" style="font-size:12px" data-gopen>${o} ohne Angabe</button>` : ''}`;
 }
 function renderSaveState() {
   $('#saveState').innerHTML = saveOk
@@ -1050,6 +1113,8 @@ function renderRoom() {
   room.classList.toggle('m-tische', mode() === 'tische');
   room.classList.toggle('m-schueler', mode() === 'schueler');
   const dupes = lastShort(P);
+  const seatedNow = placedIds(P);
+  pick = new Set([...pick].filter(id => seatedNow.has(id)));
   const ev = evaluate(P);
   const lockedSet = new Set(P.rules.locked);
   const clashSet = new Set(ev.clash.flat());
@@ -1099,7 +1164,7 @@ function renderRoom() {
       if (!st) return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span></div>`;
       const stat = ev.status.get(st.id);
       const tip = `${st.first} ${st.last}`.trim() + (stat === 'ok' ? ' · Wunsch erfüllt' : stat === 'open' ? ' · Wunsch noch offen' : '') + (lockedSet.has(st.id) ? ' · festgehalten' : '') + (clashSet.has(st.id) ? ' · Regel verletzt' : '');
-      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span><div class="name${clashSet.has(st.id) ? ' clash' : ''}" data-sid="${st.id}" title="${esc(tip)}">${lockedSet.has(st.id) ? '<svg class="lk"><use href="#i-lock"/></svg>' : ''}${stat ? `<span class="wd ${stat}"></span>` : ''}${nameHtml(st, dupes)}</div></div>`;
+      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span><div class="name${clashSet.has(st.id) ? ' clash' : ''}${pick.has(st.id) ? ' picked' : ''}${gColor(st) ? ' g' : ''}" data-sid="${st.id}"${gColor(st) ? ` style="--g:${gColor(st)}"` : ''} title="${esc(tip)}">${lockedSet.has(st.id) ? '<svg class="lk"><use href="#i-lock"/></svg>' : ''}${stat ? `<span class="wd ${stat}"></span>` : ''}${nameHtml(st, dupes)}</div></div>`;
     }).join('');
     h += `<div class="desk t-${d.type} f${face}${sel.has(d.id) ? ' sel' : ''}" data-id="${d.id}" style="${posStyle(s)}" title="${TYPES[d.type].label}">${inner}</div>`;
   }
@@ -1152,23 +1217,15 @@ room.addEventListener('pointerdown', e => {
   if (e.button !== 0) return;
   const nm = e.target.closest('.name');
   if (nm) {
-    const seat = nm.closest('.seat');
-    startNameDrag(e, { kind: 'seat', deskId: seat.dataset.desk, idx: +seat.dataset.idx, sid: nm.dataset.sid }, nm);
+    const seat = nm.closest('.seat'), sid = nm.dataset.sid;
+    if (e.shiftKey || e.metaKey || e.ctrlKey) { e.preventDefault(); pick.has(sid) ? pick.delete(sid) : pick.add(sid); renderPicks(); return; }
+    if (pick.has(sid) && pick.size > 1) { startGroupDrag(e, sid); return; }
+    if (pick.size) { pick.clear(); renderPicks(); }
+    startNameDrag(e, { kind: 'seat', deskId: seat.dataset.desk, idx: +seat.dataset.idx, sid }, nm);
     return;
   }
   const dk = e.target.closest('.desk');
-  if (mode() === 'schueler') {
-    if (!dk) return;
-    e.preventDefault();
-    const sx = e.clientX, sy = e.clientY;
-    track(e, () => {}, ev => {
-      if (!hintShown && Math.hypot(ev.clientX - sx, ev.clientY - sy) > 8) {
-        hintShown = true;
-        toast('Zum Verschieben der Tische oben auf „Tische stellen“ umschalten (Taste T).');
-      }
-    });
-    return;
-  }
+  if (mode() === 'schueler') { startNameLasso(e); return; }
   if (dk) { startDeskDrag(e, dk.dataset.id); return; }
   startLasso(e);
 });
@@ -1255,6 +1312,116 @@ function startLasso(e) {
 }
 
 /* Namen ziehen */
+/* Mehrere Schüler markieren und am Stück verschieben */
+function renderPicks() { room.querySelectorAll('.name').forEach(el => el.classList.toggle('picked', pick.has(el.dataset.sid))); }
+function startNameLasso(e) {
+  e.preventDefault();
+  const r = room.getBoundingClientRect(), ox = r.left + room.clientLeft, oy = r.top + room.clientTop;
+  const x0 = e.clientX, y0 = e.clientY, add = e.shiftKey || e.metaKey || e.ctrlKey;
+  const base = add ? new Set(pick) : new Set();
+  let lasso = null;
+  track(e, ev => {
+    if (!lasso) {
+      if (Math.hypot(ev.clientX - x0, ev.clientY - y0) < 4) return;
+      lasso = document.createElement('div'); lasso.className = 'lasso'; room.appendChild(lasso);
+    }
+    const L = Math.min(x0, ev.clientX), T = Math.min(y0, ev.clientY), W = Math.abs(ev.clientX - x0), H = Math.abs(ev.clientY - y0);
+    lasso.style.cssText = `left:${L - ox}px;top:${T - oy}px;width:${W}px;height:${H}px`;
+    pick = new Set(base);
+    room.querySelectorAll('.name').forEach(el => {
+      const b = el.getBoundingClientRect();
+      if (b.left < L + W && b.right > L && b.top < T + H && b.bottom > T) pick.add(el.dataset.sid);
+    });
+    renderPicks();
+  }, () => {
+    if (lasso) {
+      lasso.remove();
+      if (pick.size > 1 && !hintShown) { hintShown = true; toast(`${pick.size} Schüler markiert. Einen davon ziehen, die Gruppe wandert mit. Entf nimmt sie vom Platz.`); }
+    } else if (!add) { pick.clear(); renderPicks(); }
+  });
+}
+function startGroupDrag(e, anchorSid) {
+  e.preventDefault(); e.stopPropagation();
+  const P = cur(), G = seatGraph(P), seatOf = new Map();
+  G.seats.forEach(s => { const sid = s.desk.seats[s.idx]; if (sid) seatOf.set(sid, s); });
+  const group = [...pick].filter(sid => seatOf.has(sid));
+  const anchor = seatOf.get(anchorSid);
+  if (!anchor || group.length < 2) return;
+  const mid = s => [s.x + s.w / 2, s.y + s.h / 2];
+  // Zielplätze: dieselbe Form, verschoben um den Weg des gezogenen Namens
+  const planFor = t => {
+    const [ax, ay] = mid(anchor), [tx, ty] = mid(t), dx = tx - ax, dy = ty - ay, res = new Map(), used = new Set();
+    for (const sid of group) {
+      const [cx, cy] = mid(seatOf.get(sid));
+      let best = null, bd = Infinity;
+      for (const s of G.seats) { const [qx, qy] = mid(s), d = Math.hypot(qx - cx - dx, qy - cy - dy); if (d < bd) { bd = d; best = s; } }
+      if (!best || bd > 1.01 || used.has(best.key)) return null;
+      used.add(best.key); res.set(sid, best.key);
+    }
+    return res;
+  };
+  const seatEl = key => { const [d, i] = key.split(':'); return room.querySelector(`.seat[data-desk="${d}"][data-idx="${i}"]`); };
+  const els = group.map(sid => room.querySelector(`.name[data-sid="${sid}"]`)).filter(Boolean);
+  let ghost = null, target = null, lit = [];
+  const light = (keys, bad) => {
+    lit.forEach(el => el.classList.remove('hl', 'hlbad'));
+    lit = keys.map(seatEl).filter(Boolean);
+    lit.forEach(el => el.classList.add(bad ? 'hlbad' : 'hl'));
+  };
+  const sx = e.clientX, sy = e.clientY;
+  track(e, ev => {
+    if (!ghost) {
+      if (Math.hypot(ev.clientX - sx, ev.clientY - sy) < 4) return;
+      ghost = document.createElement('div'); ghost.className = 'ghost'; ghost.textContent = `${group.length} Schüler`;
+      document.body.appendChild(ghost); document.body.classList.add('dragging-name');
+      els.forEach(el => el.classList.add('lifted'));
+    }
+    ghost.style.transform = `translate(${ev.clientX}px,${ev.clientY}px) translate(-50%,-130%)`;
+    const el = document.elementFromPoint(ev.clientX, ev.clientY);
+    const seat = el && el.closest('.seat'), pool = el && el.closest('#pool');
+    $('#pool').classList.toggle('hl', !!pool);
+    if (seat) {
+      const t = G.seats.find(s => s.key === seat.dataset.desk + ':' + seat.dataset.idx);
+      const m = t && planFor(t);
+      target = m ? { kind: 'seats', map: m } : null;
+      light(m ? [...m.values()] : (t ? [t.key] : []), !m);
+    } else { light([], false); target = pool ? { kind: 'pool' } : null; }
+  }, (ev, cancel) => {
+    light([], false); $('#pool').classList.remove('hl');
+    document.body.classList.remove('dragging-name');
+    els.forEach(el => el.classList.remove('lifted'));
+    if (!ghost) { if (!cancel) openWishes(anchorSid); return; }
+    ghost.remove();
+    if (cancel || !target) return;
+    moveGroup(group, new Map(group.map(sid => [sid, seatOf.get(sid).key])), target);
+  });
+}
+function moveGroup(group, srcOf, t) {
+  S.mode = 'schueler';
+  mutate(P => {
+    const at = key => { const [d, i] = key.split(':'); return [P.desks.find(x => x.id === d), +i]; };
+    const get = key => { const [d, i] = at(key); return d ? d.seats[i] : null; };
+    const put = (key, v) => { const [d, i] = at(key); if (d) d.seats[i] = v; };
+    const src = group.map(sid => srcOf.get(sid));
+    if (t.kind === 'pool') { src.forEach(k => put(k, null)); pick.clear(); return; }
+    const tgt = group.map(sid => t.map.get(sid));
+    const srcSet = new Set(src), tgtSet = new Set(tgt);
+    const geo = new Map(seatGraph(P).seats.map(s => [s.key, s]));
+    const ord = (a, b) => (geo.get(a).y - geo.get(b).y) || (geo.get(a).x - geo.get(b).x);
+    // Wer auf den Zielplätzen sitzt, rückt in derselben Reihenfolge auf die frei gewordenen Plätze
+    const displaced = tgt.filter(k => !srcSet.has(k)).sort(ord).map(get);
+    const vacated = src.filter(k => !tgtSet.has(k)).sort(ord);
+    src.forEach(k => put(k, null));
+    group.forEach((sid, i) => put(tgt[i], sid));
+    vacated.forEach((k, i) => put(k, displaced[i] || null));
+  });
+}
+function unseatPicks() {
+  if (!pick.size) return;
+  const ids = new Set(pick);
+  mutate(P => P.desks.forEach(d => { d.seats = d.seats.map(x => x && ids.has(x) ? null : x); }));
+  pick.clear();
+}
 function startNameDrag(e, src, srcEl) {
   e.preventDefault(); e.stopPropagation();
   const P = cur(), st = P.students.find(s => s.id === src.sid);
@@ -1604,6 +1771,23 @@ function splitName(raw, fmt) {
   if (fmt === 'vn') return [parts.slice(0, -1).join(' '), parts[parts.length - 1]];
   return [parts.slice(1).join(' '), parts[0]];        // Nachname zuerst
 }
+const GENDER_V = /^(m|w|d|j|f|männlich|weiblich|divers|junge|mädchen|male|female)\.?$/i;
+const GENDER_H = /geschlecht|geschl|^\s*m\s*\/\s*w|^\s*w\s*\/\s*m|^\s*sex/i;
+function findGenderCol(rows, skip, hrow) {
+  if (hrow) { const i = hrow.findIndex(c => GENDER_H.test(String(c))); if (i >= 0) return i; }
+  const body = rows.slice(skip), ncol = rows.length ? Math.max(...rows.map(r => r.length)) : 0;
+  for (let i = 0; i < ncol; i++) {
+    const vals = body.map(r => cleanPart(r[i])).filter(Boolean);
+    if (vals.length >= 2 && vals.filter(v => GENDER_V.test(v)).length / vals.length > 0.8) return i;
+  }
+  return -1;
+}
+function parseGender(v) {
+  v = cleanPart(v).toLowerCase().replace(/\.$/, '');
+  if (/^(w|weiblich|mädchen|f|female)$/.test(v)) return 'w';
+  if (/^(m|männlich|junge|j|male)$/.test(v)) return 'm';
+  return '';
+}
 function autoMap(rows) {
   const ncol = rows.length ? Math.max(...rows.map(r => r.length)) : 0;
   const pref = (S && S.importFmt) || 'nv';
@@ -1622,8 +1806,10 @@ function autoMap(rows) {
   const header = fi >= 0 || li >= 0 || combo >= 0;
   const skip = header ? hi + 1 : 0;
   const body = rows.slice(skip);
+  const gi = findGenderCol(rows, skip, hi >= 0 ? rows[hi] : null);
   // 2. Spalten nach Form der Einträge bewerten
   const stat = Array.from({ length: ncol }, (_, i) => {
+    if (i === gi) return { name: 0, comma: 0, multi: 0, single: 0 };
     const vals = body.map(r => r[i]).filter(v => cleanPart(v));
     const sh = vals.map(nameShape);
     const n = vals.length || 1;
@@ -1635,23 +1821,23 @@ function autoMap(rows) {
     };
   });
   const commaOf = i => stat[i] && stat[i].comma > 0.5;
-  if (fi >= 0 && li >= 0) return { ncol, header, skip, mode: 'two', fi, li, col: li, fmt: pref };
-  if (combo >= 0) return { ncol, header, skip, mode: 'one', col: combo, fmt: commaOf(combo) ? 'n,v' : comboFmt, fi: -1, li: -1 };
+  if (fi >= 0 && li >= 0) return { ncol, header, skip, gi, mode: 'two', fi, li, col: li, fmt: pref };
+  if (combo >= 0) return { ncol, header, skip, gi, mode: 'one', col: combo, fmt: commaOf(combo) ? 'n,v' : comboFmt, fi: -1, li: -1 };
   // Eine „Name“-Spalte ohne eigene Vornamenspalte enthält meist beides
-  if (li >= 0 && fi < 0 && stat[li] && stat[li].multi > 0.5) return { ncol, header, skip, mode: 'one', col: li, fmt: commaOf(li) ? 'n,v' : pref, fi: -1, li: -1 };
+  if (li >= 0 && fi < 0 && stat[li] && stat[li].multi > 0.5) return { ncol, header, skip, gi, mode: 'one', col: li, fmt: commaOf(li) ? 'n,v' : pref, fi: -1, li: -1 };
   const best = (key, min) => { let bi = -1, bv = min; stat.forEach((st, i) => { if (st[key] > bv) { bv = st[key]; bi = i; } }); return bi; };
   const c = best('comma', 0.5);
-  if (c >= 0) return { ncol, header, skip, mode: 'one', col: c, fmt: 'n,v', fi: -1, li: -1 };
+  if (c >= 0) return { ncol, header, skip, gi, mode: 'one', col: c, fmt: 'n,v', fi: -1, li: -1 };
   const singles = stat.map((st, i) => [st.single, i]).filter(([v]) => v > 0.7).map(([, i]) => i);
   if (singles.length >= 2) {
     // Zwei getrennte Spalten: Schullisten führen den Nachnamen zuerst
     const L = li >= 0 ? li : singles.find(i => i !== fi), F = fi >= 0 ? fi : singles.find(i => i !== L);
-    if (L !== undefined && F !== undefined && L !== F) return { ncol, header, skip, mode: 'two', fi: F, li: L, col: L, fmt: pref };
+    if (L !== undefined && F !== undefined && L !== F) return { ncol, header, skip, gi, mode: 'two', fi: F, li: L, col: L, fmt: pref };
   }
   const m = best('multi', 0.5);
-  if (m >= 0) return { ncol, header, skip, mode: 'one', col: m, fmt: pref, fi: -1, li: -1 };
+  if (m >= 0) return { ncol, header, skip, gi, mode: 'one', col: m, fmt: pref, fi: -1, li: -1 };
   const any = best('name', 0);
-  return { ncol, header, skip, mode: 'one', col: Math.max(0, li >= 0 ? li : any), fmt: pref, fi: -1, li: -1 };
+  return { ncol, header, skip, gi, mode: 'one', col: Math.max(0, li >= 0 ? li : any), fmt: pref, fi: -1, li: -1 };
 }
 
 const imp = { rows: [], map: null, excluded: new Set(), sig: '' };
@@ -1671,7 +1857,7 @@ function impNames() {
     if (map.mode === 'two') { first = stripNoise(r[map.fi]); last = stripNoise(r[map.li]); }
     else [first, last] = splitName(r[map.col], map.fmt);
     if (!/\p{L}/u.test(first + last)) return;
-    out.push({ first, last, key: i });
+    out.push({ first, last, key: i, g: map.gi >= 0 ? parseGender(r[map.gi]) : '' });
   });
   return out.filter(n => !imp.excluded.has(n.key));
 }
@@ -1701,13 +1887,14 @@ function impRender() {
       ? `<label class="field">Vorname steht in<select id="mFi">${opts(map.fi)}</select></label>
          <label class="field">Nachname steht in<select id="mLi">${opts(map.li)}</select></label>`
       : `<label class="field">Namen stehen in<select id="mCol">${opts(map.col)}</select></label>`}
+    <label class="field">Geschlecht steht in<select id="mGi"><option value="-1" ${map.gi < 0 ? 'selected' : ''}>nicht in der Liste</option>${opts(map.gi)}</select></label>
     <label class="check"><input type="checkbox" id="mHead" ${map.header ? 'checked' : ''}> ${map.header && map.skip > 1 ? `Die ersten ${map.skip} Zeilen sind Titel und Überschrift` : 'Erste Zeile ist Überschrift'}</label>`;
   const names = impNames();
   $('#impPrevWrap').hidden = false;
   $('#impCount').innerHTML = names.length
     ? `${names.length} Namen erkannt, so werden sie übernommen: Vorname <b>Nachname</b>. Stimmt etwas nicht, oben den Aufbau ändern oder einzelne Einträge entfernen.`
     : 'Noch keine Namen erkannt. Oben den Aufbau und die Spalte prüfen.';
-  $('#impPrev').innerHTML = names.map(n => `<span class="pc">${esc(n.first)} <b>${esc(n.last)}</b><button type="button" data-ex="${n.key}" aria-label="Entfernen">${icon('i-x')}</button></span>`).join('');
+  $('#impPrev').innerHTML = names.map(n => `<span class="pc">${n.g ? `<span class="gd" style="--g:${S.colors[n.g]}"></span>` : ''}${esc(n.first)} <b>${esc(n.last)}</b><button type="button" data-ex="${n.key}" aria-label="Entfernen">${icon('i-x')}</button></span>`).join('');
   $('#impMode').hidden = !cur().students.length;
   $('#impOk').disabled = !names.length;
   $('#impOk').textContent = names.length ? `${names.length} Namen übernehmen` : 'Übernehmen';
@@ -1727,6 +1914,7 @@ $('#impMap').addEventListener('change', e => {
   if (t.id === 'mCol') m.col = +t.value;
   if (t.id === 'mFi') m.fi = +t.value;
   if (t.id === 'mLi') m.li = +t.value;
+  if (t.id === 'mGi') m.gi = +t.value;
   if (t.id === 'mHead') { m.header = t.checked; if (m.header && !m.skip) m.skip = 1; }
   impRender();
 });
@@ -1764,11 +1952,12 @@ $('#dlgImport').addEventListener('close', () => {
   const how = cur().students.length ? document.querySelector('input[name=impMode]:checked').value : 'replace';
   S.mode = 'schueler';
   mutate(P => {
-    const add = names.map(n => ({ id: uid(), first: n.first, last: n.last }));
+    const add = names.map(n => ({ id: uid(), first: n.first, last: n.last, g: n.g || '' }));
     if (how === 'replace') { P.students = add; P.rules = emptyRules(); P.desks.forEach(d => d.seats = d.seats.map(() => null)); }
     else P.students.push(...add);
   });
-  toast(`${names.length} Namen übernommen. Jetzt reinziehen oder „Zufällig“ drücken.`, true);
+  if (!names.some(n => n.g)) toast(`${names.length} Namen übernommen. In der Liste steht kein Geschlecht.`, false, { label: 'Mädchen und Jungen zuordnen', fn: openGender });
+  else toast(`${names.length} Namen übernommen, Mädchen und Jungen sind schon eingetragen.`, true);
 });
 function openImport() {
   $('#impText').value = ''; $('#impMsg').innerHTML = ''; $('#impFileName').textContent = '';
@@ -1924,6 +2113,68 @@ $('#dlgTpl').addEventListener('close', () => {
   toast(msg, true);
 });
 
+/* ---------- Mädchen und Jungen zuordnen ---------- */
+let genderSnap = null;
+function openGender() {
+  const P = cur();
+  if (!P.students.length) { toast('Erst die Klassenliste laden.'); return; }
+  genderSnap = JSON.stringify(S);
+  renderGender();
+  $('#dlgGender').showModal();
+  setTimeout(() => {
+    const first = [...document.querySelectorAll('#gList .grow')].find(r => !cur().students.find(s => s.id === r.dataset.sid).g) || $('#gList .grow');
+    first?.focus();
+  }, 30);
+}
+function renderGender(focusSid) {
+  const P = cur(), list = P.students.slice().sort(byFirst);
+  const w = list.filter(s => s.g === 'w').length, m = list.filter(s => s.g === 'm').length;
+  $('#gCount').innerHTML = `<span><b>${w}</b> Mädchen</span><span><b>${m}</b> Jungen</span><span><b>${list.length - w - m}</b> offen</span>`;
+  $('#gList').style.setProperty('--cw', S.colors.w);
+  $('#gList').style.setProperty('--cm', S.colors.m);
+  $('#gList').innerHTML = list.map(s => `<div class="grow" tabindex="0" data-sid="${s.id}">
+      <span class="gd" style="--g:${s.g ? S.colors[s.g] : 'transparent'}${s.g ? '' : ';box-shadow:inset 0 0 0 1px var(--sep-2)'}"></span>
+      <span class="gname">${esc(s.first)} <span class="muted">${esc(s.last)}</span></span>
+      <span class="seg small" role="group" aria-label="Geschlecht von ${esc(s.first)}">
+        <button type="button" data-set="w" aria-pressed="${s.g === 'w'}" tabindex="-1">Mädchen</button>
+        <button type="button" data-set="m" aria-pressed="${s.g === 'm'}" tabindex="-1">Junge</button>
+      </span></div>`).join('');
+  if (focusSid) $(`#gList .grow[data-sid="${focusSid}"]`)?.focus();
+}
+function setGender(sid, g, advance) {
+  const st = cur().students.find(s => s.id === sid); if (!st) return;
+  st.g = st.g === g && !advance ? '' : g;          // zweiter Klick auf dieselbe Wahl macht sie rückgängig
+  const rows = [...document.querySelectorAll('#gList .grow')].map(r => r.dataset.sid), i = rows.indexOf(sid);
+  const next = advance && i >= 0 && i < rows.length - 1 ? rows[i + 1] : sid;
+  persist(); renderGender(next); renderSide(); renderRoom();
+  $(`#gList .grow[data-sid="${next}"]`)?.scrollIntoView({ block: 'nearest' });
+}
+$('#gList').addEventListener('click', e => {
+  const b = e.target.closest('[data-set]'), row = e.target.closest('.grow');
+  if (row && b) setGender(row.dataset.sid, b.dataset.set, false);
+  else if (row) row.focus();
+});
+$('#dlgGender').addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const row = document.activeElement && document.activeElement.closest && document.activeElement.closest('.grow');
+  if (!row) return;
+  const k = e.key.toLowerCase();
+  if (k === 'w' || k === 'm') { e.preventDefault(); setGender(row.dataset.sid, k, true); return; }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    const sib = e.key === 'ArrowDown' ? row.nextElementSibling : row.previousElementSibling;
+    sib?.focus();
+  }
+});
+$('#dlgGender').addEventListener('close', () => {
+  if (genderSnap && JSON.stringify(S) !== genderSnap) {
+    undoStack.push(genderSnap); if (undoStack.length > 80) undoStack.shift();
+    redoStack = [];
+  }
+  genderSnap = null;
+  persist(); render();
+});
+
 /* ---------- Wünsche-Dialog ---------- */
 let wishSel = null, wishSnap = null;
 const byFirst = (a, b) => collator.compare(a.first || a.last, b.first || b.last) || collator.compare(a.last, b.last);
@@ -1935,7 +2186,7 @@ function openWishes(sid) {
   $('#wSearch').value = '';
   renderWishList(); renderWishEdit();
   $('#dlgWish').showModal();
-  setTimeout(() => $('#wList .wl.on')?.scrollIntoView({ block: 'nearest' }), 30);
+  setTimeout(() => { const on = $('#wList .wl.on'); on?.scrollIntoView({ block: 'nearest' }); on?.focus(); }, 30);
 }
 function renderWishList() {
   const P = cur(), R = P.rules, q = $('#wSearch').value.trim().toLocaleLowerCase('de');
@@ -1943,7 +2194,7 @@ function renderWishList() {
   $('#wList').innerHTML = list.map(s => {
     const n = (R.wish[s.id] || []).length + ((R.row[s.id] || []).length ? 1 : 0);
     const ap = R.apart.some(a => a.includes(s.id)), lk = R.locked.includes(s.id);
-    return `<button type="button" class="wl${s.id === wishSel ? ' on' : ''}" data-sid="${s.id}"><span>${esc(s.first)} <span class="muted">${esc(s.last)}</span></span><span class="badges">${n ? `<span class="b" title="${n} Wünsche">${n}</span>` : ''}${ap ? '<svg aria-label="hat eine Regel"><use href="#i-ban"/></svg>' : ''}${lk ? '<svg aria-label="festgehalten"><use href="#i-lock"/></svg>' : ''}</span></button>`;
+    return `<button type="button" class="wl${s.id === wishSel ? ' on' : ''}" data-sid="${s.id}"><span style="display:flex;align-items:center;gap:7px"><span class="gd" style="--g:${s.g ? S.colors[s.g] : 'transparent'}${s.g ? '' : ';box-shadow:inset 0 0 0 1px var(--sep-2)'}"></span><span>${esc(s.first)} <span class="muted">${esc(s.last)}</span></span></span><span class="badges">${n ? `<span class="b" title="${n} Wünsche">${n}</span>` : ''}${ap ? '<svg aria-label="hat eine Regel"><use href="#i-ban"/></svg>' : ''}${lk ? '<svg aria-label="festgehalten"><use href="#i-lock"/></svg>' : ''}</span></button>`;
   }).join('') || '<div class="pool-empty">Kein Name passt.</div>';
 }
 function renderWishEdit() {
@@ -1963,7 +2214,12 @@ function renderWishEdit() {
     + `<button type="button" class="wc${RW.size ? '' : ' on'}" data-row="egal">egal</button>`;
   const mutual = [...W].filter(id => fans.has(id));
   $('#wEdit').innerHTML = `
-    <div class="whead"><h4>${esc(st.first)} ${esc(st.last)}</h4><button type="button" class="btn icon tb" data-act="rename" title="Namen ändern" aria-label="Namen ändern">${icon('i-pen')}</button></div>
+    <div class="whead"><h4>${esc(st.first)} ${esc(st.last)}</h4><button type="button" class="btn icon tb" data-act="rename" title="Namen ändern" aria-label="Namen ändern">${icon('i-pen')}</button>
+      <div class="seg small" role="group" aria-label="Geschlecht" style="margin-left:auto">
+        <button type="button" data-g="w" aria-pressed="${st.g === 'w'}">Mädchen</button>
+        <button type="button" data-g="m" aria-pressed="${st.g === 'm'}">Junge</button>
+        <button type="button" data-g="" aria-pressed="${!st.g}">offen</button>
+      </div></div>
     <div><div class="wlab">Möchte neben</div>
       <div class="wchips">${others.map(o => `<button type="button" class="wc${W.has(o.id) ? ' on' : ''}${fans.has(o.id) ? ' fan' : ''}" data-wish="${o.id}">${label(o)}</button>`).join('')}</div>
       <div class="wnote">${fans.size ? `Möchten neben ${esc(st.first)} sitzen: ${[...fans].map(id => label(P.students.find(o => o.id === id))).join(', ')} (blau umrandet).` : 'Bisher wünscht sich niemand, neben ' + esc(st.first) + ' zu sitzen.'}${mutual.length ? ` Gegenseitig: ${mutual.map(id => label(P.students.find(o => o.id === id))).join(', ')}.` : ''}</div>
@@ -1977,6 +2233,18 @@ function renderWishEdit() {
 function wishChanged() {
   persist(); renderWishList(); renderWishEdit(); renderSide(); renderRoom();
 }
+$('#dlgWish').addEventListener('keydown', e => {
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (k !== 'w' && k !== 'm') return;
+  e.preventDefault();
+  const st = cur().students.find(s => s.id === wishSel); if (!st) return;
+  st.g = k;
+  const ids = [...document.querySelectorAll('#wList [data-sid]')].map(b => b.dataset.sid), i = ids.indexOf(wishSel);
+  if (i >= 0 && i < ids.length - 1) wishSel = ids[i + 1];
+  wishChanged();
+  const on = $('#wList .wl.on'); on?.scrollIntoView({ block: 'nearest' }); on?.focus();
+});
 $('#wList').addEventListener('click', e => {
   const b = e.target.closest('[data-sid]'); if (!b) return;
   wishSel = b.dataset.sid; renderWishList(); renderWishEdit();
@@ -1988,7 +2256,9 @@ $('#wSearch').addEventListener('input', () => {
 });
 $('#wEdit').addEventListener('click', async e => {
   const P = cur(), R = P.rules, me = wishSel, b = e.target.closest('button'); if (!b) return;
-  if (b.dataset.wish) {
+  if ('g' in b.dataset) {
+    const st = P.students.find(s => s.id === me); if (st) st.g = b.dataset.g;
+  } else if (b.dataset.wish) {
     const l = new Set(R.wish[me] || []);
     l.has(b.dataset.wish) ? l.delete(b.dataset.wish) : l.add(b.dataset.wish);
     if (l.size) R.wish[me] = [...l]; else delete R.wish[me];
@@ -2102,7 +2372,7 @@ function askText(title, label, value) {
 }
 
 /* ---------- Pläne ---------- */
-$('#planSel').addEventListener('change', e => { S.current = e.target.value; sel.clear(); persist(); render(); });
+$('#planSel').addEventListener('change', e => { S.current = e.target.value; sel.clear(); pick.clear(); persist(); render(); });
 $('#bNew').addEventListener('click', async () => {
   const name = await askText('Neuer Sitzplan', 'Name, zum Beispiel Klasse und Fach', '');
   if (!name) return;
@@ -2168,7 +2438,7 @@ $('#backupFile').addEventListener('change', async e => {
 
 /* ---------- Drucken ---------- */
 function doPrint() {
-  printing = true; sel.clear(); renderRoom();
+  printing = true; sel.clear(); pick.clear(); renderRoom();
   requestAnimationFrame(() => { window.print(); });
 }
 window.addEventListener('beforeprint', () => { if (!printing) { printing = true; renderRoom(); } });
@@ -2176,15 +2446,18 @@ window.addEventListener('afterprint', () => { printing = false; renderRoom(); })
 
 /* ---------- Toast ---------- */
 let toastTimer;
-function toast(msg, withUndo) {
-  const t = $('#toast');
+let toastAction = null;
+function toast(msg, withUndo, action) {
+  const t = $('#toast'), b = $('#toastBtn');
   $('#toastMsg').textContent = msg;
-  $('#toastBtn').hidden = !withUndo;
+  toastAction = action || (withUndo ? { label: 'Rückgängig', fn: undo } : null);
+  b.hidden = !toastAction;
+  if (toastAction) b.textContent = toastAction.label;
   t.classList.add('on');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('on'), withUndo ? 6000 : 4200);
+  toastTimer = setTimeout(() => t.classList.remove('on'), action ? 9000 : withUndo ? 6000 : 4200);
 }
-$('#toastBtn').addEventListener('click', () => { undo(); $('#toast').classList.remove('on'); });
+$('#toastBtn').addEventListener('click', () => { const a = toastAction; $('#toast').classList.remove('on'); if (a) a.fn(); });
 
 /* ---------- Knöpfe und Tasten ---------- */
 document.querySelectorAll('[data-cancel]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close('cancel')));
@@ -2204,6 +2477,15 @@ $('#bImport').addEventListener('click', openImport);
 $('#vKlasse').addEventListener('click', () => { if (flipped()) mutate(P => { P.view = 'klasse'; }); });
 $('#vPult').addEventListener('click', () => { if (!flipped()) mutate(P => { P.view = 'pult'; }); });
 $('#dRandom').addEventListener('click', () => distribute('random'));
+$('#bGender').addEventListener('click', openGender);
+$('#cOn').addEventListener('change', e => { S.colors.on = e.target.checked; persist(); render(); });
+$('#cW').addEventListener('input', e => { S.colors.w = e.target.value; persist(); renderRoom(); renderSide(); });
+$('#cM').addEventListener('input', e => { S.colors.m = e.target.value; persist(); renderRoom(); renderSide(); });
+$('#cReset').addEventListener('click', () => { Object.assign(S.colors, DEF_COLORS, { on: true }); persist(); render(); });
+$('#gStats').addEventListener('click', e => {
+  if (!e.target.closest('[data-gopen]')) return;
+  openGender();
+});
 $('#dWish').addEventListener('click', () => distribute('wish'));
 $('#bWishes').addEventListener('click', () => openWishes());
 $('#dRest').addEventListener('click', () => distribute('rest'));
@@ -2221,11 +2503,12 @@ document.addEventListener('keydown', e => {
   if (mod && k === 'd') { e.preventDefault(); duplicateSel(); return; }
   if (mod && k === 'p') { e.preventDefault(); doPrint(); return; }
   if (mod) return;
+  if ((e.key === 'Delete' || e.key === 'Backspace') && mode() === 'schueler' && pick.size) { e.preventDefault(); unseatPicks(); return; }
   if (e.key === 'Delete' || e.key === 'Backspace') { if (sel.size && mode() === 'tische') { e.preventDefault(); deleteSel(); } return; }
   if (k === 'r' && mode() === 'tische') { rotateSel(); return; }
   if (k === 't') { setMode('tische'); return; }
   if (k === 's') { setMode('schueler'); return; }
-  if (e.key === 'Escape') { sel.clear(); renderSelection(); return; }
+  if (e.key === 'Escape') { sel.clear(); pick.clear(); renderSelection(); renderPicks(); return; }
   const arrows = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
   if (arrows[e.key] && sel.size && mode() === 'tische') { e.preventDefault(); nudge(...arrows[e.key]); }
 });
