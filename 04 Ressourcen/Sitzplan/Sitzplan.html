@@ -239,6 +239,9 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 .prev .pc svg{width:12px;height:12px}
 .radios{display:flex;gap:18px;flex-wrap:wrap}
 .radios label{display:flex;gap:6px;align-items:center}
+.fields.aisle{padding:12px;border-radius:10px;background:var(--fill)}
+.fields.aisle[hidden]{display:none}
+.aisle-note{grid-column:1/-1;margin:0;color:var(--ink-2);font-size:12px}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .tile{position:relative;border-radius:12px;padding:8px 8px 10px;display:flex;flex-direction:column;gap:5px;box-shadow:0 0 0 1px var(--sep);transition:box-shadow .15s,background .15s}
 .tile:hover{box-shadow:0 0 0 1px var(--sep-2)}
@@ -454,9 +457,17 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
     <p class="hint">Ersetzt alle Schülertische. Danach lässt sich jeder Tisch einzeln verschieben. Gesetzte Schüler kommen zurück in die Liste.</p>
     <div class="fields">
       <label class="field">Plätze<input type="number" id="tplN" min="1" max="60" step="1"></label>
-      <label class="field">Tische für U und O
+      <label class="field">Tische für Mittelgang, U und O
         <select id="tplType"><option value="double">Doppeltische</option><option value="single">Einzeltische</option></select>
       </label>
+    </div>
+    <div class="fields aisle" id="aisleFields">
+      <label class="field">Plätze links vom Gang<input type="number" id="tplL" min="1" max="10" step="1" value="4"></label>
+      <label class="field">Plätze rechts vom Gang<input type="number" id="tplR" min="1" max="10" step="1" value="4"></label>
+      <label class="field">Breite des Gangs
+        <select id="tplGap"><option value="3">75 cm</option><option value="4" selected>1 m</option><option value="5">1,25 m</option><option value="6">1,50 m</option></select>
+      </label>
+      <p class="aisle-note">Links und rechts gelten vom Pult aus gesehen, also mit Blick in die Klasse.</p>
     </div>
     <div class="tiles" id="tplTiles"></div>
     <div class="actions">
@@ -657,10 +668,11 @@ function findFree(P, type, rot = 0) {
 }
 
 /* ---------- Anordnungen ---------- */
-function generate(R, kind, n, dtype) {
+function generate(R, kind, n, dtype, opt = {}) {
   n = clamp(n | 0 || 1, 1, 80);
   switch (kind) {
     case 'reihen': return genRows(R, n, 'double', 3, 5);
+    case 'gang':   return genAisle(R, n, dtype, opt.left || 4, opt.right || 4, opt.gap || 4);
     case 'einzel': return genRows(R, n, 'single', 2, 5);
     case 'u':      return genU(R, n, dtype);
     case 'o':      return genO(R, n, dtype);
@@ -683,6 +695,39 @@ function genRows(R, n, type, gapX, pitch) {
     for (let i = 0; i < c; i++) desks.push({ type, x: x0 + (off + i) * (L + gapX), y: FRONT + r * p, rot: 0 });
   }
   return { desks, h: Math.max(R.h, needH), seats: count * T.seats, fits: true };
+}
+/* Mittelgang: Plätze links und rechts vom Gang, gezählt vom Pult aus.
+   Das Modell ist aus Schülersicht angelegt, deshalb liegt „rechts vom Pult“ im Modell links. */
+function genAisle(R, n, type, teacherLeft, teacherRight, gap) {
+  const ml = clamp(teacherRight | 0, 1, 10), mr = clamp(teacherLeft | 0, 1, 10);
+  const per = ml + mr, rowsN = Math.ceil(n / per), seatW = TYPES.single.w;
+  const totalW = (ml + mr) * seatW + gap;
+  const W = Math.max(R.w, totalW + 2);
+  const x0 = Math.floor((W - totalW) / 2), ax = x0 + ml * seatW;
+  let p = 5;
+  while (p > 4 && FRONT + (rowsN - 1) * p + 3 > R.h) p--;
+  const needH = FRONT + (rowsN - 1) * p + 3;
+  const desks = [];
+  const side = (count, y, dir) => {
+    const pieces = [];
+    if (type === 'double') { for (let i = 0; i < Math.floor(count / 2); i++) pieces.push('double'); if (count % 2) pieces.push('single'); }
+    else for (let i = 0; i < count; i++) pieces.push('single');
+    let edge = dir < 0 ? ax : ax + gap;              // vom Gang nach außen, Einzeltisch landet außen
+    for (const t of pieces) {
+      const w = TYPES[t].w;
+      if (dir < 0) { edge -= w; desks.push({ type: t, x: edge, y, rot: 0 }); }
+      else { desks.push({ type: t, x: edge, y, rot: 0 }); edge += w; }
+    }
+  };
+  let left = n;
+  for (let r = 0; r < rowsN; r++) {
+    let cl = ml, cr = mr;
+    if (left < per) { cl = Math.min(ml, Math.ceil(left * ml / per)); cr = Math.min(mr, left - cl); cl = left - cr; }
+    const y = FRONT + r * p;
+    side(cl, y, -1); side(cr, y, 1);
+    left -= cl + cr;
+  }
+  return { desks, h: Math.max(R.h, needH), w: W, seats: n, fits: true };
 }
 function genU(R, n, type) {
   const T = TYPES[type], L = T.w, s = T.seats, cx = R.w / 2;
@@ -1465,6 +1510,7 @@ async function readXlsx(buf) {
 /* ---------- Anordnung-Dialog ---------- */
 const TPLS = [
   { k: 'reihen', t: 'Reihen', s: 'Doppeltische, zwei Gänge' },
+  { k: 'gang', t: 'Mittelgang', s: 'Plätze links und rechts frei wählbar' },
   { k: 'einzel', t: 'Einzeltische', s: 'mit Abstand, etwa für Arbeiten' },
   { k: 'u', t: 'U-Form', s: 'bei vielen Plätzen mit Innen-U' },
   { k: 'o', t: 'O-Form', s: 'alle sehen sich an' },
@@ -1473,27 +1519,40 @@ const TPLS = [
 ];
 let tplKind = 'reihen';
 function miniSvg(R, out) {
-  const H = out.h, W = R.w;
+  const H = out.h, W = out.w || R.w, f = flipped();
+  const r = (x, y, w, h, cls, extra = '') => {
+    if (f) { x = W - x - w; y = H - y - h; }
+    return `<rect class="${cls}" x="${x}" y="${y}" width="${w}" height="${h}"${extra}/>`;
+  };
   let s = `<svg viewBox="-1 -1 ${W + 2} ${H + 2}" aria-hidden="true"><rect class="mini-room" x="0" y="0" width="${W}" height="${H}"/>`;
-  s += `<rect class="mini-board" x="${(W - 16) / 2}" y="0" width="16" height=".8"/>`;
-  s += `<rect class="mini-desk" x="${Math.round(W / 2 - 3)}" y="2" width="6" height="3" style="opacity:.5"/>`;
-  out.desks.forEach(d => { const b = box(d); s += `<rect class="mini-desk" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}"/>`; });
+  s += r((W - 16) / 2, 0, 16, .8, 'mini-board');
+  s += r(Math.round(W / 2 - 3), 2, 6, 3, 'mini-desk', ' style="opacity:.5"');
+  out.desks.forEach(d => { const b = box(d); s += r(b.x, b.y, b.w, b.h, 'mini-desk'); });
   return s + '</svg>';
 }
+const tplOpts = () => ({ left: +$('#tplL').value || 4, right: +$('#tplR').value || 4, gap: +$('#tplGap').value || 4 });
 function renderTiles() {
   const R = { ...cur().room }, n = +$('#tplN').value || 28, dt = $('#tplType').value;
   $('#tplTiles').innerHTML = TPLS.map(t => {
-    const out = generate(R, t.k, n, dt);
+    const out = generate(R, t.k, n, dt, tplOpts());
     let fit;
     if (!out.fits) fit = `<span class="tf no">Nur ${out.seats} Plätze passen in den Raum</span>`;
+    else if ((out.w || R.w) > R.w) fit = `<span class="tf">${out.seats} Plätze, Raum wird ${fmtM(out.w)} m breit</span>`;
     else if (out.h > R.h) fit = `<span class="tf">${out.seats} Plätze, Raum wird ${fmtM(out.h)} m tief</span>`;
     else fit = `<span class="tf">${out.seats} Plätze</span>`;
     return `<label class="tile"><input type="radio" name="tpl" value="${t.k}" ${t.k === tplKind ? 'checked' : ''}>${miniSvg(R, out)}<span class="tt">${t.t}</span><span class="ts">${t.s}</span>${fit}</label>`;
   }).join('');
+  $('#aisleFields').hidden = tplKind !== 'gang';
 }
 $('#tplN').addEventListener('input', renderTiles);
 $('#tplType').addEventListener('change', renderTiles);
-$('#tplTiles').addEventListener('change', e => { if (e.target.name === 'tpl') tplKind = e.target.value; });
+['#tplL', '#tplR'].forEach(id => $(id).addEventListener('input', renderTiles));
+$('#tplGap').addEventListener('change', renderTiles);
+$('#tplTiles').addEventListener('change', e => {
+  if (e.target.name !== 'tpl') return;
+  tplKind = e.target.value;
+  $('#aisleFields').hidden = tplKind !== 'gang';
+});
 function openTemplate() {
   const P = cur();
   $('#tplN').value = P.students.length || seatList(P).length || 28;
@@ -1503,11 +1562,12 @@ function openTemplate() {
 $('#dlgTpl').addEventListener('close', () => {
   if ($('#dlgTpl').returnValue !== 'ok') return;
   const n = clamp(+$('#tplN').value || 28, 1, 80), dt = $('#tplType').value;
-  const P = cur(), out = generate({ ...P.room }, tplKind, n, dt);
-  const grow = out.h > P.room.h;
+  const P = cur(), out = generate({ ...P.room }, tplKind, n, dt, tplOpts());
+  const grow = out.h > P.room.h, growW = (out.w || P.room.w) > P.room.w;
   S.mode = 'tische';
   mutate(P => {
     P.room.h = out.h;
+    if (growW) P.room.w = out.w;
     let teacher = P.desks.find(d => d.type === 'teacher');
     const fresh = out.desks.map(materialize);
     if (!teacher) teacher = teacherDesk(P.room);
@@ -1518,6 +1578,8 @@ $('#dlgTpl').addEventListener('close', () => {
   const name = TPLS.find(t => t.k === tplKind).t;
   let msg = `${name} mit ${out.seats} Plätzen aufgestellt.`;
   if (!out.fits) msg = `${name}: Es passen nur ${out.seats} Plätze in diesen Raum.`;
+  if (tplKind === 'gang') msg = `Mittelgang mit ${+$('#tplL').value || 4} Plätzen links und ${+$('#tplR').value || 4} rechts (vom Pult aus), ${out.seats} Plätze.`;
+  if (growW) msg += ` Der Raum ist jetzt ${fmtM(out.w)} m breit.`;
   if (grow) msg += ` Der Raum ist jetzt ${fmtM(out.h)} m tief.`;
   toast(msg, true);
 });
