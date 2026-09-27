@@ -277,8 +277,21 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 
 .print-foot{display:none}
 /* Wünsche */
-:root{--ok:#34c759}
-@media (prefers-color-scheme:dark){:root{--ok:#30d158}}
+:root{--ok:#34c759;--teach:#5856d6}
+@media (prefers-color-scheme:dark){:root{--ok:#30d158;--teach:#7d7aff}}
+.tbox{border-radius:12px;padding:12px 12px 14px;display:flex;flex-direction:column;gap:14px;background:color-mix(in srgb,var(--teach) 6%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--teach) 28%,transparent)}
+.sbox{display:flex;flex-direction:column;gap:14px}
+.btitle{font-size:13px;font-weight:650;display:flex;align-items:baseline;gap:8px}
+.btitle span{font-size:12px;font-weight:400;color:var(--ink-3)}
+.tbox .btitle{color:var(--teach)}
+.wc.pair.on{background:var(--teach);color:#fff}
+.wc.tno.on{background:var(--warn);color:#fff}
+.tbox .wc.rowm.on{background:var(--teach);color:#fff}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ink-3);align-items:center}
+.legend .wc{height:20px;font-size:11.5px;padding:0 8px;pointer-events:none}
+.issue.ok{color:var(--ok);font-weight:500}
+.rules .check{font-weight:400;font-size:12.5px;align-items:flex-start;height:auto;line-height:1.4;margin:0 0 6px}
+.rules .check input{margin-top:2px}
 .name .wd{position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%}
 .name .wd.ok{background:var(--ok)}
 .name .wd.open{box-shadow:inset 0 0 0 1.5px var(--warn)}
@@ -462,10 +475,18 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
         <button class="btn primary wide" id="bImport"><svg class="i"><use href="#i-list"/></svg>Klassenliste laden</button>
       </section>
       <section>
-        <h2>Wünsche und Regeln</h2>
+        <h2>Wünsche der Schüler</h2>
         <p class="stats" id="wishStats"></p>
         <button class="btn wide" id="bWishes"><svg class="i"><use href="#i-heart"/></svg>Wünsche eintragen</button>
         <div class="issues" id="wishIssues"></div>
+      </section>
+      <section class="rules">
+        <h2>Deine Regeln <span class="count">gehen immer vor</span></h2>
+        <label class="check"><input type="checkbox" data-mix="noSingle"> Keine Reihe nur mit Mädchen oder nur mit Jungen</label>
+        <label class="check"><input type="checkbox" data-mix="noLone"> Niemand ist das einzige Mädchen oder der einzige Junge seiner Reihe</label>
+        <label class="check"><input type="checkbox" data-mix="mixedDesk"> An jedem Doppeltisch ein Mädchen und ein Junge</label>
+        <p class="stats" id="ruleStats" style="margin-top:6px"></p>
+        <div class="issues" id="ruleIssues"></div>
       </section>
       <section>
         <h2>Verteilen</h2>
@@ -606,7 +627,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 <dialog id="dlgWish">
   <form method="dialog" class="dlg">
     <h3>Wünsche und Regeln</h3>
-    <p class="hint">Links einen Schüler wählen, rechts eintragen. Alles wird sofort gespeichert. „Neben“ heißt direkt links oder rechts in derselben Reihe, auch am Nachbartisch. Mit den Tasten W und M setzt du das Geschlecht und springst zum Nächsten.</p>
+    <p class="hint">Links einen Schüler wählen, rechts eintragen. Oben stehen die Wünsche des Schülers, darunter deine Regeln, die immer vorgehen. „Neben“ heißt direkt links oder rechts in derselben Reihe, auch am Nachbartisch. Mit W und M setzt du das Geschlecht und springst zum Nächsten.</p>
     <div class="wishgrid">
       <div class="wside">
         <input type="search" id="wSearch" placeholder="Name suchen" aria-label="Name suchen" autocomplete="off">
@@ -717,7 +738,7 @@ function makePlan(name) {
   p.desks.push(...out.desks.map(materialize));
   return p;
 }
-function emptyRules() { return { wish: {}, row: {}, apart: [], locked: [] }; }
+function emptyRules() { return { wish: {}, row: {}, apart: [], pair: [], rowMust: {}, locked: [], mix: { noSingle: false, noLone: false, mixedDesk: false } }; }
 /* Wünsche und Regeln aufräumen: nur gültige Schüler, keine Selbstbezüge, keine Doppelten */
 function cleanRules(p) {
   const ids = new Set(p.students.map(s => s.id)), r = p.rules || {}, out = emptyRules();
@@ -726,17 +747,19 @@ function cleanRules(p) {
     const l = [...new Set(v.filter(x => ids.has(x) && x !== k))];
     if (l.length) out.wish[k] = l;
   }
-  for (const [k, v] of Object.entries(r.row || {})) {
+  for (const key of ['row', 'rowMust']) for (const [k, v] of Object.entries(r[key] || {})) {
     if (!ids.has(k) || !Array.isArray(v)) continue;
     const l = [...new Set(v.filter(x => x === 'last' || Number.isInteger(x)))];
-    if (l.length) out.row[k] = l;
+    if (l.length) out[key][k] = l;
   }
+  // Paare: „nie neben“ und „sitzt neben“ schließen sich aus, die zuletzt gesetzte Regel steht hinten
   const seen = new Set();
-  for (const a of r.apart || []) {
+  for (const key of ['pair', 'apart']) for (const a of r[key] || []) {
     if (!Array.isArray(a) || a.length !== 2 || a[0] === a[1] || !ids.has(a[0]) || !ids.has(a[1])) continue;
-    const key = [a[0], a[1]].sort().join('|');
-    if (!seen.has(key)) { seen.add(key); out.apart.push([a[0], a[1]]); }
+    const k2 = [a[0], a[1]].sort().join('|');
+    if (!seen.has(k2)) { seen.add(k2); out[key].push([a[0], a[1]]); }
   }
+  out.mix = { noSingle: !!(r.mix && r.mix.noSingle), noLone: !!(r.mix && r.mix.noLone), mixedDesk: !!(r.mix && r.mix.mixedDesk) };
   out.locked = [...new Set((r.locked || []).filter(x => ids.has(x)))];
   p.rules = out;
   return p;
@@ -1046,15 +1069,35 @@ function renderWishSide(P) {
   const ev = evaluate(P), R = P.rules, byId = new Map(P.students.map(s => [s.id, s]));
   const nm = id => { const s = byId.get(id); return s ? `${s.first} ${s.last ? s.last[0] + '.' : ''}`.trim() : ''; };
   const link = id => `<button type="button" class="lnk" data-wopen="${id}">${esc(nm(id))}</button>`;
-  const parts = [];
-  if (ev.people) parts.push(`<b>${ev.happy}</b> von <b>${ev.people}</b> mit mindestens einem erfüllten Wunsch<br><b>${ev.sat}</b> von <b>${ev.wishes}</b> Wünschen erfüllt`);
-  if (R.apart.length) parts.push(`${R.apart.length} ${R.apart.length === 1 ? 'Regel' : 'Regeln'} „nicht neben“`);
+  // Schülerwünsche
+  $('#wishStats').innerHTML = ev.people
+    ? `<b>${ev.happy}</b> von <b>${ev.people}</b> mit mindestens einem erfüllten Wunsch<br><b>${ev.sat}</b> von <b>${ev.wishes}</b> Wünschen erfüllt`
+    : (P.students.length ? 'Noch nichts eingetragen. Ein Klick auf einen Namen öffnet seine Wünsche.' : 'Erst die Klassenliste laden.');
+  $('#wishIssues').innerHTML = ev.open.length ? `<div class="issue">Noch ohne erfüllten Wunsch: ${ev.open.map(link).join(', ')}</div>` : '';
+  // Deine Regeln
+  document.querySelectorAll('[data-mix]').forEach(c => { c.checked = !!R.mix[c.dataset.mix]; });
+  const nRow = Object.keys(R.rowMust).length, parts = [];
+  if (R.pair.length) parts.push(`${R.pair.length} × sitzt neben`);
+  if (R.apart.length) parts.push(`${R.apart.length} × nie neben`);
+  if (nRow) parts.push(`${nRow} × feste Reihe`);
   if (R.locked.length) parts.push(`${R.locked.length} festgehalten`);
-  $('#wishStats').innerHTML = parts.length ? parts.join('<br>') : (P.students.length ? 'Noch nichts eingetragen. Ein Klick auf einen Namen öffnet seine Wünsche.' : 'Erst die Klassenliste laden.');
-  const issues = [];
-  ev.clash.forEach(([a, b]) => issues.push(`<div class="issue bad">Regel verletzt: ${link(a)} sitzt neben ${link(b)}</div>`));
-  if (ev.open.length) issues.push(`<div class="issue">Noch ohne erfüllten Wunsch: ${ev.open.map(link).join(', ')}</div>`);
-  $('#wishIssues').innerHTML = issues.join('');
+  $('#ruleStats').innerHTML = (parts.length ? parts.join(', ') + '. ' : '') + '<span style="color:var(--ink-3)">Regeln für einzelne Schüler per Klick auf den Namen.</span>';
+  const rowTxt = r => `Reihe ${r}`, gTxt = g => g === 'w' ? 'Mädchen' : 'Jungen';
+  const issues = ev.rules.map(v => {
+    if (v.t === 'apart') return `${link(v.ids[0])} sitzt neben ${link(v.ids[1])}, obwohl du das ausgeschlossen hast`;
+    if (v.t === 'pair') return `${link(v.ids[0])} sitzt nicht neben ${link(v.ids[1])}`;
+    if (v.t === 'row') return `${link(v.ids[0])} sitzt nicht in ${v.rows.map(x => x === 'last' ? 'der letzten Reihe' : rowTxt(x)).join(' oder ')}`;
+    if (v.t === 'single') return `${rowTxt(v.row)}: nur ${gTxt(v.g)}`;
+    if (v.t === 'lone') return `${rowTxt(v.row)}: ${link(v.ids[0])} ist ${v.g === 'w' ? 'das einzige Mädchen' : 'der einzige Junge'}`;
+    if (v.t === 'desk') return `Doppeltisch ${link(v.ids[0])} und ${link(v.ids[1])} ist nicht gemischt`;
+    return '';
+  }).map(t => `<div class="issue bad">${t}</div>`);
+  const anyRule = R.pair.length || R.apart.length || nRow || R.mix.noSingle || R.mix.noLone || R.mix.mixedDesk;
+  const seatedN = placedIds(P).size;
+  if (!issues.length && anyRule && seatedN) issues.push('<div class="issue ok">Alle deine Regeln sind eingehalten.</div>');
+  const noG = P.students.filter(s => !s.g).length;
+  if ((R.mix.noSingle || R.mix.noLone || R.mix.mixedDesk) && noG) issues.push(`<div class="issue">${noG} Schüler ohne Angabe zählen bei den Mädchen-und-Jungen-Regeln nicht mit. <button type="button" class="lnk" data-gopen2>Zuordnen</button></div>`);
+  $('#ruleIssues').innerHTML = issues.join('');
 }
 function renderColors(P) {
   const C = S.colors;
@@ -1117,7 +1160,7 @@ function renderRoom() {
   pick = new Set([...pick].filter(id => seatedNow.has(id)));
   const ev = evaluate(P);
   const lockedSet = new Set(P.rules.locked);
-  const clashSet = new Set(ev.clash.flat());
+  const clashSet = new Set(ev.rules.flatMap(v => v.ids || []));
   const byId = new Map(P.students.map(s => [s.id, s]));
   let h = '';
 
@@ -1589,11 +1632,54 @@ function seatGraph(P) {
 }
 const rowOk = (row, want, rows) => want.some(w => w === 'last' ? row === rows : w === row);
 
+/* Lehrerregeln prüfen. Liefert die Zahl der Verstöße, mit „out“ zusätzlich die Einzelheiten. */
+function ruleCtx(P, G) {
+  const R = P.rules;
+  return {
+    G, R, gOf: new Map(P.students.map(s => [s.id, s.g])),
+    rowMust: Object.entries(R.rowMust),
+    deskPairs: P.desks.filter(d => d.type === 'double').map(d => [d.id + ':0', d.id + ':1']),
+    any: R.apart.length || R.pair.length || Object.keys(R.rowMust).length || R.mix.noSingle || R.mix.noLone || R.mix.mixedDesk
+  };
+}
+function ruleViolations(ctx, seatOf, sidAt, out) {
+  const { G, R, gOf } = ctx; let n = 0;
+  const near = (a, b) => { const p = seatOf.get(a), q = seatOf.get(b); return !!(p && q && G.nb.get(p).has(q)); };
+  for (const [a, b] of R.apart) if (near(a, b)) { n++; out && out.push({ t: 'apart', ids: [a, b] }); }
+  for (const [a, b] of R.pair) if (seatOf.has(a) && seatOf.has(b) && !near(a, b)) { n++; out && out.push({ t: 'pair', ids: [a, b] }); }
+  for (const [sid, rows] of ctx.rowMust) {
+    const k = seatOf.get(sid);
+    if (k && !rowOk(G.rowOf.get(k), rows, G.rows)) { n++; out && out.push({ t: 'row', ids: [sid], rows }); }
+  }
+  if (R.mix.noSingle || R.mix.noLone) {
+    const cnt = new Map();
+    for (const [sid, k] of seatOf) {
+      const g = gOf.get(sid); if (g !== 'w' && g !== 'm') continue;
+      const r = G.rowOf.get(k); let c = cnt.get(r);
+      if (!c) cnt.set(r, c = { w: 0, m: 0, ws: [], ms: [] });
+      c[g]++; c[g + 's'].push(sid);
+    }
+    for (const [r, c] of cnt) {
+      if (R.mix.noSingle && c.w + c.m >= 2 && (!c.w || !c.m)) { n++; out && out.push({ t: 'single', row: r, g: c.w ? 'w' : 'm' }); }
+      if (R.mix.noLone) {
+        if (c.w === 1 && c.m >= 2) { n++; out && out.push({ t: 'lone', row: r, ids: c.ws, g: 'w' }); }
+        if (c.m === 1 && c.w >= 2) { n++; out && out.push({ t: 'lone', row: r, ids: c.ms, g: 'm' }); }
+      }
+    }
+  }
+  if (R.mix.mixedDesk) for (const [k1, k2] of ctx.deskPairs) {
+    const a = sidAt.get(k1), b = sidAt.get(k2); if (!a || !b) continue;
+    const ga = gOf.get(a), gb = gOf.get(b);
+    if (ga && gb && ga === gb) { n++; out && out.push({ t: 'desk', ids: [a, b] }); }
+  }
+  return n;
+}
+
 function evaluate(P, G = seatGraph(P)) {
-  const ids = new Set(P.students.map(s => s.id)), seatOf = new Map(), R = P.rules;
-  for (const s of G.seats) { const sid = s.desk.seats[s.idx]; if (sid) seatOf.set(sid, s.key); }
+  const ids = new Set(P.students.map(s => s.id)), seatOf = new Map(), sidAt = new Map(), R = P.rules;
+  for (const s of G.seats) { const sid = s.desk.seats[s.idx]; if (sid) { seatOf.set(sid, s.key); sidAt.set(s.key, sid); } }
   const near = (a, b) => { const x = seatOf.get(a), y = seatOf.get(b); return !!(x && y && G.nb.get(x).has(y)); };
-  const res = { wishes: 0, sat: 0, people: 0, happy: 0, open: [], clash: [], status: new Map() };
+  const res = { wishes: 0, sat: 0, people: 0, happy: 0, open: [], rules: [], status: new Map() };
   for (const st of P.students) {
     const W = (R.wish[st.id] || []).filter(x => ids.has(x)), RW = R.row[st.id] || [];
     if (!W.length && !RW.length) continue;
@@ -1603,15 +1689,16 @@ function evaluate(P, G = seatGraph(P)) {
     if (ok) res.happy++; else res.open.push(st.id);
     res.status.set(st.id, ok ? 'ok' : 'open');
   }
-  for (const [a, b] of R.apart) if (near(a, b)) res.clash.push([a, b]);
+  ruleViolations(ruleCtx(P, G), seatOf, sidAt, res.rules);
   return res;
 }
 
-/* Verteilung: Festgehaltene bleiben, deine „nicht neben“-Regeln sind hart.
-   Mit Wünschen zählt zuerst, dass jeder mindestens einen Wunsch erfüllt bekommt (1000 Punkte),
-   danach jeder weitere erfüllte Wunsch (10 Punkte). Leere Plätze landen möglichst hinten. */
+/* Verteilung: Festgehaltene bleiben. Deine Regeln gehen vor (jeder Verstoß kostet 1 000 000 Punkte).
+   Danach die Schülerwünsche: zuerst bekommt jeder mindestens einen (1000 Punkte), dann jeder weitere (10 Punkte).
+   Leere Plätze landen möglichst hinten. */
 function optimize(P, { useWishes, keepSeated }) {
   const G = seatGraph(P), R = P.rules, ids = new Set(P.students.map(s => s.id));
+  const ctx = ruleCtx(P, G);
   const locked = new Set(R.locked), fixed = new Map();
   for (const s of G.seats) { const sid = s.desk.seats[s.idx]; if (sid && (keepSeated || locked.has(sid))) fixed.set(s.key, sid); }
   const fixedSids = new Set(fixed.values());
@@ -1624,15 +1711,14 @@ function optimize(P, { useWishes, keepSeated }) {
     const w = (R.wish[s.id] || []).filter(x => ids.has(x)); if (w.length) W.set(s.id, w);
     const r = R.row[s.id]; if (r && r.length) RW.set(s.id, r);
   });
-  const apart = R.apart;
+  const wishers = [...new Set([...W.keys(), ...RW.keys()])];
   const score = a => {
-    const seatOf = new Map();
-    fixed.forEach((sid, k) => seatOf.set(sid, k));
-    for (let i = 0; i < a.length; i++) if (a[i] && slots[i]) seatOf.set(a[i], slots[i]);
+    const seatOf = new Map(), sidAt = new Map();
+    fixed.forEach((sid, k) => { seatOf.set(sid, k); sidAt.set(k, sid); });
+    for (let i = 0; i < a.length; i++) if (a[i] && slots[i]) { seatOf.set(a[i], slots[i]); sidAt.set(slots[i], a[i]); }
     const near = (x, y) => { const p = seatOf.get(x), q = seatOf.get(y); return p && q && G.nb.get(p).has(q); };
-    let sc = 0;
-    for (const [x, y] of apart) if (near(x, y)) sc -= 1e6;
-    for (const sid of new Set([...W.keys(), ...RW.keys()])) {
+    let sc = ctx.any ? -1e6 * ruleViolations(ctx, seatOf, sidAt, null) : 0;
+    for (const sid of wishers) {
       let ok = 0;
       const w = W.get(sid); if (w) for (const x of w) if (near(sid, x)) ok++;
       const r = RW.get(sid); if (r) { const k = seatOf.get(sid); if (k && rowOk(G.rowOf.get(k), r, G.rows)) ok++; }
@@ -1643,7 +1729,7 @@ function optimize(P, { useWishes, keepSeated }) {
   };
   let best = start(), bestS = score(best);
   const N = slots.length;
-  if (N > 1 && (W.size || RW.size || apart.length)) {
+  if (N > 1 && (wishers.length || ctx.any)) {
     const iters = Math.min(30000, 4000 + N * 700);
     for (let run = 0; run < 3; run++) {
       const a = run ? start() : best.slice();
@@ -1705,7 +1791,7 @@ function distribute(mode) {
   if ((mode === 'wish' || mode === 'rest') && ev.people) msg = `${mode === 'wish' ? 'Mit Wünschen verteilt' : 'Freie Plätze aufgefüllt'}: ${ev.happy} von ${ev.people} Schülern haben mindestens einen Wunsch erfüllt, insgesamt ${ev.sat} von ${ev.wishes} Wünschen.`;
   if (mode === 'wish' && !ev.people) msg = 'Zufällig verteilt. Es sind noch keine Wünsche eingetragen.';
   if (nLocked && mode !== 'rest') msg += nLocked === 1 ? ' Ein festgehaltener Schüler ist sitzen geblieben.' : ` ${nLocked} festgehaltene Schüler sind sitzen geblieben.`;
-  if (ev.clash.length) msg += ' Achtung: Nicht alle Regeln ließen sich einhalten, siehe links.';
+  if (ev.rules.length) msg += ev.rules.length === 1 ? ' Achtung: Eine deiner Regeln ließ sich nicht einhalten, siehe links.' : ` Achtung: ${ev.rules.length} deiner Regeln ließen sich nicht einhalten, siehe links.`;
   if (left) msg += ` ${left} Schüler haben keinen Platz, es fehlen Tische.`;
   toast(msg, true);
 }
@@ -1953,7 +2039,7 @@ $('#dlgImport').addEventListener('close', () => {
   S.mode = 'schueler';
   mutate(P => {
     const add = names.map(n => ({ id: uid(), first: n.first, last: n.last, g: n.g || '' }));
-    if (how === 'replace') { P.students = add; P.rules = emptyRules(); P.desks.forEach(d => d.seats = d.seats.map(() => null)); }
+    if (how === 'replace') { P.students = add; P.rules = { ...emptyRules(), mix: { ...P.rules.mix } }; P.desks.forEach(d => d.seats = d.seats.map(() => null)); }
     else P.students.push(...add);
   });
   if (!names.some(n => n.g)) toast(`${names.length} Namen übernommen. In der Liste steht kein Geschlecht.`, false, { label: 'Mädchen und Jungen zuordnen', fn: openGender });
@@ -2193,8 +2279,8 @@ function renderWishList() {
   const list = P.students.slice().sort(byFirst).filter(s => !q || `${s.first} ${s.last}`.toLocaleLowerCase('de').includes(q));
   $('#wList').innerHTML = list.map(s => {
     const n = (R.wish[s.id] || []).length + ((R.row[s.id] || []).length ? 1 : 0);
-    const ap = R.apart.some(a => a.includes(s.id)), lk = R.locked.includes(s.id);
-    return `<button type="button" class="wl${s.id === wishSel ? ' on' : ''}" data-sid="${s.id}"><span style="display:flex;align-items:center;gap:7px"><span class="gd" style="--g:${s.g ? S.colors[s.g] : 'transparent'}${s.g ? '' : ';box-shadow:inset 0 0 0 1px var(--sep-2)'}"></span><span>${esc(s.first)} <span class="muted">${esc(s.last)}</span></span></span><span class="badges">${n ? `<span class="b" title="${n} Wünsche">${n}</span>` : ''}${ap ? '<svg aria-label="hat eine Regel"><use href="#i-ban"/></svg>' : ''}${lk ? '<svg aria-label="festgehalten"><use href="#i-lock"/></svg>' : ''}</span></button>`;
+    const ap = R.apart.some(a => a.includes(s.id)) || R.pair.some(a => a.includes(s.id)) || !!(R.rowMust[s.id] || []).length, lk = R.locked.includes(s.id);
+    return `<button type="button" class="wl${s.id === wishSel ? ' on' : ''}" data-sid="${s.id}"><span style="display:flex;align-items:center;gap:7px"><span class="gd" style="--g:${s.g ? S.colors[s.g] : 'transparent'}${s.g ? '' : ';box-shadow:inset 0 0 0 1px var(--sep-2)'}"></span><span>${esc(s.first)} <span class="muted">${esc(s.last)}</span></span></span><span class="badges">${n ? `<span class="b" title="${n} Wünsche">${n}</span>` : ''}${ap ? '<svg aria-label="hat Lehrerregeln" style="color:var(--teach);opacity:1"><use href="#i-ban"/></svg>' : ''}${lk ? '<svg aria-label="festgehalten"><use href="#i-lock"/></svg>' : ''}</span></button>`;
   }).join('') || '<div class="pool-empty">Kein Name passt.</div>';
 }
 function renderWishEdit() {
@@ -2213,6 +2299,12 @@ function renderWishEdit() {
     + `<button type="button" class="wc${RW.has('last') ? ' on' : ''}" data-row="last">letzte Reihe</button>`
     + `<button type="button" class="wc${RW.size ? '' : ' on'}" data-row="egal">egal</button>`;
   const mutual = [...W].filter(id => fans.has(id));
+  const P2 = new Set(R.pair.filter(a => a.includes(st.id)).map(a => a[0] === st.id ? a[1] : a[0]));
+  const RM = new Set(R.rowMust[st.id] || []);
+  const rowMustChips = Array.from({ length: Math.min(G.rows, 10) }, (_, i) => i + 1)
+    .map(n => `<button type="button" class="wc rowm${RM.has(n) ? ' on' : ''}" data-rowmust="${n}">Reihe ${n}</button>`).join('')
+    + `<button type="button" class="wc rowm${RM.has('last') ? ' on' : ''}" data-rowmust="last">letzte Reihe</button>`
+    + `<button type="button" class="wc${RM.size ? '' : ' on'}" data-rowmust="egal">egal</button>`;
   $('#wEdit').innerHTML = `
     <div class="whead"><h4>${esc(st.first)} ${esc(st.last)}</h4><button type="button" class="btn icon tb" data-act="rename" title="Namen ändern" aria-label="Namen ändern">${icon('i-pen')}</button>
       <div class="seg small" role="group" aria-label="Geschlecht" style="margin-left:auto">
@@ -2220,15 +2312,21 @@ function renderWishEdit() {
         <button type="button" data-g="m" aria-pressed="${st.g === 'm'}">Junge</button>
         <button type="button" data-g="" aria-pressed="${!st.g}">offen</button>
       </div></div>
+    <div class="sbox"><div class="btitle">Wünsche von ${esc(st.first)}</div>
     <div><div class="wlab">Möchte neben</div>
       <div class="wchips">${others.map(o => `<button type="button" class="wc${W.has(o.id) ? ' on' : ''}${fans.has(o.id) ? ' fan' : ''}" data-wish="${o.id}">${label(o)}</button>`).join('')}</div>
-      <div class="wnote">${fans.size ? `Möchten neben ${esc(st.first)} sitzen: ${[...fans].map(id => label(P.students.find(o => o.id === id))).join(', ')} (blau umrandet).` : 'Bisher wünscht sich niemand, neben ' + esc(st.first) + ' zu sitzen.'}${mutual.length ? ` Gegenseitig: ${mutual.map(id => label(P.students.find(o => o.id === id))).join(', ')}.` : ''}</div>
+      <div class="wnote">${fans.size ? `Möchten neben ${esc(st.first)} sitzen: ${[...fans].map(id => label(P.students.find(o => o.id === id))).join(', ')} (blau umrandet).` : 'Bisher wünscht sich niemand, neben ' + esc(st.first) + ' zu sitzen.'}${mutual.length ? ` Gegenseitig: ${mutual.map(id => label(P.students.find(o => o.id === id))).join(', ')}.` : ''}${[...W].filter(id => A.has(id)).length ? `<br><span style="color:var(--warn)">Der Wunsch neben ${[...W].filter(id => A.has(id)).map(id => label(P.students.find(o => o.id === id))).join(', ')} widerspricht deiner Regel und wird nicht erfüllt.</span>` : ''}</div>
     </div>
     <div><div class="wlab">Reihe <span>Reihe 1 ist an der Tafel. Mehrere gewählt heißt: eine davon.</span></div><div class="wchips">${rowChips}</div></div>
-    <div><div class="wlab">Nicht neben <span>deine Regel, gilt bei jeder Verteilung</span></div>
-      <div class="wchips">${others.map(o => `<button type="button" class="wc no${A.has(o.id) ? ' on' : ''}" data-apart="${o.id}">${label(o)}</button>`).join('')}</div>
     </div>
-    <label class="check" style="height:auto"><input type="checkbox" id="wLock" ${locked ? 'checked' : ''} ${seated || locked ? '' : 'disabled'}> Platz festhalten <span style="color:var(--ink-3);font-weight:400">${seated ? 'bleibt beim Verteilen sitzen' : 'erst auf einen Platz ziehen'}</span></label>`;
+    <div class="tbox"><div class="btitle">Deine Regeln für ${esc(st.first)} <span>gehen immer vor</span></div>
+    <div><div class="wlab">Sitzt neben oder nie neben</div>
+      <div class="legend"><span>Ein Klick:</span><span class="wc pair on">sitzt neben</span><span>zweiter Klick:</span><span class="wc tno on">nie neben</span><span>dritter Klick: keine Regel</span></div>
+      <div class="wchips" style="margin-top:8px">${others.map(o => { const t = P2.has(o.id) ? ' pair on' : A.has(o.id) ? ' tno on' : ''; return `<button type="button" class="wc${t}" data-trule="${o.id}">${label(o)}</button>`; }).join('')}</div>
+    </div>
+    <div><div class="wlab">Muss sitzen in <span>zum Beispiel vorne wegen der Tafel</span></div><div class="wchips">${rowMustChips}</div></div>
+    <label class="check" style="height:auto"><input type="checkbox" id="wLock" ${locked ? 'checked' : ''} ${seated || locked ? '' : 'disabled'}> Platz festhalten <span style="color:var(--ink-3);font-weight:400">${seated ? 'bleibt beim Verteilen sitzen' : 'erst auf einen Platz ziehen'}</span></label>
+    </div>`;
 }
 function wishChanged() {
   persist(); renderWishList(); renderWishEdit(); renderSide(); renderRoom();
@@ -2262,9 +2360,21 @@ $('#wEdit').addEventListener('click', async e => {
     const l = new Set(R.wish[me] || []);
     l.has(b.dataset.wish) ? l.delete(b.dataset.wish) : l.add(b.dataset.wish);
     if (l.size) R.wish[me] = [...l]; else delete R.wish[me];
-  } else if (b.dataset.apart) {
-    const o = b.dataset.apart, i = R.apart.findIndex(a => a.includes(me) && a.includes(o));
-    if (i >= 0) R.apart.splice(i, 1); else R.apart.push([me, o]);
+  } else if (b.dataset.trule) {
+    // keine Regel → sitzt neben → nie neben → keine Regel
+    const o = b.dataset.trule, has = l => l.findIndex(a => a.includes(me) && a.includes(o));
+    const ip = has(R.pair), ia = has(R.apart);
+    if (ip >= 0) { R.pair.splice(ip, 1); R.apart.push([me, o]); }
+    else if (ia >= 0) R.apart.splice(ia, 1);
+    else R.pair.push([me, o]);
+  } else if (b.dataset.rowmust) {
+    const v = b.dataset.rowmust;
+    if (v === 'egal') delete R.rowMust[me];
+    else {
+      const l = new Set(R.rowMust[me] || []), key = v === 'last' ? 'last' : +v;
+      l.has(key) ? l.delete(key) : l.add(key);
+      if (l.size) R.rowMust[me] = [...l]; else delete R.rowMust[me];
+    }
   } else if (b.dataset.row) {
     const v = b.dataset.row;
     if (v === 'egal') delete R.row[me];
@@ -2478,6 +2588,14 @@ $('#vKlasse').addEventListener('click', () => { if (flipped()) mutate(P => { P.v
 $('#vPult').addEventListener('click', () => { if (!flipped()) mutate(P => { P.view = 'pult'; }); });
 $('#dRandom').addEventListener('click', () => distribute('random'));
 $('#bGender').addEventListener('click', openGender);
+document.querySelectorAll('[data-mix]').forEach(c => c.addEventListener('change', () => {
+  const k = c.dataset.mix, v = c.checked;
+  mutate(P => { P.rules.mix[k] = v; });
+}));
+$('#ruleIssues').addEventListener('click', e => {
+  const b = e.target.closest('[data-wopen]'); if (b) { openWishes(b.dataset.wopen); return; }
+  if (e.target.closest('[data-gopen2]')) openGender();
+});
 $('#cOn').addEventListener('change', e => { S.colors.on = e.target.checked; persist(); render(); });
 $('#cW').addEventListener('input', e => { S.colors.w = e.target.value; persist(); renderRoom(); renderSide(); });
 $('#cM').addEventListener('input', e => { S.colors.m = e.target.value; persist(); renderRoom(); renderSide(); });
