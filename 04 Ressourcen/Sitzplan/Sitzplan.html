@@ -275,6 +275,46 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 .toast button{border:0;background:none;color:#64b5ff;font-weight:600;padding:0;white-space:nowrap}
 
 .print-foot{display:none}
+/* Wünsche */
+:root{--ok:#34c759}
+@media (prefers-color-scheme:dark){:root{--ok:#30d158}}
+.name .wd{position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%}
+.name .wd.ok{background:var(--ok)}
+.name .wd.open{box-shadow:inset 0 0 0 1.5px var(--warn)}
+.name .lk{position:absolute;top:2px;left:2px;width:9px;height:9px;fill:none;stroke:var(--ink-3);stroke-width:2.4;stroke-linecap:round}
+.name.clash{background:var(--warn-soft);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.issues{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.issue{font-size:12px;line-height:1.45;color:var(--ink-2)}
+.issue.bad{color:var(--warn);font-weight:500}
+.issue .lnk{border:0;background:none;padding:0;color:var(--accent);font:inherit;cursor:pointer}
+.issue .lnk:hover{text-decoration:underline}
+#dlgWish{max-width:min(920px,calc(100vw - 32px))}
+.wishgrid{display:grid;grid-template-columns:220px 1fr;gap:18px;min-height:0}
+.wside{display:flex;flex-direction:column;gap:8px;min-height:0}
+.wside input{height:28px;border:0;border-radius:7px;padding:0 9px;background:var(--panel);box-shadow:inset 0 0 0 .5px var(--sep-2)}
+.wlist{display:flex;flex-direction:column;gap:1px;max-height:min(58vh,520px);overflow:auto;padding:2px;border-radius:10px;background:var(--fill)}
+.wl{display:flex;justify-content:space-between;align-items:center;gap:6px;border:0;background:transparent;text-align:left;padding:6px 8px;border-radius:7px}
+.wl:hover{background:var(--fill)}
+.wl.on{background:var(--accent);color:var(--accent-ink)}
+.wl.on .muted{color:inherit;opacity:.8}
+.wl .muted{color:var(--ink-3)}
+.wl .badges{display:flex;gap:4px;align-items:center;flex:none}
+.wl .b{font-size:11px;font-weight:600;min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--accent);padding:0 5px}
+.wl.on .b{background:rgba(255,255,255,.25);color:inherit}
+.wl svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;opacity:.7}
+.wedit{display:flex;flex-direction:column;gap:16px;min-width:0;max-height:min(64vh,580px);overflow:auto;padding-right:4px}
+.whead{display:flex;align-items:center;gap:10px}
+.whead h4{margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em}
+.wlab{font-size:12px;font-weight:600;color:var(--ink-2);margin-bottom:7px}
+.wlab span{font-weight:400;color:var(--ink-3)}
+.wchips{display:flex;flex-wrap:wrap;gap:5px}
+.wc{border:0;border-radius:14px;height:26px;padding:0 11px;background:var(--fill);color:var(--ink);font-weight:500;font-size:12.5px;transition:background .12s,box-shadow .12s}
+.wc:hover{background:var(--fill-2)}
+.wc.on{background:var(--accent);color:var(--accent-ink)}
+.wc.fan:not(.on){box-shadow:inset 0 0 0 1.5px var(--accent-line)}
+.wc.no.on{background:var(--warn);color:#fff}
+.wnote{font-size:12px;color:var(--ink-3);margin-top:7px;line-height:1.45}
+@media (max-width:860px){.wishgrid{grid-template-columns:1fr}.wlist{max-height:180px}}
 .planhead{
   display:flex;align-items:baseline;gap:12px;width:100%;border:0;background:none;margin:0 0 12px;padding:2px 4px;
   text-align:left;color:inherit;border-radius:8px;transition:background .15s;
@@ -315,6 +355,8 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   .planhead{padding:0;margin:0 0 14px}
   .ph-hint{display:none}
   .ph-meta{display:inline;color:#444}
+  .name .wd,.name .lk{display:none}
+  .name.clash{background:none;box-shadow:none}
   .print-foot{display:block;margin-top:12px;font-size:11px;color:#444}
 }
 </style>
@@ -343,7 +385,9 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
-  <symbol id="i-lock"viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
 </svg>
 
 <header class="bar">
@@ -390,10 +434,17 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
         <button class="btn primary wide" id="bImport"><svg class="i"><use href="#i-list"/></svg>Klassenliste laden</button>
       </section>
       <section>
+        <h2>Wünsche und Regeln</h2>
+        <p class="stats" id="wishStats"></p>
+        <button class="btn wide" id="bWishes"><svg class="i"><use href="#i-heart"/></svg>Wünsche eintragen</button>
+        <div class="issues" id="wishIssues"></div>
+      </section>
+      <section>
         <h2>Verteilen</h2>
+        <button class="btn wide" id="dWish" style="margin-bottom:6px" title="Zufällig verteilen und dabei möglichst viele Wünsche erfüllen. Zuerst bekommt jeder einen Wunsch. Deine Regeln gelten immer."><svg class="i"><use href="#i-heart"/></svg>Mit Wünschen verteilen</button>
         <div class="two">
-          <button class="btn" id="dRandom" title="Alle Schüler neu und zufällig setzen"><svg class="i"><use href="#i-shuffle"/></svg>Zufällig</button>
-          <button class="btn" id="dRest" title="Nur die noch nicht gesetzten Schüler zufällig auf freie Plätze"><svg class="i"><use href="#i-fill"/></svg>Rest</button>
+          <button class="btn" id="dRandom" title="Alle neu und zufällig setzen. Festgehaltene bleiben sitzen, deine Regeln gelten."><svg class="i"><use href="#i-shuffle"/></svg>Zufällig</button>
+          <button class="btn" id="dRest" title="Nur die noch nicht gesetzten Schüler auf freie Plätze, mit Wünschen"><svg class="i"><use href="#i-fill"/></svg>Rest</button>
           <button class="btn" id="dAlpha" title="Alphabetisch von vorne nach hinten"><svg class="i"><use href="#i-sort"/></svg>A bis Z</button>
           <button class="btn" id="dClear" title="Alle zurück in die Liste"><svg class="i"><use href="#i-clear"/></svg>Abräumen</button>
         </div>
@@ -423,6 +474,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
         <li>Doppelklick oder <kbd>R</kbd>: drehen</li>
         <li>Auf freier Fläche ziehen: mehrere markieren</li>
         <li>Name auf besetzten Platz: die beiden tauschen</li>
+        <li>Klick auf einen Namen: Wünsche und Regeln</li>
         <li><kbd>⌘Z</kbd> rückgängig, <kbd>Entf</kbd> entfernen</li>
       </ul>
     </div>
@@ -496,6 +548,22 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       <button type="button" class="btn" data-cancel>Abbrechen</button>
       <button class="btn primary" value="ok">Anordnung übernehmen</button>
     </div>
+  </form>
+</dialog>
+
+<!-- Wünsche -->
+<dialog id="dlgWish">
+  <form method="dialog" class="dlg">
+    <h3>Wünsche und Regeln</h3>
+    <p class="hint">Links einen Schüler wählen, rechts eintragen. Alles wird sofort gespeichert. „Neben“ heißt direkt links oder rechts in derselben Reihe, auch am Nachbartisch.</p>
+    <div class="wishgrid">
+      <div class="wside">
+        <input type="search" id="wSearch" placeholder="Name suchen" aria-label="Name suchen" autocomplete="off">
+        <div class="wlist" id="wList"></div>
+      </div>
+      <div class="wedit" id="wEdit"></div>
+    </div>
+    <div class="actions"><button class="btn primary" value="ok">Fertig</button></div>
   </form>
 </dialog>
 
@@ -587,11 +655,35 @@ function makePlan(name) {
     id: uid(), name, created: Date.now(), view: 'pult',
     room: { w:36, h:30, window:'keine', door:{ wall:'none', pos:.1 }, v:3 },
     students: [], desks: [],
-    rules: { apart: [], together: [], row: {} }   // für Wünsche und Regeln (nächster Ausbauschritt)
+    rules: emptyRules()
   };
   p.desks.push(teacherDesk(p.room));
   const out = generate(p.room, 'reihen', 28, 'double');
   p.desks.push(...out.desks.map(materialize));
+  return p;
+}
+function emptyRules() { return { wish: {}, row: {}, apart: [], locked: [] }; }
+/* Wünsche und Regeln aufräumen: nur gültige Schüler, keine Selbstbezüge, keine Doppelten */
+function cleanRules(p) {
+  const ids = new Set(p.students.map(s => s.id)), r = p.rules || {}, out = emptyRules();
+  for (const [k, v] of Object.entries(r.wish || {})) {
+    if (!ids.has(k) || !Array.isArray(v)) continue;
+    const l = [...new Set(v.filter(x => ids.has(x) && x !== k))];
+    if (l.length) out.wish[k] = l;
+  }
+  for (const [k, v] of Object.entries(r.row || {})) {
+    if (!ids.has(k) || !Array.isArray(v)) continue;
+    const l = [...new Set(v.filter(x => x === 'last' || Number.isInteger(x)))];
+    if (l.length) out.row[k] = l;
+  }
+  const seen = new Set();
+  for (const a of r.apart || []) {
+    if (!Array.isArray(a) || a.length !== 2 || a[0] === a[1] || !ids.has(a[0]) || !ids.has(a[1])) continue;
+    const key = [a[0], a[1]].sort().join('|');
+    if (!seen.has(key)) { seen.add(key); out.apart.push([a[0], a[1]]); }
+  }
+  out.locked = [...new Set((r.locked || []).filter(x => ids.has(x)))];
+  p.rules = out;
   return p;
 }
 function teacherDesk(R) { return { id: uid(), type:'teacher', x: Math.round(R.w / 2 - 3), y: 2, rot: 180, seats: [] }; }
@@ -614,7 +706,7 @@ function normalize(p) {
   p.showFach = !!p.showFach;
   p.room.v = 3;
   p.students = Array.isArray(p.students) ? p.students.filter(s => s && s.id) : [];
-  p.rules = Object.assign({ apart: [], together: [], row: {} }, p.rules || {});
+  cleanRules(p);
   if (ver < 3) p.view = 'pult';     // Lehrersicht ist Standard, ältere Pläne einmalig umstellen
   p.view = p.view === 'klasse' ? 'klasse' : 'pult';
   const ids = new Set(p.students.map(s => s.id));
@@ -884,12 +976,27 @@ function renderSide() {
     : `Noch keine Klassenliste. <b>${seats}</b> Plätze im Raum.`;
   if (total > seats) st += `<br><span class="miss">Es fehlen ${total - seats} Plätze.</span>`;
   $('#stats').innerHTML = st;
+  renderWishSide(P);
   const list = unplaced(P).sort(byName);
   $('#poolCount').textContent = total ? list.length : '';
   const pool = $('#pool');
   if (!total) pool.innerHTML = `<div class="pool-empty">Lade oben eine CSV- oder Excel-Datei.<br>Oder tippe unten einzelne Namen ein.</div>`;
   else if (!list.length) pool.innerHTML = `<div class="pool-empty">Alle haben einen Platz.<br>Namen hierher ziehen, um sie vom Tisch zu nehmen.</div>`;
-  else pool.innerHTML = list.map(s => `<div class="chip" data-sid="${s.id}" title="Ziehen zum Setzen, Doppelklick zum Umbenennen"><span>${esc(s.first)} <b>${esc(s.last)}</b></span><button type="button" class="x" data-rm="${s.id}" aria-label="${esc(s.first)} ${esc(s.last)} aus der Klasse entfernen" title="Aus der Klasse entfernen">${icon('i-x')}</button></div>`).join('');
+  else pool.innerHTML = list.map(s => `<div class="chip" data-sid="${s.id}" title="Ziehen zum Setzen, Klick für Wünsche und Regeln"><span>${esc(s.first)} <b>${esc(s.last)}</b></span><button type="button" class="x" data-rm="${s.id}" aria-label="${esc(s.first)} ${esc(s.last)} aus der Klasse entfernen" title="Aus der Klasse entfernen">${icon('i-x')}</button></div>`).join('');
+}
+function renderWishSide(P) {
+  const ev = evaluate(P), R = P.rules, byId = new Map(P.students.map(s => [s.id, s]));
+  const nm = id => { const s = byId.get(id); return s ? `${s.first} ${s.last ? s.last[0] + '.' : ''}`.trim() : ''; };
+  const link = id => `<button type="button" class="lnk" data-wopen="${id}">${esc(nm(id))}</button>`;
+  const parts = [];
+  if (ev.people) parts.push(`<b>${ev.happy}</b> von <b>${ev.people}</b> mit mindestens einem erfüllten Wunsch<br><b>${ev.sat}</b> von <b>${ev.wishes}</b> Wünschen erfüllt`);
+  if (R.apart.length) parts.push(`${R.apart.length} ${R.apart.length === 1 ? 'Regel' : 'Regeln'} „nicht neben“`);
+  if (R.locked.length) parts.push(`${R.locked.length} festgehalten`);
+  $('#wishStats').innerHTML = parts.length ? parts.join('<br>') : (P.students.length ? 'Noch nichts eingetragen. Ein Klick auf einen Namen öffnet seine Wünsche.' : 'Erst die Klassenliste laden.');
+  const issues = [];
+  ev.clash.forEach(([a, b]) => issues.push(`<div class="issue bad">Regel verletzt: ${link(a)} sitzt neben ${link(b)}</div>`));
+  if (ev.open.length) issues.push(`<div class="issue">Noch ohne erfüllten Wunsch: ${ev.open.map(link).join(', ')}</div>`);
+  $('#wishIssues').innerHTML = issues.join('');
 }
 function renderSaveState() {
   $('#saveState').innerHTML = saveOk
@@ -942,6 +1049,9 @@ function renderRoom() {
   room.classList.toggle('m-tische', mode() === 'tische');
   room.classList.toggle('m-schueler', mode() === 'schueler');
   const dupes = lastShort(P);
+  const ev = evaluate(P);
+  const lockedSet = new Set(P.rules.locked);
+  const clashSet = new Set(ev.clash.flat());
   const byId = new Map(P.students.map(s => [s.id, s]));
   let h = '';
 
@@ -985,7 +1095,10 @@ function renderRoom() {
     if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px > 15 ? 'Lehrertisch' : 'L'}</span>`;
     else inner = d.seats.map((sid, i) => {
       const st = sid && byId.get(sid);
-      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span>${st ? `<div class="name" data-sid="${st.id}" title="${esc(st.first)} ${esc(st.last)}">${nameHtml(st, dupes)}</div>` : ''}</div>`;
+      if (!st) return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span></div>`;
+      const stat = ev.status.get(st.id);
+      const tip = `${st.first} ${st.last}`.trim() + (stat === 'ok' ? ' · Wunsch erfüllt' : stat === 'open' ? ' · Wunsch noch offen' : '') + (lockedSet.has(st.id) ? ' · festgehalten' : '') + (clashSet.has(st.id) ? ' · Regel verletzt' : '');
+      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span><div class="name${clashSet.has(st.id) ? ' clash' : ''}" data-sid="${st.id}" title="${esc(tip)}">${lockedSet.has(st.id) ? '<svg class="lk"><use href="#i-lock"/></svg>' : ''}${stat ? `<span class="wd ${stat}"></span>` : ''}${nameHtml(st, dupes)}</div></div>`;
     }).join('');
     h += `<div class="desk t-${d.type} f${face}${sel.has(d.id) ? ' sel' : ''}" data-id="${d.id}" style="${posStyle(s)}" title="${TYPES[d.type].label}">${inner}</div>`;
   }
@@ -1167,7 +1280,7 @@ function startNameDrag(e, src, srcEl) {
     setHl(null);
     document.body.classList.remove('dragging-name');
     srcEl.classList.remove('lifted');
-    if (!ghost) return;
+    if (!ghost) { if (!cancel) openWishes(src.sid); return; }
     ghost.remove();
     if (cancel || !target) return;
     dropName(src, target);
@@ -1202,17 +1315,10 @@ $('#pool').addEventListener('click', e => {
   if (!rm) return;
   const st = cur().students.find(s => s.id === rm.dataset.rm);
   if (!st) return;
-  mutate(P => { P.students = P.students.filter(s => s.id !== st.id); });
+  mutate(P => { P.students = P.students.filter(s => s.id !== st.id); cleanRules(P); });
   toast(`${st.first} ${st.last} wurde aus der Klasse entfernt.`, true);
 });
-$('#pool').addEventListener('dblclick', async e => {
-  const chip = e.target.closest('.chip'); if (!chip) return;
-  const st = cur().students.find(s => s.id === chip.dataset.sid); if (!st) return;
-  const v = await askText('Namen ändern', 'Vorname Nachname', `${st.first} ${st.last}`.trim());
-  if (!v) return;
-  const [first, last] = splitName(v, 'vn');
-  mutate(P => { const s = P.students.find(x => x.id === st.id); if (s) { s.first = first; s.last = last; } });
-});
+$('#wishIssues').addEventListener('click', e => { const b = e.target.closest('[data-wopen]'); if (b) openWishes(b.dataset.wopen); });
 $('#addForm').addEventListener('submit', e => {
   e.preventDefault();
   const v = $('#addName').value.trim(); if (!v) return;
@@ -1281,6 +1387,115 @@ function duplicateSel() {
   toast('Für eine Kopie ist neben den markierten Tischen kein Platz.');
 }
 
+/* ---------- Nachbarn und Reihen ----------
+   „Neben“ = direkt links oder rechts in derselben Reihe: gleiche Blickrichtung, gleiche Höhe,
+   höchstens 50 cm Lücke. Vorne und hinten zählt nicht. Ein Gang ab 75 cm trennt. */
+const NEAR = 2;
+function seatGraph(P) {
+  const seats = [];
+  for (const d of P.desks) {
+    const n = TYPES[d.type].seats; if (!n) continue;
+    const b = box(d), horiz = d.rot % 180 === 0, rev = d.rot === 180 || d.rot === 270;
+    for (let i = 0; i < n; i++) {
+      const k = rev ? n - 1 - i : i;
+      const g = horiz ? { x: b.x + k * b.w / n, y: b.y, w: b.w / n, h: b.h } : { x: b.x, y: b.y + k * b.h / n, w: b.w, h: b.h / n };
+      seats.push({ key: d.id + ':' + i, desk: d, idx: i, rot: d.rot, horiz, ...g, cy: g.y + g.h / 2 });
+    }
+  }
+  const nb = new Map(seats.map(s => [s.key, new Set()]));
+  for (let i = 0; i < seats.length; i++) for (let j = i + 1; j < seats.length; j++) {
+    const a = seats[i], c = seats[j];
+    if (a.rot !== c.rot) continue;
+    const ok = a.horiz
+      ? a.y === c.y && a.h === c.h && Math.max(c.x - (a.x + a.w), a.x - (c.x + c.w)) <= NEAR + 1e-9
+      : a.x === c.x && a.w === c.w && Math.max(c.y - (a.y + a.h), a.y - (c.y + c.h)) <= NEAR + 1e-9;
+    if (ok) { nb.get(a.key).add(c.key); nb.get(c.key).add(a.key); }
+  }
+  // Reihen zählen von der Tafel aus, Sitzmitten bis 1 Kästchen Unterschied gehören zur selben Reihe
+  const ys = [...new Set(seats.map(s => s.cy))].sort((a, b) => a - b);
+  const rowOfY = new Map(); let rows = 0, start = -Infinity;
+  for (const y of ys) { if (y - start > 1) { rows++; start = y; } rowOfY.set(y, rows); }
+  const rowOf = new Map(seats.map(s => [s.key, rowOfY.get(s.cy)]));
+  seats.sort((a, b) => (rowOf.get(a.key) - rowOf.get(b.key)) || (a.x - b.x) || (a.y - b.y));
+  return { seats, nb, rowOf, rows };
+}
+const rowOk = (row, want, rows) => want.some(w => w === 'last' ? row === rows : w === row);
+
+function evaluate(P, G = seatGraph(P)) {
+  const ids = new Set(P.students.map(s => s.id)), seatOf = new Map(), R = P.rules;
+  for (const s of G.seats) { const sid = s.desk.seats[s.idx]; if (sid) seatOf.set(sid, s.key); }
+  const near = (a, b) => { const x = seatOf.get(a), y = seatOf.get(b); return !!(x && y && G.nb.get(x).has(y)); };
+  const res = { wishes: 0, sat: 0, people: 0, happy: 0, open: [], clash: [], status: new Map() };
+  for (const st of P.students) {
+    const W = (R.wish[st.id] || []).filter(x => ids.has(x)), RW = R.row[st.id] || [];
+    if (!W.length && !RW.length) continue;
+    res.people++; let ok = 0;
+    for (const x of W) { res.wishes++; if (near(st.id, x)) { res.sat++; ok++; } }
+    if (RW.length) { res.wishes++; const k = seatOf.get(st.id); if (k && rowOk(G.rowOf.get(k), RW, G.rows)) { res.sat++; ok++; } }
+    if (ok) res.happy++; else res.open.push(st.id);
+    res.status.set(st.id, ok ? 'ok' : 'open');
+  }
+  for (const [a, b] of R.apart) if (near(a, b)) res.clash.push([a, b]);
+  return res;
+}
+
+/* Verteilung: Festgehaltene bleiben, deine „nicht neben“-Regeln sind hart.
+   Mit Wünschen zählt zuerst, dass jeder mindestens einen Wunsch erfüllt bekommt (1000 Punkte),
+   danach jeder weitere erfüllte Wunsch (10 Punkte). Leere Plätze landen möglichst hinten. */
+function optimize(P, { useWishes, keepSeated }) {
+  const G = seatGraph(P), R = P.rules, ids = new Set(P.students.map(s => s.id));
+  const locked = new Set(R.locked), fixed = new Map();
+  for (const s of G.seats) { const sid = s.desk.seats[s.idx]; if (sid && (keepSeated || locked.has(sid))) fixed.set(s.key, sid); }
+  const fixedSids = new Set(fixed.values());
+  const movable = P.students.filter(s => !fixedSids.has(s.id)).map(s => s.id);
+  const slots = G.seats.filter(s => !fixed.has(s.key)).map(s => s.key);
+  while (slots.length < movable.length) slots.push(null);
+  const start = () => { const m = shuffle(movable.slice()); return slots.map((_, i) => m[i] || null); };
+  const W = new Map(), RW = new Map();
+  if (useWishes) P.students.forEach(s => {
+    const w = (R.wish[s.id] || []).filter(x => ids.has(x)); if (w.length) W.set(s.id, w);
+    const r = R.row[s.id]; if (r && r.length) RW.set(s.id, r);
+  });
+  const apart = R.apart;
+  const score = a => {
+    const seatOf = new Map();
+    fixed.forEach((sid, k) => seatOf.set(sid, k));
+    for (let i = 0; i < a.length; i++) if (a[i] && slots[i]) seatOf.set(a[i], slots[i]);
+    const near = (x, y) => { const p = seatOf.get(x), q = seatOf.get(y); return p && q && G.nb.get(p).has(q); };
+    let sc = 0;
+    for (const [x, y] of apart) if (near(x, y)) sc -= 1e6;
+    for (const sid of new Set([...W.keys(), ...RW.keys()])) {
+      let ok = 0;
+      const w = W.get(sid); if (w) for (const x of w) if (near(sid, x)) ok++;
+      const r = RW.get(sid); if (r) { const k = seatOf.get(sid); if (k && rowOk(G.rowOf.get(k), r, G.rows)) ok++; }
+      if (ok) sc += 1000 + ok * 10;
+    }
+    for (const [, k] of seatOf) sc -= G.rowOf.get(k) * 0.01;
+    return sc;
+  };
+  let best = start(), bestS = score(best);
+  const N = slots.length;
+  if (N > 1 && (W.size || RW.size || apart.length)) {
+    const iters = Math.min(30000, 4000 + N * 700);
+    for (let run = 0; run < 3; run++) {
+      const a = run ? start() : best.slice();
+      let sc = score(a);
+      for (let t = 0; t < iters; t++) {
+        const T = 40 * Math.pow(0.0005, t / iters);
+        const i = (Math.random() * N) | 0, j = (Math.random() * N) | 0;
+        if (i === j || (!a[i] && !a[j])) continue;
+        [a[i], a[j]] = [a[j], a[i]];
+        const ns = score(a);
+        if (ns >= sc || Math.random() < Math.exp((ns - sc) / T)) {
+          sc = ns;
+          if (sc > bestS) { bestS = sc; best = a.slice(); }
+        } else [a[i], a[j]] = [a[j], a[i]];
+      }
+    }
+  }
+  return { slots, assign: best, fixed };
+}
+
 /* ---------- Verteilen ---------- */
 function shuffle(a) {
   const r = new Uint32Array(a.length); crypto.getRandomValues(r);
@@ -1291,25 +1506,40 @@ function distribute(mode) {
   const P = cur();
   if (!P.students.length) { toast('Noch keine Klassenliste geladen.'); return; }
   if (!seatList(P).length) { toast('Es stehen noch keine Schülertische im Raum.'); return; }
+  const placedNow = placedIds(P);
+  const nLocked = P.rules.locked.filter(id => placedNow.has(id)).length;
   let left = 0;
   S.mode = 'schueler';
   mutate(P => {
-    const list = seatList(P);
-    if (mode === 'rest') {
-      const pool = shuffle(unplaced(P));
-      const free = list.filter(s => !s.desk.seats[s.idx]);
+    const keep = new Set(P.rules.locked);
+    if (mode === 'clear' || mode === 'alpha') {
+      P.desks.forEach(d => { d.seats = d.seats.map(sid => sid && keep.has(sid) ? sid : null); });
+      if (mode === 'clear') return;
+      const pool = unplaced(P).sort(byName);
+      const free = seatGraph(P).seats.filter(s => !s.desk.seats[s.idx]);
       free.forEach((s, i) => { if (i < pool.length) s.desk.seats[s.idx] = pool[i].id; });
       left = Math.max(0, pool.length - free.length);
-    } else {
-      list.forEach(s => { s.desk.seats[s.idx] = null; });
-      if (mode === 'clear') return;
-      const pool = mode === 'alpha' ? P.students.slice().sort(byName) : shuffle(P.students.slice());
-      list.forEach((s, i) => { if (i < pool.length) s.desk.seats[s.idx] = pool[i].id; });
-      left = Math.max(0, pool.length - list.length);
+      return;
     }
+    const r = optimize(P, { useWishes: mode !== 'random', keepSeated: mode === 'rest' });
+    P.desks.forEach(d => { d.seats = d.seats.map((sid, i) => r.fixed.has(d.id + ':' + i) ? sid : null); });
+    r.slots.forEach((k, i) => {
+      const sid = r.assign[i];
+      if (!sid) return;
+      if (!k) { left++; return; }
+      const [did, idx] = k.split(':');
+      const d = P.desks.find(x => x.id === did);
+      if (d) d.seats[+idx] = sid;
+    });
   });
-  const msg = { random: 'Zufällig verteilt.', rest: 'Freie Plätze zufällig aufgefüllt.', alpha: 'Alphabetisch von vorne nach hinten verteilt.', clear: 'Alle Namen sind zurück in der Liste.' }[mode];
-  toast(left ? `${msg} ${left} Schüler haben keinen Platz, es fehlen Tische.` : msg, true);
+  const ev = evaluate(cur());
+  let msg = { random: 'Zufällig verteilt.', wish: 'Mit Wünschen verteilt.', rest: 'Freie Plätze aufgefüllt.', alpha: 'Alphabetisch von vorne nach hinten verteilt.', clear: 'Alle Namen sind zurück in der Liste.' }[mode];
+  if ((mode === 'wish' || mode === 'rest') && ev.people) msg = `${mode === 'wish' ? 'Mit Wünschen verteilt' : 'Freie Plätze aufgefüllt'}: ${ev.happy} von ${ev.people} Schülern haben mindestens einen Wunsch erfüllt, insgesamt ${ev.sat} von ${ev.wishes} Wünschen.`;
+  if (mode === 'wish' && !ev.people) msg = 'Zufällig verteilt. Es sind noch keine Wünsche eingetragen.';
+  if (nLocked && mode !== 'rest') msg += nLocked === 1 ? ' Ein festgehaltener Schüler ist sitzen geblieben.' : ` ${nLocked} festgehaltene Schüler sind sitzen geblieben.`;
+  if (ev.clash.length) msg += ' Achtung: Nicht alle Regeln ließen sich einhalten, siehe links.';
+  if (left) msg += ` ${left} Schüler haben keinen Platz, es fehlen Tische.`;
+  toast(msg, true);
 }
 
 /* ---------- Klassenliste einlesen ---------- */
@@ -1349,47 +1579,78 @@ function parseText(text) {
   for (let i = 0; i < ncol; i++) if (rows.some(r => (r[i] || '').trim())) keep.push(i);
   return rows.map(r => keep.map(i => r[i] || ''));
 }
-const isNameLike = v => /^[\p{L}][\p{L}\p{M}'’ .\-]*$/u.test(v);
+/* Namen erkennen. Schullisten haben oft „Nachname, Vorname“ in einer Zelle und daneben weitere Spalten
+   (Nummer, Geburtsdatum, Klasse). Die App sucht die Namensspalte selbst und nimmt ohne Komma „Nachname zuerst“ an. */
+function cleanPart(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+// Klammerzusätze sowie alle Wörter mit Ziffern (Nummer, Datum, „7c“) entfernen
+function stripNoise(s) {
+  return cleanPart(String(s || '').replace(/\([^)]*\)|\[[^\]]*\]/g, ' '))
+    .split(' ').filter(w => !/\d/.test(w)).join(' ').replace(/^[,;.\s]+|[,;\s]+$/g, '').trim();
+}
+const NAMEWORD = /^[\p{L}][\p{L}\p{M}'’.\-]*$/u;
+function nameShape(v) {
+  const t = stripNoise(v);
+  if (!t) return null;
+  const words = t.split(/[\s,]+/).filter(Boolean);
+  if (!words.length || !words.every(w => NAMEWORD.test(w))) return null;
+  return { comma: /\p{L}\s*,\s*\p{L}/u.test(t), words: words.length };
+}
+function splitName(raw, fmt) {
+  const s = stripNoise(raw);
+  if ((fmt === 'n,v' || fmt === 'nv') && s.includes(',')) { const i = s.indexOf(','); return [cleanPart(s.slice(i + 1)), cleanPart(s.slice(0, i))]; }
+  const parts = s.replace(/,/g, ' ').split(' ').filter(Boolean);
+  if (parts.length < 2) return [parts[0] || '', ''];
+  if (fmt === 'vn') return [parts.slice(0, -1).join(' '), parts[parts.length - 1]];
+  return [parts.slice(1).join(' '), parts[0]];        // Nachname zuerst
+}
 function autoMap(rows) {
   const ncol = rows.length ? Math.max(...rows.map(r => r.length)) : 0;
-  const h = (rows[0] || []).map(x => x.toLowerCase());
-  let fi = -1, li = -1;
+  const pref = (S && S.importFmt) || 'nv';
+  // Überschriftenzeile in den ersten Zeilen suchen, darüber stehen oft Titelzeilen wie „Klassenliste 7c“
+  const HEAD = /vorname|rufname|nachname|familienname|zuname|^\s*name\b|schüler|schueler/i;
+  let hi = rows.slice(0, 6).findIndex(r => r.some(c => HEAD.test(String(c))));
+  const h = (hi >= 0 ? rows[hi] : []).map(x => String(x).toLowerCase());
+  // 1. Überschrift auswerten
+  let fi = -1, li = -1, combo = -1, comboFmt = pref;
   h.forEach((x, i) => {
-    if (/vorname|rufname/.test(x)) { if (fi < 0) fi = i; }
-    else if (/nachname|familienname|zuname|^name$|^schüler|^schueler/.test(x)) { if (li < 0) li = i; }
+    const v = x.search(/vorname|rufname/), n = x.replace(/vorname|rufname/g, '#').search(/nachname|familienname|zuname|name|schüler|schueler/);
+    if (v >= 0 && n >= 0) { if (combo < 0) { combo = i; comboFmt = n < v ? (x.includes(',') ? 'n,v' : 'nv') : 'vn'; } }
+    else if (v >= 0) { if (fi < 0) fi = i; }
+    else if (n >= 0) { if (li < 0) li = i; }
   });
-  const header = fi >= 0 || li >= 0;
-  const body = rows.slice(header ? 1 : 0);
-  const combined = rows.some(r => r.length === 1) && ncol === 1;
-  const fmtGuess = () => {
-    const vals = body.map(r => r[li >= 0 ? li : 0] || '').filter(Boolean);
-    return vals.filter(v => v.includes(',')).length > vals.length / 2 ? 'n,v' : 'vn';
-  };
-  if (ncol <= 1 || combined) return { ncol, header, fi: -1, li: 0, fmt: fmtGuess() };
-  if (fi < 0 || li < 0) {
-    const textCols = [];
-    for (let i = 0; i < ncol; i++) {
-      const vals = body.map(r => r[i] || '').filter(Boolean);
-      if (vals.length && vals.filter(isNameLike).length / vals.length > 0.8) textCols.push(i);
-    }
-    if (fi < 0 && li < 0) { li = textCols[0] ?? 0; fi = textCols[1] ?? -1; }
-    else if (li < 0) li = textCols.find(i => i !== fi) ?? -1;
-    else if (fi < 0) fi = textCols.find(i => i !== li) ?? -1;
+  const header = fi >= 0 || li >= 0 || combo >= 0;
+  const skip = header ? hi + 1 : 0;
+  const body = rows.slice(skip);
+  // 2. Spalten nach Form der Einträge bewerten
+  const stat = Array.from({ length: ncol }, (_, i) => {
+    const vals = body.map(r => r[i]).filter(v => cleanPart(v));
+    const sh = vals.map(nameShape);
+    const n = vals.length || 1;
+    return {
+      name: sh.filter(Boolean).length / n,
+      comma: sh.filter(x => x && x.comma).length / n,
+      multi: sh.filter(x => x && x.words >= 2).length / n,
+      single: sh.filter(x => x && x.words === 1).length / n
+    };
+  });
+  const commaOf = i => stat[i] && stat[i].comma > 0.5;
+  if (fi >= 0 && li >= 0) return { ncol, header, skip, mode: 'two', fi, li, col: li, fmt: pref };
+  if (combo >= 0) return { ncol, header, skip, mode: 'one', col: combo, fmt: commaOf(combo) ? 'n,v' : comboFmt, fi: -1, li: -1 };
+  // Eine „Name“-Spalte ohne eigene Vornamenspalte enthält meist beides
+  if (li >= 0 && fi < 0 && stat[li] && stat[li].multi > 0.5) return { ncol, header, skip, mode: 'one', col: li, fmt: commaOf(li) ? 'n,v' : pref, fi: -1, li: -1 };
+  const best = (key, min) => { let bi = -1, bv = min; stat.forEach((st, i) => { if (st[key] > bv) { bv = st[key]; bi = i; } }); return bi; };
+  const c = best('comma', 0.5);
+  if (c >= 0) return { ncol, header, skip, mode: 'one', col: c, fmt: 'n,v', fi: -1, li: -1 };
+  const singles = stat.map((st, i) => [st.single, i]).filter(([v]) => v > 0.7).map(([, i]) => i);
+  if (singles.length >= 2) {
+    // Zwei getrennte Spalten: Schullisten führen den Nachnamen zuerst
+    const L = li >= 0 ? li : singles.find(i => i !== fi), F = fi >= 0 ? fi : singles.find(i => i !== L);
+    if (L !== undefined && F !== undefined && L !== F) return { ncol, header, skip, mode: 'two', fi: F, li: L, col: L, fmt: pref };
   }
-  return { ncol, header, fi, li, fmt: fmtGuess() };
-}
-function cleanPart(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
-function splitName(raw, fmt) {
-  let s = cleanPart(raw)
-    .replace(/^\d+\s*[.)]?\s+/, '')              // führende Nummer
-    .replace(/(\s+[\d.\/:-]+)+$/, '')            // Datum oder Zahlen am Ende
-    .trim();
-  if (fmt === 'n,v' && s.includes(',')) { const i = s.indexOf(','); return [cleanPart(s.slice(i + 1)), cleanPart(s.slice(0, i))]; }
-  s = s.replace(/,/g, ' ');
-  const parts = s.split(' ').filter(Boolean);
-  if (parts.length < 2) return [parts[0] || '', ''];
-  if (fmt === 'nv') return [parts.slice(1).join(' '), parts[0]];
-  return [parts.slice(0, -1).join(' '), parts[parts.length - 1]];
+  const m = best('multi', 0.5);
+  if (m >= 0) return { ncol, header, skip, mode: 'one', col: m, fmt: pref, fi: -1, li: -1 };
+  const any = best('name', 0);
+  return { ncol, header, skip, mode: 'one', col: Math.max(0, li >= 0 ? li : any), fmt: pref, fi: -1, li: -1 };
 }
 
 const imp = { rows: [], map: null, excluded: new Set(), sig: '' };
@@ -1404,12 +1665,11 @@ function impParse(forceMap) {
 function impNames() {
   const { rows, map } = imp; if (!map) return [];
   const out = [];
-  rows.slice(map.header ? 1 : 0).forEach((r, i) => {
+  rows.slice(map.header ? (map.skip || 1) : 0).forEach((r, i) => {
     let first = '', last = '';
-    if (map.fi >= 0 && map.li >= 0) { first = cleanPart(r[map.fi]); last = cleanPart(r[map.li]); }
-    else { const c = map.fi >= 0 ? map.fi : map.li; if (c < 0) return; [first, last] = splitName(r[c], map.fmt); }
+    if (map.mode === 'two') { first = stripNoise(r[map.fi]); last = stripNoise(r[map.li]); }
+    else [first, last] = splitName(r[map.col], map.fmt);
     if (!/\p{L}/u.test(first + last)) return;
-    if (!first && !last) return;
     out.push({ first, last, key: i });
   });
   return out.filter(n => !imp.excluded.has(n.key));
@@ -1423,35 +1683,50 @@ function impRender() {
     return;
   }
   const sample = i => {
-    const v = (map.header ? rows[0][i] : rows.find(r => r[i])?.[i]) || '';
-    return v.length > 22 ? v.slice(0, 21) + '…' : v;
+    const v = (rows.slice(map.header ? (map.skip || 1) : 0).find(r => cleanPart(r[i])) || [])[i] || '';
+    return v.length > 24 ? v.slice(0, 23) + '…' : v;
   };
-  const opts = sel => `<option value="-1" ${sel < 0 ? 'selected' : ''}>nicht vorhanden</option>` +
-    Array.from({ length: map.ncol }, (_, i) => `<option value="${i}" ${i === sel ? 'selected' : ''}>Spalte ${i + 1}${sample(i) ? ': ' + esc(sample(i)) : ''}</option>`).join('');
-  const oneCol = map.fi < 0 || map.li < 0;
+  const opts = sel => Array.from({ length: map.ncol }, (_, i) => `<option value="${i}" ${i === sel ? 'selected' : ''}>Spalte ${i + 1}${sample(i) ? ': ' + esc(sample(i)) : ''}</option>`).join('');
+  const modeVal = map.mode === 'two' ? 'two' : 'one:' + map.fmt;
+  const modeOpt = (v, t) => `<option value="${v}" ${v === modeVal ? 'selected' : ''}>${t}</option>`;
   mapEl.innerHTML = `
-    <label class="field">Vorname steht in<select id="mFi">${opts(map.fi)}</select></label>
-    <label class="field">Nachname steht in<select id="mLi">${opts(map.li)}</select></label>
-    ${oneCol ? `<label class="field">Die Spalte enthält<select id="mFmt">
-      <option value="vn" ${map.fmt === 'vn' ? 'selected' : ''}>Vorname Nachname</option>
-      <option value="nv" ${map.fmt === 'nv' ? 'selected' : ''}>Nachname Vorname</option>
-      <option value="n,v" ${map.fmt === 'n,v' ? 'selected' : ''}>Nachname, Vorname</option></select></label>` : ''}
-    <label class="field" style="align-self:end;flex-direction:row;display:flex;gap:7px;align-items:center;height:32px;color:var(--ink)">
-      <input type="checkbox" id="mHead" ${map.header ? 'checked' : ''}> Erste Zeile ist Überschrift</label>`;
+    <label class="field">Aufbau der Namen<select id="mMode">
+      ${modeOpt('one:n,v', 'Nachname, Vorname in einer Spalte')}
+      ${modeOpt('one:nv', 'Nachname Vorname in einer Spalte')}
+      ${modeOpt('one:vn', 'Vorname Nachname in einer Spalte')}
+      ${modeOpt('two', 'Vorname und Nachname in zwei Spalten')}
+    </select></label>
+    ${map.mode === 'two'
+      ? `<label class="field">Vorname steht in<select id="mFi">${opts(map.fi)}</select></label>
+         <label class="field">Nachname steht in<select id="mLi">${opts(map.li)}</select></label>`
+      : `<label class="field">Namen stehen in<select id="mCol">${opts(map.col)}</select></label>`}
+    <label class="check"><input type="checkbox" id="mHead" ${map.header ? 'checked' : ''}> ${map.header && map.skip > 1 ? `Die ersten ${map.skip} Zeilen sind Titel und Überschrift` : 'Erste Zeile ist Überschrift'}</label>`;
   const names = impNames();
   $('#impPrevWrap').hidden = false;
-  $('#impCount').textContent = names.length ? `${names.length} Namen erkannt. Stimmt etwas nicht, Spalten oben anpassen oder einzelne Einträge entfernen.` : 'Noch keine Namen erkannt. Spalten oben prüfen.';
+  $('#impCount').innerHTML = names.length
+    ? `${names.length} Namen erkannt, so werden sie übernommen: Vorname <b>Nachname</b>. Stimmt etwas nicht, oben den Aufbau ändern oder einzelne Einträge entfernen.`
+    : 'Noch keine Namen erkannt. Oben den Aufbau und die Spalte prüfen.';
   $('#impPrev').innerHTML = names.map(n => `<span class="pc">${esc(n.first)} <b>${esc(n.last)}</b><button type="button" data-ex="${n.key}" aria-label="Entfernen">${icon('i-x')}</button></span>`).join('');
   $('#impMode').hidden = !cur().students.length;
   $('#impOk').disabled = !names.length;
   $('#impOk').textContent = names.length ? `${names.length} Namen übernehmen` : 'Übernehmen';
 }
 $('#impMap').addEventListener('change', e => {
-  const m = imp.map;
-  if (e.target.id === 'mFi') m.fi = +e.target.value;
-  if (e.target.id === 'mLi') m.li = +e.target.value;
-  if (e.target.id === 'mFmt') m.fmt = e.target.value;
-  if (e.target.id === 'mHead') m.header = e.target.checked;
+  const m = imp.map, t = e.target;
+  if (t.id === 'mMode') {
+    if (t.value === 'two') {
+      m.mode = 'two';
+      if (m.fi < 0 || m.li < 0 || m.fi === m.li) { m.li = m.col; m.fi = m.col + 1 < m.ncol ? m.col + 1 : Math.max(0, m.col - 1); }
+    } else {
+      if (m.mode === 'two') m.col = m.li;
+      m.mode = 'one'; m.fmt = t.value.slice(4);
+      S.importFmt = m.fmt; persist();                // beim nächsten Import gleich so vorschlagen
+    }
+  }
+  if (t.id === 'mCol') m.col = +t.value;
+  if (t.id === 'mFi') m.fi = +t.value;
+  if (t.id === 'mLi') m.li = +t.value;
+  if (t.id === 'mHead') { m.header = t.checked; if (m.header && !m.skip) m.skip = 1; }
   impRender();
 });
 $('#impPrev').addEventListener('click', e => {
@@ -1489,7 +1764,7 @@ $('#dlgImport').addEventListener('close', () => {
   S.mode = 'schueler';
   mutate(P => {
     const add = names.map(n => ({ id: uid(), first: n.first, last: n.last }));
-    if (how === 'replace') { P.students = add; P.desks.forEach(d => d.seats = d.seats.map(() => null)); }
+    if (how === 'replace') { P.students = add; P.rules = emptyRules(); P.desks.forEach(d => d.seats = d.seats.map(() => null)); }
     else P.students.push(...add);
   });
   toast(`${names.length} Namen übernommen. Jetzt reinziehen oder „Zufällig“ drücken.`, true);
@@ -1646,6 +1921,108 @@ $('#dlgTpl').addEventListener('close', () => {
   if (growW) msg += ` Der Raum ist jetzt ${fmtM(out.w)} m breit.`;
   if (grow) msg += ` Der Raum ist jetzt ${fmtM(out.h)} m tief.`;
   toast(msg, true);
+});
+
+/* ---------- Wünsche-Dialog ---------- */
+let wishSel = null, wishSnap = null;
+const byFirst = (a, b) => collator.compare(a.first || a.last, b.first || b.last) || collator.compare(a.last, b.last);
+function openWishes(sid) {
+  const P = cur();
+  if (!P.students.length) { toast('Erst die Klassenliste laden.'); return; }
+  wishSnap = JSON.stringify(S);
+  wishSel = sid && P.students.some(s => s.id === sid) ? sid : (wishSel && P.students.some(s => s.id === wishSel) ? wishSel : P.students.slice().sort(byFirst)[0].id);
+  $('#wSearch').value = '';
+  renderWishList(); renderWishEdit();
+  $('#dlgWish').showModal();
+  setTimeout(() => $('#wList .wl.on')?.scrollIntoView({ block: 'nearest' }), 30);
+}
+function renderWishList() {
+  const P = cur(), R = P.rules, q = $('#wSearch').value.trim().toLocaleLowerCase('de');
+  const list = P.students.slice().sort(byFirst).filter(s => !q || `${s.first} ${s.last}`.toLocaleLowerCase('de').includes(q));
+  $('#wList').innerHTML = list.map(s => {
+    const n = (R.wish[s.id] || []).length + ((R.row[s.id] || []).length ? 1 : 0);
+    const ap = R.apart.some(a => a.includes(s.id)), lk = R.locked.includes(s.id);
+    return `<button type="button" class="wl${s.id === wishSel ? ' on' : ''}" data-sid="${s.id}"><span>${esc(s.first)} <span class="muted">${esc(s.last)}</span></span><span class="badges">${n ? `<span class="b" title="${n} Wünsche">${n}</span>` : ''}${ap ? '<svg aria-label="hat eine Regel"><use href="#i-ban"/></svg>' : ''}${lk ? '<svg aria-label="festgehalten"><use href="#i-lock"/></svg>' : ''}</span></button>`;
+  }).join('') || '<div class="pool-empty">Kein Name passt.</div>';
+}
+function renderWishEdit() {
+  const P = cur(), R = P.rules, st = P.students.find(s => s.id === wishSel);
+  if (!st) { $('#wEdit').innerHTML = ''; return; }
+  const shorts = lastShort(P);
+  const label = o => { const sh = shorts.get(o.id); return esc(o.first || o.last) + (o.first && sh && sh.dup ? ' ' + esc(sh.short) : ''); };
+  const others = P.students.filter(o => o.id !== st.id).sort(byFirst);
+  const W = new Set(R.wish[st.id] || []);
+  const A = new Set(R.apart.filter(a => a.includes(st.id)).map(a => a[0] === st.id ? a[1] : a[0]));
+  const fans = new Set(P.students.filter(o => (R.wish[o.id] || []).includes(st.id)).map(o => o.id));
+  const G = seatGraph(P), RW = new Set(R.row[st.id] || []);
+  const seated = placedIds(P).has(st.id), locked = R.locked.includes(st.id);
+  const rowChips = Array.from({ length: Math.min(G.rows, 10) }, (_, i) => i + 1)
+    .map(n => `<button type="button" class="wc${RW.has(n) ? ' on' : ''}" data-row="${n}">Reihe ${n}</button>`).join('')
+    + `<button type="button" class="wc${RW.has('last') ? ' on' : ''}" data-row="last">letzte Reihe</button>`
+    + `<button type="button" class="wc${RW.size ? '' : ' on'}" data-row="egal">egal</button>`;
+  const mutual = [...W].filter(id => fans.has(id));
+  $('#wEdit').innerHTML = `
+    <div class="whead"><h4>${esc(st.first)} ${esc(st.last)}</h4><button type="button" class="btn icon tb" data-act="rename" title="Namen ändern" aria-label="Namen ändern">${icon('i-pen')}</button></div>
+    <div><div class="wlab">Möchte neben</div>
+      <div class="wchips">${others.map(o => `<button type="button" class="wc${W.has(o.id) ? ' on' : ''}${fans.has(o.id) ? ' fan' : ''}" data-wish="${o.id}">${label(o)}</button>`).join('')}</div>
+      <div class="wnote">${fans.size ? `Möchten neben ${esc(st.first)} sitzen: ${[...fans].map(id => label(P.students.find(o => o.id === id))).join(', ')} (blau umrandet).` : 'Bisher wünscht sich niemand, neben ' + esc(st.first) + ' zu sitzen.'}${mutual.length ? ` Gegenseitig: ${mutual.map(id => label(P.students.find(o => o.id === id))).join(', ')}.` : ''}</div>
+    </div>
+    <div><div class="wlab">Reihe <span>Reihe 1 ist an der Tafel. Mehrere gewählt heißt: eine davon.</span></div><div class="wchips">${rowChips}</div></div>
+    <div><div class="wlab">Nicht neben <span>deine Regel, gilt bei jeder Verteilung</span></div>
+      <div class="wchips">${others.map(o => `<button type="button" class="wc no${A.has(o.id) ? ' on' : ''}" data-apart="${o.id}">${label(o)}</button>`).join('')}</div>
+    </div>
+    <label class="check" style="height:auto"><input type="checkbox" id="wLock" ${locked ? 'checked' : ''} ${seated || locked ? '' : 'disabled'}> Platz festhalten <span style="color:var(--ink-3);font-weight:400">${seated ? 'bleibt beim Verteilen sitzen' : 'erst auf einen Platz ziehen'}</span></label>`;
+}
+function wishChanged() {
+  persist(); renderWishList(); renderWishEdit(); renderSide(); renderRoom();
+}
+$('#wList').addEventListener('click', e => {
+  const b = e.target.closest('[data-sid]'); if (!b) return;
+  wishSel = b.dataset.sid; renderWishList(); renderWishEdit();
+});
+$('#wSearch').addEventListener('input', () => {
+  renderWishList();
+  const first = $('#wList [data-sid]');
+  if (first && !$('#wList .wl.on')) { wishSel = first.dataset.sid; renderWishList(); renderWishEdit(); }
+});
+$('#wEdit').addEventListener('click', async e => {
+  const P = cur(), R = P.rules, me = wishSel, b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.wish) {
+    const l = new Set(R.wish[me] || []);
+    l.has(b.dataset.wish) ? l.delete(b.dataset.wish) : l.add(b.dataset.wish);
+    if (l.size) R.wish[me] = [...l]; else delete R.wish[me];
+  } else if (b.dataset.apart) {
+    const o = b.dataset.apart, i = R.apart.findIndex(a => a.includes(me) && a.includes(o));
+    if (i >= 0) R.apart.splice(i, 1); else R.apart.push([me, o]);
+  } else if (b.dataset.row) {
+    const v = b.dataset.row;
+    if (v === 'egal') delete R.row[me];
+    else {
+      const l = new Set(R.row[me] || []), key = v === 'last' ? 'last' : +v;
+      l.has(key) ? l.delete(key) : l.add(key);
+      if (l.size) R.row[me] = [...l]; else delete R.row[me];
+    }
+  } else if (b.dataset.act === 'rename') {
+    const st = P.students.find(s => s.id === me);
+    const v = await askText('Namen ändern', 'Vorname Nachname', `${st.first} ${st.last}`.trim());
+    if (!v) return;
+    [st.first, st.last] = splitName(v, 'vn');
+  } else return;
+  wishChanged();
+});
+$('#wEdit').addEventListener('change', e => {
+  if (e.target.id !== 'wLock') return;
+  const R = cur().rules, me = wishSel;
+  R.locked = e.target.checked ? [...new Set([...R.locked, me])] : R.locked.filter(x => x !== me);
+  wishChanged();
+});
+$('#dlgWish').addEventListener('close', () => {
+  if (wishSnap && JSON.stringify(S) !== wishSnap) {
+    undoStack.push(wishSnap); if (undoStack.length > 80) undoStack.shift();
+    redoStack = [];
+  }
+  wishSnap = null;
+  persist(); render();
 });
 
 /* ---------- Raum-Dialog ----------
@@ -1826,6 +2203,8 @@ $('#bImport').addEventListener('click', openImport);
 $('#vKlasse').addEventListener('click', () => { if (flipped()) mutate(P => { P.view = 'klasse'; }); });
 $('#vPult').addEventListener('click', () => { if (!flipped()) mutate(P => { P.view = 'pult'; }); });
 $('#dRandom').addEventListener('click', () => distribute('random'));
+$('#dWish').addEventListener('click', () => distribute('wish'));
+$('#bWishes').addEventListener('click', () => openWishes());
 $('#dRest').addEventListener('click', () => distribute('rest'));
 $('#dAlpha').addEventListener('click', () => distribute('alpha'));
 $('#dClear').addEventListener('click', () => distribute('clear'));
