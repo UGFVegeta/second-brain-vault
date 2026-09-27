@@ -92,3 +92,8 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 - Oskar teilt wenig Arbeitsblätter aus. Standard ist das gemeinsame Tafelbild, das die Schüler selbst ins Heft schreiben und zeichnen. Nur Lücken ausfüllen ist ihm zu leicht und zu passiv.
 - Ein Blatt gibt es nur, wenn es sich lohnt, etwa bei vielen Zeichnungen (Begleitheft Kernspaltung) oder bei Versuchen.
 - Vorhandene Blätter bleiben als Alternative stehen, sind aber nicht der Normalfall. Nicht automatisch pro Stunde ein Blatt bauen, sondern erst fragen.
+
+## Werkzeuge im Apple-Stil (27.09.2026)
+
+- Für den Sitzplan-Generator wollte Oskar ausdrücklich einen Look, „als wenn es von Apple gemacht worden ist“: Systemschrift, Systemblau als Akzent, graue Segment-Umschalter, weiche Schatten statt harter Linien.
+- Noch offen, ob das für alle künftigen Vault-Werkzeuge gelten soll. Bei neuen Oberflächen kurz nachfragen oder Apple-Stil als Vorschlag mitbringen.

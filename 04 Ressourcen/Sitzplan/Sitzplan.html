@@ -1,0 +1,1689 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sitzplan</title>
+<style>
+:root{
+  --bg:#f5f5f7; --toolbar:rgba(248,248,250,.82); --side:#f0f0f3; --panel:#ffffff; --thumb:#ffffff;
+  --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#8e8e93;
+  --sep:rgba(0,0,0,.09); --sep-2:rgba(0,0,0,.15);
+  --fill:rgba(118,118,128,.12); --fill-2:rgba(118,118,128,.2);
+  --accent:#007aff; --accent-ink:#ffffff; --accent-soft:rgba(0,122,255,.12); --accent-line:rgba(0,122,255,.5);
+  --room:#ffffff; --dot:#dcdce1; --wall:#3a3a3c; --window:#9ecbf2;
+  --desk:#fbfbfd; --desk-edge:rgba(0,0,0,.17); --teacher:#f0f0f4; --chair:#e2e2e7; --divider:rgba(0,0,0,.09);
+  --board-1:#3a5f52; --board-2:#2b473d;
+  --warn:#ff3b30; --warn-soft:rgba(255,59,48,.12);
+  --shadow-sm:0 0 0 .5px rgba(0,0,0,.1),0 1px 1.5px rgba(0,0,0,.08);
+  --shadow:0 0 0 .5px rgba(0,0,0,.05),0 2px 6px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.07);
+  --shadow-lift:0 0 0 .5px rgba(0,0,0,.08),0 6px 14px rgba(0,0,0,.10),0 22px 48px rgba(0,0,0,.16);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#1e1e20; --toolbar:rgba(40,40,43,.82); --side:#232326; --panel:#2c2c2e; --thumb:#636366;
+    --ink:#f5f5f7; --ink-2:#aeaeb2; --ink-3:#8e8e93;
+    --sep:rgba(255,255,255,.09); --sep-2:rgba(255,255,255,.16);
+    --fill:rgba(118,118,128,.24); --fill-2:rgba(118,118,128,.34);
+    --accent:#0a84ff; --accent-soft:rgba(10,132,255,.22); --accent-line:rgba(10,132,255,.6);
+    --room:#28282a; --dot:#414145; --wall:#d1d1d6; --window:#3d6a92;
+    --desk:#3a3a3c; --desk-edge:rgba(255,255,255,.14); --teacher:#323234; --chair:#4a4a4d; --divider:rgba(255,255,255,.1);
+    --warn:#ff453a; --warn-soft:rgba(255,69,58,.2);
+    --shadow-sm:0 0 0 .5px rgba(0,0,0,.5),0 1px 1.5px rgba(0,0,0,.3);
+    --shadow:0 0 0 .5px rgba(255,255,255,.06),0 16px 40px rgba(0,0,0,.4);
+    --shadow-lift:0 0 0 .5px rgba(255,255,255,.1),0 22px 48px rgba(0,0,0,.55);
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font:13px/1.38 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;
+  letter-spacing:-.003em;color:var(--ink);background:var(--bg);
+  display:grid;grid-template-rows:auto 1fr;overflow:hidden;
+  -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
+}
+::selection{background:var(--accent-soft)}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+:focus-visible{outline:3px solid var(--accent-line);outline-offset:1px;border-radius:7px}
+svg.i{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* Werkzeugleiste */
+.bar{
+  display:flex;align-items:center;gap:4px;flex-wrap:wrap;position:relative;z-index:10;
+  padding:9px 14px;background:var(--toolbar);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  box-shadow:0 .5px 0 var(--sep-2);
+}
+.grp{display:flex;align-items:center;gap:2px}
+.sep{width:1px;height:20px;background:var(--sep-2);margin:0 8px}
+.spacer{flex:1}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;height:28px;padding:0 11px;
+  border:0;border-radius:7px;background:var(--panel);box-shadow:var(--shadow-sm);cursor:default;
+  white-space:nowrap;font-weight:500;transition:background .15s,box-shadow .15s,opacity .15s;
+}
+.btn:hover{background:color-mix(in srgb,var(--panel) 92%,var(--ink))}
+.btn:active{background:color-mix(in srgb,var(--panel) 84%,var(--ink))}
+.btn:disabled{opacity:.35;pointer-events:none}
+.btn.icon{padding:0;width:30px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 1px 1.5px rgba(0,0,0,.12),inset 0 .5px 0 rgba(255,255,255,.25)}
+.btn.primary:hover{background:color-mix(in srgb,var(--accent) 90%,#000)}
+.btn.primary svg{color:var(--accent-ink)}
+.tb{background:transparent;box-shadow:none;color:var(--ink-2);font-weight:500}
+.tb svg{color:var(--ink-2)}
+.tb:hover{background:var(--fill);color:var(--ink)}
+.tb:hover svg{color:var(--ink)}
+.tb:active{background:var(--fill-2)}
+select.plan{
+  -webkit-appearance:none;appearance:none;height:28px;border:0;border-radius:7px;
+  background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14'%3E%3Cpath d='M2 5l3-3 3 3M2 9l3 3 3-3' fill='none' stroke='%238e8e93' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 9px center;
+  box-shadow:var(--shadow-sm);padding:0 28px 0 11px;font-weight:600;max-width:230px;
+}
+.seg{display:inline-flex;background:var(--fill);border-radius:8px;padding:2px;gap:2px}
+.seg button{
+  border:0;background:transparent;height:24px;padding:0 12px;border-radius:6px;font-weight:500;color:var(--ink);
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;transition:background .18s,box-shadow .18s;
+}
+.seg button:hover:not([aria-pressed="true"]){background:var(--fill)}
+.seg button[aria-pressed="true"]{background:var(--thumb);box-shadow:0 0 0 .5px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.14),0 1px .5px rgba(0,0,0,.05);font-weight:600}
+.seg button svg{width:16px;height:16px;color:var(--ink-2)}
+.seg button[aria-pressed="true"] svg{color:var(--accent)}
+.seg.full{display:flex}
+.seg.full button{flex:1;padding:0 4px;font-size:12px}
+#room.m-tische .name{pointer-events:none}
+#room.m-schueler .desk{cursor:default}
+#room.m-schueler .desk.sel{outline:none}
+
+/* Hauptbereich */
+.main{display:grid;grid-template-columns:268px 1fr;min-height:0}
+.side{background:var(--side);box-shadow:.5px 0 0 var(--sep-2);display:flex;flex-direction:column;min-height:0;position:relative;z-index:2}
+.side-scroll{overflow:auto;padding:16px 14px 12px;display:flex;flex-direction:column;gap:20px;flex:1;min-height:0}
+.side h2{font-size:11px;font-weight:600;margin:0 0 8px 2px;color:var(--ink-3);display:flex;justify-content:space-between;align-items:baseline;letter-spacing:.01em}
+.side h2 .count{font-weight:500}
+.stats{font-size:13px;color:var(--ink-2);margin:0 2px 10px;line-height:1.5}
+.stats b{color:var(--ink);font-weight:600}
+.stats .miss{color:var(--warn);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.btn.wide{width:100%}
+
+.pool{
+  border-radius:10px;padding:5px;min-height:92px;background:var(--fill);
+  display:flex;flex-direction:column;gap:3px;transition:background .15s,box-shadow .15s;
+}
+.pool.hl{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.chip{
+  display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border-radius:7px;
+  background:var(--panel);box-shadow:var(--shadow-sm);cursor:grab;touch-action:none;user-select:none;
+  transition:box-shadow .15s,opacity .15s,transform .15s;
+}
+.chip:hover{box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 2px 6px rgba(0,0,0,.1)}
+.chip span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip span b{font-weight:600}
+.chip .x{border:0;background:none;padding:2px;border-radius:5px;color:var(--ink-3);opacity:0;display:flex;transition:opacity .15s}
+.chip:hover .x{opacity:1}
+.chip .x:hover{color:var(--warn);background:var(--warn-soft)}
+.chip .x svg{width:13px;height:13px}
+.chip.lifted,.name.lifted{opacity:.25}
+.pool-empty{color:var(--ink-3);font-size:12.5px;padding:14px 8px;text-align:center;line-height:1.5}
+.addrow{display:flex;gap:6px;margin-top:8px}
+.addrow input,.dlg input[type=text],.dlg input[type=number],.dlg select{
+  flex:1;min-width:0;height:28px;border:0;border-radius:7px;padding:0 9px;background:var(--panel);
+  box-shadow:inset 0 0 0 .5px var(--sep-2),inset 0 1px 1px rgba(0,0,0,.04);transition:box-shadow .15s;
+}
+.addrow input:focus,.dlg input:focus,.dlg select:focus,.dlg textarea:focus{outline:0;box-shadow:inset 0 0 0 1px var(--accent),0 0 0 3px var(--accent-soft)}
+.side-foot{box-shadow:0 -.5px 0 var(--sep-2);padding:12px 16px 14px;font-size:11.5px;color:var(--ink-3);line-height:1.5}
+.side-foot .ok{display:flex;gap:7px;align-items:flex-start;color:var(--ink-2)}
+.side-foot .ok svg{width:14px;height:14px;margin-top:1px;color:var(--accent)}
+.side-foot .err{color:var(--warn)}
+.tips{margin:10px 0 0;padding:0;list-style:none}
+.tips li{margin:3px 0}
+kbd{font:inherit;font-size:10.5px;font-weight:600;border-radius:4px;padding:0 5px;background:var(--panel);box-shadow:var(--shadow-sm);color:var(--ink-2)}
+
+/* Bühne und Raum */
+.stage{position:relative;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 40px 18px;min-height:0}
+.canvasbar{margin-bottom:18px}
+.roomwrap{position:relative}
+#room{
+  position:relative;flex:none;border:2.5px solid var(--wall);border-radius:6px;
+  background-color:var(--room);
+  background-image:radial-gradient(circle,var(--dot) .9px,transparent 1.25px);
+  background-size:var(--px) var(--px);
+  background-position:calc(var(--px) * -.5) calc(var(--px) * -.5);
+  box-shadow:var(--shadow);touch-action:none;user-select:none;
+}
+.scale{margin-top:14px;color:var(--ink-3);font-size:12px}
+.empty-hint{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);text-align:center;color:var(--ink-3);max-width:320px;pointer-events:none;line-height:1.5}
+
+.board{
+  position:absolute;background:linear-gradient(var(--board-1),var(--board-2));color:rgba(255,255,255,.9);
+  display:flex;align-items:center;justify-content:center;font-weight:600;letter-spacing:.14em;font-size:10px;
+  text-transform:uppercase;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.15)
+}
+.board.t{border-radius:0 0 5px 5px}
+.board.b{border-radius:5px 5px 0 0}
+.win{position:absolute;background:var(--window);border-radius:2px;pointer-events:none}
+.walllabel{position:absolute;font-size:11px;color:var(--ink-3);white-space:nowrap;pointer-events:none}
+.walllabel.v{writing-mode:vertical-rl}
+.door{position:absolute;background:var(--room);pointer-events:none}
+.door::before,.door::after{content:"";position:absolute;background:var(--wall);left:-3px;width:9px;height:2px;border-radius:1px}
+.door::before{top:0}.door::after{bottom:0}
+
+.desk{
+  position:absolute;display:flex;background:var(--desk);border-radius:calc(var(--px) * .2);
+  box-shadow:0 0 0 1px var(--desk-edge),0 1px 2px rgba(0,0,0,.07),0 3px 8px rgba(0,0,0,.04);
+  cursor:grab;transition:box-shadow .18s,background .18s;
+}
+#room.dragging .desk.sel{
+  transition:left .08s cubic-bezier(.2,.8,.2,1),top .08s cubic-bezier(.2,.8,.2,1),box-shadow .18s;
+  box-shadow:0 0 0 1px var(--desk-edge),var(--shadow-lift);cursor:grabbing;z-index:5
+}
+.desk.sel{outline:2.5px solid var(--accent);outline-offset:3px;z-index:3}
+.desk.bad{background:var(--warn-soft);box-shadow:0 0 0 1.5px var(--warn)}
+.desk.bad.sel{outline-color:var(--warn)}
+.desk.f0{flex-direction:row}.desk.f180{flex-direction:row-reverse}
+.desk.f90{flex-direction:column}.desk.f270{flex-direction:column-reverse}
+.t-double::after{content:"";position:absolute;pointer-events:none;background:var(--divider)}
+.t-double.f0::after,.t-double.f180::after{left:50%;top:18%;bottom:18%;width:1px}
+.t-double.f90::after,.t-double.f270::after{top:50%;left:18%;right:18%;height:1px}
+.t-teacher{background:var(--teacher);align-items:center;justify-content:center}
+.t-teacher .tlabel{font-size:calc(var(--px) * .42);font-weight:500;color:var(--ink-2);pointer-events:none;white-space:nowrap}
+.seat{position:relative;flex:1;min-width:0;min-height:0;border-radius:calc(var(--px) * .2);transition:background .15s,box-shadow .15s}
+.seat.hl{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.chair{position:absolute;background:var(--chair);pointer-events:none;border-radius:999px}
+.f0 .chair{left:26%;right:26%;top:calc(100% + var(--px) * .22);height:calc(var(--px) * .55)}
+.f180 .chair{left:26%;right:26%;bottom:calc(100% + var(--px) * .22);height:calc(var(--px) * .55)}
+.f90 .chair{top:26%;bottom:26%;right:calc(100% + var(--px) * .22);width:calc(var(--px) * .55)}
+.f270 .chair{top:26%;bottom:26%;left:calc(100% + var(--px) * .22);width:calc(var(--px) * .55)}
+.t-teacher .chair{left:36%;right:36%}
+.t-teacher.f90 .chair,.t-teacher.f270 .chair{left:auto;right:auto;top:36%;bottom:36%}
+.t-teacher.f90 .chair{right:calc(100% + var(--px) * .22)}
+.t-teacher.f270 .chair{left:calc(100% + var(--px) * .22)}
+.name{
+  position:absolute;inset:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;line-height:1.1;font-weight:600;overflow:hidden;border-radius:calc(var(--px) * .16);
+  cursor:grab;touch-action:none;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:anywhere;padding:1px 2px;
+  transition:background .15s;
+}
+.name:hover{background:var(--accent-soft)}
+.name .ln{font-weight:400;color:var(--ink-2)}
+.lasso{position:absolute;border:1px solid var(--accent);background:var(--accent-soft);pointer-events:none;z-index:8;border-radius:3px}
+
+.ghost{
+  position:fixed;left:0;top:0;z-index:100;pointer-events:none;padding:6px 12px;border-radius:8px;
+  background:var(--panel);box-shadow:0 0 0 1.5px var(--accent),var(--shadow-lift);font-weight:600;white-space:nowrap;
+}
+body.dragging-name,body.dragging-name *{cursor:grabbing!important}
+
+/* Dialoge */
+dialog{border:0;border-radius:14px;padding:0;background:var(--panel);color:var(--ink);box-shadow:var(--shadow-lift),0 0 0 .5px var(--sep-2);max-width:min(760px,calc(100vw - 32px));width:100%}
+dialog[open]{animation:sheet .22s cubic-bezier(.2,.8,.2,1)}
+@keyframes sheet{from{opacity:0;transform:translateY(-8px) scale(.985)}}
+dialog::backdrop{background:rgba(0,0,0,.22)}
+.dlg{padding:22px 24px 20px;display:flex;flex-direction:column;gap:14px;max-height:calc(100vh - 60px);overflow:auto}
+.dlg h3{margin:0;font-size:17px;font-weight:700;letter-spacing:-.015em}
+.dlg p.hint{margin:-6px 0 0;color:var(--ink-2);line-height:1.5}
+.dlg .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+.dlg .actions .btn{min-width:92px}
+.dlg label.field{display:grid;gap:5px;font-weight:500;font-size:12px;color:var(--ink-2)}
+.dlg select{-webkit-appearance:none;appearance:none;background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14'%3E%3Cpath d='M2 5l3-3 3 3M2 9l3 3 3-3' fill='none' stroke='%238e8e93' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 9px center;padding-right:26px}
+.dlg textarea{width:100%;min-height:130px;resize:vertical;border:0;border-radius:9px;padding:10px 11px;background:var(--bg);box-shadow:inset 0 0 0 .5px var(--sep-2);font:12px/1.55 ui-monospace,"SF Mono",Menlo,monospace}
+.dlg input[type=checkbox],.dlg input[type=radio]{accent-color:var(--accent)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.msg{padding:10px 12px;border-radius:9px;background:var(--warn-soft);line-height:1.45}
+.prev{display:flex;flex-wrap:wrap;gap:4px;max-height:170px;overflow:auto;padding:2px}
+.prev .pc{display:inline-flex;align-items:center;gap:3px;padding:3px 4px 3px 9px;border-radius:6px;background:var(--fill);font-size:12.5px}
+.prev .pc button{border:0;background:none;color:var(--ink-3);display:flex;padding:1px;border-radius:4px}
+.prev .pc button:hover{color:var(--warn)}
+.prev .pc svg{width:12px;height:12px}
+.radios{display:flex;gap:18px;flex-wrap:wrap}
+.radios label{display:flex;gap:6px;align-items:center}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{position:relative;border-radius:12px;padding:8px 8px 10px;display:flex;flex-direction:column;gap:5px;box-shadow:0 0 0 1px var(--sep);transition:box-shadow .15s,background .15s}
+.tile:hover{box-shadow:0 0 0 1px var(--sep-2)}
+.tile input{position:absolute;opacity:0;pointer-events:none}
+.tile:has(input:checked){box-shadow:0 0 0 2px var(--accent);background:var(--accent-soft)}
+.tile:has(input:focus-visible){outline:3px solid var(--accent-line);outline-offset:2px}
+.tile svg{width:100%;height:auto;display:block;background:var(--room);border-radius:7px;box-shadow:0 0 0 .5px var(--sep)}
+.tile .tt{font-weight:600;margin-top:2px}
+.tile .ts{color:var(--ink-2);font-size:12px}
+.tile .tf{font-size:11.5px;color:var(--ink-3)}
+.tile .tf.no{color:var(--warn);font-weight:500}
+.mini-room{fill:none;stroke:var(--wall);stroke-width:.8}
+.mini-desk{fill:var(--desk);stroke:var(--ink-3);stroke-width:.3}
+.mini-board{fill:var(--board-1)}
+
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px) scale(.98);opacity:0;pointer-events:none;
+  background:rgba(40,40,42,.86);color:#fff;padding:11px 16px;border-radius:12px;
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;gap:16px;align-items:center;
+  max-width:min(560px,calc(100vw - 32px));z-index:200;transition:opacity .2s,transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.toast.on{opacity:1;transform:translate(-50%,0) scale(1);pointer-events:auto}
+.toast button{border:0;background:none;color:#64b5ff;font-weight:600;padding:0;white-space:nowrap}
+
+.print-head,.print-foot{display:none}
+
+@media (max-width:860px){
+  body{overflow:auto;display:block}
+  .main{grid-template-columns:1fr}
+  .stage{min-height:70vh;padding:20px 16px}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+@page{size:A4 landscape;margin:11mm}
+@media print{
+  :root{
+    --bg:#fff; --panel:#fff; --room:#fff; --ink:#000; --ink-2:#333; --ink-3:#555;
+    --dot:#e6e6e6; --wall:#000; --desk:#fff; --desk-edge:#000; --teacher:#eee; --chair:#d6d6d6; --divider:#999;
+    --window:#bbb; --board-1:#444; --board-2:#333; color-scheme:light;
+  }
+  body{display:block;overflow:visible;background:#fff}
+  .bar,.side,.toast,dialog,.scale,.empty-hint,.canvasbar{display:none!important}
+  .main{display:block}
+  .stage{display:block;padding:0;overflow:visible}
+  .roomwrap{margin:0 auto;width:max-content;padding:0 22px}
+  #room{box-shadow:none}
+  #room,.board,.desk,.chair,.win{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .desk{box-shadow:0 0 0 1px #000}
+  .desk.sel{outline:none}
+  .print-head{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 16px;gap:20px}
+  .print-head h1{font-size:20px;margin:0;letter-spacing:-.01em}
+  .print-head span{color:#444;font-size:12px}
+  .print-foot{display:block;margin-top:12px;font-size:11px;color:#444}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-single" viewBox="0 0 24 24"><rect x="6" y="5" width="12" height="8" rx="1"/><path d="M9.5 17.5h5"/></symbol>
+  <symbol id="i-double" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="8" rx="1"/><path d="M12 6v6M5 17.5h4M15 17.5h4"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24"><path d="M3 3h18"/><rect x="3" y="7" width="7" height="4" rx="1"/><rect x="14" y="7" width="7" height="4" rx="1"/><rect x="3" y="15" width="7" height="4" rx="1"/><rect x="14" y="15" width="7" height="4" rx="1"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.9 1 6.7 2.7L21 8"/><path d="M21 3v5h-5"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></symbol>
+  <symbol id="i-room" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 8h3M3 13h3M8 3v3M13 3v3M18 3v3"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10"/><path d="M15 8h5"/><path d="M15 14h5l-5 6h5"/></symbol>
+  <symbol id="i-clear" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17-5-5 5-5"/><path d="M5 12h11"/></symbol>
+  <symbol id="i-fill" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="m14 7 5 5-5 5"/><path d="M19 12H8"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-lock"viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="grp">
+    <select class="plan" id="planSel" aria-label="Sitzplan wählen"></select>
+    <button class="btn icon tb" id="bNew" title="Neuer Sitzplan" aria-label="Neuer Sitzplan"><svg class="i"><use href="#i-plus"/></svg></button>
+    <button class="btn icon tb" id="bRename" title="Umbenennen" aria-label="Umbenennen"><svg class="i"><use href="#i-pen"/></svg></button>
+    <button class="btn icon tb" id="bDup" title="Kopie anlegen (gleiche Klasse, anderer Raum)" aria-label="Kopie anlegen"><svg class="i"><use href="#i-copy"/></svg></button>
+    <button class="btn icon tb" id="bDel" title="Sitzplan löschen" aria-label="Sitzplan löschen"><svg class="i"><use href="#i-trash"/></svg></button>
+  </div>
+  <span class="sep"></span>
+  <div class="seg mode" role="group" aria-label="Was wird gezogen">
+    <button id="mTische" title="Tische verschieben, drehen und markieren (T)"><svg class="i"><use href="#i-double"/></svg>Tische stellen</button>
+    <button id="mSchueler" title="Namen auf Plätze ziehen und tauschen (S)"><svg class="i"><use href="#i-user"/></svg>Schüler setzen</button>
+  </div>
+  <span class="sep"></span>
+  <div class="grp">
+    <button class="btn tb" id="bAddSingle" title="Einzeltisch hinzufügen"><svg class="i"><use href="#i-single"/></svg>Einzeltisch</button>
+    <button class="btn tb" id="bAddDouble" title="Doppeltisch hinzufügen"><svg class="i"><use href="#i-double"/></svg>Doppeltisch</button>
+    <button class="btn tb" id="bTemplate" title="Fertige Anordnung wählen"><svg class="i"><use href="#i-layout"/></svg>Anordnung</button>
+    <button class="btn icon tb" id="bRotate" title="Markierte Tische drehen (R oder Doppelklick)" aria-label="Drehen"><svg class="i"><use href="#i-rotate"/></svg></button>
+    <button class="btn icon tb" id="bRemove" title="Markierte Tische entfernen (Entf)" aria-label="Entfernen"><svg class="i"><use href="#i-trash"/></svg></button>
+  </div>
+  <span class="spacer"></span>
+  <div class="grp">
+    <button class="btn icon tb" id="bUndo" title="Rückgängig (⌘Z)" aria-label="Rückgängig"><svg class="i"><use href="#i-undo"/></svg></button>
+    <button class="btn icon tb" id="bRedo" title="Wiederholen (⇧⌘Z)" aria-label="Wiederholen"><svg class="i"><use href="#i-redo"/></svg></button>
+  </div>
+  <span class="sep"></span>
+  <div class="grp">
+    <button class="btn tb" id="bRoom" title="Raumgröße, Fenster und Tür"><svg class="i"><use href="#i-room"/></svg>Raum</button>
+    <button class="btn tb" id="bPrint" title="Drucken oder als PDF sichern (⌘P)"><svg class="i"><use href="#i-print"/></svg>Drucken</button>
+    <button class="btn icon tb" id="bExport" title="Alle Sitzpläne als Datei sichern" aria-label="Als Datei sichern"><svg class="i"><use href="#i-save"/></svg></button>
+    <button class="btn icon tb" id="bImportBackup" title="Gesicherte Sitzpläne öffnen" aria-label="Sicherung öffnen"><svg class="i"><use href="#i-open"/></svg></button>
+  </div>
+</header>
+
+<div class="main">
+  <aside class="side">
+    <div class="side-scroll">
+      <section>
+        <h2>Klasse</h2>
+        <p class="stats" id="stats"></p>
+        <button class="btn primary wide" id="bImport"><svg class="i"><use href="#i-list"/></svg>Klassenliste laden</button>
+      </section>
+      <section>
+        <h2>Verteilen</h2>
+        <div class="two">
+          <button class="btn" id="dRandom" title="Alle Schüler neu und zufällig setzen"><svg class="i"><use href="#i-shuffle"/></svg>Zufällig</button>
+          <button class="btn" id="dRest" title="Nur die noch nicht gesetzten Schüler zufällig auf freie Plätze"><svg class="i"><use href="#i-fill"/></svg>Rest</button>
+          <button class="btn" id="dAlpha" title="Alphabetisch von vorne nach hinten"><svg class="i"><use href="#i-sort"/></svg>A bis Z</button>
+          <button class="btn" id="dClear" title="Alle zurück in die Liste"><svg class="i"><use href="#i-clear"/></svg>Abräumen</button>
+        </div>
+      </section>
+      <section>
+        <h2>Namen auf den Tischen</h2>
+        <div class="seg full" role="group" aria-label="Namensanzeige">
+          <button data-nm="vorname">Vorname</button>
+          <button data-nm="vorname-n">Vorname N.</button>
+          <button data-nm="voll">Voller Name</button>
+        </div>
+      </section>
+      <section>
+        <h2>Noch ohne Platz <span class="count" id="poolCount"></span></h2>
+        <div class="pool" id="pool"></div>
+        <form class="addrow" id="addForm" autocomplete="off">
+          <input id="addName" placeholder="Schüler hinzufügen" aria-label="Schüler hinzufügen">
+          <button class="btn icon" aria-label="Hinzufügen"><svg class="i"><use href="#i-plus"/></svg></button>
+        </form>
+      </section>
+    </div>
+    <div class="side-foot">
+      <div class="ok" id="saveState"></div>
+      <ul class="tips">
+        <li><kbd>T</kbd> Tische stellen, <kbd>S</kbd> Schüler setzen</li>
+        <li>Tische rasten im 25-cm-Raster ein</li>
+        <li>Doppelklick oder <kbd>R</kbd>: drehen</li>
+        <li>Auf freier Fläche ziehen: mehrere markieren</li>
+        <li>Name auf besetzten Platz: die beiden tauschen</li>
+        <li><kbd>⌘Z</kbd> rückgängig, <kbd>Entf</kbd> entfernen</li>
+      </ul>
+    </div>
+  </aside>
+
+  <section class="stage" id="stage">
+    <div class="canvasbar">
+      <div class="seg" role="group" aria-label="Ansicht">
+        <button id="vKlasse" title="Tafel oben, so wie die Klasse den Raum sieht">Schülersicht</button>
+        <button id="vPult" title="Tafel unten, so wie du vom Pult in die Klasse schaust">Lehrersicht</button>
+      </div>
+    </div>
+    <div class="roomwrap">
+      <div class="print-head"><h1 id="printTitle"></h1><span id="printMeta"></span></div>
+      <div id="room"></div>
+      <div class="print-foot" id="printFoot"></div>
+    </div>
+    <div class="scale" id="scale"></div>
+  </section>
+</div>
+
+<!-- Klassenliste -->
+<dialog id="dlgImport">
+  <form method="dialog" class="dlg" id="impForm">
+    <h3>Klassenliste laden</h3>
+    <p class="hint">CSV oder Excel (.xlsx) wählen, oder die Namen unten hineinkopieren. Bei einer PDF: Datei öffnen, Namen markieren, kopieren und hier einfügen.</p>
+    <div><button type="button" class="btn" id="impFileBtn"><svg class="i"><use href="#i-open"/></svg>Datei wählen</button> <span id="impFileName" style="color:var(--ink-2);margin-left:8px"></span></div>
+    <input type="file" id="impFile" accept=".csv,.txt,.tsv,.xlsx,.xls,.pdf,.numbers,.ods" hidden>
+    <textarea id="impText" spellcheck="false" placeholder="Eine Zeile pro Schüler. Aus Excel kopierte Spalten werden erkannt."></textarea>
+    <div id="impMsg"></div>
+    <div class="fields" id="impMap"></div>
+    <div id="impPrevWrap" hidden>
+      <div style="font-weight:600;margin-bottom:6px" id="impCount"></div>
+      <div class="prev" id="impPrev"></div>
+    </div>
+    <div class="radios" id="impMode" hidden>
+      <label><input type="radio" name="impMode" value="replace" checked> Bisherige Liste ersetzen</label>
+      <label><input type="radio" name="impMode" value="add"> Zur bisherigen Liste hinzufügen</label>
+    </div>
+    <div class="actions">
+      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button class="btn primary" id="impOk" value="ok" disabled>Übernehmen</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Anordnung -->
+<dialog id="dlgTpl">
+  <form method="dialog" class="dlg" id="tplForm">
+    <h3>Anordnung wählen</h3>
+    <p class="hint">Ersetzt alle Schülertische. Danach lässt sich jeder Tisch einzeln verschieben. Gesetzte Schüler kommen zurück in die Liste.</p>
+    <div class="fields">
+      <label class="field">Plätze<input type="number" id="tplN" min="1" max="60" step="1"></label>
+      <label class="field">Tische für U und O
+        <select id="tplType"><option value="double">Doppeltische</option><option value="single">Einzeltische</option></select>
+      </label>
+    </div>
+    <div class="tiles" id="tplTiles"></div>
+    <div class="actions">
+      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button class="btn primary" value="ok">Anordnung übernehmen</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Raum -->
+<dialog id="dlgRoom">
+  <form method="dialog" class="dlg">
+    <h3>Raum</h3>
+    <p class="hint">Ein Kästchen im Raster sind 25 cm. Ein Doppeltisch ist 150 × 50 cm groß, ein Einzeltisch 75 × 50 cm.</p>
+    <div class="fields">
+      <label class="field">Breite in m<input type="number" id="rW" min="4" max="20" step="0.25"></label>
+      <label class="field">Tiefe in m<input type="number" id="rH" min="4" max="20" step="0.25"></label>
+      <label class="field">Fenster (von der Klasse aus)
+        <select id="rWin"><option value="links">links</option><option value="rechts">rechts</option><option value="keine">keine</option></select>
+      </label>
+      <label class="field">Tür
+        <select id="rDoor"><option value="vorne-links">vorne links</option><option value="vorne-rechts">vorne rechts</option><option value="hinten-links">hinten links</option><option value="hinten-rechts">hinten rechts</option><option value="keine">nicht anzeigen</option></select>
+      </label>
+    </div>
+    <div class="actions">
+      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button class="btn primary" value="ok">Übernehmen</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Text abfragen -->
+<dialog id="dlgText" style="max-width:420px">
+  <form method="dialog" class="dlg">
+    <h3 id="txtTitle"></h3>
+    <label class="field" id="txtLabelWrap"><span id="txtLabel"></span><input type="text" id="txtInput" required></label>
+    <div class="actions">
+      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button class="btn primary" value="ok">OK</button>
+    </div>
+  </form>
+</dialog>
+
+<input type="file" id="backupFile" accept=".json,application/json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastBtn" hidden>Rückgängig</button></div>
+
+<script>
+'use strict';
+/* ---------- Grundgrößen ---------- */
+const CELL_CM = 25;
+const FRONT = 7;               // erste Reihe beginnt 1,75 m hinter der Tafelwand
+const TYPES = {
+  single:  { w:3, h:2, seats:1, label:'Einzeltisch' },
+  double:  { w:6, h:2, seats:2, label:'Doppeltisch' },
+  teacher: { w:6, h:3, seats:0, label:'Lehrertisch' }
+};
+const STORE = 'sitzplan.v1';
+
+const $ = s => document.querySelector(s);
+const room = $('#room'), stage = $('#stage');
+const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-3);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const icon = id => `<svg class="i"><use href="#${id}"/></svg>`;
+const collator = new Intl.Collator('de', { sensitivity:'base' });
+
+let S = null;              // gesamter Zustand
+let sel = new Set();       // markierte Tische
+let undoStack = [], redoStack = [];
+let px = 20, printing = false, saveOk = true, hintShown = false;
+const mode = () => S.mode === 'schueler' ? 'schueler' : 'tische';
+function setMode(m) {
+  if (S.mode === m) return;
+  S.mode = m;
+  if (m === 'schueler') sel.clear();
+  persist(); renderPlans(); renderRoom(); renderTools();
+}
+
+/* ---------- Zustand ---------- */
+function makePlan(name) {
+  const p = {
+    id: uid(), name, created: Date.now(), view: 'klasse',
+    room: { w:36, h:30, window:'links', door:'vorne-rechts' },
+    students: [], desks: [],
+    rules: { apart: [], together: [], row: {} }   // für Wünsche und Regeln (nächster Ausbauschritt)
+  };
+  p.desks.push(teacherDesk(p.room));
+  const out = generate(p.room, 'reihen', 28, 'double');
+  p.desks.push(...out.desks.map(materialize));
+  return p;
+}
+function teacherDesk(R) { return { id: uid(), type:'teacher', x: Math.round(R.w / 2 - 3), y: 2, rot: 180, seats: [] }; }
+function materialize(d) { return { id: uid(), type: d.type, x: d.x, y: d.y, rot: d.rot, seats: Array(TYPES[d.type].seats).fill(null) }; }
+
+function normalize(p) {
+  p.room = Object.assign({ w:36, h:30, window:'links', door:'vorne-rechts' }, p.room || {});
+  p.students = Array.isArray(p.students) ? p.students.filter(s => s && s.id) : [];
+  p.rules = Object.assign({ apart: [], together: [], row: {} }, p.rules || {});
+  p.view = p.view === 'pult' ? 'pult' : 'klasse';
+  const ids = new Set(p.students.map(s => s.id));
+  const seen = new Set();
+  p.desks = (Array.isArray(p.desks) ? p.desks : []).filter(d => d && TYPES[d.type]).map(d => {
+    const n = TYPES[d.type].seats;
+    const seats = Array.from({ length: n }, (_, i) => {
+      const sid = d.seats && d.seats[i];
+      if (sid && ids.has(sid) && !seen.has(sid)) { seen.add(sid); return sid; }
+      return null;
+    });
+    return { id: d.id || uid(), type: d.type, x: d.x | 0, y: d.y | 0, rot: [0,90,180,270].includes(d.rot) ? d.rot : 0, seats };
+  });
+  return p;
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORE);
+    if (raw) {
+      const d = JSON.parse(raw);
+      if (d && Array.isArray(d.plans) && d.plans.length) {
+        d.plans.forEach(normalize);
+        if (!d.plans.some(p => p.id === d.current)) d.current = d.plans[0].id;
+        d.nameMode = d.nameMode || 'vorname';
+        d.mode = d.mode === 'schueler' ? 'schueler' : 'tische';
+        return d;
+      }
+    }
+  } catch (e) {}
+  const p = makePlan('Meine Klasse');
+  return { version: 1, current: p.id, nameMode: 'vorname', mode: 'tische', plans: [p] };
+}
+function persist() {
+  try { localStorage.setItem(STORE, JSON.stringify(S)); saveOk = true; }
+  catch (e) { saveOk = false; }
+  renderSaveState();
+}
+const cur = () => S.plans.find(p => p.id === S.current);
+
+function mutate(fn) {
+  undoStack.push(JSON.stringify(S));
+  if (undoStack.length > 80) undoStack.shift();
+  redoStack = [];
+  fn(cur());
+  persist();
+  render();
+}
+function undo() {
+  if (!undoStack.length) return;
+  redoStack.push(JSON.stringify(S));
+  S = JSON.parse(undoStack.pop());
+  pruneSel(); persist(); render();
+}
+function redo() {
+  if (!redoStack.length) return;
+  undoStack.push(JSON.stringify(S));
+  S = JSON.parse(redoStack.pop());
+  pruneSel(); persist(); render();
+}
+function pruneSel() { const ids = new Set(cur().desks.map(d => d.id)); sel = new Set([...sel].filter(id => ids.has(id))); }
+
+/* ---------- Geometrie ---------- */
+function box(d, x = d.x, y = d.y, rot = d.rot) {
+  const T = TYPES[d.type];
+  return rot % 180 === 0 ? { x, y, w: T.w, h: T.h } : { x, y, w: T.h, h: T.w };
+}
+const overlap = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+const inside = (a, R) => a.x >= 0 && a.y >= 0 && a.x + a.w <= R.w && a.y + a.h <= R.h;
+const flipped = () => cur().view === 'pult';
+function scr(R, x, y, w, h) { return flipped() ? { x: R.w - x - w, y: R.h - y - h, w, h } : { x, y, w, h }; }
+const posStyle = r => `left:${r.x * px}px;top:${r.y * px}px;width:${r.w * px}px;height:${r.h * px}px`;
+
+function seatList(P) {
+  const desks = P.desks.filter(d => TYPES[d.type].seats).slice()
+    .sort((a, b) => (a.y - b.y) || (a.x - b.x));
+  const out = [];
+  desks.forEach(d => d.seats.forEach((_, i) => out.push({ desk: d, idx: i })));
+  return out;
+}
+function placedIds(P) { const s = new Set(); P.desks.forEach(d => d.seats.forEach(id => id && s.add(id))); return s; }
+function unplaced(P) { const s = placedIds(P); return P.students.filter(st => !s.has(st.id)); }
+const byName = (a, b) => collator.compare(a.last || a.first, b.last || b.first) || collator.compare(a.first, b.first);
+
+function findFree(P, type, rot = 0) {
+  const R = P.room, probe = { type };
+  const others = P.desks.map(d => box(d));
+  for (let y = FRONT; y <= R.h - 2; y++) {
+    for (let x = 1; x <= R.w - 1; x++) {
+      const b = box(probe, x, y, rot);
+      if (!inside(b, R) || b.x + b.w > R.w - 1 || b.y + b.h > R.h - 1) continue;
+      const pad = { x: b.x - 1, y: b.y - 1, w: b.w + 2, h: b.h + 2 };
+      if (!others.some(o => overlap(pad, o))) return { x, y };
+    }
+  }
+  for (let y = 0; y <= R.h - 2; y++) for (let x = 0; x <= R.w - 2; x++) {
+    const b = box(probe, x, y, rot);
+    if (inside(b, R) && !others.some(o => overlap(b, o))) return { x, y };
+  }
+  return null;
+}
+
+/* ---------- Anordnungen ---------- */
+function generate(R, kind, n, dtype) {
+  n = clamp(n | 0 || 1, 1, 80);
+  switch (kind) {
+    case 'reihen': return genRows(R, n, 'double', 3, 5);
+    case 'einzel': return genRows(R, n, 'single', 2, 5);
+    case 'u':      return genU(R, n, dtype);
+    case 'o':      return genO(R, n, dtype);
+    case 'g4':     return genGroups(R, n, 4);
+    case 'g6':     return genGroups(R, n, 6);
+  }
+}
+function genRows(R, n, type, gapX, pitch) {
+  const T = TYPES[type], L = T.w, count = Math.ceil(n / T.seats);
+  let cols = Math.max(1, Math.floor((R.w - 4 + gapX) / (L + gapX)));
+  cols = Math.min(cols, count);
+  const rows = Math.ceil(count / cols);
+  let p = pitch;
+  while (p > 4 && FRONT + (rows - 1) * p + 3 > R.h) p--;
+  const needH = FRONT + (rows - 1) * p + 3;
+  const totalW = cols * L + (cols - 1) * gapX, x0 = Math.floor((R.w - totalW) / 2);
+  const desks = [];
+  for (let r = 0; r < rows; r++) {
+    const c = Math.min(cols, count - r * cols), off = Math.floor((cols - c) / 2);
+    for (let i = 0; i < c; i++) desks.push({ type, x: x0 + (off + i) * (L + gapX), y: FRONT + r * p, rot: 0 });
+  }
+  return { desks, h: Math.max(R.h, needH), seats: count * T.seats, fits: true };
+}
+function genU(R, n, type) {
+  const T = TYPES[type], L = T.w, s = T.seats, cx = R.w / 2;
+  const backY = R.h - 4;
+  const kmax = Math.max(0, Math.floor((backY + 2 - FRONT) / L));
+  const k2max = Math.max(0, Math.floor((backY - 5 + 2 - FRONT) / L));
+  const mmax = Math.max(1, Math.floor((R.w - 8) / L));
+  let best = null;
+  const consider = c => {
+    const seats = s * (c.m + 2 * c.k + c.m2 + 2 * c.k2), fits = seats >= n;
+    if (!best
+      || (fits && !best.fits)
+      || (fits && best.fits && (seats < best.seats || (seats === best.seats && c.score > best.score)))
+      || (!fits && !best.fits && seats > best.seats)) best = { ...c, seats, fits };
+  };
+  for (let m = 1; m <= mmax; m++) for (let k = 0; k <= kmax; k++) {
+    consider({ m, k, m2: 0, k2: 0, score: m + k * 0.5 });
+    const m2max = Math.floor((m * L - 10) / L);
+    if (k >= 1) for (let m2 = 1; m2 <= m2max; m2++) for (let k2 = 0; k2 <= Math.min(k2max, k - 1); k2++)
+      consider({ m, k, m2, k2, score: m - 1 });
+  }
+  const desks = [];
+  const ring = (m, k, by) => {
+    const lx = Math.round(cx - m * L / 2) - 2, rx = lx + 2 + m * L;
+    for (let i = 0; i < m; i++) desks.push({ type, x: lx + 2 + i * L, y: by, rot: 0 });
+    for (let j = 0; j < k; j++) {
+      const y = by + 2 - L * (j + 1);
+      desks.push({ type, x: lx, y, rot: 90 }, { type, x: rx, y, rot: 270 });
+    }
+  };
+  ring(best.m, best.k, backY);
+  if (best.m2) ring(best.m2, best.k2, backY - 5);
+  return { desks, h: R.h, seats: best.seats, fits: best.fits };
+}
+function genO(R, n, type) {
+  const T = TYPES[type], L = T.w, s = T.seats, cx = R.w / 2;
+  const top0 = FRONT + 1;
+  const kmax = Math.max(1, Math.floor((R.h - 2 - top0) / L));
+  const mmax = Math.max(1, Math.floor((R.w - 8) / L));
+  let best = null;
+  for (let m = 1; m <= mmax; m++) for (let k = 1; k <= kmax; k++) {
+    if (k * L < 6) continue;   // innen mindestens 50 cm Luft zwischen den Reihen
+    const seats = s * (2 * m + 2 * k), fits = seats >= n;
+    if (!best || (fits && !best.fits) || (fits && best.fits && (seats < best.seats || (seats === best.seats && m > best.m)))
+      || (!fits && !best.fits && seats > best.seats)) best = { m, k, seats, fits };
+  }
+  const { m, k } = best, span = k * L;
+  const topY = top0 + Math.max(0, Math.floor((R.h - 2 - top0 - span) / 2));
+  const lx = Math.round(cx - m * L / 2) - 2, rx = lx + 2 + m * L;
+  const desks = [];
+  for (let i = 0; i < m; i++) {
+    desks.push({ type, x: lx + 2 + i * L, y: topY, rot: 180 });
+    desks.push({ type, x: lx + 2 + i * L, y: topY + span - 2, rot: 0 });
+  }
+  for (let j = 0; j < k; j++) desks.push({ type, x: lx, y: topY + j * L, rot: 90 }, { type, x: rx, y: topY + j * L, rot: 270 });
+  return { desks, h: R.h, seats: best.seats, fits: best.fits };
+}
+function genGroups(R, n, g) {
+  const type = g === 4 ? 'double' : 'single', per = g === 4 ? 1 : 3, L = TYPES[type].w;
+  const bw = per * L, gap = 3, groups = Math.ceil(n / g);
+  let cols = Math.max(1, Math.floor((R.w - 4 + gap) / (bw + gap)));
+  cols = Math.min(cols, groups);
+  const rows = Math.ceil(groups / cols), top = FRONT + 1;
+  let p = 8;
+  while (p > 6 && top + (rows - 1) * p + 5 > R.h) p--;
+  const needH = top + (rows - 1) * p + 5;
+  const totalW = cols * bw + (cols - 1) * gap, x0 = Math.floor((R.w - totalW) / 2);
+  const desks = [];
+  for (let r = 0; r < rows; r++) {
+    const c = Math.min(cols, groups - r * cols), off = Math.floor((cols - c) / 2);
+    for (let i = 0; i < c; i++) {
+      const gx = x0 + (off + i) * (bw + gap), gy = top + r * p;
+      for (let q = 0; q < per; q++) {
+        desks.push({ type, x: gx + q * L, y: gy, rot: 180 });
+        desks.push({ type, x: gx + q * L, y: gy + 2, rot: 0 });
+      }
+    }
+  }
+  return { desks, h: Math.max(R.h, needH), seats: groups * g, fits: true };
+}
+
+/* ---------- Anzeige ---------- */
+function render() {
+  renderPlans(); renderSide(); renderRoom(); renderTools();
+}
+function renderPlans() {
+  const selEl = $('#planSel');
+  selEl.innerHTML = S.plans.slice().sort((a, b) => collator.compare(a.name, b.name))
+    .map(p => `<option value="${p.id}" ${p.id === S.current ? 'selected' : ''}>${esc(p.name)}</option>`).join('');
+  $('#bDel').disabled = S.plans.length < 2;
+  $('#vKlasse').setAttribute('aria-pressed', !flipped());
+  $('#vPult').setAttribute('aria-pressed', flipped());
+  document.querySelectorAll('[data-nm]').forEach(b => b.setAttribute('aria-pressed', b.dataset.nm === S.nameMode));
+  $('#mTische').setAttribute('aria-pressed', mode() === 'tische');
+  $('#mSchueler').setAttribute('aria-pressed', mode() === 'schueler');
+}
+function renderSide() {
+  const P = cur();
+  const seats = seatList(P).length, placed = placedIds(P).size, total = P.students.length;
+  let st = total
+    ? `<b>${total}</b> Schüler, <b>${placed}</b> gesetzt, <b>${seats}</b> Plätze`
+    : `Noch keine Klassenliste. <b>${seats}</b> Plätze im Raum.`;
+  if (total > seats) st += `<br><span class="miss">Es fehlen ${total - seats} Plätze.</span>`;
+  $('#stats').innerHTML = st;
+  const list = unplaced(P).sort(byName);
+  $('#poolCount').textContent = total ? list.length : '';
+  const pool = $('#pool');
+  if (!total) pool.innerHTML = `<div class="pool-empty">Lade oben eine CSV- oder Excel-Datei.<br>Oder tippe unten einzelne Namen ein.</div>`;
+  else if (!list.length) pool.innerHTML = `<div class="pool-empty">Alle haben einen Platz.<br>Namen hierher ziehen, um sie vom Tisch zu nehmen.</div>`;
+  else pool.innerHTML = list.map(s => `<div class="chip" data-sid="${s.id}" title="Ziehen zum Setzen, Doppelklick zum Umbenennen"><span>${esc(s.first)} <b>${esc(s.last)}</b></span><button type="button" class="x" data-rm="${s.id}" aria-label="${esc(s.first)} ${esc(s.last)} aus der Klasse entfernen" title="Aus der Klasse entfernen">${icon('i-x')}</button></div>`).join('');
+}
+function renderSaveState() {
+  $('#saveState').innerHTML = saveOk
+    ? `${icon('i-lock')}<span>Alles bleibt auf diesem Rechner. Wird automatisch im Browser gespeichert, nichts geht ins Internet.</span>`
+    : `<span class="err">Speichern im Browser ist hier nicht möglich. Sichere die Sitzpläne über den Pfeil oben rechts als Datei.</span>`;
+}
+function renderTools() {
+  const has = sel.size > 0 && mode() === 'tische';
+  $('#bRotate').disabled = !has;
+  $('#bRemove').disabled = !has || [...sel].every(id => cur().desks.find(d => d.id === id)?.type === 'teacher');
+  $('#bUndo').disabled = !undoStack.length;
+  $('#bRedo').disabled = !redoStack.length;
+}
+function computePx(R) {
+  if (printing) return Math.max(8, Math.min(1010 / R.w, 610 / R.h));
+  const r = stage.getBoundingClientRect();
+  const aw = r.width - 120, ah = r.height - 150;
+  return clamp(Math.floor(Math.min(aw / R.w, ah / R.h)), 11, 46);
+}
+/* Kurzform des Nachnamens: so viele Buchstaben, bis gleiche Vornamen unterscheidbar sind */
+function lastShort(P) {
+  const low = s => (s || '').toLocaleLowerCase('de');
+  const groups = new Map();
+  P.students.forEach(s => { const k = low(s.first); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(s); });
+  const out = new Map();
+  for (const g of groups.values()) {
+    for (const s of g) {
+      const last = s.last || '', others = g.filter(o => o !== s).map(o => low(o.last));
+      let k = 1;
+      while (k < last.length && others.some(o => o.startsWith(low(last.slice(0, k))))) k++;
+      out.set(s.id, { dup: g.length > 1, short: k >= last.length ? last : last.slice(0, k) + '.' });
+    }
+  }
+  return out;
+}
+function nameHtml(st, shorts) {
+  const m = S.nameMode, f = st.first || '', l = st.last || '';
+  if (!f) return `<span class="fn">${esc(l)}</span>`;
+  if (m === 'voll' || !l) return `<span class="fn">${esc(f)}</span>${l ? `<span class="ln">${esc(l)}</span>` : ''}`;
+  const sh = shorts.get(st.id);
+  if (m === 'vorname-n' || (sh && sh.dup)) return `<span class="fn">${esc(f)}</span><span class="ln">${esc(sh ? sh.short : l[0] + '.')}</span>`;
+  return `<span class="fn">${esc(f)}</span>`;
+}
+function renderRoom() {
+  const P = cur(), R = P.room, f = flipped();
+  px = computePx(R);
+  room.style.width = R.w * px + 'px';
+  room.style.height = R.h * px + 'px';
+  room.style.setProperty('--px', px + 'px');
+  room.classList.toggle('m-tische', mode() === 'tische');
+  room.classList.toggle('m-schueler', mode() === 'schueler');
+  const dupes = lastShort(P);
+  const byId = new Map(P.students.map(s => [s.id, s]));
+  let h = '';
+
+  // Tafel
+  const bw = Math.min(16, R.w - 6), b = scr(R, (R.w - bw) / 2, 0, bw, 0.7);
+  h += `<div class="board ${f ? 'b' : 't'}" style="${posStyle(b)}">Tafel</div>`;
+
+  // Fenster
+  if (R.window !== 'keine') {
+    const leftModel = R.window === 'links';
+    const wy = 4, wh = R.h - 7;
+    const w = scr(R, leftModel ? 0.15 : R.w - 0.45, wy, 0.3, wh);
+    h += `<div class="win" style="${posStyle(w)}"></div>`;
+    const onLeft = leftModel !== f;
+    h += `<div class="walllabel v ${onLeft ? 'l' : ''}" style="top:${(w.y + w.h / 2) * px}px;${onLeft ? 'left:-22px' : 'right:-22px'};transform:translateY(-50%)${onLeft ? ' rotate(180deg)' : ''}">Fenster</div>`;
+  }
+  // Tür
+  if (R.door !== 'keine') {
+    const [vh, lr] = R.door.split('-');
+    const len = 4, y = vh === 'vorne' ? 1 : R.h - 1 - len;
+    const r = scr(R, lr === 'links' ? 0 : R.w, y, 0, len);
+    const onLeft = (lr === 'links') !== f;
+    h += `<div class="door v ${onLeft ? 'l' : 'r'}" style="top:${r.y * px}px;height:${len * px}px;${onLeft ? 'left:-3px' : 'right:-3px'};width:3px"></div>`;
+    h += `<div class="walllabel" style="top:${(r.y + len / 2) * px}px;${onLeft ? 'left:-30px' : 'right:-30px'};transform:translateY(-50%)">Tür</div>`;
+  }
+
+  // Tische
+  for (const d of P.desks) {
+    const bx = box(d), s = scr(R, bx.x, bx.y, bx.w, bx.h);
+    const face = (d.rot + (f ? 180 : 0)) % 360;
+    let inner;
+    if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px > 15 ? 'Lehrertisch' : 'L'}</span>`;
+    else inner = d.seats.map((sid, i) => {
+      const st = sid && byId.get(sid);
+      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span>${st ? `<div class="name" data-sid="${st.id}" title="${esc(st.first)} ${esc(st.last)}">${nameHtml(st, dupes)}</div>` : ''}</div>`;
+    }).join('');
+    h += `<div class="desk t-${d.type} f${face}${sel.has(d.id) ? ' sel' : ''}" data-id="${d.id}" style="${posStyle(s)}" title="${TYPES[d.type].label}">${inner}</div>`;
+  }
+  if (!P.desks.some(d => d.type !== 'teacher'))
+    h += `<div class="empty-hint">Noch keine Schülertische. Oben über „Anordnung“ eine fertige Aufstellung wählen oder einzelne Tische hinzufügen.</div>`;
+  room.innerHTML = h;
+  fitNames();
+
+  $('#scale').textContent = `1 Kästchen = 25 cm · Raum ${fmtM(R.w)} × ${fmtM(R.h)} m · ${f ? 'Lehrersicht: Tafel unten' : 'Schülersicht: Tafel oben'}`;
+  $('#printTitle').textContent = P.name;
+  $('#printMeta').textContent = `Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`;
+  const rest = unplaced(P).sort(byName);
+  $('#printFoot').textContent = rest.length ? `Ohne Platz: ${rest.map(s => `${s.first} ${s.last}`.trim()).join(', ')}` : '';
+}
+const fmtM = cells => (cells * CELL_CM / 100).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function fitNames() {
+  const base = clamp(px * 0.52, 9, 15);
+  room.querySelectorAll('.name').forEach(el => {
+    let fs = base, guard = 0;
+    el.style.fontSize = fs + 'px';
+    while ((el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1) && fs > 7 && guard++ < 24) {
+      fs -= 0.5; el.style.fontSize = fs + 'px';
+    }
+  });
+}
+function renderSelection() {
+  room.querySelectorAll('.desk').forEach(el => el.classList.toggle('sel', sel.has(el.dataset.id)));
+  renderTools();
+}
+
+/* ---------- Ziehen: Hilfsfunktion ---------- */
+function track(e, onMove, onUp) {
+  const id = e.pointerId;
+  const mv = ev => { if (ev.pointerId === id) onMove(ev); };
+  const up = ev => {
+    if (ev.pointerId !== id) return;
+    window.removeEventListener('pointermove', mv);
+    window.removeEventListener('pointerup', up);
+    window.removeEventListener('pointercancel', up);
+    onUp(ev, ev.type === 'pointercancel');
+  };
+  window.addEventListener('pointermove', mv);
+  window.addEventListener('pointerup', up);
+  window.addEventListener('pointercancel', up);
+}
+
+room.addEventListener('pointerdown', e => {
+  if (e.button !== 0) return;
+  const nm = e.target.closest('.name');
+  if (nm) {
+    const seat = nm.closest('.seat');
+    startNameDrag(e, { kind: 'seat', deskId: seat.dataset.desk, idx: +seat.dataset.idx, sid: nm.dataset.sid }, nm);
+    return;
+  }
+  const dk = e.target.closest('.desk');
+  if (mode() === 'schueler') {
+    if (!dk) return;
+    e.preventDefault();
+    const sx = e.clientX, sy = e.clientY;
+    track(e, () => {}, ev => {
+      if (!hintShown && Math.hypot(ev.clientX - sx, ev.clientY - sy) > 8) {
+        hintShown = true;
+        toast('Zum Verschieben der Tische oben auf „Tische stellen“ umschalten (Taste T).');
+      }
+    });
+    return;
+  }
+  if (dk) { startDeskDrag(e, dk.dataset.id); return; }
+  startLasso(e);
+});
+room.addEventListener('dblclick', e => {
+  const dk = e.target.closest('.desk');
+  if (!dk || mode() !== 'tische') return;
+  if (!sel.has(dk.dataset.id)) { sel = new Set([dk.dataset.id]); }
+  rotateSel();
+});
+
+/* Tische verschieben */
+function startDeskDrag(e, id) {
+  e.preventDefault();
+  const P = cur(), R = P.room;
+  if (e.shiftKey || e.metaKey || e.ctrlKey) {
+    sel.has(id) ? sel.delete(id) : sel.add(id);
+    renderSelection();
+    if (!sel.has(id)) return;
+  } else if (!sel.has(id)) { sel = new Set([id]); renderSelection(); }
+
+  const group = P.desks.filter(d => sel.has(d.id));
+  const others = P.desks.filter(d => !sel.has(d.id)).map(d => box(d));
+  const boxes = group.map(d => box(d));
+  const minX = Math.min(...boxes.map(b => b.x)), minY = Math.min(...boxes.map(b => b.y));
+  const maxX = Math.max(...boxes.map(b => b.x + b.w)), maxY = Math.max(...boxes.map(b => b.y + b.h));
+  const els = group.map(d => room.querySelector(`.desk[data-id="${d.id}"]`));
+  const sx = e.clientX, sy = e.clientY, f = flipped();
+  let moved = false, dx = 0, dy = 0, bad = false, good = { dx: 0, dy: 0 };
+
+  track(e, ev => {
+    if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 4) return;
+    if (!moved) { moved = true; room.classList.add('dragging'); }
+    let ndx = Math.round((ev.clientX - sx) / px), ndy = Math.round((ev.clientY - sy) / px);
+    if (f) { ndx = -ndx; ndy = -ndy; }
+    ndx = clamp(ndx, -minX, R.w - maxX);
+    ndy = clamp(ndy, -minY, R.h - maxY);
+    if (ndx === dx && ndy === dy) return;
+    dx = ndx; dy = ndy;
+    const moved_ = boxes.map(b => ({ x: b.x + dx, y: b.y + dy, w: b.w, h: b.h }));
+    bad = moved_.some(b => others.some(o => overlap(b, o)));
+    if (!bad) good = { dx, dy };
+    moved_.forEach((b, i) => {
+      const s = scr(R, b.x, b.y, b.w, b.h);
+      els[i].style.left = s.x * px + 'px';
+      els[i].style.top = s.y * px + 'px';
+      els[i].classList.toggle('bad', bad);
+    });
+  }, (ev, cancel) => {
+    room.classList.remove('dragging');
+    if (!moved) return;
+    const fin = cancel ? { dx: 0, dy: 0 } : (bad ? good : { dx, dy });
+    if (!fin.dx && !fin.dy) { renderRoom(); return; }
+    mutate(P => P.desks.forEach(d => { if (sel.has(d.id)) { d.x += fin.dx; d.y += fin.dy; } }));
+  });
+}
+
+/* Mehrere markieren */
+function startLasso(e) {
+  e.preventDefault();
+  const r = room.getBoundingClientRect();
+  const ox = r.left + room.clientLeft, oy = r.top + room.clientTop;
+  const x0 = e.clientX - ox, y0 = e.clientY - oy;
+  const add = e.shiftKey || e.metaKey || e.ctrlKey;
+  const base = add ? new Set(sel) : new Set();
+  let lasso = null;
+  track(e, ev => {
+    const x1 = ev.clientX - ox, y1 = ev.clientY - oy;
+    if (!lasso) {
+      if (Math.hypot(x1 - x0, y1 - y0) < 4) return;
+      lasso = document.createElement('div'); lasso.className = 'lasso'; room.appendChild(lasso);
+    }
+    const L = Math.min(x0, x1), T = Math.min(y0, y1), W = Math.abs(x1 - x0), H = Math.abs(y1 - y0);
+    lasso.style.cssText = `left:${L}px;top:${T}px;width:${W}px;height:${H}px`;
+    sel = new Set(base);
+    room.querySelectorAll('.desk').forEach(el => {
+      const b = { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight };
+      if (b.x < L + W && b.x + b.w > L && b.y < T + H && b.y + b.h > T) sel.add(el.dataset.id);
+    });
+    renderSelection();
+  }, () => {
+    if (lasso) lasso.remove();
+    else if (!add) { sel.clear(); renderSelection(); }
+  });
+}
+
+/* Namen ziehen */
+function startNameDrag(e, src, srcEl) {
+  e.preventDefault(); e.stopPropagation();
+  const P = cur(), st = P.students.find(s => s.id === src.sid);
+  if (!st) return;
+  const sx = e.clientX, sy = e.clientY;
+  let ghost = null, target = null, hlEl = null;
+  const setHl = el => { if (hlEl === el) return; hlEl?.classList.remove('hl'); hlEl = el; el?.classList.add('hl'); };
+  track(e, ev => {
+    if (!ghost) {
+      if (Math.hypot(ev.clientX - sx, ev.clientY - sy) < 4) return;
+      ghost = document.createElement('div'); ghost.className = 'ghost';
+      ghost.textContent = `${st.first} ${st.last}`.trim();
+      document.body.appendChild(ghost);
+      document.body.classList.add('dragging-name');
+      srcEl.classList.add('lifted');
+    }
+    ghost.style.transform = `translate(${ev.clientX}px,${ev.clientY}px) translate(-50%,-130%)`;
+    const el = document.elementFromPoint(ev.clientX, ev.clientY);
+    const seat = el && el.closest('.seat'), pool = el && el.closest('#pool');
+    if (seat) { target = { kind: 'seat', deskId: seat.dataset.desk, idx: +seat.dataset.idx }; setHl(seat); }
+    else if (pool) { target = { kind: 'pool' }; setHl(pool); }
+    else { target = null; setHl(null); }
+  }, (ev, cancel) => {
+    setHl(null);
+    document.body.classList.remove('dragging-name');
+    srcEl.classList.remove('lifted');
+    if (!ghost) return;
+    ghost.remove();
+    if (cancel || !target) return;
+    dropName(src, target);
+  });
+}
+function dropName(src, t) {
+  const P = cur(), find = id => P.desks.find(d => d.id === id);
+  if (t.kind === 'pool' && src.kind !== 'seat') return;
+  if (t.kind === 'seat' && src.kind === 'seat' && src.deskId === t.deskId && src.idx === t.idx) return;
+  S.mode = 'schueler';
+  mutate(P => {
+    const find = id => P.desks.find(d => d.id === id);
+    if (t.kind === 'seat') {
+      const td = find(t.deskId); if (!td) return;
+      const occ = td.seats[t.idx];
+      if (src.kind === 'seat') { const sd = find(src.deskId); if (sd) sd.seats[src.idx] = occ || null; }
+      td.seats[t.idx] = src.sid;
+    } else if (t.kind === 'pool' && src.kind === 'seat') {
+      const sd = find(src.deskId); if (sd) sd.seats[src.idx] = null;
+    }
+  });
+}
+
+/* Seitenleiste: Chips */
+$('#pool').addEventListener('pointerdown', e => {
+  if (e.button !== 0 || e.target.closest('.x')) return;
+  const chip = e.target.closest('.chip');
+  if (chip) startNameDrag(e, { kind: 'pool', sid: chip.dataset.sid }, chip);
+});
+$('#pool').addEventListener('click', e => {
+  const rm = e.target.closest('[data-rm]');
+  if (!rm) return;
+  const st = cur().students.find(s => s.id === rm.dataset.rm);
+  if (!st) return;
+  mutate(P => { P.students = P.students.filter(s => s.id !== st.id); });
+  toast(`${st.first} ${st.last} wurde aus der Klasse entfernt.`, true);
+});
+$('#pool').addEventListener('dblclick', async e => {
+  const chip = e.target.closest('.chip'); if (!chip) return;
+  const st = cur().students.find(s => s.id === chip.dataset.sid); if (!st) return;
+  const v = await askText('Namen ändern', 'Vorname Nachname', `${st.first} ${st.last}`.trim());
+  if (!v) return;
+  const [first, last] = splitName(v, 'vn');
+  mutate(P => { const s = P.students.find(x => x.id === st.id); if (s) { s.first = first; s.last = last; } });
+});
+$('#addForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = $('#addName').value.trim(); if (!v) return;
+  const [first, last] = splitName(v, 'vn');
+  mutate(P => P.students.push({ id: uid(), first, last }));
+  $('#addName').value = '';
+});
+
+/* ---------- Tischbefehle ---------- */
+function addDesk(type) {
+  const P = cur(), spot = findFree(P, type, 0);
+  if (!spot) { toast('Im Raum ist kein Platz mehr frei. Mach den Raum größer oder rücke Tische zusammen.'); return; }
+  const d = materialize({ type, x: spot.x, y: spot.y, rot: 0 });
+  S.mode = 'tische';
+  mutate(P => P.desks.push(d));
+  sel = new Set([d.id]); renderSelection();
+}
+function rotateSel() {
+  const P = cur(), R = P.room;
+  const group = P.desks.filter(d => sel.has(d.id));
+  if (!group.length) return;
+  const others = P.desks.filter(d => !sel.has(d.id)).map(d => box(d));
+  const next = group.map(d => {
+    const b = box(d), rot = (d.rot + 90) % 360, nb = box(d, 0, 0, rot);
+    const x = clamp(Math.round(b.x + b.w / 2 - nb.w / 2), 0, R.w - nb.w);
+    const y = clamp(Math.round(b.y + b.h / 2 - nb.h / 2), 0, R.h - nb.h);
+    return { id: d.id, x, y, rot, b: { x, y, w: nb.w, h: nb.h } };
+  });
+  const clash = next.some((a, i) => others.some(o => overlap(a.b, o)) || next.some((c, j) => j !== i && overlap(a.b, c.b)));
+  if (clash) { toast('Zum Drehen ist dort kein Platz. Schieb den Tisch erst etwas zur Seite.'); return; }
+  mutate(P => next.forEach(n => { const d = P.desks.find(x => x.id === n.id); Object.assign(d, { x: n.x, y: n.y, rot: n.rot }); }));
+}
+function deleteSel() {
+  const ids = [...sel].filter(id => cur().desks.find(d => d.id === id)?.type !== 'teacher');
+  if (!ids.length) return;
+  mutate(P => { P.desks = P.desks.filter(d => !ids.includes(d.id)); });
+  sel.clear(); renderSelection();
+  toast(ids.length === 1 ? 'Tisch entfernt.' : `${ids.length} Tische entfernt.`, true);
+}
+function nudge(dx, dy) {
+  const P = cur(), R = P.room;
+  if (flipped()) { dx = -dx; dy = -dy; }
+  const group = P.desks.filter(d => sel.has(d.id)); if (!group.length) return;
+  const others = P.desks.filter(d => !sel.has(d.id)).map(d => box(d));
+  const ok = group.every(d => { const b = box(d, d.x + dx, d.y + dy); return inside(b, R) && !others.some(o => overlap(b, o)); });
+  if (!ok) return;
+  mutate(P => P.desks.forEach(d => { if (sel.has(d.id)) { d.x += dx; d.y += dy; } }));
+}
+function duplicateSel() {
+  const P = cur(), R = P.room;
+  const group = P.desks.filter(d => sel.has(d.id) && d.type !== 'teacher'); if (!group.length) return;
+  const bs = group.map(d => box(d));
+  const gw = Math.max(...bs.map(b => b.x + b.w)) - Math.min(...bs.map(b => b.x));
+  const gh = Math.max(...bs.map(b => b.y + b.h)) - Math.min(...bs.map(b => b.y));
+  const all = P.desks.map(d => box(d));
+  const tries = [[0, gh + 2], [0, gh + 3], [gw + 2, 0], [-(gw + 2), 0], [0, -(gh + 2)]];
+  for (const [dx, dy] of tries) {
+    const nb = bs.map(b => ({ ...b, x: b.x + dx, y: b.y + dy }));
+    if (nb.every(b => inside(b, R) && !all.some(o => overlap(b, o)))) {
+      const copies = group.map(d => materialize({ type: d.type, x: d.x + dx, y: d.y + dy, rot: d.rot }));
+      mutate(P => P.desks.push(...copies));
+      sel = new Set(copies.map(c => c.id)); renderSelection();
+      return;
+    }
+  }
+  toast('Für eine Kopie ist neben den markierten Tischen kein Platz.');
+}
+
+/* ---------- Verteilen ---------- */
+function shuffle(a) {
+  const r = new Uint32Array(a.length); crypto.getRandomValues(r);
+  for (let i = a.length - 1; i > 0; i--) { const j = r[i] % (i + 1); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function distribute(mode) {
+  const P = cur();
+  if (!P.students.length) { toast('Noch keine Klassenliste geladen.'); return; }
+  if (!seatList(P).length) { toast('Es stehen noch keine Schülertische im Raum.'); return; }
+  let left = 0;
+  S.mode = 'schueler';
+  mutate(P => {
+    const list = seatList(P);
+    if (mode === 'rest') {
+      const pool = shuffle(unplaced(P));
+      const free = list.filter(s => !s.desk.seats[s.idx]);
+      free.forEach((s, i) => { if (i < pool.length) s.desk.seats[s.idx] = pool[i].id; });
+      left = Math.max(0, pool.length - free.length);
+    } else {
+      list.forEach(s => { s.desk.seats[s.idx] = null; });
+      if (mode === 'clear') return;
+      const pool = mode === 'alpha' ? P.students.slice().sort(byName) : shuffle(P.students.slice());
+      list.forEach((s, i) => { if (i < pool.length) s.desk.seats[s.idx] = pool[i].id; });
+      left = Math.max(0, pool.length - list.length);
+    }
+  });
+  const msg = { random: 'Zufällig verteilt.', rest: 'Freie Plätze zufällig aufgefüllt.', alpha: 'Alphabetisch von vorne nach hinten verteilt.', clear: 'Alle Namen sind zurück in der Liste.' }[mode];
+  toast(left ? `${msg} ${left} Schüler haben keinen Platz, es fehlen Tische.` : msg, true);
+}
+
+/* ---------- Klassenliste einlesen ---------- */
+function decodeText(buf) {
+  let t;
+  try { t = new TextDecoder('utf-8', { fatal: true }).decode(buf); }
+  catch (e) { t = new TextDecoder('windows-1252').decode(buf); }
+  return t.replace(/^﻿/, '');
+}
+function csvRows(text, d) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; }
+      else cell += c;
+    } else if (c === '"' && cell.trim() === '') { q = true; cell = ''; }
+    else if (c === d) { row.push(cell); cell = ''; }
+    else if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += c;
+  }
+  row.push(cell); rows.push(row);
+  return rows.map(r => r.map(x => x.trim()));
+}
+function parseText(text) {
+  text = String(text || '').replace(/^﻿/, '').replace(/\r\n?/g, '\n');
+  const lines = text.split('\n').filter(l => l.trim());
+  if (!lines.length) return [];
+  let rows;
+  if (lines.some(l => l.includes('\t'))) rows = csvRows(lines.join('\n'), '\t');
+  else if (lines.filter(l => l.includes(';')).length >= lines.length * 0.5) rows = csvRows(lines.join('\n'), ';');
+  else if (lines.filter(l => l.includes(',')).length >= lines.length * 0.6) rows = csvRows(lines.join('\n'), ',');
+  else rows = lines.map(l => [l.trim()]);
+  rows = rows.filter(r => r.some(Boolean));
+  const ncol = Math.max(...rows.map(r => r.length));
+  const keep = [];
+  for (let i = 0; i < ncol; i++) if (rows.some(r => (r[i] || '').trim())) keep.push(i);
+  return rows.map(r => keep.map(i => r[i] || ''));
+}
+const isNameLike = v => /^[\p{L}][\p{L}\p{M}'’ .\-]*$/u.test(v);
+function autoMap(rows) {
+  const ncol = rows.length ? Math.max(...rows.map(r => r.length)) : 0;
+  const h = (rows[0] || []).map(x => x.toLowerCase());
+  let fi = -1, li = -1;
+  h.forEach((x, i) => {
+    if (/vorname|rufname/.test(x)) { if (fi < 0) fi = i; }
+    else if (/nachname|familienname|zuname|^name$|^schüler|^schueler/.test(x)) { if (li < 0) li = i; }
+  });
+  const header = fi >= 0 || li >= 0;
+  const body = rows.slice(header ? 1 : 0);
+  const combined = rows.some(r => r.length === 1) && ncol === 1;
+  const fmtGuess = () => {
+    const vals = body.map(r => r[li >= 0 ? li : 0] || '').filter(Boolean);
+    return vals.filter(v => v.includes(',')).length > vals.length / 2 ? 'n,v' : 'vn';
+  };
+  if (ncol <= 1 || combined) return { ncol, header, fi: -1, li: 0, fmt: fmtGuess() };
+  if (fi < 0 || li < 0) {
+    const textCols = [];
+    for (let i = 0; i < ncol; i++) {
+      const vals = body.map(r => r[i] || '').filter(Boolean);
+      if (vals.length && vals.filter(isNameLike).length / vals.length > 0.8) textCols.push(i);
+    }
+    if (fi < 0 && li < 0) { li = textCols[0] ?? 0; fi = textCols[1] ?? -1; }
+    else if (li < 0) li = textCols.find(i => i !== fi) ?? -1;
+    else if (fi < 0) fi = textCols.find(i => i !== li) ?? -1;
+  }
+  return { ncol, header, fi, li, fmt: fmtGuess() };
+}
+function cleanPart(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+function splitName(raw, fmt) {
+  let s = cleanPart(raw)
+    .replace(/^\d+\s*[.)]?\s+/, '')              // führende Nummer
+    .replace(/(\s+[\d.\/:-]+)+$/, '')            // Datum oder Zahlen am Ende
+    .trim();
+  if (fmt === 'n,v' && s.includes(',')) { const i = s.indexOf(','); return [cleanPart(s.slice(i + 1)), cleanPart(s.slice(0, i))]; }
+  s = s.replace(/,/g, ' ');
+  const parts = s.split(' ').filter(Boolean);
+  if (parts.length < 2) return [parts[0] || '', ''];
+  if (fmt === 'nv') return [parts.slice(1).join(' '), parts[0]];
+  return [parts.slice(0, -1).join(' '), parts[parts.length - 1]];
+}
+
+const imp = { rows: [], map: null, excluded: new Set(), sig: '' };
+function impParse(forceMap) {
+  const rows = parseText($('#impText').value);
+  const ncol = rows.length ? Math.max(...rows.map(r => r.length)) : 0;
+  const sig = ncol + '|' + (rows[0] || []).join('|');
+  if (forceMap || !imp.map || sig !== imp.sig) { imp.map = autoMap(rows); imp.excluded = new Set(); }
+  imp.rows = rows; imp.sig = sig;
+  impRender();
+}
+function impNames() {
+  const { rows, map } = imp; if (!map) return [];
+  const out = [];
+  rows.slice(map.header ? 1 : 0).forEach((r, i) => {
+    let first = '', last = '';
+    if (map.fi >= 0 && map.li >= 0) { first = cleanPart(r[map.fi]); last = cleanPart(r[map.li]); }
+    else { const c = map.fi >= 0 ? map.fi : map.li; if (c < 0) return; [first, last] = splitName(r[c], map.fmt); }
+    if (!/\p{L}/u.test(first + last)) return;
+    if (!first && !last) return;
+    out.push({ first, last, key: i });
+  });
+  return out.filter(n => !imp.excluded.has(n.key));
+}
+function impRender() {
+  const { rows, map } = imp;
+  const mapEl = $('#impMap');
+  if (!rows.length) {
+    mapEl.innerHTML = ''; $('#impPrevWrap').hidden = true; $('#impMode').hidden = true;
+    $('#impOk').disabled = true; $('#impOk').textContent = 'Übernehmen';
+    return;
+  }
+  const sample = i => {
+    const v = (map.header ? rows[0][i] : rows.find(r => r[i])?.[i]) || '';
+    return v.length > 22 ? v.slice(0, 21) + '…' : v;
+  };
+  const opts = sel => `<option value="-1" ${sel < 0 ? 'selected' : ''}>nicht vorhanden</option>` +
+    Array.from({ length: map.ncol }, (_, i) => `<option value="${i}" ${i === sel ? 'selected' : ''}>Spalte ${i + 1}${sample(i) ? ': ' + esc(sample(i)) : ''}</option>`).join('');
+  const oneCol = map.fi < 0 || map.li < 0;
+  mapEl.innerHTML = `
+    <label class="field">Vorname steht in<select id="mFi">${opts(map.fi)}</select></label>
+    <label class="field">Nachname steht in<select id="mLi">${opts(map.li)}</select></label>
+    ${oneCol ? `<label class="field">Die Spalte enthält<select id="mFmt">
+      <option value="vn" ${map.fmt === 'vn' ? 'selected' : ''}>Vorname Nachname</option>
+      <option value="nv" ${map.fmt === 'nv' ? 'selected' : ''}>Nachname Vorname</option>
+      <option value="n,v" ${map.fmt === 'n,v' ? 'selected' : ''}>Nachname, Vorname</option></select></label>` : ''}
+    <label class="field" style="align-self:end;flex-direction:row;display:flex;gap:7px;align-items:center;height:32px;color:var(--ink)">
+      <input type="checkbox" id="mHead" ${map.header ? 'checked' : ''}> Erste Zeile ist Überschrift</label>`;
+  const names = impNames();
+  $('#impPrevWrap').hidden = false;
+  $('#impCount').textContent = names.length ? `${names.length} Namen erkannt. Stimmt etwas nicht, Spalten oben anpassen oder einzelne Einträge entfernen.` : 'Noch keine Namen erkannt. Spalten oben prüfen.';
+  $('#impPrev').innerHTML = names.map(n => `<span class="pc">${esc(n.first)} <b>${esc(n.last)}</b><button type="button" data-ex="${n.key}" aria-label="Entfernen">${icon('i-x')}</button></span>`).join('');
+  $('#impMode').hidden = !cur().students.length;
+  $('#impOk').disabled = !names.length;
+  $('#impOk').textContent = names.length ? `${names.length} Namen übernehmen` : 'Übernehmen';
+}
+$('#impMap').addEventListener('change', e => {
+  const m = imp.map;
+  if (e.target.id === 'mFi') m.fi = +e.target.value;
+  if (e.target.id === 'mLi') m.li = +e.target.value;
+  if (e.target.id === 'mFmt') m.fmt = e.target.value;
+  if (e.target.id === 'mHead') m.header = e.target.checked;
+  impRender();
+});
+$('#impPrev').addEventListener('click', e => {
+  const b = e.target.closest('[data-ex]'); if (!b) return;
+  imp.excluded.add(+b.dataset.ex); impRender();
+});
+let impTimer;
+$('#impText').addEventListener('input', () => { clearTimeout(impTimer); impTimer = setTimeout(() => impParse(false), 180); });
+$('#impFileBtn').addEventListener('click', () => $('#impFile').click());
+$('#impFile').addEventListener('change', async e => {
+  const file = e.target.files[0]; e.target.value = '';
+  if (!file) return;
+  const msg = $('#impMsg'); msg.innerHTML = '';
+  $('#impFileName').textContent = file.name;
+  const ext = file.name.split('.').pop().toLowerCase();
+  try {
+    let rows;
+    if (ext === 'pdf') throw new Error('Eine PDF lässt sich ohne Internet und ohne KI nicht zuverlässig auslesen. So geht es: PDF öffnen, die Namen markieren, mit ⌘C kopieren und oben ins Textfeld einfügen.');
+    if (ext === 'xls') throw new Error('Alte .xls-Dateien kann die App nicht lesen. Öffne die Datei in Excel und speichere sie als .xlsx oder .csv.');
+    if (ext === 'numbers' || ext === 'ods') throw new Error('Diese Datei bitte in Numbers oder Excel als .xlsx oder .csv exportieren.');
+    const buf = await file.arrayBuffer();
+    if (ext === 'xlsx') rows = await readXlsx(buf);
+    else rows = parseText(decodeText(buf));
+    if (!rows.length) throw new Error('In der Datei stehen keine lesbaren Zeilen.');
+    $('#impText').value = rows.map(r => r.map(c => String(c).replace(/[\t\n]/g, ' ')).join('\t')).join('\n');
+    impParse(true);
+  } catch (err) {
+    msg.innerHTML = `<div class="msg">${esc(err.message || 'Die Datei ließ sich nicht lesen.')}</div>`;
+  }
+});
+$('#dlgImport').addEventListener('close', () => {
+  if ($('#dlgImport').returnValue !== 'ok') return;
+  const names = impNames(); if (!names.length) return;
+  const how = cur().students.length ? document.querySelector('input[name=impMode]:checked').value : 'replace';
+  S.mode = 'schueler';
+  mutate(P => {
+    const add = names.map(n => ({ id: uid(), first: n.first, last: n.last }));
+    if (how === 'replace') { P.students = add; P.desks.forEach(d => d.seats = d.seats.map(() => null)); }
+    else P.students.push(...add);
+  });
+  toast(`${names.length} Namen übernommen. Jetzt reinziehen oder „Zufällig“ drücken.`, true);
+});
+function openImport() {
+  $('#impText').value = ''; $('#impMsg').innerHTML = ''; $('#impFileName').textContent = '';
+  imp.map = null; imp.sig = ''; imp.rows = [];
+  impRender();
+  $('#dlgImport').showModal();
+}
+
+/* Minimaler Excel-Leser (.xlsx ist ein ZIP mit XML) */
+async function unzip(buf) {
+  const dv = new DataView(buf), u8 = new Uint8Array(buf);
+  let i = buf.byteLength - 22;
+  while (i >= 0 && dv.getUint32(i, true) !== 0x06054b50) i--;
+  if (i < 0) throw new Error('Die Excel-Datei ist beschädigt oder keine .xlsx-Datei.');
+  const count = dv.getUint16(i + 10, true);
+  let p = dv.getUint32(i + 16, true);
+  const files = {}, td = new TextDecoder();
+  for (let k = 0; k < count; k++) {
+    if (dv.getUint32(p, true) !== 0x02014b50) break;
+    const method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true);
+    const nlen = dv.getUint16(p + 28, true), elen = dv.getUint16(p + 30, true), clen = dv.getUint16(p + 32, true);
+    const off = dv.getUint32(p + 42, true);
+    files[td.decode(u8.subarray(p + 46, p + 46 + nlen))] = { method, csize, off };
+    p += 46 + nlen + elen + clen;
+  }
+  return async name => {
+    const f = files[name]; if (!f) return null;
+    const start = f.off + 30 + dv.getUint16(f.off + 26, true) + dv.getUint16(f.off + 28, true);
+    const data = u8.subarray(start, start + f.csize);
+    if (f.method === 0) return td.decode(data);
+    if (typeof DecompressionStream === 'undefined') throw new Error('Dieser Browser kann Excel-Dateien nicht entpacken. Bitte die Liste als .csv speichern.');
+    const out = await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();
+    return td.decode(out);
+  };
+}
+async function readXlsx(buf) {
+  const get = await unzip(buf);
+  const xml = s => new DOMParser().parseFromString(s, 'application/xml');
+  let path = 'xl/worksheets/sheet1.xml';
+  try {
+    const wb = await get('xl/workbook.xml'), rels = await get('xl/_rels/workbook.xml.rels');
+    if (wb && rels) {
+      const sh = xml(wb).getElementsByTagNameNS('*', 'sheet')[0];
+      const rid = sh && [...sh.attributes].find(a => a.localName === 'id')?.value;
+      for (const r of xml(rels).getElementsByTagNameNS('*', 'Relationship')) {
+        if (r.getAttribute('Id') === rid) { const t = r.getAttribute('Target'); path = t.startsWith('/') ? t.slice(1) : 'xl/' + t.replace(/^\.\//, ''); }
+      }
+    }
+  } catch (e) {}
+  const sheet = await get(path) || await get('xl/worksheets/sheet1.xml');
+  if (!sheet) throw new Error('In der Excel-Datei wurde kein Tabellenblatt gefunden.');
+  const ss = [], ssx = await get('xl/sharedStrings.xml');
+  if (ssx) for (const si of xml(ssx).getElementsByTagNameNS('*', 'si')) {
+    let t = '';
+    for (const n of si.getElementsByTagNameNS('*', 't')) if (n.parentNode.localName !== 'rPh') t += n.textContent;
+    ss.push(t);
+  }
+  const colIdx = ref => { const m = ref.match(/^[A-Z]+/); let n = 0; for (const ch of m[0]) n = n * 26 + ch.charCodeAt(0) - 64; return n - 1; };
+  const rows = [];
+  for (const r of xml(sheet).getElementsByTagNameNS('*', 'row')) {
+    const row = [];
+    for (const c of r.getElementsByTagNameNS('*', 'c')) {
+      const ref = c.getAttribute('r'), t = c.getAttribute('t');
+      const col = ref ? colIdx(ref) : row.length;
+      const v = c.getElementsByTagNameNS('*', 'v')[0];
+      let val = '';
+      if (t === 's') val = v ? ss[+v.textContent] || '' : '';
+      else if (t === 'inlineStr') val = [...c.getElementsByTagNameNS('*', 't')].map(n => n.textContent).join('');
+      else val = v ? v.textContent : '';
+      row[col] = String(val).trim();
+    }
+    rows.push(Array.from(row, x => x ?? ''));
+  }
+  const text = rows.filter(r => r.some(Boolean)).map(r => r.join('\t')).join('\n');
+  return parseText(text);
+}
+
+/* ---------- Anordnung-Dialog ---------- */
+const TPLS = [
+  { k: 'reihen', t: 'Reihen', s: 'Doppeltische, zwei Gänge' },
+  { k: 'einzel', t: 'Einzeltische', s: 'mit Abstand, etwa für Arbeiten' },
+  { k: 'u', t: 'U-Form', s: 'bei vielen Plätzen mit Innen-U' },
+  { k: 'o', t: 'O-Form', s: 'alle sehen sich an' },
+  { k: 'g4', t: 'Gruppen zu 4', s: 'zwei Doppeltische gegenüber' },
+  { k: 'g6', t: 'Gruppen zu 6', s: 'drei und drei gegenüber' }
+];
+let tplKind = 'reihen';
+function miniSvg(R, out) {
+  const H = out.h, W = R.w;
+  let s = `<svg viewBox="-1 -1 ${W + 2} ${H + 2}" aria-hidden="true"><rect class="mini-room" x="0" y="0" width="${W}" height="${H}"/>`;
+  s += `<rect class="mini-board" x="${(W - 16) / 2}" y="0" width="16" height=".8"/>`;
+  s += `<rect class="mini-desk" x="${Math.round(W / 2 - 3)}" y="2" width="6" height="3" style="opacity:.5"/>`;
+  out.desks.forEach(d => { const b = box(d); s += `<rect class="mini-desk" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}"/>`; });
+  return s + '</svg>';
+}
+function renderTiles() {
+  const R = { ...cur().room }, n = +$('#tplN').value || 28, dt = $('#tplType').value;
+  $('#tplTiles').innerHTML = TPLS.map(t => {
+    const out = generate(R, t.k, n, dt);
+    let fit;
+    if (!out.fits) fit = `<span class="tf no">Nur ${out.seats} Plätze passen in den Raum</span>`;
+    else if (out.h > R.h) fit = `<span class="tf">${out.seats} Plätze, Raum wird ${fmtM(out.h)} m tief</span>`;
+    else fit = `<span class="tf">${out.seats} Plätze</span>`;
+    return `<label class="tile"><input type="radio" name="tpl" value="${t.k}" ${t.k === tplKind ? 'checked' : ''}>${miniSvg(R, out)}<span class="tt">${t.t}</span><span class="ts">${t.s}</span>${fit}</label>`;
+  }).join('');
+}
+$('#tplN').addEventListener('input', renderTiles);
+$('#tplType').addEventListener('change', renderTiles);
+$('#tplTiles').addEventListener('change', e => { if (e.target.name === 'tpl') tplKind = e.target.value; });
+function openTemplate() {
+  const P = cur();
+  $('#tplN').value = P.students.length || seatList(P).length || 28;
+  renderTiles();
+  $('#dlgTpl').showModal();
+}
+$('#dlgTpl').addEventListener('close', () => {
+  if ($('#dlgTpl').returnValue !== 'ok') return;
+  const n = clamp(+$('#tplN').value || 28, 1, 80), dt = $('#tplType').value;
+  const P = cur(), out = generate({ ...P.room }, tplKind, n, dt);
+  const grow = out.h > P.room.h;
+  S.mode = 'tische';
+  mutate(P => {
+    P.room.h = out.h;
+    let teacher = P.desks.find(d => d.type === 'teacher');
+    const fresh = out.desks.map(materialize);
+    if (!teacher) teacher = teacherDesk(P.room);
+    if (fresh.some(d => overlap(box(d), box(teacher))) || !inside(box(teacher), P.room)) Object.assign(teacher, { x: Math.round(P.room.w / 2 - 3), y: 2, rot: 180 });
+    P.desks = [teacher, ...fresh];
+  });
+  sel.clear(); renderSelection();
+  const name = TPLS.find(t => t.k === tplKind).t;
+  let msg = `${name} mit ${out.seats} Plätzen aufgestellt.`;
+  if (!out.fits) msg = `${name}: Es passen nur ${out.seats} Plätze in diesen Raum.`;
+  if (grow) msg += ` Der Raum ist jetzt ${fmtM(out.h)} m tief.`;
+  toast(msg, true);
+});
+
+/* ---------- Raum-Dialog ---------- */
+function openRoom() {
+  const R = cur().room;
+  $('#rW').value = R.w * CELL_CM / 100; $('#rH').value = R.h * CELL_CM / 100;
+  $('#rWin').value = R.window; $('#rDoor').value = R.door;
+  $('#dlgRoom').showModal();
+}
+$('#dlgRoom').addEventListener('close', () => {
+  if ($('#dlgRoom').returnValue !== 'ok') return;
+  const w = clamp(Math.round((parseFloat($('#rW').value) || 9) * 4), 16, 80);
+  const h = clamp(Math.round((parseFloat($('#rH').value) || 7.5) * 4), 16, 80);
+  mutate(P => {
+    Object.assign(P.room, { w, h, window: $('#rWin').value, door: $('#rDoor').value });
+    P.desks.forEach(d => { const b = box(d); d.x = clamp(d.x, 0, w - b.w); d.y = clamp(d.y, 0, h - b.h); });
+  });
+});
+
+/* ---------- Text-Dialog ---------- */
+function askText(title, label, value) {
+  return new Promise(res => {
+    const dlg = $('#dlgText');
+    $('#txtTitle').textContent = title; $('#txtLabel').textContent = label;
+    $('#txtInput').value = value || '';
+    const done = () => { dlg.removeEventListener('close', done); res(dlg.returnValue === 'ok' ? $('#txtInput').value.trim() : null); };
+    dlg.addEventListener('close', done);
+    dlg.returnValue = '';
+    dlg.showModal();
+    $('#txtInput').select();
+  });
+}
+
+/* ---------- Pläne ---------- */
+$('#planSel').addEventListener('change', e => { S.current = e.target.value; sel.clear(); persist(); render(); });
+$('#bNew').addEventListener('click', async () => {
+  const name = await askText('Neuer Sitzplan', 'Name, zum Beispiel Klasse und Fach', '');
+  if (!name) return;
+  const p = makePlan(name);
+  mutate(() => { S.plans.push(p); S.current = p.id; });
+  sel.clear(); render();
+});
+$('#bRename').addEventListener('click', async () => {
+  const name = await askText('Sitzplan umbenennen', 'Name', cur().name);
+  if (name) mutate(P => { P.name = name; });
+});
+$('#bDup').addEventListener('click', async () => {
+  const name = await askText('Kopie anlegen', 'Name der Kopie', cur().name + ' Kopie');
+  if (!name) return;
+  const p = normalize(JSON.parse(JSON.stringify(cur())));
+  p.id = uid(); p.name = name; p.created = Date.now();
+  p.desks.forEach(d => d.id = uid());
+  mutate(() => { S.plans.push(p); S.current = p.id; });
+  sel.clear(); render();
+});
+$('#bDel').addEventListener('click', () => {
+  if (S.plans.length < 2) return;
+  const P = cur();
+  if (!confirm(`Sitzplan „${P.name}“ löschen?`)) return;
+  mutate(() => { S.plans = S.plans.filter(p => p.id !== P.id); S.current = S.plans[0].id; });
+  sel.clear(); render();
+  toast(`„${P.name}“ gelöscht.`, true);
+});
+
+/* ---------- Sicherung ---------- */
+$('#bExport').addEventListener('click', () => {
+  const d = new Date(), stamp = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const blob = new Blob([JSON.stringify({ app: 'sitzplan', version: 1, saved: d.toISOString(), plans: S.plans }, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = `Sitzplaene-${stamp}.json`;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+  toast('Sicherung gespeichert. Lege sie in deinen Schulordner, nicht in den Vault.');
+});
+$('#bImportBackup').addEventListener('click', () => $('#backupFile').click());
+$('#backupFile').addEventListener('change', async e => {
+  const file = e.target.files[0]; e.target.value = '';
+  if (!file) return;
+  try {
+    const d = JSON.parse(await file.text());
+    const plans = Array.isArray(d) ? d : d.plans;
+    if (!Array.isArray(plans) || !plans.length) throw 0;
+    let n = 0;
+    mutate(() => {
+      plans.forEach(p => {
+        if (!p || !p.id) return;
+        normalize(p);
+        const i = S.plans.findIndex(x => x.id === p.id);
+        if (i >= 0) S.plans[i] = p; else S.plans.push(p);
+        n++;
+      });
+      S.current = plans[0].id;
+    });
+    sel.clear(); render();
+    toast(n === 1 ? 'Ein Sitzplan geladen.' : `${n} Sitzpläne geladen.`, true);
+  } catch (err) { toast('Diese Datei ist keine Sitzplan-Sicherung.'); }
+});
+
+/* ---------- Drucken ---------- */
+function doPrint() {
+  printing = true; sel.clear(); renderRoom();
+  requestAnimationFrame(() => { window.print(); });
+}
+window.addEventListener('beforeprint', () => { if (!printing) { printing = true; renderRoom(); } });
+window.addEventListener('afterprint', () => { printing = false; renderRoom(); });
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function toast(msg, withUndo) {
+  const t = $('#toast');
+  $('#toastMsg').textContent = msg;
+  $('#toastBtn').hidden = !withUndo;
+  t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('on'), withUndo ? 6000 : 4200);
+}
+$('#toastBtn').addEventListener('click', () => { undo(); $('#toast').classList.remove('on'); });
+
+/* ---------- Knöpfe und Tasten ---------- */
+$('#mTische').addEventListener('click', () => setMode('tische'));
+$('#mSchueler').addEventListener('click', () => setMode('schueler'));
+$('#bAddSingle').addEventListener('click', () => addDesk('single'));
+$('#bAddDouble').addEventListener('click', () => addDesk('double'));
+$('#bTemplate').addEventListener('click', openTemplate);
+$('#bRotate').addEventListener('click', rotateSel);
+$('#bRemove').addEventListener('click', deleteSel);
+$('#bUndo').addEventListener('click', undo);
+$('#bRedo').addEventListener('click', redo);
+$('#bRoom').addEventListener('click', openRoom);
+$('#bPrint').addEventListener('click', doPrint);
+$('#bImport').addEventListener('click', openImport);
+$('#vKlasse').addEventListener('click', () => { if (flipped()) mutate(P => { P.view = 'klasse'; }); });
+$('#vPult').addEventListener('click', () => { if (!flipped()) mutate(P => { P.view = 'pult'; }); });
+$('#dRandom').addEventListener('click', () => distribute('random'));
+$('#dRest').addEventListener('click', () => distribute('rest'));
+$('#dAlpha').addEventListener('click', () => distribute('alpha'));
+$('#dClear').addEventListener('click', () => distribute('clear'));
+document.querySelectorAll('[data-nm]').forEach(b => b.addEventListener('click', () => { S.nameMode = b.dataset.nm; persist(); render(); }));
+
+document.addEventListener('keydown', e => {
+  if (document.querySelector('dialog[open]')) return;
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  const mod = e.metaKey || e.ctrlKey, k = e.key.toLowerCase();
+  if (mod && k === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); return; }
+  if (mod && k === 'y') { e.preventDefault(); redo(); return; }
+  if (mod && k === 'a') { e.preventDefault(); if (mode() !== 'tische') return; sel = new Set(cur().desks.map(d => d.id)); renderSelection(); return; }
+  if (mod && k === 'd') { e.preventDefault(); duplicateSel(); return; }
+  if (mod && k === 'p') { e.preventDefault(); doPrint(); return; }
+  if (mod) return;
+  if (e.key === 'Delete' || e.key === 'Backspace') { if (sel.size && mode() === 'tische') { e.preventDefault(); deleteSel(); } return; }
+  if (k === 'r' && mode() === 'tische') { rotateSel(); return; }
+  if (k === 't') { setMode('tische'); return; }
+  if (k === 's') { setMode('schueler'); return; }
+  if (e.key === 'Escape') { sel.clear(); renderSelection(); return; }
+  const arrows = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+  if (arrows[e.key] && sel.size && mode() === 'tische') { e.preventDefault(); nudge(...arrows[e.key]); }
+});
+
+new ResizeObserver(() => { if (!printing) renderRoom(); }).observe(stage);
+
+/* ---------- Start ---------- */
+S = load();
+persist();
+render();
+</script>
+</body>
+</html>
