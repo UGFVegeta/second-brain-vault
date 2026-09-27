@@ -167,8 +167,15 @@ kbd{font:inherit;font-size:10.5px;font-weight:600;border-radius:4px;padding:0 5p
 .walllabel{position:absolute;font-size:11px;color:var(--ink-3);white-space:nowrap;pointer-events:none}
 .walllabel.v{writing-mode:vertical-rl}
 .door{position:absolute;background:var(--room);pointer-events:none}
-.door::before,.door::after{content:"";position:absolute;background:var(--wall);left:-3px;width:9px;height:2px;border-radius:1px}
-.door::before{top:0}.door::after{bottom:0}
+.door::before,.door::after{content:"";position:absolute;background:var(--wall);border-radius:1px}
+.door.v::before,.door.v::after{left:-3px;width:9px;height:2px}
+.door.v::before{top:0}.door.v::after{bottom:0}
+.door.h::before,.door.h::after{top:-3px;height:9px;width:2px}
+.door.h::before{left:0}.door.h::after{right:0}
+.range{display:grid;gap:4px}
+.range input{width:100%;accent-color:var(--accent)}
+.range .ends{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);font-weight:400}
+.range[hidden]{display:none}
 
 .desk{
   position:absolute;display:flex;background:var(--desk);border-radius:calc(var(--px) * .2);
@@ -267,7 +274,19 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 .toast.on{opacity:1;transform:translate(-50%,0) scale(1);pointer-events:auto}
 .toast button{border:0;background:none;color:#64b5ff;font-weight:600;padding:0;white-space:nowrap}
 
-.print-head,.print-foot{display:none}
+.print-foot{display:none}
+.planhead{
+  display:flex;align-items:baseline;gap:12px;width:100%;border:0;background:none;margin:0 0 12px;padding:2px 4px;
+  text-align:left;color:inherit;border-radius:8px;transition:background .15s;
+}
+.planhead:hover{background:var(--fill)}
+.ph-title{font-size:22px;font-weight:700;letter-spacing:-.022em;line-height:1.15}
+.ph-sub{font-size:15px;font-weight:500;color:var(--ink-2)}
+.ph-hint{font-size:12px;color:var(--ink-3);opacity:0;transition:opacity .15s}
+.planhead:hover .ph-hint{opacity:1}
+.ph-meta{margin-left:auto;font-size:12px;color:var(--ink-3);display:none}
+.check{display:flex;gap:7px;align-items:center;font-weight:500;font-size:12.5px;color:var(--ink);height:28px;align-self:end}
+.dlg h4{margin:4px 0 -4px;font-size:12px;font-weight:600;color:var(--ink-3)}
 
 @media (max-width:860px){
   body{overflow:auto;display:block}
@@ -293,9 +312,9 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   #room,.board,.desk,.chair,.win{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .desk{box-shadow:0 0 0 1px #000}
   .desk.sel{outline:none}
-  .print-head{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 16px;gap:20px}
-  .print-head h1{font-size:20px;margin:0;letter-spacing:-.01em}
-  .print-head span{color:#444;font-size:12px}
+  .planhead{padding:0;margin:0 0 14px}
+  .ph-hint{display:none}
+  .ph-meta{display:inline;color:#444}
   .print-foot{display:block;margin-top:12px;font-size:11px;color:#444}
 }
 </style>
@@ -412,12 +431,12 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <section class="stage" id="stage">
     <div class="canvasbar">
       <div class="seg" role="group" aria-label="Ansicht">
-        <button id="vKlasse" title="Tafel oben, so wie die Klasse den Raum sieht">Schülersicht</button>
         <button id="vPult" title="Tafel unten, so wie du vom Pult in die Klasse schaust">Lehrersicht</button>
+        <button id="vKlasse" title="Tafel oben, so wie die Klasse den Raum sieht">Schülersicht</button>
       </div>
     </div>
     <div class="roomwrap">
-      <div class="print-head"><h1 id="printTitle"></h1><span id="printMeta"></span></div>
+      <button type="button" class="planhead" id="planHead" title="Klasse, Raum und Fach ändern"><span class="ph-title" id="phTitle"></span><span class="ph-sub" id="phSub"></span><span class="ph-hint">ändern</span><span class="ph-meta" id="printMeta"></span></button>
       <div id="room"></div>
       <div class="print-foot" id="printFoot"></div>
     </div>
@@ -444,7 +463,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       <label><input type="radio" name="impMode" value="add"> Zur bisherigen Liste hinzufügen</label>
     </div>
     <div class="actions">
-      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button type="button" class="btn" data-cancel>Abbrechen</button>
       <button class="btn primary" id="impOk" value="ok" disabled>Übernehmen</button>
     </div>
   </form>
@@ -460,6 +479,9 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       <label class="field">Tische für Mittelgang, U und O
         <select id="tplType"><option value="double">Doppeltische</option><option value="single">Einzeltische</option></select>
       </label>
+      <label class="field">Abstand zwischen Einzeltischen
+        <select id="tplSGap"><option value="0">kein Abstand</option><option value="1">25 cm</option><option value="2" selected>50 cm</option><option value="3">75 cm</option></select>
+      </label>
     </div>
     <div class="fields aisle" id="aisleFields">
       <label class="field">Plätze links vom Gang<input type="number" id="tplL" min="1" max="10" step="1" value="4"></label>
@@ -471,7 +493,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
     </div>
     <div class="tiles" id="tplTiles"></div>
     <div class="actions">
-      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button type="button" class="btn" data-cancel>Abbrechen</button>
       <button class="btn primary" value="ok">Anordnung übernehmen</button>
     </div>
   </form>
@@ -480,20 +502,33 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 <!-- Raum -->
 <dialog id="dlgRoom">
   <form method="dialog" class="dlg">
-    <h3>Raum</h3>
-    <p class="hint">Ein Kästchen im Raster sind 25 cm. Ein Doppeltisch ist 150 × 50 cm groß, ein Einzeltisch 75 × 50 cm.</p>
+    <h3>Raum und Beschriftung</h3>
+    <h4>Steht oben links auf dem Sitzplan</h4>
+    <div class="fields">
+      <label class="field">Klasse<input type="text" id="rKl" maxlength="20" placeholder="zum Beispiel 7c"></label>
+      <label class="field">Raum<input type="text" id="rNr" maxlength="30" placeholder="Nummer oder Name, etwa 204"></label>
+      <label class="field">Fach<input type="text" id="rFach" maxlength="30" placeholder="zum Beispiel Physik"></label>
+      <label class="check"><input type="checkbox" id="rFachShow"> Fach mit anzeigen</label>
+    </div>
+    <h4>Raum</h4>
+    <p class="hint" style="margin:0">Ein Kästchen im Raster sind 25 cm. Ein Doppeltisch ist 150 × 50 cm groß, ein Einzeltisch 75 × 50 cm.</p>
     <div class="fields">
       <label class="field">Breite in m<input type="number" id="rW" min="4" max="20" step="0.25"></label>
       <label class="field">Tiefe in m<input type="number" id="rH" min="4" max="20" step="0.25"></label>
-      <label class="field">Fenster (von der Klasse aus)
-        <select id="rWin"><option value="links">links</option><option value="rechts">rechts</option><option value="keine">keine</option></select>
+      <label class="field">Fenster
+        <select id="rWin"><option value="keine">nicht anzeigen</option><option value="pl">links</option><option value="pr">rechts</option><option value="beide">auf beiden Seiten</option></select>
       </label>
       <label class="field">Tür
-        <select id="rDoor"><option value="vorne-links">vorne links</option><option value="vorne-rechts">vorne rechts</option><option value="hinten-links">hinten links</option><option value="hinten-rechts">hinten rechts</option><option value="keine">nicht anzeigen</option></select>
+        <select id="rDoorWall"><option value="none">nicht anzeigen</option><option value="pl">linke Wand</option><option value="pr">rechte Wand</option><option value="back">hintere Wand</option><option value="front">vordere Wand (Tafelseite)</option></select>
+      </label>
+      <label class="field range" id="rDoorPosWrap">Lage der Tür an der Wand
+        <input type="range" id="rDoorPos" min="0" max="100" step="1">
+        <span class="ends"><span id="rpA"></span><span id="rpB"></span></span>
       </label>
     </div>
+    <p class="hint" style="margin:0">Links und rechts gelten vom Pult aus gesehen. Änderungen siehst du sofort im Raum. Wenn Fenster oder Tür nicht genau zum echten Raum passen, lass sie lieber weg, damit der Ausdruck niemanden verwirrt.</p>
     <div class="actions">
-      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button type="button" class="btn" data-cancel>Abbrechen</button>
       <button class="btn primary" value="ok">Übernehmen</button>
     </div>
   </form>
@@ -505,7 +540,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
     <h3 id="txtTitle"></h3>
     <label class="field" id="txtLabelWrap"><span id="txtLabel"></span><input type="text" id="txtInput" required></label>
     <div class="actions">
-      <button class="btn" value="cancel" formnovalidate>Abbrechen</button>
+      <button type="button" class="btn" data-cancel>Abbrechen</button>
       <button class="btn primary" value="ok">OK</button>
     </div>
   </form>
@@ -549,8 +584,8 @@ function setMode(m) {
 /* ---------- Zustand ---------- */
 function makePlan(name) {
   const p = {
-    id: uid(), name, created: Date.now(), view: 'klasse',
-    room: { w:36, h:30, window:'links', door:'vorne-rechts' },
+    id: uid(), name, created: Date.now(), view: 'pult',
+    room: { w:36, h:30, window:'keine', door:{ wall:'none', pos:.1 }, v:3 },
     students: [], desks: [],
     rules: { apart: [], together: [], row: {} }   // für Wünsche und Regeln (nächster Ausbauschritt)
   };
@@ -563,10 +598,25 @@ function teacherDesk(R) { return { id: uid(), type:'teacher', x: Math.round(R.w 
 function materialize(d) { return { id: uid(), type: d.type, x: d.x, y: d.y, rot: d.rot, seats: Array(TYPES[d.type].seats).fill(null) }; }
 
 function normalize(p) {
-  p.room = Object.assign({ w:36, h:30, window:'links', door:'vorne-rechts' }, p.room || {});
+  const ver = (p.room && p.room.v) || 0;
+  p.room = Object.assign({ w:36, h:30, window:'keine', door:{ wall:'none', pos:.1 } }, p.room || {});
+  if (typeof p.room.door === 'string') {
+    // alte Fassung: Fenster links und Tür vorne rechts waren nur Vorgaben, die blenden wir aus
+    if (p.room.v !== 2 && p.room.door === 'vorne-rechts' && p.room.window === 'links') { p.room.window = 'keine'; p.room.door = { wall:'none', pos:.1 }; }
+    else if (p.room.door === 'keine') p.room.door = { wall:'none', pos:.1 };
+    else { const [vh, lr] = p.room.door.split('-'); p.room.door = { wall: lr === 'links' ? 'left' : 'right', pos: vh === 'vorne' ? 0 : 1 }; }
+  }
+  if (!p.room.door || typeof p.room.door !== 'object') p.room.door = { wall:'none', pos:.1 };
+  if (!['keine','links','rechts','beide'].includes(p.room.window)) p.room.window = 'keine';
+  p.room.nr = typeof p.room.nr === 'string' ? p.room.nr : '';
+  p.klasse = typeof p.klasse === 'string' ? p.klasse : '';
+  p.fach = typeof p.fach === 'string' ? p.fach : '';
+  p.showFach = !!p.showFach;
+  p.room.v = 3;
   p.students = Array.isArray(p.students) ? p.students.filter(s => s && s.id) : [];
   p.rules = Object.assign({ apart: [], together: [], row: {} }, p.rules || {});
-  p.view = p.view === 'pult' ? 'pult' : 'klasse';
+  if (ver < 3) p.view = 'pult';     // Lehrersicht ist Standard, ältere Pläne einmalig umstellen
+  p.view = p.view === 'klasse' ? 'klasse' : 'pult';
   const ids = new Set(p.students.map(s => s.id));
   const seen = new Set();
   p.desks = (Array.isArray(p.desks) ? p.desks : []).filter(d => d && TYPES[d.type]).map(d => {
@@ -672,8 +722,8 @@ function generate(R, kind, n, dtype, opt = {}) {
   n = clamp(n | 0 || 1, 1, 80);
   switch (kind) {
     case 'reihen': return genRows(R, n, 'double', 3, 5);
-    case 'gang':   return genAisle(R, n, dtype, opt.left || 4, opt.right || 4, opt.gap || 4);
-    case 'einzel': return genRows(R, n, 'single', 2, 5);
+    case 'gang':   return genAisle(R, n, dtype, opt.left || 4, opt.right || 4, opt.gap || 4, opt.sgap ?? 2);
+    case 'einzel': return genRows(R, n, 'single', opt.sgap ?? 2, 5);
     case 'u':      return genU(R, n, dtype);
     case 'o':      return genO(R, n, dtype);
     case 'g4':     return genGroups(R, n, 4);
@@ -698,12 +748,14 @@ function genRows(R, n, type, gapX, pitch) {
 }
 /* Mittelgang: Plätze links und rechts vom Gang, gezählt vom Pult aus.
    Das Modell ist aus Schülersicht angelegt, deshalb liegt „rechts vom Pult“ im Modell links. */
-function genAisle(R, n, type, teacherLeft, teacherRight, gap) {
+function genAisle(R, n, type, teacherLeft, teacherRight, gap, sgap) {
   const ml = clamp(teacherRight | 0, 1, 10), mr = clamp(teacherLeft | 0, 1, 10);
   const per = ml + mr, rowsN = Math.ceil(n / per), seatW = TYPES.single.w;
-  const totalW = (ml + mr) * seatW + gap;
+  const sg = type === 'single' ? clamp(sgap | 0, 0, 4) : 0;       // Luft nur zwischen Einzeltischen
+  const sideW = c => c * seatW + Math.max(0, c - 1) * sg;
+  const totalW = sideW(ml) + gap + sideW(mr);
   const W = Math.max(R.w, totalW + 2);
-  const x0 = Math.floor((W - totalW) / 2), ax = x0 + ml * seatW;
+  const x0 = Math.floor((W - totalW) / 2), ax = x0 + sideW(ml);
   let p = 5;
   while (p > 4 && FRONT + (rowsN - 1) * p + 3 > R.h) p--;
   const needH = FRONT + (rowsN - 1) * p + 3;
@@ -715,8 +767,8 @@ function genAisle(R, n, type, teacherLeft, teacherRight, gap) {
     let edge = dir < 0 ? ax : ax + gap;              // vom Gang nach außen, Einzeltisch landet außen
     for (const t of pieces) {
       const w = TYPES[t].w;
-      if (dir < 0) { edge -= w; desks.push({ type: t, x: edge, y, rot: 0 }); }
-      else { desks.push({ type: t, x: edge, y, rot: 0 }); edge += w; }
+      if (dir < 0) { edge -= w; desks.push({ type: t, x: edge, y, rot: 0 }); edge -= sg; }
+      else { desks.push({ type: t, x: edge, y, rot: 0 }); edge += w + sg; }
     }
   };
   let left = n;
@@ -852,9 +904,9 @@ function renderTools() {
   $('#bRedo').disabled = !redoStack.length;
 }
 function computePx(R) {
-  if (printing) return Math.max(8, Math.min(1010 / R.w, 610 / R.h));
+  if (printing) return Math.max(8, Math.min(1010 / R.w, 590 / R.h));
   const r = stage.getBoundingClientRect();
-  const aw = r.width - 120, ah = r.height - 150;
+  const aw = r.width - 120, ah = r.height - 195;
   return clamp(Math.floor(Math.min(aw / R.w, ah / R.h)), 11, 46);
 }
 /* Kurzform des Nachnamens: so viele Buchstaben, bis gleiche Vornamen unterscheidbar sind */
@@ -897,23 +949,32 @@ function renderRoom() {
   const bw = Math.min(16, R.w - 6), b = scr(R, (R.w - bw) / 2, 0, bw, 0.7);
   h += `<div class="board ${f ? 'b' : 't'}" style="${posStyle(b)}">Tafel</div>`;
 
-  // Fenster
-  if (R.window !== 'keine') {
-    const leftModel = R.window === 'links';
-    const wy = 4, wh = R.h - 7;
-    const w = scr(R, leftModel ? 0.15 : R.w - 0.45, wy, 0.3, wh);
+  // Fenster (im Modell aus Schülersicht: links = Fensterwand links von der Klasse)
+  const winSides = R.window === 'beide' ? ['links', 'rechts'] : (R.window === 'links' || R.window === 'rechts') ? [R.window] : [];
+  for (const side of winSides) {
+    const leftModel = side === 'links';
+    const w = scr(R, leftModel ? 0.15 : R.w - 0.45, 4, 0.3, R.h - 7);
     h += `<div class="win" style="${posStyle(w)}"></div>`;
     const onLeft = leftModel !== f;
-    h += `<div class="walllabel v ${onLeft ? 'l' : ''}" style="top:${(w.y + w.h / 2) * px}px;${onLeft ? 'left:-22px' : 'right:-22px'};transform:translateY(-50%)${onLeft ? ' rotate(180deg)' : ''}">Fenster</div>`;
+    h += `<div class="walllabel v" style="top:${(w.y + w.h / 2) * px}px;${onLeft ? 'left:-22px' : 'right:-22px'};transform:translateY(-50%)${onLeft ? ' rotate(180deg)' : ''}">Fenster</div>`;
   }
   // Tür
-  if (R.door !== 'keine') {
-    const [vh, lr] = R.door.split('-');
-    const len = 4, y = vh === 'vorne' ? 1 : R.h - 1 - len;
-    const r = scr(R, lr === 'links' ? 0 : R.w, y, 0, len);
-    const onLeft = (lr === 'links') !== f;
-    h += `<div class="door v ${onLeft ? 'l' : 'r'}" style="top:${r.y * px}px;height:${len * px}px;${onLeft ? 'left:-3px' : 'right:-3px'};width:3px"></div>`;
-    h += `<div class="walllabel" style="top:${(r.y + len / 2) * px}px;${onLeft ? 'left:-30px' : 'right:-30px'};transform:translateY(-50%)">Tür</div>`;
+  const D = R.door;
+  if (D && D.wall !== 'none') {
+    const len = 4, pos = clamp(+D.pos || 0, 0, 1);
+    if (D.wall === 'left' || D.wall === 'right') {
+      const y = Math.round(1 + pos * (R.h - 2 - len));
+      const r = scr(R, D.wall === 'left' ? 0 : R.w, y, 0, len);
+      const onLeft = (D.wall === 'left') !== f;
+      h += `<div class="door v" style="top:${r.y * px}px;height:${len * px}px;${onLeft ? 'left:-3px' : 'right:-3px'};width:3px"></div>`;
+      h += `<div class="walllabel" style="top:${(r.y + len / 2) * px}px;${onLeft ? 'left:-30px' : 'right:-30px'};transform:translateY(-50%)">Tür</div>`;
+    } else {
+      const x = Math.round(1 + pos * (R.w - 2 - len));
+      const r = scr(R, x, D.wall === 'front' ? 0 : R.h, len, 0);
+      const onTop = (D.wall === 'front') !== f;
+      h += `<div class="door h" style="left:${r.x * px}px;width:${len * px}px;${onTop ? 'top:-3px' : 'bottom:-3px'};height:3px"></div>`;
+      h += `<div class="walllabel" style="left:${(r.x + len / 2) * px}px;${onTop ? 'top:-22px' : 'bottom:-22px'};transform:translateX(-50%)">Tür</div>`;
+    }
   }
 
   // Tische
@@ -933,8 +994,10 @@ function renderRoom() {
   room.innerHTML = h;
   fitNames();
 
-  $('#scale').textContent = `1 Kästchen = 25 cm · Raum ${fmtM(R.w)} × ${fmtM(R.h)} m · ${f ? 'Lehrersicht: Tafel unten' : 'Schülersicht: Tafel oben'}`;
-  $('#printTitle').textContent = P.name;
+  const nr = (R.nr || '').trim(), kl = (P.klasse || '').trim(), fach = (P.fach || '').trim();
+  $('#phTitle').textContent = kl ? (/^klasse/i.test(kl) ? kl : 'Klasse ' + kl) : P.name;
+  $('#phSub').textContent = [nr ? (/^\d/.test(nr) ? 'Raum ' + nr : nr) : '', P.showFach && fach ? fach : ''].filter(Boolean).join(' · ');
+  $('#scale').textContent = `1 Kästchen = 25 cm · ${fmtM(R.w)} × ${fmtM(R.h)} m · ${f ? 'Lehrersicht: Tafel unten' : 'Schülersicht: Tafel oben'}`;
   $('#printMeta').textContent = `Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`;
   const rest = unplaced(P).sort(byName);
   $('#printFoot').textContent = rest.length ? `Ohne Platz: ${rest.map(s => `${s.first} ${s.last}`.trim()).join(', ')}` : '';
@@ -1511,7 +1574,7 @@ async function readXlsx(buf) {
 const TPLS = [
   { k: 'reihen', t: 'Reihen', s: 'Doppeltische, zwei Gänge' },
   { k: 'gang', t: 'Mittelgang', s: 'Plätze links und rechts frei wählbar' },
-  { k: 'einzel', t: 'Einzeltische', s: 'mit Abstand, etwa für Arbeiten' },
+  { k: 'einzel', t: 'Einzeltische', s: 'in Reihen, Abstand wählbar' },
   { k: 'u', t: 'U-Form', s: 'bei vielen Plätzen mit Innen-U' },
   { k: 'o', t: 'O-Form', s: 'alle sehen sich an' },
   { k: 'g4', t: 'Gruppen zu 4', s: 'zwei Doppeltische gegenüber' },
@@ -1530,7 +1593,7 @@ function miniSvg(R, out) {
   out.desks.forEach(d => { const b = box(d); s += r(b.x, b.y, b.w, b.h, 'mini-desk'); });
   return s + '</svg>';
 }
-const tplOpts = () => ({ left: +$('#tplL').value || 4, right: +$('#tplR').value || 4, gap: +$('#tplGap').value || 4 });
+const tplOpts = () => ({ left: +$('#tplL').value || 4, right: +$('#tplR').value || 4, gap: +$('#tplGap').value || 4, sgap: +$('#tplSGap').value });
 function renderTiles() {
   const R = { ...cur().room }, n = +$('#tplN').value || 28, dt = $('#tplType').value;
   $('#tplTiles').innerHTML = TPLS.map(t => {
@@ -1548,6 +1611,7 @@ $('#tplN').addEventListener('input', renderTiles);
 $('#tplType').addEventListener('change', renderTiles);
 ['#tplL', '#tplR'].forEach(id => $(id).addEventListener('input', renderTiles));
 $('#tplGap').addEventListener('change', renderTiles);
+$('#tplSGap').addEventListener('change', renderTiles);
 $('#tplTiles').addEventListener('change', e => {
   if (e.target.name !== 'tpl') return;
   tplKind = e.target.value;
@@ -1584,21 +1648,65 @@ $('#dlgTpl').addEventListener('close', () => {
   toast(msg, true);
 });
 
-/* ---------- Raum-Dialog ---------- */
+/* ---------- Raum-Dialog ----------
+   Im Dialog gilt die Sicht vom Pult. Das Modell ist aus Schülersicht angelegt,
+   deshalb ist „links vom Pult“ im Modell die rechte Wand. */
+const WIN_TO_MODEL = { keine:'keine', pl:'rechts', pr:'links', beide:'beide' };
+const WIN_FROM_MODEL = { keine:'keine', rechts:'pl', links:'pr', beide:'beide' };
+const DOOR_TO_MODEL = { none:'none', pl:'right', pr:'left', back:'back', front:'front' };
+const DOOR_FROM_MODEL = { none:'none', right:'pl', left:'pr', back:'back', front:'front' };
+let roomSnap = null;
+function doorUi() {
+  const wall = $('#rDoorWall').value, side = wall === 'pl' || wall === 'pr';
+  $('#rDoorPosWrap').hidden = wall === 'none';
+  $('#rpA').textContent = side ? 'vorne bei der Tafel' : 'links';
+  $('#rpB').textContent = side ? 'hinten' : 'rechts';
+}
+function readRoomForm() {
+  const wall = DOOR_TO_MODEL[$('#rDoorWall').value], v = (+$('#rDoorPos').value || 0) / 100;
+  const side = wall === 'left' || wall === 'right';
+  return {
+    w: clamp(Math.round((parseFloat($('#rW').value) || 9) * 4), 16, 80),
+    h: clamp(Math.round((parseFloat($('#rH').value) || 7.5) * 4), 16, 80),
+    nr: $('#rNr').value.trim(),
+    klasse: $('#rKl').value.trim(), fach: $('#rFach').value.trim(), showFach: $('#rFachShow').checked,
+    window: WIN_TO_MODEL[$('#rWin').value],
+    door: { wall, pos: side ? v : 1 - v }        // an Vorder- und Rückwand liegt „links vom Pult“ im Modell rechts
+  };
+}
+function applyRoom(P, v) {
+  Object.assign(P.room, { w: v.w, h: v.h, nr: v.nr, window: v.window, door: v.door });
+  Object.assign(P, { klasse: v.klasse, fach: v.fach, showFach: v.showFach });
+  P.desks.forEach(d => { const b = box(d); d.x = clamp(d.x, 0, v.w - b.w); d.y = clamp(d.y, 0, v.h - b.h); });
+}
 function openRoom() {
-  const R = cur().room;
+  const P = cur(), R = P.room;
+  roomSnap = JSON.stringify(P);
+  $('#rNr').value = R.nr || '';
+  $('#rKl').value = P.klasse || ''; $('#rFach').value = P.fach || ''; $('#rFachShow').checked = !!P.showFach;
   $('#rW').value = R.w * CELL_CM / 100; $('#rH').value = R.h * CELL_CM / 100;
-  $('#rWin').value = R.window; $('#rDoor').value = R.door;
+  $('#rWin').value = WIN_FROM_MODEL[R.window] || 'keine';
+  $('#rDoorWall').value = DOOR_FROM_MODEL[R.door.wall] || 'none';
+  const side = R.door.wall === 'left' || R.door.wall === 'right';
+  $('#rDoorPos').value = Math.round((side ? R.door.pos : 1 - R.door.pos) * 100);
+  doorUi();
   $('#dlgRoom').showModal();
 }
+function roomPreview() {
+  if (!roomSnap) return;
+  const P = JSON.parse(roomSnap), i = S.plans.findIndex(x => x.id === P.id);
+  applyRoom(P, readRoomForm());
+  S.plans[i] = P;
+  renderRoom();
+}
+$('#dlgRoom').addEventListener('input', e => { if (e.target.id === 'rDoorWall') doorUi(); roomPreview(); });
+$('#dlgRoom').addEventListener('change', e => { if (e.target.id === 'rDoorWall') doorUi(); roomPreview(); });
 $('#dlgRoom').addEventListener('close', () => {
-  if ($('#dlgRoom').returnValue !== 'ok') return;
-  const w = clamp(Math.round((parseFloat($('#rW').value) || 9) * 4), 16, 80);
-  const h = clamp(Math.round((parseFloat($('#rH').value) || 7.5) * 4), 16, 80);
-  mutate(P => {
-    Object.assign(P.room, { w, h, window: $('#rWin').value, door: $('#rDoor').value });
-    P.desks.forEach(d => { const b = box(d); d.x = clamp(d.x, 0, w - b.w); d.y = clamp(d.y, 0, h - b.h); });
-  });
+  const orig = JSON.parse(roomSnap), i = S.plans.findIndex(x => x.id === orig.id);
+  S.plans[i] = orig; roomSnap = null;
+  if ($('#dlgRoom').returnValue !== 'ok') { renderRoom(); return; }
+  const v = readRoomForm();
+  mutate(P => applyRoom(P, v));
 });
 
 /* ---------- Text-Dialog ---------- */
@@ -1701,6 +1809,7 @@ function toast(msg, withUndo) {
 $('#toastBtn').addEventListener('click', () => { undo(); $('#toast').classList.remove('on'); });
 
 /* ---------- Knöpfe und Tasten ---------- */
+document.querySelectorAll('[data-cancel]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close('cancel')));
 $('#mTische').addEventListener('click', () => setMode('tische'));
 $('#mSchueler').addEventListener('click', () => setMode('schueler'));
 $('#bAddSingle').addEventListener('click', () => addDesk('single'));
@@ -1711,6 +1820,7 @@ $('#bRemove').addEventListener('click', deleteSel);
 $('#bUndo').addEventListener('click', undo);
 $('#bRedo').addEventListener('click', redo);
 $('#bRoom').addEventListener('click', openRoom);
+$('#planHead').addEventListener('click', () => { openRoom(); setTimeout(() => $('#rKl').focus(), 30); });
 $('#bPrint').addEventListener('click', doPrint);
 $('#bImport').addEventListener('click', openImport);
 $('#vKlasse').addEventListener('click', () => { if (flipped()) mutate(P => { P.view = 'klasse'; }); });
