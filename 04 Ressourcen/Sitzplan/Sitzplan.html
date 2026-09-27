@@ -156,6 +156,10 @@ body.discreet #secWish,body.discreet #secRules{display:none}
 .modechip b{color:var(--ink);font-weight:600}
 .modechip:hover{background:var(--fill-2)}
 .main.with-cmp{grid-template-columns:268px 1fr 340px}
+.main.noside{grid-template-columns:1fr}
+.main.noside.with-cmp{grid-template-columns:1fr 340px}
+.main.noside .side{display:none}
+#bSide[aria-pressed="true"]{background:var(--fill)}
 .cmp{background:var(--side);box-shadow:-.5px 0 0 var(--sep-2);display:flex;flex-direction:column;gap:10px;padding:16px 14px;overflow:auto;min-height:0}
 .cmp[hidden]{display:none}
 .cmp-head{display:flex;align-items:center;justify-content:space-between}
@@ -412,6 +416,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   .roomwrap{margin:0 auto;width:max-content;padding:0 22px}
   #room{box-shadow:none}
   #room,.board,.desk,.chair,.win{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .board{box-shadow:none}
   .desk{box-shadow:0 0 0 1px #000}
   .desk.sel{outline:none}
   .planhead{padding:0;margin:0 0 14px}
@@ -454,10 +459,12 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <symbol id="i-compare" viewBox="0 0 24 24"><rect x="3" y="4" width="11" height="16" rx="1.5"/><rect x="16" y="8" width="5" height="8" rx="1"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16.5 9"/></symbol>
   <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a13 13 0 0 1-1.7 2.7"/><path d="M6.6 6.6A13.4 13.4 0 0 0 2 12s3 8 10 8a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="m2 2 20 20"/></symbol>
+  <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
 </svg>
 
 <header class="bar">
+  <button class="btn icon tb" id="bSide" title="Seitenleiste ein- oder ausblenden" aria-label="Seitenleiste ein- oder ausblenden"><svg class="i"><use href="#i-sidebar"/></svg></button>
   <div class="grp">
     <select class="plan" id="planSel" aria-label="Sitzplan wählen"></select>
     <button class="btn icon tb" id="bNew" title="Neuer Sitzplan" aria-label="Neuer Sitzplan"><svg class="i"><use href="#i-plus"/></svg></button>
@@ -2411,13 +2418,20 @@ function renderCompare() {
 }
 function renderDiscreet() {
   document.body.classList.toggle('discreet', !!S.discreet);
+  $('.main').classList.toggle('noside', !!S.sideHidden);
+  $('#bSide').setAttribute('aria-pressed', !S.sideHidden);
   $('#bDiscreet').setAttribute('aria-pressed', !!S.discreet);
   $('#bDiscreet span').textContent = S.discreet ? 'Wünsche einblenden' : 'Wünsche ausblenden';
 }
 $('#bDiscreet').addEventListener('click', () => {
-  S.discreet = !S.discreet; persist(); renderDiscreet(); renderRoom();
+  S.discreet = !S.discreet;
+  // Beim Ausblenden die Seitenleiste mit einklappen, beim Einblenden den vorherigen Zustand zurückholen
+  if (S.discreet) { S.sideBefore = !!S.sideHidden; S.sideHidden = true; }
+  else S.sideHidden = !!S.sideBefore;
+  persist(); renderDiscreet(); renderRoom();
   toast(S.discreet ? 'Wünsche und Regeln sind ausgeblendet. Verschieben geht weiter, ein Klick auf einen Namen öffnet keine Wünsche.' : 'Wünsche und Regeln sind wieder sichtbar.');
 });
+$('#bSide').addEventListener('click', () => { S.sideHidden = !S.sideHidden; persist(); renderDiscreet(); renderRoom(); });
 $('#bCompare').addEventListener('click', () => { S.compare = !S.compare; persist(); renderCompare(); renderRoom(); });
 $('#cmpClose').addEventListener('click', () => { S.compare = false; persist(); renderCompare(); renderRoom(); });
 $('#cmpSel').addEventListener('change', e => { S.cmpSrc = e.target.value; persist(); renderCompare(); });
