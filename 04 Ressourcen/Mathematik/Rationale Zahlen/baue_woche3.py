@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Mathe 7c, Woche 3 (28.09. bis 02.10.2026): Minus üben, Rechengesetze mit Namen, Schwerpunkt Minusklammer.
 Neues Wochenformat (mathe_woche_vorlage.py). Die Aufgaben der Montagsstunde kommen aus baue_stunde3.py.
-Aufruf: python3 baue_woche3.py  -> Mathe 7c – Woche 3.html und Mathe 7c – Woche 3 – Folien für den Beamer.pdf"""
+Aufruf: python3 baue_woche3.py  -> pro Stunde eine Seite „Mathe 7c – Woche 3 – N Titel.html“ und ein Folien-PDF dazu"""
 import subprocess, sys
 from pathlib import Path
 
@@ -102,87 +102,106 @@ EXIT_L = '<ol type="a" class="ex">' + "".join(f"<li>{t} = {aufloesen(t)} = <span
 UMSORT = ('<div class="ausdruck">−17 + 36 − 3 + 4</div><p>Warum durften wir am Montag die Zahlen umsortieren und zusammenfassen?</p>'
           + GESETZE)
 
-FOLIEN = ([("Hausaufgabe: Lösungen 1 bis 3", ha_folie("ha-loesung-1-3.png", "5.6in")),
-           ("Hausaufgabe: Lösungen 4 und 5", ha_folie("ha-loesung-4-5.png", "5.9in")),
-           ("Hausaufgabe: Lösung 6", ha_folie("ha-loesung-6.png", "5.9in")),
-           ("In welche Richtung geht der Bogen?", GERADEN)] + FOLIEN_MO[1:]          # 1 bis 10: Montag
-          + [("Warum durften wir umsortieren?", UMSORT),                              # 11: Dienstag
-             ("Einkaufen 1", EINKAUF1), ("Einkaufen 1: Lösung", EINKAUF1_L),          # 12, 13
-             ("Einkaufen 2: mit Pfand", EINKAUF2), ("Einkaufen 2: Lösung", EINKAUF2_L),  # 14, 15: Mittwoch
-             ("Arbeitsblatt: Lösungen 1 und 2", ha_folie(AB_TEILE[0], "5.9in")),   # 16
-             ("Arbeitsblatt: Lösungen 3 und 4", ha_folie(AB_TEILE[1], "5.9in")),   # 17
-             ("Arbeitsblatt: Lösungen 5 und 6", ha_folie(AB_TEILE[2], "5.9in")),   # 18
-             ("Arbeitsblatt: Lösungen 7 und 8", ha_folie(AB_TEILE[3], "5.9in")),   # 19
-             ("Exit-Ticket", EXIT_A), ("Exit-Ticket: Lösung", EXIT_L)])             # 20, 21: Donnerstag
-
-VORBEREITEN = [
-    ("Mo, IF-Stunde", f"Nichts drucken. Folien in Notability: {PDF}. Strichliste mit Nr. 1 bis 6, je Halbgruppe eine Spalte. "
-                      "Die Schüler brauchen das Arbeitsblatt (HA), das Übungsheft und einen Stift in anderer Farbe."),
-    ("Di, Doppelstunde", f"Arbeitsblatt „Klammern und Rechenvorteile“ in Klassenstärke drucken ({AB_NAME}.pdf, eine Seite). "
-                         "Buch mitbringen lassen. Buchaufgaben mit Lösungen im Tab Lösungen."),
-    ("Mi und Do", f"Nichts neu drucken. Die Lösungen des Arbeitsblatts stehen im ausgefüllten Blatt auf Folie 16 bis 19 "
-                  f"(auch als {AB_NAME} – Lösungen.pdf). Exit-Ticket am Do ins Übungsheft oder auf einen kleinen Zettel."),
-]
-
-SCHRITTE = [
-    ("Montag · IF-Stunde, je Halbgruppe gleich", "HA kontrollieren", 12,
-     "Lösungen zeigen, jeder prüft selbst mit anderer Farbe. Handzeichen pro Aufgabe, Fehlerzahl ohne Namen notieren: "
-     "erster Hinweis für die spätere Einteilung nach Leistung.", [1, 2, 3]),
-    ("", "Bogen wiederholen", 4, "Zwei Minus-Aufgaben an der leeren Zahlengerade: Bogen live einzeichnen, dabei laut fragen, in welche Richtung er geht "
-     "und ob er über die Null läuft. Lösung im Tafelbild.", [4]),
-    ("", "Blitzrunde Minus", 6, "Acht Aufgaben, nur Ergebnisse ins Übungsheft, dann selbst abhaken. 7 oder 8 richtig: gleich mit ◐ starten.", [5, 6]),
-    ("", "Üben ○◐●", 15, "Einstieg selbst wählen, Übungsheft. In der Halbgruppe ist Zeit für Einzelne.", [7, 8]),
-    ("", "Geht das schneller?", 5, "Nur Ideen sammeln. Das ist die Brücke zu den Rechengesetzen.", [9, 10]),
-    ("Dienstag · Doppelstunde", "Minus sicher: Lösungswort", 12, "Buch S. 37 Nr. 10 ins Übungsheft, Lösungswort HECHT.", []),
-    ("", "Warum durften wir umsortieren?", 15, "Die Aufgabe von Montag aufgreifen. Daraus die zwei Gesetze mit Namen ins Merkheft.", [9, 11]),
-    ("", "Gesetze anwenden und benennen", 25, "Arbeitsblatt austeilen, Nr. 1 und 2. Schnelle: Buch S. 26 Nr. 7 rechts; S. 42 Nr. 6.", []),
-    ("", "Minusklammer setzen", 25, "Einkaufen 1, Regel ins Merkheft, dann Arbeitsblatt Nr. 3. Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [12, 13]),
-    ("", "Ausstieg", 5, "Hausaufgabe: Arbeitsblatt Nr. 1 bis 3 fertig.", []),
-    ("Mittwoch", "HA kontrollieren", 8, "Lösungen im ausgefüllten Blatt zeigen, selbst kontrollieren.", [16, 17]),
-    ("", "Minusklammer auflösen", 12, "Einkaufen 2 mit Pfand. Warum wird aus − 8 in der Klammer + 8? Regel ins Merkheft.", [14, 15]),
-    ("", "Üben", 22, "Arbeitsblatt Nr. 4 und 5.", []),
-    ("", "Kontrolle", 3, "Lösungen zu Nr. 4 und 5 zeigen.", [17, 18]),
-    ("Donnerstag", "Typische Fehler", 10, "Arbeitsblatt Nr. 6 gemeinsam: Wer dreht nur das erste Zeichen um?", [18]),
-    ("", "Üben nach Wahl", 25, "Arbeitsblatt Nr. 7 und 8. Für ●: Buch S. 26 Nr. 8 rechts; S. 26 Nr. 10 links.", [19]),
-    ("", "Exit-Ticket", 10, "Drei Aufgaben zur Minusklammer ohne Hilfe. Zeigt, wer vor dem Weiterrechnen noch Hilfe braucht.", [20, 21]),
-]
-
-TAFEL = f"""<div class="box"><h3>Montag: die zwei typischen Fehler beim Minus</h3>
-<p>Die leeren Zahlengeraden stehen auf Folie 4, du zeichnest die Bögen live ein. Bleibt an der Tafel, kommt nicht ins Merkheft. Immer fragen: In welche Richtung geht der Bogen?</p>
-<div class="tafel"><div class="ausdruck">14 − 30 = <span class="lsg">−16</span> <span style="font-size:16px;font-weight:400">(nicht 16: der Bogen läuft über die Null)</span></div>
-<figure>{bogengerade(-18, 16, 14, -30, schritt=2, kpe=2)}</figure>
-<div class="ausdruck">−3 − 9 = <span class="lsg">−12</span> <span style="font-size:16px;font-weight:400">(nicht +6: ohne Klammer heißt Minus einfach nach links)</span></div>
-<figure>{bogengerade(-14, 1, -3, -9, kpe=2)}</figure></div></div>
-<div class="box"><h3>Dienstag: umsortieren</h3><div class="tafel">
-<div class="ausdruck">−17 + 36 − 3 + 4</div><div class="ausdruck">= 36 + 4 − 17 − 3</div><div class="ausdruck">= (36 + 4) + (−17 − 3)</div>
-<div class="ausdruck">= 40 − 20 = <span class="lsg">20</span></div></div>{GESETZE}</div>
-<div class="box"><h3>Dienstag und Mittwoch: Einkaufen</h3><div class="tafel">
-<p><b>Heft 12 €, Stift 8 €:</b></p><div class="ausdruck">50 − 12 − 8 = 50 − (12 + 8) = <span class="lsg">30</span></div>
-<p><b>Getränke 12 €, 8 € Pfand zurück:</b></p><div class="ausdruck">50 − 12 + 8 = 50 − (12 − 8) = <span class="lsg">46</span></div>
-<p>Frage an die Klasse: Warum steht in der Klammer − 8, draußen aber + 8? Antwort: Die 8 € werden nicht abgezogen, sondern kommen zurück.
-Minus vor der Klammer dreht das Zeichen um.</p></div></div>
-<div class="box"><h3>Donnerstag: der häufigste Fehler</h3><div class="tafel">
-<div class="ausdruck">30 − (10 − 4) = 30 − 10 − 4 <span class="lsg">✗</span></div>
-<div class="ausdruck">30 − (10 − 4) = 30 − 10 + 4 = <span class="lsg">24</span></div>
-<p>Nur das erste Zeichen umgedreht, das zweite vergessen. Merksatz: <b>alle</b> Zeichen in der Klammer.</p></div></div>"""
-
-MERKHEFT = f"""<div class="box"><h3>Montag</h3><p>Kein neuer Eintrag. Die Regeln zum Addieren und Subtrahieren stehen seit letzter Woche im Merkheft.</p></div>
-<div class="box"><h3>Dienstag: Rechengesetze</h3><div class="heft">{GESETZE}</div>
-<p style="color:#66798e">Bildungsplan Kl. 7/8/9, Teilkompetenz 9: Die Gesetze angeben und an Beispielen erläutern. Deshalb stehen die Namen im Merkheft
-und werden auf dem Arbeitsblatt (Nr. 2) abgefragt.</p></div>
-<div class="box"><h3>Dienstag: Minusklammer setzen</h3><div class="heft">{MINUSKLAMMER}</div></div>
-<div class="box"><h3>Mittwoch: Klammer auflösen</h3><div class="heft">{AUFLOESEN}</div></div>"""
-
+AB = lambda i: ha_folie(AB_TEILE[i], "5.9in")
+TEASER, TEASER_L = FOLIEN_MO[-2], FOLIEN_MO[-1]
 HA_TAB = "".join(f"<tr><td><b>{n}</b></td><td>{l}</td></tr>" for n, l in HA)
-BUCH_HTML = "".join(f'<div class="box"><h3>Buch {k}</h3><ol type="a" class="kl">'
-                    + "".join(f"<li>{t} = <span class=lsg>{zahl(rechne(t))}</span></li>" for t in v) + "</ol></div>" for k, v in BUCH.items())
-LOESUNGEN = f"""<div class="box"><h3>Hausaufgabe Montag: Arbeitsblatt „Plus und Minus“</h3><table class="ha">{HA_TAB}</table></div>
-<div class="box"><h3>Blitzrunde</h3><ol type="a" class="kl">{"".join(f"<li>{a} = <span class=lsg>{b}</span></li>" for a, b in BLITZ)}</ol></div>
-<div class="box"><h3>Üben ○◐● (Montag)</h3>{ueb_folie(True)}</div>
-<div class="box"><h3>Arbeitsblatt „Klammern und Rechenvorteile“</h3><p>{AB_NAME} – Lösungen.pdf</p>
-{"".join(f'<img src="bilder/{b}" alt="" style="max-width:100%;display:block">' for b in AB_TEILE)}</div>
-{BUCH_HTML}
-<div class="box"><h3>Exit-Ticket Donnerstag</h3>{EXIT_L}</div>"""
+
+
+def buch(*keys):
+    return "".join(f'<div class="box"><h3>Buch {k}</h3><ol type="a" class="kl">'
+                   + "".join(f"<li>{t} = <span class=lsg>{zahl(rechne(t))}</span></li>" for t in BUCH[k]) + "</ol></div>" for k in keys)
+
+
+def ab_bild(*i):
+    return "".join(f'<img src="bilder/{AB_TEILE[k]}" alt="" style="max-width:100%;display:block">' for k in i)
+
+
+def box(t, h):
+    return f'<div class="box"><h3>{t}</h3>{h}</div>'
+
+
+KEIN = '<div class="box"><p>Kein neuer Eintrag.</p></div>'
+# Eine Seite pro Stunde. Name nach Inhalt, der Tag steht nur klein dabei.
+STUNDEN = [
+    dict(nr=1, titel="Minus üben", wann="Mo 28.09.2026, IF-Stunde (zwei Halbgruppen, beide Male gleich)",
+         vorbereiten=[("Drucken", "Nichts."), ("Digital", "Folien-PDF dieser Stunde in Notability."),
+                      ("Sonst", "Strichliste mit Nr. 1 bis 6, je Halbgruppe eine Spalte. Die Schüler brauchen das Arbeitsblatt (HA), "
+                                "das Übungsheft und einen Stift in anderer Farbe.")],
+         schritte=[("", "HA kontrollieren", 12, "Lösungen zeigen, jeder prüft selbst mit anderer Farbe. Handzeichen pro Aufgabe, "
+                    "Fehlerzahl ohne Namen notieren: erster Hinweis für die spätere Einteilung nach Leistung.", [1, 2, 3]),
+                   ("", "Bogen wiederholen", 4, "Zwei Minus-Aufgaben an der leeren Zahlengerade: Bogen live einzeichnen, "
+                    "fragen, in welche Richtung er geht und ob er über die Null läuft.", [4]),
+                   ("", "Blitzrunde Minus", 6, "Acht Aufgaben, nur Ergebnisse ins Übungsheft, selbst abhaken. 7 oder 8 richtig: gleich mit ◐ starten.", [5, 6]),
+                   ("", "Üben ○◐●", 15, "Einstieg selbst wählen, Übungsheft. In der Halbgruppe ist Zeit für Einzelne.", [7, 8]),
+                   ("", "Geht das schneller?", 5, "Nur Ideen sammeln. Das ist die Brücke zu den Rechengesetzen.", [9, 10])],
+         folien=[("Hausaufgabe: Lösungen 1 bis 3", ha_folie("ha-loesung-1-3.png", "5.6in")),
+                 ("Hausaufgabe: Lösungen 4 und 5", ha_folie("ha-loesung-4-5.png", "5.9in")),
+                 ("Hausaufgabe: Lösung 6", ha_folie("ha-loesung-6.png", "5.9in")),
+                 ("In welche Richtung geht der Bogen?", GERADEN)] + FOLIEN_MO[1:],
+         tafel=box("Die zwei typischen Fehler beim Minus",
+                   '<p>Die leeren Zahlengeraden stehen auf Folie 4, du zeichnest die Bögen live ein. Bleibt an der Tafel, kommt nicht ins Merkheft.</p>'
+                   f'<div class="tafel"><div class="ausdruck">14 − 30 = <span class="lsg">−16</span> <span style="font-size:16px;font-weight:400">(nicht 16: der Bogen läuft über die Null)</span></div>'
+                   f'<figure>{bogengerade(-18, 16, 14, -30, schritt=2, kpe=2)}</figure>'
+                   f'<div class="ausdruck">−3 − 9 = <span class="lsg">−12</span> <span style="font-size:16px;font-weight:400">(nicht +6: ohne Klammer heißt Minus einfach nach links)</span></div>'
+                   f'<figure>{bogengerade(-14, 1, -3, -9, kpe=2)}</figure></div>'),
+         merkheft=box("Kein neuer Eintrag", "<p>Die Regeln zum Addieren und Subtrahieren stehen seit letzter Woche im Merkheft.</p>"),
+         loesungen=box("Hausaufgabe: Arbeitsblatt „Plus und Minus“", f'<table class="ha">{HA_TAB}</table>')
+                   + box("Blitzrunde", '<ol type="a" class="kl">' + "".join(f"<li>{a} = <span class=lsg>{b}</span></li>" for a, b in BLITZ) + "</ol>")
+                   + box("Üben ○◐●", ueb_folie(True))),
+    dict(nr=2, titel="Rechengesetze, Minusklammer setzen", wann="Di 29.09.2026, Doppelstunde",
+         vorbereiten=[("Drucken", f"Arbeitsblatt „Klammern und Rechenvorteile“ in Klassenstärke ({AB_NAME}.pdf, eine Seite)."),
+                      ("Digital", "Folien-PDF dieser Stunde in Notability."), ("Sonst", "Buch mitbringen lassen.")],
+         schritte=[("", "Minus sicher: Lösungswort", 12, "Buch S. 37 Nr. 10 ins Übungsheft, Lösungswort HECHT.", []),
+                   ("", "Warum durften wir umsortieren?", 15, "Die Aufgabe von Montag aufgreifen. Daraus die zwei Gesetze mit Namen ins Merkheft.", [1, 2]),
+                   ("", "Gesetze anwenden und benennen", 25, "Arbeitsblatt austeilen, Nr. 1 und 2. Schnelle: Buch S. 26 Nr. 7 rechts; S. 42 Nr. 6.", []),
+                   ("", "Minusklammer setzen", 25, "Einkaufen 1, Regel ins Merkheft, dann Arbeitsblatt Nr. 3. "
+                    "Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [3, 4]),
+                   ("", "Ausstieg", 5, "Hausaufgabe: Arbeitsblatt Nr. 1 bis 3 fertig.", [])],
+         folien=[TEASER, ("Warum durften wir umsortieren?", UMSORT), ("Einkaufen 1", EINKAUF1), ("Einkaufen 1: Lösung", EINKAUF1_L)],
+         tafel=box("Umsortieren", '<div class="tafel"><div class="ausdruck">−17 + 36 − 3 + 4</div><div class="ausdruck">= 36 + 4 − 17 − 3</div>'
+                   '<div class="ausdruck">= (36 + 4) + (−17 − 3)</div><div class="ausdruck">= 40 − 20 = <span class="lsg">20</span></div></div>' + GESETZE)
+               + box("Einkaufen 1: Heft 12 €, Stift 8 €", '<div class="tafel"><div class="ausdruck">50 − 12 − 8 = 50 − (12 + 8) = <span class="lsg">30</span></div></div>'),
+         merkheft=box("Rechengesetze", f'<div class="heft">{GESETZE}</div><p style="color:#66798e">Bildungsplan Kl. 7/8/9, Teilkompetenz 9: '
+                      "die Gesetze angeben und an Beispielen erläutern. Deshalb die Namen im Merkheft und auf dem Arbeitsblatt (Nr. 2).</p>")
+                  + box("Minusklammer setzen", f'<div class="heft">{MINUSKLAMMER}</div>'),
+         loesungen=box("Arbeitsblatt Nr. 1 bis 3", ab_bild(0, 1)) + buch("S. 37 Nr. 10 (Lösungswort HECHT)", "S. 26 Nr. 7 rechts",
+                                                                         "S. 42 Nr. 6 (Rückspiegel)", "S. 26 Nr. 8 links", "S. 25 Nr. 6 rechts")),
+    dict(nr=3, titel="Minusklammer auflösen", wann="Mi 30.09.2026, Einzelstunde",
+         vorbereiten=[("Drucken", "Nichts."), ("Digital", f"Folien-PDF dieser Stunde in Notability. Ganzes Lösungsblatt: {AB_NAME} – Lösungen.pdf.")],
+         schritte=[("", "HA kontrollieren", 8, "Lösungen im ausgefüllten Blatt zeigen, selbst kontrollieren.", [1, 2]),
+                   ("", "Minusklammer auflösen", 12, "Einkaufen 2 mit Pfand. Warum wird aus − 8 in der Klammer + 8? Regel ins Merkheft.", [3, 4]),
+                   ("", "Üben", 22, "Arbeitsblatt Nr. 4 und 5.", []),
+                   ("", "Kontrolle", 3, "Lösungen zu Nr. 4 und 5 zeigen.", [2, 5])],
+         folien=[("Arbeitsblatt: Lösungen 1 und 2", AB(0)), ("Arbeitsblatt: Lösungen 3 und 4", AB(1)),
+                 ("Einkaufen 2: mit Pfand", EINKAUF2), ("Einkaufen 2: Lösung", EINKAUF2_L), ("Arbeitsblatt: Lösungen 5 und 6", AB(2))],
+         tafel=box("Einkaufen 2: Getränke 12 €, 8 € Pfand zurück",
+                   '<div class="tafel"><div class="ausdruck">50 − 12 + 8 = 50 − (12 − 8) = <span class="lsg">46</span></div>'
+                   '<p>Frage an die Klasse: Warum steht in der Klammer − 8, draußen aber + 8? Antwort: Die 8 € werden nicht abgezogen, sondern kommen zurück. '
+                   'Minus vor der Klammer dreht das Zeichen um.</p></div>'),
+         merkheft=box("Klammer auflösen", f'<div class="heft">{AUFLOESEN}</div>'),
+         loesungen=box("Arbeitsblatt Nr. 1 bis 6", ab_bild(0, 1, 2))),
+    dict(nr=4, titel="Minusklammer üben, Exit-Ticket", wann="Do 01.10.2026, Einzelstunde",
+         vorbereiten=[("Drucken", "Nichts. Exit-Ticket ins Übungsheft oder auf einen kleinen Zettel."), ("Digital", "Folien-PDF dieser Stunde in Notability.")],
+         schritte=[("", "Typische Fehler", 10, "Arbeitsblatt Nr. 6 gemeinsam: Wer dreht nur das erste Zeichen um?", [1]),
+                   ("", "Üben nach Wahl", 25, "Arbeitsblatt Nr. 7 und 8. Für ●: Buch S. 26 Nr. 8 rechts; S. 26 Nr. 10 links.", [2]),
+                   ("", "Exit-Ticket", 10, "Drei Aufgaben zur Minusklammer ohne Hilfe. Zeigt, wer noch Hilfe braucht.", [3, 4])],
+         folien=[("Arbeitsblatt: Lösungen 5 und 6", AB(2)), ("Arbeitsblatt: Lösungen 7 und 8", AB(3)),
+                 ("Exit-Ticket", EXIT_A), ("Exit-Ticket: Lösung", EXIT_L)],
+         tafel=box("Der häufigste Fehler", '<div class="tafel"><div class="ausdruck">30 − (10 − 4) = 30 − 10 − 4 <span class="lsg">✗</span></div>'
+                   '<div class="ausdruck">30 − (10 − 4) = 30 − 10 + 4 = <span class="lsg">24</span></div>'
+                   '<p>Nur das erste Zeichen umgedreht, das zweite vergessen. <b>Alle</b> Zeichen in der Klammer drehen sich um.</p></div>'),
+         merkheft=box("Kein neuer Eintrag", "<p>Die Regel von Mittwoch (Klammer auflösen) wird nur wiederholt.</p>"),
+         loesungen=box("Arbeitsblatt Nr. 5 bis 8", ab_bild(2, 3)) + buch("S. 26 Nr. 8 rechts", "S. 26 Nr. 10 links") + box("Exit-Ticket", EXIT_L)),
+]
+
+
+def datei(st):
+    return f"Mathe 7c – Woche 3 – {st['nr']} {st['titel']}.html"
+
+
+def pdf(st):
+    return f"Mathe 7c – Woche 3 – {st['nr']} {st['titel']}.pdf"
+
 
 FOLIEN_CSS = (".merk{background:#eef3fb;border:2px solid #1a56a0;border-radius:8px;padding:10px 16px;margin:12px 0;font-weight:700;font-size:25px;line-height:1.35}"
               ".merk span{font-weight:400}.gross{font-size:34px;line-height:1.4}"
@@ -192,17 +211,17 @@ FOLIEN_CSS = (".merk{background:#eef3fb;border:2px solid #1a56a0;border-radius:8
 def main():
     ha_bilder()
     ab_bilder()
-    ziel = HIER / "Mathe 7c – Woche 3.html"
-    bau_woche(ziel, "Woche 3: Minus üben, Rechengesetze, Minusklammer",
-              "Klasse 7c · Mathematik · 28.09. bis 02.10.2026 · Rationale Zahlen",
-              VORBEREITEN, SCHRITTE, FOLIEN, TAFEL, MERKHEFT, LOESUNGEN)
-    fol = HIER / "_folien_woche3.html"
-    fol.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{FCSS}{FOLIEN_CSS}</style></head><body>'
-                   + "".join(f'<div class="slide"><h1>{t}</h1>{h}</div>' for t, h in FOLIEN) + "</body></html>", encoding="utf-8")
-    subprocess.run(["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-                    f"--print-to-pdf={HIER / PDF}", fol.as_uri()], check=True, capture_output=True)
-    fol.unlink()
-    print("Folien-PDF:", PDF)
+    for st in STUNDEN:
+        vb = [(w, x + (f" Datei: {pdf(st)}" if w == "Digital" else "")) for w, x in st["vorbereiten"]]
+        bau_woche(HIER / datei(st), f"Woche 3, Stunde {st['nr']}: {st['titel']}", f"Klasse 7c, Mathematik, {st['wann']}",
+                  vb, st["schritte"], st["folien"], st["tafel"], st["merkheft"], st["loesungen"])
+        fol = HIER / "_folien_woche3.html"
+        fol.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{FCSS}{FOLIEN_CSS}</style></head><body>'
+                       + "".join(f'<div class="slide"><h1>{t}</h1>{h}</div>' for t, h in st["folien"]) + "</body></html>", encoding="utf-8")
+        subprocess.run(["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+                        f"--print-to-pdf={HIER / pdf(st)}", fol.as_uri()], check=True, capture_output=True)
+        fol.unlink()
+        print("  Folien-PDF:", pdf(st), f"({len(st['folien'])} Folien)")
 
 
 if __name__ == "__main__":

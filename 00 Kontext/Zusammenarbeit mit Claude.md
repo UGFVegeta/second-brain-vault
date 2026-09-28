@@ -105,3 +105,4 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 - Die alte RZ2-Form mit getrennten Tagen und viel Erklärtext ist zu überfrachtet.
 - Zwischen Aufgaben und Lösungen nie „·“ als Trenner, sondern Semikolon. Der Punkt sieht aus wie ein Malzeichen und verwirrt die Schüler.
 - Zur HA-Kontrolle die Lösungen im ausgefüllten Arbeitsblatt zeigen, nicht als kompakte Liste. Lieber auf mehrere Folien verteilen, damit es lesbar bleibt.
+- Folien in der Wochendatei nach Tagen trennen, jeder Tag mit eigener Nummerierung und eigenem PDF. Ein Folien-PDF für die ganze Woche ist im Unterricht unübersichtlich.

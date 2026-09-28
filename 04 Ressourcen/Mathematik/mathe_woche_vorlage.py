@@ -18,7 +18,11 @@ EXTRA = """<style>
 .br{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.85em;line-height:1.05;margin:0 .1em}
 .br span:first-child{border-bottom:1.5px solid currentColor;padding:0 .15em}
 .spalten{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.spalten h4{margin:0 0 6px}.spalten ol{margin:0;padding-left:22px}.spalten li{margin:4px 0}
-.kl{columns:2;column-gap:40px;font-size:18px}.ausdruck{font-size:26px;font-weight:700;margin:8px 0}
+.kl{columns:2;column-gap:40px;font-size:18px}
+.tagwahl{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:52px;background:#fff;padding:10px 0;z-index:3;border-bottom:1px solid #e3e5ea}
+.tagwahl button{font:inherit;font-size:15px;font-weight:600;border:1px solid #cfd6df;background:#fff;border-radius:18px;padding:6px 16px;cursor:pointer}
+.tagwahl button.on{background:#1b1b1b;color:#fff;border-color:#1b1b1b}.tagwahl button span{font-weight:400;opacity:.7}
+[hidden]{display:none!important}.ausdruck{font-size:26px;font-weight:700;margin:8px 0}
 .heft{border-left:5px solid #1b1b1b;padding:4px 0 4px 14px;margin:12px 0}.uheft{border-left:5px dashed #1a56a0;padding:4px 0 4px 14px;margin:12px 0}
 .merk{background:#eef3fb;border:1.5px solid #1a56a0;border-radius:6px;padding:8px 13px;margin:9px 0;font-weight:600}
 .tafel{background:#fbfbf8;border:1px solid #d9dfe7;border-radius:8px;padding:12px 16px;margin:10px 0 18px}
@@ -44,8 +48,14 @@ def aus_skript(datei, *namen):
 
 
 def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css=""):
-    """vorbereiten: [(Wann, Was)]; schritte: [(Tag-Marke oder "", Titel, Minuten, Text, [Foliennummern])];
-    folien: [(Titel, HTML)]; tafel, merkheft, loesungen: HTML."""
+    """vorbereiten: [(Wann, Was)] oder HTML; schritte: [(Tag-Marke oder "", Titel, Minuten, Text, [Foliennummern])];
+    folien: [(Titel, HTML)] oder nach Tagen [(Tag, [(Titel, HTML)])]. Bei Tagen zählt jeder Tag ab Folie 1, und die
+    Foliennummern eines Schritts beziehen sich auf den Tag, zu dem der Schritt gehört (Reihenfolge der Tag-Marken).
+    tafel, merkheft, loesungen: HTML."""
+    if folien and isinstance(folien[0][1], list):
+        gruppen = folien
+    else:
+        gruppen = [("", folien)]
     if isinstance(vorbereiten, str):
         vb_box = vorbereiten
     else:
@@ -53,15 +63,21 @@ def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loe
     viele = len(schritte) > 8
     zeit = "".join(f'<div class="z{i % 6}" style="flex:{max(m, 5)}" title="{t}">{i + 1}{"" if viele else f" {t}"}{f" ({m}′)" if m else ""}</div>'
                    for i, (_, t, m, _, _) in enumerate(schritte))
-    zeilen = ""
+    zeilen, g = "", -1
     for i, (tag, t, m, d, ks) in enumerate(schritte, 1):
         if tag:
             zeilen += f'<div class="tag">{tag.replace(" · ", ", ")}</div>'
-        knopf = "".join(f"<button data-go=f{k}>Folie {k}</button>" for k in ks)
+            g = min(g + 1, len(gruppen) - 1) if len(gruppen) > 1 else 0
+        g = max(g, 0)
+        knopf = "".join(f"<button data-go=f{g}_{k} data-g={g}>Folie {k}</button>" for k in ks)
         zeilen += (f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b>{f" ({m} min)" if m else ""}<br><span class="m">{d}</span></div>'
                    f'<div class="go">{knopf}</div></div>')
-    karten = "".join(f'<div class="fnr">Folie {i}</div><div class="fkarte" id="f{i}"><h3>{t}</h3>{h}</div>' for i, (t, h) in enumerate(folien, 1)) \
-        or '<div class="box"><p>In dieser Woche gibt es keine Beamer-Folien, alles läuft über Tafel und Blatt.</p></div>'
+    tagknoepfe = "".join(f'<button data-g="{g}">{tag} <span>({len(fs)})</span></button>' for g, (tag, fs) in enumerate(gruppen)) if len(gruppen) > 1 else ""
+    karten = (f'<div class="tagwahl">{tagknoepfe}</div>' if tagknoepfe else "") + "".join(
+        f'<div class="fgruppe" data-g="{g}">' + "".join(f'<div class="fnr">Folie {i}</div><div class="fkarte" id="f{g}_{i}"><h3>{t}</h3>{h}</div>'
+                                                     for i, (t, h) in enumerate(fs, 1)) + "</div>"
+        for g, (_, fs) in enumerate(gruppen)) if any(fs for _, fs in gruppen) \
+        else '<div class="box"><p>In dieser Woche gibt es keine Beamer-Folien, alles läuft über Tafel und Blatt.</p></div>'
     html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{h1}</title>{OPTIK_CSS}{extra_css}{EXTRA}</head><body>
@@ -82,7 +98,11 @@ def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loe
 const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
 function show(id){{tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}}
 tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
-document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)}});
+const gr=[...document.querySelectorAll('.fgruppe')],tb=[...document.querySelectorAll('.tagwahl button')];
+function tag(g){{g=String(g);gr.forEach(x=>x.hidden=gr.length>1&&x.dataset.g!==g);tb.forEach(b=>b.classList.toggle('on',b.dataset.g===g));try{{localStorage.setItem('mathe-tag-'+location.pathname,g)}}catch(e){{}}}}
+tb.forEach(b=>b.onclick=()=>{{tag(b.dataset.g);window.scrollTo(0,0)}});
+let g0='0';try{{g0=localStorage.getItem('mathe-tag-'+location.pathname)||'0'}}catch(e){{}}tag(g0);
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien');tag(b.dataset.g);setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)}});
 history.scrollRestoration='manual';
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
 </script></body></html>"""

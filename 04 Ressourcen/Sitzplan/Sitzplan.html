@@ -142,7 +142,14 @@ select.plan{
 kbd{font:inherit;font-size:10.5px;font-weight:600;border-radius:4px;padding:0 5px;background:var(--panel);box-shadow:var(--shadow-sm);color:var(--ink-2)}
 
 /* Bühne und Raum */
-.stage{position:relative;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 40px 18px;min-height:0}
+.stage{position:relative;overflow:auto;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;padding:22px 40px 18px;min-height:0}
+.stage>*{margin-left:auto;margin-right:auto;flex:none}
+.stage>:first-child{margin-top:auto}
+.stage>:last-child{margin-bottom:auto}
+.zoom{display:inline-flex;align-items:center;gap:2px;margin-left:10px;vertical-align:middle}
+.zoom button{border:0;background:var(--fill);color:var(--ink-2);height:22px;min-width:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:600}
+.zoom button:hover{background:var(--fill-2);color:var(--ink)}
+.zoom button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
 .canvasbar{margin-bottom:14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
 .vlabel{font-size:12px;color:var(--ink-3);margin-right:-4px}
 #varTabs button{min-width:30px;padding:0 10px}
@@ -263,7 +270,7 @@ body.simple .simple-only{display:block}
 .t-double.f0::after,.t-double.f180::after{left:50%;top:18%;bottom:18%;width:1px}
 .t-double.f90::after,.t-double.f270::after{top:50%;left:18%;right:18%;height:1px}
 .t-teacher{background:var(--teacher);align-items:center;justify-content:center}
-.t-teacher .tlabel{font-size:calc(var(--px) * .42);font-weight:500;color:var(--ink-2);pointer-events:none;white-space:nowrap}
+.t-teacher .tlabel{font-size:clamp(9px,calc(var(--px) * .5),13px);font-weight:500;color:var(--ink-2);pointer-events:none;white-space:nowrap}
 .seat{position:relative;flex:1;min-width:0;min-height:0;border-radius:calc(var(--px) * .2);transition:background .15s,box-shadow .15s}
 .seat.hl{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
 .chair{position:absolute;background:var(--chair);pointer-events:none;border-radius:999px}
@@ -277,7 +284,7 @@ body.simple .simple-only{display:block}
 .t-teacher.f270 .chair{left:calc(100% + var(--px) * .22)}
 .name{
   position:absolute;inset:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;line-height:1.1;font-weight:600;overflow:hidden;border-radius:calc(var(--px) * .16);
+  text-align:center;line-height:1.1;font-weight:600;overflow:hidden;letter-spacing:-.01em;border-radius:calc(var(--px) * .16);
   cursor:grab;touch-action:none;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:anywhere;padding:1px 2px;
   transition:background .15s;
 }
@@ -654,7 +661,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       <div id="room"></div>
       <div class="print-foot" id="printFoot"></div>
     </div>
-    <div class="scale" id="scale"></div>
+    <div class="scale"><span id="scale"></span><span class="zoom" role="group" aria-label="Größe"><button type="button" data-zoom="-" title="Kleiner" aria-label="Kleiner">−</button><button type="button" data-zoom="auto" title="Größe automatisch an das Fenster anpassen">Automatisch</button><button type="button" data-zoom="+" title="Größer" aria-label="Größer">+</button></span></div>
   </section>
   <aside class="cmp" id="cmpPanel" hidden>
     <div class="cmp-head"><h2>Vergleich</h2><button type="button" class="btn icon tb" id="cmpClose" aria-label="Vergleich schließen" title="Schließen"><svg class="i"><use href="#i-x"/></svg></button></div>
@@ -1277,13 +1284,16 @@ function renderTools() {
   $('#bUndo').disabled = !undoStack.length;
   $('#bRedo').disabled = !redoStack.length;
 }
+const MIN_PX = 20;   // ab dieser Kästchengröße passen auch lange Vornamen in eine Zeile
 function computePx(R) {
   if (printing) return Math.max(8, Math.min(1010 / R.w, 590 / R.h));
   const r = stage.getBoundingClientRect(), cs = getComputedStyle(stage);
-  const used = $('.canvasbar').offsetHeight + $('#planHead').offsetHeight + $('#scale').offsetHeight
+  const used = $('.canvasbar').offsetHeight + $('#planHead').offsetHeight + document.querySelector('.scale').offsetHeight
     + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + 44;   // Abstände, Wand und Beschriftungen
   const aw = r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - 70, ah = r.height - used;
-  return clamp(Math.floor(Math.min(aw / R.w, ah / R.h)), 9, 46);
+  if (S.zoom) return clamp(S.zoom | 0, 12, 60);                       // selbst gewählte Größe
+  const fit = Math.floor(Math.min(aw / R.w, ah / R.h));
+  return clamp(Math.max(fit, MIN_PX), 9, 46);                           // Automatisch: nie kleiner als lesbar
 }
 /* Kurzform des Nachnamens: so viele Buchstaben, bis gleiche Vornamen unterscheidbar sind */
 function lastShort(P) {
@@ -1363,7 +1373,7 @@ function renderRoom() {
     const bx = box(d), s = scr(R, bx.x, bx.y, bx.w, bx.h);
     const face = (d.rot + (f ? 180 : 0)) % 360;
     let inner;
-    if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px > 15 ? 'Lehrertisch' : 'L'}</span>`;
+    if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px >= 14 ? 'Lehrertisch' : 'Pult'}</span>`;
     else inner = d.seats.map((sid, i) => {
       const st = sid && byId.get(sid);
       if (!st) return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span></div>`;
@@ -1371,7 +1381,7 @@ function renderRoom() {
       const stat = hide ? null : ev.status.get(st.id);
       const isLocked = !hide && lockedSet.has(st.id), isClash = !hide && clashSet.has(st.id);
       const tip = `${st.first} ${st.last}`.trim() + (stat === 'ok' ? ' · Wunsch erfüllt' : stat === 'open' ? ' · Wunsch noch offen' : '') + (isLocked ? ' · festgehalten' : '') + (isClash ? ' · Regel verletzt' : '');
-      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair${stat ? ' ' + stat : ''}${isLocked ? ' locked' : ''}">${isLocked ? '<svg class="lk2"><use href="#i-lock"/></svg>' : ''}</span><div class="name${isClash ? ' clash' : ''}${pick.has(st.id) ? ' picked' : ''}${gColor(st) ? ' g' : ''}" data-sid="${st.id}"${gColor(st) ? ` style="--g:${gColor(st)}"` : ''} title="${esc(tip)}">${nameHtml(st, dupes)}</div></div>`;
+      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span><div class="name${isClash ? ' clash' : ''}${pick.has(st.id) ? ' picked' : ''}${gColor(st) ? ' g' : ''}" data-sid="${st.id}"${gColor(st) ? ` style="--g:${gColor(st)}"` : ''} title="${esc(tip)}">${isLocked ? '<svg class="lk"><use href="#i-lock"/></svg>' : ''}${stat ? `<span class="wd ${stat}"></span>` : ''}${nameHtml(st, dupes)}</div></div>`;
     }).join('');
     h += `<div class="desk t-${d.type} f${face}${sel.has(d.id) ? ' sel' : ''}" data-id="${d.id}" style="${posStyle(s)}" title="${TYPES[d.type].label}">${inner}</div>`;
   }
@@ -1383,6 +1393,7 @@ function renderRoom() {
   const nr = (R.nr || '').trim(), kl = (P.klasse || '').trim(), fach = (P.fach || '').trim();
   $('#phTitle').textContent = kl ? (/^klasse/i.test(kl) ? kl : 'Klasse ' + kl) : P.name;
   $('#phSub').textContent = [nr ? (/^\d/.test(nr) ? 'Raum ' + nr : nr) : '', P.showFach && fach ? fach : ''].filter(Boolean).join(' · ');
+  document.querySelector('.zoom [data-zoom="auto"]').setAttribute('aria-pressed', !S.zoom);
   $('#scale').textContent = `1 Kästchen = 25 cm · ${fmtM(R.w)} × ${fmtM(R.h)} m · ${f ? 'Lehrersicht: Tafel unten' : 'Schülersicht: Tafel oben'}`;
   const vv = P.variants.length > 1 ? `Variante ${P.variants.find(v => v.id === P.vid).name} · ` : '';
   $('#printMeta').textContent = `${vv}Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`;
@@ -1397,7 +1408,7 @@ function fitNames() {
     let fs = base;
     // zuerst ohne Trennung kleiner schreiben, erst im Notfall umbrechen
     el.style.whiteSpace = 'nowrap'; el.style.fontSize = fs + 'px';
-    while (over() && fs > 8.5) { fs -= 0.5; el.style.fontSize = fs + 'px'; }
+    while (over() && fs > 7.5) { fs -= 0.5; el.style.fontSize = fs + 'px'; }
     if (over()) {
       el.style.whiteSpace = 'normal';
       while (over() && fs > 7) { fs -= 0.5; el.style.fontSize = fs + 'px'; }
@@ -2561,6 +2572,13 @@ $('#moreMenu').addEventListener('click', e => {
   toast(simple() ? 'Einfache Ansicht: nur Tische, Klasse, Verteilen und Drucken.' : 'Erweiterte Ansicht: mit Wünschen, Regeln, Varianten und Vergleich.');
 });
 $('#dlgWelcome').addEventListener('close', () => { setLevel($('#dlgWelcome').returnValue === 'full' ? 'full' : 'simple'); });
+document.querySelector('.zoom').addEventListener('click', e => {
+  const b = e.target.closest('[data-zoom]'); if (!b) return;
+  const v = b.dataset.zoom;
+  if (v === 'auto') S.zoom = null;
+  else S.zoom = clamp((S.zoom || px) + (v === '+' ? 2 : -2), 12, 60);
+  persist(); renderRoom();
+});
 $('#bSide').addEventListener('click', () => { S.sideHidden = !S.sideHidden; persist(); renderDiscreet(); renderRoom(); });
 $('#bCompare').addEventListener('click', () => { S.compare = !S.compare; persist(); renderCompare(); renderRoom(); });
 $('#cmpClose').addEventListener('click', () => { S.compare = false; persist(); renderCompare(); renderRoom(); });
