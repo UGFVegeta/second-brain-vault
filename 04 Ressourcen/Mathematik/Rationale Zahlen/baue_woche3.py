@@ -60,7 +60,7 @@ def ab_bilder():
     """Arbeitsblatt Klammern als Bilder: Lösungsfassung und leere Fassung je in vier Ausschnitte (Nr. 1–2, 3–4, 5–6, 7–8),
     dazu das leere Blatt ganz. Grenzen aus pdftotext -bbox an den Aufgabenköpfen."""
     from PIL import Image
-    for quelle, teile, ganz in ((AB_LSG, AB_TEILE, None), (AB_LEER_PDF, AB_LEER, "ab3-leer-ganz.png")):
+    for quelle, teile, ganz in ((AB_LSG, AB_TEILE, "ab3-loesung-ganz.png"), (AB_LEER_PDF, AB_LEER, "ab3-leer-ganz.png")):
         box = subprocess.run(["pdftotext", "-bbox", str(quelle), "-"], capture_output=True, text=True).stdout
         woerter = [(float(y0), float(y1), w) for y0, y1, w in re.findall(r'yMin="([\d.]+)" xMax="[\d.]+" yMax="([\d.]+)">([^<]*)<', box)]
         y = lambda wort: min(y0 for y0, _, w in woerter if w == wort)
@@ -95,30 +95,37 @@ HEFT = lambda h: f'<div class="heft">{h}</div>'      # schwarzer Balken: kommt i
 UEB = lambda h: f'<div class="uheft">{h}</div>'      # blau gestrichelt: Übung, kommt ins Übungsheft
 NEU = "−26 + 47 − 14 + 3"
 NEU_FRAGE = f'<div class="ausdruck">{NEU}</div><p class="gross">Rechne möglichst geschickt. Wie gehst du vor?</p>'
-MINUSKLAMMER = ('<div class="merk">Minusklammer setzen<br><span style="font-weight:400">Zahlen, die alle abgezogen werden, kann man in einer '
-                'Minusklammer zusammenfassen. In der Klammer steht dann Plus.<br>50 − 12 − 8 = 50 − (12 + 8) = 50 − 20 = 30</span></div>')
-AUFLOESEN = ('<div class="merk">Klammer auflösen<br><span style="font-weight:400">Plus vor der Klammer: Die Zeichen in der Klammer bleiben.<br>'
-             '50 + (12 − 8) = 50 + 12 − 8<br>Minus vor der Klammer: <b>Alle</b> Zeichen in der Klammer drehen sich um.<br>'
-             '50 − (12 − 8) = 50 − 12 + 8 = 46</span></div>')
+MINUSKLAMMER = ('<div class="merk">Minusklammer<br><span style="font-weight:400">Steht ein Minus vor der Klammer, wird beim Auflösen '
+                'aus jedem Plus in der Klammer ein Minus und aus jedem Minus ein Plus.<br>'
+                '50 − (12 + 8) = 50 − 12 − 8 = 30<br>50 − (12 − 8) = 50 − 12 + 8 = 46<br>'
+                'Umgekehrt kann man Zahlen, die abgezogen werden, in einer Minusklammer zusammenfassen:<br>'
+                '87 − 45 − 32 − 23 = 87 − (45 + 32 + 23) = 87 − 100 = −13</span></div>')
 
-EINKAUF1 = ('<p class="gross">Du hast 50 €. Du kaufst ein Heft für 12 € und einen Stift für 8 €.<br>Wie viel Geld bleibt dir? Rechne auf zwei Wegen.</p>')
-EINKAUF1_L = ('<div class="ausdruck">50 − 12 − 8 = <span class="lsg">30</span></div><div class="ausdruck">50 − (12 + 8) = 50 − 20 = <span class="lsg">30</span></div>'
-              + HEFT(MINUSKLAMMER))
-EINKAUF2 = ('<p class="gross">Du hast 50 €. Du kaufst Getränke für 12 € und bekommst 8 € Pfand zurück.<br>'
-            'Wie viel Geld hast du jetzt? Rechne auf zwei Wegen.</p>')
-EINKAUF2_L = ('<div class="ausdruck">50 − 12 + 8 = <span class="lsg">46</span></div><div class="ausdruck">50 − (12 − 8) = 50 − 4 = <span class="lsg">46</span></div>'
-              + HEFT(AUFLOESEN))
+EINKAUF = ('<p class="gross">Du hast 50 €.<br>a) Du kaufst ein Heft für 12 € und einen Stift für 8 €.<br>'
+           'b) Du kaufst Getränke für 12 € und bekommst 8 € Pfand zurück.<br>Wie viel Geld hast du jeweils? Rechne auf zwei Wegen.</p>')
+EINKAUF_L = ('<div class="ausdruck">a) 50 − 12 − 8 = 50 − (12 + 8) = <span class="lsg">30</span></div>'
+             '<div class="ausdruck">b) 50 − 12 + 8 = 50 − (12 − 8) = <span class="lsg">46</span></div>'
+             '<p>Bei b) werden die 8 € nicht abgezogen, sie kommen zurück. Deshalb steht in der Klammer − 8, aufgelöst aber + 8.</p>'
+             + HEFT(MINUSKLAMMER))
+FEHLER = '<div class="ausdruck">30 − (10 − 4) = 30 − 10 − 4 = 16</div><p class="gross">Stimmt das? Wo steckt der Fehler?</p>'
+FEHLER_L = ('<div class="ausdruck">30 − (10 − 4) = 30 − 10 − 4 <span class="lsg">✗</span></div>'
+            '<div class="ausdruck">30 − (10 − 4) = 30 − 10 + 4 = <span class="lsg">24</span></div>'
+            '<p class="gross">Nur das erste Zeichen umgedreht, das zweite vergessen. Aus <b>jedem</b> Minus in der Klammer wird ein Plus.</p>')
 EXIT_A = '<ol type="a" class="ex">' + "".join(f"<li>{t} =</li>" for t in EXIT) + "</ol>"
 EXIT_L = '<ol type="a" class="ex">' + "".join(f"<li>{t} = {aufloesen(t)} = <span class=lsg>{zahl(rechne(t))}</span></li>" for t in EXIT) + "</ol>"
 UMSORT = (f'<div class="ausdruck">{NEU} = 47 + 3 − 26 − 14</div><div class="ausdruck">= 50 − 40 = <span class="lsg">10</span></div>'
           '<p>Warum dürfen wir die Zahlen umsortieren und zusammenfassen?</p>' + HEFT(GESETZE))
 
 AB = lambda i: ha_folie(AB_TEILE[i], "5.9in")
-ABL = lambda i: WEITER + ha_folie(AB_LEER[i], "5.4in")
-AB_GANZ = (AUSTEILEN + '<div style="display:flex;gap:.35in;align-items:flex-start">'
-           '<img src="bilder/ab3-leer-ganz.png" alt="" style="height:5.2in;border:1px solid #ccc;flex:none">'
-           f'<div style="flex:1"><p style="margin:0 0 .1in;font-weight:700">Wir starten mit Nr. 1 und 2:</p>{ha_folie(AB_LEER[0], "4.6in")}</div></div>')
-TEASER, TEASER_L = FOLIEN_MO[-2], FOLIEN_MO[-1]
+
+
+def a4(titel, pdf, bild, zeichen=""):
+    """Ganze A4-Seite (Arbeitsblatt leer zum Eintragen oder Lösungsblatt) als eigene Seite im Folien-PDF."""
+    return dict(titel=titel, pdf=pdf, html=zeichen + f'<img src="bilder/{bild}" alt="" style="display:block;max-width:100%;border:1px solid #ccc">')
+
+
+AB_BLATT = lambda zeichen: a4("Arbeitsblatt: Klammern und Rechenvorteile", AB_LEER_PDF, "ab3-leer-ganz.png", zeichen)
+AB_LOES = a4("Arbeitsblatt: Lösungen", AB_LSG, "ab3-loesung-ganz.png")
 HA_TAB = "".join(f"<tr><td><b>{n}</b></td><td>{l}</td></tr>" for n, l in HA)
 
 
@@ -164,54 +171,49 @@ STUNDEN = [
          loesungen=box("Hausaufgabe: Arbeitsblatt „Plus und Minus“", f'<table class="ha">{HA_TAB}</table>')
                    + box("Blitzrunde", '<ol type="a" class="kl">' + "".join(f"<li>{a} = <span class=lsg>{b}</span></li>" for a, b in BLITZ) + "</ol>")
                    + box("Üben ○◐●", ueb_folie(True))),
-    dict(nr=2, titel="Rechengesetze, Minusklammer setzen", wann="Di 29.09.2026, Doppelstunde",
+    dict(nr=2, titel="Rechengesetze, Minusklammer", wann="Di 29.09.2026, Doppelstunde",
          vorbereiten=[("Drucken", f"Arbeitsblatt „Klammern und Rechenvorteile“ in Klassenstärke ({AB_NAME}.pdf, eine Seite)."),
-                      ("Digital", "Folien-PDF dieser Stunde in Notability."), ("Sonst", "Buch mitbringen lassen.")],
-         schritte=[("", "Minus sicher: Lösungswort", 12, "Buch S. 37 Nr. 10 ins Übungsheft, Lösungswort HECHT.", []),
-                   ("", "Warum durften wir umsortieren?", 15, "Neue Aufgabe im Stil von Montag, erst selbst geschickt rechnen lassen. Daraus die zwei Gesetze mit Namen ins Merkheft.", [1, 2]),
-                   ("", "Gesetze anwenden und benennen", 25, "Arbeitsblatt austeilen, Nr. 1 und 2. Schnelle: Buch S. 26 Nr. 7 rechts; S. 42 Nr. 6.", [3]),
-                   ("", "Minusklammer setzen", 25, "Einkaufen 1, Regel ins Merkheft, dann Arbeitsblatt Nr. 3. "
-                    "Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [4, 5]),
-                   ("", "Ausstieg", 5, "Hausaufgabe: Arbeitsblatt Nr. 1 bis 3 fertig.", [])],
-         folien=[("Geht das schneller?", UEB(NEU_FRAGE)), ("Warum dürfen wir umsortieren?", UMSORT), ("Arbeitsblatt: Klammern und Rechenvorteile", AB_GANZ),
-                 ("Einkaufen 1", EINKAUF1), ("Einkaufen 1: Lösung", EINKAUF1_L)],
+                      ("Digital", "Folien-PDF dieser Stunde in Notability. Das Arbeitsblatt steht darin als ganze Seite zum Eintragen, danach die Lösungsseite."),
+                      ("Sonst", "Buch mitbringen lassen.")],
+         schritte=[("", "Minus sicher: Lösungswort", 10, "Buch S. 37 Nr. 10 ins Übungsheft, Lösungswort HECHT.", []),
+                   ("", "Geht das schneller?", 8, "Neue Aufgabe im Stil von Montag, erst selbst geschickt rechnen lassen.", [1]),
+                   ("", "Rechengesetze", 12, "Warum dürfen wir umsortieren? Beide Gesetze mit Namen ins Merkheft.", [2]),
+                   ("", "Arbeitsblatt Nr. 1 und 2", 20, "Austeilen. Nr. 2 verlangt die Namen der Gesetze. Schnelle: Buch S. 26 Nr. 7 rechts; S. 42 Nr. 6.", [3, 6]),
+                   ("", "Minusklammer", 15, "Einkaufen: Heft und Stift, dann Getränke mit Pfand. Zwei Wege vergleichen, dann ins Merkheft.", [4, 5]),
+                   ("", "Arbeitsblatt Nr. 3 und 4", 20, "Minusklammer setzen und auflösen. Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [3, 6]),
+                   ("", "Ausstieg", 5, "Stand festhalten, Rest von Nr. 3 und 4 als Hausaufgabe.", [])],
+         folien=[("Geht das schneller?", UEB(NEU_FRAGE)), ("Warum dürfen wir umsortieren?", UMSORT), AB_BLATT(AUSTEILEN),
+                 ("Einkaufen", EINKAUF), ("Einkaufen: Lösung", EINKAUF_L), AB_LOES],
          tafel=box("Umsortieren", f'<div class="tafel"><div class="ausdruck">{NEU}</div><div class="ausdruck">= 47 + 3 − 26 − 14</div>'
                    '<div class="ausdruck">= (47 + 3) + (−26 − 14)</div><div class="ausdruck">= 50 − 40 = <span class="lsg">10</span></div></div>' + HEFT(GESETZE))
-               + box("Einkaufen 1: Heft 12 €, Stift 8 €", '<div class="tafel"><div class="ausdruck">50 − 12 − 8 = 50 − (12 + 8) = <span class="lsg">30</span></div></div>'
-                     + HEFT(MINUSKLAMMER)),
+               + box("Einkaufen", '<div class="tafel"><div class="ausdruck">a) 50 − 12 − 8 = 50 − (12 + 8) = <span class="lsg">30</span></div>'
+                     '<div class="ausdruck">b) 50 − 12 + 8 = 50 − (12 − 8) = <span class="lsg">46</span></div>'
+                     '<p>Frage an die Klasse: Warum steht bei b) in der Klammer − 8, aufgelöst aber + 8? Die 8 € kommen zurück.</p></div>' + HEFT(MINUSKLAMMER)),
          merkheft=box("Rechengesetze", f'<div class="heft">{GESETZE}</div><p style="color:#66798e">Bildungsplan Kl. 7/8/9, Teilkompetenz 9: '
                       "die Gesetze angeben und an Beispielen erläutern. Deshalb die Namen im Merkheft und auf dem Arbeitsblatt (Nr. 2).</p>")
-                  + box("Minusklammer setzen", f'<div class="heft">{MINUSKLAMMER}</div>'),
-         loesungen=box("Arbeitsblatt Nr. 1 bis 3", ab_bild(0, 1)) + buch("S. 37 Nr. 10 (Lösungswort HECHT)", "S. 26 Nr. 7 rechts",
+                  + box("Minusklammer", f'<div class="heft">{MINUSKLAMMER}</div>'),
+         loesungen=box("Arbeitsblatt Nr. 1 bis 4", ab_bild(0, 1)) + buch("S. 37 Nr. 10 (Lösungswort HECHT)", "S. 26 Nr. 7 rechts",
                                                                          "S. 42 Nr. 6 (Rückspiegel)", "S. 26 Nr. 8 links", "S. 25 Nr. 6 rechts")),
-    dict(nr=3, titel="Minusklammer auflösen", wann="Mi 30.09.2026, Einzelstunde",
-         vorbereiten=[("Drucken", "Nichts."), ("Digital", f"Folien-PDF dieser Stunde in Notability. Ganzes Lösungsblatt: {AB_NAME} – Lösungen.pdf.")],
-         schritte=[("", "HA kontrollieren", 8, "Lösungen im ausgefüllten Blatt zeigen, selbst kontrollieren.", [1, 2]),
-                   ("", "Minusklammer auflösen", 12, "Einkaufen 2 mit Pfand. Warum wird aus − 8 in der Klammer + 8? Regel ins Merkheft.", [3, 4]),
-                   ("", "Üben", 22, "Arbeitsblatt Nr. 4 und 5.", [5]),
-                   ("", "Kontrolle", 3, "Lösungen zu Nr. 4 und 5 zeigen.", [2, 6])],
-         folien=[("Arbeitsblatt: Lösungen 1 und 2", AB(0)), ("Arbeitsblatt: Lösungen 3 und 4", AB(1)),
-                 ("Einkaufen 2: mit Pfand", EINKAUF2), ("Einkaufen 2: Lösung", EINKAUF2_L),
-                 ("Arbeitsblatt: Nr. 4 und 5", ABL(1)), ("Arbeitsblatt: Lösungen 5 und 6", AB(2))],
-         tafel=box("Einkaufen 2: Getränke 12 €, 8 € Pfand zurück",
-                   '<div class="tafel"><div class="ausdruck">50 − 12 + 8 = 50 − (12 − 8) = <span class="lsg">46</span></div>'
-                   '<p>Frage an die Klasse: Warum steht in der Klammer − 8, draußen aber + 8? Antwort: Die 8 € werden nicht abgezogen, sondern kommen zurück. '
-                   'Minus vor der Klammer dreht das Zeichen um.</p></div>' + HEFT(AUFLOESEN)),
-         merkheft=box("Klammer auflösen", f'<div class="heft">{AUFLOESEN}</div>'),
-         loesungen=box("Arbeitsblatt Nr. 1 bis 6", ab_bild(0, 1, 2))),
-    dict(nr=4, titel="Minusklammer üben, Exit-Ticket", wann="Do 01.10.2026, Einzelstunde",
-         vorbereiten=[("Drucken", "Nichts. Exit-Ticket ins Übungsheft oder auf einen kleinen Zettel."), ("Digital", "Folien-PDF dieser Stunde in Notability.")],
-         schritte=[("", "Typische Fehler", 10, "Arbeitsblatt Nr. 6 gemeinsam: Wer dreht nur das erste Zeichen um?", [1, 2]),
-                   ("", "Üben nach Wahl", 25, "Arbeitsblatt Nr. 7 und 8. Für ●: Buch S. 26 Nr. 8 rechts; S. 26 Nr. 10 links.", [3, 4]),
-                   ("", "Exit-Ticket", 10, "Drei Aufgaben zur Minusklammer ohne Hilfe. Zeigt, wer noch Hilfe braucht.", [5, 6])],
-         folien=[("Arbeitsblatt: Nr. 5 und 6", ABL(2)), ("Arbeitsblatt: Lösungen 5 und 6", AB(2)),
-                 ("Arbeitsblatt: Nr. 7 und 8", ABL(3)), ("Arbeitsblatt: Lösungen 7 und 8", AB(3)),
-                 ("Exit-Ticket", UEB(EXIT_A)), ("Exit-Ticket: Lösung", EXIT_L)],
-         tafel=box("Der häufigste Fehler", '<div class="tafel"><div class="ausdruck">30 − (10 − 4) = 30 − 10 − 4 <span class="lsg">✗</span></div>'
-                   '<div class="ausdruck">30 − (10 − 4) = 30 − 10 + 4 = <span class="lsg">24</span></div>'
-                   '<p>Nur das erste Zeichen umgedreht, das zweite vergessen. <b>Alle</b> Zeichen in der Klammer drehen sich um.</p></div>'),
-         merkheft=box("Kein neuer Eintrag", "<p>Die Regel von Mittwoch (Klammer auflösen) wird nur wiederholt.</p>"),
-         loesungen=box("Arbeitsblatt Nr. 5 bis 8", ab_bild(2, 3)) + buch("S. 26 Nr. 8 rechts", "S. 26 Nr. 10 links") + box("Exit-Ticket", EXIT_L)),
+    dict(nr=3, titel="Minusklammer üben", wann="Mi 30.09.2026, Einzelstunde",
+         vorbereiten=[("Drucken", "Nichts. Die Schüler arbeiten auf dem Arbeitsblatt von Dienstag weiter."),
+                      ("Digital", "Folien-PDF dieser Stunde in Notability (Arbeitsblatt als ganze Seite zum Eintragen, dann Lösungsseite).")],
+         schritte=[("", "Wo steckt der Fehler?", 10, "Der typische Fehler bei der Minusklammer: nur das erste Zeichen umgedreht.", [1, 2]),
+                   ("", "Arbeitsblatt Nr. 5 und 6", 28, "Mehr Zahlen in der Klammer, dann Fehler finden. Schnelle: Buch S. 26 Nr. 8 rechts.", [3]),
+                   ("", "Kontrolle", 7, "Schüler sagen die Ergebnisse, du trägst sie ins Blatt ein. Oder die Lösungsseite zeigen.", [3, 4])],
+         folien=[("Wo steckt der Fehler?", UEB(FEHLER)), ("Wo steckt der Fehler? Lösung", FEHLER_L), AB_BLATT(WEITER), AB_LOES],
+         tafel=box("Der häufigste Fehler", f'<div class="tafel">{FEHLER_L}</div>'),
+         merkheft=box("Kein neuer Eintrag", "<p>Die Minusklammer von Dienstag wird geübt.</p>"),
+         loesungen=box("Arbeitsblatt Nr. 5 und 6", ab_bild(2)) + buch("S. 26 Nr. 8 rechts")),
+    dict(nr=4, titel="Klammern setzen, Exit-Ticket", wann="Do 01.10.2026, Einzelstunde",
+         vorbereiten=[("Drucken", "Nichts. Exit-Ticket ins Übungsheft oder auf einen kleinen Zettel."),
+                      ("Digital", "Folien-PDF dieser Stunde in Notability.")],
+         schritte=[("", "Arbeitsblatt Nr. 7 und 8", 22, "Klammer so setzen, dass das Ergebnis stimmt; Sachaufgaben. Für ●: Buch S. 26 Nr. 10 links.", [1]),
+                   ("", "Kontrolle", 8, "Ergebnisse eintragen oder die Lösungsseite zeigen.", [1, 2]),
+                   ("", "Exit-Ticket", 15, "Drei Aufgaben zur Minusklammer ohne Hilfe. Zeigt, wer noch Hilfe braucht.", [3, 4])],
+         folien=[AB_BLATT(WEITER), AB_LOES, ("Exit-Ticket", UEB(EXIT_A)), ("Exit-Ticket: Lösung", EXIT_L)],
+         tafel=box("Kein eigenes Tafelbild", "<p>Gearbeitet wird am Blatt und am Exit-Ticket.</p>"),
+         merkheft=box("Kein neuer Eintrag", "<p>Die Minusklammer von Dienstag wird geübt.</p>"),
+         loesungen=box("Arbeitsblatt Nr. 7 und 8", ab_bild(3)) + buch("S. 26 Nr. 10 links") + box("Exit-Ticket", EXIT_L)),
 ]
 
 
@@ -230,20 +232,47 @@ FOLIEN_CSS = (".merk{background:#eef3fb;border:2px solid #1a56a0;border-radius:8
               ".austeil{display:inline-block;background:#E6007E;color:#fff;font-weight:700;font-size:24px;border-radius:20px;padding:4px 18px;margin:0 0 10px}")
 
 
+def folien_pdf(st, ziel):
+    """Beamer-Folien (Chrome) und ganze A4-Seiten (Arbeitsblatt) in der Reihenfolge der Stunde zu einem PDF zusammensetzen."""
+    from pypdf import PdfReader, PdfWriter
+    w, stapel = PdfWriter(), []
+
+    def raus():
+        if not stapel:
+            return
+        fol = HIER / "_folien_woche3.html"
+        fol.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{FCSS}{FOLIEN_CSS}</style></head><body>'
+                       + "".join(f'<div class="slide"><h1>{t}</h1>{h}</div>' for t, h in stapel) + "</body></html>", encoding="utf-8")
+        tmp = HIER / "_folien_woche3.pdf"
+        subprocess.run(["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+                        f"--print-to-pdf={tmp}", fol.as_uri()], check=True, capture_output=True)
+        for seite in PdfReader(str(tmp)).pages:
+            w.add_page(seite)
+        fol.unlink()
+        tmp.unlink()
+        stapel.clear()
+
+    for f in st["folien"]:
+        if isinstance(f, dict):
+            raus()
+            w.add_page(PdfReader(str(f["pdf"])).pages[0])
+        else:
+            stapel.append(f)
+    raus()
+    with open(ziel, "wb") as out:
+        w.write(out)
+    return len(w.pages)
+
+
 def main():
     ha_bilder()
     ab_bilder()
     for st in STUNDEN:
         vb = [(w, x + (f" Datei: {pdf(st)}" if w == "Digital" else "")) for w, x in st["vorbereiten"]]
+        folien = [(f["titel"], f["html"]) if isinstance(f, dict) else f for f in st["folien"]]
         bau_woche(HIER / datei(st), f"Woche 3, Stunde {st['nr']}: {st['titel']}", f"Klasse 7c, Mathematik, {st['wann']}",
-                  vb, st["schritte"], st["folien"], st["tafel"], st["merkheft"], st["loesungen"])
-        fol = HIER / "_folien_woche3.html"
-        fol.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{FCSS}{FOLIEN_CSS}</style></head><body>'
-                       + "".join(f'<div class="slide"><h1>{t}</h1>{h}</div>' for t, h in st["folien"]) + "</body></html>", encoding="utf-8")
-        subprocess.run(["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-                        f"--print-to-pdf={HIER / pdf(st)}", fol.as_uri()], check=True, capture_output=True)
-        fol.unlink()
-        print("  Folien-PDF:", pdf(st), f"({len(st['folien'])} Folien)")
+                  vb, st["schritte"], folien, st["tafel"], st["merkheft"], st["loesungen"])
+        print("  Folien-PDF:", pdf(st), f"({folien_pdf(st, HIER / pdf(st))} Seiten)")
 
 
 if __name__ == "__main__":

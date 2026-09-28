@@ -21,9 +21,9 @@ STUNDEN = {  # Woche -> [(id, Marke, Titel, Datei, Tag)]; fertige Wochen bekomme
     1: [("W1", "Wo 1", "Grundlagen-Check und Brüche sind Zahlen", "Brüche/Mathe 7c – Woche 1.html", "ganze Woche")],
     2: [("W2", "Wo 2", "Zahlen unter Null, Addieren", "Rationale Zahlen/Mathe 7c – Woche 2.html", "ganze Woche")],
     3: [("W3S1", "1", "Minus üben", W3 + "1 Minus üben.html", "Mo 28.09., IF-Stunde"),
-        ("W3S2", "2", "Rechengesetze, Minusklammer setzen", W3 + "2 Rechengesetze, Minusklammer setzen.html", "Di 29.09., Doppelstunde"),
-        ("W3S3", "3", "Minusklammer auflösen", W3 + "3 Minusklammer auflösen.html", "Mi 30.09."),
-        ("W3S4", "4", "Minusklammer üben, Exit-Ticket", W3 + "4 Minusklammer üben, Exit-Ticket.html", "Do 01.10.")],
+        ("W3S2", "2", "Rechengesetze, Minusklammer", W3 + "2 Rechengesetze, Minusklammer.html", "Di 29.09., Doppelstunde"),
+        ("W3S3", "3", "Minusklammer üben", W3 + "3 Minusklammer üben.html", "Mi 30.09."),
+        ("W3S4", "4", "Klammern setzen, Exit-Ticket", W3 + "4 Klammern setzen, Exit-Ticket.html", "Do 01.10.")],
 }
 
 # Themenblöcke: erste Woche -> Name (die Blöcke im Plan beginnen mit dem Thema vor mehreren Leerzeichen)
