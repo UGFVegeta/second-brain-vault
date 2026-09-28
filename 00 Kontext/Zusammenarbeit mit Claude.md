@@ -97,3 +97,9 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 
 - Für den Sitzplan-Generator wollte Oskar ausdrücklich einen Look, „als wenn es von Apple gemacht worden ist“: Systemschrift, Systemblau als Akzent, graue Segment-Umschalter, weiche Schatten statt harter Linien.
 - Noch offen, ob das für alle künftigen Vault-Werkzeuge gelten soll. Bei neuen Oberflächen kurz nachfragen oder Apple-Stil als Vorschlag mitbringen.
+
+## Mathe-Vorbereitung pro Woche (28.09.2026)
+
+- Mathe 7c wird als eine Datei pro Woche vorbereitet, nicht Stunde für Stunde. Stunden enden nicht immer sauber, deshalb läuft die Woche durch, die Tage sind nur grobe Marken.
+- Tabs wie bei Optik F3 bis F5: Überblick (was vorzubereiten ist, kurzer Verlauf mit Zeitleiste), Folien, Tafelbild, Merkheft, Lösungen. Kein eigener Aufgaben-Tab und kein Ausblick, den zeigt die Übersicht links.
+- Die alte RZ2-Form mit getrennten Tagen und viel Erklärtext ist zu überfrachtet.

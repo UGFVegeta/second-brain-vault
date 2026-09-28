@@ -19,8 +19,9 @@ PLAN = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/S
 STUNDEN = {
     1: [("GC", "GC", "Grundlagen-Check (Ergebnisse der Klasse)", "Arbeitsblätter/Grundlagen-Check/7c 2026-27/Praesentation.html"),
         ("BZ", "BZ", "Brüche sind Zahlen", "Brüche/Brüche sind Zahlen – ALLES.html")],
-    2: [("RZ1", "RZ1", "Rationale Zahlen 1: Zahlen unter Null", "Rationale Zahlen/Rationale Zahlen 1 – Zahlen unter Null – ALLES.html")],
-    3: [("RZ2", "RZ2", "Rationale Zahlen 2: Addieren und Subtrahieren", "Rationale Zahlen/Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html")],
+    2: [("RZ1", "RZ1", "Rationale Zahlen 1: Zahlen unter Null", "Rationale Zahlen/Rationale Zahlen 1 – Zahlen unter Null – ALLES.html"),
+        ("RZ2", "RZ2", "Rationale Zahlen 2: Addieren und Subtrahieren", "Rationale Zahlen/Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html")],
+    3: [("W3", "Wo 3", "Plus und Minus üben, Rechengesetze", "Rationale Zahlen/Mathe 7c – Woche 3.html")],
 }
 
 # Themenblöcke: erste Woche -> Name (die Blöcke im Plan beginnen mit dem Thema vor mehreren Leerzeichen)
