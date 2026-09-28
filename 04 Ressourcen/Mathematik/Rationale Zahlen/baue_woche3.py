@@ -119,6 +119,16 @@ UMSORT = (f'<div class="ausdruck">{NEU} = 47 + 3 − 26 − 14</div><div class="
 AB = lambda i: ha_folie(AB_TEILE[i], "5.9in")
 
 
+HA9 = [("(+9) − (+15)", "9 − 15"), ("(−28) − (−14)", "−28 + 14"), ("(+35) − (+25)", "35 − 25"),
+       ("(−32) − (−40)", "−32 + 40"), ("(−1,5) − (+2,4)", "−1,5 − 2,4"), ("(+4,8) − (−6,4)", "4,8 + 6,4")]
+for _t, _v in HA9:
+    assert rechne(_t) == rechne(_v), _t
+HA9_A = ('<p class="gross">Vereinfache die Schreibweise und berechne.<br><span style="font-size:.8em">Beispiel: (+10) − (+25) = 10 − 25 = −15</span></p>'
+         '<ol type="a" class="ex">' + "".join(f"<li>{t} =</li>" for t, _ in HA9) + "</ol>")
+HA9_L = ('<ol type="a" class="ex">' + "".join(f"<li>{t} = {v} = <span class=lsg>{zahl(rechne(v))}</span></li>" for t, v in HA9) + "</ol>"
+         '<p>Bei b), d) und f) steht ein Minus vor einer negativen Zahl: Aus − (−14) wird + 14. Genau das passiert gleich bei der Minusklammer.</p>')
+
+
 def a4(titel, pdf, bild, zeichen=""):
     """Ganze A4-Seite (Arbeitsblatt leer zum Eintragen oder Lösungsblatt) als eigene Seite im Folien-PDF."""
     return dict(titel=titel, pdf=pdf, html=zeichen + f'<img src="bilder/{bild}" alt="" style="display:block;max-width:100%;border:1px solid #ccc">')
@@ -174,15 +184,18 @@ STUNDEN = [
     dict(nr=2, titel="Rechengesetze, Minusklammer", wann="Di 29.09.2026, Doppelstunde",
          vorbereiten=[("Drucken", f"Arbeitsblatt „Klammern und Rechenvorteile“ in Klassenstärke ({AB_NAME}.pdf, eine Seite)."),
                       ("Digital", "Folien-PDF dieser Stunde in Notability. Das Arbeitsblatt steht darin als ganze Seite zum Eintragen, danach die Lösungsseite."),
-                      ("Sonst", "Buch mitbringen lassen.")],
-         schritte=[("", "Minus sicher: Lösungswort", 10, "Buch S. 37 Nr. 10 ins Übungsheft, Lösungswort HECHT.", []),
-                   ("", "Geht das schneller?", 8, "Neue Aufgabe im Stil von Montag, erst selbst geschickt rechnen lassen.", [1]),
-                   ("", "Rechengesetze", 12, "Warum dürfen wir umsortieren? Beide Gesetze mit Namen ins Merkheft.", [2]),
-                   ("", "Arbeitsblatt Nr. 1 und 2", 20, "Austeilen. Nr. 2 verlangt die Namen der Gesetze. Schnelle: Buch S. 26 Nr. 7 rechts; S. 42 Nr. 6.", [3, 6]),
-                   ("", "Minusklammer", 15, "Einkaufen: Heft und Stift, dann Getränke mit Pfand. Zwei Wege vergleichen, dann ins Merkheft.", [4, 5]),
-                   ("", "Arbeitsblatt Nr. 3 und 4", 20, "Minusklammer setzen und auflösen. Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [3, 6]),
+                      ("Sonst", "Buch mitbringen lassen. Hausaufgabe war Buch S. 22 Nr. 9 links.")],
+         schritte=[("", "Hausaufgabe besprechen", 10, "Buch S. 22 Nr. 9 links: Schreibweise vereinfachen. Schüler sagen die Ergebnisse, du trägst ein. "
+                    "Bei b), d), f) auf das Minus vor der negativen Zahl hinweisen, das ist gleich die Minusklammer.", [1, 2]),
+                   ("", "Geht das schneller?", 8, "Neue Aufgabe im Stil von Montag, erst selbst geschickt rechnen lassen.", [3]),
+                   ("", "Rechengesetze", 12, "Warum dürfen wir umsortieren? Beide Gesetze mit Namen ins Merkheft.", [4]),
+                   ("", "Arbeitsblatt Nr. 1 und 2", 20, "Austeilen. Nr. 2 verlangt die Namen der Gesetze. "
+                    "Schnelle: Buch S. 37 Nr. 10 (Lösungswort); S. 26 Nr. 7 rechts; S. 42 Nr. 6.", [5, 8]),
+                   ("", "Minusklammer", 15, "Einkaufen: Heft und Stift, dann Getränke mit Pfand. Zwei Wege vergleichen, dann ins Merkheft.", [6, 7]),
+                   ("", "Arbeitsblatt Nr. 3 und 4", 20, "Minusklammer setzen und auflösen. Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [5, 8]),
                    ("", "Ausstieg", 5, "Stand festhalten, Rest von Nr. 3 und 4 als Hausaufgabe.", [])],
-         folien=[("Geht das schneller?", UEB(NEU_FRAGE)), ("Warum dürfen wir umsortieren?", UMSORT), AB_BLATT(AUSTEILEN),
+         folien=[("Hausaufgabe: Buch S. 22 Nr. 9", HA9_A), ("Hausaufgabe: Lösungen", HA9_L),
+                 ("Geht das schneller?", UEB(NEU_FRAGE)), ("Warum dürfen wir umsortieren?", UMSORT), AB_BLATT(AUSTEILEN),
                  ("Einkaufen", EINKAUF), ("Einkaufen: Lösung", EINKAUF_L), AB_LOES],
          tafel=box("Umsortieren", f'<div class="tafel"><div class="ausdruck">{NEU}</div><div class="ausdruck">= 47 + 3 − 26 − 14</div>'
                    '<div class="ausdruck">= (47 + 3) + (−26 − 14)</div><div class="ausdruck">= 50 − 40 = <span class="lsg">10</span></div></div>' + HEFT(GESETZE))
@@ -192,7 +205,7 @@ STUNDEN = [
          merkheft=box("Rechengesetze", f'<div class="heft">{GESETZE}</div><p style="color:#66798e">Bildungsplan Kl. 7/8/9, Teilkompetenz 9: '
                       "die Gesetze angeben und an Beispielen erläutern. Deshalb die Namen im Merkheft und auf dem Arbeitsblatt (Nr. 2).</p>")
                   + box("Minusklammer", f'<div class="heft">{MINUSKLAMMER}</div>'),
-         loesungen=box("Arbeitsblatt Nr. 1 bis 4", ab_bild(0, 1)) + buch("S. 37 Nr. 10 (Lösungswort HECHT)", "S. 26 Nr. 7 rechts",
+         loesungen=box("Hausaufgabe Buch S. 22 Nr. 9 links", HA9_L) + box("Arbeitsblatt Nr. 1 bis 4", ab_bild(0, 1)) + buch("S. 37 Nr. 10 (Lösungswort HECHT)", "S. 26 Nr. 7 rechts",
                                                                          "S. 42 Nr. 6 (Rückspiegel)", "S. 26 Nr. 8 links", "S. 25 Nr. 6 rechts")),
     dict(nr=3, titel="Minusklammer üben", wann="Mi 30.09.2026, Einzelstunde",
          vorbereiten=[("Drucken", "Nichts. Die Schüler arbeiten auf dem Arbeitsblatt von Dienstag weiter."),
@@ -227,7 +240,7 @@ def pdf(st):
 
 FOLIEN_CSS = (".merk{background:#eef3fb;border:2px solid #1a56a0;border-radius:8px;padding:10px 16px;margin:12px 0;font-weight:700;font-size:25px;line-height:1.35}"
               ".merk span{font-weight:400}.gross{font-size:34px;line-height:1.4}"
-              ".ex{font-size:36px;line-height:1.6;padding-left:44px}.ex li{margin:.12in 0}"
+              ".ex{font-size:32px;line-height:1.45;padding-left:44px;margin:.1in 0}.ex li{margin:.06in 0}"
               ".heft{border-left:10px solid #1b1b1b;padding-left:18px;margin:10px 0}.uheft{border-left:10px dashed #1a56a0;padding-left:18px;margin:10px 0}"
               ".austeil{display:inline-block;background:#E6007E;color:#fff;font-weight:700;font-size:24px;border-radius:20px;padding:4px 18px;margin:0 0 10px}")
 
