@@ -150,6 +150,48 @@ kbd{font:inherit;font-size:10.5px;font-weight:600;border-radius:4px;padding:0 5p
 #varTabs .vx:hover{opacity:1;background:var(--fill-2)}
 #varTabs .vx svg{width:12px;height:12px}
 body.discreet #secWish,body.discreet #secRules{display:none}
+body.simple .adv{display:none!important}
+.simple-only{display:none}
+body.simple .simple-only{display:block}
+.more{position:relative}
+.menu{position:absolute;right:0;top:36px;z-index:60;min-width:270px;padding:5px;border-radius:10px;background:var(--panel);box-shadow:var(--shadow-lift),0 0 0 .5px var(--sep-2);display:flex;flex-direction:column}
+.menu[hidden]{display:none}
+.mi{border:0;background:none;text-align:left;padding:5px 10px 5px 26px;border-radius:6px;font-size:13px;position:relative;display:flex;flex-direction:column;gap:1px}
+.mi:hover{background:var(--accent);color:var(--accent-ink)}
+.mi:hover .mhint{color:inherit;opacity:.85}
+.mi:disabled{opacity:.4;pointer-events:none}
+.mi.danger{color:var(--warn)}
+.mi.danger:hover{background:var(--warn);color:#fff}
+.mi[aria-checked="true"]::before{content:"";position:absolute;left:9px;top:10px;width:8px;height:4px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg)}
+.mhint{font-size:11.5px;color:var(--ink-3)}
+.mlabel{font-size:11px;font-weight:600;color:var(--ink-3);padding:4px 10px 2px}
+.msep{height:1px;background:var(--sep);margin:5px 6px}
+.mnote{font-size:11.5px;color:var(--ink-3);padding:2px 10px 4px 26px}
+.bwarn{display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:10px;background:color-mix(in srgb,#ff9f0a 16%,transparent);color:var(--ink);font-size:12px;line-height:1.45;margin-bottom:10px}
+.bwarn .btn{align-self:flex-start;height:26px}
+.tipsbox summary{cursor:pointer;color:var(--ink-2);font-size:12px;margin-top:8px;list-style:none;display:flex;align-items:center;gap:6px}
+.tipsbox summary::-webkit-details-marker{display:none}
+.tipsbox summary::before{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);transition:transform .15s}
+.tipsbox[open] summary::before{transform:rotate(45deg)}
+.tipsbox .tips{margin-top:6px}
+.planhead:focus-visible{outline:none;background:var(--fill)}
+@media (max-width:1320px){ .bar .lbl{display:none} .bar .btn.lb{padding:0;width:30px} }
+@media (max-width:1180px){ .canvasbar .lbl{display:none} .canvasbar .btn.tb{padding:0 8px} .vlabel{display:none} }
+@media (max-height:780px){
+  .stage{padding:12px 24px 10px}
+  .canvasbar{margin-bottom:8px}
+  .planhead{margin-bottom:6px}
+  .ph-title{font-size:18px}
+  .ph-sub{font-size:13px}
+  .scale{margin-top:6px}
+  .side-scroll{gap:14px;padding-top:12px}
+}
+.welcome-tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wtile{border:0;text-align:left;border-radius:12px;padding:16px;background:var(--fill);display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:box-shadow .15s,background .15s}
+.wtile:hover{box-shadow:0 0 0 2px var(--accent);background:var(--accent-soft)}
+.wtile b{font-size:15px}
+.wtile span{color:var(--ink-2);line-height:1.5;font-size:12.5px}
+@media (max-width:640px){.welcome-tiles{grid-template-columns:1fr}}
 #bDiscreet[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 #bDiscreet[aria-pressed="true"] svg{color:var(--accent-ink)}
 .modechip{border:0;border-radius:14px;height:26px;padding:0 12px;font-size:12px;background:var(--fill);color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
@@ -318,6 +360,11 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 .issue.ok{color:var(--ok);font-weight:500}
 .rules .check{font-weight:400;font-size:12.5px;align-items:flex-start;height:auto;line-height:1.4;margin:0 0 6px}
 .rules .check input{margin-top:2px}
+.chair.ok{background:var(--ok)}
+.chair.open{background:transparent;box-shadow:inset 0 0 0 1.5px var(--warn)}
+.chair.locked{display:flex;align-items:center;justify-content:center}
+.chair .lk2{width:min(10px,80%);height:min(10px,80%);fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.chair.ok .lk2{stroke:#fff}
 .name .wd{position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%}
 .name .wd.ok{background:var(--ok)}
 .name .wd.open{box-shadow:inset 0 0 0 1.5px var(--warn)}
@@ -422,7 +469,8 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   .planhead{padding:0;margin:0 0 14px}
   .ph-hint{display:none}
   .ph-meta{display:inline;color:#444}
-  .name .wd,.name .lk{display:none}
+  .name .wd,.name .lk,.chair .lk2{display:none}
+  .chair.ok,.chair.open{background:var(--chair);box-shadow:none}
   .name{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .name.clash{background:transparent;box-shadow:none}
   .name.g.clash{background:var(--g)}
@@ -460,6 +508,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16.5 9"/></symbol>
   <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a13 13 0 0 1-1.7 2.7"/><path d="M6.6 6.6A13.4 13.4 0 0 0 2 12s3 8 10 8a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="m2 2 20 20"/></symbol>
   <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
 </svg>
 
@@ -468,20 +517,12 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <div class="grp">
     <select class="plan" id="planSel" aria-label="Sitzplan wählen"></select>
     <button class="btn icon tb" id="bNew" title="Neuer Sitzplan" aria-label="Neuer Sitzplan"><svg class="i"><use href="#i-plus"/></svg></button>
-    <button class="btn icon tb" id="bRename" title="Umbenennen" aria-label="Umbenennen"><svg class="i"><use href="#i-pen"/></svg></button>
-    <button class="btn icon tb" id="bDup" title="Kopie anlegen (gleiche Klasse, anderer Raum)" aria-label="Kopie anlegen"><svg class="i"><use href="#i-copy"/></svg></button>
-    <button class="btn icon tb" id="bDel" title="Sitzplan löschen" aria-label="Sitzplan löschen"><svg class="i"><use href="#i-trash"/></svg></button>
-  </div>
-  <span class="sep"></span>
-  <div class="seg mode" role="group" aria-label="Was wird gezogen">
-    <button id="mTische" title="Tische verschieben, drehen und markieren (T)"><svg class="i"><use href="#i-double"/></svg>Tische stellen</button>
-    <button id="mSchueler" title="Namen auf Plätze ziehen und tauschen (S)"><svg class="i"><use href="#i-user"/></svg>Schüler setzen</button>
   </div>
   <span class="sep"></span>
   <div class="grp">
-    <button class="btn tb" id="bAddSingle" title="Einzeltisch hinzufügen"><svg class="i"><use href="#i-single"/></svg>Einzeltisch</button>
-    <button class="btn tb" id="bAddDouble" title="Doppeltisch hinzufügen"><svg class="i"><use href="#i-double"/></svg>Doppeltisch</button>
-    <button class="btn tb" id="bTemplate" title="Fertige Anordnung wählen"><svg class="i"><use href="#i-layout"/></svg>Anordnung</button>
+    <button class="btn tb lb" id="bAddSingle" title="Einzeltisch hinzufügen"><svg class="i"><use href="#i-single"/></svg><span class="lbl">Einzeltisch</span></button>
+    <button class="btn tb lb" id="bAddDouble" title="Doppeltisch hinzufügen"><svg class="i"><use href="#i-double"/></svg><span class="lbl">Doppeltisch</span></button>
+    <button class="btn tb lb" id="bTemplate" title="Fertige Anordnung wählen"><svg class="i"><use href="#i-layout"/></svg><span class="lbl">Anordnung</span></button>
     <button class="btn icon tb" id="bRotate" title="Markierte Tische drehen (R oder Doppelklick)" aria-label="Drehen"><svg class="i"><use href="#i-rotate"/></svg></button>
     <button class="btn icon tb" id="bRemove" title="Markierte Tische entfernen (Entf)" aria-label="Entfernen"><svg class="i"><use href="#i-trash"/></svg></button>
   </div>
@@ -492,11 +533,25 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   </div>
   <span class="sep"></span>
   <div class="grp">
-    <button class="btn tb" id="bRoom" title="Raumgröße, Fenster und Tür"><svg class="i"><use href="#i-room"/></svg>Raum</button>
-    <button class="btn tb" id="bDone" title="Diesen Stand mit Datum im Verlauf speichern"><svg class="i"><use href="#i-check"/></svg>Fertig</button>
-    <button class="btn tb" id="bPrint" title="Drucken oder als PDF sichern (⌘P). Der Stand landet dabei im Verlauf."><svg class="i"><use href="#i-print"/></svg>Drucken</button>
-    <button class="btn icon tb" id="bExport" title="Alle Sitzpläne als Datei sichern" aria-label="Als Datei sichern"><svg class="i"><use href="#i-save"/></svg></button>
-    <button class="btn icon tb" id="bImportBackup" title="Gesicherte Sitzpläne öffnen" aria-label="Sicherung öffnen"><svg class="i"><use href="#i-open"/></svg></button>
+    <button class="btn tb lb" id="bRoom" title="Raum und Beschriftung"><svg class="i"><use href="#i-room"/></svg><span class="lbl">Raum</span></button>
+    <button class="btn tb lb adv" id="bDone" title="Diesen Stand mit Datum im Verlauf speichern"><svg class="i"><use href="#i-check"/></svg><span class="lbl">Fertig</span></button>
+    <button class="btn tb lb" id="bPrint" title="Drucken oder als PDF sichern (⌘P). Der Stand landet dabei im Verlauf."><svg class="i"><use href="#i-print"/></svg><span class="lbl">Drucken</span></button>
+    <div class="more">
+      <button class="btn icon tb" id="bMore" aria-haspopup="menu" aria-expanded="false" title="Weitere Befehle" aria-label="Weitere Befehle"><svg class="i"><use href="#i-more"/></svg></button>
+      <div class="menu" id="moreMenu" role="menu" hidden>
+        <div class="mlabel">Ansicht</div>
+        <button type="button" class="mi" role="menuitemradio" data-lvl="simple">Einfach <span class="mhint">Tische, Klasse, Verteilen, Drucken</span></button>
+        <button type="button" class="mi" role="menuitemradio" data-lvl="full">Erweitert <span class="mhint">mit Wünschen, Regeln, Varianten</span></button>
+        <div class="msep"></div>
+        <button type="button" class="mi" id="bRename">Sitzplan umbenennen …</button>
+        <button type="button" class="mi" id="bDup">Kopie anlegen …</button>
+        <button type="button" class="mi danger" id="bDel">Sitzplan löschen …</button>
+        <div class="msep"></div>
+        <button type="button" class="mi" id="bExport">Alle Sitzpläne als Datei sichern</button>
+        <button type="button" class="mi" id="bImportBackup">Gesicherte Sitzpläne öffnen …</button>
+        <div class="mnote" id="backupNote"></div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -508,13 +563,13 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
         <p class="stats" id="stats"></p>
         <button class="btn primary wide" id="bImport"><svg class="i"><use href="#i-list"/></svg>Klassenliste laden</button>
       </section>
-      <section id="secWish">
+      <section id="secWish" class="adv">
         <h2>Wünsche der Schüler</h2>
         <p class="stats" id="wishStats"></p>
         <button class="btn wide" id="bWishes"><svg class="i"><use href="#i-heart"/></svg>Wünsche eintragen</button>
         <div class="issues" id="wishIssues"></div>
       </section>
-      <section class="rules" id="secRules">
+      <section class="rules adv" id="secRules">
         <h2>Deine Regeln <span class="count">gehen immer vor</span></h2>
         <label class="check"><input type="checkbox" data-mix="noSingle"> Keine Reihe nur mit Mädchen oder nur mit Jungen</label>
         <label class="check"><input type="checkbox" data-mix="noLone"> Niemand ist das einzige Mädchen oder der einzige Junge seiner Reihe</label>
@@ -524,7 +579,8 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       </section>
       <section>
         <h2>Verteilen</h2>
-        <button class="btn wide" id="dWish" style="margin-bottom:6px" title="Zufällig verteilen und dabei möglichst viele Wünsche erfüllen. Zuerst bekommt jeder einen Wunsch. Deine Regeln gelten immer."><svg class="i"><use href="#i-heart"/></svg>Mit Wünschen verteilen</button>
+        <button class="btn wide adv" id="dWish" style="margin-bottom:6px" title="Zufällig verteilen und dabei möglichst viele Wünsche erfüllen. Zuerst bekommt jeder einen Wunsch. Deine Regeln gelten immer."><svg class="i"><use href="#i-heart"/></svg>Mit Wünschen verteilen</button>
+        <p class="stats simple-only" id="simpleNote" style="margin:0 2px 8px;font-size:12px"></p>
         <div class="two">
           <button class="btn" id="dRandom" title="Alle neu und zufällig setzen. Festgehaltene bleiben sitzen, deine Regeln gelten."><svg class="i"><use href="#i-shuffle"/></svg>Zufällig</button>
           <button class="btn" id="dRest" title="Nur die noch nicht gesetzten Schüler auf freie Plätze, mit Wünschen"><svg class="i"><use href="#i-fill"/></svg>Rest</button>
@@ -561,31 +617,37 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       </section>
     </div>
     <div class="side-foot">
+      <div id="backupWarn"></div>
       <div class="ok" id="saveState"></div>
+      <details class="tipsbox"><summary>Tipps und Tastenkürzel</summary>
       <ul class="tips">
         <li><kbd>T</kbd> Tische stellen, <kbd>S</kbd> Schüler setzen</li>
         <li>Tische rasten im 25-cm-Raster ein</li>
         <li>Doppelklick oder <kbd>R</kbd>: drehen</li>
         <li>Auf freier Fläche ziehen: mehrere markieren</li>
         <li>Name auf besetzten Platz: die beiden tauschen</li>
-        <li>Klick auf einen Namen: Wünsche und Regeln</li>
+        <li class="adv">Klick auf einen Namen: Wünsche und Regeln</li>
         <li>Schüler setzen: Rahmen ziehen markiert mehrere, die Gruppe lässt sich dann am Stück ziehen</li>
         <li><kbd>⌘Z</kbd> rückgängig, <kbd>Entf</kbd> entfernen</li>
-      </ul>
+        <li>Mit <kbd>⌥</kbd> beim Ziehen gilt kurz der andere Modus</li>
+      </ul></details>
     </div>
   </aside>
 
   <section class="stage" id="stage">
     <div class="canvasbar">
-      <span class="vlabel">Variante</span>
-      <div class="seg" id="varTabs" role="group" aria-label="Varianten"></div>
+      <div class="seg mode" role="group" aria-label="Was wird gezogen">
+        <button id="mTische" title="Tische verschieben, drehen und markieren (T). Mit ⌥ beim Ziehen gilt kurz der andere Modus."><svg class="i"><use href="#i-double"/></svg>Tische stellen</button>
+        <button id="mSchueler" title="Namen auf Plätze ziehen und tauschen (S). Mit ⌥ beim Ziehen gilt kurz der andere Modus."><svg class="i"><use href="#i-user"/></svg>Schüler setzen</button>
+      </div>
+      <span class="vlabel adv">Variante</span>
+      <div class="seg adv" id="varTabs" role="group" aria-label="Varianten"></div>
       <div class="seg" role="group" aria-label="Ansicht">
         <button id="vPult" title="Tafel unten, so wie du vom Pult in die Klasse schaust">Lehrersicht</button>
         <button id="vKlasse" title="Tafel oben, so wie die Klasse den Raum sieht">Schülersicht</button>
       </div>
-      <button type="button" class="btn tb" id="bDiscreet" title="Wünsche, Regeln und ihre Markierungen ausblenden, etwa wenn der Plan vor der Klasse gezeigt wird"><svg class="i"><use href="#i-eyeoff"/></svg><span>Wünsche ausblenden</span></button>
-      <button type="button" class="btn tb" id="bCompare" title="Andere Variante oder alten Stand verkleinert daneben zeigen"><svg class="i"><use href="#i-compare"/></svg>Vergleich</button>
-      <button type="button" class="modechip" id="modeChip" title="Klicken zum Umschalten. Mit ⌥ beim Ziehen gilt kurz der andere Modus."></button>
+      <button type="button" class="btn tb adv" id="bDiscreet" title="Wünsche, Regeln und ihre Markierungen ausblenden, etwa wenn der Plan vor der Klasse gezeigt wird"><svg class="i"><use href="#i-eyeoff"/></svg><span class="lbl">Wünsche ausblenden</span></button>
+      <button type="button" class="btn tb adv" id="bCompare" title="Andere Variante oder alten Stand verkleinert daneben zeigen"><svg class="i"><use href="#i-compare"/></svg><span class="lbl">Vergleich</span></button>
     </div>
     <div class="roomwrap">
       <button type="button" class="planhead" id="planHead" title="Klasse, Raum und Fach ändern"><span class="ph-title" id="phTitle"></span><span class="ph-sub" id="phSub"></span><span class="ph-hint">ändern</span><span class="ph-meta" id="printMeta"></span></button>
@@ -658,6 +720,19 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       <button type="button" class="btn" data-cancel>Abbrechen</button>
       <button class="btn primary" value="ok">Anordnung übernehmen</button>
     </div>
+  </form>
+</dialog>
+
+<!-- Begrüßung -->
+<dialog id="dlgWelcome" style="max-width:600px">
+  <form method="dialog" class="dlg">
+    <h3>Willkommen beim Sitzplan</h3>
+    <p class="hint" style="margin:0">Die App läuft komplett auf diesem Rechner. Namen gehen nicht ins Internet. Wie möchtest du arbeiten?</p>
+    <div class="welcome-tiles">
+      <button class="wtile" value="simple"><b>Einfach</b><span>Tische aufstellen, Klassenliste laden, Schüler reinziehen oder zufällig verteilen, drucken. Mehr nicht.</span></button>
+      <button class="wtile" value="full"><b>Erweitert</b><span>Zusätzlich Schülerwünsche, eigene Regeln wie „nie neben“, mehrere Varianten, Verlauf und Vergleich.</span></button>
+    </div>
+    <p class="hint" style="margin:0">Du kannst jederzeit oben rechts zwischen „Einfach“ und „Erweitert“ umschalten. Deine Pläne bleiben dabei erhalten.</p>
   </form>
 </dialog>
 
@@ -762,6 +837,8 @@ let S = null;              // gesamter Zustand
 let sel = new Set();       // markierte Tische
 let undoStack = [], redoStack = [];
 let px = 20, printing = false, saveOk = true, hintShown = false;
+let firstRun = false;
+const simple = () => S.level === 'simple';
 let pick = new Set();                      // markierte Schüler im Modus „Schüler setzen“
 const DEF_COLORS = { w: '#f8d3dc', m: '#d3e3f8' };
 const gColor = st => S.colors && S.colors.on && (st.g === 'w' || st.g === 'm') ? S.colors[st.g] : '';
@@ -875,11 +952,13 @@ function load() {
         if (!d.plans.some(p => p.id === d.current)) d.current = d.plans[0].id;
         d.nameMode = d.nameMode || 'vorname';
         d.mode = d.mode === 'schueler' ? 'schueler' : 'tische';
+        d.level = d.level === 'simple' ? 'simple' : 'full';
         d.colors = Object.assign({ on: true }, DEF_COLORS, d.colors || {});
         return d;
       }
     }
   } catch (e) {}
+  firstRun = true;
   const p = makePlan('Meine Klasse');
   return { version: 1, current: p.id, nameMode: 'vorname', mode: 'tische', colors: { on: true, ...DEF_COLORS }, plans: [p] };
 }
@@ -1109,7 +1188,6 @@ function renderPlans() {
   $('#vKlasse').setAttribute('aria-pressed', !flipped());
   $('#vPult').setAttribute('aria-pressed', flipped());
   document.querySelectorAll('[data-nm]').forEach(b => b.setAttribute('aria-pressed', b.dataset.nm === S.nameMode));
-  $('#modeChip').innerHTML = `Ziehen bewegt: <b>${mode() === 'tische' ? 'Tische' : 'Schüler'}</b>`;
   $('#mTische').setAttribute('aria-pressed', mode() === 'tische');
   $('#mSchueler').setAttribute('aria-pressed', mode() === 'schueler');
 }
@@ -1172,8 +1250,25 @@ function renderColors(P) {
 }
 function renderSaveState() {
   $('#saveState').innerHTML = saveOk
-    ? `${icon('i-lock')}<span>Alles bleibt auf diesem Rechner. Wird automatisch im Browser gespeichert, nichts geht ins Internet.</span>`
-    : `<span class="err">Speichern im Browser ist hier nicht möglich. Sichere die Sitzpläne über den Pfeil oben rechts als Datei.</span>`;
+    ? `${icon('i-lock')}<span title="Die App speichert automatisch im Browser. Nichts geht ins Internet.">Nur auf diesem Rechner gespeichert</span>`
+    : `<span class="err">Speichern im Browser geht hier nicht. Bitte über „⋯“ oben rechts als Datei sichern.</span>`;
+  renderBackup();
+}
+/* Erinnerung ans Sichern: Browser-Speicher kann verloren gehen */
+const BACKUP_DAYS = 14;
+function backupInfo() {
+  const hasData = S.plans.some(p => p.students.length);
+  const since = S.lastBackup || S.firstUse || Date.now();
+  const days = Math.floor((Date.now() - since) / 86400000);
+  return { hasData, days, never: !S.lastBackup, due: hasData && days >= BACKUP_DAYS };
+}
+function renderBackup() {
+  if (!S || !$('#backupWarn')) return;
+  const b = backupInfo();
+  $('#backupWarn').innerHTML = b.due
+    ? `<div class="bwarn"><span>${b.never ? 'Noch nie als Datei gesichert.' : `Seit ${b.days} Tagen nicht gesichert.`} Löscht der Browser seine Daten, sind die Pläne weg.</span><button type="button" class="btn" data-backup>Jetzt sichern</button></div>`
+    : '';
+  $('#backupNote').textContent = S.lastBackup ? `Letzte Sicherung: ${new Date(S.lastBackup).toLocaleDateString('de-DE')}` : 'Noch keine Sicherung als Datei.';
 }
 function renderTools() {
   const has = sel.size > 0 && mode() === 'tische';
@@ -1184,9 +1279,11 @@ function renderTools() {
 }
 function computePx(R) {
   if (printing) return Math.max(8, Math.min(1010 / R.w, 590 / R.h));
-  const r = stage.getBoundingClientRect();
-  const aw = r.width - 120, ah = r.height - 195;
-  return clamp(Math.floor(Math.min(aw / R.w, ah / R.h)), 11, 46);
+  const r = stage.getBoundingClientRect(), cs = getComputedStyle(stage);
+  const used = $('.canvasbar').offsetHeight + $('#planHead').offsetHeight + $('#scale').offsetHeight
+    + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + 44;   // Abstände, Wand und Beschriftungen
+  const aw = r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - 70, ah = r.height - used;
+  return clamp(Math.floor(Math.min(aw / R.w, ah / R.h)), 9, 46);
 }
 /* Kurzform des Nachnamens: so viele Buchstaben, bis gleiche Vornamen unterscheidbar sind */
 function lastShort(P) {
@@ -1270,11 +1367,11 @@ function renderRoom() {
     else inner = d.seats.map((sid, i) => {
       const st = sid && byId.get(sid);
       if (!st) return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span></div>`;
-      const hide = !!S.discreet;
+      const hide = !!S.discreet || simple();
       const stat = hide ? null : ev.status.get(st.id);
       const isLocked = !hide && lockedSet.has(st.id), isClash = !hide && clashSet.has(st.id);
       const tip = `${st.first} ${st.last}`.trim() + (stat === 'ok' ? ' · Wunsch erfüllt' : stat === 'open' ? ' · Wunsch noch offen' : '') + (isLocked ? ' · festgehalten' : '') + (isClash ? ' · Regel verletzt' : '');
-      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span><div class="name${isClash ? ' clash' : ''}${pick.has(st.id) ? ' picked' : ''}${gColor(st) ? ' g' : ''}" data-sid="${st.id}"${gColor(st) ? ` style="--g:${gColor(st)}"` : ''} title="${esc(tip)}">${isLocked ? '<svg class="lk"><use href="#i-lock"/></svg>' : ''}${stat ? `<span class="wd ${stat}"></span>` : ''}${nameHtml(st, dupes)}</div></div>`;
+      return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair${stat ? ' ' + stat : ''}${isLocked ? ' locked' : ''}">${isLocked ? '<svg class="lk2"><use href="#i-lock"/></svg>' : ''}</span><div class="name${isClash ? ' clash' : ''}${pick.has(st.id) ? ' picked' : ''}${gColor(st) ? ' g' : ''}" data-sid="${st.id}"${gColor(st) ? ` style="--g:${gColor(st)}"` : ''} title="${esc(tip)}">${nameHtml(st, dupes)}</div></div>`;
     }).join('');
     h += `<div class="desk t-${d.type} f${face}${sel.has(d.id) ? ' sel' : ''}" data-id="${d.id}" style="${posStyle(s)}" title="${TYPES[d.type].label}">${inner}</div>`;
   }
@@ -1296,10 +1393,14 @@ const fmtM = cells => (cells * CELL_CM / 100).toLocaleString('de-DE', { minimumF
 function fitNames() {
   const base = clamp(px * 0.52, 9, 15);
   room.querySelectorAll('.name').forEach(el => {
-    let fs = base, guard = 0;
-    el.style.fontSize = fs + 'px';
-    while ((el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1) && fs > 7 && guard++ < 24) {
-      fs -= 0.5; el.style.fontSize = fs + 'px';
+    const over = () => el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1;
+    let fs = base;
+    // zuerst ohne Trennung kleiner schreiben, erst im Notfall umbrechen
+    el.style.whiteSpace = 'nowrap'; el.style.fontSize = fs + 'px';
+    while (over() && fs > 8.5) { fs -= 0.5; el.style.fontSize = fs + 'px'; }
+    if (over()) {
+      el.style.whiteSpace = 'normal';
+      while (over() && fs > 7) { fs -= 0.5; el.style.fontSize = fs + 'px'; }
     }
   });
 }
@@ -1337,7 +1438,7 @@ room.addEventListener('pointerdown', e => {
     if (dk) {
       if (!e.altKey && !deskHint && under()) {
         deskHint = true;
-        toast('Gerade ist „Tische stellen“ aktiv, deshalb bewegt sich der ganze Tisch. Schüler einzeln verschieben: oben „Schüler setzen“ wählen (Taste S) oder beim Ziehen ⌥ gedrückt halten.');
+        toast('Gerade ist „Tische stellen“ aktiv, deshalb bewegt sich der ganze Tisch. Schüler einzeln verschieben: über dem Raum „Schüler setzen“ wählen (Taste S) oder beim Ziehen ⌥ gedrückt halten.');
       }
       startDeskDrag(e, dk.dataset.id);
     } else startLasso(e);
@@ -1514,7 +1615,7 @@ function startGroupDrag(e, anchorSid) {
     light([], false); $('#pool').classList.remove('hl');
     document.body.classList.remove('dragging-name');
     els.forEach(el => el.classList.remove('lifted'));
-    if (!ghost) { if (!cancel && !S.discreet) openWishes(anchorSid); return; }
+    if (!ghost) { if (!cancel && !S.discreet && !simple()) openWishes(anchorSid); return; }
     ghost.remove();
     if (cancel || !target) return;
     moveGroup(group, new Map(group.map(sid => [sid, seatOf.get(sid).key])), target);
@@ -1572,7 +1673,7 @@ function startNameDrag(e, src, srcEl) {
     setHl(null);
     document.body.classList.remove('dragging-name');
     srcEl.classList.remove('lifted');
-    if (!ghost) { if (!cancel && !S.discreet) openWishes(src.sid); return; }
+    if (!ghost) { if (!cancel && !S.discreet && !simple()) openWishes(src.sid); return; }
     ghost.remove();
     if (cancel || !target) return;
     dropName(src, target);
@@ -2273,7 +2374,7 @@ $('#dlgTpl').addEventListener('close', () => {
   });
   sel.clear(); renderSelection();
   const name = TPLS.find(t => t.k === tplKind).t;
-  let msg = `${name} mit ${out.seats} Plätzen aufgestellt. Jetzt ist „Tische stellen“ aktiv, zum Setzen der Schüler oben auf „Schüler setzen“.`;
+  let msg = `${name} mit ${out.seats} Plätzen aufgestellt. Jetzt ist „Tische stellen“ aktiv. Zum Setzen der Schüler über dem Raum auf „Schüler setzen“ klicken.`;
   if (!out.fits) msg = `${name}: Es passen nur ${out.seats} Plätze in diesen Raum.`;
   if (tplKind === 'gang') msg = `Mittelgang mit ${+$('#tplL').value || 4} Plätzen links und ${+$('#tplR').value || 4} rechts (vom Pult aus), ${out.seats} Plätze.`;
   if (growW) msg += ` Der Raum ist jetzt ${fmtM(out.w)} m breit.`;
@@ -2361,11 +2462,11 @@ function seatCenters(desks) {
   return m;
 }
 function renderCompare() {
-  const P = cur(), panel = $('#cmpPanel');
-  panel.hidden = !S.compare;
-  $('.main').classList.toggle('with-cmp', !!S.compare);
+  const P = cur(), panel = $('#cmpPanel'), show = !!S.compare && !simple();
+  panel.hidden = !show;
+  $('.main').classList.toggle('with-cmp', show);
   $('#bCompare').setAttribute('aria-pressed', !!S.compare);
-  if (!S.compare) return;
+  if (!show) return;
   const src = cmpSources(P);
   if (!src.some(x => x.key === S.cmpSrc)) S.cmpSrc = (src.find(x => x.group === 'Verlauf') || src[0] || {}).key;
   const groups = ['Varianten', 'Verlauf'].map(g => { const l = src.filter(x => x.group === g); return l.length ? `<optgroup label="${g}">${l.map(x => `<option value="${x.key}" ${x.key === S.cmpSrc ? 'selected' : ''}>${esc(x.text)}</option>`).join('')}</optgroup>` : ''; }).join('');
@@ -2418,10 +2519,17 @@ function renderCompare() {
 }
 function renderDiscreet() {
   document.body.classList.toggle('discreet', !!S.discreet);
+  document.body.classList.toggle('simple', simple());
+  document.querySelectorAll('#moreMenu [data-lvl]').forEach(b => b.setAttribute('aria-checked', (b.dataset.lvl === 'simple') === simple()));
+  if (simple()) {
+    const R = cur().rules, has = R.apart.length || R.pair.length || Object.keys(R.rowMust).length || R.mix.noSingle || R.mix.noLone || R.mix.mixedDesk || R.locked.length;
+    $('#simpleNote').textContent = has ? 'Deine Regeln aus der erweiterten Ansicht gelten beim Verteilen weiter.' : '';
+    $('#simpleNote').style.display = has ? '' : 'none';
+  }
   $('.main').classList.toggle('noside', !!S.sideHidden);
   $('#bSide').setAttribute('aria-pressed', !S.sideHidden);
   $('#bDiscreet').setAttribute('aria-pressed', !!S.discreet);
-  $('#bDiscreet span').textContent = S.discreet ? 'Wünsche einblenden' : 'Wünsche ausblenden';
+  $('#bDiscreet .lbl').textContent = S.discreet ? 'Wünsche einblenden' : 'Wünsche ausblenden';
 }
 $('#bDiscreet').addEventListener('click', () => {
   S.discreet = !S.discreet;
@@ -2431,6 +2539,28 @@ $('#bDiscreet').addEventListener('click', () => {
   persist(); renderDiscreet(); renderRoom();
   toast(S.discreet ? 'Wünsche und Regeln sind ausgeblendet. Verschieben geht weiter, ein Klick auf einen Namen öffnet keine Wünsche.' : 'Wünsche und Regeln sind wieder sichtbar.');
 });
+function setLevel(l) {
+  S.level = l === 'simple' ? 'simple' : 'full';
+  if (simple()) { S.discreet = false; }
+  persist(); render();
+}
+function closeMenu() { $('#moreMenu').hidden = true; $('#bMore').setAttribute('aria-expanded', 'false'); }
+$('#bMore').addEventListener('click', e => {
+  e.stopPropagation();
+  const open = $('#moreMenu').hidden;
+  $('#moreMenu').hidden = !open; $('#bMore').setAttribute('aria-expanded', open);
+  if (open) renderBackup();
+});
+document.addEventListener('pointerdown', e => { if (!$('#moreMenu').hidden && !e.target.closest('.more')) closeMenu(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#moreMenu').hidden) closeMenu(); }, true);
+$('#moreMenu').addEventListener('click', e => { if (e.target.closest('.mi')) setTimeout(closeMenu, 0); });
+$('#backupWarn').addEventListener('click', e => { if (e.target.closest('[data-backup]')) $('#bExport').click(); });
+$('#moreMenu').addEventListener('click', e => {
+  const b = e.target.closest('[data-lvl]'); if (!b || b.dataset.lvl === S.level) return;
+  setLevel(b.dataset.lvl);
+  toast(simple() ? 'Einfache Ansicht: nur Tische, Klasse, Verteilen und Drucken.' : 'Erweiterte Ansicht: mit Wünschen, Regeln, Varianten und Vergleich.');
+});
+$('#dlgWelcome').addEventListener('close', () => { setLevel($('#dlgWelcome').returnValue === 'full' ? 'full' : 'simple'); });
 $('#bSide').addEventListener('click', () => { S.sideHidden = !S.sideHidden; persist(); renderDiscreet(); renderRoom(); });
 $('#bCompare').addEventListener('click', () => { S.compare = !S.compare; persist(); renderCompare(); renderRoom(); });
 $('#cmpClose').addEventListener('click', () => { S.compare = false; persist(); renderCompare(); renderRoom(); });
@@ -2773,7 +2903,8 @@ $('#bExport').addEventListener('click', () => {
   a.href = URL.createObjectURL(blob); a.download = `Sitzplaene-${stamp}.json`;
   document.body.appendChild(a); a.click();
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
-  toast('Sicherung gespeichert. Lege sie in deinen Schulordner, nicht in den Vault.');
+  S.lastBackup = Date.now(); persist();
+  toast('Sicherung gespeichert. Leg die Datei in deinen Schulordner.');
 });
 $('#bImportBackup').addEventListener('click', () => $('#backupFile').click());
 $('#backupFile').addEventListener('change', async e => {
@@ -2826,7 +2957,6 @@ $('#toastBtn').addEventListener('click', () => { const a = toastAction; $('#toas
 /* ---------- Knöpfe und Tasten ---------- */
 document.querySelectorAll('[data-cancel]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close('cancel')));
 $('#mTische').addEventListener('click', () => setMode('tische'));
-$('#modeChip').addEventListener('click', () => setMode(mode() === 'tische' ? 'schueler' : 'tische'));
 $('#mSchueler').addEventListener('click', () => setMode('schueler'));
 $('#bAddSingle').addEventListener('click', () => addDesk('single'));
 $('#bAddDouble').addEventListener('click', () => addDesk('double'));
@@ -2890,8 +3020,12 @@ new ResizeObserver(() => { if (!printing) renderRoom(); }).observe(stage);
 
 /* ---------- Start ---------- */
 S = load();
+if (!S.level) S.level = 'simple';
+if (!S.firstUse) S.firstUse = Date.now();
 persist();
 render();
+if (firstRun) $('#dlgWelcome').showModal();
+else if (backupInfo().due) toast(backupInfo().never ? 'Du hast deine Sitzpläne noch nie als Datei gesichert.' : `Deine letzte Sicherung ist ${backupInfo().days} Tage her.`, false, { label: 'Jetzt sichern', fn: () => $('#bExport').click() });
 </script>
 </body>
 </html>
