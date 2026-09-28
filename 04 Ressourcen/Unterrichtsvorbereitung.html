@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unterrichtsvorbereitung</title>
+<style>
+:root{--bg:#F4F6F9;--panel:#fff;--ink:#14171c;--muted:#66798E;--line:#D9DFE7;--accent:#2F5E9E;--sel:#E3EBF6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:28px 20px 48px}
+h1{font-size:24px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.tabs button{font:inherit;font-size:17px;font-weight:600;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;color:var(--ink);display:flex;align-items:center;gap:10px;justify-content:center}
+.tabs button .ico{font-size:22px;color:var(--accent)}.tabs button:hover{border-color:var(--accent)}
+.tabs button.on{background:var(--sel);border-color:var(--accent)}
+.karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.karte{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column}
+.karte.ohne{background:#FAFBFC}
+.kl{font-size:19px;font-weight:700}.th{color:var(--muted);font-size:13.5px;margin-bottom:12px}
+a.haupt{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;border-radius:9px;padding:10px;font-weight:600;margin-bottom:10px}
+a.haupt:hover{background:#244B80}
+span.haupt.leer{display:block;text-align:center;border:1px dashed var(--line);color:var(--muted);border-radius:9px;padding:9px;margin-bottom:10px;font-size:14px}
+ul{list-style:none;margin:0;padding:0}li{padding:4px 0;border-top:1px solid #EEF1F5;font-size:14px}li:first-child{border-top:0}
+li a{color:var(--accent);text-decoration:none}li a:hover{text-decoration:underline}
+.fehlt{color:#A9B4C2}.fehlt::after{content:" · fehlt noch";font-size:12px}
+.fuss{margin-top:26px;font-size:13px;color:var(--muted)}.fuss a{color:var(--accent)}
+[hidden]{display:none!important}
+@media (max-width:640px){.tabs button{font-size:15px;padding:12px 6px;flex-direction:column;gap:2px}}
+</style></head><body><main>
+<h1>Unterrichtsvorbereitung</h1><p class="sub">Erst das Fach wählen, dann die Klasse. Die Übersichten zeigen alle Stunden, ausgegraute Einträge sind noch nicht vorbereitet.</p>
+<div class="tabs"><button data-f="physik"><span class="ico">⚛</span>Physik</button><button data-f="mathe"><span class="ico">∑</span>Mathe</button><button data-f="sport"><span class="ico">⚽</span>Sport</button></div><section class="fach" id="f-physik" hidden><div class="karten"><div class="karte"><div class="kl">Klasse 7c</div><div class="th">Optik</div><a class="haupt" href="Physik/Optik/Optik Klasse 7 – Übersicht.html">Übersicht öffnen →</a><ul><li><a class="" href="Physik/Optik/Optik Klasse 7 – Material.html">Materialliste</a></li><li><a class="" href="Physik/Optik/Optik-Labore.html">Optik-Labore</a></li></ul></div><div class="karte"><div class="kl">Klasse 10</div><div class="th">Kernphysik</div><a class="haupt" href="Physik/Kernphysik/Kernphysik Klasse 10 – Übersicht.html">Übersicht öffnen →</a><ul><li><a class="" href="Physik/Kernphysik/Kernphysik Klasse 10 – Material.html">Materialliste</a></li><li><a class="" href="Physik/Kernphysik/Kernphysik-Labore.html">Kernphysik-Labore</a></li><li><a class="" href="Physik/Kernphysik/Materialien/Begleitheft Kernspaltung.pdf">Begleitheft Kernspaltung (PDF)</a></li></ul></div></div></section><section class="fach" id="f-mathe" hidden><div class="karten"><div class="karte"><div class="kl">Klasse 7c</div><div class="th">Stoffverteilungsplan, Rationale Zahlen</div><a class="haupt" href="Mathematik/Mathematik Klasse 7 – Übersicht.html">Übersicht öffnen →</a><ul><li><a class="" href="Mathematik/Mathematik Klasse 7 – Stoffverteilungsplan Schule.html">Stoffverteilungsplan der Schule</a></li><li><a class="" href="Mathematik/Arbeitsblätter/Grundlagen-Check/7c 2026-27/Verlauf.html">Grundlagen-Check: Verlauf</a></li><li><a class="" href="Mathematik/Wichtige Informationen Klasse 7c 2026-27.pdf">Wichtige Informationen 7c (PDF)</a></li></ul></div><div class="karte ohne"><div class="kl">Klasse 10b</div><div class="th">noch keine Übersicht</div><span class="haupt leer">keine Übersicht</span><ul><li><a class="" href="Mathematik/Quadratische Funktionen/Parabeln (Rise-Stil).html">Parabeln (Merkheft)</a></li><li><a class="" href="Mathematik/Wichtige Informationen Klasse 10b 2026-27.pdf">Wichtige Informationen 10b (PDF)</a></li></ul></div></div></section><section class="fach" id="f-sport" hidden><div class="karten"><div class="karte ohne"><div class="kl">Klasse 5</div><div class="th">Jungen</div><ul><li><a class="" href="Sport/Sportcurriculum.html#klasse-5">Curriculum Klasse 5</a></li><li><a class="" href="Sport/Coopertest/Coopertest Laufzettel Klasse 5.pdf">Coopertest-Laufzettel (PDF)</a></li></ul></div><div class="karte ohne"><div class="kl">Klasse 6</div><div class="th">Jungen</div><ul><li><a class="" href="Sport/Sportcurriculum.html#klasse-6">Curriculum Klasse 6</a></li><li><a class="" href="Sport/Coopertest/Coopertest Laufzettel Klasse 6.pdf">Coopertest-Laufzettel (PDF)</a></li></ul></div><div class="karte ohne"><div class="kl">Klasse 7</div><div class="th">Jungen</div><ul><li><a class="" href="Sport/Sportcurriculum.html#klasse-7">Curriculum Klasse 7</a></li><li><a class="" href="Sport/Coopertest/Coopertest Laufzettel Klasse 7.pdf">Coopertest-Laufzettel (PDF)</a></li></ul></div><div class="karte ohne"><div class="kl">Klasse 8</div><div class="th">Jungen</div><ul><li><a class="" href="Sport/Sportcurriculum.html#klasse-8">Curriculum Klasse 8</a></li><li><a class="" href="Sport/Coopertest/Coopertest Laufzettel Klasse 8.pdf">Coopertest-Laufzettel (PDF)</a></li></ul></div><div class="karte ohne"><div class="kl">Klasse 9</div><div class="th">Jungen</div><ul><li><a class="" href="Sport/Sportcurriculum.html#klasse-9">Curriculum Klasse 9</a></li><li><a class="" href="Sport/Coopertest/Coopertest Laufzettel Klasse 9.pdf">Coopertest-Laufzettel (PDF)</a></li></ul></div><div class="karte ohne"><div class="kl">Klasse 10</div><div class="th">Jungen</div><ul><li><a class="" href="Sport/Sportcurriculum.html#klasse-10">Curriculum Klasse 10</a></li><li><a class="" href="Sport/Coopertest/Coopertest Laufzettel Klasse 10.pdf">Coopertest-Laufzettel (PDF)</a></li></ul></div><div class="karte ohne"><div class="kl">Alle Klassen</div><div class="th">Allgemein</div><ul><li><a class="" href="Sport/Sportcurriculum.html">Sportcurriculum 5 bis 10</a></li><li><a class="" href="Sport/Coopertest/Coopertest Laufzettel Klasse 5 bis 10.pdf">Coopertest-Laufzettel alle Klassen (PDF)</a></li><li><a class="" href="Sport/Abschreibtext Sportsachen vergessen.pdf">Abschreibtext Sportsachen vergessen (PDF)</a></li></ul></div></div></section>
+<p class="fuss">Status aller Stunden: <a href="Bildungs-Dashboard.html">Bildungs-Dashboard</a> · zurück zum <a href="Lebens-Dashboard.html">Lebens-Dashboard</a></p>
+</main><script>
+const F=["physik", "mathe", "sport"];
+function zeige(f){ if(!F.includes(f)) f=F[0];
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+  document.querySelectorAll('.fach').forEach(s=>s.hidden=s.id!=='f-'+f);
+  try{localStorage.setItem('uv-fach',f)}catch(e){} history.replaceState(null,'','#'+f); }
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>zeige(b.dataset.f));
+let start=location.hash.slice(1); if(!F.includes(start)){ try{start=localStorage.getItem('uv-fach')||''}catch(e){start=''} }
+zeige(start);
+</script></body></html>

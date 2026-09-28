@@ -42,5 +42,5 @@ gruppen.insert(0, ("Planung", [{"id": "MAT", "marke": "MAT", "titel": "Materiall
                                   "datum": "Gesamtliste und nach Stunden", "datei": "Kernphysik Klasse 10 – Material.html", "art": ""}]))
 zusatz = [("Kernphysik-Labore (Startseite für IServ)", "Kernphysik-Labore.html"), ("Foliensatz Kernphysik (alle Folien)", "Kernphysik.html"),
           ("Begleitheft Kernspaltung (PDF)", "Materialien/Begleitheft Kernspaltung.pdf"), ("Klassenarbeit Nr. 1", KA + ".html"),
-          ("Was muss ich wissen? (KA 1)", KA + " – Was muss ich wissen.html"), ("Übersicht Optik Klasse 7", "../Optik/Optik Klasse 7 – Übersicht.html")]
+          ("Was muss ich wissen? (KA 1)", KA + " – Was muss ich wissen.html"), ("Übersicht Optik Klasse 7", "../Optik/Optik Klasse 7 – Übersicht.html"), ("Unterrichtsvorbereitung (alle Fächer)", "../../Unterrichtsvorbereitung.html")]
 baue_uebersicht(HIER / "Kernphysik Klasse 10 – Übersicht.html", "Kernphysik Klasse 10", "Alle Stunden W01 bis W22 · 2026/27", gruppen, zusatz, "k10-woche")

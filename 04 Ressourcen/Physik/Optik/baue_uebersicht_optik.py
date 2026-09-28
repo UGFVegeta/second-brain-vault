@@ -49,7 +49,7 @@ planung = [{"id": "MAT", "marke": "MAT", "titel": "Materialliste", "sub": "Alles
             "datum": "Gesamtliste und nach Stunden", "datei": "Optik Klasse 7 – Material.html", "art": ""}]
 
 links = [("Optik-Labore (Startseite für IServ)", "Optik-Labore.html"), ("Foliensatz Optik I", "Optik I.html"), ("Foliensatz Optik II", "Optik II.html"),
-         ("F2 alles in einer Datei", "Optik 2 – Licht trifft auf einen Körper – ALLES.html"), ("Schattenlabor", "Schattenlabor Halbschatten.html"), ("Übersicht Kernphysik Klasse 10", "../Kernphysik/Kernphysik Klasse 10 – Übersicht.html")]
+         ("F2 alles in einer Datei", "Optik 2 – Licht trifft auf einen Körper – ALLES.html"), ("Schattenlabor", "Schattenlabor Halbschatten.html"), ("Übersicht Kernphysik Klasse 10", "../Kernphysik/Kernphysik Klasse 10 – Übersicht.html"), ("Unterrichtsvorbereitung (alle Fächer)", "../../Unterrichtsvorbereitung.html")]
 
 baue_uebersicht(HIER / "Optik Klasse 7 – Übersicht.html", "Optik Klasse 7c", "Alle Doppelstunden Optik · 2026/27",
                 [("Planung", planung), ("Optik I", optik1), ("Optik II", optik2), ("Klassenarbeit", ka), ("Farben", farben)], links, "optik7-stunde")
