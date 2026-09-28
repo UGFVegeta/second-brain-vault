@@ -36,9 +36,9 @@ def ha_bilder():
     roh = BILDER / "_ha_loesung.png"
     subprocess.run(["pdftoppm", "-r", "250", "-png", "-singlefile", str(HA_PDF), str(roh.with_suffix(""))], check=True)
     im = Image.open(roh)
-    f = im.width / 496                       # Maße unten gemessen bei 60 dpi (496 px breit)
-    for name, (y0, y1) in {"ha-loesung-1-3.png": (80, 222), "ha-loesung-4-6.png": (222, 540)}.items():
-        im.crop((int(28 * f), int(y0 * f), int(478 * f), int(y1 * f))).save(BILDER / name)
+    f = im.width / 595                       # Grenzen in PDF-Punkten (A4 = 595 pt breit), gemessen mit pdftotext -bbox
+    for name, (y0, y1) in {"ha-loesung-1-3.png": (96, 299), "ha-loesung-4-5.png": (299, 511), "ha-loesung-6.png": (511, 648)}.items():
+        im.crop((int(30 * f), int(y0 * f), int(565 * f), int(y1 * f))).save(BILDER / name)
     roh.unlink()
 
 
@@ -47,7 +47,8 @@ def ha_folie(datei, hoehe):
 
 
 FOLIEN = ([("Hausaufgabe: Lösungen 1 bis 3", ha_folie("ha-loesung-1-3.png", "5.6in")),
-           ("Hausaufgabe: Lösungen 4 bis 6", ha_folie("ha-loesung-4-6.png", "5.9in")),
+           ("Hausaufgabe: Lösungen 4 und 5", ha_folie("ha-loesung-4-5.png", "5.9in")),
+           ("Hausaufgabe: Lösung 6", ha_folie("ha-loesung-6.png", "5.9in")),
            ("In welche Richtung geht der Bogen?", GERADEN)] + FOLIEN_MO[1:])
 
 VORBEREITEN = [
@@ -59,12 +60,12 @@ VORBEREITEN = [
 SCHRITTE = [
     ("Montag · IF-Stunde, je Halbgruppe gleich", "HA kontrollieren", 12,
      "Lösungen zeigen, jeder prüft selbst mit anderer Farbe. Handzeichen pro Aufgabe, Fehlerzahl ohne Namen notieren: "
-     "erster Hinweis für die spätere Einteilung nach Leistung.", [1, 2]),
+     "erster Hinweis für die spätere Einteilung nach Leistung.", [1, 2, 3]),
     ("", "Bogen wiederholen", 4, "Zwei Minus-Aufgaben an der leeren Zahlengerade: Bogen live einzeichnen, dabei laut fragen, in welche Richtung er geht "
-     "und ob er über die Null läuft. Lösung im Tafelbild.", [3]),
-    ("", "Blitzrunde Minus", 6, "Acht Aufgaben, nur Ergebnisse ins Übungsheft, dann selbst abhaken. 7 oder 8 richtig: gleich mit ◐ starten.", [4, 5]),
-    ("", "Üben ○◐●", 15, "Einstieg selbst wählen, Übungsheft. In der Halbgruppe ist Zeit für Einzelne.", [6, 7]),
-    ("", "Geht das schneller?", 5, "Nur Ideen sammeln. Das ist die Brücke zu den Rechengesetzen.", [8, 9]),
+     "und ob er über die Null läuft. Lösung im Tafelbild.", [4]),
+    ("", "Blitzrunde Minus", 6, "Acht Aufgaben, nur Ergebnisse ins Übungsheft, dann selbst abhaken. 7 oder 8 richtig: gleich mit ◐ starten.", [5, 6]),
+    ("", "Üben ○◐●", 15, "Einstieg selbst wählen, Übungsheft. In der Halbgruppe ist Zeit für Einzelne.", [7, 8]),
+    ("", "Geht das schneller?", 5, "Nur Ideen sammeln. Das ist die Brücke zu den Rechengesetzen.", [9, 10]),
     ("Dienstag · Doppelstunde", "Weiter üben", 0, '<span class="offen">noch offen</span>', []),
     ("Mittwoch und Donnerstag", "Rechengesetze benennen", 0,
      '<span class="offen">noch offen. Ziel laut Bildungsplan (Kl. 7/8/9, Teilkompetenz 9): Kommutativ- und Assoziativgesetz '
@@ -72,7 +73,7 @@ SCHRITTE = [
 ]
 
 TAFEL = f"""<div class="box"><h3>Montag: die zwei typischen Fehler beim Minus</h3>
-<p>Die leeren Zahlengeraden stehen auf Folie 3, du zeichnest die Bögen live ein. Bleibt an der Tafel, kommt nicht ins Merkheft. Immer fragen: In welche Richtung geht der Bogen?</p>
+<p>Die leeren Zahlengeraden stehen auf Folie 4, du zeichnest die Bögen live ein. Bleibt an der Tafel, kommt nicht ins Merkheft. Immer fragen: In welche Richtung geht der Bogen?</p>
 <div class="tafel"><div class="ausdruck">14 − 30 = <span class="lsg">−16</span> <span style="font-size:16px;font-weight:400">(nicht 16: der Bogen läuft über die Null)</span></div>
 <figure>{bogengerade(-18, 16, 14, -30, schritt=2, kpe=2)}</figure>
 <div class="ausdruck">−3 − 9 = <span class="lsg">−12</span> <span style="font-size:16px;font-weight:400">(nicht +6: ohne Klammer heißt Minus einfach nach links)</span></div>

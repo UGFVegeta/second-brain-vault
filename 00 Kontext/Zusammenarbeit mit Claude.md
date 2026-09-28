@@ -103,3 +103,5 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 - Mathe 7c wird als eine Datei pro Woche vorbereitet, nicht Stunde für Stunde. Stunden enden nicht immer sauber, deshalb läuft die Woche durch, die Tage sind nur grobe Marken.
 - Tabs wie bei Optik F3 bis F5: Überblick (was vorzubereiten ist, kurzer Verlauf mit Zeitleiste), Folien, Tafelbild, Merkheft, Lösungen. Kein eigener Aufgaben-Tab und kein Ausblick, den zeigt die Übersicht links.
 - Die alte RZ2-Form mit getrennten Tagen und viel Erklärtext ist zu überfrachtet.
+- Zwischen Aufgaben und Lösungen nie „·“ als Trenner, sondern Semikolon. Der Punkt sieht aus wie ein Malzeichen und verwirrt die Schüler.
+- Zur HA-Kontrolle die Lösungen im ausgefüllten Arbeitsblatt zeigen, nicht als kompakte Liste. Lieber auf mehrere Folien verteilen, damit es lesbar bleibt.

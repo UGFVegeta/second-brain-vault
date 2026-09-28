@@ -21,8 +21,9 @@ def text(h):
 
 
 def semikolon(h):
-    """„ · “ als Trenner zwischen Aufgaben wird zu „; “. Ein Malpunkt zwischen zwei Zahlen (3 · 4) bleibt."""
-    return re.sub(r"(?<![\d)])\s·\s|\s·\s(?![\d(−-])", "; ", h)
+    """„ · “ als Trenner zwischen Aufgaben wird zu „; “ (sieht sonst wie ein Malpunkt aus).
+    In Woche 1 und 2 kommt kein Malnehmen vor, deshalb wird jeder Punkt ersetzt."""
+    return re.sub(r"(?:\s|&nbsp;)+(?:·|&middot;)(?:\s|&nbsp;)+", "; ", h)
 
 
 def sektion(s, sid):
