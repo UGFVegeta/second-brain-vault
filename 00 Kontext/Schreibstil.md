@@ -51,6 +51,7 @@ Vier frühere Sonderregeln hat Oskar zugunsten von `vermenschlichen` gestrichen:
 - **Fakten vor Wirkung:** Lieber eine schwächere, aber korrekte Aussage als eine wirkungsvolle, die sachlich nicht stimmt. Bei Unsicherheit über Regelungen nachfragen statt plausibel klingende Hebel erfinden.
 - **"Nur Grammatik und Rechtschreibung" heißt wörtlich:** minimal eingreifen, Wortwahl und Satzbau ansonsten unangetastet lassen.
 - **"extra" statt "separat":** Im informellen Kontext (Kollegen-Chat etc.) bevorzugt Oskar "extra" statt "separat". (Bestätigt 2026-07-01.)
+- **Nah an Oskars Wortlaut bleiben (28.09.2026):** Wenn Oskar sagt, was in eine Nachricht soll, nur das hineinschreiben. Nichts ergänzen, was schon im Anhang oder Screenshot steht (Datum, Raum), keine eigenen Nuancen dazuerfinden („wer nicht kommen kann oder mag") und kein „Danke euch" anhängen, wenn er es nicht gesagt hat. Seine eigene Formulierung ist meist schon richtig und wird nur geglättet, nicht umgebaut.
 
 ## Empfänger-spezifischer Ton
 
@@ -64,3 +65,24 @@ Deutsch (primär). Fachbegriffe aus dem Englischen nur wenn es kein gutes deutsc
 ## Beispiele für guten Stil
 
 Wird mit der Zeit ergänzt. Hier können Beispieltexte abgelegt werden die Oskars Stil gut repräsentieren – z.B. eine gelungene Elternmail, ein guter Elternbrief, eine klare Kollegennachricht.
+
+### Kollegennachricht an die Lehrer-Gruppe in iServ (28.09.2026, von Oskar selbst formuliert)
+
+> Hallo zusammen,
+>
+> hier ist die Einladung zum Elternabend der 7c. Ihr seid alle herzlich eingeladen zu kommen, aber mir würde es auch reichen, wenn sich nur die Hauptfachlehrer vorstellen. Alternativ könnt ihr mir auch einfach eine Info schicken, dann baue ich sie in meine Präsentation ein.
+>
+> Viele Grüße
+> Oskar
+
+Muster: „Hallo zusammen,", ein kurzer Absatz ohne Wiederholung dessen, was im Anhang steht, klare Bitte mit einfacher Alternative, „Viele Grüße / Oskar". Kein Dank-Anhängsel.
+
+### Einladung zum Klassenpflegschaftsabend (Elternbrief, Stand Oktober 2026)
+
+Vorlage: `03 Bereiche/Schule & Unterricht/Klassenlehrer 7c/06 Elternabend/1 Einladung Klassenpflegschaftsabend.html`
+
+- Arial, GDRS-Logo oben rechts als Briefkopf, Ort und Datum rechtsbündig („Schorndorf, 28. September 2026").
+- „Liebe Eltern der Klasse 7c," und dann „hiermit möchte ich Sie herzlich zum ersten Klassenpflegschaftsabend der Klasse 7c einladen."
+- „Termin:" und „Ort:" fett in zwei Zeilen.
+- Tagesordnung als „TOP 1:" bis höchstens „TOP 7:", keine Stichpunkte. Kein eigener TOP „Begrüßung". Die Wahl der Elternvertreter steht als vorletzter TOP, zum Schluss kommt „Fragen und Sonstiges". Was die Fachlehrer ohnehin erzählen (z. B. das Wahlpflichtfach), bekommt keinen eigenen TOP.
+- Schluss: Hinweis, dass Eltern vorab eigene Punkte schicken können, dann „Ich freue mich, Sie zahlreich begrüßen zu dürfen." und „Mit freundlichen Grüßen / Oskar Klein".
