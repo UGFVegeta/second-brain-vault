@@ -50,24 +50,31 @@ from baue_arbeitsblatt3 import rechne, zahl, aufloesen, NAME as AB_NAME  # noqa:
 
 AB_LSG = HIER / f"{AB_NAME} – Lösungen.pdf"
 AB_TEILE = ["ab3-loesung-1-2.png", "ab3-loesung-3-4.png", "ab3-loesung-5-6.png", "ab3-loesung-7-8.png"]
+AB_LEER_PDF = HIER / f"{AB_NAME}.pdf"
+AB_LEER = ["ab3-leer-1-2.png", "ab3-leer-3-4.png", "ab3-leer-5-6.png", "ab3-leer-7-8.png"]
+AUSTEILEN = '<div class="austeil">📄 Arbeitsblatt austeilen</div>'
+WEITER = '<div class="austeil">📄 weiter auf dem Arbeitsblatt</div>'
 
 
 def ab_bilder():
-    """Lösungsfassung des Arbeitsblatts Klammern in drei Ausschnitte (Nr. 1–3, 4–5, 6–8), Grenzen aus pdftotext -bbox."""
+    """Arbeitsblatt Klammern als Bilder: Lösungsfassung und leere Fassung je in vier Ausschnitte (Nr. 1–2, 3–4, 5–6, 7–8),
+    dazu das leere Blatt ganz. Grenzen aus pdftotext -bbox an den Aufgabenköpfen."""
     from PIL import Image
-    box = subprocess.run(["pdftotext", "-bbox", str(AB_LSG), "-"], capture_output=True, text=True).stdout
-    woerter = [(float(y0), float(y1), w) for y0, y1, w in re.findall(r'yMin="([\d.]+)" xMax="[\d.]+" yMax="([\d.]+)">([^<]*)<', box)]
-    y = lambda wort: min(y0 for y0, _, w in woerter if w == wort)
-    grenzen = [y("geschickt:") - 8, y("Fasse") - 8, y("Noch") - 8, y("Setze") - 8,   # Köpfe von Nr. 1, 3, 5, 7
-               max(y1 for _, y1, _ in woerter) + 6]
-    roh = BILDER / "_ab3.png"
-    subprocess.run(["pdftoppm", "-r", "250", "-png", "-singlefile", str(AB_LSG), str(roh.with_suffix(""))], check=True)
-    im = Image.open(roh)
-    f = im.width / 595
-    for name, (y0, y1) in zip(AB_TEILE, zip(grenzen, grenzen[1:])):
-        im.crop((int(28 * f), int(y0 * f), int(567 * f), int(y1 * f))).save(BILDER / name)
-    roh.unlink()
-
+    for quelle, teile, ganz in ((AB_LSG, AB_TEILE, None), (AB_LEER_PDF, AB_LEER, "ab3-leer-ganz.png")):
+        box = subprocess.run(["pdftotext", "-bbox", str(quelle), "-"], capture_output=True, text=True).stdout
+        woerter = [(float(y0), float(y1), w) for y0, y1, w in re.findall(r'yMin="([\d.]+)" xMax="[\d.]+" yMax="([\d.]+)">([^<]*)<', box)]
+        y = lambda wort: min(y0 for y0, _, w in woerter if w == wort)
+        grenzen = [y("geschickt:") - 8, y("Fasse") - 8, y("Noch") - 8, y("Setze") - 8,   # Köpfe von Nr. 1, 3, 5, 7
+                   max(y1 for _, y1, _ in woerter) + 6]
+        roh = BILDER / "_ab3.png"
+        subprocess.run(["pdftoppm", "-r", "250", "-png", "-singlefile", str(quelle), str(roh.with_suffix(""))], check=True)
+        im = Image.open(roh)
+        f = im.width / 595
+        for name, (y0, y1) in zip(teile, zip(grenzen, grenzen[1:])):
+            im.crop((int(28 * f), int(y0 * f), int(567 * f), int(y1 * f))).save(BILDER / name)
+        if ganz:
+            im.crop((0, 0, im.width, int(min(im.height, (grenzen[-1] + 30) * f)))).save(BILDER / ganz)
+        roh.unlink()
 
 BUCH = {  # Buchaufgaben ohne Klammer-Schreibweise des Buchs, Ergebnisse nachgerechnet
     "S. 37 Nr. 10 (Lösungswort HECHT)": ["17 − 32 − 15", "−65 + 43 − 25", "−22 − 36 − 42", "135 − 85 − 75", "−115 + 145 − 65"],
@@ -81,9 +88,13 @@ BUCH = {  # Buchaufgaben ohne Klammer-Schreibweise des Buchs, Ergebnisse nachger
 EXIT = ["30 − (−20 + 36)", "54 + (−44 + 77)", "28 − (27 − 100)"]
 
 GESETZE = ('<div class="merk">Vertauschungsgesetz (Kommutativgesetz)<br><span style="font-weight:400">In einer Rechnung mit Plus und Minus '
-           'darf man die Zahlen vertauschen. Das Zeichen vor der Zahl wandert mit.<br>−17 + 36 − 3 + 4 = 36 + 4 − 17 − 3</span></div>'
+           'darf man die Zahlen vertauschen. Das Zeichen vor der Zahl wandert mit.<br>−26 + 47 − 14 + 3 = 47 + 3 − 26 − 14</span></div>'
            '<div class="merk">Verbindungsgesetz (Assoziativgesetz)<br><span style="font-weight:400">In einer Rechnung mit Plus und Minus '
-           'darf man Zahlen beliebig mit Klammern zusammenfassen.<br>36 + 4 − 17 − 3 = (36 + 4) + (−17 − 3) = 40 − 20 = 20</span></div>')
+           'darf man Zahlen beliebig mit Klammern zusammenfassen.<br>47 + 3 − 26 − 14 = (47 + 3) + (−26 − 14) = 50 − 40 = 10</span></div>')
+HEFT = lambda h: f'<div class="heft">{h}</div>'      # schwarzer Balken: kommt ins Merkheft
+UEB = lambda h: f'<div class="uheft">{h}</div>'      # blau gestrichelt: Übung, kommt ins Übungsheft
+NEU = "−26 + 47 − 14 + 3"
+NEU_FRAGE = f'<div class="ausdruck">{NEU}</div><p class="gross">Rechne möglichst geschickt. Wie gehst du vor?</p>'
 MINUSKLAMMER = ('<div class="merk">Minusklammer setzen<br><span style="font-weight:400">Zahlen, die alle abgezogen werden, kann man in einer '
                 'Minusklammer zusammenfassen. In der Klammer steht dann Plus.<br>50 − 12 − 8 = 50 − (12 + 8) = 50 − 20 = 30</span></div>')
 AUFLOESEN = ('<div class="merk">Klammer auflösen<br><span style="font-weight:400">Plus vor der Klammer: Die Zeichen in der Klammer bleiben.<br>'
@@ -92,17 +103,21 @@ AUFLOESEN = ('<div class="merk">Klammer auflösen<br><span style="font-weight:40
 
 EINKAUF1 = ('<p class="gross">Du hast 50 €. Du kaufst ein Heft für 12 € und einen Stift für 8 €.<br>Wie viel Geld bleibt dir? Rechne auf zwei Wegen.</p>')
 EINKAUF1_L = ('<div class="ausdruck">50 − 12 − 8 = <span class="lsg">30</span></div><div class="ausdruck">50 − (12 + 8) = 50 − 20 = <span class="lsg">30</span></div>'
-              + MINUSKLAMMER)
+              + HEFT(MINUSKLAMMER))
 EINKAUF2 = ('<p class="gross">Du hast 50 €. Du kaufst Getränke für 12 € und bekommst 8 € Pfand zurück.<br>'
             'Wie viel Geld hast du jetzt? Rechne auf zwei Wegen.</p>')
 EINKAUF2_L = ('<div class="ausdruck">50 − 12 + 8 = <span class="lsg">46</span></div><div class="ausdruck">50 − (12 − 8) = 50 − 4 = <span class="lsg">46</span></div>'
-              + AUFLOESEN)
+              + HEFT(AUFLOESEN))
 EXIT_A = '<ol type="a" class="ex">' + "".join(f"<li>{t} =</li>" for t in EXIT) + "</ol>"
 EXIT_L = '<ol type="a" class="ex">' + "".join(f"<li>{t} = {aufloesen(t)} = <span class=lsg>{zahl(rechne(t))}</span></li>" for t in EXIT) + "</ol>"
-UMSORT = ('<div class="ausdruck">−17 + 36 − 3 + 4</div><p>Warum durften wir am Montag die Zahlen umsortieren und zusammenfassen?</p>'
-          + GESETZE)
+UMSORT = (f'<div class="ausdruck">{NEU} = 47 + 3 − 26 − 14</div><div class="ausdruck">= 50 − 40 = <span class="lsg">10</span></div>'
+          '<p>Warum dürfen wir die Zahlen umsortieren und zusammenfassen?</p>' + HEFT(GESETZE))
 
 AB = lambda i: ha_folie(AB_TEILE[i], "5.9in")
+ABL = lambda i: WEITER + ha_folie(AB_LEER[i], "5.4in")
+AB_GANZ = (AUSTEILEN + '<div style="display:flex;gap:.35in;align-items:flex-start">'
+           '<img src="bilder/ab3-leer-ganz.png" alt="" style="height:5.2in;border:1px solid #ccc;flex:none">'
+           f'<div style="flex:1"><p style="margin:0 0 .1in;font-weight:700">Wir starten mit Nr. 1 und 2:</p>{ha_folie(AB_LEER[0], "4.6in")}</div></div>')
 TEASER, TEASER_L = FOLIEN_MO[-2], FOLIEN_MO[-1]
 HA_TAB = "".join(f"<tr><td><b>{n}</b></td><td>{l}</td></tr>" for n, l in HA)
 
@@ -137,7 +152,8 @@ STUNDEN = [
          folien=[("Hausaufgabe: Lösungen 1 bis 3", ha_folie("ha-loesung-1-3.png", "5.6in")),
                  ("Hausaufgabe: Lösungen 4 und 5", ha_folie("ha-loesung-4-5.png", "5.9in")),
                  ("Hausaufgabe: Lösung 6", ha_folie("ha-loesung-6.png", "5.9in")),
-                 ("In welche Richtung geht der Bogen?", GERADEN)] + FOLIEN_MO[1:],
+                 ("In welche Richtung geht der Bogen?", GERADEN)]
+                + [(t, UEB(h)) if i in (0, 2, 4) else (t, h) for i, (t, h) in enumerate(FOLIEN_MO[1:])],   # Blitzrunde, Üben, Teaser: Übungsheft
          tafel=box("Die zwei typischen Fehler beim Minus",
                    '<p>Die leeren Zahlengeraden stehen auf Folie 4, du zeichnest die Bögen live ein. Bleibt an der Tafel, kommt nicht ins Merkheft.</p>'
                    f'<div class="tafel"><div class="ausdruck">14 − 30 = <span class="lsg">−16</span> <span style="font-size:16px;font-weight:400">(nicht 16: der Bogen läuft über die Null)</span></div>'
@@ -152,15 +168,17 @@ STUNDEN = [
          vorbereiten=[("Drucken", f"Arbeitsblatt „Klammern und Rechenvorteile“ in Klassenstärke ({AB_NAME}.pdf, eine Seite)."),
                       ("Digital", "Folien-PDF dieser Stunde in Notability."), ("Sonst", "Buch mitbringen lassen.")],
          schritte=[("", "Minus sicher: Lösungswort", 12, "Buch S. 37 Nr. 10 ins Übungsheft, Lösungswort HECHT.", []),
-                   ("", "Warum durften wir umsortieren?", 15, "Die Aufgabe von Montag aufgreifen. Daraus die zwei Gesetze mit Namen ins Merkheft.", [1, 2]),
-                   ("", "Gesetze anwenden und benennen", 25, "Arbeitsblatt austeilen, Nr. 1 und 2. Schnelle: Buch S. 26 Nr. 7 rechts; S. 42 Nr. 6.", []),
+                   ("", "Warum durften wir umsortieren?", 15, "Neue Aufgabe im Stil von Montag, erst selbst geschickt rechnen lassen. Daraus die zwei Gesetze mit Namen ins Merkheft.", [1, 2]),
+                   ("", "Gesetze anwenden und benennen", 25, "Arbeitsblatt austeilen, Nr. 1 und 2. Schnelle: Buch S. 26 Nr. 7 rechts; S. 42 Nr. 6.", [3]),
                    ("", "Minusklammer setzen", 25, "Einkaufen 1, Regel ins Merkheft, dann Arbeitsblatt Nr. 3. "
-                    "Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [3, 4]),
+                    "Schnelle: Buch S. 26 Nr. 8 links; S. 25 Nr. 6 rechts.", [4, 5]),
                    ("", "Ausstieg", 5, "Hausaufgabe: Arbeitsblatt Nr. 1 bis 3 fertig.", [])],
-         folien=[TEASER, ("Warum durften wir umsortieren?", UMSORT), ("Einkaufen 1", EINKAUF1), ("Einkaufen 1: Lösung", EINKAUF1_L)],
-         tafel=box("Umsortieren", '<div class="tafel"><div class="ausdruck">−17 + 36 − 3 + 4</div><div class="ausdruck">= 36 + 4 − 17 − 3</div>'
-                   '<div class="ausdruck">= (36 + 4) + (−17 − 3)</div><div class="ausdruck">= 40 − 20 = <span class="lsg">20</span></div></div>' + GESETZE)
-               + box("Einkaufen 1: Heft 12 €, Stift 8 €", '<div class="tafel"><div class="ausdruck">50 − 12 − 8 = 50 − (12 + 8) = <span class="lsg">30</span></div></div>'),
+         folien=[("Geht das schneller?", UEB(NEU_FRAGE)), ("Warum dürfen wir umsortieren?", UMSORT), ("Arbeitsblatt: Klammern und Rechenvorteile", AB_GANZ),
+                 ("Einkaufen 1", EINKAUF1), ("Einkaufen 1: Lösung", EINKAUF1_L)],
+         tafel=box("Umsortieren", f'<div class="tafel"><div class="ausdruck">{NEU}</div><div class="ausdruck">= 47 + 3 − 26 − 14</div>'
+                   '<div class="ausdruck">= (47 + 3) + (−26 − 14)</div><div class="ausdruck">= 50 − 40 = <span class="lsg">10</span></div></div>' + HEFT(GESETZE))
+               + box("Einkaufen 1: Heft 12 €, Stift 8 €", '<div class="tafel"><div class="ausdruck">50 − 12 − 8 = 50 − (12 + 8) = <span class="lsg">30</span></div></div>'
+                     + HEFT(MINUSKLAMMER)),
          merkheft=box("Rechengesetze", f'<div class="heft">{GESETZE}</div><p style="color:#66798e">Bildungsplan Kl. 7/8/9, Teilkompetenz 9: '
                       "die Gesetze angeben und an Beispielen erläutern. Deshalb die Namen im Merkheft und auf dem Arbeitsblatt (Nr. 2).</p>")
                   + box("Minusklammer setzen", f'<div class="heft">{MINUSKLAMMER}</div>'),
@@ -170,23 +188,25 @@ STUNDEN = [
          vorbereiten=[("Drucken", "Nichts."), ("Digital", f"Folien-PDF dieser Stunde in Notability. Ganzes Lösungsblatt: {AB_NAME} – Lösungen.pdf.")],
          schritte=[("", "HA kontrollieren", 8, "Lösungen im ausgefüllten Blatt zeigen, selbst kontrollieren.", [1, 2]),
                    ("", "Minusklammer auflösen", 12, "Einkaufen 2 mit Pfand. Warum wird aus − 8 in der Klammer + 8? Regel ins Merkheft.", [3, 4]),
-                   ("", "Üben", 22, "Arbeitsblatt Nr. 4 und 5.", []),
-                   ("", "Kontrolle", 3, "Lösungen zu Nr. 4 und 5 zeigen.", [2, 5])],
+                   ("", "Üben", 22, "Arbeitsblatt Nr. 4 und 5.", [5]),
+                   ("", "Kontrolle", 3, "Lösungen zu Nr. 4 und 5 zeigen.", [2, 6])],
          folien=[("Arbeitsblatt: Lösungen 1 und 2", AB(0)), ("Arbeitsblatt: Lösungen 3 und 4", AB(1)),
-                 ("Einkaufen 2: mit Pfand", EINKAUF2), ("Einkaufen 2: Lösung", EINKAUF2_L), ("Arbeitsblatt: Lösungen 5 und 6", AB(2))],
+                 ("Einkaufen 2: mit Pfand", EINKAUF2), ("Einkaufen 2: Lösung", EINKAUF2_L),
+                 ("Arbeitsblatt: Nr. 4 und 5", ABL(1)), ("Arbeitsblatt: Lösungen 5 und 6", AB(2))],
          tafel=box("Einkaufen 2: Getränke 12 €, 8 € Pfand zurück",
                    '<div class="tafel"><div class="ausdruck">50 − 12 + 8 = 50 − (12 − 8) = <span class="lsg">46</span></div>'
                    '<p>Frage an die Klasse: Warum steht in der Klammer − 8, draußen aber + 8? Antwort: Die 8 € werden nicht abgezogen, sondern kommen zurück. '
-                   'Minus vor der Klammer dreht das Zeichen um.</p></div>'),
+                   'Minus vor der Klammer dreht das Zeichen um.</p></div>' + HEFT(AUFLOESEN)),
          merkheft=box("Klammer auflösen", f'<div class="heft">{AUFLOESEN}</div>'),
          loesungen=box("Arbeitsblatt Nr. 1 bis 6", ab_bild(0, 1, 2))),
     dict(nr=4, titel="Minusklammer üben, Exit-Ticket", wann="Do 01.10.2026, Einzelstunde",
          vorbereiten=[("Drucken", "Nichts. Exit-Ticket ins Übungsheft oder auf einen kleinen Zettel."), ("Digital", "Folien-PDF dieser Stunde in Notability.")],
-         schritte=[("", "Typische Fehler", 10, "Arbeitsblatt Nr. 6 gemeinsam: Wer dreht nur das erste Zeichen um?", [1]),
-                   ("", "Üben nach Wahl", 25, "Arbeitsblatt Nr. 7 und 8. Für ●: Buch S. 26 Nr. 8 rechts; S. 26 Nr. 10 links.", [2]),
-                   ("", "Exit-Ticket", 10, "Drei Aufgaben zur Minusklammer ohne Hilfe. Zeigt, wer noch Hilfe braucht.", [3, 4])],
-         folien=[("Arbeitsblatt: Lösungen 5 und 6", AB(2)), ("Arbeitsblatt: Lösungen 7 und 8", AB(3)),
-                 ("Exit-Ticket", EXIT_A), ("Exit-Ticket: Lösung", EXIT_L)],
+         schritte=[("", "Typische Fehler", 10, "Arbeitsblatt Nr. 6 gemeinsam: Wer dreht nur das erste Zeichen um?", [1, 2]),
+                   ("", "Üben nach Wahl", 25, "Arbeitsblatt Nr. 7 und 8. Für ●: Buch S. 26 Nr. 8 rechts; S. 26 Nr. 10 links.", [3, 4]),
+                   ("", "Exit-Ticket", 10, "Drei Aufgaben zur Minusklammer ohne Hilfe. Zeigt, wer noch Hilfe braucht.", [5, 6])],
+         folien=[("Arbeitsblatt: Nr. 5 und 6", ABL(2)), ("Arbeitsblatt: Lösungen 5 und 6", AB(2)),
+                 ("Arbeitsblatt: Nr. 7 und 8", ABL(3)), ("Arbeitsblatt: Lösungen 7 und 8", AB(3)),
+                 ("Exit-Ticket", UEB(EXIT_A)), ("Exit-Ticket: Lösung", EXIT_L)],
          tafel=box("Der häufigste Fehler", '<div class="tafel"><div class="ausdruck">30 − (10 − 4) = 30 − 10 − 4 <span class="lsg">✗</span></div>'
                    '<div class="ausdruck">30 − (10 − 4) = 30 − 10 + 4 = <span class="lsg">24</span></div>'
                    '<p>Nur das erste Zeichen umgedreht, das zweite vergessen. <b>Alle</b> Zeichen in der Klammer drehen sich um.</p></div>'),
@@ -205,7 +225,9 @@ def pdf(st):
 
 FOLIEN_CSS = (".merk{background:#eef3fb;border:2px solid #1a56a0;border-radius:8px;padding:10px 16px;margin:12px 0;font-weight:700;font-size:25px;line-height:1.35}"
               ".merk span{font-weight:400}.gross{font-size:34px;line-height:1.4}"
-              ".ex{font-size:36px;line-height:1.6;padding-left:44px}.ex li{margin:.12in 0}")
+              ".ex{font-size:36px;line-height:1.6;padding-left:44px}.ex li{margin:.12in 0}"
+              ".heft{border-left:10px solid #1b1b1b;padding-left:18px;margin:10px 0}.uheft{border-left:10px dashed #1a56a0;padding-left:18px;margin:10px 0}"
+              ".austeil{display:inline-block;background:#E6007E;color:#fff;font-weight:700;font-size:24px;border-radius:20px;padding:4px 18px;margin:0 0 10px}")
 
 
 def main():

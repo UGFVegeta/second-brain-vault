@@ -25,10 +25,16 @@ EXTRA = """<style>
 [hidden]{display:none!important}.ausdruck{font-size:26px;font-weight:700;margin:8px 0}
 .heft{border-left:5px solid #1b1b1b;padding:4px 0 4px 14px;margin:12px 0}.uheft{border-left:5px dashed #1a56a0;padding:4px 0 4px 14px;margin:12px 0}
 .merk{background:#eef3fb;border:1.5px solid #1a56a0;border-radius:6px;padding:8px 13px;margin:9px 0;font-weight:600}
+.legende-mu{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;color:#444;margin:14px 0 4px}.legende-mu .heft,.legende-mu .uheft{margin:0;padding:0 0 0 10px}
+.austeil{display:inline-block;background:#E6007E;color:#fff;font-weight:700;font-size:14px;border-radius:14px;padding:3px 12px;margin:0 0 8px}
 .tafel{background:#fbfbf8;border:1px solid #d9dfe7;border-radius:8px;padding:12px 16px;margin:10px 0 18px}
 figure{margin:8px 0}figure svg{display:block;max-width:100%;height:auto}
 table.ha{border-collapse:collapse;width:100%}.ha td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}
 </style>"""
+
+
+LEGENDE = ('<div class="legende-mu"><span class="heft">schwarzer Balken: kommt ins Merkheft</span>'
+           '<span class="uheft">blau gestrichelt: Übung, kommt ins Übungsheft</span><span>ohne Balken: bleibt an Tafel oder Folie</span></div>')
 
 
 def aus_skript(datei, *namen):
@@ -47,7 +53,7 @@ def aus_skript(datei, *namen):
     return [ns[n] for n in namen]
 
 
-def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css="", verlauf="Die Stunde"):
+def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css="", verlauf="Die Stunde", legende=True):
     """vorbereiten: [(Wann, Was)] oder HTML; schritte: [(Tag-Marke oder "", Titel, Minuten, Text, [Foliennummern])];
     folien: [(Titel, HTML)] oder nach Tagen [(Tag, [(Titel, HTML)])]. Bei Tagen zählt jeder Tag ab Folie 1, und die
     Foliennummern eines Schritts beziehen sich auf den Tag, zu dem der Schritt gehört (Reihenfolge der Tag-Marken).
@@ -89,8 +95,8 @@ def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loe
 {vb_box}
 <div class="box"><h3>{verlauf}</h3><div class="zeitleiste">{zeit}</div>{zeilen}</div>
 </div>
-<div class="tab" id="t_folien">{karten}</div>
-<div class="tab" id="t_tafel">{tafel}</div>
+<div class="tab" id="t_folien">{LEGENDE if legende else ""}{karten}</div>
+<div class="tab" id="t_tafel">{LEGENDE if legende else ""}{tafel}</div>
 <div class="tab" id="t_merk">{merkheft}</div>
 <div class="tab" id="t_lsg">{loesungen}</div>
 </div>
