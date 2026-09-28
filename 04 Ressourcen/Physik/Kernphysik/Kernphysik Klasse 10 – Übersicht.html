@@ -36,7 +36,7 @@ let akt=null;
 function zeige(w){
   const s=D.find(x=>x.w===w); if(!s) return; akt=s;
   knoepfe.forEach(k=>k.classList.toggle('on',k.dataset.w===w));
-  document.getElementById('titel').textContent=s.marke+' · '+s.titel;
+  document.getElementById('titel').textContent=s.marke+' – '+s.titel;
   document.getElementById('sub').textContent=s.sub;
   const r=document.getElementById('rahmen'), leer=document.getElementById('leer'), neu=document.getElementById('neu');
   if(s.datei){ r.hidden=false; leer.hidden=true; r.src=encodeURI(s.datei); neu.href=encodeURI(s.datei); neu.style.visibility='visible'; }

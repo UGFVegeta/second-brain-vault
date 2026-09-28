@@ -47,7 +47,7 @@ def aus_skript(datei, *namen):
     return [ns[n] for n in namen]
 
 
-def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css=""):
+def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css="", verlauf="Die Stunde"):
     """vorbereiten: [(Wann, Was)] oder HTML; schritte: [(Tag-Marke oder "", Titel, Minuten, Text, [Foliennummern])];
     folien: [(Titel, HTML)] oder nach Tagen [(Tag, [(Titel, HTML)])]. Bei Tagen zählt jeder Tag ab Folie 1, und die
     Foliennummern eines Schritts beziehen sich auf den Tag, zu dem der Schritt gehört (Reihenfolge der Tag-Marken).
@@ -87,7 +87,7 @@ def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loe
 <div class="wrap">
 <div class="tab" id="t_ueb">
 {vb_box}
-<div class="box"><h3>Die Woche</h3><div class="zeitleiste">{zeit}</div>{zeilen}</div>
+<div class="box"><h3>{verlauf}</h3><div class="zeitleiste">{zeit}</div>{zeilen}</div>
 </div>
 <div class="tab" id="t_folien">{karten}</div>
 <div class="tab" id="t_tafel">{tafel}</div>

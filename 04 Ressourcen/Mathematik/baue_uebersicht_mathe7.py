@@ -16,10 +16,14 @@ EIGENER_NAME = "Klein"
 PLAN = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/Schuljahr 26 27/Mathematik/Mathematik 7c/01 Organisatorisches/Stoffverteilungsplan 26-27 Mathe 7.xlsx"
 
 # fertige Wochen (Wochenformat, mathe_woche_vorlage.py): Woche -> [(id, Marke, Titel, Datei relativ zu diesem Ordner)]
-STUNDEN = {
-    1: [("W1", "Wo 1", "Grundlagen-Check und Brüche sind Zahlen", "Brüche/Mathe 7c – Woche 1.html")],
-    2: [("W2", "Wo 2", "Zahlen unter Null, Addieren", "Rationale Zahlen/Mathe 7c – Woche 2.html")],
-    3: [("W3", "Wo 3", "Plus und Minus üben, Rechengesetze", "Rationale Zahlen/Mathe 7c – Woche 3.html")],
+W3 = "Rationale Zahlen/Mathe 7c – Woche 3 – "
+STUNDEN = {  # Woche -> [(id, Marke, Titel, Datei, Tag)]; fertige Wochen bekommen links eine eigene Überschrift, darunter die Stunden
+    1: [("W1", "Wo 1", "Grundlagen-Check und Brüche sind Zahlen", "Brüche/Mathe 7c – Woche 1.html", "ganze Woche")],
+    2: [("W2", "Wo 2", "Zahlen unter Null, Addieren", "Rationale Zahlen/Mathe 7c – Woche 2.html", "ganze Woche")],
+    3: [("W3S1", "1", "Minus üben", W3 + "1 Minus üben.html", "Mo 28.09., IF-Stunde"),
+        ("W3S2", "2", "Rechengesetze, Minusklammer setzen", W3 + "2 Rechengesetze, Minusklammer setzen.html", "Di 29.09., Doppelstunde"),
+        ("W3S3", "3", "Minusklammer auflösen", W3 + "3 Minusklammer auflösen.html", "Mi 30.09."),
+        ("W3S4", "4", "Minusklammer üben, Exit-Ticket", W3 + "4 Minusklammer üben, Exit-Ticket.html", "Do 01.10.")],
 }
 
 # Themenblöcke: erste Woche -> Name (die Blöcke im Plan beginnen mit dem Thema vor mehreren Leerzeichen)
@@ -72,7 +76,8 @@ def schulplan(wochen, ziel):
         ka = ""
         if w["ka"]:
             ka = f'KA {w["ka"]}' + (f' · {"du" if w["wer"] == "du" else w["wer"]}' if w["wer"] else "") + (" (alternativ)" if w["alternativ"] else "")
-        bei_mir = " ".join(f'<a href="{html.escape(d)}" target="_top">{html.escape(m)}</a>' for _, m, _, d in STUNDEN.get(w["wo"], [])) or "–"
+        bei_mir = " ".join(f'<a href="{html.escape(d)}" target="_top" title="{html.escape(t)}">{html.escape(m if m.startswith("Wo") else "St. " + m)}</a>'
+                          for _, m, t, d, *_ in STUNDEN.get(w["wo"], [])) or "–"
         zeilen += (f'<tr{" class=\"jetzt\"" if jetzt else ""}><td class="wo">{w["wo"]}</td><td class="dat">{w["ab"][:6]} – {w["bis"][:6]}</td>'
                    f'<td>{html.escape(w["thema"])}</td><td class="ka">{html.escape(ka)}</td><td class="mir">{bei_mir}</td></tr>')
     seite = f"""<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -96,23 +101,31 @@ def main():
                                   "datum": "zum Vergleich mit deinem Stand", "datei": "Mathematik Klasse 7 – Stoffverteilungsplan Schule.html", "art": ""}])], None
     wochen = plan()
     schulplan(wochen, HIER / "Mathematik Klasse 7 – Stoffverteilungsplan Schule.html")
+    block = None
     for w in wochen:
         if "ferien" in w:
             continue
         if w["wo"] in BLOECKE:
-            akt = (BLOECKE[w["wo"]], [])
-            gruppen.append(akt)
-        marke = f"Wo {w['wo']}"
-        sub = f"Klasse 7c · Mathematik · Woche {w['wo']} (ab {w['ab']}) · laut Plan: {w['thema']}"
+            block = BLOECKE[w["wo"]]
+            akt = None
+        sub = f"Klasse 7c, Mathematik, Woche {w['wo']} (ab {w['ab']}), laut Plan: {w['thema']}"
         fertig = STUNDEN.get(w["wo"], [])
-        for sid, m, titel, datei in fertig:
-            akt[1].append({"id": sid, "marke": m, "titel": titel, "sub": sub, "datum": f"Woche {w['wo']} · ab {w['ab']}", "datei": datei, "art": ""})
-        if not fertig:
-            akt[1].append({"id": f"W{w['wo']}", "marke": marke, "titel": w["thema"], "sub": sub, "datum": f"ab {w['ab']}", "datei": "", "art": "offen"})
+        if fertig:
+            akt = (f"Woche {w['wo']}: {block}", [])
+            gruppen.append(akt)
+            for sid, m, titel, datei, tag in fertig:
+                akt[1].append({"id": sid, "marke": m, "titel": titel, "sub": sub, "datum": tag, "datei": datei, "art": ""})
+            akt = None          # danach geht es unter dem Thema weiter
+        else:
+            if akt is None:
+                akt = (block, [])
+                gruppen.append(akt)
+            akt[1].append({"id": f"W{w['wo']}", "marke": f"Wo {w['wo']}", "titel": w["thema"], "sub": sub, "datum": f"ab {w['ab']}", "datei": "", "art": "offen"})
         if w["ka"] and not w["alternativ"]:
             wer = " · erstellt von dir, an die Parallelklassen geben" if w["wer"] == "du" else (f" · erstellt von {w['wer']}, für die 7c anpassen" if w["wer"] else "")
-            akt[1].append({"id": f"KA{w['ka']}", "marke": "KA", "titel": f"Klassenarbeit {w['ka']}{wer}", "sub": sub,
-                           "datum": f"Woche {w['wo']} · ab {w['ab']}", "datei": "", "art": "ka"})
+            ziel = gruppen[-1]
+            ziel[1].append({"id": f"KA{w['ka']}", "marke": "KA", "titel": f"Klassenarbeit {w['ka']}{wer}".replace(" · ", ", "), "sub": sub,
+                            "datum": f"Woche {w['wo']}, ab {w['ab']}", "datei": "", "art": "ka"})
     links = [("Grundlagen-Check: Verlauf übers Jahr", "Arbeitsblätter/Grundlagen-Check/7c 2026-27/Verlauf.html"),
              ("Unterrichtsvorbereitung (alle Fächer)", "../Unterrichtsvorbereitung.html")]
     baue_uebersicht(HIER / "Mathematik Klasse 7 – Übersicht.html", "Mathematik Klasse 7c", "Alle Wochen nach Stoffverteilungsplan · 2026/27",

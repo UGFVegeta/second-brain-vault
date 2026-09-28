@@ -105,7 +105,7 @@ def woche1():
     schritte = [("Montag und Dienstag", "Grundlagen-Check Teil 1 und 2", 0, "Blöcke A+B und C+D, ohne Namen, nur Nummern. Auswertung als Präsentation.", [])] + schritte_br(s)
     ziel = HIER / "Brüche" / "Mathe 7c – Woche 1.html"
     bau_woche(ziel, "Woche 1: Grundlagen-Check und Brüche sind Zahlen", "Klasse 7c · Mathematik · 14.09. bis 18.09.2026 · Wiederholung Bruchrechnung",
-              vorb, schritte, [], sektion(s, "tafelbild"), sektion(s, "merkheft"), sektion(s, "loesungen"), extra_css=css(s))
+              vorb, schritte, [], sektion(s, "tafelbild"), sektion(s, "merkheft"), sektion(s, "loesungen"), extra_css=css(s), verlauf="Die Woche")
 
 
 def woche2():
@@ -118,7 +118,7 @@ def woche2():
     ziel = HIER / "Rationale Zahlen" / "Mathe 7c – Woche 2.html"
     bau_woche(ziel, "Woche 2: Zahlen unter Null, Addieren", "Klasse 7c · Mathematik · 21.09. bis 25.09.2026 · Rationale Zahlen",
               vorb, schritte, f1 + f2, zwei(sektion(s1, "tafel"), sektion(s2, "tafel")), zwei(sektion(s1, "merkheft"), sektion(s2, "merkheft")),
-              zwei(sektion(s1, "loesungen"), sektion(s2, "loesungen")), extra_css=css(s1) + css(s2))
+              zwei(sektion(s1, "loesungen"), sektion(s2, "loesungen")), extra_css=css(s1) + css(s2), verlauf="Die Woche")
 
 
 if __name__ == "__main__":
