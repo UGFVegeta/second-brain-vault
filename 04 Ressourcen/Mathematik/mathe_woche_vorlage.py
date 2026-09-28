@@ -43,29 +43,34 @@ def aus_skript(datei, *namen):
     return [ns[n] for n in namen]
 
 
-def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen):
+def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css=""):
     """vorbereiten: [(Wann, Was)]; schritte: [(Tag-Marke oder "", Titel, Minuten, Text, [Foliennummern])];
     folien: [(Titel, HTML)]; tafel, merkheft, loesungen: HTML."""
-    vb = "".join(f"<tr><td><b>{w}</b></td><td>{x}</td></tr>" for w, x in vorbereiten)
-    zeit = "".join(f'<div class="z{i % 6}" style="flex:{max(m, 5)}">{i + 1} · {t}{f" · {m}′" if m else ""}</div>'
+    if isinstance(vorbereiten, str):
+        vb_box = vorbereiten
+    else:
+        vb_box = '<div class="box"><h3>Vorbereiten</h3><table class="ha">' + "".join(f"<tr><td><b>{w}</b></td><td>{x}</td></tr>" for w, x in vorbereiten) + "</table></div>"
+    viele = len(schritte) > 8
+    zeit = "".join(f'<div class="z{i % 6}" style="flex:{max(m, 5)}" title="{t}">{i + 1}{"" if viele else f" {t}"}{f" ({m}′)" if m else ""}</div>'
                    for i, (_, t, m, _, _) in enumerate(schritte))
     zeilen = ""
     for i, (tag, t, m, d, ks) in enumerate(schritte, 1):
         if tag:
-            zeilen += f'<div class="tag">{tag}</div>'
+            zeilen += f'<div class="tag">{tag.replace(" · ", ", ")}</div>'
         knopf = "".join(f"<button data-go=f{k}>Folie {k}</button>" for k in ks)
-        zeilen += (f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b>{f" · {m} min" if m else ""}<br><span class="m">{d}</span></div>'
+        zeilen += (f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b>{f" ({m} min)" if m else ""}<br><span class="m">{d}</span></div>'
                    f'<div class="go">{knopf}</div></div>')
-    karten = "".join(f'<div class="fnr">Folie {i}</div><div class="fkarte" id="f{i}"><h3>{t}</h3>{h}</div>' for i, (t, h) in enumerate(folien, 1))
+    karten = "".join(f'<div class="fnr">Folie {i}</div><div class="fkarte" id="f{i}"><h3>{t}</h3>{h}</div>' for i, (t, h) in enumerate(folien, 1)) \
+        or '<div class="box"><p>In dieser Woche gibt es keine Beamer-Folien, alles läuft über Tafel und Blatt.</p></div>'
     html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{h1}</title>{OPTIK_CSS}{EXTRA}</head><body>
-<div class="wrap"><header class="kopf"><h1>{h1}</h1><p class="sub">{sub}</p></header></div>
+<title>{h1}</title>{OPTIK_CSS}{extra_css}{EXTRA}</head><body>
+<div class="wrap"><header class="kopf"><h1>{h1}</h1><p class="sub">{sub.replace(" · ", ", ")}</p></header></div>
 <nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="tafel">Tafelbild</button>
 <button data-t="merk">Merkheft</button><button data-t="lsg">Lösungen</button></div></nav>
 <div class="wrap">
 <div class="tab" id="t_ueb">
-<div class="box"><h3>Vorbereiten</h3><table class="ha">{vb}</table></div>
+{vb_box}
 <div class="box"><h3>Die Woche</h3><div class="zeitleiste">{zeit}</div>{zeilen}</div>
 </div>
 <div class="tab" id="t_folien">{karten}</div>

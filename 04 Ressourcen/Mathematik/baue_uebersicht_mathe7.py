@@ -15,12 +15,10 @@ from uebersicht_vorlage import baue_uebersicht  # noqa: E402
 EIGENER_NAME = "Klein"
 PLAN = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/Schuljahr 26 27/Mathematik/Mathematik 7c/01 Organisatorisches/Stoffverteilungsplan 26-27 Mathe 7.xlsx"
 
-# fertige Stunden: Woche -> [(id, Marke, Titel, Datei relativ zu diesem Ordner)]
+# fertige Wochen (Wochenformat, mathe_woche_vorlage.py): Woche -> [(id, Marke, Titel, Datei relativ zu diesem Ordner)]
 STUNDEN = {
-    1: [("GC", "GC", "Grundlagen-Check (Ergebnisse der Klasse)", "Arbeitsblätter/Grundlagen-Check/7c 2026-27/Praesentation.html"),
-        ("BZ", "BZ", "Brüche sind Zahlen", "Brüche/Brüche sind Zahlen – ALLES.html")],
-    2: [("RZ1", "RZ1", "Rationale Zahlen 1: Zahlen unter Null", "Rationale Zahlen/Rationale Zahlen 1 – Zahlen unter Null – ALLES.html"),
-        ("RZ2", "RZ2", "Rationale Zahlen 2: Addieren und Subtrahieren", "Rationale Zahlen/Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html")],
+    1: [("W1", "Wo 1", "Grundlagen-Check und Brüche sind Zahlen", "Brüche/Mathe 7c – Woche 1.html")],
+    2: [("W2", "Wo 2", "Zahlen unter Null, Addieren", "Rationale Zahlen/Mathe 7c – Woche 2.html")],
     3: [("W3", "Wo 3", "Plus und Minus üben, Rechengesetze", "Rationale Zahlen/Mathe 7c – Woche 3.html")],
 }
 

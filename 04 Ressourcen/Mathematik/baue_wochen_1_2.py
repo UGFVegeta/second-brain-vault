@@ -20,13 +20,18 @@ def text(h):
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", h)).strip()
 
 
+def semikolon(h):
+    """„ · “ als Trenner zwischen Aufgaben wird zu „; “. Ein Malpunkt zwischen zwei Zahlen (3 · 4) bleibt."""
+    return re.sub(r"(?<![\d)])\s·\s|\s·\s(?![\d(−-])", "; ", h)
+
+
 def sektion(s, sid):
     m = re.search(rf'<section id="{sid}"[^>]*>(.*?)</section>', s, re.S)
     if not m:
         return ""
     inner = re.sub(r"<h2[^>]*>.*?</h2>", "", m.group(1), count=1, flags=re.S)
     inner = re.sub(r'<div class="dok-kopf">.*?</div>', "", inner, count=1, flags=re.S)
-    return re.sub(r'^\s*<p class="lead">.*?</p>', "", inner, count=1, flags=re.S)
+    return semikolon(re.sub(r'^\s*<p class="lead">.*?</p>', "", inner, count=1, flags=re.S))
 
 
 def css(s):
@@ -59,12 +64,12 @@ def schritte_rz(s, sid, tag, offset):
     out = []
     for i, t in enumerate(teile):
         kopf = re.match(r'<td colspan="4">(.*?)<span>Minute (\d+)–(\d+)</span>', t)
-        titel = re.sub(r"^\d+ · ", "", text(kopf.group(1)))
+        titel = re.sub(r"^\d+[;·] ", "", text(kopf.group(1)))
         minuten = int(kopf.group(3)) - int(kopf.group(2))
         zellen = re.findall(r"<tr><td class=\"mn\">.*?</td><td>(.*?)</td><td>(.*?)</td>", t, re.S)
         was = text(zellen[0][0]) if zellen else ""
         was = re.split(r"(?<=[.!?])\s", was)[0][:160]
-        mat = " · ".join(dict.fromkeys(text(m) for _, m in zellen if text(m) not in ("", "–", "&ndash;")))
+        mat = "; ".join(dict.fromkeys(text(m) for _, m in zellen if text(m) not in ("", "–", "&ndash;")))
         ks = sorted({int(k) + offset for k in re.findall(r"Folie (\d+)", t)})
         d = was + (f' <span style="color:#66798e">({mat})</span>' if mat else "")
         out.append((tag if i == 0 else "", titel, minuten, d, ks))
@@ -93,7 +98,7 @@ def woche1():
     s = BR.read_text(encoding="utf-8")
     gc = "../Arbeitsblätter/Grundlagen-Check/7c 2026-27/"
     vorb = (box("Grundlagen-Check (Mo, Di)", f'<p>Schnipsel zum Austeilen (iCloud, Mathematik 7c, 02 Grundlagen-Check). Auswertung: '
-                f'<a href="{gc}Praesentation.html" target="_blank">Präsentation der Ergebnisse</a> · <a href="{gc}Verlauf.html" target="_blank">Verlauf übers Jahr</a></p>')
+                f'<a href="{gc}Praesentation.html" target="_blank">Präsentation der Ergebnisse</a>, <a href="{gc}Verlauf.html" target="_blank">Verlauf übers Jahr</a></p>')
             + box("Brüche sind Zahlen (Mi, Do)", '<p>Arbeitsblatt „Brüche sind Zahlen“ in Klassenstärke drucken (Brüche sind Zahlen – Arbeitsblatt.pdf). '
                   'Streifen gleicher Länge für den Einstieg.</p>'))
     schritte = [("Montag und Dienstag", "Grundlagen-Check Teil 1 und 2", 0, "Blöcke A+B und C+D, ohne Namen, nur Nummern. Auswertung als Präsentation.", [])] + schritte_br(s)
@@ -105,9 +110,9 @@ def woche1():
 def woche2():
     s1, s2 = RZ1.read_text(encoding="utf-8"), RZ2.read_text(encoding="utf-8")
     f1, f2 = folien(s1), folien(s2)
-    vorb = box("Dienstag · Rationale Zahlen 1 (Doppelstunde)", sektion(s1, "vorher")) + box("Mittwoch und Donnerstag · Rationale Zahlen 2", sektion(s2, "vorher"))
-    schritte = (schritte_rz(s1, "verlauf", "Dienstag · Zahlen unter Null", 0)
-                + schritte_rz(s2, "mittwoch", "Mittwoch · Addieren", len(f1)) + schritte_rz(s2, "donnerstag", "Donnerstag · Plus und Minus", len(f1)))
+    vorb = box("Dienstag: Rationale Zahlen 1 (Doppelstunde)", sektion(s1, "vorher")) + box("Mittwoch und Donnerstag: Rationale Zahlen 2", sektion(s2, "vorher"))
+    schritte = (schritte_rz(s1, "verlauf", "Dienstag, Zahlen unter Null", 0)
+                + schritte_rz(s2, "mittwoch", "Mittwoch, Addieren", len(f1)) + schritte_rz(s2, "donnerstag", "Donnerstag, Plus und Minus", len(f1)))
     zwei = lambda t1, t2: box("Dienstag", t1) + box("Mittwoch und Donnerstag", t2)
     ziel = HIER / "Rationale Zahlen" / "Mathe 7c – Woche 2.html"
     bau_woche(ziel, "Woche 2: Zahlen unter Null, Addieren", "Klasse 7c · Mathematik · 21.09. bis 25.09.2026 · Rationale Zahlen",
