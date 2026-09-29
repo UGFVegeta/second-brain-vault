@@ -7,7 +7,7 @@ import re, subprocess, sys
 from fractions import Fraction
 from pathlib import Path
 
-HIER = Path(__file__).parent
+HIER = Path(__file__).resolve().parent
 sys.path.insert(0, str(HIER.parent))
 from mathe_woche_vorlage import aus_skript  # noqa: E402
 
@@ -179,10 +179,13 @@ body{font-size:12.5pt}h1{font-size:20pt}.sub{font-size:11pt}.name{font-size:12pt
 .txt{font-size:12.5pt}.nr{font-size:16pt;min-width:18px}.bsp{font-size:11.5pt;padding-left:28px}
 .auf{margin:12px 0 0}.kopf{gap:8px;margin-bottom:3px}
 .cols{padding-left:28px;gap:0 22px}
-.it{display:flex;align-items:flex-end;gap:6px;min-height:12.5mm;padding:0 0 1mm}
-.c1 .it{min-height:11mm}
+.it{display:flex;align-items:flex-end;gap:6px;min-height:14.5mm;padding:0 0 1mm}
+.c1 .it{min-height:12.5mm}
 .blank,.blank.long,.blank.long2,.c2 .blank{flex:1;width:auto;min-width:18mm;display:block;height:1.2em;align-self:flex-end}
 .umbruch{break-before:page;height:0}
+h1{font-size:18pt;white-space:nowrap}.name{font-size:11pt}
+.umbruch ~ .auf{margin-top:9px}.umbruch ~ .auf .it{min-height:12mm}.umbruch ~ .auf .c1 .it{min-height:11mm}
+.umbruch ~ .auf .zl{height:8.5mm}.umbruch ~ .auf .sach{margin-bottom:3mm}
 .sach{padding:3px 0 0 28px}.zl{height:9.5mm;margin-bottom:0}
 .sach .ls{padding:0}.sach{margin-bottom:5mm}
 """
