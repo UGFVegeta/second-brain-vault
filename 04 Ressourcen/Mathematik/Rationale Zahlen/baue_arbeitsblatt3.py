@@ -105,17 +105,18 @@ def aufgabe(nr, stufe, text, inhalt, bsp=""):
 
 
 def blatt(loesung):
+    g = not loesung  # Schülerfassung: groß, mit Platz für den Rechenweg, auf zwei Seiten (Vorder-/Rückseite)
     a = [aufgabe(1, 0, "Rechne geschickt: Vertausche die Zahlen samt Zeichen und fasse passend zusammen.",
-                 reihe(A1, 4, loesung, lambda t: (t, zahl(rechne(t))))),
+                 reihe(A1, 2 if g else 4, loesung, lambda t: (t, zahl(rechne(t))))),
          aufgabe(2, 0, "Welches Rechengesetz wurde benutzt? Schreibe den Namen dazu.",
                  '<div class="cols c1">' + "".join(
                      f'<div class="it"><span class="b">{buchstabe(i)})</span> {t} <span class="pf">&rarr;</span> '
                      + (f'<b class="l">{g}</b>' if loesung else '<span class="blank long"></span>') + "</div>"
                      for i, (t, g) in enumerate(A2)) + "</div>"),
          aufgabe(3, 0, "Fasse alle Zahlen, die abgezogen werden, in einer Minusklammer zusammen. Rechne dann.",
-                 reihe(A3, 2, loesung, lambda x: (x[0], f"{x[1]} = {zahl(rechne(x[0]))}")),
+                 reihe(A3, 1 if g else 2, loesung, lambda x: (x[0], f"{x[1]} = {zahl(rechne(x[0]))}")),
                  bsp="Beispiel: 87 − 45 − 32 − 23 = 87 − (45 + 32 + 23) = 87 − 100 = −13"),
-         aufgabe(4, 1, "Löse die Klammer auf und rechne. Achtung: Ein Minus vor der Klammer dreht <b>alle</b> Zeichen in der Klammer um.",
+         ('<div class="umbruch"></div>' if g else "") + aufgabe(4, 1, "Löse die Klammer auf und rechne. Achtung: Ein Minus vor der Klammer dreht <b>alle</b> Zeichen in der Klammer um.",
                  reihe(A4, 2, loesung, lambda t: (t, f"{aufloesen(t)} = {zahl(rechne(t))}"))),
          aufgabe(5, 1, "Noch einmal, jetzt mit mehr Zahlen in der Klammer.",
                  reihe(A5, 2, loesung, lambda t: (t, f"{aufloesen(t)} = {zahl(rechne(t))}"))),
@@ -131,11 +132,11 @@ def blatt(loesung):
                      for i, (t, soll, lsg) in enumerate(A7)) + "</div>"),
          aufgabe(8, 2, "Löse die Sachaufgaben. Schreibe die Rechnung und einen Antwortsatz auf.",
                  "".join(f'<div class="sach"><span class="b">{buchstabe(i)})</span> {t}<div class="ls">'
-                         + (f'<b class="l">{r}. {ant}</b>' if loesung else '<span class="zl"></span>') + "</div></div>"
+                         + (f'<b class="l">{r}. {ant}</b>' if loesung else '<span class="zl"></span>' * 3) + "</div></div>"
                          for i, (t, r, ant) in enumerate(A8)))]
     titel = "Klammern und Rechenvorteile" + (" – Lösungen" if loesung else "")
     name = "" if loesung else '<div class="name">Name: ______________________ &nbsp;&nbsp; Datum: ____________</div>'
-    return f"""<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>{titel}</title><style>{CSS}{ENG if loesung else ""}</style></head><body>
+    return f"""<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>{titel}</title><style>{CSS}{ENG if loesung else GROSS}</style></head><body>
 <div class="seite"><header><div><h1>{titel}</h1><div class="sub">Klasse 7c, Rationale Zahlen</div></div>{name}</header>
 <div class="legende">Schwierigkeit: {kreis(0)} leicht &nbsp;&nbsp; {kreis(1)} mittel &nbsp;&nbsp; {kreis(2)} schwer</div>
 {"".join(a)}</div></body></html>"""
@@ -170,6 +171,21 @@ h1{{font-size:17pt;margin:0;color:{ACC}}}.sub{{color:#555;font-size:10pt}}
 
 
 ENG = "body{font-size:10pt}.txt{font-size:10pt}.it{padding:1px 0}.auf{margin:4px 0 0}.kopf{margin-bottom:1px}.sach .ls{padding:1px 0 0}"  # Lösungsfassung etwas enger, damit sie auf eine Seite passt
+
+
+# Schülerfassung: größere Schrift, hohe Zeilen mit Platz für den Rechenweg, Umbruch nach Aufgabe 3 (Vorder-/Rückseite)
+GROSS = """
+body{font-size:12.5pt}h1{font-size:20pt}.sub{font-size:11pt}.name{font-size:12pt}.legende{font-size:10.5pt;margin:7px 0 0}
+.txt{font-size:12.5pt}.nr{font-size:16pt;min-width:18px}.bsp{font-size:11.5pt;padding-left:28px}
+.auf{margin:12px 0 0}.kopf{gap:8px;margin-bottom:3px}
+.cols{padding-left:28px;gap:0 22px}
+.it{display:flex;align-items:flex-end;gap:6px;min-height:12.5mm;padding:0 0 1mm}
+.c1 .it{min-height:11mm}
+.blank,.blank.long,.blank.long2,.c2 .blank{flex:1;width:auto;min-width:18mm;display:block;height:1.2em;align-self:flex-end}
+.umbruch{break-before:page;height:0}
+.sach{padding:3px 0 0 28px}.zl{height:9.5mm;margin-bottom:0}
+.sach .ls{padding:0}.sach{margin-bottom:5mm}
+"""
 
 
 def main():
