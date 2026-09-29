@@ -147,6 +147,10 @@ kbd{font:inherit;font-size:10.5px;font-weight:600;border-radius:4px;padding:0 5p
 .stage>:first-child{margin-top:auto}
 .stage>:last-child{margin-bottom:auto}
 .zoom{display:inline-flex;align-items:center;gap:2px;margin-left:10px;vertical-align:middle}
+.canvasbar .zoom{margin-left:0}
+.fithint{position:absolute;top:10px;right:10px;z-index:6;border:0;border-radius:14px;height:28px;padding:0 12px;font-size:12px;font-weight:600;background:var(--accent);color:var(--accent-ink);box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer}
+.fithint:hover{filter:brightness(1.08)}
+@media print{.fithint{display:none!important}}
 .zoom button{border:0;background:var(--fill);color:var(--ink-2);height:22px;min-width:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:600}
 .zoom button:hover{background:var(--fill-2);color:var(--ink)}
 .zoom button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
@@ -655,13 +659,14 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
       </div>
       <button type="button" class="btn tb adv" id="bDiscreet" title="Wünsche, Regeln und ihre Markierungen ausblenden, etwa wenn der Plan vor der Klasse gezeigt wird"><svg class="i"><use href="#i-eyeoff"/></svg><span class="lbl">Wünsche ausblenden</span></button>
       <button type="button" class="btn tb adv" id="bCompare" title="Andere Variante oder alten Stand verkleinert daneben zeigen"><svg class="i"><use href="#i-compare"/></svg><span class="lbl">Vergleich</span></button>
+      <span class="zoom" role="group" aria-label="Größe"><button type="button" data-zoom="-" title="Kleiner zeichnen" aria-label="Kleiner">−</button><button type="button" data-zoom="auto" title="Größe automatisch an das Fenster anpassen">Auto</button><button type="button" data-zoom="+" title="Größer zeichnen" aria-label="Größer">+</button></span>
     </div>
     <div class="roomwrap">
       <button type="button" class="planhead" id="planHead" title="Klasse, Raum und Fach ändern"><span class="ph-title" id="phTitle"></span><span class="ph-sub" id="phSub"></span><span class="ph-hint">ändern</span><span class="ph-meta" id="printMeta"></span></button>
       <div id="room"></div>
       <div class="print-foot" id="printFoot"></div>
     </div>
-    <div class="scale"><span id="scale"></span><span class="zoom" role="group" aria-label="Größe"><button type="button" data-zoom="-" title="Kleiner" aria-label="Kleiner">−</button><button type="button" data-zoom="auto" title="Größe automatisch an das Fenster anpassen">Automatisch</button><button type="button" data-zoom="+" title="Größer" aria-label="Größer">+</button></span></div>
+    <div class="scale"><span id="scale"></span><span class="zoom"><button type="button" id="bFitRoom" title="Leeren Rand um die Tische entfernen, damit alles größer gezeichnet wird. Die Tafelseite bleibt.">Rand verkleinern</button></span></div>
   </section>
   <aside class="cmp" id="cmpPanel" hidden>
     <div class="cmp-head"><h2>Vergleich</h2><button type="button" class="btn icon tb" id="cmpClose" aria-label="Vergleich schließen" title="Schließen"><svg class="i"><use href="#i-x"/></svg></button></div>
@@ -828,7 +833,7 @@ const FRONT = 7;               // erste Reihe beginnt 1,75 m hinter der Tafelwan
 const TYPES = {
   single:  { w:3, h:2, seats:1, label:'Einzeltisch' },
   double:  { w:6, h:2, seats:2, label:'Doppeltisch' },
-  teacher: { w:6, h:3, seats:0, label:'Lehrertisch' }
+  teacher: { w:4, h:2, seats:0, label:'Lehrertisch' }   // schmaler Block, dient nur der Orientierung
 };
 const STORE = 'sitzplan.v1';
 
@@ -862,7 +867,7 @@ function setMode(m) {
 function makePlan(name) {
   const p = {
     id: uid(), name, created: Date.now(), view: 'pult',
-    room: { w:36, h:30, window:'keine', door:{ wall:'none', pos:.1 }, v:3 },
+    room: { w:36, h:30, window:'keine', door:{ wall:'none', pos:.1 }, v:4 },
     students: [], desks: [],
     rules: emptyRules()
   };
@@ -900,7 +905,7 @@ function cleanRules(p) {
   p.rules = out;
   return p;
 }
-function teacherDesk(R) { return { id: uid(), type:'teacher', x: Math.round(R.w / 2 - 3), y: 2, rot: 180, seats: [] }; }
+function teacherDesk(R) { return { id: uid(), type:'teacher', x: Math.round(R.w / 2 - 2), y: 3, rot: 180, seats: [] }; }
 function materialize(d) { return { id: uid(), type: d.type, x: d.x, y: d.y, rot: d.rot, seats: Array(TYPES[d.type].seats).fill(null) }; }
 
 function normalize(p) {
@@ -918,20 +923,23 @@ function normalize(p) {
   p.klasse = typeof p.klasse === 'string' ? p.klasse : '';
   p.fach = typeof p.fach === 'string' ? p.fach : '';
   p.showFach = !!p.showFach;
-  p.room.v = 3;
+  p.room.v = 4;
   p.students = Array.isArray(p.students) ? p.students.filter(s => s && s.id) : [];
   p.students.forEach(s => { s.g = s.g === 'w' || s.g === 'm' ? s.g : ''; });
   cleanRules(p);
   if (ver < 3) p.view = 'pult';     // Lehrersicht ist Standard, ältere Pläne einmalig umstellen
+  const shrinkTeacher = ver < 4;    // Lehrertisch war 1,50 × 0,75 m, jetzt 1,00 × 0,50 m: Mittelpunkt beibehalten
   p.view = p.view === 'klasse' ? 'klasse' : 'pult';
   const ids = new Set(p.students.map(s => s.id));
   p.desks = normDesks(p.desks, ids);
+  const moveTeacher = l => l.forEach(d => { if (d.type === 'teacher') { if (d.rot % 180 === 0) { d.x += 1; d.y += 0; } else { d.y += 1; } } });
   // Varianten: die aktive Variante ist immer p.desks, die anderen liegen in p.variants
   if (!Array.isArray(p.variants) || !p.variants.length) p.variants = [{ id: uid(), name: 'A', desks: p.desks }];
   p.variants = p.variants.filter(v => v && v.id).map(v => ({ id: v.id, name: String(v.name || 'A').slice(0, 20), desks: normDesks(v.desks, ids) }));
   if (!p.variants.length) p.variants = [{ id: uid(), name: 'A', desks: p.desks }];
   if (!p.variants.some(v => v.id === p.vid)) p.vid = p.variants[0].id;
   p.variants.find(v => v.id === p.vid).desks = p.desks;
+  if (shrinkTeacher) [...new Set([p.desks, ...p.variants.map(v => v.desks)])].forEach(moveTeacher);
   p.history = (Array.isArray(p.history) ? p.history : []).filter(h => h && h.id && Array.isArray(h.desks)).slice(-30);
   return p;
 }
@@ -1289,8 +1297,9 @@ function computePx(R) {
   if (printing) return Math.max(8, Math.min(1010 / R.w, 590 / R.h));
   const r = stage.getBoundingClientRect(), cs = getComputedStyle(stage);
   const used = $('.canvasbar').offsetHeight + $('#planHead').offsetHeight + document.querySelector('.scale').offsetHeight
-    + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + 44;   // Abstände, Wand und Beschriftungen
-  const aw = r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - 70, ah = r.height - used;
+    + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + 38;   // Abstände, Wand und Außenabstände
+  const labels = R.window !== 'keine' || (R.door && R.door.wall !== 'none');   // Tür und Fenster brauchen Platz für die Beschriftung außen
+  const aw = r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - (labels ? 70 : 16), ah = r.height - used - (labels ? 24 : 0);
   if (S.zoom) return clamp(S.zoom | 0, 12, 60);                       // selbst gewählte Größe
   const fit = Math.floor(Math.min(aw / R.w, ah / R.h));
   return clamp(Math.max(fit, MIN_PX), 9, 46);                           // Automatisch: nie kleiner als lesbar
@@ -1373,7 +1382,7 @@ function renderRoom() {
     const bx = box(d), s = scr(R, bx.x, bx.y, bx.w, bx.h);
     const face = (d.rot + (f ? 180 : 0)) % 360;
     let inner;
-    if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px >= 14 ? 'Lehrertisch' : 'Pult'}</span>`;
+    if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px >= 19 ? 'Lehrertisch' : 'Pult'}</span>`;
     else inner = d.seats.map((sid, i) => {
       const st = sid && byId.get(sid);
       if (!st) return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span></div>`;
@@ -1385,6 +1394,7 @@ function renderRoom() {
     }).join('');
     h += `<div class="desk t-${d.type} f${face}${sel.has(d.id) ? ' sel' : ''}" data-id="${d.id}" style="${posStyle(s)}" title="${TYPES[d.type].label}">${inner}</div>`;
   }
+  if (!printing && roomSlack(P)) h += `<button type="button" class="fithint" title="Der Raum hat viel leeren Rand. Entfernen, damit die Tische größer gezeichnet werden. Die Tafelseite bleibt, rückgängig mit ⌘Z.">Leeren Rand entfernen</button>`;
   if (!P.desks.some(d => d.type !== 'teacher'))
     h += `<div class="empty-hint">Noch keine Schülertische. Oben über „Anordnung“ eine fertige Aufstellung wählen oder einzelne Tische hinzufügen.</div>`;
   room.innerHTML = h;
@@ -1395,8 +1405,7 @@ function renderRoom() {
   $('#phSub').textContent = [nr ? (/^\d/.test(nr) ? 'Raum ' + nr : nr) : '', P.showFach && fach ? fach : ''].filter(Boolean).join(' · ');
   document.querySelector('.zoom [data-zoom="auto"]').setAttribute('aria-pressed', !S.zoom);
   $('#scale').textContent = `1 Kästchen = 25 cm · ${fmtM(R.w)} × ${fmtM(R.h)} m · ${f ? 'Lehrersicht: Tafel unten' : 'Schülersicht: Tafel oben'}`;
-  const vv = P.variants.length > 1 ? `Variante ${P.variants.find(v => v.id === P.vid).name} · ` : '';
-  $('#printMeta').textContent = `${vv}Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`;
+  $('#printMeta').textContent = `Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`;
   const rest = unplaced(P).sort(byName);
   $('#printFoot').textContent = rest.length ? `Ohne Platz: ${rest.map(s => `${s.first} ${s.last}`.trim()).join(', ')}` : '';
 }
@@ -1439,6 +1448,7 @@ function track(e, onMove, onUp) {
 let deskHint = false;
 room.addEventListener('pointerdown', e => {
   if (e.button !== 0) return;
+  if (e.target.closest('.fithint')) { e.preventDefault(); e.stopPropagation(); fitRoomToDesks(); return; }
   // Mit ⌥ gilt beim Ziehen kurz der andere Modus
   const eff = e.altKey ? (mode() === 'tische' ? 'schueler' : 'tische') : mode();
   // Namen über ihre Position suchen: im Modus „Tische stellen“ sind sie für Klicks durchsichtig
@@ -2334,7 +2344,7 @@ function miniSvg(R, out) {
   };
   let s = `<svg viewBox="-1 -1 ${W + 2} ${H + 2}" aria-hidden="true"><rect class="mini-room" x="0" y="0" width="${W}" height="${H}"/>`;
   s += r((W - 16) / 2, 0, 16, .8, 'mini-board');
-  s += r(Math.round(W / 2 - 3), 2, 6, 3, 'mini-desk', ' style="opacity:.5"');
+  s += r(Math.round(W / 2 - 2), 3, 4, 2, 'mini-desk', ' style="opacity:.5"');
   out.desks.forEach(d => { const b = box(d); s += r(b.x, b.y, b.w, b.h, 'mini-desk'); });
   return s + '</svg>';
 }
@@ -2380,7 +2390,7 @@ $('#dlgTpl').addEventListener('close', () => {
     let teacher = P.desks.find(d => d.type === 'teacher');
     const fresh = out.desks.map(materialize);
     if (!teacher) teacher = teacherDesk(P.room);
-    if (fresh.some(d => overlap(box(d), box(teacher))) || !inside(box(teacher), P.room)) Object.assign(teacher, { x: Math.round(P.room.w / 2 - 3), y: 2, rot: 180 });
+    if (fresh.some(d => overlap(box(d), box(teacher))) || !inside(box(teacher), P.room)) Object.assign(teacher, { x: Math.round(P.room.w / 2 - 2), y: 3, rot: 180 });
     P.desks = [teacher, ...fresh];
   });
   sel.clear(); renderSelection();
@@ -2572,6 +2582,38 @@ $('#moreMenu').addEventListener('click', e => {
   toast(simple() ? 'Einfache Ansicht: nur Tische, Klasse, Verteilen und Drucken.' : 'Erweiterte Ansicht: mit Wünschen, Regeln, Varianten und Vergleich.');
 });
 $('#dlgWelcome').addEventListener('close', () => { setLevel($('#dlgWelcome').returnValue === 'full' ? 'full' : 'simple'); });
+/* Zielgröße des Raums: links, rechts und hinten nur Stuhltiefe plus 25 cm bis zur Wand, die Tafelseite bleibt */
+const ROOM_MARGIN = 1;
+function roomTarget(P) {
+  const all = [...new Set([P.desks, ...P.variants.map(v => v.desks)])].flat();
+  if (!all.some(d => d.type !== 'teacher')) return null;
+  let x0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  all.forEach(d => { const b = box(d); x0 = Math.min(x0, b.x - 1); x1 = Math.max(x1, b.x + b.w + 1); y1 = Math.max(y1, b.y + b.h + 1); });
+  return {
+    W: Math.max(16, Math.round(x1 - x0 + 2 * ROOM_MARGIN)),
+    H: Math.max(16, Math.round(y1 + ROOM_MARGIN)),
+    dx: Math.round(ROOM_MARGIN - x0)
+  };
+}
+/* Hinweis im Raum, sobald gut ein Meter überflüssiger Rand da ist */
+function roomSlack(P) {
+  const t = roomTarget(P);
+  return !!t && (P.room.w - t.W >= 4 || P.room.h - t.H >= 3);
+}
+function fitRoomToDesks() {
+  const P = cur(); syncVariant(P);
+  const t = roomTarget(P); if (!t) return;
+  const zoomWasFixed = !!S.zoom;
+  if (t.W === P.room.w && t.H === P.room.h && !t.dx && !zoomWasFixed) { toast('Der Raum hat schon keinen überflüssigen Rand.'); return; }
+  const oldW = P.room.w, oldH = P.room.h;
+  S.zoom = null;                       // danach automatisch einpassen, damit die Tische wirklich größer werden
+  mutate(P => {
+    [...new Set([P.desks, ...P.variants.map(v => v.desks)])].forEach(l => l.forEach(d => { d.x += t.dx; }));
+    P.room.w = t.W; P.room.h = t.H;
+  });
+  toast(`Raum von ${fmtM(oldW)} × ${fmtM(oldH)} m auf ${fmtM(t.W)} × ${fmtM(t.H)} m verkleinert, Größe steht auf „Auto“.`, true);
+}
+$('#bFitRoom').addEventListener('click', fitRoomToDesks);
 document.querySelector('.zoom').addEventListener('click', e => {
   const b = e.target.closest('[data-zoom]'); if (!b) return;
   const v = b.dataset.zoom;
