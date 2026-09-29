@@ -833,7 +833,7 @@ const FRONT = 7;               // erste Reihe beginnt 1,75 m hinter der Tafelwan
 const TYPES = {
   single:  { w:3, h:2, seats:1, label:'Einzeltisch' },
   double:  { w:6, h:2, seats:2, label:'Doppeltisch' },
-  teacher: { w:4, h:2, seats:0, label:'Lehrertisch' }   // schmaler Block, dient nur der Orientierung
+  teacher: { w:6, h:3, seats:0, label:'Lehrertisch' }
 };
 const STORE = 'sitzplan.v1';
 
@@ -867,7 +867,7 @@ function setMode(m) {
 function makePlan(name) {
   const p = {
     id: uid(), name, created: Date.now(), view: 'pult',
-    room: { w:36, h:30, window:'keine', door:{ wall:'none', pos:.1 }, v:4 },
+    room: { w:36, h:30, window:'keine', door:{ wall:'none', pos:.1 }, v:5 },
     students: [], desks: [],
     rules: emptyRules()
   };
@@ -905,7 +905,7 @@ function cleanRules(p) {
   p.rules = out;
   return p;
 }
-function teacherDesk(R) { return { id: uid(), type:'teacher', x: Math.round(R.w / 2 - 2), y: 3, rot: 180, seats: [] }; }
+function teacherDesk(R) { return { id: uid(), type:'teacher', x: Math.round(R.w / 2 - 3), y: 2, rot: 180, seats: [] }; }
 function materialize(d) { return { id: uid(), type: d.type, x: d.x, y: d.y, rot: d.rot, seats: Array(TYPES[d.type].seats).fill(null) }; }
 
 function normalize(p) {
@@ -923,23 +923,27 @@ function normalize(p) {
   p.klasse = typeof p.klasse === 'string' ? p.klasse : '';
   p.fach = typeof p.fach === 'string' ? p.fach : '';
   p.showFach = !!p.showFach;
-  p.room.v = 4;
+  p.room.v = 5;
   p.students = Array.isArray(p.students) ? p.students.filter(s => s && s.id) : [];
   p.students.forEach(s => { s.g = s.g === 'w' || s.g === 'm' ? s.g : ''; });
   cleanRules(p);
   if (ver < 3) p.view = 'pult';     // Lehrersicht ist Standard, ältere Pläne einmalig umstellen
-  const shrinkTeacher = ver < 4;    // Lehrertisch war 1,50 × 0,75 m, jetzt 1,00 × 0,50 m: Mittelpunkt beibehalten
+  const regrowTeacher = ver === 4;  // Stand 4 hatte kurz einen kleineren Lehrertisch: wieder auf 1,50 × 0,75 m um den Mittelpunkt vergrößern
   p.view = p.view === 'klasse' ? 'klasse' : 'pult';
   const ids = new Set(p.students.map(s => s.id));
   p.desks = normDesks(p.desks, ids);
-  const moveTeacher = l => l.forEach(d => { if (d.type === 'teacher') { if (d.rot % 180 === 0) { d.x += 1; d.y += 0; } else { d.y += 1; } } });
+  const moveTeacher = l => l.forEach(d => {
+    if (d.type !== 'teacher') return;
+    if (d.rot % 180 === 0) d.x -= 1; else d.y -= 1;
+    const b = box(d); d.x = clamp(d.x, 0, p.room.w - b.w); d.y = clamp(d.y, 0, p.room.h - b.h);
+  });
   // Varianten: die aktive Variante ist immer p.desks, die anderen liegen in p.variants
   if (!Array.isArray(p.variants) || !p.variants.length) p.variants = [{ id: uid(), name: 'A', desks: p.desks }];
   p.variants = p.variants.filter(v => v && v.id).map(v => ({ id: v.id, name: String(v.name || 'A').slice(0, 20), desks: normDesks(v.desks, ids) }));
   if (!p.variants.length) p.variants = [{ id: uid(), name: 'A', desks: p.desks }];
   if (!p.variants.some(v => v.id === p.vid)) p.vid = p.variants[0].id;
   p.variants.find(v => v.id === p.vid).desks = p.desks;
-  if (shrinkTeacher) [...new Set([p.desks, ...p.variants.map(v => v.desks)])].forEach(moveTeacher);
+  if (regrowTeacher) [...new Set([p.desks, ...p.variants.map(v => v.desks)])].forEach(moveTeacher);
   p.history = (Array.isArray(p.history) ? p.history : []).filter(h => h && h.id && Array.isArray(h.desks)).slice(-30);
   return p;
 }
@@ -1382,7 +1386,7 @@ function renderRoom() {
     const bx = box(d), s = scr(R, bx.x, bx.y, bx.w, bx.h);
     const face = (d.rot + (f ? 180 : 0)) % 360;
     let inner;
-    if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px >= 19 ? 'Lehrertisch' : 'Pult'}</span>`;
+    if (d.type === 'teacher') inner = `<span class="chair"></span><span class="tlabel">${px >= 14 ? 'Lehrertisch' : 'Pult'}</span>`;
     else inner = d.seats.map((sid, i) => {
       const st = sid && byId.get(sid);
       if (!st) return `<div class="seat" data-desk="${d.id}" data-idx="${i}"><span class="chair"></span></div>`;
@@ -2344,7 +2348,7 @@ function miniSvg(R, out) {
   };
   let s = `<svg viewBox="-1 -1 ${W + 2} ${H + 2}" aria-hidden="true"><rect class="mini-room" x="0" y="0" width="${W}" height="${H}"/>`;
   s += r((W - 16) / 2, 0, 16, .8, 'mini-board');
-  s += r(Math.round(W / 2 - 2), 3, 4, 2, 'mini-desk', ' style="opacity:.5"');
+  s += r(Math.round(W / 2 - 3), 2, 6, 3, 'mini-desk', ' style="opacity:.5"');
   out.desks.forEach(d => { const b = box(d); s += r(b.x, b.y, b.w, b.h, 'mini-desk'); });
   return s + '</svg>';
 }
@@ -2390,7 +2394,7 @@ $('#dlgTpl').addEventListener('close', () => {
     let teacher = P.desks.find(d => d.type === 'teacher');
     const fresh = out.desks.map(materialize);
     if (!teacher) teacher = teacherDesk(P.room);
-    if (fresh.some(d => overlap(box(d), box(teacher))) || !inside(box(teacher), P.room)) Object.assign(teacher, { x: Math.round(P.room.w / 2 - 2), y: 3, rot: 180 });
+    if (fresh.some(d => overlap(box(d), box(teacher))) || !inside(box(teacher), P.room)) Object.assign(teacher, { x: Math.round(P.room.w / 2 - 3), y: 2, rot: 180 });
     P.desks = [teacher, ...fresh];
   });
   sel.clear(); renderSelection();
