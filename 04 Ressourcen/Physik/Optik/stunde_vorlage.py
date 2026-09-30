@@ -165,6 +165,7 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 .heftseite .hdat{text-align:right;font-size:14px;color:#66798e}
 .heftseite h2.hlf{font-size:21px;margin:4px 0 18px;color:#1a56a0;text-decoration:underline;text-underline-offset:4px}
 .heftseite .hlf span{display:block;font-size:13px;color:#66798e;text-decoration:none;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.heftseite .hfort{color:#9aa8ba;text-decoration:none;font-size:16px}
 .heftseite h3.hti{font-size:18px;margin:22px 0 8px;color:#b3261e;text-decoration:underline;text-underline-offset:3px}
 .heftseite .hbild{background:#fff;border:1px solid #d5dbe4;padding:6px;margin:6px 0 8px;max-width:760px}
 .heftseite .hbild svg,.heftseite .hbild img{display:block;width:100%;height:auto}
@@ -174,37 +175,63 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 </style>"""
 
 
+def _leitfragen():
+    """Leitfrage-Nummer -> Fragetext, aus den Foliensätzen (Optik I/II, Kernphysik). Für die Überschrift „Fortsetzung“."""
+    out = {}
+    for q in (HIER / "Optik I.html", HIER / "Optik II.html", HIER.parent / "Kernphysik" / "Kernphysik.html"):
+        if q.exists():
+            text = q.read_text(encoding="utf-8")
+            out[q.stem] = ({n: t.strip() for n, t in re.findall(r'<div class="nr">\s*Leitfrage (\d+)\s*</div>\s*<h2>(.*?)</h2>', text, re.S)}, text)
+    return out
+
+
 def heft_html(folge):
-    """Was am Ende der Stunde im Heft der Schüler steht, aus den Folien gesammelt: Leitfrage als Überschrift, alle nummerierten
-    Einträge (und Folien mit data-heft) mit Zeichnung und Merksatz, zum Schluss die Antwort auf die Leitfrage.
-    Nicht dabei: Beobachte, Alltag, Check, Lösung, Arbeitsblätter."""
-    lf, antwort, eintraege = "", "", {}
+    """Was am Ende der Stunde im Heft der Schüler steht, aus den Folien gesammelt, in der Reihenfolge der Folien:
+    Leitfrage als Überschrift, nummerierte Einträge (und Folien mit data-heft) mit Zeichnung und Merksatz, Antwort auf die Leitfrage.
+    Beginnt die Stunde mitten in einer Leitfrage, steht oben klein „Fortsetzung Leitfrage N“. Nicht dabei: Beobachte, Alltag, Check, Lösung, Blätter."""
+    teile, gesehen, erste_lf = [], set(), None
     for f in folge:
         if isinstance(f, tuple):
             continue
         nr = re.search(r'<div class="nr">(.*?)</div>', f, re.S)
         h2 = re.search(r"<h2>(.*?)</h2>", f, re.S)
         if nr and nr.group(1).strip().startswith("Leitfrage") and h2:
-            lf = f'<h2 class="hlf"><span>{nr.group(1).strip()}</span>{h2.group(1).strip()}</h2>'
+            teile.append(f'<h2 class="hlf"><span>{nr.group(1).strip()}</span>{h2.group(1).strip()}</h2>')
+            erste_lf = erste_lf or "da"
             continue
         if nr and nr.group(1).strip().startswith("Antwort") and h2:
             az = re.search(r'<div class="antwortzone"[^>]*>(.*?)</div>', f, re.S)
             if az:
-                antwort = f'<h3 class="hti">{nr.group(1).strip()}</h3><div class="hantw">{az.group(1).strip()}</div>'
+                teile.append(f'<h3 class="hti">{nr.group(1).strip()}</h3><div class="hantw">{az.group(1).strip()}</div>')
+                erste_lf = erste_lf or re.search(r"\d+", nr.group(1)).group(0)
             continue
         h1 = re.search(r"<h1>(.*?)</h1>", f, re.S)
-        if not h1 or not (re.match(r"\s*\d+(\.\d+)?\.?\s", h1.group(1)) or "data-heft" in f[:80]):
+        if not h1 or not (re.match(r"\s*\d+(\.\d+)?\.?\s", h1.group(1)) or "data-heft" in f[:80] or 'class="folie heft"' in f[:80]):
             continue
+        titel = h1.group(1).strip()
+        if titel in gesehen:
+            continue
+        gesehen.add(titel)
+        m = re.match(r"\s*(\d+)\.\d+\s", titel)
+        erste_lf = erste_lf or (m.group(1) if m else None)
         zz = re.search(r'<div class="zeichenzone[^"]*">(.*?)</div>\s*<div class="merksatz"', f, re.S)
         ms = re.search(r'<div class="merksatz"[^>]*>(.*?)</div>\s*</section>', f, re.S)
         bild = f'<div class="hbild">{zz.group(1).strip()}</div>' if zz and zz.group(1).strip() else ""
-        eintraege[h1.group(1).strip()] = (f'<h3 class="hti">{h1.group(1).strip()}</h3>{bild}'
-                                          + (f'<div class="hmerk">{ms.group(1).strip()}</div>' if ms else ""))
-    if not (lf or eintraege):
-        return '<div class="box"><p>In dieser Stunde gibt es keinen eigenen Hefteintrag.</p></div>'
+        teile.append(f'<h3 class="hti">{titel}</h3>{bild}' + (f'<div class="hmerk">{ms.group(1).strip()}</div>' if ms else ""))
+    if not teile:
+        return '<div class="box"><p>In dieser Stunde gibt es keinen neuen Hefteintrag.</p></div>'
+    kopf = ""
+    if erste_lf and erste_lf != "da":
+        texte = _leitfragen()
+        probe = re.sub(r"<[^>]+>", "", re.search(r"<h3[^>]*>(.*?)</h3>", teile[0], re.S).group(1)).strip()
+        if probe.startswith("Antwort"):   # bei einer Antwort den Antworttext als Probe nehmen
+            probe = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", teile[0].split("</h3>", 1)[1])).strip()
+        frage = next((fr[erste_lf] for fr, text in texte.values() if erste_lf in fr and probe[:25] in re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", text))), "")
+        kopf = f'<h2 class="hlf hfort"><span>Fortsetzung Leitfrage {erste_lf}</span>{frage}</h2>'
     return ('<p class="heftleg">So steht es am Ende der Stunde im Heft: Überschriften abschreiben, Zeichnungen abzeichnen, Merksätze '
-            'abschreiben, zum Schluss die Antwort auf die Leitfrage. Beobachte-, Alltags- und Check-Folien kommen nicht ins Heft.</p>'
-            f'<div class="heftseite"><div class="hdat">Datum: __________</div>{lf}{"".join(eintraege.values())}{antwort}</div>')
+            'abschreiben, die Antwort auf die Leitfrage. Beobachte-, Alltags- und Check-Folien kommen nicht ins Heft. '
+            '„Fortsetzung“ heißt: im Heft ohne neue Überschrift weiterschreiben.</p>'
+            f'<div class="heftseite"><div class="hdat">Datum: __________</div>{kopf}{"".join(teile)}</div>')
 
 
 def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css=""):

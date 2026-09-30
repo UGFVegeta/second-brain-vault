@@ -40,7 +40,7 @@ A1 = tabellenfolie("Wie klein ist ein Atom?", [
     ("Atom", "etwa 0,000 000 1 mm", "Kein Lichtmikroskop kann es zeigen."),
     ("Atomkern", "etwa 100 000-mal kleiner als das Atom", "Fast die ganze Masse steckt darin."),
 ], kopf=("Gegenstand", "Größe", "zum Vergleich"), frage="Wie viele Atome liegen nebeneinander auf der Dicke eines Haars?")
-ZEIT = zeichnungsfolie("Wie man das Atom entdeckte", zeitstrahl(),
+ZEIT = zeichnungsfolie("1.1 Wie man das Atom entdeckte", zeitstrahl(),
                        "Das Wort <b>Atom</b> kommt aus dem Griechischen und heißt „unteilbar“. Heute wissen wir: "
                        "Atome bestehen aus <span class=\"rot\">Kern und Hülle</span>, der Kern aus Protonen und Neutronen.")
 S1 = [f(2), f(3), blatt("Atome enthalten elektrische Ladungen W01.pdf", "k01v", "Versuchsblatt austeilen · Luftballon und Wolltuch pro Gruppe"),
@@ -128,7 +128,7 @@ A4 = tabellenfolie("Strahler im Alltag", [
     ("Medizin", "γ-Strahler Technetium-99m", "Zeigt im Körper, wo sich ein Stoff anreichert."),
     ("Keller", "α-Strahler Radon", "Gefährlich, wenn man es einatmet."),
 ], frage="Warum ist Radon gefährlich, obwohl α-Strahlung schon von Papier gestoppt wird?")
-EF = zeichnungsfolie("Strahlung im elektrischen Feld", efeld(),
+EF = zeichnungsfolie("2.3 Strahlung im elektrischen Feld", efeld(),
                      "Zwischen geladenen Platten wird <b>α</b> leicht zum Minuspol und <b>β⁻</b> stark zum Pluspol abgelenkt. "
                      "<b>γ</b> fliegt geradeaus: <span class=\"rot\">γ-Strahlung trägt keine Ladung</span>.")
 S4 = [f(14), f(16), EF, blatt("Drei Strahlungsarten W04.pdf", "k04", "Arbeitsblatt austeilen"), A4]
