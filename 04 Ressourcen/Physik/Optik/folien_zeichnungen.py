@@ -102,39 +102,60 @@ def gerade(L, P, x):
 
 
 # ---------------------------------------------------------------- Leitfrage 3
+def _hausecke_bild():
+    """Gemini-Bild (Kind und Ball an einer Hausecke, schräg von oben) als eingebettetes JPEG, 1400 x 764."""
+    import base64
+    daten = base64.b64encode((HIER / "assets" / "hausecke-ball.jpg").read_bytes()).decode()
+    return f'<image href="data:image/jpeg;base64,{daten}" x="0" y="0" width="1400" height="764"/>'
+
+
 def beobachte_mauer():
-    z = Z("bm", 245)
-    z.rect(20, 192, 596, 2, "#C6D1E1")
-    z.rect(300, 22, 150, 170, WAND, 1, 3)
-    for y in range(44, 192, 22):
-        z.rect(300, y, 150, 2, "#3B4A63")
-    z.ball(510, 170, 22)
-    # Person
-    z.add('<circle cx="130" cy="96" r="15" fill="#C9B6A0"/><rect x="118" y="112" width="24" height="46" rx="6" fill="#3B4A63"/>'
-          '<line x1="124" y1="158" x2="118" y2="190" stroke="#3B4A63" stroke-width="7" stroke-linecap="round"/>'
-          '<line x1="136" y1="158" x2="142" y2="190" stroke="#3B4A63" stroke-width="7" stroke-linecap="round"/>')
-    z.line(146, 94, 296, 94, "#66798E", 1.6, "5 5").line(146, 94, 296, 148, "#66798E", 1.6, "5 5")
-    z.text(375, 14, "Mauer", "middle").text(510, 214, "Ball", "middle").text(130, 214, "Beobachter", "middle").text(170, 84, "Blickrichtung")
-    return z.svg()
+    """Folie „Beobachte“ zu Leitfrage 3: nur das Bild, ohne Linien (die Lichtwege kommen erst auf der Antwortfolie)."""
+    return f'<svg viewBox="0 0 1400 764" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">{_hausecke_bild()}</svg>'
+
+
+def antwort_hausecke():
+    """Antwortfolie: Licht vom Ball läuft geradlinig in alle Richtungen. Der Weg zum Kind endet an der Hauswand.
+    Geometrie in Bildkoordinaten (1400 x 764): Ball (910, 514), Hausecke am Boden (700, 574), Treffpunkt Wand (808, 525), Kind (378, 494)."""
+    B = (910, 514)
+    frei = [(434, 742), (1150, 744), (1340, 612), (1330, 470)]
+    o = [f'<defs><marker id="hpf" markerWidth="6" markerHeight="6" refX="4.2" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="{GELB}"/></marker></defs>']
+    for x, y in frei:
+        o.append(f'<line x1="{B[0]}" y1="{B[1]}" x2="{x}" y2="{y}" stroke="{GELB}" stroke-width="6" stroke-linecap="round" marker-end="url(#hpf)"/>')
+    o.append(f'<line x1="{B[0]}" y1="{B[1]}" x2="808" y2="525" stroke="{GELB}" stroke-width="6" stroke-linecap="round"/>')
+    o.append('<line x1="800" y1="525" x2="390" y2="495" stroke="#66798E" stroke-width="4" stroke-dasharray="14 12"/>')
+    o.append('<path d="M792 509 L824 541 M824 509 L792 541" stroke="#D8453B" stroke-width="7" stroke-linecap="round"/>')
+    t = lambda x, y, s, a="start": (f'<text x="{x}" y="{y}" font-family="PlexMono, Menlo, monospace" font-size="30" font-weight="600" fill="{INK}" '
+                                   f'text-anchor="{a}" paint-order="stroke" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="round">{s}</text>')
+    o.append(t(1060, 420, "Licht vom Ball") + t(560, 610, "Hauswand hält das Licht auf", "middle") + t(380, 460, "kein Licht zum Kind", "middle"))
+    return f'<svg viewBox="0 0 1400 764" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">{_hausecke_bild()}{"".join(o)}</svg>'
 
 
 def ausbreitung():
+    """Ausgedehnte Lichtquelle (Glühwendel), zwei Blenden hintereinander. Hinter Blende 1 läuft das Bündel noch auseinander,
+    erst hinter Blende 2 ist es nahezu parallel. Die Ränder sind die äußersten Lichtwege, die durch beide Löcher passen."""
     z = Z("ab")
-    L, X, S0, S1, R = (60, 106), 324, 91, 121, 616
-    z.poly([L, (X, 8), (X, 204)], "#FFC53D", .16)
-    for ang in (135, 180, 225, 90, 270):
-        a = math.radians(ang)
-        z.line(L[0], L[1], L[0] + 44 * math.cos(a), L[1] - 44 * math.sin(a))
-    for y in (14, 46, 78, 134, 166, 198):
-        z.line(L[0], L[1], X, y)
-    yT, yB = gerade(L, (X, S0), R), gerade(L, (X, S1), R)
-    z.poly([(X, S0), (R, yT), (R, yB), (X, S1)], "#FFC53D", .3)
-    z.line(L[0], L[1], R, yT).line(L[0], L[1], R, yB).line(L[0], L[1], R, L[1])
-    z.rect(X, 8, 10, S0 - 8, WAND).rect(X, S1, 10, 204 - S1, WAND)
-    z.lampe(*L)
-    z.text(24, 140, "Lichtquelle").text(120, 30, "divergentes Lichtbündel")
-    z.text(344, 198, "Blende").text(352, 170, "Spalt").line(350, 164, 334, 112, "#66798E", 1.2)
-    z.text(440, 62, "nahezu paralleles").text(440, 76, "Lichtbündel")
+    Q0, Q1, QX = 98, 114, 60          # Glühwendel von y=98 bis 114 bei x=60
+    X1, A1, B1 = 250, 100, 112         # Blende 1 mit Loch von 100 bis 112
+    X2, A2, B2 = 450, 103, 109         # Blende 2 mit Loch von 103 bis 109
+    R = 616
+    z.poly([(QX, Q0), (X1, 8), (X1, 204), (QX, Q1)], "#FFC53D", .13)
+    for y in (16, 48, 80, 132, 164, 196):
+        z.line(QX, 106, X1, y, GELB, 1.4)
+    oben2, unten2 = gerade((QX, Q1), (X1, A1), X2), gerade((QX, Q0), (X1, B1), X2)
+    z.poly([(X1, A1), (X2, oben2), (X2, unten2), (X1, B1)], "#FFC53D", .3)
+    z.line(QX, Q1, X2, oben2, GELB, 1.6).line(QX, Q0, X2, unten2, GELB, 1.6)
+    oben3, unten3 = gerade((X1, B1), (X2, A2), R), gerade((X1, A1), (X2, B2), R)
+    z.poly([(X2, A2), (R, oben3), (R, unten3), (X2, B2)], "#FFC53D", .5)
+    z.line(X1, B1, R, oben3, GELB, 1.8).line(X1, A1, R, unten3, GELB, 1.8)
+    z.rect(X1, 8, 9, A1 - 8, WAND).rect(X1, B1, 9, 204 - B1, WAND)
+    z.rect(X2, 8, 9, A2 - 8, WAND).rect(X2, B2, 9, 204 - B2, WAND)
+    z.glow(QX, 106, 26)
+    z.add(f'<rect x="{QX - 3}" y="{Q0}" width="6" height="{Q1 - Q0}" rx="3" fill="#FFF3C4" stroke="{GELB}" stroke-width="2"/>')
+    z.text(24, 146, "Lichtquelle").text(96, 28, "divergent")
+    z.text(X1 - 22, 200, "Blende 1", "end").text(X2 - 22, 200, "Blende 2", "end")
+    z.text(350, 152, "schmaler, läuft aber", "middle", 9.5).text(350, 166, "noch auseinander", "middle", 9.5)
+    z.text(540, 62, "nahezu paralleles", "middle").text(540, 76, "Lichtbündel", "middle")
     return z.svg()
 
 
@@ -752,7 +773,7 @@ ZEICHNUNGEN_II = {2: beobachte_spiegel, 5: reflexionsgesetz, 9: spiegelbild, 11:
 
 
 ZEICHNUNGEN = {1: einstieg_baelle, 6: beobachte_licht_an, 9: wie_sehen, 11: lichtquellen_beleuchtet, 15: beobachte_drei_koerper, 18: vier_moeglichkeiten,
-               22: beobachte_mauer, 25: ausbreitung, 27: modell, 31: beobachte_lampen, 34: schattenraum, 36: kern_halbschatten,
+               22: beobachte_mauer, 25: ausbreitung, 27: modell, 28: antwort_hausecke, 31: beobachte_lampen, 34: schattenraum, 36: kern_halbschatten,
                42: beobachte_mond, 45: mondbahn, 47: mondphasen, 49: sonnenfinsternis, 51: mondfinsternis, 56: lochkamera, 61: sicheln}
 
 def ersetze(datei, tabelle):
