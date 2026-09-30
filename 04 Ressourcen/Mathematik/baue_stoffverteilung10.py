@@ -17,7 +17,7 @@ W = [
     (3, date(2026, 9, 28), "Kurztest Wahrscheinlichkeit; Beginn Prozentrechnen (Wdh)", "Kurztest Mi 30.9.", False),
     (4, date(2026, 10, 5), "G+ / G- / Rabatt / Skonto", "", False),
     (5, date(2026, 10, 12), "Kpt / Zinseszins", "", False),
-    (6, date(2026, 10, 19), "Zeitfenster", "", False),
+    "Berlinfahrt der 10er 19.10.-23.10. (kein Unterricht, Woche 6 mit Zeitfenster entfällt)",
     "Herbstferien 26.10.-30.10.",
     (7, date(2026, 11, 2), "KA 1 + Wachstumssparen", "KA Mo 2.11.", True),
     (8, date(2026, 11, 9), "Seitenverhältnisse im rechtwinkeligen Dreieck / sin, cos, tan", "", False),
