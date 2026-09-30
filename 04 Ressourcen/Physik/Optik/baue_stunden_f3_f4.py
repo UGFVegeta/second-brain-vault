@@ -209,6 +209,8 @@ if "export" in sys.argv:
     shutil.copy(MAT / "Lichtausbreitung und Blende W05.pdf", O3 / "Arbeitsblatt F3.pdf")
     shutil.copy(MAT / "Lichtausbreitung und Blende W05 – 2 auf 1.pdf", O3 / "Arbeitsblatt F3 – Kopiervorlage 2 auf 1.pdf")
     shutil.copy(MAT / "Kern- und Halbschatten W06.pdf", O4 / "Arbeitsblatt F4.pdf")
+    shutil.copy(MAT / "Kern- und Halbschatten W06 – Druck doppelseitig.pdf", O4 / "Arbeitsblatt F4 – Druck doppelseitig.pdf")
+    shutil.copy(MAT / "Schattenwurf W06 Rückseite.pdf", O4 / "Arbeitsblatt F4 Rückseite Schattenwurf mit Lösung.pdf")
     materialliste(O3, "W05", "F3 — Lichtausbreitung und Blende", F3_MATERIAL)
     materialliste(O4, "W06–07", "F4 — Kern- und Halbschatten", F4_MATERIAL)
     exportiere(F3, O3, "Folien F3.pdf", "Arbeitsblatt F3.pdf", "Stunde Leitfrage 3.html", "Optik – Leitfrage 3 – Stunde.html",
@@ -217,4 +219,5 @@ if "export" in sys.argv:
                 "Materialien/Lichtausbreitung und Blende W05 – 2 auf 1.pdf": "Arbeitsblatt F3 – Kopiervorlage 2 auf 1.pdf"})
     exportiere(F4, O4, "Folien F4.pdf", "Arbeitsblatt F4.pdf", "Stunde Leitfrage 4.html", "Optik – Leitfrage 4 – Stunde.html",
                {"Materialien/Kern- und Halbschatten W06.pdf": "Arbeitsblatt F4.pdf",
+                "Materialien/Schattenwurf W06 Rückseite.pdf": "Arbeitsblatt F4 Rückseite Schattenwurf mit Lösung.pdf",
                 "Schattenlabor Halbschatten.html": "../Labore/Schattenlabor Halbschatten.html", "Optik-Labore.html": "../Labore/Optik-Labore.html"})
