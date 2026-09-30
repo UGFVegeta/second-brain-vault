@@ -205,13 +205,30 @@ def schatten_panel(z, lampen, OX, OT, OB, SX, top=24, bot=188):
     return ys
 
 
+def _schatten_fotos(beschriftet=False):
+    """Oskars Fotos: dieselbe Figur an derselben Stelle, beide Male LED-Lampe und Handy-Taschenlampe an. Bei B war die Handylampe näher und viel heller."""
+    import base64
+    bild = lambda n: base64.b64encode((HIER / "assets" / n).read_bytes()).decode()
+    h = 1060 if beschriftet else 933
+    o = [f'<svg viewBox="0 0 1450 {h}" xmlns="http://www.w3.org/2000/svg">',
+         f'<image href="data:image/jpeg;base64,{bild("schatten-led.jpg")}" x="0" y="0" width="700" height="934"/>',
+         f'<image href="data:image/jpeg;base64,{bild("schatten-handy.jpg")}" x="750" y="0" width="700" height="934"/>']
+    t = lambda x, y, s, w=600: (f'<text x="{x}" y="{y}" text-anchor="middle" font-family="PlexMono, Menlo, monospace" font-size="38" font-weight="{w}" '
+                                f'fill="{INK}">{s}</text>')
+    if beschriftet:
+        o.append(t(350, 1000, "A: beide ähnlich hell") + t(350, 1050, "Kern- und Halbschatten", 400))
+        o.append(t(1100, 1000, "B: Handylampe näher") + t(1100, 1050, "vor allem ihr Schatten", 400))
+    else:
+        o.append(t(60, 70, "A") + t(810, 70, "B"))
+    return "".join(o) + "</svg>"
+
+
 def beobachte_lampen():
-    z = Z("bl", 245)
-    schatten_panel(z, [((58, 100), GELB)], 155, 76, 124, 268)
-    z.line(318, 12, 318, 200, "#A3B7D3", 1, "5 4")
-    schatten_panel(z, [((376, 84), ORANGE), ((376, 118), CYAN)], 475, 76, 124, 588)
-    z.text(163, 220, "eine Lampe", "middle", weight=600).text(482, 220, "zwei Lampen", "middle", weight=600)
-    return z.svg()
+    return _schatten_fotos(False)
+
+
+def antwort_schatten():
+    return _schatten_fotos(True)
 
 
 def schattenraum():
@@ -773,7 +790,7 @@ ZEICHNUNGEN_II = {2: beobachte_spiegel, 5: reflexionsgesetz, 9: spiegelbild, 11:
 
 
 ZEICHNUNGEN = {1: einstieg_baelle, 6: beobachte_licht_an, 9: wie_sehen, 11: lichtquellen_beleuchtet, 15: beobachte_drei_koerper, 18: vier_moeglichkeiten,
-               22: beobachte_mauer, 25: ausbreitung, 27: modell, 28: antwort_hausecke, 31: beobachte_lampen, 34: schattenraum, 36: kern_halbschatten,
+               22: beobachte_mauer, 25: ausbreitung, 27: modell, 28: antwort_hausecke, 31: beobachte_lampen, 39: antwort_schatten, 34: schattenraum, 36: kern_halbschatten,
                42: beobachte_mond, 45: mondbahn, 47: mondphasen, 49: sonnenfinsternis, 51: mondfinsternis, 56: lochkamera, 61: sicheln}
 
 def ersetze(datei, tabelle):

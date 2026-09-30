@@ -112,6 +112,14 @@ F4_MATERIAL = {
 }
 
 F4_HG = f"""
+<div class="box"><h3>Die zwei Fotos im Einstieg {chip(1, 9)}</h3><ul>
+<li>Beide Fotos: dieselbe Figur an derselben Stelle, beide Male leuchten die LED-Lampe unter der Treppe und die Handy-Taschenlampe.</li>
+<li><b>A:</b> Beide Lampen sind etwa gleich hell. Jede wirft einen eigenen Schatten, die zwei Schatten liegen versetzt übereinander.
+Wo beide verdeckt sind, ist Kernschatten (dunkel). Am Rand ist nur eine Lampe verdeckt, dort ist Halbschatten (hell). Deshalb wirkt der Schatten doppelt und weich.</li>
+<li><b>B:</b> Die Handylampe war näher an der Figur und dadurch viel heller. Ihr Schatten dominiert. In den Halbschatten der LED-Lampe leuchtet die helle Handylampe hinein,
+deshalb sieht man ihn kaum. Der Schatten wirkt scharf und dunkel.</li>
+<li>Die Auflösung kommt erst auf der Antwortfolie. Im Einstieg nur beobachten und beschreiben lassen.</li></ul></div>
+
 <div class="box"><h3>Schattenraum und Schattenbild {chip(4)}</h3><ul>
 <li>Ein Schatten ist kein Ding, sondern ein Gebiet ohne Licht. Der Schattenraum ist dreidimensional, das Schattenbild ist nur der Teil, der auf eine Fläche trifft.</li>
 <li><b>Größe:</b> Je näher der Körper an der Lampe steht, desto größer wird das Schattenbild. Man sieht es an den geraden Linien von der Lampe über die Ränder des Körpers.
@@ -155,7 +163,7 @@ Lücken: <b>lichtundurchlässigen Körper</b>, <b>Schatten</b>, <b>überlagern</
 <p>Passt nach Folie 5: Im Labor Folie 3 bis 5 zeigen (zwei Lichtpunkte, Kern- und Halbschatten, Regler für Lampengröße und Abstände). Die Lampengröße kann man mit der Ray-Box nicht verändern. Folie 6 zeigt die vier Flutlicht-Schatten im Stadion (passt zu unserer Alltagsfolie), Folie 7 die Finsternisse als Ausblick.</p></div>"""
 
 F4_SCHRITTE = [
-    ("Einstieg", "Bild mit zwei Schatten, Leitfrage 4, dann gleich in den Versuch.", [1, 2]),
+    ("Einstieg", "Zwei Fotos derselben Figur mit zwei Lampen: Was ist am Schatten anders? Leitfrage 4, dann gleich in den Versuch.", [1, 2]),
     ("Versuch", "In Gruppen, erst eine Lichtquelle, dann zwei. Versuchsblatt Vorderseite.", [3]),
     ("Erklären", "Schattenraum und Schattenbild, Kern- und Halbschatten zeichnen.", [4, 5]),
     ("Schatten einzeichnen", "Rückseite des Versuchsblatts: Randstrahlen, Schattenräume, Lücken.", [6]),
