@@ -29,7 +29,7 @@ R_MAT = {"demo": [("Spiegel und Taschenlampe", "1×", "für den Einstieg, Licht 
 
 R_SCHRITTE = [("Einstieg", "Spiegel und Hand heben, Leitfrage 6, Vermutungen.", [1, 2]),
               ("Versuch", "Kreisscheibe in Gruppen, sechs Messungen, Versuchsblatt.", [3]),
-              ("Reflexionsgesetz", "Merksatz, Winkel zum Lot.", [4]),
+              ("Reflexionsgesetz", "Merksatz, Winkel zum Lot. Spiegellabor mit Winkelregler.", [4]),
               ("Alltag", "Beispiele mündlich, Frage zum weißen Blatt.", [5])]
 
 R_HG = f"""
@@ -65,7 +65,7 @@ S_MAT = {"demo": [("Glasplatte, senkrecht aufgestellt", "1×", "zum Beispiel ein
          "schueler": [("Geodreieck und Bleistift", "1×", "zum Konstruieren auf dem Arbeitsblatt")],
          "hinweis": "Demo zum Spiegelbild: Das nicht brennende Teelicht hinter der Glasplatte scheint zu brennen, wenn es genau an der Bildstelle steht."}
 
-S_SCHRITTE = [("Spiegelbild", "Demo mit Glasplatte und zwei Teelichtern, dann Folie.", [1]),
+S_SCHRITTE = [("Spiegelbild", "Demo mit Glasplatte und zwei Teelichtern, dann Folie. Spiegelgröße im Spiegellabor.", [1]),
               ("Arbeitsblatt", "Wie groß muss der Spiegel sein? Konstruieren.", [2]),
               ("Alltag", "Spiegelschrift und Schaufenster.", [3]),
               ("Antwort und Check", "Antwort auf Leitfrage 6 ins Heft, Handzeichen, Lösung.", [4, 5, 6])]
@@ -108,7 +108,7 @@ B_MAT = {"demo": [("Glas mit Wasser und Strohhalm", "1×", "für den Einstieg"),
 
 B_SCHRITTE = [("Einstieg", "Strohhalm im Glas, Leitfrage 7, Vermutungen.", [1, 2]),
               ("Versuch", "Halbzylinder in Gruppen, zwei Richtungen, Versuchsblatt.", [3]),
-              ("Erklären", "Lichtbrechung und Richtung zum Lot.", [4, 5]),
+              ("Erklären", "Lichtbrechung und Richtung zum Lot. Brechungslabor mit Halbzylinder.", [4, 5]),
               ("Alltag", "Münzversuch vorne, Beispiele mündlich.", [6]),
               ("Antwort und Check", "Antwort auf Leitfrage 7 ins Heft, Handzeichen, Lösung.", [7, 8, 9])]
 
@@ -151,7 +151,7 @@ L_MAT = {"demo": [("Lupen", "mehrere", "zum Durchgeben beim Einstieg"),
 
 L_SCHRITTE = [("Einstieg", "Lupen durchgeben, Leitfrage 8, Vermutungen.", [1, 2]),
               ("Versuch", "Drei parallele Strahlen an beiden Linsen, Versuchsblatt.", [3]),
-              ("Erklären", "Sammellinse, Zerstreuungslinse, Brennpunkt.", [4]),
+              ("Erklären", "Sammellinse, Zerstreuungslinse, Brennpunkt. Linsenlabor: Wölbung und Brennweite.", [4]),
               ("Alltag", "Brennglas vorne, Beispiele mündlich.", [5])]
 
 L_HG = f"""

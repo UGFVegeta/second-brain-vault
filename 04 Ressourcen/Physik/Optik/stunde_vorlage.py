@@ -203,6 +203,8 @@ def mit_labor(folge, schritte, labore):
             namen = list(labore)
         if namen:
             schritt_lab[i] = namen
+            if "zu hause" in text.lower():      # nur zum Üben daheim: im Überblick und im Heft, nicht auf der Folie
+                continue
             for k in ks:
                 folie_lab.setdefault(k, [])
                 folie_lab[k] += [n for n in namen if n not in folie_lab[k]]
@@ -226,7 +228,7 @@ def _leitfragen():
     return out
 
 
-def heft_html(folge):
+def heft_html(folge, zusatz_labore=()):
     """Was am Ende der Stunde im Heft der Schüler steht, aus den Folien gesammelt, in der Reihenfolge der Folien:
     Leitfrage als Überschrift, nummerierte Einträge (und Folien mit data-heft) mit Zeichnung und Merksatz, Antwort auf die Leitfrage.
     Beginnt die Stunde mitten in einer Leitfrage, steht oben klein „Fortsetzung Leitfrage N“. Nicht dabei: Beobachte, Alltag, Check, Lösung, Blätter."""
@@ -252,19 +254,26 @@ def heft_html(folge):
         if not h1 or not (re.match(r"\s*\d+(\.\d+)?\.?\s", h1.group(1)) or "data-heft" in f[:80] or 'class="folie heft"' in f[:80]):
             continue
         titel = h1.group(1).strip()
-        if titel in gesehen:        # leere und ausgefüllte Folie mit gleichem Titel: die ausgefüllte gilt
-            teile = [x for x in teile if not x.startswith(f'<h3 class="hti">{titel}</h3>')]
+        leer = not re.search(r'<div class="zeichenzone[^"]*">\s*\S', f)
+        if titel in gesehen and leer:   # leere Zeichenfolie nach der ausgefüllten: nicht ersetzen
+            continue
+        if titel in gesehen:        # leere und ausgefüllte Folie mit gleichem Titel: die ausgefüllte gilt, Labor-Zeichen bleiben
+            alt = [x for x in teile if x.startswith(f'<h3 class="hti">{titel}</h3>')]
+            teile = [x for x in teile if x not in alt]
+            for x in alt:
+                f = "".join(f'<div class="laborchip">🧪 Labor: {n}</div>' for n in re.findall(r"🧪 Labor: ([^,<]+), auch zu Hause", x)) + f
         gesehen.add(titel)
         m = re.match(r"\s*(\d+)\.\d+\s", titel)
         erste_lf = erste_lf or (m.group(1) if m else None)
-        zz = re.search(r'<div class="zeichenzone[^"]*">(.*?)</div>\s*<div class="merksatz"', f, re.S)
-        ms = re.search(r'<div class="merksatz"[^>]*>(.*?)</div>\s*</section>', f, re.S)
-        bild = f'<div class="hbild">{zz.group(1).strip()}</div>' if zz and zz.group(1).strip() else ""
         labs = re.findall(r'<div class="laborchip">🧪 Labor: ([^<]+)</div>', f)
+        f = re.sub(r'<div class="laborchips">.*?</div></div>|<div class="laborchip">.*?</div>', "", f, flags=re.S)
+        zz = re.search(r'<div class="zeichenzone[^"]*">(.*?)</div>\s*<div class="merksatz[^"]*"', f, re.S)
+        ms = re.search(r'<div class="merksatz[^"]*"[^>]*>(.*?)</div>\s*</section>', f, re.S)
+        bild = f'<div class="hbild">{zz.group(1).strip()}</div>' if zz and zz.group(1).strip() else ""
         teile.append(f'<h3 class="hti">{titel}</h3>{bild}' + (f'<div class="hmerk">{ms.group(1).strip()}</div>' if ms else "")
                      + "".join(f'<div class="hlabor">🧪 Labor: {n}, auch zu Hause über IServ</div>' for n in labs))
         genutzt.update(labs)
-    rest = [n for n in alle_labs if n not in genutzt]
+    rest = [n for n in list(alle_labs) + [z for z in zusatz_labore if z not in alle_labs] if n not in genutzt]
     if rest:
         teile.append("".join(f'<div class="hlabor">🧪 Labor zur Stunde: {n}, auch zu Hause über IServ</div>' for n in rest))
     if not teile:
@@ -314,7 +323,7 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
 <div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen}{f'<p class="labzeile">Labore zur Stunde: {labzeile}</p>' if labore else ""}</div>
 </div>
 <div class="tab" id="t_folien">{karten}</div>
-<div class="tab" id="t_heft">{heft_html(folge)}</div>
+<div class="tab" id="t_heft">{heft_html(folge, [n for v in schritt_lab.values() for n in v])}</div>
 <div class="tab" id="t_hg">{hintergrund}</div>
 <div class="tab" id="t_ab">{blaetter_boxen}</div>
 </div>

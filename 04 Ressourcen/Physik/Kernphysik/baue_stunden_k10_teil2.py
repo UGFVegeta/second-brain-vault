@@ -3,7 +3,7 @@
 W10/W11 Klassenarbeit und W14 Puffer haben keine eigene Stunde. Ideen aus „Erlebnis Physik“ Kl. 10 in eigenen Worten.
 python3 baue_stunden_k10_teil2.py   -> HTMLs im Ordner Kernphysik (Export nach iCloud erst nach Freigabe)"""
 from baue_stunden_k10 import HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde, zeichnungsfolie
-from kern_zeichnungen2 import roentgen_damals_heute, halbwertszeit_leer
+from kern_zeichnungen2 import roentgen_damals_heute, halbwertszeit_leer, halbierung
 
 STRAHL = "Strahlungslabor Radioaktivitaet.html"
 ZERF = "Zerfallslabor Halbwertszeit.html"
@@ -70,7 +70,11 @@ A7b = tabellenfolie("Halbieren nicht nur bei Kernen", [
 HWZ_LEER = zeichnungsfolie("3.1 Die Halbwertszeit", halbwertszeit_leer(),
                            "Zerfallslabor am Beamer: Fluor-20 mit 225 Kernen. Alle 2 Sekunden die Zahl der <b>unzerfallenen Kerne</b> ablesen und als Punkt "
                            "eintragen. Dann eine Kurve durch die Punkte zeichnen und ablesen: Nach wie vielen Sekunden ist nur noch die <b>Hälfte</b> da?")
-S7 = [HWZ_LEER, f(27), blatt("Halbwertszeit W07.pdf", "k07", "Arbeitsblatt austeilen · Malzbier und Messzylinder pro Gruppe"), A7, A7b]
+HWZ_LEER = HWZ_LEER.replace('class="zeichenzone karo"', 'class="zeichenzone gross karo"').replace('class="merksatz"', 'class="merksatz tief"')
+HALB = zeichnungsfolie("3.2 Nach jeder Halbwertszeit", halbierung(),
+                       "Nach jeder Halbwertszeit ist nur noch die <b>Hälfte</b> der Kerne übrig: nach 1 T die Hälfte, nach 2 T ein Viertel, "
+                       "nach 3 T ein Achtel, nach 4 T ein Sechzehntel. Die Zahl wird nie ganz null.")
+S7 = [HWZ_LEER, f(27), HALB, blatt("Halbwertszeit W07.pdf", "k07", "Arbeitsblatt austeilen · Malzbier und Messzylinder pro Gruppe"), A7, A7b]
 S7_HG = (box("Halbwertszeit", ["Nach n Halbwertszeiten ist der Anteil (1/2)ⁿ übrig. Nach 10 Halbwertszeiten noch etwa ein Tausendstel.",
                                "Einzeichnen wie bisher: Das Zerfallslabor (nach der LEIFI-Animation) zeigt Fluor-20 mit 225 Kernen, Uhr und Messpunkten alle 2 s. Die Schüler tragen die Werte ins Heft ein. Die Achsen der Folie entsprechen deinem Blatt „Halbwertszeit AB“ (N bis 260, t bis 60 s), das Blatt geht auch als Alternative. Die Punkte streuen, jeder Durchlauf ist neu gewürfelt; die Kurve durch die Punkte gibt etwa 11 s.",
                                "Zerfallsgesetz für Interessierte: N(t) = N₀ · (1/2)^(t/T). Rechnen mit gebrochenen Hochzahlen ist nicht verlangt.",
@@ -319,22 +323,23 @@ STUNDEN = [
      "Versuchsblatt Zerfall mit Würfeln", {"demo": [], "schueler": [("Würfel", "30×", "500 Stück bestellt, reicht für 16 Gruppen"), ("Würfelbecher oder Schale", "1×", "")],
                                           "hinweis": "Die Werte aller Gruppen an der Tafel addieren."},
      [("Abschluss Leitfrage 2", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 3", "Würfel, Vermutungen.", [4, 5]),
-      ("Versuch", "Würfelversuch in Gruppen, Diagramm.", [6]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [7])], S6, S6_HG, S6_AB),
+      ("Versuch", "Würfelversuch in Gruppen, Diagramm. Danach 100 Würfel im Zerfallslabor.", [6]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [7])], S6, S6_HG, S6_AB),
     ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 02.11.2026) · Leitfrage 3",
      "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt"), ("Lappen", "1×", "")],
                                         "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."},
      [("Einzeichnen", "Zerfallslabor Fluor-20 am Beamer, alle 2 s ablesen. Die Schüler tragen die Punkte ins Diagramm im Heft ein.", [1]),
       ("Halbwertszeit", "Kurve zeichnen, Halbwertszeit ablesen: etwa 11 s. Vergleich mit der Lösung.", [2]),
-      ("Versuch", "Bierschaum messen, Arbeitsblatt. Wenn es knapp wird: als Demo vorne.", [3]), ("Vergleich", "Halbwertszeiten und Alltag.", [4, 5])], S7, S7_HG, S7_AB),
+      ("Hälfte, Viertel, Achtel", "Nach jeder Halbwertszeit die Hälfte: Kästchen ins Heft.", [3]),
+      ("Versuch", "Bierschaum messen, Arbeitsblatt optional. Wenn es knapp wird: als Demo vorne.", [4]), ("Vergleich", "Halbwertszeiten und Alltag.", [5, 6])], S7, S7_HG, S7_AB),
     ("W08 Aktivitaet", "Kernphysik: Aktivität und Halbwertszeit üben", "W08 (Woche ab 09.11.2026) · Leitfrage 3",
      "Übungsblatt Halbwertszeit", {"demo": [ZAEHLROHR, ("Diätsalz (Kaliumchlorid)", "1 kg", "freiwillig, aus dem Supermarkt")],
                                    "schueler": [PSE], "hinweis": "Nullrate vor dem Diätsalz messen."},
-     [("Aktivität", "Kurz: Becquerel, Zerfälle pro Sekunde, halbiert sich mit der Halbwertszeit.", [1]),
+     [("Aktivität", "Kurz: Becquerel, Zerfälle pro Sekunde, halbiert sich mit der Halbwertszeit. Zerfallslabor mit Reglern.", [1]),
       ("Alltag", "Becquerel im Alltag, freiwillig Diätsalz vor dem Zählrohr.", [2]),
       ("Üben", "Übungsblatt Halbwertszeit, Aufgaben 1 bis 4.", [3])], S8, S8_HG, S8_AB),
     ("W09 Uebungen Halbwertszeit", "Kernphysik: Übungen zur Halbwertszeit", "W09 (Woche ab 16.11.2026) · Abschluss Leitfrage 3",
      "Übungsblatt Halbwertszeit", {"demo": [], "schueler": [PSE], "hinweis": ""},
-     [("Abschluss Leitfrage 3", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt weiter ab Aufgabe 5, Vorbereitung Klassenarbeit.", [4])], S9, S9_HG, S9_AB),
+     [("Abschluss Leitfrage 3", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt weiter ab Aufgabe 5, Vorbereitung Klassenarbeit. Zu Hause: Kurz-Check im Zerfallslabor.", [4])], S9, S9_HG, S9_AB),
     ("W12 Ionisierende Strahlung", "Kernphysik: Warum heißt sie ionisierende Strahlung?", "W12 (Woche ab 07.12.2026) · Einstieg Leitfrage 4",
      "Arbeitsblatt Ionisierende Strahlung", {"demo": [("Nebelkammer", "1", "falls vorhanden"), ("Trockeneis", "nach Anleitung", "erst kurz vorher besorgen, hält nicht lange"), ("Isopropanol", "nach Anleitung", "")], "schueler": [], "hinweis": "Ohne Nebelkammer: Szene im Wirkungslabor."},
      [("Einstieg Leitfrage 4", "Röntgenbild und Warnzeichen, Vermutungen.", [1, 2]), ("Ionisation", "Folie und Wirkungslabor.", [3]),
@@ -362,14 +367,14 @@ STUNDEN = [
       ("Kernfusion", "Folie, Heft 14, Fusion im Labor.", [5, 6]), ("Alltag", "Wo man an der Fusion forscht.", [7])], S18, S18_HG, S18_AB),
     ("W19 Uebungen Kernenergie", "Kernphysik: Leitfrage 5 abschließen", "W19 (Woche ab 15.02.2027) · Abschluss Leitfrage 5",
      "Übungsblatt Kernenergie", {"demo": [], "schueler": [PSE], "hinweis": ""},
-     [("Abschluss Leitfrage 5", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt, Reaktorunfälle.", [4]), ("Alltag", "Kernkraft weltweit.", [5])], S19, S19_HG, S19_AB),
+     [("Abschluss Leitfrage 5", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt, Reaktorunfälle. Zu Hause: Kurz-Check im Kernenergielabor.", [4]), ("Alltag", "Kernkraft weltweit.", [5])], S19, S19_HG, S19_AB),
     ("W20 Radioaktiver Abfall", "Kernphysik: Wohin mit dem Abfall?", "W20 (Woche ab 22.02.2027) · Einstieg Leitfrage 6",
      "Arbeitsblatt Der radioaktive Abfall", {"demo": [], "schueler": [], "hinweis": ""},
      [("Einstieg Leitfrage 6", "Zeitachse bis eine Million Jahre, Vermutungen.", [1, 2]), ("Abfall", "Folie und Labor.", [3]),
       ("Üben", "Arbeitsblatt.", [4]), ("Alltag", "Abfall in Deutschland.", [5])], S20, S20_HG, S20_AB),
     ("W21 Argumente abwaegen", "Kernphysik: Nutzen und Risiko abwägen", "W21 (Woche ab 01.03.2027) · Abschluss Leitfrage 6",
      "Arbeitsblatt Nutzen und Risiko abwägen", {"demo": [], "schueler": [], "hinweis": "Rollenfolie für die Diskussion bereithalten."},
-     [("Argumente", "Folie, Fakt oder Meinung.", [1, 2]), ("Diskussion", "Vier Rollen, Sprecher, Auswertung.", [3]), ("Abschluss Leitfrage 6", "Antwort, Check.", [4, 5, 6])], S21, S21_HG, S21_AB),
+     [("Argumente", "Folie, Fakt oder Meinung.", [1, 2]), ("Diskussion", "Vier Rollen, Sprecher, Auswertung.", [3]), ("Abschluss Leitfrage 6", "Antwort, Check. Zu Hause: Kurz-Check im Kernenergielabor.", [4, 5, 6])], S21, S21_HG, S21_AB),
     ("W22 Rueckblick und C-14", "Kernphysik: Rückblick und Altersbestimmung", "W22 (Woche ab 08.03.2027) · Abschluss Kernphysik",
      "Arbeitsblatt Altersbestimmung mit C-14", {"demo": [], "schueler": [], "hinweis": ""},
      [("Rückblick", "Die sechs Leitfragen.", [1]), ("C-14", "Folie, C-14-Uhr im Labor.", [2]), ("Üben", "Arbeitsblatt.", [3]), ("Alltag", "Datierte Funde.", [4])], S22, S22_HG, S22_AB),
@@ -378,5 +383,5 @@ STUNDEN = [
 if __name__ == "__main__":
     for kurz, h1, sub, blattname, mat, schritte, folge, hg, ab in STUNDEN:
         bau_stunde(f"Kernphysik – {kurz} – Stunde.html", h1, f"Klasse 10 · Physik · {sub}",
-                   [blattname[1:] if blattname.startswith("!") else f"{blattname}: Seite 1, eins pro Schüler.", NICHT_DRUCKEN], mat, schritte, folge, hg, ab,
+                   [blattname[1:] if blattname.startswith("!") else f"Optional: {blattname}, Seite 1, eins pro Schüler.", NICHT_DRUCKEN], mat, schritte, folge, hg, ab,
                    ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS + ".blattkarte:has(.heftbild){width:900px}")

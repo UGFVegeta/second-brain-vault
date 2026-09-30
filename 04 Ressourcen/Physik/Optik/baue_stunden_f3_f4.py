@@ -81,7 +81,7 @@ verschwindet er. Lücken: <b>geradlinig</b>, <b>gerade Linie</b>.</p></div>
 F3_SCHRITTE = [
     ("Einstieg", "Ball hinter der Mauer, Leitfrage 3, Vermutungen.", [1, 2]),
     ("Versuch", "Ray-Box und Blende in Gruppen, Versuchsblatt.", [3]),
-    ("Erklären", "Lichtbündel, Blende, Lichtstrahlenmodell.", [4, 5]),
+    ("Erklären", "Lichtbündel, Blende, Lichtstrahlenmodell. Im Strahlenlabor die zweite Blende zeigen.", [4, 5]),
     ("Alltag", "Beispiele mündlich, Frage zum Nebel.", [6]),
     ("Antwort und Check", "Antwort auf Leitfrage 3 ins Heft, Handzeichen, Lösung.", [7, 8, 9]),
 ]
@@ -184,7 +184,7 @@ Lücken: <b>lichtundurchlässigen Körper</b>, <b>Schatten</b>, <b>überlagern</
 F4_SCHRITTE = [
     ("Einstieg", "Zwei Fotos derselben Figur mit zwei Lampen: Was ist am Schatten anders? Leitfrage 4, dann gleich in den Versuch.", [1, 2]),
     ("Versuch", "In Gruppen, erst eine Lichtquelle, dann zwei. Versuchsblatt Vorderseite.", [3]),
-    ("Erklären", "Schattenraum und Schattenbild, Kern- und Halbschatten zeichnen.", [4, 5]),
+    ("Erklären", "Schattenraum und Schattenbild, Kern- und Halbschatten zeichnen. Im Schattenlabor die Lampen verschieben.", [4, 5]),
     ("Schatten einzeichnen", "Erst an der Tafel in drei Schritten vormachen, dann Rückseite des Versuchsblatts: Randstrahlen, Schattenräume, Lücken.", [6, 7]),
     ("Alltag", "Stadionfoto: Warum hat der Trainer mehrere Schatten? Dann Beispiele mündlich, Frage nach dem Halbschatten.", [8, 9]),
     ("Antwort und Check", "Antwort auf Leitfrage 4 ins Heft, Handzeichen, Lösung.", [10, 11, 12]),

@@ -22,7 +22,7 @@ def e(eid, marke, titel, datei="", art=""):
 
 
 optik1 = [
-    e("F1", "F1", "Lichtquellen und beleuchtete Körper", "Optik 1 – Lichtquellen und beleuchtete Körper – ALLES.html"),
+    e("F1", "F1", "Lichtquellen und beleuchtete Körper", "Optik – Leitfrage 1 – Stunde.html"),
     e("F2", "F2", "Licht trifft auf einen Körper", "Optik – Do 24.09. – Stunde.html"),
     e("F3", "F3", "Lichtausbreitung und Blende", "Optik – Leitfrage 3 – Stunde.html"),
     e("F4", "F4", "Kern- und Halbschatten", "Optik – Leitfrage 4 – Stunde.html"),

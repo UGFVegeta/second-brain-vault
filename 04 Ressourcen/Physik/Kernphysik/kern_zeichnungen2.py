@@ -50,31 +50,78 @@ def beobachte_wuerfel():
     return z.svg()
 
 
+K = 636 / 39          # ein Kästchen der Karo-Zeichenzone in viewBox-Einheiten (39 Kästchen breit)
+HWZ_H = 17 * K        # große Zeichenzone: 17 Kästchen hoch
+
+
 def _hwz_achsen(z):
-    """Achsen wie auf Oskars Arbeitsblatt: N von 0 bis 260 (Schritt 20), t von 0 bis 60 s (Schritt 5), Karo-Gitter."""
-    x0, y0, sx, sy = 70, 196, 8.8, 0.65
+    """Achsen genau auf den Kästchen: t 0 bis 60 s, 2 Kästchen je 5 s; N 0 bis 260, 1 Kästchen je 20 Kerne (wie Oskars Blatt)."""
+    x0, y0, sx, sy = 3 * K, 15 * K, 2 * K / 5, K / 20
+    z.pfeil(x0, y0, 29 * K, y0, "#66798E", 1.8, 8).pfeil(x0, y0, x0, 1 * K, "#66798E", 1.8, 8)
     for t in range(5, 61, 5):
-        z.line(x0 + t * sx, y0, x0 + t * sx, y0 - 260 * sy, "#C8D3E3", 0.8)
-        z.text(x0 + t * sx, y0 + 14, str(t), "middle", 8.5)
+        z.line(x0 + t * sx, y0 - 4, x0 + t * sx, y0 + 4, "#66798E", 1.4)
+        z.text(x0 + t * sx, y0 + 15, str(t), "middle", 9)
     for n in range(20, 261, 20):
-        z.line(x0, y0 - n * sy, x0 + 60 * sx, y0 - n * sy, "#C8D3E3", 0.8)
-        z.text(x0 - 6, y0 - n * sy + 3, str(n), "end", 8)
-    achsen(z, x0, y0, 552, 180, "t in s", "")
-    z.formel(x0 + 8, y0 - 172, "N")
+        z.line(x0 - 4, y0 - n * sy, x0 + 4, y0 - n * sy, "#66798E", 1.4)
+        z.text(x0 - 7, y0 - n * sy + 3.5, str(n), "end", 9)
+    z.text(29 * K, y0 - 7, "t in s", "end", 9.5)
+    z.formel(x0 + 8, 1.6 * K, "N")
     return x0, y0, sx, sy
+
+
+def zerfallsreihe_th232():
+    """Zerfallsreihe Thorium-232 bis Blei-208 (wie Oskars Blatt, Aufgabe 2), in zwei Zeilen, α und β an den Pfeilen."""
+    z = Z("kzr", 212)
+    reihe = [("Th", 232, 90), ("Ra", 228, 88), ("Ac", 228, 89), ("Th", 228, 90), ("Ra", 224, 88), ("Rn", 220, 86),
+             ("Po", 216, 84), ("Pb", 212, 82), ("Bi", 212, 83), ("Tl", 208, 81), ("Pb", 208, 82)]
+    art = ["α", "β⁻", "β⁻", "α", "α", "α", "α", "β⁻", "α", "β⁻"]
+    pos = [(1.5 + i * 6, 5) for i in range(6)] + [(1.5 + (i - 6) * 6, 11) for i in range(6, 11)]
+    for i, ((sym, A, Zz), (bx, by)) in enumerate(zip(reihe, pos)):
+        x, y = bx * K + 18, by * K
+        nuklid(z, x, y, sym, A, Zz, 22)
+        if i < 10:
+            nx, ny = pos[i + 1]
+            if ny == by:
+                z.pfeil(x + 30, y - 7, nx * K + 2, y - 7, "#66798E", 1.6, 7)
+                z.text((x + 30 + nx * K + 2) / 2, y - 13, art[i], "middle", 11, 600, ROT if art[i] == "α" else CYAN)
+            else:
+                z.add(f'<path d="M{x + 30:.1f} {y - 7:.1f} C {x + 60:.1f} {y + 20:.1f}, {1.5 * K + 10:.1f} {y + 25:.1f}, {1.5 * K + 10:.1f} {ny * K - 26:.1f}" '
+                      f'fill="none" stroke="#66798E" stroke-width="1.6"/>')
+                z.pfeil(1.5 * K + 10, ny * K - 30, 1.5 * K + 10, ny * K - 24, "#66798E", 1.6, 7)
+                z.text(x + 58, y + 22, art[i], "middle", 11, 600, ROT if art[i] == "α" else CYAN)
+    z.text(32 * K, 11 * K - 7, "stabil", "start", 10, 600, GRUEN)
+    z.text(1 * K, 1.3 * K, "α: A − 4, Z − 2        β⁻: A bleibt, Z + 1", size=10, weight=600)
+    return z.svg()
+
+
+def halbierung():
+    """Nach jeder Halbwertszeit ist die Hälfte übrig: 1, 1/2, 1/4, 1/8, 1/16 als Quadrate aus 16 Kästchen (auf dem Karo)."""
+    z = Z("khb", 212)
+    reste = [(16, "Start", "100 %"), (8, "nach 1 T", "½ = 50 %"), (4, "nach 2 T", "¼ = 25 %"), (2, "nach 3 T", "⅛ = 12,5 %"), (1, "nach 4 T", "¹⁄₁₆ ≈ 6 %")]
+    for i, (n, wann, anteil) in enumerate(reste):
+        x0, y0 = (2 + i * 7) * K, 4 * K
+        for c in range(16):
+            cx, cy = x0 + (c % 4) * K, y0 + (c // 4) * K
+            z.add(f'<rect x="{cx:.1f}" y="{cy:.1f}" width="{K:.1f}" height="{K:.1f}" fill="{ORANGE if c < n else "#FFFFFF"}" '
+                  f'fill-opacity="{0.85 if c < n else 1}" stroke="{INK}" stroke-width="1"/>')
+        z.text(x0 + 2 * K, 2.6 * K, wann, "middle", 10.5, 600).text(x0 + 2 * K, 9.4 * K, anteil, "middle", 10.5, 600, ROT)
+        if i < 4:
+            z.pfeil(x0 + 4.3 * K, y0 + 2 * K, x0 + 6.7 * K, y0 + 2 * K, "#66798E", 1.6, 7)
+    z.text(19.5 * K, 11.8 * K, "orange = noch nicht zerfallene Kerne", "middle", 9.5, col=GRAU)
+    return z.svg()
 
 
 def halbwertszeit_leer():
     """Leeres Diagramm zum Einzeichnen: Werte aus dem Zerfallslabor (Fluor-20, 225 Kerne, alle 2 s ein Messpunkt)."""
-    z = Z("kh0", 230)
+    z = Z("kh0", HWZ_H)
     _hwz_achsen(z)
-    z.text(600, 36, "Fluor-20, Start: 225 Kerne", "end", 9.5, 600).text(600, 50, "alle 2 s einen Punkt eintragen", "end", 9)
+    z.text(38 * K, 2 * K, "Fluor-20, Start: 225 Kerne", "end", 9.5, 600).text(38 * K, 3 * K, "alle 2 s einen Punkt eintragen", "end", 9)
     return z.svg()
 
 
 def halbwertszeit():
     """Ausgefüllt: Messpunkte liegen um die Kurve N = 225 · (1/2)^(t/11); Halbwertszeiten bei 11, 22, 33 s markiert."""
-    z = Z("kh", 230)
+    z = Z("kh", HWZ_H)
     x0, y0, sx, sy = _hwz_achsen(z)
     pts = " ".join(f"{x0 + t * sx:.1f},{y0 - 225 * 0.5 ** (t / 11) * sy:.1f}" for t in [i * 0.5 for i in range(0, 121)])
     z.add(f'<polyline points="{pts}" fill="none" stroke="{CYAN}" stroke-width="2.6"/>')
@@ -85,8 +132,8 @@ def halbwertszeit():
         X, Y = x0 + t * sx, y0 - n * sy
         z.line(x0, Y, X, Y, ROT, 1.2, "4 4").line(X, Y, X, y0, ROT, 1.2, "4 4")
         z.text(X + 7, Y - 6, f"nach {t} s: etwa {n:.0f}", size=9, weight=600)
-    z.text(600, 36, "Fluor-20, Start: 225 Kerne", "end", 9.5, 600).text(600, 50, "Halbwertszeit etwa 11 s", "end", 9.5, 600, ROT)
-    z.text(600, 64, "Die Kurve erreicht nie null.", "end", 9)
+    z.text(38 * K, 2 * K, "Fluor-20, Start: 225 Kerne", "end", 9.5, 600).text(38 * K, 3 * K, "Halbwertszeit etwa 11 s", "end", 9.5, 600, ROT)
+    z.text(38 * K, 4 * K, "Die Kurve erreicht nie null.", "end", 9)
     return z.svg()
 
 

@@ -187,11 +187,11 @@ karten = "".join(
     for i, h in enumerate(FOLGE, 1))
 
 SCHRITTE = [
-    ("Lichtquellen", "Kurz wiederholen, Arbeitsblatt, dann natürlich und künstlich, sehen und gesehen werden.", [1, 2, 3, 4]),
+    ("Lichtquellen", "Kurz wiederholen, Arbeitsblatt, dann natürlich und künstlich, sehen und gesehen werden. Sehlabor: Sender und Empfänger.", [1, 2, 3, 4]),
     ("Check zu Leitfrage 1", "Antwort, Handzeichen, Lösung.", [5, 6, 7]),
     ("Leitfrage 2", "Dieselbe Lampe, drei Gegenstände. Vermutungen sammeln.", [8, 9]),
     ("Versuch", "Blatt, Karton, Glasscheibe in Gruppen, Versuchsblatt.", [10]),
-    ("Erklären", "Vier Situationen zeichnen, Alltag mündlich, Antwort auf Leitfrage 2 ins Heft.", [11, 12, 13]),
+    ("Erklären", "Vier Situationen zeichnen, Alltag mündlich, Antwort auf Leitfrage 2 ins Heft. Körperlabor: weitere Körper ausprobieren.", [11, 12, 13]),
     ("Check zu Leitfrage 2", "Handzeichen, Lösung.", [14, 15]),
 ]
 zeit = "".join(f'<div class="z{i % 6}" style="flex:1">{i + 1} · {t}</div>' for i, (t, d, ks) in enumerate(SCHRITTE))
@@ -257,6 +257,18 @@ MATERIAL = {
     "hinweis": "Raum abdunkeln.",
 }
 MATERIAL_HTML = _sv.material_tabellen(MATERIAL)
+LABORE = {"Sehlabor": "Sehlabor Lichtquellen.html", "Körperlabor": "Körperlabor Licht trifft auf Körper.html"}
+FOLGE, SCHRITT_LAB = _sv.mit_labor(FOLGE, SCHRITTE, LABORE)
+karten = "".join(
+    (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
+     if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>')
+    for i, h in enumerate(FOLGE, 1))
+zeilen_u = "".join(
+    f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b><br><span class="m">{d}</span></div>'
+    f'<div class="go">{"".join(f'<a class="labchip" href="{LABORE[n]}" target="_blank">🧪 {n}</a>' for n in SCHRITT_LAB.get(i, []))}'
+    f'{"".join(f"<button data-go=f{k}>Folie {k}</button>" for k in ks)}</div></div>'
+    for i, (t, d, ks) in enumerate(SCHRITTE, 1)) + '<p class="labzeile">Labore zur Stunde: ' + "".join(
+    f'<a class="labchip" href="{d}" target="_blank">🧪 {n}</a>' for n, d in LABORE.items()) + "</p>"
 
 html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -312,7 +324,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 </div>
 
 <div class="tab" id="t_folien">{karten}</div>
-<div class="tab" id="t_heft">{_sv.heft_html(FOLGE)}</div>
+<div class="tab" id="t_heft">{_sv.heft_html(FOLGE, [n for v in SCHRITT_LAB.values() for n in v])}</div>
 
 <div class="tab" id="t_hg">{hintergrund}</div>
 

@@ -25,10 +25,11 @@ LABORE = sorted(p.name for p in HIER.glob("*labor*.html")) + ["Kernphysik-Labore
 
 
 def stunden():
-    for datei, h1, sub, _d, _m, _s, folge, _hg, _ab in t1.STUNDEN:
-        yield datei, h1, sub, folge
-    for kurz, h1, sub, _b, _m, _s, folge, _hg, _ab in t2.STUNDEN:
-        yield f"Kernphysik – {kurz} – Stunde.html", h1, sub, folge
+    from stunde_vorlage import mit_labor, labore_der_stunde
+    for datei, h1, sub, _d, _m, sch, folge, hg, ab in t1.STUNDEN:
+        yield datei, h1, sub, mit_labor(folge, sch, labore_der_stunde(hg, ab))[0]
+    for kurz, h1, sub, _b, _m, sch, folge, hg, ab in t2.STUNDEN:
+        yield f"Kernphysik – {kurz} – Stunde.html", h1, sub, mit_labor(folge, sch, labore_der_stunde(hg, ab))[0]
 
 
 def einbetten(html):

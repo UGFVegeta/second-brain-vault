@@ -21,6 +21,8 @@ def f(p):
 
 
 def blatt(pdf, key, hinweis):
+    """Arbeitsblätter sind immer optional: Das Heft ist auch ohne Blatt vollständig."""
+    hinweis = "optional · " + hinweis.replace("Arbeitsblatt austeilen", "Arbeitsblatt").replace("Versuchsblatt austeilen", "Versuchsblatt").replace("Übungsblatt austeilen", "Übungsblatt")
     return _blatt(pdf, key, hinweis, mat=MAT)
 
 
@@ -161,7 +163,12 @@ A6 = tabellenfolie("Strahlung als Werkzeug", [
     ("Leck in einer Leitung", "Zählrohr findet die Stelle", "Man gibt einen kurzlebigen Strahler ins Wasser. Am Leck steigt die Zählrate."),
     ("Schädlinge bekämpfen", "Insekten ohne Gift", "Bestrahlte Männchen sind unfruchtbar, es schlüpft kein Nachwuchs."),
 ], frage="Warum nimmt man für die Dickenmessung von Papier β-Strahlung und nicht γ-Strahlung?")
-S5 = [f(18), f(20), blatt("Durchdringung und Zerfallsgleichungen W05.pdf", "k05", "Arbeitsblatt austeilen · Absorberversuch vorne"), A5, A6]
+from kern_zeichnungen2 import zerfallsreihe_th232  # noqa: E402
+ZR = zeichnungsfolie("2.5 Die Zerfallsreihe", zerfallsreihe_th232(),
+                     "Viele Kerne zerfallen mehrmals hintereinander, bis ein <b>stabiler Kern</b> entsteht, meist <b>Blei</b>. "
+                     "Diese Kette heißt <span class=\"rot\">Zerfallsreihe</span>. Bei jedem Schritt gelten die Regeln für α und β⁻.")
+S5 = [f(18), ZR, blatt("Zerfallsreihen W05 (Oskar).pdf", "k05z", "Blatt Zerfallsreihen · Np-237 und Th-232"),
+      f(20), blatt("Durchdringung und Zerfallsgleichungen W05.pdf", "k05", "Arbeitsblatt · Absorberversuch vorne"), A5, A6]
 S5_HG = f"""
 <div class="box"><h3>Zerfallsgleichungen {chip(1)}</h3><ul>
 <li>Oben (Massenzahl) und unten (Ladung) muss die Summe links und rechts gleich sein. Das Elektron schreibt man mit 0 oben und −1 unten.</li>
@@ -205,7 +212,7 @@ STUNDEN = [
                ("Luftballon", "1×", "vor der Stunde gerieben und aufgehängt"), ("Wolltuch", "1×", "")], "schueler": [],
       "hinweis": "Kein Präparat nötig. Das Zählrohr ist vor der Stunde eingeschaltet und steht weit weg von der Präparatesammlung. Ballon 20 bis 30 Minuten vorher im Keller aufhängen."},
      [("Abschluss Leitfrage 1", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 2", "Zählrohr klickt, Leitfrage 2.", [4, 5]),
-      ("Versuch", "Nullrate messen, Arbeitsblatt, dann der Ballon vor dem Zählrohr.", [6]), ("Alltag", "Natürliche Strahlung.", [7])],
+      ("Versuch", "Nullrate messen, Arbeitsblatt, dann der Ballon vor dem Zählrohr. Zum Vergleich: Nullrate im Strahlungslabor.", [6]), ("Alltag", "Natürliche Strahlung.", [7])],
      S3, S3_HG, S3_AB),
     ("Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "Kernphysik: Alpha, Beta und Gamma", "Klasse 10 · Physik · W04 (Woche ab 05.10.2026) · Leitfrage 2",
      ["Arbeitsblatt Drei Arten radioaktiver Strahlung: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
@@ -219,11 +226,14 @@ STUNDEN = [
      {"demo": [("Präparate α, β, γ", "je 1", "nur Lehrkraft, nach RiSU"), ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", ""),
                ("Absorber: Papier, Aluminium 5 mm, Bleiplatten", "je 1", "mehrere gleich dicke Bleiplatten, falls vorhanden")], "schueler": [("Periodensystem", "1×", "")],
       "hinweis": "Ohne Präparate: Absorberversuch und Bleidicke im Strahlungslabor."},
-     [("Zerfallsgleichungen", "Regeln an der Folie, Übungen im Labor.", [1]), ("Durchdringung", "Absorberversuch vorne, Bleidicke im Labor, Arbeitsblatt.", [2, 3]),
-      ("Alltag", "Abschirmung und Strahlung als Werkzeug.", [4, 5])],
+     [("Zerfallsgleichungen", "Regeln an der Folie, Übungen im Strahlungslabor.", [1]),
+      ("Zerfallsreihe", "Th-232 bis Blei ins Heft. Dein Blatt Zerfallsreihen (Np-237, Th-232) als Übung.", [2, 3]),
+      ("Durchdringung", "Absorberversuch vorne, Bleidicke im Strahlungslabor.", [4, 5]),
+      ("Alltag", "Abschirmung und Strahlung als Werkzeug.", [6, 7])],
      S5, S5_HG, S5_AB),
 ]
 
 if __name__ == "__main__":
   for datei, h1, sub, drucken, mat, schritte, folge, hg, ab in STUNDEN:
+    drucken = [("Optional: " + d) if "eins pro Schüler" in d else d for d in drucken]
     bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab, ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS)
