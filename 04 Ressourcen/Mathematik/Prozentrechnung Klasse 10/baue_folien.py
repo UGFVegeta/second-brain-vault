@@ -175,6 +175,118 @@ def seite(lsg):
     return f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>{titel}</title><style>{CSS}</style></head><body>{folie1(lsg)}{folie2(lsg)}{folie3(lsg)}</body></html>'.replace(" %", "&nbsp;%")
 
 
+# ---------------------------------------------------------------- Blatt mit allen Aufgaben (1 Seite A4, Rechnung im Heft)
+BLATT_CSS = """
+@page{size:A4;margin:0}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font-family:Helvetica,Arial,sans-serif;color:#1b1b1b}
+.seite{width:210mm;height:297mm;padding:10mm 13mm;display:flex;flex-direction:column;gap:4mm}
+header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:.5mm solid #1b1b1b;padding-bottom:2mm}
+h1{font-size:19pt;margin:0;color:#12909e} .sub{font-size:10pt;color:#555} .name{font-size:10.5pt;color:#333}
+.z{border:.3mm solid #999;border-radius:2.5mm;padding:3mm 4mm}
+h2{font-size:13pt;margin:0 0 1.5mm} h2 small{font-size:9.5pt;color:#777;font-weight:400;margin-left:2mm}
+p{margin:0 0 1.6mm;font-size:11pt;line-height:1.3} .s{display:flex;gap:2mm;margin:0 0 1.2mm;font-size:11pt;line-height:1.3}.s b{flex:none;width:5mm}
+.chart svg{width:100%;height:auto}
+.gross{display:flex;gap:6mm;align-items:center}.gross>div:first-child{flex:1.2}.gross>div:last-child{flex:.62}
+.raster{display:grid;grid-template-columns:1fr 1fr;gap:4mm;flex:1;align-content:start}
+.raster .z{display:flex;flex-direction:column}
+"""
+
+
+def blatt():
+    einstieg = f"""<div class="z"><h2>Aufgabe 1 <small>Schulweg</small></h2><div class="gross"><div>
+<p>Schülerinnen und Schüler wurden befragt, wie sie zur Schule kommen. Das Kreisdiagramm zeigt das Ergebnis. <b>{E_RAD}</b> Befragte kommen mit dem Fahrrad.</p>
+<div class="s"><b>a)</b><span>Wie viele Schülerinnen und Schüler wurden insgesamt befragt?</span></div>
+<div class="s"><b>b)</b><span>Wie viele der Befragten kommen mit dem Bus?</span></div>
+<div class="s"><b>c)</b><span>24 der Busfahrer sind Fünftklässler. Wie viel Prozent <u>der Busfahrer</u> sind das? Wie viel Prozent <u>aller Befragten</u> sind das?</span></div>
+</div><div class="chart">{kreis(E_TEILE, 120, 13)}</div></div></div>"""
+    a2 = f"""<div class="z"><h2>Aufgabe 2 <small>Schülersprecherwahl</small></h2>
+<p>Der Balken zeigt die Stimmenanteile. Tom erhielt <b>{TOM}</b> Stimmen.</p><div class="chart">{stapel(WAHL)}</div>
+<div class="s"><b>a)</b><span>Wie viele Stimmen wurden insgesamt abgegeben?</span></div>
+<div class="s"><b>b)</b><span>Wie viele Stimmen erhielt Ali?</span></div></div>"""
+    a3 = f"""<div class="z"><h2>Aufgabe 3 <small>Fahrrad-Fahrer</small></h2>
+<p>Klasse 10a hat 25, Klasse 10b hat 40 Schüler. Die Balken zeigen, wie viel Prozent mit dem Fahrrad kommen.</p><div class="chart">{zweibalken()}</div>
+<p>Timo sagt: „In der 10a fahren mehr Schüler mit dem Rad, weil 40 % mehr sind als 30 %.“ Stimmt das? Begründe mit einer Rechnung.</p></div>"""
+    a4 = f"""<div class="z"><h2>Aufgabe 4 <small>Klassenarbeit</small></h2>
+<p>Das Diagramm zeigt, wie oft jede Note in der Klassenarbeit vorkam.</p><div class="chart">{saeulen()}</div>
+<div class="s"><b>a)</b><span>Wie viele Schüler haben mitgeschrieben?</span></div>
+<div class="s"><b>b)</b><span>Wie viel Prozent hatten Note 3? Berechne auch die Prozentsätze der anderen Noten.</span></div></div>"""
+    a5 = f"""<div class="z"><h2>Aufgabe 5 <small>Sportverein</small></h2>
+<p>Ein Verein hat <b>500</b> Mitglieder. Das Kreisdiagramm zeigt, wie sie sich verteilen. Von den Jugendlichen sind 40 % Mädchen.</p>
+<div class="chart" style="width:54%;margin:0 auto 1.5mm">{kreis(VEREIN, 110, 13)}</div>
+<div class="s"><b>a)</b><span>Wie viele Jugendliche gehören zum Verein?</span></div>
+<div class="s"><b>b)</b><span>Wie viele Mädchen sind das?</span></div>
+<div class="s"><b>c)</b><span>Wie viel Prozent <u>aller Mitglieder</u> sind Mädchen aus der Gruppe Jugendliche?</span></div></div>"""
+    kopf = ('<header><div><h1>Prozentrechnen: Wiederholung</h1><div class="sub">Klasse 10b, Mathematik · Rechnung ins Heft, mit Rechenweg und Antwortsatz</div></div>'
+            '<div class="name">Name: ______________________</div></header>')
+    return (f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>Prozentrechnen Wdh 10b</title><style>{BLATT_CSS}</style></head>'
+            f'<body><div class="seite">{kopf}{einstieg}<div class="raster">{a2}{a3}{a4}{a5}</div></div></body></html>').replace(" %", "&nbsp;%")
+
+
+def blatt_bauen():
+    name = "Prozent Wdh 10b – Aufgaben (1 Blatt, Rechnung im Heft)"
+    h = HIER / f"{name}.html"
+    h.write_text(blatt(), encoding="utf-8")
+    subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={HIER / (name + '.pdf')}", h.as_uri()],
+                   check=True, capture_output=True)
+    print("geschrieben:", name + ".pdf")
+
+
+# ---------------------------------------------------------------- Lösungsblatt für die Schüler (1 Seite A4)
+LSG_CSS = BLATT_CSS + """
+.z p,.z .s{font-size:10.3pt;line-height:1.32;margin:0 0 1.4mm} .z .s b{width:5mm}
+.ant{margin:0 0 2mm;padding:1mm 2mm;background:#eaf5f6;border-left:1mm solid #12909e;font-size:10.3pt;line-height:1.3}
+.zwei{display:grid;grid-template-columns:1fr 1fr;gap:6mm} .zwei h3{font-size:10.5pt;margin:0 0 1.2mm;color:#12909e}
+.tipp{font-size:10.3pt;color:#333;margin:0} .e{font-weight:700;color:#b3261e}
+"""
+
+
+def loesungsblatt():
+    e1 = """<div class="z"><h2>Aufgabe 1 <small>Schulweg</small></h2><div class="zwei"><div><h3>Dreisatz</h3>
+<div class="s"><b>a)</b><span>25 % ≙ 60 → 1 % ≙ 2,4 → 100 % ≙ <span class="e">240</span></span></div>
+<div class="s"><b>b)</b><span>100 % ≙ 240 → 1 % ≙ 2,4 → 40 % ≙ <span class="e">96</span></span></div>
+<div class="s"><b>c)</b><span>Busfahrer = 100 %: 96 ≙ 100 % → 24 ≙ 24 · 100 % : 96 = <span class="e">25 %</span><br>Alle = 100 %: 240 ≙ 100 % → 24 ≙ 24 · 100 % : 240 = <span class="e">10 %</span></span></div></div>
+<div><h3>Formel</h3>
+<div class="s"><b>a)</b><span>G = W : p % = 60 : 0,25 = <span class="e">240</span></span></div>
+<div class="s"><b>b)</b><span>W = G · p % = 240 · 0,40 = <span class="e">96</span></span></div>
+<div class="s"><b>c)</b><span>p % = W : G = 24 : 96 = <span class="e">25 %</span> (G = Busfahrer)<br>p % = 24 : 240 = <span class="e">10 %</span> (G = alle Befragten)</span></div></div></div>
+<div class="ant"><b>Antwort:</b> a) Es wurden 240 Schülerinnen und Schüler befragt. b) 96 Befragte kommen mit dem Bus. c) 25 % der Busfahrer und 10 % aller Befragten sind Fünftklässler. Die 24 sind dieselbe Zahl, aber das 100 % ist ein anderes.</div></div>"""
+    l2 = """<div class="z"><h2>Aufgabe 2 <small>Schülersprecherwahl</small></h2>
+<p><b>Was ist 100 %?</b> Alle abgegebenen Stimmen. Toms 126 Stimmen sind 35 %.</p>
+<div class="s"><b>a)</b><span>35 % ≙ 126 → 1 % ≙ 3,6 → 100 % ≙ <span class="e">360</span><br>oder G = 126 : 0,35 = 360</span></div>
+<div class="s"><b>b)</b><span>Ali: 20 % von 360 = 360 · 0,20 = <span class="e">72</span></span></div>
+<div class="ant"><b>Antwort:</b> Es wurden 360 Stimmen abgegeben. Ali erhielt 72 Stimmen.</div></div>"""
+    l3 = """<div class="z"><h2>Aufgabe 3 <small>Fahrrad-Fahrer</small></h2>
+<p><b>Was ist 100 %?</b> In jeder Klasse alle Schüler dieser Klasse, also 25 in der 10a und 40 in der 10b.</p>
+<div class="s"><b>10a</b><span>40 % von 25 = 25 · 0,40 = <span class="e">10</span></span></div>
+<div class="s"><b>10b</b><span>30 % von 40 = 40 · 0,30 = <span class="e">12</span></span></div>
+<div class="ant"><b>Antwort:</b> Timo hat nicht Recht. In der 10a fahren 10 Schüler mit dem Rad, in der 10b 12. Man darf Prozentsätze nur vergleichen, wenn das 100 % gleich groß ist.</div></div>"""
+    l4 = """<div class="z"><h2>Aufgabe 4 <small>Klassenarbeit</small></h2>
+<p><b>Was ist 100 %?</b> Alle Schüler, die mitgeschrieben haben. Das ist die Summe der Säulen.</p>
+<div class="s"><b>a)</b><span>6 + 12 + 9 + 3 = <span class="e">30</span></span></div>
+<div class="s"><b>b)</b><span>p % = W : G<br>Note 3: 12 : 30 = 0,4 = <span class="e">40 %</span><br>Note 1–2: 6 : 30 = <span class="e">20 %</span>, Note 4: 9 : 30 = <span class="e">30 %</span>, Note 5–6: 3 : 30 = <span class="e">10 %</span><br>Probe: 20 + 40 + 30 + 10 = 100</span></div>
+<div class="ant"><b>Antwort:</b> 30 Schüler haben mitgeschrieben. 40 % hatten die Note 3.</div></div>"""
+    l5 = """<div class="z"><h2>Aufgabe 5 <small>Sportverein</small></h2>
+<p><b>Was ist 100 %?</b> Erst alle 500 Mitglieder. Für die 40 % Mädchen sind es dann die Jugendlichen.</p>
+<div class="s"><b>a)</b><span>30 % von 500 = 500 · 0,30 = <span class="e">150</span></span></div>
+<div class="s"><b>b)</b><span>Jugendliche = 100 %: 40 % von 150 = 150 · 0,40 = <span class="e">60</span></span></div>
+<div class="s"><b>c)</b><span>Alle Mitglieder = 100 %: 60 : 500 = 0,12 = <span class="e">12 %</span></span></div>
+<div class="ant"><b>Antwort:</b> 150 Jugendliche gehören zum Verein, 60 davon sind Mädchen. Das sind 12 % aller Mitglieder.</div></div>"""
+    kopf = ('<header><div><h1>Prozentrechnen: Lösungen</h1><div class="sub">Klasse 10b, Mathematik · Frage zuerst: Was ist hier 100 %?</div></div>'
+            '<div class="name">Zum Vergleichen mit deinem Heft</div></header>')
+    return (f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>Prozentrechnen Wdh 10b Lösungen</title><style>{LSG_CSS}</style></head>'
+            f'<body><div class="seite">{kopf}{e1}<div class="raster">{l2}{l3}{l4}{l5}</div></div></body></html>').replace(" %", "&nbsp;%")
+
+
+def loesungsblatt_bauen():
+    name = "Prozent Wdh 10b – Lösungen für die Schüler (1 Blatt)"
+    h = HIER / f"{name}.html"
+    h.write_text(loesungsblatt(), encoding="utf-8")
+    subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={HIER / (name + '.pdf')}", h.as_uri()],
+                   check=True, capture_output=True)
+    print("geschrieben:", name + ".pdf")
+
+
 def main():
     for lsg, name in ((False, "Prozent Wdh 10b – Folien"), (True, "Prozent Wdh 10b – Folien – Lösungen (nur für mich)")):
         h = HIER / f"{name}.html"
@@ -182,6 +294,8 @@ def main():
         subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={HIER / (name + '.pdf')}", h.as_uri()],
                        check=True, capture_output=True)
         print("geschrieben:", name + ".pdf")
+    blatt_bauen()
+    loesungsblatt_bauen()
 
 
 if __name__ == "__main__":
