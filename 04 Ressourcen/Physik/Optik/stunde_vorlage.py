@@ -306,6 +306,26 @@ def _stil_titel(h1, fach):
     return f'<span class="eyebrow">{fach}</span>{h1}'
 
 
+def karo_vektor(h):
+    """Karo der Zeichenzonen als Vektorlinien statt Kachel-Muster (Quartz/Vorschau zeichnet das Muster zu groß)."""
+    K = 16.32
+    def rep(m):
+        klassen, stil = m.group(1), m.group(2) or ""
+        if "karo" not in klassen.split() or "vgitter" in klassen:
+            return m.group(0)
+        w = re.search(r"width:\s*([\d.]+)pt", stil)
+        hh = re.search(r"height:\s*([\d.]+)pt", stil)
+        w = float(w.group(1)) if w else 636.48
+        hh = float(hh.group(1)) if hh else (277.44 if "gross" in klassen else 261.12 if "tief" in klassen else 212.16)
+        spalten, zeilen = round(w / K), round(hh / K)
+        linien = "".join(f'<path d="M{i * K:.2f} 0V{hh:.2f}"/>' for i in range(spalten + 1)) + \
+                 "".join(f'<path d="M0 {j * K:.2f}H{w:.2f}"/>' for j in range(zeilen + 1))
+        svg = (f'<svg class="karogitter" viewBox="0 0 {w:.2f} {hh:.2f}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
+               f'<g fill="none" stroke="#A3B7D3" stroke-width="0.41">{linien}</g></svg>')
+        return f'<div class="zeichenzone {klassen} vgitter"{(" style=" + chr(34) + stil + chr(34)) if stil else ""}>{svg}'
+    return re.sub(r'<div class="zeichenzone ([^"]*)"(?: style="([^"]*)")?>', rep, h)
+
+
 def stilisiere(folge, h1, sub):
     """Schwarzer Kopfbalken, weißer Grund, Fußzeile (Kurs · Stunde · Nummer). Nur für Folien, nicht für Blatt-Tupel.
     Die Überschriften bleiben, wie sie sind (kleine Kopfzeile darüber). Für Heft und Überblick die unveränderte Folge nehmen."""
@@ -320,6 +340,7 @@ def stilisiere(folge, h1, sub):
             continue
         h = re.sub(r'<section class="(folie[^"]*)"', r'<section class="\1 stil-v1"', h, count=1)
         h = re.sub(r'(<div class="titelband">\s*<h1>)(.*?)(</h1>)', lambda m: m.group(1) + _stil_titel(m.group(2).strip(), fach) + m.group(3), h, flags=re.S)
+        h = karo_vektor(h)
         if "<div class=\"fuss\">" not in h:
             i = h.rindex("</section>")
             h = h[:i] + f'<div class="fuss"><span>{fuss}</span><span>{n}</span></div>' + h[i:]

@@ -259,6 +259,7 @@ MATERIAL = {
 MATERIAL_HTML = _sv.material_tabellen(MATERIAL)
 LABORE = {"Sehlabor": "Sehlabor Lichtquellen.html", "Körperlabor": "Körperlabor Licht trifft auf Körper.html"}
 FOLGE, SCHRITT_LAB = _sv.mit_labor(FOLGE, SCHRITTE, LABORE)
+FOLGE_HEFT, FOLGE = FOLGE, _sv.stilisiere(FOLGE, "Optik: Lichtquellen und Licht trifft auf einen Körper", "Klasse 7c · Physik")   # Stil V1 (Heft mit unveränderter Folge)
 karten = "".join(
     (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
      if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>')
@@ -324,7 +325,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 </div>
 
 <div class="tab" id="t_folien">{karten}</div>
-<div class="tab" id="t_heft">{_sv.heft_html(FOLGE, [n for v in SCHRITT_LAB.values() for n in v])}</div>
+<div class="tab" id="t_heft">{_sv.heft_html(FOLGE_HEFT, [n for v in SCHRITT_LAB.values() for n in v])}</div>
 
 <div class="tab" id="t_hg">{hintergrund}</div>
 
