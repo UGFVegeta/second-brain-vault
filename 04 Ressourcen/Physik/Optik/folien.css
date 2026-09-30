@@ -344,3 +344,7 @@ svg .kursiv { font-style: italic; }
 .schritte-in-zone .schritt { border-bottom-color: #dfe2e7; }
 .schritte-in-zone .label { font-size: 13pt; width: 108pt; flex: 0 0 108pt; }
 .schritte-in-zone .inhalt { font-size: 11pt; }
+
+/* Labor-Zeichen auf Folien (stunde_vorlage.mit_labor) */
+.laborchips{position:absolute;right:12pt;bottom:5pt;display:flex;gap:5pt;z-index:5}
+.laborchip{background:#0B8FB8;color:#fff;font:600 9pt/1.2 "Avenir Next",Helvetica,Arial,sans-serif;padding:2.5pt 8pt;border-radius:9pt}

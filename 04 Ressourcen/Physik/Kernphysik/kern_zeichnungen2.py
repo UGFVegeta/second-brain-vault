@@ -50,24 +50,43 @@ def beobachte_wuerfel():
     return z.svg()
 
 
+def _hwz_achsen(z):
+    """Achsen wie auf Oskars Arbeitsblatt: N von 0 bis 260 (Schritt 20), t von 0 bis 60 s (Schritt 5), Karo-Gitter."""
+    x0, y0, sx, sy = 70, 196, 8.8, 0.65
+    for t in range(5, 61, 5):
+        z.line(x0 + t * sx, y0, x0 + t * sx, y0 - 260 * sy, "#C8D3E3", 0.8)
+        z.text(x0 + t * sx, y0 + 14, str(t), "middle", 8.5)
+    for n in range(20, 261, 20):
+        z.line(x0, y0 - n * sy, x0 + 60 * sx, y0 - n * sy, "#C8D3E3", 0.8)
+        z.text(x0 - 6, y0 - n * sy + 3, str(n), "end", 8)
+    achsen(z, x0, y0, 552, 180, "t in s", "")
+    z.formel(x0 + 8, y0 - 172, "N")
+    return x0, y0, sx, sy
+
+
+def halbwertszeit_leer():
+    """Leeres Diagramm zum Einzeichnen: Werte aus dem Zerfallslabor (Fluor-20, 225 Kerne, alle 2 s ein Messpunkt)."""
+    z = Z("kh0", 230)
+    _hwz_achsen(z)
+    z.text(600, 36, "Fluor-20, Start: 225 Kerne", "end", 9.5, 600).text(600, 50, "alle 2 s einen Punkt eintragen", "end", 9)
+    return z.svg()
+
+
 def halbwertszeit():
+    """Ausgefüllt: Messpunkte liegen um die Kurve N = 225 · (1/2)^(t/11); Halbwertszeiten bei 11, 22, 33 s markiert."""
     z = Z("kh", 230)
-    x0, y0, sx, sy = 70, 196, 9.6, 0.68
-    achsen(z, x0, y0, 540, 180, "t in s", "")
-    z.formel(x0 + 8, y0 - 170, "N")
-    pts = " ".join(f"{x0 + t * sx:.1f},{y0 - 240 * 0.5 ** (t / 11) * sy:.1f}" for t in [i * 0.5 for i in range(0, 111)])
+    x0, y0, sx, sy = _hwz_achsen(z)
+    pts = " ".join(f"{x0 + t * sx:.1f},{y0 - 225 * 0.5 ** (t / 11) * sy:.1f}" for t in [i * 0.5 for i in range(0, 121)])
     z.add(f'<polyline points="{pts}" fill="none" stroke="{CYAN}" stroke-width="2.6"/>')
+    for t in range(0, 61, 2):
+        z.add(f'<circle cx="{x0 + t * sx:.1f}" cy="{y0 - 225 * 0.5 ** (t / 11) * sy:.1f}" r="2.6" fill="{ORANGE}"/>')
     for k in range(1, 4):
-        t, n = 11 * k, 240 / 2 ** k
+        t, n = 11 * k, 225 / 2 ** k
         X, Y = x0 + t * sx, y0 - n * sy
         z.line(x0, Y, X, Y, ROT, 1.2, "4 4").line(X, Y, X, y0, ROT, 1.2, "4 4")
-        z.add(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="4" fill="{ROT}"/>')
-        z.text(X + 7, Y - 6, f"nach {k} · 11 s: {n:.0f}", size=9)
-        z.text(X, y0 + 14, str(t), "middle", 8.5)
-        z.text(x0 - 6, Y + 3, f"{n:.0f}", "end", 8.5)
-    z.text(x0 - 6, y0 - 240 * sy + 3, "240", "end", 8.5)
-    z.text(430, 40, "Fluor-20", weight=600).text(430, 56, "Halbwertszeit 11 s", size=9.5).text(430, 70, "Start: 240 Kerne", size=9.5)
-    z.text(430, 92, "Die Kurve erreicht nie null.", size=9)
+        z.text(X + 7, Y - 6, f"nach {t} s: etwa {n:.0f}", size=9, weight=600)
+    z.text(600, 36, "Fluor-20, Start: 225 Kerne", "end", 9.5, 600).text(600, 50, "Halbwertszeit etwa 11 s", "end", 9.5, 600, ROT)
+    z.text(600, 64, "Die Kurve erreicht nie null.", "end", 9)
     return z.svg()
 
 

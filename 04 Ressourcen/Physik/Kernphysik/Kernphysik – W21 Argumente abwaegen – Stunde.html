@@ -54,7 +54,7 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 .heftseite .hdat{text-align:right;font-size:14px;color:#66798e}
 .heftseite h2.hlf{font-size:21px;margin:4px 0 18px;color:#1a56a0;text-decoration:underline;text-underline-offset:4px}
 .heftseite .hlf span{display:block;font-size:13px;color:#66798e;text-decoration:none;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.heftseite .hfort{color:#9aa8ba;text-decoration:none;font-size:16px}
+.heftseite h2.hlf.hfort{color:#8a97a8;text-decoration:none;font-size:16px}
 .heftseite h3.hti{font-size:18px;margin:22px 0 8px;color:#b3261e;text-decoration:underline;text-underline-offset:3px}
 .heftseite .hbild{background:#fff;border:1px solid #d5dbe4;padding:6px;margin:6px 0 8px;max-width:760px}
 .heftseite .hbild svg,.heftseite .hbild img{display:block;width:100%;height:auto}
@@ -73,6 +73,8 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
   svg .strahl-b { stroke: #2E6BB8; stroke-width: 2.6; fill: none; }
   svg .strahl-g { stroke: #7A4BAF; stroke-width: 2.6; fill: none; }
 .blattkarte:has(.heftbild){width:900px}</style><style>
+a.labchip{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;text-decoration:none;margin:0 6px 4px 0}
+.labzeile{margin:12px 0 0;font-size:14px;color:#555}
 .heftseite{background:#fff;background-image:linear-gradient(#dfe5ee 1px,transparent 1px),linear-gradient(90deg,#dfe5ee 1px,transparent 1px);
 background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26px 34px 30px;margin:14px 0 30px;box-shadow:3px 3px 0 #e6e9ee;max-width:900px}
 .heftseite .hdat{text-align:right;font-size:14px;color:#66798e}
@@ -84,6 +86,7 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 .heftseite .hbild svg,.heftseite .hbild img{display:block;width:100%;height:auto}
 .heftseite .hmerk{background:rgba(255,255,255,.92);border-left:4px solid #1b1b1b;padding:6px 12px;font-size:16px;line-height:1.5;max-width:760px}
 .heftseite .hantw{background:rgba(255,255,255,.92);border:1.5px solid #1a56a0;border-radius:4px;padding:8px 14px;font-size:16px;line-height:1.5;max-width:760px}
+.heftseite .hlabor{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:2px 10px;font-size:13.5px;font-weight:600;margin:6px 0 2px}
 .heftleg{font-size:14px;color:#555;background:#f5f5f1;border-radius:8px;padding:10px 14px;margin:14px 0 0}
 </style></head><body>
 <div class="wrap"><header class="kopf"><h1>Kernphysik: Nutzen und Risiko abwägen</h1>
@@ -93,7 +96,7 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul><li>Arbeitsblatt Nutzen und Risiko abwägen: Seite 1, eins pro Schüler.</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
 <div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td colspan="3" class="leer">nicht nötig</td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td colspan="3" class="leer">nicht nötig</td></tr></table><div class="mhinweis">Rollenfolie für die Diskussion bereithalten.</div></div>
-<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Argumente</div><div class="z1" style="flex:1">2 · Diskussion</div><div class="z2" style="flex:1">3 · Abschluss Leitfrage 6</div></div><div class="schr"><span class="n">1</span><div><b>Argumente</b><br><span class="m">Folie, Fakt oder Meinung.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Diskussion</b><br><span class="m">Vier Rollen, Sprecher, Auswertung.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Abschluss Leitfrage 6</b><br><span class="m">Antwort, Check.</span></div><div class="go"><button data-go=f4>Folie 4</button><button data-go=f5>Folie 5</button><button data-go=f6>Folie 6</button></div></div></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Argumente</div><div class="z1" style="flex:1">2 · Diskussion</div><div class="z2" style="flex:1">3 · Abschluss Leitfrage 6</div></div><div class="schr"><span class="n">1</span><div><b>Argumente</b><br><span class="m">Folie, Fakt oder Meinung.</span></div><div class="go"><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Diskussion</b><br><span class="m">Vier Rollen, Sprecher, Auswertung.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Abschluss Leitfrage 6</b><br><span class="m">Antwort, Check.</span></div><div class="go"><button data-go=f4>Folie 4</button><button data-go=f5>Folie 5</button><button data-go=f6>Folie 6</button></div></div><p class="labzeile">Labore zur Stunde: <a class="labchip" href="Kernenergielabor Spaltung und Fusion.html" target="_blank">🧪 Kernenergielabor</a></p></div>
 </div>
 <div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie">
   <div class="titelband"><h1>6.2 Argumente abwägen</h1></div>

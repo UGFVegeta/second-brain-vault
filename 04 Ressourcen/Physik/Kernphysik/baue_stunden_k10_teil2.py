@@ -3,7 +3,7 @@
 W10/W11 Klassenarbeit und W14 Puffer haben keine eigene Stunde. Ideen aus „Erlebnis Physik“ Kl. 10 in eigenen Worten.
 python3 baue_stunden_k10_teil2.py   -> HTMLs im Ordner Kernphysik (Export nach iCloud erst nach Freigabe)"""
 from baue_stunden_k10 import HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde, zeichnungsfolie
-from kern_zeichnungen2 import roentgen_damals_heute
+from kern_zeichnungen2 import roentgen_damals_heute, halbwertszeit_leer
 
 STRAHL = "Strahlungslabor Radioaktivitaet.html"
 ZERF = "Zerfallslabor Halbwertszeit.html"
@@ -67,9 +67,12 @@ A7b = tabellenfolie("Halbieren nicht nur bei Kernen", [
     ("Koffein im Blut", "halbiert sich in etwa 5 Stunden", "Der Kaffee am Abend wirkt noch in der Nacht."),
     ("Bierschaum", "fällt immer um die Hälfte in gleicher Zeit", "unser Versuch mit Malzbier"),
 ], kopf=("Beispiel", "was passiert", "Folge"))
-S7 = [f(27), blatt("Halbwertszeit W07.pdf", "k07", "Arbeitsblatt austeilen · Malzbier und Messzylinder pro Gruppe"), A7, A7b]
+HWZ_LEER = zeichnungsfolie("3.1 Die Halbwertszeit", halbwertszeit_leer(),
+                           "Zerfallslabor am Beamer: Fluor-20 mit 225 Kernen. Alle 2 Sekunden die Zahl der <b>unzerfallenen Kerne</b> ablesen und als Punkt "
+                           "eintragen. Dann eine Kurve durch die Punkte zeichnen und ablesen: Nach wie vielen Sekunden ist nur noch die <b>Hälfte</b> da?")
+S7 = [HWZ_LEER, f(27), blatt("Halbwertszeit W07.pdf", "k07", "Arbeitsblatt austeilen · Malzbier und Messzylinder pro Gruppe"), A7, A7b]
 S7_HG = (box("Halbwertszeit", ["Nach n Halbwertszeiten ist der Anteil (1/2)ⁿ übrig. Nach 10 Halbwertszeiten noch etwa ein Tausendstel.",
-                               "Auf der Folie: Fluor-20 mit 11 s. Die Werte stammen aus einer Messreihe, die sich gut als Übung zum Ablesen eignet.",
+                               "Einzeichnen wie bisher: Das Zerfallslabor (nach der LEIFI-Animation) zeigt Fluor-20 mit 225 Kernen, Uhr und Messpunkten alle 2 s. Die Schüler tragen die Werte ins Heft ein. Die Achsen der Folie entsprechen deinem Blatt „Halbwertszeit AB“ (N bis 260, t bis 60 s), das Blatt geht auch als Alternative. Die Punkte streuen, jeder Durchlauf ist neu gewürfelt; die Kurve durch die Punkte gibt etwa 11 s.",
                                "Zerfallsgesetz für Interessierte: N(t) = N₀ · (1/2)^(t/T). Rechnen mit gebrochenen Hochzahlen ist nicht verlangt.",
                                "<b>Typische Fehlvorstellung:</b> Die Halbwertszeit ist die halbe Lebensdauer eines Kerns."], 1)
          + box("Bierschaumversuch", ["Malzbier ist alkoholfrei. Zimmerwarm und schnell eingegossen schäumt es am stärksten.",
@@ -78,8 +81,10 @@ S7_HG = (box("Halbwertszeit", ["Nach n Halbwertszeiten ist der Anteil (1/2)ⁿ �
          + box("Im Alltag", ["Cäsium-137 aus Tschernobyl ist nach 40 Jahren erst gut zur Hälfte zerfallen. Wildschweine im Süden Deutschlands sind deshalb teils noch belastet.",
                              "Luftdruck und Koffein folgen demselben Muster, das zeigt die Mathematik der Abnahme."], 3, 4)
          + LAB(ZERF, "Zerfallslabor", "Fluor-20-Animation: 225 Kerne, Uhr, alle 2 s ein Messpunkt, danach Kurve mit Halbwertszeiten bei 11, 22 und 33 s. Dazu Halbwertszeit für sechs Nuklide und exponentielle Abnahme im Alltag."))
-S7_AB = ab_box("Arbeitsblatt Die Halbwertszeit", "Halbwertszeit W07.pdf",
+S7_AB = (ab_box("Arbeitsblatt Die Halbwertszeit", "Halbwertszeit W07.pdf",
                "Schaum (Beispiel): 10,0 bis 1,9 cm, Halbierung nach etwa 100 s. Lücken: Hälfte, ein Viertel, ein Achtel, feste. Iod-131: 500, 250, 125, 62,5, 31,25 Kerne. Die Kurve halbiert immer nur und erreicht nie null.", 2)
+         + '<div class="box"><h3>Alternative: dein Blatt „Halbwertszeit“ zum Einzeichnen</h3><a class="btn" href="Materialien/Halbwertszeit AB Einzeichnen (Oskar).pdf">PDF öffnen</a>'
+           '<p>Seite 2 hat das Diagramm (N bis 260, t bis 60 s) mit Lücken zum zeitlichen Verlauf. Lösung: Hälfte (50 %), ein Viertel (25 %), ein Achtel (12,5 %), nach 4 Halbwertszeiten ca. 6 %.</p></div>')
 
 # ====================================================================== W08
 A8 = tabellenfolie("Becquerel im Alltag", [
@@ -88,19 +93,26 @@ A8 = tabellenfolie("Becquerel im Alltag", [
     ("Diätsalz (1 kg Kaliumchlorid)", "etwa 16 000 Bq", "Das Zählrohr zeigt davor mehr als die Nullrate."),
     ("Rauchmelder mit Americium", "etwa 37 000 Bq", "in Deutschland heute kaum noch im Einsatz"),
 ], kopf=("Gegenstand", "Aktivität", "woher"), frage="Wie viele Kerne zerfallen in deinem Körper in einer Minute?")
-S8 = [f(29), blatt("Aktivitaet und Zaehlrate W08.pdf", "k08", "Arbeitsblatt austeilen · Abstandsreihe vorne"), A8]
-S8_HG = (box("Aktivität und Zählrate", ["Aktivität A in Becquerel: Zerfälle pro Sekunde. Sie halbiert sich mit derselben Halbwertszeit wie die Zahl der Kerne.",
-                                        "Die Zählrate ist viel kleiner: Das Zählrohr sieht nur einen kleinen Raumwinkel, und nicht jedes Teilchen löst einen Impuls aus. γ-Quanten gehen oft einfach durch.",
-                                        "Abstandsgesetz: Die Strahlung verteilt sich auf eine Kugeloberfläche. Doppelter Abstand, vierfache Fläche, ein Viertel der Zählrate. Bei α und β kommt die Absorption in Luft dazu.",
-                                        "<b>Typische Fehlvorstellung:</b> Die Zählrate ist die Aktivität."], 1)
-         + box("Versuche", ["Abstandsreihe mit einem γ-Präparat: 2, 4, 8 cm, jeweils eine Minute. Nullrate vorher messen und abziehen.",
-                            "Freiwillig: 1 kg Diätsalz (Kaliumchlorid, im Supermarkt) in einer Schale vor das Zählrohr. Die Zählrate liegt deutlich über der Nullrate, ganz ohne Präparat aus der Sammlung."], 2)
-         + LAB(ZERF, "Zerfallslabor", "Aktivität und Zählrate mit Reglern für Aktivität und Abstand."))
-S8_AB = ab_box("Arbeitsblatt Aktivität und Zählrate", "Aktivitaet und Zaehlrate W08.pdf",
-               "Lücken: Sekunde, Becquerel, ein Zerfall, alle Richtungen, Zählrate. 540 000, 3000, 2 220 000 Zerfälle pro Minute. Abstand: 1600, 400, 100. Cäsium: 4000, 2000, 1000 Bq.", 2)
+S8 = [f(29), A8, blatt("Uebungen Halbwertszeit W09.pdf", "k09", "Übungsblatt austeilen · Aufgaben 1 bis 4, Rest in W09")]
+S8_HG = (box("Aktivität, kurz", ["Aktivität A in Becquerel: Zerfälle pro Sekunde. Sie halbiert sich mit derselben Halbwertszeit wie die Zahl der Kerne. "
+                                 "Das ist die Verbindung zu W07.",
+                                 "Die Zählrate ist viel kleiner als die Aktivität: Das Zählrohr sieht nur einen Teil der Strahlung, und nicht jedes Teilchen löst einen Impuls aus.",
+                                 "Die Aktivität steht nicht ausdrücklich im Bildungsplan (Kl. 10, 3.3.4 (2) nennt die Halbwertszeit). Deshalb nur ein kurzer Teil, "
+                                 "der Rest der Stunde ist Übung zur Halbwertszeit. Becquerel kommt in W13 beim Vergleich mit Sievert noch einmal vor.",
+                                 "<b>Typische Fehlvorstellung:</b> Die Zählrate ist die Aktivität."], 1)
+         + box("Im Alltag", ["Freiwillig: 1 kg Diätsalz (Kaliumchlorid, im Supermarkt) in einer Schale vor das Zählrohr. Die Zählrate liegt deutlich über der Nullrate, "
+                             "ganz ohne Präparat aus der Sammlung.",
+                             "Das Abstandsgesetz (doppelter Abstand, ein Viertel) passt besser zum Strahlenschutz in W15."], 2)
+         + box("Üben", ["Übungsblatt Halbwertszeit: heute Aufgaben 1 bis 4, in W09 der Rest und der Abschluss von Leitfrage 3."], 3)
+         + LAB(ZERF, "Zerfallslabor", "Aktivität und Zählrate mit Reglern; Halbwertszeit ablesen zum Üben."))
+S8_AB = (ab_box("Übungsblatt Halbwertszeit", "Uebungen Halbwertszeit W09.pdf",
+                "800, 400, 200, 100. 26,4 h, 7,6 Tage, 60 Jahre. 2 g. 28 650 Jahre. 25 %. 8 α und 6 β⁻. Etwa 2076.", 3)
+         + ab_box("Alternative: Arbeitsblatt Aktivität und Zählrate", "Aktivitaet und Zaehlrate W08.pdf",
+                  "Nur wenn mehr Zeit ist. Lücken: Sekunde, Becquerel, ein Zerfall, alle Richtungen, Zählrate. 540 000, 3000, 2 220 000 Zerfälle pro Minute. "
+                  "Abstand: 1600, 400, 100. Cäsium: 4000, 2000, 1000 Bq.", 1))
 
 # ====================================================================== W09
-S9 = [f(30), f(31), f(32), blatt("Uebungen Halbwertszeit W09.pdf", "k09", "Übungsblatt austeilen · Vorbereitung Klassenarbeit")]
+S9 = [f(30), f(31), f(32), blatt("Uebungen Halbwertszeit W09.pdf", "k09", "Übungsblatt weiter ab Aufgabe 5 · Vorbereitung Klassenarbeit")]
 S9_HG = (box("Abschluss Leitfrage 3", ["Antwortfolie ins Heft, Check per Handzeichen. Lösung: 1 b, 2 c."], 1, 2, 3)
          + box("Übungsblatt", ["Die Aufgaben steigen an: Aufgaben 1 und 2 sind Pflicht, 3 bis 5 Übung, 6 und 7 für Schnelle.",
                                "Aufgabe 6 (Zerfallsreihe Uran-238 zu Blei-206) verbindet Leitfrage 2 und 3: 8 α- und 6 β⁻-Zerfälle.",
@@ -141,6 +153,7 @@ S13_HG = (box("Wirkung auf die Zelle", ["Die meisten DNA-Schäden repariert die 
                                          "Somatische Schäden treffen die bestrahlte Person: Frühschäden (Strahlenkrankheit) nur bei hohen Dosen ab etwa 1000 mSv auf einmal, Spätschäden (Krebs, Leukämie) Jahre später.",
                                          "Genetische Schäden entstehen in Keimzellen und können an Nachkommen weitergegeben werden.",
                                          "Die Einheit Sievert berücksichtigt die Wirkung: α-Strahlung zählt bei gleicher Energie rund 20-mal so stark wie β oder γ.",
+                                         "Becquerel oder Sievert? Becquerel (W08) sagt, wie viele Kerne pro Sekunde zerfallen. Sievert sagt, wie stark die Strahlung den Körper belastet. Kurz an der Tafel gegenüberstellen.",
                                          "<b>Typische Fehlvorstellung:</b> Jede noch so kleine Dosis macht krank. Gerade bei kleinen Dosen ist das Risiko sehr gering, aber man geht davon aus, dass es nicht null ist."], 1)
           + box("Strahlenbelastung in Deutschland (BfS)", ["Natürlich im Mittel 2,1 mSv pro Jahr: Radon 1,1, Boden 0,4, Nahrung 0,3, Weltall 0,3.",
                                                             "Medizin im Mittel etwa 1,5 mSv pro Jahr. Alles andere (Kernkraftwerke, Tschernobyl-Folgen) unter 0,01 mSv.",
@@ -310,14 +323,18 @@ STUNDEN = [
     ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 02.11.2026) · Leitfrage 3",
      "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt"), ("Lappen", "1×", "")],
                                         "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."},
-     [("Halbwertszeit", "Kurve von Fluor-20 an der Folie.", [1]), ("Versuch", "Bierschaum messen, Arbeitsblatt.", [2]), ("Vergleich", "Halbwertszeiten und Alltag.", [3, 4])], S7, S7_HG, S7_AB),
-    ("W08 Aktivitaet", "Kernphysik: Aktivität und Zählrate", "W08 (Woche ab 09.11.2026) · Leitfrage 3",
-     "Arbeitsblatt Aktivität und Zählrate", {"demo": [("γ-Präparat", "1", "nur Lehrkraft, nach RiSU"), ZAEHLROHR, ("Lineal oder Maßband", "1×", ""), ("Diätsalz (Kaliumchlorid)", "1 kg", "freiwillig, aus dem Supermarkt")],
-                                             "schueler": [], "hinweis": "Nullrate vor der Abstandsreihe messen."},
-     [("Aktivität", "Becquerel und Zählrate an der Folie.", [1]), ("Versuch", "Abstandsreihe vorne, Arbeitsblatt.", [2]), ("Alltag", "Becquerel im Alltag, Diätsalz vor dem Zählrohr.", [3])], S8, S8_HG, S8_AB),
+     [("Einzeichnen", "Zerfallslabor Fluor-20 am Beamer, alle 2 s ablesen. Die Schüler tragen die Punkte ins Diagramm im Heft ein.", [1]),
+      ("Halbwertszeit", "Kurve zeichnen, Halbwertszeit ablesen: etwa 11 s. Vergleich mit der Lösung.", [2]),
+      ("Versuch", "Bierschaum messen, Arbeitsblatt. Wenn es knapp wird: als Demo vorne.", [3]), ("Vergleich", "Halbwertszeiten und Alltag.", [4, 5])], S7, S7_HG, S7_AB),
+    ("W08 Aktivitaet", "Kernphysik: Aktivität und Halbwertszeit üben", "W08 (Woche ab 09.11.2026) · Leitfrage 3",
+     "Übungsblatt Halbwertszeit", {"demo": [ZAEHLROHR, ("Diätsalz (Kaliumchlorid)", "1 kg", "freiwillig, aus dem Supermarkt")],
+                                   "schueler": [PSE], "hinweis": "Nullrate vor dem Diätsalz messen."},
+     [("Aktivität", "Kurz: Becquerel, Zerfälle pro Sekunde, halbiert sich mit der Halbwertszeit.", [1]),
+      ("Alltag", "Becquerel im Alltag, freiwillig Diätsalz vor dem Zählrohr.", [2]),
+      ("Üben", "Übungsblatt Halbwertszeit, Aufgaben 1 bis 4.", [3])], S8, S8_HG, S8_AB),
     ("W09 Uebungen Halbwertszeit", "Kernphysik: Übungen zur Halbwertszeit", "W09 (Woche ab 16.11.2026) · Abschluss Leitfrage 3",
      "Übungsblatt Halbwertszeit", {"demo": [], "schueler": [PSE], "hinweis": ""},
-     [("Abschluss Leitfrage 3", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt nach Schwierigkeit.", [4])], S9, S9_HG, S9_AB),
+     [("Abschluss Leitfrage 3", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt weiter ab Aufgabe 5, Vorbereitung Klassenarbeit.", [4])], S9, S9_HG, S9_AB),
     ("W12 Ionisierende Strahlung", "Kernphysik: Warum heißt sie ionisierende Strahlung?", "W12 (Woche ab 07.12.2026) · Einstieg Leitfrage 4",
      "Arbeitsblatt Ionisierende Strahlung", {"demo": [("Nebelkammer", "1", "falls vorhanden"), ("Trockeneis", "nach Anleitung", "erst kurz vorher besorgen, hält nicht lange"), ("Isopropanol", "nach Anleitung", "")], "schueler": [], "hinweis": "Ohne Nebelkammer: Szene im Wirkungslabor."},
      [("Einstieg Leitfrage 4", "Röntgenbild und Warnzeichen, Vermutungen.", [1, 2]), ("Ionisation", "Folie und Wirkungslabor.", [3]),

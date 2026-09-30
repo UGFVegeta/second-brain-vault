@@ -160,6 +160,8 @@ def chip(*nr):
 
 # ------------------------------------------------------------------ HTML
 HEFT_CSS = """<style>
+a.labchip{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;text-decoration:none;margin:0 6px 4px 0}
+.labzeile{margin:12px 0 0;font-size:14px;color:#555}
 .heftseite{background:#fff;background-image:linear-gradient(#dfe5ee 1px,transparent 1px),linear-gradient(90deg,#dfe5ee 1px,transparent 1px);
 background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26px 34px 30px;margin:14px 0 30px;box-shadow:3px 3px 0 #e6e9ee;max-width:900px}
 .heftseite .hdat{text-align:right;font-size:14px;color:#66798e}
@@ -171,8 +173,47 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 .heftseite .hbild svg,.heftseite .hbild img{display:block;width:100%;height:auto}
 .heftseite .hmerk{background:rgba(255,255,255,.92);border-left:4px solid #1b1b1b;padding:6px 12px;font-size:16px;line-height:1.5;max-width:760px}
 .heftseite .hantw{background:rgba(255,255,255,.92);border:1.5px solid #1a56a0;border-radius:4px;padding:8px 14px;font-size:16px;line-height:1.5;max-width:760px}
+.heftseite .hlabor{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:2px 10px;font-size:13.5px;font-weight:600;margin:6px 0 2px}
 .heftleg{font-size:14px;color:#555;background:#f5f5f1;border-radius:8px;padding:10px 14px;margin:14px 0 0}
 </style>"""
+
+
+LETZTE = {}   # html_name -> Folien mit Labor-Zeichen (für exportiere)
+
+
+def labore_der_stunde(*html):
+    """Labore, die in Hintergrund oder Arbeitsblättern verlinkt sind: {Kurzname: Datei}, z. B. {"Zerfallslabor": "Zerfallslabor Halbwertszeit.html"}."""
+    out = {}
+    for h in html:
+        for datei in re.findall(r'href="([^"/]*labor[^"/]*\.html)"', h, re.I):
+            if datei.lower().endswith("-labore.html"):
+                continue
+            out.setdefault(datei.split(" ")[0].replace(".html", ""), datei)
+    return out
+
+
+def mit_labor(folge, schritte, labore):
+    """Schritte, deren Text ein Labor nennt (oder „Labor“, wenn es nur eins gibt), bekommen das Labor-Zeichen;
+    ihre Folien ebenfalls. Rückgabe: (neue Folge, {Schrittnummer: [Labornamen]})."""
+    schritt_lab, folie_lab = {}, {}
+    for i, (t, d, ks) in enumerate(schritte, 1):
+        text = f"{t} {d}"
+        namen = [n for n in labore if n.lower() in text.lower()]
+        if not namen and "labor" in text.lower() and len(labore) == 1:
+            namen = list(labore)
+        if namen:
+            schritt_lab[i] = namen
+            for k in ks:
+                folie_lab.setdefault(k, [])
+                folie_lab[k] += [n for n in namen if n not in folie_lab[k]]
+    neu = []
+    for k, h in enumerate(folge, 1):
+        if k in folie_lab and not isinstance(h, tuple) and "</section>" in h:
+            chip = "".join(f'<div class="laborchip">🧪 Labor: {n}</div>' for n in folie_lab[k])
+            i = h.rindex("</section>")
+            h = h[:i] + f'<div class="laborchips">{chip}</div>' + h[i:]
+        neu.append(h)
+    return neu, schritt_lab
 
 
 def _leitfragen():
@@ -189,10 +230,12 @@ def heft_html(folge):
     """Was am Ende der Stunde im Heft der Schüler steht, aus den Folien gesammelt, in der Reihenfolge der Folien:
     Leitfrage als Überschrift, nummerierte Einträge (und Folien mit data-heft) mit Zeichnung und Merksatz, Antwort auf die Leitfrage.
     Beginnt die Stunde mitten in einer Leitfrage, steht oben klein „Fortsetzung Leitfrage N“. Nicht dabei: Beobachte, Alltag, Check, Lösung, Blätter."""
-    teile, gesehen, erste_lf = [], set(), None
+    teile, gesehen, erste_lf, genutzt = [], set(), None, set()
+    alle_labs = []
     for f in folge:
         if isinstance(f, tuple):
             continue
+        alle_labs += [n for n in re.findall(r'<div class="laborchip">🧪 Labor: ([^<]+)</div>', f) if n not in alle_labs]
         nr = re.search(r'<div class="nr">(.*?)</div>', f, re.S)
         h2 = re.search(r"<h2>(.*?)</h2>", f, re.S)
         if nr and nr.group(1).strip().startswith("Leitfrage") and h2:
@@ -209,15 +252,21 @@ def heft_html(folge):
         if not h1 or not (re.match(r"\s*\d+(\.\d+)?\.?\s", h1.group(1)) or "data-heft" in f[:80] or 'class="folie heft"' in f[:80]):
             continue
         titel = h1.group(1).strip()
-        if titel in gesehen:
-            continue
+        if titel in gesehen:        # leere und ausgefüllte Folie mit gleichem Titel: die ausgefüllte gilt
+            teile = [x for x in teile if not x.startswith(f'<h3 class="hti">{titel}</h3>')]
         gesehen.add(titel)
         m = re.match(r"\s*(\d+)\.\d+\s", titel)
         erste_lf = erste_lf or (m.group(1) if m else None)
         zz = re.search(r'<div class="zeichenzone[^"]*">(.*?)</div>\s*<div class="merksatz"', f, re.S)
         ms = re.search(r'<div class="merksatz"[^>]*>(.*?)</div>\s*</section>', f, re.S)
         bild = f'<div class="hbild">{zz.group(1).strip()}</div>' if zz and zz.group(1).strip() else ""
-        teile.append(f'<h3 class="hti">{titel}</h3>{bild}' + (f'<div class="hmerk">{ms.group(1).strip()}</div>' if ms else ""))
+        labs = re.findall(r'<div class="laborchip">🧪 Labor: ([^<]+)</div>', f)
+        teile.append(f'<h3 class="hti">{titel}</h3>{bild}' + (f'<div class="hmerk">{ms.group(1).strip()}</div>' if ms else "")
+                     + "".join(f'<div class="hlabor">🧪 Labor: {n}, auch zu Hause über IServ</div>' for n in labs))
+        genutzt.update(labs)
+    rest = [n for n in alle_labs if n not in genutzt]
+    if rest:
+        teile.append("".join(f'<div class="hlabor">🧪 Labor zur Stunde: {n}, auch zu Hause über IServ</div>' for n in rest))
     if not teile:
         return '<div class="box"><p>In dieser Stunde gibt es keinen neuen Hefteintrag.</p></div>'
     kopf = ""
@@ -235,6 +284,11 @@ def heft_html(folge):
 
 
 def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css=""):
+    labore = labore_der_stunde(hintergrund, blaetter_boxen)
+    folge, schritt_lab = mit_labor(folge, schritte, labore)
+    LETZTE[datei] = folge
+    labchip = lambda i: "".join(f'<a class="labchip" href="{labore[n]}" target="_blank">🧪 {n}</a>' for n in schritt_lab.get(i, []))
+    labzeile = ("".join(f'<a class="labchip" href="{d}" target="_blank">🧪 {n}</a>' for n, d in labore.items()))
     karten = "".join(
         (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
          if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>')
@@ -242,7 +296,7 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
     zeit = "".join(f'<div class="z{i % 6}" style="flex:1">{i + 1} · {t}</div>' for i, (t, d, ks) in enumerate(schritte))
     zeilen = "".join(
         f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b><br><span class="m">{d}</span></div>'
-        f'<div class="go">{"".join(f"<button data-go=f{k}>Folie {k}</button>" for k in ks)}</div></div>'
+        f'<div class="go">{labchip(i)}{"".join(f"<button data-go=f{k}>Folie {k}</button>" for k in ks)}</div></div>'
         for i, (t, d, ks) in enumerate(schritte, 1))
     li = lambda xs: "".join(f"<li>{x}</li>" for x in xs)
     html = f"""<!DOCTYPE html>
@@ -257,7 +311,7 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul>{li(drucken)}</ul></div>
 <div class="box"><h3>Material</h3>{material_tabellen(material)}</div>
-<div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen}</div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen}{f'<p class="labzeile">Labore zur Stunde: {labzeile}</p>' if labore else ""}</div>
 </div>
 <div class="tab" id="t_folien">{karten}</div>
 <div class="tab" id="t_heft">{heft_html(folge)}</div>
@@ -309,6 +363,7 @@ def zwei_auf_eins(html_name, pdf_name, feld="27mm", extra_css=""):
 # ------------------------------------------------------------------ Export nach iCloud
 def exportiere(folge, ordner, folien_pdf, ab_pdf, stunde_html, html_name, links):
     """Folien-PDF (Schülerblatt-Lösungen als A4-Seiten dazwischen), eigenständige HTML, Gesamt.pdf."""
+    folge = LETZTE.get(html_name, folge)
     seiten, reihen = [], []
     for i, h in enumerate(folge):
         if isinstance(h, tuple):
