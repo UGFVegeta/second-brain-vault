@@ -292,9 +292,45 @@ def heft_html(folge, zusatz_labore=()):
             f'<div class="heftseite"><div class="hdat">Datum: __________</div>{kopf}{"".join(teile)}</div>')
 
 
+# ------------------------------------------------------------------ Folienstil V1 (30.09.2026)
+def _stil_titel(h1, fach):
+    m = re.fullmatch(r"Lösung: Check zu Leitfrage (\d+)", h1)
+    if m:
+        return f'<span class="eyebrow">Lösung · Check</span>Leitfrage {m.group(1)}'
+    m = re.fullmatch(r"Check zu Leitfrage (\d+)", h1)
+    if m:
+        return f'<span class="eyebrow">Check · {fach}</span>Leitfrage {m.group(1)}'
+    m = re.match(r"(\d+)\.\d+ ", h1)
+    if m:
+        return f'<span class="eyebrow">{fach} · Leitfrage {m.group(1)}</span>{h1}'
+    return f'<span class="eyebrow">{fach}</span>{h1}'
+
+
+def stilisiere(folge, h1, sub):
+    """Schwarzer Kopfbalken, weißer Grund, Fußzeile (Kurs · Stunde · Nummer). Nur für Folien, nicht für Blatt-Tupel.
+    Die Überschriften bleiben, wie sie sind (kleine Kopfzeile darüber). Für Heft und Überblick die unveränderte Folge nehmen."""
+    fach = h1.split(":")[0].strip()
+    thema = h1.split(":", 1)[1].strip() if ":" in h1 else h1
+    kl = re.search(r"Klasse (\d+)", sub)
+    fuss = f"Physik {kl.group(1) if kl else ''} · {fach} · {thema}".replace("Physik  ·", "Physik ·")
+    neu = []
+    for n, h in enumerate(folge, 1):
+        if isinstance(h, tuple) or "stil-v1" in h:
+            neu.append(h)
+            continue
+        h = re.sub(r'<section class="(folie[^"]*)"', r'<section class="\1 stil-v1"', h, count=1)
+        h = re.sub(r'(<div class="titelband">\s*<h1>)(.*?)(</h1>)', lambda m: m.group(1) + _stil_titel(m.group(2).strip(), fach) + m.group(3), h, flags=re.S)
+        if "<div class=\"fuss\">" not in h:
+            i = h.rindex("</section>")
+            h = h[:i] + f'<div class="fuss"><span>{fuss}</span><span>{n}</span></div>' + h[i:]
+        neu.append(h)
+    return neu
+
+
 def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css=""):
     labore = labore_der_stunde(hintergrund, blaetter_boxen)
     folge, schritt_lab = mit_labor(folge, schritte, labore)
+    folge_heft, folge = folge, stilisiere(folge, h1, sub)   # Heft und Überblick mit der unveränderten Folge
     LETZTE[datei] = folge
     labchip = lambda i: "".join(f'<a class="labchip" href="{labore[n]}" target="_blank">🧪 {n}</a>' for n in schritt_lab.get(i, []))
     labzeile = ("".join(f'<a class="labchip" href="{d}" target="_blank">🧪 {n}</a>' for n, d in labore.items()))
@@ -323,7 +359,7 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
 <div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen}{f'<p class="labzeile">Labore zur Stunde: {labzeile}</p>' if labore else ""}</div>
 </div>
 <div class="tab" id="t_folien">{karten}</div>
-<div class="tab" id="t_heft">{heft_html(folge, [n for v in schritt_lab.values() for n in v])}</div>
+<div class="tab" id="t_heft">{heft_html(folge_heft, [n for v in schritt_lab.values() for n in v])}</div>
 <div class="tab" id="t_hg">{hintergrund}</div>
 <div class="tab" id="t_ab">{blaetter_boxen}</div>
 </div>

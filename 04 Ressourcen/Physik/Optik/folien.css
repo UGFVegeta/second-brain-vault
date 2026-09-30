@@ -380,3 +380,43 @@ svg .kursiv { font-style: italic; }
 /* Labor-Zeichen auf Folien (stunde_vorlage.mit_labor) */
 .laborchips{position:absolute;right:12pt;bottom:5pt;display:flex;gap:5pt;z-index:5}
 .laborchip{background:#0B8FB8;color:#fff;font:600 9pt/1.2 "Avenir Next",Helvetica,Arial,sans-serif;padding:2.5pt 8pt;border-radius:9pt}
+
+/* ==== Folienstil V1 (30.09.2026): schwarzer Kopfbalken, weißer Grund, Apple-Anmutung, Fußzeile.
+   Greift nur auf Folien mit Klasse stil-v1 (setzt stunde_vorlage.stilisiere). Richtige Antwort im Check grün. ==== */
+.folie.stil-v1 { background:#fff; font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif; color:#1d1d1f; }
+.folie.stil-v1::before { content:none; }
+.stil-v1 .titelband { left:0; right:0; top:0; height:auto; min-height:56pt; border:none; background:#1d1d1f; padding:9pt 30pt 9pt; text-align:left; }
+.stil-v1 .titelband h1 { color:#fff; font-family:-apple-system,"SF Pro Display","Helvetica Neue",sans-serif; font-size:21pt; font-weight:700; letter-spacing:-0.5pt; line-height:1.15; }
+.stil-v1 .eyebrow { display:block; color:#98989d; font-size:9.5pt; font-weight:600; letter-spacing:1pt; text-transform:uppercase; margin-bottom:1pt; }
+.stil-v1 .frageband { left:0; right:0; top:0; background:#1d1d1f; border:none; padding:11pt 30pt 13pt; }
+.stil-v1 .frageband .nr { color:#98989d; font-size:9.5pt; letter-spacing:1pt; }
+.stil-v1 .frageband h2 { color:#fff; font-size:22pt; font-weight:700; letter-spacing:-0.4pt; }
+.stil-v1 .zeichenzone { border:none; border-radius:4pt; box-shadow:0 0 0 0.6pt #D2D2D7; }
+.stil-v1 .zeichenzone:not(.gross):not(.tief) { top:84pt; }
+.stil-v1 .zeichenzone.tief { top:92pt; height:265pt; }
+.stil-v1 .vermutungslabel { top:74pt; color:#6e6e73; }
+.stil-v1 .impulszone { top:84pt; height:220pt; }
+.stil-v1 .impulstext { color:#6e6e73; bottom:30pt; }
+.stil-v1 .merksatz, .stil-v1 .antwortzone { border:none; border-radius:12pt; background:#fff; padding-left:18pt;
+  box-shadow:0 0.5pt 1.5pt rgba(0,0,0,0.08),0 3pt 10pt rgba(0,0,0,0.06); }
+.stil-v1 .merksatz { bottom:28pt; }
+.stil-v1 .merksatz.tief { bottom:26pt; }
+.stil-v1 .antwortzone { top:90pt; }
+.stil-v1 .merksatz::before, .stil-v1 .antwortzone::before { content:""; position:absolute; left:7pt; top:8pt; bottom:8pt; width:3pt; border-radius:2pt; background:#1d1d1f; }
+.stil-v1 .schreibicon { top:7pt; right:18pt; width:42pt; background:#fff; border-radius:50%; padding:4pt; }
+.stil-v1 .fuss { position:absolute; left:30pt; right:30pt; bottom:8pt; display:flex; justify-content:space-between;
+  font-size:7.5pt; color:#86868b; letter-spacing:0.3pt; border-top:0.5pt solid #E3E3E8; padding-top:4pt; }
+/* Check */
+.stil-v1 .check { left:26pt; right:26pt; top:70pt; bottom:26pt; gap:9pt; }
+.stil-v1 .check .aufgabe { background:#F5F5F7; border-radius:16pt; padding:10pt 12pt 12pt; gap:8pt; }
+.stil-v1 .check .frage { font-size:16pt; font-weight:600; letter-spacing:-0.2pt; text-wrap:balance; }
+.stil-v1 .check .frage .nr { width:auto; height:auto; border-radius:0; background:none; color:#86868b; font-size:11pt; letter-spacing:0.6pt; text-transform:uppercase; }
+.stil-v1 .check .frage .nr::before { content:"Frage\00a0"; }
+.stil-v1 .check ol { gap:8pt; }
+.stil-v1 .check li { border:none; border-radius:12pt; background:#fff; box-shadow:0 0.5pt 1.5pt rgba(0,0,0,0.08),0 3pt 10pt rgba(0,0,0,0.06);
+  padding:30pt 10pt 10pt; font-size:15.5pt; font-weight:500; letter-spacing:-0.2pt; text-wrap:balance; hyphens:none; }
+.stil-v1 .check li::before { top:9pt; left:50%; transform:translateX(-50%); width:20pt; height:20pt; border-radius:50%; background:#E8E8ED; color:#1d1d1f; font-size:10.5pt; font-weight:600; }
+.stil-v1 .check li.richtig { font-weight:600; box-shadow:0 0 0 2pt #34C759,0 4pt 14pt rgba(52,199,89,0.22); }
+.stil-v1 .check li.richtig::before { background:#34C759; color:#fff; }
+.stil-v1 .check li.richtig::after { content:"✓"; top:7pt; right:10pt; font-size:15pt; color:#248A3D; }
+.loesungsfolie.stil-v1 .check li:not(.richtig) { opacity:0.4; box-shadow:none; }
