@@ -84,7 +84,8 @@ def main():
         ordner = ZIEL / f"{w} {h1.replace('Kernphysik: ', '').replace('?', '').replace(':', ' –')}"
         ordner.mkdir(exist_ok=True)
         html = (HIER / datei).read_text(encoding="utf-8")
-        for pdf in sorted(set(re.findall(r'href="Materialien/([^"]+\.pdf)"', html))):
+        blaetter = {h[2] for h in folge if isinstance(h, tuple) and (MAT / h[2]).exists()}  # auch Blätter, die nur als Folie vorkommen
+        for pdf in sorted(set(re.findall(r'href="Materialien/([^"]+\.pdf)"', html)) | blaetter):
             shutil.copy(MAT / pdf, ordner / pdf)
             html = html.replace(f'href="Materialien/{pdf}"', f'href="{pdf}"')
         for lab in LABORE:

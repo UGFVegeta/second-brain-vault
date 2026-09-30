@@ -373,6 +373,12 @@ def zwei_auf_eins(html_name, pdf_name, feld="27mm", extra_css=""):
 def exportiere(folge, ordner, folien_pdf, ab_pdf, stunde_html, html_name, links):
     """Folien-PDF (Schülerblatt-Lösungen als A4-Seiten dazwischen), eigenständige HTML, Gesamt.pdf."""
     folge = LETZTE.get(html_name, folge)
+    # jedes Blatt, das als Folie vorkommt, auch als PDF in den Ordner (Name wie im Link-Mapping, sonst Originalname)
+    for h in folge:
+        if isinstance(h, tuple) and (MAT / h[2]).exists():
+            ziel = links.get(f"Materialien/{h[2]}", h[2])
+            if "/" not in ziel:
+                shutil.copy(MAT / h[2], ordner / ziel)
     seiten, reihen = [], []
     for i, h in enumerate(folge):
         if isinstance(h, tuple):

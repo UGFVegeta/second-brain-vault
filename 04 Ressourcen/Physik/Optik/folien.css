@@ -231,16 +231,48 @@ b, strong { font-weight: 600; }
   line-height: 1.4;
 }
 
-/* Wissenscheck: zwei Multiple-Choice-Aufgaben */
+/* Wissenscheck: zwei Multiple-Choice-Aufgaben, je Frage ein Band mit vier Antwortkacheln A bis D.
+   Lösungsfolie = dieselbe Folie, richtige Kachel magenta (li.richtig). */
 .check {
   position: absolute;
-  left: 40.16pt; right: 40.16pt; top: 70pt; bottom: 18pt;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0 22pt;
-  font-size: 10.5pt; line-height: 1.3;
+  left: 30pt; right: 30pt; top: 68pt; bottom: 16pt;
+  display: grid; grid-template-rows: 1fr 1fr; gap: 14pt;
 }
-.check .aufgabe p { margin: 0 0 5pt 0; font-weight: 600; }
-.check ol { margin: 0; padding-left: 17pt; list-style: lower-alpha; }
-.check li { margin-bottom: 3.5pt; }
+.check .aufgabe { display: flex; flex-direction: column; gap: 8pt; min-height: 0; }
+.check .frage {
+  margin: 0; display: flex; align-items: center; gap: 10pt;
+  font-size: 16.5pt; font-weight: 600; line-height: 1.22;
+}
+.check .frage .nr {
+  flex: none; width: 24pt; height: 24pt; border-radius: 50%;
+  background: var(--magenta); color: #fff; font-size: 13pt;
+  display: flex; align-items: center; justify-content: center;
+}
+.check ol {
+  flex: 1; margin: 0; padding: 0; list-style: none; counter-reset: abc;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 9pt;
+}
+.check li {
+  counter-increment: abc; position: relative; margin: 0;
+  border: 0.8pt solid var(--blaugrau); border-radius: 8pt; background: #F3F6FA;
+  padding: 28pt 10pt 10pt;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 15.5pt; line-height: 1.22;
+}
+.check li::before {
+  content: counter(abc, upper-alpha);
+  position: absolute; top: 7pt; left: 8pt;
+  width: 19pt; height: 19pt; border-radius: 5pt;
+  background: var(--blaurand); color: #fff; font-size: 11pt; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+.check li.richtig { border: 1.8pt solid var(--magenta); background: #FFEAF4; font-weight: 600; }
+.check li.richtig::before { background: var(--magenta); }
+.check li.richtig::after {
+  content: "✓"; position: absolute; top: 4pt; right: 9pt;
+  color: var(--magenta); font-size: 17pt; font-weight: 700;
+}
+.loesungsfolie .check li:not(.richtig) { opacity: 0.55; }
 
 .loesung {
   position: absolute;
