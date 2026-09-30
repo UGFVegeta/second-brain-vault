@@ -111,7 +111,7 @@ def _hausecke_bild():
 
 def beobachte_mauer():
     """Folie „Beobachte“ zu Leitfrage 3: nur das Bild, ohne Linien (die Lichtwege kommen erst auf der Antwortfolie)."""
-    return f'<svg viewBox="0 0 1400 764" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">{_hausecke_bild()}</svg>'
+    return f'<svg viewBox="0 0 1400 764" xmlns="http://www.w3.org/2000/svg">{_hausecke_bild()}</svg>'
 
 
 def antwort_hausecke():
@@ -125,36 +125,36 @@ def antwort_hausecke():
     o.append(f'<line x1="{B[0]}" y1="{B[1]}" x2="808" y2="525" stroke="{GELB}" stroke-width="6" stroke-linecap="round"/>')
     o.append('<line x1="800" y1="525" x2="390" y2="495" stroke="#66798E" stroke-width="4" stroke-dasharray="14 12"/>')
     o.append('<path d="M792 509 L824 541 M824 509 L792 541" stroke="#D8453B" stroke-width="7" stroke-linecap="round"/>')
-    t = lambda x, y, s, a="start": (f'<text x="{x}" y="{y}" font-family="PlexMono, Menlo, monospace" font-size="30" font-weight="600" fill="{INK}" '
+    t = lambda x, y, s, a="start": (f'<text x="{x}" y="{y}" font-family="PlexMono, Menlo, monospace" font-size="40" font-weight="600" fill="{INK}" '
                                    f'text-anchor="{a}" paint-order="stroke" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="round">{s}</text>')
-    o.append(t(1060, 420, "Licht vom Ball") + t(560, 610, "Hauswand hält das Licht auf", "middle") + t(380, 460, "kein Licht zum Kind", "middle"))
-    return f'<svg viewBox="0 0 1400 764" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">{_hausecke_bild()}{"".join(o)}</svg>'
+    o.append(t(1010, 420, "Licht vom Ball") + t(830, 470, "Hauswand hält das Licht auf", "middle") + t(300, 600, "kein Licht zum Kind", "middle"))
+    return f'<svg viewBox="0 0 1400 764" xmlns="http://www.w3.org/2000/svg">{_hausecke_bild()}{"".join(o)}</svg>'
 
 
 def ausbreitung():
-    """Ausgedehnte Lichtquelle (Glühwendel), zwei Blenden hintereinander. Hinter Blende 1 läuft das Bündel noch auseinander,
-    erst hinter Blende 2 ist es nahezu parallel. Die Ränder sind die äußersten Lichtwege, die durch beide Löcher passen."""
+    """Punktförmige Lichtquelle, zwei Blenden hintereinander. Alle Lichtwege gehen geradlinig von L aus, keine Linie kreuzt eine andere.
+    Hinter Blende 1 läuft das Bündel noch deutlich auseinander, hinter Blende 2 sind die Ränder fast parallel."""
     z = Z("ab")
-    Q0, Q1, QX = 98, 114, 60          # Glühwendel von y=98 bis 114 bei x=60
-    X1, A1, B1 = 250, 100, 112         # Blende 1 mit Loch von 100 bis 112
-    X2, A2, B2 = 450, 103, 109         # Blende 2 mit Loch von 103 bis 109
-    R = 616
-    z.poly([(QX, Q0), (X1, 8), (X1, 204), (QX, Q1)], "#FFC53D", .13)
-    for y in (16, 48, 80, 132, 164, 196):
-        z.line(QX, 106, X1, y, GELB, 1.4)
-    oben2, unten2 = gerade((QX, Q1), (X1, A1), X2), gerade((QX, Q0), (X1, B1), X2)
-    z.poly([(X1, A1), (X2, oben2), (X2, unten2), (X1, B1)], "#FFC53D", .3)
-    z.line(QX, Q1, X2, oben2, GELB, 1.6).line(QX, Q0, X2, unten2, GELB, 1.6)
-    oben3, unten3 = gerade((X1, B1), (X2, A2), R), gerade((X1, A1), (X2, B2), R)
-    z.poly([(X2, A2), (R, oben3), (R, unten3), (X2, B2)], "#FFC53D", .5)
-    z.line(X1, B1, R, oben3, GELB, 1.8).line(X1, A1, R, unten3, GELB, 1.8)
+    L, R = (60, 106), 616
+    X1, A1, B1 = 232, 94, 118          # Blende 1: Loch von 94 bis 118
+    X2, A2, B2 = 452, 101, 111         # Blende 2: kleines Loch von 101 bis 111
+    z.poly([L, (X1, 8), (X1, 204)], "#FFC53D", .13)
+    for y in (16, 46, 76, 136, 166, 196):
+        z.line(L[0], L[1], X1, y, GELB, 1.4)
+    o2, u2 = gerade(L, (X1, A1), X2), gerade(L, (X1, B1), X2)
+    z.poly([(X1, A1), (X2, o2), (X2, u2), (X1, B1)], "#FFC53D", .28)
+    for y in (A1, (A1 + B1) / 2, B1):
+        z.line(L[0], L[1], X2, gerade(L, (X1, y), X2), GELB, 1.5)
+    o3, u3 = gerade(L, (X2, A2), R), gerade(L, (X2, B2), R)
+    z.poly([(X2, A2), (R, o3), (R, u3), (X2, B2)], "#FFC53D", .5)
+    for y in (A2, (A2 + B2) / 2, B2):
+        z.line(X2, y, R, gerade(L, (X2, y), R), GELB, 1.8)
     z.rect(X1, 8, 9, A1 - 8, WAND).rect(X1, B1, 9, 204 - B1, WAND)
     z.rect(X2, 8, 9, A2 - 8, WAND).rect(X2, B2, 9, 204 - B2, WAND)
-    z.glow(QX, 106, 26)
-    z.add(f'<rect x="{QX - 3}" y="{Q0}" width="6" height="{Q1 - Q0}" rx="3" fill="#FFF3C4" stroke="{GELB}" stroke-width="2"/>')
+    z.lampe(*L)
     z.text(24, 146, "Lichtquelle").text(96, 28, "divergent")
-    z.text(X1 - 22, 200, "Blende 1", "end").text(X2 - 22, 200, "Blende 2", "end")
-    z.text(350, 152, "schmaler, läuft aber", "middle", 9.5).text(350, 166, "noch auseinander", "middle", 9.5)
+    z.text(X1 - 14, 200, "Blende 1", "end").text(X2 - 14, 200, "Blende 2", "end")
+    z.text(342, 60, "schmaler, läuft aber", "middle", 9.5).text(342, 74, "noch auseinander", "middle", 9.5)
     z.text(540, 62, "nahezu paralleles", "middle").text(540, 76, "Lichtbündel", "middle")
     return z.svg()
 

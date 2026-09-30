@@ -34,7 +34,7 @@ F3_HG = f"""
 <div class="box"><h3>Wie breitet sich Licht aus? {chip(4)}</h3><ul>
 <li><b>Geradlinig</b>, solange der Stoff gleich bleibt (Luft, Wasser, Glas). An der Grenze zwischen zwei Stoffen kann es die Richtung ändern, das kommt später.</li>
 <li><b>Sehr schnell:</b> knapp 300 000 km pro Sekunde. Von der Sonne zur Erde braucht das Licht gut 8 Minuten.</li>
-<li><b>Lichtbündel:</b> Eine Lichtquelle sendet in alle Richtungen, das Licht läuft auseinander (divergent). Eine Blende lässt nur einen Teil durch. Mit einem schmalen Spalt wird das Bündel fast parallel.</li>
+<li><b>Lichtbündel:</b> Eine Lichtquelle sendet in alle Richtungen, das Licht läuft auseinander (divergent). Eine Blende lässt nur einen Teil durch: Das Bündel wird schmaler, läuft dahinter aber weiter auseinander. Nahezu parallel wird es erst mit zwei Blenden hintereinander, denn dann kommt nur Licht durch, das fast in dieselbe Richtung läuft. Grund: Die Glühwendel der Ray-Box ist kein Punkt, sie leuchtet von mehreren Stellen aus. Je kleiner die Löcher und je weiter die Blenden auseinander stehen, desto paralleler.</li>
 <li><b>Typische Fehlvorstellungen:</b> Licht „füllt“ den Raum wie Luft. Licht bleibt in der Lampe, bis es hell ist. Nur dort, wo es hell aussieht, ist Licht.</li></ul></div>
 
 <div class="box"><h3>Das Lichtstrahlenmodell {chip(5)}</h3><ul>
@@ -47,7 +47,7 @@ F3_HG = f"""
 <li>Raum abdunkeln, sonst ist der Lichtpunkt kaum zu sehen.</li>
 <li>Ray-Box, Blende und Schirm an einer Tischkante oder einem Lineal ausrichten. Dann finden die Gruppen den Lichtpunkt schneller.</li>
 <li>Beim seitlichen Verschieben verschwindet der Lichtpunkt, weil das Loch nicht mehr auf der geraden Linie liegt. Das ist der Kern des Versuchs.</li>
-<li>Zusatz für schnelle Gruppen: eine zweite Blende dazwischen. Der Punkt erscheint nur, wenn beide Löcher auf einer Linie liegen.</li></ul></div>
+<li>Zusatz für schnelle Gruppen: eine zweite Blende dazwischen. Der Punkt erscheint nur, wenn beide Löcher auf einer Linie liegen, und er wird kleiner und schärfer. Das passt zu Folie 4.</li></ul></div>
 
 <div class="box"><h3>Sichtbare Lichtwege {chip(6)}</h3><ul>
 <li>Ein Lichtbündel sieht man von der Seite nur, wenn Staub, Nebel oder Rauch einen Teil des Lichts zum Auge streuen. Das knüpft an Leitfrage 2 an.</li>
@@ -96,17 +96,19 @@ F4_ALLTAG = tabellenfolie("Schatten im Alltag", [
 F4 = [
     basis(31), basis(32),
     blatt("Kern- und Halbschatten W06.pdf", "w06", "Versuchsblatt austeilen · Versuch in Gruppen"),
-    basis(34), basis(36), F4_ALLTAG,
+    basis(34), basis(36),
+    blatt("Schattenwurf W06 Rückseite.pdf", "w06b", "Rückseite des Versuchsblatts · Schatten einzeichnen"),
+    F4_ALLTAG,
     basis(39), basis(40), basis(41),
 ]
 
 F4_MATERIAL = {
     "demo": [],
     "schueler": [("Ray-Box mit Stromanschluss", "1×", "Lampenseite zum Körper"),
-                 ("zweite Lichtquelle", "1×", "Leuchtbox oder zweite Ray-Box, an die Buchse am Tisch"),
+                 ("zweite Lichtquelle", "1×", "Leuchtbox oder zweite Ray-Box, an die Buchse am Tisch. Ohne Strom: Handy-Taschenlampe"),
                  ("weißes Blatt Papier", "1×", "als Bildwand gefaltet"),
                  ("undurchsichtiger Körper", "1×", "z. B. Glühbirnenpackung")],
-    "hinweis": "Raum abdunkeln. Leitfrage 4 ist für zwei Wochen geplant (W06–07).",
+    "hinweis": "Raum abdunkeln. Falls der Strom an den Tischen nicht geht: als zweite Lichtquelle eine Handy-Taschenlampe (Akku) neben die Ray-Box legen. Geht gar nichts, zeigt das Schattenlabor Kern- und Halbschatten. Leitfrage 4 ist für zwei Wochen geplant (W06–07).",
 }
 
 F4_HG = f"""
@@ -153,11 +155,12 @@ Lücken: <b>lichtundurchlässigen Körper</b>, <b>Schatten</b>, <b>überlagern</
 <p>Passt nach Folie 5: Im Labor Folie 3 bis 5 zeigen (zwei Lichtpunkte, Kern- und Halbschatten, Regler für Lampengröße und Abstände). Die Lampengröße kann man mit der Ray-Box nicht verändern. Folie 6 zeigt die vier Flutlicht-Schatten im Stadion (passt zu unserer Alltagsfolie), Folie 7 die Finsternisse als Ausblick.</p></div>"""
 
 F4_SCHRITTE = [
-    ("Einstieg", "Eine Lampe, zwei Lampen: Was ist anders? Leitfrage 4.", [1, 2]),
-    ("Versuch", "In Gruppen, erst eine Lichtquelle, dann zwei. Versuchsblatt.", [3]),
+    ("Einstieg", "Bild mit zwei Schatten, Leitfrage 4, dann gleich in den Versuch.", [1, 2]),
+    ("Versuch", "In Gruppen, erst eine Lichtquelle, dann zwei. Versuchsblatt Vorderseite.", [3]),
     ("Erklären", "Schattenraum und Schattenbild, Kern- und Halbschatten zeichnen.", [4, 5]),
-    ("Alltag", "Beispiele mündlich, Frage nach dem Halbschatten.", [6]),
-    ("Antwort und Check", "Antwort auf Leitfrage 4 ins Heft, Handzeichen, Lösung.", [7, 8, 9]),
+    ("Schatten einzeichnen", "Rückseite des Versuchsblatts: Randstrahlen, Schattenräume, Lücken.", [6]),
+    ("Alltag", "Beispiele mündlich, Frage nach dem Halbschatten.", [7]),
+    ("Antwort und Check", "Antwort auf Leitfrage 4 ins Heft, Handzeichen, Lösung.", [8, 9, 10]),
 ]
 
 # ====================================================================== bauen
@@ -168,7 +171,7 @@ bau_stunde("Optik – Leitfrage 3 – Stunde.html", "Optik: Warum können wir ni
            F3_MATERIAL, F3_SCHRITTE, F3, F3_HG, F3_AB)
 bau_stunde("Optik – Leitfrage 4 – Stunde.html", "Optik: Warum hat ein Schatten manchmal weiche Ränder?",
            "Klasse 7c · Physik · Leitfrage 4 · Kern- und Halbschatten (W06–07)",
-           ["Versuchsblatt: Seite 1, eins pro Schüler. Für „2 auf 1“ ist es mit zwei Versuchen zu lang.",
+           ["Versuchsblatt doppelseitig, eins pro Schüler: Kern- und Halbschatten W06 – Druck doppelseitig.pdf (vorne Versuch, hinten Schattenwurf).",
             "Folien und Lösungen: nicht drucken."],
            F4_MATERIAL, F4_SCHRITTE, F4, F4_HG, F4_AB)
 
