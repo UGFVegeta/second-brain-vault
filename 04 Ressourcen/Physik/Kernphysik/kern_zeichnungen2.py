@@ -84,20 +84,20 @@ def zerfallsreihe_th232():
             if ny == by:
                 z.pfeil(x + 30, y - 7, nx * K + 2, y - 7, "#66798E", 1.6, 7)
                 z.text((x + 30 + nx * K + 2) / 2, y - 13, art[i], "middle", 11, 600, ROT if art[i] == "α" else CYAN)
-            else:
-                z.add(f'<path d="M{x + 30:.1f} {y - 7:.1f} C {x + 60:.1f} {y + 20:.1f}, {1.5 * K + 10:.1f} {y + 25:.1f}, {1.5 * K + 10:.1f} {ny * K - 26:.1f}" '
-                      f'fill="none" stroke="#66798E" stroke-width="1.6"/>')
-                z.pfeil(1.5 * K + 10, ny * K - 30, 1.5 * K + 10, ny * K - 24, "#66798E", 1.6, 7)
-                z.text(x + 58, y + 22, art[i], "middle", 11, 600, ROT if art[i] == "α" else CYAN)
+            else:   # rechtwinklig durch die Lücke zwischen den Zeilen zurück an den Anfang
+                xs, xe, ym = x + 14, 1.5 * K + 10, 8 * K
+                z.add(f'<path d="M{xs:.1f} {y + 8:.1f} V{ym:.1f} H{xe:.1f} V{ny * K - 30:.1f}" fill="none" stroke="#66798E" stroke-width="1.6"/>')
+                z.pfeil(xe, ny * K - 31, xe, ny * K - 24, "#66798E", 1.6, 7)
+                z.text(xs + 8, (y + ym) / 2 + 4, art[i], "start", 11, 600, ROT if art[i] == "α" else CYAN)
     z.text(32 * K, 11 * K - 7, "stabil", "start", 10, 600, GRUEN)
-    z.text(1 * K, 1.3 * K, "α: A − 4, Z − 2        β⁻: A bleibt, Z + 1", size=10, weight=600)
+    z.text(1 * K, 1.3 * K, "α: A − 4, Z − 2", size=10, weight=600, col=ROT).text(10 * K, 1.3 * K, "β⁻: A bleibt, Z + 1", size=10, weight=600, col=CYAN)
     return z.svg()
 
 
 def halbierung():
     """Nach jeder Halbwertszeit ist die Hälfte übrig: 1, 1/2, 1/4, 1/8, 1/16 als Quadrate aus 16 Kästchen (auf dem Karo)."""
     z = Z("khb", 212)
-    reste = [(16, "Start", "100 %"), (8, "nach 1 T", "½ = 50 %"), (4, "nach 2 T", "¼ = 25 %"), (2, "nach 3 T", "⅛ = 12,5 %"), (1, "nach 4 T", "¹⁄₁₆ ≈ 6 %")]
+    reste = [(16, "Start", "100 %"), (8, "nach 1 T", "½ = 50 %"), (4, "nach 2 T", "¼ = 25 %"), (2, "nach 3 T", "⅛ = 12,5 %"), (1, "nach 4 T", "1/16 ≈ 6 %")]
     for i, (n, wann, anteil) in enumerate(reste):
         x0, y0 = (2 + i * 7) * K, 4 * K
         for c in range(16):

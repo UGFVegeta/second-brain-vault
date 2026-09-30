@@ -108,3 +108,7 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 - Korrektur: In der Übersicht links steht die Woche als Überschrift, darunter jede Stunde als eigene Seite mit eigenem Folien-PDF. Benannt nach dem Inhalt, nicht nach dem Wochentag. Alle Folien einer Woche in einer Datei sind im Unterricht unübersichtlich.
 - Physik-Stunden haben einen Tab „Heft“: was die Schüler am Ende tatsächlich im Heft stehen haben. Die Folien allein zeigen das nicht klar (30.09.2026).
 - Passt ein Labor zu einer Stelle, wird es auf der Folie, im Überblick und im Heft der Schüler gekennzeichnet. Die Labore sind gebaut, damit die Schüler selbst messen und einzeichnen, zum Beispiel die Halbwertszeit (30.09.2026).
+
+## Lösung ist immer das ausgefüllte Original-Blatt (30.09.2026)
+
+In jedem Fach gilt: Die Lösung zu einem Blatt ist dasselbe Blatt, ausgefüllt. Kein anderes Layout, keine Buchlösung, keine Ergebnisliste. So sieht man direkt, was wo hineinkommt. Bücher, die ihre Lösungen nicht so liefern, nutze ich deshalb ungern. Bei eigenen PDFs ist Seite 1 das leere Blatt, Seite 2 dasselbe Blatt ausgefüllt. Diese Seite erscheint auch als Lösungsfolie im Folien-Tab.

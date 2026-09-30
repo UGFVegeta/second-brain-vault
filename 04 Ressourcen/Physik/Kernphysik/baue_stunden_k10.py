@@ -187,7 +187,9 @@ S5_HG = f"""
 <li>Bestrahlte Gegenstände werden nicht selbst radioaktiv. Deshalb kann man mit γ-Strahlung auch Verbandsmaterial und Spritzen keimfrei machen.</li>
 <li>Die Antwort zur Folienfrage: Dünnes Papier schwächt γ-Strahlung kaum messbar. β-Strahlung reagiert schon auf kleine Dickenunterschiede.</li></ul></div>
 {LAB(STRAHL, "Strahlungslabor", "Zerfallsgleichungen üben mit sofortiger Rückmeldung, Absorberversuch mit Papier, Aluminium und Blei, Bleidicke per Regler mit Kurve und Nullrate.")}"""
-S5_AB = f"""<div class="box"><h3>Arbeitsblatt Durchdringung und Zerfallsgleichungen {chip(3)}</h3><a class="btn" href="Materialien/Durchdringung und Zerfallsgleichungen W05.pdf">PDF öffnen</a>
+S5_AB = f"""<div class="box"><h3>Dein Blatt Zerfallsreihen {chip(3)}</h3><a class="btn" href="Materialien/Zerfallsreihen W05 (Oskar).pdf">PDF öffnen</a>
+<p>Seite 1 leer zum Austeilen, Seite 2 dein Original ausgefüllt als Lösung (steht auch auf Folie 3).</p></div>
+<div class="box"><h3>Arbeitsblatt Durchdringung und Zerfallsgleichungen {chip(5)}</h3><a class="btn" href="Materialien/Durchdringung und Zerfallsgleichungen W05.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> α hinter Papier fast Nullrate, β hinter Aluminium fast Nullrate, γ hinter Blei kleiner, aber über der Nullrate. Lücken: Papier, Aluminium, Blei.
 Bleitabelle 800, 400, 200, 100, 50, die Zählrate wird nie ganz null. Po-210 → Pb-206 + He-4, K-40 → Ca-40 + e, Ra-226 → Rn-222 + He-4. Zerfallsreihe Th-234, Pa-234, U-234.</p></div>"""
 
