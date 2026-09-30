@@ -48,10 +48,45 @@ table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:
   svg .strahl-a { stroke: #D24B4B; stroke-width: 2.6; fill: none; }
   svg .strahl-b { stroke: #2E6BB8; stroke-width: 2.6; fill: none; }
   svg .strahl-g { stroke: #7A4BAF; stroke-width: 2.6; fill: none; }
-.blattkarte:has(.heftbild){width:900px}</style></head><body>
+.blattkarte:has(.heftbild){width:900px}</style><style>
+.heftseite{background:#fff;background-image:linear-gradient(#dfe5ee 1px,transparent 1px),linear-gradient(90deg,#dfe5ee 1px,transparent 1px);
+background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26px 34px 30px;margin:14px 0 30px;box-shadow:3px 3px 0 #e6e9ee;max-width:900px}
+.heftseite .hdat{text-align:right;font-size:14px;color:#66798e}
+.heftseite h2.hlf{font-size:21px;margin:4px 0 18px;color:#1a56a0;text-decoration:underline;text-underline-offset:4px}
+.heftseite .hlf span{display:block;font-size:13px;color:#66798e;text-decoration:none;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.heftseite h3.hti{font-size:18px;margin:22px 0 8px;color:#b3261e;text-decoration:underline;text-underline-offset:3px}
+.heftseite .hbild{background:#fff;border:1px solid #d5dbe4;padding:6px;margin:6px 0 8px;max-width:760px}
+.heftseite .hbild svg,.heftseite .hbild img{display:block;width:100%;height:auto}
+.heftseite .hmerk{background:rgba(255,255,255,.92);border-left:4px solid #1b1b1b;padding:6px 12px;font-size:16px;line-height:1.5;max-width:760px}
+.heftseite .hantw{background:rgba(255,255,255,.92);border:1.5px solid #1a56a0;border-radius:4px;padding:8px 14px;font-size:16px;line-height:1.5;max-width:760px}
+.heftleg{font-size:14px;color:#555;background:#f5f5f1;border-radius:8px;padding:10px 14px;margin:14px 0 0}
+
+  /* Farbcode der Kernbausteine, gilt fuer den ganzen Satz */
+  svg .proton   { fill: #D24B4B; stroke: #8E2B2B; stroke-width: .8; }
+  svg .neutron  { fill: #8DA6C2; stroke: #4E6480; stroke-width: .8; }
+  svg .elektron { fill: #E6C72E; stroke: #B98900; stroke-width: .8; }
+  svg .kernlinie{ stroke: #8A8A8A; stroke-width: 1; fill: none; }
+  svg .nuklid   { font-family: "Avenir Next", Helvetica, sans-serif; font-size: 19px; fill: #111; }
+  svg .nuklid .idx { font-size: 10.5px; }
+  svg .strahl-a { stroke: #D24B4B; stroke-width: 2.6; fill: none; }
+  svg .strahl-b { stroke: #2E6BB8; stroke-width: 2.6; fill: none; }
+  svg .strahl-g { stroke: #7A4BAF; stroke-width: 2.6; fill: none; }
+.blattkarte:has(.heftbild){width:900px}</style><style>
+.heftseite{background:#fff;background-image:linear-gradient(#dfe5ee 1px,transparent 1px),linear-gradient(90deg,#dfe5ee 1px,transparent 1px);
+background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26px 34px 30px;margin:14px 0 30px;box-shadow:3px 3px 0 #e6e9ee;max-width:900px}
+.heftseite .hdat{text-align:right;font-size:14px;color:#66798e}
+.heftseite h2.hlf{font-size:21px;margin:4px 0 18px;color:#1a56a0;text-decoration:underline;text-underline-offset:4px}
+.heftseite .hlf span{display:block;font-size:13px;color:#66798e;text-decoration:none;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.heftseite h3.hti{font-size:18px;margin:22px 0 8px;color:#b3261e;text-decoration:underline;text-underline-offset:3px}
+.heftseite .hbild{background:#fff;border:1px solid #d5dbe4;padding:6px;margin:6px 0 8px;max-width:760px}
+.heftseite .hbild svg,.heftseite .hbild img{display:block;width:100%;height:auto}
+.heftseite .hmerk{background:rgba(255,255,255,.92);border-left:4px solid #1b1b1b;padding:6px 12px;font-size:16px;line-height:1.5;max-width:760px}
+.heftseite .hantw{background:rgba(255,255,255,.92);border:1.5px solid #1a56a0;border-radius:4px;padding:8px 14px;font-size:16px;line-height:1.5;max-width:760px}
+.heftleg{font-size:14px;color:#555;background:#f5f5f1;border-radius:8px;padding:10px 14px;margin:14px 0 0}
+</style></head><body>
 <div class="wrap"><header class="kopf"><h1>Kernphysik: Leitfrage 5 abschließen</h1>
 <p class="sub">Klasse 10 · Physik · W19 (Woche ab 15.02.2027) · Abschluss Leitfrage 5</p></header></div>
-<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="heft">Heft</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
 <div class="wrap">
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul><li>Übungsblatt Kernenergie: Seite 1, eins pro Schüler.</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
@@ -95,6 +130,7 @@ table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:
   <div class="titelband"><h1>Lösung</h1></div>
   <div class="loesung">1) b &nbsp;&nbsp; 2) b</div>
 </section></div><div class="fnr">Folie 4 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f4"><div class="austeil">📄 Übungsblatt austeilen · mit Periodensystem</div><img class="blattbild" src="Materialien/assets/blatt-k19-loesung.png" alt=""></div><div class="fnr">Folie 5</div><div class="karte" id="f5"><section class="folie"><div class="titelband"><h1>Kernkraft weltweit</h1></div><div class="zeichenzone karo"><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>Land</th><th>Stand</th><th>Hintergrund</th></tr><tr><td>Welt</td><td><b>gut 400 Reaktoren in Betrieb</b></td><td>liefern knapp ein Zehntel des Stroms</td></tr><tr><td>Frankreich</td><td><b>etwa zwei Drittel des Stroms</b></td><td>setzt weiter auf Kernkraft</td></tr><tr><td>China</td><td><b>baut die meisten neuen Reaktoren</b></td><td>wegen des schnell wachsenden Strombedarfs</td></tr><tr><td>Deutschland</td><td><b>seit April 2023 keiner mehr am Netz</b></td><td>Ausstieg nach Fukushima beschlossen</td></tr></table></div><div class="merksatz"><b>Frage:</b> Warum entscheiden Länder so unterschiedlich?<br><b style="color:#E6007E">Antwort:</b> <span style="color:#E6007E">Sie gewichten Nutzen und Risiko verschieden: Klimaschutz und sichere Versorgung gegen Unfallrisiko, Abfall und Kosten. Dazu kommen Rohstoffe, Geschichte und die Meinung der Bevölkerung.</span></div></section></div></div>
+<div class="tab" id="t_heft"><div class="box"><p>In dieser Stunde gibt es keinen eigenen Hefteintrag.</p></div></div>
 <div class="tab" id="t_hg"><div class="box"><h3>Abschluss Leitfrage 5 <button class="fchip" data-go="f1">Folie 1</button><button class="fchip" data-go="f2">Folie 2</button><button class="fchip" data-go="f3">Folie 3</button></h3><ul><li>Antwortfolie ins Heft, Check per Handzeichen. Lösung: 1 b, 2 b.</li></ul></div><div class="box"><h3>Reaktorunfälle <button class="fchip" data-go="f4">Folie 4</button></h3><ul><li>Tschernobyl, 26. April 1986: Bei einem Sicherheitstest geriet der Reaktor außer Kontrolle. Dampfexplosion, Brand des Graphit-Moderators, radioaktive Wolke über Europa. Das Gebiet ist bis heute gesperrt, seit 2016 liegt eine neue Schutzhülle darüber.</li><li>Fukushima, 11. März 2011: Die Reaktoren schalteten sich nach dem Erdbeben ab, der Tsunami zerstörte aber die Notstromversorgung. Ohne Kühlung schmolzen drei Reaktorkerne, es kam zu Wasserstoffexplosionen.</li><li>Auch nach dem Abschalten erzeugen die Spaltprodukte noch Wärme (Nachzerfallswärme). Deshalb muss immer gekühlt werden.</li><li>GAU: größter anzunehmender Unfall, gegen den die Anlage ausgelegt ist. Beide Unfälle gingen darüber hinaus.</li></ul></div><div class="box"><h3>Kernenergielabor</h3><a class="btn" href="Kernenergielabor Spaltung und Fusion.html">Labor öffnen</a><p>Kurz-Check mit sechs Fragen zu Spaltung, Reaktor, Fusion und Abfall.</p></div></div>
 <div class="tab" id="t_ab"><div class="box"><h3>Übungsblatt Kernenergie <button class="fchip" data-go="f4">Folie 4</button></h3><a class="btn" href="Materialien/Uebungen Kernenergie W19.pdf">PDF öffnen</a><p><b>Lösung:</b> Steuerstäbe, Borsäure. Mo-103. 2 Neutronen. 1, 2, 4, 8, 16 und 1, 3, 9, 27, 81. 50 Güterwagen. Tabelle siehe Lösungsseite. GAU: schwerster geplanter Unfall, beide Unfälle gingen darüber hinaus. Wasserstoff hat nur ein Proton.</p></div></div>
 </div>

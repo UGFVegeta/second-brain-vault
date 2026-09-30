@@ -3,6 +3,8 @@
 python3 baue_stunden_f3_f4.py          -> nur die HTMLs im Vault
 python3 baue_stunden_f3_f4.py export   -> zusätzlich Folien-PDF, Materialliste, Gesamt, Stunden-HTML nach iCloud"""
 import shutil, sys
+from pathlib import Path
+from folien_zeichnungen import schatten_konstruieren
 from stunde_vorlage import (basis, blatt, chip, tabellenfolie, bau_stunde, exportiere, materialliste,
                             zwei_auf_eins, MAT, ICL)
 
@@ -93,12 +95,29 @@ F4_ALLTAG = tabellenfolie("Schatten im Alltag", [
     ("Hand unter Schreibtisch- und Deckenlampe", "zwei Schatten, in der Mitte dunkler", "Wo beide Lampen verdeckt sind, ist Kernschatten, sonst Halbschatten."),
 ], frage="Du stehst im Halbschatten. Wie viele Lampen kannst du von dort sehen?")
 
+SCHATTEN_KONSTR = ('<section class="folie" data-heft="1"><div class="titelband"><h1>4.3 Einen Schatten konstruieren</h1></div>'
+                   f'<div class="zeichenzone karo">{schatten_konstruieren()}</div>'
+                   '<div class="merksatz">Die <b>Randstrahlen</b> laufen von der Lichtquelle geradlinig an den Kanten des Gegenstands vorbei bis zum Schirm. '
+                   'Zwischen ihnen hinter dem Gegenstand liegt der <b>Schattenraum</b>, auf dem Schirm das <b>Schattenbild</b>.</div></section>')
+
+import base64 as _b64
+_STADION = _b64.b64encode(Path(__file__).with_name("assets").joinpath("stadion-schatten.jpg").read_bytes()).decode()
+STADION = ('<section class="folie"><div class="titelband"><h1>Schatten im Stadion</h1></div>'
+           f'<img src="data:image/jpeg;base64,{_STADION}" alt="" style="position:absolute;left:40pt;top:78pt;width:400pt;border:0.6pt solid #c8d0dc">'
+           '<div class="merksatz" style="left:462pt;right:32pt;top:78pt;bottom:auto;font-size:12pt;line-height:1.45">'
+           '<b>Frage:</b> Der Trainer in der Mitte hat mehrere Schatten. Warum?<br><br>'
+           '<b style="color:#E6007E">Antwort:</b> <span style="color:#E6007E">Das Flutlicht kommt von mehreren Masten. Jeder Mast ist eine eigene '
+           'Lichtquelle und erzeugt einen eigenen Schatten, der vom Mast weg zeigt. Die Schatten sind nur grau, weil die anderen Masten hineinleuchten: '
+           'Es ist Halbschatten. Nur direkt an den Füßen überlagern sie sich zum Kernschatten.</span></div>'
+           '<div style="position:absolute;left:40pt;top:348pt;font-size:8pt;color:#66798e">Foto: Prisma Physik 1 Baden-Württemberg, Klett, S. 52</div></section>')
+
 F4 = [
     basis(31), basis(32),
     blatt("Kern- und Halbschatten W06.pdf", "w06", "Versuchsblatt austeilen · Versuch in Gruppen"),
     basis(34), basis(36),
+    SCHATTEN_KONSTR,
     blatt("Schattenwurf W06 Rückseite.pdf", "w06b", "Rückseite des Versuchsblatts · Schatten einzeichnen"),
-    F4_ALLTAG,
+    STADION, F4_ALLTAG,
     basis(39), basis(40), basis(41),
 ]
 
@@ -166,9 +185,9 @@ F4_SCHRITTE = [
     ("Einstieg", "Zwei Fotos derselben Figur mit zwei Lampen: Was ist am Schatten anders? Leitfrage 4, dann gleich in den Versuch.", [1, 2]),
     ("Versuch", "In Gruppen, erst eine Lichtquelle, dann zwei. Versuchsblatt Vorderseite.", [3]),
     ("Erklären", "Schattenraum und Schattenbild, Kern- und Halbschatten zeichnen.", [4, 5]),
-    ("Schatten einzeichnen", "Rückseite des Versuchsblatts: Randstrahlen, Schattenräume, Lücken.", [6]),
-    ("Alltag", "Beispiele mündlich, Frage nach dem Halbschatten.", [7]),
-    ("Antwort und Check", "Antwort auf Leitfrage 4 ins Heft, Handzeichen, Lösung.", [8, 9, 10]),
+    ("Schatten einzeichnen", "Erst an der Tafel in drei Schritten vormachen, dann Rückseite des Versuchsblatts: Randstrahlen, Schattenräume, Lücken.", [6, 7]),
+    ("Alltag", "Stadionfoto: Warum hat der Trainer mehrere Schatten? Dann Beispiele mündlich, Frage nach dem Halbschatten.", [8, 9]),
+    ("Antwort und Check", "Antwort auf Leitfrage 4 ins Heft, Handzeichen, Lösung.", [10, 11, 12]),
 ]
 
 # ====================================================================== bauen

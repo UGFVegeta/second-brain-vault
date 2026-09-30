@@ -159,6 +159,38 @@ def ausbreitung():
     return z.svg()
 
 
+def schatten_konstruieren():
+    """Tafelbild in drei Schritten (nach der Idee der Prisma-Mathe-Box S. 51): Aufbau, Randstrahlen, Schattenraum schraffieren.
+    Randstrahlen gerade von der Lichtquelle an den Kanten des Gegenstands vorbei bis zum Schirm (berechnet)."""
+    z = Z("sk", 212)
+    z.add('<defs><pattern id="skh" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+          f'<line x1="0" y1="0" x2="0" y2="6" stroke="{INK}" stroke-width="1.3"/></pattern></defs>')
+    titel = ["1. Aufbau zeichnen", "2. Randstrahlen einzeichnen", "3. Schatten schraffieren"]
+    for i in range(3):
+        ox = 12 + i * 208
+        L, XG, G0, G1, XS = (ox + 18, 112), ox + 82, 94, 130, ox + 186
+        y = lambda yg: L[1] + (yg - L[1]) * (XS - L[0]) / (XG - L[0])
+        z.text(ox + 96, 20, titel[i], "middle", 10.5, 600)
+        if i == 2:
+            z.add(f'<polygon points="{XG},{G0} {XS},{y(G0):.1f} {XS},{y(G1):.1f} {XG},{G1}" fill="url(#skh)" opacity=".55"/>')
+            z.rect(XS - 2.5, y(G0), 5, y(G1) - y(G0), INK)
+        if i >= 1:
+            for yg in (G0, G1):
+                z.pfeil(L[0], L[1], XS, y(yg), GELB, 1.8, 7)
+        z.line(XS, 36, XS, 196, INK, 2)
+        z.rect(XG - 2, G0, 4, G1 - G0, WAND)
+        z.add(f'<circle cx="{L[0]}" cy="{L[1]}" r="7" fill="#fff" stroke="{INK}" stroke-width="1.5"/>'
+              f'<path d="M{L[0]-5} {L[1]-5} L{L[0]+5} {L[1]+5} M{L[0]+5} {L[1]-5} L{L[0]-5} {L[1]+5}" stroke="{INK}" stroke-width="1.5"/>')
+        if i == 0:
+            z.text(L[0], 136, "Lichtquelle", "middle", 8.5).text(XG, 146, "Gegenstand", "middle", 8.5).text(XS, 208, "Schirm", "middle", 8.5)
+        if i == 1:
+            z.text(ox + 118, 70, "Randstrahl", "middle", 8.5).text(ox + 118, 170, "Randstrahl", "middle", 8.5)
+        if i == 2:
+            z.text(ox + 136, 116, "Schatten-", "middle", 8.5, 600).text(ox + 136, 127, "raum", "middle", 8.5, 600)
+            z.text(XS - 6, 208, "Schattenbild", "end", 8.5, 600)
+    return z.svg()
+
+
 def modell():
     z = Z("mo")
     z.text(60, 30, "Wirklichkeit: Lichtbündel", weight=600).text(368, 30, "Modell: Lichtstrahlen", weight=600)

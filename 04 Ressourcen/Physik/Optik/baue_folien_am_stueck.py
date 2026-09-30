@@ -297,10 +297,10 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 .austeil{{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}}
 {_sv.MT_CSS}
 .fchip{{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}}
-</style></head><body>
+</style>{_sv.HEFT_CSS}</head><body>
 <div class="wrap"><header class="kopf"><h1>Optik: Lichtquellen und Licht trifft auf einen Körper</h1>
 <p class="sub">Klasse 7c · Physik · Doppelstunde Do 24.09.2026</p></header></div>
-<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="heft">Heft</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
 <div class="wrap">
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul>
@@ -312,6 +312,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 </div>
 
 <div class="tab" id="t_folien">{karten}</div>
+<div class="tab" id="t_heft">{_sv.heft_html(FOLGE)}</div>
 
 <div class="tab" id="t_hg">{hintergrund}</div>
 

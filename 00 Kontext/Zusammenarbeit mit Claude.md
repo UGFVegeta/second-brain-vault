@@ -106,3 +106,4 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 - Zwischen Aufgaben und Lösungen nie „·“ als Trenner, sondern Semikolon. Der Punkt sieht aus wie ein Malzeichen und verwirrt die Schüler.
 - Zur HA-Kontrolle die Lösungen im ausgefüllten Arbeitsblatt zeigen, nicht als kompakte Liste. Lieber auf mehrere Folien verteilen, damit es lesbar bleibt.
 - Korrektur: In der Übersicht links steht die Woche als Überschrift, darunter jede Stunde als eigene Seite mit eigenem Folien-PDF. Benannt nach dem Inhalt, nicht nach dem Wochentag. Alle Folien einer Woche in einer Datei sind im Unterricht unübersichtlich.
+- Physik-Stunden haben einen Tab „Heft“: was die Schüler am Ende tatsächlich im Heft stehen haben. Die Folien allein zeigen das nicht klar (30.09.2026).

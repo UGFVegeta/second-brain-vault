@@ -159,6 +159,54 @@ def chip(*nr):
 
 
 # ------------------------------------------------------------------ HTML
+HEFT_CSS = """<style>
+.heftseite{background:#fff;background-image:linear-gradient(#dfe5ee 1px,transparent 1px),linear-gradient(90deg,#dfe5ee 1px,transparent 1px);
+background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26px 34px 30px;margin:14px 0 30px;box-shadow:3px 3px 0 #e6e9ee;max-width:900px}
+.heftseite .hdat{text-align:right;font-size:14px;color:#66798e}
+.heftseite h2.hlf{font-size:21px;margin:4px 0 18px;color:#1a56a0;text-decoration:underline;text-underline-offset:4px}
+.heftseite .hlf span{display:block;font-size:13px;color:#66798e;text-decoration:none;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.heftseite h3.hti{font-size:18px;margin:22px 0 8px;color:#b3261e;text-decoration:underline;text-underline-offset:3px}
+.heftseite .hbild{background:#fff;border:1px solid #d5dbe4;padding:6px;margin:6px 0 8px;max-width:760px}
+.heftseite .hbild svg,.heftseite .hbild img{display:block;width:100%;height:auto}
+.heftseite .hmerk{background:rgba(255,255,255,.92);border-left:4px solid #1b1b1b;padding:6px 12px;font-size:16px;line-height:1.5;max-width:760px}
+.heftseite .hantw{background:rgba(255,255,255,.92);border:1.5px solid #1a56a0;border-radius:4px;padding:8px 14px;font-size:16px;line-height:1.5;max-width:760px}
+.heftleg{font-size:14px;color:#555;background:#f5f5f1;border-radius:8px;padding:10px 14px;margin:14px 0 0}
+</style>"""
+
+
+def heft_html(folge):
+    """Was am Ende der Stunde im Heft der Schüler steht, aus den Folien gesammelt: Leitfrage als Überschrift, alle nummerierten
+    Einträge (und Folien mit data-heft) mit Zeichnung und Merksatz, zum Schluss die Antwort auf die Leitfrage.
+    Nicht dabei: Beobachte, Alltag, Check, Lösung, Arbeitsblätter."""
+    lf, antwort, eintraege = "", "", {}
+    for f in folge:
+        if isinstance(f, tuple):
+            continue
+        nr = re.search(r'<div class="nr">(.*?)</div>', f, re.S)
+        h2 = re.search(r"<h2>(.*?)</h2>", f, re.S)
+        if nr and nr.group(1).strip().startswith("Leitfrage") and h2:
+            lf = f'<h2 class="hlf"><span>{nr.group(1).strip()}</span>{h2.group(1).strip()}</h2>'
+            continue
+        if nr and nr.group(1).strip().startswith("Antwort") and h2:
+            az = re.search(r'<div class="antwortzone"[^>]*>(.*?)</div>', f, re.S)
+            if az:
+                antwort = f'<h3 class="hti">{nr.group(1).strip()}</h3><div class="hantw">{az.group(1).strip()}</div>'
+            continue
+        h1 = re.search(r"<h1>(.*?)</h1>", f, re.S)
+        if not h1 or not (re.match(r"\s*\d+(\.\d+)?\.?\s", h1.group(1)) or "data-heft" in f[:80]):
+            continue
+        zz = re.search(r'<div class="zeichenzone[^"]*">(.*?)</div>\s*<div class="merksatz"', f, re.S)
+        ms = re.search(r'<div class="merksatz"[^>]*>(.*?)</div>\s*</section>', f, re.S)
+        bild = f'<div class="hbild">{zz.group(1).strip()}</div>' if zz and zz.group(1).strip() else ""
+        eintraege[h1.group(1).strip()] = (f'<h3 class="hti">{h1.group(1).strip()}</h3>{bild}'
+                                          + (f'<div class="hmerk">{ms.group(1).strip()}</div>' if ms else ""))
+    if not (lf or eintraege):
+        return '<div class="box"><p>In dieser Stunde gibt es keinen eigenen Hefteintrag.</p></div>'
+    return ('<p class="heftleg">So steht es am Ende der Stunde im Heft: Überschriften abschreiben, Zeichnungen abzeichnen, Merksätze '
+            'abschreiben, zum Schluss die Antwort auf die Leitfrage. Beobachte-, Alltags- und Check-Folien kommen nicht ins Heft.</p>'
+            f'<div class="heftseite"><div class="hdat">Datum: __________</div>{lf}{"".join(eintraege.values())}{antwort}</div>')
+
+
 def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css=""):
     karten = "".join(
         (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
@@ -174,10 +222,10 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{h1}</title>
 <link rel="stylesheet" href="{css_href}">
-{CSS.replace("</style>", extra_css + "</style>")}</head><body>
+{CSS.replace("</style>", extra_css + "</style>")}{HEFT_CSS}</head><body>
 <div class="wrap"><header class="kopf"><h1>{h1}</h1>
 <p class="sub">{sub}</p></header></div>
-<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="heft">Heft</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
 <div class="wrap">
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul>{li(drucken)}</ul></div>
@@ -185,6 +233,7 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
 <div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen}</div>
 </div>
 <div class="tab" id="t_folien">{karten}</div>
+<div class="tab" id="t_heft">{heft_html(folge)}</div>
 <div class="tab" id="t_hg">{hintergrund}</div>
 <div class="tab" id="t_ab">{blaetter_boxen}</div>
 </div>
