@@ -193,6 +193,30 @@ S5_AB = f"""<div class="box"><h3>Dein Blatt Zerfallsreihen {chip(3)}</h3><a clas
 <p><b>Lösung:</b> α hinter Papier fast Nullrate, β hinter Aluminium fast Nullrate, γ hinter Blei kleiner, aber über der Nullrate. Lücken: Papier, Aluminium, Blei.
 Bleitabelle 800, 400, 200, 100, 50, die Zählrate wird nie ganz null. Po-210 → Pb-206 + He-4, K-40 → Ca-40 + e, Ra-226 → Rn-222 + He-4. Zerfallsreihe Th-234, Pa-234, U-234.</p></div>"""
 
+# Hefteinträge ohne eigene Folie: {Stundendatei: [(Titel als Aussage, Merksatz)]}. Nur Inhalte, die schon auf Folien, Blättern oder im Hintergrund stehen.
+HEFT_EXTRA = {
+    "Kernphysik – W01 Woraus besteht Materie – Stunde.html": [
+        ("Atome enthalten elektrische Ladungen",
+         "Beim Reiben lassen sich <b>Elektronen</b> aus Atomen herauslösen. Es bleiben <b>positive</b> und <b>negative</b> Ladungen übrig. "
+         "Ein Atom ist nach außen <b>neutral</b>, weil es gleich viele positive und negative Ladungen hat.")],
+    "Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html": [
+        ("Auch ohne Strahler zählt das Zählrohr Impulse: die Nullrate",
+         "Das Zählrohr gibt für jedes Teilchen einen <b>Impuls</b> (Knacken). Auch ohne Präparat misst es eine kleine Impulsrate, die <b>Nullrate</b>. "
+         "Sie kommt von der natürlichen Strahlung: terrestrische und kosmische Strahlung und die Strahlung des menschlichen Körpers.")],
+    "Kernphysik – W06 Wuerfelmodell – Stunde.html": [
+        ("Ein einzelner Kern zerfällt zufällig, viele Kerne zerfallen berechenbar",
+         "Wann ein einzelner Kern zerfällt, ist <b>Zufall</b>. Bei Milliarden Kernen gleichen sich die Zufälle aus: "
+         "In gleicher Zeit zerfällt immer etwa <b>derselbe Anteil</b>.")],
+    "Kernphysik – W12 Ionisierende Strahlung – Stunde.html": [
+        ("Strahlung lässt sich mit Messgeräten nachweisen",
+         "Das <b>Zählrohr</b> klickt bei jedem Teilchen, das <b>Dosimeter</b> zeigt die gesamte Dosis, in der <b>Nebelkammer</b> sieht man Spuren einzelner Teilchen, "
+         "die <b>Fotoplatte</b> wird dunkel. So entdeckte Becquerel 1896 die Radioaktivität.")],
+    "Kernphysik – W20 Radioaktiver Abfall – Stunde.html": [
+        ("In Deutschland gibt es noch kein Endlager für hochradioaktiven Abfall",
+         "Castoren stehen in <b>Zwischenlagern</b>, bis ein Endlager fertig ist. Schwach und mittel radioaktiver Abfall soll nach <b>Schacht Konrad</b> (Fertigstellung geplant bis 2029). "
+         "Aus der <b>Asse</b> soll der Abfall zurückgeholt werden, weil Wasser eindringt. Für hochradioaktiven Abfall wird noch ein Standort gesucht.")],
+}
+
 STUNDEN = [
     ("Kernphysik – W01 Woraus besteht Materie – Stunde.html", "Kernphysik: Woraus besteht Materie?", "Klasse 10 · Physik · W01 (Woche ab 14.09.2026) · Einstieg Leitfrage 1",
      ["Versuchsblatt Atome enthalten elektrische Ladungen: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
@@ -238,4 +262,4 @@ STUNDEN = [
 if __name__ == "__main__":
   for datei, h1, sub, drucken, mat, schritte, folge, hg, ab in STUNDEN:
     drucken = [("Optional: " + d) if "eins pro Schüler" in d else d for d in drucken]
-    bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab, ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS)
+    bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab, ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS, heft_extra=HEFT_EXTRA.get(datei))

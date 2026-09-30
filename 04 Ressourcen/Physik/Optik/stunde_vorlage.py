@@ -293,6 +293,63 @@ def heft_html(folge, zusatz_labore=()):
 
 
 # ------------------------------------------------------------------ Folienstil V1 (30.09.2026)
+# Überschriften nach der Titelregel: Fragen bleiben Fragen, Aussagen nur auf Ergebnis- und Alltagsfolien, keine Stichwort-Titel.
+# (alter Titel, Textstück aus der Folie) -> neuer Titel. Nur Formulierungen aus dem Inhalt der Folie selbst.
+TITEL_NEU = [
+    ("Beobachte", "Fast das ganze Atom ist leer", "Wie groß ist der Kern im Vergleich zum Atom?"),
+    ("Beobachte", "Auch ohne Präparat klickt", "Woher kommt die Strahlung, wenn kein Präparat da ist?"),
+    ("Beobachte", "Niemand weiß, welcher Würfel", "Was passiert, wenn 100 Würfel immer wieder geworfen werden?"),
+    ("Beobachte", "Beim Arzt wird sie eingesetzt", "Wie passt zusammen: beim Arzt eingesetzt, im Labor abgeschirmt?"),
+    ("Beobachte", "Jede dieser Mengen", "Warum reicht 1 kg Uran für so viel Wärme?"),
+    ("Beobachte", "Wer entscheidet heute", "Wer entscheidet heute, was in einer Million Jahren sicher sein muss?"),
+    ("Beobachte", "Strohhalm", "Was siehst du am Strohhalm im Wasserglas?"),
+    ("Beobachte", "Dieselbe Schrift", "Was fällt dir an der Schrift mit und ohne Lupe auf?"),
+    ("Beobachte", "Stell dich vor den Spiegel", "Was macht dein Spiegelbild, wenn du die rechte Hand hebst?"),
+    ("Beobachte", "Dieselbe Lampe, drei Gegenstände", "Was passiert jeweils mit dem Licht?"),
+    ("Beobachte", "Zwei unterschiedlich schwere Bälle", "Welcher der beiden Bälle landet zuerst?"),
+    ("Beobachte", "Was ändert sich, wenn die Lampe eingeschaltet", "Was ändert sich, wenn die Lampe eingeschaltet wird?"),
+    ("Beobachte", "Das Kind sucht seinen Ball", "Warum sieht das Kind den Ball nicht?"),
+    ("Beobachte", "Zweimal dieselbe Figur", "Was ist an den beiden Schatten anders?"),
+    ("Beobachte", "Vier Aufnahmen des Mondes", "Was fällt dir an den vier Mondbildern auf?"),
+    ("Isotope im Alltag", "", "Isotope helfen zum Beispiel bei der Altersbestimmung von Funden"),
+    ("Natürliche Strahlung im Alltag", "", "Natürliche Strahlung gibt es überall: im Keller, im Flugzeug, im eigenen Körper"),
+    ("Strahler im Alltag", "", "Radioaktive Strahler stecken auch in Alltagsgeräten, etwa in älteren Rauchmeldern"),
+    ("Abschirmung im Alltag", "", "Blei schwächt Strahlung ab und schützt zum Beispiel beim Röntgen"),
+    ("Strahlung als Werkzeug", "", "Strahlung ist auch ein Werkzeug, zum Beispiel beim Prüfen von Schweißnähten"),
+    ("Zufall im Einzelnen, sicher in der Menge", "", "Ein einzelner Kern zerfällt zufällig, viele Kerne zerfallen berechenbar"),
+    ("Halbwertszeiten im Vergleich", "", "Halbwertszeiten sind von Nuklid zu Nuklid sehr verschieden"),
+    ("Halbieren nicht nur bei Kernen", "", "Auch Luftdruck und Koffein halbieren sich in festen Schritten"),
+    ("Becquerel im Alltag", "", "Ein Mensch (70 kg) hat eine Aktivität von etwa 9000 Bq"),
+    ("Strahlung nachweisen", "", "Strahlung lässt sich mit Messgeräten nachweisen"),
+    ("Radon zu Hause", "", "Radon sammelt sich in Häusern, vor allem im Keller und Erdgeschoss"),
+    ("Kettenreaktionen im Alltag", "", "Kettenreaktionen gibt es auch im Alltag, zum Beispiel beim Dominoeffekt"),
+    ("Wo man an der Fusion forscht", "", "Die Sonne fusioniert seit Milliarden Jahren, auf der Erde wird noch geforscht"),
+    ("Kernkraft weltweit", "", "Weltweit liefern gut 400 Reaktoren knapp ein Zehntel des Stroms"),
+    ("Radioaktiver Abfall in Deutschland", "", "In Deutschland gibt es noch kein Endlager für hochradioaktiven Abfall"),
+    ("Zum Schluss: Die Altersbestimmung", "", "Nach 5 730 Jahren ist nur noch die Hälfte des C-14 übrig"),
+    ("Datiert mit der C-14-Methode", "", "Mit der C-14-Methode lassen sich Funde wie Ötzi datieren"),
+    ("Brechung im Alltag", "", "Durch Brechung sieht ein Schwimmbecken flacher aus, als es ist"),
+    ("Linsen im Alltag", "", "Die Linsen einer Brille helfen dem Auge, scharf zu sehen"),
+    ("Reflexion im Alltag", "", "Der Rückspiegel zeigt die Straße hinter dir"),
+    ("Spiegelbilder im Alltag", "", "Auf dem Krankenwagen steht AMBULANZ spiegelverkehrt"),
+    ("Licht trifft auf einen Körper im Alltag", "", "Ein schwarzes T-Shirt verschluckt fast alles Licht"),
+    ("Geradlinige Ausbreitung im Alltag", "", "Lichtstrahlen sind hinter Wolken als gerade Streifen zu sehen"),
+    ("Schatten im Stadion", "", "Im Stadion wirft jeder Spieler mehrere Schatten, weil es mehrere Flutlichter gibt"),
+    ("Schatten im Alltag", "", "Mehrere Lichtquellen ergeben mehrere Schatten"),
+    ("Mond und Finsternis im Alltag", "", "Den Halbmond sieht man auch am hellen Nachmittag"),
+    ("Lochkamera im Alltag", "", "Jede Lücke im Laub ist eine Lochkamera"),
+    ("Zum Schluss: Sicheln auf dem Boden", "", "Warum sind die Lichtflecken bei einer Sonnenfinsternis Sicheln?"),
+]
+
+
+def _titel_neu(h1, folientext):
+    text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", folientext))
+    for alt, stueck, neu in TITEL_NEU:
+        if h1 == alt and stueck in text:
+            return neu
+    return h1
+
+
 def _stil_titel(h1, fach):
     m = re.fullmatch(r"Lösung: Check zu Leitfrage (\d+)", h1)
     if m:
@@ -339,7 +396,7 @@ def stilisiere(folge, h1, sub):
             neu.append(h)
             continue
         h = re.sub(r'<section class="(folie[^"]*)"', r'<section class="\1 stil-v1"', h, count=1)
-        h = re.sub(r'(<div class="titelband">\s*<h1>)(.*?)(</h1>)', lambda m: m.group(1) + _stil_titel(m.group(2).strip(), fach) + m.group(3), h, flags=re.S)
+        h = re.sub(r'(<div class="titelband">\s*<h1>)(.*?)(</h1>)', lambda m: m.group(1) + _stil_titel(_titel_neu(m.group(2).strip(), h), fach) + m.group(3), h, flags=re.S)
         h = karo_vektor(h)
         if "<div class=\"fuss\">" not in h:
             i = h.rindex("</section>")
@@ -348,10 +405,12 @@ def stilisiere(folge, h1, sub):
     return neu
 
 
-def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css=""):
+def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css="", heft_extra=None):
     labore = labore_der_stunde(hintergrund, blaetter_boxen)
     folge, schritt_lab = mit_labor(folge, schritte, labore)
     folge_heft, folge = folge, stilisiere(folge, h1, sub)   # Heft und Überblick mit der unveränderten Folge
+    for titel, merksatz in heft_extra or []:     # Hefteintrag ohne eigene Folie (Versuchsergebnis, Alltagsfolie): steht nur im Heft-Tab
+        folge_heft = folge_heft + [f'<section class="folie heft"><div class="titelband"><h1>{titel}</h1></div><div class="merksatz">{merksatz}</div></section>']
     LETZTE[datei] = folge
     labchip = lambda i: "".join(f'<a class="labchip" href="{labore[n]}" target="_blank">🧪 {n}</a>' for n in schritt_lab.get(i, []))
     labzeile = ("".join(f'<a class="labchip" href="{d}" target="_blank">🧪 {n}</a>' for n, d in labore.items()))

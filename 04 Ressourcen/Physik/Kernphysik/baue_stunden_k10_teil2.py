@@ -2,7 +2,7 @@
 """Stunden-HTMLs Kernphysik Klasse 10, W06 bis W22 (Leitfragen 3 bis 6, je eine Einzelstunde).
 W10/W11 Klassenarbeit und W14 Puffer haben keine eigene Stunde. Ideen aus „Erlebnis Physik“ Kl. 10 in eigenen Worten.
 python3 baue_stunden_k10_teil2.py   -> HTMLs im Ordner Kernphysik (Export nach iCloud erst nach Freigabe)"""
-from baue_stunden_k10 import HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde, zeichnungsfolie
+from baue_stunden_k10 import HEFT_EXTRA, HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde, zeichnungsfolie
 from kern_zeichnungen2 import roentgen_damals_heute, halbwertszeit_leer, halbierung
 
 STRAHL = "Strahlungslabor Radioaktivitaet.html"
@@ -87,7 +87,7 @@ S7_HG = (box("Halbwertszeit", ["Nach n Halbwertszeiten ist der Anteil (1/2)ⁿ �
          + LAB(ZERF, "Zerfallslabor", "Fluor-20-Animation: 225 Kerne, Uhr, alle 2 s ein Messpunkt, danach Kurve mit Halbwertszeiten bei 11, 22 und 33 s. Dazu Halbwertszeit für sechs Nuklide und exponentielle Abnahme im Alltag."))
 S7_AB = (ab_box("Arbeitsblatt Die Halbwertszeit", "Halbwertszeit W07.pdf",
                "Schaum (Beispiel): 10,0 bis 1,9 cm, Halbierung nach etwa 100 s. Lücken: Hälfte, ein Viertel, ein Achtel, feste. Iod-131: 500, 250, 125, 62,5, 31,25 Kerne. Die Kurve halbiert immer nur und erreicht nie null.", 2)
-         + '<div class="box"><h3>Alternative: dein Blatt „Halbwertszeit“ zum Einzeichnen</h3><a class="btn" href="Materialien/Halbwertszeit AB Einzeichnen (Oskar).pdf">PDF öffnen</a>'
+         + '<div class="box"><h3>Alternative: dein Blatt „Halbwertszeit“ zum Einzeichnen</h3><a class="btn" href="Materialien/Halbwertszeit AB Einzeichnen (Oskar).pdf">PDF öffnen</a><a class="btn" href="Materialien/Halbwertszeit AB Einzeichnen (Oskar) – Lösung.pdf">Lösung (dein Blatt ausgefüllt)</a>'
            '<p>Seite 2 hat das Diagramm (N bis 260, t bis 60 s) mit Lücken zum zeitlichen Verlauf. Lösung: Hälfte (50 %), ein Viertel (25 %), ein Achtel (12,5 %), nach 4 Halbwertszeiten ca. 6 %.</p></div>')
 
 # ====================================================================== W08
@@ -384,4 +384,5 @@ if __name__ == "__main__":
     for kurz, h1, sub, blattname, mat, schritte, folge, hg, ab in STUNDEN:
         bau_stunde(f"Kernphysik – {kurz} – Stunde.html", h1, f"Klasse 10 · Physik · {sub}",
                    [blattname[1:] if blattname.startswith("!") else f"Optional: {blattname}, Seite 1, eins pro Schüler.", NICHT_DRUCKEN], mat, schritte, folge, hg, ab,
-                   ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS + ".blattkarte:has(.heftbild){width:900px}")
+                   ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS + ".blattkarte:has(.heftbild){width:900px}",
+                   heft_extra=HEFT_EXTRA.get(f"Kernphysik – {kurz} – Stunde.html"))
