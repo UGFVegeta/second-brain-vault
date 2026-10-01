@@ -201,6 +201,7 @@ def chip(*nr):
 
 # ------------------------------------------------------------------ HTML
 HEFT_CSS = """<style>
+.hbeob{margin:4px 0 14px;font-size:15px}.hbeob .hz{border-bottom:1px solid #b8bec7;height:26px}
 a.labchip{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;text-decoration:none;margin:0 6px 4px 0}
 .labzeile{margin:12px 0 0;font-size:14px;color:#555}
 .heftseite{background:#fff;background-image:linear-gradient(#dfe5ee 1px,transparent 1px),linear-gradient(90deg,#dfe5ee 1px,transparent 1px);
@@ -280,6 +281,10 @@ def heft_html(folge, zusatz_labore=()):
             continue
         alle_labs += [n for n in re.findall(r'<div class="laborchip">🧪 Labor: ([^<]+)</div>', f) if n not in alle_labs]
         if re.match(r'<section class="[^"]*\bleer\b', f):   # leere Zwillingsfolie: nicht ins Heft
+            continue
+        if re.match(r'<section class="[^"]*\bvbeschreibung\b', f):   # Versuch: Überschrift, die Beobachtung schreibt die Klasse selbst (Beschreibung steht in IServ)
+            vt = re.sub(r"<[^>]+>", "", re.search(r"<h1>(.*?)</h1>", f, re.S).group(1)).strip()
+            teile.append(f'<h3 class="hti">{vt}</h3><div class="hbeob"><b>Beobachtung:</b> in eigenen Worten selbst schreiben.<div class="hz"></div><div class="hz"></div></div>')
             continue
         nr = re.search(r'<div class="nr">(.*?)</div>', f, re.S)
         h2 = re.search(r"<h2>(.*?)</h2>", f, re.S)
