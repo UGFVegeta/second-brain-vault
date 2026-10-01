@@ -703,6 +703,76 @@ def strahlungsarten_tabelle(gefuellt):
     return z.svg()
 
 
+def karo_tabelle(pre, gefuellt, breiten, hoehen, zeilen, x0=1.5, y0=0.5, size=10.5, notiz=""):
+    """Allgemeine Tabelle zum Selberzeichnen, alle Linien auf den Kästchen. zeilen: Liste von Zeilen; Zeile 0 ist die Kopfzeile,
+    die erste Spalte (Beschriftung) steht immer da, die übrigen Zellen nur in der ausgefüllten Fassung."""
+    z = Z(pre + ("g" if gefuellt else "l"), 13 * K)
+    y = y0 * K
+    for r, (h, zeile) in enumerate(zip(hoehen, zeilen)):
+        x = x0 * K
+        for c, (b, text) in enumerate(zip(breiten, zeile)):
+            kopf = r == 0 or c == 0
+            z.add(f'<rect x="{x}" y="{y}" width="{b * K}" height="{h * K}" fill="{"#EEF1F5" if kopf else "#FFFFFF"}" stroke="{INK}" stroke-width="1.6"/>')
+            if kopf or gefuellt:
+                z.text(x + b * K / 2, y + h * K / 2 + 4, text, "middle", size, 600 if kopf else 500)
+            x += b * K
+        y += h * K
+    for k, zeile in enumerate([notiz] if isinstance(notiz, str) else notiz):
+        if zeile:
+            z.text(x0 * K, y + (1.1 + k * 0.9) * K, zeile, "start", 10)
+    return z.svg()
+
+
+def gleichungen(gefuellt):
+    """Drei Zerfallsgleichungen zum Üben (Po-210 α, K-40 β⁻, Ra-226 α); ausgefüllt mit den Zerfallsprodukten in Rot."""
+    z = Z("kg" + ("g" if gefuellt else "l"), 13 * K)
+    zeilen = [("α-Zerfall", ("210", "84", "Po"), (("206", "82", "Pb"), ("4", "2", "He"))),
+              ("β⁻-Zerfall", ("40", "19", "K"), (("40", "20", "Ca"), ("0", "−1", "e"))),
+              ("α-Zerfall", ("226", "88", "Ra"), (("222", "86", "Rn"), ("4", "2", "He")))]
+    for i, (name, (A, Zz, sym), prod) in enumerate(zeilen):
+        y = (3.2 + i * 3.5) * K
+        z.text(2 * K, y, name + ":", "start", 12, 600)
+        nuklid(z, 10 * K, y, sym, A, Zz, 26)
+        z.pfeil(13 * K, y - 8, 16 * K, y - 8, GRAU, 2, 9)
+        for j, x in enumerate((20.5 * K, 29 * K)):
+            if gefuellt:
+                a, zz, sy = prod[j]
+                nuklid(z, x, y, sy, a, zz, 26, ROT)
+            else:
+                z.line(x - 4.5 * K, y + 6, x + 1.2 * K, y + 6, GRAU, 1.4)
+        z.text(24.3 * K, y - 4, "+", "middle", 16, 600)
+    return z.svg()
+
+
+def wuerfel_messwerte():
+    """Messwerte des Würfelversuchs: Wurf 0 bis 8, übrige Würfel (Beispielwerte einer Gruppe, 30 Würfel)."""
+    zeilen = [["Wurf"] + [str(i) for i in range(9)], ["übrig"] + ["30", "25", "21", "17", "14", "12", "10", "8", "7"]]
+    return karo_tabelle("kw", True, [6] + [3] * 9, [2, 3], zeilen, notiz="Beispielwerte einer Gruppe, eure Werte weichen ab.")
+
+
+def wuerfel_diagramm():
+    """Diagramm: übrige Würfel (0 bis 30) über der Zahl der Würfe (0 bis 8), Beispielwerte, auf den Kästchen."""
+    z = Z("kwd", 13 * K)
+    x0, y0, sx, sy = 3 * K, 11.8 * K, 3 * K, 0.36 * K
+    z.pfeil(x0, y0, 29.5 * K, y0, GRAU, 1.8, 8).pfeil(x0, y0, x0, 0.3 * K, GRAU, 1.8, 8)
+    for w in range(1, 9):
+        z.line(x0 + w * sx, y0 - 4, x0 + w * sx, y0 + 4, GRAU, 1.4)
+        z.text(x0 + w * sx, y0 + 15, str(w), "middle", 9)
+    for n in range(5, 31, 5):
+        z.line(x0 - 4, y0 - n * sy, x0 + 4, y0 - n * sy, GRAU, 1.4)
+        z.text(x0 - 7, y0 - n * sy + 3.5, str(n), "end", 9)
+    z.text(29.5 * K, y0 - 7, "Wurf", "end", 9.5).text(x0 + 8, 0.9 * K, "übrige Würfel", "start", 9.5)
+    werte = [30, 25, 21, 17, 14, 12, 10, 8, 7]
+    pts = [(x0 + i * sx, y0 - n * sy) for i, n in enumerate(werte)]
+    z.add(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="none" stroke="{BLAU}" stroke-width="2"/>')
+    for x, y in pts:
+        z.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.4" fill="{ROT}"/>')
+    yh = y0 - 15 * sy
+    z.line(x0, yh, x0 + 3.8 * sx, yh, GRAU, 1.2, "5 4").line(x0 + 3.8 * sx, yh, x0 + 3.8 * sx, y0, GRAU, 1.2, "5 4")
+    z.text(x0 + 4 * sx + 6, yh - 6, "Hälfte nach etwa 3,8 Würfen", "start", 9.5, 600)
+    return z.svg()
+
+
 def svg_ersetzen(t, neu):
     """Ersetzt das erste äußere <svg> einer Folie, auch wenn es verschachtelte <svg> enthält.
     Räumt Reste auf, die ein früherer Lauf ohne Verschachtelung hinterlassen hat (bis zum nächsten </div>)."""

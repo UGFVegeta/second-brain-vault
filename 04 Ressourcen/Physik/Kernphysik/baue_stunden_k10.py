@@ -7,9 +7,9 @@ from pathlib import Path
 
 HIER = Path(__file__).parent
 sys.path.insert(0, str(HIER.parent / "Optik"))
-from stunde_vorlage import folien_aus, blatt as _blatt, chip, tabellenfolie, bau_stunde, paar  # noqa: E402
+from stunde_vorlage import folien_aus, blatt as _blatt, chip, tabellenfolie, bau_stunde, paar, versuchsbeschreibung  # noqa: E402
 from kern_zeichnungen import zeitstrahl, efeld  # noqa: E402
-from kern_zeichnungen2 import zerfallsreihe_th232, zaehlrohr, nullrate_tabelle, strahlungsarten_tabelle  # noqa: E402
+from kern_zeichnungen2 import zerfallsreihe_th232, zaehlrohr, nullrate_tabelle, strahlungsarten_tabelle, karo_tabelle, gleichungen, wuerfel_messwerte, wuerfel_diagramm  # noqa: E402
 
 MAT = HIER / "Materialien"
 _F = folien_aus(HIER / "Kernphysik.html")
@@ -21,10 +21,21 @@ def f(p):
     return re.sub(r'\s*<div class="ab-hinweis">.*?</div>', "", _F[p - 1], flags=re.S)
 
 
-def blatt(pdf, key, hinweis):
-    """Arbeitsblätter sind immer optional: Das Heft ist auch ohne Blatt vollständig."""
+def blatt(pdf, key, hinweis, beide=False):
+    """Arbeitsblätter sind immer optional: Das Heft ist auch ohne Blatt vollständig. beide=True: Ausnahme-Blatt (leere Seite und Lösung im Folien-PDF)."""
     hinweis = "optional · " + hinweis.replace("Arbeitsblatt austeilen", "Arbeitsblatt").replace("Versuchsblatt austeilen", "Versuchsblatt").replace("Übungsblatt austeilen", "Übungsblatt")
-    return _blatt(pdf, key, hinweis, mat=MAT)
+    return _blatt(pdf, key, hinweis, mat=MAT, beide=beide)
+
+
+def leer_mit_aufgabe(h):
+    """Leere Zwillingsfolie, bei der die Aufgabe (Zeichnung) stehen bleibt, nur der Merksatz entfällt (z. B. Übungsaufgaben)."""
+    import re as _re
+    h = h.replace('<section class="folie">', '<section class="folie leer">', 1)
+    return _re.sub(r'<div class="merksatz[^"]*"[^>]*>.*?</div>', "", h, count=1, flags=_re.S)
+
+
+def als_heft(h):
+    return h.replace('<section class="folie">', '<section class="folie heft">', 1)
 
 
 def zeichnungsfolie(titel, svg, merksatz):
@@ -179,8 +190,20 @@ A6 = tabellenfolie("Strahlung als Werkzeug", [
 ZR = zeichnungsfolie("2.5 Die Zerfallsreihe", zerfallsreihe_th232(),
                      "Viele Kerne zerfallen mehrmals hintereinander, bis ein <b>stabiler Kern</b> entsteht, meist <b>Blei</b>. "
                      "Diese Kette heißt <span class=\"rot\">Zerfallsreihe</span>. Bei jedem Schritt gelten die Regeln für α und β⁻.")
-S5 = [f(18), ZR, blatt("Zerfallsreihen W05 (Oskar).pdf", "k05z", "Blatt Zerfallsreihen · Np-237 und Th-232"),
-      f(20), blatt("Durchdringung und Zerfallsgleichungen W05.pdf", "k05", "Arbeitsblatt · Absorberversuch vorne"), A5, A6]
+GL = als_heft(zeichnungsfolie("Bei jedem Zerfall bleiben Massenzahl und Ladung erhalten", gleichungen(True),
+                              "Oben die Massenzahl, unten die Kernladungszahl: Links und rechts muss jede Summe gleich sein. Das Elektron schreibt man mit 0 oben und −1 unten."))
+GL_LEER = leer_mit_aufgabe(zeichnungsfolie("Welche Kerne entstehen bei diesen drei Zerfällen?", gleichungen(False), ""))
+VERS5 = versuchsbeschreibung("Versuch: Wie weit kommt die Strahlung?",
+                             ["Präparate: α-, β- und γ-Strahler (nur Lehrkraft, nach RiSU)", "Geiger-Müller-Zählrohr mit Zählgerät",
+                              "Absorber: ein Blatt Papier, 5 mm Aluminium, einige Zentimeter Blei"],
+                             ["Zählrate des Strahlers ohne Absorber messen.", "Nacheinander Papier, Aluminium und Blei zwischen Präparat und Zählrohr stellen.",
+                              "Jedes Mal die Zählrate ablesen und notieren.", "Mit allen drei Strahlern wiederholen."])
+BLEI = als_heft(zeichnungsfolie("Jede 1,3 cm Blei halbieren die Zählrate der γ-Strahlung",
+                                karo_tabelle("kb", True, [8, 6, 6, 6, 6, 6], [2, 3], [["Blei in cm", "0", "1,3", "2,6", "3,9", "5,2"], ["Impulse pro Minute", "800", "400", "200", "100", "50"]],
+                                             notiz=["Wird die Zählrate irgendwann null?", "Nein: Sie halbiert sich immer wieder, bis sie in der Nullrate untergeht."]),
+                                "Blei schwächt γ-Strahlung nur, es stoppt sie nie ganz. Nach jeder Schicht gleicher Dicke ist <b>derselbe Anteil</b> übrig."))
+S5 = [*paar(f(18)), GL_LEER, GL, *paar(ZR), blatt("Zerfallsreihen W05 (Oskar).pdf", "k05z", "Blatt Zerfallsreihen · Np-237 und Th-232", beide=True),
+      VERS5, *paar(f(20)), *paar(BLEI, "Wie ändert sich die Zählrate hinter dickem Blei?"), A5, A6]
 S5_HG = f"""
 <div class="box"><h3>Zerfallsgleichungen {chip(1)}</h3><ul>
 <li>Oben (Massenzahl) und unten (Ladung) muss die Summe links und rechts gleich sein. Das Elektron schreibt man mit 0 oben und −1 unten.</li>
@@ -199,9 +222,9 @@ S5_HG = f"""
 <li>Bestrahlte Gegenstände werden nicht selbst radioaktiv. Deshalb kann man mit γ-Strahlung auch Verbandsmaterial und Spritzen keimfrei machen.</li>
 <li>Die Antwort zur Folienfrage: Dünnes Papier schwächt γ-Strahlung kaum messbar. β-Strahlung reagiert schon auf kleine Dickenunterschiede.</li></ul></div>
 {LAB(STRAHL, "Strahlungslabor", "Zerfallsgleichungen üben mit sofortiger Rückmeldung, Absorberversuch mit Papier, Aluminium und Blei, Bleidicke per Regler mit Kurve und Nullrate.")}"""
-S5_AB = f"""<div class="box"><h3>Dein Blatt Zerfallsreihen {chip(3)}</h3><a class="btn" href="Materialien/Zerfallsreihen W05 (Oskar).pdf">PDF öffnen</a>
-<p>Seite 1 leer zum Austeilen, Seite 2 dein Original ausgefüllt als Lösung (steht auch auf Folie 3).</p></div>
-<div class="box"><h3>Arbeitsblatt Durchdringung und Zerfallsgleichungen {chip(5)}</h3><a class="btn" href="Materialien/Durchdringung und Zerfallsgleichungen W05.pdf">PDF öffnen</a>
+S5_AB = f"""<div class="box"><h3>Dein Blatt Zerfallsreihen {chip(7)}</h3><a class="btn" href="Materialien/Zerfallsreihen W05 (Oskar).pdf">PDF öffnen</a>
+<p>Seite 1 leer zum Austeilen, Seite 2 dein Original ausgefüllt als Lösung. Im Folien-PDF stehen beide Seiten nacheinander (Folie 7).</p></div>
+<div class="box"><h3>Alternative: Arbeitsblatt Durchdringung und Zerfallsgleichungen</h3><a class="btn" href="Materialien/Durchdringung und Zerfallsgleichungen W05.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> α hinter Papier fast Nullrate, β hinter Aluminium fast Nullrate, γ hinter Blei kleiner, aber über der Nullrate. Lücken: Papier, Aluminium, Blei.
 Bleitabelle 800, 400, 200, 100, 50, die Zählrate wird nie ganz null. Po-210 → Pb-206 + He-4, K-40 → Ca-40 + e, Ra-226 → Rn-222 + He-4. Zerfallsreihe Th-234, Pa-234, U-234.</p></div>"""
 
@@ -257,14 +280,15 @@ STUNDEN = [
       ("Ablenkung", "Strahlung im elektrischen Feld, im Labor Spannung an und aus.", [5, 6]), ("Tabelle", "Die drei Strahlungsarten im Vergleich selbst zeichnen und ausfüllen.", [7, 8]), ("Alltag", "Strahler im Alltag mündlich.", [9])],
      S4, S4_HG, S4_AB),
     ("Kernphysik – W05 Zerfallsgleichungen – Stunde.html", "Kernphysik: Zerfallsgleichungen und Durchdringung", "Klasse 10 · Physik · W05 (Woche ab 12.10.2026) · Leitfrage 2",
-     ["Arbeitsblatt Durchdringung und Zerfallsgleichungen: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
+     ["Dein Blatt Zerfallsreihen: Seite 1, eins pro Schüler (Ausnahme). Optional: Arbeitsblatt Durchdringung und Zerfallsgleichungen als Alternative.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Präparate α, β, γ", "je 1", "nur Lehrkraft, nach RiSU"), ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", ""),
                ("Absorber: Papier, Aluminium 5 mm, Bleiplatten", "je 1", "mehrere gleich dicke Bleiplatten, falls vorhanden")], "schueler": [("Periodensystem", "1×", "")],
       "hinweis": "Ohne Präparate: Absorberversuch und Bleidicke im Strahlungslabor."},
-     [("Zerfallsgleichungen", "Regeln an der Folie, Übungen im Strahlungslabor.", [1]),
-      ("Zerfallsreihe", "Th-232 bis Blei ins Heft. Dein Blatt Zerfallsreihen (Np-237, Th-232) als Übung.", [2, 3]),
-      ("Durchdringung", "Absorberversuch vorne, Bleidicke im Strahlungslabor.", [4, 5]),
-      ("Alltag", "Abschirmung und Strahlung als Werkzeug.", [6, 7])],
+     [("Zerfallsgleichungen", "Regeln zeichnen (leer, dann ausgefüllt), danach drei Gleichungen üben. Weitere Übungen im Strahlungslabor.", [1, 2, 3, 4]),
+      ("Zerfallsreihe", "Th-232 bis Blei ins Heft. Dann dein Blatt Zerfallsreihen (Np-237, Th-232).", [5, 6, 7]),
+      ("Versuch", "Absorberversuch vorne: Papier, Aluminium, Blei. Beobachtung notieren.", [8]),
+      ("Durchdringung", "Wie weit kommt die Strahlung? Dann Blei halbiert die Zählrate. Bleidicke im Strahlungslabor.", [9, 10, 11, 12]),
+      ("Alltag", "Abschirmung und Strahlung als Werkzeug.", [13, 14])],
      S5, S5_HG, S5_AB),
 ]
 

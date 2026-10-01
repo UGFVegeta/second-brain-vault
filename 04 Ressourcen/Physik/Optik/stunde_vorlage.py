@@ -159,8 +159,20 @@ def leer_von(h, titel=None):
     """Leere Zwillingsfolie zu einer Zeichenfolie: gleicher Titel (oder titel), leere Zeichenzone mit Karo, kein Merksatz.
     Kommt im Folien-PDF vor die ausgefüllte Folie. Im Heft-Tab wird sie übersprungen (Klasse leer)."""
     h = re.sub(r'<section class="(folie[^"]*)"', lambda m: f'<section class="{m.group(1).replace(" heft", "")} leer"', h, count=1)
-    h = re.sub(r'(<div class="zeichenzone[^"]*"[^>]*>).*?(</div>)', r"\1\2", h, count=1, flags=re.S)
-    h = re.sub(r'<div class="merksatz[^"]*"[^>]*>.*?</div>', "", h, count=1, flags=re.S)
+    def ende(t, start):
+        """Index hinter dem schließenden </div> des Elements, dessen <div ...> bei start beginnt (verschachtelte divs zählen mit)."""
+        tiefe = 0
+        for m in re.finditer(r"<div\b|</div>", t[start:]):
+            tiefe += 1 if m.group(0) != "</div>" else -1
+            if tiefe == 0:
+                return start + m.end()
+        return len(t)
+    m = re.search(r'<div class="zeichenzone[^"]*"[^>]*>', h)
+    if m:
+        h = h[:m.end()] + "</div>" + h[ende(h, m.start()):]
+    m = re.search(r'<div class="merksatz[^"]*"[^>]*>', h)
+    if m:
+        h = h[:m.start()] + h[ende(h, m.start()):]
     if titel:
         h = re.sub(r"(<h1>).*?(</h1>)", lambda m: m.group(1) + titel + m.group(2), h, count=1, flags=re.S)
     return h
@@ -173,11 +185,11 @@ def paar(h, titel_leer=None):
 
 def versuchsbeschreibung(titel, material, schritte, bild=""):
     """Eine Folie pro Versuch: Material/Aufbau und Durchführung, ohne Beobachtung (die machen die Schüler selbst).
-    Kommt auch in das PDF „Versuche“ für IServ (Klasse versuch)."""
+    Kommt auch in das PDF „Versuche“ für IServ (Klasse vbeschreibung)."""
     mat = "".join(f"<li>{m}</li>" for m in material)
     li = "".join(f"<li>{x}</li>" for x in schritte)
     bild = f'<div class="vbild">{bild}</div>' if bild else ""
-    return (f'<section class="folie versuch"><div class="titelband"><h1>{titel}</h1></div>'
+    return (f'<section class="folie vbeschreibung"><div class="titelband"><h1>{titel}</h1></div>'
             f'<div class="vbeschr"><div class="vkarte"><h2>Material und Aufbau</h2><ul>{mat}</ul>{bild}</div>'
             f'<div class="vkarte"><h2>Durchführung</h2><ol>{li}</ol></div></div></section>')
 
@@ -411,10 +423,10 @@ def karo_vektor(h):
         svg = (f'<svg class="karogitter" viewBox="0 0 {w:.2f} {hh:.2f}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
                f'<g fill="none" stroke="#A3B7D3" stroke-width="0.41">{linien}</g></svg>')
         return f'<div class="zeichenzone {klassen} vgitter"{(" style=" + chr(34) + stil + chr(34)) if stil else ""}>{svg}'
-    # leere Zeichenzonen (Zwillingsfolien, Vermutungsfolien) reichen fast bis zur Fußzeile: 18 Kästchen, gross 19, tief 17
+    # leere Zeichenzonen (Zwillingsfolien, Vermutungsfolien) reichen fast bis zur Fußzeile: 17 Kästchen, gross 18, tief 16
     def leer_gross(m):
         klassen, stil = m.group(1), m.group(2) or ""
-        zeilen = 19 if "gross" in klassen.split() else 17 if "tief" in klassen.split() else 18
+        zeilen = 18 if "gross" in klassen.split() else 16 if "tief" in klassen.split() else 17
         stil = re.sub(r"height:\s*[\d.]+pt;?", "", stil) + f"height:{zeilen * K:.2f}pt"
         return f'<div class="zeichenzone {klassen}" style="{stil}">'
     h = re.sub(r'<div class="zeichenzone ([^"]*karo[^"]*)"(?: style="([^"]*)")?>(?=\s*</div>)', leer_gross, h)
@@ -443,7 +455,31 @@ def stilisiere(folge, h1, sub):
     return neu
 
 
+def blatt_vorschau(html, ordner):
+    """Zeigt zu jedem verlinkten Arbeitsblatt (Materialien/….pdf) beide Seiten als Bild: leeres Blatt und Lösung.
+    Kopiervorlagen („2 auf 1“, „Druck doppelseitig“, Rückseiten) bleiben ohne Vorschau."""
+    mat = Path(ordner) / "Materialien"
+    (mat / "assets").mkdir(exist_ok=True)
+    for pdf in dict.fromkeys(re.findall(r'href="Materialien/([^"]+\.pdf)"', html)):
+        if any(x in pdf for x in ("2 auf 1", "doppelseitig", "Rückseite", "Lösung.pdf")) or not (mat / pdf).exists():
+            continue
+        slug = re.sub(r"[^A-Za-z0-9]+", "-", pdf.replace(".pdf", "")).strip("-").lower()
+        bilder = []
+        for seite, name in ((1, "Leeres Blatt"), (2, "Lösung")):
+            ziel = mat / "assets" / f"vorschau-{slug}-{seite}"
+            subprocess.run(["pdftoppm", "-png", "-r", "75", "-f", str(seite), "-l", str(seite), "-singlefile", str(mat / pdf), str(ziel)],
+                           check=True, capture_output=True)
+            bilder.append(f'<figure><img src="Materialien/assets/vorschau-{slug}-{seite}.png" alt="{name}"><figcaption>{name}</figcaption></figure>')
+        block = f'<div class="vorschau">{"".join(bilder)}</div>'
+        i = html.index(f'href="Materialien/{pdf}"')
+        j = html.index("</div>", i)
+        html = html[:j] + block + html[j:]
+    return html
+
+
 def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css="", heft_extra=None):
+    blaetter_boxen = blatt_vorschau(blaetter_boxen, ziel or HIER)
+    extra_css += ".vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}"
     labore = labore_der_stunde(hintergrund, blaetter_boxen)
     folge, schritt_lab = mit_labor(folge, schritte, labore)
     folge_heft, folge = folge, stilisiere(folge, h1, sub)   # Heft und Überblick mit der unveränderten Folge

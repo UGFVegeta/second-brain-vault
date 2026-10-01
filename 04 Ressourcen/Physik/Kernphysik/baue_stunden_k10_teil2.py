@@ -2,8 +2,9 @@
 """Stunden-HTMLs Kernphysik Klasse 10, W06 bis W22 (Leitfragen 3 bis 6, je eine Einzelstunde).
 W10/W11 Klassenarbeit und W14 Puffer haben keine eigene Stunde. Ideen aus „Erlebnis Physik“ Kl. 10 in eigenen Worten.
 python3 baue_stunden_k10_teil2.py   -> HTMLs im Ordner Kernphysik (Export nach iCloud erst nach Freigabe)"""
-from baue_stunden_k10 import HEFT_EXTRA, HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde, zeichnungsfolie
-from kern_zeichnungen2 import roentgen_damals_heute, halbwertszeit_leer, halbierung
+from baue_stunden_k10 import HEFT_EXTRA, HIER, KERN_CSS, f, blatt, LAB, chip, tabellenfolie, bau_stunde, zeichnungsfolie, als_heft
+from stunde_vorlage import paar, versuchsbeschreibung
+from kern_zeichnungen2 import roentgen_damals_heute, halbwertszeit_leer, halbierung, wuerfel_messwerte, wuerfel_diagramm
 
 STRAHL = "Strahlungslabor Radioaktivitaet.html"
 ZERF = "Zerfallslabor Halbwertszeit.html"
@@ -42,7 +43,14 @@ A6 = tabellenfolie("Zufall im Einzelnen, sicher in der Menge", [
     ("Glühlampen einer Lieferung", "Jede hält unterschiedlich lange.", "Der Hersteller kennt trotzdem die mittlere Lebensdauer."),
     ("Würfel im Versuch", "Welcher Würfel eine Sechs hat, ist Zufall.", "Pro Wurf fällt trotzdem etwa ein Sechstel weg."),
 ], frage="Warum kann man für einen einzelnen Kern nichts vorhersagen, für ein ganzes Präparat aber schon?")
-S6 = [f(21), f(22), f(23), f(24), f(25), blatt("Zerfall mit Wuerfeln W06.pdf", "k06", "Versuchsblatt austeilen · 30 Würfel pro Gruppe"), A6]
+VERS6 = versuchsbeschreibung("Versuch: Zerfall mit Würfeln", ["30 Würfel pro Gruppe", "Würfelbecher oder Schale"],
+                             ["Eure Gruppe wirft 30 Würfel gleichzeitig.", "Alle Würfel mit einer Sechs sind „zerfallen“ und kommen zur Seite.",
+                              "Zählt die übrigen Würfel und tragt die Zahl ein. Werft dann nur die übrigen Würfel wieder.", "Bis zu acht Würfe."])
+WM = als_heft(zeichnungsfolie("Pro Wurf zerfällt etwa ein Sechstel der Würfel", wuerfel_messwerte(),
+                              "Ein Würfel ist ein Kern, die Sechs ist der <b>Zerfall</b>. Welcher Würfel eine Sechs hat, ist Zufall, deshalb weichen die Gruppen voneinander ab."))
+WD = als_heft(zeichnungsfolie("Nach knapp vier Würfen ist die Hälfte der Würfel übrig", wuerfel_diagramm(),
+                              "Je mehr Würfel, desto genauer passt der Verlauf. Die <b>Hälfte</b> ist nach etwa 3,8 Würfen weg: das ist die „Halbwertszeit“ des Modells."))
+S6 = [f(21), f(22), f(23), f(24), f(25), VERS6, *paar(WM, "Wie viele Würfel sind nach jedem Wurf übrig?"), *paar(WD, "Wie viele Würfe dauert es, bis die Hälfte übrig ist?"), A6]
 S6_HG = (box("Abschluss Leitfrage 2", ["Die Antwortfolie ins Heft, der Check per Handzeichen. Lösung: 1 a, 2 c.",
                                        "Wer die Zerfallsgleichungen noch nicht sicher kann: Übung im Strahlungslabor."], 1, 2, 3)
          + box("Das Würfelmodell", ["Jede Runde fällt im Mittel ein Sechstel weg, übrig bleiben 5/6. Nach etwa 3,8 Würfen ist die Hälfte weg. Das ist die „Halbwertszeit“ des Modells.",
@@ -51,8 +59,8 @@ S6_HG = (box("Abschluss Leitfrage 2", ["Die Antwortfolie ins Heft, der Check per
                                     "<b>Typische Fehlvorstellungen:</b> Nach zwei Halbwertszeiten ist alles zerfallen. Ein Kern, der lange nicht zerfallen ist, ist „bald dran“."], 4, 6)
          + box("Material", ["500 Würfel sind bestellt, das reicht für 30 Würfel pro Gruppe bei bis zu 16 Gruppen. Alternative: 30 Münzen pro Gruppe, „Zahl“ scheidet aus. Dann halbiert sich die Zahl schon pro Wurf."], 6)
          + LAB(ZERF, "Zerfallslabor", "100 Würfel Wurf für Wurf, drei Zufallsserien, dazu der Zerfall von Fluor-20 als Animation mit Uhr und Messpunkten (nach der LEIFI-Animation)."))
-S6_AB = ab_box("Versuchsblatt Zerfall mit Würfeln", "Zerfall mit Wuerfeln W06.pdf",
-               "Erwartete Werte 30, 25, 21, 17, 14, 12, 10, 8, 7. Hälfte nach knapp 4 Würfen. Würfel = Kern, Sechs = Zerfall, die Abweichung kommt vom Zufall.", 6)
+S6_AB = ab_box("Alternative: Versuchsblatt Zerfall mit Würfeln", "Zerfall mit Wuerfeln W06.pdf",
+               "Erwartete Werte 30, 25, 21, 17, 14, 12, 10, 8, 7. Hälfte nach knapp 4 Würfen. Würfel = Kern, Sechs = Zerfall, die Abweichung kommt vom Zufall.")
 
 # ====================================================================== W07
 A7 = tabellenfolie("Halbwertszeiten im Vergleich", [
@@ -323,7 +331,7 @@ STUNDEN = [
      "Versuchsblatt Zerfall mit Würfeln", {"demo": [], "schueler": [("Würfel", "30×", "500 Stück bestellt, reicht für 16 Gruppen"), ("Würfelbecher oder Schale", "1×", "")],
                                           "hinweis": "Die Werte aller Gruppen an der Tafel addieren."},
      [("Abschluss Leitfrage 2", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 3", "Würfel, Vermutungen.", [4, 5]),
-      ("Versuch", "Würfelversuch in Gruppen, Diagramm. Danach 100 Würfel im Zerfallslabor.", [6]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [7])], S6, S6_HG, S6_AB),
+      ("Versuch", "Würfelversuch in Gruppen: Beschreibung an der Folie, Messwerte in die Tabelle, Diagramm zeichnen (leer, dann ausgefüllt). Danach 100 Würfel im Zerfallslabor.", [6, 7, 8, 9, 10]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [11])], S6, S6_HG, S6_AB),
     ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 02.11.2026) · Leitfrage 3",
      "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt"), ("Lappen", "1×", "")],
                                         "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."},
