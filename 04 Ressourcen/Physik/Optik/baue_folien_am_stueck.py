@@ -258,6 +258,14 @@ MATERIAL = {
 }
 MATERIAL_HTML = _sv.material_tabellen(MATERIAL)
 LABORE = {"Sehlabor": "Sehlabor Lichtquellen.html", "Körperlabor": "Körperlabor Licht trifft auf Körper.html"}
+import sys as _sys2
+_sys2.path.insert(0, str(hier))
+from umbau_optik import VERS_F2   # neuer Aufbau: Versuchsfolie statt Schülerblatt, leere Zwillingsfolien
+FOLGE, SCHRITTE, _ABB = _sv.umbauen(FOLGE, SCHRITTE, {10: [VERS_F2]}, {
+    "Lichtquellen": "Kurz wiederholen, dann natürlich und künstlich, sehen und gesehen werden (leere Folie zum Mitzeichnen, dann ausgefüllt). Sehlabor: Sender und Empfänger. Das Arbeitsblatt Lichtquellen gibt es nur als Alternative.",
+    "Versuch": "Blatt, Karton, Glasscheibe in Gruppen: Beschreibung an der Folie, Beobachtung ins Heft.",
+    "Erklären": "Vier Situationen zeichnen (leere Folie, dann ausgefüllt), Alltag mündlich, Antwort auf Leitfrage 2 ins Heft. Körperlabor: weitere Körper ausprobieren."})
+F2_START = _ABB[8][0]   # erste Folie des F2-Teils (Beobachte „Dieselbe Lampe, drei Gegenstände“), für export_f2.py
 FOLGE, SCHRITT_LAB = _sv.mit_labor(FOLGE, SCHRITTE, LABORE)
 FOLGE_HEFT, FOLGE = FOLGE, _sv.stilisiere(FOLGE, "Optik: Lichtquellen und Licht trifft auf einen Körper", "Klasse 7c · Physik")   # Stil V1 (Heft mit unveränderter Folge)
 karten = "".join(
@@ -317,8 +325,8 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 <div class="wrap">
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul>
-<li>Arbeitsblatt Lichtquellen: Seite 1, eins pro Schüler.</li>
-<li>Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.</li>
+<li>Nichts drucken: Die Klasse zeichnet mit und schreibt ins Heft.</li>
+<li>Optional als Alternative: Arbeitsblatt Lichtquellen, Versuchsblatt (Kopiervorlage „2 auf 1“).</li>
 <li>Folien und Lösungen: nicht drucken.</li></ul></div>
 <div class="box"><h3>Material</h3>{MATERIAL_HTML}</div>
 <div class="box"><h3>Die Stunde</h3><div class="zeitleiste">{zeit}</div>{zeilen_u}</div>
@@ -330,11 +338,11 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 <div class="tab" id="t_hg">{hintergrund}</div>
 
 <div class="tab" id="t_ab">
-<div class="box"><h3>Arbeitsblatt Lichtquellen {chip(2)}</h3>
+<div class="box"><h3>Alternative: Arbeitsblatt Lichtquellen</h3>
 <a class="btn" href="Materialien/Lichtquellen W03.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Lichtquelle (L): Kerze, Glühlampe, Lagerfeuer, Blitz, Taschenlampe, Sonne. Beleuchtet (B): Mond, Tafel, Buch, Zimmerpflanze, Spielzeugauto.
 Aufgabe 2: z. B. Glühwürmchen, Polarlicht, Sterne / Feuerwerk, Bildschirm, Laser. Aufgabe 3: Glühlampe und Taschenlampe.</p></div>
-<div class="box"><h3>Versuchsblatt Licht trifft auf einen Körper {chip(10)}</h3>
+<div class="box"><h3>Alternative: Versuchsblatt Licht trifft auf einen Körper</h3>
 <a class="btn" href="Materialien/Licht trifft auf einen Koerper W04.pdf">PDF öffnen</a><a class="btn" href="Materialien/Licht trifft auf einen Koerper W04 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
 <p><b>Lösung:</b> Weißes Blatt: heller, breiter Lichtfleck, Licht wird in viele Richtungen zurückgeworfen (<b>gestreut</b>). Schwarzer Karton: nur ein schwacher Lichtfleck, das meiste Licht wird
 <b>absorbiert</b>. Glasscheibe: Strahl dahinter fast unverändert, Licht wird <b>durchgelassen</b> (Transmission).</p></div>
@@ -352,5 +360,8 @@ show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ue
 </script></body></html>"""
 
 ziel = hier / "Optik – Do 24.09. – Stunde.html"
+# Vorschau der Arbeitsblätter im Tab Arbeitsblätter (beide Seiten als Bild)
+_i, _j = html.index('<div class="tab" id="t_ab">'), html.index("<script>")
+html = html[:_i] + _sv.blatt_vorschau(html[_i:_j], hier) + html[_j:]
 ziel.write_text(html, encoding="utf-8")
 print("geschrieben:", ziel.name, f"({len(html) // 1024} KB), Folien:", len(FOLGE))

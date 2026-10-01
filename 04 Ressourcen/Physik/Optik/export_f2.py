@@ -8,6 +8,7 @@ from pypdf import PdfReader, PdfWriter
 hier = Path(__file__).parent
 g = runpy.run_path(str(hier / "baue_folien_am_stueck.py"))
 FOLGE = g["FOLGE"]
+F2_START = g["F2_START"]
 ICL = Path("/Users/oskarklein/Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/Physik/Physik Klasse 7/Optik 2026-27")
 F1, F2 = ICL / "F1 Lichtquellen (W03)", ICL / "F2 Licht trifft auf einen Koerper (W04)"
 F3, F4 = ICL / "F3 Lichtausbreitung und Blende (W05)", ICL / "F4 Kern- und Halbschatten (W06-07)"
@@ -28,10 +29,6 @@ for i, h in enumerate(FOLGE, 1):
     if isinstance(h, tuple):
         reihen.append(("blatt", "lq" if "blatt-lq" in h[1] else "w04"))
         continue
-    if i == 1:
-        h = hinweis(h, "Arbeitsblatt Lichtquellen austeilen")
-    if i == 9:
-        h = hinweis(h, "Versuchsblatt austeilen")
     reihen.append(("folie", len(seiten)))
     seiten.append(h)
 exp = hier / "_export_folien.html"
@@ -61,7 +58,7 @@ def schreibe(pfad, seiten_):
 
 
 optik1 = PdfReader(str(hier / "Optik I.pdf"))
-schreibe(F2 / "Folien F2.pdf", seitenliste(8, len(FOLGE)))
+schreibe(F2 / "Folien F2.pdf", seitenliste(F2_START, len(FOLGE)))
 
 # 2) Arbeitsblätter (aktueller Stand)
 for src, ziel in [(MAT / "Licht trifft auf einen Koerper W04.pdf", F2 / "Arbeitsblatt F2.pdf"),
@@ -77,7 +74,7 @@ materialliste(F2, "W04", "F2 — Licht trifft auf einen Körper", {
                  ("weißes Blatt Papier", "1×", ""),
                  ("schwarzer oder dunkler Karton", "1×", "dunkelblau, dunkelgrün oder Tonpapier gehen auch"),
                  ("klare Glasscheibe", "1×", "Kanten abkleben")],
-    "hinweis": "Raum abdunkeln. Versuchsblatt vor dem Versuch austeilen."})
+    "hinweis": "Raum abdunkeln. Versuchsbeschreibung steht an der Folie."})
 
 # 4) Gesamt.pdf neu (F3/F4 macht baue_stunden_f3_f4.py export)
 for o, n in ((F2, "F2"),):

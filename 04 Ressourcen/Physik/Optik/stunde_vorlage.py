@@ -341,7 +341,7 @@ def heft_html(folge, zusatz_labore=()):
 TITEL_NEU = [
     ("Beobachte", "Fast das ganze Atom ist leer", "Wie groß ist der Kern im Vergleich zum Atom?"),
     ("Beobachte", "Auch ohne Präparat klickt", "Woher kommt die Strahlung, wenn kein Präparat da ist?"),
-    ("Beobachte", "Niemand weiß, welcher Würfel", "Was passiert, wenn 100 Würfel immer wieder geworfen werden?"),
+    ("Beobachte", "Niemand weiß, welcher Würfel", "Und was passiert bei 100 Würfeln?"),
     ("Beobachte", "Beim Arzt wird sie eingesetzt", "Wie passt zusammen: beim Arzt eingesetzt, im Labor abgeschirmt?"),
     ("Beobachte", "Jede dieser Mengen", "Warum reicht 1 kg Uran für so viel Wärme?"),
     ("Beobachte", "Wer entscheidet heute", "Wer entscheidet heute, was in einer Million Jahren sicher sein muss?"),
@@ -455,6 +455,33 @@ def stilisiere(folge, h1, sub):
     return neu
 
 
+def umbauen(folge, schritte, ersatz=None, schritt_text=None):
+    """Neuer Aufbau der Stunde (Oktober 2026): Schülerblätter fallen aus der Folienreihe (Ersatz: Versuchsfolie), jede nummerierte
+    Zeichenfolie bekommt davor ihre leere Zwillingsfolie. Die Folienzahlen der Schritte werden mitgeführt.
+    ersatz: {alte Folienzahl eines Blatts: [Folien]}. Rückgabe: (neue Folge, neue Schritte, {alte Zahl: [neue Zahlen]})."""
+    ersatz = ersatz or {}
+    neu, abb = [], {}
+
+    def titel(x):
+        m = re.search(r"<h1>(.*?)</h1>", x, re.S)
+        return re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else None
+
+    for k, h in enumerate(folge, 1):
+        if isinstance(h, tuple):
+            folgen = ersatz.get(k, [])
+        else:
+            t = titel(h)
+            zeichnung = (re.match(r"\d+\.\d+ ", t or "") and re.search(r'<div class="zeichenzone[^"]*"[^>]*>\s*<svg', h) and "atab" not in h
+                         and 'class="folie leer' not in h)
+            vorher_gleich = bool(neu) and titel(neu[-1]) == t
+            folgen = [leer_von(h), h] if zeichnung and not vorher_gleich else [h]
+        abb[k] = list(range(len(neu) + 1, len(neu) + 1 + len(folgen)))
+        neu += folgen
+    texte = schritt_text or {}
+    neu_schritte = [(t, texte.get(t, d), sorted({n for k in ks for n in abb.get(k, [])})) for t, d, ks in schritte]
+    return neu, neu_schritte, abb
+
+
 def blatt_vorschau(html, ordner):
     """Zeigt zu jedem verlinkten Arbeitsblatt (Materialien/….pdf) beide Seiten als Bild: leeres Blatt und Lösung.
     Kopiervorlagen („2 auf 1“, „Druck doppelseitig“, Rückseiten) bleiben ohne Vorschau."""
@@ -478,6 +505,15 @@ def blatt_vorschau(html, ordner):
 
 
 def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css="", heft_extra=None):
+    try:   # Registry mit dem neuen Aufbau je Stunde (umbau_optik.py)
+        from umbau_optik import UMBAU
+    except ImportError:
+        UMBAU = {}
+    if datei in UMBAU:
+        u = UMBAU[datei]
+        folge, schritte, _abb = umbauen(folge, schritte, u.get("ersatz"), u.get("schritt_text"))
+        drucken = u.get("drucken", drucken)
+        heft_extra = u.get("heft_extra", heft_extra)
     blaetter_boxen = blatt_vorschau(blaetter_boxen, ziel or HIER)
     extra_css += ".vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}"
     labore = labore_der_stunde(hintergrund, blaetter_boxen)

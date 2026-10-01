@@ -50,7 +50,7 @@ WM = als_heft(zeichnungsfolie("Pro Wurf zerfällt etwa ein Sechstel der Würfel"
                               "Ein Würfel ist ein Kern, die Sechs ist der <b>Zerfall</b>. Welcher Würfel eine Sechs hat, ist Zufall, deshalb weichen die Gruppen voneinander ab."))
 WD = als_heft(zeichnungsfolie("Nach knapp vier Würfen ist die Hälfte der Würfel übrig", wuerfel_diagramm(),
                               "Je mehr Würfel, desto genauer passt der Verlauf. Die <b>Hälfte</b> ist nach etwa 3,8 Würfen weg: das ist die „Halbwertszeit“ des Modells."))
-S6 = [f(21), f(22), f(23), f(24), f(25), VERS6, *paar(WM, "Wie viele Würfel sind nach jedem Wurf übrig?"), *paar(WD, "Wie viele Würfe dauert es, bis die Hälfte übrig ist?"), A6]
+S6 = [f(21), f(22), f(23), f(25), VERS6, WM, *paar(WD, "Wie viele Würfe dauert es, bis die Hälfte übrig ist?"), f(24), A6]
 S6_HG = (box("Abschluss Leitfrage 2", ["Die Antwortfolie ins Heft, der Check per Handzeichen. Lösung: 1 a, 2 c.",
                                        "Wer die Zerfallsgleichungen noch nicht sicher kann: Übung im Strahlungslabor."], 1, 2, 3)
          + box("Das Würfelmodell", ["Jede Runde fällt im Mittel ein Sechstel weg, übrig bleiben 5/6. Nach etwa 3,8 Würfen ist die Hälfte weg. Das ist die „Halbwertszeit“ des Modells.",
@@ -330,8 +330,10 @@ STUNDEN = [
     ("W06 Wuerfelmodell", "Kernphysik: Der Zufall beim Zerfall", "W06 (Woche ab 19.10.2026) · Abschluss Leitfrage 2, Einstieg Leitfrage 3",
      "Versuchsblatt Zerfall mit Würfeln", {"demo": [], "schueler": [("Würfel", "30×", "500 Stück bestellt, reicht für 16 Gruppen"), ("Würfelbecher oder Schale", "1×", "")],
                                           "hinweis": "Die Werte aller Gruppen an der Tafel addieren."},
-     [("Abschluss Leitfrage 2", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 3", "Würfel, Vermutungen.", [4, 5]),
-      ("Versuch", "Würfelversuch in Gruppen: Beschreibung an der Folie, Messwerte in die Tabelle, Diagramm zeichnen (leer, dann ausgefüllt). Danach 100 Würfel im Zerfallslabor.", [6, 7, 8, 9, 10]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [11])], S6, S6_HG, S6_AB),
+     [("Abschluss Leitfrage 2", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 3", "Leitfrage und Vermutungen sammeln.", [4]),
+      ("Versuch", "Würfelversuch in Gruppen: Beschreibung an der Folie, Werte ins Heft eintragen. Die Tabelle mit Beispielwerten dient zum Vergleich.", [5, 6]),
+      ("Diagramm", "Diagramm zeichnen und die Hälfte ablesen, erst leer, dann ausgefüllt.", [7, 8]),
+      ("100 Würfel", "Und bei 100 Würfeln? Bestätigung im Zerfallslabor, die Kurve wird glatter.", [9]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [10])], S6, S6_HG, S6_AB),
     ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 02.11.2026) · Leitfrage 3",
      "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt"), ("Lappen", "1×", "")],
                                         "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."},

@@ -57,8 +57,11 @@ A1 = tabellenfolie("Wie klein ist ein Atom?", [
 ZEIT = zeichnungsfolie("1.1 Wie man das Atom entdeckte", zeitstrahl(),
                        "Das Wort <b>Atom</b> kommt aus dem Griechischen und heißt „unteilbar“. Heute wissen wir: "
                        "Atome bestehen aus <span class=\"rot\">Kern und Hülle</span>, der Kern aus Protonen und Neutronen.")
-S1 = [f(2), f(3), blatt("Atome enthalten elektrische Ladungen W01.pdf", "k01v", "Versuchsblatt austeilen · Luftballon und Wolltuch pro Gruppe"),
-      ZEIT, A1]
+VERS1 = versuchsbeschreibung("Versuch: Atome enthalten elektrische Ladungen",
+                             ["Luftballon, aufgeblasen", "Wolltuch oder Wollpullover", "Papierschnipsel, klein gerissen", "Wasserhahn mit dünnem Strahl (oder vorne gezeigt)"],
+                             ["Versuch 1: Reibe den aufgeblasenen Luftballon kräftig am Wolltuch. Halte ihn dann dicht über kleine Papierschnipsel.",
+                              "Versuch 2: Öffne den Wasserhahn so weit, dass nur ein dünner Strahl fließt. Reibe den Ballon erneut und halte ihn seitlich nah an den Strahl, ohne ihn zu berühren."])
+S1 = [f(2), f(3), VERS1, *paar(ZEIT), A1]
 S1_HG = f"""
 <div class="box"><h3>Größenordnungen {chip(1, 5)}</h3><ul>
 <li>Atomdurchmesser etwa 10⁻¹⁰ m, Kerndurchmesser etwa 10⁻¹⁵ bis 10⁻¹⁴ m. Das Verhältnis liegt bei 10 000 bis 100 000.</li>
@@ -74,7 +77,7 @@ S1_HG = f"""
 <li>1897 wurde das Elektron entdeckt (Thomson, in Deutschland zeitgleich Wiechert). Rutherfords Streuversuch (1909 bis 1911) führte zum Kern-Hülle-Modell. Das Proton wies Rutherford 1919 nach, das Neutron Chadwick 1932.</li>
 <li>Der Streuversuch lässt sich in der Schule nicht nachmachen. Das Atomlabor zeigt ihn als Simulation: Fast alle α-Teilchen fliegen durch die Goldfolie, nur sehr wenige prallen zurück.</li></ul></div>
 {LAB(ATOM, "Atomlabor", "Zoom vom Atom auf den Kern, Rutherfords Streuversuch mit Teilchenzahl-Regler, Atom bauen, Isotope, Nuklidkarte.")}"""
-S1_AB = f"""<div class="box"><h3>Versuchsblatt Atome enthalten elektrische Ladungen {chip(3)}</h3><a class="btn" href="Materialien/Atome enthalten elektrische Ladungen W01.pdf">PDF öffnen</a>
+S1_AB = f"""<div class="box"><h3>Alternative: Versuchsblatt Atome enthalten elektrische Ladungen {chip(3)}</h3><a class="btn" href="Materialien/Atome enthalten elektrische Ladungen W01.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Papierschnipsel springen zum Ballon, der Wasserstrahl biegt sich zum Ballon. Lücken: Elektronen, negativ, positiv, herauslösen, negative, positive, neutral.
 Frage 4: Im Wasser verschieben sich die Ladungen, die zugewandte Seite wird entgegengesetzt geladen und angezogen.</p></div>"""
 
@@ -85,8 +88,13 @@ A2 = tabellenfolie("Isotope im Alltag", [
     ("Iod-131", "Untersuchung der Schilddrüse", "Die Schilddrüse sammelt Iod, das Isotop macht sie sichtbar."),
     ("Uran-235", "Brennstoff im Kernkraftwerk", "Nur dieses Isotop lässt sich im Reaktor gut spalten."),
 ], frage="Warum verhalten sich Kohlenstoff-12 und Kohlenstoff-14 chemisch gleich?")
-S2 = [blatt("Wiederholung Atombau.pdf", "k01", "Nur bei Bedarf: Wiederholung Atombau aus Chemie"), f(5), f(7),
-      blatt("Nuklide und Isotope W02.pdf", "k02", "Arbeitsblatt austeilen · mit Periodensystem"), A2]
+NU = als_heft(zeichnungsfolie("Isotope haben gleich viele Protonen, aber verschieden viele Neutronen",
+              karo_tabelle("kn", True, [7, 6, 7, 7, 8], [1.6] + [1.5] * 7,
+                           [["Nuklid", "Protonen", "Neutronen", "Elektronen", "A = Z + N"], ["H-1", "1", "0", "1", "1"], ["He-4", "2", "2", "2", "4"],
+                            ["C-12", "6", "6", "6", "12"], ["C-14", "6", "8", "6", "14"], ["O-16", "8", "8", "8", "16"],
+                            ["U-235", "92", "143", "92", "235"], ["U-238", "92", "146", "92", "238"]], y0=0.3),
+              "Isotope haben die gleiche Anzahl <b>Protonen</b>, aber eine unterschiedliche Anzahl <b>Neutronen</b>. Ein Atom hat so viele Elektronen wie Protonen."))
+S2 = [*paar(f(5)), *paar(f(7)), *paar(NU, "Wie viele Protonen, Neutronen und Elektronen haben diese Nuklide?"), A2]
 S2_HG = f"""
 <div class="box"><h3>Vorwissen aus Chemie {chip(1)}</h3><ul>
 <li>Das Blatt holt Schalenmodell und Periodensystem aus Klasse 8 und 9 zurück. Nur einsetzen, wenn bei den Ladungsversuchen in W01 Lücken sichtbar waren.</li></ul></div>
@@ -101,10 +109,10 @@ S2_HG = f"""
 <li>In der Nuklidkarte ist jeder Kern ein Kästchen: Protonenzahl nach oben, Neutronenzahl nach rechts. Die stabilen Kerne liegen auf einem schmalen Band. Rechts davon (zu viele Neutronen) sitzen die β⁻-Strahler. Das bereitet W04 vor.</li>
 <li>Für Interessierte: Protonen und Neutronen bestehen selbst aus je drei Quarks. Elektronen und Quarks gelten nach heutigem Wissen als nicht weiter teilbar.</li></ul></div>
 {LAB(ATOM, "Atomlabor", "Atom bauen: Protonen, Neutronen und Elektronen einstellen, das Nuklid erscheint mit Stabilität. Isotope von Wasserstoff, Kohlenstoff und Uran. Nuklidkarte von Wasserstoff bis Sauerstoff.")}"""
-S2_AB = f"""<div class="box"><h3>Arbeitsblatt Nuklide und Isotope {chip(4)}</h3><a class="btn" href="Materialien/Nuklide und Isotope W02.pdf">PDF öffnen</a>
+S2_AB = f"""<div class="box"><h3>Alternative: Arbeitsblatt Nuklide und Isotope {chip(5)}</h3><a class="btn" href="Materialien/Nuklide und Isotope W02.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> H 1/0/1, He 2/2/2, C-12 6/6/6, C-14 6/8/6, O 8/8/8, U-235 92/143/92, U-238 92/146/92. Lücken: Protonen, Neutronen, Z + N, Protonen, Neutronen, C-12 und C-14, U-235 und U-238.
 C-13, Na-23, He-3, Fe-56. Pb-206. U-235 und U-238 haben die gleiche Hülle und lassen sich nur über die Masse trennen.</p></div>
-<div class="box"><h3>Wiederholung Atombau {chip(1)}</h3><a class="btn" href="Materialien/Wiederholung Atombau.pdf">PDF öffnen</a>
+<div class="box"><h3>Nur bei Bedarf: Wiederholung Atombau</h3><a class="btn" href="Materialien/Wiederholung Atombau.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> Seite 2 des PDFs.</p></div>"""
 
 # ====================================================================== W03
@@ -123,7 +131,11 @@ MESS = zeichnungsfolie("Auch ohne Strahler zählt das Zählrohr Impulse: die Nul
                        "Auch ohne Präparat misst das Zählrohr Impulse. Diese Umgebungsstrahlung heißt <span class=\"rot\">Nullrate</span>. "
                        "Sie kommt von der natürlichen Strahlung: terrestrisch, kosmisch und aus dem menschlichen Körper.")
 ZAEHLROHR, MESS = (x.replace('<section class="folie">', '<section class="folie heft">', 1) for x in (ZAEHLROHR, MESS))   # kommen ins Heft
-S3 = [f(8), f(9), f(10), f(11), f(12), ZAEHLROHR, MESS_LEER, MESS, A3]
+VERS3 = versuchsbeschreibung("Versuch: Die Nullrate messen", ["Geiger-Müller-Zählrohr mit Zählgerät, Lautsprecher an", "Stoppuhr", "kein Präparat in der Nähe"],
+                             ["Das Zählrohr misst fünfmal je eine Minute lang, ohne Präparat.", "Trage nach jeder Minute die Impulse in die Tabelle ein.", "Berechne den Mittelwert."])
+VERS3B = versuchsbeschreibung("Versuch: Ist ein Luftballon radioaktiv? (Lehrerversuch)", ["Luftballon, aufgeblasen und an Wolle gerieben, 20 bis 30 Minuten aufgehängt", "Geiger-Müller-Zählrohr mit Zählgerät"],
+                              ["Der geriebene Ballon hängt eine Weile im Raum.", "Dann die Luft ablassen und die Hülle vor das Zählrohr legen.", "Zählrate beobachten: Sie liegt über der Nullrate und sinkt danach langsam wieder."])
+S3 = [f(8), f(9), f(10), f(11), f(12), *paar(ZAEHLROHR, "Wie ist ein Zählrohr aufgebaut?"), VERS3, MESS_LEER, MESS, VERS3B, A3]
 S3_HG = f"""
 <div class="box"><h3>Das Zählrohr {chip(4, 6)}</h3><ul>
 <li>Geiger-Müller-Zählrohr: Metallrohr (Kathode) mit einem Edelgas und einem dünnen Draht in der Mitte (Anode), dazwischen etwa 500 V. Vorne ein dünnes Glimmerfenster, damit auch α-Teilchen hineinkommen.</li>
@@ -250,18 +262,18 @@ HEFT_EXTRA = {
 
 STUNDEN = [
     ("Kernphysik – W01 Woraus besteht Materie – Stunde.html", "Kernphysik: Woraus besteht Materie?", "Klasse 10 · Physik · W01 (Woche ab 14.09.2026) · Einstieg Leitfrage 1",
-     ["Versuchsblatt Atome enthalten elektrische Ladungen: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
+     ["Nichts drucken: Die Klasse zeichnet mit und schreibt ins Heft. Optional: Versuchsblatt Atome enthalten elektrische Ladungen als Alternative.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Wasserhahn mit dünnem Strahl", "1×", "falls kein Waschbecken an den Gruppentischen"), ("Elektroskop", "1×", "freiwillig, zeigt die Ladung des Ballons")],
       "schueler": [("Luftballon, aufgeblasen", "1×", ""), ("Wolltuch oder Wollpullover", "1×", ""), ("Papierschnipsel", "eine Handvoll", "klein gerissen")],
       "hinweis": "Bei feuchter Luft klappen die Ladungsversuche schlechter. Ersatzballons bereithalten."},
-     [("Einstieg", "Stadion und Erbse, Leitfrage 1, Vermutungen.", [1, 2]), ("Versuch", "Luftballon, Papierschnipsel, Wasserstrahl, Versuchsblatt.", [3]),
-      ("Geschichte", "Wie man das Atom entdeckte, Rutherford im Atomlabor.", [4]), ("Größen", "Wie klein ist ein Atom? Zoom im Atomlabor.", [5])],
+     [("Einstieg", "Stadion und Erbse, Leitfrage 1, Vermutungen.", [1, 2]), ("Versuch", "Luftballon, Papierschnipsel, Wasserstrahl: Beschreibung an der Folie, Beobachtung ins Heft.", [3]),
+      ("Geschichte", "Wie man das Atom entdeckte (leer, dann ausgefüllt), Rutherford im Atomlabor.", [4, 5]), ("Größen", "Wie klein ist ein Atom? Zoom im Atomlabor.", [6])],
      S1, S1_HG, S1_AB),
     ("Kernphysik – W02 Atombau und Isotope – Stunde.html", "Kernphysik: Atombau und Isotope", "Klasse 10 · Physik · W02 (Woche ab 21.09.2026) · Leitfrage 1",
-     ["Arbeitsblatt Nuklide und Isotope: Seite 1, eins pro Schüler.", "Wiederholung Atombau: nur bei Bedarf.", "Folien und Lösungen: nicht drucken."],
+     ["Nichts drucken: Die Klasse zeichnet mit. Optional: Arbeitsblatt Nuklide und Isotope und Wiederholung Atombau als Alternativen.", "Folien und Lösungen: nicht drucken."],
      {"demo": [], "schueler": [("Periodensystem", "1×", "")], "hinweis": ""},
-     [("Wiederholung", "Nur bei Bedarf: Atombau aus Chemie.", [1]), ("Aufbau", "Kern und Hülle, Nuklidschreibweise, A = Z + N.", [2]),
-      ("Isotope", "Wasserstoff, Deuterium, Tritium. Nuklidkarte im Atomlabor.", [3]), ("Üben", "Arbeitsblatt, Alltag mündlich.", [4, 5])],
+     [("Aufbau", "Kern und Hülle, Nuklidschreibweise, A = Z + N: leere Folie zum Mitzeichnen, dann ausgefüllt.", [1, 2]),
+      ("Isotope", "Wasserstoff, Deuterium, Tritium. Nuklidkarte im Atomlabor.", [3, 4]), ("Tabelle", "Protonen, Neutronen, Elektronen für sieben Nuklide selbst zeichnen und ausfüllen.", [5, 6]), ("Alltag", "Isotope im Alltag mündlich.", [7])],
      S2, S2_HG, S2_AB),
     ("Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html", "Kernphysik: Das Zählrohr klickt von allein", "Klasse 10 · Physik · W03 (Woche ab 28.09.2026) · Abschluss Leitfrage 1, Einstieg Leitfrage 2",
      ["Optional: Arbeitsblatt Zählrohr und Nullrate als Alternative zum Selberzeichnen, Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
@@ -269,8 +281,9 @@ STUNDEN = [
                ("Luftballon", "1×", "vor der Stunde gerieben und aufgehängt"), ("Wolltuch", "1×", "")], "schueler": [],
       "hinweis": "Kein Präparat nötig. Das Zählrohr ist vor der Stunde eingeschaltet und steht weit weg von der Präparatesammlung. Ballon 20 bis 30 Minuten vorher im Keller aufhängen."},
      [("Abschluss Leitfrage 1", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 2", "Zählrohr klickt, Leitfrage 2.", [4, 5]),
-      ("Zählrohr", "Aufbau abzeichnen und beschriften.", [6]),
-      ("Versuch", "Nullrate messen: Tabelle selbst zeichnen, Werte eintragen, Mittelwert. Dann der Ballon vor dem Zählrohr. Zum Vergleich: Nullrate im Strahlungslabor.", [7, 8]), ("Alltag", "Natürliche Strahlung.", [9])],
+      ("Zählrohr", "Aufbau abzeichnen und beschriften (leer, dann ausgefüllt).", [6, 7]),
+      ("Versuch", "Nullrate messen: Beschreibung an der Folie, Tabelle selbst zeichnen, Werte eintragen, Mittelwert. Zum Vergleich: Nullrate im Strahlungslabor.", [8, 9, 10]),
+      ("Ballonversuch", "Lehrerversuch: der Ballon vor dem Zählrohr.", [11]), ("Alltag", "Natürliche Strahlung.", [12])],
      S3, S3_HG, S3_AB),
     ("Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "Kernphysik: Alpha, Beta und Gamma", "Klasse 10 · Physik · W04 (Woche ab 05.10.2026) · Leitfrage 2",
      ["Nichts drucken: Die Klasse zeichnet mit. Optional: Arbeitsblatt Drei Arten radioaktiver Strahlung als Alternative.", "Folien und Lösungen: nicht drucken."],
