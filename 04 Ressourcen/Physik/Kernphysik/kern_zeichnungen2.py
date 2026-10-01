@@ -620,6 +620,51 @@ ZEICHNUNGEN2 = {24: beobachte_wuerfel, 27: halbwertszeit, 29: aktivitaet, 33: be
                 40: belastung, 42: schutz, 46: beobachte_energie_bild, 49: spaltung_bild, 51: kettenreaktion_bild, 53: reaktor_bild, 55: kraftwerke,
                 57: fusion_bild, 61: beobachte_zeit, 64: abfall, 66: argumente, 71: c14}
 
+def zaehlrohr():
+    """Aufbau des Geiger-Müller-Zählrohrs zum Abzeichnen und Beschriften (Zählrohr, Strahlung, Zählgerät), auf den Kästchen."""
+    z = Z("kz", 13 * K)
+    x0, x1, y0, y1 = 9 * K, 27 * K, 5 * K, 9 * K
+    ym = (y0 + y1) / 2
+    z.add(f'<rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{y1 - y0}" rx="8" fill="#EEF1F5" stroke="{INK}" stroke-width="2"/>')
+    z.add(f'<rect x="{x0 - 5}" y="{y0}" width="9" height="{y1 - y0}" fill="#F5E6C8" stroke="{INK}" stroke-width="1.4"/>')
+    z.line(x0 + K, ym, x1 + 2 * K, ym, INK, 2.6)
+    for dy in (-1.2, 0, 1.2):
+        z.pfeil(3 * K, ym + dy * K, x0 - 8, ym + dy * K, VIOLETT, 2.2, 8)
+    z.text(2.6 * K, ym - 2.2 * K, "Strahlung", "start", 10.5, 600, VIOLETT)
+    z.add(f'<rect x="{31 * K}" y="{y0}" width="{6 * K}" height="{y1 - y0}" rx="6" fill="#FFFFFF" stroke="{GRAU}" stroke-width="1.6"/>')
+    z.text(34 * K, ym - 4, "Zählgerät", "middle", 10.5, 600).text(34 * K, ym + 14, "knack", "middle", 10)
+    z.line(x1 + 2 * K, ym, 31 * K, ym, INK, 2.6)
+    for tx, ty, lx, ly, name in [(8.2 * K, 2.2 * K, x0 - 1, y0 + 8, "dünne Folie"), (17 * K, 2.2 * K, 17 * K, y0 + 12, "Gas"),
+                                 (25 * K, 2.2 * K, 25 * K, ym - 2, "Metalldraht"), (18 * K, 11.8 * K, 18 * K, y1 + 1, "Metallrohr")]:
+        z.line(tx, ty + (6 if ty < 6 * K else -14), lx, ly, GRAU, 1.2)
+        z.text(tx, ty, name, "middle", 10.5, 600)
+    return z.svg()
+
+
+def nullrate_tabelle(gefuellt):
+    """Messtabelle Nullrate zum Selberzeichnen: fünf Messungen je 1 min, Mittelwert; 14 Kästchen hoch ist nicht nötig, die Tabelle sitzt auf den Kästchen."""
+    z = Z("kn" + ("g" if gefuellt else "l"), 13 * K)
+    x0, y0 = 3 * K, 3 * K
+    breiten = [6] + [4] * 5 + [6]
+    kopf = ["je 1 min", "1.", "2.", "3.", "4.", "5.", "Mittelwert"]
+    werte = ["Impulse", "22", "27", "19", "25", "24", "23,4"]
+    x = x0
+    for b, k, w in zip(breiten, kopf, werte):
+        z.add(f'<rect x="{x}" y="{y0}" width="{b * K}" height="{2 * K}" fill="#EEF1F5" stroke="{INK}" stroke-width="1.6"/>')
+        z.add(f'<rect x="{x}" y="{y0 + 2 * K}" width="{b * K}" height="{3 * K}" fill="#FFFFFF" stroke="{INK}" stroke-width="1.6"/>')
+        z.text(x + b * K / 2, y0 + 1.2 * K, k, "middle", 10.5, 600)
+        if k == "je 1 min":
+            z.text(x + 8, y0 + 3.7 * K, w, "start", 10.5)
+        elif gefuellt:
+            z.text(x + b * K / 2, y0 + 3.8 * K, w, "middle", 12, 600)
+        x += b * K
+    if gefuellt:
+        z.text(x0, y0 + 7.4 * K, "Beispielwerte. Mittelwert: (22 + 27 + 19 + 25 + 24) : 5 = 23,4 Impulse pro Minute", "start", 10)
+    else:
+        z.text(x0, y0 + 7.4 * K, "Mittelwert = Summe der fünf Werte : 5", "start", 10)
+    return z.svg()
+
+
 def svg_ersetzen(t, neu):
     """Ersetzt das erste äußere <svg> einer Folie, auch wenn es verschachtelte <svg> enthält.
     Räumt Reste auf, die ein früherer Lauf ohne Verschachtelung hinterlassen hat (bis zum nächsten </div>)."""

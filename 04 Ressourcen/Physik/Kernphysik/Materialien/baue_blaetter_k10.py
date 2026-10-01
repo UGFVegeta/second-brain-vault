@@ -131,18 +131,27 @@ def w02(l):
 # ---------------------------------------------------------------- W03 Zählrohr und Nullrate
 def zaehlrohr_svg(l):
     lab = ["dünne Folie", "Gas", "Metalldraht", "Metallrohr"]
-    o = ['<svg viewBox="0 0 300 110" style="width:100%;height:100%">',
+    o = ['<svg viewBox="0 0 300 120" style="width:100%;height:100%">',
          '<rect x="70" y="30" width="190" height="50" rx="4" fill="#EEF1F5" stroke="#14171c" stroke-width="1.2"/>',
          '<rect x="66" y="30" width="5" height="50" fill="#F5E6C8" stroke="#14171c" stroke-width="0.8"/>',
          '<line x1="80" y1="55" x2="286" y2="55" stroke="#14171c" stroke-width="1.4"/>',
          '<g stroke="#7A4BAF" stroke-width="1.2"><line x1="16" y1="42" x2="62" y2="52"/><line x1="16" y1="62" x2="62" y2="58"/></g>',
-         '<text x="4" y="30" font-size="7" fill="#66798E">Strahlung</text>']
-    pos = [(68, 30, 60, 8), (150, 38, 150, 8), (240, 55, 250, 8), (180, 80, 180, 104)]
+         '<text x="4" y="30" font-size="8" fill="#66798E">Strahlung</text>']
+    pos = [(68, 30, 60, 10), (150, 38, 150, 10), (240, 55, 250, 10), (180, 80, 180, 112)]
     for i, (x, y, tx, ty) in enumerate(pos):
         o.append(f'<line x1="{x}" y1="{y}" x2="{tx}" y2="{ty + (-3 if ty < 50 else -8)}" stroke="#66798E" stroke-width="0.6"/>')
-        o.append(f'<text x="{tx}" y="{ty}" font-size="8" text-anchor="middle" fill="{MAG if l else "#14171c"}">{lab[i] if l else str(i + 1) + " ________"}</text>')
+        o.append(f'<text x="{tx}" y="{ty}" font-size="8" text-anchor="middle" fill="{MAG if l else "#14171c"}">{lab[i] if l else str(i + 1) + " ______________"}</text>')
     o.append("</svg>")
     return "".join(o)
+
+
+def messtabelle(l):
+    """Fünf Messungen nebeneinander (je eine Minute, also Impulse = Impulse pro Minute), hohe Felder zum Eintragen."""
+    werte = [22, 27, 19, 25, 24]
+    kopf_ = "".join(f"<th>{i}. Messung</th>" for i in range(1, 6)) + "<th>Mittelwert</th>"
+    zeile = "".join(f'<td class="{"l" if l else ""}">{w if l else ""}</td>' for w in werte) + f'<td class="{"l" if l else ""}">{"23,4" if l else ""}</td>'
+    return (f'<table class="mess" style="width:100%;table-layout:fixed"><tr><th style="width:24mm;text-align:left">je 1 min</th>{kopf_}</tr>'
+            f'<tr><td style="text-align:left;height:14mm">Impulse</td>{zeile}</tr></table>')
 
 
 def w03(l):
@@ -156,19 +165,18 @@ def w03(l):
                   "und die [[kosmische]] Strahlung aus dem Weltall.", l)
     return (kopf("W03", "F2 — Das Zählrohr und die Nullrate", l)
             + aufg(1, 0, "Beschrifte das Zählrohr.")
-            + f'<div style="height:30mm;margin:0 0 1mm">{zaehlrohr_svg(l)}</div>'
+            + f'<div style="height:56mm;margin:0 0 2mm">{zaehlrohr_svg(l)}</div>'
             + aufg(2, 0, "Fülle die Lücken aus.") + f'<p class="frage lt">{lt1}</p>'
             + aufg(3, 0, "Versuch: Wir messen die Nullrate")
             + '<p class="frage">Das Zählrohr misst fünfmal je eine Minute lang, ohne Präparat. Trage die Impulse ein und berechne den Mittelwert.'
             + (' <span class="loesungstext">Beispielwerte</span>' if l else "") + '</p>'
-            + tabelle(["Messzeit", "Impulse", "Impulse pro Minute"], werte, l, vorgabe=1)
-            + f'<p class="frage">Mittelwert: {"<span class=\"loesungstext\">23,4 Impulse pro Minute</span>" if l else "<span class=\"luecke\"></span> Impulse pro Minute"}</p>'
+            + messtabelle(l)
             + aufg(4, 1, "Fülle die Lücken aus.") + f'<p class="frage lt">{lt2}</p>'
             + aufg(5, 2, "Versuch: Ist ein Luftballon radioaktiv? (Lehrerversuch)")
             + '<p class="frage">Ein geriebener Luftballon hängt eine Weile im Raum. Dann wird die Luft abgelassen und die Hülle vor das Zählrohr gelegt. '
               'Die Zählrate liegt deutlich über der Nullrate und sinkt danach langsam wieder ab. Erkläre.</p>'
             + antwort("Die Luft enthält das radioaktive Gas Radon. Seine ebenfalls radioaktiven Folgeprodukte werden vom geladenen Ballon angezogen "
-                      "und bleiben an ihm hängen. Sie zerfallen innerhalb von Minuten bis Stunden, deshalb sinkt die Zählrate wieder auf die Nullrate.", l, 2))
+                      "und bleiben an ihm hängen. Sie zerfallen innerhalb von Minuten bis Stunden, deshalb sinkt die Zählrate wieder auf die Nullrate.", l, 3))
 
 
 # ---------------------------------------------------------------- W04 Drei Arten radioaktiver Strahlung
