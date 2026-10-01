@@ -9,6 +9,7 @@ HIER = Path(__file__).parent
 sys.path.insert(0, str(HIER.parent / "Optik"))
 from stunde_vorlage import folien_aus, blatt as _blatt, chip, tabellenfolie, bau_stunde  # noqa: E402
 from kern_zeichnungen import zeitstrahl, efeld  # noqa: E402
+from kern_zeichnungen2 import zerfallsreihe_th232, zaehlrohr, nullrate_tabelle  # noqa: E402
 
 MAT = HIER / "Materialien"
 _F = folien_aus(HIER / "Kernphysik.html")
@@ -102,7 +103,16 @@ A3 = tabellenfolie("Natürliche Strahlung im Alltag", [
     ("unser Körper", "Kalium-40", "Ein kleiner Teil des Kaliums in Muskeln und Nahrung ist radioaktiv."),
     ("Granit, Schwarzwald", "etwas höhere Zählrate", "Das Gestein enthält Spuren von Uran und Thorium."),
 ], frage="Warum misst das Zählrohr im Physikraum auch ohne Präparat Impulse?")
-S3 = [f(8), f(9), f(10), f(11), f(12), blatt("Zaehlrohr und Nullrate W03.pdf", "k03", "Arbeitsblatt austeilen · Nullrate vorne messen · Ballonversuch am Ende"), A3]
+ZAEHLROHR = zeichnungsfolie("Das Zählrohr zählt jedes Teilchen als Impuls", zaehlrohr(),
+                            "Strahlung erzeugt im Gas kleine Stromstöße, die <span class=\"rot\">Impulse</span>. Das Zählwerk zählt sie, im Lautsprecher knackt es. "
+                            "Die Summe aller Impulse in 1 Minute heißt <b>Impulsrate</b>: Je höher sie ist, desto stärker ist die Strahlung.")
+MESS_LEER = zeichnungsfolie("Wie viele Impulse zählt das Zählrohr ohne Präparat?", nullrate_tabelle(False),
+                            "Fünfmal je eine Minute messen, die Impulse in die Tabelle eintragen und den Mittelwert berechnen.")
+MESS = zeichnungsfolie("Auch ohne Strahler zählt das Zählrohr Impulse: die Nullrate", nullrate_tabelle(True),
+                       "Auch ohne Präparat misst das Zählrohr Impulse. Diese Umgebungsstrahlung heißt <span class=\"rot\">Nullrate</span>. "
+                       "Sie kommt von der natürlichen Strahlung: terrestrisch, kosmisch und aus dem menschlichen Körper.")
+ZAEHLROHR, MESS = (x.replace('<section class="folie">', '<section class="folie heft">', 1) for x in (ZAEHLROHR, MESS))   # kommen ins Heft
+S3 = [f(8), f(9), f(10), f(11), f(12), ZAEHLROHR, MESS_LEER, MESS, A3]
 S3_HG = f"""
 <div class="box"><h3>Das Zählrohr {chip(4, 6)}</h3><ul>
 <li>Geiger-Müller-Zählrohr: Metallrohr (Kathode) mit einem Edelgas und einem dünnen Draht in der Mitte (Anode), dazwischen etwa 500 V. Vorne ein dünnes Glimmerfenster, damit auch α-Teilchen hineinkommen.</li>
@@ -119,8 +129,8 @@ S3_HG = f"""
 <li>Die Streuung der Werte ist gewollt: Radioaktiver Zerfall ist Zufall. Das bereitet Leitfrage 2 vor.</li>
 <li><b>Luftballon:</b> vor der Stunde aufblasen, an Wolle reiben und 20 bis 30 Minuten aufhängen, am besten in einem Kellerraum. Dann Luft ablassen, Hülle zusammenknüllen und direkt vor das Zählrohr legen. Der Ballon sammelt Folgeprodukte des Radons (vor allem Pb-214 und Bi-214). Die Zählrate sinkt innerhalb von ein bis zwei Stunden wieder auf die Nullrate. Wie stark der Effekt ist, hängt vom Radongehalt der Luft ab. Klappt es nicht, zeigt das Strahlungslabor den Verlauf.</li></ul></div>
 {LAB(STRAHL, "Strahlungslabor", "Nullrate mit zehn zufälligen Messungen und Mittelwert. Luftballon: Zählrate über der Zeit, gerieben und ungerieben.")}"""
-S3_AB = f"""<div class="box"><h3>Arbeitsblatt Zählrohr und Nullrate {chip(6)}</h3><a class="btn" href="Materialien/Zaehlrohr und Nullrate W03.pdf">PDF öffnen</a>
-<p><b>Lösung:</b> 1 dünne Folie, 2 Gas, 3 Metalldraht, 4 Metallrohr. Lücken: Zählrohr, Impulse, zählt, Knacken, Impulsrate, höher, stärker. Beispielmessung 22, 27, 19, 25, 24, Mittelwert 23,4. Nullrate, menschlichen Körpers, terrestrische, kosmische.
+S3_AB = f"""<div class="box"><h3>Alternative: Arbeitsblatt Zählrohr und Nullrate {chip(6, 7, 8)}</h3><a class="btn" href="Materialien/Zaehlrohr und Nullrate W03.pdf">PDF öffnen</a>
+<p>Ersetzt das Selberzeichnen von Zählrohr und Messtabelle. Die Klasse schreibt im Heft dasselbe, nur auf dem Blatt statt selbst gezeichnet.<br><b>Lösung:</b> 1 dünne Folie, 2 Gas, 3 Metalldraht, 4 Metallrohr. Lücken: Zählrohr, Impulse, zählt, Knacken, Impulsrate, höher, stärker. Beispielmessung 22, 27, 19, 25, 24, Mittelwert 23,4. Nullrate, menschlichen Körpers, terrestrische, kosmische.
 Ballon: sammelt radioaktive Folgeprodukte des Radons aus der Luft, diese zerfallen, die Zählrate sinkt wieder.</p></div>"""
 
 # ====================================================================== W04
@@ -163,7 +173,6 @@ A6 = tabellenfolie("Strahlung als Werkzeug", [
     ("Leck in einer Leitung", "Zählrohr findet die Stelle", "Man gibt einen kurzlebigen Strahler ins Wasser. Am Leck steigt die Zählrate."),
     ("Schädlinge bekämpfen", "Insekten ohne Gift", "Bestrahlte Männchen sind unfruchtbar, es schlüpft kein Nachwuchs."),
 ], frage="Warum nimmt man für die Dickenmessung von Papier β-Strahlung und nicht γ-Strahlung?")
-from kern_zeichnungen2 import zerfallsreihe_th232  # noqa: E402
 ZR = zeichnungsfolie("2.5 Die Zerfallsreihe", zerfallsreihe_th232(),
                      "Viele Kerne zerfallen mehrmals hintereinander, bis ein <b>stabiler Kern</b> entsteht, meist <b>Blei</b>. "
                      "Diese Kette heißt <span class=\"rot\">Zerfallsreihe</span>. Bei jedem Schritt gelten die Regeln für α und β⁻.")
@@ -199,10 +208,6 @@ HEFT_EXTRA = {
         ("Atome enthalten elektrische Ladungen",
          "Beim Reiben lassen sich <b>Elektronen</b> aus Atomen herauslösen. Es bleiben <b>positive</b> und <b>negative</b> Ladungen übrig. "
          "Ein Atom ist nach außen <b>neutral</b>, weil es gleich viele positive und negative Ladungen hat.")],
-    "Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html": [
-        ("Auch ohne Strahler zählt das Zählrohr Impulse: die Nullrate",
-         "Das Zählrohr gibt für jedes Teilchen einen <b>Impuls</b> (Knacken). Auch ohne Präparat misst es eine kleine Impulsrate, die <b>Nullrate</b>. "
-         "Sie kommt von der natürlichen Strahlung: terrestrische und kosmische Strahlung und die Strahlung des menschlichen Körpers.")],
     "Kernphysik – W06 Wuerfelmodell – Stunde.html": [
         ("Ein einzelner Kern zerfällt zufällig, viele Kerne zerfallen berechenbar",
          "Wann ein einzelner Kern zerfällt, ist <b>Zufall</b>. Bei Milliarden Kernen gleichen sich die Zufälle aus: "
@@ -233,12 +238,13 @@ STUNDEN = [
       ("Isotope", "Wasserstoff, Deuterium, Tritium. Nuklidkarte im Atomlabor.", [3]), ("Üben", "Arbeitsblatt, Alltag mündlich.", [4, 5])],
      S2, S2_HG, S2_AB),
     ("Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html", "Kernphysik: Das Zählrohr klickt von allein", "Klasse 10 · Physik · W03 (Woche ab 28.09.2026) · Abschluss Leitfrage 1, Einstieg Leitfrage 2",
-     ["Arbeitsblatt Zählrohr und Nullrate: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
+     ["Optional: Arbeitsblatt Zählrohr und Nullrate als Alternative zum Selberzeichnen, Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "Lautsprecher an"), ("Stoppuhr", "1×", "fünfmal eine Minute"),
                ("Luftballon", "1×", "vor der Stunde gerieben und aufgehängt"), ("Wolltuch", "1×", "")], "schueler": [],
       "hinweis": "Kein Präparat nötig. Das Zählrohr ist vor der Stunde eingeschaltet und steht weit weg von der Präparatesammlung. Ballon 20 bis 30 Minuten vorher im Keller aufhängen."},
      [("Abschluss Leitfrage 1", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 2", "Zählrohr klickt, Leitfrage 2.", [4, 5]),
-      ("Versuch", "Nullrate messen, Arbeitsblatt, dann der Ballon vor dem Zählrohr. Zum Vergleich: Nullrate im Strahlungslabor.", [6]), ("Alltag", "Natürliche Strahlung.", [7])],
+      ("Zählrohr", "Aufbau abzeichnen und beschriften.", [6]),
+      ("Versuch", "Nullrate messen: Tabelle selbst zeichnen, Werte eintragen, Mittelwert. Dann der Ballon vor dem Zählrohr. Zum Vergleich: Nullrate im Strahlungslabor.", [7, 8]), ("Alltag", "Natürliche Strahlung.", [9])],
      S3, S3_HG, S3_AB),
     ("Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "Kernphysik: Alpha, Beta und Gamma", "Klasse 10 · Physik · W04 (Woche ab 05.10.2026) · Leitfrage 2",
      ["Arbeitsblatt Drei Arten radioaktiver Strahlung: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
