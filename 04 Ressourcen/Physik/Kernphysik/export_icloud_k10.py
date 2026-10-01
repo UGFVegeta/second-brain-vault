@@ -66,7 +66,12 @@ def folien_pdf(folge, ziel):
     assert len(fol.pages) == len(stapel), (ziel.name, len(fol.pages), len(stapel))
     w = PdfWriter()
     for art, x in reihen:
-        w.add_page(fol.pages[x] if art == "folie" else PdfReader(str(MAT / x)).pages[1])
+        if art == "folie":
+            w.add_page(fol.pages[x])
+        else:   # Schülerblatt: Lösungsseite; bei Ausnahme-Blättern (Name mit +) erst das leere Blatt, dann die Lösung
+            blatt_pdf = PdfReader(str(MAT / x.lstrip("+")))
+            for seite in (blatt_pdf.pages[:2] if x.startswith("+") else [blatt_pdf.pages[1]]):
+                w.add_page(seite)
     with open(ziel, "wb") as f:
         w.write(f)
     exp.unlink()

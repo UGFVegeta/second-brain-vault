@@ -428,3 +428,11 @@ svg .kursiv { font-style: italic; }
 .stil-v1 .merksatz.tief { left:40.16pt; right:40.16pt; bottom:16pt; font-size:11pt; padding:4pt 10pt 4pt 18pt; line-height:1.3; }
 .folie.stil-v1:has(.merksatz.tief) .fuss { display:none; }
 .folie.stil-v1:has(.merksatz.tief) .laborchips { bottom:3pt; }
+
+/* Versuchsbeschreibung: Material/Aufbau links, Durchführung rechts, keine Beobachtung */
+.folie.stil-v1 .vbeschr { position:absolute; left:30pt; right:30pt; top:74pt; bottom:26pt; display:grid; grid-template-columns:1fr 1.25fr; gap:12pt; }
+.stil-v1 .vkarte { background:#F5F5F7; border-radius:14pt; padding:10pt 14pt; font-size:12.5pt; line-height:1.35; }
+.stil-v1 .vkarte h2 { margin:0 0 6pt; font-size:9.5pt; font-weight:600; letter-spacing:1pt; text-transform:uppercase; color:#86868b; }
+.stil-v1 .vkarte ul, .stil-v1 .vkarte ol { margin:0; padding-left:16pt; }
+.stil-v1 .vkarte li { margin-bottom:5pt; }
+.stil-v1 .vbild { margin-top:6pt; } .stil-v1 .vbild svg { width:100%; height:auto; display:block; }

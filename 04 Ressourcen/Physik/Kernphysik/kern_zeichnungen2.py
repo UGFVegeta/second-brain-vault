@@ -665,6 +665,44 @@ def nullrate_tabelle(gefuellt):
     return z.svg()
 
 
+def strahlungsarten_tabelle(gefuellt):
+    """Tabelle „Die drei Strahlungsarten“ zum Selberzeichnen (wie in Oskars Notability-Heft): α, β⁻, γ nebeneinander,
+    Zeilen Art, Ladung, Ablenkung im elektrischen Feld, Reichweite in Luft. Alle Linien auf den Kästchen."""
+    z = Z("ks" + ("g" if gefuellt else "l"), 13 * K)
+    x0, y0 = 1.5 * K, 0.5 * K
+    spalten = [7, 10, 10, 10]                       # 37 Kästchen
+    zeilen = [2, 3, 2, 3, 2.5]                      # 12,5 Kästchen
+    kopf = ["", "α-Strahlung", "β⁻-Strahlung", "γ-Strahlung"]
+    namen = ["", "Art", "Ladung", "Ablenkung im E-Feld", "Reichweite in Luft"]
+    inhalt = [["Heliumkern", "schnelles Elektron", "elektromagnetische Welle"],
+              ["zweifach positiv", "negativ", "neutral"],
+              ["schwach zum Minuspol", "stark zum Pluspol", "keine"],
+              ["wenige Zentimeter", "einige Meter", "sehr weit"]]
+    y = y0
+    for r, h in enumerate(zeilen):
+        x = x0
+        for c, b in enumerate(spalten):
+            z.add(f'<rect x="{x}" y="{y}" width="{b * K}" height="{h * K}" fill="{"#EEF1F5" if (r == 0 or c == 0) else "#FFFFFF"}" stroke="{INK}" stroke-width="1.6"/>')
+            if r == 0 and kopf[c]:
+                z.text(x + b * K / 2, y + h * K / 2 + 4, kopf[c], "middle", 11, 600)
+            if c == 0 and r > 0:
+                z.text(x + 7, y + h * K / 2 + 4, namen[r] if len(namen[r]) < 14 else namen[r].split(" im ")[0], "start", 9.5, 600)
+                if "im E-Feld" in namen[r]:
+                    z.text(x + 7, y + h * K / 2 + 17, "im E-Feld", "start", 9.5, 600)
+            elif gefuellt and r > 0 and c > 0:
+                z.text(x + b * K / 2, y + h * K / 2 + 4, inhalt[r - 1][c - 1], "middle", 10.5)
+            x += b * K
+        y += h * K
+    if gefuellt:       # kleine Skizzen in der Zeile „Art“
+        cy = y0 + zeilen[0] * K + 0.55 * K
+        for dx, dy, col in [(-5, -4, PROTON), (5, -4, PROTON), (-5, 5, NEUTRON), (5, 5, NEUTRON)]:
+            z.add(f'<circle cx="{x0 + 7 * K + 5 * K + dx}" cy="{cy + dy}" r="4.5" fill="{col}" stroke="{INK}" stroke-width="0.8"/>')
+        z.add(f'<circle cx="{x0 + 17 * K + 5 * K}" cy="{cy}" r="3.5" fill="{ELEKTRON}"/>')
+        wx = x0 + 27 * K + 3 * K
+        z.add(f'<path d="M{wx} {cy} q6 -9 12 0 t12 0 t12 0 t12 0" fill="none" stroke="{VIOLETT}" stroke-width="2"/>')
+    return z.svg()
+
+
 def svg_ersetzen(t, neu):
     """Ersetzt das erste äußere <svg> einer Folie, auch wenn es verschachtelte <svg> enthält.
     Räumt Reste auf, die ein früherer Lauf ohne Verschachtelung hinterlassen hat (bis zum nächsten </div>)."""

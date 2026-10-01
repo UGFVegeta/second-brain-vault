@@ -151,9 +151,9 @@ Bleitabelle 800, 400, 200, 100, 50, die Zählrate wird nie ganz null. Po-210 →
 </div>
 <script>
 const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
-function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));try{history.replaceState(null,'','#'+id)}catch(e){};requestAnimationFrame(()=>window.scrollTo(0,0))}
 tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
-history.scrollRestoration='manual';
+try{history.scrollRestoration='manual'}catch(e){}
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
 </script></body></html>

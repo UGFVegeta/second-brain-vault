@@ -7,9 +7,9 @@ from pathlib import Path
 
 HIER = Path(__file__).parent
 sys.path.insert(0, str(HIER.parent / "Optik"))
-from stunde_vorlage import folien_aus, blatt as _blatt, chip, tabellenfolie, bau_stunde  # noqa: E402
+from stunde_vorlage import folien_aus, blatt as _blatt, chip, tabellenfolie, bau_stunde, paar  # noqa: E402
 from kern_zeichnungen import zeitstrahl, efeld  # noqa: E402
-from kern_zeichnungen2 import zerfallsreihe_th232, zaehlrohr, nullrate_tabelle  # noqa: E402
+from kern_zeichnungen2 import zerfallsreihe_th232, zaehlrohr, nullrate_tabelle, strahlungsarten_tabelle  # noqa: E402
 
 MAT = HIER / "Materialien"
 _F = folien_aus(HIER / "Kernphysik.html")
@@ -143,7 +143,10 @@ A4 = tabellenfolie("Strahler im Alltag", [
 EF = zeichnungsfolie("2.3 Strahlung im elektrischen Feld", efeld(),
                      "Zwischen geladenen Platten wird <b>α</b> leicht zum Minuspol und <b>β⁻</b> stark zum Pluspol abgelenkt. "
                      "<b>γ</b> fliegt geradeaus: <span class=\"rot\">γ-Strahlung trägt keine Ladung</span>.")
-S4 = [f(14), f(16), EF, blatt("Drei Strahlungsarten W04.pdf", "k04", "Arbeitsblatt austeilen"), A4]
+ART = zeichnungsfolie("Alpha, Beta und Gamma unterscheiden sich in Ladung, Ablenkung und Reichweite", strahlungsarten_tabelle(True),
+                      "α ist ein Heliumkern und kommt nur wenige Zentimeter weit. β⁻ ist ein schnelles Elektron und fliegt einige Meter. "
+                      "γ ist energiereiche Strahlung ohne Ladung und reicht sehr weit.").replace('<section class="folie">', '<section class="folie heft">', 1)
+S4 = [*paar(f(14)), *paar(f(16)), *paar(EF), *paar(ART, "Wie unterscheiden sich α-, β- und γ-Strahlung?"), A4]
 S4_HG = f"""
 <div class="box"><h3>Radioaktivität {chip(1)}</h3><ul>
 <li>Instabile Kerne haben zu viele oder zu wenige Neutronen im Verhältnis zu den Protonen. Alle Elemente mit mehr als 83 Protonen sind radioaktiv.</li>
@@ -157,7 +160,7 @@ S4_HG = f"""
 <div class="box"><h3>Strahlenschutz im Unterricht</h3><ul>
 <li>Präparate nur durch die Lehrkraft und nach den Vorgaben der Richtlinie zur Sicherheit im Unterricht (RiSU). Fehlt ein Präparatesatz, zeigt das Strahlungslabor die Zerfälle.</li></ul></div>
 {LAB(STRAHL, "Strahlungslabor", "Präparat und Abstand, α-, β- und γ-Zerfall mit Nuklidgleichung, Ablenkung im elektrischen Feld mit Spannung an und aus.")}"""
-S4_AB = f"""<div class="box"><h3>Arbeitsblatt Drei Arten radioaktiver Strahlung {chip(4)}</h3><a class="btn" href="Materialien/Drei Strahlungsarten W04.pdf">PDF öffnen</a>
+S4_AB = f"""<div class="box"><h3>Alternative: Arbeitsblatt Drei Arten radioaktiver Strahlung</h3><a class="btn" href="Materialien/Drei Strahlungsarten W04.pdf">PDF öffnen</a>
 <p><b>Lösung:</b> α: Heliumkern, positiv, schwach zum Minuspol, wenige cm. β⁻: Elektron, negativ, stark zum Pluspol, einige m. γ: Energie, keine Ladung, keine Ablenkung, sehr weit.
 α: A − 4, Z − 2. β⁻: A bleibt, Z + 1. γ: beide bleiben. Lücken: 2 Protonen, 2 Neutronen, Neutron, Proton, Energie. Zuordnung: α, β⁻, γ. Aufgabe 5: γ, keine Ladung, α und β würden vom Aluminium gestoppt.</p></div>"""
 
@@ -247,11 +250,11 @@ STUNDEN = [
       ("Versuch", "Nullrate messen: Tabelle selbst zeichnen, Werte eintragen, Mittelwert. Dann der Ballon vor dem Zählrohr. Zum Vergleich: Nullrate im Strahlungslabor.", [7, 8]), ("Alltag", "Natürliche Strahlung.", [9])],
      S3, S3_HG, S3_AB),
     ("Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "Kernphysik: Alpha, Beta und Gamma", "Klasse 10 · Physik · W04 (Woche ab 05.10.2026) · Leitfrage 2",
-     ["Arbeitsblatt Drei Arten radioaktiver Strahlung: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
+     ["Nichts drucken: Die Klasse zeichnet mit. Optional: Arbeitsblatt Drei Arten radioaktiver Strahlung als Alternative.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Präparatesatz", "1", "nur Lehrkraft, nach RiSU"), ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "")], "schueler": [("Periodensystem", "1×", "")],
       "hinweis": "Ohne Präparatesatz: Zerfälle und Ablenkung im Strahlungslabor zeigen."},
-     [("Radioaktivität", "Instabile Kerne zerfallen zufällig.", [1]), ("Drei Strahlungsarten", "α, β, γ an der Folie und im Labor.", [2]),
-      ("Ablenkung", "Strahlung im elektrischen Feld, im Labor Spannung an und aus.", [3]), ("Üben", "Arbeitsblatt, Alltag mündlich.", [4, 5])],
+     [("Radioaktivität", "Leere Folie zum Mitzeichnen, dann die ausgefüllte. Instabile Kerne zerfallen zufällig.", [1, 2]), ("Drei Strahlungsarten", "α, β, γ an der Folie und im Strahlungslabor.", [3, 4]),
+      ("Ablenkung", "Strahlung im elektrischen Feld, im Labor Spannung an und aus.", [5, 6]), ("Tabelle", "Die drei Strahlungsarten im Vergleich selbst zeichnen und ausfüllen.", [7, 8]), ("Alltag", "Strahler im Alltag mündlich.", [9])],
      S4, S4_HG, S4_AB),
     ("Kernphysik – W05 Zerfallsgleichungen – Stunde.html", "Kernphysik: Zerfallsgleichungen und Durchdringung", "Klasse 10 · Physik · W05 (Woche ab 12.10.2026) · Leitfrage 2",
      ["Arbeitsblatt Durchdringung und Zerfallsgleichungen: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],

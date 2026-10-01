@@ -144,14 +144,43 @@ def versuchsfolie(titel, aufbau_svg, schritte, beobachtung, ergebnis):
             f'<div class="zelle"><h2>Ergebnis</h2><div class="feld">{ergebnis}</div></div></div></section>')
 
 
-def blatt(pdf_name, key, hinweis, mat=None):
-    """Lösungsseite (Seite 2) des Schülerblatts als Bild, 1:1 wie auf dem Blatt."""
+def blatt(pdf_name, key, hinweis, mat=None, beide=False):
+    """Lösungsseite (Seite 2) des Schülerblatts als Bild, 1:1 wie auf dem Blatt.
+    beide=True: Ausnahme-Blatt (Spiegel, Spiegelbild, Auge, Zerfallsreihen): im Folien-PDF kommt erst das leere Blatt (Seite 1), dann die Lösung (Seite 2)."""
     mat = mat or MAT
     (mat / "assets").mkdir(exist_ok=True)
     subprocess.run(["pdftoppm", "-png", "-r", "110", "-f", "2", "-l", "2", "-singlefile", str(mat / pdf_name),
                     str(mat / "assets" / f"blatt-{key}-loesung")], check=True)
     return ("blatt", f'<div class="austeil">📄 {hinweis}</div>'
-                     f'<img class="blattbild" src="Materialien/assets/blatt-{key}-loesung.png" alt="">', pdf_name)
+                     f'<img class="blattbild" src="Materialien/assets/blatt-{key}-loesung.png" alt="">', ("+" if beide else "") + pdf_name)
+
+
+def leer_von(h, titel=None):
+    """Leere Zwillingsfolie zu einer Zeichenfolie: gleicher Titel (oder titel), leere Zeichenzone mit Karo, kein Merksatz.
+    Kommt im Folien-PDF vor die ausgefüllte Folie. Im Heft-Tab wird sie übersprungen (Klasse leer)."""
+    h = re.sub(r'<section class="(folie[^"]*)"', lambda m: f'<section class="{m.group(1).replace(" heft", "")} leer"', h, count=1)
+    h = re.sub(r'(<div class="zeichenzone[^"]*"[^>]*>).*?(</div>)', r"\1\2", h, count=1, flags=re.S)
+    h = re.sub(r'<div class="merksatz[^"]*"[^>]*>.*?</div>', "", h, count=1, flags=re.S)
+    if titel:
+        h = re.sub(r"(<h1>).*?(</h1>)", lambda m: m.group(1) + titel + m.group(2), h, count=1, flags=re.S)
+    return h
+
+
+def paar(h, titel_leer=None):
+    """[leer, ausgefüllt]: erst die leere Folie zum Mitzeichnen, dann dieselbe ausgefüllt."""
+    return [leer_von(h, titel_leer), h]
+
+
+def versuchsbeschreibung(titel, material, schritte, bild=""):
+    """Eine Folie pro Versuch: Material/Aufbau und Durchführung, ohne Beobachtung (die machen die Schüler selbst).
+    Kommt auch in das PDF „Versuche“ für IServ (Klasse versuch)."""
+    mat = "".join(f"<li>{m}</li>" for m in material)
+    li = "".join(f"<li>{x}</li>" for x in schritte)
+    bild = f'<div class="vbild">{bild}</div>' if bild else ""
+    return (f'<section class="folie versuch"><div class="titelband"><h1>{titel}</h1></div>'
+            f'<div class="vbeschr"><div class="vkarte"><h2>Material und Aufbau</h2><ul>{mat}</ul>{bild}</div>'
+            f'<div class="vkarte"><h2>Durchführung</h2><ol>{li}</ol></div></div></section>')
+
 
 
 def chip(*nr):
@@ -238,6 +267,8 @@ def heft_html(folge, zusatz_labore=()):
         if isinstance(f, tuple):
             continue
         alle_labs += [n for n in re.findall(r'<div class="laborchip">🧪 Labor: ([^<]+)</div>', f) if n not in alle_labs]
+        if re.match(r'<section class="[^"]*\bleer\b', f):   # leere Zwillingsfolie: nicht ins Heft
+            continue
         nr = re.search(r'<div class="nr">(.*?)</div>', f, re.S)
         h2 = re.search(r"<h2>(.*?)</h2>", f, re.S)
         if nr and nr.group(1).strip().startswith("Leitfrage") and h2:
@@ -380,6 +411,13 @@ def karo_vektor(h):
         svg = (f'<svg class="karogitter" viewBox="0 0 {w:.2f} {hh:.2f}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
                f'<g fill="none" stroke="#A3B7D3" stroke-width="0.41">{linien}</g></svg>')
         return f'<div class="zeichenzone {klassen} vgitter"{(" style=" + chr(34) + stil + chr(34)) if stil else ""}>{svg}'
+    # leere Zeichenzonen (Zwillingsfolien, Vermutungsfolien) reichen fast bis zur Fußzeile: 18 Kästchen, gross 19, tief 17
+    def leer_gross(m):
+        klassen, stil = m.group(1), m.group(2) or ""
+        zeilen = 19 if "gross" in klassen.split() else 17 if "tief" in klassen.split() else 18
+        stil = re.sub(r"height:\s*[\d.]+pt;?", "", stil) + f"height:{zeilen * K:.2f}pt"
+        return f'<div class="zeichenzone {klassen}" style="{stil}">'
+    h = re.sub(r'<div class="zeichenzone ([^"]*karo[^"]*)"(?: style="([^"]*)")?>(?=\s*</div>)', leer_gross, h)
     return re.sub(r'<div class="zeichenzone ([^"]*)"(?: style="([^"]*)")?>', rep, h)
 
 
@@ -445,10 +483,10 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
 </div>
 <script>
 const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
-function show(id){{tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}}
+function show(id){{tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));try{{history.replaceState(null,'','#'+id)}}catch(e){{}};requestAnimationFrame(()=>window.scrollTo(0,0))}}
 tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)}});
-history.scrollRestoration='manual';
+try{{history.scrollRestoration='manual'}}catch(e){{}}
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
 </script></body></html>"""
     ((ziel or HIER) / datei).write_text(html, encoding="utf-8")
@@ -514,7 +552,12 @@ def exportiere(folge, ordner, folien_pdf, ab_pdf, stunde_html, html_name, links)
     assert len(fol.pages) == len(seiten), (len(fol.pages), len(seiten))
     w = PdfWriter()
     for art, x in reihen:
-        w.add_page(fol.pages[x] if art == "folie" else PdfReader(str(MAT / x)).pages[1])
+        if art == "folie":
+            w.add_page(fol.pages[x])
+        else:   # Schülerblatt: Lösungsseite; bei Ausnahme-Blättern (Name mit +) erst das leere Blatt, dann die Lösung
+            blatt_pdf = PdfReader(str(MAT / x.lstrip("+")))
+            for seite in (blatt_pdf.pages[:2] if x.startswith("+") else [blatt_pdf.pages[1]]):
+                w.add_page(seite)
     with open(ordner / folien_pdf, "wb") as f:
         w.write(f)
     exp.unlink(); tmp.unlink()
