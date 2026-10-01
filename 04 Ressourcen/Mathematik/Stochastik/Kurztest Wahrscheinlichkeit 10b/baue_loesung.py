@@ -12,6 +12,7 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 V = {
     "A": dict(k=(11, 17, 22), karten=(6, 1, 3, 2), g_karo=10, g_herz=5, g_sophie=20),
     "B": dict(k=(13, 19, 18), karten=(4, 2, 4, 2), g_karo=12, g_herz=4, g_sophie=24),
+    "C": dict(k=(15, 12, 23), karten=(5, 3, 2, 2), g_karo=15, g_herz=8, g_sophie=30),
 }
 
 
@@ -97,10 +98,11 @@ def blatt(ver):
     schluss = ("<b>Er hat also nicht Recht</b>, er macht keinen Verlust." if e_soph < 1
                else "<b>Er hat also Recht</b>, er macht dann Verlust.")
     titel = f"Kurztest Nr. 1 Wahrscheinlichkeit 10b, Version {ver} – Lösung"
+    datum = "Nachschreiber" if ver == "C" else "30.09.2026"
     return f"""<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>{titel}</title>{CSS}</head><body>
 <div class="page">
 <h1>{titel}</h1>
-<div class="sub">30.09.2026 · 10 Punkte · Punkteverteilung ist ein Vorschlag, Werte gerundet auf drei Stellen.</div>
+<div class="sub">{datum} · 10 Punkte · Punkteverteilung ist ein Vorschlag, Werte gerundet auf drei Stellen.</div>
 
 <h2>Aufgabe 1 <span class="p">5 P</span></h2>
 <p><b>a) Baumdiagramm</b> (2 P): Von 50 Kugeln tragen {k[0]} die Zahl 1, {k[1]} die Zahl 2, also 50 − {k[0]} − {k[1]} = {k[2]} die Zahl 3. Im zweiten Zug fehlt eine Kugel (Nenner 49), und die gezogene Zahl ist einmal weniger da. Die roten Werte sind einzutragen.</p>
