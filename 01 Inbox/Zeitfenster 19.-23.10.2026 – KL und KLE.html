@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zeitfensterwoche 19.–23.10.2026 – KL und KLE</title>
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --card: #ffffff;
+    --ink: #1d2327;
+    --muted: #5c6670;
+    --line: #dedbd2;
+    --kl: #1f5fa8;
+    --kl-bg: #e8f0fa;
+    --kle: #a14a1c;
+    --kle-bg: #fbece1;
+    --free: #8a939b;
+    --warn: #8a5a00;
+    --warn-bg: #fff3d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15181b;
+      --card: #1e2226;
+      --ink: #e8eaec;
+      --muted: #9aa4ad;
+      --line: #333a40;
+      --kl: #7db3f0;
+      --kl-bg: #1c2b3d;
+      --kle: #f0a77a;
+      --kle-bg: #3a2519;
+      --free: #7a848d;
+      --warn: #f2c66d;
+      --warn-bg: #3a2f14;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .legend { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 999px; font-weight: 600; font-size: .9rem;
+    border: 1px solid transparent;
+  }
+  .pill.kl { background: var(--kl-bg); color: var(--kl); border-color: var(--kl); }
+  .pill.kle { background: var(--kle-bg); color: var(--kle); border-color: var(--kle); }
+  .filter { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .filter button {
+    font: inherit; padding: 6px 14px; border-radius: 8px; cursor: pointer;
+    background: var(--card); color: var(--ink); border: 1px solid var(--line);
+  }
+  .filter button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .day {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .day > h2 {
+    margin: 0; padding: 10px 16px; font-size: 1.05rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .day > h2 span { color: var(--muted); font-weight: 400; margin-left: 6px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; }
+  .person { padding: 14px 16px; }
+  .person + .person { border-left: 1px solid var(--line); }
+  .person h3 { margin: 0 0 8px; font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+  .person.kl h3 { color: var(--kl); }
+  .person.kle h3 { color: var(--kle); }
+  .item { padding: 8px 10px; border-radius: 8px; margin-bottom: 8px; border-left: 4px solid; }
+  .kl .item { background: var(--kl-bg); border-color: var(--kl); }
+  .kle .item { background: var(--kle-bg); border-color: var(--kle); }
+  .item strong { display: block; }
+  .meta { color: var(--muted); font-size: .9rem; }
+  .free { color: var(--free); font-style: italic; }
+  .note {
+    margin-top: 6px; padding: 6px 10px; border-radius: 8px;
+    background: var(--warn-bg); color: var(--warn); font-size: .9rem;
+  }
+  footer { color: var(--muted); font-size: .85rem; margin-top: 24px; }
+  body[data-view="kl"] .person.kle,
+  body[data-view="kle"] .person.kl { display: none; }
+  body[data-view="kl"] .cols,
+  body[data-view="kle"] .cols { grid-template-columns: 1fr; }
+  @media (max-width: 680px) {
+    .cols { grid-template-columns: 1fr; }
+    .person + .person { border-left: 0; border-top: 1px solid var(--line); }
+  }
+  @media print {
+    body { background: #fff; color: #000; }
+    .filter { display: none; }
+    .day { break-inside: avoid; }
+  }
+</style>
+</head>
+<body data-view="beide">
+<main>
+  <h1>Zeitfensterwoche 19.–23.10.2026</h1>
+  <p class="sub">Meine Einsätze (KL) und die meiner Frau (KLE) auf einen Blick. Zusammengestellt aus den Tagesplänen der Schule.</p>
+
+  <div class="legend">
+    <span class="pill kl">KL · Klasse 7c, Mo 6d</span>
+    <span class="pill kle">KLE · Do 8g, Fr 5e</span>
+  </div>
+
+  <div class="filter" role="group" aria-label="Ansicht">
+    <button type="button" data-view="beide" aria-pressed="true">Beide</button>
+    <button type="button" data-view="kl" aria-pressed="false">Nur KL</button>
+    <button type="button" data-view="kle" aria-pressed="false">Nur KLE</button>
+  </div>
+
+  <section class="day">
+    <h2>Montag<span>19.10.2026</span></h2>
+    <div class="cols">
+      <div class="person kl">
+        <h3>KL</h3>
+        <div class="item">
+          <strong>Sportturnier Völkerball – Klasse 6d</strong>
+          <div class="meta">7:40–12:00 Uhr (Schüler ab 8:00 Uhr) · Grauhaldenhalle</div>
+        </div>
+        <div class="meta">Die Klasse 7c wird von einer anderen Lehrkraft betreut.</div>
+      </div>
+      <div class="person kle">
+        <h3>KLE</h3>
+        <p class="free">Kein Einsatz laut Plan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <h2>Dienstag<span>20.10.2026</span></h2>
+    <div class="cols">
+      <div class="person kl">
+        <h3>KL</h3>
+        <div class="item">
+          <strong>Power-Point – Klasse 7c</strong>
+          <div class="meta">1.–3. Stunde · IT 1.05 (mit Informatik-Kollegin)</div>
+        </div>
+        <div class="item">
+          <strong>Gehirnfunktionen / Lerntypentest – Klasse 7c</strong>
+          <div class="meta">4.–6. Stunde · Raum 1.24</div>
+        </div>
+      </div>
+      <div class="person kle">
+        <h3>KLE</h3>
+        <p class="free">Kein Einsatz laut Plan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <h2>Mittwoch<span>21.10.2026</span></h2>
+    <div class="cols">
+      <div class="person kl">
+        <h3>KL</h3>
+        <div class="item">
+          <strong>Expressiv-Workshop mit Frau Tetzel – Klasse 7c</strong>
+          <div class="meta">1.–6. Stunde · Raum 1.24</div>
+        </div>
+      </div>
+      <div class="person kle">
+        <h3>KLE</h3>
+        <p class="free">Kein Einsatz laut Plan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <h2>Donnerstag<span>22.10.2026</span></h2>
+    <div class="cols">
+      <div class="person kl">
+        <h3>KL</h3>
+        <div class="item">
+          <strong>Wandertag – Klasse 7c</strong>
+          <div class="meta">Zeit individuell · Außer Haus</div>
+        </div>
+      </div>
+      <div class="person kle">
+        <h3>KLE</h3>
+        <div class="item">
+          <strong>Ludwigsburg – Klasse 8g</strong>
+          <div class="meta">9:10 Uhr Bahnhof · 11:00 Uhr Führung (ca. 1 Std.) · Außer Haus</div>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="margin: 0 16px 14px;">Beide den ganzen Tag außer Haus bzw. unterwegs – an Betreuung der Kinder am Nachmittag denken.</div>
+  </section>
+
+  <section class="day">
+    <h2>Freitag<span>23.10.2026</span></h2>
+    <div class="cols">
+      <div class="person kl">
+        <h3>KL</h3>
+        <div class="item">
+          <strong>Lions-Quest: Kluge Entscheidungen, Kapitel 6 – Klasse 7c</strong>
+          <div class="meta">1.–4. Stunde · Raum 1.24</div>
+        </div>
+      </div>
+      <div class="person kle">
+        <h3>KLE</h3>
+        <div class="item">
+          <strong>Unterstützungsspaziergang – Klasse 5e</strong>
+          <div class="meta">2.–6. Stunde · Außer Haus</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Die Einsatzzeiten der Plan-Quelle sind Unterrichtsstunden bzw. Uhrzeiten wie dort angegeben. Kürzel anderer Lehrkräfte wurden bewusst weggelassen (Datenschutz-Regel im Vault). Maßgeblich bleibt der offizielle Tagesplan der Schule.
+  </footer>
+</main>
+
+<script>
+  document.querySelectorAll('.filter button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.body.dataset.view = btn.dataset.view;
+      document.querySelectorAll('.filter button').forEach(function (b) {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+</body>
+</html>
