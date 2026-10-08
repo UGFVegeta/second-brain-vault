@@ -1,6 +1,8 @@
 ---
 tags: [projekt]
 status: aktiv
+prio: 2
+thema: Karriere
 erstellt: 2026-05-31
 ---
 

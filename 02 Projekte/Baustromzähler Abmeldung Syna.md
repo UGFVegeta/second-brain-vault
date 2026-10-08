@@ -1,6 +1,8 @@
 ---
 tags: [projekt, syna, baustrom, offene-rechnung]
 status: aktiv
+prio: 3
+thema: Finanzen
 date: 2026-06-22
 ---
 

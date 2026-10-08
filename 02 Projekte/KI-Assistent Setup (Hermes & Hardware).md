@@ -1,6 +1,8 @@
 ---
 tags: [projekt, idee, ki, hardware, hermes, datenschutz]
 status: idee
+prio: 3
+thema: Nebenprojekte
 date: 2026-06-21
 ---
 

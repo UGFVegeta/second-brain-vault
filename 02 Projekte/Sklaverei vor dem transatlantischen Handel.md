@@ -1,6 +1,8 @@
 ---
 tags: [projekt, geschichte, lesen]
 status: aktiv
+prio: 3
+thema: Nebenprojekte
 date: 2026-07-25
 ---
 

@@ -1,6 +1,8 @@
 ---
 tags: [projekt, finanzen]
 status: aktiv
+prio: 3
+thema: Finanzen
 erstellt: 2026-05-31
 ---
 

@@ -1,6 +1,8 @@
 ---
 tags: [projekt, karriere, rektor, rudersberg]
 status: aktiv
+prio: 2
+thema: Karriere
 date: 2026-09-10
 ---
 
@@ -97,6 +99,10 @@ Quelle: „Informationen zum Schulleiterbesetzungsverfahren für Bewerberinnen u
 Oskar wartet ab, ob seine Schulleiterin über die Schulamtsleitung (Sabine Hagenmüller-Gehring, Amtsleiterin des Staatlichen Schulamts Backnang) oder über Ade-Thurow ein Signal bekommt. Kommt das Signal, bewirbt er sich. Denkbar ist auch, dass sich niemand bewirbt und das Schulamt von sich aus auf ihn zukommt.
 
 **Der erweiterte Ausschreibungstext fehlt.** Oskar hat sich in Lehrer Online BW eingeloggt. Winnenden ist dort gelistet, Rudersberg nicht. Mögliche Erklärungen: der Text ist noch nicht eingestellt, oder die Schule läuft unter der Schulkategorie Schulverbund statt Realschule und taucht deshalb bei einem Realschul-Filter nicht auf. Zu prüfen, notfalls beim Staatlichen Schulamt Backnang nachfragen. Das Amtsblatt bezeichnet die erweiterten Texte ausdrücklich als Bestandteil der Ausschreibung und als Grundlage des Verfahrens.
+
+## Stand 08.10.2026
+
+Nach inoffizieller Information hat sich der bisherige erste Konrektor auf die Rektorstelle beworben. Damit würde voraussichtlich in drei bis vier Monaten die Stelle des ersten Konrektors frei. Diese Stelle ist jetzt Oskars Priorität, siehe [[Konrektor-Stelle Schulzentrum Rudersberg]].
 
 ## Offene Fragen
 

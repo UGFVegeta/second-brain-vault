@@ -468,12 +468,23 @@ def umbauen(folge, schritte, ersatz=None, schritt_text=None):
     neu, abb = [], {}
 
     def titel(x):
+        if isinstance(x, tuple):
+            return None
         m = re.search(r"<h1>(.*?)</h1>", x, re.S)
         return re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else None
 
     for k, h in enumerate(folge, 1):
         if isinstance(h, tuple):
-            folgen = ersatz.get(k, [])
+            name = h[2].lstrip("+") if len(h) > 2 else ""
+            e = ersatz.get(name, ersatz.get(k))
+            if e is None and name.startswith("Begleitheft"):
+                e = "behalten"       # Oskars Begleitheft bleibt als Folie
+            if e == "behalten":
+                folgen = [h]
+            elif e == "beide":       # Ausnahme-Blatt: im Folien-PDF leere Seite und Lösung
+                folgen = [(h[0], h[1], "+" + name)]
+            else:
+                folgen = e or []
         else:
             t = titel(h)
             zeichnung = (re.match(r"\d+\.\d+ ", t or "") and re.search(r'<div class="zeichenzone[^"]*"[^>]*>\s*<svg', h) and "atab" not in h
@@ -483,8 +494,28 @@ def umbauen(folge, schritte, ersatz=None, schritt_text=None):
         abb[k] = list(range(len(neu) + 1, len(neu) + 1 + len(folgen)))
         neu += folgen
     texte = schritt_text or {}
-    neu_schritte = [(t, texte.get(t, d), sorted({n for k in ks for n in abb.get(k, [])})) for t, d, ks in schritte]
+    def sauber(d):
+        """Texte der Schritte: Blätter werden nicht mehr ausgeteilt, es gibt sie nur als Alternative im Tab."""
+        for alt_, neu_ in (("Versuchsblatt austeilen", "Versuchsbeschreibung an der Folie"), ("Arbeitsblatt austeilen", "Arbeitsblatt nur als Alternative"),
+                           ("Übungsblatt austeilen", "Übungsblatt nur als Alternative"), ("Versuchsblatt", "Versuchsbeschreibung an der Folie"),
+                           ("Übungsblatt", "Übungsblatt (nur Alternative)"), ("Arbeitsblatt", "Arbeitsblatt (nur Alternative)")):
+            d = d.replace(alt_, neu_)
+        return d
+    neu_schritte = [(t, texte.get(t, sauber(d)), sorted({n for k in ks for n in abb.get(k, [])})) for t, d, ks in schritte]
     return neu, neu_schritte, abb
+
+
+def neue_folge(datei, folge, schritte, drucken=None, heft_extra=None):
+    """Wendet den neuen Aufbau aus umbau_optik.UMBAU an (falls die Stunde dort steht). Rückgabe: (folge, schritte, drucken, heft_extra)."""
+    try:
+        from umbau_optik import UMBAU
+    except ImportError:
+        return folge, schritte, drucken, heft_extra
+    if datei not in UMBAU:
+        return folge, schritte, drucken, heft_extra
+    u = UMBAU[datei]
+    folge, schritte, _abb = umbauen(folge, schritte, u.get("ersatz"), u.get("schritt_text"))
+    return folge, schritte, u.get("drucken", drucken), u.get("heft_extra", heft_extra)
 
 
 def blatt_vorschau(html, ordner):
@@ -510,15 +541,7 @@ def blatt_vorschau(html, ordner):
 
 
 def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css="", heft_extra=None):
-    try:   # Registry mit dem neuen Aufbau je Stunde (umbau_optik.py)
-        from umbau_optik import UMBAU
-    except ImportError:
-        UMBAU = {}
-    if datei in UMBAU:
-        u = UMBAU[datei]
-        folge, schritte, _abb = umbauen(folge, schritte, u.get("ersatz"), u.get("schritt_text"))
-        drucken = u.get("drucken", drucken)
-        heft_extra = u.get("heft_extra", heft_extra)
+    folge, schritte, drucken, heft_extra = neue_folge(datei, folge, schritte, drucken, heft_extra)
     blaetter_boxen = blatt_vorschau(blaetter_boxen, ziel or HIER)
     extra_css += ".vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}"
     labore = labore_der_stunde(hintergrund, blaetter_boxen)

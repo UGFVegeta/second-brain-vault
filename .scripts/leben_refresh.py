@@ -73,6 +73,13 @@ return out
 
 @section("kalender")
 def _kalender():
+    # Ohne laufende Kalender-App bricht AppleScript mit -600 ab (z. B. beim 6:30-Lauf)
+    subprocess.run(["open", "-g", "-a", "Calendar"], capture_output=True, timeout=30)
+    for _ in range(20):
+        if subprocess.run(["pgrep", "-x", "Calendar"], capture_output=True).returncode == 0:
+            break
+        subprocess.run(["sleep", "1"])
+    subprocess.run(["sleep", "3"])
     r = subprocess.run(["osascript", "-e", KAL_SCRIPT],
                        capture_output=True, text=True, timeout=300)
     if r.returncode != 0:
@@ -110,13 +117,17 @@ def _projekte():
             head = f.read_text(encoding="utf-8", errors="ignore")[:2000]
         except Exception:
             continue
-        status = ""
-        m = re.search(r"^status:\s*(.+)$", head, re.M)
-        if m:
-            status = m.group(1).strip().strip('"')
+        def fm(key):
+            m = re.search(rf"^{key}:\s*(.+)$", head, re.M)
+            return m.group(1).strip().strip('"') if m else ""
+        status = fm("status")
+        prio = fm("prio")
         out.append({
             "name": f.stem,
             "status": status or "unklar",
+            "prio": int(prio) if prio.isdigit() else None,
+            "thema": fm("thema") or None,
+            "deadline": fm("deadline") or None,
             "file": f"02 Projekte/{f.name}",
             "mtime": datetime.fromtimestamp(f.stat().st_mtime).strftime("%Y-%m-%d"),
         })
@@ -318,6 +329,52 @@ def _vault():
             "lastDaily": dailies[-1].stem if dailies else None,
             "dailies": recent, "offenAlle": offen_alle,
             "offenTotal": len(merged)}
+
+
+# --- Erinnerungen (Apple Reminders) -----------------------------------------
+REM_SCRIPT = '''tell application "Reminders"
+set out to ""
+repeat with l in lists
+  set ln to name of l
+  if (count of (reminders of l whose completed is false)) > 0 then
+    set ns to name of (reminders of l whose completed is false)
+    set ps to priority of (reminders of l whose completed is false)
+    set fs to flagged of (reminders of l whose completed is false)
+    set ds to due date of (reminders of l whose completed is false)
+    repeat with i from 1 to count of ns
+      set d to ""
+      set dd to item i of ds
+      if dd is not missing value then
+        set d to (year of dd as string) & "-" & text -2 thru -1 of ("0" & ((month of dd) as integer)) & "-" & text -2 thru -1 of ("0" & (day of dd))
+      end if
+      set out to out & ln & "\t" & (item i of ps) & "\t" & d & "\t" & (item i of fs) & "\t" & (item i of ns) & linefeed
+    end repeat
+  end if
+end repeat
+return out
+end tell'''
+
+
+@section("erinnerungen")
+def _erinnerungen():
+    r = subprocess.run(["osascript", "-e", REM_SCRIPT],
+                       capture_output=True, text=True, timeout=90)
+    if r.returncode != 0:
+        raise RuntimeError(r.stderr.strip()[:200] or "osascript-Fehler")
+    items = []
+    for line in r.stdout.splitlines():
+        parts = line.split("\t", 4)
+        if len(parts) < 5:
+            continue
+        liste, prio, due, flag, name = parts
+        items.append({"liste": liste, "prio": int(prio or 0), "due": due,
+                      "flag": flag == "true", "t": name.strip()})
+    # Schule immer oben; darin: markiert, fällig zuerst, dann hohe Priorität
+    # (AppleScript liefert 0 = keine Priorität, 1 = hoch, 9 = niedrig)
+    rang = {"Schule": 0}
+    items.sort(key=lambda i: (rang.get(i["liste"], 1), not i["flag"],
+                              i["due"] or "9999", i["prio"] or 10))
+    return items
 
 
 # --- PV-Anlage (Kostal) -----------------------------------------------------

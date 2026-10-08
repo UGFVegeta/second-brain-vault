@@ -1,6 +1,6 @@
 ---
 tags: [projekt, haus]
-status: aktiv
+status: abgeschlossen
 date: 2026-06-07
 ziel: Alle Fliegengitter im Haus eingebaut
 deadline: 2026-06-21

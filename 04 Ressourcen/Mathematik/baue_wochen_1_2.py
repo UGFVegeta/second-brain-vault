@@ -53,7 +53,7 @@ def folien(s):
     for f in re.findall(r'<div class="folie">(.*?)</div>\s*(?=<div class="folie">|</section>)', sektion(s, "folien") + "</section>", re.S):
         t = re.search(r"<h3>(.*?)</h3>", f, re.S)
         titel = text(re.sub(r"<span.*?</span>", "", t.group(1))) if t else ""
-        titel = re.sub(r"^Folie \d+ · ", "", titel)
+        titel = re.sub(r"^Folie \d+[;·] ", "", titel)
         out.append((titel, f[t.end():] if t else f))
     return out
 
@@ -109,16 +109,33 @@ def woche1():
 
 
 def woche2():
+    """Rezept-Stil (ab 04.10.2026): Am Mittwoch ist der Merkheft-Eintrag das Merkheft-Bild „Plus und Minus“ (Beispiel links,
+    Rezept rechts, aus Rationale Zahlen/rezepte_rz.py). Es ersetzt den alten Merksatz in Folien, Tafelbild und Merkheft."""
+    import sys
+    sys.path.insert(0, str(HIER / "Rationale Zahlen"))
+    from rezepte_rz import MERK_PLUSMINUS
+    heft = f'<div class="heft">{MERK_PLUSMINUS}</div>'
     s1, s2 = RZ1.read_text(encoding="utf-8"), RZ2.read_text(encoding="utf-8")
     f1, f2 = folien(s1), folien(s2)
+    neu = len(f1) + 2                                    # Merkheft-Folie direkt nach „Wohin geht der Bogen?“
+    f2 = f2[:1] + [("Merkheft: Plus und Minus", heft)] + f2[1:]
     vorb = box("Dienstag: Rationale Zahlen 1 (Doppelstunde)", sektion(s1, "vorher")) + box("Mittwoch und Donnerstag: Rationale Zahlen 2", sektion(s2, "vorher"))
-    schritte = (schritte_rz(s1, "verlauf", "Dienstag, Zahlen unter Null", 0)
-                + schritte_rz(s2, "mittwoch", "Mittwoch, Addieren", len(f1)) + schritte_rz(s2, "donnerstag", "Donnerstag, Plus und Minus", len(f1)))
+    mi = [(tag, t, m, d, [k + 1 if k >= neu else k for k in ks]) for tag, t, m, d, ks in schritte_rz(s2, "mittwoch", "Mittwoch, Addieren", len(f1))]
+    mi = [(tag, t, m, "Merkheft-Bild Plus und Minus: Beispiel links, Rezept rechts, alles abschreiben." if t == "Merksatz" else d,
+           [neu] if t == "Merksatz" else ks) for tag, t, m, d, ks in mi]
+    do = [(tag, t, m, d, [k + 1 if k >= neu else k for k in ks]) for tag, t, m, d, ks in schritte_rz(s2, "donnerstag", "Donnerstag, Plus und Minus", len(f1))]
+    schritte = schritte_rz(s1, "verlauf", "Dienstag, Zahlen unter Null", 0) + mi + do
+    # Tafelbild Mittwoch: der alte Merksatz-Block wird durch das Merkheft-Bild ersetzt, das Bogen-Beispiel davor ist nur noch Tafel
+    t2 = sektion(s2, "tafel")
+    bl = [m.start() for m in re.finditer(r'<div class="tafelblock">', t2)]
+    t2 = (t2[:bl[0]] + t2[bl[0]:bl[1]].replace('<div class="heft">', '<div>', 1)
+          + f'<div class="tafelblock"><h4>Merkheft: Plus und Minus</h4>{heft}</div>' + t2[bl[2]:])
     zwei = lambda t1, t2: box("Dienstag", t1) + box("Mittwoch und Donnerstag", t2)
     ziel = HIER / "Rationale Zahlen" / "Mathe 7c – Woche 2.html"
+    import baue_woche7
     bau_woche(ziel, "Woche 2: Zahlen unter Null, Addieren", "Klasse 7c · Mathematik · 21.09. bis 25.09.2026 · Rationale Zahlen",
-              vorb, schritte, f1 + f2, zwei(sektion(s1, "tafel"), sektion(s2, "tafel")), zwei(sektion(s1, "merkheft"), sektion(s2, "merkheft")),
-              zwei(sektion(s1, "loesungen"), sektion(s2, "loesungen")), extra_css=css(s1) + css(s2), verlauf="Die Woche", legende=False)
+              vorb, schritte, f1 + f2, zwei(sektion(s1, "tafel"), t2), zwei(sektion(s1, "merkheft"), heft),
+              zwei(sektion(s1, "loesungen"), sektion(s2, "loesungen")), extra_css=css(s1) + css(s2) + baue_woche7.EXTRA_CSS, verlauf="Die Woche", legende=False)
 
 
 if __name__ == "__main__":

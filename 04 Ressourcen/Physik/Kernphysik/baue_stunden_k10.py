@@ -133,8 +133,9 @@ MESS = zeichnungsfolie("Auch ohne Strahler zählt das Zählrohr Impulse: die Nul
 ZAEHLROHR, MESS = (x.replace('<section class="folie">', '<section class="folie heft">', 1) for x in (ZAEHLROHR, MESS))   # kommen ins Heft
 VERS3 = versuchsbeschreibung("Versuch: Die Nullrate messen", ["Geiger-Müller-Zählrohr mit Zählgerät, Lautsprecher an", "Stoppuhr", "kein Präparat in der Nähe"],
                              ["Das Zählrohr misst fünfmal je eine Minute lang, ohne Präparat.", "Trage nach jeder Minute die Impulse in die Tabelle ein.", "Berechne den Mittelwert."])
-VERS3B = versuchsbeschreibung("Versuch: Ist ein Luftballon radioaktiv? (Lehrerversuch)", ["Luftballon, aufgeblasen und an Wolle gerieben, 20 bis 30 Minuten aufgehängt", "Geiger-Müller-Zählrohr mit Zählgerät"],
-                              ["Der geriebene Ballon hängt eine Weile im Raum.", "Dann die Luft ablassen und die Hülle vor das Zählrohr legen.", "Zählrate beobachten: Sie liegt über der Nullrate und sinkt danach langsam wieder."])
+VERS3B = versuchsbeschreibung("Demo: Strahlt ein Glühstrumpf?", ["Glühstrumpf, geschlossen in Folie oder Beutel (nur die Lehrkraft fasst ihn an)", "Geiger-Müller-Zählrohr mit Zählgerät", "die gemessene Nullrate zum Vergleich"],
+                              ["Die Lehrkraft hält den Strumpf in der Folie dicht vor das Zählrohr.", "Zählrate ablesen und mit der Nullrate vergleichen.",
+                               "Abstand vergrößern: Wie ändert sich die Zählrate?", "Strumpf wieder entfernen, die Zählrate fällt auf die Nullrate."])
 S3 = [f(8), f(9), f(10), f(11), f(12), *paar(ZAEHLROHR, "Wie ist ein Zählrohr aufgebaut?"), VERS3, MESS_LEER, MESS, VERS3B, A3]
 S3_HG = f"""
 <div class="box"><h3>Das Zählrohr {chip(4, 6)}</h3><ul>
@@ -150,7 +151,8 @@ S3_HG = f"""
 <div class="box"><h3>Tipps zu den Versuchen {chip(6)}</h3><ul>
 <li>Lautsprecher an, damit die Klasse das Knacken hört. Fünfmal eine Minute messen, Werte an der Tafel sammeln.</li>
 <li>Die Streuung der Werte ist gewollt: Radioaktiver Zerfall ist Zufall. Das bereitet Leitfrage 2 vor.</li>
-<li><b>Luftballon:</b> vor der Stunde aufblasen, an Wolle reiben und 20 bis 30 Minuten aufhängen, am besten in einem Kellerraum. Dann Luft ablassen, Hülle zusammenknüllen und direkt vor das Zählrohr legen. Der Ballon sammelt Folgeprodukte des Radons (vor allem Pb-214 und Bi-214). Die Zählrate sinkt innerhalb von ein bis zwei Stunden wieder auf die Nullrate. Wie stark der Effekt ist, hängt vom Radongehalt der Luft ab. Klappt es nicht, zeigt das Strahlungslabor den Verlauf.</li></ul></div>
+<li><b>Demo Glühstrumpf (nur als Lehrerversuch):</b> Strumpf geschlossen in Folie oder Beutel, nur die Lehrkraft hält ihn. Die Klasse berührt ihn nicht, die Folie bleibt zu. Danach verschlossen und mit Warnzeichen „Radioaktiv“ aufbewahren, nicht in der frei zugänglichen Sammlung. Vor dem Einsatz prüfen: Datenblatt oder Lieferschein (Aktivität unter der Freigrenze?) und kurze Abstimmung mit dem Strahlenschutzbeauftragten der Schule.</li>
+<li><b>Alternative Luftballon:</b> vor der Stunde aufblasen, an Wolle reiben und 20 bis 30 Minuten aufhängen, am besten in einem Kellerraum. Dann Luft ablassen, Hülle zusammenknüllen und direkt vor das Zählrohr legen. Der Ballon sammelt Folgeprodukte des Radons (siehe Arbeitsblatt-Alternative).</li></ul></div>
 {LAB(STRAHL, "Strahlungslabor", "Nullrate mit zehn zufälligen Messungen und Mittelwert. Luftballon: Zählrate über der Zeit, gerieben und ungerieben.")}"""
 S3_AB = f"""<div class="box"><h3>Alternative: Arbeitsblatt Zählrohr und Nullrate {chip(6, 7, 8)}</h3><a class="btn" href="Materialien/Zaehlrohr und Nullrate W03.pdf">PDF öffnen</a>
 <p>Ersetzt das Selberzeichnen von Zählrohr und Messtabelle. Die Klasse schreibt im Heft dasselbe, nur auf dem Blatt statt selbst gezeichnet.<br><b>Lösung:</b> 1 dünne Folie, 2 Gas, 3 Metalldraht, 4 Metallrohr. Lücken: Zählrohr, Impulse, zählt, Knacken, Impulsrate, höher, stärker. Beispielmessung 22, 27, 19, 25, 24, Mittelwert 23,4. Nullrate, menschlichen Körpers, terrestrische, kosmische.
@@ -278,12 +280,12 @@ STUNDEN = [
     ("Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html", "Kernphysik: Das Zählrohr klickt von allein", "Klasse 10 · Physik · W03 (Woche ab 28.09.2026) · Abschluss Leitfrage 1, Einstieg Leitfrage 2",
      ["Optional: Arbeitsblatt Zählrohr und Nullrate als Alternative zum Selberzeichnen, Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "Lautsprecher an"), ("Stoppuhr", "1×", "fünfmal eine Minute"),
-               ("Luftballon", "1×", "vor der Stunde gerieben und aufgehängt"), ("Wolltuch", "1×", "")], "schueler": [],
-      "hinweis": "Kein Präparat nötig. Das Zählrohr ist vor der Stunde eingeschaltet und steht weit weg von der Präparatesammlung. Ballon 20 bis 30 Minuten vorher im Keller aufhängen."},
+               ("Glühstrumpf, in Folie", "1×", "nur als Lehrerversuch, danach verschlossen und beschriftet aufbewahren")], "schueler": [],
+      "hinweis": "Das Zählrohr ist vor der Stunde eingeschaltet, die Nullrate wird zuerst gemessen. Den Glühstrumpf erst für die Demo holen, vorher mit dem Strahlenschutzbeauftragten abstimmen. Alternative ohne Strahler: Luftballon 20 bis 30 Minuten vorher im Keller aufhängen."},
      [("Abschluss Leitfrage 1", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 2", "Zählrohr klickt, Leitfrage 2.", [4, 5]),
       ("Zählrohr", "Aufbau abzeichnen und beschriften (leer, dann ausgefüllt).", [6, 7]),
       ("Versuch", "Nullrate messen: Beschreibung an der Folie, Tabelle selbst zeichnen, Werte eintragen, Mittelwert. Zum Vergleich: Nullrate im Strahlungslabor.", [8, 9, 10]),
-      ("Ballonversuch", "Lehrerversuch: der Ballon vor dem Zählrohr.", [11]), ("Alltag", "Natürliche Strahlung.", [12])],
+      ("Demo Glühstrumpf", "Lehrerversuch: Strumpf in Folie vor dem Zählrohr, Abstand ändern.", [11]), ("Alltag", "Natürliche Strahlung.", [12])],
      S3, S3_HG, S3_AB),
     ("Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "Kernphysik: Alpha, Beta und Gamma", "Klasse 10 · Physik · W04 (Woche ab 05.10.2026) · Leitfrage 2",
      ["Nichts drucken: Die Klasse zeichnet mit. Optional: Arbeitsblatt Drei Arten radioaktiver Strahlung als Alternative.", "Folien und Lösungen: nicht drucken."],

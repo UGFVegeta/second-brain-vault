@@ -1,6 +1,8 @@
 ---
 tags: [projekt]
 status: geplant
+prio: 3
+thema: Haus
 erstellt: 2026-05-31
 ---
 

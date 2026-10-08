@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Woche 3, Stunde 4: Klammern setzen, Exit-Ticket</title><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header.kopf{padding:30px 0 12px;border-bottom:2px solid #1b1b1b}
+h1{font-size:27px;margin:0 0 4px;line-height:1.2}.sub{color:#555;margin:0}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #d9d9d4;z-index:5}
+nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+nav button{border:0;padding:5px 13px;border-radius:16px;color:#1b1b1b;font:inherit;font-size:14px;background:#f1f1ed;cursor:pointer}
+nav button:hover{background:#e3e3dc}nav button.on{background:#1b1b1b;color:#fff}
+.tab{display:none;padding:26px 0 60px}.tab.on{display:block}
+h2{font-size:22px;margin:0 0 10px}
+.box{border:1px solid #d3d3cc;border-radius:9px;padding:8px 18px 12px;margin:14px 0}.box h3{margin:8px 0 6px;font-size:17px}.box ul{margin:6px 0;padding-left:20px}.box li{margin:5px 0}
+.zeitleiste{display:flex;height:38px;border-radius:6px;overflow:hidden;margin:6px 0 14px;font-size:12.5px;border:1px solid #c9c9c2}
+.zeitleiste div{display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;padding:0 4px}
+.z0{background:#eeeeea}.z1{background:#e3eaf6}.z2{background:#d3dff2}.z3{background:#e3eaf6}.z4{background:#d3dff2}.z5{background:#eeeeea}
+.schr{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid #e6e6e0}.schr:last-child{border:0}
+.schr .n{width:28px;height:28px;border-radius:50%;background:#1b1b1b;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:14px}
+.schr .m{color:#555;font-size:15px}.go{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.go button{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:2px 10px;font-size:13px;cursor:pointer}
+.karte{width:956px;max-width:100%;height:539px;margin:0 0 22px;border:1px solid #c8d0dc;scroll-margin-top:60px}
+.karte .folie{page-break-after:auto}
+.atab{position:absolute;left:10pt;right:10pt;top:6pt;border-collapse:collapse;font-size:10.5pt;line-height:1.25;background:rgba(255,255,255,.92);table-layout:fixed;width:calc(100% - 20pt)}
+.atab th,.atab td{border-bottom:1px solid #d6dbe6;padding:3.5pt 7pt;text-align:left;vertical-align:top}.atab th{color:#66798e;font-size:10pt}
+a.btn{display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;border-radius:16px;background:#e2ecf8;color:#1a56a0;text-decoration:none;font-size:14.5px}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:1px solid #d3d3cc;padding:7px 10px;text-align:left;vertical-align:top}.t th{background:#f5f5f1}
+
+
+.bildzone{position:absolute;left:40.16pt;top:74pt;width:636.48pt;height:268pt}.bildzone svg{width:100%;height:100%;display:block}
+.fnr{font-size:13px;color:#555;margin:0 0 4px;font-weight:600}
+
+.blattkarte{width:620px;max-width:100%;margin:0 0 22px;scroll-margin-top:60px}.blattbild{display:block;width:100%;border:1px solid #c8d0dc}
+.austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
+.box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
+.fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
+</style><style>
+.tag{margin:18px 0 6px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#66798e;border-top:1px dashed #cfd6df;padding-top:10px}
+.tag:first-of-type{border-top:0;padding-top:0}
+.fkarte{border:2px solid #1b1b1b;border-radius:10px;padding:14px 20px 10px;margin:8px 0 22px;background:#fff}
+.fkarte h3{margin:0 0 10px;font-size:22px}.fnr{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#66798e;margin-top:18px}
+.lsg{color:#E6007E;font-weight:700}.offen{color:#8da6c2;font-style:italic}
+.br{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:.85em;line-height:1.05;margin:0 .1em}
+.br span:first-child{border-bottom:1.5px solid currentColor;padding:0 .15em}
+.spalten{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.spalten h4{margin:0 0 6px}.spalten ol{margin:0;padding-left:22px}.spalten li{margin:4px 0}
+.kl{columns:2;column-gap:40px;font-size:18px}
+.tagwahl{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:52px;background:#fff;padding:10px 0;z-index:3;border-bottom:1px solid #e3e5ea}
+.tagwahl button{font:inherit;font-size:15px;font-weight:600;border:1px solid #cfd6df;background:#fff;border-radius:18px;padding:6px 16px;cursor:pointer}
+.tagwahl button.on{background:#1b1b1b;color:#fff;border-color:#1b1b1b}.tagwahl button span{font-weight:400;opacity:.7}
+[hidden]{display:none!important}.ausdruck{font-size:26px;font-weight:700;margin:8px 0}
+.heft{border-left:5px solid #1b1b1b;padding:4px 0 4px 14px;margin:12px 0}.uheft{border-left:5px dashed #1a56a0;padding:4px 0 4px 14px;margin:12px 0}
+.merk{background:#eef3fb;border:1.5px solid #1a56a0;border-radius:6px;padding:8px 13px;margin:9px 0;font-weight:600}
+.legende-mu{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;color:#444;margin:14px 0 4px}.legende-mu .heft,.legende-mu .uheft{margin:0;padding:0 0 0 10px}
+.austeil{display:inline-block;background:#E6007E;color:#fff;font-weight:700;font-size:14px;border-radius:14px;padding:3px 12px;margin:0 0 8px}
+.tafel{background:#fbfbf8;border:1px solid #d9dfe7;border-radius:8px;padding:12px 16px;margin:10px 0 18px}
+figure{margin:8px 0}figure svg{display:block;max-width:100%;height:auto}
+table.ha{border-collapse:collapse;width:100%}.ha td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}
+</style></head><body>
+<div class="wrap"><header class="kopf"><h1>Woche 3, Stunde 4: Klammern setzen, Exit-Ticket</h1><p class="sub">Klasse 7c, Mathematik, Do 01.10.2026, Einzelstunde</p></header></div>
+<nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="tafel">Tafelbild</button>
+<button data-t="merk">Merkheft</button><button data-t="lsg">Lösungen</button></div></nav>
+<div class="wrap">
+<div class="tab" id="t_ueb">
+<div class="box"><h3>Vorbereiten</h3><table class="ha"><tr><td><b>Drucken</b></td><td>Nichts. Exit-Ticket ins Übungsheft oder auf einen kleinen Zettel.</td></tr><tr><td><b>Digital</b></td><td>Folien-PDF dieser Stunde in Notability. Datei: Mathe 7c – Woche 3 – 4 Klammern setzen, Exit-Ticket.pdf</td></tr></table></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:22" title="Arbeitsblatt Nr. 7 und 8">1 Arbeitsblatt Nr. 7 und 8 (22′)</div><div class="z1" style="flex:8" title="Kontrolle">2 Kontrolle (8′)</div><div class="z2" style="flex:15" title="Exit-Ticket">3 Exit-Ticket (15′)</div></div><div class="schr"><span class="n">1</span><div><b>Arbeitsblatt Nr. 7 und 8</b> (22 min)<br><span class="m">Klammer so setzen, dass das Ergebnis stimmt; Sachaufgaben. Für ●: Buch S. 26 Nr. 10 links.</span></div><div class="go"><button data-go=f0_1 data-g=0>Folie 1</button></div></div><div class="schr"><span class="n">2</span><div><b>Kontrolle</b> (8 min)<br><span class="m">Ergebnisse eintragen oder die Lösungsseite zeigen.</span></div><div class="go"><button data-go=f0_1 data-g=0>Folie 1</button><button data-go=f0_2 data-g=0>Folie 2</button></div></div><div class="schr"><span class="n">3</span><div><b>Exit-Ticket</b> (15 min)<br><span class="m">Drei Aufgaben zur Minusklammer ohne Hilfe. Zeigt, wer noch Hilfe braucht.</span></div><div class="go"><button data-go=f0_3 data-g=0>Folie 3</button><button data-go=f0_4 data-g=0>Folie 4</button></div></div></div>
+</div>
+<div class="tab" id="t_folien"><div class="legende-mu"><span class="heft">schwarzer Balken: kommt ins Merkheft</span><span class="uheft">blau gestrichelt: Übung, kommt ins Übungsheft</span><span>ohne Balken: bleibt an Tafel oder Folie</span></div><div class="fgruppe" data-g="0"><div class="fnr">Folie 1</div><div class="fkarte" id="f0_1"><h3>Arbeitsblatt: Klammern und Rechenvorteile</h3><div class="austeil">📄 weiter auf dem Arbeitsblatt</div><img src="bilder/ab3-leer-ganz.png" alt="" style="display:block;max-width:100%;border:1px solid #ccc"></div><div class="fnr">Folie 2</div><div class="fkarte" id="f0_2"><h3>Arbeitsblatt: Lösungen</h3><img src="bilder/ab3-loesung-ganz.png" alt="" style="display:block;max-width:100%;border:1px solid #ccc"></div><div class="fnr">Folie 3</div><div class="fkarte" id="f0_3"><h3>Exit-Ticket</h3><div class="uheft"><ol type="a" class="ex"><li>30 − (−20 + 36) =</li><li>54 + (−44 + 77) =</li><li>28 − (27 − 100) =</li></ol></div></div><div class="fnr">Folie 4</div><div class="fkarte" id="f0_4"><h3>Exit-Ticket: Lösung</h3><ol type="a" class="ex"><li>30 − (−20 + 36) = 30 + 20 − 36 = <span class=lsg>14</span></li><li>54 + (−44 + 77) = 54 − 44 + 77 = <span class=lsg>87</span></li><li>28 − (27 − 100) = 28 − 27 + 100 = <span class=lsg>101</span></li></ol></div></div></div>
+<div class="tab" id="t_tafel"><div class="legende-mu"><span class="heft">schwarzer Balken: kommt ins Merkheft</span><span class="uheft">blau gestrichelt: Übung, kommt ins Übungsheft</span><span>ohne Balken: bleibt an Tafel oder Folie</span></div><div class="box"><h3>Kein eigenes Tafelbild</h3><p>Gearbeitet wird am Blatt und am Exit-Ticket.</p></div></div>
+<div class="tab" id="t_merk"><div class="box"><h3>Kein neuer Eintrag</h3><p>Die Minusklammer von Dienstag wird geübt.</p></div></div>
+<div class="tab" id="t_lsg"><div class="box"><h3>Arbeitsblatt Nr. 7 und 8</h3><img src="bilder/ab3-loesung-7-8.png" alt="" style="max-width:100%;display:block"></div><div class="box"><h3>Buch S. 26 Nr. 10 links</h3><ol type="a" class="kl"><li>33 + (−18 + 67) = <span class=lsg>82</span></li><li>−44 − (26 − 79) + 21 = <span class=lsg>30</span></li><li>22 − (−35 + 88) − (12 − 65) = <span class=lsg>22</span></li><li>(−23 + 79) − 31 − (−121 + 77) − 19 = <span class=lsg>50</span></li></ol></div><div class="box"><h3>Exit-Ticket</h3><ol type="a" class="ex"><li>30 − (−20 + 36) = 30 + 20 − 36 = <span class=lsg>14</span></li><li>54 + (−44 + 77) = 54 − 44 + 77 = <span class=lsg>87</span></li><li>28 − (27 − 100) = 28 − 27 + 100 = <span class=lsg>101</span></li></ol></div></div>
+</div>
+<script>
+const tabs=[...document.querySelectorAll('nav button')],secs=[...document.querySelectorAll('.tab')];
+function show(id){tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===id));secs.forEach(s=>s.classList.toggle('on',s.id==='t_'+id));history.replaceState(null,'','#'+id);requestAnimationFrame(()=>window.scrollTo(0,0))}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
+const gr=[...document.querySelectorAll('.fgruppe')],tb=[...document.querySelectorAll('.tagwahl button')];
+function tag(g){g=String(g);gr.forEach(x=>x.hidden=gr.length>1&&x.dataset.g!==g);tb.forEach(b=>b.classList.toggle('on',b.dataset.g===g));try{localStorage.setItem('mathe-tag-'+location.pathname,g)}catch(e){}}
+tb.forEach(b=>b.onclick=()=>{tag(b.dataset.g);window.scrollTo(0,0)});
+let g0='0';try{g0=localStorage.getItem('mathe-tag-'+location.pathname)||'0'}catch(e){}tag(g0);
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');tag(b.dataset.g);setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
+history.scrollRestoration='manual';
+show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+</script></body></html>

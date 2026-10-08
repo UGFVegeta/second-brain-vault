@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Porsche Museum – Überblick</title>
+<style>
+  :root { --bg:#f6f5f2; --card:#fff; --ink:#1c1c1e; --mute:#6b6b70; --line:#deddd8; --acc:#b3001b; --ok:#1f7a3d; --warn:#fff4d6; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161617; --card:#232325; --ink:#f2f2f3; --mute:#9a9aa0; --line:#3a3a3d; --acc:#ff5468; --ok:#4cc27a; --warn:#3a3220; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 -apple-system, "SF Pro Text", system-ui, sans-serif; }
+  main { max-width:880px; margin:0 auto; padding:20px 16px 40px; }
+  h1 { font-size:26px; margin:0 0 2px; }
+  .sub { color:var(--mute); margin:0 0 18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+  h2 { font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--acc); margin:0 0 8px; }
+  .big { font-size:22px; font-weight:650; margin:0 0 4px; }
+  table { width:100%; border-collapse:collapse; font-size:15px; }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--mute); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  tr.main td { font-weight:650; }
+  tr:last-child td { border-bottom:0; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:14px; }
+  .fact { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px; }
+  .fact b { display:block; font-size:22px; line-height:1.15; }
+  .fact span { color:var(--mute); font-size:13px; }
+  @media (max-width:640px) { .grid { grid-template-columns:1fr; } .facts { grid-template-columns:1fr 1fr; } }
+  ul { margin:6px 0 0; padding-left:20px; }
+  ul.check { list-style:none; margin:0; padding:0; }
+  ul.check li { padding:7px 0; border-bottom:1px solid var(--line); }
+  ul.check li:last-child { border-bottom:0; }
+  label { display:flex; gap:12px; align-items:flex-start; cursor:pointer; }
+  input[type=checkbox] { width:22px; height:22px; margin:1px 0 0; flex:none; accent-color:var(--ok); }
+  input:checked + span { color:var(--mute); text-decoration:line-through; }
+  .time { font-variant-numeric:tabular-nums; font-weight:650; margin-right:6px; }
+  .note { background:var(--warn); border-radius:10px; padding:9px 12px; margin:10px 0 0; font-size:14.5px; }
+  .small { color:var(--mute); font-size:13px; margin-top:8px; }
+  button { font:inherit; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:8px; padding:6px 12px; cursor:pointer; }
+  @media print { body { background:#fff; color:#000; } .card, .fact { break-inside:avoid; } button { display:none; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Porsche Museum, Werksführung</h1>
+  <p class="sub">Montag, 05.10.2026 · Vertretung Klasse 10</p>
+
+  <div class="facts">
+    <div class="fact"><b>7:35</b><span>Treffpunkt am Kiosk, Bahnhof Schorndorf</span></div>
+    <div class="fact"><b>9:15</b><span>am Museum sein, Handys wegschließen</span></div>
+    <div class="fact"><b>1 Std.</b><span>Führung, danach direkt zurück</span></div>
+    <div class="fact"><b>12:15</b><span>spätestens wieder in Schorndorf</span></div>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Hinweg</h2>
+      <table>
+        <tr><th>Zug</th><th>ab</th><th>an</th></tr>
+        <tr class="main"><td>S2 Schorndorf (Gl. 14) → Stuttgart Hbf tief (Gl. 101)</td><td>7:48</td><td>8:25</td></tr>
+        <tr class="main"><td>Umstieg: <strong>S6</strong> ab Gl. 102 → Neuwirtshaus (Porscheplatz)</td><td>8:33</td><td>8:43</td></tr>
+      </table>
+      <p class="note">Im Elternbrief steht „S4“. Laut Fahrplanauskunft fährt nach Neuwirtshaus die <strong>S6</strong>. Die S4 fährt Richtung Backnang.</p>
+      <p class="small">8:43 Ankunft = 30 Minuten Puffer bis 9:15. Umstieg 8 Minuten im gleichen Tiefbahnhof.</p>
+    </section>
+
+    <section class="card">
+      <h2>Falls verpasst</h2>
+      <table>
+        <tr><th>S2 ab Schorndorf</th><th>S6 ab Hbf</th><th>an Porscheplatz</th></tr>
+        <tr class="main"><td>8:03 (Gl. 1)</td><td>8:48</td><td>8:58</td></tr>
+        <tr><td>8:18 (Gl. 14)</td><td>9:03</td><td>9:13, zu knapp</td></tr>
+      </table>
+      <p class="small">Die 8:03 ist die letzte sichere Möglichkeit. S2 fährt alle 15 Minuten (:03, :18, :33, :48). Vor Abfahrt kurz in der VVS-App auf Störungen schauen.</p>
+    </section>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Rückfahrt (Führung ca. 9:15–10:15)</h2>
+      <table>
+        <tr><th>S6 ab Neuwirtshaus (Gl. 2)</th><th>S2 ab Hbf</th><th>an Schorndorf</th></tr>
+        <tr class="main"><td>10:31</td><td>10:50</td><td>11:25</td></tr>
+        <tr><td>10:46</td><td>11:05</td><td>11:40</td></tr>
+        <tr><td>11:16</td><td>11:35</td><td>12:10</td></tr>
+      </table>
+      <p class="small">Die S6 fährt alle 15 Minuten (:01, :16, :31, :46). 11:16 ist die letzte Verbindung, die bis 12:15 ankommt. S2 ab Hbf Gleis 102, an Schorndorf Gl. 1 oder 14.</p>
+    </section>
+
+    <section class="card">
+      <h2>Tickets und Nachmittag</h2>
+      <p class="big">4 Zonen</p>
+      <ul>
+        <li>5 Schüler haben kein VVS-Ticket. Sie klären selbst Gruppenticket oder eigenes Ticket, das müssen 10er selbst schaffen.</li>
+        <li>Alle fahren zurück nach Schorndorf, niemand geht vorher heim.</li>
+        <li>BK (Bildende Kunst) am Nachmittag: Die Mittagsschule soll stattfinden und nicht ausfallen, deshalb die Ankunft bis ca. 12:15. Das ist meine Vermutung, nicht bestätigt.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Zum Abhaken</h2>
+    <ul class="check" id="check">
+      <li><label><input type="checkbox"><span>Ausgedruckte Schülerliste dabei (Anwesenheit vor Ort auf der Liste)</span></label></li>
+      <li><label><input type="checkbox"><span><span class="time">7:35</span>Kiosk Bahnhof Schorndorf: Anwesenheit geprüft</span></label></li>
+      <li><label><input type="checkbox"><span>5 Schüler ohne VVS: Ticket geklärt (4 Zonen)</span></label></li>
+      <li><label><input type="checkbox"><span><span class="time">7:48</span>S2 ab Schorndorf, Gleis 14</span></label></li>
+      <li><label><input type="checkbox"><span><span class="time">8:25</span>Hbf tief, alle ausgestiegen, weiter zu Gleis 102</span></label></li>
+      <li><label><input type="checkbox"><span><span class="time">8:33</span>S6 ab (nicht S4)</span></label></li>
+      <li><label><input type="checkbox"><span><span class="time">8:43</span>Neuwirtshaus (Porscheplatz): alle da</span></label></li>
+      <li><label><input type="checkbox"><span><span class="time">9:15</span>Handys weggeschlossen, Führung beginnt</span></label></li>
+      <li><label><input type="checkbox"><span><span class="time">ca. 10:15</span>Führung zu Ende, alle gezählt, S6 ab Gleis 2</span></label></li>
+      <li><label><input type="checkbox"><span>Alle zurück in Schorndorf (spätestens 12:15)</span></label></li>
+    </ul>
+    <p class="small"><button onclick="resetAll()">Alles zurücksetzen</button> Haken bleiben auf diesem Gerät gespeichert.</p>
+  </section>
+</main>
+<script>
+  const boxes = [...document.querySelectorAll('#check input')];
+  const KEY = 'porsche-2026-10-05-v2';
+  try { const s = JSON.parse(localStorage.getItem(KEY) || '[]'); boxes.forEach((b,i) => b.checked = !!s[i]); } catch(e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(boxes.map(b => b.checked))); } catch(e) {} };
+  boxes.forEach(b => b.addEventListener('change', save));
+  function resetAll() { boxes.forEach(b => b.checked = false); save(); }
+</script>
+</body>
+</html>

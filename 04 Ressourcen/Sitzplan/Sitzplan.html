@@ -460,14 +460,16 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-@page{size:A4 landscape;margin:11mm}
+/* Seitenrand 0: dann hat der Browser keinen Platz für Kopf- und Fußzeile (Dateipfad, Datum, Titel). Den Rand macht body selbst. */
+@page{size:A4 landscape;margin:0}
 @media print{
   :root{
     --bg:#fff; --panel:#fff; --room:#fff; --ink:#000; --ink-2:#333; --ink-3:#555;
     --dot:#e6e6e6; --wall:#000; --desk:#fff; --desk-edge:#000; --teacher:#eee; --chair:#d6d6d6; --divider:#999;
     --window:#bbb; --board-1:#444; --board-2:#333; color-scheme:light;
   }
-  body{display:block;overflow:visible;background:#fff}
+  html,body{margin:0}
+  body{display:block;overflow:visible;background:#fff;padding:11mm}
   .bar,.side,.toast,dialog,.scale,.empty-hint,.canvasbar,.cmp{display:none!important}
   .main{display:block}
   .stage{display:block;padding:0;overflow:visible}
@@ -520,6 +522,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
   <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M9.9 4.2A9 9 0 0 1 12 4c7 0 10 8 10 8a13 13 0 0 1-1.7 2.7"/><path d="M6.6 6.6A13.4 13.4 0 0 0 2 12s3 8 10 8a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="m2 2 20 20"/></symbol>
   <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 11v7"/><path d="m9 15 3 3 3-3"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
 </svg>
 
@@ -547,6 +550,7 @@ dialog::backdrop{background:rgba(0,0,0,.22)}
     <button class="btn tb lb" id="bRoom" title="Raum und Beschriftung"><svg class="i"><use href="#i-room"/></svg><span class="lbl">Raum</span></button>
     <button class="btn tb lb adv" id="bDone" title="Diesen Stand mit Datum im Verlauf speichern"><svg class="i"><use href="#i-check"/></svg><span class="lbl">Fertig</span></button>
     <button class="btn tb lb" id="bPrint" title="Drucken oder als PDF sichern (⌘P). Der Stand landet dabei im Verlauf."><svg class="i"><use href="#i-print"/></svg><span class="lbl">Drucken</span></button>
+    <button class="btn tb lb" id="bPdf" title="Als PDF-Datei speichern, etwa zum Verschicken über iServ"><svg class="i"><use href="#i-pdf"/></svg><span class="lbl">PDF</span></button>
     <div class="more">
       <button class="btn icon tb" id="bMore" aria-haspopup="menu" aria-expanded="false" title="Weitere Befehle" aria-label="Weitere Befehle"><svg class="i"><use href="#i-more"/></svg></button>
       <div class="menu" id="moreMenu" role="menu" hidden>
@@ -2960,22 +2964,38 @@ $('#bDel').addEventListener('click', () => {
 });
 
 /* ---------- Sicherung ---------- */
-$('#bExport').addEventListener('click', () => {
+/* Sichern: In Chrome und Edge fragt ein „Sichern unter“-Fenster nach dem Ort, Chrome merkt sich den Ordner.
+   Browser ohne dieses Fenster (Safari, Firefox) laden die Datei wie bisher in den Download-Ordner. */
+const PICKER_ID = 'sitzplan-sicherung';
+const JSON_TYPE = [{ description: 'Sitzplan-Sicherung', accept: { 'application/json': ['.json'] } }];
+async function exportBackup() {
   const d = new Date(), stamp = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  const blob = new Blob([JSON.stringify({ app: 'sitzplan', version: 1, saved: d.toISOString(), plans: S.plans }, null, 1)], { type: 'application/json' });
+  S.plans.forEach(syncVariant);
+  const text = JSON.stringify({ app: 'sitzplan', version: 1, saved: d.toISOString(), plans: S.plans }, null, 1);
+  const name = `Sitzplaene-${stamp}.json`;
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({ id: PICKER_ID, suggestedName: name, types: JSON_TYPE });
+      const w = await handle.createWritable();
+      await w.write(text); await w.close();
+      S.lastBackup = Date.now(); persist();
+      toast(`Gesichert als „${handle.name}“.`);
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') { toast('Sichern abgebrochen, es wurde nichts gespeichert.'); return; }
+      // anderer Fehler: auf den normalen Download ausweichen
+    }
+  }
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = `Sitzplaene-${stamp}.json`;
+  a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' })); a.download = name;
   document.body.appendChild(a); a.click();
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
   S.lastBackup = Date.now(); persist();
-  toast('Sicherung gespeichert. Leg die Datei in deinen Schulordner.');
-});
-$('#bImportBackup').addEventListener('click', () => $('#backupFile').click());
-$('#backupFile').addEventListener('change', async e => {
-  const file = e.target.files[0]; e.target.value = '';
-  if (!file) return;
+  toast('Gesichert im Download-Ordner. Ein Fenster zum Auswählen des Ordners gibt es nur in Chrome und Edge.');
+}
+function loadBackupText(text) {
   try {
-    const d = JSON.parse(await file.text());
+    const d = JSON.parse(text);
     const plans = Array.isArray(d) ? d : d.plans;
     if (!Array.isArray(plans) || !plans.length) throw 0;
     let n = 0;
@@ -2992,7 +3012,188 @@ $('#backupFile').addEventListener('change', async e => {
     sel.clear(); render();
     toast(n === 1 ? 'Ein Sitzplan geladen.' : `${n} Sitzpläne geladen.`, true);
   } catch (err) { toast('Diese Datei ist keine Sitzplan-Sicherung.'); }
+}
+async function importBackup() {
+  if (window.showOpenFilePicker) {
+    try {
+      const [handle] = await window.showOpenFilePicker({ id: PICKER_ID, types: JSON_TYPE, multiple: false });
+      loadBackupText(await (await handle.getFile()).text());
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
+  }
+  $('#backupFile').click();
+}
+$('#bExport').addEventListener('click', exportBackup);
+$('#bImportBackup').addEventListener('click', importBackup);
+$('#backupFile').addEventListener('change', async e => {
+  const file = e.target.files[0]; e.target.value = '';
+  if (file) loadBackupText(await file.text());
 });
+
+/* ---------- PDF ----------
+   Eigener, kleiner PDF-Schreiber ohne Bibliothek: A4 quer, Vektorgrafik, Schriften Helvetica (in jedem PDF-Leser vorhanden).
+   Sieht aus wie der Ausdruck: keine Wunsch-Markierungen, keine Variante. */
+function nameParts(st, shorts) {
+  const m = S.nameMode, f = st.first || '', l = st.last || '';
+  if (!f) return [l, ''];
+  if (m === 'voll' || !l) return [f, l];
+  const sh = shorts.get(st.id);
+  if (m === 'vorname-n' || (sh && sh.dup)) return [f, sh ? sh.short : l[0] + '.'];
+  return [f, ''];
+}
+// Text in WinAnsi-Bytes umwandeln; Zeichen außerhalb (etwa ş, ğ, ı) ohne Akzent schreiben
+function pdfText(str) {
+  let out = '';
+  for (const ch of String(str)) {
+    let c = ch.codePointAt(0);
+    if (c > 255) {
+      const base = ch.normalize('NFD').replace(/[̀-ͯ]/g, '');
+      const extra = { 'ı': 'i', 'ł': 'l', 'Ł': 'L', 'đ': 'd', 'Đ': 'D', 'œ': 'oe', 'Œ': 'OE', '–': '-', '—': '-', '’': "'", '‘': "'", '“': '"', '„': '"' };
+      const t = extra[ch] || (base.codePointAt(0) <= 255 ? base : '?');
+      out += pdfText(t); continue;
+    }
+    if (ch === '(' || ch === ')' || ch === '\\') out += '\\' + ch;
+    else if (c < 32) out += ' ';
+    else if (c > 126) out += '\\' + c.toString(8).padStart(3, '0');
+    else out += ch;
+  }
+  return out;
+}
+function buildPdf() {
+  const P = cur(), R = P.room, f = flipped();
+  const PW = 842, PH = 595, M = 34;
+  const ctx = document.createElement('canvas').getContext('2d');
+  const tw = (t, size, bold) => { ctx.font = `${bold ? 'bold ' : ''}${size}px Helvetica, Arial, sans-serif`; return ctx.measureText(t).width; };
+  const rgb = hex => { const n = parseInt(hex.replace('#', ''), 16); return [(n >> 16) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255].map(v => v.toFixed(3)).join(' '); };
+  const ops = [];
+  const Y = y => (PH - y).toFixed(2), N = v => v.toFixed(2);
+  const rr = (x, y, w, h, r) => {            // abgerundetes Rechteck als Pfad
+    r = Math.min(r, w / 2, h / 2); const k = r * 0.5523;
+    ops.push(`${N(x + r)} ${Y(y)} m ${N(x + w - r)} ${Y(y)} l ${N(x + w - r + k)} ${Y(y)} ${N(x + w)} ${Y(y + r - k)} ${N(x + w)} ${Y(y + r)} c`
+      + ` ${N(x + w)} ${Y(y + h - r)} l ${N(x + w)} ${Y(y + h - r + k)} ${N(x + w - r + k)} ${Y(y + h)} ${N(x + w - r)} ${Y(y + h)} c`
+      + ` ${N(x + r)} ${Y(y + h)} l ${N(x + r - k)} ${Y(y + h)} ${N(x)} ${Y(y + h - r + k)} ${N(x)} ${Y(y + h - r)} c`
+      + ` ${N(x)} ${Y(y + r)} l ${N(x)} ${Y(y + r - k)} ${N(x + r - k)} ${Y(y)} ${N(x + r)} ${Y(y)} c h`);
+  };
+  const fillStroke = (fill, stroke, lw) => ops.push(`${lw || 1} w ${fill ? rgb(fill) + ' rg ' : ''}${stroke ? rgb(stroke) + ' RG ' : ''}${fill && stroke ? 'B' : fill ? 'f' : 'S'}`);
+  const text = (t, x, y, size, bold, color, align) => {
+    const w = tw(t, size, bold), xx = align === 'center' ? x - w / 2 : align === 'right' ? x - w : x;
+    ops.push(`BT /${bold ? 'F2' : 'F1'} ${N(size)} Tf ${rgb(color || '#111111')} rg ${N(xx)} ${Y(y)} Td (${pdfText(t)}) Tj ET`);
+  };
+  // Kopf
+  const kl = (P.klasse || '').trim(), nr = (R.nr || '').trim(), fach = (P.fach || '').trim();
+  const title = kl ? (/^klasse/i.test(kl) ? kl : 'Klasse ' + kl) : P.name;
+  const sub = [nr ? (/^\d/.test(nr) ? 'Raum ' + nr : nr) : '', P.showFach && fach ? fach : ''].filter(Boolean).join(' · ');
+  text(title, M, M + 16, 18, true, '#111111');
+  if (sub) text(sub, M + tw(title, 18, true) + 12, M + 16, 11, false, '#555555');
+  text(`Stand ${new Date().toLocaleDateString('de-DE')} · ${f ? 'Blick vom Pult, Tafel unten' : 'Blick zur Tafel, Tafel oben'}`, PW - M, M + 14, 9, false, '#555555', 'right');
+  // Maßstab: Raum so groß wie möglich auf die Seite
+  const rest = unplaced(P).sort(byName);
+  const top = M + 34, bottom = PH - M - (rest.length ? 22 : 6);
+  const c = Math.min((PW - 2 * M - 30) / R.w, (bottom - top - 12) / R.h);
+  const ox = (PW - R.w * c) / 2, oy = top + 6;
+  const at = (x, y, w, h) => { const r = scr(R, x, y, w, h); return [ox + r.x * c, oy + r.y * c, r.w * c, r.h * c]; };
+  // Raster und Wände
+  ops.push(`0.86 0.86 0.86 rg`);
+  for (let gx = 1; gx < R.w; gx++) for (let gy = 1; gy < R.h; gy++) ops.push(`${N(ox + gx * c - .35)} ${Y(oy + gy * c + .35)} .7 .7 re f`);
+  rr(ox, oy, R.w * c, R.h * c, 4); fillStroke(null, '#111111', 2);
+  // Fenster und Tür
+  const winSides = R.window === 'beide' ? ['links', 'rechts'] : (R.window === 'links' || R.window === 'rechts') ? [R.window] : [];
+  winSides.forEach(side => { const [x, y, w, h] = at(side === 'links' ? 0.15 : R.w - 0.45, 4, 0.3, R.h - 7); ops.push(`${rgb('#bbbbbb')} rg ${N(x)} ${Y(y + h)} ${N(w)} ${N(h)} re f`); });
+  const D = R.door;
+  if (D && D.wall !== 'none') {
+    const len = 4, pos = clamp(+D.pos || 0, 0, 1);
+    let x, y, w, h;
+    if (D.wall === 'left' || D.wall === 'right') { const yy = Math.round(1 + pos * (R.h - 2 - len)); [x, y, w, h] = at(D.wall === 'left' ? 0 : R.w, yy, 0, len); x -= 2; w = 4; }
+    else { const xx = Math.round(1 + pos * (R.w - 2 - len)); [x, y, w, h] = at(xx, D.wall === 'front' ? 0 : R.h, len, 0); y -= 2; h = 4; }
+    ops.push(`1 1 1 rg ${N(x)} ${Y(y + h)} ${N(w)} ${N(h)} re f`);
+    text('Tür', x + w / 2, y + h / 2 + (w > h ? -6 : 3), 7, false, '#555555', 'center');
+  }
+  // Tafel
+  { const bw = Math.min(16, R.w - 6), [x, y, w, h] = at((R.w - bw) / 2, 0, bw, 0.7);
+    rr(x, y, w, h, 2); fillStroke('#333333'); text('TAFEL', x + w / 2, y + h / 2 + 2.6, 7, true, '#ffffff', 'center'); }
+  // Tische
+  const shorts = lastShort(P), byId = new Map(P.students.map(s => [s.id, s]));
+  const chairAt = (sx, sy, sw, sh, face) => {          // Stuhl hinter dem Platz, wie am Bildschirm
+    const d = .2 * c, t = .6 * c;
+    if (face === 0) return [sx + sw * .24, sy + sh + d, sw * .52, t];
+    if (face === 180) return [sx + sw * .24, sy - d - t, sw * .52, t];
+    if (face === 90) return [sx - d - t, sy + sh * .24, t, sh * .52];
+    return [sx + sw + d, sy + sh * .24, t, sh * .52];
+  };
+  for (const d of P.desks) {
+    const b = box(d), [x, y, w, h] = at(b.x, b.y, b.w, b.h), face = (d.rot + (f ? 180 : 0)) % 360;
+    if (d.type === 'teacher') {
+      const [cx, cy, cw, ch] = chairAt(x, y, w, h, face); rr(cx + cw * .2, cy, cw * .6, ch, ch / 2); fillStroke('#d6d6d6');
+      rr(x, y, w, h, 3); fillStroke('#eeeeee', '#888888', .6);
+      text('Lehrertisch', x + w / 2, y + h / 2 + 3, Math.min(9, c * .45), false, '#555555', 'center');
+      continue;
+    }
+    const n = d.seats.length, horiz = face % 180 === 0, rev = face === 180 || face === 270;
+    const seats = d.seats.map((sid, i) => {
+      const k = rev ? n - 1 - i : i;
+      return horiz ? [x + k * w / n, y, w / n, h, sid] : [x, y + k * h / n, w, h / n, sid];
+    });
+    seats.forEach(([sx, sy, sw, sh]) => { const [cx, cy, cw, ch] = chairAt(sx, sy, sw, sh, face); rr(cx, cy, cw, ch, Math.min(cw, ch) / 2); fillStroke('#d6d6d6'); });
+    rr(x, y, w, h, 3); fillStroke('#ffffff', '#222222', .8);
+    if (n === 2) { ops.push(`${rgb('#bbbbbb')} RG .5 w`); ops.push(horiz ? `${N(x + w / 2)} ${Y(y + 3)} m ${N(x + w / 2)} ${Y(y + h - 3)} l S` : `${N(x + 3)} ${Y(y + h / 2)} m ${N(x + w - 3)} ${Y(y + h / 2)} l S`); }
+    seats.forEach(([sx, sy, sw, sh, sid]) => {
+      const st = sid && byId.get(sid); if (!st) return;
+      const col = gColor(st);
+      if (col) { rr(sx + 2, sy + 2, sw - 4, sh - 4, 2.5); fillStroke(col); }
+      const [l1, l2] = nameParts(st, shorts);
+      let size = Math.min(12, Math.max(6, c * .52));
+      const maxW = sw - 5;
+      while (size > 5 && (tw(l1, size, true) > maxW || (l2 && tw(l2, size * .85, false) > maxW))) size -= .25;
+      const lines = l2 ? 2 : 1, lh = size * 1.12, total = lines === 2 ? size + lh * .85 : size;
+      const ty = sy + sh / 2 - total / 2 + size * .8;
+      text(l1, sx + sw / 2, ty, size, true, '#111111', 'center');
+      if (l2) text(l2, sx + sw / 2, ty + lh * .9, size * .85, false, '#444444', 'center');
+    });
+  }
+  if (rest.length) text('Ohne Platz: ' + rest.map(s => `${s.first} ${s.last}`.trim()).join(', '), M, PH - M, 8, false, '#444444');
+  // Datei zusammensetzen
+  const stream = ops.join('\n');
+  const objs = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>`,
+    `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>',
+    `<< /Title (${pdfText(title)}) /Creator (Sitzplan) >>`
+  ];
+  let pdf = '%PDF-1.4\n%\xE2\xE3\xCF\xD3\n'; const offs = [];
+  objs.forEach((o, i) => { offs.push(pdf.length); pdf += `${i + 1} 0 obj\n${o}\nendobj\n`; });
+  const xref = pdf.length;
+  pdf += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` + offs.map(o => String(o).padStart(10, '0') + ' 00000 n \n').join('');
+  pdf += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R /Info 7 0 R >>\nstartxref\n${xref}\n%%EOF`;
+  const bytes = new Uint8Array(pdf.length);
+  for (let i = 0; i < pdf.length; i++) bytes[i] = pdf.charCodeAt(i) & 255;
+  return { bytes, name: `Sitzplan ${[kl ? (/^klasse/i.test(kl) ? kl : 'Klasse ' + kl) : P.name, nr ? 'Raum ' + nr : ''].filter(Boolean).join(' ')} ${new Date().toISOString().slice(0, 10)}.pdf`.replace(/[\/\\:*?"<>|]/g, '-') };
+}
+async function exportPdf() {
+  if (!cur().desks.some(d => d.type !== 'teacher')) { toast('Es stehen noch keine Tische im Raum.'); return; }
+  const { bytes, name } = buildPdf();
+  addHistory('gedruckt', true);
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({ id: 'sitzplan-pdf', suggestedName: name, types: [{ description: 'PDF', accept: { 'application/pdf': ['.pdf'] } }] });
+      const w = await handle.createWritable(); await w.write(bytes); await w.close();
+      toast(`PDF gespeichert als „${handle.name}“.`);
+      return;
+    } catch (err) {
+      if (err && err.name === 'AbortError') { toast('Abgebrochen, es wurde keine PDF gespeichert.'); return; }
+    }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' })); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+  toast('PDF im Download-Ordner gespeichert.');
+}
+$('#bPdf').addEventListener('click', exportPdf);
 
 /* ---------- Drucken ---------- */
 function doPrint() {

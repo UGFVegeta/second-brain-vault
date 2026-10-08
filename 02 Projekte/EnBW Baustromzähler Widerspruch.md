@@ -1,6 +1,6 @@
 ---
 tags: [admin, strom, enbw, widerspruch]
-status: aktiv
+status: abgeschlossen
 date: 2026-07-22
 ---
 

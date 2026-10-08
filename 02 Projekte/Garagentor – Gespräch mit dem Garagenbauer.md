@@ -1,6 +1,8 @@
 ---
 tags: [projekt, garage]
 status: aktiv
+prio: 2
+thema: Haus
 date: 2026-09-01
 ---
 

@@ -7,120 +7,147 @@
 <style>
   :root {
     --bg: #0e1218; --card: #151a23; --card2: #1c2330; --line: #222a38;
-    --t1: #e8ecf2; --t2: #c6cdd8; --t3: #8b94a3; --t4: #657084;
+    --t1: #e8ecf2; --t2: #c6cdd8; --t3: #8b94a3; --t4: #6f7a8d;
     --blue: #5aa2f0; --purple: #a78bfa; --green: #2dd4a7; --amber: #f0b954;
     --coral: #f28b6b; --yellow: #ffd75e; --pink: #f27ba8; --red: #f0716b;
     --h0: #1c2330; --h1: #14453a; --h2: #177a5c; --h3: #2dd4a7;
     --v0: #1c2330; --v1: #33305e; --v2: #574f9e; --v3: #a78bfa;
+    color-scheme: dark;
   }
   html.light {
     --bg: #eef1f6; --card: #ffffff; --card2: #e9edf3; --line: #dde2ea;
-    --t1: #1c222c; --t2: #3d4654; --t3: #6b7586; --t4: #97a0af;
-    --blue: #2a78d6; --purple: #7c5cd6; --green: #149d76; --amber: #b97f14;
-    --coral: #d86a44; --yellow: #d9a900; --pink: #d4537e; --red: #d84b45;
+    --t1: #1c222c; --t2: #3d4654; --t3: #626c7d; --t4: #7d8797;
+    --blue: #2a78d6; --purple: #7c5cd6; --green: #138a68; --amber: #a86f0c;
+    --coral: #d0603a; --yellow: #b38900; --pink: #d4537e; --red: #d0433d;
     --h0: #e9edf3; --h1: #bfe8d9; --h2: #5fc9a4; --h3: #149d76;
     --v0: #e9edf3; --v1: #ddd6f6; --v2: #ab97e8; --v3: #7c5cd6;
+    color-scheme: light;
   }
   * { box-sizing: border-box; }
+  html { scrollbar-color: var(--line) var(--bg); }
+  ::selection { background: color-mix(in srgb, var(--purple) 35%, transparent); color: var(--t1); }
+  :focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; border-radius: 6px; }
   body {
     margin: 0; background: var(--bg); color: var(--t1);
     font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
-    padding: 26px 20px 60px; line-height: 1.45;
-    transition: background .2s;
+    padding: 28px 20px 60px; line-height: 1.45; font-variant-numeric: tabular-nums;
   }
-  .wrap { max-width: 1120px; margin: 0 auto; }
-  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
-  h1 { font-size: 24px; margin: 0; font-weight: 650; letter-spacing: -.01em; }
-  .stand { font-size: 12.5px; color: var(--t3); }
-  .fresh { font-size: 11px; border-radius: 10px; padding: 2px 10px; margin-left: auto; }
-  .fresh.ok { color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); }
-  .fresh.old { color: var(--amber); background: color-mix(in srgb, var(--amber) 12%, transparent); border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent); }
-  #themeBtn {
-    background: var(--card); color: var(--t2); border: 1px solid var(--line);
-    border-radius: 10px; padding: 4px 12px; font-size: 12.5px; cursor: pointer;
+  a { color: inherit; }
+  .wrap { max-width: 1160px; margin: 0 auto; }
+
+  /* Kopf */
+  header { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .when h1 { font-size: 26px; margin: 0; font-weight: 680; letter-spacing: -.015em; }
+  .when .stand { font-size: 12.5px; color: var(--t3); margin-top: 2px; }
+  .when .stand.old { color: var(--amber); }
+  nav.tools { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  nav.tools a, #themeBtn {
+    font: inherit; font-size: 12.5px; color: var(--t2); text-decoration: none; cursor: pointer;
+    background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 5px 11px;
   }
-  #themeBtn:hover { border-color: var(--t4); }
-  .subtitle { font-size: 12.5px; color: var(--t4); margin: 0 0 14px; }
-  .motto { margin: 0 0 18px; padding: 11px 16px; border: 1px solid var(--line); background: var(--card); border-radius: 12px; font-size: 13.5px; color: var(--t2); font-style: italic; line-height: 1.5; }
-  .motto cite { display: block; margin-top: 6px; font-size: 10.5px; font-style: normal; color: var(--t4); line-height: 1.5; }
+  nav.tools a:hover, #themeBtn:hover { border-color: var(--t4); color: var(--t1); }
+  .motto { margin: 14px 0 20px; font-size: 13px; color: var(--t3); font-style: italic; max-width: 85ch; }
+  .motto cite { font-style: normal; color: var(--t4); font-size: 11.5px; margin-left: 6px; white-space: nowrap; }
 
-  a.mapbtn { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 11px 17px; margin-bottom: 14px; font-size: 13.5px; color: var(--t2); text-decoration: none; }
-  a.mapbtn:hover { border-color: var(--blue); color: var(--t1); }
-  a.mapbtn .arr { margin-left: auto; color: var(--t4); }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
-  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 12px 15px; }
-  .stat .lbl { font-size: 11.5px; color: var(--t3); margin-bottom: 2px; }
-  .stat .val { font-size: 23px; font-weight: 650; letter-spacing: -.01em; }
-  .stat .sub { font-size: 11px; color: var(--t4); }
-
-  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 17px 19px; grid-column: span 3; min-width: 0; }
-  .card.wide { grid-column: 1 / -1; }
-  @media (max-width: 820px) { .card { grid-column: 1 / -1; } body { padding: 18px 12px 50px; } }
-
-  .chead { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
-  .chead .ico { font-size: 16px; }
-  .chead .ct { font-size: 14.5px; font-weight: 650; }
-  .chead .meta { margin-left: auto; font-size: 12px; color: var(--t3); }
-
-  .ev { display: flex; align-items: baseline; gap: 10px; padding: 5px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); }
-  .ev:last-child { border-bottom: none; }
-  .ev .time { color: var(--t4); min-width: 46px; font-variant-numeric: tabular-nums; font-size: 12.5px; flex: none; }
-  .ev .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; align-self: center; }
-  .ev .t { color: var(--t2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ev .cal { margin-left: auto; font-size: 10.5px; color: var(--t4); flex: none; }
-  .dayhead { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 12px 0 3px; font-weight: 600; }
-  .dayhead:first-child { margin-top: 0; }
-  .empty { font-size: 13px; color: var(--t4); font-style: italic; padding: 6px 0; }
-
-  a.proj { display: flex; align-items: center; gap: 10px; padding: 5.5px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--t2); }
-  a.proj:last-of-type { border-bottom: none; }
-  a.proj:hover .t { color: var(--t1); }
-  a.proj .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .pill { font-size: 10.5px; border-radius: 9px; padding: 1px 9px; flex: none; margin-left: auto; }
-  .pill.aktiv { color: var(--green); background: color-mix(in srgb, var(--green) 13%, transparent); }
-  .pill.geplant { color: var(--blue); background: color-mix(in srgb, var(--blue) 13%, transparent); }
-  .pill.idee { color: var(--purple); background: color-mix(in srgb, var(--purple) 13%, transparent); }
-  .pill.pausiert, .pill.unklar { color: var(--amber); background: color-mix(in srgb, var(--amber) 13%, transparent); }
+  /* Karten */
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 18px 20px; min-width: 0; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .stack { margin-top: 12px; }
+  h2 { font-size: 15px; margin: 0; font-weight: 650; letter-spacing: -.005em; }
+  .chead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+  .chead .meta { margin-left: auto; font-size: 12px; color: var(--t3); text-align: right; }
+  .meta.warn, .warn { color: var(--amber); }
+  .empty { font-size: 13px; color: var(--t4); font-style: italic; padding: 4px 0; }
+  .sub { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 14px 0 4px; font-weight: 600; }
+  .sub:first-child { margin-top: 0; }
   .more { font-size: 12px; color: var(--t4); padding-top: 8px; }
+  .linkline { display: inline-block; margin-top: 10px; font-size: 12.5px; color: var(--t3); text-decoration: none; }
+  .linkline:hover { color: var(--t1); }
 
-  .hmwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  @media (max-width: 820px) { .hmwrap { grid-template-columns: 1fr; } }
-  .hm-label { font-size: 12.5px; color: var(--t2); font-weight: 600; margin-bottom: 7px; display: flex; gap: 8px; align-items: baseline; }
-  .hm-label span { font-size: 11px; color: var(--t4); font-weight: 400; }
-  .hm-scroll { overflow-x: auto; }
-  .hm-months { display: grid; grid-auto-flow: column; grid-auto-columns: 14px; gap: 4px; font-size: 9.5px; color: var(--t4); margin-bottom: 3px; width: max-content; }
-  .hm-months span { white-space: nowrap; overflow: visible; }
-  .hm { display: grid; grid-template-rows: repeat(7, 14px); grid-auto-flow: column; grid-auto-columns: 14px; gap: 4px; width: max-content; }
-  .hm div { width: 14px; height: 14px; border-radius: 3.5px; }
-  .legend { display: flex; align-items: center; gap: 4px; font-size: 10.5px; color: var(--t4); margin-top: 7px; }
-  .legend i { width: 10px; height: 10px; border-radius: 2.5px; display: inline-block; }
+  /* Heute-Band */
+  .today { display: grid; grid-template-columns: 1.35fr 1fr 1fr; padding: 0; }
+  .today > div { padding: 18px 20px; min-width: 0; }
+  .today > div + div { border-left: 1px solid var(--line); }
+  .ev { display: grid; grid-template-columns: 52px 8px 1fr auto; gap: 10px; align-items: baseline; padding: 5px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); }
+  .ev:last-child { border-bottom: none; }
+  .ev .time { color: var(--t3); font-size: 12.5px; }
+  .ev .dot { width: 8px; height: 8px; border-radius: 50%; align-self: center; }
+  .ev .t { color: var(--t2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ev .cal { font-size: 10.5px; color: var(--t4); }
+  .ev.past { opacity: .45; }
+  .ev.next .t { color: var(--t1); font-weight: 600; }
+  .ev.next .time { color: var(--blue); font-weight: 600; }
+  .todo { display: flex; gap: 9px; padding: 5px 0; font-size: 13.5px; color: var(--t2); border-bottom: 1px solid var(--line); align-items: baseline; }
+  .todo:last-child { border-bottom: none; }
+  .todo .ring { width: 8px; height: 8px; border: 1.5px solid var(--amber); border-radius: 50%; flex: none; align-self: center; }
+  .todo .lst { color: var(--t4); font-size: 11px; white-space: nowrap; }
+  .todo .due { font-size: 11px; color: var(--amber); white-space: nowrap; }
+  .todo .due.late { color: var(--red); }
+  .vital { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .vital:last-of-type { border-bottom: none; }
+  .vital .l { font-size: 13px; color: var(--t2); }
+  .vital .v { font-size: 19px; font-weight: 650; text-align: right; }
+  .vital .r { font-size: 11.5px; color: var(--t4); grid-column: 1 / -1; margin-top: -2px; }
+  .vital.bad .v, .vital.bad .r b { color: var(--red); }
+  .vital.good .v { color: var(--green); }
+  .vital .r b { font-weight: 600; color: var(--t3); }
+  .verdict { font-size: 12.5px; margin-top: 10px; padding: 7px 10px; border-radius: 9px; background: var(--card2); color: var(--t2); }
+  .verdict.bad { color: var(--red); background: color-mix(in srgb, var(--red) 10%, transparent); }
 
-  .formrow { display: flex; gap: 22px; margin-bottom: 14px; }
-  .formrow .f .lbl { font-size: 11px; color: var(--t3); }
-  .formrow .f .v { font-size: 21px; font-weight: 650; }
-  .wbars { display: flex; align-items: flex-end; gap: 6px; height: 70px; margin: 4px 0 2px; }
-  .wbars .wb { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; min-width: 0; }
-  .wbars .wb i { display: block; background: var(--green); border-radius: 3px 3px 0 0; min-height: 2px; opacity: .55; }
-  .wbars .wb:last-child i { opacity: 1; }
-  .wlbl { display: flex; gap: 6px; font-size: 9.5px; color: var(--t4); margin-bottom: 12px; }
-  .wlbl span { flex: 1; text-align: center; }
-  .act { display: flex; gap: 10px; align-items: baseline; font-size: 13px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+  /* Projekte */
+  .themes { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 6px 26px; }
+  .theme h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 0 0 4px; font-weight: 600; }
+  a.proj { display: flex; align-items: baseline; gap: 8px; padding: 6px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--t2); }
+  a.proj:last-child { border-bottom: none; }
+  a.proj:hover .t { color: var(--t1); }
+  a.proj .t { min-width: 0; flex: 1; }
+  a.proj.p1 .t { color: var(--t1); font-weight: 600; }
+  .badge { font-size: 10.5px; border-radius: 8px; padding: 1px 8px; flex: none; color: var(--purple); background: color-mix(in srgb, var(--purple) 14%, transparent); font-weight: 600; }
+  .dl { font-size: 11px; color: var(--t4); flex: none; white-space: nowrap; }
+  .dl.late { color: var(--red); }
+  details.later { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
+  details.later summary { cursor: pointer; font-size: 12.5px; color: var(--t3); list-style: none; }
+  details.later summary::-webkit-details-marker { display: none; }
+  details.later summary::before { content: "›"; display: inline-block; width: 14px; transition: transform .15s; }
+  details.later[open] summary::before { transform: rotate(90deg); }
+  .laterlist { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 4px 26px; margin-top: 8px; font-size: 12.5px; }
+  .laterlist a { color: var(--t3); text-decoration: none; display: block; padding: 2px 0; }
+  .laterlist a:hover { color: var(--t1); }
+  .laterlist .st { color: var(--t4); font-size: 11px; }
+
+  /* Training & Gesundheit */
+  .formrow { display: flex; gap: 24px; margin-bottom: 12px; }
+  .formrow .lbl { font-size: 11px; color: var(--t3); }
+  .formrow .v { font-size: 21px; font-weight: 650; }
+  .bars { display: flex; align-items: flex-end; gap: 5px; height: 64px; position: relative; }
+  .bars .b { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; min-width: 0; }
+  .bars .b i { display: block; border-radius: 3px 3px 0 0; min-height: 2px; background: var(--green); opacity: .55; }
+  .bars .b:last-child i { opacity: 1; }
+  .bars.sleep { gap: 2px; height: 56px; }
+  .bars.sleep .b i { background: var(--blue); opacity: .7; }
+  .bars.sleep .b.low i { background: var(--red); opacity: .85; }
+  .bars .ref { position: absolute; left: 0; right: 0; border-top: 1px dashed var(--t4); opacity: .6; pointer-events: none; }
+  .bars .ref span { position: absolute; right: 0; top: -15px; font-size: 10px; color: var(--t4); background: var(--card); padding-left: 4px; }
+  .blbl { display: flex; gap: 5px; font-size: 9.5px; color: var(--t4); margin: 3px 0 12px; }
+  .blbl span { flex: 1; text-align: center; }
+  .blbl.ends { justify-content: space-between; }
+  .blbl.ends span { flex: none; }
+  .act { display: grid; grid-template-columns: 44px 56px 1fr auto; gap: 10px; align-items: baseline; font-size: 13px; padding: 4px 0; border-bottom: 1px solid var(--line); }
   .act:last-child { border-bottom: none; }
-  .act .d { color: var(--t4); font-size: 11.5px; min-width: 44px; flex: none; }
-  .act .typ { color: var(--green); font-size: 11.5px; min-width: 66px; flex: none; }
+  .act .d { color: var(--t4); font-size: 11.5px; }
+  .act .typ { color: var(--green); font-size: 11.5px; }
   .act .n { color: var(--t2); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .act .du { margin-left: auto; color: var(--t3); font-size: 12px; flex: none; }
+  .act .du { color: var(--t3); font-size: 12px; }
+  .moods { display: flex; gap: 5px; flex-wrap: wrap; }
+  .mood { width: 38px; text-align: center; border-radius: 8px; background: var(--card2); padding: 4px 0 3px; }
+  .mood b { display: block; font-size: 15px; }
+  .mood span { font-size: 9.5px; color: var(--t4); }
+  .mood.m1 b, .mood.m2 b { color: var(--red); } .mood.m3 b { color: var(--amber); } .mood.m4 b, .mood.m5 b { color: var(--green); }
+  .kv { display: flex; gap: 22px; flex-wrap: wrap; font-size: 12.5px; color: var(--t3); margin-bottom: 12px; }
+  .kv b { color: var(--t1); font-size: 17px; font-weight: 650; display: block; }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-  .chip { font-size: 12px; border-radius: 10px; padding: 3px 11px; border: 1px solid var(--line); color: var(--t2); background: var(--card2); }
-  .chip b { font-weight: 600; color: var(--amber); }
-  .chip.yr { font-size: 11px; color: var(--t3); }
-  a.linkbtn { display: flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 10px; font-size: 13px; color: var(--t2); text-decoration: none; margin-top: 6px; background: var(--card2); }
-  a.linkbtn:hover { border-color: var(--amber); color: var(--t1); }
-  a.linkbtn .arr { margin-left: auto; color: var(--t4); font-size: 12px; }
-
-  .book { display: grid; grid-template-columns: 34px 1fr 52px; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  /* Lesen */
+  .book { display: grid; grid-template-columns: 34px 1fr 46px; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); }
   .book:last-of-type { border-bottom: none; }
   .book img { width: 34px; height: 50px; object-fit: cover; border-radius: 4px; background: var(--card2); }
   .book .t { font-size: 13px; color: var(--t2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -128,124 +155,112 @@
   .book .track { height: 5px; background: var(--card2); border-radius: 3px; margin-top: 5px; }
   .book .fill { height: 5px; background: var(--coral); border-radius: 3px; }
   .book .pct { font-size: 13px; font-weight: 650; color: var(--coral); text-align: right; }
-  .btnrow { display: flex; gap: 8px; margin-top: 12px; }
-  .btnrow a { flex: 1; text-align: center; font-size: 12.5px; color: var(--t2); text-decoration: none; border: 1px solid var(--line); border-radius: 10px; padding: 6px 4px; background: var(--card2); }
-  .btnrow a:hover { border-color: var(--coral); }
 
-  .dailywrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px; }
-  @media (max-width: 820px) { .dailywrap { grid-template-columns: 1fr; } }
-  .dailywrap h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 0 0 8px; font-weight: 600; }
-  .todo { display: flex; gap: 9px; padding: 5px 0; font-size: 13.5px; color: var(--t2); border-bottom: 1px solid var(--line); align-items: baseline; }
-  .todo:last-child { border-bottom: none; }
-  .todo .ring { width: 8px; height: 8px; border: 1.5px solid var(--amber); border-radius: 50%; flex: none; align-self: center; }
-  a.dnote { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--t2); }
-  a.dnote:last-child { border-bottom: none; }
-  a.dnote:hover .dd { color: var(--t1); }
-  a.dnote .dd { font-variant-numeric: tabular-nums; }
-  a.dnote .info { margin-left: auto; font-size: 11.5px; color: var(--t4); }
-  .pvgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 10px 12px; margin-bottom: 6px; }
-  .pv .lbl { font-size: 11px; color: var(--t3); }
-  .pv .v { font-size: 18px; font-weight: 650; }
-  .pvh { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); margin: 10px 0 7px; font-weight: 600; }
-  .pvh:first-child { margin-top: 0; }
-  .pvlive { font-size: 11.5px; color: var(--t4); margin-top: 8px; border-top: 1px solid var(--line); padding-top: 8px; }
+  /* PV */
+  table.pv { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.pv th { font-size: 11px; color: var(--t4); font-weight: 500; text-align: right; padding: 0 0 6px 8px; }
+  table.pv th:first-child, table.pv td:first-child { text-align: left; padding-left: 0; }
+  table.pv td { text-align: right; padding: 7px 0 7px 8px; border-top: 1px solid var(--line); color: var(--t2); white-space: nowrap; }
+  table.pv td:first-child { color: var(--t3); }
+  table.pv .prod { color: var(--yellow); font-weight: 650; }
+  table.pv .good { color: var(--green); font-weight: 650; }
+  .pvlive { font-size: 12px; color: var(--t4); margin-top: 10px; }
+
+  /* Schule & Notes */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .chip { font-size: 12px; border-radius: 9px; padding: 3px 10px; border: 1px solid var(--line); color: var(--t2); background: var(--card2); }
+  .chip b { font-weight: 600; color: var(--amber); }
+  .chip.yr { font-size: 11px; color: var(--t3); }
+  a.lrow { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--t2); }
+  a.lrow:last-child { border-bottom: none; }
+  a.lrow:hover { color: var(--t1); }
+  a.lrow .info { margin-left: auto; font-size: 11.5px; color: var(--t4); }
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+
+  /* Heatmaps */
+  .hmwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .hm-label { font-size: 12.5px; color: var(--t2); font-weight: 600; margin-bottom: 7px; display: flex; gap: 8px; align-items: baseline; }
+  .hm-label span { font-size: 11px; color: var(--t4); font-weight: 400; }
+  .hm-scroll { overflow-x: auto; }
+  .hm-months { display: grid; grid-auto-flow: column; grid-auto-columns: 13px; gap: 4px; font-size: 9.5px; color: var(--t4); margin-bottom: 3px; width: max-content; }
+  .hm-months span { white-space: nowrap; overflow: visible; }
+  .hm { display: grid; grid-template-rows: repeat(7, 13px); grid-auto-flow: column; grid-auto-columns: 13px; gap: 4px; width: max-content; }
+  .hm div { width: 13px; height: 13px; border-radius: 3px; }
+
   #tip { position: fixed; z-index: 50; background: var(--card2); border: 1px solid var(--line); color: var(--t1); font-size: 12px; padding: 5px 10px; border-radius: 8px; pointer-events: none; display: none; max-width: 340px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
-  .soctrack { height: 7px; background: var(--card2); border-radius: 4px; margin-top: 6px; }
-  .socfill { height: 7px; background: var(--yellow); border-radius: 4px; }
-  .err { font-size: 12.5px; color: var(--amber); }
+  footer { max-width: 1160px; margin: 24px auto 0; font-size: 11.5px; color: var(--t4); line-height: 1.7; }
 
-  footer { max-width: 1120px; margin: 26px auto 0; font-size: 11.5px; color: var(--t4); line-height: 1.7; }
-  footer .warn { color: var(--amber); }
+  @media (max-width: 900px) {
+    .today { grid-template-columns: 1fr; }
+    .today > div + div { border-left: none; border-top: 1px solid var(--line); }
+    .row, .notes, .hmwrap { grid-template-columns: 1fr; }
+    nav.tools { margin-left: 0; }
+  }
+  @media (max-width: 520px) {
+    body { padding: 18px 12px 50px; }
+    .ev { grid-template-columns: 46px 8px 1fr; }
+    .ev .cal { display: none; }
+    table.pv th:nth-child(4), table.pv td:nth-child(4) { display: none; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>Oskars Dashboard</h1>
-    <span class="stand" id="stand"></span>
-    <span class="fresh ok" id="fresh"></span>
-    <button id="themeBtn">Hell</button>
+    <div class="when">
+      <h1 id="datum">Dashboard</h1>
+      <div class="stand" id="stand"></div>
+    </div>
+    <nav class="tools">
+      <a href="Unterrichtsvorbereitung.html" target="_blank">Unterrichtsvorbereitung</a>
+      <a href="Trainings-Kalender.html" target="_blank">Trainings-Kalender</a>
+      <a href="Lese-Dashboard.html" target="_blank">Lese-Dashboard</a>
+      <a href="Wissenskarte.html" target="_blank">Wissenskarte</a>
+      <button id="themeBtn" type="button">Hell</button>
+    </nav>
   </header>
-  <p class="subtitle">Kalender · Vault · intervals.icu · Kindle · Kostal · GDRS iCloud</p>
 
-  <blockquote class="motto">
-    „Der Lernprozess verläuft gründlicher und nachhaltiger, wenn er Mühe macht. Müheloses Lernen ist, wie in den Sand zu schreiben – heute ist es da, morgen verschwunden."
-    <cite>Peter C. Brown, Henry L. Roediger III &amp; Mark A. McDaniel: <i>Das merk ich mir! Erfolgreich lernen und für immer behalten mit der Make-it-stick-Methode</i>. Aus dem Englischen von Imke Brodersen. München: Goldmann, 2019, Kindle-Position 111. Englisches Original: <i>Make It Stick. The Science of Successful Learning</i>. Cambridge, MA: Belknap Press of Harvard University Press, 2014.</cite>
-  </blockquote>
+  <p class="motto">„Der Lernprozess verläuft gründlicher und nachhaltiger, wenn er Mühe macht.“<cite>Brown, Roediger, McDaniel: Das merk ich mir!</cite></p>
 
-  <div class="stats" id="stats"></div>
+  <section class="card today">
+    <div><div class="chead"><h2>Termine</h2><span class="meta" id="kalMeta"></span></div><div id="kalBody"></div></div>
+    <div><div class="chead"><h2>Erinnerungen</h2><span class="meta" id="remMeta"></span></div><div id="remBody"></div></div>
+    <div><div class="chead"><h2>Verfassung</h2><span class="meta" id="vitMeta"></span></div><div id="vitBody"></div></div>
+  </section>
 
-  <a class="mapbtn" href="Wissenskarte.html" target="_blank">🗺️ <b>Wissenskarte</b> – alle Notizen als interaktive Karte mit Suche und Vorschau <span class="arr">→</span></a>
-  <a class="mapbtn" href="Unterrichtsvorbereitung.html" target="_blank">📚 <b>Unterrichtsvorbereitung</b> – Physik, Mathe, Sport: erst das Fach, dann die Klasse mit allen Stunden <span class="arr">→</span></a>
-  <a class="mapbtn" href="Bildungs-Dashboard.html" target="_blank">🎓 <b>Bildungs-Dashboard</b> – Physik 7c/10, Mathe 7c, Stunden mit Status und Material <span class="arr">→</span></a>
+  <section class="card stack">
+    <div class="chead"><h2>Projekte</h2><span class="meta" id="projMeta"></span></div>
+    <div id="projBody"></div>
+  </section>
 
-  <div class="grid">
-    <section class="card" id="cardKal">
-      <div class="chead"><span class="ico">📅</span><span class="ct">Heute &amp; morgen</span><span class="meta" id="kalMeta"></span></div>
-      <div id="kalBody"></div>
-    </section>
-
-    <section class="card" id="cardProj">
-      <div class="chead"><span class="ico">🎯</span><span class="ct">Projekte</span><span class="meta" id="projMeta"></span></div>
-      <div id="projBody"></div>
-    </section>
-
-    <section class="card" id="cardBereiche">
-      <div class="chead"><span class="ico">🔄</span><span class="ct">Bereiche</span><span class="meta">laufende Themen</span></div>
-      <div id="bereicheBody"></div>
-    </section>
-
-    <section class="card" id="cardWissen">
-      <div class="chead"><span class="ico">🗂️</span><span class="ct">Wissen</span><span class="meta">Ressourcen &amp; Material</span></div>
-      <div id="wissenBody"></div>
-    </section>
-
-    <section class="card wide">
-      <div class="chead"><span class="ico">🔥</span><span class="ct">Aktivität der letzten 20 Wochen</span><span class="meta">zeigen mit der Maus Details</span></div>
-      <div class="hmwrap">
-        <div class="hm-block">
-          <div class="hm-label">Training <span>intervals.icu</span></div>
-          <div class="hm-scroll"><div class="hm-months" id="moTrain"></div><div class="hm" id="hmTrain"></div></div>
-          <div class="legend">weniger <i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i> mehr</div>
-        </div>
-        <div class="hm-block">
-          <div class="hm-label">Vault &amp; Notizen <span>bearbeitete Notizen und Git-Commits</span></div>
-          <div class="hm-scroll"><div class="hm-months" id="moVault"></div><div class="hm" id="hmVault"></div></div>
-          <div class="legend">weniger <i style="background:var(--v0)"></i><i style="background:var(--v1)"></i><i style="background:var(--v2)"></i><i style="background:var(--v3)"></i> mehr</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="chead"><span class="ico">🏊🚴🏃</span><span class="ct">Training</span><span class="meta" id="trainMeta"></span></div>
-      <div id="trainBody"></div>
-    </section>
-
-    <section class="card">
-      <div class="chead"><span class="ico">❤️</span><span class="ct">Gesundheit</span><span class="meta" id="gesMeta"></span></div>
-      <div id="gesBody"></div>
-    </section>
-
-    <section class="card">
-      <div class="chead"><span class="ico">🏫</span><span class="ct">Schule</span><span class="meta" id="schuleMeta"></span></div>
-      <div id="schuleBody"></div>
-    </section>
-
-    <section class="card">
-      <div class="chead"><span class="ico">📚</span><span class="ct">Lesen</span><span class="meta" id="lesenMeta"></span></div>
-      <div id="lesenBody"></div>
-    </section>
-
-    <section class="card">
-      <div class="chead"><span class="ico">☀️</span><span class="ct">PV-Anlage</span><span class="meta" id="pvMeta"></span></div>
-      <div id="pvBody"></div>
-    </section>
-
-    <section class="card wide">
-      <div class="chead"><span class="ico">📓</span><span class="ct">Daily Notes</span><span class="meta" id="dailyMeta"></span></div>
-      <div class="dailywrap" id="dailyBody"></div>
-    </section>
+  <div class="row">
+    <section class="card"><div class="chead"><h2>Training</h2><span class="meta" id="trainMeta"></span></div><div id="trainBody"></div></section>
+    <section class="card"><div class="chead"><h2>Schlaf &amp; Gewicht</h2><span class="meta" id="gesMeta"></span></div><div id="gesBody"></div></section>
   </div>
+
+  <div class="row">
+    <section class="card"><div class="chead"><h2>Lesen</h2><span class="meta" id="lesenMeta"></span></div><div id="lesenBody"></div></section>
+    <section class="card"><div class="chead"><h2>PV-Anlage</h2><span class="meta" id="pvMeta"></span></div><div id="pvBody"></div></section>
+  </div>
+
+  <div class="row">
+    <section class="card"><div class="chead"><h2>Schule</h2><span class="meta">GDRS iCloud</span></div><div id="schuleBody"></div></section>
+    <section class="card"><div class="chead"><h2>Daily Notes</h2><span class="meta" id="dailyMeta"></span></div><div id="dailyBody"></div></section>
+  </div>
+
+  <section class="card stack">
+    <div class="chead"><h2>Aktivität der letzten 20 Wochen</h2><span class="meta">Maus drüber zeigt Details</span></div>
+    <div class="hmwrap">
+      <div>
+        <div class="hm-label">Training <span>intervals.icu</span></div>
+        <div class="hm-scroll"><div class="hm-months" id="moTrain"></div><div class="hm" id="hmTrain"></div></div>
+      </div>
+      <div>
+        <div class="hm-label">Vault <span>bearbeitete Notizen und Commits</span></div>
+        <div class="hm-scroll"><div class="hm-months" id="moVault"></div><div class="hm" id="hmVault"></div></div>
+      </div>
+    </div>
+  </section>
 </div>
 <div id="tip"></div>
 <footer id="foot"></footer>
@@ -256,68 +271,32 @@
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const WD = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const WDL = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 const MON = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
-const fmtD = iso => { const d = new Date(iso + "T12:00"); return `${WD[d.getDay()]} ${String(d.getDate()).padStart(2,"0")}.${String(d.getMonth()+1).padStart(2,"0")}.`; };
-const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; };
+const MONL = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+const pad = n => String(n).padStart(2, "0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const fmtD = s => { const d = new Date(s + "T12:00"); return `${WD[d.getDay()]} ${pad(d.getDate())}.${pad(d.getMonth() + 1)}.`; };
+const fmtShort = s => { const d = new Date(s + "T12:00"); return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.`; };
+const dayDiff = s => Math.round((new Date(s + "T12:00") - new Date(iso(new Date()) + "T12:00")) / 864e5);
+const num = (x, d = 1) => x == null ? "–" : Number(x).toLocaleString("de-DE", { maximumFractionDigits: d });
+const signed = x => x == null ? "–" : (x > 0 ? "+" : "") + num(x);
+const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f.replace(/\.md$/, ""));
+const empty = t => `<div class="empty">${esc(t)}</div>`;
 
 // Theme
 const applyTheme = t => {
   document.documentElement.classList.toggle("light", t === "light");
   $("themeBtn").textContent = t === "light" ? "Dunkel" : "Hell";
 };
-let theme = localStorage.getItem("leben-theme") || "dark";
+let theme = "dark";
+try { theme = localStorage.getItem("leben-theme") || "dark"; } catch (e) {}
 applyTheme(theme);
-$("themeBtn").onclick = () => { theme = theme === "light" ? "dark" : "light"; localStorage.setItem("leben-theme", theme); applyTheme(theme); };
-
-function render(L) {
-  const today = todayISO();
-
-  // Kopf
-  const gen = new Date(L.generated);
-  const ageH = (Date.now() - gen.getTime()) / 36e5;
-  $("stand").textContent = `Stand: ${WD[gen.getDay()]} ${String(gen.getDate()).padStart(2,"0")}.${String(gen.getMonth()+1).padStart(2,"0")}. · ${String(gen.getHours()).padStart(2,"0")}:${String(gen.getMinutes()).padStart(2,"0")} Uhr`;
-  const fresh = $("fresh");
-  if (ageH < 20) { fresh.textContent = "aktuell"; fresh.className = "fresh ok"; }
-  else { fresh.textContent = `${Math.round(ageH)} h alt`; fresh.className = "fresh old"; }
-
-  // Statzeile
-  const kal = L.kalender || [];
-  const termineHeute = kal.filter(e => e.d === today && e.cal !== "Feiertage").length;
-  const projAktiv = (L.projekte || []).filter(p => p.status === "aktiv");
-  const tsb = L.training ? L.training.tsb : null;
-  const tsbWord = tsb == null ? "" : (tsb > 5 ? "frisch" : (tsb < -15 ? "müde" : "neutral"));
-  const weekH = L.training && L.training.weeks.length ? L.training.weeks[L.training.weeks.length-1].h : null;
-  const angef = (L.lesen || []).filter(b => b.pct != null && b.pct > 0 && b.pct < 100).length;
-  const stats = [
-    ["Termine heute", termineHeute, "", "var(--blue)"],
-    ["Aktive Projekte", projAktiv.length, "", "var(--purple)"],
-    ["Form (TSB)", tsb == null ? "–" : (tsb > 0 ? "+" : "") + tsb, tsbWord, "var(--green)"],
-    ["Diese Woche", weekH == null ? "–" : weekH + " h", "Training", "var(--green)"],
-    ["Bücher angefangen", angef, "", "var(--coral)"],
-    ["Inbox", L.vault ? L.vault.inbox : "–", "unsortierte Notizen", "var(--amber)"],
-  ];
-  $("stats").innerHTML = stats.map(([l, v, s, c]) =>
-    `<div class="stat"><div class="lbl">${l}</div><div class="val" style="color:${c}">${v}</div>${s ? `<div class="sub">${s}</div>` : ""}</div>`).join("");
-
-  renderKalender(kal, today);
-  renderProjekte(L.projekte || []);
-  renderNav();
-  if (L.training) renderHeat($("hmTrain"), d => trainLevel(L.training.heat[d]), d => trainTip(d, L.training.heat[d]), ["--h0","--h1","--h2","--h3"]);
-  if (L.vault) renderHeat($("hmVault"), d => vaultLevel(L.vault.heat[d]), d => vaultTip(d, L.vault.heat[d]), ["--v0","--v1","--v2","--v3"]);
-  renderTraining(L.training);
-  renderGesundheit(L.gesundheit);
-  renderSchule(L.schule);
-  renderLesen(L.lesen || []);
-  renderPV(L.pv);
-  renderDailies(L.vault);
-
-  // Fußzeile
-  const errs = Object.keys(L.errors || {});
-  $("foot").innerHTML =
-    (errs.length ? `<div class="warn">⚠️ Beim letzten Refresh ohne Daten: ${errs.map(esc).join(", ")} (${esc(Object.values(L.errors).join(" · "))})</div>` : "") +
-    `Aktualisieren: läuft automatisch jeden Morgen, oder Doppelklick auf „Lebens-Dashboard aktualisieren.command" in 04 Ressourcen. ` +
-    `Serientermine zeigt der Kalender-Export nur eingeschränkt. Lesestand aus dem Lese-Dashboard, Klick auf Projekte öffnet Obsidian.`;
-}
+$("themeBtn").onclick = () => {
+  theme = theme === "light" ? "dark" : "light";
+  try { localStorage.setItem("leben-theme", theme); } catch (e) {}
+  applyTheme(theme);
+};
 
 function calColor(c) {
   const m = { "Privat": "var(--blue)", "Arbeit": "var(--purple)", "Familie": "var(--pink)",
@@ -326,57 +305,218 @@ function calColor(c) {
   return m[c] || "var(--t4)";
 }
 
-function renderKalender(kal, today) {
-  const tomorrow = (() => { const d = new Date(); d.setDate(d.getDate()+1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; })();
-  let html = "";
-  for (const [d, label] of [[today, "Heute"], [tomorrow, "Morgen"]]) {
+function renderKopf(L) {
+  const now = new Date();
+  $("datum").textContent = `${WDL[now.getDay()]}, ${now.getDate()}. ${MONL[now.getMonth()]}`;
+  const gen = new Date(L.generated);
+  const sameDay = iso(gen) === iso(now);
+  const t = `${pad(gen.getHours())}:${pad(gen.getMinutes())} Uhr`;
+  $("stand").textContent = sameDay ? `Daten von heute, ${t}` : `Daten vom ${fmtD(iso(gen))}, ${t}. Refresh fehlt`;
+  $("stand").classList.toggle("old", !sameDay);
+}
+
+function renderKalender(kal) {
+  const now = new Date();
+  const today = iso(now);
+  const tm = new Date(now); tm.setDate(tm.getDate() + 1);
+  const hhmm = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  let nextMarked = false, html = "";
+  for (const [d, label] of [[today, "Heute"], [iso(tm), "Morgen"]]) {
     const evs = kal.filter(e => e.d === d);
-    html += `<div class="dayhead">${label} · ${fmtD(d)}</div>`;
-    if (!evs.length) { html += '<div class="empty">keine Termine</div>'; continue; }
-    html += evs.map(e => `<div class="ev"><span class="time">${e.allday ? "ganztags" : e.s}</span><span class="dot" style="background:${calColor(e.cal)}"></span><span class="t">${esc(e.t)}</span><span class="cal">${esc(e.cal === "Jahresterminplanung / DieWo" ? "DieWo" : e.cal)}</span></div>`).join("");
+    html += `<div class="sub">${label}, ${fmtD(d)}</div>`;
+    if (!evs.length) { html += empty("keine Termine"); continue; }
+    html += evs.map(e => {
+      let cls = "";
+      if (d === today && !e.allday) {
+        if ((e.e || e.s) < hhmm) cls = "past";
+        else if (!nextMarked) { cls = "next"; nextMarked = true; }
+      }
+      const cal = e.cal === "Jahresterminplanung / DieWo" ? "DieWo" : e.cal;
+      return `<div class="ev ${cls}"><span class="time">${e.allday ? "ganztags" : e.s}</span><span class="dot" style="background:${calColor(e.cal)}"></span><span class="t" title="${esc(e.t)}">${esc(e.t)}</span><span class="cal">${esc(cal)}</span></div>`;
+    }).join("");
   }
   $("kalBody").innerHTML = html;
-  $("kalMeta").textContent = "";
+  const n = kal.filter(e => e.d === today && e.cal !== "Feiertage").length;
+  $("kalMeta").textContent = n ? `${n} heute` : "";
+}
+
+function renderErinnerungen(rem, vault) {
+  if (!rem) { $("remBody").innerHTML = empty("Erinnerungen nicht erreichbar"); return; }
+  if (!rem.length) { $("remBody").innerHTML = empty("nichts offen"); }
+  else {
+    const sorted = rem.map((r, i) => ({ ...r, i, dd: r.due ? dayDiff(r.due) : 999 }))
+      .sort((a, b) => (a.dd - b.dd) || (a.i - b.i));
+    const show = sorted.slice(0, 7);
+    $("remBody").innerHTML = show.map(r => {
+      const due = !r.due ? "" : r.dd < 0 ? `<span class="due late">überfällig</span>` : r.dd === 0 ? `<span class="due">heute</span>` : r.dd === 1 ? `<span class="due">morgen</span>` : `<span class="lst">${fmtShort(r.due)}</span>`;
+      return `<div class="todo"><span class="ring"></span><span>${esc(r.t)} <span class="lst">${esc(r.liste)}</span> ${due}</span></div>`;
+    }).join("") + (rem.length > show.length ? `<div class="more">+${rem.length - show.length} weitere in Erinnerungen</div>` : "");
+  }
+  const inbox = vault ? vault.inbox : 0;
+  $("remMeta").textContent = inbox ? `Vault-Inbox: ${inbox}` : "";
+}
+
+function renderVerfassung(g, t) {
+  if (!g && !t) { $("vitBody").innerHTML = empty("intervals.icu nicht erreichbar"); return; }
+  const h = (g && g.heute) || {}, b = (g && g.basis) || {};
+  const rows = [];
+  let bad = 0;
+  if (g) {
+    const rhrBad = h.rhr != null && b.rhr != null && h.rhr >= b.rhr + 3;
+    const hrvBad = h.hrv != null && b.hrv != null && h.hrv < b.hrv * 0.85;
+    const slBad = g.sleep14 != null && g.sleep14 < 6.5;
+    bad += rhrBad + hrvBad + slBad;
+    rows.push([rhrBad, "Ruhepuls", h.rhr ?? "–", `Basis <b>${num(b.rhr, 0)}</b>${rhrBad ? ", erhöht" : ""}`]);
+    rows.push([hrvBad, "HRV", h.hrv != null ? Math.round(h.hrv) : "–", `Basis <b>${num(b.hrv, 0)}</b>${hrvBad ? ", deutlich darunter" : ""}`]);
+    rows.push([slBad, "Schlaf Ø 14 Tage", g.sleep14 != null ? num(g.sleep14) + " h" : "–", `letzte Nacht <b>${h.sleep != null ? num(h.sleep) + " h" : "–"}</b>${slBad ? ", zu wenig" : ""}`]);
+  }
+  if (t && t.tsb != null) {
+    const w = t.tsb > 5 ? "frisch, Belastung möglich" : (t.tsb < -15 ? "müde, Erholung einplanen" : "im Trainingsbereich");
+    rows.push([t.tsb < -15 ? true : (t.tsb > 5 ? "good" : false), "Form (TSB)", signed(t.tsb), w]);
+  }
+  const bef = g && g.befinden && g.befinden[0];
+  const befHeute = bef && bef.d === iso(new Date()) && bef.b;
+  $("vitBody").innerHTML = rows.map(([s, l, v, r]) =>
+    `<div class="vital ${s === "good" ? "good" : s ? "bad" : ""}"><span class="l">${l}</span><span class="v">${v}</span><span class="r">${r}</span></div>`).join("") +
+    `<div class="verdict ${bad ? "bad" : ""}">${bad ? `${bad} Wert${bad > 1 ? "e" : ""} auffällig` : "keine Auffälligkeiten"}${befHeute ? `, Befinden heute ${bef.b} von 5` : ", Befinden heute noch nicht eingetragen"}</div>`;
+  $("vitMeta").textContent = "";
 }
 
 function renderProjekte(alle) {
-  const rank = { aktiv: 0, geplant: 1, idee: 2, pausiert: 3 };
-  const aktiv = alle.filter(p => p.status === "aktiv");
-  const andere = alle.filter(p => p.status in rank && p.status !== "aktiv")
-                     .sort((a, b) => rank[a.status] - rank[b.status]);
-  const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f.replace(/\.md$/, ""));
-  const row = p => `<a class="proj" href="${obs(p.file)}"><span class="t">${esc(p.name)}</span><span class="pill ${esc(p.status)}">${esc(p.status)}</span></a>`;
-  $("projBody").innerHTML = aktiv.map(row).join("") +
-    (andere.length ? `<div class="more">geplant · pausiert · Ideen</div>` + andere.map(row).join("") : "");
-  $("projMeta").textContent = `${aktiv.length} aktiv`;
+  const LIMIT = 10;
+  const ORDER = ["Karriere", "Schule", "Haus", "Finanzen", "Nebenprojekte"];
+  const tIdx = th => { const i = ORDER.indexOf(th); return i < 0 ? ORDER.length : i; };
+  const offen = alle.filter(p => ["aktiv", "geplant", "idee", "pausiert", "unklar"].includes(p.status));
+  const kandidaten = offen.filter(p => p.status === "aktiv" && (p.prio === 1 || p.prio === 2))
+    .sort((a, b) => (a.prio - b.prio) || (tIdx(a.thema) - tIdx(b.thema)) || a.name.localeCompare(b.name, "de"));
+  const sichtbar = kandidaten.slice(0, LIMIT);
+  const spaeter = offen.filter(p => !sichtbar.includes(p))
+    .sort((a, b) => (tIdx(a.thema) - tIdx(b.thema)) || a.name.localeCompare(b.name, "de"));
+
+  const gruppen = {};
+  for (const p of sichtbar) (gruppen[p.thema || "Ohne Thema"] ||= []).push(p);
+  const themen = Object.keys(gruppen).sort((a, b) => tIdx(a) - tIdx(b));
+  const dl = p => {
+    if (!p.deadline) return "";
+    const dd = dayDiff(p.deadline);
+    return dd < 0 ? `<span class="dl late">seit ${fmtShort(p.deadline)} überfällig</span>` : `<span class="dl">bis ${fmtShort(p.deadline)}</span>`;
+  };
+  const row = p => `<a class="proj ${p.prio === 1 ? "p1" : ""}" href="${obs(p.file)}"><span class="t">${esc(p.name)}</span>${dl(p)}${p.prio === 1 ? '<span class="badge">Fokus</span>' : ""}</a>`;
+
+  let html = sichtbar.length
+    ? `<div class="themes">${themen.map(th => `<div class="theme"><h3>${esc(th)}</h3>${gruppen[th].map(row).join("")}</div>`).join("")}</div>`
+    : empty("Noch keine Projekte mit prio 1 oder 2. Im Frontmatter eintragen: prio: 1 und thema: …");
+  if (spaeter.length) {
+    const st = p => p.status === "aktiv" ? (p.prio ? "" : " · ohne prio") : ` · ${p.status}`;
+    html += `<details class="later"><summary>Später und ohne Priorität (${spaeter.length})</summary><div class="laterlist">${
+      spaeter.map(p => `<a href="${obs(p.file)}">${esc(p.name)}<span class="st">${p.thema ? " · " + esc(p.thema) : ""}${st(p)}</span></a>`).join("")}</div></details>`;
+  }
+  $("projBody").innerHTML = html;
+  const n1 = sichtbar.filter(p => p.prio === 1).length;
+  $("projMeta").textContent = `${n1} im Fokus · ${sichtbar.length - n1} laufen nebenher`;
 }
 
-function renderNav() {
-  const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f);
-  const bereiche = [
-    ["Familie", "03 Bereiche/Familie/Familie"],
-    ["Finanzen", "03 Bereiche/Finanzen/Finanzen"],
-    ["Führung & Schulentwicklung", "03 Bereiche/Führung & Schulentwicklung/Führung & Schulentwicklung"],
-    ["Gesundheit & Longevity", "03 Bereiche/Gesundheit & Longevity/Gesundheit & Longevity"],
-    ["Haus & Garten", "03 Bereiche/Haus & Garten/Haus & Garten"],
-    ["Schule & Unterricht", "03 Bereiche/Schule & Unterricht/Schule & Unterricht"],
-    ["Sport & Triathlon", "03 Bereiche/Sport & Triathlon/Sport & Triathlon"],
-    ["Weiterbildung", "03 Bereiche/Weiterbildung/Weiterbildung"],
-  ];
-  const wissen = [
-    ["Bücher & Learnings", "04 Ressourcen/Bücher & Learnings/Bücher & Learnings"],
-    ["Wiki", "04 Ressourcen/Wiki/Wiki"],
-    ["Physik", "04 Ressourcen/Physik/Physik"],
-    ["Mathematik", "04 Ressourcen/Mathematik/Mathematik"],
-    ["KI & Digitalisierung", "04 Ressourcen/KI & Digitalisierung/KI & Digitalisierung"],
-    ["Führung & Management", "04 Ressourcen/Führung & Management/Führung & Management"],
-    ["Triathlon & Training", "04 Ressourcen/Triathlon & Training/Triathlon & Training"],
-    ["Lernwissenschaft & Pädagogik", "04 Ressourcen/Lernwissenschaft & Pädagogik/Lernwissenschaft & Pädagogik"],
-    ["Energie & Klimapolitik", "04 Ressourcen/Energie & Klimapolitik/Energie & Klimapolitik"],
-  ];
-  const row = ([name, file]) => `<a class="proj" href="${obs(file)}"><span class="t">${esc(name)}</span></a>`;
-  $("bereicheBody").innerHTML = bereiche.map(row).join("");
-  $("wissenBody").innerHTML = wissen.map(row).join("");
+function renderTraining(t) {
+  if (!t) { $("trainBody").innerHTML = empty("intervals.icu nicht erreichbar"); return; }
+  const maxH = Math.max(...t.weeks.map(w => w.h), 1);
+  $("trainBody").innerHTML = `
+    <div class="formrow">
+      <div><div class="lbl">Fitness (CTL)</div><div class="v">${num(t.ctl)}</div></div>
+      <div><div class="lbl">Ermüdung (ATL)</div><div class="v">${num(t.atl)}</div></div>
+      <div><div class="lbl">Diese Woche</div><div class="v">${t.weeks.length ? num(t.weeks[t.weeks.length - 1].h) + " h" : "–"}</div></div>
+    </div>
+    <div class="bars">${t.weeks.map(w => `<div class="b" data-tip="KW ${parseInt(w.w.slice(-2))} · ${num(w.h)} h"><i style="height:${Math.max(3, Math.round(w.h / maxH * 100))}%"></i></div>`).join("")}</div>
+    <div class="blbl">${t.weeks.map(w => `<span>${parseInt(w.w.slice(-2))}</span>`).join("")}</div>
+    ${t.recent.slice(0, 4).map(a => `<div class="act"><span class="d">${fmtShort(a.d)}</span><span class="typ">${esc(a.typ)}</span><span class="n">${esc(a.name)}</span><span class="du">${a.dur}${a.km ? " · " + num(a.km) + " km" : ""}</span></div>`).join("")}`;
+  $("trainMeta").textContent = "Wochenschnitt " + num(t.weeks.reduce((s, w) => s + w.h, 0) / Math.max(t.weeks.length, 1)) + " h";
+}
+
+function renderGesundheit(g) {
+  if (!g) { $("gesBody").innerHTML = empty("intervals.icu nicht erreichbar"); return; }
+  const days = (g.days || []).filter(d => d.sleep != null);
+  let html = "";
+  if (days.length) {
+    const maxS = Math.max(9, ...days.map(d => d.sleep));
+    const low = days.filter(d => d.sleep < 5).length;
+    html += `<div class="sub">Schlaf, letzte ${days.length} Nächte${low ? `, davon ${low} unter 5 h` : ""}</div>
+      <div class="bars sleep">
+        <div class="ref" style="bottom:${7 / maxS * 100}%"><span>7 h</span></div>
+        ${days.map(d => `<div class="b ${d.sleep < 5 ? "low" : ""}" data-tip="${fmtD(d.d)} · ${num(d.sleep)} h Schlaf"><i style="height:${Math.round(d.sleep / maxS * 100)}%"></i></div>`).join("")}
+      </div>
+      <div class="blbl ends"><span>${fmtShort(days[0].d)}</span><span>${fmtShort(days[days.length - 1].d)}</span></div>`;
+  }
+  const gw = g.gewicht || [];
+  const last = gw.length ? gw[gw.length - 1] : null, first = gw.length ? gw[0] : null;
+  if (last) {
+    const dkg = gw.length > 1 ? last.kg - first.kg : null;
+    html += `<div class="kv">
+      <span><b>${num(last.kg)} kg</b>Gewicht, gemessen ${fmtShort(last.d)}</span>
+      ${dkg != null ? `<span><b>${signed(dkg)} kg</b>seit ${fmtShort(first.d)}</span>` : ""}
+      ${last.kf != null ? `<span><b>${num(last.kf)} %</b>Körperfett</span>` : ""}
+    </div>`;
+  }
+  const bef = (g.befinden || []).slice(0, 7);
+  if (bef.length) {
+    html += `<div class="sub">Befinden</div><div class="moods">${bef.slice().reverse().map(e =>
+      `<div class="mood m${e.b || 0}" data-tip="${esc(fmtD(e.d) + (e.sym && e.sym !== "–" ? " · " + e.sym : ""))}"><b>${e.b || "–"}</b><span>${fmtShort(e.d)}</span></div>`).join("")}</div>`;
+  }
+  html += `<a class="linkline" href="${obs("03 Bereiche/Gesundheit & Longevity/Gesundheitslogbuch.md")}">Gesundheitslogbuch öffnen →</a>`;
+  $("gesBody").innerHTML = html;
+  $("gesMeta").textContent = g.letzter_log ? "Logbuch bis " + fmtD(g.letzter_log) : "Logbuch leer";
+}
+
+function renderLesen(books) {
+  const show = books.filter(b => b.pct != null && b.pct < 100).slice(0, 4);
+  $("lesenBody").innerHTML = (show.length ? show.map(b => `<div class="book">
+      ${b.asin ? `<img src="https://images-eu.ssl-images-amazon.com/images/P/${b.asin}.09._SX80_.jpg" alt="" onerror="this.style.visibility='hidden'">` : "<div></div>"}
+      <div><div class="t">${esc(b.t)}</div><div class="a">${esc(b.a)}</div><div class="track"><div class="fill" style="width:${b.pct}%"></div></div></div>
+      <div class="pct">${b.pct} %</div>
+    </div>`).join("") : empty("kein Buch angefangen")) +
+    `<a class="linkline" href="Lese-Bibliothek.html" target="_blank">Bibliothek öffnen →</a>`;
+  // Wie alt ist der Lesestand?
+  const toIso = d => { const m = /(\d{2})\.(\d{2})\.(\d{4})/.exec(d || ""); return m ? `${m[3]}-${m[2]}-${m[1]}` : null; };
+  const latest = books.map(b => toIso(b.d)).filter(Boolean).sort().pop();
+  const meta = $("lesenMeta");
+  if (latest) {
+    const age = -dayDiff(latest);
+    meta.textContent = `Lesestand vom ${fmtShort(latest)}${age > 30 ? ", veraltet" : ""}`;
+    meta.classList.toggle("warn", age > 30);
+  }
+}
+
+function renderPV(p) {
+  if (!p) { $("pvBody").innerHTML = empty("Kostal nicht erreichbar, Werte kommen beim nächsten Refresh im Heimnetz."); $("pvMeta").textContent = ""; return; }
+  const k = x => x == null ? "–" : num(x) + " kWh";
+  const eur = x => x == null ? "–" : x.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+  const tr = (label, t, spar) => !t ? "" : `<tr><td>${label}</td><td class="prod">${k(t.prod)}</td><td>${k(t.verbrauch)}</td><td>${k(t.einspeisung)}</td><td>${k(t.netzbezug)}</td><td class="good">${t.autark != null ? t.autark + " %" : "–"}</td><td class="good">${eur(spar)}</td></tr>`;
+  const batDir = p.bat_w > 10 ? ", entlädt" : (p.bat_w < -10 ? ", lädt" : "");
+  $("pvBody").innerHTML = `<table class="pv">
+      <thead><tr><th></th><th>Erzeugt</th><th>Verbrauch</th><th>Einspeisung</th><th>Netzbezug</th><th>Autarkie</th><th>Ersparnis</th></tr></thead>
+      <tbody>${tr("Gestern", p.gestern, p.sparGestern)}${tr("Heute bisher", p.heute, p.sparHeute)}</tbody>
+    </table>
+    <div class="pvlive">Beim Refresh: PV ${fmtW(Math.max(0, p.pv_w))}, Haus ${fmtW(p.home_w)}, Batterie ${Math.round(p.soc)} %${batDir}. Gestern zählt von 6:30 bis 6:30 Uhr.</div>`;
+  $("pvMeta").textContent = "";
+}
+const fmtW = w => w >= 1000 ? num(w / 1000) + " kW" : Math.round(w) + " W";
+
+function renderSchule(s) {
+  if (!s) { $("schuleBody").innerHTML = empty("iCloud-Ordner nicht erreichbar"); return; }
+  $("schuleBody").innerHTML =
+    `<div class="chips">${s.faecher.map(f => `<span class="chip">${esc(f.name)} <b>${f.n}</b></span>`).join("")}${s.schuljahre.slice(-2).map(y => `<span class="chip yr">${esc(y.replace("Schuljahr ", "SJ "))}</span>`).join("")}</div>` +
+    s.links.map(l => `<a class="lrow" href="${esc(l.href)}" target="_blank"><span>${esc(l.label)}</span><span class="info">→</span></a>`).join("");
+}
+
+function renderDailies(v) {
+  if (!v || !v.dailies || !v.dailies.length) { $("dailyBody").innerHTML = empty("noch keine Daily Notes gefunden"); return; }
+  const latest = v.dailies[0];
+  $("dailyBody").innerHTML = `<div class="notes">
+    <div><div class="sub">Offen aus ${fmtD(latest.d)}</div>${latest.offen.length
+      ? latest.offen.slice(0, 4).map(t => `<div class="todo"><span class="ring"></span><span>${esc(t)}</span></div>`).join("")
+      : empty("nichts offen notiert")}</div>
+    <div><div class="sub">Letzte Einträge</div>${v.dailies.slice(0, 5).map(n => `<a class="lrow" href="${obs("05 Daily Notes/" + n.d)}"><span>${fmtD(n.d)}</span><span class="info">${n.g} geschafft · ${n.offen.length} offen</span></a>`).join("")}</div>
+  </div>`;
+  const age = -dayDiff(v.lastDaily || latest.d);
+  $("dailyMeta").textContent = age > 2 ? `letzte vor ${age} Tagen` : `${v.nDailies || v.dailies.length} insgesamt`;
 }
 
 function heatDays() {
@@ -384,16 +524,13 @@ function heatDays() {
   const now = new Date(); now.setHours(12, 0, 0, 0);
   const dow = (now.getDay() + 6) % 7;
   const start = new Date(now); start.setDate(now.getDate() - dow - 19 * 7);
-  for (let d = new Date(start); d <= now; d.setDate(d.getDate() + 1))
-    out.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`);
+  for (let d = new Date(start); d <= now; d.setDate(d.getDate() + 1)) out.push(iso(d));
   return out;
 }
-
 function renderHeat(el, levelFn, tipFn, shades) {
   const days = heatDays();
-  el.innerHTML = days.map(d =>
-    `<div style="background:var(${shades[levelFn(d)]})" data-tip="${esc(tipFn(d))}"></div>`).join("");
-  const mo = document.getElementById(el.id === "hmTrain" ? "moTrain" : "moVault");
+  el.innerHTML = days.map(d => `<div style="background:var(${shades[levelFn(d)]})" data-tip="${esc(tipFn(d))}"></div>`).join("");
+  const mo = $(el.id === "hmTrain" ? "moTrain" : "moVault");
   let last = -1, cells = "";
   for (let i = 0; i < days.length; i += 7) {
     const m = parseInt(days[i].slice(5, 7)) - 1;
@@ -407,136 +544,24 @@ const trainTip = (d, h) => fmtD(d) + (h && h.s ? " · " + h.txt.join(", ") : " �
 const vaultLevel = h => { const n = h ? (h.e || 0) + (h.c || 0) : 0; return !n ? 0 : (n < 3 ? 1 : (n < 8 ? 2 : 3)); };
 const vaultTip = (d, h) => fmtD(d) + (h ? ` · ${h.e || 0} Notizen bearbeitet, ${h.c || 0} Commits` : " · keine Aktivität");
 
-function renderTraining(t) {
-  if (!t) { $("trainBody").innerHTML = '<div class="empty">keine Daten – intervals.icu nicht erreichbar</div>'; return; }
-  const maxH = Math.max(...t.weeks.map(w => w.h), 1);
-  $("trainBody").innerHTML = `
-    <div class="formrow">
-      <div class="f"><div class="lbl">Fitness (CTL)</div><div class="v">${t.ctl ?? "–"}</div></div>
-      <div class="f"><div class="lbl">Ermüdung (ATL)</div><div class="v">${t.atl ?? "–"}</div></div>
-      <div class="f"><div class="lbl">Form (TSB)</div><div class="v" style="color:var(--green)">${t.tsb == null ? "–" : (t.tsb > 0 ? "+" : "") + t.tsb}</div></div>
-    </div>
-    <div class="wbars">${t.weeks.map(w => `<div class="wb" data-tip="KW ${parseInt(w.w.slice(-2))} · ${w.h} h Training"><i style="height:${Math.max(3, Math.round(w.h / maxH * 100))}%"></i></div>`).join("")}</div>
-    <div class="wlbl">${t.weeks.map(w => `<span>${parseInt(w.w.slice(-2))}</span>`).join("")}</div>
-    ${t.recent.slice(0, 5).map(a => `<div class="act"><span class="d">${fmtD(a.d).slice(3)}</span><span class="typ">${esc(a.typ)}</span><span class="n">${esc(a.name)}</span><span class="du">${a.dur}${a.km ? " · " + a.km + " km" : ""}</span></div>`).join("")}`;
-  $("trainBody").insertAdjacentHTML("beforeend",
-    '<a class="linkbtn" href="Trainings-Kalender.html"><span>Trainings-Kalender</span><span class="arr">\u2192</span></a>');
-  $("trainMeta").textContent = "Wochen-Ø " + (t.weeks.reduce((s, w) => s + w.h, 0) / Math.max(t.weeks.length, 1)).toFixed(1) + " h";
-}
-
-function renderGesundheit(g) {
-  if (!g) { $("gesBody").innerHTML = '<div class="empty">keine Daten \u2013 intervals.icu nicht erreichbar</div>'; return; }
-  const obs = f => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent(f.replace(/\.md$/, ""));
-  const h = g.heute || {}, b = g.basis || {};
-  const red = ' style="color:var(--red)"';
-  const rhrBad = h.rhr != null && b.rhr != null && h.rhr >= b.rhr + 3;
-  const hrvBad = h.hrv != null && b.hrv != null && h.hrv < b.hrv * 0.85;
-  const slBad  = g.sleep14 != null && g.sleep14 < 6.5;
-  const gw = g.gewicht || [];
-  const last = gw.length ? gw[gw.length - 1] : null;
-  const first = gw.length ? gw[0] : null;
-  const dkg = (last && first && gw.length > 1) ? (last.kg - first.kg) : null;
-  const mn = gw.length ? Math.min(...gw.map(x => x.kg)) : 0;
-  const mx = gw.length ? Math.max(...gw.map(x => x.kg)) : 1;
-  const face = ["", "\ud83d\ude16", "\ud83d\ude15", "\ud83d\ude10", "\ud83d\ude42", "\ud83d\ude03"];
-  $("gesBody").innerHTML = `
-    <div class="formrow">
-      <div class="f"><div class="lbl">Ruhepuls</div><div class="v"${rhrBad ? red : ""}>${h.rhr ?? "\u2013"}</div></div>
-      <div class="f"><div class="lbl">HRV</div><div class="v"${hrvBad ? red : ""}>${h.hrv ?? "\u2013"}</div></div>
-      <div class="f"><div class="lbl">Schlaf \u00d8 14 T.</div><div class="v"${slBad ? red : ""}>${g.sleep14 != null ? g.sleep14 + " h" : "\u2013"}</div></div>
-      <div class="f"><div class="lbl">Gewicht</div><div class="v">${last ? last.kg.toFixed(1) : "\u2013"}</div></div>
-    </div>
-    ${(g.warnungen || []).length
-      ? `<div class="chips">${g.warnungen.map(w => `<span class="chip" style="border-color:var(--red);color:var(--red)">\u26a0\ufe0f ${esc(w)}</span>`).join("")}</div>`
-      : `<div class="chips"><span class="chip" style="border-color:var(--green);color:var(--green)">\u2713 keine Auff\u00e4lligkeiten</span></div>`}
-    ${gw.length > 1 ? `<div class="wbars">${gw.map(x => `<div class="wb" data-tip="${fmtD(x.d)} \u00b7 ${x.kg.toFixed(2)} kg \u00b7 KF ${x.kf} %"><i style="height:${Math.max(4, Math.round((x.kg - mn) / Math.max(mx - mn, 0.1) * 100))}%"></i></div>`).join("")}</div>` : ""}
-    <div class="chips">
-      ${dkg != null ? `<span class="chip">seit ${fmtD(first.d)} <b>${dkg > 0 ? "+" : ""}${dkg.toFixed(1)} kg</b></span>` : ""}
-      ${g.gewicht_n ? `<span class="chip">${g.gewicht_n} Messungen gesamt</span>` : ""}
-      ${last ? `<span class="chip">K\u00f6rperfett <b>${last.kf} %</b></span>` : ""}
-    </div>
-    ${(g.befinden || []).length
-      ? `<div class="chips">${g.befinden.slice(0, 7).map(e => `<span class="chip" data-tip="${esc(e.sym || "ohne Notiz")}">${fmtD(e.d).slice(3)} ${e.b ? face[e.b] + " <b>" + e.b + "</b>" : "\u2013"}</span>`).join("")}</div>`
-      : `<div class="empty">Noch kein Befinden eingetragen.</div>`}
-    <a class="linkbtn" href="${obs("03 Bereiche/Gesundheit & Longevity/Gesundheitslogbuch.md")}"><span>Gesundheitslogbuch</span><span class="arr">\u2192</span></a>`;
-  $("gesMeta").textContent = g.letzter_log ? "Logbuch bis " + fmtD(g.letzter_log) : "Logbuch leer";
-}
-
-function renderSchule(s) {
-  if (!s) { $("schuleBody").innerHTML = '<div class="empty">iCloud-Ordner nicht erreichbar</div>'; return; }
-  $("schuleBody").innerHTML =
-    `<div class="chips">${s.faecher.map(f => `<span class="chip">${esc(f.name)} <b>${f.n}</b></span>`).join("")}</div>` +
-    `<div class="chips">${s.schuljahre.map(y => `<span class="chip yr">${esc(y.replace("Schuljahr ", "SJ "))}</span>`).join("")}</div>` +
-    s.links.map(l => `<a class="linkbtn" href="${esc(l.href)}" target="_blank"><span>${esc(l.label)}</span><span class="arr">→</span></a>`).join("");
-  $("schuleMeta").textContent = "GDRS iCloud";
-}
-
-function renderLesen(books) {
-  const show = books.filter(b => b.pct != null && b.pct < 100).slice(0, 4);
-  $("lesenBody").innerHTML =
-    show.map(b => `<div class="book">
-      ${b.asin ? `<img src="https://images-eu.ssl-images-amazon.com/images/P/${b.asin}.09._SX80_.jpg" alt="" onerror="this.style.visibility='hidden'">` : "<div></div>"}
-      <div><div class="t">${esc(b.t)}</div><div class="a">${esc(b.a)}</div><div class="track"><div class="fill" style="width:${b.pct}%"></div></div></div>
-      <div class="pct">${b.pct} %</div>
-    </div>`).join("") +
-    `<div class="btnrow"><a href="Lese-Dashboard.html" target="_blank">Lese-Dashboard</a><a href="Lese-Bibliothek.html" target="_blank">Bibliothek</a></div>`;
-  $("lesenMeta").textContent = show.length + " im Gange";
-}
-
-function renderPV(p) {
-  if (!p) { $("pvBody").innerHTML = '<div class="empty err">Kostal nicht erreichbar – Werte erscheinen beim nächsten Refresh im Heimnetz.</div>'; $("pvMeta").textContent = ""; return; }
-  const kwh = x => x == null ? "–" : x.toLocaleString("de-DE", { maximumFractionDigits: 1 }) + " kWh";
-  const block = (label, t, spar) => `
-    <h4 class="pvh">${label}</h4>
-    <div class="pvgrid pv">
-      <div><div class="lbl">Produktion</div><div class="v" style="color:var(--yellow)">${kwh(t.prod)}</div></div>
-      <div><div class="lbl">Verbrauch</div><div class="v">${kwh(t.verbrauch)}</div></div>
-      <div><div class="lbl">Einspeisung</div><div class="v">${kwh(t.einspeisung)}</div></div>
-      <div><div class="lbl">Netzbezug</div><div class="v">${kwh(t.netzbezug)}</div></div>
-      ${t.autark != null ? `<div><div class="lbl">Autarkie</div><div class="v" style="color:var(--green)">${t.autark} %</div></div>` : ""}
-      ${spar != null ? `<div><div class="lbl">Ersparnis</div><div class="v" style="color:var(--green)">${spar.toLocaleString("de-DE", { minimumFractionDigits: 2 })} €</div></div>` : ""}
-    </div>`;
-  let html = "";
-  if (p.gestern) html += block("Gestern (6:30 – 6:30 Uhr)", p.gestern, p.sparGestern);
-  else html += '<div class="empty">Vortags-Bilanz gibt es ab morgen – der Zählerverlauf wird seit heute aufgezeichnet.</div>';
-  if (p.heute) html += block("Heute bisher", p.heute, p.sparHeute);
-  const batDir = p.bat_w > 10 ? "entlädt" : (p.bat_w < -10 ? "lädt" : "");
-  html += `<div class="pvlive">Beim letzten Refresh: ${fmtW(Math.max(0, p.pv_w))} PV · Haus ${fmtW(p.home_w)} · Batterie ${Math.round(p.soc)} % ${batDir}</div>`;
-  $("pvBody").innerHTML = html;
-  $("pvMeta").textContent = p.heute ? `Autarkie heute ${p.heute.autark} %` : "";
-}
-const fmtW = w => w >= 1000 ? (w / 1000).toFixed(1).replace(".", ",") + " kW" : Math.round(w) + " W";
-
-function renderDailies(v) {
-  if (!v || !v.dailies || !v.dailies.length) {
-    $("dailyBody").innerHTML = '<div class="empty">noch keine Daily Notes gefunden – nach dem nächsten Refresh erscheinen sie hier</div>';
-    $("dailyMeta").textContent = "";
-    return;
-  }
-  const obs = d => "obsidian://open?vault=" + encodeURIComponent("Second Brain Claude") + "&file=" + encodeURIComponent("05 Daily Notes/" + d);
-  let offenHtml, offenHead;
-  if (v.offenAlle && v.offenAlle.length) {
-    offenHead = `Offene Punkte der letzten Wochen (${v.offenTotal || v.offenAlle.length})`;
-    offenHtml = v.offenAlle.map(o =>
-      `<div class="todo"><span class="ring"></span><span>${esc(o.t)}<span style="color:var(--t4);font-size:11px"> · ${fmtD(o.last)}${o.n > 1 ? " · " + o.n + "×" : ""}</span></span></div>`).join("") +
-      (v.offenTotal > v.offenAlle.length ? `<div class="more">+${v.offenTotal - v.offenAlle.length} weitere in den Notes</div>` : "");
-  } else {
-    const latest = v.dailies[0];
-    offenHead = `Offen aus der letzten Note (${fmtD(latest.d)})`;
-    offenHtml = latest.offen.length
-      ? latest.offen.map(t => `<div class="todo"><span class="ring"></span><span>${esc(t)}</span></div>`).join("")
-      : '<div class="empty">keine offenen Punkte notiert</div>';
-  }
-  $("dailyBody").innerHTML = `
-    <div>
-      <h4>${offenHead}</h4>
-      ${offenHtml}
-    </div>
-    <div>
-      <h4>Letzte Einträge · Klick öffnet Obsidian</h4>
-      ${v.dailies.map(n => `<a class="dnote" href="${obs(n.d)}"><span class="dd">${fmtD(n.d)}</span><span class="info">${n.g} geschafft · ${n.offen.length} offen</span></a>`).join("")}
-    </div>`;
-  $("dailyMeta").textContent = `${v.nDailies || v.dailies.length} Notizen insgesamt`;
+function render(L) {
+  renderKopf(L);
+  renderKalender(L.kalender || []);
+  renderErinnerungen(L.erinnerungen, L.vault);
+  renderVerfassung(L.gesundheit, L.training);
+  renderProjekte(L.projekte || []);
+  renderTraining(L.training);
+  renderGesundheit(L.gesundheit);
+  renderLesen(L.lesen || []);
+  renderPV(L.pv);
+  renderSchule(L.schule);
+  renderDailies(L.vault);
+  if (L.training) renderHeat($("hmTrain"), d => trainLevel(L.training.heat[d]), d => trainTip(d, L.training.heat[d]), ["--h0", "--h1", "--h2", "--h3"]);
+  if (L.vault) renderHeat($("hmVault"), d => vaultLevel(L.vault.heat[d]), d => vaultTip(d, L.vault.heat[d]), ["--v0", "--v1", "--v2", "--v3"]);
+  const errs = Object.keys(L.errors || {});
+  $("foot").innerHTML =
+    (errs.length ? `<div class="warn">Beim letzten Refresh ohne Daten: ${errs.map(esc).join(", ")} (${esc(Object.values(L.errors).join(" · "))})</div>` : "") +
+    `Aktualisiert sich um 6:30, 13:00 und 21:30 Uhr, oder per Doppelklick auf „Lebens-Dashboard aktualisieren.command“. Projekte steuerst du im Frontmatter mit prio (1 Fokus, 2 nebenher, 3 später) und thema. Klick auf Projekte und Notes öffnet Obsidian.`;
 }
 
 document.addEventListener("mousemove", e => {
@@ -551,7 +576,7 @@ document.addEventListener("mousemove", e => {
 
 const L = window.LEBEN;
 if (!L) {
-  document.querySelector(".grid").innerHTML = '<section class="card wide"><div class="chead"><span class="ico">⚠️</span><span class="ct">Keine Daten gefunden</span></div><div class="empty">leben_data.js fehlt – bitte einmal "Lebens-Dashboard aktualisieren.command" doppelklicken.</div></section>';
+  document.querySelector(".today").innerHTML = '<div><div class="chead"><h2>Keine Daten gefunden</h2></div><div class="empty">leben_data.js fehlt. Bitte einmal „Lebens-Dashboard aktualisieren.command“ doppelklicken.</div></div>';
 } else {
   render(L);
 }

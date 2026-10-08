@@ -112,3 +112,11 @@ Der Stil des Schattenlabors (dunkle Bühne mit leuchtenden Lampen, farbigen Stra
 ## Lösung ist immer das ausgefüllte Original-Blatt (30.09.2026)
 
 In jedem Fach gilt: Die Lösung zu einem Blatt ist dasselbe Blatt, ausgefüllt. Kein anderes Layout, keine Buchlösung, keine Ergebnisliste. So sieht man direkt, was wo hineinkommt. Bücher, die ihre Lösungen nicht so liefern, nutze ich deshalb ungern. Bei eigenen PDFs ist Seite 1 das leere Blatt, Seite 2 dasselbe Blatt ausgefüllt. Diese Seite erscheint auch als Lösungsfolie im Folien-Tab.
+
+## Klassenlisten mit Schülernamen (06.10.2026)
+
+Wenn Dateien Schülernamen enthalten (Klassenlisten, Notenlisten, Sitzpläne), gehen die Namen nicht ins Gespräch mit Claude, weil das zu Anthropic in die USA läuft. Claude baut stattdessen Skripte, die lokal über Excel und PDF laufen, und gibt keine Zeilen mit Namen aus. Das Layout wird bei Bedarf mit Dummy-Namen geprüft. Vor solchen Aufgaben weist Claude kurz auf das Thema hin. Zwischendateien mit Namen im Arbeitsordner werden nach Abschluss gelöscht. Ob Schulleitung oder Datenschutzbeauftragte iCloud und KI-Dienste für Schülerdaten erlauben, ist noch offen.
+
+## Fortbildungen per Video aufnehmen (07.10.2026)
+
+Oskar nimmt Online-Fortbildungen per iPad-Bildschirmaufnahme auf. Bei der Schwimm-Fortbildung am 06.10.2026 hatte die Aufnahme keinen Ton, weil das Mikrofon beim Start nicht aktiviert war (Aufnahme-Knopf im Kontrollzentrum lange drücken). Claude prüft deshalb vor einer Transkription zuerst die Lautstärke der Tonspur und weist vor der nächsten Fortbildung auf das Mikrofon hin. Teilnehmernamen und Gesichter aus solchen Videos kommen nicht in den Vault. Zusammenfassungen entstehen nur aus belegten Quellen, Ableitungen werden als solche markiert. Beispiel: [[Schulschwimmen BW – Zusammenfassung der Bestimmungen]].

@@ -20,6 +20,8 @@ FERTIG = {
         ("W3AL", "KT A", "Lösung Version A", K + "A – Lösung.html", "nur für dich"),
         ("W3B", "KT B", "Kurztest Nr. 1, Version B", K + "B.html", "Mi 30.09."),
         ("W3BL", "KT B", "Lösung Version B", K + "B – Lösung.html", "nur für dich")],
+    4: [("W4S1", "1", "Zinsen kurz, Zinseszins", "Prozentrechnung Klasse 10/Mathe 10b – Woche 4 – 1 Zinsen kurz, Zinseszins.html", "Mi 07.10., Doppelstunde"),
+        ("W4S2", "2", "Zinseszins, Zinssatz gesucht", "Prozentrechnung Klasse 10/Mathe 10b – Woche 4 – 2 Zinseszins, Zinssatz gesucht.html", "Fr 09.10.")],
 }
 BLOECKE = {1: "Wahrscheinlichkeit", 3: "Prozent- und Zinsrechnung", 8: "Trigonometrie", 11: "Körper",
            16: "Daten und Potenzen", 19: "Geraden und Parabeln", 26: "Prüfungsvorbereitung", 29: "Puffer bis zum Schuljahresende"}

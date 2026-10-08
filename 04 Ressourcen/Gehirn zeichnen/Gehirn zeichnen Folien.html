@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"></head><body>
+<title>Gehirn zeichnen Folien</title>
+<style>
+/* Folienlook wie "Lernen lernen": cremefarbene 16:9-Bühne auf dunklem Grund, grüner Kicker, orange Akzent. */
+:root{
+  --ink:#1c2230; --bg:#fcf8ef; --paper:#fcf8ef; --accent:#c2531e; --green:#2f6f4f; --muted:#6b7280;
+  --line:#1c2230; --hair:#d9d3c7; --brain:#efe7d6; --brain-2:#e0d6c0;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--ink);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{position:relative;width:min(96vw,calc(96vh * 16/9));height:min(96vh,calc(96vw * 9/16));background:var(--bg);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);outline:none}
+.slide{position:absolute;inset:0;padding:4.6% 5.5% 5.5%;display:none;flex-direction:column;justify-content:flex-start}
+.slide.active{display:flex}
+.slide.center{justify-content:center;padding:6.2% 7.5%}
+.kicker{font-size:1.1vw;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:.7em}
+h1{font-size:4.4vw;line-height:1.05;letter-spacing:-.02em}
+h2{font-size:2.9vw;line-height:1.1;letter-spacing:-.01em;margin-bottom:.4em}
+p{font-size:1.9vw;line-height:1.5;max-width:42em;color:#333}
+.note{margin-top:1.1em;font-size:1.35vw;color:var(--muted)}
+.big{font-size:2.4vw}
+.body{flex:1;display:flex;gap:3%;align-items:center;min-height:0}
+.fig{flex:0 0 66%;min-width:0}
+.fig svg{display:block;width:100%;height:auto}
+.side{flex:1;min-width:0;align-self:center}
+.side .cap{font-size:1vw;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:.8em}
+.side ol{margin:0 0 0 1.2em;font-size:1.2vw;line-height:1.38}
+.side li{margin:.4em 0}
+.side li::marker{color:var(--accent);font-weight:700}
+.side .memo{margin-top:.7em;font-size:1.05vw;line-height:1.35;padding:.5em .8em;border-left:3px solid var(--accent);background:#f4ecdb;border-radius:0 8px 8px 0}
+.side .noteb{margin-top:.7em;font-size:1vw;line-height:1.4;color:var(--muted)}
+#dots{position:absolute;bottom:1.9%;left:20%;right:20%;display:flex;gap:.25vw;justify-content:center}
+#dots i{width:1.2vw;height:1.2vw;border:.25vw solid transparent;background-clip:padding-box;border-radius:50%;background-color:var(--hair);transition:background-color .2s;cursor:pointer}
+#dots i.on{background-color:var(--green)}
+#counter{position:absolute;bottom:2%;right:3%;font-size:1.1vw;color:var(--muted);display:flex;gap:.6vw;align-items:center}
+#counter button{border:1px solid var(--hair);background:var(--bg);border-radius:50%;width:2.4vw;height:2.4vw;font-size:1.2vw;cursor:pointer;color:var(--ink)}
+#quizBtn{position:absolute;bottom:1.6%;left:3%;border:1px solid var(--hair);background:var(--bg);border-radius:999px;padding:.35vw 1vw;font-size:1.05vw;cursor:pointer;color:var(--ink)}
+#quizBtn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+[data-step]{opacity:0;transition:opacity .28s}
+[data-step].shown{opacity:1}
+.fig .lab .nm{font-size:25px}
+.fig .lab .lt{font-size:16px}
+/* Zeichnung */
+.s{opacity:0;visibility:hidden;transition:opacity .45s,visibility 0s .45s}
+.s.on{opacity:1;visibility:visible;transition:opacity .45s}
+.base{fill:var(--brain)}
+.base2{fill:var(--brain-2);transition:fill .6s}
+.col .base2.cb{fill:rgba(140,100,205,.42)}
+.col .base2.stem{fill:rgba(120,135,150,.5)}
+.ink{fill:none;stroke:var(--line);stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round;transition:stroke .5s}
+.ink.thin{stroke-width:2.6}
+.ink.gy{stroke-width:4;opacity:.8}
+.s.cur .ink.gy{stroke:var(--line)}
+.ink.thick{stroke-width:6}
+.ink.dash{stroke-dasharray:9 7;stroke-width:2.3}
+.s.cur .ink{stroke:var(--accent)}
+.s.cur.anim .ink:not(.dash){stroke-dasharray:1 2;stroke-dashoffset:1;animation:draw 1.9s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.fl{fill:rgba(var(--c),var(--a,.6));stroke:none}
+.band{fill:none;stroke:rgba(var(--c),var(--a,.6));stroke-width:30;stroke-linecap:round}
+.lobe{--a:.42}.area{--a:.82}
+.c-front{--c:82,140,222}.c-par{--c:238,190,40}.c-temp{--c:60,170,120}.c-occ{--c:232,98,86}
+.c-mot{--c:240,138,36}.c-sen{--c:20,160,185}.c-bro{--c:195,60,155}.c-wer{--c:120,80,215}
+.c-aud{--c:125,185,40}.c-v1{--c:224,69,58}.c-pfc{--c:31,95,168}
+.c-cc{--c:70,130,230}.c-thal{--c:224,117,45}.c-hyp{--c:209,75,124}.c-pit{--c:201,54,43;--a:.8}
+.c-pin{--c:123,76,198;--a:.85}.c-tec{--c:242,179,61;--a:.8}.c-mid{--c:232,163,61;--a:.5}
+.c-pons{--c:61,178,166;--a:.5}.c-medu{--c:77,143,224;--a:.5}.c-sc{--c:142,154,166;--a:.5}
+.c-v4{--c:85,183,232;--a:.85}.c-cing{--c:61,178,166;--a:.45}.c-v1m{--c:224,69,58;--a:.45}
+.band.cing,.band.v1m{stroke-width:24}.band.v1m{stroke-width:26}
+.guide{fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:6 6;opacity:.85}
+.gtxt{font:400 15px var(--f-body);fill:var(--muted)}
+
+/* Beschriftung */
+.lab{cursor:pointer;outline:none}
+.lab .ln{stroke:var(--muted);stroke-width:1.4}
+.lab .dot{fill:var(--accent);stroke:var(--paper);stroke-width:2;transform-box:fill-box;transform-origin:center;transition:transform .2s}
+.lab .hit{fill:transparent}
+.lab .nm{font:600 21px var(--f-body);fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:6px;stroke-linejoin:round;transition:opacity .25s}
+.lab .lt{font:italic 400 15px var(--f-body);fill:var(--muted);paint-order:stroke;stroke:var(--paper);stroke-width:5px;stroke-linejoin:round;transition:opacity .25s}
+.quiz .lab:not(.rev) .nm,.quiz .lab:not(.rev) .lt{opacity:0}
+.quiz .lab:not(.rev) .dot{transform:scale(1.9)}
+.none .lab{display:none}
+.lab.hl .dot{animation:pulse .7s ease-in-out 3}
+@keyframes pulse{50%{transform:scale(2.6)}}
+
+
+@media (prefers-reduced-motion:reduce){.s.cur.anim .ink:not(.dash){animation:none;stroke-dasharray:none;stroke-dashoffset:0}.lab.hl .dot{animation:none}.s,.s.on,.base2{transition:none}}
+</style>
+
+<div id="stage" tabindex="0"></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)};
+/* ---------- Formen ---------- */
+var LOUT="M 80,280 C 70,200 130,120 230,85 C 330,50 470,40 570,65 C 670,90 735,170 740,255 C 744,310 710,345 655,350 C 620,353 590,340 560,345 C 500,375 400,385 330,375 C 285,370 255,350 245,330 C 215,335 150,335 115,320 C 90,312 82,300 80,280 Z";
+var MOUT="M 80,285 C 70,200 130,120 230,85 C 330,50 470,40 570,65 C 670,90 735,170 740,255 C 742,300 720,330 690,345 C 640,350 590,345 540,340 C 500,335 470,333 440,335 C 410,333 380,325 350,325 C 300,330 230,338 170,330 C 120,322 85,305 80,285 Z";
+var CBL="M 560,348 C 600,352 650,355 690,345 C 735,380 720,440 650,455 C 590,465 535,440 520,400 C 515,375 535,355 560,348 Z";
+var CBFOLD=[];for(var k=0;k<10;k++){var yy=358+k*10;CBFOLD.push('M 500,'+yy+' C 580,'+(yy+16)+' 660,'+(yy+14)+' 750,'+(yy-12));}
+var GYRI="M 135,169 Q 139,163 143,162 Q 147,160 151,161 Q 156,161 161,161 Q 166,161 169,161 Q 173,160 176,157 Q 178,154 179,150 Q 181,146 182,142 Q 183,137 185,133 Q 187,130 191,129 Q 195,127 199,128 Q 203,129 207,130 Q 211,131 215,131 Q 219,131 222,129 Q 225,127 227,123 Q 230,119 232,115 Q 234,111 237,109 Q 240,106 244,105 Q 248,105 253,107 Q 257,109 262,112 Q 266,115 270,116 Q 274,117 278,115 Q 282,114 285,110 Q 288,107 291,103 Q 294,99 298,97 Q 301,94 305,95 Q 309,95 313,97 Q 317,99 321,100 Q 325,102 328,103 Q 332,103 335,101 Q 339,100 342,97 L 345,93 M 183,137 L 198,151 M 234,111 L 231,90 M 294,99 L 302,118 M 119,232 Q 128,236 132,238 Q 136,239 140,239 Q 144,238 147,235 Q 150,232 152,228 Q 155,224 157,220 Q 160,217 164,215 Q 167,214 171,214 Q 175,215 179,216 Q 183,218 187,219 Q 191,220 195,219 Q 199,218 202,215 Q 205,212 208,209 Q 211,205 215,202 Q 218,200 222,200 Q 226,200 231,202 Q 235,204 240,206 Q 244,209 248,209 Q 252,210 255,208 Q 259,206 262,202 Q 265,198 268,194 Q 271,190 275,188 Q 279,186 283,187 Q 286,188 291,190 Q 295,192 299,194 Q 303,196 307,196 Q 311,196 315,193 Q 319,191 322,187 Q 326,183 330,181 L 334,178 M 175,215 L 183,231 M 235,204 L 234,182 M 295,192 L 302,210 M 130,287 Q 137,292 141,294 Q 145,297 149,297 Q 152,297 155,295 Q 159,293 162,290 Q 165,286 168,283 Q 171,279 175,277 Q 178,276 182,276 Q 185,276 189,278 Q 193,281 197,283 Q 201,285 205,285 Q 209,286 212,284 Q 216,282 219,278 Q 221,274 224,271 Q 227,267 230,265 Q 234,264 238,264 Q 242,265 246,266 Q 251,268 255,269 Q 260,271 263,270 Q 267,269 270,266 Q 273,263 275,258 Q 278,254 281,250 Q 283,246 287,245 Q 290,243 294,244 L 298,245 M 185,276 L 191,294 M 242,265 L 241,248 M 365,76 Q 367,86 366,89 Q 365,93 361,96 Q 357,99 352,101 Q 348,104 344,107 Q 341,110 340,114 Q 339,118 341,123 Q 343,128 344,133 Q 346,137 345,141 Q 344,145 341,149 Q 338,152 334,155 Q 330,159 327,162 Q 325,165 325,169 Q 325,173 327,178 Q 329,183 330,188 Q 332,192 332,197 Q 332,201 329,204 Q 326,207 322,209 Q 317,212 313,214 Q 309,216 307,219 Q 304,222 304,226 Q 304,229 305,234 Q 306,238 308,242 L 309,246 M 346,137 L 331,138 M 332,201 L 346,209 M 439,65 Q 438,73 439,78 Q 441,82 441,87 Q 442,91 440,95 Q 439,98 436,101 Q 432,104 428,106 Q 424,109 421,112 Q 418,116 418,120 Q 418,124 420,129 Q 422,134 425,139 Q 427,144 427,148 Q 428,153 425,156 Q 422,159 418,161 Q 415,164 411,166 Q 407,168 404,171 Q 402,174 402,178 Q 401,181 402,185 Q 404,189 404,194 Q 405,199 404,203 Q 404,207 401,209 Q 398,212 393,215 Q 389,217 385,219 L 382,222 M 418,124 L 397,123 M 401,181 L 414,190 M 439,144 Q 447,147 452,150 Q 456,152 460,154 Q 464,155 468,154 Q 471,153 475,150 Q 478,146 481,142 Q 484,138 488,135 Q 491,132 495,132 Q 499,132 503,134 Q 507,136 511,139 Q 515,142 519,144 Q 523,145 527,144 Q 530,143 534,141 Q 538,138 541,135 Q 545,132 548,131 Q 552,130 556,131 Q 560,132 563,136 Q 566,139 568,143 Q 571,146 574,148 Q 577,150 581,150 Q 585,150 589,148 Q 594,146 598,145 L 603,143 M 499,132 L 505,150 M 560,132 L 566,117 M 480,99 Q 488,105 492,106 Q 496,107 499,106 Q 503,104 507,101 Q 510,98 514,95 Q 517,92 521,91 Q 525,90 528,92 Q 532,93 536,95 Q 540,98 543,100 Q 546,103 550,104 Q 554,104 558,102 Q 562,100 567,98 Q 571,95 575,93 Q 579,92 583,93 Q 586,94 590,97 Q 593,101 596,105 L 599,109 M 540,98 L 543,114 M 297,345 Q 304,343 308,339 Q 311,336 314,332 Q 317,328 320,326 Q 323,324 327,324 Q 332,324 336,325 Q 341,327 345,328 Q 349,329 352,328 Q 356,328 358,325 Q 361,322 364,318 Q 366,314 368,310 Q 371,306 374,304 Q 377,302 381,302 Q 384,303 389,304 Q 393,306 397,308 Q 402,310 406,311 Q 409,312 413,310 Q 416,308 419,305 Q 422,301 424,298 Q 427,294 430,291 Q 433,289 437,289 Q 441,288 445,289 Q 449,291 453,292 Q 457,293 461,293 Q 465,293 468,291 Q 471,289 474,285 Q 477,281 480,277 Q 483,274 487,272 Q 490,271 495,272 Q 499,273 503,275 Q 508,278 513,280 Q 517,282 521,281 Q 525,281 528,278 Q 531,275 534,271 Q 537,266 540,263 Q 542,260 546,258 Q 549,257 554,258 Q 558,258 562,260 Q 566,262 570,262 Q 575,263 578,261 L 581,260 M 356,328 L 366,346 M 409,312 L 409,295 M 465,293 L 475,313 M 525,281 L 524,262 M 349,357 Q 356,355 360,356 Q 364,357 368,359 Q 372,361 376,362 Q 380,363 383,362 Q 387,362 390,359 Q 393,356 395,352 Q 398,348 401,345 Q 404,341 408,340 Q 411,339 415,340 Q 419,342 423,344 Q 428,347 432,349 Q 437,350 441,350 Q 445,350 448,347 Q 451,344 454,340 Q 457,336 460,333 Q 464,330 467,329 Q 471,329 476,330 Q 480,331 484,333 Q 488,335 492,335 Q 496,336 500,334 Q 503,331 506,328 Q 510,324 513,320 Q 516,317 520,315 Q 523,314 527,315 Q 531,316 536,319 Q 541,322 546,323 Q 551,325 554,324 Q 558,323 561,319 Q 564,315 567,310 Q 569,306 572,302 Q 575,299 579,298 L 583,297 M 404,341 L 413,362 M 464,330 L 463,310 M 523,314 L 531,334 M 642,148 Q 644,157 646,161 Q 647,166 650,168 Q 653,171 658,171 Q 663,172 668,172 Q 674,172 678,174 Q 682,176 684,179 Q 686,182 686,186 Q 686,191 685,195 Q 684,200 684,204 Q 684,209 685,212 Q 687,216 691,219 Q 695,221 700,224 Q 704,226 707,229 L 710,232 M 686,191 L 674,203 M 626,253 Q 633,257 637,257 Q 642,256 647,255 Q 652,254 656,253 Q 661,252 665,254 Q 669,256 671,261 Q 672,265 674,270 Q 675,274 677,278 Q 679,282 682,283 Q 686,285 690,285 Q 695,286 700,286 L 704,287 M 679,282 L 672,295 M 637,111 Q 646,110 652,109 Q 657,108 661,108 Q 666,108 669,111 Q 672,114 673,119 Q 674,124 675,129 Q 675,134 676,138 Q 678,142 681,144 Q 684,146 688,147 Q 693,147 697,147 L 702,148";
+var STEML="M 430,372 C 425,400 420,425 440,440 L 450,510 L 495,510 L 500,450 C 515,430 515,400 505,372 Z";
+var STEMM="M 415,300 L 400,345 C 385,370 385,400 410,415 C 425,425 430,440 432,470 L 435,525 L 490,525 L 487,470 C 490,430 505,400 505,370 L 500,300 Z";
+var STEMMO="M 415,300 L 400,345 C 385,370 385,400 410,415 C 425,425 430,440 432,470 L 435,525 M 500,300 L 505,370 C 505,400 490,430 487,470 L 490,525";
+var CENTRAL="M 410,52 C 400,90 385,110 380,140 C 375,170 360,190 350,225";
+var BAND=CENTRAL+" L 338,282";
+var LATERAL="M 255,325 C 320,290 400,270 470,250 C 520,238 545,225 565,205";
+var CCD="M 200,235 C 195,175 270,140 400,138 C 520,138 600,165 600,240 C 600,255 575,255 570,240 C 565,190 500,172 400,172 C 310,172 245,190 238,235 C 235,250 205,255 200,235 Z";
+var AV=["M 522,400 C 560,395 590,390 620,392","M 570,393 C 585,375 610,360 640,358","M 575,394 C 590,415 615,430 640,438","M 600,392 C 620,380 650,372 680,372","M 605,392 C 630,405 660,410 690,402"].join(" ");
+var V4="M 503,360 L 518,382 L 503,408 Z";
+var FORNIX="M 556,238 C 545,200 485,186 420,186 C 372,186 338,198 335,238 C 333,272 368,292 398,300";
+var CING="M 178,225 C 170,160 240,115 330,108 C 430,100 540,108 590,150 C 618,175 628,215 622,245";
+var POS="M 642,92 C 637,140 622,200 612,260";
+var CALC="M 612,262 C 650,258 700,258 736,258";
+
+function ell(cx,cy,rx,ry){return 'M '+(cx-rx)+','+cy+' a '+rx+','+ry+' 0 1,0 '+(2*rx)+',0 a '+rx+','+ry+' 0 1,0 '+(-2*rx)+',0 Z';}
+function ink(d,c,t){return '<path class="ink '+(c||'')+'" pathLength="1" d="'+d+'" '+(t||'')+'/>';}
+function fl(d,c,t){return '<path class="fl '+c+'" d="'+d+'" '+(t||'')+'/>';}
+function poly(p,c){return '<polygon class="fl lobe '+c+'" points="'+p+'"/>';}
+var guide='<rect class="guide" x="80" y="40" width="660" height="350" rx="8"/><text class="gtxt" x="84" y="414">Hilfsrahmen: fast doppelt so breit wie hoch</text>';
+
+/* ---------- Zeichnung Seitenansicht (Schritt 1 bis 4) ---------- */
+var lat=[
+ {s:1,u:1,h:guide},
+ {s:2,h:'<path class="base2 stem" d="'+STEML+'"/>'+ink(STEML)},
+ {s:2,h:'<path class="base2 cb" d="'+CBL+'"/>'+'<g clip-path="url(#clipCb)">'+CBFOLD.map(function(d){return ink(d,'thin')}).join('')+'</g>'+ink(CBL)},
+ {s:1,h:'<path class="base" d="'+LOUT+'"/>'},
+ {s:3,h:'<g clip-path="url(#clipL)">'+'<path class="ink gy" pathLength="1" d="'+GYRI+'"/>'+
+   poly("0,0 410,0 410,52 400,90 385,110 380,140 375,170 360,190 350,225 335,290 300,303 255,325 215,430 0,430",'c-front')+
+   poly("410,0 662,0 619,205 565,205 545,225 520,238 470,250 400,270 335,290 350,225 360,190 375,170 380,140 385,110 400,90 410,52",'c-par')+
+   poly("255,325 300,303 335,290 400,270 470,250 520,238 545,225 565,205 619,205 595,345 595,430 215,430",'c-temp')+
+   poly("662,0 800,0 800,430 595,430 595,345 619,205",'c-occ')+'</g>'},
+ {s:4,h:'<g clip-path="url(#clipL)">'+
+   '<path class="band area c-mot" d="'+BAND+'" transform="translate(-20 0)"/>'+
+   '<path class="band area c-sen" d="'+BAND+'" transform="translate(20 0)"/>'+
+   fl(ell(150,205,62,82),'area c-pfc')+
+   fl(ell(235,262,28,20),'area c-bro')+
+   fl(ell(530,268,30,17),'area c-wer','transform="rotate(-15 530 268)"')+
+   fl(ell(400,297,35,13),'area c-aud','transform="rotate(-12 400 297)"')+
+   fl(ell(722,262,22,48),'area c-v1')+'</g>'},
+ {s:3,h:ink(CENTRAL)+ink(LATERAL)+ink("M 642,95 L 619,205 L 595,345",'dash')+ink("M 565,205 L 619,205",'dash')+ink("M 350,225 L 337,288",'dash')},
+ {s:1,h:ink(LOUT)}
+];
+
+/* ---------- Zeichnung Mittelschnitt (Schritt 5 bis 8) ---------- */
+var med=[
+ {s:5,u:5,h:guide},
+ {s:5,h:'<path class="base2" d="'+CBL+'"/>'+ink(CBL)},
+ {s:6,h:ink(AV,'thin')},
+ {s:5,h:'<path class="base" d="'+MOUT+'"/>'},
+ {s:5,h:ink(MOUT)},
+ {s:5,h:'<path class="base2" d="'+STEMM+'"/>'},
+ {s:6,h:'<g clip-path="url(#clipS)">'+
+   fl('M 380,290 H 530 V 350 H 380 Z','c-mid')+fl('M 380,350 H 530 V 416 H 380 Z','c-pons')+
+   fl('M 380,416 H 530 V 480 H 380 Z','c-medu')+fl('M 380,480 H 530 V 540 H 380 Z','c-sc')+
+   ink('M 380,350 H 530 M 380,416 H 530 M 380,480 H 530','thin')+'</g>'},
+ {s:5,h:ink(STEMMO)},
+ {s:6,h:fl(V4,'c-v4')+ink(V4,'thin')},
+ {s:5,h:fl(CCD,'c-cc')+ink(CCD)},
+ {s:7,h:fl(ell(425,240,62,34),'c-thal')+ink(ell(425,240,62,34))},
+ {s:7,h:fl(ell(385,290,38,16),'c-hyp')+ink(ell(385,290,38,16))},
+ {s:7,h:ink('M 370,304 L 366,330')+fl(ell(364,341,17,11),'c-pit')+ink(ell(364,341,17,11))},
+ {s:7,h:fl(ell(481,262,9,7),'c-pin')+ink(ell(481,262,9,7),'thin')},
+ {s:7,h:fl(ell(497,305,11,15),'c-tec')+ink(ell(497,305,11,15),'thin')},
+ {s:8,h:'<path class="band cing c-cing" d="'+CING+'"/>'},
+ {s:8,h:'<g clip-path="url(#clipM)"><path class="band v1m c-v1m" d="'+CALC+'"/></g>'},
+ {s:8,h:ink(FORNIX,'thick')+ink(POS)+ink(CALC)}
+];
+
+/* ---------- Beschriftungen ---------- */
+/* side: r rechts, l links, t Text oberhalb, b Text unterhalb */
+var labels={lat:[
+ {id:'gross',s:1,n:'Großhirn',l:'Cerebrum',ax:640,ay:95,side:'r',tx:780,ty:10},
+ {id:'klein',s:2,n:'Kleinhirn',l:'Cerebellum',ax:660,ay:425,side:'r',tx:780,ty:465},
+ {id:'stamm',s:2,n:'Hirnstamm',l:'Truncus cerebri',ax:470,ay:480,side:'l',tx:40,ty:495},
+ {id:'stirn',s:3,n:'Stirnlappen',l:'Lobus frontalis',ax:290,ay:150,side:'l',tx:40,ty:100},
+ {id:'scheitel',s:3,n:'Scheitellappen',l:'Lobus parietalis',ax:520,ay:125,side:'r',tx:780,ty:75},
+ {id:'hinter',s:3,n:'Hinterhauptslappen',l:'Lobus occipitalis',ax:690,ay:195,side:'r',tx:780,ty:270},
+ {id:'schlaf',s:3,n:'Schläfenlappen',l:'Lobus temporalis',ax:400,ay:352,side:'l',tx:40,ty:420},
+ {id:'zentral',s:3,n:'Zentralfurche',l:'Sulcus centralis',ax:410,ay:53,side:'t',tx:410,ty:-6},
+ {id:'seiten',s:3,n:'Seitenfurche',l:'Sulcus lateralis',ax:300,ay:303,side:'l',tx:40,ty:320},
+ {id:'pfc',s:4,n:'Präfrontaler Kortex',l:'Planen, Entscheiden',ax:140,ay:205,side:'l',tx:40,ty:170},
+ {id:'bro',s:4,n:'Broca-Areal',l:'Sprache bilden',ax:235,ay:262,side:'l',tx:40,ty:245},
+ {id:'mot',s:4,n:'Motorischer Kortex',l:'Bewegung',ax:362,ay:128,side:'r',tx:780,ty:140},
+ {id:'sen',s:4,n:'Sensorischer Kortex',l:'Körperempfinden',ax:395,ay:170,side:'r',tx:780,ty:205},
+ {id:'vis',s:4,n:'Visueller Kortex',l:'Sehen',ax:725,ay:285,side:'r',tx:780,ty:335},
+ {id:'wer',s:4,n:'Wernicke-Areal',l:'Sprache verstehen',ax:535,ay:262,side:'r',tx:780,ty:400},
+ {id:'aud',s:4,n:'Auditiver Kortex',l:'Hören',ax:380,ay:297,side:'b',tx:380,ty:555}
+],med:[
+ {id:'gross',s:5,n:'Großhirn',l:'Cerebrum',ax:640,ay:100,side:'r',tx:780,ty:10},
+ {id:'balken',s:5,n:'Balken',l:'Corpus callosum',ax:310,ay:163,side:'l',tx:40,ty:150},
+ {id:'stamm',s:5,u:5,n:'Hirnstamm',l:'Truncus cerebri',ax:445,ay:420,side:'l',tx:40,ty:400},
+ {id:'klein',s:5,n:'Kleinhirn',l:'Cerebellum',ax:695,ay:425,side:'r',tx:780,ty:505},
+ {id:'mid',s:6,n:'Mittelhirn',l:'Mesencephalon',ax:455,ay:322,side:'r',tx:780,ty:395},
+ {id:'pons',s:6,n:'Brücke',l:'Pons',ax:400,ay:385,side:'l',tx:40,ty:400},
+ {id:'medu',s:6,n:'Verlängertes Mark',l:'Medulla oblongata',ax:438,ay:450,side:'l',tx:40,ty:460},
+ {id:'sc',s:6,n:'Rückenmark',l:'Medulla spinalis',ax:460,ay:505,side:'l',tx:40,ty:520},
+ {id:'v4',s:6,n:'4. Ventrikel',l:'Ventriculus quartus',ax:510,ay:385,side:'r',tx:780,ty:450},
+ {id:'arb',s:6,n:'Arbor vitae',l:'Lebensbaum',ax:600,ay:393,side:'r',tx:780,ty:560},
+ {id:'thal',s:7,n:'Thalamus',l:'Schaltstation',ax:450,ay:225,side:'r',tx:780,ty:175},
+ {id:'pin',s:7,n:'Epiphyse',l:'Zirbeldrüse',ax:482,ay:262,side:'r',tx:780,ty:230},
+ {id:'tec',s:7,n:'Vierhügelplatte',l:'Tectum',ax:500,ay:303,side:'r',tx:780,ty:340},
+ {id:'hyp',s:7,n:'Hypothalamus',l:'Hormone, Hunger, Durst',ax:372,ay:296,side:'l',tx:40,ty:287},
+ {id:'pit',s:7,n:'Hypophyse',l:'Hirnanhangsdrüse',ax:350,ay:342,side:'l',tx:40,ty:345},
+ {id:'cing',s:8,n:'Gyrus cinguli',l:'Gürtelwindung',ax:480,ay:106,side:'r',tx:780,ty:65},
+ {id:'pos',s:8,n:'Sulcus parietooccipitalis',l:'Scheitel-Hinterhaupt-Furche',ax:632,ay:150,side:'r',tx:780,ty:120},
+ {id:'calc',s:8,n:'Sulcus calcarinus',l:'Sehrinde V1',ax:700,ay:258,side:'r',tx:780,ty:285},
+ {id:'fornix',s:8,n:'Fornix',l:'Gedächtnisbahn',ax:336,ay:235,side:'l',tx:40,ty:235}
+]};
+
+function labelSvg(L){
+  var an=L.side==='r'?'start':L.side==='l'?'end':'middle';
+  var ex=L.side==='r'?L.tx-8:L.side==='l'?L.tx+8:L.tx;
+  var ey=L.side==='t'?L.ty+26:L.side==='b'?L.ty-24:L.ty-6;
+  return '<g class="s lab" tabindex="0" role="button" data-s="'+L.s+'" data-until="'+(L.u||99)+'" data-id="'+L.id+'" aria-label="'+L.n+'">'+
+   '<line class="ln" x1="'+L.ax+'" y1="'+L.ay+'" x2="'+ex+'" y2="'+ey+'"/>'+
+   '<circle class="dot" cx="'+L.ax+'" cy="'+L.ay+'" r="5.5"/><circle class="hit" cx="'+L.ax+'" cy="'+L.ay+'" r="20"/>'+
+   '<text class="nm" x="'+L.tx+'" y="'+L.ty+'" text-anchor="'+an+'">'+L.n+'</text>'+
+   '<text class="lt" x="'+L.tx+'" y="'+(L.ty+19)+'" text-anchor="'+an+'">'+L.l+'</text></g>';
+}
+function build(svg,els,labs,defs){
+  var h='<defs>'+defs+'</defs>';
+  els.forEach(function(e){h+='<g class="s" data-s="'+e.s+'" data-until="'+(e.u||99)+'">'+e.h+'</g>';});
+  labs.forEach(function(L){h+=labelSvg(L);});
+  svg.innerHTML=h;
+}
+
+/* ---------- Inhalt der Schritte ---------- */
+var steps=[
+{v:'lat',t:'Großhirn-Umriss',
+ tips:['Zeichne einen Hilfsrahmen, fast doppelt so breit wie hoch.','Setze eine liegende Kuppel hinein: oben gewölbt, hinten (rechts) rund, vorn (links) etwas schmaler.','Ziehe die Unterkante vorn flach und lass sie weiter hinten nach unten ausbuchten. Diese Ausbuchtung wird der Schläfenlappen.'],
+ note:'Du schaust auf die linke Seite des Kopfes. Die Stirn zeigt nach links.',
+ terms:[{id:'gross',n:'Großhirn',l:'Cerebrum',d:'Der größte Teil des Gehirns (über 80 % der Hirnmasse), in zwei Hälften geteilt. Hier sitzen Denken, Wahrnehmung, Bewegungsplanung und Sprache.'}]},
+{v:'lat',t:'Kleinhirn und Hirnstamm',
+ tips:['Zeichne das Kleinhirn hinten unten, unter dem hinteren Großhirn. Es ist knapp ein Drittel so breit wie das Großhirn.','Ziehe ein paar waagerechte, geschwungene Linien hinein. Das sind die feinen Windungen.','Der Hirnstamm hängt wie ein Stiel von der Mitte der Unterseite nach unten und geht ins Rückenmark über.'],
+ terms:[
+  {id:'klein',n:'Kleinhirn',l:'Cerebellum',d:'Feinabstimmung von Bewegungen und Gleichgewicht. Speichert eingeübte Bewegungsabläufe, sodass sie automatisch laufen. Wiegt nur etwa ein Zehntel des Großhirns.'},
+  {id:'stamm',n:'Hirnstamm',l:'Truncus cerebri',d:'Verbindung zwischen Großhirn und Rückenmark. Steuert Atmung, Herzschlag und Wachheit. Seine Teile folgen in Schritt 6.'}]},
+{v:'lat',t:'Furchen und vier Lappen',
+ tips:['Fülle die Fläche locker mit Schlangenlinien. Das sind die Windungen (Gyri), dazwischen liegen die Furchen (Sulci).','Seitenfurche: Sie startet vorn unten an der Spitze des Schläfenlappens und steigt flach nach hinten oben an.','Zentralfurche: Sie beginnt oben etwa in der Mitte und läuft schräg nach vorn unten. Kurz über der Seitenfurche hört sie auf.','Die gestrichelten Linien sind Grenzen, an denen es im echten Gehirn keine Furche gibt.','Male die vier Lappen in vier Farben aus.'],
+ terms:[
+  {id:'gyri',n:'Windungen und Furchen',l:'Gyri und Sulci',d:'Die Rinde ist stark gefaltet. So passt viel Rindenfläche in den Schädel.'},
+  {id:'stirn',n:'Stirnlappen',l:'Lobus frontalis',d:'Planen, Entscheiden, Bewegung und Sprachbildung.'},
+  {id:'scheitel',n:'Scheitellappen',l:'Lobus parietalis',d:'Körperempfinden und Orientierung im Raum.'},
+  {id:'schlaf',n:'Schläfenlappen',l:'Lobus temporalis',d:'Hören, Sprachverstehen und Gedächtnis.'},
+  {id:'hinter',n:'Hinterhauptslappen',l:'Lobus occipitalis',d:'Sehen.'},
+  {id:'zentral',n:'Zentralfurche',l:'Sulcus centralis',d:'Trennt Stirn- und Scheitellappen.'},
+  {id:'seiten',n:'Seitenfurche',l:'Sulcus lateralis',d:'Trennt den Schläfenlappen von Stirn- und Scheitellappen. Heißt auch Sylvische Furche.'}]},
+{v:'lat',t:'Funktionsareale',
+ tips:['Zeichne zwei Streifen entlang der Zentralfurche. Vor der Furche liegt der motorische Streifen, dahinter der sensorische.','Setze die beiden Sprachareale als Ovale: Broca vorn über der Seitenfurche, Wernicke hinten am Ende der Seitenfurche.','Ergänze die Hörrinde im oberen Schläfenlappen, die Sehrinde ganz hinten und den vorderen Stirnbereich.'],
+ memo:'<b>Merkhilfe:</b> M vor S. Erst Motorik, dann Sensorik, so wie im Alphabet und im Bild von vorn nach hinten.',
+ note:'Die Lage ist schematisch. Die Sprachareale liegen bei den meisten Menschen links, deshalb passen sie zu dieser Ansicht.',
+ terms:[
+  {id:'pfc',n:'Präfrontaler Kortex',l:'vorderer Stirnlappen',d:'Planen, Entscheiden, Impulskontrolle.'},
+  {id:'mot',n:'Primär motorischer Kortex',l:'Gyrus praecentralis',d:'Steuert willkürliche Bewegungen der Gegenseite des Körpers.'},
+  {id:'sen',n:'Primär somatosensorischer Kortex',l:'Gyrus postcentralis',d:'Verarbeitet Berührung, Temperatur, Schmerz und Körperlage der Gegenseite.'},
+  {id:'bro',n:'Broca-Areal',l:'',d:'Sprache bilden. Bei Schäden wird das Sprechen stockend und mühsam.'},
+  {id:'wer',n:'Wernicke-Areal',l:'',d:'Sprache verstehen. Bei Schäden bleibt das Sprechen flüssig, hat aber wenig Sinn.'},
+  {id:'aud',n:'Auditiver Kortex',l:'Heschl-Querwindung',d:'Verarbeitet Höreindrücke. Liegt im oberen Schläfenlappen.'},
+  {id:'vis',n:'Visueller Kortex',l:'Area V1',d:'Verarbeitet Seheindrücke. Der größte Teil liegt an der Innenseite des Hinterhauptspols (Schritt 8).'}]},
+{v:'med',t:'Mittelschnitt: Umriss und Balken',
+ tips:['Nimm denselben Hilfsrahmen und die gleiche Kuppel wie in Schritt 1. Die Unterseite ist hier flacher, der Schläfenlappen fehlt, weil wir durch die Mitte geschnitten haben.','Zeichne Kleinhirn und Hirnstamm als Silhouette wie in Schritt 2.','Der Balken ist ein dicker Bogen in der Mitte. Vorn knickt er um (Knie), hinten endet er in einer Verdickung (Wulst).'],
+ note:'Du schaust auf die Schnittfläche der rechten Gehirnhälfte. Die Stirn zeigt weiter nach links.',
+ terms:[{id:'balken',n:'Balken',l:'Corpus callosum',d:'Das dickste Nervenfaserbündel. Es verbindet linke und rechte Großhirnhälfte. Vorn liegt das Knie (Genu), hinten der Wulst (Splenium).'}]},
+{v:'med',t:'Hirnstamm, Kleinhirn, Ventrikel',
+ tips:['Teile den Hirnstamm in drei Etagen: oben das Mittelhirn, in der Mitte die Brücke mit der Wölbung nach vorn, unten das Verlängerte Mark. Darunter geht es als Rückenmark weiter.','Hinter Brücke und Verlängertem Mark liegt ein kleiner dreieckiger Hohlraum, der vierte Ventrikel.','Im Kleinhirn zeichnest du den Lebensbaum: ein Stamm mit verzweigten Ästen.'],
+ memo:'<b>Merkhilfe:</b> Von oben nach unten M, P, M: Mittelhirn, Pons, Medulla.',
+ terms:[
+  {id:'mid',n:'Mittelhirn',l:'Mesencephalon',d:'Oberste Etage des Hirnstamms. Augenbewegungen und Reflexe auf Seh- und Höreindrücke.'},
+  {id:'pons',n:'Brücke',l:'Pons',d:'Mittlere Etage. Verbindet Großhirn und Kleinhirn und ist an Atmung und Schlaf beteiligt.'},
+  {id:'medu',n:'Verlängertes Mark',l:'Medulla oblongata',d:'Unterste Etage. Steuert Atmung, Kreislauf, Schlucken und Husten.'},
+  {id:'sc',n:'Rückenmark',l:'Medulla spinalis',d:'Leitet Signale zwischen Gehirn und Körper.'},
+  {id:'v4',n:'4. Ventrikel',l:'Ventriculus quartus',d:'Mit Nervenwasser (Liquor) gefüllter Hohlraum hinter Brücke und Verlängertem Mark.'},
+  {id:'arb',n:'Arbor vitae',l:'Lebensbaum',d:'Verzweigtes Muster der weißen Substanz im Kleinhirn. Im Schnitt sieht es aus wie ein Baum.'}]},
+{v:'med',t:'Zwischenhirn und Hypophyse',
+ tips:['Der Thalamus ist ein großes Oval unter dem Balken, in der Mitte des Gehirns.','Darunter und etwas weiter vorn sitzt der kleinere Hypothalamus. An seiner Unterseite hängt die Hypophyse an einem dünnen Stiel.','Hinter dem Thalamus liegt die winzige Epiphyse. Auf dem Dach des Mittelhirns sitzt die Vierhügelplatte.'],
+ terms:[
+  {id:'thal',n:'Thalamus',l:'',d:'Schaltstation: Fast alle Sinneseindrücke außer dem Geruch laufen hier durch, bevor sie die Rinde erreichen.'},
+  {id:'hyp',n:'Hypothalamus',l:'',d:'Steuert Hunger, Durst, Körpertemperatur, Schlaf-Wach-Rhythmus und Hormone.'},
+  {id:'pit',n:'Hypophyse',l:'Hirnanhangsdrüse',d:'Gibt Hormone ab. Wird vom Hypothalamus gesteuert.'},
+  {id:'pin',n:'Epiphyse',l:'Zirbeldrüse',d:'Bildet das Schlafhormon Melatonin. Gehört zum Epithalamus, einem Teil des Zwischenhirns.'},
+  {id:'tec',n:'Vierhügelplatte',l:'Tectum',d:'Gehört zum Mittelhirn, nicht zum Zwischenhirn. Schaltet schnelle Reflexe auf Seh- und Höreindrücke.'}]},
+{v:'med',t:'Innenseite und Fornix',
+ tips:['Über dem Balken liegt der Gyrus cinguli als gleichmäßiger Bogen, der den Balken umläuft.','Der Fornix ist ein dünner Bogen unter dem Balken. Er endet vorn unten am Hypothalamus.','Hinten zeichnest du zwei Furchen: Die Parieto-Okzipital-Furche kommt von oben schräg nach unten, die Calcarina-Furche läuft waagerecht zum Hinterhauptspol. Beide treffen sich.'],
+ note:'Hippocampus und Amygdala gehören auch zum limbischen System. Sie liegen seitlich im Schläfenlappen und sind im Mittelschnitt nicht zu sehen.',
+ terms:[
+  {id:'cing',n:'Gyrus cinguli',l:'Gürtelwindung',d:'Gehört zum limbischen System: Gefühle, Aufmerksamkeit, Schmerzbewertung.'},
+  {id:'fornix',n:'Fornix',l:'',d:'Faserbündel vom Hippocampus zu den Mamillarkörpern am Hypothalamus. Wichtig für das Gedächtnis.'},
+  {id:'pos',n:'Sulcus parietooccipitalis',l:'Scheitel-Hinterhaupt-Furche',d:'Grenze zwischen Scheitel- und Hinterhauptslappen an der Innenseite. Davor liegt der Precuneus, dahinter der Cuneus.'},
+  {id:'calc',n:'Sulcus calcarinus',l:'Calcarina-Furche',d:'Um diese Furche liegt die primäre Sehrinde (V1).'}]}
+];
+
+
+
+
+var stage=$('#stage'), rev={};
+function defsFor(v,n){
+  return v==='lat'?'<clipPath id="s'+n+'clipL"><path d="'+LOUT+'"/></clipPath><clipPath id="s'+n+'clipCb"><path d="'+CBL+'"/></clipPath>'
+    :'<clipPath id="s'+n+'clipM"><path d="'+MOUT+'"/></clipPath><clipPath id="s'+n+'clipS"><path d="'+STEMM+'"/></clipPath>';
+}
+function makeSvg(n){
+  var v=steps[n-1].v, els=v==='lat'?lat:med, labs=labels[v];
+  var h='<svg viewBox="-200 -30 1230 630" class="'+(v==='lat'&&n>=3?'col':'')+'" role="img" aria-label="'+steps[n-1].t+'"><defs>'+defsFor(v,n)+'</defs>';
+  els.forEach(function(e){
+    if(!(e.s<=n&&n<=(e.u||99)))return;
+    h+='<g class="s on'+(e.s===n?' cur':'')+'">'+e.h.replace(/url\(#clip/g,'url(#s'+n+'clip')+'</g>';
+  });
+  labs.forEach(function(L){
+    if(!(L.s<=n&&n<=(L.u||99)))return;
+    h+=labelSvg(L).replace('class="s lab"','class="s lab on"');
+  });
+  return h+'</svg>';
+}
+var html='';
+html+='<section class="slide center"><div class="kicker">Gehirn zeichnen</div><h1>Das Gehirn in acht Zeichnungen</h1>'+
+ '<p class="note" data-step>Erst die Seitenansicht, dann der Schnitt durch die Mitte. Jede Folie ergänzt die vorige.</p>'+
+ '<p class="note" data-step>Neue Linien sind orange. Mit „Abfragen“ unten links sind die Namen verdeckt, Tippen deckt sie auf.</p></section>';
+steps.forEach(function(st,i){
+  var n=i+1;
+  html+='<section class="slide"><div class="kicker">Schritt '+n+' von 8 · '+(st.v==='lat'?'Seitenansicht':'Mittelschnitt')+'</div><h2>'+st.t+'</h2>'+
+   '<div class="body"><div class="fig">'+makeSvg(n)+'</div><div class="side"><div class="cap">So zeichnest du es</div><ol>'+
+   st.tips.map(function(t){return '<li data-step>'+t+'</li>'}).join('')+'</ol>'+
+   (st.memo?'<p class="memo" data-step>'+st.memo+'</p>':'')+
+   (st.note?'<p class="noteb" data-step>'+st.note+'</p>':'')+'</div></div></section>';
+});
+html+='<section class="slide center"><div class="kicker">Und jetzt du</div><h2>Fünf Minuten. Ohne Vorlage.</h2>'+
+ '<p data-step>Zeichne die Seitenansicht aus dem Kopf: Umriss, Kleinhirn, Hirnstamm, Zentral- und Seitenfurche.</p>'+
+ '<p data-step>Beschrifte die vier Lappen und die beiden Sprachareale.</p>'+
+ '<p class="big" data-step style="color:var(--accent);margin-top:.7em">Danach vergleichst du mit Schritt 4.</p></section>';
+html+='<div id="dots"></div><button type="button" id="quizBtn" aria-pressed="false">Abfragen</button><div id="counter"><button type="button" id="bp" aria-label="Zurück">‹</button><span id="cnt"></span><button type="button" id="bn" aria-label="Weiter">›</button></div>';
+stage.innerHTML=html;
+
+var slides=[].slice.call(stage.querySelectorAll('.slide')), idx=0, shown=0;
+var dots=$('#dots');
+slides.forEach(function(_,k){var d=document.createElement('i');d.addEventListener('click',function(e){e.stopPropagation();show(k,false)});dots.appendChild(d);});
+function items(i){return [].slice.call(slides[i].querySelectorAll('[data-step]'));}
+function show(i,all){
+  idx=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach(function(s,k){s.classList.toggle('active',k===idx)});
+  var it=items(idx);it.forEach(function(x){x.classList.toggle('shown',!!all)});shown=all?it.length:0;
+  [].forEach.call(dots.children,function(d,k){d.classList.toggle('on',k===idx)});
+  $('#cnt').textContent=(idx+1)+' / '+slides.length;
+  slides[idx].querySelectorAll('.s.cur').forEach(function(g){g.classList.remove('anim');void g.getBoundingClientRect();g.classList.add('anim');});
+  syncRev();
+  try{history.replaceState(null,'','#'+(idx+1));}catch(e){}
+}
+function next(){var it=items(idx);if(shown<it.length){it[shown].classList.add('shown');shown++;}else if(idx<slides.length-1)show(idx+1,false);}
+function prev(){var it=items(idx);if(shown>0){shown--;it[shown].classList.remove('shown');}else if(idx>0)show(idx-1,true);}
+$('#bn').addEventListener('click',function(e){e.stopPropagation();next()});
+$('#bp').addEventListener('click',function(e){e.stopPropagation();prev()});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+  else if(e.key==='Home')show(0,false); else if(e.key==='End')show(slides.length-1,true);
+  else if(e.key==='a'||e.key==='A')toggleQuiz();
+});
+stage.addEventListener('click',function(e){
+  if(e.target.closest('.lab,button,#dots'))return;
+  var r=stage.getBoundingClientRect();
+  if(e.clientX-r.left<r.width*.3)prev();else next();
+});
+
+/* Abfragen */
+function syncRev(){stage.querySelectorAll('.lab').forEach(function(el){el.classList.toggle('rev',!!rev[el.dataset.id]);});}
+function toggleQuiz(){
+  var on=!stage.classList.contains('quiz');
+  stage.classList.toggle('quiz',on);$('#quizBtn').setAttribute('aria-pressed',on?'true':'false');
+  if(on)rev={};syncRev();
+}
+$('#quizBtn').addEventListener('click',function(e){e.stopPropagation();toggleQuiz();});
+stage.addEventListener('click',function(e){
+  var g=e.target.closest('.lab');if(!g)return;
+  if(stage.classList.contains('quiz')){rev[g.dataset.id]=!rev[g.dataset.id];syncRev();}
+  g.classList.remove('hl');void g.getBoundingClientRect();g.classList.add('hl');
+});
+
+var start=parseInt((location.hash||'').slice(1),10);
+show(start>=1&&start<=slides.length?start-1:0,false);
+stage.focus();
+})();
+</script>
+
+</body></html>

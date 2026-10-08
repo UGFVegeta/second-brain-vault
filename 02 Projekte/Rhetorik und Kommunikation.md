@@ -1,8 +1,9 @@
 ---
 tags: [projekt]
 status: aktiv
+prio: 2
+thema: Karriere
 erstellt: 2026-05-31
-deadline: 2026-09-01
 ---
 
 # Rhetorik und Kommunikation verbessern

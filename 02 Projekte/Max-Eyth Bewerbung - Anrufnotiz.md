@@ -1,6 +1,6 @@
 ---
 tags: [projekt, konrektor, max-eyth, anruf]
-status: aktiv
+status: abgeschlossen
 date: 2026-06-24
 ---
 

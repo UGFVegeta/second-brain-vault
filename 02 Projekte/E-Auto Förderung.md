@@ -5,6 +5,8 @@ tags:
   - finanzen
   - auto
 status: aktiv
+prio: 1
+thema: Finanzen
 erstellt: 2026-06-01
 ---
 

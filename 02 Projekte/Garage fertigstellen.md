@@ -1,6 +1,6 @@
 ---
 tags: [projekt]
-status: aktiv
+status: abgeschlossen
 erstellt: 2026-05-31
 deadline: 2026-07-31
 ---

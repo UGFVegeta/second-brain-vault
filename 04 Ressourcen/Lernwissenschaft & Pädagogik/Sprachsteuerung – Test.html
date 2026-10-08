@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprachsteuerung – Test</title>
+<style>
+  :root{--ink:#1c2230;--bg:#fcf8ef;--paper:#fffdf6;--accent:#2f6f4f;--accent2:#c2531e;
+        --muted:#6b7280;--line:#d9d3c7}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       line-height:1.5;padding:28px 20px 60px}
+  .wrap{max-width:860px;margin:0 auto}
+  h1{font-size:26px;letter-spacing:-.01em;margin-bottom:4px}
+  .unter{color:var(--muted);margin-bottom:22px}
+  .box{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+  h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .check{display:flex;gap:10px;align-items:baseline;margin:5px 0;font-size:15px}
+  .pill{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+        padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .ja{background:#dceee3;color:#1d5c3f} .nein{background:#f8dcd6;color:#8f2f16} .wart{background:#eee9dc;color:#6b6250}
+  button{font:inherit;font-weight:600;padding:11px 20px;border-radius:10px;border:1px solid var(--ink);
+         background:var(--ink);color:#fff;cursor:pointer}
+  button.aus{background:transparent;color:var(--ink)}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  .hoeren{display:inline-flex;align-items:center;gap:8px;margin-left:14px;font-size:14px;color:var(--muted)}
+  .punkt{width:10px;height:10px;border-radius:50%;background:#c9c3b5}
+  .punkt.an{background:#cf2f24;animation:p 1.1s infinite}
+  @keyframes p{0%,100%{opacity:1}50%{opacity:.25}}
+  .hoer{min-height:52px;font-size:15px;color:var(--muted);background:#f4f0e5;border-radius:10px;padding:10px 13px;
+        margin-top:12px;font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.45}
+  .hoer b{color:var(--ink);font-weight:600}
+  .schritt{display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border-radius:10px;
+           border:1px solid transparent;margin:3px 0;transition:background .25s,border-color .25s}
+  .schritt.offen{background:#f1f6f2;border-color:#bcd8c7}
+  .schritt.jetzt{background:#fff;border-color:var(--accent);box-shadow:0 2px 10px rgba(47,111,79,.14)}
+  .nr{font-weight:700;color:var(--accent);min-width:22px;font-variant-numeric:tabular-nums}
+  .txt{flex:1}
+  .txt .inhalt{font-size:17px}
+  .schritt:not(.offen) .inhalt{opacity:.33}
+  .trig{font-size:12px;color:var(--muted);margin-top:3px;font-family:ui-monospace,Menlo,monospace}
+  .treffer{color:var(--accent2);font-weight:700}
+  .fuss{font-size:13px;color:var(--muted);margin-top:8px}
+  code{background:#eee9dc;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Sprachsteuerung – Test</h1>
+  <div class="unter">Läuft die Folie mit, während ich rede? Hier siehst du, ob die Technik auf diesem Gerät funktioniert.</div>
+
+  <div class="box">
+    <h2>Was dieses Gerät kann</h2>
+    <div class="check"><span class="pill wart" id="p1">prüfe</span><span id="t1">Spracherkennung im Browser</span></div>
+    <div class="check"><span class="pill wart" id="p2">prüfe</span><span id="t2">Sicherer Kontext</span></div>
+    <div class="check"><span class="pill wart" id="p3">prüfe</span><span id="t3">Mikrofon</span></div>
+    <div class="fuss" id="diag"></div>
+  </div>
+
+  <div class="box">
+    <h2>Test</h2>
+    <button id="start">Zuhören starten</button>
+    <button id="reset" class="aus">Zurück auf Anfang</button>
+    <span class="hoeren"><span class="punkt" id="punkt"></span><span id="status">aus</span></span>
+    <div class="hoer" id="hoer">Noch nichts gehört.</div>
+  </div>
+
+  <div class="box">
+    <h2>Sprich einfach drauflos – ungefähr so, wie du es am Montag sagen würdest</h2>
+    <div id="liste"></div>
+    <div class="fuss">Die grauen Wörter sind die Stichwörter, auf die der jeweilige Schritt wartet. Du musst sie nicht wörtlich treffen, zwei von drei genügen. Pfeiltasten funktionieren weiterhin.</div>
+  </div>
+
+</div>
+
+<script>
+// ——— Inhalte: ein Ausschnitt aus der Montagspräsentation ———
+const SCHRITTE = [
+  {text:'Wir haben am ersten Schultag etwas abgemacht.',            trigger:'ersten schultag abgemacht'},
+  {text:'Vieles davon läuft. Manches noch nicht.',                   trigger:'vieles laeuft manches nicht'},
+  {text:'Ab heute gibt es drei Stufen: Ansage, Gelb, Rot.',          trigger:'drei stufen ansage gelb rot'},
+  {text:'Die gelbe Karte lege ich hin, ohne etwas zu sagen.',        trigger:'gelbe karte hinlegen ohne sagen'},
+  {text:'Bei Rot: Eintrag ins Tagebuch, die Eltern bekommen eine Nachricht.', trigger:'rot eintrag tagebuch eltern nachricht'},
+  {text:'Jede Stunde fängt wieder bei null an.',                     trigger:'jede stunde faengt null'}
+];
+const SCHWELLE = 0.5;     // so viel Anteil der Stichwörter muss fallen
+const FENSTER  = 14000;   // ms, so weit zurück wird zugehört
+const PAUSE    = 1200;    // ms Sperre nach dem Weiterschalten
+
+function norm(s){
+  return s.toLowerCase()
+    .replace(/[äöüß]/g, m => ({'ä':'ae','ö':'oe','ü':'ue','ß':'ss'}[m]))
+    .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+}
+
+// ——— Anzeige ———
+let i = 0, gehoert = [], letzterSprung = 0, laeuft = false;
+const liste = document.getElementById('liste');
+SCHRITTE.forEach((s,k)=>{
+  const d = document.createElement('div');
+  d.className = 'schritt'; d.id = 'schritt'+k;
+  d.innerHTML = `<div class="nr">${k+1}</div><div class="txt">
+      <div class="inhalt">${s.text}</div>
+      <div class="trig" id="trig${k}">${s.trigger.split(' ').map(w=>`<span data-w="${w}">${w}</span>`).join(' · ')}</div>
+    </div>`;
+  liste.appendChild(d);
+});
+function zeichne(){
+  SCHRITTE.forEach((s,k)=>{
+    const d = document.getElementById('schritt'+k);
+    d.className = 'schritt' + (k < i ? ' offen' : '') + (k === i-1 ? ' jetzt' : '');
+  });
+}
+zeichne();
+
+function weiter(){
+  if(i >= SCHRITTE.length) return;
+  i++; letzterSprung = Date.now(); gehoert = [];
+  zeichne();
+}
+
+// ——— Abgleich ———
+function pruefe(text){
+  if(Date.now() - letzterSprung < PAUSE) return;
+  if(i >= SCHRITTE.length) return;
+  // nur die nächsten zwei Schritte ansehen, damit nichts wild springt
+  for(let k = i; k < Math.min(i+2, SCHRITTE.length); k++){
+    const woerter = SCHRITTE[k].trigger.split(' ');
+    const treffer = woerter.filter(w => text.includes(w));
+    const tdiv = document.getElementById('trig'+k);
+    tdiv.querySelectorAll('span').forEach(sp=>{
+      sp.className = treffer.includes(sp.dataset.w) ? 'treffer' : '';
+    });
+    if(treffer.length / woerter.length >= SCHWELLE){
+      while(i <= k) weiter();          // übersprungene Schritte mit aufdecken
+      return;
+    }
+  }
+}
+
+// ——— Spracherkennung ———
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const p1=document.getElementById('p1'), p2=document.getElementById('p2'), p3=document.getElementById('p3');
+const diag=document.getElementById('diag'), hoer=document.getElementById('hoer');
+const statusEl=document.getElementById('status'), punkt=document.getElementById('punkt');
+const startBtn=document.getElementById('start');
+
+function setze(el, ok, text){ el.className = 'pill ' + (ok?'ja':'nein'); el.textContent = text; }
+setze(p1, !!SR, SR ? 'ja' : 'nein');
+setze(p2, window.isSecureContext, window.isSecureContext ? 'ja' : 'nein');
+document.getElementById('t2').textContent =
+  'Sicherer Kontext (' + location.protocol + ')';
+if(!SR){
+  diag.textContent = 'Dieser Browser kennt die Spracherkennung nicht. In Chrome oder Safari öffnen.';
+  startBtn.disabled = true;
+}
+
+let erk = null, neustarts = 0;
+const neustartsOk = true;
+function starte(){
+  if(!SR) return;
+  erk = new SR();
+  erk.lang = 'de-DE'; erk.continuous = true; erk.interimResults = true;
+  erk.onstart = ()=>{ laeuft = true; punkt.classList.add('an'); statusEl.textContent='hört zu';
+                      startBtn.textContent='Zuhören stoppen'; setze(p3,true,'ja'); };
+  erk.onerror = e =>{
+    setze(p3,false,e.error);
+    const hilfe = {
+      'not-allowed':'Das Mikrofon wurde nicht freigegeben. In Chrome auf das Symbol links in der Adresszeile klicken und Mikrofon erlauben. Bei einer Datei, die direkt vom Schreibtisch geöffnet wurde, merkt sich Chrome die Freigabe oft nicht – dann über einen lokalen Server öffnen.',
+      'service-not-allowed':'Der Erkennungsdienst ist in diesem Browser nicht verfügbar. In normalem Google Chrome oder Safari versuchen.',
+      'network':'Keine Verbindung zum Erkennungsdienst. Chrome schickt die Aufnahme an Google, dafür braucht es Internet.',
+      'no-speech':'Nichts gehört. Lauter sprechen oder näher ans Mikrofon.'
+    }[e.error] || ('Fehler: ' + e.error);
+    diag.textContent = hilfe;
+  };
+  erk.onend = ()=>{                      // nicht blind neu starten - das loeste die Dauerabfrage aus
+    if(laeuft && neustartsOk){ neustarts++; if(neustarts<3) erk.start(); else {
+      laeuft=false; punkt.classList.remove('an'); statusEl.textContent='gestoppt';
+      startBtn.textContent='Zuhören starten';
+      diag.textContent='Mehrfach abgebrochen. Diese Variante braucht Chrome mit Google-Dienst - fuer den Unterricht die lokale Loesung nutzen.'; } }
+  };
+  erk.onresult = ev=>{
+    let roh = '';
+    for(let k = ev.resultIndex; k < ev.results.length; k++) roh += ev.results[k][0].transcript + ' ';
+    const jetzt = Date.now();
+    gehoert.push({t: jetzt, text: norm(roh)});
+    gehoert = gehoert.filter(g => jetzt - g.t < FENSTER);
+    const fenster = gehoert.map(g=>g.text).join(' ');
+    hoer.innerHTML = '<b>gehört:</b> ' + (fenster.slice(-220) || '–');
+    pruefe(fenster);
+  };
+  try{ erk.start(); } catch(e){ diag.textContent = 'Start nicht möglich: ' + e.message; }
+}
+startBtn.addEventListener('click', ()=>{
+  if(laeuft){ laeuft=false; erk && erk.stop(); punkt.classList.remove('an');
+              statusEl.textContent='aus'; startBtn.textContent='Zuhören starten'; }
+  else starte();
+});
+document.getElementById('reset').addEventListener('click', ()=>{ i=0; gehoert=[]; zeichne();
+  document.querySelectorAll('.trig span').forEach(s=>s.className=''); hoer.textContent='Noch nichts gehört.'; });
+addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key===' ') { weiter(); e.preventDefault(); }
+  if(e.key==='ArrowLeft' && i>0){ i--; zeichne(); }
+});
+</script>
+</body>
+</html>

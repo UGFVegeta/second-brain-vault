@@ -1,6 +1,8 @@
 ---
 tags: [web, projekt, wordpress]
 status: aktiv
+prio: 3
+thema: Nebenprojekte
 date: 2026-07-02
 ---
 

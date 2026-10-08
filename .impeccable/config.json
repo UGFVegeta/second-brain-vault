@@ -32,6 +32,15 @@
         ],
         "createdAt": "2026-09-23T07:43:25.023Z",
         "reason": "Zeile 57 ist die Auswahl-Markierung eines Listeneintrags (wie eine ausgewählte Zeile im Dateibrowser), keine dekorative Card-Umrahmung – funktionale Statusanzeige, kein AI-Slop-Muster"
+      },
+      {
+        "rule": "side-tab",
+        "value": "4px",
+        "files": [
+          "04 Ressourcen/Mathematik/Stochastik/Stochastik Übung – Wahrscheinlichkeit und Erwartungswert – ALLES.html"
+        ],
+        "createdAt": "2026-10-02T20:01:10.169Z",
+        "reason": "Claude: .knapp-Hinweisbox im bestehenden Stil von Oskars freigegebenen Stundendateien (Rationale Zahlen ALLES.html), bewusst übernommen, Schul-Unterrichtsmaterial"
       }
     ]
   }

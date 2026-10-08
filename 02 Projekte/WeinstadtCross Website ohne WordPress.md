@@ -1,6 +1,6 @@
 ---
 tags: [projekt, weinstadtcross, website]
-status: pausiert
+status: abgeschlossen
 date: 2026-08-08
 ---
 

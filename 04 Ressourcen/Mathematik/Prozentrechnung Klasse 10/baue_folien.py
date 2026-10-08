@@ -2,11 +2,14 @@
 """Folien Prozentrechnen (Wdh) Klasse 10b: 3 Folien im Notability-Format (960 x 540 pt, wie die 7c-Folien) plus Lösungsfassung nur für den Lehrer.
 Folie 1 Einstiegsaufgabe (Kreisdiagramm, Dreisatz und Formel), Folie 2 und 3 je zwei Aufgaben, bei denen das neue 100 % aus dem Diagramm herausgelesen wird.
 Alle Ergebnisse werden hier nachgerechnet. Aufruf: python3 baue_folien.py -> 'Prozent Wdh 10b – Folien.pdf' und '… – Lösungen (nur für mich).pdf'"""
-import math, subprocess
+import math, subprocess, sys
 from fractions import Fraction
 from pathlib import Path
 
 HIER = Path(__file__).resolve().parent
+sys.path.insert(0, str(HIER.parent))
+sys.path.insert(0, str(HIER.parent / "Rationale Zahlen"))
+from baue_woche7 import merkbild, EXTRA_CSS  # noqa: E402  Rezept-Stil: Beispiel links, Rezept rechts
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 FARBEN = ["#c9d6ea", "#f3d9a4", "#cfe6cf", "#e8cfe0"]
 ROT = "#b3261e"
@@ -109,6 +112,10 @@ h2{{font-size:21pt;margin:0 0 8pt}} .k{{color:#777}}
 .spalten>div{{flex:1;padding:8pt 12pt 0}} .spalten>div+div{{border-left:.8pt solid #ccc}}
 .spalten h3{{margin:0 0 4pt;font-size:13pt;color:#999;font-weight:600}}
 .spalten p{{font-size:14pt;margin:0 0 4pt}}
+{EXTRA_CSS.replace("<style>", "").replace("</style>", "")}
+.heft{{border-left:5pt solid #1b1b1b;padding-left:14pt}}
+.mb{{gap:30pt;margin-top:4pt}}.mz{{font-size:23pt;margin:6pt 0;gap:10pt}}.mz .sn,.mz .leer{{width:21pt;height:21pt;font-size:11pt}}.mz-trenn{{height:12pt}}
+.rezept{{font-size:17pt;line-height:1.4}}.rezept h4{{font-size:19pt}}.rs li{{margin:8pt 0}}
 .lsg{{margin-top:8pt;font-size:15pt;line-height:1.35;color:{ROT}}} .lsg b{{color:{ROT}}}
 """
 
@@ -133,6 +140,21 @@ def folie1(lsg):
 <div class="sub"><b>b)</b><span>Wie viele der Befragten kommen mit dem Bus?</span></div>
 <div class="sub"><b>c)</b><span>24 der Busfahrer sind Fünftklässler. Wie viel Prozent <u>der Busfahrer</u> sind das? Wie viel Prozent <u>aller Befragten</u> sind das?</span></div></div>
 <div style="flex:none;width:350pt;margin-top:-10pt">{kreis(E_TEILE, 165, 17)}</div></div>{unten}</div>"""
+
+
+SCHRITTE_P = ["Was ist 100 %? Wer ist „alle“?", "Was ist gegeben: G, W oder p %?", "Was ist gesucht?",
+              "Formel: W = G · p %; G = W : p %; p % = W : G", "Ausrechnen, Antwortsatz."]
+MERK_P = merkbild("Prozentaufgabe", [
+    [(1, '<span class="txt">100 % = alle Befragten</span>'), (2, '<span class="txt">gegeben: W = 60 (Fahrrad), p % = 25 %</span>'),
+     (3, '<span class="txt">gesucht: G</span>'), (4, '<span class="txt">G = W : p % =</span> 60 : 0,25'), (5, '= <b>240</b><span class="txt">&nbsp;Befragte</span>')],
+    [(1, '<span class="txt">100 % = nur die <u>Busfahrer</u> (96)</span>'), (2, '<span class="txt">gegeben: W = 24, G = 96</span>'),
+     (3, '<span class="txt">gesucht: p %</span>'), (4, '<span class="txt">p % = W : G =</span> 24 : 96'), (5, '= <b>0,25</b><span class="txt">&nbsp;= 25 %</span>')],
+], SCHRITTE_P)
+
+
+def folie_merk():
+    """Merkheft-Folie im Rezept-Stil nach der Einstiegsaufgabe (in beiden Fassungen, wird nach der Besprechung gezeigt)."""
+    return f'<div class="f"><h1>Merkheft: Prozentaufgabe <small>a) und c) aus der Einstiegsaufgabe</small></h1><div class="heft">{MERK_P}</div></div>'
 
 
 def folie2(lsg):
@@ -172,7 +194,7 @@ def folie3(lsg):
 
 def seite(lsg):
     titel = "Prozent Wdh 10b" + (" – Lösungen" if lsg else "")
-    return f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>{titel}</title><style>{CSS}</style></head><body>{folie1(lsg)}{folie2(lsg)}{folie3(lsg)}</body></html>'.replace(" %", "&nbsp;%")
+    return f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>{titel}</title><style>{CSS}</style></head><body>{folie1(lsg)}{folie_merk()}{folie2(lsg)}{folie3(lsg)}</body></html>'.replace(" %", "&nbsp;%")
 
 
 # ---------------------------------------------------------------- Blatt mit allen Aufgaben (1 Seite A4, Rechnung im Heft)

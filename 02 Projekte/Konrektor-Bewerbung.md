@@ -1,6 +1,8 @@
 ---
 tags: [projekt, konrektor, karriere]
 status: aktiv
+prio: 2
+thema: Karriere
 date: 2026-06-19
 ---
 

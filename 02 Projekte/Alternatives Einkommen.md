@@ -1,6 +1,8 @@
 ---
 tags: [projekt, einkommen, eduki, fortbildung]
 status: aktiv
+prio: 3
+thema: Nebenprojekte
 date: 2026-07-13
 ---
 

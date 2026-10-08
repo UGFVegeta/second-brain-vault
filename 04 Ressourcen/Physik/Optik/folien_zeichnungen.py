@@ -15,6 +15,7 @@ class Z:
     """Sammelt SVG-Teile; pre = eindeutiger Präfix für ids (mehrere Folien in einem Dokument)."""
     def __init__(self, pre, h=212):
         self.pre, self.h, self.o = pre, h, []
+        self.strahlen = []
         self.o.append(f'<defs><radialGradient id="{pre}gl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/>'
                       f'<stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient>'
                       f'<linearGradient id="{pre}wa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/>'
@@ -27,6 +28,8 @@ class Z:
     def rect(self, x, y, w, h, fill, op=1, rx=0): return self.add(f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{rx}" fill="{fill}" fill-opacity="{op}"/>')
     def line(self, x1, y1, x2, y2, col=GELB, w=2.2, dash=None, op=1):
         d = f' stroke-dasharray="{dash}"' if dash else ""
+        if col in (GELB, ORANGE, CYAN) and not dash and w >= 1.3 and op >= .5 and math.hypot(x2 - x1, y2 - y1) >= 20:
+            self.strahlen.append((x1, y1, x2, y2, col))
         return self.add(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{col}" stroke-width="{w}" stroke-opacity="{op}" stroke-linecap="round"{d}/>')
 
     def pfeil(self, x1, y1, x2, y2, col=GELB, w=2.2, s=9):
@@ -93,7 +96,35 @@ class Z:
         return self.add(f'<text x="{x:.1f}" y="{y:.1f}" font-family="Georgia, \'Times New Roman\', serif" font-style="italic" font-size="14" '
                         f'fill="{col}" text-anchor="{anchor}" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">{zeichen}{i}</text>')
 
-    def svg(self, w=636): return f'<svg viewBox="0 0 {w} {self.h}" xmlns="http://www.w3.org/2000/svg">' + "".join(self.o) + "</svg>"
+    def pulse(self):
+        """Lichtpulse laufen entlang der gezeichneten Strahlen (nur im HTML sichtbar, im PDF unsichtbar).
+        Stücke, die am Ende des vorigen beginnen (Knick am Spiegel, Wasser, Linse), werden zu einem Weg verbunden."""
+        segs = {}
+        for x1, y1, x2, y2, c in self.strahlen:   # gleiche Startpunkt-Richtung: nur das längste behalten
+            key = (round(x1), round(y1), round(math.atan2(y2 - y1, x2 - x1), 1), c)
+            if key not in segs or math.hypot(x2 - x1, y2 - y1) > math.hypot(segs[key][2] - segs[key][0], segs[key][3] - segs[key][1]):
+                segs[key] = (x1, y1, x2, y2, c)
+        pfade = []
+        for sg in segs.values():
+            for pf in pfade:
+                if pf[-1][4] == sg[4] and math.hypot(pf[-1][2] - sg[0], pf[-1][3] - sg[1]) <= 10:
+                    pf.append(sg); break
+            else:
+                pfade.append([sg])
+        out = ["<style>@media (prefers-reduced-motion:reduce){.puls{display:none}}</style>"]
+        for pf in pfade:
+            c = pf[0][4]
+            d = f"M{pf[0][0]:.1f} {pf[0][1]:.1f}" + "".join(f" L{q[2]:.1f} {q[3]:.1f}" for q in pf)
+            laenge = sum(math.hypot(q[2] - q[0], q[3] - q[1]) for q in pf)
+            dur = max(1.6, laenge / 150)
+            for k in range(3):
+                b = f"{k * dur / 3:.2f}s"
+                out.append(f'<circle class="puls" r="4" fill="{c}" stroke="#FFFFFF" stroke-width="1.2" opacity="0">'
+                           f'<animateMotion path="{d}" dur="{dur:.2f}s" begin="{b}" repeatCount="indefinite"/>'
+                           f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="{dur:.2f}s" begin="{b}" repeatCount="indefinite"/></circle>')
+        return "".join(out)
+
+    def svg(self, w=636): return f'<svg viewBox="0 0 {w} {self.h}" xmlns="http://www.w3.org/2000/svg">' + "".join(self.o) + self.pulse() + "</svg>"
 
 
 def gerade(L, P, x):

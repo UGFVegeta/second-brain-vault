@@ -1,6 +1,8 @@
 ---
 tags: [projekt, schule, klassenfahrt]
 status: aktiv
+prio: 1
+thema: Schule
 date: 2026-09-16
 ---
 
@@ -9,6 +11,18 @@ date: 2026-09-16
 ## Ziel
 
 Schullandheim mit einer 7. Klasse der Gottlieb-Daimler-Realschule Schorndorf. Zeitraum 14.–18.06.2027 (Montag bis Freitag, vier Übernachtungen), 26 Schülerinnen und Schüler (11 Mädchen, 15 Jungen) sowie zwei Begleitpersonen, 28 Personen gesamt. Ursprünglich auf den Bodensee ausgerichtet, inzwischen laufen parallel auch Angebote für den Schwarzwald (Feriendorf Todtnau).
+
+## Entscheidung (07.10.2026)
+
+Oskar hat sich für **Todtnau mit alpetour (Angebot 664867, Eigenanreise 297 €/Pers.)** entschieden und sagt Frau Haase am 07.10.2026 zu. Anreise nach Möglichkeit mit dem Bus (Maier Reisen, Angebot AN8783), sonst Zug. Gewünscht: 3 statt 2 Lunchpakete (nicht am Montag), Bausteine später ergänzen, ein Tag Freiburg mit den Schülern per Linienbus 140. Laut alpetour-Angebot keine Anzahlung bei Buchung, Reisepreis erst 4 Wochen vor Anreise fällig, 10 % der Teilnehmenden bis 35 Tage vor Anreise kostenfrei stornierbar. Jede teilnehmende Person braucht eine private Haftpflichtversicherung. Offen: Freiplätze (2 ab 24 Personen) bestätigen lassen, Busbuchung bei Maier Reisen (Bus max. 12 m Länge, besser Midibus), HEROLÉ und Ravensburg absagen.
+
+## Planungsgrundsatz
+
+Falls Oskar bis Juni 2027 die Schule wechselt (mögliche Leitungsstelle), muss die Klasse mit einer anderen Lehrkraft fahren. Deshalb bevorzugt er ein fertiges Bausteinprogramm statt alles selbst zu buchen, damit eine Vertretung die Fahrt ohne Vorwissen durchführen kann. Bei jedem Anbieter klären: Kann die Gruppenleitung/Ansprechperson nachträglich gewechselt werden, und wie sind Umbuchung und Storno geregelt?
+
+## Risiko: Bahn-Baustellen 2027
+
+Laut Planung der DB InfraGO (Schwäbische, 06.03.2026) wird die Südbahn Ulm–Friedrichshafen–Lindau vom 14.05. bis 09.07.2027 voll gesperrt, also auch am 14.–18.06.2027 (Schienenersatzverkehr). Betrifft Anreise nach Ravensburg, Friedrichshafen und Lindau per Zug. Bodenseegürtelbahn Friedrichshafen–Radolfzell: Bauzeitfenster 11.06.–19.10.2027, einzelne Baustellen. Gäubahn Immendingen/Tuttlingen–Singen: acht Wochen gesperrt, Datum nicht erfasst. Nicht endgültig, nach Fahrplanveröffentlichung (Mitte Oktober 2026) auf bahn.de prüfen. Bei Ravensburg wäre ein Bus ab Schorndorf (Maier Reisen, neu anfragen) die sichere Alternative.
 
 ## Laufende Angebote (Stand 01.10.2026)
 
@@ -26,7 +40,9 @@ Ursprünglich angefragtes Zielgebiet. Erstes Angebot war versehentlich Europa-Pa
 Von alpetour als weitere Alternative angeboten, Reservierung bis 02.10.2026 angeboten. Am 01.10.2026 abgesagt, da über Budget.
 
 ### Weitere parallel laufende Anfragen (vor dieser Session gestellt, Status unklar)
-- **HEROLÉ**: Bodensee, Art & Style Hostel Singen als Wunsch genannt, falls nicht verfügbar Alternative erbeten, Budget 350 €.
+- **HEROLÉ**: Aktualisiertes Angebot AN26031907 „Bodensee – die Basisreise" liegt vor (07.10.2026, Rückmeldung erbeten bis 14.10.2026, nicht vorreserviert). Ohne Bus und ohne Teamtag: **337 €/Pers. ohne Freiplätze, 363 € mit 2 Freiplätzen** (vorher 436/470 € mit Bus und Teamtag). JUFA Hotel Meersburg, 4 Übernachtungen, 4× Halbpension, Stadtführung Meersburg, Inselrallye Grüne Schule Mainau inkl. Eintritt, 2× Tagesticket Überlinger See, Bettwäsche/Handtücher inklusive. Anreise in Eigenregie (Meersburg ohne Bahnhof, Anbindung noch nicht geprüft). Reiserücktrittsschutz je nach Preisklasse 12 € (bei 337 €) bzw. 16 € (bei 363 €). Kurtaxe vor Ort 3,20 €/4,50 € pro Tag. Umgelegt auf 26 Schüler grob 376–380 € mit Versicherung, ohne Anreise. Kundenberater Philipp Schuch. Details in der HTML (Tab HEROLÉ).
+- **Jugendtours**: Konstanz abgesagt (Kontingent für 14.–18.06.2027 ausgeschöpft, Absage von Frau Stenzel am 07.10.2026). Auch Lindau ist laut Oskar nicht mehr verfügbar (07.10.2026), Jugendtours damit vorerst raus. Konfigurator-Stand Lindau (07.10.2026, nicht verbindlich): Grundpreis 211 €/Pers. (Eigenanreise, 26 zahlende + 2 Freiplätze), Frühstück inklusive. Verpflegung: Mo Halbpension (13,50 €), Di bis Do Vollpension (20,50 €). Warenkorb: Paket KULTUR (0 €), Paket FUN (20 €, Bregenzer Bucht), Linienschiff Lindau–Friedrichshafen und zurück (12 €), Reiserücktrittsschutz (12 €). Gruppenpreis 8.818 €, also 339,15 €/Pers. (Seite zeigte vor der Änderung Do Vollpension 8.622 € bzw. 331,62 €). Ziel: Fixkosten maximal 360 € pro Person, damit Luft für die Zugfahrt bleibt (BW-Ticket ca. 25 €). Spenden aus der Einpackaktion sind nur eine Hoffnung. Zeppelin-Museum Friedrichshafen: Eintritt selbst organisieren (Schulgruppe laut Museumsseite 4,50 € pro Schüler, Lehrkräfte frei) statt Führung über Jugendtours (12,50 €, max. ca. 23 Personen je Gruppe). Details und alle Zusatzleistungen in der HTML (Tab Jugendtours Lindau).
+- **Jugendherberge Ravensburg** (Veitsburgstr. 1, 88212 Ravensburg, Träger LVB Baden-Württemberg): Anfrage Nr. 126-60-54934 gestellt (Stand 07.10.2026, noch keine Buchungsbestätigung). 4 Übernachtungen 14.–18.06.2027, 28 Personen Kl. 7, Gesamtpreis der Anfrage 5.597,60 € inkl. Freiplatzvorteil −327,20 € (ohne Freiplatz 5.924,80 €), umgelegt auf 26 Schüler ca. 215,29 €. Check-in nur 17:00–17:45 Uhr oder 18:30–21:30 Uhr. Übernachtungssteuer 2 € pro Person und Nacht ab 18 Jahren vor Ort. Hinweis der Herberge: gültige DJH-Mitgliedskarte nötig (Gruppenmitgliedschaft klären). In der Bemerkung gefragt: Reservierungsdauer und ob Programmbausteine über die Herberge ergänzbar sind. Risiko: Südbahn-Vollsperrung 14.05.–09.07.2027 (siehe oben).
 - **2,3 butterfly (Schmetterling)**: Unterkunft bewusst offengelassen, Budget 350 €.
 - **Jugendherberge Friedrichshafen**: Anfrage über jugendherberge.de, Anfrage-Nr. 118-60-57531 (Stand 16.09.2026, noch keine Buchungsbestätigung). Angebot „Erlebe den Bodensee", Vollpension inkl. Lunchpaket, 28 Personen gesamt, Gesamtpreis 7.008,80 € (inkl. Freiplatzvorteil −327,20 €).
 - **Martin-Buber-Jugendherberge Überlingen**: abgesagt, hatte keine Kapazität mehr.

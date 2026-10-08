@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regeln und Konsequenzen – Gelb und Rot</title>
+<style>
+  :root{
+    --ink:#1b1b1b; --bg:#ffffff; --paper:#ffffff;
+    --accent:#1b1b1b; --accent2:#1b1b1b; --muted:#6b7280; --line:#e4e4e4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#d8d8d8; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  #stage{
+    position:relative;
+    width:min(96vw, calc(96vh * 16/9));
+    height:min(96vh, calc(96vw * 9/16));
+    background:var(--bg);
+    border-radius:6px; overflow:hidden;
+    box-shadow:0 10px 36px rgba(0,0,0,.16);
+  }
+  .slide{
+    position:absolute; inset:0; padding:6.2% 7.5%;
+    display:none; flex-direction:column; justify-content:center;
+  }
+  .slide.active{display:flex}
+  .kicker{font-size:1.15vw; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:1.4em}
+  h1{font-size:4.4vw; line-height:1.05; letter-spacing:-.02em}
+  h2{font-size:3.1vw; line-height:1.12; letter-spacing:-.01em; margin-bottom:.7em}
+  p{font-size:1.9vw; line-height:1.5; max-width:42em; color:#333}
+  p + p{margin-top:.7em}
+  .big{font-size:3.4vw; line-height:1.28; color:var(--ink); font-weight:600; max-width:26em}
+  ul{margin:.6em 0 0 1.1em; font-size:1.9vw; line-height:1.6}
+  li{margin:.35em 0}
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; letter-spacing:.22em; font-weight:700}
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .divider{background:#1b1b1b; color:#fff}
+  .divider .kicker{color:#b5b5b5}
+  .divider h1{font-size:4vw}
+  .quote{font-size:2.1vw; line-height:1.5; font-style:italic; border-left:3px solid var(--line); padding-left:.8em; max-width:40em}
+  .note{margin-top:1.1em; font-size:1.35vw; color:var(--muted)}
+  .src{position:absolute; left:7.5%; right:7.5%; bottom:7.4%; font-size:1.02vw; color:#9a9484; line-height:1.35}
+  .divider .src{color:#9e9e9e}
+  .row{display:flex; gap:4%; align-items:center}
+  .col{flex:1}
+  /* bar chart */
+  .bars{display:flex; gap:4vw; align-items:flex-end; height:32vh; margin:1.4em 0 5em}
+  .bar{width:10vw; background:var(--line); border-radius:8px 8px 0 0; position:relative; display:flex; justify-content:center}
+  .bar span{position:absolute; top:-2.6em; font-size:1.5vw; font-weight:700; white-space:nowrap}
+  .bar small{position:absolute; bottom:-3.6em; font-size:1.3vw; color:var(--muted); text-align:center; width:14vw; left:50%; transform:translateX(-50%)}
+  .bar.read{height:42%}
+  .bar.test{height:80%; background:var(--accent)}
+  /* desk -> shelf */
+  .flow{display:flex; align-items:center; gap:2.5vw; margin-top:1em; font-size:1.7vw}
+  .flow .box{background:var(--paper); border:2px solid var(--ink); border-radius:10px; padding:1.1em 1.3em; text-align:center; flex:1}
+  .flow .arrow{font-size:3vw; color:var(--accent)}
+  /* curve */
+  svg.curve{width:34vw; height:auto}
+  /* progress */
+  #dots{position:absolute; bottom:1.9%; left:20%; right:20%; display:flex; gap:.25vw; justify-content:center}
+  #dots i{width:1.2vw; height:1.2vw; border:.25vw solid transparent; background-clip:padding-box;
+          border-radius:50%; background-color:var(--line); transition:background-color .2s; cursor:pointer}
+  #dots i:hover{background-color:#b3a98f}
+  #dots i.on{background:var(--accent)}
+  body.dunkel #dots i{background-color:#5a5a5a}
+  body.dunkel #dots i.on{background-color:#fff}
+  body.dunkel #counter{color:#9e9e9e}
+  #counter{position:absolute; bottom:2%; right:3%; font-size:1.1vw; color:var(--muted)}
+  /* Schrittweises Aufdecken: Platz bleibt reserviert, damit nichts springt */
+  [data-step]{opacity:0; transition:opacity .28s}
+  [data-step].shown{opacity:1}
+  .schritte{list-style:none; margin:.4em 0 0 0; font-size:2.05vw; line-height:1.5}
+  .schritte li{margin:.42em 0; display:flex; align-items:baseline; gap:.7em}
+  .schritte b{color:var(--accent); font-variant-numeric:tabular-nums; min-width:1.4em}
+  .zwei{display:flex; gap:4%; align-items:stretch; margin-top:.5em}
+  .zwei > div{flex:1; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .zwei h3{font-size:1.5vw; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.6em}
+  .zwei ul{font-size:1.75vw; margin:0 0 0 1em}
+  .kommando{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+            letter-spacing:.12em; font-size:4.6vw; color:var(--accent2)}
+  .signale{display:grid; grid-template-columns:auto 1fr; gap:.55em 1.4em; margin-top:.6em; font-size:1.85vw; align-items:baseline}
+  .signale .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+                color:var(--accent2); white-space:nowrap; letter-spacing:.04em}
+  .sigliste{display:flex; flex-direction:column; gap:.42em; margin-top:.5em; font-size:1.8vw}
+  .sigliste .gruppe{font-size:1.1vw; letter-spacing:.15em; text-transform:uppercase;
+                    color:var(--muted); font-weight:700; margin-top:.55em}
+  .sigliste .gruppe:first-child{margin-top:0}
+  .sigliste .zeile{display:flex; gap:1.3em; align-items:baseline}
+  .sigliste .cmd{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-weight:700;
+                 color:var(--accent2); white-space:nowrap; letter-spacing:.04em; min-width:11.5em}
+  .kartenreihe{display:flex; gap:4%; margin-top:1.3em; align-items:flex-start; justify-content:center}
+  .kartenblock{text-align:center}
+  .spielkarte{width:9.2vw; height:13.6vw; border-radius:1vw; display:inline-block;
+              box-shadow:0 .45vw 1.5vw rgba(0,0,0,.2)}
+  .spielkarte.g{background:#f5c518} .spielkarte.r{background:#cf2f24}
+  .spielkarte.gross{width:13vw; height:19.4vw; border-radius:1vw; transform:rotate(-5deg)}
+  .doppel{display:inline-flex; gap:.9vw}
+  .doppel .spielkarte:first-child{transform:rotate(-8deg)}
+  .doppel .spielkarte:last-child{transform:rotate(7deg)}
+  .kartentext{font-size:2vw; margin-top:1em; line-height:1.3; max-width:19vw; margin-left:auto; margin-right:auto}
+  .mitkarte{display:flex; gap:6%; align-items:center; margin-top:1em}
+  @media (max-width:700px){
+    h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
+  }
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0">
+
+
+  <!-- 1 Titel -->
+  <section class="slide">
+    <div class="kicker">Klasse 7c</div>
+    <h1>Wie es ab jetzt läuft</h1>
+    <p class="note">Zwei Sachen: die Karten und die Hausaufgaben.</p>
+  </section>
+
+  <section class="slide">
+    <h2>Warum ich das mache</h2>
+    <ul class="schritte">
+      <li data-step><b>·</b><span>Es ist unruhig, und ich musste zu oft ermahnen. Deshalb ändern wir etwas.</span></li>
+      <li data-step><b>·</b><span>Ich will, dass sich hier jeder traut, etwas zu sagen. Wir hören jedem zu.</span></li>
+      <li data-step><b>·</b><span>Keiner muss Angst haben, eine Frage zu stellen.</span></li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Was ich von euch erwarte</h2>
+    <ul class="schritte">
+      <li data-step><b>1</b><span>Ihr kommt rein, holt eure Sachen raus und seid bereit.</span></li>
+      <li data-step><b>2</b><span>Bis es losgeht, könnt ihr reden.</span></li>
+      <li data-step><b>3</b><span>Wenn ich anfange, liegt der Fokus aufs Lernen.</span></li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Die Karten</h2>
+    <p class="note" data-step>Vorher sage ich es einmal, kurz, mit deinem Namen.</p>
+    <div class="kartenreihe">
+      <div class="kartenblock" data-step>
+        <div class="spielkarte g"></div>
+        <div class="kartentext">Gelb.<br>Ich lege sie hin, ohne ein Wort.</div>
+      </div>
+      <div class="kartenblock" data-step>
+        <div class="doppel"><div class="spielkarte g"></div><div class="spielkarte g"></div></div>
+        <div class="kartentext">Noch einmal in derselben Stunde?</div>
+      </div>
+      <div class="kartenblock" data-step>
+        <div class="spielkarte r"></div>
+        <div class="kartentext">Dann wird daraus Rot.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2>Rot heißt</h2>
+    <div class="mitkarte">
+      <div class="spielkarte r gross"></div>
+      <ul class="schritte" style="flex:1">
+        <li data-step><b>1</b><span>Eintrag ins Tagebuch.</span></li>
+        <li data-step><b>2</b><span>Ich schreibe deinen Eltern.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2>Jede Stunde fängt bei null an</h2>
+    <p class="big">Gelb von gestern<br>zählt heute nicht mehr.</p>
+  </section>
+
+  <section class="slide divider">
+    <div class="kicker">Und noch etwas</div>
+    <h1>Hausaufgaben</h1>
+  </section>
+
+  <section class="slide">
+    <h2>Ab jetzt kontrolliere ich täglich</h2>
+    <ul class="schritte">
+      <li data-step><b>·</b><span>Ich schaue in jeder Stunde nach, wer sie hat.</span></li>
+      <li data-step><b>·</b><span>Dreimal in Mathe vergessen: Ich schreibe deinen Eltern.</span></li>
+      <li data-step><b>·</b><span>Danach zähle ich wieder von vorne. Bei den nächsten drei schreibe ich wieder.</span></li>
+      <li data-step><b>·</b><span>Zum Halbjahr geht alles auf null, auch wenn du dann schon zwei hast.</span></li>
+    </ul>
+  </section>
+
+  <section class="slide divider">
+    <h1>Fragen?</h1>
+  </section>
+
+
+
+  <div id="dots"></div>
+  <div id="counter"></div>
+</div>
+
+<script>
+  
+
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((s,k)=>{
+    const d=document.createElement('i');
+    if(k===0)d.className='on';
+    const t=s.querySelector('h1,h2') || s.querySelector('.kicker');
+    const roh=t ? t.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]*>/g,'') : '';
+    d.title=(k+1)+' · '+(roh.replace(/\s+/g,' ').trim().slice(0,46) || 'Folie');
+    d.addEventListener('click',ev=>{ ev.stopPropagation(); show(k, k<i); });
+    dots.appendChild(d);
+  });
+  const dotEls=[...dots.children];
+  const counter=document.getElementById('counter');
+  counter.title='→ Schritt · ← zurück · ↑↓ ganze Folie · a alles aufdecken · F Vollbild';
+  let i=0, stepIdx=0;
+  const steps = n => [...slides[n].querySelectorAll('[data-step]')];
+
+  // data-hide: nur sichtbar, solange es der zuletzt aufgedeckte Schritt ist
+  function applySteps(){
+    const st=steps(i);
+    st.forEach((el,k)=>{
+      const offen = k < stepIdx;
+      const wiederWeg = el.hasAttribute('data-hide') && k < stepIdx-1;
+      el.classList.toggle('shown', offen && !wiederWeg);
+    });
+    label();
+  }
+  function show(n, revealAll){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+    stepIdx = revealAll ? steps(i).length : 0;
+    applySteps();
+  }
+  function label(){
+    const n=steps(i).length;
+    counter.textContent=(i+1)+' / '+slides.length+(n?'  ·  '+stepIdx+'/'+n:'');
+  }
+  function next(){
+    if(stepIdx < steps(i).length){ stepIdx++; applySteps(); return; }
+    show(i+1,false);
+  }
+  function prev(){
+    if(stepIdx > 0){ stepIdx--; applySteps(); return; }   // erst Schritt zurück
+    show(i-1,true);                                        // dann Folie zurück, alles sichtbar
+  }
+
+  show(0,false);
+  const stage=document.getElementById('stage');
+  stage.focus();
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){next();e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){prev();e.preventDefault();}
+    else if(e.key==='ArrowDown'){show(i+1,false);e.preventDefault();}   // ganze Folie vor
+    else if(e.key==='ArrowUp'){show(i-1,true);e.preventDefault();}      // ganze Folie zurück
+    else if(e.key.toLowerCase()==='a'){show(i,true);e.preventDefault();} // alles auf dieser Folie zeigen
+    else if(e.key==='Home')show(0,false);
+    else if(e.key==='End')show(slides.length-1,true);
+    else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  stage.addEventListener('click',e=>{ e.clientX < window.innerWidth/2 ? prev() : next(); });
+
+// dunkle Trennfolien: Punkte und Zaehler aufhellen
+function tonAnpassen(){
+  const aktiv = document.querySelector('section.slide.active');
+  document.body.classList.toggle('dunkel', !!aktiv && aktiv.classList.contains('divider'));
+}
+new MutationObserver(tonAnpassen).observe(document.body,
+  {subtree:true, attributes:true, attributeFilter:['class']});
+tonAnpassen();
+</script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 ---
 tags: [projekt, mathematik, app, pruefung, anleitung]
 status: aktiv
+prio: 3
+thema: Schule
 date: 2026-06-30
 ---
 

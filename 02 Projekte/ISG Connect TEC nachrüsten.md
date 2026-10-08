@@ -1,6 +1,6 @@
 ---
 tags: [projekt, energie, smart-home, wärmepumpe]
-status: aktiv
+status: abgeschlossen
 erstellt: 2026-06-10
 deadline: 2026-09-30
 ---

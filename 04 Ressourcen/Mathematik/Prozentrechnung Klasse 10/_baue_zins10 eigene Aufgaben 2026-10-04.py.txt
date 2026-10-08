@@ -1,0 +1,250 @@
+#!/usr/bin/env python3
+"""Mathe 10b, Woche 4 (05. bis 09.10.2026, Montag Ausflug): Zinsen (Mi, Doppelstunde) und Zinseszins (Fr, Einzelstunde).
+Rezept-Stil: Merkheft-Bild = Beispiel links mit Schrittnummern, Rezept rechts; danach kurze Runden ○◐●.
+Einstieg Zinseszins nach Oskars Idee: 1 € im Jahr 0 zu 2 %, Erbe im Jahr 2026, erst schätzen, dann rechnen.
+Alle Ergebnisse werden beim Bauen mit Python berechnet und geprüft. Nur HTML, Folien-PDF erst nach Freigabe.
+Aufruf: python3 baue_zins10.py"""
+import math, sys
+from pathlib import Path
+
+HIER = Path(__file__).resolve().parent
+sys.path.insert(0, str(HIER.parent))
+sys.path.insert(0, str(HIER.parent / "Rationale Zahlen"))
+from mathe_woche_vorlage import bau_woche  # noqa: E402
+from baue_woche7 import merkbild, rezept_box, HEFT, UEB, box, EXTRA_CSS  # noqa: E402
+
+NB = " "
+
+
+def zahl(x, nachkomma=None):
+    """Deutsche Schreibweise: Leerzeichen als Tausendertrenner, Komma; ganze Beträge ohne ,00."""
+    x = round(x, 2)
+    if nachkomma is None:
+        nachkomma = 0 if x == int(x) else 2
+    t = f"{x:,.{nachkomma}f}".replace(",", " ").replace(".", ",").replace(" ", NB)
+    return t
+
+
+def genau(x, n):
+    """Ohne vorheriges Runden auf Cent, n Nachkommastellen, nachgestellte Nullen weg."""
+    return f"{x:.{n}f}".rstrip("0").rstrip(".").replace(".", ",")
+
+
+def eur(x):
+    return f"{zahl(x)}{NB}€"
+
+
+def pz(p):
+    """Prozentsatz als Text, z. B. 2,5 %"""
+    return f"{zahl(p, 0 if p == int(p) else (1 if round(p * 10) == p * 10 else 2))}{NB}%"
+
+
+def dez(p):
+    """p % als Dezimalzahl, z. B. 0,025"""
+    return f"{p / 100:.6f}".rstrip("0").replace(".", ",")
+
+
+# ---------------------------------------------------------------- Mittwoch: Zinsen
+BLITZ = [("15 % von 80", 12), ("18 von 72 sind wie viel Prozent?", "25 %"), ("30 % sind 45. Wie viel sind 100 %?", 150)]
+assert 80 * 0.15 == 12 and 18 / 72 == 0.25 and 45 / 0.30 == 150
+
+R1 = [(800, 2), (2500, 1.5), (12000, 3.2), (650, 4), (5400, 2.75)]                       # K, p -> Z
+R1_Z = [round(k * p / 100, 2) for k, p in R1]
+assert R1_Z == [16, 37.5, 384, 26, 148.5]
+R2 = [("K", 60, 2.5), ("K", 99, 3), ("p", 1800, 45), ("p", 7500, 240), ("K", 17.5, 1.75)]   # gesucht, Werte
+R2_L = []
+for art, a, b in R2:
+    if art == "K":
+        R2_L.append(("K", round(a / (b / 100), 2)))
+    else:
+        R2_L.append(("p", round(b / a * 100, 2)))
+assert [v for _, v in R2_L] == [2400, 3300, 2.5, 3.2, 1000]
+R3 = [(1200, 2, 6, "M"), (3000, 2.4, 4, "M"), (4800, 1.5, 9, "M"), (1800, 3, 120, "T"), (900, 4, 45, "T")]
+R3_Z = [round(k * p / 100 * (n / 12 if e == "M" else n / 360), 2) for k, p, n, e in R3]
+assert R3_Z == [12, 24, 54, 18, 4.5]
+# ● Sachaufgaben
+DISPO = 600 * 0.12 * 30 / 360
+BANK_A, BANK_B = 6000 * 0.021, 6000 * 0.018 + 15
+PAUL_J = 20 * 12 / 8
+PAUL_K = PAUL_J / 0.025
+MONATE = 18 / (2400 * 0.03) * 12
+assert round(DISPO, 2) == 6 and round(BANK_A, 2) == 126 and round(BANK_B, 2) == 123 and PAUL_J == 30 and round(PAUL_K, 2) == 1200 and MONATE == 3
+EXIT_MI = [(3500, 2, None), ("K", 54, 1.8), (4200, 2.5, 4)]
+assert 3500 * 0.02 == 70 and round(54 / 0.018, 2) == 3000 and round(4200 * 0.025 * 4 / 12, 2) == 35
+
+REZ_J = ["Was ist K, Z, p %? (K = G, Z = W)", "Was ist gesucht?", "Formel: Z = K · p %; K = Z : p %; p % = Z : K", "Ausrechnen, Antwortsatz."]
+MERK_J = merkbild("Jahreszinsen", [
+    [(1, f'<span class="txt">K = 1{NB}200{NB}€; p % = 2,5{NB}%</span>'), (2, '<span class="txt">gesucht: Z</span>'),
+     (3, '<span class="txt">Z = K · p % =</span> 1200 · 0,025'), (4, f'= <b>30</b><span class="txt">{NB}€</span>')],
+    [(1, f'<span class="txt">Z = 45{NB}€; p % = 3{NB}%</span>'), (2, '<span class="txt">gesucht: K</span>'),
+     (3, '<span class="txt">K = Z : p % =</span> 45 : 0,03'), (4, f'= <b>1500</b><span class="txt">{NB}€</span>')],
+], REZ_J)
+REZ_T = ["Erst die Jahreszinsen: Z = K · p %", "Monate? Mal m : 12. Tage? Mal t : 360.", "Ausrechnen, Antwortsatz."]
+MERK_T = merkbild("Monats- und Tageszinsen", [
+    [(1, f'<span class="txt">Jahreszinsen: 2{NB}400{NB}€ · 0,03 = 72{NB}€</span>'), (2, '<span class="txt">5 Monate:</span> 72 · 5 : 12'),
+     (3, f'= <b>30</b><span class="txt">{NB}€</span>')],
+    [(1, f'<span class="txt">Jahreszinsen: 3{NB}600{NB}€ · 0,02 = 72{NB}€</span>'), (2, '<span class="txt">75 Tage:</span> 72 · 75 : 360'),
+     (3, f'= <b>15</b><span class="txt">{NB}€</span>'), (None, '<span class="klein">Bankjahr: 1 Jahr = 360 Tage, 1 Monat = 30 Tage</span>')],
+], REZ_T)
+
+
+def runde(titel, aufgaben, rezept):
+    """Runde: Aufgaben links, das Rezept als Kasten daneben."""
+    return (f'<div class="mit"><div><h4>{titel}</h4><ol type="a" class="ex">' + "".join(f"<li>{a}</li>" for a in aufgaben)
+            + f"</ol></div>{rezept}</div>")
+
+
+def liste(zeilen):
+    return '<ol type="a" class="ex">' + "".join(f"<li>{z}</li>" for z in zeilen) + "</ol>"
+
+
+L = lambda x: f'<span class="lsg">{x}</span>'
+RZ_J, RZ_T = rezept_box("Jahreszinsen", REZ_J), rezept_box("Monats- und Tageszinsen", REZ_T)
+
+R1_A = [f"K = {eur(k)}; p % = {pz(p)}; Z = ?" for k, p in R1]
+R1_LS = [f"Z = {zahl(k)} · {dez(p)} = {L(eur(z))}" for (k, p), z in zip(R1, R1_Z)]
+R2_A, R2_LS = [], []
+for (art, a, b), (_, v) in zip(R2, R2_L):
+    if art == "K":
+        R2_A.append(f"Z = {eur(a)}; p % = {pz(b)}; K = ?")
+        R2_LS.append(f"K = {zahl(a)} : {dez(b)} = {L(eur(v))}")
+    else:
+        R2_A.append(f"K = {eur(a)}; Z = {eur(b)}; p % = ?")
+        R2_LS.append(f"p % = {zahl(b)} : {zahl(a)} = {dez(v)} = {L(pz(v))}")
+R3_A = [f"K = {eur(k)}; p % = {pz(p)}; {n} {'Monate' if e == 'M' else 'Tage'}" for k, p, n, e in R3]
+R3_LS = [f"{zahl(k)} · {dez(p)} = {eur(k * p / 100)}; {zahl(k * p / 100)} · {n} : {12 if e == 'M' else 360} = {L(eur(z))}"
+         for (k, p, n, e), z in zip(R3, R3_Z)]
+R4_A = [f"Dein Konto ist 30 Tage lang mit 600{NB}€ im Minus. Die Bank verlangt 12{NB}% Dispozinsen. Wie viel Zinsen zahlst du?",
+        f"Du legst 6{NB}000{NB}€ für ein Jahr an. Bank A zahlt 2,1{NB}%. Bank B zahlt 1,8{NB}% und 15{NB}€ Bonus. Welche Bank lohnt sich mehr?",
+        f"Paul bekommt nach 8 Monaten 20{NB}€ Zinsen. Der Zinssatz ist 2,5{NB}%. Wie viel Geld hat er angelegt?",
+        f"2{NB}400{NB}€ bringen bei 3{NB}% genau 18{NB}€ Zinsen. Wie viele Monate war das Geld angelegt?"]
+R4_LS = [f"600 · 0,12 = 72{NB}€ im Jahr; 72 · 30 : 360 = {L(eur(DISPO))}",
+         f"A: 6{NB}000 · 0,021 = {eur(BANK_A)}; B: 6{NB}000 · 0,018 + 15 = {eur(BANK_B)}; {L('Bank A, 3 € mehr')}",
+         f"Jahreszinsen: 20 · 12 : 8 = 30{NB}€; K = 30 : 0,025 = {L(eur(PAUL_K))}",
+         f"Jahreszinsen: 2{NB}400 · 0,03 = 72{NB}€; 18 von 72 ist ein Viertel; {L('3 Monate')}"]
+EXIT_MI_A = [f"K = 3{NB}500{NB}€; p % = 2{NB}%; Jahreszinsen?", f"Z = 54{NB}€; p % = 1,8{NB}%; K = ?", f"K = 4{NB}200{NB}€; p % = 2,5{NB}%; 4 Monate; Z = ?"]
+EXIT_MI_L = [f"3{NB}500 · 0,02 = {L(eur(70))}", f"54 : 0,018 = {L(eur(3000))}", f"4{NB}200 · 0,025 = 105{NB}€; 105 · 4 : 12 = {L(eur(35))}"]
+
+SPARBUCH = (f'<p class="gross">Lena legt 1{NB}200{NB}€ für ein Jahr auf ein Sparkonto. Die Bank zahlt 2,5{NB}% Zinsen.<br>Wie viel Geld bekommt sie dazu?</p>')
+SPARBUCH_L = (f'<div class="ausdruck">1{NB}200 · 0,025 = {L("30 €")}</div>'
+              '<table class="ha" style="font-size:22px;max-width:620px"><tr><td>Prozentrechnung</td><td>Zinsrechnung</td></tr>'
+              '<tr><td>Grundwert G</td><td><b>Kapital K</b></td></tr><tr><td>Prozentwert W</td><td><b>Zinsen Z</b></td></tr>'
+              '<tr><td>Prozentsatz p %</td><td><b>Zinssatz p %</b></td></tr></table>')
+
+FOLIEN_MI = [
+    ("Blitzrunde Prozent", UEB(liste([a + " =" if i == 0 else a for i, (a, _) in enumerate(BLITZ)]))),
+    ("Blitzrunde: Lösungen", liste([f"{a} {L(b if isinstance(b, str) else zahl(b))}" for a, b in BLITZ])),
+    ("Lenas Sparkonto", SPARBUCH),
+    ("Zinsrechnung ist Prozentrechnung", SPARBUCH_L),
+    ("Merkheft: Jahreszinsen", HEFT(MERK_J)),
+    ("Runde 1", UEB(runde("○ Zinsen gesucht", R1_A, RZ_J))), ("Runde 1: Lösungen", liste(R1_LS)),
+    ("Runde 2", UEB(runde("◐ Kapital oder Zinssatz gesucht", R2_A, RZ_J))), ("Runde 2: Lösungen", liste(R2_LS)),
+    ("Merkheft: Monats- und Tageszinsen", HEFT(MERK_T)),
+    ("Runde 3", UEB(runde("○◐ Monate und Tage", R3_A, RZ_T))), ("Runde 3: Lösungen", liste(R3_LS)),
+    ("Runde 4", UEB(f'<h4>● Sachaufgaben</h4><ol type="a" class="ex" style="font-size:22px">' + "".join(f"<li>{a}</li>" for a in R4_A) + "</ol>")),
+    ("Runde 4: Lösungen", f'<ol type="a" class="ex" style="font-size:22px">' + "".join(f"<li>{a}</li>" for a in R4_LS) + "</ol>"),
+    ("Exit-Ticket", UEB(liste(EXIT_MI_A))), ("Exit-Ticket: Lösung", liste(EXIT_MI_L)),
+]
+SCHRITTE_MI = [
+    ("", "Blitzrunde Prozent", 5, "Drei Aufgaben, Formel von letzter Woche.", [1, 2]),
+    ("", "Lenas Sparkonto", 8, "Mit Prozentwissen lösen lassen, dann die neuen Namen.", [3, 4]),
+    ("", "Merkheft: Jahreszinsen", 10, "Beispiel links, Rezept rechts, abschreiben.", [5]),
+    ("", "Runde 1 ○", 10, "Übungsheft, Rezept daneben.", [6, 7]),
+    ("", "Runde 2 ◐", 12, "Kapital oder Zinssatz gesucht.", [8, 9]),
+    ("", "Merkheft: Monats- und Tageszinsen", 10, "Erst Jahreszinsen, dann den Teil des Jahres.", [10]),
+    ("", "Runde 3 ○◐", 15, "Monate und Tage.", [11, 12]),
+    ("", "Runde 4 ●", 15, "Sachaufgaben. Rest ist Hausaufgabe.", [13, 14]),
+    ("", "Exit-Ticket", 5, "Ohne Hilfe.", [15, 16]),
+]
+assert sum(m for _, _, m, _, _ in SCHRITTE_MI) == 90
+
+# ---------------------------------------------------------------- Freitag: Zinseszins
+ERBE = 1.02 ** 2026
+EINFACH = 1 + 2026 * 0.02
+PRO_MENSCH = ERBE / 8e9
+assert round(EINFACH, 2) == 41.52 and 2.65e17 < ERBE < 2.66e17 and 3.3e7 < PRO_MENSCH < 3.4e7
+assert [round(1.02 ** j, 6) for j in range(4)] == [1, 1.02, 1.0404, 1.061208]
+TAB = [(j, 1.02 ** j, 1.02 ** (j - 1) * 0.02 if j else None) for j in range(4)]
+REZ_Z = ["K₀, p % und n herausschreiben.", "Zinsfaktor q = 1 + p %", "Kₙ = K₀ · qⁿ", "Taschenrechner, auf Cent runden."]
+MERK_Z = merkbild("Zinseszins", [
+    (1, f'<span class="txt">K₀ = 2{NB}000{NB}€; p % = 2{NB}%; n = 3</span>'), (2, '<span class="txt">q = 1 + 2 % = 1,02</span>'),
+    (3, '<span class="txt">K₃ = K₀ · q³ =</span> 2000 · 1,02<sup>3</sup>'), (4, f'≈ <b>2122,42</b><span class="txt">{NB}€</span>')], REZ_Z)
+RZ_Z = rezept_box("Zinseszins", REZ_Z)
+
+Z1 = [(1000, 2, 3), (5000, 3, 2), (2500, 1.5, 4), (800, 4, 5)]
+Z1_E = [round(k * (1 + p / 100) ** n, 2) for k, p, n in Z1]
+assert Z1_E == [1061.21, 5304.5, 2653.41, 973.32]
+Z2_A = [f"10{NB}000{NB}€ zu 2,5{NB}% für 10 Jahre. Endkapital?",
+        f"3{NB}000{NB}€ zu 2{NB}% für 6 Jahre. Wie viel Zinsen gibt es insgesamt?",
+        f"4{NB}000{NB}€ zu 2{NB}% für 5 Jahre. Wie viel mehr bringt der Zinseszins als einfache Zinsen?",
+        f"1{NB}€ zu 2{NB}% für 100 Jahre. Endkapital?"]
+z2a, z2b, z2c, z2d = 10000 * 1.025 ** 10, 3000 * 1.02 ** 6, 4000 * 1.02 ** 5, 1.02 ** 100
+assert round(z2a, 2) == 12800.85 and round(z2b, 2) == 3378.49 and round(z2c, 2) == 4416.32 and round(z2d, 2) == 7.24
+Z2_L = [f"10{NB}000 · 1,025<sup>10</sup> ≈ {L(eur(z2a))}",
+        f"3{NB}000 · 1,02<sup>6</sup> ≈ {eur(z2b)}; Zinsen: {L(eur(z2b - 3000))}",
+        f"Zinseszins: {eur(z2c)}; einfach: 4{NB}000 + 5 · 80 = {eur(4400)}; {L(eur(z2c - 4400) + ' mehr')}",
+        f"1,02<sup>100</sup> ≈ {L(eur(z2d))}"]
+JAHRE_DOPPELT = next(n for n in range(1, 100) if 1.02 ** n > 2)
+OPA = 5000 * 1.03 ** 18
+START = 2122.42 / 1.02 ** 3
+assert JAHRE_DOPPELT == 36 and 1.02 ** 35 < 2 and round(START, 2) == 2000
+Z3_A = [f"Nach wie vielen vollen Jahren hat sich ein Kapital bei 2{NB}% mehr als verdoppelt? Probiere mit dem Taschenrechner.",
+        f"Opa legt zur Geburt 5{NB}000{NB}€ zu 3{NB}% an. Wie viel ist es am 18. Geburtstag?",
+        f"Nach 3 Jahren zu 2{NB}% sind auf dem Konto 2{NB}122,42{NB}€. Wie viel wurde angelegt?"]
+Z3_L = [f"1,02<sup>35</sup> ≈ 1,9999; 1,02<sup>36</sup> ≈ {genau(1.02 ** 36, 4)}; {L('nach 36 Jahren')}",
+        f"5{NB}000 · 1,03<sup>18</sup> ≈ {L(eur(OPA))}",
+        f"K₀ = 2{NB}122,42 : 1,02<sup>3</sup> ≈ {L(eur(START))}"]
+
+TAB_HTML = ('<table class="ha" style="font-size:22px;max-width:640px"><tr><td><b>Jahr</b></td><td><b>Zinsen (2 %)</b></td><td><b>Kontostand</b></td></tr>'
+            + "".join(f"<tr><td>{j}</td><td>{'' if z is None else genau(z, 6) + NB + '€'}</td><td>{genau(k, 6) if j else '1,00'}{NB}€</td></tr>"
+                      for j, k, z in TAB) + "</table>")
+FOLIEN_FR = [
+    ("Ein Euro im Jahr 0", f'<p class="gross">Im Jahr 0 legt jemand 1{NB}€ zu 2{NB}% Zinsen an.<br>Seine Nachkommen erben das Geld im Jahr 2026.</p>'
+                           '<p class="gross"><b>Schätze: Wie viel Geld ist es?</b> Schreib deine Schätzung ins Übungsheft.</p>'),
+    ("Mit den Zinsen von Mittwoch", f'<div class="ausdruck">Jedes Jahr: 1 · 0,02 = 0,02{NB}€</div>'
+                                    f'<div class="ausdruck">2026 Jahre: 1 + 2026 · 0,02 = {L(eur(EINFACH))}</div><p class="gross">Stimmt das?</p>'),
+    ("Die Zinsen bekommen auch Zinsen", TAB_HTML + '<p class="gross">Was passiert jedes Jahr mit dem Kontostand?</p>'),
+    ("Merkheft: Zinseszins", HEFT(MERK_Z)),
+    ("Runde 1", UEB(runde("○ Endkapital", [f"K₀ = {eur(k)}; p % = {pz(p)}; n = {n}" for k, p, n in Z1], RZ_Z))),
+    ("Runde 1: Lösungen", liste([f"{zahl(k)} · {str(round(1 + p / 100, 4)).replace('.', ',')}<sup>{n}</sup> ≈ {L(eur(e))}"
+                                 for (k, p, n), e in zip(Z1, Z1_E)])),
+    ("Runde 2", UEB(runde("◐ Weiterdenken", Z2_A, RZ_Z))), ("Runde 2: Lösungen", liste(Z2_L)),
+    ("Auflösung: das Erbe", f'<div class="ausdruck">1 · 1,02<sup>2026</sup> ≈ {L("265 000 000 000 000 000 €")}</div>'
+                            f'<p class="gross">Das sind 265 Billiarden Euro. Bei 8 Milliarden Menschen bekäme jeder rund 33 Millionen Euro.</p>'
+                            '<p class="gross">Ohne Zinseszins: 41,52 €. Warum gibt es diese Erben trotzdem nicht?</p>'),
+    ("Runde 3 (Hausaufgabe)", UEB(f'<h4>● Knobeln</h4>{liste(Z3_A)}')), ("Runde 3: Lösungen", liste(Z3_L)),
+]
+SCHRITTE_FR = [
+    ("", "Schätzen", 5, "1 € im Jahr 0, Erbe 2026. Jeder schreibt eine Zahl auf, ein paar vorlesen lassen.", [1]),
+    ("", "Mit den Zinsen von Mittwoch", 5, "41,52 €. Kurz stehen lassen.", [2]),
+    ("", "Jahr für Jahr", 8, "Tabelle gemeinsam füllen. Ziel: jedes Jahr mal 1,02.", [3]),
+    ("", "Merkheft: Zinseszins", 7, "Beispiel links, Rezept rechts, abschreiben.", [4]),
+    ("", "Runde 1 ○", 8, "Taschenrechner, Rezept daneben.", [5, 6]),
+    ("", "Runde 2 ◐", 7, "Wer schnell ist, macht weiter.", [7, 8]),
+    ("", "Auflösung", 5, "Das Erbe ausrechnen, mit den Schätzungen vergleichen. Runde 3 ist Hausaufgabe.", [9, 10]),
+]
+assert sum(m for _, _, m, _, _ in SCHRITTE_FR) == 45
+
+TAFEL_FR = box("Jahr für Jahr (bleibt an der Tafel)", TAB_HTML + '<p>Jedes Jahr kommen 2 % dazu, also mal 1,02. Nach n Jahren: mal 1,02<sup>n</sup>.</p>') + box("Tafelbild = Merkheft", MERK_Z)
+
+
+def main():
+    bau_woche(HIER / "Mathe 10b – Woche 4 – 1 Zinsen.html", "Woche 4, Stunde 1: Zinsen",
+              "Klasse 10b, Mathematik, Mi 07.10.2026, Doppelstunde (Montag Ausflug)",
+              [("Drucken", "Nichts."), ("Digital", "Folien-PDF erst nach deiner Freigabe."), ("Sonst", "Taschenrechner. Letzte Woche: Dreisatz und Prozentformel.")],
+              SCHRITTE_MI, FOLIEN_MI,
+              tafel=box("Zinsrechnung ist Prozentrechnung", SPARBUCH_L) + box("Tafelbild = Merkheft 1", MERK_J) + box("Tafelbild = Merkheft 2", MERK_T),
+              merkheft=box("Jahreszinsen", HEFT(MERK_J)) + box("Monats- und Tageszinsen", HEFT(MERK_T)),
+              loesungen=box("Runde 1", liste(R1_LS)) + box("Runde 2", liste(R2_LS)) + box("Runde 3", liste(R3_LS)) + box("Runde 4", liste(R4_LS))
+              + box("Exit-Ticket", liste(EXIT_MI_L)), extra_css=EXTRA_CSS, verlauf="Die Doppelstunde")
+    bau_woche(HIER / "Mathe 10b – Woche 4 – 2 Zinseszins.html", "Woche 4, Stunde 2: Zinseszins",
+              "Klasse 10b, Mathematik, Fr 09.10.2026, Einzelstunde",
+              [("Drucken", "Nichts."), ("Digital", "Folien-PDF erst nach deiner Freigabe."), ("Sonst", "Taschenrechner mit Potenztaste.")],
+              SCHRITTE_FR, FOLIEN_FR, tafel=TAFEL_FR, merkheft=box("Zinseszins", HEFT(MERK_Z)),
+              loesungen=box("Einstieg", f'<p>Ohne Zinseszins: {eur(EINFACH)}. Mit Zinseszins: 1,02<sup>2026</sup> ≈ 2,65 · 10<sup>17</sup> € '
+                                         f'(rund {zahl(PRO_MENSCH / 1e6, 0)} Millionen € pro Mensch bei 8 Milliarden Menschen).</p>')
+              + box("Runde 1", FOLIEN_FR[5][1]) + box("Runde 2", liste(Z2_L)) + box("Runde 3 (Hausaufgabe)", liste(Z3_L)), extra_css=EXTRA_CSS)
+
+
+if __name__ == "__main__":
+    main()

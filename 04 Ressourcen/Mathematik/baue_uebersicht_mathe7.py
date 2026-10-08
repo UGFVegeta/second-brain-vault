@@ -24,7 +24,26 @@ STUNDEN = {  # Woche -> [(id, Marke, Titel, Datei, Tag)]; fertige Wochen bekomme
         ("W3S2", "2", "Rechengesetze, Minusklammer", W3 + "2 Rechengesetze, Minusklammer.html", "Di 29.09., Doppelstunde"),
         ("W3S3", "3", "Minusklammer üben", W3 + "3 Minusklammer üben.html", "Mi 30.09."),
         ("W3S4", "4", "Klammern setzen, Exit-Ticket", W3 + "4 Klammern setzen, Exit-Ticket.html", "Do 01.10.")],
+    4: [("W4S1", "1", "Wiederholung Minusklammer, Multiplizieren", "Rationale Zahlen/Mathe 7c – Woche 4 – 1 Wiederholung Minusklammer, Multiplizieren.html", "Di 06.10., Doppelstunde"),
+        ("W4S2", "2", "Dividieren", "Rationale Zahlen/Mathe 7c – Woche 4 – 2 Dividieren.html", "Mi 07.10."),
+        ("W4S3", "3", "Dividieren üben", "Rationale Zahlen/Mathe 7c – Woche 4 – 3 Dividieren üben.html", "Do 08.10.")],
+    5: [("W5S1", "1", "Rezept für gemischte Aufgaben", "Rationale Zahlen/Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.html", "vor der KA 1")],
 }
+
+# Oskars eigener Stand (05.10.2026): er ist dem Plan der Fachschaft etwa eine Woche voraus. Die offizielle Excel-Datei bleibt unverändert,
+# hier steht, was in der 7c tatsächlich dran ist bzw. geplant ist. KA-Termine bleiben wie im Schulplan.
+EIGEN = {1: "Grundlagen-Check, Brüche sind Zahlen", 2: "Zahlen unter Null, Vergleichen, Addieren und Subtrahieren",
+         3: "Minus üben, Rechengesetze, Minusklammer", 4: "Wiederholung Minusklammer, Multiplizieren, Dividieren",
+         5: "Verbinden der Rechenarten (gemischte Aufgaben), KA 1"}
+
+
+def eigener_stand(wochen):
+    """Oskar ist durchgehend eine Woche voraus: Ab Woche 7 steht bei ihm das Thema der nächsten Unterrichtswoche des Schulplans
+    (Zeitfenster und Ferien zählen nicht). Ausdrücklich eingetragene Wochen in EIGEN gehen vor. KA-Termine bleiben."""
+    unterricht = [w for w in wochen if "wo" in w and w["thema"].strip().lower() != "zeitfenster"]
+    for w, naechste in zip(unterricht, unterricht[1:] + [None]):
+        if w["wo"] not in EIGEN and w["wo"] >= 7:
+            EIGEN[w["wo"]] = naechste["thema"] if naechste else "Puffer"
 
 # Themenblöcke: erste Woche -> Name (die Blöcke im Plan beginnen mit dem Thema vor mehreren Leerzeichen)
 BLOECKE = {1: "Wiederholung Brüche", 2: "Rationale Zahlen", 9: "Dreiecke", 14: "Rechnen mit Termen", 20: "Gleichungen",
@@ -69,7 +88,7 @@ def schulplan(wochen, ziel):
     zeilen = ""
     for w in wochen:
         if "ferien" in w:
-            zeilen += f'<tr class="ferien"><td colspan="5">{html.escape(w["ferien"])}</td></tr>'
+            zeilen += f'<tr class="ferien"><td colspan="6">{html.escape(w["ferien"])}</td></tr>'
             continue
         a = datetime.datetime.strptime(w["ab"], "%d.%m.%Y").date()
         jetzt = a <= heute < a + datetime.timedelta(days=7)
@@ -79,7 +98,7 @@ def schulplan(wochen, ziel):
         bei_mir = " ".join(f'<a href="{html.escape(d)}" target="_top" title="{html.escape(t)}">{html.escape(m if m.startswith("Wo") else "St. " + m)}</a>'
                           for _, m, t, d, *_ in STUNDEN.get(w["wo"], [])) or "–"
         zeilen += (f'<tr{" class=\"jetzt\"" if jetzt else ""}><td class="wo">{w["wo"]}</td><td class="dat">{w["ab"][:6]} – {w["bis"][:6]}</td>'
-                   f'<td>{html.escape(w["thema"])}</td><td class="ka">{html.escape(ka)}</td><td class="mir">{bei_mir}</td></tr>')
+                   f'<td>{html.escape(w["thema"])}</td><td class="eigen">{html.escape(EIGEN.get(w["wo"], ""))}</td><td class="ka">{html.escape(ka)}</td><td class="mir">{bei_mir}</td></tr>')
     seite = f"""<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Stoffverteilungsplan Mathe 7</title><style>
 body{{margin:0;background:#F4F6F9;color:#14171c;font:15px/1.45 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}}
@@ -88,11 +107,11 @@ table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid #D9D
 th{{font-size:12px;text-align:left;color:#66798E;padding:8px 10px;border-bottom:1px solid #D9DFE7;background:#FAFBFC}}
 td{{padding:7px 10px;border-bottom:1px solid #EEF1F5;vertical-align:top}}td.wo{{font:600 13px ui-monospace,Menlo,monospace;color:#2F5E9E;width:36px}}
 td.dat{{white-space:nowrap;color:#66798E;font-size:13px;width:120px}}td.ka{{color:#E6007E;font-weight:600;white-space:nowrap;width:130px}}
-td.mir{{width:110px}}td.mir a{{font:600 12px ui-monospace,Menlo,monospace;color:#2F5E9E;text-decoration:none;margin-right:6px}}
+td.eigen{{color:#1d6b1d;font-weight:600}}td.mir{{width:110px}}td.mir a{{font:600 12px ui-monospace,Menlo,monospace;color:#2F5E9E;text-decoration:none;margin-right:6px}}
 tr.ferien td{{background:#F4F6F9;color:#66798E;font-size:13px;font-style:italic}}tr.jetzt td{{background:#FFF6D6}}tr.jetzt td.wo::after{{content:" ◀";color:#B98500}}
 </style></head><body><main><h1>Stoffverteilungsplan Mathematik Klasse 7 · Schule</h1>
-<p class="sub">So wie ihn die Fachschaft geplant hat. Gelb ist die aktuelle Woche. Rechts steht, welche Stunden der 7c dazu schon fertig sind. Klassenarbeiten mit dem Kürzel der Lehrkraft, die sie erstellt.</p>
-<table><tr><th>Wo</th><th>Zeitraum</th><th>Thema laut Plan</th><th>Termine</th><th>7c fertig</th></tr>{zeilen}</table></main></body></html>"""
+<p class="sub">So wie ihn die Fachschaft geplant hat, daneben grün dein tatsächlicher Stand (du bist etwa eine Woche voraus). Gelb ist die aktuelle Woche. Rechts steht, welche Stunden der 7c dazu schon fertig sind. Klassenarbeiten mit dem Kürzel der Lehrkraft, die sie erstellt.</p>
+<table><tr><th>Wo</th><th>Zeitraum</th><th>Thema laut Plan</th><th>Bei dir (7c)</th><th>Termine</th><th>7c fertig</th></tr>{zeilen}</table></main></body></html>"""
     Path(ziel).write_text(seite, encoding="utf-8")
 
 
@@ -100,6 +119,7 @@ def main():
     gruppen, akt = [("Planung", [{"id": "SVP", "marke": "SVP", "titel": "Stoffverteilungsplan der Schule", "sub": "Original der Fachschaft, daneben der Stand der 7c",
                                   "datum": "zum Vergleich mit deinem Stand", "datei": "Mathematik Klasse 7 – Stoffverteilungsplan Schule.html", "art": ""}])], None
     wochen = plan()
+    eigener_stand(wochen)
     schulplan(wochen, HIER / "Mathematik Klasse 7 – Stoffverteilungsplan Schule.html")
     block = None
     for w in wochen:
@@ -108,7 +128,7 @@ def main():
         if w["wo"] in BLOECKE:
             block = BLOECKE[w["wo"]]
             akt = None
-        sub = f"Klasse 7c, Mathematik, Woche {w['wo']} (ab {w['ab']}), laut Plan: {w['thema']}"
+        sub = f"Klasse 7c, Mathematik, Woche {w['wo']} (ab {w['ab']}), laut Plan: {w['thema']}" + (f", bei dir: {EIGEN[w['wo']]}" if w["wo"] in EIGEN else "")
         fertig = STUNDEN.get(w["wo"], [])
         if fertig:
             akt = (f"Woche {w['wo']}: {block}", [])
@@ -120,7 +140,7 @@ def main():
             if akt is None:
                 akt = (block, [])
                 gruppen.append(akt)
-            akt[1].append({"id": f"W{w['wo']}", "marke": f"Wo {w['wo']}", "titel": w["thema"], "sub": sub, "datum": f"ab {w['ab']}", "datei": "", "art": "offen"})
+            akt[1].append({"id": f"W{w['wo']}", "marke": f"Wo {w['wo']}", "titel": EIGEN.get(w["wo"], w["thema"]), "sub": sub, "datum": f"ab {w['ab']}", "datei": "", "art": "offen"})
         if w["ka"] and not w["alternativ"]:
             wer = " · erstellt von dir, an die Parallelklassen geben" if w["wer"] == "du" else (f" · erstellt von {w['wer']}, für die 7c anpassen" if w["wer"] else "")
             ziel = gruppen[-1]
