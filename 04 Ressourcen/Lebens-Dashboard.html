@@ -51,7 +51,7 @@
 
   /* Karten */
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 18px 20px; min-width: 0; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin-top: 12px; }
   .stack { margin-top: 12px; }
   h2 { font-size: 15px; margin: 0; font-weight: 650; letter-spacing: -.005em; }
   .chead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
@@ -65,7 +65,7 @@
   .linkline:hover { color: var(--t1); }
 
   /* Heute-Band */
-  .today { display: grid; grid-template-columns: 1.35fr 1fr 1fr; padding: 0; }
+  .today { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr); padding: 0; }
   .today > div { padding: 18px 20px; min-width: 0; }
   .today > div + div { border-left: 1px solid var(--line); }
   .ev { display: grid; grid-template-columns: 52px 8px 1fr auto; gap: 10px; align-items: baseline; padding: 5px 0; font-size: 13.5px; border-bottom: 1px solid var(--line); }
@@ -175,10 +175,10 @@
   a.lrow:last-child { border-bottom: none; }
   a.lrow:hover { color: var(--t1); }
   a.lrow .info { margin-left: auto; font-size: 11.5px; color: var(--t4); }
-  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .notes { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 22px; }
 
   /* Heatmaps */
-  .hmwrap { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .hmwrap { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 22px; }
   .hm-label { font-size: 12.5px; color: var(--t2); font-weight: 600; margin-bottom: 7px; display: flex; gap: 8px; align-items: baseline; }
   .hm-label span { font-size: 11px; color: var(--t4); font-weight: 400; }
   .hm-scroll { overflow-x: auto; }
@@ -191,16 +191,18 @@
   footer { max-width: 1160px; margin: 24px auto 0; font-size: 11.5px; color: var(--t4); line-height: 1.7; }
 
   @media (max-width: 900px) {
-    .today { grid-template-columns: 1fr; }
+    .today { grid-template-columns: minmax(0,1fr); }
     .today > div + div { border-left: none; border-top: 1px solid var(--line); }
-    .row, .notes, .hmwrap { grid-template-columns: 1fr; }
+    .row, .notes, .hmwrap { grid-template-columns: minmax(0,1fr); }
+    .themes, .laterlist { grid-template-columns: minmax(0,1fr); }
     nav.tools { margin-left: 0; }
   }
   @media (max-width: 520px) {
     body { padding: 18px 12px 50px; }
     .ev { grid-template-columns: 46px 8px 1fr; }
     .ev .cal { display: none; }
-    table.pv th:nth-child(4), table.pv td:nth-child(4) { display: none; }
+    table.pv th:nth-child(4), table.pv td:nth-child(4), table.pv th:nth-child(5), table.pv td:nth-child(5) { display: none; }
+    .formrow { gap: 16px; }
   }
 </style>
 </head>
@@ -240,11 +242,11 @@
 
   <div class="row">
     <section class="card"><div class="chead"><h2>Lesen</h2><span class="meta" id="lesenMeta"></span></div><div id="lesenBody"></div></section>
-    <section class="card"><div class="chead"><h2>PV-Anlage</h2><span class="meta" id="pvMeta"></span></div><div id="pvBody"></div></section>
+    <section class="card"><div class="chead"><h2>Schule</h2><span class="meta">GDRS iCloud</span></div><div id="schuleBody"></div></section>
   </div>
 
   <div class="row">
-    <section class="card"><div class="chead"><h2>Schule</h2><span class="meta">GDRS iCloud</span></div><div id="schuleBody"></div></section>
+    <section class="card"><div class="chead"><h2>PV-Anlage</h2><span class="meta" id="pvMeta"></span></div><div id="pvBody"></div></section>
     <section class="card"><div class="chead"><h2>Daily Notes</h2><span class="meta" id="dailyMeta"></span></div><div id="dailyBody"></div></section>
   </div>
 
@@ -466,7 +468,9 @@ function renderGesundheit(g) {
 }
 
 function renderLesen(books) {
-  const show = books.filter(b => b.pct != null && b.pct < 100).slice(0, 4);
+  const key = b => { const m = /(\d{2})\.(\d{2})\.(\d{4})/.exec(b.d || ""); return m ? m[3] + m[2] + m[1] : ""; };
+  const show = books.filter(b => b.pct != null && b.pct < 100)
+    .sort((x, y) => key(y).localeCompare(key(x)) || (y.pct - x.pct)).slice(0, 4);
   $("lesenBody").innerHTML = (show.length ? show.map(b => `<div class="book">
       ${b.asin ? `<img src="https://images-eu.ssl-images-amazon.com/images/P/${b.asin}.09._SX80_.jpg" alt="" onerror="this.style.visibility='hidden'">` : "<div></div>"}
       <div><div class="t">${esc(b.t)}</div><div class="a">${esc(b.a)}</div><div class="track"><div class="fill" style="width:${b.pct}%"></div></div></div>

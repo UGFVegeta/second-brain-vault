@@ -486,7 +486,7 @@ def _lesen():
                       "d": m.group(4), "asin": m.group(5)})
     if not books:
         raise RuntimeError("keine Bücher im Lese-Dashboard gefunden")
-    return books[:10]
+    return books[:40]
 
 
 # --- Schule (iCloud + Dashboards) ------------------------------------------
