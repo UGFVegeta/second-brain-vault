@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ernährungs-Tracker</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1d2320;--mut:#6b746f;--line:#e4e2da;--ok:#2f7d5b;--warn:#c27a1a;--bad:#b3402f;--acc:#1f5f8b;--soft:#e9efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#141816;--card:#1d2220;--ink:#eceee9;--mut:#9aa39e;--line:#2c3330;--ok:#5cbf93;--warn:#e0a24a;--bad:#e27a68;--acc:#6db3e3;--soft:#243029}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;padding:24px 16px 48px}
+main{max-width:980px;margin:0 auto}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:0 0 12px;font-weight:600}
+.sub{color:var(--mut);font-size:14px;margin-bottom:20px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.big{font-size:56px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.big small{font-size:18px;font-weight:500;color:var(--mut);margin-left:6px;letter-spacing:0}
+.bar{height:12px;border-radius:6px;background:var(--soft);overflow:hidden;margin:14px 0 6px}
+.bar>i{display:block;height:100%;background:var(--ok);border-radius:6px}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--mut)}
+.row b{color:var(--ink);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--mut);font-weight:500}td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;background:var(--soft)}
+.pill.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}.pill.ok{color:var(--ok)}
+svg{width:100%;height:auto;display:block}
+.empty{color:var(--mut);font-size:14px;padding:6px 0}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:8px;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;background:var(--c)}
+</style>
+</head>
+<body>
+<main>
+<h1>Ernährungs-Tracker</h1>
+<div class="sub" id="sub"></div>
+<div class="grid">
+  <section class="card" id="today"></section>
+  <section class="card" id="streak"></section>
+</div>
+<section class="card" style="margin-bottom:16px"><h2>Gewicht gegen Zielkurve</h2><div id="chart"></div>
+  <div class="legend"><span style="--c:var(--acc)">Tageswert</span><span style="--c:var(--ok)">7-Tage-Schnitt</span><span style="--c:var(--mut)">Zielkurve</span></div></section>
+<div class="grid">
+  <section class="card"><h2>Heutige Mahlzeiten</h2><div id="meals"></div></section>
+  <section class="card"><h2>Letzte 7 Tage</h2><div id="week"></div></section>
+</div>
+<section class="card"><h2>Rückfall-Protokoll</h2><div id="slips"></div></section>
+</main>
+<script src="ernaehrung_data.js"></script>
+<script>
+const D=window.ERN_DATA,S=D.settings,$=id=>document.getElementById(id);
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const today=iso(new Date()),DAY=86400000,tm=s=>new Date(s+"T12:00:00").getTime();
+const dt=s=>new Date(s+"T12:00:00").toLocaleDateString("de-DE",{weekday:"short",day:"numeric",month:"numeric"});
+const wts=Object.entries(D.days).filter(([,v])=>v.weight).sort();
+const curW=k=>{let w=S.start_weight;for(const [d,x] of wts)if(d<=k)w=x.weight;return w};
+function bud(k){const day=D.days[k]||{};const w=curW(k);
+ const bmr=10*w+6.25*S.height_cm-5*S.age+(S.sex==="m"?5:-161);
+ const base=Math.round(bmr*S.activity_factor),train=Math.round((day.training_kcal||0)*S.training_factor);
+ return{base,train,total:base+train-S.deficit}}
+const eaten=k=>((D.days[k]||{}).meals||[]).reduce((a,m)=>a+m.kcal,0);
+const prot=k=>((D.days[k]||{}).meals||[]).reduce((a,m)=>a+(m.p||0),0);
+
+// Heute
+const b=bud(today),e=eaten(today),left=b.total-e,pct=Math.min(100,Math.round(e/b.total*100));
+const dd=D.days[today]||{};
+$("today").innerHTML=`<h2>Heute noch übrig</h2>
+<div class="big" style="color:${left<0?"var(--bad)":"var(--ink)"}">${left}<small>kcal</small></div>
+<div class="bar"><i style="width:${pct}%;background:${left<0?"var(--bad)":pct>85?"var(--warn)":"var(--ok)"}"></i></div>
+<div class="row"><span>gegessen <b>${e}</b></span><span>Budget <b>${b.total}</b></span></div>
+<div class="row" style="margin-top:6px"><span>Basis ${b.base}</span><span>Training +${b.train}</span><span>Defizit −${S.deficit}</span></div>
+<div class="row" style="margin-top:10px"><span>Eiweiß <b>${prot(today)} g</b> von ~${Math.round(curW(today)*S.protein_per_kg)} g</span><span>${(dd.steps||0).toLocaleString("de-DE")} Schritte</span></div>
+${(dd.sessions||[]).length?`<div class="row" style="margin-top:6px"><span>${dd.sessions.join(" · ")}</span></div>`:""}`;
+
+// Streak
+let streak=0;for(let t=tm(today);;t-=DAY){const k=iso(new Date(t)),x=D.days[k];
+ if(!x){if(k===today){continue}break}
+ if(x.sweets==="nein")streak++;else if(x.sweets==="ja")break;else if(k===today)continue;else break}
+const slipN=D.slips.filter(s=>tm(s.date)>=tm(today)-30*DAY).length;
+const w7=wts.filter(([d])=>tm(d)>=tm(today)-6*DAY).map(([,v])=>v.weight);
+const avg7=w7.length?(w7.reduce((a,c)=>a+c,0)/w7.length):null;
+const goalDays=Math.round((tm(S.goal_date)-tm(today))/DAY);
+$("streak").innerHTML=`<h2>Süßigkeiten-Streak</h2>
+<div class="big">${streak}<small>${streak===1?"Tag":"Tage"} ohne</small></div>
+<div class="row" style="margin-top:18px"><span>Rückfälle in 30 Tagen</span><b>${slipN}</b></div>
+<div class="row" style="margin-top:6px"><span>Aktuell (7-Tage-Schnitt)</span><b>${avg7?avg7.toFixed(1).replace(".",","):"–"} kg</b></div>
+<div class="row" style="margin-top:6px"><span>Ziel ${S.goal_low}–${S.goal_high} kg bis ${new Date(S.goal_date).toLocaleDateString("de-DE")}</span><b>noch ${goalDays} Tage</b></div>`;
+$("sub").textContent=`Stand ${D.updated||""} · Zahlen sind Schätzungen aus Fotos; entscheidend ist der Wochentrend.`;
+
+// Chart
+(function(){const W=720,H=240,p={l:40,r:12,t:12,b:28};
+ const t0=tm(S.start_date),t1=tm(S.goal_date);
+ const all=wts.map(([,v])=>v.weight).concat([S.start_weight,S.goal_weight]);
+ const lo=Math.floor(Math.min(...all)-0.5),hi=Math.ceil(Math.max(...all)+0.5);
+ const X=t=>p.l+(t-t0)/(t1-t0)*(W-p.l-p.r),Y=v=>p.t+(hi-v)/(hi-lo)*(H-p.t-p.b);
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gewichtsverlauf">`;
+ for(let v=lo;v<=hi;v++)s+=`<line x1="${p.l}" x2="${W-p.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${p.l-6}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="var(--mut)">${v}</text>`;
+ s+=`<rect x="${p.l}" width="${W-p.l-p.r}" y="${Y(S.goal_high)}" height="${Y(S.goal_low)-Y(S.goal_high)}" fill="var(--ok)" opacity=".12"/>`;
+ s+=`<line x1="${X(t0)}" y1="${Y(S.start_weight)}" x2="${X(t1)}" y2="${Y(S.goal_weight)}" stroke="var(--mut)" stroke-dasharray="5 4" stroke-width="2"/>`;
+ const pts=wts.map(([d,v])=>[X(tm(d)),Y(v.weight),d]);
+ const avgPts=wts.map(([d])=>{const a=wts.filter(([x])=>tm(x)<=tm(d)&&tm(x)>=tm(d)-6*DAY).map(([,v])=>v.weight);return[X(tm(d)),Y(a.reduce((x,y)=>x+y,0)/a.length)]});
+ if(avgPts.length>1)s+=`<polyline points="${avgPts.map(q=>q.join(",")).join(" ")}" fill="none" stroke="var(--ok)" stroke-width="3"/>`;
+ pts.forEach(q=>s+=`<circle cx="${q[0]}" cy="${q[1]}" r="4" fill="var(--acc)"><title>${q[2]}</title></circle>`);
+ for(let t=t0;t<=t1;t+=14*DAY)s+=`<text x="${X(t)}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--mut)">${new Date(t).toLocaleDateString("de-DE",{day:"numeric",month:"numeric"})}</text>`;
+ $("chart").innerHTML=s+"</svg>"})();
+
+// Mahlzeiten
+const ms=(D.days[today]||{}).meals||[];
+$("meals").innerHTML=ms.length?`<table>${ms.map(m=>`<tr><td>${m.time||""}</td><td>${m.name}</td><td class="r">${m.kcal} kcal</td></tr>`).join("")}</table>`:`<div class="empty">Noch nichts eingetragen. Foto an Claude schicken.</div>`;
+
+// Woche
+let wr="";for(let i=0;i<7;i++){const k=iso(new Date(tm(today)-i*DAY)),x=D.days[k];if(!x)continue;
+ const bb=bud(k).total,ee=eaten(k);if(!ee&&!x.sweets)continue;const d=ee-bb;
+ wr+=`<tr><td>${dt(k)}</td><td class="r">${ee} / ${bb}</td><td class="r" style="color:${d>0?"var(--bad)":"var(--ok)"}">${d>0?"+":""}${d}</td><td class="r">${x.sweets==="ja"?'<span class="pill bad">Süßes</span>':x.sweets==="nein"?'<span class="pill ok">ohne</span>':""}</td></tr>`}
+$("week").innerHTML=wr?`<table><tr><th>Tag</th><th class="r">kcal / Budget</th><th class="r">Δ</th><th></th></tr>${wr}</table>`:`<div class="empty">Noch keine Tage mit Einträgen.</div>`;
+
+// Rückfälle
+$("slips").innerHTML=D.slips.length?`<table>${[...D.slips].reverse().map(s=>`<tr><td>${dt(s.date)}</td><td>${s.trigger}</td><td class="r">${s.kcal?s.kcal+" kcal":""}</td></tr>`).join("")}</table>`:`<div class="empty">Keine Einträge. Wenn es passiert: kurz Auslöser an Claude melden, ohne Schuldzuweisung.</div>`;
+</script>
+</body>
+</html>
