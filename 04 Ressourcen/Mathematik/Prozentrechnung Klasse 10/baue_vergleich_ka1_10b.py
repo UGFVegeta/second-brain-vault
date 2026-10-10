@@ -45,22 +45,22 @@ def aufgaben(l):
 
 # (Original-Aufgabe oder None, Übungs-Nr., Gleich, Anders)
 PAARE = [
-    (1, 1, "Glücksrad mit gleich großen Feldern, zweimal drehen, a) zweimal dieselbe Farbe, b) Summe der Zahlen.",
-     "6 statt 4 Felder, Summe 7 statt 10, Farben schwarz/grau/weiß."),
-    (2, 2, "Baumdiagramm lesen, Aussagen ankreuzen, auch falsche rechnerisch begründen. Falle mit dem Prozentzeichen.",
-     "3 weiße und 7 schwarze Kugeln, 4 Aussagen mit eigenen Zahlen; die Aussage „gleichzeitig gezogen“ fehlt."),
-    (3, 3, "a) Preissenkung in Prozent aus altem und neuem Preis.",
-     "120 € auf 90 €. Dazu neu b): zwei Rabatte hintereinander (25 % und 20 %), die man nicht addieren darf."),
-    (4, 4, "Feste Zinssätze für 3 Jahre, Zinssatz fürs 4. Jahr gesucht, gleichbleibender Zinssatz mit demselben Endkapital. Säulenbild.",
-     "8 000 € statt 5 000 €, Sätze 0,8 / 1,2 / 1,6 %. Zusätzlich a) Kapital nach 3 Jahren als Zwischenschritt."),
-    (None, 5, "Nichts, die Aufgabe ist zusätzlich.",
-     "Zwei Bankangebote vergleichen (wechselnde Sätze gegen gleichbleibender Satz mit Bonus). Übt das Multiplizieren der Zinsfaktoren, Vorbild Nachtermin 2015 P6."),
-    (5, 6, "Zwei Kreisdiagramme, Prozent von Prozent, Anteil an der Gesamtmenge in Prozent.",
-     "Altersgruppen einer Stadt statt Erdoberfläche; rechnet mit Einwohnerzahlen, nicht mit km². Ohne die falsche Prozentsumme des Originals."),
-    (6, 7, "Zwei Züge nacheinander aus Kategorien, „Hälfte davon“, mit Zurücklegen, Gegenereignis „keiner“, „genau einer“.",
-     "Lern-App statt Playlist. Zusätzlich a) und b) ohne Zurücklegen (Original nur mit Zurücklegen)."),
-    (7, 8, "Tombola, Erwartungswert, Spiel fair machen durch Änderung eines Gewinnwerts.",
-     "600 Lose, 1,50 € Einsatz, andere Gewinne. c) neu: Hauptgewinn so ändern, dass der Veranstalter 0,50 € pro Los verdient."),
+    (1, 1, "Mehrstufiges Zufallsexperiment ohne Taschenrechner, Wahrscheinlichkeiten als Bruch, Pfadregel.",
+     "Münze statt Glücksrad: dreimal werfen, Pfade zählen, Gegenereignis „mindestens einmal“. Keine Augensumme."),
+    (2, 2, "Baumdiagramm lesen und mit Wahrscheinlichkeiten arbeiten, Ziehen ohne Zurücklegen (gleichzeitig).",
+     "Baumdiagramm ergänzen statt Aussagen ankreuzen. Neue Kugelzahlen (3 rot, 5 grün). Fragen: unterschiedliche Farben, mindestens eine rote."),
+    (3, 3, "Prozentrechnung im Alltag ohne Taschenrechner.",
+     "Grundwert gesucht (Preiserhöhung um 20 %) statt Prozentsatz, dazu zwei Rabatte hintereinander."),
+    (4, 4, "Zinsen und Zinseszins, Zinssatz gesucht, wechselnde Zinssätze. Daten kommen aus einer Grafik.",
+     "Kreisdiagramm statt Säulenbild: Betrag aufteilen (Prozent von), dann drei Anlagen mit eigener Frage (Endkapital, Zinssatz gesucht, wechselnde Zinssätze)."),
+    (5, 5, "Prozentrechnung mit Prozentsatz, Prozentwert und Grundwert, Vergleich in Prozent.",
+     "Tabelle mit Einwohnerzahlen statt zwei Kreisdiagrammen. Jede Stadt hat eine andere gesuchte Größe. d) Absolut und prozentual unterscheiden."),
+    (6, 6, "Zweifaches Zufallsexperiment mit mehreren Ausgängen, Wahrscheinlichkeiten mit Zurücklegen.",
+     "Glücksrad mit ungleich großen Sektoren (Mittelpunktswinkel) statt Playlist. Fragen: gleiche Farbe, mindestens einmal grün."),
+    (7, 7, "Erwartungswert berechnen, Spiel fair machen, einen Gewinnwert ändern.",
+     "Würfelspiel mit zwei Würfeln statt Tombola, mit Einsatz: E = Summe aus Wahrscheinlichkeit · Gewinn, minus Einsatz. c) Veranstalter will 0,25 € verdienen."),
+    (None, 8, "Nichts, die Aufgabe ist zusätzlich.",
+     "Zweiter Erwartungswert mit Einsatz, verbunden mit Ziehen ohne Zurücklegen (Wahrscheinlichkeiten aus dem Baum). b) Einsatz für ein faires Spiel, c) Aussage über 100 Spiele prüfen."),
 ]
 
 CSS = """<style>
@@ -95,7 +95,7 @@ def main():
             '<title>Mathe 10b – Vergleich Original und Übungsklassenarbeit</title>' + u.ka.CSS + u.EXTRA + CSS + '</head><body>'
             '<div class="leiste"><b>Original und Übungsklassenarbeit, Aufgabe für Aufgabe</b>'
             '<button onclick="document.body.classList.toggle(\'zeige\')">Lösungen der Übung ein/aus</button></div>'
-            '<div class="kopfzeile"><div>Original (KA-Vorschlag, 20 P)</div><div>Übungsklassenarbeit (36 P)</div></div>'
+            '<div class="kopfzeile"><div>Original (KA-Vorschlag, 20 P)</div><div>Übungsklassenarbeit (38 P)</div></div>'
             + "".join(zeilen) + "</body></html>")
     ZIEL.write_text(html, encoding="utf-8")
     print("geschrieben:", ZIEL.name, len(html) // 1024, "KB")
