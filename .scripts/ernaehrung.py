@@ -5,8 +5,10 @@ Daten:   04 Ressourcen/Ernährung/ernaehrung_data.js  (wird vom Tracker-HTML gel
 
 Verwendung (Claude trägt nach Foto-Schätzung ein):
     python3 .scripts/ernaehrung.py add "Skyr mit Beeren" 280 --p 30 [--time 08:15] [--date 2026-10-11]
-    python3 .scripts/ernaehrung.py day --weight 78.2 --sweets nein --mood 3 --note "..." [--date ...]
+    python3 .scripts/ernaehrung.py day --weight 78.2 --waist 86.5 --sweets nein --mood 3 --note "..." [--date ...]
     python3 .scripts/ernaehrung.py slip "Auslöser/Situation" [--kcal 1500]   # Rückfall-Protokoll
+    python3 .scripts/ernaehrung.py fav "Kurzname" kcal --p g --note "Beschreibung"   # Favorit speichern
+    python3 .scripts/ernaehrung.py use "Kurzname" [--time ..] [--date ..]            # Favorit eintragen
     python3 .scripts/ernaehrung.py del <nummer> [--date ...]                  # Mahlzeit löschen
     python3 .scripts/ernaehrung.py refresh [tage]                             # Schritte + Training holen
     python3 .scripts/ernaehrung.py status [--date ...]                        # Rest-Budget im Terminal
@@ -31,6 +33,9 @@ DEFAULT = {
         "training_factor": 0.8,     # Garmin-kcal enthalten den Grundumsatz-Anteil mit
         "deficit": 450,             # kcal pro Tag
         "protein_per_kg": 1.8,
+        "carry_cap": 300,           # max. Ausgleich pro Tag
+        "min_kcal": 1500,           # Tagesbudget fällt nie darunter
+        "favorites": {},
     },
     "days": {},
     "slips": [],
@@ -70,8 +75,24 @@ def budget(d, key):
     w = current_weight(d, key)
     base = round(bmr(s, w) * s["activity_factor"])
     train = round(day.get("training_kcal", 0) * s["training_factor"])
-    return {"bmr": round(bmr(s, w)), "base": base, "train": train,
-            "budget": base + train - s["deficit"]}
+    raw = base + train - s["deficit"]
+    # Ausgleich: Überschuss der letzten 7 Tage (nur Tage mit Einträgen), verteilt auf 7 Tage, gedeckelt
+    over = 0
+    for i in range(1, 8):
+        k = (date.fromisoformat(key) - timedelta(days=i)).isoformat()
+        e = sum(m["kcal"] for m in d["days"].get(k, {}).get("meals", []))
+        if e:
+            bk = _raw(d, k)
+            over += e - bk
+    adj = max(0, min(s.get("carry_cap", 300), round(over / 7)))
+    adj = max(0, min(adj, raw - s.get("min_kcal", 1500)))
+    return {"bmr": round(bmr(s, w)), "base": base, "train": train, "adj": adj, "budget": raw - adj}
+
+
+def _raw(d, k):
+    s = d["settings"]
+    w = current_weight(d, k)
+    return round(bmr(s, w) * s["activity_factor"]) + round(d["days"].get(k, {}).get("training_kcal", 0) * s["training_factor"]) - s["deficit"]
 
 
 def status(d, key):
@@ -79,7 +100,7 @@ def status(d, key):
     b = budget(d, key)
     eaten = sum(m["kcal"] for m in day["meals"])
     prot = sum(m.get("p", 0) for m in day["meals"])
-    print(f"{key}  Budget {b['budget']} kcal (Basis {b['base']} + Training {b['train']} − Defizit {d['settings']['deficit']})")
+    print(f"{key}  Budget {b['budget']} kcal (Basis {b['base']} + Training {b['train']} − Defizit {d['settings']['deficit']}" + (f", Ausgleich −{b['adj']}" if b['adj'] else "") + ")")
     print(f"gegessen {eaten} kcal | übrig {b['budget'] - eaten} kcal | Eiweiß {prot} g von ~{round(current_weight(d, key) * d['settings']['protein_per_kg'])} g")
     for i, m in enumerate(day["meals"], 1):
         print(f"  {i}. {m.get('time', '')} {m['name']} – {m['kcal']} kcal" + (f", {m['p']} g Eiweiß" if m.get("p") else ""))
@@ -117,6 +138,7 @@ def main():
     p.add_argument("--time")
     p.add_argument("--date", default=date.today().isoformat())
     p.add_argument("--weight", type=float)
+    p.add_argument("--waist", type=float)
     p.add_argument("--sweets")
     p.add_argument("--mood", type=int)
     p.add_argument("--note")
@@ -129,12 +151,22 @@ def main():
         if a.p is not None:
             m["p"] = a.p
         day_of(d, a.date)["meals"].append(m)
+    elif a.cmd == "fav":
+        d["settings"].setdefault("favorites", {})[a.arg] = {"name": a.note or a.arg, "kcal": a.kcal, "p": a.p or 0}
+    elif a.cmd == "use":
+        f = d["settings"]["favorites"][a.arg]
+        m = {"time": a.time or datetime.now().strftime("%H:%M"), "name": f["name"], "kcal": f["kcal"]}
+        if f.get("p"):
+            m["p"] = f["p"]
+        day_of(d, a.date)["meals"].append(m)
     elif a.cmd == "del":
         day_of(d, a.date)["meals"].pop(int(a.arg) - 1)
     elif a.cmd == "day":
         day = day_of(d, a.date)
         if a.weight:
             day["weight"] = a.weight
+        if a.waist:
+            day["waist"] = a.waist
         if a.sweets:
             day["sweets"] = a.sweets
         if a.mood:

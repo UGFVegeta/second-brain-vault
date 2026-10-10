@@ -241,6 +241,10 @@
   </div>
 
   <div class="row">
+    <section class="card" style="grid-column:1/-1"><div class="chead"><h2>Ernährung &amp; Gewichtsziel</h2><span class="meta" id="ernMeta"></span></div><div id="ernBody"></div><a class="linkline" href="Ernährung/Ernährungs-Tracker.html">Tracker öffnen</a></section>
+  </div>
+
+  <div class="row">
     <section class="card"><div class="chead"><h2>Lesen</h2><span class="meta" id="lesenMeta"></span></div><div id="lesenBody"></div></section>
     <section class="card"><div class="chead"><h2>Schule</h2><span class="meta">GDRS iCloud</span></div><div id="schuleBody"></div></section>
   </div>
@@ -268,6 +272,8 @@
 <footer id="foot"></footer>
 
 <script src="leben_data.js"></script>
+<script src="Ernährung/ernaehrung_data.js"></script>
+<script src="Ernährung/ernaehrung_calc.js"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -548,11 +554,35 @@ const trainTip = (d, h) => fmtD(d) + (h && h.s ? " · " + h.txt.join(", ") : " �
 const vaultLevel = h => { const n = h ? (h.e || 0) + (h.c || 0) : 0; return !n ? 0 : (n < 3 ? 1 : (n < 8 ? 2 : 3)); };
 const vaultTip = (d, h) => fmtD(d) + (h ? ` · ${h.e || 0} Notizen bearbeitet, ${h.c || 0} Commits` : " · keine Aktivität");
 
+function renderErnaehrung() {
+  const D = window.ERN_DATA, el = $("ernBody");
+  if (!D) { el.innerHTML = empty("ernaehrung_data.js fehlt"); return; }
+  const S = D.settings, k = iso(new Date()), day = D.days[k] || {};
+  const ws = Object.entries(D.days).filter(([, v]) => v.weight).sort();
+  const w = ws.length ? ws[ws.length - 1][1].weight : S.start_weight;
+  const bb = ernBudget(D, k), total = bb.total, eaten = bb.eaten, left = total - eaten;
+  const wl = Object.entries(D.days).filter(([, v]) => v.waist).sort().pop();
+  const avg = ws.slice(-7).map(x => x[1].weight), a7 = avg.length ? avg.reduce((a, c) => a + c, 0) / avg.length : S.start_weight;
+  const days = Math.round((new Date(S.goal_date) - new Date()) / 864e5);
+  let streak = 0;
+  for (let t = Date.now(); ; t -= 864e5) { const x = D.days[iso(new Date(t))];
+    if (!x) { if (iso(new Date(t)) === k) continue; break; }
+    if (x.sweets === "nein") streak++; else if (x.sweets === "ja") break; else if (iso(new Date(t)) !== k) break; }
+  const row = (l, v, r, bad) => `<div class="vital ${bad ? "bad" : ""}"><span class="l">${l}</span><span class="v">${v}</span><span class="r">${r}</span></div>`;
+  el.innerHTML =
+    row("Heute noch übrig", left + " kcal", `gegessen <b>${eaten}</b> von ${total}${bb.adj ? " (inkl. Ausgleich −" + bb.adj + ")" : ""}`, left < 0) +
+    row("Gewicht (7-Tage-Schnitt)", num(a7) + " kg", `Ziel <b>${S.goal_low}–${S.goal_high} kg</b> bis ${new Date(S.goal_date).toLocaleDateString("de-DE")}, noch ${days} Tage`) +
+    (wl ? row("Bauchumfang", num(wl[1].waist) + " cm", `gemessen <b>${new Date(wl[0]).toLocaleDateString("de-DE")}</b>`) : "") +
+    row("Süßigkeiten-Streak", streak + (streak === 1 ? " Tag" : " Tage"), `Rückfälle in 30 Tagen <b>${D.slips.filter(x => new Date(x.date) >= new Date(Date.now() - 30 * 864e5)).length}</b>`);
+  $("ernMeta").textContent = "Stand " + (D.updated || "");
+}
+
 function render(L) {
   renderKopf(L);
   renderKalender(L.kalender || []);
   renderErinnerungen(L.erinnerungen, L.vault);
   renderVerfassung(L.gesundheit, L.training);
+  renderErnaehrung();
   renderProjekte(L.projekte || []);
   renderTraining(L.training);
   renderGesundheit(L.gesundheit);

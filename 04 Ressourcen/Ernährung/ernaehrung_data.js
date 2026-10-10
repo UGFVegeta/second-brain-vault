@@ -16,7 +16,24 @@ window.ERN_DATA = {
   "activity_factor": 1.3,
   "training_factor": 0.8,
   "deficit": 450,
-  "protein_per_kg": 1.8
+  "protein_per_kg": 1.8,
+  "favorites": {
+   "Frühstück Standard": {
+    "name": "Standard-Frühstück: Skyr ~300 g, Himbeeren ~25 g, Banane, 40 g Haferflocken, Vanille-Whey ~12 g",
+    "kcal": 485,
+    "p": 50
+   },
+   "Shake": {
+    "name": "Eiweiß-Shake abends: 2 Scoops Whey (~50 g Pulver), Kreatin 5 g (0 kcal)",
+    "kcal": 195,
+    "p": 40
+   },
+   "Ei": {
+    "name": "gekochtes Ei (Lidl, Größe M)",
+    "kcal": 75,
+    "p": 7
+   }
+  }
  },
  "days": {
   "2026-10-10": {
@@ -25,6 +42,41 @@ window.ERN_DATA = {
      "time": "20:30",
      "name": "M&Ms ca. 310 g (Rückfall)",
      "kcal": 1500
+    },
+    {
+     "time": "12:30",
+     "name": "Skyr 300 g, 15 g Whey, Haferflocken 40 g, Himbeeren 20 g, kleine Banane",
+     "kcal": 495,
+     "p": 51
+    },
+    {
+     "time": "13:00",
+     "name": "Laugenbrötchen mit Salami",
+     "kcal": 300,
+     "p": 12
+    },
+    {
+     "time": "15:00",
+     "name": "2 Apfelzimt-Muffins (selbstgemacht, weniger Zucker)",
+     "kcal": 400,
+     "p": 6
+    },
+    {
+     "time": "15:30",
+     "name": "2 Stück Kuchen (Sorte unbekannt, geschätzt)",
+     "kcal": 560,
+     "p": 8
+    },
+    {
+     "time": "19:00",
+     "name": "Gyros-Pita",
+     "kcal": 800,
+     "p": 35
+    },
+    {
+     "time": "21:00",
+     "name": "Katjes Gummibärchen (wenige, Menge geschätzt)",
+     "kcal": 100
     }
    ],
    "weight": 78.5,
@@ -224,5 +276,5 @@ window.ERN_DATA = {
    "kcal": 1500
   }
  ],
- "updated": "2026-10-10 21:41"
+ "updated": "2026-10-10 21:58"
 };

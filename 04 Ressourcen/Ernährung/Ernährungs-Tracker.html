@@ -47,6 +47,7 @@ svg{width:100%;height:auto;display:block}
 <section class="card"><h2>Rückfall-Protokoll</h2><div id="slips"></div></section>
 </main>
 <script src="ernaehrung_data.js"></script>
+<script src="ernaehrung_calc.js"></script>
 <script>
 const D=window.ERN_DATA,S=D.settings,$=id=>document.getElementById(id);
 const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -54,10 +55,7 @@ const today=iso(new Date()),DAY=86400000,tm=s=>new Date(s+"T12:00:00").getTime()
 const dt=s=>new Date(s+"T12:00:00").toLocaleDateString("de-DE",{weekday:"short",day:"numeric",month:"numeric"});
 const wts=Object.entries(D.days).filter(([,v])=>v.weight).sort();
 const curW=k=>{let w=S.start_weight;for(const [d,x] of wts)if(d<=k)w=x.weight;return w};
-function bud(k){const day=D.days[k]||{};const w=curW(k);
- const bmr=10*w+6.25*S.height_cm-5*S.age+(S.sex==="m"?5:-161);
- const base=Math.round(bmr*S.activity_factor),train=Math.round((day.training_kcal||0)*S.training_factor);
- return{base,train,total:base+train-S.deficit}}
+const bud=k=>ernBudget(D,k);
 const eaten=k=>((D.days[k]||{}).meals||[]).reduce((a,m)=>a+m.kcal,0);
 const prot=k=>((D.days[k]||{}).meals||[]).reduce((a,m)=>a+(m.p||0),0);
 
@@ -69,6 +67,7 @@ $("today").innerHTML=`<h2>Heute noch übrig</h2>
 <div class="bar"><i style="width:${pct}%;background:${left<0?"var(--bad)":pct>85?"var(--warn)":"var(--ok)"}"></i></div>
 <div class="row"><span>gegessen <b>${e}</b></span><span>Budget <b>${b.total}</b></span></div>
 <div class="row" style="margin-top:6px"><span>Basis ${b.base}</span><span>Training +${b.train}</span><span>Defizit −${S.deficit}</span></div>
+${b.adj?`<div class="row" style="margin-top:6px"><span>Ausgleich der letzten Tage</span><b>−${b.adj} kcal</b></div>`:""}
 <div class="row" style="margin-top:10px"><span>Eiweiß <b>${prot(today)} g</b> von ~${Math.round(curW(today)*S.protein_per_kg)} g</span><span>${(dd.steps||0).toLocaleString("de-DE")} Schritte</span></div>
 ${(dd.sessions||[]).length?`<div class="row" style="margin-top:6px"><span>${dd.sessions.join(" · ")}</span></div>`:""}`;
 
@@ -76,6 +75,7 @@ ${(dd.sessions||[]).length?`<div class="row" style="margin-top:6px"><span>${dd.s
 let streak=0;for(let t=tm(today);;t-=DAY){const k=iso(new Date(t)),x=D.days[k];
  if(!x){if(k===today){continue}break}
  if(x.sweets==="nein")streak++;else if(x.sweets==="ja")break;else if(k===today)continue;else break}
+const wl=Object.entries(D.days).filter(([,v])=>v.waist).sort().pop();
 const slipN=D.slips.filter(s=>tm(s.date)>=tm(today)-30*DAY).length;
 const w7=wts.filter(([d])=>tm(d)>=tm(today)-6*DAY).map(([,v])=>v.weight);
 const avg7=w7.length?(w7.reduce((a,c)=>a+c,0)/w7.length):null;
@@ -84,6 +84,7 @@ $("streak").innerHTML=`<h2>Süßigkeiten-Streak</h2>
 <div class="big">${streak}<small>${streak===1?"Tag":"Tage"} ohne</small></div>
 <div class="row" style="margin-top:18px"><span>Rückfälle in 30 Tagen</span><b>${slipN}</b></div>
 <div class="row" style="margin-top:6px"><span>Aktuell (7-Tage-Schnitt)</span><b>${avg7?avg7.toFixed(1).replace(".",","):"–"} kg</b></div>
+<div class="row" style="margin-top:6px"><span>Bauchumfang (zuletzt${wl?" "+dt(wl[0]):""})</span><b>${wl?wl[1].waist.toString().replace(".",",")+" cm":"noch nicht gemessen"}</b></div>
 <div class="row" style="margin-top:6px"><span>Ziel ${S.goal_low}–${S.goal_high} kg bis ${new Date(S.goal_date).toLocaleDateString("de-DE")}</span><b>noch ${goalDays} Tage</b></div>`;
 $("sub").textContent=`Stand ${D.updated||""} · Zahlen sind Schätzungen aus Fotos; entscheidend ist der Wochentrend.`;
 
