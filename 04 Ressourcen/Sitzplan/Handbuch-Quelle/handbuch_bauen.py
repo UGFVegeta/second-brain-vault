@@ -269,7 +269,7 @@ sec("varianten", "Erweitert", "Varianten, Verlauf und Vergleich",
 <h3>Vergleich</h3>
 <ul>
   <li><b>Vergleich</b> öffnet rechts ein Feld mit einem Miniplan der anderen Variante oder eines alten Standes. Die Zeile darunter sagt, wie viele Schüler woanders sitzen.</li>
-  <li>Unten wechselst du zu der Variante oder übernimmst den alten Stand. Alte Stände lassen sich aus dem Verlauf löschen.</li>
+  <li>Unten wechselst du zu der Variante („Zu Variante … wechseln“) oder übernimmst einen alten Stand als neue Variante. Alte Stände lassen sich aus dem Verlauf löschen.</li>
 </ul>
 """)
 
@@ -364,7 +364,7 @@ sec("tasten", "Hilfe", "Tastenkürzel und Tipps",
 FAQ = [
  ("Ich kann keine Namen ziehen.", "Schau über dem Raum, welcher Modus aktiv ist. Namen bewegst du in „Schüler setzen“ (Taste S). Mit gedrückter Taste ⌥ (Windows: Alt) gilt beim Ziehen kurz der andere Modus."),
  ("Ich kann keine Tische verschieben.", "Wähle „Tische stellen“ (Taste T)."),
- ("Die Namen wurden falsch eingelesen.", "Im Dialog „Klassenliste laden“ oben den Aufbau der Namen ändern, zum Beispiel „Nachname, Vorname in einer Spalte“. Die Vorschau zeigt sofort, was sich ändert."),
+ ("Die Namen wurden falsch eingelesen.", "Im Dialog „Klassenliste laden“ oben den „Aufbau der Namen“ und die Spalten umstellen. Die Vorschau zeigt sofort, was sich ändert."),
  ("Der Plan ist klein und rundherum ist viel Rand.", "Auf „Leeren Rand entfernen“ oder „Rand verkleinern“ klicken. Mit + über dem Raum wird alles größer."),
  ("Ich habe etwas falsch gemacht.", "Rückgängig mit ⌘Z (Windows: Strg+Z) oder dem Hinweis „Rückgängig“ unten. Im Erweitert-Modus gibt es außerdem den Verlauf unter „Vergleich“."),
  ("Meine Pläne sind weg.", "Die Pläne liegen in dem Browser, in dem du sie angelegt hast. In einem anderen Browser oder auf einem anderen Rechner siehst du sie nicht. Öffne dort deine Sicherungsdatei: Menü ⋯ → „Gesicherte Sitzpläne öffnen“."),

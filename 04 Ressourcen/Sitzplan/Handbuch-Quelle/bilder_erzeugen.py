@@ -78,6 +78,7 @@ async def main():
     await pg.evaluate("document.querySelector('#dlgTpl').scrollTop=0;document.querySelector('#dlgTpl .dlg').scrollTop=0")
     await pg.wait_for_timeout(200)
     await pg.evaluate("__ring('#tplN',1);__ring('label.tile:has(input[value=gang])',2);__ring('#aisleFields',3,2)")
+    print("tpl",await pg.evaluate("(()=>{const d=document.querySelector('#dlgTpl');const r=d.getBoundingClientRect();return [r.top,r.height,d.scrollTop,innerHeight,scrollY]})()"))
     await shot("anordnung",sel="#dlgTpl",pad=8)
     await pg.click("#dlgTpl button.primary"); await pg.wait_for_timeout(500)
     await pg.set_viewport_size({"width":1400,"height":980})
@@ -102,7 +103,7 @@ async def main():
     await pg.evaluate("__ring('#cOn',1);__ring('.colors',2);__ring('#bGender',3)")
     await shot("farben",sel="#secFarbe",pad=8)
     await pg.click("#bGender"); await pg.wait_for_selector("#dlgGender[open]")
-        await shot("geschlecht",sel="#dlgGender",pad=8)
+    await shot("geschlecht",sel="#dlgGender",pad=8)
     await pg.click("#dlgGender button.primary"); await pg.wait_for_timeout(300)
     # Lasso
     rb=await pg.evaluate("(()=>{const r=document.querySelector('#room').getBoundingClientRect();return [r.left,r.top,r.width,r.height]})()")

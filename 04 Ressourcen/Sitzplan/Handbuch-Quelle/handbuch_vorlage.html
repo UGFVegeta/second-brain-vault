@@ -203,7 +203,7 @@ details p{color:var(--ink-2);padding-bottom:6px}
     {{ARTICLES}}
   </main>
 </div>
-<div class="lightbox" id="lb" role="dialog" aria-label="Bild vergrößert" aria-modal="true"><button class="x" type="button" aria-label="Schließen">×</button><img alt=""></div>
+<div class="lightbox" id="lb" role="dialog" aria-label="Bild vergrößert" aria-modal="true"><button class="x" type="button" aria-label="Schließen">×</button></div>
 
 <script>
 'use strict';
@@ -211,6 +211,7 @@ const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelect
 const pages=$$('.page'), secs=$$('.sec'), navItems=$$('.navitem');
 const nc=c=>c.normalize('NFD')[0].toLowerCase();         // Zeichen für Zeichen, behält die Länge
 const norm=s=>Array.from(s,nc).join('');
+$$('.sec h1,.sec h2,.sec h3,.sec p,.sec li,.sec figcaption,.sec td,.sec th,.sec summary,.sec aside,.sec .crumb').forEach(e=>e.append(' '));
 const idx=secs.map(el=>({el,id:el.id,title:el.dataset.title,group:el.dataset.group,
   text:el.textContent.replace(/\s+/g,' ').trim(),kw:el.dataset.kw||''}));
 idx.forEach(i=>{i.n=norm(i.text+' '+i.kw);i.nt=norm(i.title)});
@@ -264,14 +265,14 @@ addEventListener('hashchange',route);
 
 /* ---------- Suche ---------- */
 function score(i,ts){
-  let s=0;
+  let s=0,hits=0;
   for(const t of ts){
-    if(!i.n.includes(t))return -1;
+    if(!i.n.includes(t))return null;
     if(i.nt.includes(t))s+=20;
-    let c=0,p=-1;while((p=i.n.indexOf(t,p+1))>=0&&c<30)c++;
-    s+=c;
+    let c=0,p=-1;while((p=i.n.indexOf(t,p+1))>=0&&c<60)c++;
+    s+=c;hits+=c;
   }
-  return s;
+  return {s,hits};
 }
 function snippet(i,ts){
   const t=norm(i.text);let at=-1;
@@ -299,11 +300,11 @@ function doSearch(q){
     return;
   }
   const ts=terms(query);
-  const res=idx.map(i=>({i,s:score(i,ts)})).filter(x=>x.s>=0).sort((a,b)=>b.s-a.s);
-  const hit=new Map(res.map(x=>[x.i.id,x.s]));
+  const res=idx.map(i=>({i,r:score(i,ts)})).filter(x=>x.r).map(x=>({i:x.i,s:x.r.s,hits:x.r.hits})).sort((a,b)=>b.s-a.s);
+  const hit=new Map(res.map(x=>[x.i.id,x.hits]));
   navItems.forEach(a=>{
     const s=hit.get(a.dataset.id);a.hidden=s===undefined;
-    a.querySelector('.cnt').textContent=s!==undefined?String(Math.min(s%20||s,99)):'';
+    a.querySelector('.cnt').textContent=s!==undefined?String(Math.min(s,99)):'';
   });
   $$('.navgroup').forEach(g=>g.classList.toggle('empty',!$$('.navitem:not([hidden])',g).length));
   $('#rtitle').textContent='Ergebnisse für „'+query+'“';
@@ -327,10 +328,10 @@ addEventListener('keydown',e=>{
 });
 
 /* ---------- Bilder vergrößern ---------- */
-const lb=$('#lb'),lbi=$('img',lb);
+const lb=$('#lb');let lbi=null;
 document.addEventListener('click',e=>{
   const z=e.target.closest('.zoom');
-  if(z){const im=$('img',z);lbi.src=im.src;lbi.alt=im.alt;lb.classList.add('on');return}
+  if(z){const im=$('img',z);if(!lbi){lbi=document.createElement('img');lb.append(lbi)}lbi.src=im.src;lbi.alt=im.alt;lb.classList.add('on');return}
   if(lb.classList.contains('on'))lb.classList.remove('on');
 });
 addEventListener('keydown',e=>{if(e.key==='Escape'&&lb.classList.contains('on')){lb.classList.remove('on');e.stopPropagation()}},true);
