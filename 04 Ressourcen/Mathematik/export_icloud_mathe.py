@@ -189,7 +189,7 @@ def main():
     print("10b Zuwachssparen:", a4_zu_pdf(zw10.FOLIEN, PZ, zw, zw10.QUER, zw10.EXTRA), "Seiten")
     zw_ab, zw_abl = PZ / f"{zw10.AB_NAME}.pdf", PZ / f"{zw10.AB_NAME} – Lösung.pdf"
     print("10b Übungsblatt:", a4_zu_pdf([(t, f(False)) for t, f in zw10.AB], PZ, zw_ab, (), zw10.EXTRA),
-          "Seiten; Lösung:", a4_zu_pdf([(t + " – Lösung", f(True)) for t, f in zw10.AB], PZ, zw_abl, (), zw10.EXTRA), "Seiten")
+          "Seiten; Lösung:", a4_zu_pdf([(t, f(True)) for t, f in zw10.AB_L], PZ, zw_abl, (), zw10.EXTRA), "Seiten")
     z1, z2 = PZ / "Mathe 10b – Woche 4 – 1 Zinsen kurz, Zinseszins.pdf", PZ / "Mathe 10b – Woche 4 – 2 Zinseszins, Zinssatz gesucht.pdf"
     print("10b Zinsen:", folien_zu_pdf(z10.FOLIEN_MI, PZ, z1), "Seiten; Zinseszins:", folien_zu_pdf(z10.FOLIEN_FR, PZ, z2), "Seiten")
 

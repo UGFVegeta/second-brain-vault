@@ -114,10 +114,16 @@ def fest(t):
     return re.sub(r"(\d) (\d{3})", "\\1" + NB + "\\2", t)
 
 
-def aufgabe(nr, stufe, text, loes, l):
+def aufgabe(nr, stufe, text, loes, l, bild=""):
     text, loes = fest(text), fest(loes)
-    return (f'<div class="tx"><div class="txk"><b>{nr}</b> {KREIS[stufe]}</div><div>{text}'
-            + (f'<div class="txl">{loes}</div>' if l else "") + "</div></div>")
+    inhalt = f'<div>{text}' + (f'<div class="txl">{loes}</div>' if l else "") + "</div>"
+    if bild:
+        inhalt = f'<div class="mitbild">{inhalt}<div class="bild">{bild}</div></div>'
+    return f'<div class="tx"><div class="txk"><b>{nr}</b> {KREIS[stufe]}</div>{inhalt}</div>'
+
+
+def aufgaben(liste, l):
+    return "".join(aufgabe(*t[:4], l, *t[4:]) for t in liste)
 
 
 A = {}
@@ -184,9 +190,111 @@ AUFGABEN = [
 print("Werte:", A, A4_K, A5_F, A5_Z, A6_K, A7_K, A8_K, A9_K3, A10_K3, round(A11_Q, 5))
 
 
+# ================================================================ Teil ohne Taschenrechner (Prozentrechnung, passend zur Klassenarbeit)
+def kreisdiagramm(teile):
+    """teile: [(Name, Prozent)] -> SVG-Kreisdiagramm in Graustufen mit Beschriftung im Feld."""
+    from math import cos, sin, pi
+    farben = ["#4a4f57", "#8d939c", "#c3c8cf", "#e9ecf0"]
+    o, start, r, cx, cy = ['<svg viewBox="0 0 220 170" width="200">'], -90, 70, 85, 85
+    for i, (name, pr) in enumerate(teile):
+        ende = start + pr * 3.6
+        x1, y1 = cx + r * cos(start * pi / 180), cy + r * sin(start * pi / 180)
+        x2, y2 = cx + r * cos(ende * pi / 180), cy + r * sin(ende * pi / 180)
+        o.append(f'<path d="M{cx},{cy} L{x1:.1f},{y1:.1f} A{r},{r} 0 {1 if pr > 50 else 0} 1 {x2:.1f},{y2:.1f} Z" fill="{farben[i]}" stroke="#fff" stroke-width="2"/>')
+        o.append(f'<rect x="165" y="{22 + i * 30}" width="12" height="12" fill="{farben[i]}" stroke="#555" stroke-width=".6"/>'
+                 f'<text x="182" y="{32 + i * 30}" font-size="12">{name}</text>')
+        start = ende
+    return "".join(o) + "</svg>"
+
+
+def preisschild(preis, rabatt):
+    return (f'<svg viewBox="0 0 200 120" width="180"><path d="M30,20 H180 V100 H30 L5,60 Z" fill="#fff" stroke="#1b1b1b" stroke-width="2.5"/>'
+            f'<circle cx="24" cy="60" r="5" fill="none" stroke="#1b1b1b" stroke-width="2"/>'
+            f'<text x="105" y="58" font-size="16" text-anchor="middle">Sneaker</text><text x="105" y="86" font-size="24" font-weight="700" text-anchor="middle">{preis}{NB}€</text>'
+            f'<circle cx="168" cy="22" r="24" fill="#1b1b1b"/><text x="168" y="29" font-size="17" font-weight="700" fill="#fff" text-anchor="middle">−{rabatt}{NB}%</text></svg>')
+
+
+def balken(werte):
+    """werte: [(Name, Zahl)] -> waagrechte Balken mit Zahl am Ende."""
+    o = ['<svg viewBox="0 0 230 120" width="210">']
+    for i, (name, w) in enumerate(werte):
+        y = 10 + i * 36
+        o.append(f'<text x="0" y="{y + 18}" font-size="13">{name}</text><rect x="62" y="{y}" width="{w * 11}" height="24" fill="#8d939c"/>'
+                 f'<text x="{68 + w * 11}" y="{y + 17}" font-size="13" font-weight="700">{w}</text>')
+    return "".join(o) + "</svg>"
+
+
+def streifen(anteil, beschriftung):
+    b = 200 * anteil / 100
+    return (f'<svg viewBox="0 0 230 70" width="215"><rect x="10" y="12" width="200" height="30" fill="#fff" stroke="#1b1b1b" stroke-width="1.5"/>'
+            f'<rect x="10" y="12" width="{b}" height="30" fill="#8d939c" stroke="#1b1b1b" stroke-width="1.5"/>'
+            f'<text x="{10 + b / 2}" y="32" font-size="13" font-weight="700" text-anchor="middle">{anteil}{NB}%</text>'
+            f'<text x="{10 + b / 2}" y="60" font-size="13" text-anchor="middle">{beschriftung}</text>'
+            f'<text x="{10 + b + (200 - b) / 2}" y="60" font-size="13" text-anchor="middle">Gesamt: ?</text></svg>')
+
+
+def kette():
+    return ('<svg viewBox="0 0 240 70" width="225"><rect x="2" y="15" width="60" height="34" rx="5" fill="#fff" stroke="#1b1b1b" stroke-width="1.5"/>'
+            '<text x="32" y="38" font-size="15" font-weight="700" text-anchor="middle">100 €</text>'
+            '<path d="M66,32 H100" stroke="#1b1b1b" stroke-width="1.5" marker-end="url(#pf)"/><text x="83" y="12" font-size="12" text-anchor="middle">+10 %</text>'
+            '<rect x="106" y="15" width="44" height="34" rx="5" fill="#fff" stroke="#1b1b1b" stroke-width="1.5"/><text x="128" y="38" font-size="15" text-anchor="middle">?</text>'
+            '<path d="M154,32 H188" stroke="#1b1b1b" stroke-width="1.5" marker-end="url(#pf)"/><text x="171" y="12" font-size="12" text-anchor="middle">−10 %</text>'
+            '<rect x="194" y="15" width="44" height="34" rx="5" fill="#fff" stroke="#1b1b1b" stroke-width="1.5"/><text x="216" y="38" font-size="15" text-anchor="middle">?</text>'
+            '<defs><marker id="pf" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1b1b1b"/></marker></defs></svg>')
+
+
+UMFRAGE = [("Bus", 50), ("Fahrrad", 25), ("zu Fuß", 15), ("Auto", 10)]
+WAHL = [("Aylin", 12), ("Ben", 8), ("Carla", 5)]
+assert sum(p for _, p in UMFRAGE) == 100 and 200 * 25 // 100 == 50 and 80 * 75 // 100 == 60 and 12 * 100 // 25 == 48
+assert 34 * 100 // 40 == 85 and 90 * 100 // 30 == 300 and round(100 * 1.1 * 0.9, 2) == 99 and round(1000 * 1.05 ** 2, 2) == 1102.5
+
+def ds(*zeilen, formel=""):
+    """Dreisatz als Kette: ds(("100 %", "200 Schüler"), ("1 %", "2"), ...). Die Zeile mit 100 % wird markiert.
+    Oskar (11.10.2026): Prozentaufgaben ohne mehrere Jahre immer mit dem Dreisatz lösen, das 100 % sichtbar machen;
+    die Formel steht ergänzend darunter."""
+    teile = []
+    for a, b in zeilen:
+        neu = a.startswith("neu ")
+        a = a.replace("neu ", "")
+        z = f"{a} ≙ {b}"
+        teile.append(f'<span class="ds100">{"neues " if neu else ""}{z}</span>' if a.startswith("100") else f'<span class="dsz">{z}</span>')
+    return ('<span class="ds">' + ' <span class="dsp">→</span> '.join(teile) + "</span>"
+            + (f'<br><span class="dsf">Formel: {formel}</span>' if formel else ""))
+
+
+OHNE_TR = [
+    (13, 0, "200 Schülerinnen und Schüler wurden gefragt, wie sie zur Schule kommen. a) Wie viele kommen mit dem Fahrrad? "
+            "b) Wie viele kommen zu Fuß? c) Welcher Anteil fährt Bus? Gib ihn als Bruch an.",
+     ds(("100 %", "200 Schüler"), ("1 %", "2"), ("25 %", L("50 (Fahrrad)")), ("15 %", L("30 (zu Fuß)")))
+     + f"<br>c) 50 % = {L('1/2')} &nbsp; <span class='dsf'>Formel: W = 200 · 0,25 = 50</span>", kreisdiagramm(UMFRAGE)),
+    (14, 0, "Die Sneaker sind um 25 % reduziert. Wie viel kosten sie jetzt?",
+     ds(("100 %", "80 € (alter Preis)"), ("1 %", "0,80 €"), ("75 %", L("60 €")), formel="80 € · 0,75 = 60 €"), preisschild(80, 25)),
+    (15, 1, "Bei der Klassensprecherwahl wurden 25 Stimmen abgegeben. Wie viel Prozent der Stimmen hat jede Person bekommen?",
+     ds(("100 %", "25 Stimmen"), ("4 %", "1 Stimme"), (L("48 %"), "12 (Aylin)"), (L("32 %"), "8 (Ben)"), (L("20 %"), "5 (Carla)"),
+        formel="p % = 12 : 25 = 0,48 = 48 %"), balken(WAHL)),
+    (16, 1, "Bei der Klassenfahrt sind 30 % der Kosten schon bezahlt, das sind 90 €. Wie viel kostet die Fahrt insgesamt?",
+     ds(("30 %", "90 €"), ("10 %", "30 €"), ("100 %", L("300 €")), formel="G = 90 € : 0,3 = 300 €"), streifen(30, "90 €")),
+    (17, 1, "Ben hat im Test 34 von 40 Aufgaben richtig. Wie viel Prozent sind das? Lea hat 18 von 20 richtig. Wer war besser?",
+     "Ben: " + ds(("100 %", "40 Aufgaben"), ("2,5 %", "1 Aufgabe"), (L("85 %"), "34 Aufgaben"))
+     + "<br>Lea: " + ds(("100 %", "20 Aufgaben"), ("5 %", "1 Aufgabe"), (L("90 %"), "18 Aufgaben"))
+     + f" &nbsp; {L('Lea war besser.')}<br><span class='dsf'>Formel: p % = 34 : 40 = 0,85</span>"),
+    (18, 2, "Eine Jacke kostet 100 €. Erst wird sie um 10 % teurer, dann um 10 % billiger. Kostet sie wieder 100 €? Begründe.",
+     ds(("100 %", "100 €"), ("110 %", "110 €"))
+     + "<br>" + ds(("neu 100 %", "110 €"), ("10 %", "11 €"), ("90 %", L("99 €")))
+     + f"<br>{L('Nein.')} Nach der Erhöhung sind 110 € das neue 100 %. Die 10 % Rabatt werden von 110 € berechnet."
+     + "<br><span class='dsf'>Formel: 100 € · 1,1 · 0,9 = 99 €</span>", kette()),
+]
+
+
+def otr_kopf():
+    return '<div class="otr">Ohne Taschenrechner: Prozentrechnung wie in der Klassenarbeit</div>'
+
+
 def ab_seite(von, bis, l, kopf=False, druck=False):
     k = ('<div class="abkopf"><span>Name:</span><span>Datum:</span><span>Rechne im Heft. Merkheft daneben.</span></div>' if kopf else "")
-    inhalt = (k + "".join(aufgabe(n, st, t, lo, l) for n, st, t, lo in AUFGABEN[von:bis])
+    liste = (AUFGABEN + OHNE_TR)[von:bis]
+    otr = (lambda i, t: otr_kopf() if t[0] == 13 else "")
+    inhalt = (k + "".join(otr(i, t) + aufgaben([t], l) for i, t in enumerate(liste))
               + ("" if kopf else f'<div class="legende10">{KREIS[0]} leicht &nbsp; {KREIS[1]} mittel &nbsp; {KREIS[2]} schwer</div>'))
     return f'<div class="ab{" l" if l else ""}">{inhalt}</div>' if druck else inhalt
 
@@ -207,11 +315,23 @@ def seite_schwer(l):
 
 # Übungsblatt zum Drucken: 2 Seiten (doppelseitig), dazu dieselben Seiten ausgefüllt als Lösung
 AB_NAME = "Mathe 10b – Zuwachssparen – Übungsblatt"
-AB = [("Zuwachssparen – Übungsblatt", lambda l: ab_seite(0, 6, l, True, True)), ("Zuwachssparen – Übungsblatt (Rückseite)", lambda l: ab_seite(6, 12, l, druck=True))]
+AB = [("Zuwachssparen – Übungsblatt", lambda l: ab_seite(0, 9, l, True, True)), ("Zuwachssparen – Übungsblatt (Rückseite)", lambda l: ab_seite(9, 18, l, druck=True))]
+AB_L = [("Zuwachssparen – Übungsblatt – Lösung (1)", lambda l: ab_seite(0, 6, l, True, True)),
+        ("Zuwachssparen – Übungsblatt – Lösung (2)", lambda l: ab_seite(6, 12, l, druck=True)),
+        ("Zuwachssparen – Übungsblatt – Lösung (3)", lambda l: ab_seite(12, 18, l, druck=True))]
+
+
+def seite_otr(l):
+    return auftrag("Ohne Taschenrechner: Nr. 13 bis 18. Übung für die Klassenarbeit, auch zu Hause. Prozent: mit dem Dreisatz.", "Nr. 18") + ab_seite(12, 15, l)
+
+
+def seite_otr2(l):
+    return auftrag("Ohne Taschenrechner weiter: Nr. 16 bis 18. Immer fragen: Was sind die 100 %?", "Nr. 18") + ab_seite(15, 18, l)
 
 
 SEITEN = [("1 Das Geburtstagsgeld", seite_a), ("2 Zuwachssparen", seite_b), ("3 Übungsblatt: leicht", seite_leicht),
-          ("4 Übungsblatt: mittel", seite_mittel), ("5 Übungsblatt: schwer und Hausaufgabe", seite_schwer)]
+          ("4 Übungsblatt: mittel", seite_mittel), ("5 Übungsblatt: schwer und Hausaufgabe", seite_schwer),
+          ("6 Ohne Taschenrechner", seite_otr), ("7 Ohne Taschenrechner, Teil 2", seite_otr2)]
 FOLIEN = [x for t, f in SEITEN for x in ((t, f(False)), (f"{t}: ausgefüllt", f(True)))]
 FOLIEN.insert(4, ("Merkheft: Zuwachssparen", HEFT(MERK) + VERGLEICH))    # eigene Seite, sonst wird Seite 2 ausgefüllt zu lang
 QUER = set()
@@ -228,12 +348,15 @@ EXTRA = EXTRA_CSS + """<style>
 .abkopf{display:flex;gap:60px;border:1px solid #9aa3b0;padding:6px 10px;font-size:15px;margin:0 0 14px}.abkopf span:last-child{margin-left:auto;color:#555}
 .ab .tx{font-size:20.5px;margin-bottom:26px}.ab.l .tx{margin-bottom:9px;font-size:19px}.ab.l .txl{font-size:16.5px}.ab.l .zt.klein{font-size:15px}.ab .txl{font-size:18px}.ab .zt.klein{font-size:17px}
 .mb .mz{font-size:18px;white-space:nowrap}.mb .wz{font-size:15.5px;white-space:nowrap}
+.ds{white-space:normal}.ds100{font-weight:700;border-bottom:2px solid #E6007E;white-space:nowrap}.dsz{white-space:nowrap}.dsp{color:#888}.dsf{color:#555;font-size:.92em}
+.otr{border:2px solid #1b1b1b;border-radius:6px;padding:6px 12px;font-weight:700;font-size:18px;margin:14px 0 12px}
+.mitbild{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}.bild svg{display:block}
 .legende10{font-size:14px;color:#555;margin-top:8px}
 </style>"""
 
 SCHRITTE = [("", "Das Geburtstagsgeld, Angebot A", 9, "Sehr leichte Zinseszinsaufgabe: Tabelle Jahr für Jahr, dann kurz mit 1,02⁴. Danach Angebot B nur vorlesen und schätzen lassen.", [1, 2]),
             ("", "Zuwachssparen, Merkheft", 11, "Dieselbe Tabelle, nur jedes Jahr ein anderer Faktor. Vergleich A und B. Merkheft mit Rezept und Vergleichskasten.", [3, 4, 5]),
-            ("", "Übungsblatt", 25, "Blatt austeilen, im Heft rechnen: ○ Nr. 1 bis 4, dann ◐ Nr. 5 bis 8. Schnelle ● Nr. 9 bis 12. Zwischendurch besprechen.", [6, 7, 8, 9, 10, 11])]
+            ("", "Übungsblatt", 25, "Blatt austeilen, im Heft rechnen: ○ Nr. 1 bis 4, dann ◐ Nr. 5 bis 8. Schnelle ● Nr. 9 bis 12. Ohne Taschenrechner Nr. 13 bis 18 als Übung für die Klassenarbeit, auch zu Hause.", [6, 7, 8, 9, 10, 11, 12, 13, 14, 15])]
 assert sum(m for _, _, m, _, _ in SCHRITTE) == 45
 
 
