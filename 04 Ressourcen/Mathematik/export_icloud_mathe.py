@@ -28,6 +28,7 @@ import baue_woche4_division as w4d  # noqa: E402
 import baue_zins10 as z10  # noqa: E402
 import baue_ka1_7c as ka1  # noqa: E402
 import baue_uebung_ka1_7c as uka1  # noqa: E402
+import baue_uebung_ka1_10b as uka10  # noqa: E402
 from rezepte_rz import MERK_PLUSMINUS  # noqa: E402
 
 CSS = w3.FCSS + w3.FOLIEN_CSS + w7.PDF_LUECKEN_CSS
@@ -176,6 +177,11 @@ def main():
             ziel = RZ / f"{name}{zusatz}.pdf"
             print(f"{ziel.name}:", html_zu_pdf(*mod.druckfassung(l), ziel), "Seiten")
             ka_pdfs.append(ziel)
+    ka10_pdfs = []
+    for l, zusatz in ((False, ""), (True, " – Lösung")):
+        ziel = PZ / f"Mathe 10b – Übungsklassenarbeit Nr. 1 Prozent und Wahrscheinlichkeit{zusatz}.pdf"
+        print(f"{ziel.name}:", html_zu_pdf(*uka10.druckfassung(l), ziel), "Seiten")
+        ka10_pdfs.append(ziel)
     z1, z2 = PZ / "Mathe 10b – Woche 4 – 1 Zinsen kurz, Zinseszins.pdf", PZ / "Mathe 10b – Woche 4 – 2 Zinseszins, Zinssatz gesucht.pdf"
     print("10b Zinsen:", folien_zu_pdf(z10.FOLIEN_MI, PZ, z1), "Seiten; Zinseszins:", folien_zu_pdf(z10.FOLIEN_FR, PZ, z2), "Seiten")
 
@@ -184,7 +190,7 @@ def main():
     pdfs_7 = [RZ / f"Mathe 7c – Woche 3 – {st['nr']} {st['titel']}.pdf" for st in w3.STUNDEN] + [w2, w4_pdf] + w4d_pdfs + [w7_pdf,
               RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern.pdf", RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern – Lösungen.pdf"] + ka_pdfs
     pz_ordner = ICLOUD / "Mathematik 10b" / "04 Prozentrechnung"   # bestehende Struktur in der iCloud
-    pdfs_10 = sorted(PZ.glob("Prozent Wdh 10b – *.pdf")) + [z1, z2]
+    pdfs_10 = sorted(PZ.glob("Prozent Wdh 10b – *.pdf")) + [z1, z2] + ka10_pdfs
     for p in pdfs_7:
         print(f"  7c  {ablegen(p, rz_ordner):24s} {p.name}")
     for p in pdfs_10:
