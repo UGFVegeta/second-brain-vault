@@ -79,7 +79,7 @@ window.ERN_DATA = {
      "kcal": 100
     }
    ],
-   "steps": 8813,
+   "steps": 9774,
    "training_kcal": 0,
    "sessions": [],
    "sweets": "ja"
@@ -271,8 +271,61 @@ window.ERN_DATA = {
    "weight": 78.2
   },
   "2026-10-11": {
-   "meals": [],
-   "weight": 78.85
+   "meals": [
+    {
+     "time": "11:00",
+     "name": "Standard-Frühstück: Skyr ~300 g, Himbeeren ~25 g, Banane, 40 g Haferflocken, Vanille-Whey ~12 g",
+     "kcal": 485,
+     "p": 50
+    },
+    {
+     "time": "13:00",
+     "name": "Brot mit Halbfettbutter und Salami (großes Stück, geschätzt)",
+     "kcal": 400,
+     "p": 16
+    },
+    {
+     "time": "14:00",
+     "name": "Apfel",
+     "kcal": 80
+    },
+    {
+     "time": "15:30",
+     "name": "Steak im Brötchen mit Zwiebeln (Annahme)",
+     "kcal": 420,
+     "p": 28
+    },
+    {
+     "time": "17:00",
+     "name": "2 Weizenbrötchen: Butter+Salami, Käse",
+     "kcal": 520,
+     "p": 20
+    },
+    {
+     "time": "18:30",
+     "name": "Pringles Paprika, ca. 20 % der Dose",
+     "kcal": 170,
+     "p": 2
+    },
+    {
+     "time": "19:00",
+     "name": "2 Schluck Spezi",
+     "kcal": 20
+    },
+    {
+     "time": "19:30",
+     "name": "Eiweiß-Shake abends: 2 Scoops Whey (~50 g Pulver), Kreatin 5 g (0 kcal)",
+     "kcal": 195,
+     "p": 40
+    }
+   ],
+   "weight": 78.85,
+   "steps": 13989,
+   "training_kcal": 28,
+   "sessions": [
+    "Yoga 9 min"
+   ],
+   "sweets": "nein"
   }
  },
  "slips": [
@@ -282,5 +335,5 @@ window.ERN_DATA = {
    "kcal": 1500
   }
  ],
- "updated": "2026-10-11 08:48"
+ "updated": "2026-10-11 22:47"
 };

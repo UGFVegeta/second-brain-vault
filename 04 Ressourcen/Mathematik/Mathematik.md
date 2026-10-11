@@ -26,6 +26,7 @@ Diese Karte gilt für jede neue Mathe-Sitzung. Pfade relativ zu `04 Ressourcen/M
 
 ### Immer
 - Nach jeder neuen oder geänderten Stunde: `export_icloud_mathe.py` laufen lassen und sagen, was ersetzt wurde.
+- Nach Änderungen an einem Stoffverteilungsplan (Mathe oder Physik): `python3 .scripts/stundenkontext_bauen.py`, damit der Stundenkontext im Schul-Cockpit stimmt.
 - Lösungen immer als dasselbe Blatt ausgefüllt. Unterrichtsmaterial immer mit Lösungen.
 - Keine Schülernamen oder Noten im Vault.
 
