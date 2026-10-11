@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mathe 7c – Kurztest Rationale Zahlen, Gruppe A und B (ca. 15 bis 20 Minuten, je eine A4-Seite).
+"""Mathe 7c – Übungstest Rationale Zahlen, Gruppe A und B (ca. 15 bis 20 Minuten, je eine A4-Seite).
 Gleicher Kopf, gleiche Aufgabenbalken und gleiche Kreise wie Klassenarbeit und Übungsklassenarbeit.
 Danach dieselben Seiten als Lösung (pink ausgefüllt). Schrift wie in der Klassenarbeit: Aufgaben 15,5 pt, Text 12,5 pt."""
 from fractions import Fraction as F
@@ -10,7 +10,7 @@ import baue_uebung_ka1_7c as ue
 from baue_ka1_7c import br
 
 HIER = Path(__file__).parent
-ZIEL = HIER / "Mathe 7c – Kurztest Rationale Zahlen.html"
+ZIEL = HIER / "Mathe 7c – Übungstest Rationale Zahlen.html"
 GESAMT = 18
 
 
@@ -68,18 +68,32 @@ def ul(inhalt, l, breit=30):
     return f'<span class="ul" style="min-width:{breit}mm">{inhalt if l else ""}</span>'
 
 
+AUGEN = '<circle cx="13" cy="16" r="2" fill="#000"/><circle cx="27" cy="16" r="2" fill="#000"/>'
+MUND = {"sicher": '<path d="M11 25 Q20 34 29 25" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>',
+        "so": '<line x1="12" y1="27" x2="28" y2="27" stroke="#000" stroke-width="2" stroke-linecap="round"/>',
+        "unsicher": '<path d="M11 30 Q20 21 29 30" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/>'}
+
+
+def smiley(art):
+    """Gleiche drei Smileys wie im Antwortbogen des Grundlagen-Checks."""
+    return f'<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="#000" stroke-width="2"/>{AUGEN}{MUND[art]}</svg>'
+
+
+SELBST = '<span class="selbst"><span class="fl">Ich?</span>' + "".join(smiley(a) for a in MUND) + "</span>"
+
+
 def balken(nr, stufe, punkte, text, l, bew=""):
-    return ue.balken(nr, stufe, punkte, text, l, bew)
+    """Aufgabenbalken wie in der Klassenarbeit, rechts davor die Selbsteinschätzung zum Ankreuzen."""
+    return ue.balken(nr, stufe, punkte, text, l, bew).replace('<span class="pk">', SELBST + '<span class="pk">', 1)
 
 
 def kopf(g, l):
     return (f'<div class="kopfwrap"><table class="kopf">'
-            f'<tr><td colspan="2" class="titel"><u>Kurztest Rationale Zahlen</u> &nbsp;·&nbsp; Gruppe {g}</td><td class="kl">Klasse 7c</td></tr>'
+            f'<tr><td colspan="2" class="titel"><u>Übungstest Rationale Zahlen</u> &nbsp;·&nbsp; Gruppe {g}</td><td class="kl">Klasse 7c</td></tr>'
             '<tr><td class="n">Name:</td><td colspan="2" class="n">Datum:</td></tr>'
             f'<tr><td class="n">Punkte: <span class="pp">/ {GESAMT} Punkte</span></td><td class="n">Note:</td><td class="n">Ø</td></tr>'
             f'</table>{ka.WOLKE}</div>'
-            + ('<p class="loesmark">Lösung mit Punkteverteilung</p>' if l else "")
-            + '<div class="hinweis">Ohne Rechenweg keine Punkte.</div>')
+            + ('<p class="loesmark">Lösung mit Punkteverteilung</p>' if l else ""))
 
 
 def seite(g, l):
@@ -100,7 +114,8 @@ def seite(g, l):
             + balken(3, 1, 5, "Berechne.", l, "je 1 P") + reihe(MAL[g])
             + balken(4, 2, 3, "Berechne. Bei b) zuerst die Minusklammer auflösen.", l, "a) 1 P, b) 2 P") + mehr
             + balken(5, 1, 3, text, l, "je 1,5 P") + sach
-            + f'<div class="legende">{ue.KREIS[0]} leicht &nbsp;&nbsp; {ue.KREIS[1]} mittel &nbsp;&nbsp; {ue.KREIS[2]} schwer</div>')
+            + f'<div class="legende">{ue.KREIS[0]} leicht &nbsp;&nbsp; {ue.KREIS[1]} mittel &nbsp;&nbsp; {ue.KREIS[2]} schwer</div>'
+            + f'<div class="legende leg2"><b>Ich?</b> So habe ich mich gefühlt:<span class="le">{smiley("sicher")} sicher</span><span class="le">{smiley("so")} ging so</span><span class="le">{smiley("unsicher")} unsicher</span></div>')
 
 
 CSS = """<style>
@@ -116,9 +131,14 @@ CSS = """<style>
 .sz>div{font-size:12.5pt;line-height:1.35}
 .ul{display:inline-block;border-bottom:.8pt solid #1b1b1b;height:2.1em;line-height:2.1em;text-align:center;color:#E6007E;font-weight:700;vertical-align:bottom;padding:0 1mm;font-size:15.5pt}
 .ul .br{font-size:.85em}
-.legende{margin-top:3mm;font-size:12pt}
+.legende{margin-top:0;font-size:12pt}
 .loesmark{top:4mm}
-.seite .hinweis{padding:1.4mm 3mm;margin-bottom:0}
+.balken .selbst{display:flex;align-items:center;gap:1.6mm;margin:0 7mm 0 auto}
+.balken .selbst svg{width:6.5mm;height:6.5mm}
+.balken .selbst .fl{font-size:11pt;margin-right:1mm}
+.leg2{white-space:nowrap;display:flex;align-items:center;gap:5mm;margin-top:2mm}
+.leg2 .le{display:flex;align-items:center;gap:1.5mm}
+.leg2 svg{width:5.5mm;height:5.5mm}
 .seite .kopfwrap{margin-bottom:0}
 </style>"""
 
@@ -129,8 +149,8 @@ def druck(g, l):
 
 def main():
     html = ('<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<title>Mathe 7c – Kurztest Rationale Zahlen</title>' + ka.CSS + ue.EXTRA + CSS + '</head><body>'
-            '<div class="leiste"><b>Kurztest · Klasse 7c</b><a href="#aA">Gruppe A</a><a href="#aB">Gruppe B</a>'
+            '<title>Mathe 7c – Übungstest Rationale Zahlen</title>' + ka.CSS + ue.EXTRA + CSS + '</head><body>'
+            '<div class="leiste"><b>Übungstest · Klasse 7c</b><a href="#aA">Gruppe A</a><a href="#aB">Gruppe B</a>'
             '<a href="#lA">Lösung A</a><a href="#lB">Lösung B</a>'
             f'<span>{GESAMT} Punkte · ca. 15 bis 20 Minuten · je eine A4-Seite</span></div>'
             + druck("A", False) + druck("B", False) + druck("A", True) + druck("B", True) + "</body></html>")
