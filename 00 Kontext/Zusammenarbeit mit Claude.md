@@ -115,7 +115,7 @@ In jedem Fach gilt: Die Lösung zu einem Blatt ist dasselbe Blatt, ausgefüllt. 
 
 ## Klassenlisten mit Schülernamen (06.10.2026)
 
-Wenn Dateien Schülernamen enthalten (Klassenlisten, Notenlisten, Sitzpläne), gehen die Namen nicht ins Gespräch mit Claude, weil das zu Anthropic in die USA läuft. Claude baut stattdessen Skripte, die lokal über Excel und PDF laufen, und gibt keine Zeilen mit Namen aus. Das Layout wird bei Bedarf mit Dummy-Namen geprüft. Vor solchen Aufgaben weist Claude kurz auf das Thema hin. Zwischendateien mit Namen im Arbeitsordner werden nach Abschluss gelöscht. Ob Schulleitung oder Datenschutzbeauftragte iCloud und KI-Dienste für Schülerdaten erlauben, ist noch offen.
+Wenn Dateien Schülernamen enthalten (Klassenlisten, Notenlisten, Sitzpläne), gehen die Namen nicht ins Gespräch mit Claude, weil das zu Anthropic in die USA läuft. Claude baut stattdessen Skripte, die lokal über Excel und PDF laufen, und gibt keine Zeilen mit Namen aus. Das Layout wird bei Bedarf mit Dummy-Namen geprüft. Vor solchen Aufgaben weist Claude kurz auf das Thema hin. Zwischendateien mit Namen im Arbeitsordner werden nach Abschluss gelöscht. Ob Schulleitung oder Datenschutzbeauftragte iCloud und KI-Dienste für Schülerdaten erlauben, ist noch offen. Seit 11.10.2026 sichert das der Mod Namensschutz zusätzlich technisch ab: Namen aus den Klassen-, Noten- und Sportlisten werden durch Platzhalter wie SuS-001 ersetzt, bevor Claude sie sieht, und erst beim lokalen Ausführen wieder eingesetzt. Die Namenstabelle baut Oskar selbst mit einem lokalen Skript. Nicht abgedeckt sind PDFs und Bilder, die Claude direkt öffnet.
 
 ## Fortbildungen per Video aufnehmen (07.10.2026)
 
@@ -124,3 +124,7 @@ Oskar nimmt Online-Fortbildungen per iPad-Bildschirmaufnahme auf. Bei der Schwim
 ## Opus oder Sonnet (11.10.2026)
 
 Standard ist Sonnet. Opus lohnt sich bei Einführungsstunden (neues Thema, Einstieg, erste Stunde einer Einheit), weil dort die didaktische Idee entsteht. Dazu kommen Bewerbung und Konrektor-Themen, Schreiben an Schulleitung oder Behörden, heikle Elternbriefe sowie Konzepte, Stoffverteilungspläne und Klassenarbeiten. Übungs- und Wiederholungsstunden, Arbeitsblätter, Lösungen und Kurztests laufen mit Sonnet. Die Entscheidung fällt am Anfang einer Session, weil ein Modellwechsel mittendrin den Cache verwirft. Der Mod Schul-Cockpit schlägt Opus bei der ersten Nachricht per Knopf vor, Oskar entscheidet selbst.
+
+## Fächerfarben (11.10.2026)
+
+Physik ist schwarz, Mathematik blau, für beide Klassenstufen gleich. Das gilt auch für die Gruppen in der Claude-Seitenleiste (⚫ Physik, 🔵 Mathe 7, 🔵 Mathe 10). Farben weiterer Fächer stehen noch aus.
