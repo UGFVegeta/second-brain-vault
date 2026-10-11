@@ -14,6 +14,16 @@ Bis **Ende November 2026 auf ca. 74 kg**, und zwar über **Fettabbau**, nicht ü
 
 Ausgangslage am 03.09.26: rund **78–79 kg** im Alltag (Einzelwerte 79,3 und 80,15; die Augustwerte lagen tiefer, siehe unten). Bis Ende November sind das etwa 13 Wochen. 4–5 kg in 13 Wochen bedeuten rund **0,35 kg pro Woche** – ein moderates Defizit, das Muskelmasse gut schützt.
 
+## Stand 11.10.2026 (Export vom selben Tag)
+
+Seit dem 03.09. liegen 18 neue Messungen vor, fast durchgehend morgens nüchtern. Die Waage ist damit sauber im Protokoll angekommen.
+
+- **Gewicht:** Der 7-Tage-Schnitt der letzten Woche liegt bei **78,55 kg** (Einzelwerte 78,2 bis 78,85). In der ersten Septemberwoche lag der Schnitt bei 79,4 kg, Mitte bis Ende September bei 78,1 kg. Seit Anfang September ist das ein Minus von etwa 0,9 kg, also deutlich weniger als die geplanten 0,35 kg pro Woche. Der Verlauf ist seitwärts mit Schwankung, kein klarer Abwärtstrend.
+- **Körperfett laut RENPHO:** 13,0 bis 13,3 %. Wie schon im Vorjahr kaum Bewegung, deshalb nicht aussagekräftig.
+- **Bauchumfang:** noch kein Startwert eingetragen.
+- **Lücken:** 27.09. und 25.09. ohne Körperzusammensetzung (nur Gewicht), zwischen 29.09. und 07.10. keine Messung. Ein Duplikat vom 21.09. wurde nur einmal erfasst.
+- **Zielabstand:** Bis zum 30.11. sind es 50 Tage. Aus dem aktuellen Schnitt (78,55) auf 75 kg sind es rund 3,5 kg, das erfordert etwa 0,5 kg pro Woche. Dafür läuft seit dem 10.10. das neue Kalorien-Tracking (Tracker unter `04 Ressourcen/Ernährung/Ernährungs-Tracker.html`).
+
 ## Analyse des ersten Jahres (Sep 2025 – Sep 2026)
 
 96 Messungen über 12 Monate, nicht lückenlos. Dichtes Tracking im Herbst 2025, danach nur noch vereinzelt.
@@ -30,7 +40,8 @@ Ausgangslage am 03.09.26: rund **78–79 kg** im Alltag (Einzelwerte 79,3 und 80
 | Mär 26 | 77,2 kg | 12,8 | 67,3 kg |
 | Mai–Jul 26 | 78,0–78,7 kg | 12,9–13,1 | 67,9–68,4 kg |
 | Aug 26 | 77,0 kg | 12,7 | 67,2 kg |
-| Sep 26 | 79,7 kg | 13,1 | 69,0 kg |
+| Sep 26 | 78,8 kg (17 Messungen) | 13,1 | 68,5 kg |
+| Okt 26 (bis 11.10.) | 78,6 kg (4 Messungen) | 13,1 | 68,4 kg |
 
 **Was man sieht:**
 - Tiefpunkt Anfang Oktober 2025 bei 73,0 kg. Von da an ging es über den Winter (Dez–Feb) um rund 4 kg nach oben und ist seither auf 77–79 kg stabil.

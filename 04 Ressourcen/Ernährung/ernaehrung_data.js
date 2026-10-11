@@ -79,7 +79,6 @@ window.ERN_DATA = {
      "kcal": 100
     }
    ],
-   "weight": 78.5,
    "steps": 8813,
    "training_kcal": 0,
    "sessions": [],
@@ -249,13 +248,15 @@ window.ERN_DATA = {
    "sessions": [
     "Yoga 6 min",
     "Ride 79 min"
-   ]
+   ],
+   "weight": 78.5
   },
   "2026-10-08": {
    "meals": [],
    "steps": 9521,
    "training_kcal": 0,
-   "sessions": []
+   "sessions": [],
+   "weight": 78.65
   },
   "2026-10-09": {
    "meals": [],
@@ -266,7 +267,12 @@ window.ERN_DATA = {
     "Run 45 min",
     "Ride 33 min",
     "Ride 33 min"
-   ]
+   ],
+   "weight": 78.2
+  },
+  "2026-10-11": {
+   "meals": [],
+   "weight": 78.85
   }
  },
  "slips": [
@@ -276,5 +282,5 @@ window.ERN_DATA = {
    "kcal": 1500
   }
  ],
- "updated": "2026-10-10 21:58"
+ "updated": "2026-10-11 08:48"
 };
