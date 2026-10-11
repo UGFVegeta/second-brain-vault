@@ -6,11 +6,11 @@ thema: Schule
 date: 2026-09-16
 ---
 
-# Klassenfahrt Bodensee Juni 2027
+# Klassenfahrt Todtnau Juni 2027
 
 ## Ziel
 
-Schullandheim mit einer 7. Klasse der Gottlieb-Daimler-Realschule Schorndorf. Zeitraum 14.–18.06.2027 (Montag bis Freitag, vier Übernachtungen), 26 Schülerinnen und Schüler (11 Mädchen, 15 Jungen) sowie zwei Begleitpersonen, 28 Personen gesamt. Ursprünglich auf den Bodensee ausgerichtet, inzwischen laufen parallel auch Angebote für den Schwarzwald (Feriendorf Todtnau).
+Schullandheim mit einer 7. Klasse der Gottlieb-Daimler-Realschule Schorndorf. Zeitraum 14.–18.06.2027 (Montag bis Freitag, vier Übernachtungen), 26 Schülerinnen und Schüler (11 Mädchen, 15 Jungen) sowie zwei Begleitpersonen, 28 Personen gesamt. Das Ziel ist Todtnau (Feriendorf Todtnau, alpetour). Die Planung startete ursprünglich am Bodensee, die Bodensee-Angebote unten sind nur noch Historie, soweit nicht abgesagt.
 
 ## Entscheidung (07.10.2026)
 
