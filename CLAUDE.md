@@ -45,6 +45,17 @@ Hinweis-Format: Kurz und konkret, z.B. „💡 Für diesen Text würde ich Opus 
 - Für notebooklm-Befehle immer PATH setzen: `export PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:$PATH"`
 - NotebookLM Account: oskar17185@googlemail.com (Profil: default)
 
+## Fach-Einstieg (Schule)
+
+Bei Schulfragen zu einem Fach zuerst die Karte lesen, nicht erst im Vault suchen:
+
+- **Mathe 7c oder 10b:** `04 Ressourcen/Mathematik/Mathematik.md`, Abschnitt „Einstieg: Wo liegt was“ (Stunden, Bauskripte, KA, Stoffverteilung, Schulbuch, iCloud-Ablage, Export).
+- **Physik 7c oder 10:** `04 Ressourcen/Physik/Physik.md` (Themenordner, Dashboard, Stoffverteilung, Planung).
+- **Sport, Klassenlehrer 7c:** `03 Bereiche/Schule & Unterricht/` und `04 Ressourcen/Sport/`.
+- Stand der Wochen/Stunden: `04 Ressourcen/Bildungs-Dashboard.html`.
+
+Die Dateien nur gezielt lesen, die für die Aufgabe nötig sind.
+
 ## Selbstkritik bei wichtigen Texten (Layer 2 Verifikation)
 
 Bei folgenden Texten immer automatisch nach dem ersten Entwurf eine Selbstkritik liefern – ohne dass Oskar extra darum bitten muss:
