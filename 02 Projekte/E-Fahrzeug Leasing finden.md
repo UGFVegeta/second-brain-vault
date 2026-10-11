@@ -124,9 +124,7 @@ Unter 250 € / Monat Leasingrate
 ## Offene Anfragen
 
 - ~~[ ] Antwort Katrin Rypalla abwarten~~ → **hinfällig**, Entscheidung für BMW gefallen
-- [ ] **BAFA-Antrag stellen** – nach Zulassung, Portal: [foerderzentrale.gov.de](https://foerderzentrale.gov.de/foerderung-finden/a7218433-83c6-49d3-93e0-5ed0f1862891)
-- [ ] **Winterreifen organisieren** – ca. 600–900 € Einmalkauf, Lieferung im November, bis 16.10. besorgen (Erinnerung angelegt)
-- [ ] **Golf verkaufen** – bei wirkaufendeinauto.de neu inserieren, Wert prüfen, zur Abgabe hinfahren (bis 16.10.)
+- [ ] Offene Punkte (BAFA, Winterreifen, Golf) laufen jetzt im Projekt [[BMW iX1 Auslieferung]]
 
 ## Kostenvergleich BMW iX1 vs. Golf 6 TDI (ab Rudersberg, 190 Schultage)
 

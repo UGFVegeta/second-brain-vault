@@ -27,6 +27,7 @@ import baue_woche4 as w4  # noqa: E402
 import baue_woche4_division as w4d  # noqa: E402
 import baue_zins10 as z10  # noqa: E402
 import baue_ka1_7c as ka1  # noqa: E402
+import baue_zuwachs10 as zw10  # noqa: E402
 import baue_uebung_ka1_7c as uka1  # noqa: E402
 import baue_uebung_ka1_10b as uka10  # noqa: E402
 from rezepte_rz import MERK_PLUSMINUS  # noqa: E402
@@ -42,10 +43,12 @@ A4_CSS = ("@page{size:A4;margin:0}@page quer{size:A4 landscape;margin:0}.seite.q
           ".block{margin:4px 0 12px}.block h4{font-size:16px;margin:0 0 4px}.ex.raster li{margin:1px 0}" + w7.PDF_LUECKEN_CSS)
 
 
-def a4_zu_pdf(seiten, basis, ziel, quer=()):
-    """Seiten [(Titel, HTML)] als DIN-A4-Hochformat. Läuft eine Seite über, entsteht eine Seite mehr -> Abbruch."""
+def a4_zu_pdf(seiten, basis, ziel, quer=(), extra_css=""):
+    """Seiten [(Titel, HTML)] als DIN-A4-Hochformat. Läuft eine Seite über, entsteht eine Seite mehr -> Abbruch.
+    extra_css: zusätzliche Stile der Stunde (mit oder ohne <style>-Hülle)."""
     tmp_html, tmp_pdf = basis / "_export_a4.html", basis / "_export_a4.pdf"
-    tmp_html.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{A4_CSS}</style></head><body>'
+    extra = extra_css.replace("<style>", "").replace("</style>", "")
+    tmp_html.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{A4_CSS}{extra}</style></head><body>'
                         + "".join(f'<div class="seite{" quer" if t in quer else ""}"><h1>{t}</h1>{h}</div>' for t, h in seiten) + "</body></html>", encoding="utf-8")
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={tmp_pdf}",
                     "--virtual-time-budget=4000", tmp_html.as_uri()], check=True, capture_output=True)
@@ -182,6 +185,11 @@ def main():
         ziel = PZ / f"Mathe 10b – Übungsklassenarbeit Nr. 1 Prozent und Wahrscheinlichkeit{zusatz}.pdf"
         print(f"{ziel.name}:", html_zu_pdf(*uka10.druckfassung(l), ziel), "Seiten")
         ka10_pdfs.append(ziel)
+    zw = PZ / f"{zw10.NAME}.pdf"
+    print("10b Zuwachssparen:", a4_zu_pdf(zw10.FOLIEN, PZ, zw, zw10.QUER, zw10.EXTRA), "Seiten")
+    zw_ab, zw_abl = PZ / f"{zw10.AB_NAME}.pdf", PZ / f"{zw10.AB_NAME} – Lösung.pdf"
+    print("10b Übungsblatt:", a4_zu_pdf([(t, f(False)) for t, f in zw10.AB], PZ, zw_ab, (), zw10.EXTRA),
+          "Seiten; Lösung:", a4_zu_pdf([(t + " – Lösung", f(True)) for t, f in zw10.AB], PZ, zw_abl, (), zw10.EXTRA), "Seiten")
     z1, z2 = PZ / "Mathe 10b – Woche 4 – 1 Zinsen kurz, Zinseszins.pdf", PZ / "Mathe 10b – Woche 4 – 2 Zinseszins, Zinssatz gesucht.pdf"
     print("10b Zinsen:", folien_zu_pdf(z10.FOLIEN_MI, PZ, z1), "Seiten; Zinseszins:", folien_zu_pdf(z10.FOLIEN_FR, PZ, z2), "Seiten")
 
@@ -190,7 +198,7 @@ def main():
     pdfs_7 = [RZ / f"Mathe 7c – Woche 3 – {st['nr']} {st['titel']}.pdf" for st in w3.STUNDEN] + [w2, w4_pdf] + w4d_pdfs + [w7_pdf,
               RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern.pdf", RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern – Lösungen.pdf"] + ka_pdfs
     pz_ordner = ICLOUD / "Mathematik 10b" / "04 Prozentrechnung"   # bestehende Struktur in der iCloud
-    pdfs_10 = sorted(PZ.glob("Prozent Wdh 10b – *.pdf")) + [z1, z2] + ka10_pdfs
+    pdfs_10 = sorted(PZ.glob("Prozent Wdh 10b – *.pdf")) + [z1, z2, zw, zw_ab, zw_abl] + ka10_pdfs
     for p in pdfs_7:
         print(f"  7c  {ablegen(p, rz_ordner):24s} {p.name}")
     for p in pdfs_10:
