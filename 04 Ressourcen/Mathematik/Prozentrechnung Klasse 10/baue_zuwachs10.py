@@ -81,8 +81,9 @@ def seite_a(l):
                     + (f'<p class="gesch">{L("Viele tippen auf A oder sind unsicher: B fängt kleiner an.")}</p>' if l else "")))
 
 
-SCHRITTE_ZW = ["Zinssätze der einzelnen Jahre herausschreiben.", "Jeden Zinssatz in den Zinsfaktor umwandeln: q = 1 + p/100.",
-               "K₀ mit allen Faktoren multiplizieren: Kₙ = K₀ · q₁ · q₂ · … · qₙ", "Auf Cent runden. Antwortsatz."]
+BRUCH_P = '<span class="bruch"><span>p</span><span>100</span></span>'
+SCHRITTE_ZW = ["Zinssätze der einzelnen Jahre herausschreiben.", f'Jeden Zinssatz in den Zinsfaktor umwandeln:<br><span class="nw">q = 1 + {BRUCH_P}</span>',
+               'K₀ mit allen Faktoren multiplizieren:<br><span class="nw">Kₙ = K₀ · q₁ · q₂ · … · qₙ</span>', "Auf Cent runden. Antwortsatz."]
 WEITERE = [(1000, [1, 2, 3]), (500, [2, 3]), (3000, [1.5, 1.5, 2]), (1200, [0.5, 1, 1.5, 2]), (800, [3, 2, 1]), (2500, [1.2, 1.8, 2.4])]
 MERK = merkbild("Zuwachssparen", [
     (1, f'<span class="txt">Zinssätze: 1,5 %; 2 %; 2,5 %; 3 %</span>'),
@@ -195,7 +196,7 @@ def kreisdiagramm(teile):
     """teile: [(Name, Prozent)] -> SVG-Kreisdiagramm in Graustufen mit Beschriftung im Feld."""
     from math import cos, sin, pi
     farben = ["#4a4f57", "#8d939c", "#c3c8cf", "#e9ecf0"]
-    o, start, r, cx, cy = ['<svg viewBox="0 0 220 170" width="200">'], -90, 70, 85, 85
+    o, start, r, cx, cy = ['<svg viewBox="0 0 245 170" width="215">'], -90, 70, 85, 85
     for i, (name, pr) in enumerate(teile):
         ende = start + pr * 3.6
         x1, y1 = cx + r * cos(start * pi / 180), cy + r * sin(start * pi / 180)
@@ -208,10 +209,10 @@ def kreisdiagramm(teile):
 
 
 def preisschild(preis, rabatt):
-    return (f'<svg viewBox="0 0 200 120" width="180"><path d="M30,20 H180 V100 H30 L5,60 Z" fill="#fff" stroke="#1b1b1b" stroke-width="2.5"/>'
+    return (f'<svg viewBox="0 -6 200 126" width="180"><path d="M30,20 H180 V100 H30 L5,60 Z" fill="#fff" stroke="#1b1b1b" stroke-width="2.5"/>'
             f'<circle cx="24" cy="60" r="5" fill="none" stroke="#1b1b1b" stroke-width="2"/>'
             f'<text x="105" y="58" font-size="16" text-anchor="middle">Sneaker</text><text x="105" y="86" font-size="24" font-weight="700" text-anchor="middle">{preis}{NB}€</text>'
-            f'<circle cx="168" cy="22" r="24" fill="#1b1b1b"/><text x="168" y="29" font-size="17" font-weight="700" fill="#fff" text-anchor="middle">−{rabatt}{NB}%</text></svg>')
+            f'<circle cx="166" cy="24" r="28" fill="#1b1b1b"/><text x="166" y="30" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">−{rabatt}{NB}%</text></svg>')
 
 
 def balken(werte):
@@ -318,7 +319,8 @@ AB_NAME = "Mathe 10b – Zuwachssparen – Übungsblatt"
 AB = [("Zuwachssparen – Übungsblatt", lambda l: ab_seite(0, 9, l, True, True)), ("Zuwachssparen – Übungsblatt (Rückseite)", lambda l: ab_seite(9, 18, l, druck=True))]
 AB_L = [("Zuwachssparen – Übungsblatt – Lösung (1)", lambda l: ab_seite(0, 6, l, True, True)),
         ("Zuwachssparen – Übungsblatt – Lösung (2)", lambda l: ab_seite(6, 12, l, druck=True)),
-        ("Zuwachssparen – Übungsblatt – Lösung (3)", lambda l: ab_seite(12, 18, l, druck=True))]
+        ("Zuwachssparen – Übungsblatt – Lösung (3)", lambda l: ab_seite(12, 15, l, druck=True)),
+        ("Zuwachssparen – Übungsblatt – Lösung (4)", lambda l: ab_seite(15, 18, l, druck=True))]
 
 
 def seite_otr(l):
@@ -346,11 +348,13 @@ EXTRA = EXTRA_CSS + """<style>
 .txk{font-size:20px;white-space:nowrap}.txl{margin-top:5px;font-size:17px}
 .kreis{width:1.1em;height:1.1em;vertical-align:-.2em}
 .abkopf{display:flex;gap:60px;border:1px solid #9aa3b0;padding:6px 10px;font-size:15px;margin:0 0 14px}.abkopf span:last-child{margin-left:auto;color:#555}
-.ab .tx{font-size:20.5px;margin-bottom:26px}.ab.l .tx{margin-bottom:9px;font-size:19px}.ab.l .txl{font-size:16.5px}.ab.l .zt.klein{font-size:15px}.ab .txl{font-size:18px}.ab .zt.klein{font-size:17px}
+.ab .tx{font-size:19px;margin-bottom:16px}.ab.l .tx{margin-bottom:9px;font-size:19px}.ab.l .txl{font-size:16.5px}.ab.l .zt.klein{font-size:15px}.ab .txl{font-size:18px}.ab .zt.klein{font-size:17px}
 .mb .mz{font-size:18px;white-space:nowrap}.mb .wz{font-size:15.5px;white-space:nowrap}
 .ds{white-space:normal}.ds100{font-weight:700;border-bottom:2px solid #E6007E;white-space:nowrap}.dsz{white-space:nowrap}.dsp{color:#888}.dsf{color:#555;font-size:.92em}
 .otr{border:2px solid #1b1b1b;border-radius:6px;padding:6px 12px;font-weight:700;font-size:18px;margin:14px 0 12px}
 .mitbild{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}.bild svg{display:block}
+.mb{grid-template-columns:1.5fr 1fr}.mb .weitere{grid-template-columns:1fr}.mb .wz{font-size:17px}
+.bruch{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:1em;line-height:1.1;margin:0 .1em}.bruch span:first-child{border-bottom:1.5px solid currentColor;padding:0 .2em}.nw{white-space:nowrap}
 .legende10{font-size:14px;color:#555;margin-top:8px}
 </style>"""
 

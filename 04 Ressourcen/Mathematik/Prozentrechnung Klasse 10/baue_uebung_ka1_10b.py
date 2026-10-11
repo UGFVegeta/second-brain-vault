@@ -204,11 +204,12 @@ def seite2(l):
                 + f"<br>c) Gegenereignis „zweimal grün“: P = 1 − {br(5, 8)} · {br(4, 7)} = 1 − {br(20, 56)} = {br(36, 56)} = {br(9, 14)} ≈ 64,3 %" + P_("2 P"))
             + balken(3, 1, 3, "")
             + '<p class="anw">a) Ein Handy wurde um 20 % teurer und kostet jetzt 360 €. Wie viel Euro hat es vorher gekostet?</p>'
-            + L(l, "a) 360 € sind 120 % des alten Preises. 360 € : 1,2 = 300 €." + P_("1 P"))
+            + L(l, "a) 120 % ≙ 360 € → 1 % ≙ 3 € → <u>100 %</u> ≙ 300 €. (Der alte Preis ist das 100 %.) Formel: 360 € : 1,2 = 300 €" + P_("1 P"))
             + '<p class="anw">b) Ein Paar Sneaker kostet 80 €. Der Preis wird erst um 25 % gesenkt. Danach wird der neue Preis nochmals um 20 % gesenkt. '
               'Marie sagt: „Die Sneaker sind jetzt insgesamt 45 % billiger.“ Hat sie recht? Begründe mit einer Rechnung.</p>'
-            + L(l, "b) 80 € · 0,75 = 60 €; 60 € · 0,8 = 48 €. Gespart: 32 € von 80 € = 40 %. Marie hat nicht recht: Die Prozentsätze dürfen nicht addiert werden. "
-                   "(Faktor 0,75 · 0,8 = 0,6)" + P_("2 P")))
+            + L(l, "b) <u>100 %</u> ≙ 80 € → 75 % ≙ 60 €; <u>neues 100 %</u> ≙ 60 € → 80 % ≙ 48 €. "
+                   "Gespart 32 €: <u>100 %</u> ≙ 80 € → 1 % ≙ 0,80 € → 32 € ≙ 40 %. Marie hat nicht recht: Die zweite Senkung rechnet vom neuen 100 % (60 €), "
+                   "deshalb dürfen die Prozentsätze nicht addiert werden. Formel: 80 € · 0,75 · 0,8 = 48 €" + P_("2 P")))
 
 
 def seite3(l):
@@ -220,7 +221,7 @@ def seite3(l):
               '<p>b) Das Festgeld wird 6 Jahre lang mit 1,6 % verzinst, die Zinsen werden mitverzinst. Wie hoch ist das Kapital dann?</p>'
               '<p>c) Der Sparbrief wächst in 5 Jahren auf 3 263,82 €. Welcher Zinssatz gilt (gleichbleibend)?</p>'
               '<p>d) Beim Tagesgeld gelten 0,4 %, 0,6 % und 0,9 % in den drei Jahren. Wie viel Euro sind nach 3 Jahren darauf?</p></div></div>'
-            + L(l, "a) Festgeld 11 000 €, Tagesgeld 6 000 €, Sparbrief 3 000 € (55 %, 30 %, 15 % von 20 000 €)" + P_("1 P")
+            + L(l, "a) <u>100 %</u> ≙ 20 000 € → 1 % ≙ 200 € → 55 % ≙ 11 000 € (Festgeld), 30 % ≙ 6 000 € (Tagesgeld), 15 % ≙ 3 000 € (Sparbrief)" + P_("1 P")
                 + "<br>b) K₆ = 11 000 · 1,016⁶ ≈ 12 099,15 €" + P_("2 P")
                 + "<br>c) q⁵ = 3 263,82 : 3 000 ≈ 1,0879 → q = ⁵√1,0879 ≈ 1,017, also p % = 1,7 %" + P_("2 P")
                 + "<br>d) K₃ = 6 000 · 1,004 · 1,006 · 1,009 ≈ 6 114,69 €" + P_("2 P"))
@@ -234,8 +235,9 @@ def seite3(l):
               'c) Wie viele Einwohner hatte Cella im Jahr 2010?<br>'
               'd) Eine Zeitung schreibt: „Altdorf ist am stärksten gewachsen, denn dort sind die meisten Einwohner dazugekommen.“ '
               'Vergleiche Altdorf und Cella. Stimmt die Aussage für die prozentuale Zunahme?</p>'
-            + L(l, "a) 13 750 : 12 500 = 1,1, also +10 %" + P_("1 P") + "<br>b) 8 400 · 0,95 = 7 980 Einwohner" + P_("1 P")
-                + "<br>c) 9 240 : 1,12 = 8 250 Einwohner" + P_("1 P")
+            + L(l, "a) <u>100 %</u> ≙ 12 500 → 1 % ≙ 125 → 13 750 ≙ 110 %, also +10 % (13 750 : 12 500 = 1,1)" + P_("1 P")
+                + "<br>b) <u>100 %</u> ≙ 8 400 → 1 % ≙ 84 → 95 % ≙ 7 980 Einwohner (8 400 · 0,95)" + P_("1 P")
+                + "<br>c) 112 % ≙ 9 240 → 1 % ≙ 82,5 → <u>100 %</u> ≙ 8 250 Einwohner (9 240 : 1,12)" + P_("1 P")
                 + "<br>d) Altdorf: +1 250 (+10 %), Cella: +990 (+12 %). Absolut liegt Altdorf vorn, prozentual Cella. Die Aussage stimmt nur absolut." + P_("1 P")))
 
 

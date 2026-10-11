@@ -167,8 +167,8 @@ def folie2(lsg):
 <p class="t" style="margin-top:4pt">Timo sagt: „In der 10a fahren mehr Schüler mit dem Rad, weil 40 % mehr sind als 30 %.“ Stimmt das? Begründe mit einer Rechnung.</p>"""
     if lsg:
         a2 += (f'<div class="lsg"><b>a)</b> 35 % ≙ {TOM} → 1 % ≙ 3,6 → 100 % ≙ <b>360</b> (G = {TOM} : 0,35 = 360)<br>'
-               f'<b>b)</b> 20 % von 360 = <b>72</b> Stimmen</div>')
-        a3 += ('<div class="lsg">10a: 40 % von 25 = <b>10</b> Schüler, 10b: 30 % von 40 = <b>12</b> Schüler.<br>'
+               f'<b>b)</b> 100 % ≙ 360 → 1 % ≙ 3,6 → 20 % ≙ <b>72</b> Stimmen (360 · 0,2)</div>')
+        a3 += ('<div class="lsg">10a: 100 % ≙ 25 → 1 % ≙ 0,25 → 40 % ≙ <b>10</b><br>10b: 100 % ≙ 40 → 1 % ≙ 0,4 → 30 % ≙ <b>12</b><br>'
                'Timo hat nicht Recht: Die 100 % sind in den Klassen verschieden groß.</div>')
     return f'<div class="f"><div class="two"><div>{a2}</div><div>{a3}</div></div></div>'
 
@@ -180,15 +180,15 @@ def folie3(lsg):
 <div class="sub t"><b>b)</b><span>Wie viel Prozent hatten Note 3? Berechne auch die Prozentsätze der anderen Noten.</span></div>"""
     a5 = f"""<h2>Aufgabe 5 <span class="k" style="font-size:12pt">Sportverein</span></h2>
 <p class="t">Ein Verein hat <b>500</b> Mitglieder. Das Kreisdiagramm zeigt, wie sie sich verteilen. Von den Jugendlichen sind 40 % Mädchen.</p>
-<div class="chart" style="margin:2pt 0;width:58%">{kreis(VEREIN, 110, 13)}</div>
+<div class="chart" style="margin:2pt 0;width:{"44%" if lsg else "58%"}">{kreis(VEREIN, 110, 13)}</div>
 <div class="sub t"><b>a)</b><span>Wie viele Jugendliche gehören zum Verein?</span></div>
 <div class="sub t"><b>b)</b><span>Wie viele Mädchen sind das?</span></div>
 <div class="sub t"><b>c)</b><span>Wie viel Prozent <u>aller Mitglieder</u> sind Mädchen aus der Gruppe Jugendliche?</span></div>"""
     if lsg:
         a4 += ('<div class="lsg"><b>a)</b> 6 + 12 + 9 + 3 = <b>30</b> Schüler (das sind 100 %)<br>'
-               '<b>b)</b> Note 3: 12 : 30 = <b>40 %</b>; Note 1–2: 6 : 30 = <b>20 %</b>; Note 4: 9 : 30 = <b>30 %</b>; Note 5–6: 3 : 30 = <b>10 %</b></div>')
-        a5 += ('<div class="lsg"><b>a)</b> 30 % von 500 = <b>150</b> &nbsp; <b>b)</b> 40 % von 150 = <b>60</b><br>'
-               '<b>c)</b> 60 : 500 = <b>12 %</b> aller Mitglieder (Jugendliche = 100 %: 40 %)</div>')
+               '<b>b)</b> 30 ≙ 100 % → 3 ≙ 10 % → 12 ≙ <b>40 %</b>; 6 ≙ <b>20 %</b>; 9 ≙ <b>30 %</b>; 3 ≙ <b>10 %</b> (12 : 30 = 0,4)</div>')
+        a5 += ('<div class="lsg"><b>a)</b> 100 % ≙ 500 → 30 % ≙ <b>150</b> &nbsp; <b>b)</b> neues 100 % ≙ 150 → 40 % ≙ <b>60</b><br>'
+               '<b>c)</b> 100 % ≙ 500 → 1 % ≙ 5 → 60 ≙ <b>12 %</b></div>')
     return f'<div class="f"><div class="two"><div>{a4}</div><div>{a5}</div></div></div>'
 
 
@@ -276,23 +276,23 @@ def loesungsblatt():
     l2 = """<div class="z"><h2>Aufgabe 2 <small>Schülersprecherwahl</small></h2>
 <p><b>Was ist 100 %?</b> Alle abgegebenen Stimmen. Toms 126 Stimmen sind 35 %.</p>
 <div class="s"><b>a)</b><span>35 % ≙ 126 → 1 % ≙ 3,6 → 100 % ≙ <span class="e">360</span><br>oder G = 126 : 0,35 = 360</span></div>
-<div class="s"><b>b)</b><span>Ali: 20 % von 360 = 360 · 0,20 = <span class="e">72</span></span></div>
+<div class="s"><b>b)</b><span>100 % ≙ 360 → 1 % ≙ 3,6 → 20 % ≙ <span class="e">72</span><br>oder W = 360 · 0,20 = 72</span></div>
 <div class="ant"><b>Antwort:</b> Es wurden 360 Stimmen abgegeben. Ali erhielt 72 Stimmen.</div></div>"""
     l3 = """<div class="z"><h2>Aufgabe 3 <small>Fahrrad-Fahrer</small></h2>
 <p><b>Was ist 100 %?</b> In jeder Klasse alle Schüler dieser Klasse, also 25 in der 10a und 40 in der 10b.</p>
-<div class="s"><b>10a</b><span>40 % von 25 = 25 · 0,40 = <span class="e">10</span></span></div>
-<div class="s"><b>10b</b><span>30 % von 40 = 40 · 0,30 = <span class="e">12</span></span></div>
+<div class="s"><b>10a</b><span>100 % ≙ 25 → 1 % ≙ 0,25 → 40 % ≙ <span class="e">10</span> (25 · 0,40)</span></div>
+<div class="s"><b>10b</b><span>100 % ≙ 40 → 1 % ≙ 0,4 → 30 % ≙ <span class="e">12</span> (40 · 0,30)</span></div>
 <div class="ant"><b>Antwort:</b> Timo hat nicht Recht. In der 10a fahren 10 Schüler mit dem Rad, in der 10b 12. Man darf Prozentsätze nur vergleichen, wenn das 100 % gleich groß ist.</div></div>"""
     l4 = """<div class="z"><h2>Aufgabe 4 <small>Klassenarbeit</small></h2>
 <p><b>Was ist 100 %?</b> Alle Schüler, die mitgeschrieben haben. Das ist die Summe der Säulen.</p>
 <div class="s"><b>a)</b><span>6 + 12 + 9 + 3 = <span class="e">30</span></span></div>
-<div class="s"><b>b)</b><span>p % = W : G<br>Note 3: 12 : 30 = 0,4 = <span class="e">40 %</span><br>Note 1–2: 6 : 30 = <span class="e">20 %</span>, Note 4: 9 : 30 = <span class="e">30 %</span>, Note 5–6: 3 : 30 = <span class="e">10 %</span><br>Probe: 20 + 40 + 30 + 10 = 100</span></div>
+<div class="s"><b>b)</b><span>30 ≙ 100 % → 3 ≙ 10 % → 12 ≙ <span class="e">40 %</span><br>Formel: p % = W : G = 12 : 30 = 0,4<br>Note 1–2: 6 : 30 = <span class="e">20 %</span>, Note 4: 9 : 30 = <span class="e">30 %</span>, Note 5–6: 3 : 30 = <span class="e">10 %</span><br>Probe: 20 + 40 + 30 + 10 = 100</span></div>
 <div class="ant"><b>Antwort:</b> 30 Schüler haben mitgeschrieben. 40 % hatten die Note 3.</div></div>"""
     l5 = """<div class="z"><h2>Aufgabe 5 <small>Sportverein</small></h2>
 <p><b>Was ist 100 %?</b> Erst alle 500 Mitglieder. Für die 40 % Mädchen sind es dann die Jugendlichen.</p>
-<div class="s"><b>a)</b><span>30 % von 500 = 500 · 0,30 = <span class="e">150</span></span></div>
-<div class="s"><b>b)</b><span>Jugendliche = 100 %: 40 % von 150 = 150 · 0,40 = <span class="e">60</span></span></div>
-<div class="s"><b>c)</b><span>Alle Mitglieder = 100 %: 60 : 500 = 0,12 = <span class="e">12 %</span></span></div>
+<div class="s"><b>a)</b><span>100 % ≙ 500 → 10 % ≙ 50 → 30 % ≙ <span class="e">150</span> (500 · 0,30)</span></div>
+<div class="s"><b>b)</b><span>neues 100 % ≙ 150 Jugendliche → 10 % ≙ 15 → 40 % ≙ <span class="e">60</span> (150 · 0,40)</span></div>
+<div class="s"><b>c)</b><span>100 % ≙ 500 → 1 % ≙ 5 → 60 ≙ <span class="e">12 %</span> (60 : 500 = 0,12)</span></div>
 <div class="ant"><b>Antwort:</b> 150 Jugendliche gehören zum Verein, 60 davon sind Mädchen. Das sind 12 % aller Mitglieder.</div></div>"""
     kopf = ('<header><div><h1>Prozentrechnen: Lösungen</h1><div class="sub">Klasse 10b, Mathematik · Frage zuerst: Was ist hier 100 %?</div></div>'
             '<div class="name">Zum Vergleichen mit deinem Heft</div></header>')

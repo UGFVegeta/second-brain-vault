@@ -120,3 +120,7 @@ Wenn Dateien Schülernamen enthalten (Klassenlisten, Notenlisten, Sitzpläne), g
 ## Fortbildungen per Video aufnehmen (07.10.2026)
 
 Oskar nimmt Online-Fortbildungen per iPad-Bildschirmaufnahme auf. Bei der Schwimm-Fortbildung am 06.10.2026 hatte die Aufnahme keinen Ton, weil das Mikrofon beim Start nicht aktiviert war (Aufnahme-Knopf im Kontrollzentrum lange drücken). Claude prüft deshalb vor einer Transkription zuerst die Lautstärke der Tonspur und weist vor der nächsten Fortbildung auf das Mikrofon hin. Teilnehmernamen und Gesichter aus solchen Videos kommen nicht in den Vault. Zusammenfassungen entstehen nur aus belegten Quellen, Ableitungen werden als solche markiert. Beispiel: [[Schulschwimmen BW – Zusammenfassung der Bestimmungen]].
+
+## Opus oder Sonnet (11.10.2026)
+
+Standard ist Sonnet. Opus lohnt sich bei Einführungsstunden (neues Thema, Einstieg, erste Stunde einer Einheit), weil dort die didaktische Idee entsteht. Dazu kommen Bewerbung und Konrektor-Themen, Schreiben an Schulleitung oder Behörden, heikle Elternbriefe sowie Konzepte, Stoffverteilungspläne und Klassenarbeiten. Übungs- und Wiederholungsstunden, Arbeitsblätter, Lösungen und Kurztests laufen mit Sonnet. Die Entscheidung fällt am Anfang einer Session, weil ein Modellwechsel mittendrin den Cache verwirft. Der Mod Schul-Cockpit schlägt Opus bei der ersten Nachricht per Knopf vor, Oskar entscheidet selbst.
