@@ -325,7 +325,8 @@ window.ERN_DATA = {
    "sessions": [
     "Yoga 9 min"
    ],
-   "sweets": "nein"
+   "sweets": "nein",
+   "note": "Reste der Kinder (Brötchen) werden aus schlechtem Gewissen mitgegessen, ungeplante Extra-Kalorien"
   }
  },
  "slips": [
@@ -335,5 +336,5 @@ window.ERN_DATA = {
    "kcal": 1500
   }
  ],
- "updated": "2026-10-11 22:47"
+ "updated": "2026-10-11 22:49"
 };
