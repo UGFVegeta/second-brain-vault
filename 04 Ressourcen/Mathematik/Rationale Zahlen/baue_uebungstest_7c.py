@@ -147,6 +147,26 @@ def druck(g, l):
     return f'<section class="seite" id="{"l" if l else "a"}{g}">{seite(g, l)}</section>'
 
 
+ZIEL_AB = HIER / "Mathe 7c – Übungstest Rationale Zahlen – Lösung A und B.html"
+CSS_AB = """<style>
+@page{size:A4 landscape;margin:0}
+body{background:#fff}
+.paar{display:flex;width:297mm;height:210mm;overflow:hidden;page-break-after:always;position:relative}
+.paar .h{width:148.5mm;height:210mm;overflow:hidden;position:relative}
+.paar .h .seite{transform:scale(.70711);transform-origin:0 0;margin:0;box-shadow:none}
+.paar .h+.h{border-left:.4mm dashed #999}
+</style>"""
+
+
+def main_ab():
+    """Lösung A links, Lösung B rechts auf einer A4-Querseite (beide Seiten auf 71 % verkleinert), zum Zeigen in Notability."""
+    html = ('<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Mathe 7c – Übungstest Rationale Zahlen – Lösung A und B</title>'
+            + ka.CSS + ue.EXTRA + CSS + CSS_AB + '</head><body><div class="paar"><div class="h">' + druck("A", True)
+            + '</div><div class="h">' + druck("B", True) + "</div></div></body></html>")
+    ZIEL_AB.write_text(html, encoding="utf-8")
+    print("geschrieben:", ZIEL_AB.name)
+
+
 def main():
     html = ('<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>Mathe 7c – Übungstest Rationale Zahlen</title>' + ka.CSS + ue.EXTRA + CSS + '</head><body>'
@@ -160,3 +180,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    main_ab()
