@@ -14,7 +14,9 @@ Schullandheim mit einer 7. Klasse der Gottlieb-Daimler-Realschule Schorndorf. Ze
 
 ## Entscheidung (07.10.2026)
 
-Oskar hat sich für **Todtnau mit alpetour (Angebot 664867, Eigenanreise 297 €/Pers.)** entschieden und sagt Frau Haase am 07.10.2026 zu. Anreise nach Möglichkeit mit dem Bus (Maier Reisen, Angebot AN8783), sonst Zug. Gewünscht: 3 statt 2 Lunchpakete (nicht am Montag), Bausteine später ergänzen, ein Tag Freiburg mit den Schülern per Linienbus 140. Laut alpetour-Angebot keine Anzahlung bei Buchung, Reisepreis erst 4 Wochen vor Anreise fällig, 10 % der Teilnehmenden bis 35 Tage vor Anreise kostenfrei stornierbar. Jede teilnehmende Person braucht eine private Haftpflichtversicherung. Offen: Freiplätze (2 ab 24 Personen) bestätigen lassen, Busbuchung bei Maier Reisen (Bus max. 12 m Länge, besser Midibus), HEROLÉ und Ravensburg absagen.
+Oskar hat sich für **Todtnau mit alpetour (Angebot 664867, aktuelle Fassung vom 08.10.2026: Eigenanreise 309 €/Pers., Busfahrt über alpetour 585 €)** entschieden und sagt Frau Haase am 07.10.2026 zu. Anreise nach Möglichkeit mit dem Bus (Maier Reisen, Angebot AN8783), sonst Zug. Das dritte Lunchpaket ist in der Fassung vom 08.10.2026 enthalten (daher 12 € mehr als in der Fassung vom 01.10.). Bausteine später ergänzen, ein Tag Freiburg mit den Schülern per Linienbus 140. Laut alpetour-Angebot keine Anzahlung bei Buchung, Reisepreis erst 4 Wochen vor Anreise fällig, 10 % der Teilnehmenden bis 35 Tage vor Anreise kostenfrei stornierbar. Jede teilnehmende Person braucht eine private Haftpflichtversicherung. Offen: Freiplätze (2 ab 24 Personen) bestätigen lassen, Busbuchung bei Maier Reisen (Bus max. 12 m Länge, besser Midibus), HEROLÉ und Ravensburg absagen.
+
+Stand 12.10.2026: Online-Buchung zu 664867 läuft, 27 Personen (25 Schüler und 2 Begleitpersonen), Eigenanreise 309 €. AGB ab 01.08.2026: Storno 20 % bis 35 Tage vor Reiseantritt, 40 % bis 15 Tage, 70 % bis 7 Tage, danach 90 %. Zahlung: AGB 2.1 nennt 20 % Anzahlung, das Angebot sagt keine Anzahlung, vor dem Absenden klären. Reservierungsdatum im Angebot steht als 14.10.2027 (vermutlich 2026 gemeint).
 
 ## Planungsgrundsatz
 

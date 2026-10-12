@@ -196,7 +196,8 @@ def main():
     # 2. Ablegen
     rz_ordner = ICLOUD / "Mathematik 7c" / "04 Rationale Zahlen"
     pdfs_7 = [RZ / f"Mathe 7c – Woche 3 – {st['nr']} {st['titel']}.pdf" for st in w3.STUNDEN] + [w2, w4_pdf] + w4d_pdfs + [w7_pdf,
-              RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern.pdf", RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern – Lösungen.pdf"] + ka_pdfs
+              RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern.pdf", RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern – Lösungen.pdf"] + ka_pdfs \
+              + sorted(RZ.glob("Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – *.pdf")) + sorted(RZ.glob("Mathe 7c – Übungstest Rationale Zahlen*.pdf"))   # von baue_woche5_stunde2.py bzw. baue_uebungstest_7c.py gebaut
     pz_ordner = ICLOUD / "Mathematik 10b" / "04 Prozentrechnung"   # bestehende Struktur in der iCloud
     pdfs_10 = sorted(PZ.glob("Prozent Wdh 10b – *.pdf")) + [z1, z2, zw, zw_ab, zw_abl] + ka10_pdfs
     for p in pdfs_7:

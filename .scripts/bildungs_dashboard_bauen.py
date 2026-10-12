@@ -130,6 +130,19 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
                f("Folien", RZ + "Rationale Zahlen 2 – Folien für den Beamer.pdf"),
                f("Arbeitsblatt", RZ + "Rationale Zahlen 2 – Arbeitsblatt Plus und Minus.pdf"),
                f("Lösungen", RZ + "Rationale Zahlen 2 – Arbeitsblatt Plus und Minus – Lösungen (nur für mich).pdf")]},
+    {"id": "ma7-w5s2", "titel": "Woche 5, Stunde 2 – Übungsstunde mit Lerntheke", "wann": "Woche 5, Doppelstunde vor der KA 1", "status": "vorbereitet",
+     "links": [f("Stunde", RZ + "Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke.html"),
+               f("Folien", RZ + "Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – Folien für den Beamer.pdf"),
+               f("Blatt 1 und 2", RZ + "Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – Lerntheke Blatt 1 und 2 (A4 quer, in der Mitte schneiden).pdf"),
+               f("Blatt 3 und 4", RZ + "Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – Lerntheke Blatt 3 und 4 (A4 quer, in der Mitte schneiden).pdf"),
+               f("Blatt 5", RZ + "Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – Lerntheke Blatt 5 gemischt (A4 hoch).pdf"),
+               f("Lösungen zum Aushängen", RZ + "Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – Lerntheke Lösungen zum Aushängen.pdf")]},
+    {"id": "ma7-uebungstest", "titel": "Übungstest Rationale Zahlen (A und B)", "wann": "vor der KA 1", "status": "vorbereitet",
+     "links": [f("Übungstest", RZ + "Mathe 7c – Übungstest Rationale Zahlen.html"),
+               f("Lösung A und B", RZ + "Mathe 7c – Übungstest Rationale Zahlen – Lösung A und B.html"),
+               f("Test A (PDF)", RZ + "Mathe 7c – Übungstest Rationale Zahlen A.pdf"),
+               f("Test B (PDF)", RZ + "Mathe 7c – Übungstest Rationale Zahlen B.pdf"),
+               f("Lösungen A und B (PDF)", RZ + "Mathe 7c – Übungstest Rationale Zahlen – Lösung A und B.pdf")]},
 ], "material": []}]}]
 
 CSS = """
