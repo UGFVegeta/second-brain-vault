@@ -14,6 +14,7 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-10-12 | 4 | – | – | |
 | 2026-10-11 | 3 | Nicht zu fit nach unruhiger Nacht | – | Kind war nachts mehrfach wach, viermal aufgestanden, Aufwachen um 6:20. HRV 64 (Basis 82) vermutlich dadurch. |
 | 2026-10-10 | 4 | – | – | |
 | 2026-10-08 | 4 | – | – | |
