@@ -23,7 +23,7 @@ from baue_ka1_7c import br  # noqa: E402
 from baue_uebung_ka1_7c import KREIS  # noqa: E402
 from rezepte_rz import REZEPT_PM  # noqa: E402
 
-from pypdf import PdfReader  # noqa: E402
+from pypdf import PdfReader, PdfWriter  # noqa: E402
 
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 NAME = "Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke"
@@ -228,7 +228,7 @@ BLATT5 = ("Gemischte Aufgaben", [
     abschnitt("rechnen", 1, "Berechne.", [
         A("−3,4 + 1,9"), A("−2,7 − 4,8"), A("−0,6 · 15"), A("−7,2 : (−0,8)"),
         A("−{1/2} + {1/3}", "−{3/6} + {2/6}", "−{1/6}", hint="Nenner 6: −3 + 2 = −1."),
-        A("−{3/4} − {1/4}", "−{4/4}", hint="Gleicher Nenner, gleiche Zeichen: 3 + 1 = 4, also −{4/4} = −1."),
+        A("−{3/4} − {1/4}", "−{4/4}", hint="Gleicher Nenner, gleiche Zeichen: 3 + 1 = 4, also −4/4 = −1."),
         A("−{2/3} · {3/8}", "−{6/24}", "−{1/4}", hint="Zähler mal Zähler, Nenner mal Nenner, dann kürzen."),
         A("{5/6} : (−{5/12})", "{5/6} · (−{12/5})", "−{60/30}", "−2", hint="Mit dem Kehrbruch malnehmen, verschiedene Vorzeichen: negativ.")]),
     abschnitt("rechnen", 1, "Berechne.", [
@@ -240,12 +240,12 @@ BLATT5 = ("Gemischte Aufgaben", [
         A("20 − 6 · (−2)", "20 + 12", hint="Erst 6 · (−2) = −12. Davor steht ein Minus, das Ergebnis wird also 20 + 12."),
         A("−24 : 6 − 5", "−4 − 5", hint="Geteilt vor Minus: −24 : 6 = −4."),
         A("(−8 + 3) · 4", "−5 · 4", hint="Klammer zuerst: −8 + 3 = −5."),
-        A("18 − 3 · (4 − 9) − 20 : (−5)", "18 − 3 · (−5) − 20 : (−5)", "18 + 15 + 4", hint="Klammer: 4 − 9 = −5. Dann −3 · (−5) = 15 und −20 : (−5) = 4, mit Minus davor: + 4."),
+        A("18 − 3 · (4 − 9) − 20 : (−5)", "18 − 3 · (−5) − 20 : (−5)", "18 + 15 + 4", hint="Klammer: 4 − 9 = −5. Dann −3 · (−5) = 15 und −20 : (−5) = 4, davor Minus: + 4."),
         A("−2 · (−3 − 5) + 12 : (−3)", "−2 · (−8) + 12 : (−3)", "16 − 4", hint="Klammer: −3 − 5 = −8. Dann −2 · (−8) = 16 und 12 : (−3) = −4.")], cols=1),
     abschnitt("sach", 2, "Temperatur.",
               [dict(text="Morgens zeigt das Thermometer −7 °C. Die Temperatur steigt pro Stunde um 3 Grad.",
-                    teile=[("Wie warm ist es nach 4 Stunden?", "−7 + 4 · 3", 5, "°C", "Erst Mal: 4 · 3 = 12 Grad Anstieg, dann −7 + 12 = 5."),
-                           ("Danach fällt die Temperatur 6 Stunden lang um je 2 Grad. Wie warm ist es dann?", "5 − 6 · 2", -7, "°C", "Erst Mal: 6 · 2 = 12 Grad Abfall, dann 5 − 12 = −7.")])]),
+                    teile=[("Wie warm ist es nach 4 Stunden?", "−7 + 4 · 3", 5, "°C", "Erst 4 · 3 = 12, dann −7 + 12 = 5."),
+                           ("Danach fällt die Temperatur 6 Stunden lang um je 2 Grad. Wie warm ist es dann?", "5 − 6 · 2", -7, "°C", "Erst 6 · 2 = 12, dann 5 − 12 = −7.")])]),
 ])
 
 BLAETTER = [BLATT1, BLATT2, BLATT3, BLATT4, BLATT5]
@@ -380,6 +380,8 @@ body{margin:0;background:#d9dde3;font-family:Arial,"Liberation Sans",Helvetica,s
 .zl{font-size:14pt;margin:1mm 0}
 .lcols{columns:2;column-gap:9mm;flex:1}
 .lblatt .legende{margin-top:auto}
+.lblatt.quer{width:297mm;height:210mm;padding:5mm 10mm 4mm}.lblatt.quer .lcols{columns:3;column-gap:6mm}.lblatt.quer .aufg,.lblatt.quer .lsg{font-size:12pt}.lblatt.quer .hint{font-size:10pt;line-height:1.12;margin-left:5mm}.lblatt.quer .li{margin:0 0 .8mm}.lblatt.quer .kopf{margin-bottom:1mm}.lblatt.quer .bal{font-size:11pt}.lblatt.quer .stext{font-size:11.5pt;margin:0 0 .6mm}.lblatt.quer .abs{margin:0 0 2mm}.lblatt.quer .bal{padding:.6mm 2.5mm;margin-bottom:1.2mm}
+.lblatt.eng .aufg,.lblatt.eng .lsg{font-size:13pt}.lblatt.eng .hint{font-size:10.5pt;line-height:1.2}.lblatt.eng .li{margin:0 0 1.4mm}.lblatt.eng .abs{margin:0 0 2mm}.lblatt.eng .bal{padding:.6mm 2.5mm;margin-bottom:1.2mm}
 @media print{body{background:#fff}.paar,.voll,.lblatt{margin:0}}
 </style>"""
 
@@ -397,7 +399,9 @@ def voll(nr):
     return f'<section class="voll">{blatt_inhalt(nr, False)}</section>'
 
 
-SPLIT = {3: 3, 5: 3}      # Lösung zu Blatt 5 braucht zwei Seiten: ab Abschnitt 4 auf Seite 2
+SPLIT = {}      # jedes Lösungsblatt soll auf eine Seite passen
+ENG = {3}       # engere Schrift für ein langes Lösungsblatt
+QUER = {5}      # Lösungsblatt 5 ist am längsten: A4 quer mit drei Spalten
 
 
 def loesungsseiten(nr):
@@ -407,7 +411,7 @@ def loesungsseiten(nr):
     seiten = []
     for k, (start, a) in enumerate(teile):
         zusatz = f" (Seite {k + 1} von {len(teile)})" if len(teile) > 1 else ""
-        seiten.append(f'<section class="lblatt">{kopfzeile(nr, titel, True).replace("</b>", zusatz + "</b>", 1)}<div class="lcols">'
+        seiten.append(f'<section class="lblatt{" eng" if nr in ENG else ""}{" quer" if nr in QUER else ""}">{kopfzeile(nr, titel, True).replace("</b>", zusatz + "</b>", 1)}<div class="lcols">'
                       + "".join(abschnitt_html(i, ab, True) for i, ab in enumerate(a, start))
                       + f'</div><div class="legende">{KREIS[0]} leicht &nbsp;&nbsp; {KREIS[1]} mittel &nbsp;&nbsp; {KREIS[2]} schwer</div></section>')
     return seiten
@@ -424,24 +428,24 @@ WHITEBOARD = [("−4 · 5", "ergebnis"), ("−7 + 3", "ergebnis"), ("−2 · (�
 assert [zahl(wert(t)) for t, _ in WHITEBOARD] == ["−20", "−4", "−24", "−7", "4", "−13", "−10", "15", "60", "−2"]
 
 
-def wb_folie(i, l):
+def wb_zeile(i, l):
     t, art = WHITEBOARD[i]
     w = wert(t)
-    frage = "Wie heißt das Ergebnis?" if art == "ergebnis" else "Nur das Vorzeichen: plus oder minus?"
     if art == "ergebnis":
         antwort = zahl(w)
     else:
-        antwort = ("minus" if w < 0 else "plus") + f' <span class="wb-klein">(das Ergebnis ist {zahl(w)})</span>'
-    return (f'<div class="wb-nr">Aufgabe {i + 1} von 10</div><div class="wb-term">{zeig(t)}</div>'
-            + (f'<div class="wb-ans">= <span class="lsg">{antwort}</span></div>' if l else '<div class="wb-ans">&nbsp;</div>')
-            + f'<div class="wb-chip {art}">{frage}</div>')
+        antwort = ("minus" if w < 0 else "plus") + f' <span class="wb-klein">({zahl(w)})</span>'
+    chip = "Ergebnis" if art == "ergebnis" else "nur das Vorzeichen"
+    rechts = f'<span class="wb-a">= <span class="lsg">{antwort}</span></span>' if l else f'<span class="wb-chip {art}">{chip}</span>'
+    return f'<div class="wb-zeile"><span class="wb-n">{i + 1}</span><span class="wb-t">{zeig(t)}</span>{rechts}</div>'
 
 
 def whiteboard_folien():
+    """Vier Folien (Notability-Seiten) mit je fünf Aufgaben: Aufgaben 1 bis 5, Lösungen, Aufgaben 6 bis 10, Lösungen."""
     folien = []
-    for i in range(10):
-        folien.append((f"Whiteboard {i + 1}", wb_folie(i, False)))
-        folien.append((f"Whiteboard {i + 1}: Lösung", wb_folie(i, True)))
+    for a in (0, 5):
+        for l in (False, True):
+            folien.append((f"Whiteboard {a + 1} bis {a + 5}" + (": Lösung" if l else ""), "".join(wb_zeile(i, l) for i in range(a, a + 5))))
     return folien
 
 
@@ -460,21 +464,21 @@ THEKE = ("<ol class='ex'><li>Such dir ein Blatt aus. Die Themen stehen an der Ta
 
 FOLIEN = whiteboard_folien() + [("Wiederholung: Plus und Minus", REZEPT_PM), ("Wiederholung: Mal und Geteilt", VORZEICHEN),
                                 ("Wiederholung: Gemischte Aufgaben", w7.REZEPT), ("Die Lerntheke", THEKE)]
-N_WB = 20
+N_WB = 4
 
 SCHRITTE = [
-    ("", "Whiteboard-Runde", 10, "Zehn Kurzaufgaben, Schüler schreiben das Ergebnis oder nur das Vorzeichen aufs Whiteboard und halten es hoch. Danach gleich die Lösungsfolie.", [1]),
+    ("", "Whiteboard-Runde", 10, "Zehn Kurzaufgaben auf zwei Folien (je fünf), Schüler schreiben das Ergebnis oder nur das Vorzeichen aufs Whiteboard und halten es hoch. Einzelne Aufgabe heranzoomen, danach die Lösungsfolie.", [1, 2, 3, 4]),
     ("", "Fragen der Schüler", 5, "Welche Themen sollen noch einmal drankommen? An der Tafel sammeln.", []),
-    ("", "Wiederholung", 10, "Nach den Fragen: Plus und Minus, Mal und Geteilt, Rezept für gemischte Aufgaben. Folien nach Bedarf.", [21, 22, 23]),
-    ("", "Lerntheke", 50, "Fünf Blätter liegen vorne, Lösungen hängen an der Wand. Ins Heft rechnen, selbst kontrollieren.", [24]),
+    ("", "Wiederholung", 10, "Nach den Fragen: Plus und Minus, Mal und Geteilt, Rezept für gemischte Aufgaben. Folien nach Bedarf.", [5, 6, 7]),
+    ("", "Lerntheke", 50, "Fünf Blätter liegen vorne, Lösungen hängen an der Wand. Ins Heft rechnen, selbst kontrollieren.", [8]),
     ("", "Abschluss", 10, "Rückmeldung: Wo hakt es noch? Fragen vor der Klassenarbeit sammeln.", []),
     ("", "Puffer", 5, "Zeit für Nachzügler und Aufräumen.", []),
 ]
 assert sum(m for _, _, m, _, _ in SCHRITTE) == 90
 
 EXTRA_CSS = w7.EXTRA_CSS + """<style>
-.wb-nr{font-size:20px;color:#66798e;font-weight:700;letter-spacing:.04em}
-.wb-term{font-size:84px;font-weight:700;margin:18px 0 22px}
+.wb-zeile{display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:0 20px;border-bottom:1px solid #d9dfe7;padding:6px 0}
+.wb-n{font-size:34px;font-weight:700;color:#66798e}.wb-t{font-size:56px;font-weight:700;white-space:nowrap}.wb-a{font-size:56px;font-weight:700;white-space:nowrap}
 .wb-ans{font-size:46px;font-weight:700;margin:6px 0 14px}.wb-chip{display:inline-block;font-size:30px;font-weight:700;border-radius:30px;padding:6px 26px}
 .wb-chip.ergebnis{background:#eef3fb;border:2px solid #1a56a0}.wb-chip.vorzeichen{background:#fdeef6;border:2px solid #E6007E}
 .wb-klein{font-size:22px;font-weight:400}
@@ -495,8 +499,7 @@ FOLIEN_CSS = """<style>
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;color:#1b1b1b}
 .slide{width:13.333in;height:7.5in;padding:.55in .8in;break-after:page;overflow:hidden;position:relative}
 .slide:last-child{break-after:auto}
-.slide .wb-nr{font-size:28px}.slide .wb-term{font-size:150px;margin:30px 0 0;line-height:1.1}.slide .wb-ans{font-size:110px;font-weight:700;margin:0 0 26px;line-height:1.2}.slide .wb-chip{font-size:42px;padding:10px 36px}
-.slide .wb-klein{font-size:30px}.slide .vzt{font-size:44px}.slide .ex li{font-size:34px;margin:16px 0;white-space:normal}.slide .ex{padding-right:20px}
+.slide{padding-top:.4in!important}.slide>h1{margin-bottom:6px!important}.slide .wb-zeile{grid-template-columns:90px 640px 1fr;padding:12px 0;border-bottom:2px solid #d9dfe7}.slide .wb-n{font-size:48px}.slide .wb-t,.slide .wb-a{font-size:76px}.slide .wb-chip{font-size:30px;padding:6px 22px;justify-self:start}.slide .wb-klein{font-size:44px}.slide .vzt{font-size:44px}.slide .ex li{font-size:34px;margin:16px 0;white-space:normal}.slide .ex{padding-right:20px}
 .slide .rezept{font-size:34px;padding:14px 34px 22px}.slide .rezept h4{font-size:42px}.slide .rs li{margin:12px 0}
 .slide>h1{font-size:30px;margin:0 0 18px;border-bottom:3px solid #1b1b1b;padding-bottom:6px}
 .lsg{color:#E6007E;font-weight:700}
@@ -533,6 +536,17 @@ def pdf_bauen(titel, koerper, format_, seiten, ziel):
     return n
 
 
+def zusammen(pdfs, ziel):
+    """Mehrere PDFs hintereinander in eine Datei (Hoch- und Querseiten dürfen gemischt sein)."""
+    w = PdfWriter()
+    for p in pdfs:
+        for seite in PdfReader(str(p)).pages:
+            w.add_page(seite)
+    with open(ziel, "wb") as f:
+        w.write(f)
+    return len(w.pages)
+
+
 def pruefe_ueberlauf():
     """Misst jede Seite im Browser: nichts darf über den Seitenrand hinauslaufen."""
     teile = [("paar", paar(1, 2)), ("paar", paar(3, 4)), ("voll", voll(5))] + [("l", x) for i in range(1, 6) for x in loesungsseiten(i)]
@@ -556,14 +570,24 @@ def main():
     print("Überlaufprüfung:", ueber)
     schlecht = [u for u in ueber if not u.endswith("=0")]
     assert not schlecht, schlecht
-    pdf_bauen(f"{NAME} Blatt 1 und 2", paar(1, 2), "A4 landscape", 1, HIER / f"{NAME} – Lerntheke Blatt 1 und 2 (A4 quer, in der Mitte schneiden).pdf")
-    pdf_bauen(f"{NAME} Blatt 3 und 4", paar(3, 4), "A4 landscape", 1, HIER / f"{NAME} – Lerntheke Blatt 3 und 4 (A4 quer, in der Mitte schneiden).pdf")
-    pdf_bauen(f"{NAME} Blatt 5", voll(5), "A4", 1, HIER / f"{NAME} – Lerntheke Blatt 5 gemischt (A4 hoch).pdf")
-    pdf_bauen(f"{NAME} Lösungen", "".join(x for i in range(1, 6) for x in loesungsseiten(i)), "A4", N_LSG, HIER / f"{NAME} – Lerntheke Lösungen zum Aushängen.pdf")
+    ab12 = HIER / f"{NAME} – Lerntheke Blatt 1 und 2 (A4 quer, in der Mitte schneiden).pdf"
+    ab34 = HIER / f"{NAME} – Lerntheke Blatt 3 und 4 (A4 quer, in der Mitte schneiden).pdf"
+    ab5 = HIER / f"{NAME} – Lerntheke Blatt 5 gemischt (A4 hoch).pdf"
+    pdf_bauen(f"{NAME} Blatt 1 und 2", paar(1, 2), "A4 landscape", 1, ab12)
+    pdf_bauen(f"{NAME} Blatt 3 und 4", paar(3, 4), "A4 landscape", 1, ab34)
+    pdf_bauen(f"{NAME} Blatt 5", voll(5), "A4", 1, ab5)
+    lsg = []
+    for nr in range(1, 6):
+        ziel = HIER / f"{NAME} – Lerntheke Lösung Blatt {nr}.pdf"
+        pdf_bauen(f"{NAME} Lösung Blatt {nr}", loesungsseiten(nr)[0], "A4 landscape" if nr in QUER else "A4", 1, ziel)
+        lsg.append(ziel)
+    zusammen(lsg, HIER / f"{NAME} – Lerntheke Lösungen zum Aushängen.pdf")
+    zusammen([ab12, ab34, ab5] + lsg, HIER / f"{NAME} – Lerntheke ALLES zum Drucken (Blätter und Lösungen).pdf")
     print("Folien:", folien_pdf(HIER / f"{NAME} – Folien für den Beamer.pdf"), "Seiten")
-    vb = [("Drucken", "Blatt 1 und 2 (A4 quer) 26×, Blatt 3 und 4 (A4 quer) 26×, Blatt 5 (A4 hoch) 26×. Die zwei Querblätter in der Mitte durchschneiden."),
-          ("Aushang", "Lösungen zum Aushängen: 5 Seiten A4, einmal ausdrucken und an die Wand hängen (Reihenfolge Blatt 1 bis 5)."),
-          ("Digital", f"Folien-PDF in Notability: {NAME} – Folien für den Beamer.pdf (20 Whiteboard-Folien, dann Wiederholung und Lerntheke)."),
+    vb = [("Drucken", "Blatt 1 und 2 (A4 quer) 26×, Blatt 3 und 4 (A4 quer) 26×, Blatt 5 (A4 hoch) 26×. Die zwei Querblätter in der Mitte durchschneiden, so entstehen fünf Blätter."),
+          ("Aushang", "Zu jedem Blatt gibt es ein eigenes Lösungsblatt (Lösung Blatt 1 bis 5), je eine Seite, einmal ausdrucken und an die Wand hängen."),
+          ("Eine Datei", "ALLES zum Drucken (Blätter und Lösungen): erst die drei Blattseiten, dann die fünf Lösungsblätter, zum Ausdrucken auf einmal. Die Blattseiten 26× kopieren, die Lösungen nur einmal."),
+          ("Digital", f"Folien-PDF in Notability: {NAME} – Folien für den Beamer.pdf (4 Whiteboard-Folien mit je fünf Aufgaben, dann Wiederholung und Lerntheke)."),
           ("Material", "Mini-Whiteboards und Stifte für die Whiteboard-Runde, Klebeband für den Aushang."),
           ("Voraussetzung", "Alle Rechenarten sind eingeführt, Rezept für gemischte Aufgaben ist in Stunde 1 gelaufen.")]
     tafel = ('<div class="tafel"><h4>Tafel: Themenspeicher für die Lerntheke</h4><ol class="ex" style="font-size:22px">'
