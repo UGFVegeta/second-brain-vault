@@ -27,7 +27,8 @@ STUNDEN = {  # Woche -> [(id, Marke, Titel, Datei, Tag)]; fertige Wochen bekomme
     4: [("W4S1", "1", "Wiederholung Minusklammer, Multiplizieren", "Rationale Zahlen/Mathe 7c – Woche 4 – 1 Wiederholung Minusklammer, Multiplizieren.html", "Di 06.10., Doppelstunde"),
         ("W4S2", "2", "Dividieren", "Rationale Zahlen/Mathe 7c – Woche 4 – 2 Dividieren.html", "Mi 07.10."),
         ("W4S3", "3", "Dividieren üben", "Rationale Zahlen/Mathe 7c – Woche 4 – 3 Dividieren üben.html", "Do 08.10.")],
-    5: [("W5S1", "1", "Rezept für gemischte Aufgaben", "Rationale Zahlen/Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.html", "vor der KA 1")],
+    5: [("W5S1", "1", "Rezept für gemischte Aufgaben", "Rationale Zahlen/Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.html", "vor der KA 1"),
+        ("W5S2", "2", "Übungsstunde mit Lerntheke", "Rationale Zahlen/Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke.html", "Doppelstunde, vor der KA 1")],
 }
 
 # Oskars eigener Stand (05.10.2026): er ist dem Plan der Fachschaft etwa eine Woche voraus. Die offizielle Excel-Datei bleibt unverändert,

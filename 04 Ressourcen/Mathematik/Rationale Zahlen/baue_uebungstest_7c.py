@@ -89,7 +89,7 @@ def balken(nr, stufe, punkte, text, l, bew=""):
 
 def kopf(g, l):
     return (f'<div class="kopfwrap"><table class="kopf">'
-            f'<tr><td colspan="2" class="titel"><u>Übungstest Rationale Zahlen</u> &nbsp;·&nbsp; Gruppe {g}</td><td class="kl">Klasse 7c</td></tr>'
+            f'<tr><td colspan="2" class="titel"><u>Übungstest Rationale Zahlen</u>, Gruppe {g}</td><td class="kl">Klasse 7c</td></tr>'
             '<tr><td class="n">Name:</td><td colspan="2" class="n">Datum:</td></tr>'
             f'<tr><td class="n">Punkte: <span class="pp">/ {GESAMT} Punkte</span></td><td class="n">Note:</td><td class="n">Ø</td></tr>'
             f'</table>{ka.WOLKE}</div>'
@@ -170,9 +170,9 @@ def main_ab():
 def main():
     html = ('<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>Mathe 7c – Übungstest Rationale Zahlen</title>' + ka.CSS + ue.EXTRA + CSS + '</head><body>'
-            '<div class="leiste"><b>Übungstest · Klasse 7c</b><a href="#aA">Gruppe A</a><a href="#aB">Gruppe B</a>'
+            '<div class="leiste"><b>Übungstest, Klasse 7c</b><a href="#aA">Gruppe A</a><a href="#aB">Gruppe B</a>'
             '<a href="#lA">Lösung A</a><a href="#lB">Lösung B</a>'
-            f'<span>{GESAMT} Punkte · ca. 15 bis 20 Minuten · je eine A4-Seite</span></div>'
+            f'<span>{GESAMT} Punkte; ca. 15 bis 20 Minuten; je eine A4-Seite</span></div>'
             + druck("A", False) + druck("B", False) + druck("A", True) + druck("B", True) + "</body></html>")
     ZIEL.write_text(html, encoding="utf-8")
     print("geschrieben:", ZIEL.name, GESAMT, "Punkte")
