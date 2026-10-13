@@ -51,7 +51,8 @@ Bei Schulfragen zu einem Fach zuerst die Karte lesen, nicht erst im Vault suchen
 
 - **Mathe 7c oder 10b:** `04 Ressourcen/Mathematik/Mathematik.md`, Abschnitt „Einstieg: Wo liegt was“ (Stunden, Bauskripte, KA, Stoffverteilung, Schulbuch, iCloud-Ablage, Export).
 - **Physik 7c oder 10:** `04 Ressourcen/Physik/Physik.md` (Themenordner, Dashboard, Stoffverteilung, Planung).
-- **Sport, Klassenlehrer 7c:** `03 Bereiche/Schule & Unterricht/` und `04 Ressourcen/Sport/`.
+- **Sport (Curriculum, Dreikampf Turnen, Notenlisten, Notenschlüssel):** `04 Ressourcen/Sport/Sport.md`, Abschnitt „Einstieg: Wo liegt was“ (iCloud-Pfade der Notenlisten, Sportgruppen, Wahllisten, Curriculum).
+- **Klassenlehrer 7c:** `03 Bereiche/Schule & Unterricht/`.
 - Stand der Wochen/Stunden: `04 Ressourcen/Bildungs-Dashboard.html`.
 
 Die Dateien nur gezielt lesen, die für die Aufgabe nötig sind.
