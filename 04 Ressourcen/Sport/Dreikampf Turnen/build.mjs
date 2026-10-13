@@ -32,8 +32,8 @@ const D = {
     { items: ['Sprung in den Stütsuperscript', 'Vor- und Rückschwung', 'Vorschwung zum Außenquersitz', 'Niedersprung ' + AKTIV] },
     { items: ['Sprung in den Stütz', 'Vor- und Rückschwung in den 4-Füßlerstand vorlings', 'Vorschwung und Kehre zum Abgang'] },
     { items: ['Sprung in den Stütz', 'Vorschwung in den Grätschsitz', 'Rück-Vor-Rückschwung zur Hockwende ' + AKTIV] },
-    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'], extra: 'barren-kippe', extraLabel: 'Kippe in den Grätschsitz (Bild aus der alten Übersicht)' },
-    { items: ['Aus dem Sitz: Oberarmstand und Abrollen vorwärts', 'Schwungstemme in den Grätschsitz', 'Wendekehre'] },
+    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'], extra: 'barren-kippe', extraLabel: 'Kippe in den Grätschsitz (Oberarmkippe)' },
+    { items: ['Aus dem Sitz: Oberarmstand und Abrollen vorwärts // Bei uns erlaubt: Oberarmrolle (Rolle vorwärts über die Holme) statt Oberarmstand', 'Schwungstemme in den Grätschsitz', 'Wendekehre'] },
     { items: ['Oberarmkippe', 'Schwungstemme vorwärts in den Stütz', 'Kreishockwende oder Wendekehre'] },
   ],
   balancieren: [
@@ -56,6 +56,8 @@ const D = {
 D.barren[0].items[0] = 'Sprung in den Stütz';
 
 const li = (t) => {
+  const sub = t.split(' // ');
+  if (sub.length > 1) return `<li>${sub[0]}<em class="sub">${sub[1]}</em></li>`;
   const m = t.match(/^(Aufgang|Abgang): (.*)$/);
   return m ? `<li><u>${m[1]}</u>: ${m[2]}</li>` : `<li>${t}</li>`;
 };
@@ -75,8 +77,17 @@ const NOTEN = JSON.parse(fs.readFileSync('noten.json', 'utf8'));
 const KL = [7, 8, 9, 10];
 const fmtP = (p) => String(p).replace('.', ',');
 const rowsN = [];
-for (let p = 23; p >= 0; p -= 0.5) {
-  rowsN.push(`<tr><th>${fmtP(p)}</th>${KL.map((k) => { const t = NOTEN[k], top = Math.max(...Object.keys(t).map((x) => +x.replace(',', '.'))); const v = t[fmtP(p)] ?? (p > top ? '1,0' : ''); return `<td class="${p > top ? 'ab' : ''}">${v}</td>`; }).join('')}</tr>`);
+const prev = {};
+for (let p = 23; p >= 5; p -= 0.5) {
+  const cells = KL.map((k) => {
+    const t = NOTEN[k], top = Math.max(...Object.keys(t).map((x) => +x.replace(',', '.')));
+    const above = p > top, v = above ? '1,0' : t[fmtP(p)];
+    const band = Math.floor(+v.replace(',', '.'));
+    const change = prev[k] !== undefined && prev[k] !== band;
+    prev[k] = band;
+    return `<td class="b${band}${above ? ' ab' : ''}${change ? ' nb' : ''}">${v}</td>`;
+  });
+  rowsN.push(`<tr class="${Number.isInteger(p) ? 'whole' : 'half'}"><th>${fmtP(p)}</th>${cells.join('')}</tr>`);
 }
 const noten = `<table class="pn"><thead><tr><th>Punkte</th>${KL.map((k) => `<th>Kl. ${k}</th>`).join('')}</tr></thead><tbody>${rowsN.join('')}</tbody></table>`;
 const best = KL.map((k) => `Kl. ${k}: ab ${fmtP(Math.max(...Object.keys(NOTEN[k]).map((x) => +x.replace(',', '.'))))}`).join(' · ');
@@ -90,14 +101,15 @@ const panel = `<td class="panel" rowspan="5">
 <li>Die Punkte der drei Disziplinen werden zusammengezählt. Die Summe ergibt die Note.</li>
 </ol>
 <h3>Punkte und Note (Jungen)</h3>
-<p class="hint">Summe der 3 gewählten Geräte. Note 1,0: ${best}.</p>
+<p class="hint">Summe der 3 gewählten Geräte. Note 1,0 ab: ${best}.</p>
 ${noten}
+<p class="hint">Unter 5 Punkten: siehe Notenliste.</p>
 </td>`;
 
 const page1 = `<div class="pagebox"><div class="page" id="p1">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Vorderseite: Boden, Reck, Barren</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
 <table class="grid">${thead(G.slice(0, 3))}<tbody>${[2, 3, 4, 5, 6].map((u, i) => `<tr>${lv(u)}${G.slice(0, 3).map((g) => cell(g, i, false)).join('')}</tr>`).join('')}</tbody></table>
-<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Kippe in den Grätschsitz aus der alten Übersicht. Nur für den schulinternen Gebrauch.</footer>
+<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Die Kippe in den Grätschsitz ist aus Figuren der Ü7- und Ü4-Karte zusammengesetzt. Nur für den schulinternen Gebrauch.</footer>
 </div></div>`;
 const page2 = `<div class="pagebox"><div class="page" id="p2">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Rückseite: Balancieren, Sprung, Noten</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
@@ -108,7 +120,7 @@ const page2 = `<div class="pagebox"><div class="page" id="p2">
 // Daten für den Wahl-Tab
 const DATA = G.map((g) => ({
   id: g.id, name: g.name, c: g.c, t: g.t,
-  stufen: D[g.id].map((e, i) => ({ u: i + 2, note: e.note || '', items: e.items, img: `bilder/${g.id}-ue${i + 2}.png`, extra: e.extra ? `bilder/${e.extra}.png` : '', extraLabel: e.extraLabel || '' })),
+  stufen: D[g.id].map((e, i) => ({ u: i + 2, note: e.note || '', items: e.items.map((x) => x.replace(/ \/\/ (.*)$/, ' ($1)')), img: `bilder/${g.id}-ue${i + 2}.png`, extra: e.extra ? `bilder/${e.extra}.png` : '', extraLabel: e.extraLabel || '' })),
 }));
 
 const css = `
@@ -156,6 +168,7 @@ ul{margin:5px 0 0;padding:0 0 0 16px;font-size:13.5px;line-height:1.25}
 ul.two{columns:2;column-gap:16px}
 li{margin-bottom:1px;break-inside:avoid}
 u{text-decoration:underline;font-weight:700}
+em.sub{display:block;font-size:11.5px;color:#4a5568;font-style:italic;margin-top:1px}
 td.wide .cb{display:flex;gap:14px;align-items:center}
 td.wide .fig{flex:0 0 60%}
 td.wide .fig img{max-height:150px}
@@ -165,12 +178,16 @@ td.panel h3{margin:0 0 8px;font-size:17px}
 td.panel ol{margin:0 0 12px;padding-left:20px;font-size:13.5px;line-height:1.35}
 td.panel li{margin-bottom:4px}
 .hint{font-size:12px;color:var(--mute);margin:2px 0 8px}
-table.pn{width:100%;border-collapse:collapse;font-size:10.5px;background:#fff}
-table.pn th,table.pn td{border:1px solid #9aa4b6;text-align:center;padding:0;height:12.4px;line-height:12px}
-table.pn thead th{background:var(--ink);color:#fff;font-size:11.5px}
-table.pn tbody th{background:#eceff5;font-weight:700}
+table.pn{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;background:#fff;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
+table.pn th,table.pn td{text-align:center;padding:0;height:16px;line-height:16px;border-bottom:1px solid rgba(27,36,51,.18);border-left:1px solid rgba(27,36,51,.18)}
+table.pn thead th{background:var(--ink);color:#fff;font-size:12px;border-left:1px solid #fff;height:20px}
+table.pn tbody th{background:#eceff5;border-left:0;font-weight:800}
+table.pn tr.half th{font-weight:500;color:var(--mute);background:#f6f7fa}
 table.pn td{font-weight:700}
-table.pn td.ab{color:#9aa4b6;font-weight:400}
+table.pn td.nb{border-top:2px solid var(--ink)}
+table.pn td.ab{color:#7d8798;font-weight:400}
+table.pn td.b1{background:#c7e6cd}table.pn td.b2{background:#e1f0c4}table.pn td.b3{background:#fbf0b0}
+table.pn td.b4{background:#fcd9a6}table.pn td.b5{background:#f6bdb6}table.pn td.b6{background:#dcdce6}
 footer{margin-top:7px;font-size:10px;color:var(--mute)}
 .pagebox{display:block}
 /* ---------- Wahl ---------- */
@@ -229,8 +246,8 @@ try{Object.assign(state,JSON.parse(localStorage.getItem('dk-wahl')||'{}'))}catch
 const save=()=>{try{localStorage.setItem('dk-wahl',JSON.stringify(state))}catch(e){}};
 const NOTEN=${JSON.stringify(NOTEN)};
 const fm=p=>String(p).replace('.',',');
-function top(k){const t=NOTEN[k];return t?Math.max(...Object.keys(t).map(x=>+x.replace(',','.'))):null}
-function noteFor(k,p){const t=NOTEN[k];if(!t)return null;const q=Math.floor(p*2)/2;if(q>=top(k))return '1,0';return t[fm(q)]||'6,0'}
+function topP(k){const t=NOTEN[k];return t?Math.max(...Object.keys(t).map(x=>+x.replace(',','.'))):null}
+function noteFor(k,p){const t=NOTEN[k];if(!t)return null;const q=Math.floor(p*2)/2;if(q>=topP(k))return '1,0';return t[fm(q)]||'6,0'}
 function grund(g){const sel=state.e[g.id]||[];let s=0;sel.forEach(k=>{const u=+k.split('|')[0];s+=PUNKTE(u)});return {n:sel.length,pts:sel.length?Math.round(s/MAXE):0}}
 function render(){
   $('#chips').innerHTML=DATA.map(g=>{const on=state.g.includes(g.id),dis=!on&&state.g.length>=MAXG;return '<button class="chip'+(on?' on':'')+'" style="--c:'+g.c+'" data-g="'+g.id+'" '+(dis?'disabled':'')+'>'+g.name+'</button>'}).join('');
@@ -242,7 +259,7 @@ function render(){
   const rows=state.g.map(id=>{const g=DATA.find(x=>x.id===id),gr=grund(g),z=state.z[id]||0;tot+=gr.pts+z;
     const names=(state.e[id]||[]).map(k=>{const [u,i]=k.split('|');return 'Ü'+u+': '+g.stufen[u-2].items[i]});
     return '<div class="row"><div><b style="color:'+g.c+'">'+g.name+'</b><small>'+(names.join('<br>')||'noch keine Elemente gewählt')+'</small></div><div style="text-align:right;white-space:nowrap">'+gr.pts+' + <select class="selk" data-z="'+id+'">'+[0,0.5,1,1.5,2,2.5,3].map(v=>'<option value="'+v+'" '+(v===z?'selected':'')+'>'+fm(v)+'</option>').join('')+'</select><small>Grund + Zusatz</small></div></div>'}).join('');
-  const note=noteFor(state.k,tot),mx=top(state.k),sch=mx?('Note 1,0 ab '+fm(mx)+' Punkten.'):('Für Klasse '+state.k+' gibt es keinen Dreikampf-Schlüssel.');
+  const note=noteFor(state.k,tot),mx=topP(state.k),sch=mx?('Note 1,0 ab '+fm(mx)+' Punkten.'):('Für Klasse '+state.k+' gibt es keinen Dreikampf-Schlüssel.');
   $('#sum').innerHTML='<h3>Wahlzettel</h3>'+(rows||'<div class="hint">Noch keine Disziplin gewählt.</div>')+'<div class="tot">'+fm(tot)+' Punkte</div><div class="hint" style="margin:0">von höchstens '+(state.g.length*9)+' bei Ü6 mit Zusatzpunkten</div><div class="row"><div>Klasse <select class="selk" id="kl">'+[7,8,9,10].map(k=>'<option '+(k===state.k?'selected':'')+'>'+k+'</option>').join('')+'</select><small>Notenschlüssel aus dem Reiter Karten, Rückseite. '+sch+'</small></div><div style="font-size:22px;font-weight:800">'+(note?'Note '+note:'–')+'</div></div><button class="btn" id="pw">Wahlzettel drucken</button>';
 }
 document.addEventListener('click',e=>{

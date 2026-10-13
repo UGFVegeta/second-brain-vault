@@ -21,3 +21,4 @@ Note 1,0 ab: Klasse 7 = 20 Punkte, Klasse 8 = 21, Klasse 9 = 22, Klasse 10 = 23.
 ## Offen
 - Die Kippe in den Grätschsitz (Barren Ü5) fehlt im Handbuch. Das Bild `barren-kippe.png` ist ein Ausschnitt aus dem alten Plakat und nur ein Behelf. Ein sauberes Bild im Stil der Handbuch-Zeichnungen steht aus (Gemini).
 - Ü5 Barren: Das Handbuch nennt „Zweimaliger Vor- und Rückschwung …“, das alte Plakat „Schwingen im Stütz“. Auf der Karte steht die Handbuch-Fassung, ergänzt um die Kippe.
+- Schulinterne Regel: Beim Barren Ü6 ist statt des Oberarmstands die Oberarmrolle (Rolle vorwärts über die Holme) erlaubt. Das steht nicht im BJS-Handbuch und ist auf der Karte als „Bei uns erlaubt“ gekennzeichnet.
