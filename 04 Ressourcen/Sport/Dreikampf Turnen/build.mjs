@@ -32,7 +32,7 @@ const D = {
     { items: ['Sprung in den Stütsuperscript', 'Vor- und Rückschwung', 'Vorschwung zum Außenquersitz', 'Niedersprung ' + AKTIV] },
     { items: ['Sprung in den Stütz', 'Vor- und Rückschwung in den 4-Füßlerstand vorlings', 'Vorschwung und Kehre zum Abgang'] },
     { items: ['Sprung in den Stütz', 'Vorschwung in den Grätschsitz', 'Rück-Vor-Rückschwung zur Hockwende ' + AKTIV] },
-    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'], extra: 'barren-kippe', extraLabel: 'Kippe in den Grätschsitz' },
+    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'], extra: 'barren-kippe', extraLabel: 'Kippe in den Grätschsitz (Zeichnung vom alten Plakat)' },
     { items: ['Aus dem Sitz: Oberarmstand und Abrollen vorwärts // Bei uns erlaubt: Oberarmrolle (Rolle vorwärts über die Holme) statt Oberarmstand', 'Schwungstemme in den Grätschsitz', 'Wendekehre'] },
     { items: ['Oberarmkippe', 'Schwungstemme vorwärts in den Stütz', 'Kreishockwende oder Wendekehre'] },
   ],
@@ -48,8 +48,8 @@ const D = {
     { note: 'Kasten längs (Bauchhöhe)', items: ['Weites Aufhocken', 'Strecksprung ' + AKTIV] },
     { note: 'Bock, ca. 0,90 m', items: ['Sprunggrätsche ' + AKTIV] },
     { note: 'Bock, Pferd oder Kasten, mind. 1 m', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
-    { note: 'T-Bock, Sprungtisch, Pferd oder Kasten (1,10 m)', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
-    { note: 'T-Bock, Sprungtisch, Pferd oder Kasten (1,20 m)', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
+    { note: 'Kasten quer (1,10 m), alternativ T-Bock, Sprungtisch oder Pferd', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
+    { note: 'Sprungtisch (1,20 m), alternativ T-Bock, Pferd oder Kasten', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
     { note: 'Pferd, Kasten oder Sprungtisch (1,20 m)', items: ['Handstützsprungüberschlag gestreckt oder gewinkelt ' + AKTIV] },
   ],
 };
@@ -109,7 +109,7 @@ ${noten}
 const page1 = `<div class="pagebox"><div class="page" id="p1">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Vorderseite: Boden, Reck, Barren</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
 <table class="grid">${thead(G.slice(0, 3))}<tbody>${[2, 3, 4, 5, 6].map((u, i) => `<tr>${lv(u)}${G.slice(0, 3).map((g) => cell(g, i, false)).join('')}</tr>`).join('')}</tbody></table>
-<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Die Kippe in den Grätschsitz ist aus Figuren der Ü7- und Ü4-Karte zusammengesetzt. Nur für den schulinternen Gebrauch.</footer>
+<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Die Kippe in den Grätschsitz stammt vom alten Plakat. Nur für den schulinternen Gebrauch.</footer>
 </div></div>`;
 const page2 = `<div class="pagebox"><div class="page" id="p2">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Rückseite: Balancieren, Sprung, Noten</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>

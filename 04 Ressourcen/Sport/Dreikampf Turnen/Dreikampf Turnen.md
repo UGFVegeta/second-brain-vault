@@ -19,9 +19,10 @@ Quelle: iCloud `GDRS ICloud/Schuljahr 26 27/Sport/Notenlisten/Geräteturnen/Note
 Note 1,0 ab: Klasse 7 = 20 Punkte, Klasse 8 = 21, Klasse 9 = 22, Klasse 10 = 23. Danach geht es in Halbpunkt-Schritten mit Zehntelnoten abwärts bis 0 Punkte = 6,0. Die vollständige Tabelle steht in `noten.json` und auf der Rückseite der Karte.
 
 ## Offen
-- Die Kippe in den Grätschsitz (Barren Ü5) fehlt im Handbuch. Die Bildreihe ist aus Figuren der Ü7- und Ü4-Karte zusammengesetzt (Stand am Boden, Kippen, Beine hoch, Grätschsitz). Skript `compose_kippe.py` (braucht `bauskript-material/bilder-original/barren-ue4.png` und `barren-ue7.png` im Projektordner unter `alt/bilder-original/`). KI-Versuche mit Gemini und ChatGPT haben den Ablauf nicht getroffen.
+- Die Kippe in den Grätschsitz (Barren Ü5) fehlt im Handbuch. Auf der Karte steht die Original-Zeichnung vom alten Plakat (`bilder/barren-kippe.png`, aus dem Foto freigestellt). Versuche mit Gemini, ChatGPT und einer Montage aus Handbuch-Figuren (`compose_kippe.py`) wurden verworfen.
 - Sprung Ü6: Das Handbuchbild zeigt eine Figur mit Kopftuch und wird nicht verwendet. Stattdessen steht dort das Ü5-Bild mit grünem Shirt (gleiche Bewegung).
 - Bildgrößen: Die Bilder füllen den freien Platz in der Zelle automatisch (Funktion `fit()` in `build.mjs`).
 - Ü5 Barren: Das Handbuch nennt „Zweimaliger Vor- und Rückschwung …“, das alte Plakat „Schwingen im Stütz“. Auf der Karte steht die Handbuch-Fassung, ergänzt um die Kippe.
 - Schulinterne Regel: Beim Barren Ü6 ist statt des Oberarmstands die Oberarmrolle (Rolle vorwärts über die Holme) erlaubt. Das steht nicht im BJS-Handbuch und ist auf der Karte als „Bei uns erlaubt“ gekennzeichnet.
 - Ablauf der Kippe in den Grätschsitz (Barren Ü5, nach Oskar): Der Schüler steht am Ende des Barrens zwischen den Holmen auf dem Boden, jede Hand greift einen Holm von außen. Er kippt mit engem Hüftwinkel, dann schwingen die Beine gestreckt nach oben und weiter in den Grätschsitz auf den Holmen. Bildreihe dazu steht noch aus, bis dahin das Plakat-Bild.
+- Sprung Ü5 zeigt einen Kasten quer, Sprung Ü6 einen Sprungtisch (Gerät jeweils aus den BJS-Bildern Ü2 und Ü7 in das Ü5-Bild eingesetzt, Skript `compose_sprung.py`). Das Handbuchbild zu Ü6 mit Kopftuch wird nicht verwendet.
