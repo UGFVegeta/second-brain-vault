@@ -32,7 +32,7 @@ const D = {
     { items: ['Sprung in den Stütsuperscript', 'Vor- und Rückschwung', 'Vorschwung zum Außenquersitz', 'Niedersprung ' + AKTIV] },
     { items: ['Sprung in den Stütz', 'Vor- und Rückschwung in den 4-Füßlerstand vorlings', 'Vorschwung und Kehre zum Abgang'] },
     { items: ['Sprung in den Stütz', 'Vorschwung in den Grätschsitz', 'Rück-Vor-Rückschwung zur Hockwende ' + AKTIV] },
-    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'] },
+    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'], extra: 'barren-kippe', extraLabel: 'Kippe in den Grätschsitz' },
     { items: ['Aus dem Sitz: Oberarmstand und Abrollen vorwärts // Bei uns erlaubt: Oberarmrolle (Rolle vorwärts über die Holme) statt Oberarmstand', 'Schwungstemme in den Grätschsitz', 'Wendekehre'] },
     { items: ['Oberarmkippe', 'Schwungstemme vorwärts in den Stütz', 'Kreishockwende oder Wendekehre'] },
   ],
@@ -65,7 +65,7 @@ const fig = (g, u, e) => `<div class="fig"><img src="bilder/${g.id}-ue${u}.png" 
 const cell = (g, i, wide) => {
   const u = i + 2, e = D[g.id][i];
   const note = e.note ? `<div class="note">${e.note}</div>` : wide ? '<div class="note">&nbsp;</div>' : '';
-  const list = `<ul class="${e.items.length > 4 ? 'two' : ''}">${e.items.map(li).join('')}</ul>`;
+  const list = `<ul class="${e.items.length > 4 || (wide && e.items.join('').length > 85) ? 'two' : ''}">${e.items.map(li).join('')}</ul>`;
   const kx = e.extra ? `<div class="kx2"><img src="bilder/${e.extra}.png" alt="${e.extraLabel}"><span>${e.extraLabel}</span></div>` : '';
   const low = list;
   return `<td class="c-${g.id}${wide ? ' wide' : ''}">${note}<div class="cb">${fig(g, u, e)}${kx}${low}</div></td>`;
@@ -109,7 +109,7 @@ ${noten}
 const page1 = `<div class="pagebox"><div class="page" id="p1">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Vorderseite: Boden, Reck, Barren</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
 <table class="grid">${thead(G.slice(0, 3))}<tbody>${[2, 3, 4, 5, 6].map((u, i) => `<tr>${lv(u)}${G.slice(0, 3).map((g) => cell(g, i, false)).join('')}</tr>`).join('')}</tbody></table>
-<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Nur für den schulinternen Gebrauch.</footer>
+<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Die Kippe in den Grätschsitz ist aus Figuren der Ü7- und Ü4-Karte zusammengesetzt. Nur für den schulinternen Gebrauch.</footer>
 </div></div>`;
 const page2 = `<div class="pagebox"><div class="page" id="p2">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Rückseite: Balancieren, Sprung, Noten</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
@@ -162,17 +162,13 @@ ${G.map((g) => `.c-${g.id}{background:${g.t}}`).join('')}
 .low{display:flex;gap:10px;align-items:flex-start}
 .low ul{flex:1}
 .kx2{margin-top:4px;background:#fffdf7;border-radius:6px;padding:3px 4px;text-align:center}
-.kx2 img{display:block;margin:0 auto;max-width:100%;max-height:58px;width:auto;height:auto}
+.kx2 img{display:block;margin:0 auto;max-width:100%;max-height:84px;width:auto;height:auto}
 .kx2 span{display:block;font-size:10px;color:var(--mute);font-style:italic;line-height:1.2}
 ul{margin:5px 0 0;padding:0 0 0 16px;font-size:13.5px;line-height:1.25}
 ul.two{columns:2;column-gap:16px}
 li{margin-bottom:1px;break-inside:avoid}
 u{text-decoration:underline;font-weight:700}
 em.sub{display:block;font-size:11.5px;color:#4a5568;font-style:italic;margin-top:1px}
-td.wide .cb{display:flex;gap:14px;align-items:center}
-td.wide .fig{flex:0 0 60%}
-td.wide .fig img{max-height:150px}
-td.wide ul{margin:0;flex:1;font-size:14px}
 td.panel{width:400px;background:#f6f7fa;padding:14px 16px!important;vertical-align:top!important;border-top:0!important}
 td.panel h3{margin:0 0 8px;font-size:17px}
 td.panel ol{margin:0 0 12px;padding-left:20px;font-size:13.5px;line-height:1.35}
@@ -282,6 +278,29 @@ let t0='karten';try{t0=localStorage.getItem('dk-tab')||'karten'}catch(e){}
 if(location.hash==='#wahl')t0='wahl';
 if(location.hash==='#demo'){t0='wahl';state.g=['boden','reck','barren'];state.e={boden:['4|0','4|2','5|1'],reck:['3|0','3|2'],barren:['5|1','4|1','3|2']};state.z={boden:2,reck:1,barren:3};state.k=8}
 render();tab(t0);
+
+function fit(){
+  const root=document.documentElement,z0=root.style.getPropertyValue('--z');
+  root.style.setProperty('--z',1);
+  document.querySelectorAll('table.grid').forEach(tbl=>{
+    const rows=[...tbl.tBodies[0].rows];
+    rows.forEach(r=>r.style.height='');
+    tbl.querySelectorAll('.fig img').forEach(im=>im.style.maxHeight='36px');
+    const stretched=()=>{tbl.style.flex='';return tbl.offsetHeight};
+    tbl.style.flex='none';
+    const nat=tbl.offsetHeight, n=rows.map(r=>r.offsetHeight);
+    const T=stretched(), E=Math.max(0,T-nat);
+    rows.forEach((r,i)=>r.style.height=(n[i]+E/rows.length)+'px');
+    [...tbl.querySelectorAll('td:not(.panel)')].forEach(td=>{
+      const im=td.querySelector('.fig img');if(!im)return;
+      let used=0;[...td.children].forEach(c=>used+=c.offsetHeight);
+      const free=td.clientHeight-8-used-8;
+      im.style.maxHeight=Math.max(36,im.offsetHeight+free)+'px';});
+  });
+  if(z0)root.style.setProperty('--z',z0);
+}
+addEventListener('load',fit);addEventListener('beforeprint',fit);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
 `;
 
 const html = `<!doctype html>
