@@ -98,15 +98,25 @@ NR3 = [("−25 + 30", 0), ("25 − 38", 1), ("9 − 15", 1), ("−1,5 − 2,4", 
        ("6 · (−7)", 1), ("−3,75 · (−2,98)", 0), ("−35 : (−7)", 0), ("−111 : 3", 1)]
 
 
+def hilfsfeld():
+    """Karofeld direkt nach dem Kopf: Platz für einen oder zwei selbst gezeichnete Zahlenstrahlen als Hilfe (ca. 8 cm hoch)."""
+    return ('<div class="hilfe"><span>Platz für deine Zahlenstrahlen</span></div>'
+            '<div class="karo" style="height:80mm;flex:none"></div>')
+
+
 def seite1(l):
     nr2 = "".join(f'<span class="vg">{"abcdef"[i]}) &nbsp;{a} {box(z, l)} {b}</span>' for i, (a, b, z) in enumerate(NR2))
+    return (kopf(l) + hilfsfeld()
+            + balken(1, 3, "Benenne die markierten Zahlen A bis F." + (' <span class="pkt">(je ½ P)</span>' if l else "")) + zahlenstrahl(l)
+            + balken(2, 6, "Setze &lt;, &gt; oder = ein." + (' <span class="pkt">(je 1 P)</span>' if l else "")) + f'<div class="vgl">{nr2}</div>')
+
+
+def nr3_block(l):
+    """Nr. 3 steht seit dem Hilfsfeld auf Seite 2."""
     nr3 = ('<table class="pn"><tr><th>Aufgabe</th><th>Positiv</th><th>Negativ</th></tr>'
            + "".join(f'<tr><td>{a}</td><td class="x">{"✗" if l and n == 0 else ""}</td><td class="x">{"✗" if l and n == 1 else ""}</td></tr>' for a, n in NR3)
            + "</table>")
-    return (kopf(l)
-            + balken(1, 3, "Benenne die markierten Zahlen A bis F." + (' <span class="pkt">(je ½ P)</span>' if l else "")) + zahlenstrahl(l)
-            + balken(2, 6, "Setze &lt;, &gt; oder = ein." + (' <span class="pkt">(je 1 P)</span>' if l else "")) + f'<div class="vgl">{nr2}</div>'
-            + balken(3, 4, "Ist das Ergebnis positiv oder negativ? Kreuze an." + (' <span class="pkt">(je ½ P)</span>' if l else "")) + nr3)
+    return balken(3, 4, "Ist das Ergebnis positiv oder negativ? Kreuze an." + (' <span class="pkt">(je ½ P)</span>' if l else "")) + nr3
 
 
 # ---------------------------------------------------------------- Seite 2
@@ -126,7 +136,7 @@ def loesliste(paare):
 
 
 def seite2(l):
-    return (balken(4, 8, "Berechne. Schreibe jede Aufgabe ab und rechne darunter." + (' <span class="pkt">(je 1 P)</span>' if l else ""))
+    return (nr3_block(l) + balken(4, 8, "Berechne. Schreibe jede Aufgabe ab und rechne darunter." + (' <span class="pkt">(je 1 P)</span>' if l else ""))
             + liste([a for a, _ in NR4]) + karo(None, loesliste(NR4), l))
 
 
@@ -186,6 +196,8 @@ body{margin:0;background:#d9dde3;font-family:Arial,"Liberation Sans",Helvetica,s
 .wolke{position:absolute;right:0;top:-2mm;width:30mm}
 .loesmark{position:absolute;top:5mm;left:14mm;color:#E6007E;font-weight:700;margin:0;font-size:10pt}
 .hinweis{border:.6pt solid #9a9a9a;padding:2mm 3mm;font-weight:700;font-size:12pt;margin-bottom:4mm}
+.hilfe{border:.6pt solid #9a9a9a;border-bottom:0;padding:1.2mm 3mm;font-size:11pt;font-weight:700;background:#e9e9e9}
+.hilfe+.karo{margin-bottom:4mm}
 .balken{display:flex;justify-content:space-between;border:.6pt solid #9a9a9a;padding:1.8mm 3mm;margin:4mm 0 2mm;font-size:12.5pt}
 .balken .pk{font-weight:700}
 .anw{margin:1mm 0 2mm;font-size:12.5pt;line-height:1.4}
@@ -202,7 +214,7 @@ body{margin:0;background:#d9dde3;font-family:Arial,"Liberation Sans",Helvetica,s
 .br span:first-child{border-bottom:1.2px solid currentColor;padding:0 .15em}
 .pn{align-self:flex-start;border-collapse:collapse;font-size:14.5pt;margin:2mm 0 0 8mm}
 .pn th{background:#c8c8c8;border:.6pt solid #555;padding:1.6mm 4mm;text-align:left}
-.pn td{border:.6pt solid #555;padding:0 4mm;height:9.4mm;min-width:66mm}
+.pn td{border:.6pt solid #555;padding:0 4mm;height:8.4mm;min-width:66mm}
 .pn td.x{min-width:24mm;text-align:center;color:#E6007E;font-weight:700;font-size:15pt}
 .liste{display:grid;grid-template-columns:repeat(2,1fr);row-gap:3.5mm;font-size:15.5pt;margin:2mm 0 3mm;white-space:nowrap}
 .liste.eins{grid-template-columns:1fr}
