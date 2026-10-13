@@ -9,7 +9,7 @@ tags: [ressource, sport, turnen, dreikampf]
 ## Dateien in diesem Ordner
 - `dreikampf-turnen.html`: die Seite mit zwei Reitern. Reiter „Karten“ (Vorder- und Rückseite, A4 quer, zum Laminieren) und Reiter „Wahlübungen“ (Vorschlag: Elemente selbst wählen, Wahlzettel mit Punkten und Note). Braucht den Ordner `bilder/` daneben.
 - `dreikampf-turnen-vorder-rueckseite.pdf`: die zwei Kartenseiten als PDF.
-- `bilder/`: Bildreihen je Gerät und Stufe (`boden-ue2.png` bis `sprung-ue7.png`, Ü7 nur im Wahl-Reiter) und `barren-kippe.png`. Die Bilder sind aus dem BJS-Handbuch mit nachgezogener Kontur (Schwarz-Weiß-Druck).
+- `bilder/`: Bildreihen je Gerät und Stufe (`boden-ue2.png` bis `sprung-ue7.png`, Ü7 nur im Wahl-Reiter) Die Bilder sind aus dem BJS-Handbuch mit nachgezogener Kontur (Schwarz-Weiß-Druck).
 - `build.mjs` baut die HTML aus den Übungsdaten, `noten.json` ist der Notenschlüssel. Neu bauen: im Ordner `node build.mjs` ausführen. Die Übungen und Texte stehen oben im Skript (Objekt `D`).
 - `Quelle/`: BJS-Handbuch Gerätturnen (Auszug, Stand 04/26) als PDF, aus dem Übungen und Bilder stammen.
 
@@ -19,6 +19,7 @@ Quelle: iCloud `GDRS ICloud/Schuljahr 26 27/Sport/Notenlisten/Geräteturnen/Note
 Note 1,0 ab: Klasse 7 = 20 Punkte, Klasse 8 = 21, Klasse 9 = 22, Klasse 10 = 23. Danach geht es in Halbpunkt-Schritten mit Zehntelnoten abwärts bis 0 Punkte = 6,0. Die vollständige Tabelle steht in `noten.json` und auf der Rückseite der Karte.
 
 ## Offen
-- Die Kippe in den Grätschsitz (Barren Ü5) fehlt im Handbuch. Das Bild `barren-kippe.png` ist ein Ausschnitt aus dem alten Plakat und nur ein Behelf. Ein sauberes Bild im Stil der Handbuch-Zeichnungen steht aus (Gemini).
+- Die Kippe in den Grätschsitz (Barren Ü5) fehlt im Handbuch und steht auf der Karte nur als Text, ohne Bild. Eine passende Bildreihe steht aus (Test mit ChatGPT). Bewegungsvorlage: `Stilvorlagen/bewegungsvorlage-kippe-plakat.png`. Das neue Bild soll als `bilder/barren-kippe.png` abgelegt und im Skript `build.mjs` (Barren Ü5, `extra: 'barren-kippe'`) wieder eingebunden werden.
 - Ü5 Barren: Das Handbuch nennt „Zweimaliger Vor- und Rückschwung …“, das alte Plakat „Schwingen im Stütz“. Auf der Karte steht die Handbuch-Fassung, ergänzt um die Kippe.
 - Schulinterne Regel: Beim Barren Ü6 ist statt des Oberarmstands die Oberarmrolle (Rolle vorwärts über die Holme) erlaubt. Das steht nicht im BJS-Handbuch und ist auf der Karte als „Bei uns erlaubt“ gekennzeichnet.
+- Ablauf der Kippe in den Grätschsitz (Barren Ü5, nach Oskar): Der Schüler steht am Ende des Barrens zwischen den Holmen auf dem Boden, jede Hand greift einen Holm von außen. Er kippt mit engem Hüftwinkel, dann schwingen die Beine gestreckt nach oben und weiter in den Grätschsitz auf den Holmen. Bildreihe dazu steht noch aus, bis dahin das Plakat-Bild.

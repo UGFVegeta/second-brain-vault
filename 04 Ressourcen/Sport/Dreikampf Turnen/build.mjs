@@ -32,7 +32,7 @@ const D = {
     { items: ['Sprung in den Stütsuperscript', 'Vor- und Rückschwung', 'Vorschwung zum Außenquersitz', 'Niedersprung ' + AKTIV] },
     { items: ['Sprung in den Stütz', 'Vor- und Rückschwung in den 4-Füßlerstand vorlings', 'Vorschwung und Kehre zum Abgang'] },
     { items: ['Sprung in den Stütz', 'Vorschwung in den Grätschsitz', 'Rück-Vor-Rückschwung zur Hockwende ' + AKTIV] },
-    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'], extra: 'barren-kippe', extraLabel: 'Kippe in den Grätschsitz (Oberarmkippe)' },
+    { items: ['Sprung in den Stütz', 'Kippe in den Grätschsitz', 'Zweimaliger Vor- und Rückschwung mit Öffnen und Schließen der Beine vorne', 'Hohe Wende'] },
     { items: ['Aus dem Sitz: Oberarmstand und Abrollen vorwärts // Bei uns erlaubt: Oberarmrolle (Rolle vorwärts über die Holme) statt Oberarmstand', 'Schwungstemme in den Grätschsitz', 'Wendekehre'] },
     { items: ['Oberarmkippe', 'Schwungstemme vorwärts in den Stütz', 'Kreishockwende oder Wendekehre'] },
   ],
@@ -64,11 +64,11 @@ const li = (t) => {
 const fig = (g, u, e) => `<div class="fig"><img src="bilder/${g.id}-ue${u}.png" alt="Bildreihe ${g.name} Ü${u}"></div>`;
 const cell = (g, i, wide) => {
   const u = i + 2, e = D[g.id][i];
-  const note = `<div class="note">${e.note || '&nbsp;'}</div>`;
+  const note = e.note ? `<div class="note">${e.note}</div>` : wide ? '<div class="note">&nbsp;</div>' : '';
   const list = `<ul class="${e.items.length > 4 ? 'two' : ''}">${e.items.map(li).join('')}</ul>`;
-  const kx = e.extra ? `<div class="kx"><img src="bilder/${e.extra}.png" alt="${e.extraLabel}"><span>${e.extraLabel}</span></div>` : '';
-  const low = e.extra ? `<div class="low">${list}${kx}</div>` : list;
-  return `<td class="c-${g.id}${wide ? ' wide' : ''}">${note}<div class="cb">${fig(g, u, e)}${low}</div></td>`;
+  const kx = e.extra ? `<div class="kx2"><img src="bilder/${e.extra}.png" alt="${e.extraLabel}"><span>${e.extraLabel}</span></div>` : '';
+  const low = list;
+  return `<td class="c-${g.id}${wide ? ' wide' : ''}">${note}<div class="cb">${fig(g, u, e)}${kx}${low}</div></td>`;
 };
 const lv = (u) => `<th class="lv"><span class="u">Ü${u}</span><span class="p">${u} Punkte</span><span class="z">+ bis zu 3 Zusatzpunkte</span><span class="m">max. ${u + 3}</span></th>`;
 const thead = (gs, extra = '') => `<thead><tr><th class="h0">Übung</th>${gs.map((x) => `<th style="background:${x.c}">${x.name}</th>`).join('')}${extra}</tr></thead>`;
@@ -109,7 +109,7 @@ ${noten}
 const page1 = `<div class="pagebox"><div class="page" id="p1">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Vorderseite: Boden, Reck, Barren</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
 <table class="grid">${thead(G.slice(0, 3))}<tbody>${[2, 3, 4, 5, 6].map((u, i) => `<tr>${lv(u)}${G.slice(0, 3).map((g) => cell(g, i, false)).join('')}</tr>`).join('')}</tbody></table>
-<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Die Kippe in den Grätschsitz ist aus Figuren der Ü7- und Ü4-Karte zusammengesetzt. Nur für den schulinternen Gebrauch.</footer>
+<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Nur für den schulinternen Gebrauch.</footer>
 </div></div>`;
 const page2 = `<div class="pagebox"><div class="page" id="p2">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Rückseite: Balancieren, Sprung, Noten</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
@@ -137,7 +137,7 @@ body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
 section{padding:16px 0 40px}
 /* ---------- Karten ---------- */
 .page{width:1500px;height:1048px;margin:0 auto 22px;background:#fff;padding:18px 20px 10px;display:flex;flex-direction:column;zoom:var(--z,1)}
-header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:10px}
+header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:6px}
 h1{margin:0;font-size:27px;letter-spacing:-.01em}
 h1 small{display:block;font-size:13px;font-weight:500;color:var(--mute);margin-top:3px}
 .rules{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
@@ -158,12 +158,12 @@ th.lv span{display:block}
 ${G.map((g) => `.c-${g.id}{background:${g.t}}`).join('')}
 .note{font-size:11px;color:var(--mute);font-style:italic;height:14px;line-height:14px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fig{background:#fffdf7;border-radius:6px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.fig img{display:block;max-width:100%;max-height:80px;width:auto;height:auto}
+.fig img{display:block;max-width:100%;max-height:75px;width:auto;height:auto}
 .low{display:flex;gap:10px;align-items:flex-start}
 .low ul{flex:1}
-.kx{flex:0 0 150px;margin-top:6px;background:#fffdf7;border-radius:6px;padding:3px;text-align:center}
-.kx img{display:block;width:100%;height:auto}
-.kx span{display:block;font-size:9px;color:var(--mute);font-style:italic;line-height:1.15}
+.kx2{margin-top:4px;background:#fffdf7;border-radius:6px;padding:3px 4px;text-align:center}
+.kx2 img{display:block;margin:0 auto;max-width:100%;max-height:58px;width:auto;height:auto}
+.kx2 span{display:block;font-size:10px;color:var(--mute);font-style:italic;line-height:1.2}
 ul{margin:5px 0 0;padding:0 0 0 16px;font-size:13.5px;line-height:1.25}
 ul.two{columns:2;column-gap:16px}
 li{margin-bottom:1px;break-inside:avoid}
@@ -179,7 +179,7 @@ td.panel ol{margin:0 0 12px;padding-left:20px;font-size:13.5px;line-height:1.35}
 td.panel li{margin-bottom:4px}
 .hint{font-size:12px;color:var(--mute);margin:2px 0 8px}
 table.pn{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;background:#fff;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
-table.pn th,table.pn td{text-align:center;padding:0;height:16px;line-height:16px;border-bottom:1px solid rgba(27,36,51,.18);border-left:1px solid rgba(27,36,51,.18)}
+table.pn th,table.pn td{text-align:center;padding:0;height:15.2px;line-height:15px;border-bottom:1px solid rgba(27,36,51,.18);border-left:1px solid rgba(27,36,51,.18)}
 table.pn thead th{background:var(--ink);color:#fff;font-size:12px;border-left:1px solid #fff;height:20px}
 table.pn tbody th{background:#eceff5;border-left:0;font-weight:800}
 table.pn tr.half th{font-weight:500;color:var(--mute);background:#f6f7fa}
