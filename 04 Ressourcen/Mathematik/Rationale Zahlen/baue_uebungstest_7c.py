@@ -12,6 +12,9 @@ from baue_ka1_7c import br
 HIER = Path(__file__).parent
 ZIEL = HIER / "Mathe 7c – Übungstest Rationale Zahlen.html"
 GESAMT = 18
+TITEL = "Übungstest Rationale Zahlen"       # der zweite Test (baue_uebungstest2_7c.py) überschreibt Titel und Nr. 4
+ANW4 = "Berechne. Bei b) zuerst die Minusklammer auflösen."
+BEW4 = "a) 1 P, b) 2 P"
 
 
 def m(x):
@@ -89,7 +92,7 @@ def balken(nr, stufe, punkte, text, l, bew=""):
 
 def kopf(g, l):
     return (f'<div class="kopfwrap"><table class="kopf">'
-            f'<tr><td colspan="2" class="titel"><u>Übungstest Rationale Zahlen</u>, Gruppe {g}</td><td class="kl">Klasse 7c</td></tr>'
+            f'<tr><td colspan="2" class="titel"><u>{TITEL}</u>, Gruppe {g}</td><td class="kl">Klasse 7c</td></tr>'
             '<tr><td class="n">Name:</td><td colspan="2" class="n">Datum:</td></tr>'
             f'<tr><td class="n">Punkte: <span class="pp">/ {GESAMT} Punkte</span></td><td class="n">Note:</td><td class="n">Ø</td></tr>'
             f'</table>{ka.WOLKE}</div>'
@@ -112,7 +115,7 @@ def seite(g, l):
             + balken(1, 0, 2, "Setze &lt;, &gt; oder = ein.", l, "je ½ P") + f'<div class="vgl2">{vgl}</div>'
             + balken(2, 1, 5, "Berechne.", l, "je 1 P") + reihe(ADD[g])
             + balken(3, 1, 5, "Berechne.", l, "je 1 P") + reihe(MAL[g])
-            + balken(4, 2, 3, "Berechne. Bei b) zuerst die Minusklammer auflösen.", l, "a) 1 P, b) 2 P") + mehr
+            + balken(4, 2, 3, ANW4, l, BEW4) + mehr
             + balken(5, 1, 3, text, l, "je 1,5 P") + sach
             + f'<div class="legende">{ue.KREIS[0]} leicht &nbsp;&nbsp; {ue.KREIS[1]} mittel &nbsp;&nbsp; {ue.KREIS[2]} schwer</div>'
             + f'<div class="legende leg2"><b>Ich?</b> So habe ich mich gefühlt:<span class="le">{smiley("sicher")} sicher</span><span class="le">{smiley("so")} ging so</span><span class="le">{smiley("unsicher")} unsicher</span></div>')
