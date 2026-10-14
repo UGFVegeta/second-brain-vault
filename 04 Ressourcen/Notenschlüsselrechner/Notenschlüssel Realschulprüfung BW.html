@@ -57,6 +57,15 @@
   .foot b{color:var(--accent-dark)}
   @media (max-width:680px){body{padding:14px}.raster{grid-template-columns:repeat(auto-fit,minmax(74px,1fr))}}
   @media print{body{background:#fff;padding:0}.card,.banner{box-shadow:none;break-inside:avoid}button{display:none}}
+  /* Druck/PDF: nur der Kopf und "Alle Noten auf einen Blick" */
+  @page{size:A4;margin:14mm}
+  @media print{
+    .wrap>*:not(.banner):not(.titlebar):not(h1):not(:has(#rasterBody)){display:none!important}
+    .wrap{max-width:none}
+    .card{border:none;padding:0}
+    .raster{grid-template-columns:repeat(4,1fr)}
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
 </style>
 </head>
 <body>
@@ -103,7 +112,8 @@
   </div>
 
   <div class="btnrow">
-    <button class="primary" onclick="window.print()">🖨️ Drucken / als PDF</button>
+    <button class="primary" onclick="exportPDF()">📄 Als PDF speichern</button>
+    <button onclick="window.print()">🖨️ Drucken</button>
     <button onclick="exportCSV()">⬇️ Tabelle als CSV</button>
   </div>
   <p class="note">Amtliche Berechnung: <code>Note = 1 + 5 × (Max − P) / Max</code>, anschließend auf die nächste Zehntelnote <b>abgerundet</b> (zugunsten der Schüler), begrenzt auf 1,0–6,0. Geprüft gegen die amtliche Tabelle Mathematik 2026 (50 Punkte).</p>
@@ -185,6 +195,43 @@ function updateLookup(max){
   const exact = Math.max(1,Math.min(6, 1+5*(max-v)/max));
   const pct = (v/max*100).toFixed(1);
   $('lookupExact').textContent = fmtP(v)+' von '+fmtP(max)+' Punkten ('+pct+' %) → rechnerisch '+exact.toFixed(2)+', amtlich abgerundet auf '+fmtG(g)+'.';
+}
+
+function exportPDF(){
+  // Direkter PDF-Download: nur Titel und "Alle Noten auf einen Blick", ohne Druckdialog, komplett offline.
+  const rows=[]; document.querySelectorAll('#rasterBody table.ov tbody tr').forEach(tr=>{
+    const td=tr.querySelectorAll('td'); rows.push([td[0].textContent.trim(), td[1].textContent.trim()]); });
+  if(!rows.length) return;
+  const h1=document.querySelector('h1').textContent.replace(/\s+/g,' ').trim();
+  const mp=document.getElementById('maxPoints'); 
+  const sub='Alle Noten auf einen Blick'+(mp&&mp.value?'  |  Maximale Punktzahl: '+mp.value.replace('.',','):'');
+  const clean=s=>String(s).replace(/[–—−]/g,'-').replace(/[^\x20-\xFF]/g,'-').replace(/([\\()])/g,'\\$1');
+  const perCol=30, cols=Math.ceil(rows.length/perCol), colW=cols>1?230:300, rowH=cols>1?20:24;
+  const x0=cols>1?(595-cols*colW-(cols-1)*20)/2:(595-colW)/2;
+  let c='';
+  const T=(x,y,size,bold,txt)=>{c+=`BT /${bold?'F2':'F1'} ${size} Tf ${x.toFixed(1)} ${y.toFixed(1)} Td (${clean(txt)}) Tj ET\n`;};
+  T(50,780,20,true,h1); T(50,760,11,false,sub);
+  for(let ci=0;ci<cols;ci++){
+    const x=x0+ci*(colW+20), chunk=rows.slice(ci*perCol,(ci+1)*perCol); let y=715;
+    c+=`0.89 0.91 0.94 rg ${x} ${y-6} ${colW} ${rowH} re f 0 g\n`;
+    T(x+12,y,10,true,'Punkte'); T(x+colW-70,y,10,true,'Note'); y-=rowH;
+    chunk.forEach((r,i)=>{
+      if(i%2===0) c+=`0.96 0.96 0.97 rg ${x} ${y-6} ${colW} ${rowH} re f 0 g\n`;
+      T(x+12,y,12,false,r[0]); T(x+colW-70,y,12,true,r[1]); y-=rowH; });
+  }
+  const objs=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>',
+    `<< /Length ${c.length} >>\nstream\n${c}endstream`];
+  let pdf='%PDF-1.4\n', off=[];
+  objs.forEach((o,i)=>{ off.push(pdf.length); pdf+=`${i+1} 0 obj\n${o}\nendobj\n`; });
+  const xr=pdf.length;
+  pdf+=`xref\n0 ${objs.length+1}\n0000000000 65535 f \n`+off.map(o=>String(o).padStart(10,'0')+' 00000 n \n').join('')+
+       `trailer\n<< /Size ${objs.length+1} /Root 1 0 R >>\nstartxref\n${xr}\n%%EOF`;
+  const bytes=new Uint8Array(pdf.length); for(let i=0;i<pdf.length;i++) bytes[i]=pdf.charCodeAt(i)&255;
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));
+  a.download='Notenschluessel.pdf'; a.click();
 }
 
 function exportCSV(){
