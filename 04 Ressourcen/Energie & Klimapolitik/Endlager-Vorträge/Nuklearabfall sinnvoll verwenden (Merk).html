@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuklearabfall sinnvoll verwenden</title>
+<style>
+:root{
+  --bg:#f6f5f1; --panel:#ffffff; --ink:#1c1f23; --muted:#5d646c; --line:#dcd9d0;
+  --accent:#0b5d7a; --accent-ink:#ffffff; --accent-soft:#dcedf3;
+  --ok:#1d7a46; --ok-soft:#dff1e6; --bad:#a63232; --bad-soft:#f6e0e0; --warn:#8a5a00; --warn-soft:#f8ecd1;
+  --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171a; --panel:#1d2227; --ink:#e9e7e1; --muted:#9aa3ab; --line:#333b42;
+    --accent:#6cc3e0; --accent-ink:#0c1a20; --accent-soft:#1d3a46;
+    --ok:#6fd49a; --ok-soft:#183a28; --bad:#f08a8a; --bad-soft:#3d1f1f; --warn:#e8bc62; --warn-soft:#3a2f14;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171a; --panel:#1d2227; --ink:#e9e7e1; --muted:#9aa3ab; --line:#333b42;
+  --accent:#6cc3e0; --accent-ink:#0c1a20; --accent-soft:#1d3a46;
+  --ok:#6fd49a; --ok-soft:#183a28; --bad:#f08a8a; --bad-soft:#3d1f1f; --warn:#e8bc62; --warn-soft:#3a2f14;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+header.hero{padding:44px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+h1{font-size:clamp(26px,4.4vw,40px);line-height:1.15;margin:0 0 14px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 18px;max-width:70ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn:focus-visible,.tab:focus-visible,summary:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+nav.tabs{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:0}
+.tab{background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.theme{margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;color:var(--muted);padding:4px 10px;cursor:pointer;font:inherit;font-size:13px;align-self:center}
+main{padding:28px 0 80px}
+section.pane{display:none}
+section.pane.active{display:block}
+h2{font-size:24px;margin:0 0 6px;letter-spacing:-.01em}
+h3{font-size:18px;margin:26px 0 8px}
+.lead{color:var(--muted);margin:0 0 20px;max-width:75ch}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.card h4{margin:0 0 6px;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.kpi .v{font-size:28px;font-weight:700;color:var(--accent);line-height:1.1;margin-bottom:6px}
+.kpi .l{font-size:14px;color:var(--muted)}
+ol.tldr{padding-left:22px;margin:0}
+ol.tldr li{margin-bottom:10px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center}
+input[type=search]{flex:1;min-width:220px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit}
+details.ch{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;box-shadow:var(--shadow)}
+details.ch>summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;gap:14px;align-items:baseline}
+details.ch>summary::-webkit-details-marker{display:none}
+details.ch>summary::after{content:"+";margin-left:auto;color:var(--muted);font-size:22px;line-height:1}
+details.ch[open]>summary::after{content:"\2212"}
+.ts{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);min-width:48px}
+.ct{font-weight:600}
+.cbody{padding:0 18px 16px 80px}
+.cbody p{margin:0 0 10px}
+.cbody ul{margin:0 0 10px;padding-left:20px}
+.cbody li{margin-bottom:5px}
+.cbody a.jump{font-size:14px}
+.tag{font-size:12px;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:2px 8px;font-weight:600;margin-left:8px}
+@media (max-width:620px){.cbody{padding-left:18px}}
+dl.gl{margin:0}
+.gl .item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px}
+.gl dt{font-weight:700;margin-bottom:2px}
+.gl dd{margin:0;color:var(--muted)}
+.hidden{display:none!important}
+/* interaktiv */
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:22px;box-shadow:var(--shadow)}
+.box h3{margin-top:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pill{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.out{background:var(--accent-soft);border-radius:10px;padding:12px 14px;min-height:60px}
+.out strong{display:block;margin-bottom:4px}
+.bar{height:34px;border-radius:8px;overflow:hidden;display:flex;background:var(--line);margin:10px 0 6px}
+.bar span{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;transition:width .4s}
+.seg-a{background:#0b5d7a}.seg-b{background:#8a8f94}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.two{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.flip{perspective:900px}
+.status{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:10px;margin-bottom:8px;border:1px solid var(--line)}
+.status b{min-width:84px}
+.status.ok{background:var(--ok-soft)}.status.no{background:var(--bad-soft)}.status.unk{background:var(--warn-soft)}
+.step{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.dot{width:28px;height:28px;border-radius:50%;background:var(--line);display:inline-grid;place-items:center;font-size:13px;font-weight:700}
+.dot.on{background:var(--accent);color:var(--accent-ink)}
+table.cmp{width:100%;border-collapse:collapse;font-size:15px}
+table.cmp th,table.cmp td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp th{color:var(--muted);font-weight:600}
+/* quiz */
+.q{margin-bottom:18px}
+.q p.qt{font-weight:600;margin:0 0 8px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:6px;font:inherit;color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.why{margin:6px 0 0;padding:8px 12px;border-radius:8px;background:var(--accent-soft);font-size:15px}
+.score{font-weight:700;font-size:18px}
+.note{background:var(--warn-soft);border:1px solid var(--warn);border-radius:10px;padding:12px 16px;margin-bottom:14px}
+.note b{color:var(--warn)}
+@media print{nav.tabs,.tools,.theme{display:none}section.pane{display:block!important;break-inside:avoid}details.ch{break-inside:avoid}details.ch>*{display:block}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <p class="eyebrow" id="eyebrow"></p>
+  <h1 id="title"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="chips" id="chips"></div>
+  <a class="btn" id="yt" target="_blank" rel="noopener">Video auf YouTube öffnen</a>
+</div></header>
+
+<nav class="tabs" aria-label="Bereiche"><div class="wrap" role="tablist" id="tabs">
+  <button class="tab" role="tab" data-p="ueberblick">Überblick</button>
+  <button class="tab" role="tab" data-p="zeit">Zeitleiste</button>
+  <button class="tab" role="tab" data-p="interaktiv">Interaktiv</button>
+  <button class="tab" role="tab" data-p="begriffe">Begriffe</button>
+  <button class="tab" role="tab" data-p="quiz">Quiz</button>
+  <button class="tab" role="tab" data-p="einordnung">Einordnung</button>
+  <button class="theme" id="theme" type="button">Hell / Dunkel</button>
+</div></nav>
+
+<main><div class="wrap">
+
+<section class="pane" id="p-ueberblick">
+  <h2>Überblick</h2>
+  <p class="lead" id="lead"></p>
+  <h3>Kernaussagen</h3>
+  <div class="card"><ol class="tldr" id="tldr"></ol></div>
+  <h3>Zahlen aus dem Vortrag</h3>
+  <div class="grid" id="kpis"></div>
+  <h3>Aufbau des Videos</h3>
+  <div class="grid" id="parts"></div>
+</section>
+
+<section class="pane" id="p-zeit">
+  <h2>Zeitleiste mit allen Abschnitten</h2>
+  <p class="lead">Jeder Abschnitt lässt sich aufklappen. Der Zeitstempel springt an die Stelle im Video.</p>
+  <div class="tools">
+    <input type="search" id="q" placeholder="Abschnitte durchsuchen, zum Beispiel: Castor, Gesetz, Reaktor" aria-label="Abschnitte durchsuchen">
+    <button class="btn ghost" id="openAll" type="button">Alle aufklappen</button>
+    <button class="btn ghost" id="closeAll" type="button">Alle zuklappen</button>
+  </div>
+  <div id="chapters"></div>
+  <p id="none" class="hidden lead">Kein Abschnitt passt zur Suche.</p>
+</section>
+
+<section class="pane" id="p-interaktiv">
+  <h2>Interaktiv ausprobieren</h2>
+  <p class="lead" id="ilead"></p>
+  
+<div class="box">
+  <h3>1. Zeithorizont: Was dominiert wann?</h3>
+  <p class="lead" style="margin-bottom:6px">Regler bewegen, um zu sehen, wie die P&amp;T-Sicht und die Lagersicht unterschiedlich argumentieren.</p>
+  <input type="range" id="horizon" min="0" max="3" step="1" value="1" aria-label="Zeithorizont">
+  <div class="row" id="hz" aria-hidden="true"></div>
+  <div class="out" id="hzOut" aria-live="polite"></div>
+</div>
+
+<div class="box">
+  <h3>2. Wie viel Uran wird genutzt?</h3>
+  <p class="lead" style="margin-bottom:6px">Heute etwa 1 Prozent. Merks Ziel ist Faktor 100. Der Regler zeigt die einfache Rechnung.</p>
+  <input type="range" id="uran" min="1" max="100" value="1" aria-label="Genutzter Uran-Anteil in Prozent">
+  <div class="bar"><span class="seg-a" id="ua" style="width:1%"></span><span class="seg-b" id="ub" style="width:99%">99 % bleibt ungenutzt</span></div>
+  <div class="out" id="uOut" aria-live="polite"></div>
+</div>
+
+<div class="box">
+  <h3>3. Klassischer Kreislauf gegen integrierten Reaktor</h3>
+  <div class="row"><button class="pill" id="mode1" type="button" aria-pressed="true">Klassisch (P&amp;T bisher)</button><button class="pill" id="mode2" type="button" aria-pressed="false">Merks Konzept</button></div>
+  <table class="cmp" id="cmp"><thead><tr><th>Thema</th><th id="cmpH">Klassisch</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div class="box">
+  <h3>4. Stufenplan bis zur Industrieanlage</h3>
+  <div class="step" id="sd"></div>
+  <div class="out" id="sOut" style="margin-top:12px" aria-live="polite"></div>
+</div>
+
+<div class="box">
+  <h3>5. Was wird erwartet?</h3>
+  <div class="row"><button class="pill" data-who="all" aria-pressed="true" type="button">Alle</button><button class="pill" data-who="ind" aria-pressed="false" type="button">Industrie</button><button class="pill" data-who="soc" aria-pressed="false" type="button">Gesellschaft</button></div>
+  <div class="two" id="exp"></div>
+</div>
+
+</section>
+
+<section class="pane" id="p-begriffe">
+  <h2>Begriffe</h2>
+  <p class="lead">Fachwörter aus dem Vortrag, kurz erklärt.</p>
+  <div class="tools"><input type="search" id="gq" placeholder="Begriff suchen" aria-label="Begriff suchen"></div>
+  <dl class="gl" id="gl"></dl>
+</section>
+
+<section class="pane" id="p-quiz">
+  <h2>Wissenscheck</h2>
+  <p class="lead">Antwort anklicken, die Erklärung erscheint sofort.</p>
+  <div id="quiz"></div>
+  <p class="score" id="score"></p>
+  <button class="btn ghost" id="reset" type="button">Quiz zurücksetzen</button>
+</section>
+
+<section class="pane" id="p-einordnung">
+  <h2>Einordnung und offene Fragen</h2>
+  <div id="notes"></div>
+  <h3>Offene Fragen zum Weiterdenken</h3>
+  <div class="card"><ul id="open"></ul></div>
+</section>
+
+</div></main>
+
+<script>
+const D = {"id": "O_SRIjYjIq8", "title": "Nuklearabfall sinnvoll verwenden", "eyebrow": "Eduard Heindl, Energievortrag #007", "sub": "Vortrag von Prof. Dr. Bruno Merk (University of Liverpool), eingeleitet von Eduard Heindl. Teil 2 der Endlager-Miniserie: erst trennen, dann transmutieren, und aus der Last eine Chance machen.", "chips": ["Dauer 34:10 Minuten", "Veröffentlicht 10.10.2026", "Kanal Eduard Heindl", "Teil 2 der Endlager-Miniserie"], "lead": "Merk geht von einer ehrlichen Bilanz der bisherigen Forschung zu Partitionierung und Transmutation (P&T) aus: schwieriger, teurer und weniger wirksam als erhofft. Sein Gegenvorschlag ist ein integrierter Brennstoffkreislauf mit einem Salzschmelzreaktor, der Energie erzeugt und zugleich die Spaltprodukte sortiert. Damit soll das Endlager für wärmeentwickelnden Abfall überflüssig werden.", "tldr": ["<b>P&T</b> heißt: langlebige Bestandteile abtrennen (Partitionierung) und in kurzlebige umwandeln (Transmutation). Nach etwa 300 bis 500 Jahren wäre der Großteil der Aktivität weg, nach 1000 Jahren etwa um den Faktor 200 reduziert.", "Die <b>Endlager-Community</b> schaut dagegen auf eine Million Jahre. Dort dominieren laut Merk löslich werdende langlebige Spaltprodukte und die Aktiniden. Beide Lager haben nach seiner Ansicht nicht ganz recht.", "Nach 20 bis 25 Jahren Forschung sei P&T <b>viel schwieriger als gedacht</b>: nahezu unbezahlbar, hochkomplex, Transporte großer Materialmengen, Multicycling, schwacher Nutzen fürs Endlager, kein Geschäftsmodell, Proliferationsrisiko.", "Aufgeben ist für Merk keine Option, denn bei Windkraft, Solar und Elektroautos hätte man mit dem gleichen Argument auch aufgehört. Er will es besser machen.", "<b>Vision:</b> Kernenergie ohne Müll, ohne Unfälle, unbegrenzt. <b>Mission:</b> Faktor 100 mehr aus dem Uran (heute etwa 1 Prozent genutzt), Langzeitmüll loswerden, Störfälle ausschließen, Kreislauf proliferationsresistent.", "<b>Idee:</b> Ein Salzschmelzreaktor, der abgebrannten Brennstoff als Futter nimmt, im laufenden Betrieb einen Teilstrom abzieht und dabei nicht Spaltmaterial, sondern Spaltprodukte abtrennt. Brennstoff bleibt im Reaktor, es entstehen sortierte Spaltprodukte und Energie.", "Vorgehen in Stufen: Modellierung, Nullleistungsreaktor, kleiner Demonstrator (etwa 50 Megawatt), industrieller Demonstrator. Bei klarem politischem Willen seien Demonstrator in 5 bis 7 Jahren und industrielle Anlage 10 Jahre später möglich.", "Für Deutschland: Optionen aufzeigen, Endlagerforschung parallel weiterführen, Entscheidungen auf Fakten statt Ideologie stützen. Aus den vorhandenen Beständen ließe sich Strom für etwa 300 Jahre gewinnen."], "kpis": [{"v": "Faktor 200", "l": "Reduktion der Aktivität nach 1000 Jahren in der P&T-Sicht"}, {"v": "300 bis 500 Jahre", "l": "Zeitraum, nach dem der Großteil der Aktivität erledigt wäre"}, {"v": "1 % → 100 %", "l": "Genutzter Uran-Anteil heute und als Ziel (Faktor 100)"}, {"v": "Faktor 20 bis 100", "l": "Mehr Energie aus demselben Material, laut Merk"}, {"v": "5 bis 7 Jahre", "l": "Bis zu einem Demonstrator, wenn der politische Wille klar ist"}, {"v": "etwa 300 Jahre", "l": "Strom aus den vorhandenen Beständen bei heutigem Verbrauch"}], "parts": [{"t": "0:00 bis 2:40: Einleitung", "d": "Heindl fasst das Konzept „trennen, dann transmutieren“ zusammen."}, {"t": "2:40 bis 10:00: Bilanz von P&T", "d": "Grundlagen, zwei Sichtweisen, Kritik an der bisherigen Forschung."}, {"t": "10:00 bis 19:00: Neues Denken", "d": "Strategische Entwicklung, Erwartungen, Vision, Mission, Prinzipien."}, {"t": "19:00 bis 30:00: Konzept und Stufenplan", "d": "Salzschmelzreaktor, Stand der Arbeiten, Ergebnisse, Demonstrationsplan."}, {"t": "30:00 bis 34:10: Deutschland", "d": "Folgerungen für Endlager, Zeiträume und die Verantwortung gegenüber künftigen Generationen."}], "chapters": [{"t": "00:00", "s": 0, "title": "Einleitung durch Eduard Heindl", "tag": "Einleitung", "sum": "Zweiter und letzter Teil der Miniserie. Prof. Merk arbeitet in Liverpool, ein Deutscher, der für Kernenergieentwicklung im Ausland arbeiten muss.", "pts": ["Kernidee: erst trennen, dann transmutieren. Aus den Brennstäben, die Heindl nicht als Müll sieht, werden zuerst alle wertvollen Rohstoffe abgetrennt.", "Die verbleibenden, besonders langlebigen Stoffe werden durch Transmutation in kurzlebige umgewandelt. Das Endlagerproblem schrumpft damit auf wenige hundert Jahre statt Millionen.", "Aus den in Deutschland lagernden Brennstoffen, also dem Inhalt der Castor-Behälter, ließe sich Brennstoff für die nächsten 300 Jahre gewinnen. Das sei länger als die gesamte Industriegeschichte.", "England wolle in diesem Bereich Weltmarktführer werden."]}, {"t": "02:40", "s": 160, "title": "Struktur und Titel: aus Last wird Chance", "tag": "Einstieg", "sum": "Merk wurde gebeten, über P&T zu sprechen: Wo stehen wir, was wurde daraus geschlossen, was gemacht, und was bietet das Deutschland?", "pts": ["Titel sinngemäß: Nuklear im 21. Jahrhundert, aus einer Last eine Chance machen (englisch „Turning a Burden into an Opportunity“, im Untertitel verstümmelt).", "Zu Beginn gibt es technische Probleme mit den Folien. Er improvisiert."]}, {"t": "03:30", "s": 210, "title": "Was P&T eigentlich betrachtet", "tag": "Grundlagen", "sum": "Es geht um Spaltprodukte und Aktiniden. Spaltprodukte haben meist begrenzte Halbwertszeiten, typischerweise bis etwa 30 Jahre, einige sind aber langlebig.", "pts": ["Als Beispiel für langlebige Spaltprodukte nennt er Technetium. Die Aktiniden (darunter Plutonium) bilden eine eigene Gruppe.", "Die Gesamtkurve der Aktivität fällt auf doppelt-logarithmischer Skala ab. Das sind zwei sich überlagernde Exponentialfunktionen, die durch die Skala verstärkt dargestellt werden.", "Würde man die großen Beiträge entfernen, wäre der Großteil der Aktivität nach etwa 300 bis 500 Jahren erledigt. Übrig bliebe nur der Rest langlebiger Stoffe."]}, {"t": "05:00", "s": 300, "title": "Zwei Sichtweisen: P&T-Sicht gegen Lagersicht", "tag": "Kernpunkt", "sum": "Mit linearen Skalen zeigt Merk, wo welcher Beitrag dominiert. Zunächst haben Spaltprodukte großen Einfluss, danach Plutonium und die minoren Aktiniden.", "pts": ["<b>P&T-Sicht:</b> Betrachtet die ersten 1000 Jahre. Hier tritt die große Änderung ein, nach 1000 Jahren eine Reduktion um etwa den Faktor 200.", "<b>Lagersicht:</b> Betrachtet eine Million Jahre. Am Ende bleiben langlebige Spaltprodukte und Aktiniden samt Plutonium übrig.", "Der Streit: Die Endlagerleute sagen, die langlebigen Spaltprodukte sind löslich und dominieren die Sicherheit des Lagers. Die P&T-Leute sagen, man entferne so viel, dass das Problem gelöst sei.", "Merk: Beide haben nicht ganz recht. Er stellt sich „ganz frech dazwischen“."]}, {"t": "07:30", "s": 450, "title": "Ehrliche Bilanz: Wo P&T steht", "tag": "Kritik", "sum": "Es gibt viel Kritik, auch bei internationalen Austauschtreffen. Merk fasst die Kritik zusammen und teilt sie in weiten Teilen.", "pts": ["P&T ist nach 20 bis 25 Jahren Forschung viel schwieriger als gedacht.", "Es wird zu teuer, annähernd unbezahlbar. Es entsteht ein hochkomplexes System mit riesigen Materialmengen, die transportiert werden müssen, weil nicht alles auf einmal wegzubekommen ist (Multicycling).", "Die Transmutation von Spaltprodukten funktioniert nicht so, wie man es sich erträumt hatte. Die Zusammenfassung: Es bringt zu wenig fürs Endlager.", "Dazu kommen: kein Geschäftsmodell, nicht tragbares Proliferationsrisiko, Sicherheitsrisiko, Strahlenbelastung."]}, {"t": "08:30", "s": 510, "title": "Aufgeben oder besser machen?", "tag": "Haltung", "sum": "Es gibt zwei Möglichkeiten. Die Analyse der Kritiker sei dieselbe wie seine, die Schlussfolgerung nicht.", "pts": ["Die Behörde BASE sage, dann lasse man es sein. Merk sagt, man mache es besser.", "Vergleiche: Hätte man nach dem Groß-Windrad Growian aufgegeben, gäbe es keine Windenergie. Hätte man bei den ersten Solarzellen mit schlechtem Wirkungsgrad aufgegeben, gäbe es keine Solarenergie. Die ersten Elektroautos hingen mehr am Stecker, als dass sie fuhren.", "Technologien entwickeln sich, und wer im richtigen Moment investiert, kann die Entwicklung vorantreiben.", "Das Ziel: Das Endlager nach dem heutigen Standard muss weg. Entscheidend sei die Genehmigung, nicht ob man 500 Meter Stollen mehr bohrt. Er bezieht sich auf Leidinger aus Video 1."]}, {"t": "10:00", "s": 600, "title": "Was daraus gemacht wurde", "tag": "Vorgehen", "sum": "Aus internationaler P&T-Forschung, der Kritik der Endlager-Community und Studien zur Rolle von P&T in Deutschland und zusammen mit Russland entstand die Frage, was man besser machen muss.", "pts": ["Die Arbeit wurde von der IAEA und der Royal Academy of Engineering ermöglicht, mit dem Ziel einer neuen Lösung.", "Wichtigstes Ergebnis seines letzten Reviews: Diese Forschung soll weitergehen, weil sie für eine nachhaltige Zukunft wichtig ist.", "Studiennamen sind in den Untertiteln verstümmelt („Arate“, „Petrus“), ich nenne sie nur grob."]}, {"t": "11:00", "s": 660, "title": "Strategische Entwicklung: Das Endlager vermeiden", "tag": "Strategie", "sum": "Ein neues Denken im Umgang mit Nuklearabfall: eine Technologie, die das tiefengeologische Endlager für wärmeentwickelnden Abfall vermeidet.", "pts": ["Beispiel Covid: Wenn Druck da ist, kann Wissenschaft Probleme lösen.", "Man will über die Nachfrage (was brauchen wir, wo wollen wir sein) zur Frage kommen, wie man es macht.", "Er kontrastiert die Haltung einer Kommission, den Ressourcenverbrauch einzuschränken („sparen, sparen, sparen“), mit der Möglichkeit, bisher ungenutzte Ressourcen zugänglich zu machen."]}, {"t": "12:30", "s": 750, "title": "Das Potenzial: Uran-238 nutzen", "tag": "Zahlen", "sum": "Eine Folie zeigt Rohstoffe der Welt: Kohle, Gas, Erdöl und ein kleines Stück Uran. Könnte man Uran-238 nutzen, würde der Uran-Beitrag auf einer zweiten Grafik mit gleichem Maßstab ein Vielfaches größer ausfallen (die genauen Größen sind ohne Bild nicht erkennbar).", "pts": ["Das Ziel: Energieressourcen für die nächste Generation schaffen, idealerweise aus Material, das schon ausgegraben ist.", "Es gebe gigantische Ressourcen. Man müsse sie nur richtig nutzen und brauche dafür die Technologie."]}, {"t": "13:15", "s": 795, "title": "Was erwarten Industrie und Gesellschaft?", "tag": "Analyse", "sum": "Merk wertet eine Industrie-Analyse (NS Energy Business) aus und vergleicht sie mit Erwartungen der Gesellschaft.", "pts": ["<b>Industrie, Pluspunkte:</b> wenig Emissionen, hohe Zuverlässigkeit, reduzierte Betriebskosten, extrem hohe Energiedichte.", "<b>Industrie, Kritik:</b> Umweltschäden (vor allem im Bergbau), das Endlagerproblem, bei starkem Ausbau (Faktor 3 oder 4) knappe Uranreserven, lange Bauzeiten. Das Wort Sicherheit tauche nicht auf, weil die Experten das für lösbar hielten.", "<b>Gesellschaft:</b> Müllproblem und Bergbau wie in der Industrie, dazu aber Waffen und Unfälle.", "Waffen und Unfälle gehören im Brennstoffkreislauf zusammen, denn Proliferation sei nichts anderes als ein Unfall, eine Abzweigung (Diversion) von Material."]}, {"t": "15:00", "s": 900, "title": "Vision und Mission", "tag": "Kernpunkt", "sum": "Die Vision heißt im Englischen „The Bucket of Gold at the End of the Rainbow“: ein Ziel, das man nie erreicht, das aber die Richtung vorgibt.", "pts": ["<b>Vision:</b> Nuklear ohne Müll, ohne Unfälle, unbegrenzt.", "<b>Mission, Ressource:</b> Faktor 100 mehr aus dem Uran. Heute werde etwa 1 Prozent des ausgegrabenen Urans zur Energieerzeugung genutzt, 99 Prozent liegen brach. Damit sinkt auch die Müllmenge pro Energieeinheit deutlich.", "<b>Mission, Sicherheit:</b> Störfälle im Reaktor ausschließen und den Brennstoffkreislauf proliferationsresistent machen.", "Eine Mission dürfe nicht zu einfach sein, sonst sage der Ingenieur: „Ich bin jetzt fertig.“ Sie soll bis zur Rente reichen."]}, {"t": "16:30", "s": 990, "title": "Entkopplung der 1990er rückgängig machen", "tag": "Prinzip", "sum": "In den 1990ern trennte man Energieproduktion und Abfallbehandlung, weil der geschlossene Kreislauf nicht so einfach war wie erhofft. Merk will beides wieder zusammenführen.", "pts": ["Faktor 20 bis 100 mehr Energie und Langzeitmüll loswerden.", "Der geschlossene Kreislauf soll Energie und Abfall gleichzeitig bedienen, bezahlbar bleiben und fürs Endlager effizient sein."]}, {"t": "17:30", "s": 1050, "title": "Anforderungen an das neue System", "tag": "Prinzipien", "sum": "Die Anforderungen sind aus den Erwartungen abgeleitet, jede erhält eine Antwort.", "pts": ["Ein integriertes System: keine großen Brennstoffmengen quer durchs Land transportieren, kein Spaltmaterial abtrennen.", "Große Kostentreiber entfernen. Ein russischer Kollege habe ihm auf einer Konferenz 2017 gesagt, die Hauptkosten seien der Brennstoff: Die Herstellung von MOX-Brennstoff sei noch teurer als die ganze Wiederaufarbeitung.", "Ökonomisch attraktiv machen, also genug Energie produzieren, um sich zu tragen.", "Mit der Endlager-Community optimieren: Eine Lösung, die dort nicht akzeptiert wird, nützt nichts.", "Demonstrieren statt nur rechnen. Simulation liege bei bekannten Systemen innerhalb von etwa plus/minus 10 Prozent, bei unbekannten Systemen sei das ein großes Fragezeichen."]}, {"t": "19:00", "s": 1140, "title": "Die Idee: Salzschmelzreaktor als Verwerter", "tag": "Kernpunkt", "sum": "In einen Salzschmelzreaktor (in den Untertiteln als „Seitschmerzenreaktor“ falsch erkannt) geht abgebrannter Brennstoff hinein, nachdem er aufgelöst wurde.", "pts": ["Ein Teil des Salzes wird laufend abgezogen, gereinigt und zurückgeführt.", "Der Unterschied zum klassischen Verfahren: Man trennt nicht Spaltmaterial ab, sondern <b>Spaltprodukte</b>, also das, was den Reaktorbetrieb stört, und nicht das, was man zum Betrieb braucht.", "Ausgang sind ein Abluftstrom (der gereinigt werden muss), Energie und <b>sortierte Spaltprodukte</b> statt einer Mischung („Suppe“) wie bei klassischer Wiederaufarbeitung.", "Das Ziel: kein Spaltmaterial abtrennen, also keine „Plutoniumwirtschaft“."]}, {"t": "20:30", "s": 1230, "title": "Stand der Arbeiten", "tag": "Stand", "sum": "Das Konzept entstand aus Diskussionen bei der IAEA über Innovationen nach der Leichtwasserreaktor-Technologie und wird von der Royal Academy of Engineering, zeitweise von UK Research and Innovation unterstützt.", "pts": ["Auf dem Papier sei man gut: umfangreiche Rechnungen zu allen Richtungen und Stellschrauben.", "Experimente: Abtrennung von Spaltprodukten aus der Lösung (Gruppe in Edinburgh), Stoffeigenschaften des Salzes (Lancaster), Sozialwissenschaften (Manchester und Liverpool).", "Kooperation mit der Nuclear Energy Agency in einer Salzschmelzreaktor-Arbeitsgruppe, weil man die Einzigen in UK waren, die sich damit befassten.", "Der Name der ursprünglichen IAEA-Initiative ist in den Untertiteln nicht zuverlässig erkennbar."]}, {"t": "22:00", "s": 1320, "title": "Rechenergebnisse", "tag": "Ergebnisse", "sum": "Gerechnet wurde mit einem klassischen Reaktorphysikcode samt eigenem Skript, das den Reaktor abbildet (die Codes sind eigentlich für Brennelemente gedacht, die hineingehen und herauskommen, ohne sich zu ändern).", "pts": ["Nachgewiesen: die selbsterhaltende Brutreaktion.", "Das System läuft auch, wenn man es mit abgebranntem Brennstoff füttert.", "Langer Betrieb ist möglich, wenn bestimmte Spaltprodukte abgebrannt werden, und der Reaktor liefert Energie.", "Das Müllproblem lässt sich anders angehen, weil Listen vorliegen, welche Materialien man wie abtrennen kann.", "Nächster Schritt: von Modellierung und Simulation zur Demonstration."]}, {"t": "23:00", "s": 1380, "title": "Rückfüttern von Spaltprodukten und Plutonium", "tag": "Ergebnisse", "sum": "Merk berichtet von einem Gespräch in Berlin mit dem damaligen Chef der BGE (Name im Untertitel entstellt): Das Eisen sei weg, die Glaskokillen noch da, man brauche trotzdem ein Lager.", "pts": ["Auftrag: prüfen, ob sich die Gläser auflösen lassen. Seine Chemiker hätten zunächst abgewunken.", "Rückfütterung: Speist man absichtlich Spaltprodukte fast ohne Uran und fast ohne spaltbares Material ein, lebt der Reaktor nicht ganz so lange und muss früher gereinigt werden. Er verzeiht es aber grundsätzlich.", "Plutonium und Americium: Steckt man zu Beginn genug hinein, verbrennen sie. Sonst bauen sie sich bis zu einem asymptotischen Niveau auf und verbrennen dann alles Machbare."]}, {"t": "24:30", "s": 1470, "title": "Der Kniff: Wärme und Langlebigkeit trennen", "tag": "Kernpunkt", "sum": "Um das heutige Endlager wegzubekommen, muss man zwei Dinge voneinander trennen: das, was Wärme erzeugt, und das, was langlebig ist.", "pts": ["Langlebiges erzeugt kaum Wärme: Eine sehr lange Halbwertszeit bedeutet geringe Aktivität im Moment, also wenig Energie.", "Das könnte man theoretisch in ein Lager für schwach radioaktive Abfälle geben, wenn es sauber abgetrennt ist.", "Das Wärmeerzeugende kommt in ein „Zerfallslager“ (Abklinglager).", "Entscheidend ist, die Wiederaufarbeitung anders aufzuziehen: Abtrennen von Spaltprodukten statt von Spaltmaterialien."]}, {"t": "25:30", "s": 1530, "title": "Zusammenfassung und Stufenansatz", "tag": "Zwischenfazit", "sum": "Ein komplett neuer, massiv reduzierter Brennstoffkreislauf. Merk erzählt, sein damaliger Chef für Brennstoffkreislauf-Entwicklung bei der NNL habe gesagt, er werde damit keine Freude haben, weil manche Leute den komplexen Kreislauf liebten.", "pts": ["Man brauche einen schrittweisen Ansatz, das falle nicht vom Himmel.", "Der Salzschmelzreaktor mit Reprocessing sei der einzige Reaktortyp, bei dem man <b>während des Betriebs Zugriff auf den Brennstoff</b> hat. Normalerweise liegt der Brennstoff in zugeschweißten Röhrchen in Brennelementen.", "Daraus ergeben sich Möglichkeiten, vom Endlager nach heutigem Standard wegzukommen."]}, {"t": "26:30", "s": 1590, "title": "Forschung, Entwicklung, Demonstration", "tag": "Stufenplan", "sum": "Der Haken: Wer das will, muss es machen und darf nicht nur darüber reden. Merk nennt das „First Man on the Moon“.", "pts": ["Stufen: Modellierung und Simulation, Nullleistungsreaktor, kleiner Demonstrator (etwa 50 Megawatt), industrieller Demonstrator.", "Im Nullleistungsreaktor werden einzelne Dinge probiert und die Simulation abgesichert. Im kleinen Demonstrator treffen erstmals alle Herausforderungen zusammen: Strahlung, Energie, Temperatur, Salz.", "Modellierung und Simulation können das Experiment nicht ersetzen. Sie helfen, zur richtigen Zeit die richtigen Experimente zu machen. Mit Design Thinking und digitalem Prototyping lasse sich vieles besser machen als früher.", "UK-Ziel von 2017: Weltführer bei fortgeschrittenen Reaktoren zu sein und den Markt 2050 zu beherrschen."]}, {"t": "28:30", "s": 1710, "title": "Warum die Stufen wichtig sind: Experten und Investment", "tag": "Stufenplan", "sum": "Ohne Fachleute geht nichts, und es gibt nicht mehr genug davon. Der Pool muss in diesen Schritten aufgebaut werden.", "pts": ["Am Anfang braucht es staatliche Investition, weil die Industrie noch nicht begeistert ist. Später soll sie übernehmen.", "Viele Leute sagen, das dauere ewig. Merk: Muss nicht. Beispiel Siedewasserreaktor: Das erste Experiment (Nullleistung) finanzierte der Staat, auf einen kleinen Demonstrator folgte die Industrie, GE kopierte ihn.", "Innerhalb von ein bis drei Jahren stand mit Dresden 1 ein Demonstrator von etwa 200 Megawatt elektrisch (Zahl im Untertitel unsauber).", "Der Übergang an die Industrie funktioniert nur, wenn sich damit Geschäft machen lässt."]}, {"t": "30:00", "s": 1800, "title": "Folgerungen für Deutschland", "tag": "Deutschland", "sum": "Die Suche nach dem besten Endlager scheitere genau daran, was Leidinger vorher schilderte. Wichtig sei, Optionen aufzuzeigen.", "pts": ["Man muss demonstrieren, dass es vielversprechende Technologien gibt, und sie gegen die bestehende Lösung bewerten.", "Beides parallel: Endlagerforschung muss weitergehen, daneben die Alternative. Sonst habe man „am St. Nimmerleinstag“ noch nichts gefunden.", "Fakten statt Ideologie: Man muss wissen, was geht und was nicht, und dafür Fakten schaffen.", "Egal ob Endlager oder Transmutationsmaschine: Man betritt immer technisches Neuland."]}, {"t": "31:00", "s": 1860, "title": "Wie ein Konzept für Deutschland aussehen könnte", "tag": "Deutschland", "sum": "Das Endlager nach Standardform muss weg. Wärmeentwickelndes und Langlebiges werden getrennt und in verschiedene Lager gebracht.", "pts": ["<b>Abklinglager</b> für 500 bis 1000 Jahre, möglicherweise zugleich Zwischenlager, denn aus den Beständen gibt es Strom für etwa 300 Jahre. Das Material verschwindet also nicht schnell.", "Nach Nutzung etwa nach 50 Jahren beginnen, Zerfallsprodukte abzutrennen. Sie bestehen zu großen Teilen aus Edelmetallen, was interessant werden könnte.", "Offen: Wie lassen sich die kaum wärmeentwickelnden langlebigen Spaltprodukte konditionieren und lagern? Geht das in Konrad? Welche Änderungen der Genehmigung wären nötig?", "Die Daten dafür seien erzeugt. Jetzt geht es um die Betrachtung für Deutschland."]}, {"t": "32:30", "s": 1950, "title": "Zeiträume und Wille", "tag": "Deutschland", "sum": "Auf die Einwände „geht nicht“ antwortet Merk: Mit positiver Entscheidung, klarem Ausführungswillen, Akzeptanz und politischer Klarheit sei es machbar.", "pts": ["Demonstrator in 5 bis 7 Jahren, industrielle Anlage rund 10 Jahre später. Das sei eine Frage des Willens.", "Die Ressourcen decken etwa 300 Jahre ab. Daher stellt sich die Frage, ob man sie rasch kommerziell nutzt oder mit der Gewissheit lebt, jederzeit darauf zugreifen zu können."]}, {"t": "33:00", "s": 1980, "title": "Schlussgedanken", "tag": "Fazit", "sum": "Zwei Gedanken für die Endlager-Seite.", "pts": ["Ein Endlager, das 2075 gebaut wird, folgt Plänen, die fast 100 Jahre alt sind. Wie erklärt man das künftigen Generationen?", "Wie überzeugt man Menschen, ein Endlager am Heimatort zu akzeptieren, wenn man die Alternativen nicht angeschaut hat und jemand sagt, mit neuen Technologien brauche man das Lager gar nicht?", "Wie verteidigt man sich gegenüber künftigen Generationen, wenn andere Länder die Energie nutzen und Deutschland alles vergräbt? Er verweist auf das Gleichnis von den Talenten (Matthäus), die man nutzen statt vergraben soll."]}], "glossary": [["P&T (Partitionierung und Transmutation)", "Langlebige Bestandteile werden abgetrennt (Partitionierung) und durch Kernreaktionen in kurzlebigere umgewandelt (Transmutation)."], ["Spaltprodukte", "Bruchstücke gespaltener Atomkerne. Meist Halbwertszeit bis etwa 30 Jahre, einzelne wie Technetium sind sehr langlebig."], ["Aktiniden", "Schwere Elemente wie Plutonium, Americium und weitere „minore Aktiniden“. Sie tragen langfristig zur Aktivität bei."], ["Doppelt-logarithmische Skala", "Beide Achsen sind logarithmisch. Dadurch erscheinen Abklingkurven als Geraden, die großen Veränderungen sind aber schwer zu sehen. Merk wechselt deshalb auf lineare Skalen."], ["Salzschmelzreaktor (MSR)", "Reaktor, bei dem der Brennstoff in einer Salzschmelze gelöst ist. Man hat im Betrieb Zugriff auf den Brennstoff."], ["Multicycling", "Mehrfaches Durchlaufen desselben Materials durch Aufbereitung und Reaktor, weil sich nicht alles auf einmal umwandeln lässt."], ["Proliferation", "Verbreitung von waffenfähigem Material. Merk fasst sie im Brennstoffkreislauf als Unfall durch Abzweigung (Diversion) auf."], ["MOX-Brennstoff", "Mischoxid-Brennstoff aus Uran und Plutonium. Laut einem zitierten Kollegen teurer als die Wiederaufarbeitung selbst."], ["Nullleistungsreaktor", "Experimentelle Anlage ohne nennenswerte Leistung, um physikalische Daten zu gewinnen und Simulationen zu prüfen."], ["Demonstrator", "Anlage zwischen Experiment und Kraftwerk. Hier etwa 50 Megawatt (klein) und danach industrielle Größe."], ["Brutreaktion", "Aus nicht spaltbarem Material (hier Uran-238) entsteht neues spaltbares Material. Merk zeigt, dass sie sich selbst erhält."], ["Abklinglager", "Lager für wärmeentwickelnde Abfälle über 500 bis 1000 Jahre, in denen der Großteil der Aktivität zerfällt."], ["Konrad", "Geplantes Lager für schwach- und mittelradioaktive Abfälle. Merk fragt, ob dort langlebige, kaum wärmeentwickelnde Spaltprodukte untergebracht werden könnten."], ["Konditionierung", "Aufbereitung von Abfall in eine lagerfähige Form (zum Beispiel einschmelzen oder einbetten)."], ["IAEA und NEA", "Internationale Atomenergie-Organisation und Nuclear Energy Agency der OECD. Beide kommen als Unterstützer und Partner vor."]], "quiz": [{"q": "Worin unterscheiden sich P&T-Sicht und Lagersicht?", "o": ["In der Wahl des Reaktors", "Im Zeithorizont: etwa 1000 Jahre gegen eine Million Jahre", "In den Kosten pro Kilogramm", "In der Standortwahl"], "a": 1, "why": "Die P&T-Community schaut auf die ersten 1000 Jahre, die Endlager-Community auf eine Million Jahre."}, {"q": "Welche Kritik an P&T teilt Merk?", "o": ["Sie sei physikalisch unmöglich", "Sie sei schwieriger, teurer und bringe zu wenig fürs Endlager", "Sie sei zu schnell umgesetzt worden", "Sie sei nur in Deutschland verboten"], "a": 1, "why": "Nach 20 bis 25 Jahren Forschung sei sie viel schwieriger als gedacht, nahezu unbezahlbar und bringe zu wenig fürs Endlager."}, {"q": "Was ist Merks Konsequenz aus dieser Kritik?", "o": ["Die Forschung einstellen, wie es die Behörde BASE nahelegt", "Es besser machen und die Forschung fortsetzen", "Nur noch Endlagerforschung betreiben", "Alles auf Fusion setzen"], "a": 1, "why": "Die Analyse sei dieselbe, aber er zieht den anderen Schluss: besser machen, wie bei Wind, Solar und Elektroautos."}, {"q": "Was ist das Ziel von „Faktor 100“?", "o": ["100-mal mehr Reaktoren", "Statt etwa 1 Prozent des Urans nahezu das Ganze nutzen", "100-mal kürzere Bauzeit", "100 Prozent mehr Kosten"], "a": 1, "why": "Heute wird etwa 1 Prozent genutzt. Faktor 100 hieße, praktisch das gesamte Uran zu verwerten."}, {"q": "Was trennt der vorgeschlagene Kreislauf ab?", "o": ["Spaltmaterial wie Plutonium", "Spaltprodukte, also das, was den Reaktorbetrieb stört", "Nur Wasser", "Nichts, alles bleibt im Reaktor"], "a": 1, "why": "Das Neue: Spaltprodukte werden entfernt, Spaltmaterial bleibt im Reaktor. Damit entfällt die „Plutoniumwirtschaft“."}, {"q": "Welche Reihenfolge der Stufen nennt Merk?", "o": ["Industrieller Demonstrator, Modellierung, Nullleistungsreaktor", "Modellierung, Nullleistungsreaktor, kleiner Demonstrator, industrieller Demonstrator", "Nullleistungsreaktor, Genehmigung, Verkauf", "Kleiner Demonstrator, Endlager, Rückbau"], "a": 1, "why": "Erst Modellierung und Simulation, dann Nullleistungsreaktor, dann kleiner Demonstrator (etwa 50 Megawatt), dann industrielle Anlage."}, {"q": "Wie lange reicht der vorhandene Bestand für die Stromerzeugung laut Merk?", "o": ["Etwa 30 Jahre", "Etwa 100 Jahre", "Etwa 300 Jahre", "Etwa 3000 Jahre"], "a": 2, "why": "Er nennt etwa 300 Jahre bei heutigem Stromverbrauch. Das Material verschwindet also nicht schnell, daher auch Überlegungen zu einem Abklinglager."}], "notes": [["Quellenlage.", "Diese Seite beruht ausschließlich auf den automatisch erzeugten deutschen Untertiteln. Folien und Grafiken konnte ich nicht sehen. Das erklärt vor allem bei den Kurven (Aktivität über Zeit) und bei Namen und Zahlen Lücken. Entstellte Stellen habe ich nur dann übernommen, wenn der Sinn eindeutig war, und sonst gekennzeichnet."], ["Perspektive.", "Merk forscht selbst an dem vorgestellten Konzept und wirbt dafür. Die Zahlen (Faktor 100, 300 Jahre, 5 bis 7 Jahre bis zum Demonstrator) sind seine Angaben und von mir nicht geprüft. Das Video erscheint auf einem Kanal, der Kernenergie befürwortet."], ["Was das Video selbst betont.", "Merk nennt die Kritik an P&T ausdrücklich und sagt, die Folien zeigten erst ein Konzept auf dem Papier. Demonstriert ist es noch nicht. Auch Fragen zu Proliferation, Kosten und Genehmigung bleiben bei einem neuen Kreislauf offen."]], "open": ["Welche der genannten Zahlen (Zeitrahmen, Faktor 100, 300 Jahre) ließen sich aus unabhängigen Quellen bestätigen?", "Wie würde ein Abklinglager für 500 bis 1000 Jahre genehmigt, und wer trägt die Verantwortung so lange?", "Reicht ein integrierter Kreislauf aus, um die Endlager-Community zu überzeugen, oder bleibt die Lagersicht auf eine Million Jahre bestehen?", "Wie belastbar ist der Vergleich mit Windkraft, Solar und E-Autos, wenn es um Kernbrennstoffe geht?"], "ilead": "Fünf Werkzeuge zum Vortrag. Die Inhalte stammen aus dem Video; Reglerwerte und Gegenüberstellungen sind meine Aufbereitung."};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const mk = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
+
+/* Kopf */
+document.title = D.title;
+$('#eyebrow').textContent = D.eyebrow;
+$('#title').textContent = D.title;
+$('#sub').textContent = D.sub;
+$('#yt').href = 'https://youtu.be/' + D.id;
+D.chips.forEach(c => $('#chips').append(mk('span', 'chip', esc(c))));
+$('#lead').textContent = D.lead;
+$('#ilead').textContent = D.ilead;
+D.tldr.forEach(t => $('#tldr').append(mk('li', '', t)));
+D.kpis.forEach(k => $('#kpis').append(mk('div', 'card kpi', `<div class="v">${esc(k.v)}</div><div class="l">${esc(k.l)}</div>`)));
+D.parts.forEach(p => $('#parts').append(mk('div', 'card', `<h4>${esc(p.t)}</h4><p>${esc(p.d)}</p>`)));
+
+/* Zeitleiste */
+const chap = $('#chapters');
+D.chapters.forEach(c => {
+  const d = mk('details', 'ch');
+  d.dataset.text = (c.title + ' ' + c.sum + ' ' + c.pts.join(' ')).toLowerCase();
+  d.innerHTML = `<summary><span class="ts">${c.t}</span><span class="ct">${esc(c.title)}${c.tag ? `<span class="tag">${esc(c.tag)}</span>` : ''}</span></summary>
+    <div class="cbody"><p>${c.sum}</p><ul>${c.pts.map(x => `<li>${x}</li>`).join('')}</ul>
+    <a class="jump" target="_blank" rel="noopener" href="https://youtu.be/${D.id}?t=${c.s}">Im Video ab ${c.t} ansehen</a></div>`;
+  chap.append(d);
+});
+$('#q').addEventListener('input', e => {
+  const v = e.target.value.trim().toLowerCase(); let n = 0;
+  chap.querySelectorAll('details').forEach(d => {
+    const hit = !v || d.dataset.text.includes(v);
+    d.classList.toggle('hidden', !hit); if (hit) n++;
+    if (v && hit) d.open = true;
+  });
+  $('#none').classList.toggle('hidden', n > 0);
+});
+$('#openAll').onclick = () => chap.querySelectorAll('details:not(.hidden)').forEach(d => d.open = true);
+$('#closeAll').onclick = () => chap.querySelectorAll('details').forEach(d => d.open = false);
+
+/* Begriffe */
+D.glossary.forEach(g => {
+  const i = mk('div', 'item', `<dt>${esc(g[0])}</dt><dd>${g[1]}</dd>`);
+  i.dataset.text = (g[0] + ' ' + g[1]).toLowerCase();
+  $('#gl').append(i);
+});
+$('#gq').addEventListener('input', e => {
+  const v = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('#gl .item').forEach(i => i.classList.toggle('hidden', !!v && !i.dataset.text.includes(v)));
+});
+
+/* Quiz */
+let right = 0, done = 0;
+function renderQuiz(){
+  right = 0; done = 0; $('#quiz').innerHTML = ''; $('#score').textContent = '';
+  D.quiz.forEach((q, qi) => {
+    const box = mk('div', 'q', `<p class="qt">${qi + 1}. ${esc(q.q)}</p>`);
+    const why = mk('div', 'why hidden', q.why);
+    q.o.forEach((o, oi) => {
+      const b = mk('button', 'opt', esc(o)); b.type = 'button';
+      b.onclick = () => {
+        box.querySelectorAll('.opt').forEach((x, xi) => { x.disabled = true; if (xi === q.a) x.classList.add('right'); });
+        if (oi !== q.a) b.classList.add('wrong'); else right++;
+        why.classList.remove('hidden'); done++;
+        if (done === D.quiz.length) $('#score').textContent = `Ergebnis: ${right} von ${D.quiz.length} richtig`;
+      };
+      box.append(b);
+    });
+    box.append(why); $('#quiz').append(box);
+  });
+}
+renderQuiz(); $('#reset').onclick = renderQuiz;
+
+/* Einordnung */
+D.notes.forEach(n => $('#notes').append(mk('div', 'note', `<b>${esc(n[0])}</b> ${n[1]}`)));
+D.open.forEach(o => $('#open').append(mk('li', '', o)));
+
+/* Tabs */
+function show(p){
+  document.querySelectorAll('.pane').forEach(s => s.classList.toggle('active', s.id === 'p-' + p));
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.p === p));
+  try { history.replaceState(null, '', '#' + p); } catch(e) {}
+  window.scrollTo({top: 0});
+}
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => show(t.dataset.p));
+const start = (location.hash || '#ueberblick').slice(1);
+show(document.getElementById('p-' + start) ? start : 'ueberblick');
+
+/* Theme */
+$('#theme').onclick = () => {
+  const r = document.documentElement;
+  const dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  r.dataset.theme = dark ? 'light' : 'dark';
+};
+</script>
+<script>
+
+(function(){
+  var $ = function(s){return document.querySelector(s);};
+  /* 1 Horizont */
+  var hz = [
+    ["30 Jahre","Spaltprodukte haben typischerweise Halbwertszeiten bis etwa 30 Jahre. In dieser Phase tragen sie stark zur Aktivität bei, nach den Kurven im Vortrag haben sie großen Einfluss."],
+    ["300 bis 500 Jahre","P&T-Sicht: Wenn man die großen Beiträge wegbekommt, ist der Großteil der Aktivität nach etwa 300 bis 500 Jahren erledigt. Danach dominieren Plutonium und die minoren Aktiniden."],
+    ["1000 Jahre","P&T-Sicht: Nach 1000 Jahren eine Reduktion um etwa den Faktor 200 gegenüber dem Ausgangszustand. Die Kritik der Lagerseite setzt hier an: Das ist erst der Anfang."],
+    ["1 Million Jahre","Lagersicht: Es bleiben langlebige Spaltprodukte (löslich, sicherheitsbestimmend für das Lager) sowie Aktiniden und Plutonium. Merk meint, beide Seiten hätten nicht ganz recht."]
+  ];
+  var hzBox = $('#hz'), hr = $('#horizon');
+  hz.forEach(function(h){var s=document.createElement('span');s.className='chip';s.textContent=h[0];hzBox.appendChild(s);});
+  function drawH(){var i=+hr.value;hzBox.querySelectorAll('.chip').forEach(function(c,k){c.style.background=k===i?'var(--accent)':'';c.style.color=k===i?'var(--accent-ink)':'';});
+    $('#hzOut').innerHTML='<strong>'+hz[i][0]+'</strong>'+hz[i][1];}
+  hr.addEventListener('input',drawH); drawH();
+  /* 2 Uran */
+  var u = $('#uran');
+  function drawU(){
+    var v=+u.value;
+    $('#ua').style.width=v+'%'; $('#ua').textContent = v>8 ? v+' % genutzt' : '';
+    $('#ub').style.width=(100-v)+'%'; $('#ub').textContent = v>85 ? '' : (100-v)+' % bleibt ungenutzt';
+    $('#uOut').innerHTML = v===1
+      ? '<strong>Heute: etwa 1 Prozent</strong>Aus dem ausgegrabenen Uran wird nur ein kleiner Teil zur Energieerzeugung genutzt.'
+      : '<strong>Rechnerisch das '+v+'-fache</strong>Bei '+v+' Prozent Nutzung gäbe es '+v+' mal so viel Energie aus derselben Menge. Bei 100 Prozent ist das der „Faktor 100“ aus dem Vortrag. Merk nennt als realistische Spanne Faktor 20 bis 100.';
+  }
+  u.addEventListener('input',drawU); drawU();
+  /* 3 Vergleich */
+  var rows = [
+    ["Was wird abgetrennt?","Spaltmaterial (Uran, Plutonium) für neue Brennelemente","Spaltprodukte, also das, was den Reaktorbetrieb stört"],
+    ["Brennstoff","In zugeschweißten Röhrchen und Brennelementen, nur zum Austausch zugänglich","Im Betrieb zugänglich, ein Teilstrom wird laufend abgezogen und gereinigt"],
+    ["Transporte","Große Materialmengen, durch Multicycling mehrfach","Integriertes System ohne große Brennstofftransporte"],
+    ["Kostentreiber","Aufbereitung und Herstellung von MOX-Brennstoff","Beides soll entfallen"],
+    ["Proliferation","Plutoniumwirtschaft, Abzweigrisiko","Kein Spaltmaterial abtrennen, proliferationsresistent angestrebt"],
+    ["Endergebnis","Gemischte Suppe verschiedener Stoffe","Sortierte Spaltprodukte, Energie, Abluftstrom"]
+  ];
+  var m1 = $('#mode1'), m2 = $('#mode2'), tb = $('#cmp tbody');
+  function drawT(col){
+    tb.innerHTML=''; $('#cmpH').textContent = col===1 ? 'Klassisch' : 'Merks Konzept';
+    rows.forEach(function(r){var tr=document.createElement('tr');tr.innerHTML='<td><b>'+r[0]+'</b></td><td>'+r[col]+'</td>';tb.appendChild(tr);});
+    m1.setAttribute('aria-pressed',col===1); m2.setAttribute('aria-pressed',col===2);
+  }
+  m1.onclick=function(){drawT(1);}; m2.onclick=function(){drawT(2);}; drawT(1);
+  /* 4 Stufenplan */
+  var st = [
+    ["Modellierung","Rechnungen und Simulation. Das Konzept sei auf dem Papier gut: selbsterhaltende Brutreaktion, Betrieb mit abgebranntem Brennstoff, Liste der abtrennbaren Stoffe."],
+    ["Nullleistungsreaktor","Einzelne Dinge probieren und testen, Simulation absichern, Daten gewinnen. Im Vorbild des Siedewasserreaktors vom Staat finanziert."],
+    ["Kleiner Demonstrator","Etwa 50 Megawatt. Hier treffen erstmals alle Herausforderungen zusammen: Strahlung, Energie, Temperatur, Salz."],
+    ["Industrieller Demonstrator","Übernahme durch die Industrie, wenn sich Geschäft machen lässt. Beim Siedewasserreaktor entstand Dresden 1 binnen ein bis drei Jahren."]
+  ];
+  var sd = $('#sd');
+  st.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.className='pill';b.textContent=(i+1)+' '+s[0];b.onclick=function(){
+      sd.querySelectorAll('.pill').forEach(function(x,k){x.setAttribute('aria-pressed',k===i);});
+      $('#sOut').innerHTML='<strong>'+s[0]+'</strong>'+s[1];};sd.appendChild(b);if(i===0)b.click();});
+  /* 5 Erwartungen */
+  var ex = [
+    ["ind","Industrie: Pluspunkte","Wenig Emissionen, hohe Zuverlässigkeit, reduzierte Betriebskosten, extrem hohe Energiedichte."],
+    ["ind","Industrie: Kritik","Umweltschäden im Bergbau, Endlagerproblem, knappe Uranreserven bei starkem Ausbau, lange Bauzeiten."],
+    ["soc","Gesellschaft: gemeinsame Punkte","Müllproblem und Bergbau, wie bei der Industrie."],
+    ["soc","Gesellschaft: zusätzlich","Waffen und Unfälle. Merk sieht beides im Brennstoffkreislauf zusammen: Proliferation ist eine Abzweigung von Material."]
+  ];
+  var eb = $('#exp');
+  function drawE(w){eb.innerHTML='';ex.forEach(function(e){if(w==='all'||e[0]===w){var d=document.createElement('div');d.className='card';d.innerHTML='<h4>'+e[1]+'</h4><p>'+e[2]+'</p>';eb.appendChild(d);}});}
+  document.querySelectorAll('[data-who]').forEach(function(b){b.onclick=function(){
+    document.querySelectorAll('[data-who]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});drawE(b.dataset.who);};});
+  drawE('all');
+})();
+
+</script>
+</body>
+</html>
