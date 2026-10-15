@@ -58,7 +58,7 @@ WOLKE = ('<svg class="wolke" viewBox="0 0 120 92"><g fill="#1b1b1b">'
 
 def kopf(l):
     return (f'<div class="kopfwrap"><table class="kopf">'
-            '<tr><td colspan="2" class="titel"><u>Klassenarbeit Nr. 1</u></td><td class="kl">Klasse 7</td></tr>'
+            '<tr><td colspan="2" class="titel"><u>Klassenarbeit Nr. 1 (Gruppe A)</u></td><td class="kl">Klasse 7</td></tr>'
             '<tr><td class="n">Name:</td><td colspan="2" class="n">Unterschrift:</td></tr>'
             f'<tr><td class="n">Punkte: <span class="pp">/ {GESAMT} Punkte</span></td><td class="n">Note:</td><td class="n">Ø</td></tr>'
             f'</table>{WOLKE}</div>'
@@ -246,8 +246,8 @@ def main():
     teil = lambda l: "".join(f'<section class="seite">{s(l)}<div class="snr">Seite {i + 1} von 4</div></section>' for i, s in enumerate(seiten))
     html = ('<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>Mathe 7c – Klassenarbeit Nr. 1 Rationale Zahlen – Entwurf</title>' + CSS + '</head><body>'
-            '<div class="leiste"><b>Klassenarbeit Nr. 1 · Klasse 7c · Entwurf</b><a href="#arbeit">Arbeit (4 Seiten)</a><a href="#loesung">Lösung (4 Seiten)</a>'
-            f'<span>{GESAMT} Punkte · Druck: A3 als Broschüre, gefaltet</span></div>'
+            '<div class="leiste"><b>Klassenarbeit Nr. 1 (Gruppe A); Klasse 7c; Entwurf</b><a href="#arbeit">Arbeit (4 Seiten)</a><a href="#loesung">Lösung (4 Seiten)</a>'
+            f'<span>{GESAMT} Punkte; Druck: A3 als Broschüre, gefaltet</span></div>'
             '<div class="trenner" id="arbeit">Arbeit</div>' + teil(False)
             + '<div class="trenner" id="loesung">Lösung</div>' + teil(True) + "</body></html>")
     ZIEL.write_text(html, encoding="utf-8")
