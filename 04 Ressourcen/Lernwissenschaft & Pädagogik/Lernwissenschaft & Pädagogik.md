@@ -7,6 +7,11 @@ tags: [ressource, pädagogik, lernwissenschaft]
 ## Überblick
 Aktuelle Forschung zum Lernen, effektive Unterrichtsmethoden und der Einsatz von Digitalisierung im Bildungsbereich. Besonderes Interesse: Handy und Social Media bei Kindern und Jugendlichen, deren Auswirkungen auf Konzentration und Schulleistung.
 
+## Einstieg
+- [[Lernen]] – Einstiegskarte: Klassenlehrerstunde 7C, Lernen für Oskar, Tutor-Skill, Studien
+- [[KI-Tutoren – Studien AIEDN und Harvard]]
+- [[Keynote Daniel Jung – KI und Lernen]]
+
 ## Aktuelle Schwerpunkte
 - Handy und Social Media: Risiken, Chancen, schulische Maßnahmen
 - Digitales Lernen und Unterricht

@@ -52,6 +52,7 @@ Bei Schulfragen zu einem Fach zuerst die Karte lesen, nicht erst im Vault suchen
 - **Mathe 7c oder 10b:** `04 Ressourcen/Mathematik/Mathematik.md`, Abschnitt „Einstieg: Wo liegt was“ (Stunden, Bauskripte, KA, Stoffverteilung, Schulbuch, iCloud-Ablage, Export).
 - **Physik 7c oder 10:** `04 Ressourcen/Physik/Physik.md` (Themenordner, Dashboard, Stoffverteilung, Planung).
 - **Sport (Curriculum, Dreikampf Turnen, Notenlisten, Notenschlüssel):** `04 Ressourcen/Sport/Sport.md`, Abschnitt „Einstieg: Wo liegt was“ (iCloud-Pfade der Notenlisten, Sportgruppen, Wahllisten, Curriculum).
+- **Lernen (Klassenlehrerstunde 7C und Lernen für Oskar selbst, KI-Tutor, Lernstudien):** `04 Ressourcen/Lernwissenschaft & Pädagogik/Lernen.md`. Sokratischer Tutor: Skill `lern-tutor`. Sidebar-Gruppe in Claude Code: 🟢 Lernen.
 - **Klassenlehrer 7c:** `03 Bereiche/Schule & Unterricht/`.
 - Stand der Wochen/Stunden: `04 Ressourcen/Bildungs-Dashboard.html`.
 
