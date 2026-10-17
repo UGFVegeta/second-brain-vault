@@ -14,7 +14,8 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
-| 2026-10-16 | 1 | – | – | |
+| 2026-10-17 | 1 | Nebenhöhlenentzündung, Gliederschmerzen, komplett schlapp, Nase nachts zu | – | Seit gestern krank, wieder die Nebenhöhlen. Nachts 2× Ibuprofen 400, trotzdem aufgewacht und kaum geschlafen (Garmin 6,8 h, laut Oskar mit mehr Wachphasen, vermutlich zu hoch). Morgens wieder Ibu 400. Ruhepuls 40, HRV 48. Laut Oskar bekommt er bei jedem Infekt Nebenhöhlenprobleme und fällt 1,5 bis 2 Wochen im Training aus. |
+| 2026-10-16 | 1 | Krankheitsbeginn (Nebenhöhlen), laut Oskar am 17.10. nachgetragen | – | |
 | 2026-10-15 | 2 | – | – | |
 | 2026-10-13 | 4 | – | – | |
 | 2026-10-12 | 4 | – | – | |
@@ -46,6 +47,11 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 ## Wiederkehrende Themen
 
 - **Nebenhöhlen.** Es gibt eine Vorgeschichte mit der Nase. Häufigkeit und Auslöser hier mitschreiben, damit beim nächsten Arztbesuch ein Verlauf vorliegt statt einer Erinnerung.
+  - **Muster (Oskar, 17.10.2026):** Bei jedem Infekt kommen Nebenhöhlenprobleme dazu, die Nase ist nachts zu, der Schlaf ist schlecht (Garmin überschätzt ihn dann), und er fällt nach eigener Aussage 1,5 bis 2 Wochen im Training aus. Das ist Oskars Erinnerung, die Daten zeigen es nur teilweise: Ende August 2026 waren es rund sechs Tage (30.08. bis 04.09.).
+  - **Episoden 2026:** 30.08. bis 03.09. (mit Magen-Darm, Ruhepuls 40), 13. bis 15.09. (Erkältung), seit 16.10. (Nebenhöhlenentzündung, Gliederschmerzen, Ruhepuls 40, HRV 48).
+  - **Frühwarnung:** Ruhepuls ab 38 und HRV deutlich unter 70, oft ein bis zwei Tage vor den Symptomen.
+  - **Folgerung fürs Training:** Bei Symptomen sofort aussetzen, keine Einheit "zum Testen". Wiedereinstieg erst, wenn Ruhepuls und HRV wieder an der Basis liegen und die Nase frei ist, und dann locker.
+  - **Offen:** HNO-Abklärung, falls es weiter bei fast jedem Infekt passiert. Dann diese Episoden als Verlauf mitnehmen.
 - **Hüfte und linkes Knie.** Laufende Themen, siehe [[Hüfte – Übersicht & Entscheidungsstand]] und [[Krafttraining Hüfte – Coxarthrose]]. Hier nur eintragen, wenn sich etwas verändert.
 - **Magen-Darm.** Beim Rennen am 23.08. gab es leichte Beschwerden durch doppelte Verpflegung, am 30.08. dann ein echter Infekt. Kein erkennbarer Zusammenhang, aber beides notiert.
 
