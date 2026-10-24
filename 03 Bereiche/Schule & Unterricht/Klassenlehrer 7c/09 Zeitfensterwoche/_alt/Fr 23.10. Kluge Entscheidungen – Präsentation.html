@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kluge Entscheidungen – Präsentation Klasse 7c</title>
+<style>
+  :root{
+    --ink:#1c2230; --bg:#fcf8ef; --paper:#fffdf6;
+    --accent:#2f6f4f; --accent2:#c2531e; --muted:#6b7280; --line:#d9d3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--ink); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  #stage{
+    position:relative;
+    width:min(96vw, calc(96vh * 16/9));
+    height:min(96vh, calc(96vw * 9/16));
+    background:var(--bg);
+    border-radius:14px; overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    outline:none;
+  }
+  .slide{
+    position:absolute; inset:0; padding:6.2% 7.5%;
+    display:none; flex-direction:column; justify-content:center;
+  }
+  .slide.active{display:flex}
+  .kicker{font-size:1.15vw; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:1.4em}
+  h1{font-size:4.4vw; line-height:1.05; letter-spacing:-.02em}
+  h2{font-size:3.1vw; line-height:1.12; letter-spacing:-.01em; margin-bottom:.7em}
+  p{font-size:1.9vw; line-height:1.5; max-width:42em; color:#333}
+  p + p{margin-top:.7em}
+  .big{font-size:2.4vw}
+  ul{margin:.6em 0 0 1.1em; font-size:1.9vw; line-height:1.6}
+  li{margin:.35em 0}
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:1em 1.2em}
+  .divider{background:var(--accent); color:#fff}
+  .divider .kicker{color:#bfe6d1}
+  .divider h1{font-size:4vw}
+  .note{margin-top:1.1em; font-size:1.35vw; color:var(--muted)}
+  .src{position:absolute; left:7.5%; right:7.5%; bottom:7.4%; font-size:1.02vw; color:#9a9484; line-height:1.35}
+  .divider .src{color:#a8d5c0}
+  .cols{display:flex; gap:3vw}
+  .cols > .card{flex:1}
+  .cols h3{font-size:2vw; margin-bottom:.5em; color:var(--accent)}
+  .cols h3.b{color:var(--accent2)}
+  .cols li{font-size:1.7vw}
+  .flow{display:flex; align-items:stretch; gap:1.6vw; margin-top:1em}
+  .flow .box{background:var(--paper); border:2px solid var(--ink); border-radius:10px; padding:1em 1em; text-align:center; flex:1; font-size:1.7vw; line-height:1.35}
+  .flow .box b{display:block; font-size:2.3vw; color:var(--accent); margin-bottom:.15em}
+  .flow .arrow{font-size:2.6vw; color:var(--accent); align-self:center}
+  .chips{display:flex; flex-wrap:wrap; gap:.9vw; margin-top:.8em}
+  .chips span{background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:.45em 1.1em; font-size:1.7vw}
+  .ikea{display:grid; grid-template-columns:7vw 1fr; gap:.9vw 1.6vw; align-items:center; margin-top:.3em}
+  .ikea .l{font-size:4.2vw; font-weight:800; color:var(--accent); text-align:center; line-height:1}
+  .ikea .t{font-size:2.1vw; line-height:1.3}
+  .ikea .t small{display:block; font-size:1.45vw; color:var(--muted)}
+  .q{font-size:2.3vw; line-height:1.4; font-weight:600; max-width:30em}
+  .q + .q{margin-top:.9em}
+  .merk{border-left:5px solid var(--accent); padding:.3em 0 .3em 1em; font-size:2.6vw; line-height:1.35; font-weight:700; max-width:24em}
+  #dots{position:absolute; bottom:1.9%; left:20%; right:20%; display:flex; gap:.25vw; justify-content:center}
+  #dots i{width:1.2vw; height:1.2vw; border:.25vw solid transparent; background-clip:padding-box;
+          border-radius:50%; background-color:var(--line); transition:background-color .2s; cursor:pointer}
+  #dots i:hover{background-color:#b3a98f}
+  #dots i.on{background:var(--accent)}
+  #counter{position:absolute; bottom:2%; right:3%; font-size:1.1vw; color:var(--muted)}
+  [data-step]{opacity:0; transition:opacity .28s}
+  [data-step].shown{opacity:1}
+  @media (max-width:700px){
+    h1{font-size:7vw} h2{font-size:5.5vw} p,ul{font-size:3.6vw} .kicker{font-size:2.6vw}
+  }
+</style>
+</head>
+<body>
+<div id="stage" tabindex="0">
+
+  <!-- 1 Titel -->
+  <section class="slide">
+    <div class="kicker">Klassenlehrerstunde Klasse 7c</div>
+    <h1>Kluge Entscheidungen</h1>
+    <p class="note">Was mir wichtig ist. Was meine Entscheidungen auslösen. Wie ich nicht einfach mitmache.</p>
+    <div class="src">Grundlage: Lions Quest „Erwachsen werden“, Kapitel 6 „Kluge Entscheidungen“.</div>
+  </section>
+
+  <!-- 2 Überblick -->
+  <section class="slide">
+    <div class="kicker">Heute</div>
+    <h2>Vier Teile</h2>
+    <ul style="list-style:none; margin-left:0">
+      <li data-step><b style="color:var(--accent)">1</b> &nbsp;Was ist mir wichtig?</li>
+      <li data-step><b style="color:var(--accent)">2</b> &nbsp;Entscheidungen und ihre Folgen</li>
+      <li data-step><b style="color:var(--accent)">3</b> &nbsp;Erst fühlen, dann kurz warten, dann handeln</li>
+      <li data-step><b style="color:var(--accent)">4</b> &nbsp;Wenn etwas unklar ist: die IKEA-Methode</li>
+    </ul>
+  </section>
+
+  <!-- 3 Divider 1 -->
+  <section class="slide divider">
+    <div class="kicker">Teil 1</div>
+    <h1>Was ist mir wichtig?</h1>
+  </section>
+
+  <!-- 4 Zwei Arten -->
+  <section class="slide">
+    <div class="kicker">Entscheidungen im Alltag</div>
+    <h2>Zwei Arten von Entscheidungen</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Spontan</h3>
+        <p style="font-size:1.6vw; margin-bottom:.5em">nach Lust und Laune</p>
+        <ul>
+          <li data-step>Was ziehe ich heute an?</li>
+          <li data-step>Worauf habe ich jetzt Appetit?</li>
+          <li data-step>Was mache ich heute Nachmittag?</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 class="b">Grundsätzlich</h3>
+        <p style="font-size:1.6vw; margin-bottom:.5em">gilt für längere Zeit</p>
+        <ul>
+          <li data-step>Welchen Stil, welche Farben trage ich?</li>
+          <li data-step>Esse ich Fleisch oder vegetarisch?</li>
+          <li data-step>Welchen Sport mache ich regelmäßig?</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Eure Beispiele: Internet, Schule, Musik, Sport, Fernsehen ...</p>
+  </section>
+
+  <!-- 5 Wovon hängt es ab -->
+  <section class="slide">
+    <div class="kicker">Beispiel Kleidung</div>
+    <h2>Wovon hängt es ab, wie jemand sich entscheidet?</h2>
+    <div class="chips">
+      <span data-step>Geld</span><span data-step>Erwartung der Eltern</span><span data-step>Bequemlichkeit</span>
+      <span data-step>Gewohnheit</span><span data-step>eigener Geschmack</span><span data-step>Mode</span>
+      <span data-step>Geschmack der Freunde</span><span data-step>Marken</span>
+    </div>
+  </section>
+
+  <!-- 6 Werte -->
+  <section class="slide">
+    <div class="kicker">Werte</div>
+    <h2>Unsere Entscheidungen werden von Werten beeinflusst</h2>
+    <p>Werte sind das, was man für gut und wichtig hält und woran man sich bei Entscheidungen richtet.</p>
+    <p class="merk" data-step style="margin-top:1.2em">Wenn wir wissen, was uns wichtig ist, können wir uns besser entscheiden.</p>
+  </section>
+
+  <!-- 7 A2 Auftrag -->
+  <section class="slide">
+    <div class="kicker">Auftrag</div>
+    <h2>Wie wichtig ist dir das?</h2>
+    <ul>
+      <li data-step><b>Einzeln:</b> Blatt ausfüllen. Pro Satz ein Kreuz von „sehr wichtig“ bis „unwichtig“. Zwei eigene Sätze ergänzen.</li>
+      <li data-step><b>Dann in der Gruppe:</b> Vergleicht und sprecht darüber.</li>
+    </ul>
+    <p class="note" data-step>Passen ist erlaubt. Niemand muss etwas vorlesen, was er oder sie nicht sagen möchte.</p>
+  </section>
+
+  <!-- 8 Gesprächsregeln -->
+  <section class="slide">
+    <div class="kicker">Vor dem Austausch</div>
+    <h2>Welche Regeln helfen uns, offen zu reden?</h2>
+    <ul>
+      <li data-step>gut zuhören</li>
+      <li data-step>nicht kommentieren</li>
+      <li data-step>andere Meinungen nicht abwerten</li>
+    </ul>
+  </section>
+
+  <!-- 9 Reflexion A2 -->
+  <section class="slide">
+    <div class="kicker">Auswertung</div>
+    <h2>Eure Gruppe</h2>
+    <p class="q" data-step>Bei welchen Werten gab es viel Übereinstimmung?</p>
+    <p class="q" data-step>Woher kommen unterschiedliche Werte?</p>
+    <p class="q" data-step>Welche Werte sind Ideale, die schwer einzuhalten sind? Warum sind sie trotzdem wichtig?</p>
+  </section>
+
+  <!-- 10 Motte -->
+  <section class="slide">
+    <div class="kicker">Zwei kurze Geschichten</div>
+    <h2>Die Motte und der Stern</h2>
+    <p>Eine junge Motte verliebt sich in einen Stern. Die Eltern sagen: Sei vernünftig, nimm eine Straßenlampe wie alle anderen. Die Motte probiert es trotzdem jede Nacht.</p>
+    <p class="q" data-step style="margin-top:1.2em">Was denkt ihr?</p>
+  </section>
+
+  <!-- 11 Möwe -->
+  <section class="slide">
+    <div class="kicker">Zwei kurze Geschichten</div>
+    <h2>Die junge und die alte Möwe</h2>
+    <p>Die junge Möwe will anders werden als die alte und lässt sich die Flügel nach der neuesten Mode stutzen. Die alte Möwe sagt: Ich kann mir nicht vorstellen, wie das ist. Aber eine Erfahrung wirst du nicht mehr machen können, nämlich wie es ist zu fliegen.</p>
+    <p class="q" data-step style="margin-top:1.2em">Was denkt ihr?</p>
+  </section>
+
+  <!-- 12 Divider 2 -->
+  <section class="slide divider">
+    <div class="kicker">Teil 2</div>
+    <h1>Entscheidungen<br>und ihre Folgen</h1>
+  </section>
+
+  <!-- 13 A5 Ablauf -->
+  <section class="slide">
+    <div class="kicker">Gruppenarbeit</div>
+    <h2>So arbeitet ihr mit den Karten</h2>
+    <p>Stellt euch jedes Mal vor, ihr seid selbst betroffen.</p>
+    <div class="flow">
+      <div class="box" data-step><b>1</b>Vorlesen<br>Eine Person liest das Ereignis vor.</div>
+      <div class="arrow" data-step>&rarr;</div>
+      <div class="box" data-step><b>2</b>Verstanden?<br>Alle prüfen, ob die Situation klar ist.</div>
+      <div class="arrow" data-step>&rarr;</div>
+      <div class="box" data-step><b>3</b>Besprechen<br>Karte umdrehen. Welche Folgen hat jede Möglichkeit?</div>
+      <div class="arrow" data-step>&rarr;</div>
+      <div class="box" data-step><b>4</b>Entscheiden<br>Gemeinsam eine Möglichkeit wählen.</div>
+    </div>
+  </section>
+
+  <!-- 14 A5 Auftrag 2 -->
+  <section class="slide">
+    <div class="kicker">Auftrag</div>
+    <h2>Zu jeder Karte</h2>
+    <ul>
+      <li data-step>Besprecht bei a, b und c: Was könnte passieren? Es gibt oft Vorteile und Nachteile.</li>
+      <li data-step>Entscheidet euch gemeinsam für eine Möglichkeit.</li>
+      <li data-step>Notiert die Nummer der Karte und eure Entscheidung auf einem Zettel.</li>
+      <li data-step>Am Ende stellt jede Gruppe zwei selbst gewählte Beispiele vor.</li>
+    </ul>
+    <p class="note" data-step>Lachen ist erlaubt. Aber fragt nach: Was wäre die Folge, wenn ich so handeln würde?</p>
+  </section>
+
+  <!-- 15 A5 Reflexion -->
+  <section class="slide">
+    <div class="kicker">Auswertung</div>
+    <h2>Was nehmt ihr mit?</h2>
+    <p class="q" data-step>Welche Erfahrungen habt ihr in der Gruppe gemacht?</p>
+    <p class="q" data-step>Was hilft es euch, über solche Situationen nachzudenken, bevor ihr selbst drinsteckt?</p>
+    <p class="q" data-step>Was wäre die Folge für alle, wenn die meisten Menschen so handeln würden?</p>
+  </section>
+
+  <!-- 16 Divider 3 -->
+  <section class="slide divider">
+    <div class="kicker">Teil 3</div>
+    <h1>Erst fühlen,<br>dann kurz warten</h1>
+  </section>
+
+  <!-- 17 Reiz und Reaktion -->
+  <section class="slide">
+    <div class="kicker">Kreisspiel</div>
+    <h2>Reiz und Reaktion</h2>
+    <ul>
+      <li data-step>Ich nenne einen Satzanfang und werfe den Ball zu.</li>
+      <li data-step>Wer ihn fängt, beendet den Satz sofort und wirft den Ball zurück.</li>
+      <li data-step>Wiederholungen gibt es nicht. Passen ist erlaubt.</li>
+    </ul>
+    <p class="note" data-step>Zum Beispiel: Wenn ich enttäuscht bin, ... / Wenn ich Zoff mit meiner besten Freundin habe, ... / Wenn ich Langeweile habe, ...</p>
+  </section>
+
+  <!-- 18 Zahnpasta -->
+  <section class="slide">
+    <div class="kicker">Warum kurz warten</div>
+    <h2>Zahnpasta lässt sich nicht zurück in die Tube drücken</h2>
+    <p>Unser Gehirn reagiert auf Gefahr in Sekundenbruchteilen. Das ist im Straßenverkehr gut. Im Streit machen wir dann Dinge, die wir hinterher bereuen.</p>
+    <div class="flow">
+      <div class="box" data-step><b>Reiz</b>etwas passiert</div>
+      <div class="arrow" data-step>&rarr;</div>
+      <div class="box" data-step><b>Stopp</b>ein paar Sekunden warten</div>
+      <div class="arrow" data-step>&rarr;</div>
+      <div class="box" data-step><b>Denken</b>Passt das? Was folgt daraus?</div>
+      <div class="arrow" data-step>&rarr;</div>
+      <div class="box" data-step><b>Handeln</b>bewusst entscheiden</div>
+    </div>
+  </section>
+
+  <!-- 19 Reflexion 6.2 -->
+  <section class="slide">
+    <div class="kicker">Auswertung</div>
+    <h2>Zum Kreisspiel</h2>
+    <p class="q" data-step>Über welche Gefühle spricht man leicht?</p>
+    <p class="q" data-step>Über welche eher ungern? Woran liegt das?</p>
+    <p class="q" data-step>Dieselbe Situation, verschiedene Reaktionen: Was sagt uns das?</p>
+  </section>
+
+  <!-- 20 Divider 4 -->
+  <section class="slide divider">
+    <div class="kicker">Teil 4</div>
+    <h1>Wenn etwas unklar ist:<br>die IKEA-Methode</h1>
+  </section>
+
+  <!-- 21 Unklares Angebot -->
+  <section class="slide">
+    <div class="kicker">Stellt euch vor</div>
+    <h2>Jemand, zwei bis drei Jahre älter, lädt euch zu sich nach Hause ein. Wozu, sagt er oder sie nicht.</h2>
+    <p class="q" data-step>Welche Fragen würdet ihr stellen, um euch gut entscheiden zu können?</p>
+    <p class="note" data-step>Überlegt kurz mit euren Nachbarn. Ich spiele die Person, ihr fragt.</p>
+  </section>
+
+  <!-- 22 IKEA -->
+  <section class="slide">
+    <div class="kicker">Die IKEA-Methode</div>
+    <h2 style="margin-bottom:.4em">Vier Buchstaben, ein Plan</h2>
+    <div class="ikea">
+      <div class="l" data-step>I</div>
+      <div class="t" data-step><b>Im Zweifel:</b> nicht einfach zusagen.</div>
+      <div class="l" data-step>K</div>
+      <div class="t" data-step><b>Kläre</b> durch Fragen.</div>
+      <div class="l" data-step>E</div>
+      <div class="t" data-step><b>Entscheide</b> dich. Bei „Nein“ kurz begründen.</div>
+      <div class="l" data-step>A</div>
+      <div class="t" data-step><b>Anderen</b> Vorschlag machen oder gehen.</div>
+    </div>
+    <p class="note" data-step>Tipp: Achtet auf euer Bauchgefühl. Es gibt oft gute Hinweise, ob alles in Ordnung ist.</p>
+  </section>
+
+  <!-- 23 Sketch -->
+  <section class="slide">
+    <div class="kicker">Gruppenarbeit</div>
+    <h2>Euer Sketch</h2>
+    <ul>
+      <li data-step>Wählt eine der zwei Situationen auf euren Streifen.</li>
+      <li data-step><b>Verführer*in:</b> will jemanden zu etwas überreden, sagt aber nicht direkt, worum es geht.</li>
+      <li data-step><b>Fragende*r:</b> klärt mit Fragen, was dahintersteckt. Er oder sie will keinen Ärger mit Eltern oder Polizei.</li>
+      <li data-step>Plant den Ablauf mit dem Arbeitsblatt und übt ihn. Danach spielt ihr vor.</li>
+    </ul>
+    <p class="note" data-step>Nach jedem Sketch gibt es einen kleinen Applaus.</p>
+  </section>
+
+  <!-- 24 Auswertung Sketch -->
+  <section class="slide">
+    <div class="kicker">Auswertung</div>
+    <h2>Zu den Sketchen</h2>
+    <p class="q" data-step>Warum ist es wichtig, den wahren Hintergrund früh zu klären?</p>
+    <p class="q" data-step>Was könnte passieren, wenn ich „Ja“ sage? Was, wenn ich „Nein“ sage? Für mich, für meine Familie, für die Menschen, die mir wichtig sind?</p>
+  </section>
+
+  <!-- 25 Abschluss -->
+  <section class="slide divider">
+    <div class="kicker">Zum Mitnehmen</div>
+    <h2 style="margin-bottom:.9em">Vier Fragen vor einer Entscheidung</h2>
+    <ul style="font-size:2.2vw; line-height:1.7; list-style:none; margin-left:0">
+      <li data-step>1 &nbsp;Was ist mir wichtig?</li>
+      <li data-step>2 &nbsp;Welche Folgen hat jede Möglichkeit?</li>
+      <li data-step>3 &nbsp;Habe ich kurz gewartet?</li>
+      <li data-step>4 &nbsp;Ist mir klar, worum es wirklich geht? Wenn nicht: IKEA.</li>
+    </ul>
+  </section>
+
+  <div id="dots"></div>
+  <div id="counter"></div>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((s,k)=>{
+    const d=document.createElement('i');
+    if(k===0)d.className='on';
+    const t=s.querySelector('h1,h2') || s.querySelector('.kicker');
+    const roh=t ? t.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]*>/g,'') : '';
+    d.title=(k+1)+' – '+(roh.replace(/\s+/g,' ').trim().slice(0,46) || 'Folie');
+    d.addEventListener('click',ev=>{ ev.stopPropagation(); show(k, k<i); });
+    dots.appendChild(d);
+  });
+  const dotEls=[...dots.children];
+  const counter=document.getElementById('counter');
+  counter.title='→ Schritt, ← zurück, ↑↓ ganze Folie, a alles aufdecken, F Vollbild';
+  let i=0, stepIdx=0;
+  const steps = n => [...slides[n].querySelectorAll('[data-step]')];
+
+  function applySteps(){
+    const st=steps(i);
+    st.forEach((el,k)=>{ el.classList.toggle('shown', k < stepIdx); });
+    label();
+  }
+  function show(n, revealAll){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+    stepIdx = revealAll ? steps(i).length : 0;
+    applySteps();
+  }
+  function label(){
+    const n=steps(i).length;
+    counter.textContent=(i+1)+' / '+slides.length+(n?'  –  '+stepIdx+'/'+n:'');
+  }
+  function next(){
+    if(stepIdx < steps(i).length){ stepIdx++; applySteps(); return; }
+    show(i+1,false);
+  }
+  function prev(){
+    if(stepIdx > 0){ stepIdx--; applySteps(); return; }
+    show(i-1,true);
+  }
+
+  show(0,false);
+  const stage=document.getElementById('stage');
+  stage.focus();
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){next();e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){prev();e.preventDefault();}
+    else if(e.key==='ArrowDown'){show(i+1,false);e.preventDefault();}
+    else if(e.key==='ArrowUp'){show(i-1,true);e.preventDefault();}
+    else if(e.key.toLowerCase()==='a'){show(i,true);e.preventDefault();}
+    else if(e.key==='Home')show(0,false);
+    else if(e.key==='End')show(slides.length-1,true);
+    else if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+  stage.addEventListener('click',e=>{ e.clientX < window.innerWidth/2 ? prev() : next(); });
+</script>
+</body>
+</html>

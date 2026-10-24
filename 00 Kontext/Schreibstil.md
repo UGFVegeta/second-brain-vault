@@ -86,3 +86,39 @@ Vorlage: `03 Bereiche/Schule & Unterricht/Klassenlehrer 7c/06 Elternabend/1 Einl
 - „Termin:" und „Ort:" fett in zwei Zeilen.
 - Tagesordnung als „TOP 1:" bis höchstens „TOP 7:", keine Stichpunkte. Kein eigener TOP „Begrüßung". Die Wahl der Elternvertreter steht als vorletzter TOP, zum Schluss kommt „Fragen und Sonstiges". Was die Fachlehrer ohnehin erzählen (z. B. das Wahlpflichtfach), bekommt keinen eigenen TOP.
 - Schluss: Hinweis, dass Eltern vorab eigene Punkte schicken können, dann „Ich freue mich, Sie zahlreich begrüßen zu dürfen." und „Mit freundlichen Grüßen / Oskar Klein".
+
+### Elternkommunikation bei Vorfällen (Stand 21.10.2026, Oskar gefällt diese Art sehr)
+
+Zwei Bausteine, die Oskar selbst formuliert und für gut befunden hat. Keine Namen von Schülern oder Eltern hier ablegen.
+
+**1. Information an die Eltern über einen Vorfall**
+
+> Sehr geehrte Eltern,
+>
+> ich möchte Sie darüber informieren, dass Ihr Sohn [Name] am Dienstag in der 1. Stunde, während meines Unterrichts, gemeinsam mit zwei weiteren Mitschülern an meiner Klassenzimmertür geklopft hat und anschließend weggerannt ist, obwohl ich ihn dabei gesehen habe. Deshalb hat er von mir einen Eintrag ins Tagebuch erhalten.
+>
+> Mit freundlichen Grüßen
+> Oskar Klein
+
+**2. Antwort an die Eltern, wenn die Sache geklärt ist**
+
+> Hallo Frau [Name],
+>
+> [Sohn] hat es mir ebenfalls genauso geschildert und versprochen, es nicht mehr zu tun. Ich habe ihm auch gesagt, dass er selbst die Verantwortung trägt, ob er mitmacht oder es bleiben lässt. Für mich ist die Sache damit erledigt. Ich wollte Sie nur darüber informieren.
+>
+> Viele Grüße
+> Oskar Klein
+
+Merkmale der Art:
+- **Sachlich und kurz:** Es wird nur beschrieben, was passiert ist (wann, was, Folge). Keine Wertung, keine langen Erklärungen.
+- **Die Folge steht klar da:** „Eintrag ins Tagebuch" wird genannt, nicht umschrieben.
+- **Nur belegen, was Oskar selbst erlebt hat:** Wenn er nur einen von mehreren Schülern gesehen hat, behauptet der Brief das auch nur für diesen.
+- **Die Verantwortung liegt beim Schüler:** „er trägt die Verantwortung, ob er mitmacht oder es bleiben lässt." Der Schüler hat es selbst geschildert und versprochen, es nicht mehr zu tun.
+- **Danach ist es erledigt:** „Für mich ist die Sache damit erledigt." Kein Nachtragen, kein Drohen. Die Nachricht an die Eltern ist reine Information („Ich wollte Sie nur darüber informieren").
+- **Anrede:** Beim ersten Brief „Sehr geehrte Eltern", in der Antwort an eine Mutter oder einen Vater „Hallo Frau [Name]"; Gruß „Mit freundlichen Grüßen" beziehungsweise „Viele Grüße".
+- **Wortwahl:** „genauso", „es nicht mehr zu tun", „mitmacht"; „auch" statt „außerdem" (weniger streng).
+
+## Kein Gendern (22.10.2026)
+
+Oskar gendert nicht. Keine Sternchen, Doppelpunkte, Binnen-I oder Klammerformen („Verführer*in“, „Schüler:innen“), auch nicht in Material für den Unterricht und auch nicht, wenn das Lehrerband oder eine Vorlage es tut. Stattdessen die gewöhnliche Form („Verführer“, „Fragender“, „die Schüler“) oder ein neutrales Wort („die Klasse“). Auch „er oder sie“ nur, wenn es wirklich nötig ist, sonst „er“.
+

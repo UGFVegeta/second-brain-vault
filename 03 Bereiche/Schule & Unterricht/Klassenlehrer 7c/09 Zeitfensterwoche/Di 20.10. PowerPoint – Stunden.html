@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PowerPoint – Di 20.10.</title>
+<style>
+  :root{
+    --ink:#1c2230; --bg:#fcf8ef; --paper:#fffdf6;
+    --accent:#2f6f4f; --accent2:#c2531e; --blue:#2b5f9e; --muted:#6b7280; --line:#d9d3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#efe9da; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:1.5}
+
+  .tabs{position:sticky; top:0; z-index:10; display:flex; gap:4px; padding:10px 16px 0; background:#e4dcc8; border-bottom:1px solid var(--line); height:52px; align-items:flex-end; flex-wrap:wrap}
+  .tabs button{font:inherit; font-weight:600; font-size:15px; padding:9px 18px; border:1px solid var(--line); border-bottom:none; background:#f3eddd; color:#5a5446; border-radius:10px 10px 0 0; cursor:pointer}
+  .tabs button.on{background:var(--bg); color:var(--ink); box-shadow:0 2px 0 var(--bg)}
+  .tabs .sp{flex:1}
+  .tabs .hint{font-size:13px; color:var(--muted); padding:0 4px 12px}
+  .panel{display:none}
+  .panel.on{display:block}
+
+  .page{max-width:1040px; margin:0 auto; padding:28px 24px 60px}
+  .page h1{font-size:30px; line-height:1.15; margin-bottom:6px; letter-spacing:-.01em}
+  .page h2{font-size:21px; margin:30px 0 10px}
+  .page h3{font-size:17px; margin:18px 0 6px}
+  .page p{margin:.4em 0; max-width:50em}
+  .page ul,.page ol{margin:.4em 0 .4em 1.3em}
+  .page li{margin:.2em 0}
+  .sub{color:var(--muted); margin-bottom:18px}
+  table{border-collapse:collapse; width:100%; background:var(--paper); margin:10px 0 18px; font-size:15px}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#efe8d4; font-size:13.5px; text-transform:uppercase; letter-spacing:.04em}
+  td.t{white-space:nowrap; font-weight:700; width:64px}
+  td.f{white-space:nowrap; width:56px; color:var(--muted); font-size:13.5px}
+  .tag{display:inline-block; font-size:12px; font-weight:700; padding:1px 8px; border-radius:99px; background:#dfeee6; color:var(--accent); white-space:nowrap}
+  .tag.fb{background:#fbe6d8; color:var(--accent2)}
+  .tag.sig{background:#dde8f5; color:var(--blue)}
+  .tag.grey{background:#ece8dc; color:#5a5446}
+  .box{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin:12px 0}
+  .box.warn{background:#fbf0e6; border-color:#e8c9ae}
+  .box.ok{background:#eef5ef; border-color:#bcd6c6}
+  .small{font-size:14px; color:var(--muted)}
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:760px){.cols{grid-template-columns:1fr}}
+  kbd{font:inherit; font-size:13px; background:#efe8d4; border:1px solid var(--line); border-radius:5px; padding:0 6px}
+
+  /* Zeitleiste */
+  .zl{display:flex; width:100%; height:44px; border-radius:10px; overflow:hidden; border:1px solid var(--line); margin:10px 0 4px; background:var(--paper)}
+  .zl div{display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; color:#fff; padding:0 4px; text-align:center; line-height:1.15; overflow:hidden; border-right:2px solid var(--bg)}
+  .zl div:last-child{border-right:none}
+  .zl-sum{font-size:13px; color:var(--muted); margin-bottom:6px}
+
+  .check li{list-style:none; margin-left:0}
+  .check li::before{content:"\2610\00a0"; color:var(--muted)}
+  .ruleline{background:#eef5ef; border:1px solid #bcd6c6; border-radius:8px; padding:8px 14px; margin:8px 0}
+  .ruleline b{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="tabs" id="tabs">
+  <button data-p="p-ueb" class="on">Überblick</button>
+  <button data-p="p-ver">Verlauf</button>
+  <button data-p="p-feh">Fehlerliste</button>
+  <button data-p="p-flip">Flipbook ausgefüllt</button>
+  <button data-p="p-skill">Skills-Checkliste</button>
+  <span class="sp"></span>
+  <span class="hint">Entwurf zum Abstimmen</span>
+</div>
+
+<!-- ============ ÜBERBLICK ============ -->
+<div class="panel on" id="p-ueb"><div class="page">
+  <h1>PowerPoint-Einführung</h1>
+  <p class="sub">Dienstag 20.10.2026, 1. bis 3. Stunde, Klasse 7c, 3 × 45 Minuten, Computerraum (Windows, Lehrer-PC mit Beamer). Material aus dem Ordner Zeitfensterwoche (Signal-Präsentation, Fehler-Handout, Flipbook).</p>
+
+  <div class="box ok">
+    <b>Ziel:</b> Am Ende der drei Stunden hat jede und jeder eine eigene, fertige Präsentation, in der die Fertigkeiten aus dem Flipbook vorkommen: Folienart wählen, Schrift und Farbe gestalten, Bild einfügen, Form oder SmartArt, Übergang und Animation, Präsentation starten. Es wird nichts abgegeben und nichts benotet. Die Schüler behalten ihre Datei.
+  </div>
+
+  <h2>Roter Faden</h2>
+  <table>
+    <tr><th style="width:110px">Stunde</th><th>Thema</th><th>Ergebnis am Stundenende</th></tr>
+    <tr><td><b>1</b></td><td>Fehler finden, Regeln ableiten. Du hältst die „nicht ganz perfekte“ Signal-Präsentation, die Klasse sammelt die Fehler.</td><td>Flipbook Seite 4 (Gestaltungsregeln) und Seite 6 (Präsentationsregeln) sind ausgefüllt.</td></tr>
+    <tr><td><b>2</b></td><td>PowerPoint kennenlernen (Register durchgehen), Folie aufbauen, Thema wählen, Plan schreiben, erste Folien bauen.</td><td>Flipbook Seite 2 und 3 ausgefüllt, Titelfolie und 2 bis 3 Folien stehen.</td></tr>
+    <tr><td><b>3</b></td><td>Fertig bauen, Skills-Checkliste abhaken, Partner-Check, in Vierergruppen zeigen.</td><td>Mindestens 5 Folien, gesichert.</td></tr>
+  </table>
+  <p>Die Fehlersuche kommt zuerst, damit die Regeln nicht vorgelesen werden. Die Klasse findet sie selbst, und beim Bauen in Stunde 2 und 3 gelten sie dann schon.</p>
+
+  <h2>Thema für die Schülerpräsentation (Vorschlag)</h2>
+  <div class="box">
+    <p><b>„Mein Lieblings…“</b> (Spiel, Tier, Sportart, Essen, Ort, Hobby). Das passt zur Signal-Präsentation („Meine Lieblingsapp“), jeder hat sofort etwas zu sagen, und es braucht keine Recherche. Nur eine Bedingung: keine Fotos von Personen und keine Namen anderer.</p>
+    <p class="small">Das ist mein Vorschlag, nicht aus dem Material. Wenn du ein anderes Thema willst (zum Beispiel etwas aus dem Unterricht), tauschen wir es aus.</p>
+  </div>
+
+  <h2>Vor der Stunde</h2>
+  <div class="cols">
+    <div class="box">
+      <h3 style="margin-top:0">Drucken und Schneiden</h3>
+      <ul class="check">
+        <li><b>Flipbook-PDF</b>, 6 Seiten × Klassenstärke, einseitig. Das Seitenformat ist 19 × 27,5 cm und passt ohne Skalieren auf A4.</li>
+        <li><b>Schneiden stapelweise:</b> Die Schere-Linie liegt auf jeder Seite tiefer (Deckblatt am höchsten, dann Programm, Aufbau, Regeln, Tipps; Seite 6 „Die Präsentation“ bleibt ganz). Pro Seite ein Stapel, ein Schnitt auf der Schneidemaschine, das sind 5 Schnitte. So schauen die Titelleisten gestaffelt heraus.</li>
+        <li>Die Schüler legen die Seiten in der Reihenfolge der Titelleisten übereinander und heften oben. Tacker bereitlegen.</li>
+        <li><b>Fehler-Handout</b> (1 Seite × Klassenstärke). Es hat keinen Platz zum Schreiben, die Fehler kommen deshalb auf die Rückseite oder ins Heft.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3 style="margin-top:0">Digital</h3>
+      <ul class="check">
+        <li><b>Signal-Präsentation (pptx)</b> einmal in PowerPoint durchklicken. Ich finde in der Datei keine automatische Weiterschaltung, du klickst selbst. Die Übergänge laufen unterschiedlich lang (1,25 bis 3,25 Sekunden), die Animationen auf den Folien 2 bis 7 siehst du erst im Vorführmodus.</li>
+        <li>Die odp-Datei brauchst du nicht, sie ist dieselbe Präsentation für LibreOffice.</li>
+        <li><b>Computerraum:</b> Du arbeitest am Lehrer-PC (Windows) und zeigst über den Beamer. Die Dateien (Signal-Präsentation, Fehler-Handout zum Drucken) müssen also auf diesen PC oder in dein Konto. Der Weg dorthin (USB-Stick, E-Mail, Cloud) ist offen, das klärst du vorab.</li>
+        <li>Eine <b>eigene Beispielpräsentation</b> („Mein Lieblings…“, 5 Folien, regelkonform) zum Vorzeigen am Ende von Stunde 1 oder 2. Kann ich dir bauen, wenn du magst.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Heute Abend klären</h2>
+  <div class="box warn">
+    <ul>
+      <li><b>iSurf:</b> Damit steuerst du alle Rechner und gibst das Internet frei oder sperrst es. Das nutzt der Plan so: Stunde 1 Internet gesperrt, Stunde 2 Internet erst zum Bauen freigeben (pixabay, fontmeme), Stunde 3 frei. Ob iSurf auch Bildschirme sperren und deinen Bildschirm auf alle Rechner schicken kann, weiß ich nicht. Beides steht im Plan als „falls möglich“, probier es vorher einmal aus.</li>
+      <li><b>Speicherort:</b> Die Schüler speichern in ihren eigenen Dateien in iSource. Offen: ob sie von dort nach der Zeitfensterwoche weiter an die Datei kommen und ob PowerPoint dort Dateien dieser Größe (Bilder) problemlos speichert.</li>
+      <li><b>PowerPoint-Version:</b> Windows-PowerPoint passt zum Flipbook, die Symbole darin stammen offenbar aus der Windows-Version. Welche Version genau in dem Raum läuft, weiß ich nicht. Öffne es einmal am Lehrer-PC und schau, ob die Register Start, Einfügen, Entwurf, Übergänge, Animationen, Bildschirmpräsentation so heißen.</li>
+      <li><b>pixabay und fontmeme:</b> Ich konnte beide Seiten nicht prüfen (mein Abruf bekam jeweils den Fehler 403, ein typischer Bot-Schutz). Bitte einmal im Browser öffnen und schauen, ob sie im Schulnetz laufen. Auch der Flipbook-Tipp „nach dem Suchbegriff png eingeben, dann sind die Bilder ohne Hintergrund“ ist von mir ungeprüft.</li>
+      <li><b>Pause:</b> Falls nach der 2. Stunde eine Pause liegt, ist in Stunde 3 das Wiederöffnen der Datei etwas knapper. Das fängt der Puffer in Stunde 3 ab.</li>
+    </ul>
+  </div>
+</div></div>
+
+<!-- ============ VERLAUF ============ -->
+<div class="panel" id="p-ver"><div class="page">
+  <h1>Verlauf</h1>
+  <p class="sub">Je 45 Minuten. Farbige Chips: <span class="tag fb">Flipbook</span> Seite im Heft der Schüler, <span class="tag sig">Signal</span> Folie der Signal-Präsentation, <span class="tag grey">Form</span> LV Lehrervortrag, EA Einzelarbeit, PA Partnerarbeit, GA Gruppenarbeit.</p>
+
+  <!-- STUNDE 1 -->
+  <h2>Stunde 1: Fehler finden, Regeln ableiten</h2>
+  <div class="zl" data-for="t1"></div><div class="zl-sum" data-sum="t1"></div>
+  <table id="t1">
+    <tr><th>Min</th><th>Was passiert</th><th>Material</th><th>Form</th></tr>
+    <tr data-min="5" data-label="Einstieg"><td class="t">5</td><td><b>Einstieg.</b> Plan nennen: „Am Ende hat jeder von euch eine eigene Präsentation. Heute schauen wir erst, wie man es nicht macht.“ Flipbook-Stapel austeilen, Namen aufs Deckblatt, Seiten ordnen und oben heften. Die Rechner laufen schon, brauchst du heute aber nicht: Internet über iSurf sperren und, falls iSurf das kann, die Bildschirme sperren, sonst „Bildschirme aus“ sagen.</td><td><span class="tag fb">Flipbook S. 1</span> Stapel, Tacker</td><td class="f">LV, EA</td></tr>
+    <tr data-min="2" data-label="Auftrag"><td class="t">2</td><td><b>Beobachtungsauftrag.</b> Handout und Stift bereit. „Achtet auf Fehler in den Folien und in meinem Vortrag.“ (Der Satz steht auch auf Folie 1.)</td><td>Fehler-Handout, <span class="tag sig">Folie 1</span></td><td class="f">LV</td></tr>
+    <tr data-min="8" data-label="Vortrag"><td class="t">8</td><td><b>Du hältst die Signal-Präsentation</b> mit absichtlichen Vortragsfehlern (siehe Tab Fehlerliste). Die Schüler notieren Fehler, die ihnen auffallen. Nicht erklären, nicht kommentieren.</td><td><span class="tag sig">Folie 1 bis 7</span></td><td class="f">LV, EA</td></tr>
+    <tr data-min="7" data-label="Vergleichen"><td class="t">7</td><td><b>Fehler vergleichen.</b> Mit dem Nachbarn die Notizen abgleichen. Ziel: pro Folie mindestens einen Fehler gefunden.</td><td>Handout</td><td class="f">PA</td></tr>
+    <tr data-min="13" data-label="Regeln sammeln"><td class="t">13</td><td><b>Folienfehler sammeln und Regeln formulieren.</b> Du schaltest Folie für Folie auf (Folie 2 bis 6), die Schüler nennen die Fehler. Zu jeder Gruppe von Fehlern eine Regel in einem Satz sagen lassen, kurz an die Tafel, die Schüler schreiben sie auf Flipbook Seite 4 (Gestaltungsregeln, 6 Kästen). Die Musterlösung steht im Tab „Flipbook ausgefüllt“.</td><td><span class="tag fb">Flipbook S. 4</span> <span class="tag sig">Folie 2 bis 6</span></td><td class="f">LV, EA</td></tr>
+    <tr data-min="8" data-label="Vortrag und Tipps"><td class="t">8</td><td><b>Vortragsfehler und Tipps.</b> 4 Min.: „Was habe ich beim Vortrag falsch gemacht?“ Antworten als Präsentationsregeln auf Seite 6 (Notizblock „Unsere Präsentationsregeln“). 4 Min.: Seite 5 „Tipps und Tricks“ lesen und die Wörter pixabay und fontmeme markieren.</td><td><span class="tag fb">Flipbook S. 6 und 5</span></td><td class="f">LV, EA</td></tr>
+    <tr data-min="2" data-label="Ausblick"><td class="t">2</td><td><b>Ausblick.</b> „Nächste Stunde öffnen wir PowerPoint.“ Hefte und Flipbook einsammeln oder mitnehmen lassen (Entscheidung offen).</td><td></td><td class="f">LV</td></tr>
+  </table>
+
+  <!-- STUNDE 2 -->
+  <h2>Stunde 2: Programm kennenlernen, erste Folien bauen</h2>
+  <div class="zl" data-for="t2"></div><div class="zl-sum" data-sum="t2"></div>
+  <table id="t2">
+    <tr><th>Min</th><th>Was passiert</th><th>Material</th><th>Form</th></tr>
+    <tr data-min="3" data-label="Start"><td class="t">3</td><td><b>Start.</b> Bildschirme wieder freigeben, PowerPoint öffnen, neue leere Präsentation. Flipbook zu und drei Gestaltungsregeln aus Stunde 1 nennen lassen, sobald das Programm lädt.</td><td><span class="tag fb">Flipbook S. 2</span> „Öffne das Programm PowerPoint“</td><td class="f">EA</td></tr>
+    <tr data-min="15" data-label="Das Programm"><td class="t">15</td><td><b>Das Programm: Register für Register.</b> Du zeigst am Lehrer-PC über den Beamer eine Funktion (falls möglich, schickst du deinen Bildschirm auf alle Schülerrechner, damit jeder von seinem Platz mitsieht), die Schüler probieren sofort auf ihrer Probefolie und schreiben in die Leerzeile, was die Funktion macht. Reihenfolge: Start (5 Zeilen, ca. 6 Min.), Einfügen (4 Zeilen, ca. 4 Min.), dann Entwurf, Übergänge, Animationen, Bildschirmpräsentation (ca. 5 Min.). Nicht fertig? Die letzten Zeilen schreiben die Schüler beim Bauen.</td><td><span class="tag fb">Flipbook S. 2</span> Musterlösung im Tab „Flipbook ausgefüllt“</td><td class="f">LV, EA</td></tr>
+    <tr data-min="5" data-label="Aufbau und Plan"><td class="t">5</td><td><b>Aufbau einer Folie, Plan.</b> „Neue Folie“: die sechs Folienarten kurz zeigen. Thema („Mein Lieblings…“) wählen. Im Notizblock auf Seite 3 festlegen: Folie 1, Folie 2, …, letzte Folie.</td><td><span class="tag fb">Flipbook S. 3</span></td><td class="f">LV, EA</td></tr>
+    <tr data-min="20" data-label="Bauen 1"><td class="t">20</td><td><b>Bauen 1.</b> Jetzt in iSurf das Internet freigeben (für pixabay und fontmeme). Titelfolie und 2 bis 3 weitere Folien mit verschiedenen Folienarten. Skills-Checkliste steht an der Tafel oder gespiegelt (Tab „Skills-Checkliste“). Du gehst herum, hilfst und verweist aufs Flipbook („Schau auf Seite 4, was passt hier?“).</td><td>Checkliste, Flipbook S. 3 bis 5</td><td class="f">EA</td></tr>
+    <tr data-min="2" data-label="Speichern"><td class="t">2</td><td><b>Speichern.</b> Dateiname festlegen (Thema und Vorname), in den eigenen Dateien in iSource speichern. Du kontrollierst am Steuerrechner, dass bei allen eine Datei liegt.</td><td></td><td class="f">LV</td></tr>
+  </table>
+
+  <!-- STUNDE 3 -->
+  <h2>Stunde 3: Fertig bauen, prüfen, zeigen</h2>
+  <div class="zl" data-for="t3"></div><div class="zl-sum" data-sum="t3"></div>
+  <table id="t3">
+    <tr><th>Min</th><th>Was passiert</th><th>Material</th><th>Form</th></tr>
+    <tr data-min="3" data-label="Start"><td class="t">3</td><td><b>Start.</b> Datei öffnen. Ziel nennen: „Am Ende der Stunde sind mindestens 5 Folien fertig und möglichst viele Kästchen der Checkliste abgehakt.“</td><td>Checkliste</td><td class="f">LV</td></tr>
+    <tr data-min="22" data-label="Bauen 2"><td class="t">22</td><td><b>Bauen 2.</b> Weiterbauen bis mindestens 5 Folien. Übergänge und Animationen erst zum Schluss, und überall dieselben (Regel aus Stunde 1). Schnelle machen die Kür-Punkte der Checkliste (SmartArt, Formen, Screenshot, WordArt).</td><td>Flipbook S. 3 bis 5, Checkliste</td><td class="f">EA</td></tr>
+    <tr data-min="5" data-label="Partner-Check"><td class="t">5</td><td><b>Partner-Check.</b> Tauschen, nach den Gestaltungsregeln auf Flipbook Seite 4 prüfen. Rückmeldung: zwei Dinge, die gut sind, und ein Wunsch. Der Partner darf aber nicht in der Datei umbauen, nur ansagen.</td><td><span class="tag fb">Flipbook S. 4</span></td><td class="f">PA</td></tr>
+    <tr data-min="12" data-label="Präsentieren"><td class="t">12</td><td><b>Präsentation starten und zeigen.</b> Schüler starten die Bildschirmpräsentation selbst („Von Beginn an“, Esc zum Beenden). In Vierergruppen (ein Rechner pro Gruppe, die anderen setzen sich dazu) zeigt jede und jeder die eigene Präsentation (2 bis 3 Minuten) und achtet auf die Präsentationsregeln von Seite 6. Du gehst durch die Gruppen.</td><td><span class="tag fb">Flipbook S. 6</span></td><td class="f">GA</td></tr>
+    <tr data-min="3" data-label="Abschluss"><td class="t">3</td><td><b>Abschluss.</b> Datei sichern. Kurze Rückmeldung an dich: Was war neu? Was war schwer? (Handzeichen oder Daumen.)</td><td></td><td class="f">LV</td></tr>
+  </table>
+
+  <div class="box">
+    <b>Puffer und Plan B.</b> Wenn die Klasse beim Bauen hinterherhinkt, kürzt du in Stunde 3 die Präsentationsphase auf 6 Minuten (2 Personen pro Gruppe) und gibst die Zeit dem Bauen. Wenn Schüler früh fertig sind: Kür-Punkte aus der Checkliste, zweite Präsentation zu einem anderen Thema, oder sie helfen am Nachbartisch. Wer nach Stunde 2 deutlich zurückliegt, bekommt als Minimum 4 Folien.
+  </div>
+</div></div>
+
+<!-- ============ FEHLERLISTE ============ -->
+<div class="panel" id="p-feh"><div class="page">
+  <h1>Fehlerliste zur Signal-Präsentation</h1>
+  <p class="sub">Die Lösung für dich. Welche Fehler in der Datei absichtlich sind, steht im Material nicht (in den Notizen der Folien stehen nur Nummern). Ich habe die Liste aus der Datei und dem Handout gelesen, nicht in PowerPoint mit den Animationen gesehen. <b>Geh sie heute Abend einmal im Vorführmodus durch</b> und streich, was bei dir anders aussieht.</p>
+
+  <h2>Folienfehler</h2>
+  <table>
+    <tr><th style="width:70px">Folie</th><th>Was auffällt</th><th style="width:230px">Passende Regel (Flipbook S. 4)</th></tr>
+    <tr><td class="t">1</td><td>Titel in anderer Schriftart (Serifen, Großbuchstaben), Anweisung darunter sehr klein, Folie wirkt oben zusammengedrängt und unten leer.</td><td>Schriftart, Schriftgröße</td></tr>
+    <tr><td class="t">2</td><td>„Meine Lieblingsapp“: Überschrift riesig (60 pt), das Signal-Logo klein und tief unten, Bildbeschriftung winzig (14 pt), viel Leerraum.</td><td>Schriftgröße, Bilder</td></tr>
+    <tr><td class="t">3</td><td>Textwüste: Fließtext aus Wikipedia in kleiner Schrift, die Fußnotenziffern [9] bis [16] stehen noch drin, keine Stichpunkte. Die Überschrift „Was ist Signal?“ liegt im Handout über dem Text. Dazu der Quellenfehler: abgeschrieben, keine Quelle genannt.</td><td>Text (Stichpunkte, kein Fließtext)</td></tr>
+    <tr><td class="t">4</td><td>„Funktionen“: drei verschiedene Schriftarten (Schnörkelschrift Kunstler Script, Serifen, Standard) und sehr unterschiedliche Größen (28 pt, 11 pt). „Desktop-App“ in Gelb auf Weiß, kaum lesbar. Bilder verschieden groß und nicht auf einer Höhe. Das Schlüssel-Bild hat einen schwarzen Kasten (nicht freigestellt).</td><td>Schriftart, Schriftgröße, Schriftfarbe (Kontrast), Bilder</td></tr>
+    <tr><td class="t">5</td><td>„Besonderheit“: Das Open-Source-Bild ist riesig, wirkt unscharf und hat Quelltext im Hintergrund. Der Text „Open Source“ steht klein oben links und sagt nichts.</td><td>Bilder (nicht verpixelt, passend)</td></tr>
+    <tr><td class="t">6</td><td>Tabelle „Gut/Schlecht“ in einer anderen Schriftart als der Rest (Arial/Liberation Sans), ohne jede Gestaltung. Die Zeile „Wenige Nutzer“ unter „Schlecht“ ist inhaltlich fragwürdig und kann ein Gesprächsanlass sein.</td><td>Schriftart, Hintergrund</td></tr>
+    <tr><td class="t">7</td><td>„Rückmeldung“: praktisch leer. Die Folie sagt nichts.</td><td>Text, Aufbau</td></tr>
+    <tr><td class="t">2 bis 7</td><td>Übergänge und Animationen wechseln von Folie zu Folie, mit unterschiedlicher Dauer (1,25 bis 3,25 Sekunden).</td><td>Animationen und Übergänge (gleicher Übergang, keine verschiedenen Animationen)</td></tr>
+  </table>
+  <p class="small">Außerdem keine einheitliche Gestaltung: kein durchgehender Hintergrund, keine Farbfamilie. Hintergrund und Farbfamilie fallen den Schülern erfahrungsgemäß zuerst auf.</p>
+
+  <h2>Vortragsfehler (mein Vorschlag, nicht aus dem Material)</h2>
+  <p>Im Material steht nicht, welche Vortragsfehler gemeint sind, nur der Satz „Achtet auf Fehler … in meinem Vortrag“. Hier ein Vorschlag, den du frei spielen kannst. Pro Folie ein bis zwei Fehler reichen.</p>
+  <table>
+    <tr><th>Fehler zum Vorspielen</th><th>Passende Präsentationsregel (Flipbook S. 6)</th></tr>
+    <tr><td>Folie 3 komplett vorlesen und dabei zur Wand schauen.</td><td>Der Text soll nur unterstützen und nicht deinen Vortrag ersetzen. Zum Publikum sprechen.</td></tr>
+    <tr><td>Fachwörter ohne Erklärung („Zero-Knowledge“, „Hash-Werte“) und zu schnell.</td><td>Nur das vortragen, was man selbst erklären kann; Fachwörter erklären.</td></tr>
+    <tr><td>Auf Folie 4 und 5 nicht auf die Bilder zeigen, obwohl du davon sprichst.</td><td>Nutze Bilder während der Präsentation, um darauf zu zeigen und sie zu erklären.</td></tr>
+    <tr><td>Leise nuscheln, „ähm“, Hände in den Taschen.</td><td>Laut und deutlich sprechen.</td></tr>
+    <tr><td>Auf Folie 7 nur „Das war’s“ sagen, ohne Schluss und Dank.</td><td>Mit einem Schlusssatz enden.</td></tr>
+  </table>
+  <p class="small">Die rechte Spalte sind Ergebnisse, die die Schüler selbst formulieren sollen. Die Spalte ist nur dein Merkzettel für das Gespräch.</p>
+</div></div>
+
+<!-- ============ FLIPBOOK AUSGEFÜLLT ============ -->
+<div class="panel" id="p-flip"><div class="page">
+  <h1>Flipbook ausgefüllt</h1>
+  <p class="sub">Das fertig ausgefüllte Flipbook als Musterlösung. Sie folgt dem Originalmaterial (Flipbook-PPT) und gilt auch für die Seiten, die die Schüler selbst formulieren.</p>
+
+  <h2>Seite 2: Das Programm</h2>
+  <table>
+    <tr><th style="width:190px">Register</th><th>Was kannst du hier ändern?</th></tr>
+    <tr><td rowspan="5"><b>Start</b></td><td>Schriftart ändern</td></tr>
+    <tr><td>Schriftgröße ändern</td></tr>
+    <tr><td>fett, kursiv, unterstrichen, schattiert</td></tr>
+    <tr><td>Schriftfarbe ändern</td></tr>
+    <tr><td>Ausrichtung ändern (links, zentriert, rechts, Blocksatz)</td></tr>
+    <tr><td rowspan="4"><b>Einfügen</b></td><td>Bilder einfügen</td></tr>
+    <tr><td>Screenshots einfügen</td></tr>
+    <tr><td>Formen einfügen</td></tr>
+    <tr><td>WordArt oder Textfelder einfügen</td></tr>
+    <tr><td><b>Entwurf</b></td><td>fertige Designs für Folien</td></tr>
+    <tr><td><b>Übergänge</b></td><td>Übergänge zwischen zwei Folien einfügen</td></tr>
+    <tr><td><b>Animationen</b></td><td>Bilder oder Textfelder animieren</td></tr>
+    <tr><td><b>Bildschirmpräsentation</b></td><td>Bildschirmpräsentation starten</td></tr>
+  </table>
+  <p class="small">Im Original-Flipbook steht in der Zeile „unterstichen“ (Tippfehler im Material). In der Lösung oben ist es korrigiert.</p>
+
+  <h2>Seite 3: Aufbau einer Folie</h2>
+  <p><b>Folienarten</b> (Neue Folie): Titelfolie, Titel und Inhalt, Abschnittsüberschrift, Zwei Inhalte, Vergleich, Nur Titel.</p>
+  <p><b>Notizblock „Folie 1, Folie 2, …, letzte Folie“</b> schreiben die Schüler selbst. Beispiel zum Vorzeigen (Thema „Mein Lieblingssport“):</p>
+  <table>
+    <tr><th style="width:140px">Folie</th><th>Inhalt</th><th style="width:190px">Folienart</th></tr>
+    <tr><td>Folie 1</td><td>Titel „Mein Lieblingssport“, ein Bild</td><td>Titelfolie</td></tr>
+    <tr><td>Folie 2</td><td>Was ist das? Drei Stichpunkte</td><td>Titel und Inhalt</td></tr>
+    <tr><td>Folie 3</td><td>Regeln und ein Bild daneben</td><td>Zwei Inhalte</td></tr>
+    <tr><td>Folie 4</td><td>Ablauf in einem SmartArt</td><td>Nur Titel plus SmartArt</td></tr>
+    <tr><td>Letzte Folie</td><td>Quellen und Bildnachweis</td><td>Titel und Inhalt</td></tr>
+  </table>
+
+  <h2>Seite 4: Gestaltungsregeln</h2>
+  <div class="ruleline"><b>Schriftgröße und Schriftart:</b> einheitliche Schriftgröße auf jeder Folie, die Überschrift größer als der Text. Nur zwei verschiedene Schriftarten.</div>
+  <div class="ruleline"><b>Schriftfarbe:</b> hell-dunkel Kontrast (heller Hintergrund, dunkle Schrift). In einer Farbfamilie bleiben.</div>
+  <div class="ruleline"><b>Hintergrund:</b> farblich passend zum Thema, Formen nutzen. Wenn eine Grafik als Hintergrund dient, dann nur bei der 1. Folie.</div>
+  <div class="ruleline"><b>Bilder:</b> passend zum Thema, nicht verpixelt und nicht geschützt (zum Beispiel mit Wasserzeichen). Bilder freistellen oder Piktogramme nutzen.</div>
+  <div class="ruleline"><b>Text:</b> Stichpunkte, kein Fließtext.</div>
+  <div class="ruleline"><b>Animationen und Übergänge:</b> keine unterschiedlichen Animationen, sie sollen nicht ablenken. Gleicher Übergang in der ganzen Präsentation.</div>
+
+  <h2>Seite 5: Tipps und Tricks (lesen, nicht ausfüllen)</h2>
+  <ul>
+    <li><b>Schrift:</b> Überschriften passend zum Thema findest du auf fontmeme.com.</li>
+    <li><b>Hintergrund:</b> Farbe passend zum Thema (Umwelt = grün, Kindergarten = bunt). Formen und Cliparts machen den Hintergrund interessanter.</li>
+    <li><b>Bilder:</b> kleine Piktogramme oder Bilder von pixabay.com; mit englischen Suchbegriffen suchen; nicht verpixelt oder verzogen; keine Bilder mit Wasserzeichen. Ein Bild einmal groß, einmal klein in die Ecke.</li>
+  </ul>
+
+  <h2>Seite 6: Die Präsentation</h2>
+  <p>Gedruckter Text auf der Seite: „Die PowerPoint-Präsentation soll deinen Vortrag unterstützen. Nutze Bilder während der Präsentation, um darauf zu zeigen und um die Bilder zu erklären. Der Text soll nur unterstützen und nicht deinen Vortrag ersetzen.“ Dazu: Präsentation starten, <kbd>Esc</kbd> beendet sie (im Original-Flipbook steht „Präsentatin“, ein Tippfehler).</p>
+  <p><b>Notizblock „Unsere Präsentationsregeln“</b> (von der Klasse in Stunde 1 gesammelt, Beispielergebnis):</p>
+  <div class="box">
+    <ul>
+      <li>Zum Publikum schauen, nicht zur Folie oder zur Wand.</li>
+      <li>Nicht ablesen, frei sprechen.</li>
+      <li>Laut und deutlich reden.</li>
+      <li>Auf die Bilder zeigen, wenn man darüber spricht.</li>
+      <li>Fachwörter erklären.</li>
+      <li>Mit einem Schlusssatz enden.</li>
+    </ul>
+  </div>
+</div></div>
+
+<!-- ============ SKILLS-CHECKLISTE ============ -->
+<div class="panel" id="p-skill"><div class="page">
+  <h1>Skills-Checkliste</h1>
+  <p class="sub">Für die Tafel oder gespiegelt auf dem Beamer (kein Arbeitsblatt). Die Schüler haken im Kopf oder im Heft ab. Nichts wird kontrolliert oder benotet, die Liste ist nur der Leitfaden für die Stunden 2 und 3.</p>
+
+  <div class="cols">
+    <div class="box ok">
+      <h3 style="margin-top:0">Muss (Pflicht-Paket)</h3>
+      <ul class="check">
+        <li>Mindestens 5 Folien (Minimum bei großem Rückstand: 4)</li>
+        <li>Titelfolie mit Thema</li>
+        <li>Mindestens 2 verschiedene Folienarten</li>
+        <li>Einheitliche Schriftart und Schriftgröße, Überschrift größer als Text</li>
+        <li>Schriftfarbe mit gutem Kontrast zum Hintergrund</li>
+        <li>Passender Hintergrund oder Entwurf</li>
+        <li>Mindestens ein Bild (nicht verpixelt, nicht geschützt)</li>
+        <li>Text nur in Stichpunkten</li>
+        <li>Überall derselbe Übergang</li>
+        <li>Eine dezente Animation, überall dieselbe</li>
+        <li>Präsentation starten und mit Esc beenden</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3 style="margin-top:0">Kann (Kür)</h3>
+      <ul class="check">
+        <li>SmartArt einfügen</li>
+        <li>Formen oder Clipart für den Hintergrund</li>
+        <li>WordArt oder Überschrift in passender Schrift</li>
+        <li>Screenshot einfügen</li>
+        <li>Textausrichtung ändern</li>
+        <li>Bild freistellen oder Piktogramm</li>
+        <li>Letzte Folie mit Quellen und Bildnachweis</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small">Alle Punkte stammen aus dem Flipbook (Register, Gestaltungsregeln, Tipps). Die Verteilung auf Muss und Kür ist mein Vorschlag, damit am Ende jeder etwas Fertiges hat.</p>
+</div></div>
+
+<script>
+  /* Tabs */
+  var tabs = document.querySelectorAll('#tabs button');
+  tabs.forEach(function(b){
+    b.addEventListener('click', function(){
+      tabs.forEach(function(x){x.classList.remove('on')});
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+      b.classList.add('on');
+      document.getElementById(b.dataset.p).classList.add('on');
+      try{ localStorage.setItem('ppt-tab', b.dataset.p) }catch(e){}
+      window.scrollTo(0,0);
+    });
+  });
+  try{
+    var gespeichert = localStorage.getItem('ppt-tab');
+    if(gespeichert){ var b = document.querySelector('#tabs button[data-p="'+gespeichert+'"]'); if(b) b.click(); }
+  }catch(e){}
+
+  /* Zeitleisten aus den Tabellenzeilen bauen */
+  var farben = ['#2f6f4f','#2b5f9e','#c2531e','#7a5aa6','#a6781f','#3d8a8a','#8a4a5c'];
+  document.querySelectorAll('.zl').forEach(function(bar){
+    var rows = document.querySelectorAll('#'+bar.dataset.for+' tr[data-min]');
+    var sum = 0;
+    rows.forEach(function(r){ sum += +r.dataset.min; });
+    rows.forEach(function(r, i){
+      var d = document.createElement('div');
+      d.style.width = (100 * r.dataset.min / sum) + '%';
+      d.style.background = farben[i % farben.length];
+      d.textContent = r.dataset.label + ' ' + r.dataset.min;
+      d.title = r.dataset.label + ', ' + r.dataset.min + ' Minuten';
+      bar.appendChild(d);
+    });
+    var s = document.querySelector('[data-sum="'+bar.dataset.for+'"]');
+    if(s) s.textContent = 'Summe ' + sum + ' Minuten';
+  });
+</script>
+</body>
+</html>

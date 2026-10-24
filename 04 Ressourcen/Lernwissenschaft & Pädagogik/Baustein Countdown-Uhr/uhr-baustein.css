@@ -1,0 +1,9 @@
+  /* Countdown-Uhr für Arbeitsphasen: data-timer="Minuten[,Minuten]" an der Folie */
+  #uhr{position:absolute; left:3cqw; bottom:1.6cqw; z-index:55; display:none; align-items:center; gap:.9cqw; background:#fff; border:2px solid var(--accent); border-radius:99px; padding:.5cqw 1.2cqw .5cqw 1.6cqw; box-shadow:0 .3cqw 1cqw rgba(0,0,0,.15)}
+  #uhr .ut{font-size:3.6cqw; font-weight:800; font-variant-numeric:tabular-nums; min-width:4.6ch; line-height:1}
+  #uhr button{font:inherit; font-size:1.3cqw; font-weight:600; padding:.45cqw 1.1cqw; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--ink); cursor:pointer}
+  #uhr button.pri{background:var(--accent); color:#fff; border-color:var(--accent); font-size:1.5cqw; padding:.55cqw 1.5cqw}
+  #uhr button.on{background:#dfeee6; border-color:var(--accent)}
+  #uhr.knapp{border-color:var(--accent2)} #uhr.knapp .ut{color:var(--accent2)}
+  #uhr.aus{border-color:#c0392b; animation:ublink .8s infinite} #uhr.aus .ut{color:#c0392b}
+  @keyframes ublink{50%{background:#fde7e4}}

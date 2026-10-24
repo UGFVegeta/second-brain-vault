@@ -34,6 +34,7 @@ Ideen aus der Keynote von Daniel Jung (16.10.2026), noch nicht eingebaut. Detail
 - **Sokratischer Tutor:** Skill `lern-tutor` (Trigger: "Tutor", "frag mich ab", "sokratisch"). Fragt zuerst, erklärt danach. Arbeitet mit Vault-Quellen.
 - **Active Recall:** [[03 Bereiche/Active Recall/Active Recall]] mit Skill `active-recall`. Wiederholungsabstände 1, 2, 4, 9, 19, 40, 85 Tage.
 - **Studien:** [[KI-Tutoren – Studien AIEDN und Harvard]]
+- **Wissenschaftlicher Hintergrund der Stunde "Gehirn und Lernen":** Tab "Wissenschaft" in der Stunden-HTML (`03 Bereiche/Schule & Unterricht/Klassenlehrer 7c/09 Zeitfensterwoche/`), zehn Methoden mit Studien und DOI-Links, Stand 20.10.2026
 - **Mastery im Mathe-Unterricht:** siehe [[Mathematik]], Abschnitt Mastery
 
 ## Arbeitsteilung Claude und NotebookLM

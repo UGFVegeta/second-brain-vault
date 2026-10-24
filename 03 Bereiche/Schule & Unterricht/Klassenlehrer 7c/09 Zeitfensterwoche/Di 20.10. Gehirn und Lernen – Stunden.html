@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gehirn und Lernen – Di 20.10.</title>
+<style>
+  :root{
+    --ink:#1c2230; --bg:#fcf8ef; --paper:#fffdf6;
+    --accent:#2f6f4f; --accent2:#c2531e; --muted:#6b7280; --line:#d9d3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{background:#efe9da; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:1.5}
+
+  /* Tabs */
+  .tabs{position:sticky; top:0; z-index:10; display:flex; gap:4px; padding:10px 16px 0; background:#e4dcc8; border-bottom:1px solid var(--line); height:52px; align-items:flex-end}
+  .tabs button{font:inherit; font-weight:600; font-size:15px; padding:9px 18px; border:1px solid var(--line); border-bottom:none; background:#f3eddd; color:#5a5446; border-radius:10px 10px 0 0; cursor:pointer}
+  .tabs button.on{background:var(--bg); color:var(--ink); box-shadow:0 2px 0 var(--bg)}
+  .tabs .sp{flex:1}
+  .tabs .hint{font-size:13px; color:var(--muted); padding:0 4px 12px}
+  .panel{display:none}
+  .panel.on{display:block}
+
+  /* Textseiten */
+  .page{max-width:1040px; margin:0 auto; padding:28px 24px 60px}
+  .page h1{font-size:30px; line-height:1.15; margin-bottom:6px; letter-spacing:-.01em}
+  .page h2{font-size:21px; margin:30px 0 10px}
+  .page h3{font-size:17px; margin:18px 0 6px}
+  .page p{margin:.4em 0; max-width:48em}
+  .page ul,.page ol{margin:.4em 0 .4em 1.3em}
+  .page li{margin:.2em 0}
+  .sub{color:var(--muted); margin-bottom:18px}
+  table{border-collapse:collapse; width:100%; background:var(--paper); margin:10px 0 18px; font-size:15px}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#efe8d4; font-size:13.5px; text-transform:uppercase; letter-spacing:.04em}
+  td.t{white-space:nowrap; font-weight:700; width:70px}
+  .tag{display:inline-block; font-size:12px; font-weight:700; padding:1px 8px; border-radius:99px; background:#dfeee6; color:var(--accent)}
+  .tag.warn{background:#fbe6d8; color:var(--accent2)}
+  .box{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin:12px 0}
+  .box.warn{background:#fbf0e6; border-color:#e8c9ae}
+  .box.ok{background:#eef5ef; border-color:#bcd6c6}
+  .small{font-size:14px; color:var(--muted)}
+  button.act{font:inherit; font-weight:600; padding:8px 16px; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer}
+
+  /* Folien */
+  #foilwrap{padding:12px 16px 16px; display:flex; flex-direction:column; align-items:center; gap:10px}
+  #stage{container-type:size; position:relative; width:min(100%, calc((100vh - 130px) * 16 / 9)); aspect-ratio:16/9;
+    background:var(--bg); border-radius:14px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.3); outline:none}
+  #stage:fullscreen{width:100vw; height:100vh; aspect-ratio:auto; border-radius:0}
+  .slide{position:absolute; inset:0; padding:5.6cqw 7cqw 6cqw; display:none; flex-direction:column; justify-content:center}
+  .slide.active{display:flex}
+  .kicker{font-size:1.2cqw; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:1.2cqw}
+  .slide h1{font-size:4.6cqw; line-height:1.06; letter-spacing:-.02em}
+  .slide h2{font-size:3cqw; line-height:1.12; margin-bottom:.9cqw}
+  .slide p{font-size:1.9cqw; line-height:1.45; max-width:44em; color:#333}
+  .slide p + p{margin-top:.6cqw}
+  .slide .big{font-size:2.5cqw; color:var(--ink)}
+  .slide .note{font-size:1.4cqw; color:var(--muted); margin-top:1cqw}
+  .slide ul,.slide ol{margin:.5cqw 0 0 2cqw; font-size:1.9cqw; line-height:1.5}
+  .slide li{margin:.4cqw 0}
+  .src{position:absolute; left:7cqw; right:7cqw; bottom:4.4cqw; font-size:1cqw; color:#9a9484}
+  .divider{background:var(--accent); color:#fff}
+  .divider .kicker{color:#bfe6d1}
+  .cards{display:flex; gap:2cqw; margin-top:1.6cqw}
+  .cards .card{flex:1; background:var(--paper); border:1px solid var(--line); border-radius:1.2cqw; padding:1.6cqw 1.8cqw}
+  .cards .card b{display:block; font-size:1.5cqw; color:var(--accent); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.5cqw}
+  .cards .card span{font-size:1.9cqw; line-height:1.4}
+  .stack{display:grid; margin-top:.8cqw}
+  .stack > div{grid-area:1/1; opacity:0; pointer-events:none; transition:opacity .25s}
+  .stack > div.show{opacity:1}
+  .words{display:grid; grid-template-columns:repeat(4,1fr); gap:1.1cqw 1.6cqw; margin-top:.4cqw}
+  .words span{background:var(--paper); border:1px solid var(--line); border-radius:1cqw; padding:.9cqw 1cqw; font-size:2.3cqw; font-weight:700; text-align:center}
+  .words.pics span{font-size:4.2cqw; padding:.3cqw; line-height:1.15}
+  .words.pics small{display:block; font-size:1.5cqw; font-weight:600; color:var(--muted)}
+  .pics6{display:grid; grid-template-columns:repeat(6,11cqw); gap:1.2cqw 1.6cqw; justify-content:center; margin-top:.8cqw}
+  .pics6 .cell{text-align:center}
+  .pics6 .tile{display:block; width:11cqw; height:11cqw; background:url(neu-raster.jpg) no-repeat; background-size:400% 300%; border-radius:1cqw; border:1px solid var(--line)}
+  .pics6 small{display:block; font-size:1.5cqw; font-weight:700; margin-top:.3cqw}
+  .calc{font-size:3.4cqw; font-weight:800; letter-spacing:.03em; margin-top:1.2cqw; line-height:1.5}
+  .phases{position:absolute; left:7cqw; bottom:3cqw; display:flex; gap:.8cqw; font-size:1.15cqw; color:var(--muted)}
+  .phases span{padding:.3cqw 1cqw; border-radius:99px; border:1px solid var(--line)}
+  .phases span.on{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700}
+  [data-s]{opacity:0; transition:opacity .25s}
+  [data-s].show{opacity:1}
+  .stack > div[data-s]{opacity:0}
+  .stack > div[data-s].show{opacity:1}
+  .ico{position:absolute; right:7cqw; top:4.6cqw; width:9cqw; aspect-ratio:1; background:url(neu-icons.jpg) no-repeat; background-size:200% 200%; border-radius:1.2cqw}
+  .titelbild{position:absolute; right:3cqw; bottom:7cqw; width:46cqw; border-radius:1.4cqw}
+  .slide.hastitle h1, .slide.hastitle .note{max-width:34cqw}
+  .slide.tight{padding:3.4cqw 7cqw 4cqw; justify-content:flex-start}
+  .bausteine{display:grid; grid-template-columns:repeat(3,1fr); gap:1.2cqw; margin:.6cqw auto 0; max-width:70cqw}
+  .bausteine figure{background:var(--paper); border:1px solid var(--line); border-radius:1.2cqw; overflow:hidden; margin:0}
+  .bausteine img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover}
+  .bausteine figcaption{font-size:1.25cqw; font-weight:700; padding:.4cqw .6cqw; text-align:center}
+  .kartebild{position:absolute; right:5cqw; bottom:6.5cqw; width:30cqw; border-radius:1.2cqw}
+  #counter{position:absolute; right:2cqw; bottom:1.3cqw; font-size:1.1cqw; color:var(--muted)}
+  #bar{position:absolute; left:0; bottom:0; width:100%; height:.5cqw; background:var(--accent); transform-origin:left; transition:transform .2s}
+  .ctrl{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px}
+  .ctrl button{font:inherit; padding:6px 14px; border-radius:8px; border:1px solid var(--line); background:var(--paper); cursor:pointer}
+  .twocol{display:flex; gap:2.4cqw; margin-top:1cqw}
+  .twocol > div{flex:1}
+  table.mini{width:auto; font-size:2.1cqw; margin:1cqw 0}
+  table.mini td, table.mini th{padding:.6cqw 1.6cqw}
+
+  /* Blätter */
+  .sheet{background:#fff; width:210mm; min-height:297mm; margin:18px auto; padding:11mm 15mm; box-shadow:0 6px 26px rgba(0,0,0,.18); page-break-after:always; position:relative; font-size:12.5pt; line-height:1.4}
+  .sheet h2{font-size:21pt; margin:0 0 4mm}
+  .sheet .kick{font-size:10pt; text-transform:uppercase; letter-spacing:.14em; color:#2f6f4f; font-weight:700; margin-bottom:2mm}
+  .sheet p{margin:2mm 0}
+  .sheet .txt{font-size:13.5pt; line-height:1.45; margin:4mm 0; padding:4mm 6mm; border:1.5px solid #1c2230; border-radius:3mm}
+  .sheet ol{margin:2mm 0 2mm 6mm}
+  .sheet li{margin:1.5mm 0}
+  .sheet .txt .pic{float:right; width:68mm; margin:1mm 0 2mm 6mm; border-radius:3mm}
+  .sheet .txt{display:flow-root}
+  .sheet .tip{border:1px dashed #888; border-radius:3mm; padding:3mm 5mm; margin-top:6mm; font-size:11pt}
+  .sheet .nm{display:flex; justify-content:space-between; font-size:11pt; margin-bottom:5mm}
+  .rgrid{display:grid; grid-template-columns:1fr 1fr; gap:5mm}
+  .rbox{border:1.5px solid #1c2230; border-radius:3mm; padding:3mm 4mm}
+  .rbox b{display:block; font-size:12pt; margin-bottom:1mm}
+  .rbox .ln{display:grid; grid-template-columns:1fr 1fr; gap:0 5mm}
+  .rbox .ln i{font-style:normal; border-bottom:1px solid #999; height:6.6mm; font-size:9pt; color:#aaa; padding-top:1.4mm}
+  .rbox .res{margin-top:2mm; font-size:11.5pt}
+  .lined{border-bottom:1px solid #999; height:6.6mm}
+  .bw .sheet .kick{color:#000}
+  .bw .sheet .pic{border-radius:0}
+  .sheet .zus{font-size:11pt; margin:1mm 0}
+  .wcard{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 20px; margin:14px 0}
+  .wcard h3{margin:0 0 6px; font-size:18px}
+  .wcard p{margin:.5em 0; max-width:none}
+  .wcard .in{color:#4b5563}
+  .wcard .gr{color:#7a4a2a}
+  .wcard .qu{font-size:14px; color:var(--muted)}
+  .wcard a, .quellen a, .box a{color:#1f5c8f}
+  .tag.mid{background:#f6ecc9; color:#7a5b00}
+  .tag.warn{background:#fbe6d8; color:#a14510}
+  .tag.mythos{background:#f3d9d4; color:#8a2c1c}
+  ol.quellen{margin:8px 0 18px 1.3em; font-size:14px; line-height:1.45}
+  ol.quellen li{margin:6px 0}
+  .sprech .vh{font-size:11pt; margin-bottom:3mm}
+  .sprech .wl{display:grid; grid-template-columns:1fr 1fr; gap:2mm 8mm; border:2px solid #1c2230; border-radius:3mm; padding:5mm 8mm}
+  .sprech .wl div{font-size:25pt; font-weight:700; line-height:1.25}
+  .sprech .wl small{font-size:11pt; font-weight:400; color:#888; margin-right:3mm}
+  .sprech .say{font-size:12pt; margin:3.5mm 0; line-height:1.45}
+  .sprech .say i{color:#1c2230}
+  .sprech table.sp{width:100%; border-collapse:collapse; font-size:10.5pt; margin-top:3mm}
+  .sprech table.sp th{background:#efe8d4; font-size:9pt; text-transform:uppercase; letter-spacing:.04em}
+  .sprech table.sp td, .sprech table.sp th{border:1px solid #bbb; padding:2mm 3mm; vertical-align:top; text-align:left}
+  .sprech table.sp td.f{white-space:nowrap; font-weight:700; width:22mm}
+  .sprech table.sp td.w{font-size:9.5pt; color:#444}
+  .heft{background:#fff; max-width:760px; margin:18px auto; padding:30px 38px; border-radius:12px; border:1px solid var(--line); font-size:18px; line-height:1.6;
+    background-image:linear-gradient(#e4ecf4 1px, transparent 1px); background-size:100% 29px}
+  .heft h2{margin:0 0 12px; background:#fff; display:inline-block; padding:0 8px; border:none}
+  .heft ol{margin:6px 0 6px 24px}
+  .heft li{margin:10px 0; background:rgba(255,255,255,.75)}
+  .teach{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .teach .box h3{margin-top:0}
+  @media (max-width:760px){ .tabs button{padding:8px 10px; font-size:13px} .tabs .hint{display:none} .sheet{width:100%} .teach{grid-template-columns:1fr} }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff}
+    .tabs,.panel:not(.on),.noprint,.ctrl{display:none !important}
+    .sheet{box-shadow:none; margin:0; width:210mm; height:297mm; min-height:0; overflow:hidden}
+    .page{padding:10mm}
+  }
+</style>
+</head>
+<body>
+
+<div class="tabs noprint" id="tabs">
+  <button data-tab="ueberblick" class="on">Überblick</button>
+  <button data-tab="folien">Folien</button>
+  <button data-tab="merktest">Merk-Experiment</button>
+  <button data-tab="gruppen">Schülerblätter</button>
+  <button data-tab="sprech">Sprechzettel</button>
+  <button data-tab="aufschrieb">Aufschrieb</button>
+  <button data-tab="wissenschaft">Wissenschaft</button>
+  <button data-tab="drucken">Ausdrucken</button>
+  <span class="sp"></span>
+  <span class="hint">Entwurf zum Abstimmen, noch nichts im Original geändert</span>
+</div>
+
+<!-- ============ ÜBERBLICK ============ -->
+<div class="panel on" id="p-ueberblick">
+<div class="page">
+  <h1>Gehirn und Lernen</h1>
+  <p class="sub">Methodentraining Klasse 7, drei Stunden. Dienstag 20.10.2026, 4. bis 6. Stunde, Raum 1.24, 7c, du allein.</p>
+
+  <div class="box ok">
+    <b>Der rote Faden:</b> Wie merke ich mir etwas? Die Klasse erlebt in vier Runden selbst, dass man mehr behält, wenn man etwas tut. Dazu erarbeiten sechs Gruppen je einen Baustein und stellen ihn vor. Alles hängt an deinem Anfang des Schuljahres: Päckchen, Anstrengung, weißes Blatt.
+  </div>
+
+  <h2>Ziele</h2>
+  <ol>
+    <li>Die Schüler erfahren selbst, wie sie sich mehr merken (aktiv statt nur zuhören oder lesen).</li>
+    <li>Sie kennen sechs einfache Bausteine zur Funktionsweise des Lernens (Gruppenarbeit).</li>
+    <li>Sie üben, in Gruppen zu arbeiten.</li>
+    <li>Sie üben, ein Blatt übersichtlich zu gestalten.</li>
+    <li>Sie üben, Ergebnisse vorzustellen und Rückmeldung zu geben.</li>
+  </ol>
+
+  <h2>Ablauf (je Stunde 45 Minuten)</h2>
+  <h3>Stunde 1: Merk-Experiment starten, Gruppen bilden</h3>
+  <table>
+    <tr><th>Min.</th><th>Was passiert</th><th>Form</th><th>Medien</th></tr>
+    <tr><td class="t">5</td><td>Einstieg: Plan des Tages. Abruf zu den ersten Schulwochen: Heft zu, 2 Minuten Stichworte (Päckchen, „noch“ statt „kann nicht“, weißes Blatt).</td><td>EA, LV</td><td>Folie 1 bis 3 (MacBook über Apple TV gespiegelt)</td></tr>
+    <tr><td class="t">17</td><td>Merk-Experiment Runde 1 (Hören) und Runde 2 (Lesen). Je Runde: Wörter, 1 Minute Kopfrechnen, aufschreiben, mit Nachbar kontrollieren, Zahl eintragen.</td><td>EA, PA</td><td>Folie 4 bis 6, Blatt „Merk-Experiment“, Wortlisten (Tab Merk-Experiment)</td></tr>
+    <tr><td class="t">3</td><td>Überleitung, 6 Gruppen bilden (4 bis 5 Schüler), jede Gruppe bekommt ein Baustein-Blatt.</td><td>LV</td><td>Folie 7 und 8, Gruppenblätter</td></tr>
+    <tr><td class="t">20</td><td>Gruppenarbeit 1: Text lesen, drei wichtigste Punkte als Stichworte, überlegen was das für Schule und zu Hause bedeutet (zwei Sätze).</td><td>GA</td><td>Gruppenblatt</td></tr>
+  </table>
+  <h3>Stunde 2: Gruppenarbeit beenden, Runde 3 und 4</h3>
+  <table>
+    <tr><th>Min.</th><th>Was passiert</th><th>Form</th><th>Medien</th></tr>
+    <tr><td class="t">20</td><td>Gruppenarbeit 2: Blatt gestalten (Überschrift, Stichworte, ein Bild), Vorstellen kurz proben.</td><td>GA</td><td>Folie 9, leeres A4 pro Gruppe, bunte Stifte</td></tr>
+    <tr><td class="t">17</td><td>Merk-Experiment Runde 3 (Sehen) und Runde 4 (Selber tun).</td><td>EA, PA</td><td>Folie 10 und 11</td></tr>
+    <tr><td class="t">8</td><td>Ergebnisse der vier Runden in das Blatt eintragen, Blätter der Gruppen einsammeln.</td><td>EA</td><td>Blatt „Merk-Experiment“</td></tr>
+  </table>
+  <h3>Stunde 3: Vorstellen, Auswerten, Aufschreiben</h3>
+  <table>
+    <tr><th>Min.</th><th>Was passiert</th><th>Form</th><th>Medien</th></tr>
+    <tr><td class="t">25</td><td>Die sechs Gruppen stellen vor (je etwa 4 Minuten). Rückmeldung mit den Satzanfängen auf der Folie.</td><td>Präsentation</td><td>Folie 12; Gruppenblätter per iPad oder iPhone abfotografieren und über Apple TV auf die Tafel spiegeln</td></tr>
+    <tr><td class="t">10</td><td>Auswertung des Experiments: Klassenwerte an die Tafel, „Was fällt auf?“, „Ist das ein Beweis?“ „Und die Lerntypen?“ (Karte statt Karteikarten als Beispiel)</td><td>LV</td><td>Folie 13 bis 15</td></tr>
+    <tr><td class="t">8</td><td>Aufschrieb ins Methodenheft (Tafelbild). Schüler schreiben selbst.</td><td>EA</td><td>Folie 16, Tab Aufschrieb</td></tr>
+    <tr><td class="t">2</td><td>Abschluss: Eine Sache diese Woche ausprobieren. Nach der Stunde: die sechs Gruppenblätter mit dem iPad fotografieren und als PDF auf IServ stellen.</td><td>LV</td><td>Folie 17</td></tr>
+  </table>
+
+  <h2>Was ich gegenüber dem Original geändert habe</h2>
+  <table>
+    <tr><th>Original</th><th>Jetzt</th><th>Warum</th></tr>
+    <tr><td>Lerntypentest, Ziel „Lerntyp erkennen“</td><td>Merk-Experiment, Ziel „erkennen, wie man sich mehr merkt“</td><td>Lerntypen sind nicht belegt. Das Ergebnis des Tests (je aktiver, desto mehr) bleibt erhalten, nur die Deutung ändert sich.</td></tr>
+    <tr><td>6 Bedingungen mit je 15 Wörtern (5 Folien)</td><td>4 Runden mit je 12 Wörtern</td><td>Weniger Reize, weniger Zeit, gleiche Aussage.</td></tr>
+    <tr><td>Gruppe 2: linke und rechte Gehirnhälfte</td><td>Gruppe 2: Wie viel passt in den Kopf (Päckchen)</td><td>Gehirnhälften sind ein Neuromythos. Der neue Baustein knüpft an deinen Schuljahresanfang an.</td></tr>
+    <tr><td>Gruppe 1: je mehr Sinne, desto besser</td><td>Gruppe 1: Aktiv statt nur zuhören</td><td>Die alte Aussage ist zu pauschal.</td></tr>
+    <tr><td>Gruppe 3: Zwischenhirn und Gefühle</td><td>Gruppe 3: Gefühle und Lernen (ohne Anatomie)</td><td>Der Kern stimmt, die Anatomie war stark vereinfacht.</td></tr>
+    <tr><td>Gruppen 4, 5, 6 (Pfade, erst Grundwissen, Netz)</td><td>Gleiche Themen, neu formuliert</td><td>Bilder sind brauchbar. Bei Gruppe 4 kommt „Abrufen mit Abstand“ dazu.</td></tr>
+    <tr><td>Schlussfolie „Wir behalten ungefähr 10, 20, 30, 50, 70, 90 Prozent“</td><td>Aufschrieb mit sechs Merksätzen, keine Prozentzahlen</td><td>Lernpyramide, die Zahlen sind ohne Quelle.</td></tr>
+    <tr><td>3er-Gruppen, Folie mit Folienstift</td><td>4 bis 5 Schüler, A4-Blatt</td><td>Bei 26 Schülern 6 Gruppen (4 mal 4 und 2 mal 5) für 6 Bausteine. Technik siehe „Offen“.</td></tr>
+  </table>
+  <p><b>Bleibt wie im Original:</b> drei Stunden, Merktest mit Ablenkung und Nachbarkontrolle, Gruppenarbeit, Blatt gestalten, Vorstellen mit Rückmeldung, Aufschrieb ins Methodenheft. Das Format ist bewusst einfach geblieben.</p>
+
+  <h2>Entschieden und noch offen</h2>
+  <div class="box ok">
+    <p><b>Entschieden:</b></p>
+    <ul>
+      <li><b>Technik:</b> Alle Räume haben eine interaktive Tafel mit Apple TV. Folien vom MacBook, Gruppenblätter vom iPad oder iPhone spiegeln.</li>
+      <li><b>Lerntypen-Folie bleibt</b> und ist jetzt fester Teil. Die Klasse soll danach überzeugt sein, dass es keine festen Lerntypen gibt, aber dass der Stoff den Weg bestimmt (Karte statt Karteikarten bei Orten von Ländern).</li>
+      <li><b>Stundenlänge:</b> 3 × 45 Minuten.</li>
+      <li><b>Bausteintexte:</b> je 90 bis 100 Wörter mit Beispiel. Vier Aufgaben (Text lesen, drei Punkte, Bedeutung für Schule und zu Hause, Blatt gestalten), dazu eine Zusatzaufgabe.</li>
+      <li><b>Nach der Stunde:</b> keine Kopien. Gruppenblätter fotografieren und als PDF auf IServ stellen. Die Schüler schreiben nur den Aufschrieb ab.</li>
+    </ul>
+  </div>
+  <div class="box warn">
+    <p><b>Noch offen:</b></p>
+    <ol>
+      <li><b>Ablenkung:</b> Kopfrechnen passt zu deiner Linie (Grundlagen). Alternativ ein anderes Aufgabenformat?</li>
+    </ol>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============ FOLIEN ============ -->
+<div class="panel" id="p-folien">
+  <div id="foilwrap">
+    <div id="stage" tabindex="0"></div>
+    <div class="ctrl noprint">
+      <button id="prev">◀ zurück</button>
+      <button id="next">weiter ▶</button>
+      <button id="fs">Vollbild (F)</button>
+      <span>Pfeiltasten oder Leertaste, Klick rechts und links ins Bild</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MERK-EXPERIMENT (Lehrer) ============ -->
+<div class="panel" id="p-merktest">
+<div class="page">
+  <h1>Merk-Experiment</h1>
+  <p class="sub">Vier Runden mit je 12 Wörtern. Für dich zum Vorlesen und Kontrollieren.</p>
+
+  <div class="box ok">
+    <b>Ablauf je Runde (etwa 8 Minuten):</b>
+    <ol>
+      <li>Wörter darbieten (1 bis 1,5 Minuten). Schüler schreiben nichts mit.</li>
+      <li>Ablenkung: 1 Minute Kopfrechnen (Folie zeigt fünf Aufgaben).</li>
+      <li>Aufschreiben: 2 Minuten, Reihenfolge egal, Lücken sind in Ordnung.</li>
+      <li>Kontrolle mit dem Nachbarn (Wörter erscheinen auf der Folie), 2 Minuten.</li>
+      <li>Zahl auf dem Blatt eintragen: „Richtig: __ von 12“.</li>
+    </ol>
+  </div>
+
+  <div class="teach" id="teachLists"></div>
+
+  <h2>Auswertung</h2>
+  <p>Frag die Zahlen als Handzeichen oder Zuruf ab, trag den Durchschnitt oder die häufigsten Werte an der Tafel ein (Folie 13). Was ich erwarte, ist ein Anstieg von Runde 1 zu Runde 4. Das ist nicht garantiert. Wenn es nicht so kommt, ist das eine gute Gelegenheit für die Folie „Ist das ein Beweis?“.</p>
+  <div class="box warn"><b>Ehrlich dazu:</b> Das ist kein sauberes Experiment (andere Wörter, immer gleiche Reihenfolge, Müdigkeit, Übung). Genau das besprichst du auf Folie 14 mit der Klasse. Es soll ein Gefühl für „aktiv ist besser“ geben, nicht ein Ergebnis beweisen.</div>
+</div>
+</div>
+
+<!-- ============ SCHÜLERBLÄTTER ============ -->
+<div class="panel" id="p-gruppen">
+  <div class="noprint" style="text-align:center; padding:16px"><button class="act" onclick="window.print()">Dieses Register drucken (7 Seiten A4)</button>
+    <p class="small" style="margin-top:6px">Blatt 1 pro Schüler (26 Stück plus Reserve). Blätter 2 bis 7 je einmal pro Gruppe (die Gruppe schreibt dort ihre Stichworte und zwei Sätze hinein), dazu pro Gruppe ein leeres A4 zum Gestalten.</p></div>
+  <div id="sheets"></div>
+</div>
+
+<!-- ============ AUFSCHRIEB ============ -->
+<div class="panel" id="p-aufschrieb">
+<div class="page">
+  <h1>Aufschrieb ins Methodenheft</h1>
+  <p class="sub">Das fertige Tafelbild. Die Schüler schreiben es selbst ab, mit der Hand.</p>
+  <div class="heft">
+    <h2>Wie lernt der Kopf?</h2>
+    <ol>
+      <li>Je aktiver ich mit dem Stoff arbeite, desto mehr bleibt hängen.<br>Zuhören, lesen, selbst aufschreiben, jemandem erklären: Die Treppe geht nach oben.</li>
+      <li>Es gibt keine festen „Lerntypen“. Welcher Weg gut ist, hängt vom Stoff ab (Orte lernt jeder besser mit einer Karte) und nicht von mir. Immer gilt: selbst aktiv werden.</li>
+      <li>Der Kopf hat wenig Platz. Üben macht aus vielen Einzelteilen ein Päckchen.</li>
+      <li>Vergessen stoppt man mit Wiederholen: mit Abstand und aus dem Kopf (weißes Blatt).</li>
+      <li>Neues bleibt hängen, wenn es an Bekanntes anknüpft. Erst das Grundwissen, dann die Einzelheiten.</li>
+      <li>Angst und Dauerstress machen Lernen schwerer. Kleine Schritte und kleine Erfolge helfen.</li>
+    </ol>
+    <p>Das probiere ich diese Woche aus: ______________________________</p>
+  </div>
+  <p class="small">Keine Prozentzahlen, bewusst. Die Lernpyramide mit „10 bis 90 Prozent“ ist nicht belegt.</p>
+</div>
+</div>
+
+<!-- ============ SPRECHZETTEL ============ -->
+<div class="panel" id="p-sprech">
+  <div class="noprint" style="text-align:center; padding:16px"><button class="act" onclick="window.print()">Sprechzettel drucken (3 Seiten A4)</button>
+    <p class="small" style="margin-top:6px">Nur für dich. Oben steht, was du vorliest, darunter die Ansagen zu den Folien.</p></div>
+  <div id="sprechSheets"></div>
+</div>
+
+<!-- ============ WISSENSCHAFT ============ -->
+<div class="panel" id="p-wissenschaft">
+<div class="page">
+  <h1>Wissenschaft: Was steckt dahinter?</h1>
+  <p class="sub">Zum Nachlesen für dich. Pro Methode: was in der Stunde passiert, was die Forschung sagt, wo die Grenzen liegen und die Quellen mit Link.</p>
+
+  <div class="box ok">
+    <p><b>Wenn du nur eine Quelle liest:</b> <a href="https://doi.org/10.1177/1529100612453266" target="_blank" rel="noopener">Dunlosky u. a. (2013)</a>. Der Übersichtsartikel bewertet zehn Lernmethoden und zeigt, warum Abrufen und Lernen mit Abstand vorn liegen und Wiederlesen und Markieren hinten.</p>
+    <p class="small">So lese ich die Tags: <span class="tag">stark belegt</span> viele Studien und Übersichten, <span class="tag mid">mittel</span> gute Belege mit Einschränkungen, <span class="tag warn">umstritten oder vorläufig</span> Befunde widersprechen sich oder sind neu, <span class="tag mythos">nicht belegt</span> hält einer Prüfung nicht stand. Die Einstufung ist meine eigene Einschätzung.</p>
+  </div>
+
+  <div class="wcard">
+  <h3>Abrufen statt Wiederlesen <span class="tag ">stark belegt</span></h3>
+  <p class="in"><b>In der Stunde:</b> Weißes Blatt, Merk-Experiment (aus dem Kopf aufschreiben), Abruf-Routine am Stundenende.</p>
+  <p><b>Was die Forschung sagt:</b> Wer nach dem Lesen aufschreibt, was er noch weiß, behält langfristig mehr als jemand, der den Text noch einmal liest. Bei Roediger und Karpicke (2006) lag die Wiederlese-Gruppe kurz nach dem Lernen vorn, nach einer Woche aber die Abruf-Gruppe. Karpicke und Blunt (2011) fanden den Vorteil des Abrufens sogar gegenüber dem Erstellen von Begriffsnetzen (Concept Maps), obwohl die Lernenden das Gegenteil erwartet hatten. Dunlosky u. a. (2013) haben zehn Lernmethoden bewertet: Abrufen und Lernen mit Abstand erhielten als einzige die Bestnote, Wiederlesen, Markieren und Zusammenfassen schnitten schlechter ab. Der Nutzen wurde nach den Autoren für Lernende aller Altersstufen gezeigt.</p>
+  <p class="gr"><b>Grenzen:</b> Viele klassische Experimente laufen mit Studierenden im Labor. Der Vorteil zeigt sich erst mit Verzögerung: Direkt nach dem Lernen fühlt sich Wiederlesen besser an.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Roediger, H. L., &amp; Karpicke, J. D. (2006)</a>; <a href="https://doi.org/10.1126/science.1199327" target="_blank" rel="noopener">Karpicke, J. D., &amp; Blunt, J. R. (2011)</a>; <a href="https://doi.org/10.1177/1529100612453266" target="_blank" rel="noopener">Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., &amp; Willingham, D. T. (2013)</a></p>
+</div><div class="wcard">
+  <h3>Wiederholen mit Abstand und die Vergessenskurve <span class="tag ">stark belegt</span></h3>
+  <p class="in"><b>In der Stunde:</b> „Nach 1 Tag, 3 Tagen und einer Woche wiederholen“, Baustein 4 (Pfad im Wald).</p>
+  <p><b>Was die Forschung sagt:</b> Lernen mit Pausen dazwischen schlägt Lernen am Stück. Cepeda u. a. (2006) fassen dazu viele Studien zusammen. Wie groß der beste Abstand ist, hängt davon ab, wie lange man etwas behalten will (Cepeda u. a. 2008): Je länger, desto größer sollte die Pause sein. Die Vergessenskurve geht auf Ebbinghaus (1885) zurück. Murre und Dros (2015) haben sie neu gemessen und die Grundform bestätigt: Anfangs geht viel verloren, danach wird das Vergessen langsamer. Auch hier erhält das Lernen mit Abstand bei Dunlosky u. a. (2013) die Bestnote.</p>
+  <p class="gr"><b>Grenzen:</b> „1, 3, 7 Tage“ ist eine praktische Faustregel für die Klasse, kein Wert aus einer bestimmten Studie. Das Pfad-Bild ist ein Anschauungsbild und kein Forschungsmodell.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener">Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., &amp; Rohrer, D. (2006)</a>; <a href="https://doi.org/10.1111/j.1467-9280.2008.02209.x" target="_blank" rel="noopener">Cepeda, N. J., Vul, E., Rohrer, D., Wixted, J. T., &amp; Pashler, H. (2008)</a>; <a href="https://doi.org/10.1371/journal.pone.0120644" target="_blank" rel="noopener">Murre, J. M. J., &amp; Dros, J. (2015)</a>; <a href="https://doi.org/10.1177/1529100612453266" target="_blank" rel="noopener">Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., &amp; Willingham, D. T. (2013)</a></p>
+</div><div class="wcard">
+  <h3>Aktiv schlägt passiv: ICAP und das Merk-Experiment <span class="tag mid">mittel bis stark</span></h3>
+  <p class="in"><b>In der Stunde:</b> Treppe (zuhören, lesen, aufschreiben, erklären), Merk-Experiment mit Hören, Lesen, Sehen und Selber tun.</p>
+  <p><b>Was die Forschung sagt:</b> Chi und Wylie (2014) ordnen Lernaktivitäten in vier Stufen (passiv, aktiv, konstruktiv, interaktiv) und erwarten, dass der Lernerfolg in dieser Reihenfolge steigt. Das ist ein Rahmenmodell mit vielen stützenden Studien, kein einzelnes Experiment. Dazu passen mehrere bekannte Effekte: Selbst Erzeugtes wird besser behalten als Gelesenes (Generation-Effekt, Meta-Analyse: Bertsch u. a. 2007). Handlungen, die man selbst ausführt, merkt man sich besser als gelesene (Enactment-Effekt, Meta-Analyse über 145 Verhaltensstudien mit einem mittleren Effekt von g = 1,23: Roberts u. a. 2022). Bilder werden oft besser erinnert als Wörter (Paivio u. a. 1968). Tiefere Verarbeitung führt allgemein zu besserem Behalten (Craik und Lockhart 1972).</p>
+  <p class="gr"><b>Grenzen:</b> Der Handlungsvorteil zeigt sich beim freien Erinnern nicht in jedem Versuchsaufbau (Steffens u. a. 2015), und der Bildvorteil kann unter bestimmten Abrufbedingungen verschwinden (Weldon u. a. 1989). Das Merk-Experiment in der Klasse hat pro Runde andere Wörter und immer dieselbe Reihenfolge. Es ist ein Anschauungsbeispiel und kein Beweis. Das sagt auch Folie 14.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1080/00461520.2014.965823" target="_blank" rel="noopener">Chi, M. T. H., &amp; Wylie, R. (2014)</a>; <a href="https://doi.org/10.3758/BF03193441" target="_blank" rel="noopener">Bertsch, S., Pesta, B. J., Wiscott, R., &amp; McDaniel, M. A. (2007)</a>; <a href="https://doi.org/10.1037/bul0000360" target="_blank" rel="noopener">Roberts, B. R. T., MacLeod, C. M., &amp; Fernandes, M. A. (2022)</a>; <a href="https://doi.org/10.3389/fpsyg.2015.01907" target="_blank" rel="noopener">Steffens, M. C., von Stülpnagel, R., &amp; Schult, J. C. (2015)</a>; <a href="https://doi.org/10.3758/BF03331011" target="_blank" rel="noopener">Paivio, A., Rogers, T. B., &amp; Smythe, P. C. (1968)</a>; <a href="https://doi.org/10.3758/BF03199561" target="_blank" rel="noopener">Weldon, M. S., Roediger, H. L., &amp; Challis, B. H. (1989)</a>; <a href="https://doi.org/10.1016/S0022-5371(72)80001-X" target="_blank" rel="noopener">Craik, F. I. M., &amp; Lockhart, R. S. (1972)</a></p>
+</div><div class="wcard">
+  <h3>Päckchen: Arbeitsgedächtnis und Chunking <span class="tag ">stark belegt</span></h3>
+  <p class="in"><b>In der Stunde:</b> Buchstaben-Übung, „aus vielen Einzelteilen wird ein Päckchen“, Kraulbild, Baustein 2.</p>
+  <p><b>Was die Forschung sagt:</b> Das Arbeitsgedächtnis hält nur wenige Einheiten gleichzeitig. Miller (1956) sprach von „sieben plus minus zwei“, Cowan (2001) kam nach Sichtung der Studien auf etwa vier Einheiten („Chunks“). Experten fassen Wissen zu größeren Einheiten zusammen: Schachmeister erinnern echte Stellungen viel besser als Anfänger, bei zufällig gesetzten Figuren verschwindet dieser Vorsprung weitgehend (Chase und Simon 1973). Das ist die Idee hinter „viele Einzelteile werden ein Päckchen“.</p>
+  <p class="gr"><b>Grenzen:</b> Ob es drei, vier oder sieben Einheiten sind, wird in der Forschung diskutiert, das Prinzip ist stabil. Die Schach-Studie stammt von Erwachsenen, nicht von Schülern.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1037/h0043158" target="_blank" rel="noopener">Miller, G. A. (1956)</a>; <a href="https://doi.org/10.1017/S0140525X01003922" target="_blank" rel="noopener">Cowan, N. (2001)</a>; <a href="https://doi.org/10.1016/0010-0285(73)90004-2" target="_blank" rel="noopener">Chase, W. G., &amp; Simon, H. A. (1973)</a></p>
+</div><div class="wcard">
+  <h3>Gefühle und Lernen <span class="tag mid">mittel</span></h3>
+  <p class="in"><b>In der Stunde:</b> Baustein 3 (Sonne gegen Gewitterwolke).</p>
+  <p><b>Was die Forschung sagt:</b> Hembree (1988) wertete viele Studien zu Prüfungsangst aus: Hohe Prüfungsangst hängt im Mittel mit schlechteren Leistungen zusammen. Ramirez und Beilock (2011) ließen Prüfungsängstliche kurz vor einer wichtigen Prüfung über ihre Sorgen schreiben, und die Leistung verbesserte sich in ihren Studien.</p>
+  <p class="gr"><b>Grenzen:</b> Ein Zusammenhang ist noch keine Ursache. Der Effekt des Schreibens ist in der Originalstudie belegt, wie breit er wirkt, ist weniger gesichert. Die Rede vom „Blackout“ im Gruppentext ist eine Vereinfachung.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.3102/00346543058001047" target="_blank" rel="noopener">Hembree, R. (1988)</a>; <a href="https://doi.org/10.1126/science.1199427" target="_blank" rel="noopener">Ramirez, G., &amp; Beilock, S. L. (2011)</a></p>
+</div><div class="wcard">
+  <h3>„Ich kann das noch nicht“: Mindset <span class="tag mid">kleine Effekte</span></h3>
+  <p class="in"><b>In der Stunde:</b> Zwei-Sätze-Übung, Merksatz „noch nicht“. Dein Konzept legt das Gewicht deshalb auf Techniken.</p>
+  <p><b>Was die Forschung sagt:</b> Sisk u. a. (2018) fanden in zwei Meta-Analysen nur schwache Zusammenhänge zwischen Mindset und Leistung und schwache Effekte von Mindset-Trainings, etwas deutlicher bei Lernenden in schwierigen Lagen. Yeager u. a. (2019) berichten aus einem landesweiten Experiment in den USA, dass eine kurze Online-Intervention die Noten schwächerer Schüler verbesserte, vor allem in einem unterstützenden Umfeld.</p>
+  <p class="gr"><b>Grenzen:</b> Die Effekte sind klein und hängen vom Umfeld ab. Eine Stunde „Mindset“ allein ersetzt keine Lerntechnik.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1177/0956797617739704" target="_blank" rel="noopener">Sisk, V. F., Burgoyne, A. P., Sun, J., Butler, J. L., &amp; Macnamara, B. N. (2018)</a>; <a href="https://doi.org/10.1038/s41586-019-1466-y" target="_blank" rel="noopener">Yeager, D. S., Hanselman, P., Walton, G. M., et al. (2019)</a></p>
+</div><div class="wcard">
+  <h3>Grundgerüst zuerst, dann anknüpfen <span class="tag warn">umstritten</span></h3>
+  <p class="in"><b>In der Stunde:</b> Baustein 5 (Haus und Rohre) und Baustein 6 (Netz).</p>
+  <p><b>Was die Forschung sagt:</b> Kirschner, Sweller und Clark (2006) argumentieren, dass Lernende mit wenig Vorwissen mehr Anleitung brauchen und aus reinem Entdecken weniger lernen. Das stützt die Idee „erst das Grundgerüst, dann die Einzelheiten“.</p>
+  <p class="gr"><b>Grenzen:</b> Der Aufsatz ist in der Forschung umstritten und wurde vielfach kritisiert. Haus- und Netz-Bild sind Alltagsbilder zur Veranschaulichung, keine Forschungsmodelle.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1207/s15326985ep4102_1" target="_blank" rel="noopener">Kirschner, P. A., Sweller, J., &amp; Clark, R. E. (2006)</a></p>
+</div><div class="wcard">
+  <h3>Aufschreiben mit der Hand <span class="tag warn">umstritten</span></h3>
+  <p class="in"><b>In der Stunde:</b> Aufschrieb ins Methodenheft.</p>
+  <p><b>Was die Forschung sagt:</b> Mueller und Oppenheimer (2014) berichteten, dass handschriftliche Notizen besser abschneiden als Laptop-Notizen. Ein Replikationsversuch von Morehead u. a. (2019) fand diesen Vorteil deutlich schwächer. Die Lage ist gemischt. Gut belegt ist dagegen, dass Selbst-Formuliertes besser haften bleibt (siehe Generation-Effekt oben).</p>
+  <p class="gr"><b>Grenzen:</b> Sag der Klasse deshalb eher „selbst formulieren und aufschreiben wirkt“ als „Handschrift ist bewiesen besser“.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1177/0956797614524581" target="_blank" rel="noopener">Mueller, P. A., &amp; Oppenheimer, D. M. (2014)</a>; <a href="https://doi.org/10.1007/s10648-019-09468-2" target="_blank" rel="noopener">Morehead, K., Dunlosky, J., &amp; Rawson, K. A. (2019)</a>; <a href="https://doi.org/10.3758/BF03193441" target="_blank" rel="noopener">Bertsch, S., Pesta, B. J., Wiscott, R., &amp; McDaniel, M. A. (2007)</a></p>
+</div>
+  <div class="wcard">
+  <h3>Drei Mythen, die die Stunde ausdrücklich korrigiert <span class="tag mythos">nicht belegt</span></h3>
+  <p><b>Lerntypen (Hörtyp, Sehtyp …):</b> Pashler u. a. (2008) prüften die Studienlage und fanden keine ausreichenden Belege dafür, dass Unterricht nach dem „Lerntyp“ besser wirkt. Was zählt, ist der Stoff: Orte lernt man mit einer Karte besser, Vokabeln durch Abfragen. Dekker u. a. (2012) zeigten in einer Befragung von Lehrkräften in Großbritannien und den Niederlanden, wie verbreitet solche Mythen auch bei Lehrern sind.</p>
+  <p><b>Linke und rechte Gehirnhälfte:</b> Nielsen u. a. (2013) werteten Ruhe-Hirnscans von über 1.000 Personen aus und fanden keine Hinweise darauf, dass Menschen eine Hirnhälfte generell stärker nutzen.</p>
+  <p><b>Lernpyramide („10 % von dem, was wir hören …“):</b> Letrud und Hernes (2018) haben die Herkunft der Prozentzahlen zurückverfolgt und keine belastbare Studie dahinter gefunden. Subramony u. a. (2014) beschreiben, wie Dales „Cone of Experience“ später durch erfundene Prozentwerte verfälscht wurde.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1111/j.1539-6053.2009.01038.x" target="_blank" rel="noopener">Pashler, H., McDaniel, M., Rohrer, D., &amp; Bjork, R. (2008)</a>; <a href="https://doi.org/10.3389/fpsyg.2012.00429" target="_blank" rel="noopener">Dekker, S., Lee, N. C., Howard-Jones, P., &amp; Jolles, J. (2012)</a>; <a href="https://doi.org/10.1371/journal.pone.0071275" target="_blank" rel="noopener">Nielsen, J. A., Zielinski, B. A., Ferguson, M. A., Lainhart, J. E., &amp; Anderson, J. S. (2013)</a>; <a href="https://doi.org/10.1080/2331186X.2018.1518638" target="_blank" rel="noopener">Letrud, K., &amp; Hernes, S. (2018)</a>; Subramony, D., Molenda, M., Betrus, A., &amp; Thalheimer, W. (2014)</p>
+</div>
+  <div class="wcard">
+  <h3>KI-Tutoren (Hintergrund aus der Keynote) <span class="tag warn">vorläufig</span></h3>
+  <p class="in"><b>In der Stunde:</b> Nicht Teil der Stunde, aber Hintergrund für deine Haltung „erst selbst denken, dann die KI fragen“.</p>
+  <p><b>Was die Forschung sagt:</b> Kestin u. a. (2025) verglichen in einem randomisierten Crossover-Versuch mit 194 Studierenden (Harvard, Physik) einen nach Lernprinzipien gebauten KI-Tutor mit Präsenz-Unterricht mit Active Learning. Die KI-Gruppe lernte nach den Messwerten mehr, der mediane Lerngewinn lag über dem Doppelten. Der AIEDN-Bericht der HdM Stuttgart (2023) testete mit 275 Schülern in Baden-Württemberg eine Videosuche mit KI und fand einen „leichten, aber signifikanten“ Lerneffekt gegenüber der normalen Stichwortsuche.</p>
+  <p class="gr"><b>Grenzen:</b> Kestin: ein Kurs, Erstkontakt mit dem Stoff, GPT-4, von Fachleuten geschriebene Eingaben, nicht für die 7. Klasse belegt. AIEDN: Es war eine Videosuche, kein fragender Tutor, und der Projektpartner ist der Anbieter der Videos. Die „+127 %“ aus der Keynote stehen in Kestin u. a. nicht, dort steht „über doppelt“.</p>
+  <p class="qu"><b>Quellen:</b> <a href="https://doi.org/10.1038/s41598-025-97652-6" target="_blank" rel="noopener">Kestin, G., Miller, K., Klales, A., Milbourne, T., &amp; Ponti, G. (2025)</a>; <a href="https://ai.hdm-stuttgart.de/downloads/research/Forschungsbericht_AIEDN_AI-Education_2023.pdf" target="_blank" rel="noopener">Institute for Applied AI, HdM Stuttgart, thingsTHINKING GmbH und Jung, D. (2023)</a></p>
+</div>
+
+  <h2>Alle Quellen</h2>
+  <ol class="quellen">
+  <li><a href="https://doi.org/10.3758/BF03193441" target="_blank" rel="noopener">Bertsch, S., Pesta, B. J., Wiscott, R., &amp; McDaniel, M. A. (2007). The generation effect: A meta-analytic review. Memory &amp; Cognition, 35(2), 201–210.</a></li>
+<li><a href="https://doi.org/10.1037/0033-2909.132.3.354" target="_blank" rel="noopener">Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., &amp; Rohrer, D. (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. Psychological Bulletin, 132(3), 354–380.</a></li>
+<li><a href="https://doi.org/10.1111/j.1467-9280.2008.02209.x" target="_blank" rel="noopener">Cepeda, N. J., Vul, E., Rohrer, D., Wixted, J. T., &amp; Pashler, H. (2008). Spacing effects in learning: A temporal ridgeline of optimal retention. Psychological Science, 19(11), 1095–1102.</a></li>
+<li><a href="https://doi.org/10.1016/0010-0285(73)90004-2" target="_blank" rel="noopener">Chase, W. G., &amp; Simon, H. A. (1973). Perception in chess. Cognitive Psychology, 4(1), 55–81.</a></li>
+<li><a href="https://doi.org/10.1080/00461520.2014.965823" target="_blank" rel="noopener">Chi, M. T. H., &amp; Wylie, R. (2014). The ICAP framework: Linking cognitive engagement to active learning outcomes. Educational Psychologist, 49(4), 219–243.</a></li>
+<li><a href="https://doi.org/10.1017/S0140525X01003922" target="_blank" rel="noopener">Cowan, N. (2001). The magical number 4 in short-term memory: A reconsideration of mental storage capacity. Behavioral and Brain Sciences, 24(1), 87–114.</a></li>
+<li><a href="https://doi.org/10.1016/S0022-5371(72)80001-X" target="_blank" rel="noopener">Craik, F. I. M., &amp; Lockhart, R. S. (1972). Levels of processing: A framework for memory research. Journal of Verbal Learning and Verbal Behavior, 11(6), 671–684.</a></li>
+<li><a href="https://doi.org/10.3389/fpsyg.2012.00429" target="_blank" rel="noopener">Dekker, S., Lee, N. C., Howard-Jones, P., &amp; Jolles, J. (2012). Neuromyths in education: Prevalence and predictors of misconceptions among teachers. Frontiers in Psychology, 3, 429. (frei lesbar)</a></li>
+<li><a href="https://doi.org/10.1177/1529100612453266" target="_blank" rel="noopener">Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., &amp; Willingham, D. T. (2013). Improving students’ learning with effective learning techniques: Promising directions from cognitive and educational psychology. Psychological Science in the Public Interest, 14(1), 4–58.</a></li>
+<li><a href="https://doi.org/10.3102/00346543058001047" target="_blank" rel="noopener">Hembree, R. (1988). Correlates, causes, effects, and treatment of test anxiety. Review of Educational Research, 58(1), 47–77.</a></li>
+<li><a href="https://ai.hdm-stuttgart.de/downloads/research/Forschungsbericht_AIEDN_AI-Education_2023.pdf" target="_blank" rel="noopener">Institute for Applied AI, HdM Stuttgart, thingsTHINKING GmbH und Jung, D. (2023). AIEDN – AI Education: Forschungsbericht. (frei lesbar, Projektpartner ist der Anbieter der Lernvideos)</a></li>
+<li><a href="https://doi.org/10.1126/science.1199327" target="_blank" rel="noopener">Karpicke, J. D., &amp; Blunt, J. R. (2011). Retrieval practice produces more learning than elaborative studying with concept mapping. Science, 331(6018), 772–775.</a></li>
+<li><a href="https://doi.org/10.1038/s41598-025-97652-6" target="_blank" rel="noopener">Kestin, G., Miller, K., Klales, A., Milbourne, T., &amp; Ponti, G. (2025). AI tutoring outperforms in-class active learning: An RCT introducing a novel research-based design in an authentic educational setting. Scientific Reports, 15. (frei lesbar)</a></li>
+<li><a href="https://doi.org/10.1207/s15326985ep4102_1" target="_blank" rel="noopener">Kirschner, P. A., Sweller, J., &amp; Clark, R. E. (2006). Why minimal guidance during instruction does not work: An analysis of the failure of constructivist, discovery, problem-based, experiential, and inquiry-based teaching. Educational Psychologist, 41(2), 75–86.</a></li>
+<li><a href="https://doi.org/10.1080/2331186X.2018.1518638" target="_blank" rel="noopener">Letrud, K., &amp; Hernes, S. (2018). Excavating the origins of the learning pyramid myths. Cogent Education, 5(1), 1518638. (frei lesbar)</a></li>
+<li><a href="https://doi.org/10.1037/h0043158" target="_blank" rel="noopener">Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. Psychological Review, 63(2), 81–97.</a></li>
+<li><a href="https://doi.org/10.1007/s10648-019-09468-2" target="_blank" rel="noopener">Morehead, K., Dunlosky, J., &amp; Rawson, K. A. (2019). How much mightier is the pen than the keyboard for note-taking? A replication and extension of Mueller and Oppenheimer (2014). Educational Psychology Review, 31(3), 753–780.</a></li>
+<li><a href="https://doi.org/10.1177/0956797614524581" target="_blank" rel="noopener">Mueller, P. A., &amp; Oppenheimer, D. M. (2014). The pen is mightier than the keyboard: Advantages of longhand over laptop note taking. Psychological Science, 25(6), 1159–1168.</a></li>
+<li><a href="https://doi.org/10.1371/journal.pone.0120644" target="_blank" rel="noopener">Murre, J. M. J., &amp; Dros, J. (2015). Replication and analysis of Ebbinghaus’ forgetting curve. PLOS ONE, 10(7), e0120644. (frei lesbar)</a></li>
+<li><a href="https://doi.org/10.1371/journal.pone.0071275" target="_blank" rel="noopener">Nielsen, J. A., Zielinski, B. A., Ferguson, M. A., Lainhart, J. E., &amp; Anderson, J. S. (2013). An evaluation of the left-brain vs. right-brain hypothesis with resting state functional connectivity magnetic resonance imaging. PLoS ONE, 8(8), e71275. (frei lesbar)</a></li>
+<li><a href="https://doi.org/10.3758/BF03331011" target="_blank" rel="noopener">Paivio, A., Rogers, T. B., &amp; Smythe, P. C. (1968). Why are pictures easier to recall than words? Psychonomic Science, 11(4), 137–138.</a></li>
+<li><a href="https://doi.org/10.1111/j.1539-6053.2009.01038.x" target="_blank" rel="noopener">Pashler, H., McDaniel, M., Rohrer, D., &amp; Bjork, R. (2008). Learning styles: Concepts and evidence. Psychological Science in the Public Interest, 9(3), 105–119.</a></li>
+<li><a href="https://doi.org/10.1126/science.1199427" target="_blank" rel="noopener">Ramirez, G., &amp; Beilock, S. L. (2011). Writing about testing worries boosts exam performance in the classroom. Science, 331(6014), 211–213.</a></li>
+<li><a href="https://doi.org/10.1037/bul0000360" target="_blank" rel="noopener">Roberts, B. R. T., MacLeod, C. M., &amp; Fernandes, M. A. (2022). The enactment effect: A systematic review and meta-analysis of behavioral, neuroimaging, and patient studies. Psychological Bulletin. (Vorabdruck frei lesbar auf PsyArXiv)</a></li>
+<li><a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Roediger, H. L., &amp; Karpicke, J. D. (2006). Test-enhanced learning: Taking memory tests improves long-term retention. Psychological Science, 17(3), 249–255.</a></li>
+<li><a href="https://doi.org/10.1177/0956797617739704" target="_blank" rel="noopener">Sisk, V. F., Burgoyne, A. P., Sun, J., Butler, J. L., &amp; Macnamara, B. N. (2018). To what extent and under which circumstances are growth mind-sets important to academic achievement? Two meta-analyses. Psychological Science, 29(4), 549–571.</a></li>
+<li><a href="https://doi.org/10.3389/fpsyg.2015.01907" target="_blank" rel="noopener">Steffens, M. C., von Stülpnagel, R., &amp; Schult, J. C. (2015). Memory recall after “learning by doing” and “learning by viewing”: Boundary conditions of an enactment benefit. Frontiers in Psychology, 6, 1907. (frei lesbar)</a></li>
+<li>Subramony, D., Molenda, M., Betrus, A., &amp; Thalheimer, W. (2014). The mythical retention chart and the corruption of Dale’s cone of experience. Educational Technology, 54(6). (kein Link geprüft)</li>
+<li><a href="https://doi.org/10.3758/BF03199561" target="_blank" rel="noopener">Weldon, M. S., Roediger, H. L., &amp; Challis, B. H. (1989). The properties of retrieval cues constrain the picture superiority effect. Memory &amp; Cognition, 17(1), 95–105.</a></li>
+<li><a href="https://doi.org/10.1038/s41586-019-1466-y" target="_blank" rel="noopener">Yeager, D. S., Hanselman, P., Walton, G. M., et al. (2019). A national experiment reveals where a growth mindset improves achievement. Nature, 573, 364–369.</a></li>
+  </ol>
+  <div class="box warn">
+    <p><b>Wichtig zu wissen:</b> Die Zusammenfassungen sind in eigenen Worten geschrieben und stützen sich auf Titel, Abstracts, Übersichten und die Studien, die ich für die Keynote-Notiz im Volltext gelesen habe (Kestin 2025, AIEDN). Die übrigen Volltexte habe ich nicht alle gelesen. Prüf wichtige Aussagen bitte im Original, bevor du sie weitergibst. Stand 20.10.2026.</p>
+  </div>
+</div>
+</div>
+
+<!-- ============ AUSDRUCKEN ============ -->
+<div class="panel" id="p-drucken">
+<div class="page">
+  <h1>Ausdrucken</h1>
+  <p class="sub">Was du für Dienstag brauchst. Die PDFs lege ich erst nach deiner Freigabe an, in iCloud unter <i>Klassenlehrer / 09 Zeitfensterwoche</i>.</p>
+  <table>
+    <tr><th>Was</th><th>Wie oft</th><th>Wofür</th></tr>
+    <tr><td>Blatt „Merk-Experiment“ (Schülerblätter, Seite 1)</td><td>1 pro Schüler (26, dazu 2 Reserve)</td><td>Stunde 1 bis 3</td></tr>
+    <tr><td>Gruppenblätter (Seiten 2 bis 7)</td><td>je 1× (6 Bausteine)</td><td>Stunde 1 und 2</td></tr>
+    <tr><td>Leeres A4 (kariert oder unliniert)</td><td>6, dazu Reserve</td><td>Gruppen gestalten ihr Blatt</td></tr>
+    <tr><td>Bunte Stifte</td><td>pro Gruppe ein Set</td><td>Blatt gestalten</td></tr>
+    <tr><td>Sprechzettel zum Vorlesen (3 Seiten, Tab Sprechzettel, PDF in iCloud)</td><td>1 für dich</td><td>Runde 1 (Hören) vorlesen und Ansagen zu den Folien</td></tr>
+    <tr><td>Gruppenblätter auch als Schwarzweiß-Fassung (iCloud, „Schwarzweiß“ im Dateinamen), für Drucker ohne Farbe</td><td>je 1 Satz</td><td>Stunde 1 und 2</td></tr>
+    <tr><td>Kopien der Gruppenblätter</td><td>entfällt</td><td>Nach Stunde 3 mit dem iPad fotografieren und als PDF auf IServ stellen</td></tr>
+  </table>
+  <p>Der Aufschrieb schreiben die Schüler ab. Dafür brauchen sie kein Blatt.</p>
+</div>
+</div>
+
+<script>
+/* ------------------- Daten ------------------- */
+const ROUNDS = [
+  {n:1, mode:"Hören", title:"Runde 1: Hören",
+   words:["Katze","Tasse","Kerze","Ball","Hose","Lampe","Brot","Koffer","Uhr","Seife","Schiff","Besen"],
+   calc:["7 · 8","63 : 9","15 + 27","100 − 38","6 · 12"],
+   icoPos:"0 0", p0:"<p class='big'>Augen auf mich, Stifte weg.</p><p>Ich lese 12 Wörter, einmal. Nichts mitschreiben.</p>"},
+  {n:2, mode:"Lesen", title:"Runde 2: Lesen",
+   words:["Pferd","Gabel","Stuhl","Mütze","Burg","Zitrone","Stift","Brille","Wolke","Spinne","Eimer","Kamm"],
+   calc:["9 · 6","84 : 7","38 + 25","90 − 47","8 · 11"],
+   icoPos:"100% 0", p0:"words"},
+  {n:3, mode:"Sehen", title:"Runde 3: Sehen",
+   words:["Apfel","Fahrrad","Schlüssel","Sonne","Hase","Auto","Buch","Zelt","Banane","Schere","Krone","Glocke"],
+   calc:["12 · 5","72 : 8","46 + 19","120 − 58","7 · 9"],
+   icoPos:"0 100%", p0:"pics"},
+  {n:4, mode:"Selber tun", title:"Runde 4: Selber tun",
+   words:["Löffel","Telefon","Bürste","Hammer","Trommel","Flöte","Säge","Fernglas","Pinsel","Schaufel","Lenkrad","Angel"],
+   gesten:"Zu jedem Wort eine kleine Bewegung mit der Hand (Löffel: essen, Telefon: telefonieren, Hammer: hämmern …).",
+   calc:["6 · 15","96 : 12","57 + 36","150 − 73","9 · 8"],
+   icoPos:"100% 100%", p0:"words-tun"}
+];
+
+const GROUPS = [
+  {img:"gesicht-treppe.jpg", t:"Aktiv statt nur zuhören", q:"Wie kommt Wissen in den Kopf?",
+   text:"Wenn du nur zuhörst oder liest, bleibt oft wenig hängen. Stell dir vor, jemand erklärt dir eine Stunde lang, wie man Fußball spielt. Wirst du danach gut spielen? Wahrscheinlich nicht. Erst wenn du selbst gegen den Ball trittst, lernst du es. Beim Lernen in der Schule ist es ähnlich. Mehr bleibt hängen, wenn du selbst etwas mit dem Stoff machst: aufschreiben, mit eigenen Worten erklären, jemandem erzählen oder eine Aufgabe lösen. Man kann sich das wie eine Treppe vorstellen: zuhören, lesen, selbst aufschreiben, jemandem erklären. Je weiter oben du bist, desto mehr behält dein Kopf."},
+  {img:"gesicht-paeckchen.jpg", t:"Wie viel passt in den Kopf?", q:"Päckchen und Einzelteile",
+   text:"Dein Kopf kann nur drei bis vier Dinge gleichzeitig festhalten. Neun Zufallsbuchstaben wie K A I H Z D S N H sind neun Einzelteile, das ist schwer. Das Wort KONZENTRATION hat sogar mehr Buchstaben, aber du kennst es. Für deinen Kopf ist es ein einziges Päckchen. Durch Üben werden aus vielen Einzelteilen Päckchen. Beim Kraulen denkst du am Anfang an Arme, Beine, Kopf und Atmen. Nach einiger Zeit läuft das von allein. Beim Kopfrechnen ist es genauso. Wenn die Grundlagen ein Päckchen sind, hat dein Kopf Platz für das Neue."},
+  {img:"gesicht-gefuehle.jpg", t:"Gefühle und Lernen", q:"Wie fühlt sich Lernen an?",
+   text:"Wie du dich beim Lernen fühlst, spielt mit. Wenn du Interesse hast und kleine Erfolge erlebst, fällt dir das Lernen leichter. Wenn du Angst hast, dich zu blamieren, oder dich unter Druck fühlst, ist der Kopf wie blockiert. Dann fällt dir in der Klassenarbeit plötzlich nicht mehr ein, was du zu Hause konntest. Angst bekommt man oft, wenn man bis zum letzten Tag wartet und dann einen riesigen Berg vor sich hat. Lernen darf anstrengend sein. Es sollte nur nicht dauernd Stress sein. Helfen kann: früh anfangen, in kleinen Schritten üben und einen Fehler als Hinweis sehen, was noch fehlt."},
+  {img:"neu-pfad.jpg", t:"Wie wir vergessen und behalten", q:"Wiederholen mit Abstand",
+   text:"Was du nur einmal liest, vergisst du schnell. Schon nach einem Tag fehlt viel. Stell dir einen Pfad im Wald vor. Gehen nur wenige Leute dort, wächst er zu. Gehen viele, wird er breiter und später gibt es dort vielleicht sogar eine Straße. Im Kopf ist es ähnlich: Je öfter du etwas wiederholst, desto stabiler wird der Weg zu dem Wissen. Am besten wiederholst du mit Abstand, zum Beispiel nach einem Tag, nach drei Tagen und nach einer Woche. Und nicht nur noch einmal lesen, sondern aus dem Kopf aufschreiben, was du noch weißt: das weiße Blatt."},
+  {img:"gesicht-hausbau.jpg", t:"Erst das Grundwissen", q:"Fundament vor Einzelheiten",
+   text:"Wer etwas Neues lernt, braucht zuerst das Grundgerüst. Danach kommen die Einzelheiten. Es ist wie beim Hausbau: Zuerst kommen Fundament und Wände, danach die Wasserleitungen und Kabel. Niemand legt zuerst alle Rohre auf eine Wiese und baut dann das Haus drumherum. Beim Lernen heißt das: Verschaffe dir zuerst einen Überblick. Welche Themen gehören dazu? Was ist das Wichtigste? Erst danach lernst du die Einzelheiten. Und wenn in den Grundlagen eine Lücke ist, schließt du sie zuerst. Wer zum Beispiel nicht sicher kopfrechnen kann, tut sich später auch bei Gleichungen schwer."},
+  {img:"neu-netz.jpg", t:"Das Gehirn: ein Netz", q:"Neues anknüpfen",
+   text:"Im Kopf sind Nervenzellen miteinander verbunden. Neue Dinge bleiben hängen, wenn sie an etwas anknüpfen, das du schon weißt. Das ist wie bei einem Fischernetz: Wo ein Loch ist, bleibt kein Fisch hängen. Ein Beispiel: Wer sich mit Handys auskennt, merkt sich neue Modelle und Preise leicht, weil er sie mit den alten vergleichen kann. Wer sich damit nicht auskennt, muss alles einzeln lernen. Je mehr du verknüpfst, zum Beispiel mit Beispielen, Vergleichen oder anderen Fächern, desto stabiler wird dein Netz. Fang deshalb mit etwas Einfachem an, an das du anknüpfen kannst."}
+];
+
+/* ------------------- Tabs ------------------- */
+const tabs=document.querySelectorAll('#tabs button');
+function openTab(id){
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.tab===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+id));
+  try{localStorage.setItem('gl-tab',id)}catch(e){}
+  if(id==='folien') stage.focus({preventScroll:true});
+}
+tabs.forEach(b=>b.addEventListener('click',()=>openTab(b.dataset.tab)));
+
+/* ------------------- Merk-Experiment (Lehrerseite) ------------------- */
+document.getElementById('teachLists').innerHTML = ROUNDS.map(r=>
+ `<div class="box"><h3>${r.title}</h3><p><b>${r.words.join(', ')}</b></p>
+  <p class="small">Kopfrechnen: ${r.calc.join(' ,  ')}</p>
+  ${r.n===1?"<p class='small'>Vorlesen: ruhig, einmal, etwa 3 Sekunden Pause zwischen den Wörtern.</p>":""}
+  ${r.n===2?"<p class='small'>Wörter 60 Sekunden auf der Folie lassen, dann Klick: die Folie wechselt zur Ablenkung.</p>":""}
+  ${r.n===3?"<p class='small'>Nur Bilder zeigen, kein Wort. Die Wörter erscheinen erst bei der Kontrolle.</p>":""}
+  ${r.n===4?"<p class='small'>"+r.gesten+"</p>":""}</div>`).join('');
+
+/* ------------------- Schülerblätter ------------------- */
+(function(){
+  const s=document.getElementById('sheets');
+  let h=`<div class="sheet"><div class="kick">Methodentraining Klasse 7</div><h2>Merk-Experiment</h2>
+   <div class="nm"><span>Name: ______________________</span><span>Datum: ____________</span></div>
+   <p>Schreibe in jedem Kasten auf, was du dir gemerkt hast. Danach kontrolliert dein Nachbar und du trägst die Zahl ein.</p>
+   <div class="rgrid">` + ROUNDS.map(r=>`<div class="rbox"><b>Runde ${r.n}: ${r.mode}</b><div class="ln">${Array.from({length:12},(_,i)=>`<i>${i+1}</i>`).join('')}</div><div class="res">Richtig: ____ von 12</div></div>`).join('') + `</div>
+   <p style="margin-top:6mm"><b>Was fällt mir auf?</b></p><div class="lined"></div><div class="lined"></div></div>`;
+  h+=GROUPS.map((g,i)=>`<div class="sheet"><div class="kick">Baustein ${i+1} von 6</div><h2>${g.t}</h2><p><i>${g.q}</i></p>
+   <div class="txt"><img class="pic" src="${g.img}" alt="">${g.text}</div>
+   <p><b>Eure Aufgaben</b></p>
+   <ol><li>Lest den Text in der Gruppe.</li><li>Schreibt die drei wichtigsten Punkte als Stichworte auf.</li><li>Überlegt: Was bedeutet das für das Lernen in der Schule und zu Hause? Schreibt zwei Sätze auf.</li><li>Gestaltet ein Blatt (A4) für die Klasse und stellt es vor (3 bis 4 Minuten).</li></ol>
+   <p class="zus"><i>Zusatz für schnelle Gruppen:</i> Erfindet eine kleine Übung oder Merkregel, die die Klasse gleich ausprobieren kann.</p>
+   <p style="margin-top:4mm"><b>Die drei wichtigsten Punkte:</b></p><div class="lined"></div><div class="lined"></div><div class="lined"></div>
+   <p style="margin-top:3mm"><b>Das bedeutet für Schule und zu Hause:</b></p><div class="lined"></div><div class="lined"></div>
+   <div class="tip"><b>Tipps für euer Blatt:</b> Macht eine Überschrift. Schreibt nur Stichworte. Schreibt groß und lesbar. Wichtiges farbig. Ein kleines Bild oder eine Skizze hilft.</div></div>`).join('');
+  s.innerHTML=h;
+})();
+
+
+/* ------------------- Sprechzettel (Seite für Seite) ------------------- */
+(function(){
+  function ev(s){ return Function('"use strict"; return ('+s.replace(/·/g,'*').replace(/:/g,'/').replace(/−/g,'-')+')')(); }
+  const R1=ROUNDS[0];
+  const wl=R1.words.map((w,i)=>'<div><small>'+(i+1)+'</small>'+w+'</div>').join('');
+  const rows=ROUNDS.slice(1).map(r=>{
+    const ans={2:'„Lest die Wörter. Ihr habt eine Minute. Nichts aufschreiben.“',3:'„Schaut euch die Bilder an. Ihr habt eine Minute. Nichts aufschreiben.“',4:'„Macht zu jedem Wort eine kleine Bewegung mit der Hand, leise, nur für euch. Eine Minute.“'}[r.n];
+    return '<tr><td class="f">Runde '+r.n+'<br>'+r.mode+'</td><td>'+ans+'</td><td class="w">'+r.words.join(', ')+'</td><td class="w">'+r.calc.join(', ')+'<br><b>'+r.calc.map(ev).join(', ')+'</b></td></tr>';
+  }).join('');
+  const s1='<div class="sheet sprech"><div class="kick">Sprechzettel 1 von 3</div><h2>Merk-Experiment: Das liest du vor</h2>'+
+   '<p class="vh"><b>Runde 1: Hören.</b> Einmal vorlesen, ruhig, etwa 3 Sekunden Pause zwischen den Wörtern. Die Schüler schreiben nichts mit.</p>'+
+   '<div class="wl">'+wl+'</div>'+
+   '<p class="say"><b>Vorher:</b> <i>„Augen auf mich, Stifte weg. Ich lese 12 Wörter, einmal. Nichts mitschreiben.“</i></p>'+
+   '<p class="say"><b>Danach, Klick auf der Folie:</b> <i>„Eine Minute: Rechnet im Kopf.“</i> Aufgaben: '+R1.calc.join(', ')+'. Lösungen: <b>'+R1.calc.map(ev).join(', ')+'</b></p>'+
+   '<p class="say"><b>Dann:</b> <i>„Zwei Minuten: Schreibt auf, was ihr noch wisst. Reihenfolge egal. Was ihr nicht wisst, lasst ihr frei.“</i> Danach: <i>„Tauscht mit eurem Nachbarn, zählt nach, tragt die Zahl ein.“</i> (Die Wörter stehen dann auf der Folie.)</p>'+
+   '<p class="say"><b>Runde 2 bis 4</b> laufen genauso. Hier die Ansagen, die Wörter zur Kontrolle und die Kopfrechenaufgaben mit Lösungen:</p>'+
+   '<table class="sp"><tr><th>Runde</th><th>Ansage vorher</th><th>Wörter</th><th>Ablenkung (Lösungen fett)</th></tr>'+rows+'</table></div>';
+  const s2='<div class="sheet sprech"><div class="kick">Sprechzettel 2 von 3</div><h2>Stunde 1 und 2: Das sagst du</h2>'+
+   '<table class="sp"><tr><th>Folie</th><th>Ansage</th></tr>'+
+   '<tr><td class="f">1 und 2</td><td><i>„Heute geht es um die Frage: Wie lernt dein Kopf? Drei Stunden: ein Experiment, sechs Bausteine und ein Merksatz fürs Heft.“</i></td></tr>'+
+   '<tr><td class="f">3<br>Abruf</td><td><i>„Heft zu, leeres Blatt. Zwei Minuten, Stichworte. Das wird nicht benotet.“</i> Fragen nacheinander: <i>„Was ist ein Päckchen für deinen Kopf?“</i> / <i>„Warum ist ‚Ich kann das noch nicht‘ besser als ‚Ich kann das nicht‘?“</i> / <i>„Was macht man mit dem weißen Blatt?“</i> Kurz vergleichen lassen. <i>„Heute geht es genau darum.“</i></td></tr>'+
+   '<tr><td class="f">4<br>Ablauf</td><td>Merk-Blatt austeilen. <i>„Vier Runden mit je 12 Wörtern: Hören, Lesen, Sehen, Selber tun. Jede Runde läuft gleich: Wörter, eine Minute Kopfrechnen, aufschreiben, der Nachbar kontrolliert, ihr tragt die Zahl ein. Kein Wettbewerb, es geht nur um dein eigenes Ergebnis.“</i></td></tr>'+
+   '<tr><td class="f">5 und 6</td><td>Runde 1 (Hören) und Runde 2 (Lesen), Ansagen auf Seite 1. Bei Runde 2 die Wörter 60 Sekunden auf der Folie lassen.</td></tr>'+
+   '<tr><td class="f">7 und 8<br>Gruppen</td><td>6 Gruppen bilden (4 mal 4, 2 mal 5), je ein Baustein-Blatt. <i>„Ihr bekommt ein Blatt mit einem Baustein. Lest den Text zusammen und schreibt die drei wichtigsten Punkte auf. Überlegt, was das für das Lernen in der Schule und zu Hause bedeutet. Danach gestaltet ihr ein Blatt für die Klasse und stellt es vor. Ihr habt etwa 40 Minuten, verteilt auf die nächsten zwei Stunden. Schnelle Gruppen erfinden eine kleine Übung oder Merkregel.“</i></td></tr>'+
+   '<tr><td class="f">9<br>Stunde 2</td><td><i>„So wird euer Blatt gut: eine Überschrift, nur Stichworte, groß und lesbar schreiben, Wichtiges farbig, ein kleines Bild oder eine Skizze. Die Klasse soll es schnell lesen können.“</i> Leeres A4 pro Gruppe, bunte Stifte.</td></tr>'+
+   '<tr><td class="f">10 und 11</td><td>Runde 3 (Sehen, nur Bilder zeigen) und Runde 4 (Selber tun), Ansagen auf Seite 1. Danach <i>„Tragt eure Ergebnisse in das Blatt ein“</i> (8 Minuten). Gruppenblätter einsammeln.</td></tr></table></div>';
+  const s3='<div class="sheet sprech"><div class="kick">Sprechzettel 3 von 3</div><h2>Stunde 3 und Abschluss: Das sagst du</h2>'+
+   '<table class="sp"><tr><th>Folie</th><th>Ansage</th></tr>'+
+   '<tr><td class="f">12<br>Vorstellen</td><td><i>„Jede Gruppe hat etwa vier Minuten: erst erklären, dann Fragen. Alle anderen hören zu und geben danach eine Rückmeldung: ‚Gut war …‘, ‚Ich habe verstanden, dass …‘, ‚Noch besser wäre …‘.“</i> Jedes Blatt mit dem iPad abfotografieren und spiegeln.</td></tr>'+
+   '<tr><td class="f">13<br>Auswertung</td><td>Pro Runde Hände abfragen: <i>„Wer hatte 0 bis 3 richtig? 4 bis 6? 7 bis 9? 10 bis 12?“</i> Der Bereich mit den meisten Händen kommt in die Tabelle. Danach: <i>„Was fällt auf?“</i></td></tr>'+
+   '<tr><td class="f">14<br>Beweis?</td><td><i>„Ist das ein Beweis? Eher ein Hinweis. Jede Runde hatte andere Wörter. Die Reihenfolge war immer gleich: Wir werden müde, aber auch geübter. Und wir sind nur eine Klasse und haben es einmal gemacht. Forscher würden gleiche Wörter nehmen, die Reihenfolge mischen und viele Klassen testen. Das Gefühl ‚aktiv ist besser‘ stimmt aber.“</i></td></tr>'+
+   '<tr><td class="f">15<br>Lerntypen</td><td><i>„Ihr habt bestimmt schon gehört: ‚Ich bin der Hörtyp‘ oder ‚Ich bin der Sehtyp‘. Feste Lerntypen gibt es nicht. Wer ‚nach seinem Typ‘ lernt, lernt nicht besser. Aber der Stoff entscheidet, welcher Weg gut ist: Orte von Ländern lernt jeder mit einer Karte besser als nur mit Karteikarten. Vokabeln fragt man ab, beim Rechnen rechnet man selbst, beim Sport übt man. Nicht fragen: ‚Welcher Typ bin ich?‘, sondern: ‚Was passt zu diesem Stoff, und wie werde ich aktiv?‘“</i></td></tr>'+
+   '<tr><td class="f">16<br>Mitnehmen</td><td><i>„Drei Dinge fürs Heft: Aktiv schlägt passiv. Wiederholen mit Abstand und aus dem Kopf, nicht nur nochmal lesen. Neues bleibt hängen, wenn es zu etwas passt, das du schon weißt.“</i> Dann Aufschrieb ins Methodenheft (Tab Aufschrieb, etwa 8 Minuten, mit der Hand).</td></tr>'+
+   '<tr><td class="f">17<br>Schluss</td><td><i>„Probier diese Woche eins aus: ein weißes Blatt nach der Mathe-Stunde, fünf Fragen selbst schreiben und morgen beantworten, oder nach drei Tagen noch einmal aus dem Kopf wiederholen.“</i></td></tr>'+
+   '<tr><td class="f">Danach</td><td>Die sechs Gruppenblätter mit dem iPad fotografieren und als PDF auf IServ stellen.</td></tr></table></div>';
+  document.getElementById('sprechSheets').innerHTML=s1+s2+s3;
+})();
+/* ------------------- Folien ------------------- */
+const stage=document.getElementById('stage');
+function chips(words){return `<div class="words">${words.map(w=>`<span>${w}</span>`).join('')}</div>`}
+function tile(i,label){
+  const x=(i%4)*100/3, y=Math.floor(i/4)*50;
+  return `<div class="cell"><span class="tile" style="background-position:${x}% ${y}%"></span>${label?`<small>${label}</small>`:''}</div>`;
+}
+function roundSlide(r){
+  let p0;
+  if(r.p0==="words") p0=`<p>Lest die Wörter. Ihr habt eine Minute. Nichts aufschreiben.</p>`+chips(r.words);
+  else if(r.p0==="pics") p0=`<p>Schaut euch die Bilder an. Ihr habt eine Minute. Nichts aufschreiben.</p><div class="pics6">${r.words.map((w,i)=>tile(i)).join('')}</div>`;
+  else if(r.p0==="words-tun") p0=`<p>Macht zu jedem Wort eine kleine Bewegung mit der Hand, leise, nur für euch. Eine Minute.</p>`+chips(r.words);
+  else p0=r.p0;
+  const ctrl = r.n===3
+    ? `<div class="pics6">${r.words.map((w,i)=>tile(i,w)).join('')}</div>`
+    : chips(r.words);
+  return `<section class="slide" data-kind="round">
+   <div class="kicker">Merk-Experiment, Runde ${r.n} von 4</div>
+   <h2>${r.title}</h2>
+   <div class="ico" style="background-position:${r.icoPos}"></div>
+   <div class="stack">
+     <div data-s="0-1">${p0}</div>
+     <div data-s="1-2"><p class="big">Eine Minute: Rechnet im Kopf.</p><p class="calc">${r.calc.join('<br>')}</p></div>
+     <div data-s="2-3"><p class="big">Zwei Minuten: Schreibt auf, was ihr noch wisst.</p><p>Reihenfolge egal. Was ihr nicht wisst, lasst ihr frei.</p></div>
+     <div data-s="3-"><p>Kontrolle: Tauscht mit eurem Nachbarn, zählt nach, tragt die Zahl ein.</p>${ctrl}</div>
+   </div>
+   <div class="phases"><span>1 Darbieten</span><span>2 Ablenken</span><span>3 Aufschreiben</span><span>4 Kontrollieren</span></div>
+  </section>`;
+}
+const SLIDES=[
+`<section class="slide hastitle">
+  <div class="kicker">Methodentraining Klasse 7</div>
+  <h1>Wie lernt dein Kopf?</h1>
+  <p class="note">Drei Stunden: ein Experiment, sechs Bausteine, ein Merksatz fürs Heft.</p>
+  <img class="titelbild" src="gesicht-titel.jpg" alt="">
+  <div class="src">Illustrationen erzeugt mit Google Gemini.</div>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Heute</div>
+  <h2>Drei Stunden, drei Teile</h2>
+  <div class="cards">
+    <div class="card" data-s="0-"><b>Stunde 1</b><span>Merk-Experiment (Runde 1 und 2), danach Gruppen und Bausteine lesen.</span></div>
+    <div class="card" data-s="1-"><b>Stunde 2</b><span>Gruppenarbeit beenden. Merk-Experiment (Runde 3 und 4).</span></div>
+    <div class="card" data-s="2-"><b>Stunde 3</b><span>Ihr stellt eure Bausteine vor. Wir werten aus und schreiben auf.</span></div>
+  </div>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Zum Warmwerden</div>
+  <h2>Erst mal du: Was weißt du noch aus den ersten Schulwochen?</h2>
+  <p>Heft zu, leeres Blatt. Zwei Minuten, Stichworte. Nicht benotet.</p>
+  <ul>
+    <li data-s="1-">Was ist ein „Päckchen“ für deinen Kopf?</li>
+    <li data-s="2-">Warum ist „Ich kann das noch nicht“ besser als „Ich kann das nicht“?</li>
+    <li data-s="3-">Was macht man mit dem weißen Blatt?</li>
+  </ul>
+  <p class="note" data-s="4-">Danach kurz vergleichen. Heute geht es genau darum: Wie lernt der Kopf?</p>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Merk-Experiment</div>
+  <h2>Wie merkst du dir die meisten Wörter?</h2>
+  <div class="twocol">
+   <div><p class="big">Vier Runden, je 12 Wörter.</p>
+     <ul><li>Runde 1: Hören</li><li>Runde 2: Lesen</li><li>Runde 3: Sehen</li><li>Runde 4: Selber tun</li></ul></div>
+   <div data-s="1-"><p class="big">Jede Runde gleich:</p>
+     <ol><li>Wörter bekommen</li><li>Eine Minute Kopfrechnen</li><li>Aufschreiben</li><li>Nachbar kontrolliert</li><li>Zahl eintragen</li></ol></div>
+  </div>
+  <p class="note" data-s="2-">Kein Wettbewerb. Es geht um dein eigenes Ergebnis.</p>
+ </section>`,
+
+roundSlide(ROUNDS[0]),
+roundSlide(ROUNDS[1]),
+
+`<section class="slide tight">
+  <div class="kicker">Gruppenarbeit</div>
+  <h2>Sechs Bausteine zum Lernen</h2>
+  <div class="bausteine">${GROUPS.map((g,i)=>`<figure data-s="${i}-"><img src="${g.img}" alt=""><figcaption>${i+1}. ${g.t}</figcaption></figure>`).join('')}</div>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Gruppenarbeit</div>
+  <h2>Sechs Bausteine, sechs Gruppen</h2>
+  <ol>
+    <li data-s="0-">Ihr bekommt ein Blatt mit einem Baustein.</li>
+    <li data-s="1-">Lest den Text zusammen und schreibt die drei wichtigsten Punkte auf.</li>
+    <li data-s="2-">Überlegt: Was bedeutet das für das Lernen in der Schule und zu Hause?</li>
+    <li data-s="3-">Gestaltet ein Blatt (A4) und stellt es nachher vor.</li>
+    <li data-s="4-" style="color:var(--muted)">Fertig? Erfindet eine kleine Übung oder Merkregel für die Klasse.</li>
+  </ol>
+  <p class="note" data-s="5-">Zeit: etwa 40 Minuten, verteilt auf die nächsten zwei Stunden.</p>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Gruppenarbeit</div>
+  <h2>So wird euer Blatt gut</h2>
+  <ol>
+    <li data-s="0-"><b>Überschrift</b>, damit klar ist, worum es geht.</li>
+    <li data-s="1-">Nur <b>Stichworte</b>. Die Klasse soll es schnell lesen können.</li>
+    <li data-s="2-"><b>Groß und lesbar</b> schreiben.</li>
+    <li data-s="3-"><b>Wichtiges farbig</b> hervorheben.</li>
+    <li data-s="4-">Ein kleines <b>Bild oder eine Skizze</b> hilft.</li>
+  </ol>
+ </section>`,
+
+roundSlide(ROUNDS[2]),
+roundSlide(ROUNDS[3]),
+
+`<section class="slide">
+  <div class="kicker">Vorstellen</div>
+  <h2>Jede Gruppe stellt ihren Baustein vor</h2>
+  <ul>
+    <li data-s="0-">Etwa 4 Minuten pro Gruppe: erst erklären, dann Fragen.</li>
+    <li data-s="1-">Alle anderen hören zu und geben danach eine Rückmeldung.</li>
+  </ul>
+  <p class="big" data-s="2-" style="margin-top:1.4cqw">Satzanfänge für die Rückmeldung:</p>
+  <ul data-s="2-">
+    <li>„Gut war …“</li>
+    <li>„Ich habe verstanden, dass …“</li>
+    <li>„Noch besser wäre …“</li>
+  </ul>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Auswertung</div>
+  <h2>Was haben wir gemerkt?</h2>
+  <table class="mini">
+    <tr><th>Runde</th><th>Wie</th><th>Klasse: richtig von 12</th></tr>
+    <tr><td>1</td><td>Hören</td><td>________</td></tr>
+    <tr><td>2</td><td>Lesen</td><td>________</td></tr>
+    <tr><td>3</td><td>Sehen</td><td>________</td></tr>
+    <tr><td>4</td><td>Selber tun</td><td>________</td></tr>
+  </table>
+  <p class="big" data-s="1-">Was fällt auf?</p>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Mitdenken</div>
+  <h2>Ist das ein Beweis?</h2>
+  <p class="big" data-s="0-">Eher ein Hinweis. Warum?</p>
+  <ul>
+    <li data-s="1-">Jede Runde hatte <b>andere Wörter</b>.</li>
+    <li data-s="2-">Die Reihenfolge war <b>immer gleich</b>: Wir werden müde, aber auch geübter.</li>
+    <li data-s="3-">Wir sind <b>nur eine Klasse</b> und haben es einmal gemacht.</li>
+  </ul>
+  <p class="note" data-s="4-">Forscher würden: gleiche Wörter, Reihenfolge mischen, viele Klassen. Das Gefühl „aktiv ist besser“ stimmt aber.</p>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Zum Nachdenken</div>
+  <h2>Und die Lerntypen?</h2>
+  <p data-s="0-">Du hast bestimmt schon gehört: „Ich bin der Hörtyp“ oder „Ich bin der Sehtyp“.</p>
+  <p class="big" data-s="1-" style="margin-top:.9cqw">Feste Lerntypen gibt es nicht. Wer „nach seinem Typ“ lernt, lernt nicht besser.</p>
+  <p data-s="2-" style="margin-top:.9cqw">Aber: <b>Der Stoff</b> entscheidet, welcher Weg gut ist.</p>
+  <img class="kartebild" data-s="3-" src="gesicht-karte.jpg" alt="">
+  <ul data-s="3-" style="max-width:52cqw">
+    <li>Orte von Ländern lernen: Mit einer <b>Karte</b> geht das für jeden besser als nur mit Karteikarten.</li>
+    <li>Vokabeln: sich <b>abfragen</b>, aus dem Kopf. Rechnen: <b>selbst rechnen</b>. Sport: <b>üben</b>, nicht zuschauen.</li>
+  </ul>
+  <p class="big" data-s="4-" style="margin-top:.9cqw; max-width:52cqw">Nicht fragen: „Welcher Typ bin ich?“ Sondern: „Was passt zu diesem Stoff, und wie werde ich aktiv?“</p>
+  <div class="src">Pashler, McDaniel, Rohrer und Bjork (2008), Psychological Science in the Public Interest.</div>
+ </section>`,
+
+`<section class="slide">
+  <div class="kicker">Das nehmen wir mit</div>
+  <h2>Drei Dinge fürs Heft</h2>
+  <ol>
+    <li data-s="0-"><b>Aktiv schlägt passiv.</b> Selbst aufschreiben, erklären, rechnen.</li>
+    <li data-s="1-"><b>Wiederholen mit Abstand</b> und aus dem Kopf, nicht nur nochmal lesen.</li>
+    <li data-s="2-"><b>Anknüpfen.</b> Neues bleibt hängen, wenn es zu etwas passt, das du schon weißt.</li>
+  </ol>
+  <p class="note" data-s="3-">Jetzt schreibt ihr den Aufschrieb ins Methodenheft.</p>
+ </section>`,
+
+`<section class="slide divider">
+  <div class="kicker">Zum Schluss</div>
+  <h1>Probier diese Woche eins aus</h1>
+  <ul style="font-size:2.1cqw; margin-top:2cqw">
+    <li>Nach der Mathe-Stunde ein weißes Blatt: Was war das Wichtigste?</li>
+    <li>Fünf Fragen zum Thema selbst schreiben und morgen beantworten.</li>
+    <li>Nach drei Tagen noch einmal aus dem Kopf wiederholen.</li>
+  </ul>
+ </section>`
+];
+stage.innerHTML = SLIDES.join('') + '<div id="counter"></div><div id="bar"></div>';
+const slides=[...stage.querySelectorAll('.slide')];
+let cur=0, step=0;
+function maxStep(sl){
+  let m=0; sl.querySelectorAll('[data-s]').forEach(e=>{const a=parseInt(e.dataset.s); if(a>m)m=a}); return m;
+}
+function render(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  const sl=slides[cur];
+  sl.querySelectorAll('[data-s]').forEach(e=>{
+    const [a,b]=e.dataset.s.split('-'); const from=parseInt(a); const to=b===''?Infinity:parseInt(b);
+    e.classList.toggle('show', step>=from && step<to);
+  });
+  const ph=sl.querySelectorAll('.phases span'); ph.forEach((p,i)=>p.classList.toggle('on',i===Math.min(step,3)));
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  document.getElementById('bar').style.transform='scaleX('+((cur+1)/slides.length)+')';
+  try{localStorage.setItem('gl-slide',cur)}catch(e){}
+}
+function next(){ if(step<maxStep(slides[cur])) step++; else if(cur<slides.length-1){cur++; step=0;} render(); }
+function prev(){ if(step>0) step--; else if(cur>0){cur--; step=maxStep(slides[cur]);} render(); }
+document.getElementById('next').onclick=next; document.getElementById('prev').onclick=prev;
+function fs(){ if(document.fullscreenElement) document.exitFullscreen(); else stage.requestFullscreen(); }
+document.getElementById('fs').onclick=fs;
+stage.addEventListener('click',e=>{const r=stage.getBoundingClientRect(); (e.clientX-r.left)<r.width*0.3?prev():next();});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('p-folien').classList.contains('on')) return;
+  if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)){e.preventDefault(); next();}
+  else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault(); prev();}
+  else if(e.key==='f'||e.key==='F'){fs();}
+  else if(e.key==='Home'){cur=0;step=0;render();}
+});
+try{const c=parseInt(localStorage.getItem('gl-slide')); if(c>=0&&c<slides.length) cur=c;}catch(e){}
+render();
+try{const t=localStorage.getItem('gl-tab'); if(t) openTab(t);}catch(e){}
+/* Druck-Parameter für PDF-Export: ?print=merk oder ?print=gruppen */
+(function(){
+  const q=new URLSearchParams(location.search).get('print');
+  if(!q) return;
+  if(q==='sprech'){ openTab('sprech'); document.querySelectorAll('.noprint').forEach(e=>e.remove()); return; }
+  openTab('gruppen');
+  if(new URLSearchParams(location.search).get('bw')){
+    document.body.classList.add('bw');
+    document.querySelectorAll('#sheets .pic').forEach(i=>{i.src=i.getAttribute('src').replace(/(gesicht|neu)-([a-z]+)\.jpg/,'sw-$2.jpg');});
+  }
+  const sh=[...document.querySelectorAll('#sheets .sheet')];
+  sh.forEach((s,i)=>{ const keep=(q==='merk')?(i===0):(i>0); if(!keep) s.remove(); });
+  document.querySelectorAll('.noprint').forEach(e=>e.remove());
+})();
+
+</script>
+</body>
+</html>

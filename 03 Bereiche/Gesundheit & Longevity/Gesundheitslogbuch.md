@@ -14,6 +14,10 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-10-22 | 3 | – | – | |
+| 2026-10-21 | 2 | – | – | |
+| 2026-10-19 | 1 | – | – | |
+| 2026-10-18 | 1 | – | – | |
 | 2026-10-17 | 1 | Nebenhöhlenentzündung, Gliederschmerzen, komplett schlapp, Nase nachts zu | – | Seit gestern krank, wieder die Nebenhöhlen. Nachts 2× Ibuprofen 400, trotzdem aufgewacht und kaum geschlafen (Garmin 6,8 h, laut Oskar mit mehr Wachphasen, vermutlich zu hoch). Morgens wieder Ibu 400. Ruhepuls 40, HRV 48. Laut Oskar bekommt er bei jedem Infekt Nebenhöhlenprobleme und fällt 1,5 bis 2 Wochen im Training aus. |
 | 2026-10-16 | 1 | Krankheitsbeginn (Nebenhöhlen), laut Oskar am 17.10. nachgetragen | – | |
 | 2026-10-15 | 2 | – | – | |

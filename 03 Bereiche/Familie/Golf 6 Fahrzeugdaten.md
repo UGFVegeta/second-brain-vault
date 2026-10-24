@@ -8,13 +8,14 @@ date: 2026-10-15
 
 Quelle: Zulassungsbescheinigung Teil I (Foto/Scan vom 01.06.2026, ausgestellt 28.07.2025). Abgelesen aus einem schiefen Foto, deshalb nur die gut lesbaren Felder. Vor dem Verkauf gegen das Original prüfen.
 
-Nicht gespeichert: Fahrzeug-Identnummer (FIN), Halter und Anschrift. Die stehen im Fahrzeugschein selbst.
+Nicht gespeichert: Halter und Anschrift. Die stehen im Fahrzeugschein selbst.
 
 ## Fahrzeug
 
 | Feld | Wert |
 |---|---|
 | Kennzeichen | WN-JC 9499 |
+| FIN (E) | WVWZZZ1KZCP034165 |
 | Erstzulassung (B) | 11.11.2011 |
 | Hersteller (D.1) | Volkswagen |
 | Handelsbezeichnung (D.3) | Golf |

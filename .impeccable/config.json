@@ -41,6 +41,24 @@
         ],
         "createdAt": "2026-10-02T20:01:10.169Z",
         "reason": "Claude: .knapp-Hinweisbox im bestehenden Stil von Oskars freigegebenen Stundendateien (Rationale Zahlen ALLES.html), bewusst übernommen, Schul-Unterrichtsmaterial"
+      },
+      {
+        "rule": "side-tab",
+        "value": "border-left:5px solid var(--accent2)",
+        "createdAt": "2026-10-22T18:07:22.857Z"
+      },
+      {
+        "rule": "side-tab",
+        "value": "5px 03 bereiche/schule & unterricht/klassenlehrer 7c/09 zeitfensterwoche/fr 23.10. kluge entscheidungen – stunden.html",
+        "createdAt": "2026-10-22T19:02:17.803Z"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "03 Bereiche/Schule & Unterricht/Klassenlehrer 7c/09 Zeitfensterwoche/Fr 23.10. Kluge Entscheidungen – Stunden.html"
+        ],
+        "createdAt": "2026-10-22T19:37:58.872Z"
       }
     ]
   }

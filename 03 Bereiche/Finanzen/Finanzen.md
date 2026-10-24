@@ -14,4 +14,5 @@ Langfristiger Vermögensaufbau und finanzielle Absicherung für die Familie. Fok
 - E-Fahrzeug Leasing prüfen → [[02 Projekte/E-Fahrzeug Leasing finden]]
 
 ## Referenzen
+- [[Familieneinkommen und Bezüge]] (aktuelle Bezüge, BW-Tabellen, Szenarien A14, drittes Kind, Elterngeld)
 -

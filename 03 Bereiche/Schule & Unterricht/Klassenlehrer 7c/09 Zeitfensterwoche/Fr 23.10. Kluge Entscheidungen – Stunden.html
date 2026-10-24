@@ -1,0 +1,1446 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kluge Entscheidungen – Fr 23.10.</title>
+<style>
+  :root{
+    --ink:#1c2230; --bg:#fcf8ef; --paper:#fffdf6;
+    --accent:#2f6f4f; --accent2:#c2531e; --muted:#6b7280; --line:#d9d3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{background:#efe9da; color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:1.5}
+
+  /* Tabs */
+  .tabs{position:sticky; top:0; z-index:10; display:flex; gap:4px; padding:10px 16px 0; background:#e4dcc8; border-bottom:1px solid var(--line); height:52px; align-items:flex-end}
+  .tabs button{font:inherit; font-weight:600; font-size:15px; padding:9px 18px; border:1px solid var(--line); border-bottom:none; background:#f3eddd; color:#5a5446; border-radius:10px 10px 0 0; cursor:pointer}
+  .tabs button.on{background:var(--bg); color:var(--ink); box-shadow:0 2px 0 var(--bg)}
+  .tabs .sp{flex:1}
+  .tabs .hint{font-size:13px; color:var(--muted); padding:0 4px 12px}
+  .panel{display:none}
+  .panel.on{display:block}
+
+  /* Textseiten */
+  .page{max-width:1040px; margin:0 auto; padding:28px 24px 60px}
+  .page h1{font-size:30px; line-height:1.15; margin-bottom:6px; letter-spacing:-.01em}
+  .page h2{font-size:21px; margin:30px 0 10px}
+  .page h3{font-size:17px; margin:18px 0 6px}
+  .page p{margin:.4em 0; max-width:48em}
+  .page ul,.page ol{margin:.4em 0 .4em 1.3em}
+  .page li{margin:.2em 0}
+  .sub{color:var(--muted); margin-bottom:18px}
+  table{border-collapse:collapse; width:100%; background:var(--paper); margin:10px 0 18px; font-size:15px}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#efe8d4; font-size:13.5px; text-transform:uppercase; letter-spacing:.04em}
+  td.t{white-space:nowrap; font-weight:700; width:90px}
+  .tag{display:inline-block; font-size:12px; font-weight:700; padding:1px 8px; border-radius:99px; background:#dfeee6; color:var(--accent)}
+  .tag.warn{background:#fbe6d8; color:var(--accent2)}
+  .box{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin:12px 0}
+  .box.warn{background:#fbf0e6; border-color:#e8c9ae}
+  .box.ok{background:#eef5ef; border-color:#bcd6c6}
+  .box h3{margin-top:0}
+  .small{font-size:14px; color:var(--muted)}
+  .anl .jump{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 4px}
+  .anl .jump a{padding:6px 14px; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--ink); text-decoration:none; font-weight:600; font-size:14px}
+  .anl .jump a:hover{background:#dfeee6}
+  .anl h2{margin-top:36px}
+  .anl .act{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:6px 20px 14px; margin:16px 0}
+  .anl .act h3{margin:12px 0 8px; font-size:18px}
+  .anl .zeit{font-size:13px; font-weight:500; color:var(--muted); margin-left:6px}
+  .anl h4{margin:18px 0 6px; font-size:15px}
+  .anl p.sag{background:#e3f0e7; padding:8px 14px; margin:8px 0; border-radius:8px; color:#1b3f2f; font-size:16px; line-height:1.5}
+  .anl p.tun{margin:10px 0}
+  .anl .lab{display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 7px; border-radius:4px; background:#e4dcc8; color:#5a5446; margin-right:6px}
+  .anl .refl{margin:10px 0; padding:8px 14px; background:#f6f2e8; border-radius:8px}
+  .anl .refl ul{margin:6px 0 0 18px}
+  .anl .refl li{margin:3px 0}
+  .anl ol.schritte, .anl ul.schritte{margin:8px 0 8px 22px}
+  .anl .schritte li{margin:4px 0}
+  .anl table.bsp{margin:8px 0; font-size:15px}
+  .anl table.ikea{width:auto; margin:8px 0}
+  .anl table.ikea td{padding:3px 12px 3px 0; font-size:17px}
+  .anl table.ikea td.b{font-weight:800; font-size:24px; color:var(--accent); width:34px}
+  .anl details.res{margin:14px 0; border:1px dashed var(--line); border-radius:12px; padding:8px 16px; background:#faf7ef}
+  .anl details.res summary{cursor:pointer; font-weight:600; padding:4px 0}
+  .anl details.res .act{margin:10px 0}
+
+
+  .anw .mc{background:#fff;border:.3mm solid #c9c4b4;border-radius:2mm;padding:2mm 4mm 3mm;margin-bottom:4mm;break-inside:avoid}
+  .anw .mc h3{font-size:1.15em;margin:1mm 0 2mm}
+  .anw .nr{display:inline-block;font-size:.7em;font-weight:700;background:#e4dcc8;color:#5a5446;border-radius:3mm;padding:0 2.2mm;margin-right:2mm}
+  .anw .mc p.q{font-weight:700;margin:2mm 0 .5mm}
+  .anw .mc ul{list-style:none;margin:0 0 1mm}
+  .anw .mc li{margin:.5mm 0;padding-left:4.5mm;position:relative}
+  .anw .d{position:absolute;left:0;top:.45em;width:2.4mm;height:2.4mm;border-radius:50%;display:block}
+  .anw .d.l{background:#2f7a4f}
+  .anw .d.v{background:#7a52b3}
+  .anw .mc table.tt{width:100%;table-layout:fixed;border-collapse:collapse;margin-top:1mm}
+  .anw .mc table.tt th{text-align:left;padding:1.2mm 2mm;color:#fff;font-size:1em;vertical-align:top}
+  .anw .mc table.tt th small{display:block;font-weight:400;font-size:.75em;opacity:.9}
+  .anw .mc table.tt th.sp{background:#2f6f4f}
+  .anw .mc table.tt th.gr{background:#9a5a1a}
+  .anw .mc table.tt th:empty{background:none}
+  .anw .mc table.tt td{border-bottom:.2mm solid #d8d4c8;padding:1.1mm 2mm;vertical-align:top}
+  .anw .mc table.tt th:first-child:empty,.anw .mc table.tt td.b{width:26mm}
+  .anw .mc table.tt td.b{font-weight:700;position:relative;padding-left:5.5mm}
+  .anw .mc table.tt td.b .d{left:1.2mm}
+  .anw .mc table.tt td:not(.b)>.d{position:static;display:inline-block;margin-right:1.5mm}
+  .anw svg.mm{width:100%;height:auto;margin-top:1mm}
+  .anw .leg{font-size:.85em;color:#555;margin:1mm 0 3mm}
+  .anw .leg .d{position:static;display:inline-block;margin:0 1mm 0 3mm}
+  .anw{font-size:16px; max-width:900px}
+  #hintbox{width:min(100%, calc((100vh - 130px) * 16 / 9)); background:#fbf0e6; border:1px solid #e8c9ae; border-radius:12px; padding:10px 18px 12px; font-size:15px; line-height:1.45}
+  #hintbox .hh{display:flex; align-items:baseline; gap:10px; margin-bottom:4px}
+  #hintbox .hh button{margin-left:auto; font:inherit; font-size:13px; padding:3px 12px; border:1px solid var(--line); border-radius:99px; background:var(--paper); cursor:pointer}
+  #hintbox p{margin:6px 0} #hintbox ul{margin:4px 0 4px 20px} #hintbox li{margin:2px 0}
+  #hintbox .hl,#hintbox .hv{display:inline-block; font-size:11px; font-weight:700; padding:0 7px; border-radius:99px; margin-right:4px}
+  #hintbox .hl{background:#dfeee6; color:var(--accent)} #hintbox .hv{background:#e8e2f4; color:#5a3f8a}
+  #hintbox.zu #hintbody{display:none}
+  /* Mindmap-Zeichenfläche (Excalidraw, offline aus _excalidraw/) */
+  .mmbtn{position:absolute; right:2cqw; bottom:4.4cqw; font:inherit; font-size:1.3cqw; font-weight:600; padding:.5cqw 1.3cqw; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--accent); cursor:pointer}
+  .mmbtn:hover{background:#dfeee6}
+  #mm{position:absolute; inset:0; z-index:50; display:none; background:#fff}
+  #mm.on{display:block}
+  #mm .mmhost{position:absolute; inset:0}
+  #mm .mmbar{position:absolute; bottom:14px; left:50%; transform:translateX(-50%); z-index:100; display:flex; gap:8px}
+  #mm .mmbar button{white-space:nowrap; font:inherit; font-size:15px; font-weight:600; padding:8px 16px; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--ink); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  #mm .mmbar button.zurueck{background:var(--accent); color:#fff; border-color:var(--accent)}
+  /* Gruppen-Generator: mischt die Klassenliste, Namen nur im Browser (localStorage), nie in dieser Datei */
+  .grpbtn{position:absolute; right:3cqw; top:2cqw; z-index:5; font:inherit; font-size:1.9cqw; font-weight:700; padding:.8cqw 2cqw; border:0; border-radius:99px; background:var(--accent); color:#fff; cursor:pointer; box-shadow:0 .3cqw 1cqw rgba(47,111,79,.35)}
+  .grpbtn:hover{background:#255a40}
+  #grp{position:absolute; inset:0; z-index:60; display:none; flex-direction:column; background:#fffdf7; padding:2cqw 3cqw 1.6cqw}
+  #grp.on{display:flex}
+  #grp .gtop{display:flex; align-items:center; gap:1.2cqw; flex-wrap:wrap; margin-bottom:1.4cqw}
+  #grp h3{font-size:2.4cqw; margin-right:auto}
+  #grp button{white-space:nowrap; font:inherit; font-size:1.25cqw; font-weight:600; padding:.55cqw 1.3cqw; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--ink); cursor:pointer}
+  #grp button.pri{background:var(--accent); color:#fff; border-color:var(--accent)}
+  #grp .cnt{display:inline-flex; align-items:center; gap:.5cqw; font-size:1.25cqw; color:var(--muted)}
+  #grp .cnt b{min-width:2ch; text-align:center; color:var(--ink); font-size:1.6cqw}
+  #grp .cnt button{padding:.3cqw .9cqw}
+  #grp .gbody{flex:1; display:grid; gap:1.2cqw; grid-template-columns:repeat(var(--gc,3),1fr); align-content:start; overflow:auto}
+  #grp .gc{background:#fff; border:2px solid var(--gcol); border-radius:1.2cqw; padding:.9cqw 1.3cqw 1.1cqw; opacity:0; transform:translateY(.8cqw); animation:gin .35s forwards}
+  #grp .gc h4{font-size:1.5cqw; color:var(--gcol); margin-bottom:.5cqw; letter-spacing:.04em; text-transform:uppercase}
+  #grp .gc li{list-style:none; font-size:var(--gf,2cqw); line-height:1.4; font-weight:600}
+  @keyframes gin{to{opacity:1; transform:none}}
+  #grp .gpanel{display:none; background:var(--paper); border:1px solid var(--line); border-radius:1.2cqw; padding:1.2cqw 1.5cqw; margin-bottom:1.2cqw; font-size:1.25cqw}
+  #grp .gpanel.on{display:block}
+  #grp textarea{width:100%; height:11cqw; font:inherit; font-size:1.2cqw; padding:.6cqw .8cqw; border:1px solid var(--line); border-radius:.8cqw; margin:.6cqw 0}
+  #grp .gpanel .row{display:flex; gap:.8cqw; align-items:center; flex-wrap:wrap}
+  #grp .ghint{color:var(--muted); font-size:1.15cqw; margin-top:.5cqw}
+  #mm .mmmsg{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:18px}
+  .say{color:#1f4f3a}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+
+  /* Folien */
+  #foilwrap{padding:12px 16px 16px; display:flex; flex-direction:column; align-items:center; gap:10px}
+  #stage{container-type:size; position:relative; width:min(100%, calc((100vh - 130px) * 16 / 9)); aspect-ratio:16/9;
+    background:var(--bg); border-radius:14px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.3); outline:none}
+  #stage:fullscreen{width:100vw; height:100vh; aspect-ratio:auto; border-radius:0}
+  /* Bilder neben dem Text (Gemini-Figuren, Stil wie Dienstag) */
+  .slide .pic{position:absolute; right:6cqw; top:50%; transform:translateY(-50%); width:36cqw; border-radius:1.4cqw; box-shadow:0 .4cqw 1.6cqw rgba(0,0,0,.08)}
+  .slide.mitbild > *:not(.pic):not(button):not(template):not(.flow){max-width:48cqw}
+  .slide.nurbild .pic{position:static; transform:none; width:auto; height:36cqw; max-width:100%; margin:.6cqw auto 0; display:block}
+  .slide.nurbild{align-items:center; text-align:center}
+  .slide.mitbild.breit .pic{width:46cqw; right:3.5cqw}
+  .slide.mitbild.breit > *:not(.pic):not(button):not(template):not(.flow){max-width:40cqw}
+  .slide.mitbild.titelbild .pic{width:44cqw; right:3cqw}
+  .slide.mitbild.titelbild > *:not(.pic):not(button):not(template):not(.flow){max-width:36cqw}
+  .slide.mitbild.klein .pic{top:5.5cqw; transform:none; width:21cqw; right:7.5cqw}
+  .slide.mitbild.klein > *:not(.pic):not(button):not(template):not(.flow){max-width:54cqw}
+  /* Seitenleiste mit Abschnitten (Standard für Stunden-HTMLs, Vorbild: Elternabend-Präsentation) */
+  #present{display:flex; gap:14px; align-items:flex-start; justify-content:center; width:100%}
+  #stagecol{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; gap:10px}
+  #side{flex:none; width:224px; max-height:calc(100vh - 130px); overflow-y:auto; overflow-x:hidden; background:#efe8d8; border:1px solid #e0d7c2; border-radius:14px; padding:16px 10px; display:flex; flex-direction:column; gap:2px}
+  #side>*{flex:none}
+  #side h2{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive; font-size:23px; line-height:1.05; font-weight:700; padding:0 8px 8px; overflow-wrap:anywhere; border-bottom:3px solid var(--accent2); margin-bottom:8px}
+  #side .grp{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive; font-size:21px; color:var(--muted); padding:12px 8px 3px; line-height:1.1}
+  #side .tab{all:unset; box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; gap:8px; cursor:pointer; padding:8px 11px; border-radius:9px; font-size:14.5px; line-height:1.2; color:var(--ink)}
+  #side .tab.sub{padding-left:20px; font-size:14px}
+  #side .tab:hover{background:#f8f3e6}
+  #side .tab.aktiv{background:#fff; font-weight:700; box-shadow:0 1px 3px rgba(0,0,0,.12); border-left:5px solid var(--accent2)}
+  #side .tab:focus-visible{outline:2px solid var(--accent)}
+  #side .punkte{display:flex; gap:3px; flex:none}
+  #side .punkte i{width:6px; height:6px; border-radius:50%; background:#cdc4ae; cursor:pointer}
+  #side .punkte i.an{background:var(--accent2)}
+  #side .hinweis{margin-top:auto; padding:14px 8px 0; font-size:11.5px; color:var(--muted); line-height:1.6}
+  #side kbd{font:inherit; font-size:10.5px; background:#fff; border:1px solid #cfc8b8; border-radius:4px; padding:0 4px}
+  #present.nav-aus #side{display:none}
+  #present:fullscreen{width:100vw; height:100vh; padding:0; gap:0; align-items:stretch; background:var(--bg)}
+  #present:fullscreen #side{max-height:none; height:100vh; border-radius:0; border-width:0 1px 0 0}
+  #present:fullscreen #stagecol{justify-content:center}
+  #present:fullscreen #stage{width:min(100%, calc(100vh * 16 / 9)); border-radius:0; box-shadow:none}
+  #present:fullscreen .ctrl, #present:fullscreen #hintbox{display:none}
+  #dots{display:none!important}
+  /* Countdown-Uhr für Arbeitsphasen: data-timer="Minuten[,Minuten]" an der Folie */
+  #uhr{position:absolute; left:3cqw; bottom:1.6cqw; z-index:55; display:none; align-items:center; gap:.9cqw; background:#fff; border:2px solid var(--accent); border-radius:99px; padding:.5cqw 1.2cqw .5cqw 1.6cqw; box-shadow:0 .3cqw 1cqw rgba(0,0,0,.15)}
+  #uhr .ut{font-size:3.6cqw; font-weight:800; font-variant-numeric:tabular-nums; min-width:4.6ch; line-height:1}
+  #uhr button{font:inherit; font-size:1.3cqw; font-weight:600; padding:.45cqw 1.1cqw; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--ink); cursor:pointer}
+  #uhr button.pri{background:var(--accent); color:#fff; border-color:var(--accent); font-size:1.5cqw; padding:.55cqw 1.5cqw}
+  #uhr button.on{background:#dfeee6; border-color:var(--accent)}
+  #uhr.knapp{border-color:var(--accent2)} #uhr.knapp .ut{color:var(--accent2)}
+  #uhr.aus{border-color:#c0392b; animation:ublink .8s infinite} #uhr.aus .ut{color:#c0392b}
+  @keyframes ublink{50%{background:#fde7e4}}
+  .slide{position:absolute; inset:0; padding:6.2cqw 7.5cqw; display:none; flex-direction:column; justify-content:center}
+  .slide.active{display:flex}
+  .slide .kicker{font-size:1.15cqw; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:1.4cqw}
+  .slide h1{font-size:4.4cqw; line-height:1.05; letter-spacing:-.02em}
+  .slide h2{font-size:3.1cqw; line-height:1.12; letter-spacing:-.01em; margin-bottom:.9cqw}
+  .slide p{font-size:1.9cqw; line-height:1.5; max-width:42em; color:#333; margin:0}
+  .slide p + p{margin-top:.7cqw}
+  .slide .big{font-size:2.4cqw}
+  .slide ul{margin:.6cqw 0 0 1.5cqw; font-size:1.9cqw; line-height:1.6}
+  .slide li{margin:.35cqw 0}
+  .slide .card{background:var(--paper); border:1px solid var(--line); border-radius:1.2cqw; padding:1.2cqw 1.5cqw}
+  .divider{background:var(--accent); color:#fff}
+  .divider .kicker{color:#bfe6d1}
+  .divider h1{font-size:4cqw}
+  .slide .note{margin-top:1.2cqw; font-size:1.35cqw; color:var(--muted)}
+  .slide .src{position:absolute; left:7.5cqw; right:7.5cqw; bottom:7cqw; font-size:1.02cqw; color:#9a9484; line-height:1.35}
+  .cols{display:flex; gap:3cqw}
+  .cols > .card{flex:1}
+  .cols h3{font-size:2cqw; margin-bottom:.6cqw; color:var(--accent)}
+  .cols h3.b{color:var(--accent2)}
+  .cols li{font-size:1.7cqw}
+  .flow{display:flex; align-items:stretch; gap:1.6cqw; margin-top:1.2cqw}
+  .flow .box{background:var(--paper); border:2px solid var(--ink); border-radius:1cqw; padding:1.1cqw 1cqw; text-align:center; flex:1; font-size:1.7cqw; line-height:1.35; margin:0}
+  .flow .box b{display:block; font-size:2.3cqw; color:var(--accent); margin-bottom:.2cqw}
+  .flow .arrow{font-size:2.6cqw; color:var(--accent); align-self:center; opacity:0; transition:opacity .28s}
+  .flow .arrow:has(+ .box.shown){opacity:1}
+  .chips{display:flex; flex-wrap:wrap; gap:1cqw; margin-top:1cqw}
+  .chips span{background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:.5cqw 1.2cqw; font-size:1.7cqw}
+  .ikea{display:grid; grid-template-columns:7cqw 1fr; gap:.9cqw 1.6cqw; align-items:center; margin-top:.3cqw}
+  .ikea .l{font-size:4.2cqw; font-weight:800; color:var(--accent); text-align:center; line-height:1}
+  .ikea .t{font-size:2.1cqw; line-height:1.3}
+  .slide .q{font-size:2.3cqw; line-height:1.4; font-weight:600; max-width:30em}
+  .slide .q + .q{margin-top:.9cqw}
+  .slide .merk{border-left:.5cqw solid var(--accent); padding:.3cqw 0 .3cqw 1cqw; font-size:2.6cqw; line-height:1.35; font-weight:700; max-width:24em}
+  #dots{position:absolute; bottom:1.9cqw; left:20cqw; right:20cqw; display:flex; gap:.25cqw; justify-content:center}
+  #dots i{width:1.2cqw; height:1.2cqw; border:.25cqw solid transparent; background-clip:padding-box;
+          border-radius:50%; background-color:var(--line); transition:background-color .2s; cursor:pointer}
+  #dots i:hover{background-color:#b3a98f}
+  #dots i.on{background:var(--accent)}
+  #counter{position:absolute; bottom:1.8cqw; right:3cqw; font-size:1.1cqw; color:var(--muted)}
+  [data-step]{opacity:0; transition:opacity .28s}
+  [data-step].shown{opacity:1}
+  .kvgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:14px}
+  figure.kv{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px; margin:0}
+  figure.kv img{display:block; width:100%; border:1px solid var(--line); border-radius:6px; background:#fff}
+  figure.kv figcaption{font-size:14px; line-height:1.45; padding:8px 4px 2px}
+  @media (max-width:1000px){ .kvgrid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:640px){ .kvgrid{grid-template-columns:1fr} }
+  .ctrl{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px}
+  .ctrl button{font:inherit; padding:6px 14px; border-radius:8px; border:1px solid var(--line); background:var(--paper); cursor:pointer}
+
+  @media (max-width:760px){ .tabs button{padding:8px 10px; font-size:13px} .tabs .hint{display:none} .two{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div class="tabs" id="tabs">
+  <button data-tab="ueberblick" class="on">Überblick</button>
+  <button data-tab="folien">Folien</button>
+  <button data-tab="sprech">Sprechzettel</button>
+  <button data-tab="anleitungen">Anleitungen</button>
+  <button data-tab="antworten">Mögliche Antworten</button>
+  <button data-tab="material">Material</button>
+  <button data-tab="kopien">Kopiervorlagen</button>
+  <button data-tab="reserve">Reserve</button>
+  <span class="sp"></span>
+  <span class="hint">Stand 22.10.2026</span>
+</div>
+
+<!-- ============ ÜBERBLICK ============ -->
+<div class="panel on" id="p-ueberblick">
+<div class="page">
+  <h1>Kluge Entscheidungen</h1>
+  <p class="sub">Klassenlehrerstunde 7c, Freitag 23.10.2026, 7:40 bis 9:10 und 9:30 bis 10:20. Danach bis 10:40 hast du die Zeit für etwas anderes. Grundlage: Lions Quest „Erwachsen werden“, Kapitel 6.</p>
+
+  <div class="box ok">
+    <b>Der rote Faden:</b> Erst klären, was mir wichtig ist (Werte). Dann die Folgen von Entscheidungen durchdenken. Dann erleben, dass man zwischen Impuls und Handeln kurz warten kann. Zum Schluss lernen, bei einem unklaren Angebot nachzufragen und klar Nein zu sagen (IKEA-Methode, mit Sketch).
+  </div>
+
+  <h2>Ziele</h2>
+  <ol>
+    <li>Die Schüler erkennen, dass Werte ihre Entscheidungen beeinflussen, und können sagen, was ihnen wichtig ist.</li>
+    <li>Sie schätzen die Folgen verschiedener Reaktionen ab, bevor sie sich entscheiden.</li>
+    <li>Sie erleben, wie schnell Impulse kommen, und wie ein kurzes Warten hilft.</li>
+    <li>Sie üben, bei unklaren Angeboten durch Fragen zu klären und begründet Nein zu sagen.</li>
+  </ol>
+
+  <h2>Ablauf</h2>
+  <table>
+    <tr><th>Zeit</th><th>Was passiert</th><th>Form</th><th>Medien / Material</th></tr>
+    <tr><td class="t">7:40<br>bis 8:25</td>
+      <td><b>Teil 1: Was ist mir wichtig?</b><br>
+      10 Min. A1 Zwei Arten von Entscheidungen (Tafel).<br>
+      25 Min. A2 „Wie wichtig ist dir das?“: 5 Min. Einzelarbeit, 15 Min. Austausch in 5 Zufallsgruppen, 5 Min. Reflexion.<br>
+      8 Min. A3 Motte und Möwe, zwei Geschichten zum Vorlesen.</td>
+      <td>LV, EA, GA</td><td>Folie 1 bis 11, KV 6.1a, Gruppen-Generator (G)</td></tr>
+    <tr><td class="t">8:25<br>bis 9:10</td>
+      <td><b>Teil 2: Entscheidungen und ihre Folgen</b><br>
+      5 Min. Vorgehen erklären (Beispiel an der Tafel).<br>
+      20 Min. Gruppenarbeit mit den Situationskarten in denselben Gruppen wie in Teil 1 (Besprechen, Entscheiden, Zettel).<br>
+      10 Min. Jede Gruppe stellt zwei Beispiele vor.<br>
+      5 Min. Reflexion. Puffer 5 Min.</td>
+      <td>GA</td><td>Folie 12 bis 15, KV 6.1b (5 Sätze, ausgewählte Karten)</td></tr>
+    <tr><td class="t">9:10<br>bis 9:30</td><td><b>Pause</b> (Karten für Teil 4 bereitlegen, Ball und Requisit holen)</td><td></td><td></td></tr>
+    <tr><td class="t">9:30<br>bis 9:40</td>
+      <td><b>Teil 3: Erst fühlen, dann kurz warten</b><br>
+      Reiz und Reaktion im Kreis mit dem Ball (6.2 A2), 2 bis 3 Reflexionsfragen, dann Überleitung zum Zahnpasta-Bild und Stopp-Schema.</td>
+      <td>LV, Kreis</td><td>Folie 16 bis 19, Ball oder Kissen, KV 6.2a</td></tr>
+    <tr><td class="t">9:40<br>bis 10:15</td>
+      <td><b>Teil 4: IKEA-Methode</b><br>
+      10 Min. unklare Einladung, du spielst die Person (Käppi), die Klasse fragt, nach der Auflösung: Warum sagt jemand nicht gleich, was er vorhat? Dann IKEA an der Tafel.<br>
+      12 Min. 4 Gruppen bereiten einen Sketch vor.<br>
+      13 Min. Vorspielen mit Applaus und Auswertung.</td>
+      <td>LV, GA</td><td>Folie 20 bis 24, KV 6.3b, KV 6.3c, Requisit</td></tr>
+    <tr><td class="t">10:15<br>bis 10:20</td><td><b>Abschluss:</b> vier Fragen vor einer Entscheidung.</td><td>LV</td><td>Folie 25</td></tr>
+    <tr><td class="t">10:20<br>bis 10:40</td><td><b>Frei</b> für etwas anderes.</td><td></td><td></td></tr>
+  </table>
+
+  <div class="box warn"><b>Wenn es eng wird, streichen in dieser Reihenfolge:</b>
+    <ol>
+      <li>A3 Motte und Möwe (Folie 10 und 11).</li>
+      <li>Im Austausch zu A2 nur drei statt vier Reflexionsfragen.</li>
+      <li>Bei A5 nur ein Teil der Karten bearbeiten lassen.</li>
+    </ol>
+    Das Skript sagt selbst: Die Zeiten hängen stark von Klasse, Temperament und Diskussionsbereitschaft ab. Wenn eine Phase schneller geht, ist 6.2 A1 „Schnell und originell“ (Ball, Einwortantworten) ein guter Energizer (siehe Reserve).
+  </div>
+
+  <h2>Haltung (aus dem Lehrerband)</h2>
+  <ul>
+    <li><b>Passen ist erlaubt</b> und darf jederzeit neu entschieden werden.</li>
+    <li>Bei persönlichen Äußerungen <b>keine Kommentare, keine Kritik</b>. Die Vielfalt der Antworten lehrt von selbst.</li>
+    <li>Arbeitsaufträge <b>kurz und klar</b>. Schwächere fragen ungern nach, wenn sie etwas nicht verstanden haben.</li>
+    <li>Bei den Situationskarten darf gelacht werden. Fragt nach den Folgen, auch bei provozierenden Antworten.</li>
+  </ul>
+
+  <p class="small" style="margin-top:20px">Quelle: Stiftung der Deutschen Lions, Lions Quest „Erwachsen werden“, Kapitel 6 „Kluge Entscheidungen“ (2020). Die Vervielfältigung der Kopiervorlagen für den eigenen Unterricht ist laut Lehrerband gestattet. Der Ablauf folgt dem Lehrerband und ist mit dir abgestimmt (Stand 22.10.2026).</p>
+</div>
+</div>
+
+<!-- ============ FOLIEN ============ -->
+<div class="panel" id="p-folien">
+  <div id="foilwrap">
+   <div id="present"><nav id="side" aria-label="Abschnitte"></nav><div id="stagecol">
+    <div id="stage" tabindex="0">
+  <!-- 1 Titel -->
+  <section class="slide mitbild titelbild" data-tab="Start" data-group="">
+    <div class="kicker">Klassenlehrerstunde Klasse 7c</div>
+    <h1>Kluge Entscheidungen</h1>
+    <img class="pic" src="kluge-titel.jpg" alt="Jugendlicher an einer Weggabelung denkt nach">
+  </section>
+
+  <!-- 2 Überblick -->
+  <section class="slide" data-tab="Start" data-group="">
+    <div class="kicker">Heute</div>
+    <h2>Vier Teile</h2>
+    <ul style="list-style:none; margin-left:0">
+      <li data-step><b style="color:var(--accent)">1</b> &nbsp;Was ist mir wichtig?</li>
+      <li data-step><b style="color:var(--accent)">2</b> &nbsp;Entscheidungen und ihre Folgen</li>
+      <li data-step><b style="color:var(--accent)">3</b> &nbsp;Erst fühlen, dann kurz warten, dann handeln</li>
+      <li data-step><b style="color:var(--accent)">4</b> &nbsp;Wenn etwas unklar ist: die IKEA-Methode</li>
+    </ul>
+  </section>
+
+  <!-- 3 Divider 1 -->
+  <section class="slide divider" data-tab="Zwei Arten" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Teil 1</div>
+    <h1>Was ist mir wichtig?</h1>
+  </section>
+
+  <!-- 4 Zwei Arten (leer: Oskar schreibt live auf dem iPad mit, Beispiele stehen im Tab Anleitungen) -->
+  <section class="slide" data-tab="Zwei Arten" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Entscheidungen im Alltag</div>
+    <h2>Zwei Arten von Entscheidungen</h2>
+    <div class="cols">
+      <div class="card" style="min-height:22cqw">
+        <h3>Spontan</h3>
+        <p style="font-size:1.6cqw; margin-bottom:.5em">nach Lust und Laune</p>
+      </div>
+      <div class="card" style="min-height:22cqw">
+        <h3 class="b">Grundsätzlich</h3>
+        <p style="font-size:1.6cqw; margin-bottom:.5em">gilt für längere Zeit</p>
+      </div>
+    </div>
+    <button class="mmbtn" data-mm="a">Mindmap öffnen (M)</button>
+    <template class="hint"><p><span class="hv">Vorschlag von mir</span> Bereiche, nur falls die Klasse nicht von selbst weiterkommt: Kleidung, Essen, Internet, Schule, Freizeit, Fernsehen, Musik, Sport. Erst die Klasse rufen lassen, dann nachhelfen.</p><p><span class="hl">Lehrerband</span> Beispiele:</p><ul><li><b>Kleidung:</b> Was ziehe ich heute an? | Welchen Stil, welche Farben möchte ich tragen?</li><li><b>Essen:</b> Worauf habe ich jetzt Appetit? | Fleisch oder vegetarisch?</li><li><b>Freizeit:</b> Was mache ich heute Nachmittag? | Welchen Sport mache ich regelmäßig?</li></ul><p><span class="hv">Vorschlag von mir</span> passend für Klasse 7:</p><ul><li><b>Internet:</b> Welches Video schaue ich jetzt? | Wie viel Handyzeit am Tag, welche Apps?</li><li><b>Schule:</b> Neben wem sitze ich heute? | Wie wichtig sind mir Noten, lerne ich regelmäßig?</li><li><b>Musik:</b> Welches Lied höre ich jetzt? | Welche Musikrichtung ist meine?</li><li><b>Sport:</b> Gehe ich heute zum Training? | Welchen Verein, welchen Sport will ich dauerhaft?</li><li><b>Fernsehen:</b> Welche Serie schaue ich jetzt? | Wie viel Streaming pro Woche?</li></ul></template>
+  </section>
+
+  <!-- 5 Wovon hängt es ab (leer zum Mitschreiben) -->
+  <section class="slide" data-tab="Zwei Arten" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Beispiel Kleidung</div>
+    <h2>Wovon hängt es ab, wie jemand sich entscheidet?</h2>
+    <div class="card" style="min-height:24cqw; border-style:dashed"></div>
+    <button class="mmbtn" data-mm="b">Mindmap öffnen (M)</button>
+    <template class="hint"><p><span class="hl">Lehrerband</span> finanzielle Möglichkeiten, Erwartungen der Eltern, Zweckmäßigkeit, Bequemlichkeit, Gewohnheit, persönlicher Geschmack, Mode, Geschmack der Freunde, Markendruck, oder eine Mischung aus allem.</p><p><span class="hv">Vorschlag von mir</span> Wetter, Anlass (Schule, Sport, Feier), Influencer und Social Media, Nachhaltigkeit, Körpergefühl (was passt mir, was gefällt mir an mir).</p></template>
+  </section>
+
+  <!-- 6 Werte -->
+  <section class="slide mitbild breit" data-tab="Zwei Arten" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Werte</div>
+    <h2>Unsere Entscheidungen werden von Werten beeinflusst</h2>
+    <p class="merk" data-step style="margin-top:1.2em">Wenn wir wissen, was uns wichtig ist, können wir uns besser entscheiden.</p>
+    <template class="hint"><p><span class="hv">Sagen</span> „Werte sind das, was man für gut und wichtig hält und woran man sich bei Entscheidungen richtet.“ Zum Bild: Freunde, Familie, Gefühle, Handy, Geld und Schule ziehen in verschiedene Richtungen; die Werte sind der Kompass.</p></template>
+    <img class="pic" src="kluge-werte.jpg" alt="Kompass, um ihn herum sechs mögliche Einflüsse: Freunde, Familie, Gefühle, Handy, Geld, Schule">
+  </section>
+
+  <!-- 7 A2 Auftrag -->
+  <section data-timer="5,15" class="slide" data-tab="Wie wichtig ist dir das?" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Auftrag</div>
+    <h2>Wie wichtig ist dir das?</h2>
+    <ul>
+      <li data-step><b>Einzeln:</b> Blatt ankreuzen, zwei eigene Sätze</li>
+      <li data-step><b>Gruppe:</b> vergleichen und darüber reden</li>
+    </ul>
+    <p class="note" data-step>Passen ist erlaubt.</p>
+    <template class="hint"><p><span class="hv">Sagen</span> Pro Satz ein Kreuz von „sehr wichtig“ bis „unwichtig“, unten zwei eigene Sätze ergänzen. Niemand muss etwas vorlesen, was er nicht sagen möchte. Erst 5 Minuten allein, dann 15 Minuten in der Gruppe.</p></template>
+    <button class="grpbtn" data-grp="5">Gruppen auslosen (G)</button>
+  </section>
+
+  <!-- 8 Gesprächsregeln -->
+  <section class="slide" data-tab="Wie wichtig ist dir das?" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Vor dem Austausch</div>
+    <h2>Welche Regeln helfen uns, offen zu reden?</h2>
+    <ul>
+      <li data-step>gut zuhören</li>
+      <li data-step>nicht kommentieren</li>
+      <li data-step>andere Meinungen nicht abwerten</li>
+    </ul>
+    <template class="hint"><p><span class="hl">Lehrerband</span> gut zuhören, nicht kommentieren, andere Meinungen nicht abwerten.</p><p><span class="hv">Vorschlag von mir</span> nicht auslachen; was in der Gruppe gesagt wird, bleibt in der Gruppe; ausreden lassen; Passen ist erlaubt.</p></template>
+  </section>
+
+  <!-- 9 Reflexion A2 -->
+  <section class="slide" data-tab="Wie wichtig ist dir das?" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Auswertung</div>
+    <h2>Eure Gruppe</h2>
+    <p class="q" data-step>Bei welchen Werten gab es viel Übereinstimmung?</p>
+    <p class="q" data-step>Woher kommen unterschiedliche Werte?</p>
+    <template class="hint"><p><b>Mündlich, wenn Zeit ist:</b> Welche Werte sind Ideale, die schwer einzuhalten sind? Warum sind sie trotzdem wichtig?</p><p>Das Skript nennt keine Antworten, das sind meine Vorschläge (<span class="hv">Vorschlag von mir</span>):</p><ul><li><b>Große Übereinstimmung:</b> meist Familie, Freundschaft, Gesundheit, Ehrlichkeit, Sicherheit.</li><li><b>Woher kommen unterschiedliche Werte:</b> Familie und Erziehung, Freunde, Medien, Kultur oder Religion, eigene Erfahrungen.</li><li><b>Ideale, die schwer einzuhalten sind:</b> immer ehrlich sein, gerecht sein, immer hilfsbereit sein, auf die Umwelt achten.</li><li><b>Trotzdem wichtig, weil:</b> sie die Richtung zeigen wie ein Ziel, auch wenn man es nicht immer schafft.</li></ul></template>
+  </section>
+
+  <!-- 10 Motte -->
+  <section class="slide nurbild" data-tab="Motte und Möwe" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Zwei kurze Geschichten</div>
+    <h2>Die Motte und der Stern</h2>
+    <template class="hint"><p><span class="hl">Lehrerband</span> Im Skript steht nur die Frage „Was denkt ihr über diese Geschichte?“. Kommentieren und bewerten: nein.</p><p><span class="hv">Vorschlag von mir</span> Mögliche Gedanken der Klasse:</p><ul><li>Mutig und treu zum eigenen Wunsch, oder unvernünftig und gefährlich?</li><li>Die Eltern wollen sie schützen, ihre Warnung ist verständlich.</li><li>„Mach es wie die anderen“ ist Anpassung; der Stern ist der eigene Wunsch.</li><li>Die Motte bleibt als Einzige unverletzt, obwohl sie es versucht. Was heißt dann „erwachsen werden“?</li></ul></template>
+    <img class="pic" src="kluge-motte.jpg" alt="Motte fliegt auf einen Stern zu">
+  </section>
+
+  <!-- 11 Möwe -->
+  <section class="slide nurbild" data-tab="Motte und Möwe" data-group="1 Was ist mir wichtig?">
+    <div class="kicker">Zwei kurze Geschichten</div>
+    <h2>Die junge und die alte Möwe</h2>
+    <template class="hint"><p><span class="hl">Lehrerband</span> Zuerst fragen, was die alte Möwe wohl sagt, einige Vorschläge abwarten, dann die Auflösung vorlesen („Aber eine Erfahrung wirst du nicht mehr machen können, nämlich wie es ist zu fliegen.“).</p><p><span class="hv">Vorschlag von mir</span> Mögliche Vorschläge der Klasse: „Das ist doch dumm“, „Du kannst nie wieder fliegen“, „Warum machst du das?“. Gedanke zur Auswertung: Wer einem Trend folgt, kann etwas verlieren, das sich nicht zurückholen lässt (Brücke zur Zahnpasta in Teil 3).</p></template>
+    <img class="pic" src="kluge-moewe.jpg" alt="Junge Möwe mit gestutzten Flügeln, alte Möwe fliegt">
+  </section>
+
+  <!-- 12 Divider 2 -->
+  <section class="slide divider" data-tab="Situationskarten" data-group="2 Entscheidungen und ihre Folgen">
+    <div class="kicker">Teil 2</div>
+    <h1>Entscheidungen<br>und ihre Folgen</h1>
+  </section>
+
+  <!-- 13 A5 Ablauf -->
+  <section class="slide" data-tab="Situationskarten" data-group="2 Entscheidungen und ihre Folgen">
+    <div class="kicker">Gruppenarbeit</div>
+    <h2>So arbeitet ihr mit den Karten</h2>
+    <div class="flow">
+      <div class="box" data-step><b>1</b>Vorlesen</div>
+      <div class="arrow">&rarr;</div>
+      <div class="box" data-step><b>2</b>Verstanden?</div>
+      <div class="arrow">&rarr;</div>
+      <div class="box" data-step><b>3</b>Umdrehen, Folgen besprechen</div>
+      <div class="arrow">&rarr;</div>
+      <div class="box" data-step><b>4</b>Gemeinsam entscheiden</div>
+    </div>
+    <template class="hint"><p><span class="hv">Sagen</span> „Stellt euch jedes Mal vor, ihr seid selbst betroffen.“ Eine Person liest das Ereignis vor und fragt, ob alle es verstanden haben. Dann Karte umdrehen, die drei Möglichkeiten vorlesen und zu jeder die Folgen besprechen. Zum Schluss gemeinsam eine wählen. Eine Karte zusammen vormachen.</p></template>
+  </section>
+
+  <!-- 14 A5 Auftrag 2 -->
+  <section data-timer="20" class="slide" data-tab="Situationskarten" data-group="2 Entscheidungen und ihre Folgen">
+    <div class="kicker">Auftrag</div>
+    <h2>Zu jeder Karte</h2>
+    <ul>
+      <li data-step>a, b, c: Was könnte passieren?</li>
+      <li data-step>Gemeinsam entscheiden</li>
+      <li data-step>Zettel: Kartennummer und Entscheidung</li>
+    </ul>
+    <p class="note" data-step>Am Ende: zwei Beispiele vorstellen.</p>
+    <template class="hint"><p><span class="hv">Sagen</span> Es gibt oft Vorteile und Nachteile. Lachen ist erlaubt, aber fragt nach: Was wäre die Folge, wenn ich so handeln würde?</p></template>
+    <button class="grpbtn" data-grp="5">Gleiche Gruppen wie vorhin (G)</button>
+  </section>
+
+  <!-- 15 A5 Reflexion -->
+  <section class="slide" data-tab="Auswertung" data-group="2 Entscheidungen und ihre Folgen">
+    <div class="kicker">Auswertung</div>
+    <h2>Was nehmt ihr mit?</h2>
+    <p class="q" data-step>Welche Erfahrungen habt ihr in der Gruppe gemacht?</p>
+    <p class="q" data-step>Was hilft es euch, über solche Situationen nachzudenken, bevor ihr selbst drinsteckt?</p>
+    <template class="hint"><p><b>Mündlich, wenn Zeit ist:</b> Was wäre die Folge für alle, wenn die meisten Menschen so handeln würden?</p><p><span class="hl">Lehrerband</span> Bei provozierenden Antworten nachfragen: „Was glaubt ihr, welche Folgen würde es für euch haben, wenn ihr so handeln würdet?“ oder „… für unsere Gesellschaft, wenn eine Mehrheit so handeln würde?“ Lachen ist erlaubt.</p><p><span class="hv">Vorschlag von mir</span> <b>Erfahrungen:</b> oft uneinig, Folgen zuerst übersehen, lustige Antworten. <b>Nutzen:</b> man hat schon einmal darüber nachgedacht, bevor der Druck da ist; man kennt Argumente und hat einen Plan.</p></template>
+  </section>
+
+  <!-- 16 Divider 3 -->
+  <section class="slide divider" data-tab="Kreisspiel" data-group="3 Erst fühlen, dann kurz warten">
+    <div class="kicker">Teil 3</div>
+    <h1>Erst fühlen,<br>dann kurz warten</h1>
+  </section>
+
+  <!-- 17 Reiz und Reaktion -->
+  <section class="slide nurbild" data-tab="Kreisspiel" data-group="3 Erst fühlen, dann kurz warten">
+    <div class="kicker">Kreisspiel</div>
+    <h2>Reiz und Reaktion</h2>
+    <template class="hint"><p><span class="hv">Sagen</span> Ich sage einen Satzanfang und werfe den Ball. Wer fängt, beendet den Satz sofort und wirft zurück. Keine Wiederholungen, Passen ist erlaubt.</p><p><b>Beispiele für den Anfang:</b> Wenn ich enttäuscht bin, … / Wenn ich Zoff mit meiner besten Freundin habe, … / Wenn ich Langeweile habe, …</p></template>
+    <img class="pic" src="kluge-kreis.jpg" alt="Jugendliche im Kreis werfen sich einen Ball zu">
+  </section>
+
+  <!-- 18 Reflexion 6.2 -->
+  <section class="slide" data-tab="Kreisspiel" data-group="3 Erst fühlen, dann kurz warten">
+    <div class="kicker">Auswertung</div>
+    <h2>Zum Kreisspiel</h2>
+    <p class="q" data-step>Über welche Gefühle spricht man leicht, über welche ungern?</p>
+    <p class="q" data-step>Dieselbe Situation, verschiedene Reaktionen: Was sagt uns das?</p>
+    <template class="hint"><p><b>Mündlich nachfragen:</b> Woran liegt es, dass man über manche Gefühle ungern spricht?</p><p><span class="hv">Sagen</span> <b>Überleitung zur nächsten Folie:</b> „Ihr musstet eben sofort antworten, ohne nachzudenken. So geht es uns oft auch im Streit.“</p><p><span class="hv">Vorschlag von mir</span> <b>Leicht:</b> Freude, Langeweile, Stolz. <b>Schwer:</b> Angst, Scham, Traurigkeit, Eifersucht, Verliebtsein. <b>Warum:</b> Angst, ausgelacht zu werden; wirkt schwach; zu privat. <b>Dieselbe Situation, verschiedene Reaktionen:</b> jeder reagiert anders, es gibt nicht die eine richtige. Keine Kommentare, Passen ist erlaubt (Skript).</p></template>
+  </section>
+
+  <!-- 19 Zahnpasta -->
+  <section class="slide mitbild klein" data-tab="Warum kurz warten" data-group="3 Erst fühlen, dann kurz warten">
+    <div class="kicker">Warum kurz warten</div>
+    <h2>Zahnpasta geht nicht zurück in die Tube</h2>
+    <div class="flow">
+      <div class="box" data-step><b>Reiz</b></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box" data-step><b>Stopp</b>kurz warten</div>
+      <div class="arrow">&rarr;</div>
+      <div class="box" data-step><b>Denken</b></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box" data-step><b>Handeln</b></div>
+    </div>
+    <template class="hint"><p><span class="hv">Sagen</span> „Unser Gehirn reagiert auf Gefahr in Sekundenbruchteilen. Im Straßenverkehr ist das gut. Im Streit sagen oder tun wir dann Dinge, die wir hinterher bereuen. Es ist wie mit der Zahnpasta: Ist sie erst einmal ausgedrückt, bekommen wir sie nur schwer zurück in die Tube.“</p><p><b>Zum Schema:</b> Etwas passiert. Ein paar Sekunden warten. Prüfen: Passt das, was folgt daraus? Dann bewusst handeln.</p></template>
+    <img class="pic" src="kluge-zahnpasta.jpg" alt="Zahnpasta lässt sich nicht zurück in die Tube drücken">
+  </section>
+
+  <!-- 20 Divider 4 -->
+  <section class="slide divider" data-tab="Unklare Einladung" data-group="4 IKEA-Methode">
+    <div class="kicker">Teil 4</div>
+    <h1>Wenn etwas unklar ist:<br>die IKEA-Methode</h1>
+  </section>
+
+  <!-- 21 Unklares Angebot -->
+  <section class="slide mitbild" data-tab="Unklare Einladung" data-group="4 IKEA-Methode">
+    <div class="kicker">Stellt euch vor</div>
+    <h2>Eine Einladung, aber wozu?</h2>
+    <p class="q" data-step>Welche Fragen würdet ihr stellen?</p>
+    <p class="q" data-step>Warum sagt jemand nicht gleich, was er vorhat?</p>
+    <template class="hint"><p><span class="hv">Sagen</span> „Jemand, zwei bis drei Jahre älter als ihr, lädt euch zu sich nach Hause ein. Er sagt aber nicht, wozu. Überlegt kurz mit euren Nachbarn, was ihr fragen würdet. Ich spiele gleich diese Person, ihr fragt.“ Die zweite Frage erst nach der Auflösung aufdecken.</p><p><span class="hv">Vorschlag von mir</span> <b>Fragen, die kommen könnten:</b> Wer kommt noch? Wie lange? Was machen wir? Kenne ich die anderen? Wissen meine Eltern davon? Muss ich etwas mitbringen oder bezahlen? Ist das erlaubt? Kann ich jederzeit gehen?</p><p><b>Ausweichende Antworten von dir:</b> „Lass dich überraschen“, „Ist nichts Besonderes“, „Kommt drauf an“, „Das erzähl ich dir dann“.</p><p><span class="hl">Lehrerband</span> <b>Auflösung:</b> Spielenachmittag mit „Nobody is perfect“, bis zu zehn Personen, umso mehr Spaß, je mehr mitspielen.</p><p><span class="hl">Lehrerband</span> <b>Warum sagt jemand nicht gleich, was er vorhat?</b> Weil der andere sonst vielleicht nicht mitmacht; weil das Vorhaben riskant oder verboten ist; manchmal nur, um es spannend zu machen. Man kann es von außen nicht unterscheiden, deshalb nachfragen.</p></template>
+    <img class="pic" src="kluge-einladung.jpg" alt="Jugendlicher in der halb offenen Tür, zwei Jugendliche davor">
+  </section>
+
+  <!-- 22 IKEA -->
+  <section class="slide" data-tab="IKEA-Methode" data-group="4 IKEA-Methode">
+    <div class="kicker">Die IKEA-Methode</div>
+    <h2 style="margin-bottom:.4em">Vier Buchstaben, ein Plan</h2>
+    <div class="ikea">
+      <div class="l" data-step>I</div>
+      <div class="t" data-step><b>Im Zweifel</b> nicht zusagen</div>
+      <div class="l" data-step>K</div>
+      <div class="t" data-step><b>Kläre</b> durch Fragen</div>
+      <div class="l" data-step>E</div>
+      <div class="t" data-step><b>Entscheide</b> dich</div>
+      <div class="l" data-step>A</div>
+      <div class="t" data-step><b>Anderen</b> Vorschlag machen oder gehen</div>
+    </div>
+    <p class="note" data-step>Bauchgefühl ernst nehmen.</p>
+    <template class="hint"><p><span class="hv">Sagen</span> Bei „Nein“ kurz begründen. „Wenn ihr ‚Nein‘ sagen möchtet, könnt ihr einen anderen Vorschlag machen. Aber manchmal ist es gut, einfach zu gehen.“ Tipp: „Achtet auf euer Bauchgefühl. Es gibt oft gute Hinweise, ob alles in Ordnung ist.“</p></template>
+  </section>
+
+  <!-- 23 Sketch -->
+  <section data-timer="12" class="slide" data-tab="Sketch" data-group="4 IKEA-Methode">
+    <div class="kicker">Gruppenarbeit</div>
+    <h2>Euer Sketch</h2>
+    <ul>
+      <li data-step>Eine Situation vom Streifen wählen</li>
+      <li data-step><b>Verführer:</b> sagt nicht, worum es geht</li>
+      <li data-step><b>Fragender:</b> klärt durch Fragen</li>
+      <li data-step>Mit dem Blatt planen, üben, vorspielen</li>
+    </ul>
+    <template class="hint"><p><span class="hv">Sagen</span> Der Verführer will jemanden zu etwas überreden, ohne direkt zu sagen, worum es geht. Der Fragende findet durch Fragen heraus, was dahintersteckt, und will keinen Ärger mit Eltern oder Polizei. Nach jedem Sketch gibt es einen kleinen Applaus.</p></template>
+    <button class="grpbtn" data-grp="4">Gruppen auslosen (G)</button>
+  </section>
+
+  <!-- 24 Auswertung Sketch -->
+  <section class="slide" data-tab="Sketch" data-group="4 IKEA-Methode">
+    <div class="kicker">Auswertung</div>
+    <h2>Zu den Sketchen</h2>
+    <p class="q" data-step>Warum ist es wichtig, den wahren Hintergrund früh zu klären?</p>
+    <p class="q" data-step>Was passiert bei „Ja“, was bei „Nein“?</p>
+    <template class="hint"><p><b>Nachfragen:</b> Für mich, für meine Familie, für die Menschen, die mir wichtig sind?</p><p><span class="hv">Vorschlag von mir</span> <b>Warum früh klären:</b> damit man nicht in etwas Riskantes oder Verbotenes gerät; kein Ärger mit Eltern oder Polizei; man ist nicht überrumpelt und hat Zeit zu überlegen („Zeit gewinnen“, Skript).</p><p><b>Wenn ich „Ja“ sage:</b> vielleicht Spaß, aber eventuell Ärger oder etwas, das ich nicht zurücknehmen kann. <b>Wenn ich „Nein“ sage:</b> ich bin sicher, vielleicht etwas außen vor; ich kann einen anderen Vorschlag machen oder gehen.</p></template>
+  </section>
+
+  <!-- 25 Abschluss -->
+  <section class="slide divider" data-tab="Zum Mitnehmen" data-group="">
+    <div class="kicker">Zum Mitnehmen</div>
+    <h2 style="margin-bottom:.9em">Vier Fragen vor einer Entscheidung</h2>
+    <ul style="font-size:2.2cqw; line-height:1.7; list-style:none; margin-left:0">
+      <li data-step>1 &nbsp;Was ist mir wichtig?</li>
+      <li data-step>2 &nbsp;Welche Folgen hat jede Möglichkeit?</li>
+      <li data-step>3 &nbsp;Habe ich kurz gewartet?</li>
+      <li data-step>4 &nbsp;Ist mir klar, worum es wirklich geht? Wenn nicht: IKEA.</li>
+    </ul>
+  </section>
+
+  
+      <div id="dots"></div>
+      <div id="counter"></div>
+    </div>
+    <div class="ctrl">
+      <button id="prev">◀ zurück</button>
+      <button id="next">weiter ▶</button>
+      <button id="fs">Vollbild (F)</button>
+      <span>Pfeil rechts deckt schrittweise auf, ↑↓ nächster Abschnitt, A zeigt alles, T Leiste aus/ein</span>
+    </div>
+    <div id="hintbox" hidden><div class="hh"><b>Mögliche Antworten, nur für dich</b> <span class="small">(nicht im Vollbild sichtbar)</span><button id="hinttog">ausblenden</button></div><div id="hintbody"></div></div>
+   </div></div>
+  </div>
+</div>
+
+<!-- ============ SPRECHZETTEL ============ -->
+<div class="panel" id="p-sprech">
+<div class="page">
+  <h1>Sprechzettel</h1>
+  <p class="sub">Die wichtigsten Sätze und Fragen aus dem Lehrerband, gekürzt und nach den Folien sortiert. Wörtlich in Anführungszeichen, sonst sinngemäß.</p>
+
+  <h2>Teil 1: Was ist mir wichtig? <span class="tag">7:40</span></h2>
+  <div class="box">
+    <h3>A1 Zwei Arten von Entscheidungen</h3>
+    <p>Tafel: zwei Spalten „Spontane Entscheidungen“ und „Grundsätzliche Entscheidungen“. Dazu Lebensbereiche: Kleidung, Essen, Internet, Schule, Freizeit, Fernsehen, Musik, Sport.</p>
+    <p class="say">„Manchmal entscheiden wir uns spontan, nach gerade gefühlter Lust und Laune. Manchmal ist es aber auch sinnvoll, eine grundsätzliche Entscheidung zu treffen, weil uns eine Sache für längere Zeit wichtig ist.“</p>
+    <p>Frage: „Welche spontanen und welche grundsätzlichen Entscheidungen sind in diesen Bereichen möglich?“ Dann: „Wovon kann es abhängen, wie Menschen sich bei der Wahl ihrer Kleidung entscheiden?“</p>
+    <p>Zu Folie 6: „Werte sind das, was man für gut und wichtig hält und woran man sich bei Entscheidungen richtet.“</p>
+    <p>Merksatz an die Tafel: <b>„Wenn wir wissen, was uns wichtig ist, können wir uns besser entscheiden.“</b></p>
+  </div>
+  <div class="box">
+    <h3>A2 Wie wichtig ist dir das?</h3>
+    <p>Auftrag (Folie 7): Pro Satz ein Kreuz von „sehr wichtig“ bis „unwichtig“, zwei eigene Sätze ergänzen. Niemand muss vorlesen, was er nicht sagen möchte.</p>
+    <p>KV 6.1a verteilen, Einzelarbeit. Danach mit dem Gruppen-Generator (G) fünf Gruppen in Stuhlkreisen. Vorher kurz Regeln sammeln, die das Risiko beim Reden verkleinern (gut zuhören, nicht kommentieren, andere Meinungen nicht abwerten).</p>
+    <p class="say">„Wenn wir miteinander darüber sprechen, was uns wichtig ist, lernen die anderen uns immer besser kennen. Wir erfahren dabei auch, dass Menschen unterschiedliche Dinge für wichtig halten, und wir können gleichzeitig unsere eigenen Werte überprüfen.“</p>
+    <p><b>Reflexion:</b> Bei welchen Werten gab es in eurer Gruppe große Übereinstimmung? Woher kommen unterschiedliche persönliche Werte? Einige Werte sind Ideale, die schwer einzuhalten sind: Beispiele? Welche Bedeutung können sie trotzdem haben?</p>
+  </div>
+  <div class="box">
+    <h3>A3 Motte und Möwe (zum Vorlesen)</h3>
+    <p><b>Motte:</b> Die junge Motte verliebt sich in einen Stern. Die Mutter: Sterne sind für Motten unerreichbar. Der Vater: Mach es wie die anderen, es gibt so viele schöne Straßenlampen. Die Motte hört nicht und versucht jede Nacht, ihren Stern zu erreichen. Der Vater später: Alle deine Geschwister haben verbrannte Flügel, nur du nicht. Du wirst nie erwachsen werden. <i>Frage: Was denkt ihr über diese Geschichte?</i></p>
+    <p><b>Möwe:</b> Die junge Möwe will anders werden als die alte und lässt sich die Flügel nach der neuesten Mode stutzen. Frage vorab: Was wird die alte Möwe wohl sagen? Dann: „Stimmt, ich kann mir tatsächlich nicht vorstellen, wie das ist, mit gestutzten Flügeln zu leben. Aber eine Erfahrung wirst du nicht mehr machen können, nämlich wie es ist zu fliegen.“ <i>Frage: Was denkt ihr?</i></p>
+  </div>
+
+  <h2>Teil 2: Entscheidungen und ihre Folgen <span class="tag">8:25</span></h2>
+  <div class="box">
+    <h3>A5 Situationskarten (KV 6.1b)</h3>
+    <p>Dieselben fünf Gruppen wie in Teil 1, nicht neu auslosen (G zeigt die Gruppen von vorhin). Vorgehen an einem Beispiel zeigen, vier Schritte an die Tafel: <b>Vorlesen, Verstanden?, Besprechen, Entscheiden</b>.</p>
+    <p class="say">„Stellt euch jedes Mal vor, dass ihr selbst betroffen seid. Eine Person aus der Gruppe liest das Ereignis vor und fragt die anderen, ob sie die Situation verstanden haben. Wenn ja, dreht er die Karte um und liest drei Möglichkeiten zu reagieren vor. Besprecht zu jeder Möglichkeit, welche Folgen sie für euch haben könnte. Es sind oft mehrere Folgen möglich, Vorteile oder auch Nachteile.“</p>
+    <p>Eine Karte zusammen bearbeiten lassen, dann zweiter Teil: <span class="say">„Entscheidet euch jetzt gemeinsam für eine der drei Möglichkeiten. Notiert euch die Nummer der Karte und eure gemeinsame Entscheidung auf einem Zettel.“</span> Dann bekommt jede Gruppe weitere Karten. Zum Schluss stellt jede Gruppe zwei selbst gewählte Beispiele vor.</p>
+    <p><b>Tipp:</b> Es darf, ja soll gelacht werden. Auch provozierende Abstimmungen akzeptieren, aber nachfragen: „Welche Folgen hätte es für euch, wenn ihr so handeln würdet?“ oder „Welche Folgen hätte es für unsere Gesellschaft, wenn eine Mehrheit so handeln würde?“</p>
+    <p><b>Reflexion:</b> Welche Erfahrungen habt ihr mit den Karten gemacht? Wie kann es euch helfen, euch mit solchen Situationen zu beschäftigen, obwohl ihr gar nicht oder noch nicht betroffen seid?</p>
+  </div>
+
+  <h2>Teil 3: Erst fühlen, dann kurz warten <span class="tag">9:30</span></h2>
+  <div class="box">
+    <h3>6.2 A2 Reiz und Reaktion</h3>
+    <p>Alle im Kreis, du stehst mit Ball (Kissen, Stofftier) in der Mitte. KV 6.2a-Karten vorher vor aller Augen mischen.</p>
+    <p>Beispiele für den Anfang: Wenn ich enttäuscht bin, … / Wenn ich Zoff mit meiner besten Freundin habe, … / Wenn ich Langeweile habe, …</p>
+    <p class="say">„Ich werde gleich einen Satzanfang sagen und einem oder einer von euch den Ball zuwerfen. Werft ihn mir schnell zurück und beendet den Satz. Nach drei bis fünf Antworten ändere ich den Satzanfang. Wiederholungen sind nicht erlaubt. Wenn einem nichts einfällt, helft durch Zurufen.“</p>
+    <p>Tempo hoch halten, alle Antworten akzeptieren, nach vier bis sechs Antworten neuer Satzanfang. Recht zu passen erwähnen.</p>
+    <p><b>Reflexion:</b> Über welche Gefühle fällt es den meisten leicht zu sprechen? Und über welche eher schwer? Warum spricht man über einige Gefühle nur ungern?</p>
+    <p><b>Überleitung:</b> „Ihr musstet eben sofort antworten, ohne nachzudenken. So geht es uns oft auch im Streit.“</p>
+    <p><b>Hintergrund fürs Zahnpasta-Bild:</b> Das Gehirn reagiert bei Gefahr blitzschnell (Kampf oder Flucht), noch bevor der Verstand begriffen hat. Im sozialen Miteinander hilft es, den Impuls wahrzunehmen und einige Sekunden zu warten, damit die Vernunft prüfen kann, ob die Reaktion sinnvoll und verträglich ist. „Es ist wie mit der Zahnpasta: Ist sie erst einmal ausgedrückt, bekommen wir sie nur schwer wieder zurück in die Tube.“</p>
+  </div>
+
+  <h2>Teil 4: IKEA-Methode <span class="tag">9:40</span></h2>
+  <div class="box">
+    <h3>6.3 A3 Demonstration (du spielst die Person)</h3>
+    <p>Mit Requisit (Käppi, andere Jacke) zeigen, dass du eine Rolle spielst, die du danach wieder ablegst.</p>
+    <p class="say">„Stellt euch vor, jemand, der zwei bis drei Jahre älter ist als ihr, lädt euch zu sich nach Hause ein. Er sagt euch aber nicht direkt, wozu. Ich bin gleich dieser Jugendliche. Sprecht kurz mit einigen in eurer Nähe und überlegt, welche Fragen ihr mir stellen könnt, um euch gut entscheiden zu können, ob ihr hingehen wollt oder nicht.“</p>
+    <p>Du beantwortest ausweichend. Dann Requisit ablegen und fragen: „Was glaubt ihr, was hat dieser Jugendliche vor?“ und „Was sagt euch euer Gefühl? Mitmachen oder nicht?“ Danach Requisit wieder an und auflösen.</p>
+    <p><b>Vorschlag aus dem Skript für die Auflösung:</b> ein Spielenachmittag mit „Nobody is perfect“, das umso mehr Spaß macht, je mehr mitspielen. Harmlos, aber so geheimnisvoll angekündigt, dass man nachfragen muss.</p>
+    <div class="box" style="background:#f6f1fb; border-color:#d9cdea">
+      <p><span class="tag warn">Vorschlag von mir</span> <b>Beispiel, wie es ablaufen könnte</b> (das Lehrerband sagt nur „ausweichend antworten“):</p>
+      <p><b>Du, mit Käppi (nach hinten gedreht):</b> „Hey, ich lade euch zu mir ein, heute Nachmittag. Kommt einfach vorbei, es wird gut.“</p>
+      <ul>
+        <li>Klasse: „Wann genau?“ Du: „Gegen drei. Passt schon.“</li>
+        <li>Klasse: „Was machen wir da?“ Du: „Das sag ich nicht. Lasst euch überraschen.“</li>
+        <li>Klasse: „Wer kommt noch?“ Du: „Ein paar Leute. Ihr kennt vielleicht welche.“</li>
+        <li>Klasse: „Sind deine Eltern da?“ Du: „Das spielt keine Rolle. Kommt einfach.“</li>
+      </ul>
+      <p>Immer vage bleiben, aber nichts Bedrohliches sagen. Die Klasse merkt selbst, dass etwas nicht stimmt.</p>
+      <p><b>Käppi ab, zur Klasse:</b> „Was glaubt ihr, was hat dieser Jugendliche vor?“ Kurz sammeln, nicht kommentieren. Dann: „Was sagt euch euer Gefühl? Hingehen oder nicht?“</p>
+      <p><b>Käppi wieder auf, Auflösung:</b> „Okay, ich verrate es: Ich wollte einen Spielenachmittag machen. Wir spielen ‚Nobody is perfect‘, das macht umso mehr Spaß, je mehr mitspielen. Pizza gibt es auch.“</p>
+      <p><b>Käppi ab:</b> „Es war harmlos. Aber ihr hättet es nicht wissen können, ohne nachzufragen. Genau darum geht es: erst klären, dann entscheiden.“ Dann fragen: „Warum sagt jemand nicht gleich, was er vorhat?“ (Weil der andere sonst vielleicht nicht mitmacht; weil es riskant oder verboten ist; manchmal nur, um es spannend zu machen.) Danach IKEA an die Tafel.</p>
+      <p class="small">„Nobody is perfect“ ist ein Bluffspiel: Jemand liest ein seltenes Wort vor, alle erfinden dazu eine Erklärung, dann wird geraten, welche die echte ist. Du kannst die Auflösung beliebig ersetzen, zum Beispiel durch gemeinsam kochen oder einen Film schauen.</p>
+    </div>
+    <p><b>IKEA an die Tafel:</b> Im Zweifel: Kläre durch Fragen. Entscheide dich, bei „Nein“ kurz begründen. Anderen Vorschlag machen oder gehen.</p>
+    <p class="say">„Wenn ihr ein unklares Angebot bekommt, könnt ihr klären, worum es wirklich geht. Danach könnt ihr euch bewusst entscheiden. Wenn ihr ‚Nein‘ sagen möchtet, könnt ihr einen anderen Vorschlag machen, wenn ihr gern etwas zusammen machen möchtet. Aber manchmal ist es gut, einfach zu gehen.“</p>
+    <p>Tipp zum Schluss: „Achtet auf euer Bauchgefühl. Es gibt oft gute Hinweise, ob alles in Ordnung ist.“</p>
+  </div>
+  <div class="box">
+    <h3>6.3 A4 Sketche</h3>
+    <p>Vier Gruppen. Jede bekommt zwei Streifen aus KV 6.3b (zur Wahl) und eine Kopie von KV 6.3c zur Vorbereitung.</p>
+    <p class="say">„Wählt gemeinsam eine der beiden Situationen aus und bereitet dazu mit Hilfe des Arbeitsblattes einen kurzen Sketch vor. Einer oder mehrere spielen die Rolle des Verführenden, der versucht, jemanden zu einem Vorhaben zu überreden, ohne direkt zu sagen, worum es geht. Eine oder einer versucht durch Fragen herauszufinden, was sich dahinter verbirgt, und möchte auf keinen Fall etwas tun, das später Ärger einbringt.“</p>
+    <p>Nach jedem Sketch kleiner Applaus. <b>Ziel im Blick behalten:</b> bewusst und verantwortlich entscheiden, mit Folgenabschätzung für mich, meine Familie und die Menschen, die mir wichtig sind.</p>
+    <p><b>Reflexion:</b> Warum ist es wichtig, den wahren Hintergrund einer unklaren Situation frühzeitig zu klären?</p>
+  </div>
+</div>
+</div>
+
+<!-- ============ ANLEITUNGEN ============ -->
+<div class="panel" id="p-anleitungen">
+<div class="page anl">
+  <h1>Anleitungen aus dem Lehrerband</h1>
+  <p class="sub">Die Seiten des Lehrerbands, sauber abgetippt und nach Schritten sortiert. Grün hinterlegt ist, was du <b>sagst</b> (wörtlich aus dem Skript). Darunter steht, was du <b>tust</b>. Mit <span class="tag">Freitag</span> sind die Aktivitäten markiert, die in der Stunde vorkommen, alle anderen sind <span class="tag warn">Reserve</span> und eingeklappt. Die Original-Scans liegen im Tab Kopiervorlagen.</p>
+
+  <div class="jump">
+    <a href="#a61">6.1 Werte beeinflussen Entscheidungen</a>
+    <a href="#a62">6.2 Gefühle und Verhalten</a>
+    <a href="#a63">6.3 Klären und klug entscheiden</a>
+  </div>
+
+  <!-- ============ 6.1 ============ -->
+  <h2 id="a61">Lektion 6.1: Werte beeinflussen meine Entscheidungen</h2>
+  <div class="box ok">
+    <b>Worum es geht:</b> Selbstständig entscheiden heißt, Manipulation und falsche Informationen zu erkennen und die Folgen vorher abzuwägen. Entscheidungen werden von Gewohnheiten, Wissen, Meinungen anderer und von Werten geprägt. Wer Trends, Modewellen und Medien kritisch beurteilen kann, fällt ihnen nicht so leicht zum Opfer. Empfohlen ab Klasse 7.
+  </div>
+  <div class="box"><b>Material:</b> KV 6.1a (A2), Zufallskarten zur Gruppenbildung (A2, A5), KV 6.1b fünfmal doppelseitig (A5). Nur Reserve: KV 6.1c, pro Gruppe vier Karteikarten A6 und ein Klebestift (A6).</div>
+  <div class="box warn"><b>Haltung:</b> Sind deine Arbeitsaufträge, Erläuterungen und Fragen klar, kurz und verständlich? Viele Schüler sind akademische Sprache nicht gewohnt, und gerade schwächere fragen nicht gern nach, weil sie sonst zugeben müssten, etwas nicht verstanden zu haben.</div>
+
+  <div class="act">
+    <h3>A1 Zwei Arten von Entscheidungen <span class="tag">Freitag</span> <span class="zeit">10 Min.</span></h3>
+    <p class="tun"><span class="lab">Tafel</span> Zwei Spalten: <b>Spontane Entscheidungen</b> | <b>Grundsätzliche Entscheidungen</b></p>
+    <p class="sag">„Manchmal entscheiden wir uns spontan, nach gerade gefühlter Lust und Laune. Manchmal ist es aber auch sinnvoll, eine grundsätzliche Entscheidung zu treffen, weil uns eine Sache für längere Zeit wichtig ist.“</p>
+    <p class="tun"><span class="lab">Tafel</span> Lebensbereiche anschreiben, in denen Schüler eigene (wenn auch eingeschränkte) Entscheidungen treffen: Kleidung, Essen, Internet, Schule, Freizeit, Fernsehen, Musik, Sport.</p>
+    <p class="sag">„Welche spontanen Entscheidungen und welche grundsätzlichen Entscheidungen sind eurer Meinung nach in diesen Bereichen möglich?“</p>
+    <table class="bsp">
+      <tr><th>Bereich</th><th>spontan</th><th>grundsätzlich</th></tr>
+      <tr><td>Kleidung</td><td>Was ziehe ich heute an?</td><td>Welchen Stil, welche Farben möchte ich tragen?</td></tr>
+      <tr><td>Essen</td><td>Worauf habe ich jetzt Appetit?</td><td>Will ich Fleisch essen oder vegetarisch leben?</td></tr>
+      <tr><td>Freizeit</td><td>Was mache ich heute Nachmittag?</td><td>Welchen Sport will ich regelmäßig machen?</td></tr>
+    </table>
+    <p class="sag">„Was denkt ihr, wovon kann es abhängen, wie Menschen sich bei der Wahl ihrer Kleidung (oder eines anderen Bereichs) entscheiden?“</p>
+    <p class="small">Mögliche Antworten: Geld, Erwartungen der Eltern, Zweckmäßigkeit, Bequemlichkeit, Gewohnheit, Geschmack, Mode, Geschmack der Freunde, Markendruck, oder eine Mischung.</p>
+    <p class="sag">„Unsere Entscheidungen werden durch unsere Werte und unsere Überzeugungen beeinflusst. Damit ist das gemeint, was man für gut und wichtig hält und woran man sich bei seinen Entscheidungen richtet. Je mehr Menschen einem Wert zustimmen, umso größer ist seine Bedeutung für die Gesellschaft und auch für Einzelne.“</p>
+    <p class="tun"><span class="lab">Tafel</span> Zusammenfassung: <b>„Wenn wir wissen, was uns wichtig ist, können wir uns besser entscheiden.“</b></p>
+  </div>
+
+  <div class="act">
+    <h3>A2 Wie wichtig ist dir das? <span class="tag">Freitag</span> <span class="zeit">25 Min.</span></h3>
+    <ol class="schritte">
+      <li>Eine der beiden Versionen von KV 6.1a wählen (die andere eignet sich für eine zweite Runde in neuen Gruppen). <b>Eine Kopie an alle</b>, Einzelarbeit.</li>
+      <li>Mit Zufallskarten <b>fünf Gruppen</b> bilden, jede im Stuhlkreis.</li>
+      <li>Vor dem Austausch über Regeln sprechen, die das Risiko verkleinern.</li>
+    </ol>
+    <p class="sag">„Wenn wir miteinander darüber sprechen, was uns wichtig ist, lernen die anderen uns immer besser kennen. Wir erfahren dabei auch, dass Menschen unterschiedliche Dinge für wichtig halten, und wir können gleichzeitig unsere eigenen Werte überprüfen.“</p>
+    <p class="sag">„Was denkt ihr, welche Regeln oder Verhaltensweisen können euch helfen, miteinander über eure Entscheidungen zu sprechen?“</p>
+    <p class="small">Zum Beispiel: gut zuhören, nicht kommentieren, andere Meinungen nicht abwerten.</p>
+    <p class="sag">„Sprecht jetzt miteinander über eure Entscheidungen auf der Kopiervorlage.“</p>
+    <div class="refl"><span class="lab">Reflexion</span>
+      <ul>
+        <li>„Bei welchen Werten gab es in eurer Gruppe eine große Übereinstimmung?“</li>
+        <li>„Was glaubt ihr, woher kommen unterschiedliche persönliche Werte?“</li>
+        <li>„Einige Werte sind Ideale, die nur schwer einzuhalten sind. Welche Beispiele fallen euch dazu ein?“</li>
+        <li>„Was meint ihr, welche Bedeutung können diese Werte trotzdem haben?“</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="act">
+    <h3>A3 Über Motten und Möwen <span class="tag">Freitag</span> <span class="zeit">8 Min.</span></h3>
+    <p class="tun">Du erzählst die erste Geschichte:</p>
+    <p class="sag">„‚Ich habe mich in einen Stern verliebt‘, erzählte die junge Motte ihren Eltern. ‚Sei vernünftig‘, sagte ihre Mutter. ‚Sterne sind für Motten unerreichbar.‘ Und ihr Vater: ‚Mach es wie die anderen. Es gibt so viele schöne, leuchtende Straßenlampen für Motten wie dich.‘ Aber die junge Motte wollte nicht auf ihre Eltern hören. Sie versuchte jede Nacht, ihren Stern zu erreichen. Eines Tages sagte ihr Vater: ‚Du bist jetzt schon viele Monate alt. Alle deine Brüder und Schwestern haben schon verbrannte Flügel, nur du nicht. Du wirst nie erwachsen werden.‘“</p>
+    <p class="sag">Reflexion: „Was denkt ihr über diese Geschichte?“</p>
+    <p class="tun">Dann die zweite Geschichte:</p>
+    <p class="sag">„‚Ich will anders werden als du‘, sagte die junge Möwe zur alten Möwe, ‚Ich will Erfahrungen machen, die du nie gemacht hast.‘ Und sie ließ sich die Flügel nach der neuesten Mode stutzen. Was glaubt ihr, was wird die alte Möwe wohl dazu sagen?“</p>
+    <p class="tun">Einige Vorschläge abwarten, dann weiter:</p>
+    <p class="sag">„Die Geschichte geht so weiter: ‚Stimmt‘, sagte die alte Möwe, ‚ich kann mir tatsächlich nicht vorstellen, wie das ist, mit gestutzten Flügeln zu leben. Aber eine Erfahrung wirst du nicht mehr machen können, nämlich wie es ist zu fliegen.‘“</p>
+    <p class="sag">Reflexion: „Was denkt ihr über diese Geschichte?“</p>
+  </div>
+
+  <div class="act">
+    <h3>A5 Entscheidungen und ihre Folgen <span class="tag">Freitag</span> <span class="zeit">40 Min. mit Reflexion</span></h3>
+    <ol class="schritte">
+      <li><b>Vorbereitung:</b> KV 6.1b fünfmal doppelseitig kopieren, die Karten der zweiten Seite müssen die Rückseite der ersten sein. Ausschneiden.</li>
+      <li>Mit Zufallskarten <b>fünf Gruppen</b> bilden. <i>Freitag: dieselben Gruppen wie in A2, über den Generator.</i></li>
+      <li>Vorgehen an einem Beispiel zeigen. Vier Schritte an die Tafel: <b>Vorlesen, Verstanden?, Besprechen, Entscheiden</b>.</li>
+    </ol>
+    <p class="sag">„Stellt euch jedes Mal vor, dass ihr selbst betroffen seid. Eine Person aus der Gruppe liest das Ereignis vor und fragt die anderen, ob sie die Situation verstanden haben. Wenn ja, dreht er die Karte um und liest drei Möglichkeiten zu reagieren vor.</p>
+    <p class="sag">Besprecht zu jeder Möglichkeit, welche Folgen sie für euch haben könnte. Es sind oft mehrere Folgen möglich, Vorteile oder auch Nachteile.“</p>
+    <p class="tun">Alle bearbeiten zuerst <b>eine</b> Karte so weit. Dann der zweite Teil:</p>
+    <p class="sag">„Ihr habt über verschiedene mögliche Folgen gesprochen. Entscheidet euch jetzt gemeinsam für eine der drei Möglichkeiten. Notiert euch die Nummer der Karte und eure gemeinsame Entscheidung auf einem Zettel.“</p>
+    <p class="tun">Jede Gruppe bekommt einige oder alle Karten. Reihum liest eine Person vor, die anderen beraten und entscheiden. Zum Schluss stellt jede Gruppe <b>zwei selbst gewählte Beispiele</b> vor.</p>
+    <div class="refl"><span class="lab">Reflexion</span>
+      <ul>
+        <li>„Welche Erfahrungen habt ihr mit den Karten in eurer Gruppe gemacht?“</li>
+        <li>„In welcher Weise kann es euch helfen, wenn ihr euch mit solchen Situationen beschäftigt, obwohl ihr gar nicht oder noch gar nicht betroffen seid?“</li>
+      </ul>
+    </div>
+    <div class="box warn"><b>Tipp:</b> Ziel ist eine öffentliche Besprechung ernster Situationen in lockerer Atmosphäre. Es darf nicht nur, es soll sogar gelacht werden. Auch provozierende Abstimmungen akzeptieren, aber nachfragen:<br>
+      „Was glaubt ihr, welche Folgen würde es für euch haben, wenn ihr so handeln würdet?“ oder<br>
+      „Was denkt ihr, welche Folgen würde es für unsere Gesellschaft haben, wenn eine Mehrheit der Menschen so handeln würde?“</div>
+  </div>
+
+  <details class="res"><summary><span class="tag warn">Reserve</span> A4 Vom Überreden und Nein-Sagen, A6 Quiz umgekehrt</summary>
+    <div class="act">
+      <h3>A4 Vom Überreden und Nein-Sagen (Partnerübung)</h3>
+      <ol class="schritte">
+        <li>Klasse schnell in Paare einteilen, A und B. Alle A und alle B getrennt über ihre Rolle informieren (Rollen auf je ein Blatt schreiben).</li>
+        <li><b>Blatt für alle A:</b> „A sagt zu B: ‚Meinst du nicht auch, dass die Hausaufgaben in der Schule abgeschafft werden sollten?‘ und versucht, mit Argumenten B zu überzeugen.“</li>
+        <li><b>Blatt für alle B:</b> „B sagt aber immer nur ‚Nein‘. Egal wie A argumentiert, B geht nicht darauf ein.“</li>
+        <li>Die Paare stehen zusammen und beginnen. Nach einer Minute abbrechen, eine A-Gruppe und eine B-Gruppe bilden.</li>
+      </ol>
+      <div class="refl"><span class="lab">Reflexion</span>
+        <ul>
+          <li>An alle A: „Wie habt ihr dieses Gespräch erlebt?“ An alle B: „Und wie habt ihr das Gespräch erlebt?“</li>
+          <li>An beide: „Was könnt ihr tun, wenn euch eine Sache wichtig ist und ihr jemanden davon überzeugen wollt?“</li>
+          <li>„Und was könnt ihr tun, wenn ihr nicht einverstanden seid?“</li>
+        </ul>
+      </div>
+      <p class="small"><b>Andere Sätze für A:</b> „Meinst du nicht auch, dass in der Schule Süßigkeiten verkauft werden sollten?“ / „… dass die Klassenräume in den Pausen geöffnet (bzw. geschlossen) werden sollten?“ / „… dass ein Pausencafé für Schüler und Lehrer eingerichtet werden sollte?“ / „… dass alle in der Schule einheitliche Kleidung tragen sollten?“</p>
+    </div>
+    <div class="act">
+      <h3>A6 Nun umgekehrt: ein Quiz (etwa 20 Min.)</h3>
+      <p class="tun">Mit den Gruppen aus A5. Jede Gruppe braucht vier Karten aus KV 6.1c, vier Karteikarten A6 und einen Klebestift.</p>
+      <p class="sag">„Und nun umgekehrt. Sucht jetzt zu vier Situationskarten jeweils drei mögliche Reaktionen für ein Quiz. Eine Möglichkeit soll moralisch richtig sein, eine darf gern lustig und übertrieben sein und eine weitere darf auch fragwürdig oder ungesetzlich sein. Klebt dazu jede Karte auf die Vorderseite einer Karteikarte und schreibt immer eure drei Ideen, von A bis C, auf die Rückseite.“</p>
+      <p class="tun">Alle schneiden eine weitere Karteikarte in drei Teile und beschriften sie groß mit A, B und C. Dann das Quiz spielen: die 20 Karten und ihre Möglichkeiten der Reihe nach vorlesen lassen und jedes Mal fragen:</p>
+      <p class="sag">„Was denkt ihr, welcher Vorschlag hat die wenigsten unangenehmen Folgen?“</p>
+      <p class="small">Nicht nach der „richtigen“ Reaktion fragen.</p>
+    </div>
+  </details>
+
+  <!-- ============ 6.2 ============ -->
+  <h2 id="a62">Lektion 6.2: Gefühle und Verhalten</h2>
+  <div class="box ok">
+    <b>Hintergrund fürs Zahnpasta-Bild:</b> Das limbische System reagiert bei möglicher Gefahr blitzschnell und bereitet den Körper auf Kampf oder Flucht vor. Im Straßenverkehr bremst man, bevor der Verstand begriffen hat, was passiert. Im sozialen Miteinander ist es ähnlich: Was uns ärgert, wütend oder traurig macht, löst eine spontane Reaktion aus.<br>
+    Manchmal wäre es besser, erst zu überlegen, bevor wir Dinge tun oder sagen, die wir hinterher bereuen. „Es ist aber wie mit der Zahnpasta. Ist sie erst einmal ausgedrückt, bekommen wir sie nur schwer wieder zurück in die Tube.“<br>
+    Hilfreich ist, den Impuls wahrzunehmen und vor der Reaktion einige Sekunden zu warten. In dieser Zeit kann die Vernunft prüfen, ob die Reaktion sinnvoll und sozial verträglich ist. Empfohlen ab Klasse 6/7.
+  </div>
+  <div class="box"><b>Material:</b> großer weicher Ball, Kissen oder Stofftier (A1, A2), KV 6.2a (A2). Nur Reserve: KV 6.2b (A3), KV 6.2c (A4).</div>
+  <div class="box warn"><b>Haltung:</b> Bei Bedarf an das Recht zu passen erinnern und sagen, dass diese Entscheidung jederzeit neu getroffen werden darf. Die Zeiten hängen stark von Klasse, Vorwissen, Temperament und Diskussionsbereitschaft ab. Geht eine Phase schneller, hilft ein Energizer (zum Aktivieren oder zum „Herunterfahren“ am Schluss).</div>
+
+  <div class="act">
+    <h3>A2 Reiz und Reaktion <span class="tag">Freitag</span> <span class="zeit">Teil 3, 10 Min. mit Zahnpasta-Bild</span></h3>
+    <p class="tun">Alle sitzen möglichst im Kreis. Du stehst mit dem Ball (Kissen, Stofftier) in der Mitte.</p>
+    <p class="sag">„Ich werde gleich einen Satzanfang sagen und einem oder einer von euch den Ball zuwerfen. Werft ihn mir schnell zurück und beendet den Satz. Nach drei bis fünf Antworten ändere ich den Satzanfang. Wiederholungen sind nicht erlaubt. Wenn einem nichts einfällt, helft wieder durch Zurufen.“</p>
+    <ul class="schritte">
+      <li>Karten aus KV 6.2a ausschneiden und <b>vor aller Augen mischen</b>, damit alle sehen, dass der Zufall die Reihenfolge bestimmt.</li>
+      <li>Entscheiden, ob du der Reihe nach fragst oder wild durcheinander.</li>
+      <li>Alle Antworten akzeptieren, auch wenn manchmal Humor nötig ist.</li>
+      <li>Nach vier bis sechs Antworten einen neuen Satzanfang. <b>Hohes Tempo halten.</b></li>
+    </ul>
+    <p class="small"><b>Tipp:</b> Eine Assistentin oder ein Assistent neben dir zeigt dir immer die nächste Karte.</p>
+    <details class="res"><summary>Alternative bei höchstens 28 Personen (ohne Ball)</summary>
+      <p class="tun">Alle sitzen im Kreis, die Karten liegen gemischt und verdeckt auf dem Boden.</p>
+      <p class="sag">„Holt euch eine Karte. Lest den Satzanfang vor und beendet ihn spontan. Es beginnt, wer mit seinem Vornamen im Alphabet vorne steht.“</p>
+      <p class="small">Immer nur einen kurzen Moment zum Nachdenken geben. Wenn alle fertig sind, legen sie die Karten zurück, neu mischen, nächste Runde.</p>
+    </details>
+    <div class="refl"><span class="lab">Reflexion</span>
+      <ul>
+        <li>„Was denkt ihr, über welche Gefühle fällt es den meisten leicht zu sprechen?“</li>
+        <li>„Und über welche Gefühle fällt es eher schwer?“</li>
+        <li>„Was glaubt ihr, warum spricht man über einige Gefühle nur ungern?“</li>
+      </ul>
+    </div>
+    <div class="box warn"><b>Tipp:</b> Die Äußerungen können sehr persönlich sein. Keine Kommentare, keine Kritik. Aus den unterschiedlichen Antworten lernen die Schüler von allein, dass es in gleichen Situationen verschiedene Reaktionen geben kann. Das Recht zu passen gilt.</div>
+  </div>
+
+  <details class="res"><summary><span class="tag warn">Reserve</span> A1 Schnell und originell, A3 Auf Gefühle verschieden reagieren, A4 Dilemmata</summary>
+    <div class="act">
+      <h3>A1 Schnell und originell (3 bis 5 Min., Energizer)</h3>
+      <p class="tun">Alle möglichst im Kreis (geht auch am Tisch). Du stehst mit dem Ball in der Mitte. Tempo hoch.</p>
+      <p class="sag">„Ich werde euch gleich eine Frage stellen und den Ball zuwerfen. Wer den Ball hat, gibt schnell eine Antwort und wirft mir den Ball zurück. Die Antwort besteht immer aus einem Wort. Nach einigen Antworten werde ich eine neue Frage stellen. Wiederholungen sind nicht erlaubt. Helft aber gern durch Zurufen, wenn jemandem gerade nichts einfällt.“</p>
+      <p class="small">Fragen: weiblicher Vorname mit A; männlicher Vorname mit A; etwas Langes und Grünes; ein menschliches Organ; ein Tier im Zoo; eine Automarke; ein Tier, das im Haus lebt; etwas, das Jugendlichen Spaß macht; was man am Strand sehen kann; ein Tier, das fliegen kann; etwas, das süchtig machen kann; eine Süßigkeit; was man aus Milch machen kann. Eigene Ideen oder Ideen der Schüler sind willkommen.</p>
+      <p class="sag">Reflexion: „Welche Gedanken sind euch gekommen, als der Ball langsam näherkam?“</p>
+    </div>
+    <div class="act">
+      <h3>A3 Auf Gefühle verschieden reagieren (etwa 15 Min.)</h3>
+      <p class="tun">KV 6.2b an alle, Einzelarbeit. Für die Reflexion in der Gruppe dürfen die Schüler ihre Gruppen selbst wählen, das senkt das Risiko.</p>
+      <p class="sag">„Erzählt es euch in eurer Gruppe: Was glaubt ihr, welches Verhalten wurde bei den einzelnen Gefühlen am meisten angekreuzt?“</p>
+      <p class="sag">„Was denkt ihr, wie ist es, mit jemandem umzugehen, der oder die nur eine einzige Möglichkeit kennt, auf unangenehme Gefühle zu reagieren?“</p>
+    </div>
+    <div class="act">
+      <h3>A4 Dilemmata (etwa 20 Min.)</h3>
+      <ol class="schritte">
+        <li>Mit Zufallskarten <b>fünf Gruppen</b>, in jede zwei Karten aus KV 6.2c.</li>
+        <li>Jede Gruppe wählt eine der beiden Karten. Pro Gruppe bestimmst du oder die Gruppe selbst eine Moderation. Alle Moderatoren bekommen einen Streifen mit den fünf Fragen.</li>
+      </ol>
+      <p class="sag">„Eure Aufgabe ist es, eurer Gruppe nacheinander die fünf Fragen zu stellen und dabei allen die Gelegenheit zu geben, dazu etwas zu sagen. Natürlich dürft ihr selbst auch etwas zu den Fragen sagen.“</p>
+      <p class="sag">An alle: „Bereitet nach der Besprechung aller fünf Fragen eine kurze Präsentation vor: Eine Person liest dann die Karte vor, alle anderen sagen genau einen Satz, der die Meinung der Gruppe zu einer der fünf Fragen zusammenfasst. Besprecht gemeinsam, welche Sätze ihr präsentieren wollt und wer welchen Satz sagt. Um es leichter zu machen, könnt ihr die Sätze gern aufschreiben und vorlesen.“</p>
+    </div>
+  </details>
+
+  <!-- ============ 6.3 ============ -->
+  <h2 id="a63">Lektion 6.3: Klären und klug entscheiden</h2>
+  <div class="box ok">
+    <b>Worum es geht:</b> Tabak und Alkohol sind die Suchtmittel, die Jugendliche zuerst mit der Erwachsenenwelt verbinden, deshalb nutzt das Programm sie, um das Ablehnen von Angeboten zu trainieren. Es ist aber kein Suchtpräventionsprogramm, sondern vermittelt Lebenskompetenzen. Ziel ist eine verantwortungsvolle, altersgerechte Haltung, durch die sich Schüler weder körperlich schaden noch ins Abseits gestellt fühlen. Empfohlen ab Klasse 7.
+  </div>
+  <div class="box"><b>Material:</b> Plakat oder Tafelbild „IKEA“ (A3), KV 6.3b und KV 6.3c (A4), Requisit (Käppi, nach hinten gedreht, oder andere Jacke). Nur Reserve: KV 6.3a und Kreppband (A1), drei Stühle und Namensschilder (A2).</div>
+  <div class="box warn"><b>Haltung:</b> Bei Reflexionen die Vielfalt der Meinungen, Erfahrungen und Einstellungen fördern: unterschiedliche Sichtweisen ermutigen, alle Antworten akzeptieren, nicht bewerten oder kommentieren. Helfen, wenn jemand sich mit Formulierungen schwertut.</div>
+
+  <div class="act">
+    <h3>A3 Wiederholung von „IKEA“ mit Demonstration <span class="tag">Freitag</span> <span class="zeit">10 Min.</span></h3>
+    <p class="sag">„Manchmal machen Jugendliche Sachen, die nicht vernünftig sind, aber Spaß machen, spannend sind oder einen anderen Gewinn bringen könnten. Welche Sachen fallen euch dazu ein?“</p>
+    <p class="tun">Nennen die Schüler nur Erlaubtes und gesellschaftlich Akzeptiertes, nachfragen:</p>
+    <p class="sag">„Das sind viele gute Ideen. Aber manchmal möchten Jugendliche auch Grenzen überschreiten und Verbotenes ausprobieren, weil ihnen das besonders spannend erscheint. Was fällt euch dazu ein?“</p>
+    <p class="tun">Einige Ideen anhören, ohne zu bewerten.</p>
+    <p class="sag">„Und manchmal suchen sie dazu noch welche, die mitmachen sollen. Was glaubt ihr, warum?“</p>
+    <p class="sag">„Wenn sie andere dabeihaben wollen, sagen sie manchmal nicht sofort, was sie vorhaben. Es könnte ja sein, dass der oder die andere dann nicht mitmacht, weil er weiß, was sie vorhaben. Sie bleiben bei unklaren Informationen und hoffen, dass der oder die andere zustimmt, ohne groß nachzufragen. Für solche Fälle gibt es, wie früher schon besprochen, die IKEA-Methode.“</p>
+    <p class="tun"><span class="lab">Tafel</span> Plakat nutzen oder anschreiben:</p>
+    <table class="ikea">
+      <tr><td class="b">I</td><td>Im Zweifel:</td></tr>
+      <tr><td class="b">K</td><td>Kläre durch Fragen.</td></tr>
+      <tr><td class="b">E</td><td>Entscheide dich. Bei „Nein“ begründe kurz. Danach kannst du einen …</td></tr>
+      <tr><td class="b">A</td><td>Anderen Vorschlag machen oder gehen.</td></tr>
+    </table>
+    <p class="sag">„Wenn ihr ein unklares Angebot bekommt, könnt ihr klären, worum es wirklich geht. Danach könnt ihr euch bewusst entscheiden. Wenn ihr ‚Nein‘ sagen möchtet, könnt ihr einen anderen Vorschlag machen, wenn ihr gern etwas zusammen machen möchtet. Aber manchmal ist es gut, einfach zu gehen.“</p>
+
+    <h4>Der Sketch: du spielst die verführende Person</h4>
+    <p class="tun"><b>Requisit</b> (Käppi, andere Jacke) macht deutlich, dass du eine Rolle spielst, die du danach wieder ablegst.</p>
+    <p class="tun"><b>Szenario aus dem Skript:</b> Du planst einen Spielenachmittag mit „Nobody is perfect“, das umso mehr Spaß macht, je mehr mitspielen (bis zu zehn Personen). Deine Art ist aber, Menschen mit kleinen Geheimnissen zu locken. Deshalb sprichst du die Einladung nicht offen aus, sondern machst es spannend und beantwortest die ersten Fragen nur ausweichend.</p>
+    <p class="sag">„Stellt euch vor, jemand, der zwei bis drei Jahre älter ist als ihr, lädt euch zu sich nach Hause ein. Er sagt euch aber nicht direkt, wozu. Ich bin gleich dieser Jugendliche. Sprecht kurz mit einigen in eurer Nähe und überlegt, welche Fragen ihr mir stellen könnt, um euch gut entscheiden zu können, ob ihr hingehen wollt oder nicht.“</p>
+    <div class="box" style="background:#f6f1fb; border-color:#d9cdea">
+      <p><span class="tag warn">Vorschlag von mir</span> <b>Beispiel, wie es ablaufen könnte</b> (das Lehrerband sagt nur „ausweichend antworten“):</p>
+      <p><b>Du, mit Käppi (nach hinten gedreht):</b> „Hey, ich lade euch zu mir ein, heute Nachmittag. Kommt einfach vorbei, es wird gut.“</p>
+      <ul>
+        <li>Klasse: „Wann genau?“ Du: „Gegen drei. Passt schon.“</li>
+        <li>Klasse: „Was machen wir da?“ Du: „Das sag ich nicht. Lasst euch überraschen.“</li>
+        <li>Klasse: „Wer kommt noch?“ Du: „Ein paar Leute. Ihr kennt vielleicht welche.“</li>
+        <li>Klasse: „Sind deine Eltern da?“ Du: „Das spielt keine Rolle. Kommt einfach.“</li>
+      </ul>
+      <p>Immer vage bleiben, aber nichts Bedrohliches sagen. Die Klasse merkt selbst, dass etwas nicht stimmt.</p>
+      <p><b>Käppi ab, zur Klasse:</b> „Was glaubt ihr, was hat dieser Jugendliche vor?“ Kurz sammeln, nicht kommentieren. Dann: „Was sagt euch euer Gefühl? Hingehen oder nicht?“</p>
+      <p><b>Käppi wieder auf, Auflösung:</b> „Okay, ich verrate es: Ich wollte einen Spielenachmittag machen. Wir spielen ‚Nobody is perfect‘, das macht umso mehr Spaß, je mehr mitspielen. Pizza gibt es auch.“</p>
+      <p><b>Käppi ab:</b> „Es war harmlos. Aber ihr hättet es nicht wissen können, ohne nachzufragen. Genau darum geht es: erst klären, dann entscheiden.“ Dann fragen: „Warum sagt jemand nicht gleich, was er vorhat?“ (Weil der andere sonst vielleicht nicht mitmacht; weil es riskant oder verboten ist; manchmal nur, um es spannend zu machen.) Danach IKEA an die Tafel.</p>
+      <p class="small">„Nobody is perfect“ ist ein Bluffspiel: Jemand liest ein seltenes Wort vor, alle erfinden dazu eine Erklärung, dann wird geraten, welche die echte ist. Du kannst die Auflösung beliebig ersetzen, zum Beispiel durch gemeinsam kochen oder einen Film schauen.</p>
+    </div>
+    <ol class="schritte">
+      <li>Die Schüler stellen Fragen, du antwortest ausweichend, ohne das Anliegen zu verraten.</li>
+      <li>Nach einigen Fragen <b>aus der Rolle treten</b> (Requisit ab) und fragen:</li>
+    </ol>
+    <p class="sag">„Was glaubt ihr, was hat dieser Jugendliche vor?“ – „Was sagt euch euer Gefühl? Mitmachen oder nicht?“</p>
+    <ol class="schritte" start="3">
+      <li>Wieder in die Rolle (Requisit an) und bekanntgeben, was du vorhast (zum Beispiel der Spielenachmittag).</li>
+      <li>Zum Ende vielleicht den Tipp geben:</li>
+    </ol>
+    <p class="sag">„Ein Tipp für unklare Situationen: Achtet auf euer Bauchgefühl. Es gibt oft gute Hinweise, ob alles in Ordnung ist.“</p>
+  </div>
+
+  <div class="act">
+    <h3>A4 Erneutes Training von „IKEA“: Sketche <span class="tag">Freitag</span> <span class="zeit">25 Min.</span></h3>
+    <p class="tun">Klasse in <b>vier Gruppen</b>. Jede Gruppe bekommt <b>zwei Streifen aus KV 6.3b</b> und <b>eine Kopie von KV 6.3c</b> zur Vorbereitung.</p>
+    <p class="sag">„Wählt gemeinsam eine der beiden Situationen aus und bereitet dazu mit Hilfe des Arbeitsblattes einen kurzen Sketch vor.</p>
+    <p class="sag">Einer oder mehrere spielen dabei die Rolle des oder der ‚Verführenden‘, der oder die versucht, jemand anderes zu einem Vorhaben zu überreden, ohne direkt zu sagen, um was es geht. Vielleicht dient das nur der Steigerung der Spannung, vielleicht ist das geplante Vorhaben aber auch riskant oder verboten und es könnte Probleme geben.</p>
+    <p class="sag">Eine oder einer aus der Gruppe versucht, durch Fragen herauszufinden, was sich hinter dem Vorhaben verbirgt. Wer diese Rolle später spielt, möchte auf keinen Fall etwas tun, das ihm oder ihr später Ärger einbringt, sei es von den Eltern oder sogar von der Polizei, weil es verboten ist. Ihr könnt den Ablauf des Spiels vorher planen und üben.“</p>
+    <p class="tun">Die Gruppen stellen nach angemessener Vorbereitungszeit ihre Sketche vor. Nach jedem Sketch ein <b>kleiner Applaus</b>.</p>
+    <div class="box warn"><b>Ziel im Blick behalten:</b> Die Schüler üben, sich bewusst und verantwortlich zu entscheiden. Dazu gehört eine Folgenabschätzung: Was könnte passieren, wenn ich „Ja“ oder „Nein“ sage, für mich, für meine Familie, für die Menschen, die mir wichtig sind? Eine bewusste Entscheidung braucht Zeit, um in Ruhe und ohne Druck nachzudenken. Ein weiterer Tipp neben dem Bauchgefühl: <b>„Zeit gewinnen!“</b></div>
+    <div class="refl"><span class="lab">Reflexion</span>
+      <ul><li>„Was denkt ihr, warum ist es wichtig, den wahren Hintergrund einer unklaren Situation frühzeitig zu klären?“</li></ul>
+    </div>
+  </div>
+
+  <details class="res"><summary><span class="tag warn">Reserve</span> A1 Tiere raten, A2 Die Sonnenbank</summary>
+    <div class="act">
+      <h3>A1 Tiere raten (etwa 8 Min.)</h3>
+      <p class="tun">Geeignete Karten aus KV 6.3a auswählen und mit je einem Streifen Kreppband an alle verteilen.</p>
+      <p class="sag">„Klebt jetzt diese Karte einem oder einer anderen auf den Rücken. Der oder die andere darf dabei die Karte nicht lesen.“</p>
+      <p class="tun">Wenn alle eine Karte auf dem Rücken haben:</p>
+      <p class="sag">„Sucht euch jetzt eine Partnerin oder einen Partner, die oder der zuerst auf euren Rücken schaut, um euer Tier abzulesen. Eure Aufgabe ist dann, mit ihrer oder seiner Hilfe das eigene Tier herauszufinden. Stellt ihm oder ihr dazu Fragen, aber nur solche, die man mit ‚Ja‘ oder ‚Nein‘ oder ‚Ich weiß nicht‘ beantworten kann. Ist die Antwort ‚Nein‘, wechseln die Rollen. Bei einem weiteren ‚Nein‘ suchen sich beide neue Partnerinnen oder Partner. Alles klar?“</p>
+      <p class="sag">„Wer sein Tier erraten hat, klebt seine Karte auf die Brust und kann weiterhin Fragen beantworten.“</p>
+      <p class="tun">Beenden, wenn die meisten ihr Tier erraten haben.</p>
+      <p class="sag">Reflexion: „Wie leicht oder schwer war es für euch, euer Tier zu erraten?“ – „Was war leicht?“ – „Was war schwer?“ – „Wie war es für euch, als ihr fertig wart und nur noch antworten musstet?“</p>
+    </div>
+    <div class="act">
+      <h3>A2 Die Sonnenbank (Rollenspiel, etwa 10 Min.)</h3>
+      <p class="sag">„Wenn ihr von einigen Jugendlichen gefragt werdet, ob ihr etwas mit ihnen zusammen unternehmen wollt, kann das interessant und spannend sein, es kann aber auch zu Schwierigkeiten führen, weil das Vorhaben riskant oder verboten ist. Wenn ihr dann auch schnell entscheiden müsst, ob ja oder nein, macht das Stress. In Vietnam gibt es ein Sprichwort: ‚Einmal machen ist besser als zehnmal zuschauen oder hundertmal zuhören.‘ Deswegen trainieren wir heute im Rollenspiel noch einmal, wie wir uns abgrenzen und ‚Nein‘ sagen können.“</p>
+      <ol class="schritte">
+        <li>Zwei Freiwillige übernehmen eine Rolle (mit Namensschildern, im Skript „Lotte“ und eine zweite Figur). Drei Stühle nebeneinander als Bank auf einer fiktiven Bühne.</li>
+        <li>Szene einrichten: „Lotte und die zweite Person sind ungefähr gleich alt, gehen aber in verschiedene Klassen. Sie kennen sich vom Sport.“</li>
+        <li>Spielsituation: „Die große Pause hat gerade begonnen. Lotte schreibt in der nächsten Stunde eine Englischarbeit. Es ist ihr schwaches Fach und sie ist nervös. Deswegen hat sie sich eine Bank in einer ruhigen Ecke des Schulhofs gesucht, um Ruhe zu finden. Die Sonne scheint. Lotte genießt es mit geschlossenen Augen.“ (Lotte sitzt entsprechend.)</li>
+        <li>„Die zweite Person sieht Lotte auf der Bank. Sie hat gerade eine frustrierende Physikstunde hinter sich und will sich abregen. Und Lotte ist für sie die ideale Zuhörerin. Sie erzählt und erzählt. Lotte ist genervt. Die andere merkt nichts und erzählt immer weiter. Alle anderen schauen zu und beobachten den Verlauf.“</li>
+        <li>Etwa <b>eine Minute</b> spielen lassen. Es geht nicht um eine Lösung, sondern um versuchte Kontaktaufnahme und Abgrenzung.</li>
+      </ol>
+      <div class="refl"><span class="lab">Reflexion</span>
+        <ul>
+          <li>„Lotte, wie geht es dir im Moment?“ Dasselbe an die zweite Person.</li>
+          <li>An beide: „Wie hat sich das Gespräch aus eurer Sicht entwickelt?“</li>
+          <li>Beide aus den Rollen entlassen: „Wie war es für dich, die Lotte zu spielen?“ und dasselbe für die zweite Rolle (mit echtem Namen). Kleiner Applaus.</li>
+          <li>Mit allen: „Wie hat Lotte versucht, sich abzugrenzen?“ – „Wie hat die zweite Person darauf reagiert?“ – „Welche Tipps habt ihr für Lotte, damit es beim nächsten Mal leichter für sie ist?“</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <p class="small" style="margin-top:20px">Quelle: Lehrerband „Erwachsen werden“, Kapitel 6. Abgetippt aus dem Scan, offensichtliche Erkennungsfehler korrigiert. Im Zweifel gilt das Original im Tab Kopiervorlagen.</p>
+</div>
+</div>
+
+<!-- ============ ANTWORTEN ============ -->
+<div class="panel" id="p-antworten">
+<div class="page anw">
+  <h1>Mögliche Antworten</h1>
+  <p class="sub">Die Folien so ausgefüllt, wie sie nach der Besprechung ungefähr aussehen könnten (Musterlösung), in der Reihenfolge der Folien. Dasselbe liegt als A4-Blatt zum Danebenlegen vor: „Fr 23.10. 5 Mögliche Antworten (nur für dich).pdf“, ein Blatt A4 quer, doppelseitig.</p>
+  <div class="leg"><i class="d l"></i>steht im Lehrerband <i class="d v"></i>Vorschlag von mir für Klasse 7</div>
+  <div class="mc"><h3><span class="nr">Folie 4</span>Zwei Arten von Entscheidungen</h3><table class="tt"><tr><th></th><th class="sp">Spontan<small>nach Lust und Laune</small></th><th class="gr">Grundsätzlich<small>gilt für längere Zeit</small></th></tr><tr><td class="b"><i class="d l" title="Lehrerband"></i>Kleidung</td><td>Was ziehe ich heute an?</td><td>Welchen Stil, welche Farben trage ich?</td></tr><tr><td class="b"><i class="d l" title="Lehrerband"></i>Essen</td><td>Worauf habe ich jetzt Appetit?</td><td>Esse ich Fleisch oder vegetarisch?</td></tr><tr><td class="b"><i class="d l" title="Lehrerband"></i>Freizeit</td><td>Was mache ich heute Nachmittag?</td><td>Welchen Sport mache ich regelmäßig?</td></tr><tr><td class="b"><i class="d v" title="Vorschlag"></i>Internet</td><td>Welches Video schaue ich jetzt?</td><td>Wie viel Handyzeit am Tag, welche Apps?</td></tr><tr><td class="b"><i class="d v" title="Vorschlag"></i>Schule</td><td>Neben wem sitze ich heute?</td><td>Wie wichtig sind mir Noten, lerne ich regelmäßig?</td></tr><tr><td class="b"><i class="d v" title="Vorschlag"></i>Musik</td><td>Welches Lied höre ich jetzt?</td><td>Welche Musikrichtung ist meine?</td></tr><tr><td class="b"><i class="d v" title="Vorschlag"></i>Sport</td><td>Gehe ich heute zum Training?</td><td>Welchen Verein, welchen Sport will ich dauerhaft?</td></tr><tr><td class="b"><i class="d v" title="Vorschlag"></i>Fernsehen</td><td>Welche Serie schaue ich jetzt?</td><td>Wie viel Streaming pro Woche?</td></tr></table></div><div class="mc"><h3><span class="nr">Folie 5</span>Wovon hängt es ab? (Beispiel Kleidung)</h3><p class="q">Wovon hängt es ab, wie jemand sich bei der Kleidung entscheidet?</p><svg viewBox="0 0 800 430" class="mm"><line x1="400.0" y1="215.0" x2="400" y2="50" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="546" y2="69" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="659" y2="121" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="713" y2="195" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="695" y2="274" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="609" y2="339" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="475" y2="375" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="325" y2="375" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="191" y2="339" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="105" y2="274" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="87" y2="195" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="141" y2="121" stroke="#b9b2a0" stroke-width="2"/><line x1="400.0" y1="215.0" x2="254" y2="69" stroke="#b9b2a0" stroke-width="2"/><ellipse cx="400.0" cy="215.0" rx="85" ry="36" fill="#fffdf7" stroke="#1f4f3a" stroke-width="3"/><text x="400.0" y="222.0" text-anchor="middle" font-size="22" font-weight="700" fill="#1c2230">Kleidung</text><rect x="373" y="36" width="55" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="400" y="55" text-anchor="middle" font-size="14" fill="#1c2230">Geld</text><rect x="511" y="55" width="71" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="546" y="74" text-anchor="middle" font-size="14" fill="#1c2230">Eltern</text><rect x="591" y="107" width="137" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="659" y="126" text-anchor="middle" font-size="14" fill="#1c2230">Zweckmäßigkeit</text><rect x="644" y="181" width="137" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="713" y="200" text-anchor="middle" font-size="14" fill="#1c2230">Bequemlichkeit</text><rect x="643" y="260" width="104" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="695" y="279" text-anchor="middle" font-size="14" fill="#1c2230">Gewohnheit</text><rect x="528" y="325" width="161" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="609" y="344" text-anchor="middle" font-size="14" fill="#1c2230">eigener Geschmack</text><rect x="448" y="361" width="55" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="475" y="380" text-anchor="middle" font-size="14" fill="#1c2230">Mode</text><rect x="285" y="361" width="79" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="325" y="380" text-anchor="middle" font-size="14" fill="#1c2230">Freunde</text><rect x="156" y="325" width="71" height="28" rx="14" fill="#eaf4ee" stroke="#2f7a4f" stroke-width="2"/><text x="191" y="344" text-anchor="middle" font-size="14" fill="#1c2230">Marken</text><rect x="70" y="260" width="71" height="28" rx="14" fill="#f0eaf8" stroke="#7a52b3" stroke-width="2"/><text x="105" y="279" text-anchor="middle" font-size="14" fill="#1c2230">Wetter</text><rect x="52" y="181" width="71" height="28" rx="14" fill="#f0eaf8" stroke="#7a52b3" stroke-width="2"/><text x="87" y="200" text-anchor="middle" font-size="14" fill="#1c2230">Anlass</text><rect x="89" y="107" width="104" height="28" rx="14" fill="#f0eaf8" stroke="#7a52b3" stroke-width="2"/><text x="141" y="126" text-anchor="middle" font-size="14" fill="#1c2230">Influencer</text><rect x="185" y="55" width="137" height="28" rx="14" fill="#f0eaf8" stroke="#7a52b3" stroke-width="2"/><text x="254" y="74" text-anchor="middle" font-size="14" fill="#1c2230">Nachhaltigkeit</text></svg></div><div class="mc"><h3><span class="nr">Folie 8</span>Gesprächsregeln</h3><p class="q">Welche Regeln helfen uns, offen zu reden?</p><ul><li><i class="d l" title="Lehrerband"></i>gut zuhören</li><li><i class="d l" title="Lehrerband"></i>nicht kommentieren</li><li><i class="d l" title="Lehrerband"></i>andere Meinungen nicht abwerten</li><li><i class="d v" title="Vorschlag"></i>nicht auslachen</li><li><i class="d v" title="Vorschlag"></i>was in der Gruppe gesagt wird, bleibt in der Gruppe</li><li><i class="d v" title="Vorschlag"></i>ausreden lassen</li><li><i class="d v" title="Vorschlag"></i>Passen ist erlaubt</li></ul></div><div class="mc"><h3><span class="nr">Folie 9</span>Auswertung: Eure Gruppe</h3><p class="q">Bei welchen Werten gab es viel Übereinstimmung?</p><ul><li><i class="d v" title="Vorschlag"></i>Familie, Freundschaft, Gesundheit, Ehrlichkeit, Sicherheit</li></ul><p class="q">Woher kommen unterschiedliche Werte?</p><ul><li><i class="d v" title="Vorschlag"></i>Familie und Erziehung, Freunde, Medien, Kultur oder Religion, eigene Erfahrungen</li></ul><p class="q">Welche Werte sind Ideale, die schwer einzuhalten sind?</p><ul><li><i class="d v" title="Vorschlag"></i>immer ehrlich sein, gerecht sein, immer hilfsbereit sein, auf die Umwelt achten</li></ul><p class="q">Warum sind sie trotzdem wichtig?</p><ul><li><i class="d v" title="Vorschlag"></i>Sie zeigen die Richtung wie ein Ziel, auch wenn man es nicht immer schafft.</li></ul></div><div class="mc"><h3><span class="nr">Folie 10</span>Die Motte und der Stern</h3><p class="q">Was denkt ihr über die Geschichte der Motte?</p><ul><li><i class="d v" title="Vorschlag"></i>Mutig und treu zum eigenen Wunsch, oder unvernünftig und gefährlich?</li><li><i class="d v" title="Vorschlag"></i>Die Eltern wollen sie schützen, die Warnung ist verständlich.</li><li><i class="d v" title="Vorschlag"></i>„Mach es wie die anderen“ ist Anpassung; der Stern ist der eigene Wunsch.</li><li><i class="d v" title="Vorschlag"></i>Die Motte bleibt als Einzige unverletzt. Was heißt dann „erwachsen werden“?</li><li><i class="d l" title="Lehrerband"></i>Nicht kommentieren und nicht bewerten.</li></ul></div><div class="mc"><h3><span class="nr">Folie 11</span>Die junge und die alte Möwe</h3><p class="q">Was wird die alte Möwe wohl sagen? (Vorschläge abwarten)</p><ul><li><i class="d v" title="Vorschlag"></i>„Das ist doch dumm.“</li><li><i class="d v" title="Vorschlag"></i>„Du kannst nie wieder fliegen.“</li><li><i class="d v" title="Vorschlag"></i>„Warum machst du das?“</li></ul><p class="q">Auflösung (vorlesen)</p><ul><li><i class="d l" title="Lehrerband"></i>„Aber eine Erfahrung wirst du nicht mehr machen können, nämlich wie es ist zu fliegen.“</li><li><i class="d v" title="Vorschlag"></i>Gedanke: Wer einem Trend folgt, kann etwas verlieren, das sich nicht zurückholen lässt. Brücke zur Zahnpasta in Teil 3.</li></ul></div><div class="mc"><h3><span class="nr">Folie 15</span>Auswertung: Situationskarten</h3><p class="q">Welche Erfahrungen habt ihr in der Gruppe gemacht?</p><ul><li><i class="d v" title="Vorschlag"></i>oft uneinig, Folgen zuerst übersehen, lustige Antworten</li></ul><p class="q">Was hilft es, über solche Situationen nachzudenken, bevor man selbst drinsteckt?</p><ul><li><i class="d v" title="Vorschlag"></i>Man hat schon einmal darüber nachgedacht, bevor der Druck da ist; man kennt Argumente und hat einen Plan.</li></ul><p class="q">Bei provozierenden Antworten nachfragen</p><ul><li><i class="d l" title="Lehrerband"></i>Welche Folgen hätte es für euch, wenn ihr so handeln würdet?</li><li><i class="d l" title="Lehrerband"></i>Welche Folgen für die Gesellschaft, wenn eine Mehrheit so handeln würde?</li><li><i class="d l" title="Lehrerband"></i>Lachen ist erlaubt.</li></ul></div><div class="mc"><h3><span class="nr">Folie 18</span>Auswertung: Kreisspiel</h3><p class="q">Über welche Gefühle spricht man leicht?</p><ul><li><i class="d v" title="Vorschlag"></i>Freude, Langeweile, Stolz</li></ul><p class="q">Über welche eher ungern?</p><ul><li><i class="d v" title="Vorschlag"></i>Angst, Scham, Traurigkeit, Eifersucht, Verliebtsein</li></ul><p class="q">Woran liegt das?</p><ul><li><i class="d v" title="Vorschlag"></i>Angst, ausgelacht zu werden; wirkt schwach; zu privat</li></ul><p class="q">Dieselbe Situation, verschiedene Reaktionen: Was sagt uns das?</p><ul><li><i class="d v" title="Vorschlag"></i>Jeder reagiert anders, es gibt nicht die eine richtige Reaktion.</li><li><i class="d l" title="Lehrerband"></i>Keine Kommentare, Passen ist erlaubt.</li></ul></div><div class="mc"><h3><span class="nr">Folie 21</span>Die unklare Einladung</h3><p class="q">Welche Fragen würdet ihr stellen?</p><ul><li><i class="d v" title="Vorschlag"></i>Wer kommt noch? Wie lange? Was machen wir?</li><li><i class="d v" title="Vorschlag"></i>Kenne ich die anderen? Wissen meine Eltern davon?</li><li><i class="d v" title="Vorschlag"></i>Muss ich etwas mitbringen oder bezahlen?</li><li><i class="d v" title="Vorschlag"></i>Ist das erlaubt? Kann ich jederzeit gehen?</li></ul><p class="q">Deine ausweichenden Antworten</p><ul><li><i class="d v" title="Vorschlag"></i>„Lass dich überraschen.“ „Ist nichts Besonderes.“ „Kommt drauf an.“ „Das erzähl ich dir dann.“</li></ul><p class="q">Auflösung</p><ul><li><i class="d l" title="Lehrerband"></i>Spielenachmittag mit „Nobody is perfect“, bis zu zehn Personen, umso mehr Spaß, je mehr mitspielen.</li></ul><p class="q">Warum sagt jemand nicht gleich, was er vorhat?</p><ul><li><i class="d l" title="Lehrerband"></i>Weil der andere sonst vielleicht nicht mitmacht.</li><li><i class="d v" title="Vorschlag"></i>Weil es riskant oder verboten ist, oder nur, um es spannend zu machen. Von außen nicht zu unterscheiden, deshalb nachfragen.</li></ul></div><div class="mc"><h3><span class="nr">Folie 24</span>Auswertung: Sketche</h3><p class="q">Warum ist es wichtig, den wahren Hintergrund früh zu klären?</p><ul><li><i class="d v" title="Vorschlag"></i>Man gerät nicht in etwas Riskantes oder Verbotenes, hat keinen Ärger mit Eltern oder Polizei, ist nicht überrumpelt.</li><li><i class="d l" title="Lehrerband"></i>Zeit gewinnen: in Ruhe und ohne Druck nachdenken.</li></ul><table class="tt"><tr><th class="sp">Wenn ich „Ja“ sage</th><th class="gr">Wenn ich „Nein“ sage</th></tr><tr><td><i class="d v" title="Vorschlag"></i>vielleicht Spaß, aber eventuell Ärger oder etwas, das ich nicht zurücknehmen kann</td><td><i class="d v" title="Vorschlag"></i>ich bin sicher, vielleicht etwas außen vor; ich kann einen anderen Vorschlag machen oder gehen</td></tr></table></div>
+</div>
+</div>
+
+<!-- ============ MATERIAL ============ -->
+<div class="panel" id="p-material">
+<div class="page">
+  <h1>Material und Kopierliste</h1>
+  <p class="sub">Alles aus dem Scan „kluge Entscheidungen.pdf“ (Downloads). Seitenzahlen sind die Zählung im Lehrerband (Teil II, Praxis). Die Vorlagen selbst siehst du im Tab „Kopiervorlagen“.</p>
+
+  <div class="box ok"><b>Fertig zum Drucken</b> (iCloud, GDRS ICloud / Schuljahr 26 27 / Klassenlehrer / 09 Zeitfensterwoche, gleiche Dateien im Vault neben dieser HTML):
+    <table style="margin-top:8px">
+      <tr><th>Datei</th><th>Drucken</th><th>Inhalt</th></tr>
+      <tr><td><b>Fr 23.10. 0 Alles zum Drucken (doppelseitig, ein Auftrag)</b></td><td>28 Seiten, <b>doppelseitig</b>, ein Druckauftrag</td><td>Ersetzt die Dateien 1 bis 3 in einem Zug. Auch als Knopf im Tab „Kopiervorlagen“.</td></tr>
+      <tr><td><b>Fr 23.10. 1 Klassensatz Wie wichtig ist dir das</b></td><td>1 Seite, einseitig, <b>1 Kopie pro Schüler</b></td><td>KV 6.1a Version 1</td></tr>
+      <tr><td><b>Fr 23.10. 2 Situationskarten 5 Sätze doppelseitig</b></td><td>10 Seiten, <b>doppelseitig, Wenden an der langen Kante</b>, einmal drucken</td><td>KV 6.1b, 5 Sätze mit Karten 1 bis 9 (Karte 10 ist abgedeckt). Danach ausschneiden, pro Gruppe ein Satz.</td></tr>
+      <tr><td><b>Fr 23.10. 3 Satzanfänge, Sketch-Streifen, Sketch-Blatt (einseitig)</b></td><td>8 Seiten, einseitig, einmal drucken</td><td>3 Seiten Satzanfänge (6.2a), 1 Seite Streifen (6.3b), 4 mal das Sketch-Blatt (6.3c, eins pro Gruppe).</td></tr>
+      <tr><td><b>Fr 23.10. 4 Ablauf auf einer Seite (nur für dich)</b></td><td>1 Seite A4, für dich</td><td>Uhrzeit, Dauer, was ich tue (vorlesen, Gruppenarbeit), Mitbringliste, Streichreihenfolge.</td></tr>
+      <tr><td><b>Fr 23.10. 5 Mögliche Antworten (nur für dich)</b></td><td>1 Blatt, A4 quer, doppelseitig, für dich</td><td>Musterlösung: die Folien 4 bis 24 mit offenen Fragen so ausgefüllt, wie sie ungefähr aussehen könnten.</td></tr>
+      <tr><td><b>Fr 23.10. 6 Ablauf mit Musterlösung und Sagen (6 Seiten quer, nur für dich)</b></td><td>6 Seiten A4 quer, doppelseitig, für dich (falls die Rückseiten verkehrt herum kommen: 6b)</td><td>Dein Hauptblatt für die Stunde: Ablauf mit Uhrzeit und Dauer, daneben jede Folie ausgefüllt, und bei jedem Schritt ein blauer Kasten „SAGEN“ mit dem, was du sagst. Motte und Möwe im vollen Wortlaut. Ersetzt 4 und 5.</td></tr>
+    </table>
+    <p class="small" style="margin-top:6px">Nur noch ausschneiden: 6.1b (neun Karten pro Satz, Karte 10 ist abgedeckt, die Rückseite ist durch das Doppelseitige schon dabei), 6.2a (Satzanfänge) und 6.3b (Streifen). Gruppen: 5 für Teil 1 und 2, 4 für Teil 4.</p>
+  </div>
+  <table>
+    <tr><th>Was</th><th>Anzahl</th><th>Wo im Scan</th><th>Hinweis</th></tr>
+    <tr><td><b>KV 6.1a</b> Wie wichtig ist dir das?</td><td>1 pro Schüler</td><td>Seite 350 (Version 1) und 351 (Version 2)</td><td>Version 1 passt für Klasse 7 (Beliebtheit, Aussehen, Geld, Freunde). Version 2 (Beruf, Kinder, Religion) ist für Ältere.</td></tr>
+    <tr><td><b>KV 6.1b</b> Situationskarten mit Reaktionen</td><td>5 Sätze, doppelseitig</td><td>Seite 352 (Vorderseite) und 353 (Rückseite)</td><td>Rückseite = die Reaktionen a, b, c. Karten der zweiten Seite müssen genau auf der Rückseite der ersten liegen. Vor dem Kopieren auswählen, siehe unten.</td></tr>
+    <tr><td><b>KV 6.2a</b> Satzanfänge</td><td>1</td><td>Seite 359 bis 361</td><td>Ausschneiden, vor der Klasse mischen. Nicht laminieren nötig.</td></tr>
+    <tr><td><b>KV 6.3b</b> Situationsstreifen für Sketche</td><td>1 (9 Streifen, 8 gebraucht)</td><td>Seite 372</td><td>Links das Angebot, rechts der wahre Hintergrund (Verführer). Jede der vier Gruppen bekommt zwei Streifen. Achtung: Es geht überwiegend um Alkohol, Zigaretten, Tabletten. Streifen vorher auswählen.</td></tr>
+    <tr><td><b>KV 6.3c</b> Arbeitsblatt Sketch</td><td>4</td><td>Seite 373</td><td>Eine Kopie pro Gruppe.</td></tr>
+    <tr><td>Gruppen-Generator (Taste G in den Folien)</td><td></td><td></td><td>Keine Karten nötig. Klassenliste einmal einfügen. 5 Gruppen für Teil 1 und 2 (dieselben), 4 Gruppen für Teil 4.</td></tr>
+    <tr><td>Ball, Kissen oder Stofftier</td><td>1</td><td></td><td>Kreisspiel Reiz und Reaktion.</td></tr>
+    <tr><td>Requisit (Käppi, Jacke)</td><td>1</td><td></td><td>Für deine Rolle in 6.3 A3.</td></tr>
+    <tr><td>Zettel für die Entscheidungen der Gruppen</td><td>5</td><td></td><td>A5: Kartennummer und Entscheidung notieren.</td></tr>
+  </table>
+
+  <h2>Nur für dich (nicht kopieren)</h2>
+  <table>
+    <tr><th>Was</th><th>Wo</th></tr>
+    <tr><td><b>Sprechzettel</b>: Kernsätze und Fragen pro Teil</td><td>Tab „Sprechzettel“. Am Dienstag lag er ausgedruckt dabei, hier reicht der Bildschirm.</td></tr>
+    <tr><td><b>Lehrerband-Seiten</b> mit dem Originalwortlaut der Lektionen 6.1 bis 6.3</td><td>Tab „Kopiervorlagen“, unterer Abschnitt „Nur für dich“.</td></tr>
+    <tr><td><b>Auflösung der Streifen</b> (rechte Spalte KV 6.3b)</td><td>Im selben Bild wie die Streifen (Seite 372). Die Schüler in der Rolle des Fragenden sollen sie nicht lesen, nur die Verführer.</td></tr>
+    <tr><td><b>Beispiel für deine IKEA-Rolle</b>: Spielenachmittag „Nobody is perfect“</td><td>Tab „Sprechzettel“, Teil 4.</td></tr>
+    <tr><td><b>Tafelanschrift</b>: zwei Spalten spontan und grundsätzlich, vier Schritte der Kartenarbeit, IKEA</td><td>Sind auch als Folien da (4, 13, 22). Wenn du lieber an der Tafel schreibst, nimm sie als Vorlage.</td></tr>
+    <tr><td><b>Dinge mitbringen:</b> Ball oder Kissen, Käppi oder Jacke, Zettel für die Gruppen</td><td>Siehe Tabelle oben.</td></tr>
+  </table>
+
+  <h2>KV 6.1b: welche Karten nehmen?</h2>
+  <p class="small">Die Karten sind im Tab „Kopiervorlagen“ als Bild zu sehen (KV 6.1b, Seite 352).</p>
+  <table>
+    <tr><th>Nr.</th><th>Situation (kurz)</th><th>Einschätzung für 7c</th></tr>
+    <tr><td>1</td><td>Katze im gekippten Fenster eingeklemmt, niemand öffnet</td><td><span class="tag">gut</span></td></tr>
+    <tr><td>2</td><td>Fahrrad gestohlen, Versicherung hat gezahlt, Fahrrad taucht wieder auf</td><td><span class="tag">gut</span></td></tr>
+    <tr><td>3</td><td>Smartphone mit Freund vereinbart, günstigeres Angebot im Internet</td><td><span class="tag">gut</span></td></tr>
+    <tr><td>4</td><td>Falscher 5-Euro-Schein angedreht</td><td><span class="tag">gut</span></td></tr>
+    <tr><td>5</td><td>Reporter bietet 200 Euro für Foto eines Verhafteten</td><td><span class="tag">gut</span>, regt Diskussion an</td></tr>
+    <tr><td>6</td><td>Imbiss: unfreundliche Bedienung, lange gewartet, du bekommst 5 Euro Wechselgeld zu viel</td><td><span class="tag">gut</span></td></tr>
+    <tr><td>7</td><td>Hund hinterlässt Haufen am Spielplatz, Herrchen geht weiter</td><td><span class="tag">gut</span>, locker</td></tr>
+    <tr><td>8</td><td>In der Bahn: zwei Jugendliche bedrängen jemanden</td><td><span class="tag warn">mit Bedacht</span>, ernst, aber wichtig (Zivilcourage)</td></tr>
+    <tr><td>9</td><td>Junge aus der Klasse sitzt fast die ganze Freizeit allein am PC</td><td><span class="tag warn">vorsichtig</span>, kann Mitschüler treffen. Bleibt drin (so entschieden); beim Vorstellen keine Namen aus der Klasse nennen lassen.</td></tr>
+    <tr><td>10</td><td>Freundin, 3 Jahre älter, ist in der 9. Woche schwanger, fürchtet die Eltern</td><td><span class="tag warn">weglassen</span> in 7c, zu schwer für Gruppenarbeit mit Zufallsgruppen</td></tr>
+  </table>
+  <p class="small">Gedruckt sind die Karten 1 bis 9, Karte 10 ist abgedeckt. Alle neun schafft kaum eine Gruppe in 20 Minuten. Das ist in Ordnung, Hauptsache, jede Gruppe hat genug für zwei Beispiele.</p>
+
+  <div class="box warn"><b>Datenschutz:</b> Die Karten sind erfunden, trotzdem: Wenn Schüler eigene Erfahrungen erzählen, nichts davon notieren oder in den Vault legen. Im Vault landen nur Vorlagen und allgemeine Strukturen.</div>
+</div>
+</div>
+
+
+<!-- ============ KOPIERVORLAGEN ============ -->
+<div class="panel" id="p-kopien">
+<div class="page" style="max-width:1280px">
+  <h1>Kopiervorlagen</h1>
+  <div class="box ok"><b>Alles auf einmal drucken</b>
+    <p style="margin:6px 0 10px">Eine Datei mit allen Kopiervorlagen in der richtigen Reihenfolge, 28 Seiten, <b>Doppelseitig: Ein</b>, Hochformat, Wenden an der langen Kante. Seiten, die nur eine Seite brauchen, haben eine leere Rückseite eingebaut, damit nichts verrutscht.</p>
+    <a href="Fr%2023.10.%200%20Alles%20zum%20Drucken%20(doppelseitig,%20ein%20Auftrag).pdf" target="_blank" rel="noopener" style="display:inline-block;background:#2457a6;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;text-decoration:none">Alles drucken öffnen (PDF)</a>
+    <p class="small" style="margin-top:10px">Reihenfolge: 1 Klassensatz Wie wichtig ist dir das (einmal; für die Klasse davon kopieren), 5 Sätze Situationskarten (Karte 10 abgedeckt), Satzanfänge (3 Seiten), Sketch-Streifen, 4 Sketch-Blätter. Nach dem Ausdruck nur noch ausschneiden.</p>
+  </div>
+  <p class="sub"><b>Zum Kopieren:</b> die Seiten aus dem Lehrerband, die du morgen kopierst. Ein Klick öffnet die Seite groß in einem neuen Tab. Bilder liegen im Ordner <code>_kv-kluge</code> neben dieser Datei und stammen aus „kluge Entscheidungen.pdf“ (Downloads). Vervielfältigung für den eigenen Unterricht ist laut Lehrerband gestattet.</p>
+  <div class="kvgrid">
+    <figure class="kv"><a href="_kv-kluge/seite-8.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-8.jpg" alt="KV 6.1a, Version 1" loading="lazy"></a>
+      <figcaption><b>KV 6.1a, Version 1</b><br>Skript S. 350 (PDF S. 8)<br><span class="tag">Klassensatz, 1 pro Schüler</span> Passt für Klasse 7: Beliebtheit, Geld, Aussehen, Freunde, Schule. Zwei Zeilen zum Ergänzen.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-9.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-9.jpg" alt="KV 6.1a, Version 2" loading="lazy"></a>
+      <figcaption><b>KV 6.1a, Version 2</b><br>Skript S. 351 (PDF S. 9)<br><span class="tag">nur falls gewünscht</span> Für Ältere: Beruf, Kinder, Religion, Sinn des Lebens. Als zweite Runde möglich.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-10.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-10.jpg" alt="KV 6.1b, Vorderseite" loading="lazy"></a>
+      <figcaption><b>KV 6.1b, Vorderseite</b><br>Skript S. 352 (PDF S. 10)<br><span class="tag">5 Sätze, doppelseitig</span> Zehn Situationen. Karte 10 (Schwangerschaft einer Freundin) ist in der Druckdatei abgedeckt; Karte 9 bleibt drin.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-11.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-11.jpg" alt="KV 6.1b, Rückseite" loading="lazy"></a>
+      <figcaption><b>KV 6.1b, Rückseite</b><br>Skript S. 353 (PDF S. 11)<br><span class="tag">Rückseite zu S. 352</span> Je Karte die Möglichkeiten a, b, c. Lage muss exakt auf der Vorderseite liegen.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-17.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-17.jpg" alt="KV 6.2a, Satzanfänge 1" loading="lazy"></a>
+      <figcaption><b>KV 6.2a, Satzanfänge 1</b><br>Skript S. 359 (PDF S. 17)<br><span class="tag">1 Satz</span> Zum Ausschneiden, vor der Klasse mischen.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-18.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-18.jpg" alt="KV 6.2a, Satzanfänge 2" loading="lazy"></a>
+      <figcaption><b>KV 6.2a, Satzanfänge 2</b><br>Skript S. 360 (PDF S. 18)<br></figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-19.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-19.jpg" alt="KV 6.2a, Satzanfänge 3" loading="lazy"></a>
+      <figcaption><b>KV 6.2a, Satzanfänge 3</b><br>Skript S. 361 (PDF S. 19)<br></figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-30.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-30.jpg" alt="KV 6.3b, Situationsstreifen" loading="lazy"></a>
+      <figcaption><b>KV 6.3b, Situationsstreifen</b><br>Skript S. 372 (PDF S. 30)<br><span class="tag">1 Kopie, in Streifen schneiden</span> Links das Angebot, rechts der wahre Hintergrund. Es geht um Alkohol, Zigaretten, Tabletten und harmlose Einladungen (Pizzabacken, Picknick).</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/seite-31.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/seite-31.jpg" alt="KV 6.3c, Arbeitsblatt Sketch" loading="lazy"></a>
+      <figcaption><b>KV 6.3c, Arbeitsblatt Sketch</b><br>Skript S. 373 (PDF S. 31)<br><span class="tag">4 Kopien, 1 pro Gruppe</span> Schritte nach IKEA: Fragen, Entscheidung mit Begründung, anderer Vorschlag.</figcaption></figure>
+  </div>
+  <h2 style="margin-top:34px">Nur für dich: Lehrerband-Seiten</h2>
+  <p class="sub">Nicht kopieren. Die Ablaufseiten der drei Lektionen, falls du im Zweifel den Originalwortlaut brauchst. Die wichtigsten Sätze stehen schon im Tab „Sprechzettel“.</p>
+  <div class="kvgrid">
+    <figure class="kv"><a href="_kv-kluge/lehrerband-4.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-4.jpg" alt="6.1 Werte beeinflussen meine Entscheidungen: Überblick, Hintergrund, A1" loading="lazy"></a>
+      <figcaption><b>6.1 Werte beeinflussen meine Entscheidungen: Überblick, Hintergrund, A1</b><br>Skript S. 346 f. (PDF S. 4)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-5.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-5.jpg" alt="6.1 A1 bis A3" loading="lazy"></a>
+      <figcaption><b>6.1 A1 bis A3</b><br>Skript S. 347 f. (PDF S. 5)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-6.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-6.jpg" alt="6.1 A3 Motte und Möwe, A4" loading="lazy"></a>
+      <figcaption><b>6.1 A3 Motte und Möwe, A4</b><br>Skript S. 348 f. (PDF S. 6)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-7.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-7.jpg" alt="6.1 A5 Situationskarten, A6" loading="lazy"></a>
+      <figcaption><b>6.1 A5 Situationskarten, A6</b><br>Skript S. 349 f. (PDF S. 7)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-14.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-14.jpg" alt="6.2 Gefühle und Verhalten: Überblick, Hintergrund" loading="lazy"></a>
+      <figcaption><b>6.2 Gefühle und Verhalten: Überblick, Hintergrund</b><br>Skript S. 356 f. (PDF S. 14)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-15.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-15.jpg" alt="6.2 A1 und A2" loading="lazy"></a>
+      <figcaption><b>6.2 A1 und A2</b><br>Skript S. 357 f. (PDF S. 15)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-16.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-16.jpg" alt="6.2 A2 bis A4" loading="lazy"></a>
+      <figcaption><b>6.2 A2 bis A4</b><br>Skript S. 358 f. (PDF S. 16)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-23.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-23.jpg" alt="6.3 Klären und klug entscheiden: Überblick, Hintergrund" loading="lazy"></a>
+      <figcaption><b>6.3 Klären und klug entscheiden: Überblick, Hintergrund</b><br>Skript S. 365 f. (PDF S. 23)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-24.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-24.jpg" alt="6.3 A1 und A2 (Tiere raten, Sonnenbank)" loading="lazy"></a>
+      <figcaption><b>6.3 A1 und A2 (Tiere raten, Sonnenbank)</b><br>Skript S. 366 f. (PDF S. 24)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-25.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-25.jpg" alt="6.3 A2 bis A3 (IKEA-Methode, Demonstration)" loading="lazy"></a>
+      <figcaption><b>6.3 A2 bis A3 (IKEA-Methode, Demonstration)</b><br>Skript S. 367 f. (PDF S. 25)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+    <figure class="kv"><a href="_kv-kluge/lehrerband-26.jpg" target="_blank" rel="noopener"><img src="_kv-kluge/lehrerband-26.jpg" alt="6.3 A3 bis A4 (Sketche)" loading="lazy"></a>
+      <figcaption><b>6.3 A3 bis A4 (Sketche)</b><br>Skript S. 368 f. (PDF S. 26)<br><span class="tag warn">nur für dich</span> Anleitung mit allen Wortlauten.</figcaption></figure>
+  </div>
+</div>
+</div>
+
+<!-- ============ RESERVE ============ -->
+<div class="panel" id="p-reserve">
+<div class="page">
+  <h1>Reserve und Folgestunden</h1>
+  <p class="sub">Alles, was passt, falls etwas schneller geht, oder für die nächsten Klassenlehrerstunden.</p>
+
+  <h2>Kleine Ergänzungen zu den heutigen Teilen</h2>
+  <table>
+    <tr><th>Lektion</th><th>Aktivität</th><th>Dauer</th><th>Wann nutzen</th></tr>
+    <tr><td>6.1 A4</td><td><b>Vom Überreden und Nein-Sagen:</b> Paare A und B. A versucht B zu überzeugen („Hausaufgaben abschaffen?“), B sagt immer nur „Nein“. Eine Minute, danach Reflexion mit A- und B-Gruppe getrennt.</td><td>5 bis 8 Min.</td><td>Vor Teil 2 als Auflockerung oder vor Teil 4 als Einstieg ins Nein-Sagen. Braucht kein Material.</td></tr>
+    <tr><td>6.1 A6</td><td><b>Quiz umgekehrt:</b> Gruppen finden zu Karten (KV 6.1c) drei Reaktionen (eine moralisch richtig, eine lustig übertrieben, eine fragwürdig), die anderen raten.</td><td>20 Min.</td><td>Wenn Teil 2 gut läuft und Zeit bleibt. Braucht Karteikarten und Klebestift.</td></tr>
+    <tr><td>6.2 A1</td><td><b>Schnell und originell:</b> Ball, Fragen wie „ein Tier im Zoo“, „etwas, das süchtig machen kann“, Einwortantworten, keine Wiederholung.</td><td>3 bis 5 Min.</td><td>Energizer vor Teil 3 oder zum Herunterfahren.</td></tr>
+    <tr><td>6.2 A3</td><td><b>Auf Gefühle verschieden reagieren:</b> KV 6.2b, Einzelarbeit, danach Gruppen nach eigener Wahl (senkt das Risiko).</td><td>15 Min.</td><td>Wenn du Teil 3 vertiefen willst.</td></tr>
+    <tr><td>6.2 A4</td><td><b>Dilemmata:</b> Gruppen mit Moderator, fünf Fragen zu einer Karte (KV 6.2c), jede Person sagt einen Satz.</td><td>20 Min.</td><td>Ersatz für A5, wenn die Situationskarten nicht passen.</td></tr>
+    <tr><td>6.3 A1</td><td><b>Tiere raten:</b> Zettel auf dem Rücken, Ja-Nein-Fragen. Übt Klären durch Fragen.</td><td>8 Min.</td><td>Vor IKEA, passt inhaltlich genau.</td></tr>
+    <tr><td>6.3 A2</td><td><b>Die Sonnenbank:</b> Zwei spielen vor, einer redet pausenlos, die andere will Ruhe. Abgrenzung üben.</td><td>10 Min.</td><td>Als Ergänzung zum IKEA-Sketch.</td></tr>
+  </table>
+
+  <h2>Folgestunden</h2>
+  <table>
+    <tr><th>Lektion</th><th>Titel</th><th>Inhalt</th></tr>
+    <tr><td>6.4</td><td>Nein sagen, wichtig, aber nicht einfach</td><td>JA-NEIN-Partnerübung, Chips-Experiment (Überreden im Rollenspiel), Standpunkt zu Rauchen und Alkohol, selbstsicher Nein sagen, spontanes Ablehnen, Sketch zu Gruppendruck. <b>Ab Klasse 6/7 empfohlen.</b></td></tr>
+    <tr><td>6.5</td><td>Der erstaunliche Balanceakt des Körpers</td><td>Experiment zur Aufmerksamkeit, Zusammenspiel der Organe, Auswirkungen psychoaktiver Substanzen.</td></tr>
+    <tr><td>6.6</td><td>Wünsche und Werte</td><td>Bunte Vögel, Rangfolge von Werten, Wertebörse (Werte ersteigern), „Was ist mir wichtig?“. Ab Klasse 7/8.</td></tr>
+    <tr><td>6.7</td><td>Ein kleiner Blick in die Zukunft</td><td>Ziele, kurz- und langfristig, Zeitreise in die eigene Zukunft.</td></tr>
+    <tr><td>6.8</td><td>Was heißt „Erfolg“?</td><td>Gäste kommen, erzählen über Erfolge, Interview in Gruppen, Dankeskarten.</td></tr>
+    <tr><td>6.9</td><td>Fünf Schritte zum Ziel</td><td>Persönliche und gesetzte Ziele, Strategie in fünf Schritten, Planung eines eigenen Ziels.</td></tr>
+  </table>
+  <p class="small">Die Lektionen 6.4 bis 6.9 habe ich nur in den Aktivitäts-Überschriften gelesen, nicht im Detail.</p>
+</div>
+</div>
+
+<script>
+  /* Tabs */
+  const tabBtns=[...document.querySelectorAll('#tabs button')];
+  function tab(name){
+    tabBtns.forEach(b=>b.classList.toggle('on', b.dataset.tab===name));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='p-'+name));
+    try{ history.replaceState(null,'','#'+name); }catch(e){}
+    if(name==='folien') stage.focus();
+    window.scrollTo(0,0);
+  }
+  tabBtns.forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
+
+  /* Folien */
+  const stage=document.getElementById('stage');
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  slides.forEach((s,k)=>{
+    const d=document.createElement('i');
+    const t=s.querySelector('h1,h2') || s.querySelector('.kicker');
+    const roh=t ? t.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]*>/g,'') : '';
+    d.title=(k+1)+' – '+(roh.replace(/\s+/g,' ').trim().slice(0,46) || 'Folie');
+    d.addEventListener('click',ev=>{ ev.stopPropagation(); show(k, k<i); });
+    dots.appendChild(d);
+  });
+  const dotEls=[...dots.children];
+  const counter=document.getElementById('counter');
+  let i=0, stepIdx=0;
+  /* Seitenleiste: Abschnitte aus data-tab und data-group der Folien, Punkte = Folien im Abschnitt */
+  const side=document.getElementById('side'), present=document.getElementById('present');
+  const tabs=[];
+  slides.forEach((s,k)=>{ const n=s.dataset.tab||'Folien'; let t=tabs[tabs.length-1]; if(!t||t.name!==n){ t={name:n,group:s.dataset.group||'',idx:[]}; tabs.push(t); } t.idx.push(k); s._tab=tabs.length-1; });
+  const sideTitle=document.createElement('h2'); sideTitle.textContent=(document.querySelector('.slide h1')||{}).textContent||'Folien'; side.appendChild(sideTitle);
+  const tabBtns2=[]; let lastG='';
+  tabs.forEach(t=>{
+    if(t.group && t.group!==lastG){ const g=document.createElement('div'); g.className='grp'; g.textContent=t.group; side.appendChild(g); }
+    lastG=t.group;
+    const b=document.createElement('button'); b.className='tab'+(t.group?' sub':'');
+    const l=document.createElement('span'); l.textContent=t.name; b.appendChild(l);
+    const p=document.createElement('span'); p.className='punkte';
+    if(t.idx.length>1) t.idx.forEach(k=>{ const d=document.createElement('i'); d.addEventListener('click',ev=>{ ev.stopPropagation(); show(k,false); }); p.appendChild(d); });
+    b.appendChild(p); b.addEventListener('click',()=>{ show(t.idx[0],false); b.blur(); }); side.appendChild(b); tabBtns2.push(b);
+  });
+  const sideHint=document.createElement('div'); sideHint.className='hinweis';
+  sideHint.innerHTML='<kbd>←</kbd> <kbd>→</kbd> Schritt<br><kbd>↑</kbd> <kbd>↓</kbd> Abschnitt<br><kbd>T</kbd> Leiste aus/ein<br><kbd>F</kbd> Vollbild<br><kbd>M</kbd> Mindmap, <kbd>G</kbd> Gruppen, <kbd>U</kbd> Uhr';
+  side.appendChild(sideHint);
+  function updSide(){
+    const ti=slides[i]._tab;
+    tabBtns2.forEach((b,k)=>{
+      b.classList.toggle('aktiv',k===ti);
+      const pos=tabs[k].idx.indexOf(i);
+      b.querySelectorAll('i').forEach((d,j)=>{ d.className=(k===ti&&j<=pos)?'an':''; });
+      if(k===ti && (b.offsetTop<side.scrollTop || b.offsetTop+b.offsetHeight>side.scrollTop+side.clientHeight)) side.scrollTop=Math.max(0,b.offsetTop-60);
+    });
+  }
+  /* Countdown-Uhr: läuft weiter, auch wenn die Folie gewechselt wird */
+  var uhr=document.createElement('div'); uhr.id='uhr';
+  uhr.innerHTML='<span class="ut">0:00</span><button class="pri" data-u="go">Start</button><button data-u="rs" title="Zurücksetzen">↺</button><span class="upre"></span><button data-u="m" title="eine Minute weniger">−1</button><button data-u="p" title="eine Minute mehr">+1</button>';
+  stage.appendChild(uhr);
+  uhr.addEventListener('click',e=>e.stopPropagation());
+  var uSec=0, uEnd=0, uRun=false, uBase=0, uTick=null;
+  const uq=s=>uhr.querySelector(s);
+  function uRest(){ return uRun ? Math.max(0,Math.ceil((uEnd-Date.now())/1000)) : uSec; }
+  function uDraw(){
+    const r=uRest(); uq('.ut').textContent=Math.floor(r/60)+':'+String(r%60).padStart(2,'0');
+    uhr.classList.toggle('knapp', r>0&&r<=60&&(uRun||r<uBase)); uhr.classList.toggle('aus', r===0&&uBase>0);
+    uq('[data-u=go]').textContent=uRun?'Pause':(r===0?'Fertig':'Start');
+    uhr.style.display=(slides[i].dataset.timer||uRun||(uBase>0&&r===0))?'flex':'none';
+  }
+  function uBeep(){ try{ const ac=new (window.AudioContext||window.webkitAudioContext)(); [0,.35,.7].forEach(d=>{ const o=ac.createOscillator(), g=ac.createGain(); o.frequency.value=880; g.gain.value=.15; o.connect(g); g.connect(ac.destination); o.start(ac.currentTime+d); o.stop(ac.currentTime+d+.2); }); }catch(e){} }
+  function uStop(){ uRun=false; clearInterval(uTick); }
+  function uSet(min){ uStop(); uBase=min*60; uSec=uBase; uMarks(); uDraw(); }
+  function uMarks(){ uhr.querySelectorAll('.upre button').forEach(b=>b.classList.toggle('on',+b.dataset.min*60===uBase)); }
+  function uToggle(){
+    if(uRun){ uSec=uRest(); uStop(); }
+    else if(uSec>0){ uEnd=Date.now()+uSec*1000; uRun=true; uTick=setInterval(()=>{ if(uRest()===0){ uSec=0; uStop(); uBeep(); } uDraw(); },250); }
+    uDraw();
+  }
+  function uSlide(){
+    const a=slides[i].dataset.timer;
+    if(a && !uRun){
+      const p=a.split(',').map(Number), box=uq('.upre'); box.innerHTML='';
+      if(p.length>1) p.forEach(m=>{ const b=document.createElement('button'); b.dataset.min=m; b.textContent=m+' Min.'; b.addEventListener('click',()=>uSet(m)); box.appendChild(b); });
+      uSet(p[0]);
+    }
+    uDraw();
+  }
+  uq('[data-u=go]').addEventListener('click',uToggle);
+  uq('[data-u=rs]').addEventListener('click',()=>{ const m=uBase/60; if(m) uSet(m); });
+  uq('[data-u=m]').addEventListener('click',()=>{ if(uRun) uEnd-=60000; else uSec=Math.max(0,uSec-60); uDraw(); });
+  uq('[data-u=p]').addEventListener('click',()=>{ if(uRun) uEnd+=60000; else uSec+=60; uDraw(); });
+  function tabStep(d){ const ti=Math.max(0,Math.min(tabs.length-1,slides[i]._tab+d)); show(tabs[ti].idx[0],false); }
+  const steps = n => [...slides[n].querySelectorAll('[data-step]')];
+  function applySteps(){
+    steps(i).forEach((el,k)=>el.classList.toggle('shown', k < stepIdx));
+    const n=steps(i).length;
+    counter.textContent=(i+1)+' / '+slides.length+(n?'  –  '+stepIdx+'/'+n:'');
+  }
+  const hintbox=document.getElementById('hintbox'), hintbody=document.getElementById('hintbody');
+  function updHint(){
+    const t=slides[i].querySelector('template.hint');
+    hintbox.hidden=!t;
+    hintbody.innerHTML=t?t.innerHTML:'';
+  }
+  document.getElementById('hinttog').addEventListener('click',()=>{ hintbox.classList.toggle('zu'); document.getElementById('hinttog').textContent=hintbox.classList.contains('zu')?'einblenden':'ausblenden'; });
+  function show(n, revealAll){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+    stepIdx = revealAll ? steps(i).length : 0;
+    applySteps();
+    updHint();
+    updSide();
+    uSlide();
+  }
+  function next(){ if(stepIdx < steps(i).length){ stepIdx++; applySteps(); return; } show(i+1,false); }
+  function prev(){ if(stepIdx > 0){ stepIdx--; applySteps(); return; } show(i-1,true); }
+  show(0,false);
+
+  document.addEventListener('keydown',e=>{
+    if(!document.getElementById('p-folien').classList.contains('on')) return;
+    const k=e.key;
+    if(grpOpen){
+      if(e.target.closest&&e.target.closest('textarea, input')){ if(k==='Escape') e.target.blur(); return; }
+      if(k==='Escape'||k.toLowerCase()==='g'){ grpToggle(); e.preventDefault(); }
+      else if(k===' '||k==='Enter'||k.toLowerCase()==='n'){ grpMix(); e.preventDefault(); }
+      return;
+    }
+    if(k.toLowerCase()==='g'&&!mmOpen){ grpToggle(); e.preventDefault(); return; }
+    if(k.toLowerCase()==='u'&&!mmOpen){ uToggle(); e.preventDefault(); return; }
+    if(mmOpen){ if(k==='m'&&!e.target.closest('.excalidraw-textEditorContainer, textarea, input')){ mmToggle(); e.preventDefault(); } return; }
+    if(k.toLowerCase()==='m'){ mmToggle(); e.preventDefault(); return; }
+    if(k==='ArrowRight'||k===' '||k==='PageDown'){next();e.preventDefault();}
+    else if(k==='ArrowLeft'||k==='PageUp'){prev();e.preventDefault();}
+    else if(k==='ArrowDown'){tabStep(1);e.preventDefault();}
+    else if(k==='ArrowUp'){tabStep(-1);e.preventDefault();}
+    else if(k.toLowerCase()==='a'){show(i,true);e.preventDefault();}
+    else if(k==='Home')show(0,false);
+    else if(k==='End')show(slides.length-1,true);
+    else if(k.toLowerCase()==='f'){ toggleFs(); }
+    else if(k.toLowerCase()==='t'){ present.classList.toggle('nav-aus'); e.preventDefault(); }
+  });
+  function toggleFs(){ if(!document.fullscreenElement) present.requestFullscreen(); else document.exitFullscreen(); }
+  stage.addEventListener('click',e=>{ const r=stage.getBoundingClientRect(); (e.clientX-r.left) < r.width/2 ? prev() : next(); });
+  document.getElementById('prev').addEventListener('click',prev);
+  document.getElementById('next').addEventListener('click',next);
+  document.getElementById('fs').addEventListener('click',toggleFs);
+
+
+  /* Mindmap: Excalidraw, lazy geladen, eine Fläche für Folie 4 und 5 */
+  const MM_KEY='kluge-mindmap-v1';
+  let mmOpen=false, mmApi=null, mmLoading=false;
+  const mmEl=document.createElement('div');
+  mmEl.id='mm';
+  mmEl.innerHTML='<div class="mmhost"></div><div class="mmbar"><button class="zurueck">Zurück zur Folie (M)</button><button data-g="a">Spontan / Grundsätzlich</button><button data-g="b">Kleidung</button></div>';
+  stage.appendChild(mmEl);
+  ['click','mousedown','mouseup','pointerdown'].forEach(t=>mmEl.addEventListener(t,e=>e.stopPropagation()));
+  const mmSeed=()=>ExcalidrawLib.convertToExcalidrawElements([
+    {type:'text',id:'a-t1',x:-420,y:-200,text:'Spontan',fontSize:44,strokeColor:'#1f4f3a'},
+    {type:'text',id:'a-t2',x:140,y:-200,text:'Grundsätzlich',fontSize:44,strokeColor:'#9a5a1a'},
+    {type:'text',id:'a-t3',x:-420,y:-140,text:'nach Lust und Laune',fontSize:24,strokeColor:'#6b7280'},
+    {type:'text',id:'a-t4',x:140,y:-140,text:'gilt für längere Zeit',fontSize:24,strokeColor:'#6b7280'},
+    {type:'line',id:'a-l',x:0,y:-220,points:[[0,0],[0,640]],strokeWidth:3,strokeColor:'#9a9488'},
+    {type:'ellipse',id:'b-e',x:2600,y:-70,width:380,height:150,label:{text:'Kleidung',fontSize:44},strokeColor:'#1f4f3a'}
+  ]);
+  function mmGo(g){
+    if(!mmApi) return;
+    const els=mmApi.getSceneElements().filter(e=>!e.isDeleted && (g==='b' ? e.x>=1500 : e.x<1500));
+    mmApi.updateScene({appState:{zoom:{value:1}}});
+    if(els.length) mmApi.scrollToContent(els,{fitToContent:false,animate:false});
+  }
+  function mmLoad(src){ return new Promise((ok,err)=>{ const x=document.createElement('script'); x.src=src; x.onload=ok; x.onerror=()=>err(new Error(src)); document.head.appendChild(x); }); }
+  async function mmInit(g){
+    if(mmLoading) return; mmLoading=true;
+    const host=mmEl.querySelector('.mmhost');
+    host.innerHTML='<div class="mmmsg">Zeichenfläche wird geladen ...</div>';
+    try{
+      window.EXCALIDRAW_ASSET_PATH='./_excalidraw/';
+      window.process=window.process||{env:{IS_PREACT:'false'}};
+      await mmLoad('_excalidraw/react.production.min.js');
+      await mmLoad('_excalidraw/react-dom.production.min.js');
+      await mmLoad('_excalidraw/excalidraw.production.min.js');
+      let els=null;
+      try{ const t=localStorage.getItem(MM_KEY); if(t) els=JSON.parse(t); }catch(e){}
+      if(!els||!els.length) els=mmSeed();
+      host.innerHTML='';
+      let tm=null;
+      const el=React.createElement(ExcalidrawLib.Excalidraw,{
+        langCode:'de-DE',
+        initialData:{elements:els, appState:{viewBackgroundColor:'#fffdf7', currentItemFontSize:36, zoom:{value:1}}},
+        excalidrawAPI:api=>{ mmApi=api; setTimeout(()=>mmGo(g),150); },
+        onChange:els2=>{ clearTimeout(tm); tm=setTimeout(()=>{ try{ localStorage.setItem(MM_KEY, JSON.stringify(els2.filter(e=>!e.isDeleted))); }catch(e){} },600); },
+        UIOptions:{canvasActions:{loadScene:false, saveToActiveFile:false}}
+      });
+      ReactDOM.createRoot(host).render(el);
+    }catch(e){
+      host.innerHTML='<div class="mmmsg">Die Zeichenfläche konnte nicht geladen werden. Liegt der Ordner _excalidraw neben dieser Datei?</div>';
+    }
+    mmLoading=false;
+  }
+  function mmToggle(g){
+    mmOpen=!mmOpen;
+    mmEl.classList.toggle('on',mmOpen);
+    if(mmOpen){
+      g=g||(i===4?'b':'a');
+      if(mmApi) mmGo(g); else mmInit(g);
+    }else{
+      stage.focus();
+    }
+  }
+  document.querySelectorAll('.mmbtn').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); mmToggle(b.dataset.mm); }));
+  mmEl.querySelector('.zurueck').addEventListener('click',()=>mmToggle());
+  mmEl.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>mmGo(b.dataset.g)));
+
+  /* Gruppen-Generator: Zufall aus der Klassenliste. Die Namen bleiben im Browser (localStorage), nicht in dieser Datei. */
+  const GRP_KEY='klasse-namen-v1';
+  const GRP_COL=['#2f6f4f','#c2531e','#2457a6','#8a3d9a','#8a6a14','#0f7b8a','#a33a54','#5a6b1f'];
+  let grpOpen=false, grpN=5, grpNums=24, grpState={};
+  const grpEl=document.createElement('div'); grpEl.id='grp';
+  grpEl.innerHTML='<div class="gtop"><h3>Gruppen auslosen</h3>'
+    +'<span class="cnt">Gruppen <button data-d="-1">−</button><b id="gn">5</b><button data-d="1">+</button></span>'
+    +'<span class="cnt" id="gnumwrap">Nummern bis <button data-nd="-1">−</button><b id="gnum">24</b><button data-nd="1">+</button></span>'
+    +'<button id="gmix" class="pri">Neu mischen (N)</button><button id="glist">Klassenliste</button><button id="gback">Zurück (G)</button></div>'
+    +'<div class="gpanel" id="gpanel"><b>Klassenliste</b>: einmal die Namensspalte aus Excel kopieren und hier einfügen, eine Zeile pro Person. Es werden nur Vornamen angezeigt. Die Namen bleiben nur in diesem Browser auf diesem Gerät, sie stehen nicht in der Datei.'
+    +'<textarea id="gtext" placeholder="Eine Person pro Zeile"></textarea>'
+    +'<div class="row"><label>In der Liste steht zuerst der <select id="gord"><option value="nv">Nachname</option><option value="vn">Vorname</option></select></label><span id="gprev" class="ghint"></span></div>'
+    +'<div class="row"><button id="gsave" class="pri">Speichern</button><label><button id="gfilebtn" type="button">Aus Textdatei laden (.txt, .csv)</button><input id="gfile" type="file" accept=".txt,.csv,text/plain,text/csv" hidden></label><button id="gclear">Liste löschen</button><span id="gcount" class="ghint"></span></div>'
+    +'<div class="ghint">Ohne Liste werden Nummern gemischt.</div></div>'
+    +'<div class="gbody" id="gbody"></div>';
+  stage.appendChild(grpEl);
+  grpEl.addEventListener('click',e=>e.stopPropagation());
+  const gq=s=>grpEl.querySelector(s);
+  const GRP_KEY2='klasse-namen-v2', GRP_ORD='klasse-reihenfolge';
+  function grpRaw(){ try{ let a=JSON.parse(localStorage.getItem(GRP_KEY2)||'null'); if(!Array.isArray(a)) a=JSON.parse(localStorage.getItem(GRP_KEY)||'[]'); return Array.isArray(a)?a:[]; }catch(e){ return []; } }
+  function grpOrder(){ try{ return localStorage.getItem(GRP_ORD)||'nv'; }catch(e){ return 'nv'; } }
+  /* eine Zeile der Liste in Vorname und Nachname zerlegen: ord 'nv' = Nachname zuerst, 'vn' = Vorname zuerst */
+  function splitName(raw,ord){
+    const parts=raw.split(/[\t;]/).map(x=>x.trim()).filter(Boolean); let v,n;
+    if(parts.length>=2){ if(ord==='nv'){ n=parts[0]; v=parts[1]; } else { v=parts[0]; n=parts[1]; } }
+    else{
+      const s=parts[0]||'';
+      if(s.includes(',')){ const q=s.split(',').map(x=>x.trim()).filter(Boolean); if(ord==='nv'){ n=q[0]; v=q.slice(1).join(' '); } else { n=q[q.length-1]; v=q.slice(0,-1).join(' '); } }
+      else{ const w=s.split(/\s+/); if(w.length<2){ v=s; n=''; } else if(ord==='nv'){ n=w[0]; v=w.slice(1).join(' '); } else { n=w[w.length-1]; v=w.slice(0,-1).join(' '); } }
+    }
+    return {v:v||'',n:n||''};
+  }
+  /* angezeigt werden nur Vornamen; bei doppelten Vornamen kommt der Anfangsbuchstabe des Nachnamens dazu */
+  function grpNames(){
+    const o=grpOrder(), L=grpRaw().map(r=>splitName(r,o)).filter(x=>x.v), cnt={};
+    L.forEach(x=>{ cnt[x.v]=(cnt[x.v]||0)+1; });
+    return L.map(x=>cnt[x.v]>1&&x.n ? x.v+' '+x.n[0]+'.' : x.v);
+  }
+  function grpPool(){ const n=grpNames(); return n.length?n:Array.from({length:grpNums},(_,k)=>String(k+1)); }
+  function rnd(n){ const b=new Uint32Array(1), lim=Math.floor(4294967296/n)*n; let x; do{ crypto.getRandomValues(b); x=b[0]; }while(x>=lim); return x%n; }
+  function grpMix(){
+    const p=grpPool().slice();
+    for(let k=p.length-1;k>0;k--){ const j=rnd(k+1); [p[k],p[j]]=[p[j],p[k]]; }
+    const g=Array.from({length:grpN},()=>[]);
+    p.forEach((x,k)=>g[k%grpN].push(x));
+    g.forEach(a=>a.sort((x,y)=>x.localeCompare(y,'de',{numeric:true})));
+    grpState[grpN]={g,size:p.length};
+    grpDraw();
+  }
+  function grpDraw(){
+    const names=grpRaw().length>0;
+    gq('#gn').textContent=grpN; gq('#gnum').textContent=grpNums;
+    gq('#gnumwrap').style.display=names?'none':'';
+    const s=grpState[grpN];
+    if(!s||s.size!==grpPool().length){ grpMix(); return; }
+    const body=gq('#gbody');
+    body.style.setProperty('--gc', grpN<=2?grpN:grpN<=4?2:grpN<=6?3:4);
+    const mx=Math.max(...s.g.map(a=>a.length));
+    body.style.setProperty('--gf', (mx>8?1.6:mx>6?1.8:2)+'cqw');
+    body.innerHTML=s.g.map((a,k)=>`<div class="gc" style="--gcol:${GRP_COL[k%GRP_COL.length]};animation-delay:${k*70}ms"><h4>Gruppe ${k+1}</h4><ul>${a.map(x=>'<li>'+x.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+'</li>').join('')}</ul></div>`).join('');
+  }
+  function grpToggle(n){
+    grpOpen=!grpOpen; grpEl.classList.toggle('on',grpOpen);
+    if(grpOpen){ gq('#gpanel').classList.remove('on'); if(n) grpN=n; grpDraw(); } else stage.focus();
+  }
+  document.querySelectorAll('.grpbtn').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); grpToggle(+b.dataset.grp); }));
+  gq('#gback').addEventListener('click',()=>grpToggle());
+  gq('#gmix').addEventListener('click',grpMix);
+  grpEl.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',()=>{ grpN=Math.min(10,Math.max(2,grpN+(+b.dataset.d))); grpDraw(); }));
+  grpEl.querySelectorAll('[data-nd]').forEach(b=>b.addEventListener('click',()=>{ grpNums=Math.min(40,Math.max(4,grpNums+(+b.dataset.nd))); grpState={}; grpDraw(); }));
+  function grpPrev(){ const n=grpNames(); gq('#gprev').textContent=n.length?'Vorschau: '+n.slice(0,4).join(', ')+(n.length>4?' …':''):''; gq('#gcount').textContent=n.length?n.length+' Namen gespeichert':''; }
+  gq('#glist').addEventListener('click',()=>{ const p=gq('#gpanel'); p.classList.toggle('on'); if(p.classList.contains('on')){ gq('#gtext').value=grpRaw().join('\n'); gq('#gord').value=grpOrder(); grpPrev(); } });
+  gq('#gord').addEventListener('change',e=>{ try{ localStorage.setItem(GRP_ORD,e.target.value); }catch(x){} grpState={}; grpPrev(); grpDraw(); });
+  function parseList(txt){ return txt.split(/\r?\n/).map(l=>l.trim()).filter(Boolean); }
+  gq('#gsave').addEventListener('click',()=>{ const a=parseList(gq('#gtext').value); try{ localStorage.setItem(GRP_KEY2,JSON.stringify(a)); localStorage.removeItem(GRP_KEY); }catch(e){} grpState={}; gq('#gpanel').classList.remove('on'); grpDraw(); });
+  gq('#gclear').addEventListener('click',()=>{ try{ localStorage.removeItem(GRP_KEY); localStorage.removeItem(GRP_KEY2); }catch(e){} gq('#gtext').value=''; grpState={}; gq('#gprev').textContent=''; gq('#gcount').textContent='Liste gelöscht'; grpDraw(); });
+  gq('#gfilebtn').addEventListener('click',()=>gq('#gfile').click());
+  gq('#gfile').addEventListener('change',e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ gq('#gtext').value=parseList(String(r.result)).join('\n'); }; r.readAsText(f); });
+
+  const start=(location.hash||'').slice(1);
+  if(tabBtns.some(b=>b.dataset.tab===start)) tab(start);
+</script>
+</body>
+</html>

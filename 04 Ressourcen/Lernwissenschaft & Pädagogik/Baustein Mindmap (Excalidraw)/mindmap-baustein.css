@@ -1,0 +1,10 @@
+  /* Mindmap-Zeichenfläche (Excalidraw, offline aus _excalidraw/) */
+  .mmbtn{position:absolute; right:2cqw; bottom:1.6cqw; font:inherit; font-size:1.3cqw; font-weight:600; padding:.5cqw 1.3cqw; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--accent); cursor:pointer}
+  .mmbtn:hover{background:#dfeee6}
+  #mm{position:absolute; inset:0; z-index:50; display:none; background:#fff}
+  #mm.on{display:block}
+  #mm .mmhost{position:absolute; inset:0}
+  #mm .mmbar{position:absolute; bottom:14px; left:50%; transform:translateX(-50%); z-index:100; display:flex; gap:8px}
+  #mm .mmbar button{white-space:nowrap; font:inherit; font-size:15px; font-weight:600; padding:8px 16px; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--ink); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  #mm .mmbar button.zurueck{background:var(--accent); color:#fff; border-color:var(--accent)}
+  #mm .mmmsg{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:18px}

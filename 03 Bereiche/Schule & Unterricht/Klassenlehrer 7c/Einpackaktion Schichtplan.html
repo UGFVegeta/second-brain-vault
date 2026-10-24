@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einpackaktion Schichtplan</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--mute:#6e6e73;--line:#d2d2d7;--accent:#0071e3;--ok:#e8f3ea;--okline:#7bb88a;--chip:#e8f0fe}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+header{padding:18px 24px;background:var(--card);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+h1{font-size:24px;margin:0 12px 0 0}
+.seg{display:inline-flex;background:#e8e8ed;border-radius:9px;padding:2px}
+.seg button{border:0;background:none;padding:6px 14px;border-radius:7px;font:inherit;cursor:pointer;color:var(--ink)}
+.seg button.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15);font-weight:600}
+.tools{margin-left:auto;display:flex;gap:8px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;font:inherit;cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+main{display:grid;grid-template-columns:260px 1fr;gap:20px;padding:20px 24px;align-items:start}
+.pool{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.pool h2{font-size:13px;margin:0 0 8px;color:var(--mute);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-height:34px}
+.chip{background:var(--chip);border:1px solid #c3d4f5;border-radius:999px;padding:4px 12px;cursor:grab;user-select:none;font-weight:500}
+.chip.sel{outline:2px solid var(--accent)}
+.chip.dragging{opacity:.4}
+.slot .chip{background:#fff;border-color:var(--line)}
+.slot .chip .x{margin-left:6px;color:var(--mute);cursor:pointer}
+.slot .chip .x:hover{color:#c00}
+textarea{width:100%;height:120px;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;resize:vertical;margin-top:10px}
+.hint{color:var(--mute);font-size:13px;margin-top:6px}
+.board{display:grid;gap:16px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.row h3{margin:0 0 10px;font-size:19px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.slot{border:2px dashed var(--line);border-radius:10px;padding:8px;min-height:90px;transition:.12s}
+.slot.over{border-color:var(--accent);background:#eef5ff}
+.slot h4{margin:0 0 6px;font-size:13px;color:var(--mute);font-weight:600;display:flex;justify-content:space-between}
+.slot .chips{gap:5px}
+.empty{color:var(--mute);font-size:13px}
+.done{background:var(--ok);border-color:var(--okline);color:#2d6a3e;padding:8px 10px;border-radius:8px;font-size:13px;margin-top:8px}
+@media(max-width:800px){main{grid-template-columns:1fr}.pool{position:static;max-height:none}.cols{grid-template-columns:1fr}}
+@media print{header .tools,.pool textarea,.pool .hint,.x{display:none}main{grid-template-columns:1fr}.pool{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Einpackaktion Schichtplan 7c</h1>
+  <div class="seg" id="dateTabs"></div>
+  <div class="seg" id="optTabs"></div>
+  <div class="tools">
+    <button class="btn" id="btnAuto">Gleichmäßig verteilen</button>
+    <button class="btn" id="btnClear">Dieser Termin leeren</button>
+    <button class="btn" onclick="window.print()">Drucken</button>
+  </div>
+</header>
+<main>
+  <aside class="pool">
+    <h2 id="poolTitle">Noch nicht eingeteilt</h2>
+    <div class="chips" id="pool"></div>
+    <div class="hint">Name ziehen oder anklicken und dann das Feld anklicken.</div>
+    <textarea id="names" placeholder="Liste einfügen, eine Person pro Zeile: Nachname, Vorname (oder Nachname Vorname)"></textarea>
+    <button class="btn" id="btnNames" style="margin-top:6px">Namensliste übernehmen</button>
+    <div class="hint">Der Nachname wird beim Übernehmen verworfen. Nur bei gleichen Vornamen bleibt der Anfangsbuchstabe (z. B. "Max K.").</div>
+    <div class="hint">Die Namen bleiben nur in diesem Browser gespeichert, nicht in der Datei.</div>
+  </aside>
+  <section class="board" id="board"></section>
+</main>
+<script>
+const DATES=[{id:'d1',label:'Sa 7.11.'},{id:'d2',label:'Sa 21.11.'}];
+const OPTS={
+  A:{label:'2 Zeitfenster (9–12, 12–15)',times:['9–12 Uhr','12–15 Uhr']},
+  B:{label:'3 Zeitfenster (9–11, 11–13, 13–15)',times:['9–11 Uhr','11–13 Uhr','13–15 Uhr']}
+};
+const KEY='einpack7c_v1';
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S)S={names:[],date:'d1',opt:{d1:'A',d2:'A'},plan:{d1:{},d2:{}}};
+// Altbestand "Nachname, Vorname" auf Vornamen umstellen (bei gleichen Vornamen Anfangsbuchstabe)
+(function(){
+  if(!S.names.some(n=>n.includes(','))&&!S.names.some(n=>n.includes(';')))return;
+  const split=n=>{const m=n.split(/\s*[,;\t]\s*/);return m.length>=2?{first:m[1].trim(),last:m[0].trim()}:{first:n,last:''}};
+  const rows=S.names.map(split),cnt={};
+  rows.forEach(r=>cnt[r.first]=(cnt[r.first]||0)+1);
+  const map={};
+  S.names.forEach((n,i)=>{const r=rows[i];map[n]=cnt[r.first]>1&&r.last?`${r.first} ${r.last[0]}.`:r.first});
+  S.names=S.names.map(n=>map[n]);
+  for(const d in S.plan)for(const k in S.plan[d])S.plan[d][k]=S.plan[d][k].map(n=>map[n]||n);
+})();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+let sel=null;
+
+const $=id=>document.getElementById(id);
+const slotKey=(t,g)=>t+'|'+g;
+
+function assigned(d){return Object.values(S.plan[d]).flat()}
+
+function render(){
+  const d=S.date,o=S.opt[d],O=OPTS[o];
+  $('dateTabs').innerHTML=DATES.map(x=>`<button class="${x.id===d?'on':''}" data-d="${x.id}">${x.label}</button>`).join('');
+  $('optTabs').innerHTML=Object.keys(OPTS).map(k=>`<button class="${k===o?'on':''}" data-o="${k}" title="${OPTS[k].label}">Option ${k}: ${OPTS[k].times.length} Fenster</button>`).join('');
+  const used=new Set(assigned(d));
+  const free=S.names.filter(n=>!used.has(n));
+  $('poolTitle').textContent=`Noch nicht eingeteilt (${free.length})`;
+  $('pool').innerHTML=free.length?free.map(n=>chip(n)).join(''):'<span class="empty">'+(S.names.length?'Alle eingeteilt.':'Namensliste unten einfügen.')+'</span>';
+  $('board').innerHTML=O.times.map(t=>{
+    const cnt=[0,1,2].reduce((a,g)=>a+(S.plan[d][slotKey(t,g)]||[]).length,0);
+    return `<div class="row"><h3>${t} <span style="color:var(--mute);font-weight:400">(${cnt})</span></h3><div class="cols">`+
+      [0,1,2].map(g=>{
+        const arr=S.plan[d][slotKey(t,g)]||[];
+        return `<div class="slot" data-k="${slotKey(t,g)}"><h4><span>Schicht ${g+1}</span><span>${arr.length}</span></h4><div class="chips">${arr.map(n=>chip(n,true)).join('')||'<span class="empty">leer</span>'}</div></div>`;
+      }).join('')+`</div></div>`;
+  }).join('')+(S.names.length&&!free.length?'<div class="done">Alle Schüler für diesen Termin eingeteilt.</div>':'');
+  bind();
+}
+function chip(n,inSlot){
+  return `<span class="chip${sel===n?' sel':''}" draggable="true" data-n="${esc(n)}">${esc(n)}${inSlot?'<span class="x" title="Entfernen">×</span>':''}</span>`;
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function place(name,k){
+  const d=S.date;
+  for(const key in S.plan[d])S.plan[d][key]=S.plan[d][key].filter(x=>x!==name);
+  if(k){(S.plan[d][k]=S.plan[d][k]||[]).push(name)}
+  sel=null;save();render();
+}
+
+function bind(){
+  document.querySelectorAll('.chip').forEach(c=>{
+    const n=c.dataset.n.replace(/&amp;/g,'&');
+    c.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',c.dataset.n);c.classList.add('dragging')});
+    c.addEventListener('dragend',()=>c.classList.remove('dragging'));
+    c.addEventListener('click',e=>{
+      if(e.target.classList.contains('x')){place(c.dataset.n,null);return}
+      sel=sel===c.dataset.n?null:c.dataset.n;render();
+    });
+  });
+  document.querySelectorAll('.slot').forEach(s=>{
+    s.addEventListener('dragover',e=>{e.preventDefault();s.classList.add('over')});
+    s.addEventListener('dragleave',()=>s.classList.remove('over'));
+    s.addEventListener('drop',e=>{e.preventDefault();place(e.dataTransfer.getData('text/plain'),s.dataset.k)});
+    s.addEventListener('click',e=>{if(sel&&!e.target.closest('.chip'))place(sel,s.dataset.k)});
+  });
+  const p=$('pool');
+  p.addEventListener('dragover',e=>e.preventDefault());
+  p.addEventListener('drop',e=>{e.preventDefault();place(e.dataTransfer.getData('text/plain'),null)});
+}
+
+$('dateTabs').addEventListener('click',e=>{const d=e.target.dataset.d;if(d){S.date=d;sel=null;save();render()}});
+$('optTabs').addEventListener('click',e=>{
+  const o=e.target.dataset.o;if(!o||o===S.opt[S.date])return;
+  if(assigned(S.date).length&&!confirm('Beim Wechsel der Option wird die Einteilung dieses Termins geleert. Fortfahren?'))return;
+  S.opt[S.date]=o;S.plan[S.date]={};save();render();
+});
+$('btnNames').onclick=()=>{
+  const rows=$('names').value.split('\n').map(x=>x.trim()).filter(Boolean).map(l=>{
+    let last='',first=l;
+    const m=l.split(/\s*[,;\t]\s*/);
+    if(m.length>=2){last=m[0];first=m[1]}
+    else{const w=l.split(/\s+/);if(w.length>=2){last=w[0];first=w.slice(1).join(' ')}}
+    return {first:first.trim(),last:last.trim()};
+  });
+  if(!rows.length)return;
+  const count={};rows.forEach(r=>count[r.first]=(count[r.first]||0)+1);
+  const list=rows.map(r=>count[r.first]>1&&r.last?`${r.first} ${r.last[0]}.`:r.first);
+  S.names=[...new Set(list)];
+  for(const d of ['d1','d2'])for(const k in S.plan[d])S.plan[d][k]=S.plan[d][k].filter(n=>S.names.includes(n));
+  $('names').value='';save();render();
+};
+$('btnClear').onclick=()=>{if(confirm('Einteilung für diesen Termin leeren?')){S.plan[S.date]={};save();render()}};
+$('btnAuto').onclick=()=>{
+  const d=S.date,O=OPTS[S.opt[d]];
+  const slots=[];O.times.forEach(t=>[0,1,2].forEach(g=>slots.push(slotKey(t,g))));
+  const used=new Set(assigned(d));
+  const free=S.names.filter(n=>!used.has(n));
+  free.forEach(n=>{
+    slots.sort((a,b)=>(S.plan[d][a]||[]).length-(S.plan[d][b]||[]).length);
+    (S.plan[d][slots[0]]=S.plan[d][slots[0]]||[]).push(n);
+  });
+  save();render();
+};
+render();
+</script>
+</body>
+</html>

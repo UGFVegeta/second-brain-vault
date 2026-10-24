@@ -1,0 +1,22 @@
+  /* Gruppen-Generator: mischt die Klassenliste, Namen nur im Browser (localStorage), nie in dieser Datei */
+  .grpbtn{position:absolute; right:3cqw; top:2cqw; z-index:5; font:inherit; font-size:1.9cqw; font-weight:700; padding:.8cqw 2cqw; border:0; border-radius:99px; background:var(--accent); color:#fff; cursor:pointer; box-shadow:0 .3cqw 1cqw rgba(47,111,79,.35)}
+  .grpbtn:hover{background:#255a40}
+  #grp{position:absolute; inset:0; z-index:60; display:none; flex-direction:column; background:#fffdf7; padding:2cqw 3cqw 1.6cqw}
+  #grp.on{display:flex}
+  #grp .gtop{display:flex; align-items:center; gap:1.2cqw; flex-wrap:wrap; margin-bottom:1.4cqw}
+  #grp h3{font-size:2.4cqw; margin-right:auto}
+  #grp button{white-space:nowrap; font:inherit; font-size:1.25cqw; font-weight:600; padding:.55cqw 1.3cqw; border:1px solid var(--line); border-radius:99px; background:var(--paper); color:var(--ink); cursor:pointer}
+  #grp button.pri{background:var(--accent); color:#fff; border-color:var(--accent)}
+  #grp .cnt{display:inline-flex; align-items:center; gap:.5cqw; font-size:1.25cqw; color:var(--muted)}
+  #grp .cnt b{min-width:2ch; text-align:center; color:var(--ink); font-size:1.6cqw}
+  #grp .cnt button{padding:.3cqw .9cqw}
+  #grp .gbody{flex:1; display:grid; gap:1.2cqw; grid-template-columns:repeat(var(--gc,3),1fr); align-content:start; overflow:auto}
+  #grp .gc{background:#fff; border:2px solid var(--gcol); border-radius:1.2cqw; padding:.9cqw 1.3cqw 1.1cqw; opacity:0; transform:translateY(.8cqw); animation:gin .35s forwards}
+  #grp .gc h4{font-size:1.5cqw; color:var(--gcol); margin-bottom:.5cqw; letter-spacing:.04em; text-transform:uppercase}
+  #grp .gc li{list-style:none; font-size:var(--gf,2cqw); line-height:1.4; font-weight:600}
+  @keyframes gin{to{opacity:1; transform:none}}
+  #grp .gpanel{display:none; background:var(--paper); border:1px solid var(--line); border-radius:1.2cqw; padding:1.2cqw 1.5cqw; margin-bottom:1.2cqw; font-size:1.25cqw}
+  #grp .gpanel.on{display:block}
+  #grp textarea{width:100%; height:11cqw; font:inherit; font-size:1.2cqw; padding:.6cqw .8cqw; border:1px solid var(--line); border-radius:.8cqw; margin:.6cqw 0}
+  #grp .gpanel .row{display:flex; gap:.8cqw; align-items:center; flex-wrap:wrap}
+  #grp .ghint{color:var(--muted); font-size:1.15cqw; margin-top:.5cqw}
