@@ -23,6 +23,15 @@ Oskar Klein, Realschullehrer (Physik, Mathematik, Sport) in Baden-Württemberg, 
 
 Keine personenbezogenen Daten von Schülern, Eltern oder Kollegen im Vault speichern. Das gilt für Namen, Noten, Vorfälle, persönliche Informationen. Im Vault landen nur: Vorlagen, Kommunikationsmuster, allgemeine Strukturen und Oskars eigene Reflexionen ohne Personenbezug. Bei Unsicherheit kurz nachfragen.
 
+## Private Dokumente (nicht in den Vault)
+
+Private PDFs und Dateien, die Oskar persönlich betreffen (Verträge, Bescheide, Versicherungen, Bestellungen, Befunde, alles mit Steuer-ID, Geburtsdatum, Einkommen oder Kontodaten), kommen nie in den Vault, weil der per Git nach GitHub geht. Sie werden in iCloud abgelegt: `~/Library/Mobile Documents/com~apple~CloudDocs/Privat/Wichtige Dokumente/`, sortiert nach Unterordner (Auto, Versicherungen, Finanzen und Steuern, Wohnen und Haus, Gesundheit, Familie und Kinder, Beruf und Besoldung, Verträge und Kündigungen, Ausweise und Urkunden). Übersicht und Regeln stehen dort in `Übersicht.md`.
+
+- Bekommt Oskar so ein Dokument oder schickt er eins, ohne dass er etwas anderes sagt: dorthin kopieren (Original in Downloads bleibt) und den Ablageort nennen. Unterordner bei Bedarf anlegen.
+- Im Vault steht höchstens eine Zusammenfassung ohne die sensiblen Angaben, mit Verweis auf den iCloud-Pfad (Beispiel: `02 Projekte/BMW iX1 Fahrzeugdaten.md`).
+- Beim Suchen nach einem privaten Dokument zuerst dort nachsehen. Der alte lose Inhalt in `Privat/` bleibt, wo er ist, und wird nicht ungefragt umsortiert.
+- PDFs weiterhin mit dem `firecrawl-parse` Skill lesen, die geparsten Texte landen in `.firecrawl/` (gitignored).
+
 ## Excalidraw-Regeln
 
 - Für Verbindungen zwischen Elementen in Mindmaps und Diagrammen immer **Pfeile** (`"type": "arrow"`) verwenden, **keine Linien** (`"type": "line"`). Linien sind nicht mit Elementen verbunden und hängen frei im Raum.
