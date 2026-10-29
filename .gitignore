@@ -42,3 +42,7 @@ node_modules/
 
 # Sitzplan-Sicherungen enthalten Schülernamen, gehören nie ins Repo
 Sitzplaene-*.json
+
+# Golf-Verkauf: Interessenten-Daten nicht ins Repo
+02 Projekte/Golf Verkauf/Anfragen.html
+02 Projekte/Golf Verkauf/kleinanzeigen.json

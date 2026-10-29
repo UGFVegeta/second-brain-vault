@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tagesblatt Varianten</title>
+<style>
+  :root { --bg:#f3f4f7; --ink:#2e3440; --muted:#6b7385; --blue:#6e86b5; --card:#fff; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 -apple-system, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:var(--ink); }
+  header { padding:20px 24px 0; max-width:980px; margin:0 auto; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  p.sub { margin:0 0 14px; color:var(--muted); font-size:13px; }
+  .bar { display:flex; gap:24px; flex-wrap:wrap; align-items:center; margin-bottom:14px; }
+  .grp { display:inline-flex; background:#e4e7ee; border-radius:10px; padding:3px; }
+  .grp button { border:0; background:none; padding:7px 16px; font:inherit; border-radius:8px; cursor:pointer; color:var(--muted); }
+  .grp button[aria-pressed="true"] { background:var(--card); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.15); font-weight:600; }
+  main { max-width:980px; margin:0 auto; padding:0 24px 40px; }
+  .sheet { background:#fff; box-shadow:0 2px 14px rgba(0,0,0,.14); display:block; width:min(100%, 640px); height:auto; margin:0 auto; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#1d2026; --ink:#e6e9ef; --muted:#9aa3b5; --card:#343a46; } .grp { background:#2a2f39; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Tagesblatt: Linien oder Dots</h1>
+  <p class="sub">Beispiel für Montag, 2. November 2026. Termine echt, To-dos erfunden, ohne Unterricht.</p>
+  <div class="bar">
+    <div class="grp" id="stil"><button data-v="linien" aria-pressed="false">Linien</button><button data-v="dots" aria-pressed="true">Dots</button></div>
+    <div class="grp" id="seite"><button data-v="1" aria-pressed="true">Vorderseite</button><button data-v="2" aria-pressed="false">Rückseite</button></div>
+  </div>
+</header>
+<main><img class="sheet" id="bild" alt="Tagesblatt" src="Tagesblatt-Varianten/dots-1.png"></main>
+<script>
+  var st = { stil: "dots", seite: "1" };
+  try { var g = JSON.parse(localStorage.getItem("tagesblatt")); if (g) st = g; } catch (e) {}
+  function show() {
+    document.getElementById("bild").src = "Tagesblatt-Varianten/" + st.stil + "-" + st.seite + ".png";
+    ["stil", "seite"].forEach(function (k) {
+      document.querySelectorAll("#" + k + " button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.v === st[k]));
+      });
+    });
+    try { localStorage.setItem("tagesblatt", JSON.stringify(st)); } catch (e) {}
+  }
+  ["stil", "seite"].forEach(function (k) {
+    document.getElementById(k).addEventListener("click", function (e) {
+      if (e.target.dataset.v) { st[k] = e.target.dataset.v; show(); }
+    });
+  });
+  show();
+</script>
+</body>
+</html>

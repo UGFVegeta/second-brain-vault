@@ -14,6 +14,9 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-10-28 | 1 | – | – | |
+| 2026-10-27 | 2 | Kleiner Riss in der Achillessehne (MRT, Orthopäde) | – | Absolutes Laufverbot, kein Dehnen, kein Krafttraining für die Achillessehne. Locker Radfahren und Schwimmen erlaubt. 6 Wochen ESWT im OZF Fellbach, dazu manuelle Therapie. Ziel: Schonung, damit es nicht zum kompletten Riss kommt. Damit waren die Fußbeschwerden seit 18.09. die Achillessehne, nicht die Sehnenscheide. Oskar ist diese Woche noch krank, Trainingsstart nach der Verletzung am Montag 02.11. Details: [[Achillessehne – Teilriss 10-2026]]. |
+| 2026-10-26 | 2 | – | – | |
 | 2026-10-22 | 3 | – | – | |
 | 2026-10-21 | 2 | – | – | |
 | 2026-10-19 | 1 | – | – | |

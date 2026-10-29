@@ -107,3 +107,7 @@ Syna meldet EnBW den Einbau des Zählers STLG1ISK0071589912 zum 31.12.2025. Ders
 - [ ] Falls EnBW nicht liefert: Zählernummer des Hauszählers eintragen und Brief 1 per Einschreiben senden
 - [ ] Eskalation danach: Brief 2 an Verbraucherzentrale BW, ggf. Schlichtungsstelle Energie
 - [ ] Beleg suchen: Foto vom alten Zähler / Ausbaudatum, falls vorhanden
+
+
+> [!warning] Stand 28.10.2026
+> Neue Schlussrechnung über 6.100,06 € eingegangen, Syna hat die Korrektur nicht an EnBW gemeldet. Alle Daten, Anrufleitfaden und Mailentwurf: [[EnBW Schlussrechnung 28-10-2026]]

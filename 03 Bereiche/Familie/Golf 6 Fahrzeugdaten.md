@@ -45,7 +45,7 @@ Nicht gespeichert: Halter und Anschrift. Die stehen im Fahrzeugschein selbst.
 
 ## Bemerkungen
 
-Anhängekupplung werkseitig verbaut.
+Keine Anhängerkupplung verbaut (Oskar, 26.10.2026). Die Anhängelast steht trotzdem im Schein, weil sie für den Fahrzeugtyp zugelassen ist.
 
 ## Verwandt
 

@@ -64,6 +64,82 @@
   .linkline { display: inline-block; margin-top: 10px; font-size: 12.5px; color: var(--t3); text-decoration: none; }
   .linkline:hover { color: var(--t1); }
 
+  /* Braucht dich heute */
+  .braucht[hidden] { display: none; }
+  .braucht { border-color: color-mix(in srgb, var(--amber) 40%, var(--line)); }
+  .need { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; font-size: 13.5px; color: var(--t1); }
+  .need + .need { border-top: 1px solid var(--line); }
+  .need .kat { flex: none; width: 78px; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); font-weight: 600; }
+  .need .tx { flex: 1; min-width: 0; color: inherit; text-decoration: none; }
+  .need .hint { font-size: 12px; color: var(--t3); text-align: right; flex: none; max-width: 34%; }
+  .need.hot .hint { color: var(--amber); }
+  .need a.tx:hover { text-decoration: underline; }
+  .need .acts { flex: none; display: flex; gap: 5px; align-self: center; }
+  .need .acts button { font: inherit; font-size: 11.5px; color: var(--t3); background: transparent; border: 1px solid var(--line); border-radius: 7px; padding: 2px 8px; cursor: pointer; }
+  .need .acts button:hover { color: var(--t1); border-color: var(--t4); }
+  .need .acts button.ok:hover { color: var(--green); border-color: var(--green); }
+  .need .acts button:disabled { opacity: .5; cursor: default; }
+  .need-msg { font-size: 12px; color: var(--amber); padding: 6px 0 0; }
+  @media (max-width: 700px) { .need { flex-wrap: wrap; } .need .kat { width: 100%; } .need .hint { text-align: left; max-width: none; flex: 1 1 100%; } .need .acts { margin-left: auto; } }
+
+  /* Fokus-Timer */
+  .fokusrow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .fokusrow select { font: inherit; font-size: 13.5px; color: var(--t1); background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 6px 10px; min-width: 0; flex: 1 1 220px; max-width: 420px; }
+  .fokuszeit { font-variant-numeric: tabular-nums; font-size: 24px; font-weight: 650; letter-spacing: -.01em; min-width: 5.2ch; color: var(--t2); }
+  .fokus.laeuft .fokuszeit { color: var(--green); }
+  .fokus.laeuft { border-color: color-mix(in srgb, var(--green) 45%, var(--line)); }
+  .fokusbtn { font: inherit; font-size: 13px; font-weight: 600; color: var(--t1); background: transparent; border: 1px solid var(--t4); border-radius: 9px; padding: 6px 16px; cursor: pointer; }
+  .fokusbtn:hover { border-color: var(--green); color: var(--green); }
+  .fokusinfo { font-size: 12.5px; color: var(--t3); margin-top: 10px; }
+  .fokusinfo .warn { display: block; margin-top: 4px; }
+
+  /* Abend-Check und Erfassen */
+  .bef { display: flex; gap: 6px; }
+  .bef button { font: inherit; font-size: 15px; font-weight: 600; width: 44px; height: 38px; color: var(--t2); background: transparent; border: 1px solid var(--line); border-radius: 9px; cursor: pointer; }
+  .bef button:hover { border-color: var(--t4); color: var(--t1); }
+  .bef button.on { border-color: var(--green); color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); }
+  .bef button[data-b="1"].on, .bef button[data-b="2"].on { border-color: var(--red); color: var(--red); background: color-mix(in srgb, var(--red) 12%, transparent); }
+  .bef button[data-b="3"].on { border-color: var(--amber); color: var(--amber); background: color-mix(in srgb, var(--amber) 12%, transparent); }
+  .befleg { font-size: 11.5px; color: var(--t4); margin-top: 6px; }
+  #erfText { font: inherit; font-size: 13.5px; width: 100%; box-sizing: border-box; color: var(--t1); background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; }
+  #blText, #blTodo { font: inherit; font-size: 13.5px; width: 100%; box-sizing: border-box; color: var(--t1); background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; }
+  #blText:focus, #blTodo:focus { outline: none; border-color: var(--t4); }
+  .blcols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 12px; }
+  @media (max-width: 700px) { .blcols { grid-template-columns: 1fr; } }
+  .blcols h3 { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--t3); margin: 0 0 6px; }
+  .blz { font-size: 13.5px; color: var(--t1); padding: 3px 0; display: flex; gap: 10px; }
+  .blz .zt { color: var(--t3); min-width: 78px; font-variant-numeric: tabular-nums; }
+  .blz.neu .zt, .blz.neu { color: var(--green); }
+  .blz button { font: inherit; font-size: 11.5px; margin-left: auto; color: var(--t3); background: transparent; border: 0; cursor: pointer; }
+  #erfText:focus { outline: none; border-color: var(--t4); }
+  #trainSel { font: inherit; font-size: 13.5px; color: var(--t1); background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 6px 10px; }
+
+  /* Wochenreview, Saison, Zeitblock-Vorschläge */
+  #saisonCard[hidden] { display: none; }
+  .wr-bar { height: 8px; border-radius: 5px; background: var(--line); overflow: hidden; margin: 6px 0 4px; }
+  .wr-bar i { display: block; height: 100%; background: var(--green); border-radius: 5px; }
+  .wr-big { display: flex; align-items: baseline; gap: 10px; }
+  .wr-big b { font-size: 26px; font-weight: 650; letter-spacing: -.01em; }
+  .wr-big span { font-size: 12.5px; color: var(--t3); }
+  .wr-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 14px; margin-top: 12px; }
+  .wr-grid div { font-size: 12px; color: var(--t3); }
+  .wr-grid b { display: block; font-size: 15px; font-weight: 650; color: var(--t1); }
+  .wr-next a { display: block; font-size: 13px; color: var(--t1); text-decoration: none; padding: 3px 0; }
+  .wr-next a:hover { text-decoration: underline; }
+  .wr-next .m { color: var(--t4); font-size: 12px; margin-left: 6px; }
+  .saison { padding: 8px 0; }
+  .saison + .saison { border-top: 1px solid var(--line); }
+  .saison .nm { font-size: 13.5px; color: var(--t1); text-decoration: none; }
+  .saison .nm:hover { text-decoration: underline; }
+  .saison .zl { font-size: 12.5px; color: var(--t3); margin-top: 2px; }
+  .vorschlag { display: flex; gap: 10px; align-items: center; padding: 5px 0; font-size: 13px; }
+  .vorschlag .zt { font-variant-numeric: tabular-nums; color: var(--t2); min-width: 8.2em; }
+  .vorschlag .pj { flex: 1; min-width: 0; color: var(--t1); }
+  .vorschlag button { font: inherit; font-size: 11.5px; color: var(--t3); background: transparent; border: 1px solid var(--line); border-radius: 7px; padding: 2px 8px; cursor: pointer; }
+  .vorschlag button:hover { color: var(--green); border-color: var(--green); }
+  .vtitel { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--t4); font-weight: 600; margin: 12px 0 2px; }
+  @media (max-width: 700px) { .wr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
   /* Heute-Band */
   .today { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr); padding: 0; }
   .today > div { padding: 18px 20px; min-width: 0; }
@@ -224,7 +300,62 @@
 
   <p class="motto">„Der Lernprozess verläuft gründlicher und nachhaltiger, wenn er Mühe macht.“<cite>Brown, Roediger, McDaniel: Das merk ich mir!</cite></p>
 
-  <section class="card today">
+  <section class="card braucht" id="brauchtCard" hidden>
+    <div class="chead"><h2>Braucht dich heute</h2><span class="meta" id="brauchtMeta"></span></div>
+    <div id="brauchtBody"></div>
+  </section>
+
+  <section class="card fokus" id="fokusCard" style="margin-top:12px">
+    <div class="chead"><h2>Fokus</h2><span class="meta" id="fokusMeta"></span></div>
+    <div class="fokusrow">
+      <select id="fokusProj" aria-label="Projekt"></select>
+      <span class="fokuszeit" id="fokusZeit">00:00</span>
+      <button id="fokusBtn" class="fokusbtn">Start</button>
+    </div>
+    <div class="fokusinfo" id="fokusInfo"></div>
+    <div id="fokusVorschlag"></div>
+  </section>
+
+  <section class="card" id="blattCard" style="margin-top:12px">
+    <div class="chead"><h2>Tagesblatt</h2><span class="meta" id="blMeta">Arbeitstermine für die Mappe</span></div>
+    <div id="blBody"><div class="fokusinfo">Kalender wird gelesen, das dauert etwa 20 Sekunden.</div></div>
+    <div id="blEdit" hidden>
+      <div class="fokusinfo" style="margin:0 0 6px"><b>Sind alle Termine drin?</b> Ergänzen, mit Uhrzeit vorne (14:30 Gespräch Eltern) oder ohne (ganztägig). Enter fügt hinzu.</div>
+      <input id="blText" type="text" maxlength="200" placeholder="Fehlender Termin" autocomplete="off">
+      <input id="blTodo" type="text" maxlength="200" placeholder="Fehlendes To-do (nur aufs Blatt)" autocomplete="off" style="margin-top:8px">
+      <div class="fokusrow" style="margin-top:10px">
+        <button id="blGo" class="fokusbtn">Tagesblatt erzeugen</button>
+        <button id="blNeu" class="fokusbtn">Neu einlesen</button>
+      </div>
+    </div>
+    <div class="fokusinfo" id="blInfo"></div>
+  </section>
+
+  <div class="row">
+    <section class="card" id="abendCard">
+      <div class="chead"><h2>Abend-Check</h2><span class="meta" id="abendMeta"></span></div>
+      <div class="bef" id="befBtns">
+        <button data-b="1">1</button><button data-b="2">2</button><button data-b="3">3</button><button data-b="4">4</button><button data-b="5">5</button>
+      </div>
+      <div class="befleg">1 krank, 5 top</div>
+      <div class="fokusrow" style="margin-top:10px">
+        <select id="trainSel" aria-label="Training"><option>–</option><option>Rad</option><option>Schwimmen</option><option>Laufen</option><option>Kraft</option><option>Yoga/Mobility</option><option>Anderes</option></select>
+        <button id="abendBtn" class="fokusbtn">Eintragen</button>
+      </div>
+      <div class="fokusinfo" id="abendInfo"></div>
+    </section>
+    <section class="card" id="erfCard">
+      <div class="chead"><h2>Erfassen</h2><span class="meta">Inbox oder Erinnerung</span></div>
+      <input id="erfText" type="text" maxlength="500" placeholder="Was soll nicht verloren gehen?" autocomplete="off">
+      <div class="fokusrow" style="margin-top:10px">
+        <button id="erfInbox" class="fokusbtn">In die Inbox</button>
+        <button id="erfRem" class="fokusbtn">Als Erinnerung</button>
+      </div>
+      <div class="fokusinfo" id="erfInfo"></div>
+    </section>
+  </div>
+
+  <section class="card today" style="margin-top:12px">
     <div><div class="chead"><h2>Termine</h2><span class="meta" id="kalMeta"></span></div><div id="kalBody"></div></div>
     <div><div class="chead"><h2>Erinnerungen</h2><span class="meta" id="remMeta"></span></div><div id="remBody"></div></div>
     <div><div class="chead"><h2>Verfassung</h2><span class="meta" id="vitMeta"></span></div><div id="vitBody"></div></div>
@@ -234,6 +365,17 @@
     <div class="chead"><h2>Projekte</h2><span class="meta" id="projMeta"></span></div>
     <div id="projBody"></div>
   </section>
+
+  <div class="row">
+    <section class="card" id="wrCard">
+      <div class="chead"><h2>Wochenreview</h2><span class="meta" id="wrMeta"></span></div>
+      <div id="wrBody"></div>
+    </section>
+    <section class="card" id="saisonCard" hidden>
+      <div class="chead"><h2>Saison-Ziele</h2><span class="meta" id="saisonMeta">12 Wochen</span></div>
+      <div id="saisonBody"></div>
+    </section>
+  </div>
 
   <div class="row">
     <section class="card"><div class="chead"><h2>Training</h2><span class="meta" id="trainMeta"></span></div><div id="trainBody"></div></section>
@@ -308,7 +450,7 @@ $("themeBtn").onclick = () => {
 
 function calColor(c) {
   const m = { "Privat": "var(--blue)", "Arbeit": "var(--purple)", "Familie": "var(--pink)",
-    "Sport": "var(--green)", "Schule": "var(--amber)", "Jahresterminplanung / DieWo": "var(--amber)",
+    "Sport": "var(--green)", "Schule": "var(--amber)", "Unterricht": "var(--amber)", "Aufsicht": "var(--t4)", "Verein": "var(--green)", "Jahresterminplanung / DieWo": "var(--amber)",
     "Feiertage": "var(--t4)", "Geburtstage": "var(--coral)" };
   return m[c] || "var(--t4)";
 }
@@ -323,16 +465,360 @@ function renderKopf(L) {
   $("stand").classList.toggle("old", !sameDay);
 }
 
-function renderKalender(kal) {
+// „Später“ und „Erledigt“ im Block „Braucht dich heute“. Merkt sich der Browser (localStorage), der Dienst hakt Erinnerungen wirklich ab.
+const DIENST = "http://127.0.0.1:8765";
+// Merkt sich Später/Erledigt dauerhaft im Browser (localStorage); MEM hält es zusätzlich im Speicher, falls der Browser das Speichern verbietet.
+const MEM = {};
+function storeGet(k) { let o = {}; try { o = JSON.parse(localStorage.getItem(k) || "{}"); } catch (e) {} return Object.assign({}, o, MEM[k] || {}); }
+function storeSet(k, v) { MEM[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function isHidden(key) {
+  const today = iso(new Date());
+  const sn = storeGet("leben-snooze")[key];
+  const dn = storeGet("leben-done")[key];
+  return (sn && sn > today) || dn === today;
+}
+let BRAUCHT = [], brauchtMsg = "";
+function brauchtMark(store, key, val) { const o = storeGet(store); if (val === null) delete o[key]; else o[key] = val; storeSet(store, o); }
+function brauchtUnmark(store, key) { const o = storeGet(store); delete o[key]; MEM[store] = o; try { localStorage.setItem(store, JSON.stringify(o)); } catch (e) {} }
+
+function renderBraucht(items) {
+  if (items) BRAUCHT = items;
+  const card = $("brauchtCard");
+  const offen = BRAUCHT.filter(i => !isHidden(i.key || (i.kat + "|" + i.t)));
+  if (!offen.length) { card.hidden = !BRAUCHT.length; $("brauchtBody").innerHTML = BRAUCHT.length ? empty("alles für heute erledigt oder verschoben") : ""; $("brauchtMeta").textContent = ""; return; }
+  card.hidden = false;
+  const show = offen.slice(0, 5);
+  $("brauchtBody").innerHTML = show.map((i, n) => {
+    const key = i.key || (i.kat + "|" + i.t);
+    const tx = i.file ? `<a class="tx" href="${obs(i.file)}">${esc(i.t)}</a>` : `<span class="tx">${esc(i.t)}</span>`;
+    const ok = i.liste ? `<button class="ok" data-act="ok" data-i="${n}">Erledigt</button>` : "";
+    return `<div class="need${i.s >= 80 ? " hot" : ""}"><span class="kat">${esc(i.kat)}</span>${tx}<span class="hint">${esc(i.hint || "")}</span><span class="acts">${ok}<button data-act="later" data-i="${n}" title="blendet den Punkt bis morgen aus">Später</button></span></div>`;
+  }).join("") + (brauchtMsg ? `<div class="need-msg">${esc(brauchtMsg)}</div>` : "");
+  $("brauchtMeta").textContent = offen.length > show.length ? `+${offen.length - show.length} weitere` : "";
+  $("brauchtBody").onclick = async e => {
+    const btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    const it = show[+btn.dataset.i];
+    const key = it.key || (it.kat + "|" + it.t);
+    brauchtMsg = "";
+    if (btn.dataset.act === "later") {
+      const t = new Date(); t.setDate(t.getDate() + 1);
+      brauchtMark("leben-snooze", key, iso(t));
+      renderBraucht(); return;
+    }
+    // Sofort ausblenden, bei Fehler wieder einblenden
+    const heute = iso(new Date());
+    brauchtMark("leben-done", key, heute);
+    brauchtMark("leben-done", "Erinnerung|" + it.t, heute);
+    renderBraucht();
+    if (window.LEBEN) renderErinnerungen(window.LEBEN.erinnerungen, window.LEBEN.vault);
+    try {
+      const r = await fetch(DIENST + "/erledigt", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ liste: it.liste, t: it.t }) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.fehler || "Fehler");
+    } catch (err) {
+      console.error("Erledigt fehlgeschlagen", err);
+      brauchtUnmark("leben-done", key);
+      brauchtUnmark("leben-done", "Erinnerung|" + it.t);
+      brauchtMsg = (err instanceof TypeError)
+        ? `Dienst nicht erreichbar (${err.message}). Erinnerung bleibt offen.`
+        : "Nicht abgehakt: " + err.message;
+    }
+    renderBraucht();
+    if (window.LEBEN) renderErinnerungen(window.LEBEN.erinnerungen, window.LEBEN.vault);
+  };
+}
+
+// Fokus-Timer: Zeit läuft im Browser (überlebt Neuladen), beim Stopp schreibt der Dienst eine Zeile in die Daily Note.
+const fmtMin = m => m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? " " + (m % 60) + " min" : ""}`;
+let FOKUS = null, fokusMsg = "", fokusTick = null;
+function fokusState() { try { return JSON.parse(localStorage.getItem("leben-fokus-lauf") || "null"); } catch (e) { return null; } }
+function fokusSetState(v) { try { v ? localStorage.setItem("leben-fokus-lauf", JSON.stringify(v)) : localStorage.removeItem("leben-fokus-lauf"); } catch (e) {} }
+function fokusUhr(ms) { const s = Math.floor(ms / 1000); return (s >= 3600 ? Math.floor(s / 3600) + ":" : "") + pad(Math.floor(s / 60) % 60) + ":" + pad(s % 60); }
+
+function renderFokusInfo() {
+  const f = FOKUS;
+  let t = "";
+  if (f) {
+    t = `Heute ${fmtMin(f.heute_min || 0)}, diese Woche ${fmtMin(f.woche_min || 0)}`;
+    const top = Object.entries(f.projekte || {}).sort((a, b) => b[1] - a[1]).slice(0, 3);
+    if (top.length) t += ": " + top.map(([n, m]) => `${esc(n)} ${fmtMin(m)}`).join(", ");
+  } else t = "Noch keine Fokus-Daten.";
+  $("fokusInfo").innerHTML = t + (fokusMsg ? `<span class="warn">${esc(fokusMsg)}</span>` : "");
+}
+
+function fokusTickFn() {
+  const st = fokusState();
+  const card = $("fokusCard");
+  card.classList.toggle("laeuft", !!st);
+  $("fokusBtn").textContent = st ? "Stopp" : "Start";
+  $("fokusProj").disabled = !!st;
+  $("fokusZeit").textContent = st ? fokusUhr(Date.now() - st.start) : "00:00";
+  document.title = st ? `${fokusUhr(Date.now() - st.start)} Fokus` : "Oskars Dashboard";
+  if (st && !fokusTick) fokusTick = setInterval(fokusTickFn, 1000);
+  if (!st && fokusTick) { clearInterval(fokusTick); fokusTick = null; }
+}
+
+async function fokusFrisch() {
+  try { const r = await fetch(DIENST + "/fokus"); const j = await r.json(); if (j.ok) { FOKUS = j; renderFokusInfo(); } } catch (e) {}
+}
+
+function renderFokus(L) {
+  FOKUS = L.fokus || null;
+  const proj = (L.projekte || []).filter(p => p.status === "aktiv" && (p.prio === 1 || p.prio === 2))
+    .sort((a, b) => a.prio - b.prio).map(p => p.name);
+  const st = fokusState();
+  if (st && !proj.includes(st.proj) && st.proj !== "Ohne Projekt") proj.unshift(st.proj);
+  proj.push("Ohne Projekt");
+  let last = ""; try { last = localStorage.getItem("leben-fokus-proj") || ""; } catch (e) {}
+  $("fokusProj").innerHTML = proj.map(n => `<option>${esc(n)}</option>`).join("");
+  $("fokusProj").value = st ? st.proj : (proj.includes(last) ? last : proj[0]);
+  $("fokusProj").onchange = () => { try { localStorage.setItem("leben-fokus-proj", $("fokusProj").value); } catch (e) {} };
+  $("fokusBtn").onclick = async () => {
+    fokusMsg = "";
+    const cur = fokusState();
+    if (!cur) { fokusSetState({ proj: $("fokusProj").value, start: Date.now() }); fokusTickFn(); renderFokusInfo(); return; }
+    const min = Math.round((Date.now() - cur.start) / 60000);
+    if (min < 1) { fokusSetState(null); fokusMsg = "Unter einer Minute, nicht gespeichert."; fokusTickFn(); renderFokusInfo(); return; }
+    $("fokusBtn").disabled = true;
+    try {
+      const r = await fetch(DIENST + "/fokus", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projekt: cur.proj, start: cur.start, minuten: min }) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.fehler || "Fehler");
+      fokusSetState(null); FOKUS = j; fokusMsg = `Gespeichert: ${min} min ${cur.proj}`;
+    } catch (err) {
+      fokusMsg = (err instanceof TypeError)
+        ? "Dienst nicht erreichbar, der Timer läuft weiter. Wenn der Dienst wieder da ist, noch einmal Stopp klicken."
+        : "Nicht gespeichert: " + err.message;
+    }
+    $("fokusBtn").disabled = false;
+    fokusTickFn(); renderFokusInfo();
+  };
+  fokusTickFn(); renderFokusInfo(); fokusFrisch();
+}
+
+// Abend-Check (Befinden, Training) und Schnellerfassung: schreiben über den lokalen Dienst
+function dienstFehler(err) {
+  return (err instanceof TypeError) ? "Dienst nicht erreichbar, nichts gespeichert." : "Nicht gespeichert: " + err.message;
+}
+let befWahl = null;
+function befMarkieren(b) { befWahl = b; document.querySelectorAll("#befBtns button").forEach(x => x.classList.toggle("on", +x.dataset.b === b)); }
+function abendZeigen(h, msg) {
+  $("abendInfo").innerHTML = (h && h.befinden ? `Heute eingetragen: Befinden ${h.befinden}, Training ${esc(h.training || "–")}` : "Heute noch nichts eingetragen")
+    + (msg ? `<span class="warn">${esc(msg)}</span>` : "");
+  $("abendMeta").textContent = h && h.befinden ? "erledigt" : "";
+}
+function renderAbend(L) {
+  const heute = iso(new Date());
+  const log = ((L.gesundheit || {}).befinden || []).find(x => x.d === heute);
+  abendZeigen(log && log.b ? { befinden: log.b, training: "" } : null);
+  if (log && log.b) befMarkieren(log.b);
+  document.querySelectorAll("#befBtns button").forEach(x => x.onclick = () => befMarkieren(+x.dataset.b));
+  fetch(DIENST + "/abend").then(r => r.json()).then(j => {
+    if (j.ok && j.heute) { abendZeigen(j.heute); befMarkieren(j.heute.befinden); if (j.heute.training) $("trainSel").value = j.heute.training; }
+  }).catch(() => {});
+  $("abendBtn").onclick = async () => {
+    if (!befWahl) { abendZeigen(null, "Erst ein Befinden wählen."); return; }
+    $("abendBtn").disabled = true;
+    try {
+      const r = await fetch(DIENST + "/abend", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ befinden: befWahl, training: $("trainSel").value }) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.fehler || "Fehler");
+      abendZeigen(j.heute, "Im Gesundheitslogbuch gespeichert.");
+    } catch (err) { abendZeigen(null, dienstFehler(err)); }
+    $("abendBtn").disabled = false;
+  };
+}
+// Tagesblatt: Vorschau vom Dienst holen, Ergänzungen sammeln, PDF bauen lassen (öffnet in Vorschau, dort drucken)
+let BL = { termine: [], todos: [] };
+function blZeichnen(v) {
+  const liste = (arr, extra, key) => arr.map(t => `<div class="blz"><span class="zt">${esc(t.s)}</span><span>${esc(t.t)}</span></div>`).join("")
+    + extra.map((t, i) => `<div class="blz neu"><span class="zt">neu</span><span>${esc(t)}</span><button data-bl="${key}" data-i="${i}" title="entfernen">x</button></div>`).join("");
+  const todoHeute = v.todos_heute.length ? `${v.todos_heute.length} To-do${v.todos_heute.length === 1 ? "" : "s"} aus der Liste Schule` : "keine To-dos in der Liste Schule";
+  $("blBody").innerHTML = `<div class="blcols">
+    <div><h3>Heute, ${esc(v.heute.titel)}</h3>${liste(v.heute.termine, BL.termine, "t") || ""}${v.heute.termine.length || BL.termine.length ? "" : '<div class="fokusinfo" style="margin:0">Keine Arbeitstermine im Kalender.</div>'}${BL.todos.map((t, i) => `<div class="blz neu"><span class="zt">To-do</span><span>${esc(t)}</span><button data-bl="d" data-i="${i}" title="entfernen">x</button></div>`).join("")}<div class="fokusinfo" style="margin-top:6px">${todoHeute}</div></div>
+    <div><h3>Morgen, ${esc(v.morgen.titel)}</h3>${liste(v.morgen.termine, [], "") || '<div class="fokusinfo" style="margin:0">Keine Arbeitstermine im Kalender.</div>'}</div></div>`;
+  $("blBody").querySelectorAll("button[data-bl]").forEach(b => b.onclick = () => { (b.dataset.bl === "t" ? BL.termine : BL.todos).splice(+b.dataset.i, 1); blZeichnen(v); });
+}
+async function blLaden(neu) {
+  $("blInfo").textContent = neu ? "Kalender wird neu gelesen, etwa 20 Sekunden." : "";
+  try {
+    const r = await fetch(DIENST + "/tagesblatt" + (neu ? "?neu=1" : ""));
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.fehler || "Fehler");
+    BL.v = j; $("blEdit").hidden = false; blZeichnen(j);
+    $("blMeta").textContent = "Kalender: Arbeit, Schule, Jahresterminplanung";
+    $("blInfo").textContent = "";
+  } catch (err) { $("blBody").innerHTML = ""; $("blInfo").innerHTML = `<span class="warn">${esc(dienstFehler(err))}</span>`; }
+}
+function renderTagesblatt() {
+  const add = (feld, ziel) => { const t = $(feld).value.trim(); if (!t) return; BL[ziel].push(t); $(feld).value = ""; if (BL.v) blZeichnen(BL.v); };
+  $("blText").onkeydown = e => { if (e.key === "Enter") add("blText", "termine"); };
+  $("blTodo").onkeydown = e => { if (e.key === "Enter") add("blTodo", "todos"); };
+  $("blNeu").onclick = () => blLaden(true);
+  $("blGo").onclick = async () => {
+    add("blText", "termine"); add("blTodo", "todos");
+    $("blGo").disabled = true; $("blInfo").textContent = "Blatt wird gebaut.";
+    try {
+      const r = await fetch(DIENST + "/tagesblatt", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(BL) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.fehler || "Fehler");
+      $("blInfo").textContent = "Geöffnet in Vorschau. Dort drucken: doppelseitig, Wenden an der langen Kante.";
+    } catch (err) { $("blInfo").innerHTML = `<span class="warn">${esc(dienstFehler(err))}</span>`; }
+    $("blGo").disabled = false;
+  };
+  blLaden(false);
+}
+
+function renderErfassen() {
+  const senden = async ziel => {
+    const text = $("erfText").value.trim();
+    if (!text) { $("erfInfo").textContent = "Erst etwas eintippen."; return; }
+    $("erfInbox").disabled = $("erfRem").disabled = true;
+    try {
+      const r = await fetch(DIENST + "/erfassen", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, ziel }) });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.fehler || "Fehler");
+      $("erfText").value = "";
+      $("erfInfo").textContent = ziel === "inbox" ? "In 01 Inbox/Schnellerfassung abgelegt." : "Als Erinnerung in der Liste Inbox angelegt.";
+    } catch (err) { $("erfInfo").innerHTML = `<span class="warn">${esc(dienstFehler(err))}</span>`; }
+    $("erfInbox").disabled = $("erfRem").disabled = false;
+  };
+  $("erfInbox").onclick = () => senden("inbox");
+  $("erfRem").onclick = () => senden("erinnerung");
+  $("erfText").onkeydown = e => { if (e.key === "Enter") senden(e.shiftKey ? "erinnerung" : "inbox"); };
+  $("erfInfo").textContent = "Enter: Inbox, Umschalt+Enter: Erinnerung";
+}
+
+// Wochenreview, Saison-Ziele und Zeitblock-Vorschläge
+function renderWochenreview(w) {
+  const card = $("wrCard");
+  if (!w) { $("wrBody").innerHTML = empty("Wochenreview nicht verfügbar"); return; }
+  const so = new Date().getDay() === 0;
+  $("wrMeta").textContent = so ? "Sonntag: Zeit für den Rückblick" : `seit Montag, ${fmtD(w.von)}`;
+  card.style.borderColor = so ? "color-mix(in srgb, var(--green) 45%, var(--line))" : "";
+  const ps = w.plan_staerke;
+  const kopf = ps === null
+    ? `<div class="wr-big"><b>–</b><span>Plan-Stärke: noch keine Fokus-Zeit in dieser Woche</span></div>`
+    : `<div class="wr-big"><b>${ps} %</b><span data-tip="Anteil der Fokus-Minuten auf Projekte mit prio 1">Plan-Stärke: ${fmtMin(w.prio1_min)} von ${fmtMin(w.fokus_min)} auf Fokus-Projekte</span></div><div class="wr-bar"><i style="width:${ps}%"></i></div>`;
+  const v = (x, suf = "") => x === null || x === undefined ? "–" : x + suf;
+  const grid = [
+    ["Fokus", fmtMin(w.fokus_min || 0) + (w.vorwoche_min ? ` (Vorwoche ${fmtMin(w.vorwoche_min)})` : "")],
+    ["Training", `${w.einheiten} Einheiten`],
+    ["Schlaf Ø", v(w.schlaf, " h")],
+    ["Ruhepuls Ø", v(w.ruhepuls)],
+    ["Befinden Ø", v(w.befinden, " von 5")],
+    ["Überfällig", `${w.ueberfaellig} Erinnerungen`],
+  ].map(([k, x]) => `<div>${k}<b>${esc(x)}</b></div>`).join("");
+  const zuerst = (w.zuerst || []).map(p => `<a href="${obs(p.file)}">${esc(p.name)}<span class="m">${fmtMin(p.min)} diese Woche</span></a>`).join("");
+  $("wrBody").innerHTML = kopf + `<div class="wr-grid">${grid}</div>` +
+    (zuerst ? `<div class="sub" style="margin-top:14px">Zuerst dran, weil am wenigsten Zeit</div><div class="wr-next">${zuerst}</div>` : "");
+}
+
+function renderSaison(list) {
+  const card = $("saisonCard");
+  if (!list || !list.length) { card.hidden = true; return; }
+  card.hidden = false;
+  $("saisonBody").innerHTML = list.map(z => {
+    const done = Math.max(0, Math.min(100, Math.round(100 * (84 - z.tage_uebrig) / 84)));
+    return `<div class="saison"><a class="nm" href="${obs(z.file)}">${esc(z.name)}</a>${z.ziel ? `<div class="zl">${esc(z.ziel)}</div>` : ""}
+      <div class="wr-bar"><i style="width:${done}%;background:var(--blue)"></i></div>
+      <div class="zl">noch ${z.tage_uebrig} Tage bis ${fmtD(z.ende)}, Fokus: ${fmtMin(z.woche_min)} diese Woche, ${fmtMin(z.saison_min)} insgesamt</div></div>`;
+  }).join("");
+}
+
+// Fahrzeit zur Schule und zurück (Minuten, einfach): Rad 40, Auto 30
+const FAHRT = { rad: 40, auto: 30 };
+function fahrtart() { try { return localStorage.getItem("leben-fahrt") === "auto" ? "auto" : "rad"; } catch (e) { return "rad"; } }
+// freie Lücken im Kalender (nur heute und morgen), ohne etwas einzutragen
+function zeitblockVorschlaege(L) {
+  const now = new Date();
+  const proj = (L.projekte || []).filter(p => p.status === "aktiv" && p.prio === 1).map(p => p.name);
+  if (!proj.length) return [];
+  const mins = (L.fokus && L.fokus.projekte) || {};
+  const rang = proj.slice().sort((a, b) => (mins[a] || 0) - (mins[b] || 0));
+  const toM = hhmm => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
+  const out = [];
+  for (let off = 0; off < 2; off++) {
+    const dd = new Date(now); dd.setDate(dd.getDate() + off);
+    const d = iso(dd), label = off ? "Morgen" : "Heute";
+    const plan = planFuer(d, L.stundenplan);
+    const wd = dd.getDay(), schultag = wd >= 1 && wd <= 5 && !plan.frei;
+    const von = schultag ? 8 * 60 : 9 * 60, bis = schultag ? 20 * 60 + 30 : 19 * 60;
+    let start = von;
+    if (off === 0) start = Math.max(von, Math.ceil((now.getHours() * 60 + now.getMinutes() + 5) / 15) * 15);
+    const erste = Math.min(...plan.evs.filter(e => e.unterricht).map(e => toM(e.s)), 9999);
+    const letzte = Math.max(...plan.evs.filter(e => e.unterricht).map(e => toM(e.e)), -1);
+    const fahrt = [];
+    if (letzte >= 0) fahrt.push([erste - FAHRT[fahrtart()], erste], [letzte, letzte + FAHRT[fahrtart()]]);
+    const belegt = (L.kalender || []).filter(e => e.d === d && !e.allday && e.cal !== "Geburtstage" && !e.cal.startsWith("Feiertage") && toM(e.e) > toM(e.s)).concat(plan.evs)
+      .map(e => [toM(e.s), toM(e.e)]).concat(fahrt).sort((a, b) => a[0] - b[0]);
+    let cur = start;
+    const nimm = (a, b) => { if (b - a >= 45) out.push({ label, von: a, bis: Math.min(b, a + 90), schule: a > erste && b < letzte && a < letzte }); };
+    for (const [bs, be] of belegt) { nimm(cur, bs); cur = Math.max(cur, be); }
+    nimm(cur, bis);
+  }
+  return out.slice(0, 4).map((v, i) => ({ ...v, projekt: rang[i % rang.length] }));
+}
+function renderVorschlaege(L) {
+  const v = zeitblockVorschlaege(L);
+  const hm = m => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+  $("fokusVorschlag").innerHTML = v.length
+    ? `<div class="vtitel">Vorschläge aus freien Kalender-Lücken</div>` + v.map((x, i) =>
+      `<div class="vorschlag"><span class="zt">${x.label} ${hm(x.von)} bis ${hm(x.bis)}${x.schule ? " (Freistunde)" : ""}</span><span class="pj">${esc(x.projekt)}</span><button data-vi="${i}">Jetzt starten</button></div>`).join("")
+      + `<div class="fokusinfo" style="margin-top:4px">Berücksichtigt Kalender, Unterricht, Aufsichten, Schwimmen im Verein und ${FAHRT[fahrtart()]} Minuten Fahrt vor der ersten und nach der letzten Stunde. Heute unterwegs mit: <a href="#" id="fahrtWechsel">${fahrtart() === "rad" ? "Rad" : "Auto"} (wechseln)</a></div>`
+    : "";
+  $("fokusVorschlag").onclick = e => {
+    if (e.target.id === "fahrtWechsel") {
+      e.preventDefault();
+      try { localStorage.setItem("leben-fahrt", fahrtart() === "rad" ? "auto" : "rad"); } catch (err) {}
+      renderVorschlaege(L);
+      return;
+    }
+    const b = e.target.closest("button[data-vi]");
+    if (!b || fokusState()) return;
+    const x = v[+b.dataset.vi];
+    const opt = [...$("fokusProj").options].find(o => o.value === x.projekt);
+    if (opt) { $("fokusProj").value = x.projekt; $("fokusBtn").click(); }
+  };
+}
+
+// Stundenplan: Unterricht, Aufsichten und feste Termine eines Tages (leer in Ferien und am Wochenende)
+function planFuer(d, sp) {
+  const out = { frei: null, evs: [] };
+  if (!sp) return out;
+  const wd = new Date(d + "T12:00").getDay();
+  const f = (sp.frei || []).find(x => d >= x.von && d <= x.bis);
+  if (f) { out.frei = f.t; return out; }
+  if (wd < 1 || wd > 5) return out;
+  const zeit = u => u.zeit ? u.zeit : [sp.stunden[u.von][0], sp.stunden[u.bis][1]];
+  for (const u of (sp.unterricht || {})[wd] || []) {
+    const [s, e] = zeit(u);
+    out.evs.push({ d, s, e, allday: false, cal: u.aufsicht ? "Aufsicht" : "Unterricht", t: u.t + (u.raum ? ", " + u.raum : ""), unterricht: !u.aufsicht });
+  }
+  for (const u of (sp.feste_termine || {})[wd] || []) {
+    const [s, e] = zeit(u);
+    out.evs.push({ d, s, e, allday: false, cal: "Verein", t: u.t });
+  }
+  return out;
+}
+
+function renderKalender(kal, sp) {
   const now = new Date();
   const today = iso(now);
   const tm = new Date(now); tm.setDate(tm.getDate() + 1);
   const hhmm = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
   let nextMarked = false, html = "";
   for (const [d, label] of [[today, "Heute"], [iso(tm), "Morgen"]]) {
-    const evs = kal.filter(e => e.d === d);
+    const plan = planFuer(d, sp);
+    const evs = kal.filter(e => e.d === d).concat(plan.evs).sort((a, b) => (b.allday - a.allday) || a.s.localeCompare(b.s));
     html += `<div class="sub">${label}, ${fmtD(d)}</div>`;
-    if (!evs.length) { html += empty("keine Termine"); continue; }
+    if (plan.frei) html += `<div class="ev"><span class="time">frei</span><span class="dot" style="background:var(--green)"></span><span class="t">${esc(plan.frei)}</span><span class="cal">Schule</span></div>`;
+    if (!evs.length) { if (!plan.frei) html += empty("keine Termine"); continue; }
     html += evs.map(e => {
       let cls = "";
       if (d === today && !e.allday) {
@@ -350,6 +836,7 @@ function renderKalender(kal) {
 
 function renderErinnerungen(rem, vault) {
   if (!rem) { $("remBody").innerHTML = empty("Erinnerungen nicht erreichbar"); return; }
+  rem = rem.filter(r => storeGet("leben-done")["Erinnerung|" + r.t] !== iso(new Date()));
   if (!rem.length) { $("remBody").innerHTML = empty("nichts offen"); }
   else {
     const sorted = rem.map((r, i) => ({ ...r, i, dd: r.due ? dayDiff(r.due) : 999 }))
@@ -579,7 +1066,15 @@ function renderErnaehrung() {
 
 function render(L) {
   renderKopf(L);
-  renderKalender(L.kalender || []);
+  renderBraucht(L.braucht);
+  renderFokus(L);
+  renderAbend(L);
+  renderErfassen();
+  renderTagesblatt();
+  renderVorschlaege(L);
+  renderWochenreview(L.wochenreview);
+  renderSaison(L.saison);
+  renderKalender(L.kalender || [], L.stundenplan);
   renderErinnerungen(L.erinnerungen, L.vault);
   renderVerfassung(L.gesundheit, L.training);
   renderErnaehrung();

@@ -1,0 +1,219 @@
+{
+ "stand": "2026-10-28",
+ "hinweis": "Vollständiger Wochenplan aus dem Screenshot der Schul-App (Kürzel Kl, KW 46, 9. bis 13.11.2026). Konferenzen, Elternabende und Vertretungen stehen nicht darin.",
+ "quellen": [
+  "Screenshot Stundenplan-App, Kürzel Kl, KW 46, von Oskar am 27.10.2026 geschickt",
+  "Ferien und Feiertage: 04 Ressourcen/Physik/Rahmendaten Schuljahr 2026-27.md"
+ ],
+ "stunden": {
+  "1": [
+   "07:40",
+   "08:25"
+  ],
+  "2": [
+   "08:25",
+   "09:10"
+  ],
+  "3": [
+   "09:30",
+   "10:15"
+  ],
+  "4": [
+   "10:15",
+   "11:00"
+  ],
+  "5": [
+   "11:20",
+   "12:05"
+  ],
+  "6": [
+   "12:05",
+   "12:50"
+  ],
+  "7": [
+   "12:55",
+   "13:40"
+  ],
+  "8": [
+   "13:45",
+   "14:30"
+  ],
+  "9": [
+   "14:30",
+   "15:15"
+  ]
+ },
+ "unterricht": {
+  "1": [
+   {
+    "von": 1,
+    "bis": 1,
+    "t": "Klassenlehrer 7C",
+    "raum": "1.24"
+   },
+   {
+    "von": 2,
+    "bis": 2,
+    "t": "Mathe 10B",
+    "raum": "2.01"
+   },
+   {
+    "zeit": [
+     "09:10",
+     "09:30"
+    ],
+    "t": "Aufsicht 9",
+    "aufsicht": true
+   },
+   {
+    "von": 3,
+    "bis": 4,
+    "t": "Sport 8D, 8G",
+    "raum": "S_MPG3"
+   },
+   {
+    "von": 5,
+    "bis": 6,
+    "t": "IF7 ME 7C",
+    "raum": "1.24 und 1.35"
+   },
+   {
+    "von": 8,
+    "bis": 9,
+    "t": "Sport 7C, 7D",
+    "raum": "S_MPG1"
+   }
+  ],
+  "2": [
+   {
+    "von": 1,
+    "bis": 2,
+    "t": "Mathe 7C",
+    "raum": "1.24"
+   },
+   {
+    "von": 3,
+    "bis": 4,
+    "t": "Sport 9B, 9G",
+    "raum": "S_MPG3"
+   },
+   {
+    "von": 5,
+    "bis": 6,
+    "t": "Sport 6B, 6D",
+    "raum": "S_MPG1"
+   }
+  ],
+  "3": [
+   {
+    "von": 1,
+    "bis": 2,
+    "t": "Mathe 10B",
+    "raum": "2.01"
+   },
+   {
+    "von": 4,
+    "bis": 4,
+    "t": "Mathe 7C",
+    "raum": "1.24"
+   }
+  ],
+  "4": [
+   {
+    "von": 1,
+    "bis": 2,
+    "t": "Physik 7C",
+    "raum": "0.01 PH"
+   },
+   {
+    "zeit": [
+     "09:10",
+     "09:30"
+    ],
+    "t": "Aufsicht 5",
+    "aufsicht": true
+   },
+   {
+    "von": 3,
+    "bis": 3,
+    "t": "Physik 10D",
+    "raum": "1.10 NWA"
+   },
+   {
+    "von": 5,
+    "bis": 5,
+    "t": "Mathe 7C",
+    "raum": "1.24"
+   }
+  ],
+  "5": [
+   {
+    "von": 1,
+    "bis": 1,
+    "t": "Mathe 10B",
+    "raum": "2.01"
+   },
+   {
+    "von": 2,
+    "bis": 2,
+    "t": "Physik 10A",
+    "raum": "1.10 NWA"
+   },
+   {
+    "von": 3,
+    "bis": 3,
+    "t": "Sport 7C, 7D",
+    "raum": "S_MPG1"
+   },
+   {
+    "von": 4,
+    "bis": 4,
+    "t": "Sport 6B, 6D",
+    "raum": "S_MPG1"
+   }
+  ]
+ },
+ "feste_termine": {
+  "4": [
+   {
+    "zeit": [
+     "19:45",
+     "22:00"
+    ],
+    "t": "Schwimmen im Verein (ab 20:00)"
+   }
+  ]
+ },
+ "frei": [
+  {
+   "von": "2026-10-26",
+   "bis": "2026-10-31",
+   "t": "Herbstferien"
+  },
+  {
+   "von": "2026-12-23",
+   "bis": "2027-01-09",
+   "t": "Weihnachtsferien"
+  },
+  {
+   "von": "2027-03-25",
+   "bis": "2027-04-04",
+   "t": "Oster- und Gründonnerstagsferien"
+  },
+  {
+   "von": "2027-05-06",
+   "bis": "2027-05-06",
+   "t": "Christi Himmelfahrt"
+  },
+  {
+   "von": "2027-05-17",
+   "bis": "2027-05-29",
+   "t": "Pfingstmontag und Pfingstferien"
+  },
+  {
+   "von": "2027-07-29",
+   "bis": "2027-09-12",
+   "t": "Sommerferien"
+  }
+ ]
+}

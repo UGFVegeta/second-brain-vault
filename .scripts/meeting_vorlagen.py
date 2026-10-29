@@ -41,14 +41,14 @@ def dots(c, x, y, w, h, step=14.17):
 INK = HexColor("#2E3440")
 
 
-def header(c, kind, fields, values=None):
+def header(c, kind, fields, values=None, title="NOTIZEN"):
     values = values or {}
     c.setFillColor(BLUE)
     c.setFont("Helvetica-Bold", 20)
-    c.drawString(LM, H - 52, "NOTIZEN")
+    c.drawString(LM, H - 52, title)
     c.setFillColor(TEAL)
     c.setFont("Helvetica-Oblique", 12)
-    c.drawString(LM + 100, H - 52, kind)
+    c.drawString(LM + c.stringWidth(title, "Helvetica-Bold", 20) + 14, H - 52, kind)
     # Felder rechts
     fx = LM + 255
     fw = W - RM - fx
@@ -180,9 +180,10 @@ def back(c):
     dots(c, LM, 30, CW, H - 60)
 
 
-def konferenz(path, fill=None, outline=False):
+def konferenz(path, fill=None, outline=False, c=None):
     fill = fill or {}
-    c = canvas.Canvas(path, pagesize=A4)
+    own = c is None
+    c = c or canvas.Canvas(path, pagesize=A4)
     c.setTitle("Notizen Konferenz")
     header(c, "Konferenz / Sitzung", ["Gremium / Thema", "Datum", "Uhrzeit", "Ort", "Leitung", "Protokoll"],
            {"Gremium / Thema": fill.get("thema"), "Datum": fill.get("datum"),
@@ -197,7 +198,7 @@ def konferenz(path, fill=None, outline=False):
     todo(c, 190, 130, outline=outline)
     strip(c, 54, 24, "Nächster Termin / offen fürs nächste Mal", outline=outline, value=fill.get("naechster"))
     back(c)
-    c.save()
+    c.save() if own else c.showPage()
 
 
 def notes(c, bottom, top, outline):
@@ -208,9 +209,10 @@ def notes(c, bottom, top, outline):
         dots(c, LM, bottom, CW, top - bottom)
 
 
-def zweiergespraech(path, fill=None, outline=False):
+def zweiergespraech(path, fill=None, outline=False, c=None):
     fill = fill or {}
-    c = canvas.Canvas(path, pagesize=A4)
+    own = c is None
+    c = c or canvas.Canvas(path, pagesize=A4)
     c.setTitle("Notizen Gespräch")
     header(c, "Gespräch zu zweit", ["Mit", "Datum", "Uhrzeit", "Anlass"],
            {"Mit": fill.get("mit"), "Datum": fill.get("datum"),
@@ -223,7 +225,7 @@ def zweiergespraech(path, fill=None, outline=False):
     todo(c, 190, 130, title="Vereinbarungen / To-dos", outline=outline)
     strip(c, 54, 24, "Nächstes Gespräch / Wiedervorlage", outline=outline)
     back(c)
-    c.save()
+    c.save() if own else c.showPage()
 
 
 def rating(c, x, y, label, w):
@@ -241,8 +243,9 @@ def rating(c, x, y, label, w):
         c.drawCentredString(cx + 7 + (i - 1) * 17, y - 7.2, str(i))
 
 
-def mentoring(path, outline=False):
-    c = canvas.Canvas(path, pagesize=A4)
+def mentoring(path, outline=False, c=None):
+    own = c is None
+    c = c or canvas.Canvas(path, pagesize=A4)
     c.setTitle("Notizen Mentoring-Gespräch")
     header(c, "Mentoring-Gespräch", ["Name", "Klasse", "Datum", "Uhrzeit"])
     # Skala
@@ -279,7 +282,7 @@ def mentoring(path, outline=False):
     box(c, LM, y, CW, y - 60, BLUE, "Sonstiges / Rückmeldung an mich", outline=outline)
     strip(c, 54, 24, "Nächstes Gespräch", outline=outline)
     back(c)
-    c.save()
+    c.save() if own else c.showPage()
 
 
 if __name__ == "__main__":

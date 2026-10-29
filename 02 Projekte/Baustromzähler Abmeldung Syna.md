@@ -56,3 +56,7 @@ date: 2026-06-22
 ## ⚠️ Weitere To-dos
 
 - [ ] EnBW-Vertrag kündigen bis **02.09.2026** (läuft sonst automatisch weiter bis 30.09.2026)
+
+
+> [!warning] Stand 28.10.2026
+> Neue Schlussrechnung über 6.100,06 € eingegangen, Syna hat die Korrektur nicht an EnBW gemeldet. Alle Daten, Anrufleitfaden und Mailentwurf: [[EnBW Schlussrechnung 28-10-2026]]

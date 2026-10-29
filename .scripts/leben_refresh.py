@@ -128,6 +128,8 @@ def _projekte():
             "prio": int(prio) if prio.isdigit() else None,
             "thema": fm("thema") or None,
             "deadline": fm("deadline") or None,
+            "saison": fm("saison") or None,
+            "ziel": fm("ziel") or None,
             "file": f"02 Projekte/{f.name}",
             "mtime": datetime.fromtimestamp(f.stat().st_mtime).strftime("%Y-%m-%d"),
         })
@@ -607,6 +609,148 @@ def _wissenskarte():
     if r.returncode != 0:
         raise RuntimeError(r.stderr.strip()[:200] or "Build-Fehler")
     return r.stdout.strip()
+
+
+# --- Erledigte Erinnerungen aus dem Kalender werfen ---------------------------
+# Der Kalender „Geplante Erinnerungen“ spiegelt Apple Erinnerungen und zeigt auch abgehakte.
+# Nur Einträge behalten, die noch als offene Erinnerung existieren.
+if data.get("kalender") is not None and data.get("erinnerungen") is not None:
+    _offen = {r["t"] for r in data["erinnerungen"]}
+    data["kalender"] = [e for e in data["kalender"]
+                        if not (e["cal"] == "Geplante Erinnerungen" and e["t"] not in _offen)]
+
+
+# --- Fokus-Zeiten aus den Daily Notes ---------------------------------------
+@section("fokus")
+def _fokus():
+    import fokus_lib
+    return fokus_lib.auswerten()
+
+
+# --- Stundenplan (statisch, aus .scripts/stundenplan.json) ---------------------
+@section("stundenplan")
+def _stundenplan():
+    return json.loads((VAULT / ".scripts" / "stundenplan.json").read_text(encoding="utf-8"))
+
+
+# --- Tageswerte als Frontmatter in die Daily Notes ---------------------------
+@section("tageswerte")
+def _tageswerte():
+    import tageswerte_lib
+    return tageswerte_lib.schreibe(data)
+
+
+# --- Wochenreview mit Plan-Stärke ---------------------------------------------
+@section("wochenreview")
+def _wochenreview():
+    from datetime import date as _date
+    heute = _date.today()
+    montag = heute - timedelta(days=heute.weekday())
+    mo = montag.isoformat()
+    fk = data.get("fokus") or {}
+    prio1 = [p for p in (data.get("projekte") or []) if p["status"] == "aktiv" and p.get("prio") == 1]
+    pm = fk.get("projekte") or {}
+    prio1_min = sum(pm.get(p["name"], 0) for p in prio1)
+    gesamt = fk.get("woche_min", 0)
+    vorwoche = sum(m for d, m in (fk.get("tage") or {}).items()
+                   if (montag - timedelta(days=7)).isoformat() <= d < mo)
+    g = data.get("gesundheit") or {}
+    tage = [d for d in g.get("days", []) if d["d"] >= mo]
+    def schnitt(key):
+        w = [d[key] for d in tage if d.get(key)]
+        return round(sum(w) / len(w), 1) if w else None
+    bef = [b["b"] for b in g.get("befinden", []) if b["d"] >= mo and b.get("b")]
+    heat = (data.get("training") or {}).get("heat") or {}
+    einheiten = sum(1 for d, v in heat.items() if d >= mo and v.get("s", 0) > 0)
+    ueberf = sum(1 for r in (data.get("erinnerungen") or []) if r["due"] and r["due"] < heute.isoformat())
+    geaendert = sum(1 for p in (data.get("projekte") or []) if p["status"] == "aktiv" and p["mtime"] >= mo)
+    zuerst = sorted(prio1, key=lambda p: (pm.get(p["name"], 0), p["mtime"]))[:3]
+    return {"von": mo, "fokus_min": gesamt, "vorwoche_min": vorwoche, "prio1_min": prio1_min,
+            "plan_staerke": round(100 * prio1_min / gesamt) if gesamt else None,
+            "ohne_fokus": [p["name"] for p in prio1 if not pm.get(p["name"])],
+            "schlaf": schnitt("sleep"), "ruhepuls": schnitt("rhr"),
+            "befinden": round(sum(bef) / len(bef), 1) if bef else None,
+            "einheiten": einheiten, "ueberfaellig": ueberf, "projekte_bewegt": geaendert,
+            "zuerst": [{"name": p["name"], "file": p["file"], "min": pm.get(p["name"], 0)} for p in zuerst]}
+
+
+# --- Saisons-Ziele (Projekt-Frontmatter saison: Enddatum, ziel: Satz) ------------
+@section("saison")
+def _saison():
+    import fokus_lib
+    from datetime import date as _date
+    heute = _date.today()
+    out = []
+    for p in data.get("projekte") or []:
+        if p["status"] != "aktiv" or not p.get("saison"):
+            continue
+        try:
+            ende = _date.fromisoformat(p["saison"])
+        except ValueError:
+            continue
+        start = ende - timedelta(days=84)
+        montag = heute - timedelta(days=heute.weekday())
+        out.append({"name": p["name"], "ziel": p.get("ziel"), "file": p["file"], "ende": p["saison"],
+                    "tage_uebrig": (ende - heute).days,
+                    "woche_min": fokus_lib.projekt_minuten(p["name"], montag, heute),
+                    "saison_min": fokus_lib.projekt_minuten(p["name"], max(start, heute - timedelta(days=84)), heute)})
+    out.sort(key=lambda x: x["ende"])
+    return out[:3]
+
+
+# --- „Braucht dich heute“: aus den schon gesammelten Daten berechnet ---------
+@section("braucht")
+def _braucht():
+    heute = datetime.now().date()
+    items = []
+
+    def tage_seit(iso_s):
+        return (heute - datetime.strptime(iso_s, "%Y-%m-%d").date()).days
+
+    g = data.get("gesundheit") or {}
+    if g.get("warnungen"):
+        items.append({"s": 90, "kat": "Körper", "t": "; ".join(g["warnungen"]),
+                      "hint": "Training heute locker oder ausfallen lassen"})
+
+    for r in data.get("erinnerungen") or []:
+        if not r["due"]:
+            continue
+        d = -tage_seit(r["due"])  # negativ = überfällig
+        if d > 0:
+            continue
+        items.append({"s": 85 if d == 0 else 75 + max(d, -10) * -0.5, "kat": "Erinnerung", "t": r["t"],
+                      "liste": r["liste"],
+                      "hint": "heute fällig" if d == 0 else f"seit {-d} Tagen überfällig"})
+
+    for p in data.get("projekte") or []:
+        if p["status"] != "aktiv":
+            continue
+        if p.get("deadline"):
+            d = -tage_seit(p["deadline"])
+            if 0 <= d <= 14:
+                items.append({"s": 88, "kat": "Projekt", "t": p["name"], "file": p["file"],
+                              "hint": f"Frist in {d} Tagen" if d else "Frist heute"})
+                continue
+        if p.get("prio") == 1:
+            ruhe = tage_seit(p["mtime"])
+            fmin = ((data.get("fokus") or {}).get("projekte") or {}).get(p["name"], 0)
+            if ruhe >= 7:
+                items.append({"s": 55 + min(ruhe, 30) / 3, "kat": "Fokus", "t": p["name"], "file": p["file"],
+                              "hint": f"seit {ruhe} Tagen nicht angefasst, diese Woche {fmin} min Fokus"})
+
+    inbox = (data.get("vault") or {}).get("inbox") or 0
+    if inbox >= 3:
+        items.append({"s": 40, "kat": "Vault", "t": f"Inbox sortieren ({inbox} Einträge)", "hint": "Claude kann einsortieren"})
+
+    gew = g.get("gewicht") or []
+    if gew and tage_seit(gew[-1]["d"]) >= 14:
+        items.append({"s": 50, "kat": "Körper", "t": "RENPHO-Werte nachtragen",
+                      "hint": f"letzter Eintrag vom {gew[-1]['d']}"})
+
+    for i in items:
+        i["key"] = f'{i["kat"]}|{i["t"]}'  # Schlüssel für „Später“ und „Erledigt“ im Dashboard
+    items.sort(key=lambda i: -i["s"])
+    return items[:8]
 
 
 payload = "window.LEBEN = " + json.dumps(data, ensure_ascii=False) + ";\n"

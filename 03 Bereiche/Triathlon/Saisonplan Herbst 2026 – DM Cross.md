@@ -6,6 +6,9 @@ date: 2026-09-04
 
 # Saisonplan Herbst 2026 – DM Crosslauf Weinstadt
 
+> [!warning] Stand 27.10.2026: Laufverbot
+> Kleiner Riss in der Achillessehne (MRT), absolutes Laufverbot, kein Dehnen, kein Achillessehnen-Krafttraining. Erlaubt: lockeres Radfahren und Schwimmen. 6 Wochen Stoßwelle im OZF Fellbach. Die Laufeinheiten unten sind ausgesetzt, bis der Arzt freigibt. Siehe [[Achillessehne – Teilriss 10-2026]]. Ersatzplan: [[Trainingsplan Rad und Schwimmen – Achillessehne]].
+
 **Zielwettkampf: Deutsche Meisterschaften Crosslauf, Weinstadt.**
 Samstag 28.11.2026, 14:00 Uhr, Mittelstrecke 3,2 km (3 Runden).
 Sonntag 29.11.2026, 13:40 Uhr, Langstrecke 6,4 km (6 Runden).

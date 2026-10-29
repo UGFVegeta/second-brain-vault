@@ -273,6 +273,25 @@ sec("varianten", "Erweitert", "Varianten, Verlauf und Vergleich",
 </ul>
 """)
 
+sec("nachbarn", "Erweitert", "Nachbarn wechseln",
+    "Neuer Sitzplan, neue Nachbarn: Wer vorher nebeneinander saß, soll nicht wieder zusammensitzen.",
+    "nachbarn wechseln neu verteilen frühere vorher neben tauschen sitzplan wechsel gleiche nachbarn",
+    f"""
+<h3>Frühere Nachbarn anzeigen</h3>
+<ul>
+  <li>Der Schalter <b>Frühere Nachbarn anzeigen</b> (links, Abschnitt „Nachbarn wechseln“) schreibt unter jeden Namen, neben wem die Person im letzten gespeicherten Stand saß.</li>
+  <li><b>Orange</b> heißt: Die Person sitzt wieder neben jemandem aus dem alten Stand. Mit dem Mauszeiger auf der Zeile siehst du die vollen Namen.</li>
+  <li>Verglichen wird mit dem letzten Stand im Verlauf, der vom aktuellen Plan abweicht. Welcher das ist, steht unter dem Schalter. Beim Drucken wird die Anzeige ausgeblendet.</li>
+</ul>
+<h3>Neue Nachbarn verteilen</h3>
+<ul>
+  <li>Der Knopf <b>Neue Nachbarn verteilen</b> speichert zuerst den aktuellen Plan im Verlauf und verteilt dann alle neu. Wer vorher nebeneinander saß, soll möglichst nicht wieder zusammensitzen.</li>
+  <li>Danach sagt die Meldung, wie viele frühere Paare getrennt wurden. Die Anzeige der früheren Nachbarn schaltet sich dabei von selbst ein.</li>
+  <li>Reihenfolge der Vorgaben: Deine Regeln gehen vor, dann die Schülerwünsche, dann das Meiden der alten Nachbarn. Festgehaltene Schüler bleiben sitzen.</li>
+  <li>Gefällt dir das Ergebnis nicht: {kbd("⌘Z")} oder „Rückgängig“ bringt den alten Plan zurück. Nochmal klicken würfelt neu.</li>
+</ul>
+""")
+
 # ───────────────────────── Zeigen und sichern
 sec("zeigen", "Zeigen und sichern", "Vor der Klasse zeigen",
     "Wünsche ausblenden, Lehrer- oder Schülersicht, Seitenleiste einklappen.",

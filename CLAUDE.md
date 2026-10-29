@@ -58,6 +58,10 @@ Bei Schulfragen zu einem Fach zuerst die Karte lesen, nicht erst im Vault suchen
 
 Die Dateien nur gezielt lesen, die für die Aufgabe nötig sind.
 
+## Ordner-Anleitungen und „Gelernt“-Dateien
+
+Wiederkehrende Bereiche haben eine eigene `CLAUDE.md` im Ordner (Claude Code lädt sie automatisch, sobald dort Dateien gelesen werden) und eine Datei `Gelernt.md` mit Erkenntnissen aus früheren Läufen. Aktuell: `02 Projekte/Golf Verkauf/`, `04 Ressourcen/Sitzplan/`, `04 Ressourcen/Mathematik/`, `04 Ressourcen/Physik/`, `03 Bereiche/WeinstadtCross/` (die Projektnotizen zu WeinstadtCross liegen weiter in `02 Projekte/`; bei Arbeit an Website, News oder Postfach den Bereichsordner zuerst lesen). Regel: Vor der Arbeit in einem solchen Ordner die `Gelernt.md` lesen. Wenn Oskar etwas korrigiert oder sich etwas bewährt, am Ende eine Zeile dort ergänzen (Datum, was passiert ist, Folge). Neue Bereiche mit wiederkehrender Arbeit bekommen dasselbe Paar.
+
 ## Selbstkritik bei wichtigen Texten (Layer 2 Verifikation)
 
 Bei folgenden Texten immer automatisch nach dem ersten Entwurf eine Selbstkritik liefern – ohne dass Oskar extra darum bitten muss:
@@ -285,7 +289,7 @@ Dann gemeinsam festhalten:
 2. Welche neuen Erkenntnisse gibt es die als Notizen gespeichert werden sollen?
 3. Was ist offen geblieben oder als nächstes geplant?
 
-Daily Note erstellen unter 05 Daily Notes/YYYY-MM-DD.md mit folgendem Schema:
+Daily Note erstellen unter 05 Daily Notes/YYYY-MM-DD.md mit folgendem Schema. Hinweis: Das Dashboard (Fokus-Timer, Tageswerte) legt die Note des Tages oft schon an, mit Frontmatter (schlaf_h, ruhepuls, hrv, ctl, tsb, pv_kwh, fokus_min …) und einem Abschnitt „## Fokus“. Dann nichts neu anlegen, nur die Abschnitte Geschafft, Erkenntnisse und Offen ergänzen und das Frontmatter stehen lassen:
 ```markdown
 ---
 tags: [daily]

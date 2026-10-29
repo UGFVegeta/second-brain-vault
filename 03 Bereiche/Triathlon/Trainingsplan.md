@@ -6,6 +6,9 @@ date: 2026-09-07
 
 # Trainingsplan bis zur DM Cross
 
+> [!warning] Stand 27.10.2026: Laufverbot
+> Kleiner Riss in der Achillessehne (MRT), absolutes Laufverbot, kein Dehnen, kein Achillessehnen-Krafttraining. Erlaubt: lockeres Radfahren und Schwimmen. 6 Wochen Stoßwelle im OZF Fellbach. Die Laufeinheiten unten sind ausgesetzt, bis der Arzt freigibt. Siehe [[Achillessehne – Teilriss 10-2026]]. Ersatzplan: [[Trainingsplan Rad und Schwimmen – Achillessehne]].
+
 Gerüst vom 07.09. bis 29.11.2026. **Das ist eine Absichtserklärung, kein Stundenplan.** Mit zwei Kindern verschiebt sich vieles, und das ist eingeplant: Wenn eine Woche eng wird, wird von unten gestrichen statt nachgeholt.
 
 **Feste Punkte**
