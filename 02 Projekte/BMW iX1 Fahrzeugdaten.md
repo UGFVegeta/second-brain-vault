@@ -40,7 +40,8 @@ Die PDFs liegen nicht im Vault, sondern in iCloud: `Privat/Wichtige Dokumente/Au
 
 - Größe ab Werk: **225/55 R18 102Y XL**
 - Der Hersteller baut nach eigenem Ermessen Apollo, Vredestein oder Nexen ein (Reifenlabel in der Bestellung)
-- Winterräder gibt es nicht. Plan: Ganzjahresreifen auf die Originalfelgen, Werksreifen einlagern und vor der Rückgabe wieder aufziehen. Dazu läuft eine Anfrage beim Reifenlädle Backnang.
+- Winterräder gibt es nicht. Plan: Ganzjahresreifen auf die Originalfelgen, Werksreifen einlagern und vor der Rückgabe wieder aufziehen.
+- **Entschieden 30.10.2026: Continental AllSeasonContact 2** in 225/55 R18 (im Handel als 102V XL gefunden, ca. 127 bis 155 € pro Reifen). Anfrage bei Pascu Autoservice in Schorndorf (Termin 30.10., 13 Uhr, wegen Reifenwechsel Passat) und beim Reifenlädle Backnang für Besorgung und Montage, sobald der BMW da ist.
 - Der Mehrpreis für Sensoren und zweite Felgen entfällt, die RDKS-Sensoren sitzen in den Originalfelgen.
 
 ## Leasing
