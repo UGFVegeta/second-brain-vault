@@ -1,5 +1,5 @@
 ---
-tags: [inbox, physik, optik, claude-design, test]
+tags: [physik, optik, claude-design, test]
 date: 2026-10-08
 status: aktiv
 ---
