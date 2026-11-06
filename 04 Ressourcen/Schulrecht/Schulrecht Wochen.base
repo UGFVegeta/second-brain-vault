@@ -1,0 +1,43 @@
+filters:
+  and:
+    - file.inFolder("04 Ressourcen/Schulrecht/Wochen")
+    - file.ext == "md"
+formulas:
+  lage: if(status == "erledigt", "erledigt", if(date(start) <= today() && date(ende) >= today(), "jetzt", if(date(start) > today(), "in " + (date(start) - today()).days.toFixed(0) + " Tagen", "nachholen")))
+properties:
+  formula.lage:
+    displayName: Lage
+  note.woche:
+    displayName: Woche
+  note.thema:
+    displayName: Thema
+  note.faelle:
+    displayName: Fälle
+  note.start:
+    displayName: Start
+  note.status:
+    displayName: Status
+views:
+  - type: table
+    name: Wochen
+    order:
+      - formula.lage
+      - woche
+      - thema
+      - faelle
+      - start
+      - status
+    sort:
+      - property: woche
+        direction: ASC
+  - type: table
+    name: Diese Woche
+    filters:
+      and:
+        - date(start) <= today()
+        - date(ende) >= today()
+    order:
+      - woche
+      - thema
+      - faelle
+      - status

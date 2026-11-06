@@ -62,6 +62,6 @@ Audio-Folgen:
 
 ## Stand
 
-| Woche | Erledigt | Was sitzt | Was hakt |
-|---|---|---|---|
-| 1 | | | |
+Die laufende Woche erkennt die Tabelle am Datum. Pro Woche gibt es eine Notiz in `Wochen/` mit Protokoll (was saß, was hakte). Nach jeder Woche setzt Claude dort `status: erledigt`, sobald Oskar Bescheid gibt.
+
+![[Schulrecht Wochen.base#Wochen]]
