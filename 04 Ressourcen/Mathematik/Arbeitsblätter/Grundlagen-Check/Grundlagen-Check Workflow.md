@@ -144,3 +144,12 @@ google-chrome --headless=new --disable-gpu --print-to-pdf="Schnipsel.pdf" --no-p
 ```
 
 Beispiel: [[7c 2026-27/README|7c 2026-27]], `Schnipsel Grundlagen Klasse 5-6.pdf` dort.
+
+## Nummern vorab vergeben (ab der nächsten Diagnose, Oskar 05.11.2026)
+
+Bei der Diagnose Dreiecke (04.11.2026) fehlten Nummern, eine stand doppelt, eine war unleserlich. Deshalb künftig:
+
+- Die Nummer 1 bis 26 wird beim Bauen schon auf jeden Bogen gedruckt, die Kinder tragen nichts mehr ein.
+- Die Zuteilung läuft über den Sitzplan: Oskar ordnet die Nummern den Plätzen zu, A und B wechseln sich ab wie im Schachbrett, nie A neben A.
+- Gedruckt wird ein Stapel in Sitzreihenfolge, so kann Oskar einfach der Reihe nach austeilen.
+- Die Zuordnung Nummer zu Name bleibt bei Oskar (Sitzplan im Browser), nichts davon kommt in den Vault.

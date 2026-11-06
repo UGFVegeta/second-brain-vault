@@ -11,8 +11,8 @@ from mathe_woche_vorlage import bau_woche
 
 HIER = Path(__file__).parent
 BR = HIER / "Brüche" / "Brüche sind Zahlen – ALLES.html"
-RZ1 = HIER / "Rationale Zahlen" / "Rationale Zahlen 1 – Zahlen unter Null – ALLES.html"
-RZ2 = HIER / "Rationale Zahlen" / "Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html"
+RZ1 = HIER / "Rationale Zahlen" / "01 Woche 1 und 2 – Zahlen unter Null, Addieren, Subtrahieren" / "Rationale Zahlen 1 – Zahlen unter Null – ALLES.html"
+RZ2 = HIER / "Rationale Zahlen" / "01 Woche 1 und 2 – Zahlen unter Null, Addieren, Subtrahieren" / "Rationale Zahlen 2 – Addieren und Subtrahieren – ALLES.html"
 WEG = ("*", "html", "body", ".wrap", "header", "nav", "h1", "h2", "section", "footer", ".sub", ".tab", ".tabs", ".box", ".kopf")
 
 
@@ -112,7 +112,7 @@ def woche2():
     """Rezept-Stil (ab 04.10.2026): Am Mittwoch ist der Merkheft-Eintrag das Merkheft-Bild „Plus und Minus“ (Beispiel links,
     Rezept rechts, aus Rationale Zahlen/rezepte_rz.py). Es ersetzt den alten Merksatz in Folien, Tafelbild und Merkheft."""
     import sys
-    sys.path.insert(0, str(HIER / "Rationale Zahlen"))
+    sys.path.insert(0, str(HIER / "Rationale Zahlen" / "_Skripte"))
     from rezepte_rz import MERK_PLUSMINUS
     heft = f'<div class="heft">{MERK_PLUSMINUS}</div>'
     s1, s2 = RZ1.read_text(encoding="utf-8"), RZ2.read_text(encoding="utf-8")
@@ -131,7 +131,7 @@ def woche2():
     t2 = (t2[:bl[0]] + t2[bl[0]:bl[1]].replace('<div class="heft">', '<div>', 1)
           + f'<div class="tafelblock"><h4>Merkheft: Plus und Minus</h4>{heft}</div>' + t2[bl[2]:])
     zwei = lambda t1, t2: box("Dienstag", t1) + box("Mittwoch und Donnerstag", t2)
-    ziel = HIER / "Rationale Zahlen" / "Mathe 7c – Woche 2.html"
+    ziel = HIER / "Rationale Zahlen" / "01 Woche 1 und 2 – Zahlen unter Null, Addieren, Subtrahieren" / "Mathe 7c – Woche 2.html"
     import baue_woche7
     bau_woche(ziel, "Woche 2: Zahlen unter Null, Addieren", "Klasse 7c · Mathematik · 21.09. bis 25.09.2026 · Rationale Zahlen",
               vorb, schritte, f1 + f2, zwei(sektion(s1, "tafel"), t2), zwei(sektion(s1, "merkheft"), heft),

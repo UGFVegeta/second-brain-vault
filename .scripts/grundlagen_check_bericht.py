@@ -453,7 +453,7 @@ def bauen(daten, ziel_ordner: Path):
 
     seite = VORLAGE.format(
         titel=f"Grundlagen-Check – {test['name']}",
-        untertitel="Rückmeldung ohne Note · nur Nummern, keine Namen",
+        untertitel="Rückmeldung ohne Note; nur Nummern, keine Namen",
         klassenzeilen=klassenzeilen,
         selbstabschnitt=selbstabschnitt,
         karten="\n".join(karten),

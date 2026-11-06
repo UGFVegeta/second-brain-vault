@@ -1,8 +1,114 @@
 #!/usr/bin/env python3
 """Stunden-HTMLs Leitfrage 5 (Mondphasen, Finsternisse) und Lochkamera mit Rückblick Optik I.
 python3 baue_stunden_f5_lk.py   -> nur die HTMLs im Vault (Export nach iCloud erst nach Freigabe)"""
-import re
-from stunde_vorlage import basis, blatt, chip, tabellenfolie, bau_stunde
+import math, re
+from stunde_vorlage import basis, blatt, chip, tabellenfolie, bau_stunde, ab
+from folien_zeichnungen import Z, GELB, INK
+
+# ====================================================================== Do 05.11.2026: Rückseite Schattenwurf, Einschub Jahreszeiten
+# Oskars Plan: 1. Rückseite des Versuchsblatts F4 besprechen (letztes Mal nicht geschafft), 2. Einschub „Warum gibt es Jahreszeiten?“
+# am Tellurium (nach seinem Foliensatz „Wie entstehen die Jahreszeiten“, iCloud Optik/3. Mondphasen …), 3. Einstieg Leitfrage 5, so weit es reicht.
+SW_PDF = "Schattenwurf W06 Rückseite.pdf"
+def erde(z, x, y, sx, sy, r=15, nord=True):
+    """Erde mit Tag- und Nachtseite (Nacht auf der von der Sonne abgewandten Seite) und um 23,5° geneigter Achse (oben nach rechts)."""
+    a = math.atan2(sy - y, sx - x)
+    p = lambda w: (x + r * math.cos(w), y + r * math.sin(w))
+    (x1, y1), (x2, y2) = p(a + math.pi / 2), p(a + 3 * math.pi / 2)
+    z.add(f'<circle cx="{x}" cy="{y}" r="{r}" fill="#3B7CC4"/>'
+          f'<path d="M{x1:.1f} {y1:.1f} A{r} {r} 0 0 1 {x2:.1f} {y2:.1f}Z" fill="#05080F" fill-opacity=".42"/>')
+    ux, uy = math.sin(math.radians(23.5)), -math.cos(math.radians(23.5))
+    z.line(x - 24 * ux, y - 24 * uy, x + 24 * ux, y + 24 * uy, INK, 1.6)
+    if nord:
+        z.text(x + 31 * ux, y + 31 * uy + 3, "N", "middle", 9.5)
+    return z
+
+
+def erdbahn():
+    """Erdbahn als flache Ellipse (Blick schräg von oben), vier Stellungen, Achse immer gleich geneigt. Sonne leicht zur Winterseite
+    verschoben: Anfang Januar ist die Erde der Sonne am nächsten."""
+    z = Z("jz")
+    cx, cy, rx, ry = 318, 106, 215, 68
+    S = (330, 106)
+    z.add(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="none" stroke="#66798E" stroke-width="1.4"/>')
+    for t in (5 * math.pi / 4, math.pi / 4):          # Umlaufsinn: Sommer (links) -> Herbst (vorne) -> Winter (rechts) -> Frühling (hinten)
+        x, y = cx + rx * math.cos(t), cy - ry * math.sin(t)
+        dx, dy = -rx * math.sin(t), -ry * math.cos(t)
+        l = math.hypot(dx, dy)
+        z.pfeil(x - 7 * dx / l, y - 7 * dy / l, x + 7 * dx / l, y + 7 * dy / l, "#66798E", 1.4, 9)
+    z.sonne(*S, 16)
+    z.text(S[0], S[1] + 42, "Sonne", "middle")
+    for t, z1, z2, tx, ty, anc in ((math.pi, "Sommeranfang", "21. Juni", 0, 34, "middle"), (0, "Winteranfang", "21. Dezember", 0, 34, "middle"),
+                                   (math.pi / 2, "Frühlingsanfang, 20. März", "", 24, 3, "start"),
+                                   (3 * math.pi / 2, "Herbstanfang, 23. September", "", 24, 8, "start")):
+        x, y = cx + rx * math.cos(t), cy - ry * math.sin(t)
+        erde(z, x, y, *S)
+        z.text(x + tx, y + ty, z1, anc)
+        if z2:
+            z.text(x + tx, y + ty + 13, z2, anc)
+    # Winkel der Erdachse an der Winterstellung
+    wx, wy = cx + rx, cy
+    z.line(wx, wy, wx, wy - 34, "#66798E", 1.1, "3 3")
+    b = math.radians(23.5)
+    z.add(f'<path d="M{wx} {wy - 22} A22 22 0 0 1 {wx + 22 * math.sin(b):.1f} {wy - 22 * math.cos(b):.1f}" fill="none" stroke="#66798E" stroke-width="1.2"/>')
+    z.text(wx + 30, wy - 18, "23,5°")
+    # Drehung um die eigene Achse an der Sommerstellung
+    sx, sy = cx - rx, cy
+    z.add(f'<path d="M{sx - 13} {sy - 26} Q{sx} {sy - 36} {sx + 13} {sy - 26}" fill="none" stroke="{INK}" stroke-width="1.3"/>'
+          f'<polygon points="{sx + 16},{sy - 23} {sx + 7},{sy - 25} {sx + 13},{sy - 31}" fill="{INK}"/>')
+    z.text(sx, sy - 42, "Drehung in 24 h", "middle", 9.5)
+    z.text(150, 46, "Erdbahn", "middle", 9.5)
+    z.text(622, 204, "nicht maßstabsgetreu", "end", 9)
+    return z.svg()
+
+
+def steil_flach():
+    """Gleich breites Strahlenbündel (gleiche Strahlung) trifft steil (Sommer, 60°) und flach (Winter, 25°) auf den Boden.
+    Beleuchtete Fläche = Bündelbreite : sin(Einfallswinkel), berechnet."""
+    z = Z("sf2")
+    BODEN, BREITE, N = 176, 48, 5
+    z.line(318, 14, 318, 200, "#A3B7D3", 1, "5 4")
+    for x0, x1, a, start, laenge, sonne_ab, farbe, f_nr, t1, t2, tx in (
+            (30, 296, 60, 140, 130, 34, "#D92D20", "1", "Sommer: Sonne steht hoch", "kleine Fläche: stark erwärmt", 163),
+            (336, 620, 25, 470, 142, 74, "#F2A6A0", "2", "Winter: Sonne steht tief", "große Fläche: schwach erwärmt", 478)):
+        L = BREITE / math.sin(math.radians(a))
+        c, s = math.cos(math.radians(a)), math.sin(math.radians(a))
+        z.rect(x0, BODEN, x1 - x0, 10, "#B9A27A", .55)
+        treff = [start + i * L / (N - 1) for i in range(N)]
+        anf = [(x - laenge * c, BODEN - laenge * s) for x in treff]
+        z.poly([anf[0], (treff[0], BODEN), (treff[-1], BODEN), anf[-1]], "#FFC53D", .22)
+        for (ax, ay), x in zip(anf, treff):
+            z.pfeil(ax, ay, x, BODEN - 1, GELB, 1.8, 7)
+        z.rect(start, BODEN - 3, L, 6, farbe)
+        mx, my = (anf[0][0] + anf[-1][0]) / 2, (anf[0][1] + anf[-1][1]) / 2
+        z.sonne(mx - sonne_ab * c, my - sonne_ab * s, 10)
+        z.text(tx, 26 if a > 45 else 84, t1, "start" if a < 45 else "start", weight=600)
+        z.formel(start + L + 8, BODEN - 4, "A", f_nr)
+        z.text((x0 + x1) / 2, 204, t2, "middle")
+    return z.svg()
+
+
+EINSCHUB = "Einschub Jahreszeiten"
+J_FRAGE = ab('<section class="folie"><div class="frageband"><div class="nr">Einschub</div><h2>Warum gibt es Jahreszeiten?</h2></div>'
+             '<div class="ab-hinweis">🌍 Am Tellurium: Tag und Nacht, ein Jahr, die geneigte Erdachse</div></section>', "Frage", EINSCHUB, neu=True)
+J_BAHN = ab('<section class="folie"><div class="titelband"><h1>Die Erde läuft um die Sonne</h1></div>'
+            f'<div class="zeichenzone karo">{erdbahn()}</div>'
+            '<div class="merksatz">Die Erde dreht sich in 24 Stunden einmal um ihre Achse und läuft in einem Jahr auf einer elliptischen Bahn '
+            'um die Sonne. Die Erdachse ist <b>geneigt</b>. Dadurch ist mal die Nordhalbkugel, mal die Südhalbkugel zur Sonne geneigt.</div></section>', "Erdbahn", EINSCHUB, neu=True, heft=True)
+J_WINKEL = ab('<section class="folie"><div class="titelband"><h1>Steile und flache Sonnenstrahlen</h1></div>'
+              f'<div class="zeichenzone karo">{steil_flach()}</div>'
+              '<div class="merksatz">Im Winter steht die Sonne tiefer, ihre Strahlen fallen <b>flacher</b> ein. Dieselbe Strahlung verteilt sich '
+              'auf eine größere Fläche, auf jeden Quadratmeter kommt weniger an. Je flacher die Strahlen, desto weniger wird der Boden erwärmt.</div></section>',
+              "Steil und flach", EINSCHUB, neu=True, heft=True)
+J_ANTWORT = ab('<section class="folie"><div class="frageband"><div class="nr">Antwort</div><h2>Warum gibt es Jahreszeiten?</h2></div>'
+               '<div class="antwortzone">Die Erdachse ist <b>geneigt</b>. Im Sommer ist unsere Nordhalbkugel zur Sonne geneigt: Die Sonne steht hoch, '
+               'die Strahlen fallen <span class="rot">steil</span> ein und erwärmen jeden Quadratmeter stark. Im Winter fallen sie '
+               '<span class="rot">flach</span> ein, dieselbe Strahlung verteilt sich auf eine größere Fläche. '
+               'Nicht der Abstand zur Sonne ist der Grund.</div></section>', "Antwort", EINSCHUB, neu=True)
+
+_sw = blatt(SW_PDF, "w06b", "Rückseite besprechen")
+SW_LOESUNG = (_sw[0], '<section class="marke" data-tab="Rückseite Schattenwurf" data-group="Wiederholung" hidden></section>' + _sw[1], _sw[2])
+VORSPANN = [SW_LOESUNG, J_FRAGE, J_BAHN, J_WINKEL, J_ANTWORT]   # ohne leere Zwillingsfolien (Oskar 04.11.: er zeichnet im PDF in Notability)
+V = len(VORSPANN)   # 5 Folien vor Leitfrage 5
 
 # ====================================================================== Leitfrage 5
 F5_ALLTAG = tabellenfolie("Mond und Finsternis im Alltag", [
@@ -12,15 +118,16 @@ F5_ALLTAG = tabellenfolie("Mond und Finsternis im Alltag", [
     ("Finsternisbrille", "Sonnenfinsternis nur mit Schutz ansehen", "Das Sonnenlicht kann die Netzhaut dauerhaft schädigen."),
 ], frage="Warum darf man eine Mondfinsternis ohne Brille ansehen, eine Sonnenfinsternis aber nicht?")
 
-F5 = [
-    basis(42), basis(43), basis(45),
+LF5 = "Leitfrage 5"
+F5 = VORSPANN + [
+    ab(basis(42), "Einstieg", LF5), ab(basis(43), "Einstieg", LF5), ab(basis(45), "Tellurium", LF5),
     blatt("Mondphasen im Modell W08.pdf", "w08", "Versuchsblatt austeilen · Versuch in Paaren"),
-    basis(47), basis(49), basis(51), F5_ALLTAG,
-    basis(52), basis(53), basis(54),
+    ab(basis(47), "Mondphasen", LF5), ab(basis(49), "Finsternisse", LF5), ab(basis(51), "Finsternisse", LF5), ab(F5_ALLTAG, "Alltag", LF5),
+    ab(basis(52), "Antwort, Check", LF5), ab(basis(53), "Antwort, Check", LF5), ab(basis(54), "Antwort, Check", LF5),
 ]
 
 F5_MATERIAL = {
-    "demo": [("Tellurium beleuchtet (Phywe)", "1×", "Mondphasen und Finsternisse vorne zeigen"),
+    "demo": [("Tellurium beleuchtet (Phywe)", "1×", "Tag und Nacht, Jahreszeiten, Mondphasen und Finsternisse vorne zeigen"),
              ("helle Lampe ohne Schirm", "1×", "als Sonne für den Schülerversuch, mitten im Raum oder vorne")],
     "schueler": [("Styroporkugel, etwa 5 cm", "1×", "pro Paar, einer dreht sich, einer beobachtet mit"),
                  ("Bleistift oder Schaschlikspieß", "1×", "als Griff für die Kugel")],
@@ -28,32 +135,50 @@ F5_MATERIAL = {
 }
 
 F5_SCHRITTE = [
-    ("Einstieg", "Vier Wochen Mond, Leitfrage 5, Vermutungen.", [1, 2]),
-    ("Tellurium", "Vorne am Tellurium zeigen, wo der Mond steht. Folie dazu.", [3]),
-    ("Versuch", "Kopf, Kugel, Lampe in Paaren, Versuchsblatt.", [4]),
-    ("Mondphasen", "Phasen von der Erde aus, 29,5 Tage.", [5]),
-    ("Finsternisse", "Am Tellurium oder im Mondlabor, dann Folien.", [6, 7]),
-    ("Alltag, Antwort, Check", "Alltag mündlich, Antwort ins Heft, Handzeichen.", [8, 9, 10, 11]),
+    ("Rückseite", "Rückseite des F4-Blatts besprechen: PDF „Schattenwurf W06 Rückseite“ in Notability (Seite 1 Aufgabe, Seite 2 Lösung). Die Lösung ist Folie 1.", [1]),
+    ("Jahreszeiten", "Einschub am Tellurium: Tag und Nacht, ein Jahr, geneigte Erdachse. Vermutungen zur Frage.", [2]),
+    ("Erdbahn", "Vorzeichnen, die Klasse zeichnet mit.", [3]),
+    ("Steil und flach", "Vorzeichnen, die Klasse zeichnet mit. Antwort ins Heft.", [4, 5]),
+    ("Einstieg", "Ab hier Leitfrage 5, so weit es reicht. Vier Wochen Mond, Leitfrage 5, Vermutungen.", [V + 1, V + 2]),
+    ("Tellurium", "Vorne am Tellurium zeigen, wo der Mond steht. Folie dazu.", [V + 3]),
+    ("Versuch", "Kopf, Kugel, Lampe in Paaren, Versuchsblatt.", [V + 4]),
+    ("Mondphasen", "Phasen von der Erde aus, 29,5 Tage.", [V + 5]),
+    ("Finsternisse", "Am Tellurium oder im Mondlabor, dann Folien.", [V + 6, V + 7]),
+    ("Alltag, Antwort, Check", "Alltag mündlich, Antwort ins Heft, Handzeichen.", [V + 8, V + 9, V + 10, V + 11]),
 ]
 
 F5_HG = f"""
-<div class="box"><h3>Wo steht der Mond? {chip(3)}</h3><ul>
+<div class="box"><h3>Rückseite Schattenwurf {chip(1)}</h3><ul>
+<li>Pro Lichtquelle zwei Randstrahlen über die Kanten des Hindernisses bis zum Schirm. Wo keine Lichtquelle hinkommt: Kernschatten (dicht schraffiert). Wo nur eine hinkommt: Halbschatten.</li>
+<li>Typischer Fehler: Randstrahlen enden am Hindernis oder werden nicht bis zum Schirm verlängert. Bei d (zwei Hindernisse, eine Lampe) gibt es keinen Halbschatten.</li>
+<li>Bei e hilft es, erst alle Strahlen der oberen Lampe zu zeichnen, dann die der unteren, und danach die Gebiete zu zählen.</li></ul></div>
+
+<div class="box"><h3>Jahreszeiten {chip(2, 3, 4, 5)}</h3><ul>
+<li>Vorlage: dein Foliensatz „Wie entstehen die Jahreszeiten“ (iCloud, Physik Klasse 7, Optik, 3. Mondphasen …). Neu gezeichnet, gleicher Inhalt.</li>
+<li><b>Erdachse:</b> um 23,5° gegen die Senkrechte auf der Erdbahn geneigt, zeigt immer Richtung Polarstern. Am Tellurium sieht man das gut: Die Achse bleibt beim Umlauf parallel.</li>
+<li><b>Abstand:</b> Die Bahn ist fast ein Kreis. Anfang Januar ist die Erde der Sonne am nächsten (etwa 147 Mio. km), Anfang Juli am weitesten weg (etwa 152 Mio. km). Bei uns ist im Januar Winter, der Abstand kann also nicht der Grund sein.</li>
+<li><b>Sonnenhöhe mittags in Schorndorf:</b> im Juni etwa 65°, im Dezember nur etwa 18°.</li>
+<li>Zweiter Grund (wie auf deinem alten Blatt): Im Sommer sind die Tage länger, die Sonne scheint länger.</li>
+<li><b>Typische Fehlvorstellungen:</b> Im Sommer ist die Erde näher an der Sonne. Die Erdachse kippt im Lauf des Jahres hin und her.</li>
+<li>Versuch zum Zeigen (ohne Bauen): Taschenlampe senkrecht und schräg auf kariertes Papier halten, Kästchen im Lichtfleck zählen.</li></ul></div>
+
+<div class="box"><h3>Wo steht der Mond? {chip(V + 3)}</h3><ul>
 <li>Der Mond läuft in etwa 27,3 Tagen einmal um die Erde. Von Neumond bis Neumond dauert es 29,5 Tage, weil die Erde in dieser Zeit ein Stück um die Sonne weiterwandert.</li>
 <li><b>Umlaufsinn:</b> Von Norden aus gesehen läuft der Mond gegen den Uhrzeigersinn. Liegt die Sonne in der Zeichnung links, steht der zunehmende Mond unten, der abnehmende oben.</li>
 <li><b>Tellurium:</b> Zeigt Mondphasen und beide Finsternisse direkt vorne. Den Raum gut abdunkeln, dann ist die beleuchtete Hälfte klar zu sehen.</li>
 <li><b>Typische Fehlvorstellungen:</b> Die Phasen entstehen durch den Erdschatten. Der Mond leuchtet selbst. Bei Neumond ist der Mond „weg“.</li></ul></div>
 
-<div class="box"><h3>Tipps zum Versuch {chip(4)}</h3><ul>
+<div class="box"><h3>Tipps zum Versuch {chip(V + 4)}</h3><ul>
 <li>Eine helle Lampe ohne Schirm, sonst sind die Phasen blass. Raum ganz abdunkeln.</li>
 <li>Die Kugel etwas höher als den Kopf halten. Sonst steht sie bei „Lampe hinter dir“ im Kopfschatten, das ist dann eine Mondfinsternis. Das kann man gezielt als Zusatz zeigen.</li>
 <li>Drehen nach links, also gegen den Uhrzeigersinn. Dann stimmen die Phasen mit der Nordhalbkugel überein: Lampe rechts von dir heißt zunehmender Halbmond, rechte Seite hell.</li>
 <li>Das Buch zeigt auf S. 40 einen ähnlichen Versuch mit Globus, Lampe und einer Papierkugel am Faden.</li></ul></div>
 
-<div class="box"><h3>Mondphasen {chip(5)}</h3><ul>
+<div class="box"><h3>Mondphasen {chip(V + 5)}</h3><ul>
 <li>Faustregel für die Nordhalbkugel: rechts hell heißt zunehmend, links hell heißt abnehmend. Auf der Südhalbkugel ist es umgekehrt.</li>
 <li>Der zunehmende Halbmond steht am Nachmittag und Abend am Himmel, der abnehmende am Morgen. Der Vollmond geht beim Sonnenuntergang auf.</li></ul></div>
 
-<div class="box"><h3>Finsternisse {chip(6, 7)}</h3><ul>
+<div class="box"><h3>Finsternisse {chip(V + 6, V + 7)}</h3><ul>
 <li>Die Mondbahn ist um etwa 5° gegen die Erdbahn geneigt. Deshalb gibt es nicht bei jedem Neumond eine Sonnenfinsternis und nicht bei jedem Vollmond eine Mondfinsternis. Im Mondlabor lässt sich der Mond dafür nach oben und unten schieben.</li>
 <li>Der Kernschatten des Mondes ist auf der Erde höchstens rund 270 km breit. Eine totale Sonnenfinsternis sieht man deshalb nur in einem schmalen Streifen, eine Mondfinsternis dagegen überall, wo gerade Nacht ist.</li>
 <li><b>Blutmond:</b> Die Lufthülle der Erde lenkt etwas Sonnenlicht in den Kernschatten. Dabei bleibt vor allem rotes Licht übrig, wie beim Sonnenuntergang.</li>
@@ -65,8 +190,14 @@ F5_HG = f"""
 """
 
 F5_AB = f"""
-<div class="box"><h3>Versuchsblatt Mondphasen im Modell {chip(4)}</h3>
+<div class="box"><h3>Rückseite Versuchsblatt F4: Schattenwurf {chip(1)}</h3>
+<a class="btn" href="Materialien/{SW_PDF}">PDF öffnen (Aufgabe und Lösung)</a><a class="btn" href="Materialien/Kern- und Halbschatten W06 – Druck doppelseitig.pdf">Versuchsblatt doppelseitig</a>
+<p>Die Schüler haben das Blatt schon (Rückseite des Versuchsblatts F4). Schwierigkeit: ○ leicht; ◐ mittel; ● schwer.</p>
+<p>Lücken: a ○ <b>Kernschatten</b>; b ○ <b>Halbschatten</b>; c ◐ <b>Kernschatten</b>, <b>Halbschatten</b>; d ◐ <b>Kernschatten</b>, <b>drei</b>; e ● <b>Halbschatten</b>, <b>Kernschatten</b>, <b>beiden Lichtquellen</b>.</p>
+<p>Die Kreise stehen ab dem nächsten PDF-Bau auch auf dem Blatt selbst (nach Freigabe).</p></div>
+<div class="box"><h3>Versuchsblatt Mondphasen im Modell {chip(V + 4)}</h3>
 <a class="btn" href="Materialien/Mondphasen im Modell W08.pdf">PDF öffnen</a><a class="btn" href="Materialien/Mondphasen im Modell W08 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
+<p>Schwierigkeit: Aufgabe 1 Versuch ○; Aufgabe 2 Lücken ◐ (○ leicht; ◐ mittel; ● schwer).</p>
 <p><b>Lösung:</b> zur Lampe: Neumond (ganz dunkel). Lampe rechts: zunehmender Halbmond (rechts hell). Lampe hinter dir: Vollmond. Lampe links: abnehmender Halbmond (links hell).
 Lücken: <b>Hälfte</b>, <b>unterschiedlich viel</b>, <b>Mondfinsternis</b>.</p></div>
 <div class="box"><h3>Mondlabor</h3>
@@ -137,18 +268,19 @@ LK_HG = f"""
 LK_AB = f"""
 <div class="box"><h3>Versuchsblatt Lochkamera {chip(3)}</h3>
 <a class="btn" href="Materialien/Lochkamera W09.pdf">PDF öffnen</a><a class="btn" href="Materialien/Lochkamera W09 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
+<p>Schwierigkeit: Aufgabe 1 Versuch ○; Aufgabe 2 Lücken ◐ (○ leicht; ◐ mittel; ● schwer).</p>
 <p><b>Lösung:</b> Das Bild steht auf dem Kopf. Je weiter das Papier vom Loch entfernt ist, desto größer wird das Bild. Ein kleineres Loch macht das Bild schärfer, aber dunkler.
 Lücken: <b>geradlinig</b>, <b>umgekehrtes</b>, <b>größer</b>, <b>schärfer</b>, <b>dunkler</b>.</p></div>
 <div class="box"><h3>Lochkameralabor</h3>
 <a class="btn" href="Lochkameralabor.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a></div>"""
 
 bau_stunde("Optik – Leitfrage 5 – Stunde.html", "Optik: Warum sieht der Mond nicht immer gleich aus?",
-           "Klasse 7c · Physik · Leitfrage 5 · Mondphasen und Finsternisse · voraussichtlich Do 15.10.2026",
+           "Klasse 7c; Physik; Rückseite Schattenwurf, Einschub Jahreszeiten, Leitfrage 5 so weit es reicht; Do 05.11.2026",
            ["Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.",
             "Folien und Lösungen: nicht drucken."],
-           F5_MATERIAL, F5_SCHRITTE, F5, F5_HG, F5_AB)
+           F5_MATERIAL, F5_SCHRITTE, F5, F5_HG, F5_AB, seitenleiste=True, ohne_leer=True)
 bau_stunde("Optik – Lochkamera – Stunde.html", "Optik: Die Lochkamera und Rückblick",
-           "Klasse 7c · Physik · Lochkamera, Rückblick Optik I · voraussichtlich Do 22.10.2026",
+           "Klasse 7c; Physik; Lochkamera, Rückblick Optik I",
            ["Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.",
             "Folien und Lösungen: nicht drucken."],
            LK_MATERIAL, LK_SCHRITTE, LK, LK_HG, LK_AB)

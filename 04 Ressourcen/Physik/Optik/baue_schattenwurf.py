@@ -97,13 +97,14 @@ def seite(loesung):
         t = text
         for k, w in enumerate(woerter, 1):
             t = t.replace("{L%d}" % k, f'<span class="luecke loesungstext">{w}</span>' if loesung else '<span class="luecke"></span>')
-        zeilen += (f'<tr><td class="bild"><span class="nrk">{"abcde"[i - 1]}</span>{zeichnung(lampen, hind, loesung)}</td>'
+        zeilen += (f'<tr><td class="bild"><span class="nrk">{"abcde"[i - 1]} {"○○◐◐●"[i - 1]}</span>{zeichnung(lampen, hind, loesung)}</td>'
                    f'<td class="txt"><p class="frage">{t}</p></td></tr>')
     kopf = ('<div class="kopf"><div><span class="chip">W06</span><h1>F4 — Schattenwurf</h1></div>'
             + ('<div class="loesung-marker">Lösung</div>' if loesung else "") + "</div>")
     name = "" if loesung else '<div class="namensfeld"><span>Name</span><span>Klasse</span><span class="kurz">Datum</span></div>'
     legende = ('<p class="hinweis">⊗ Lichtquelle &nbsp;&nbsp; ▌ undurchsichtiger Körper &nbsp;&nbsp; | Schirm'
-               + (' &nbsp;&nbsp; <b style="color:#FF1F8A">KS</b> Kernschatten, <b style="color:#FF1F8A">HS</b> Halbschatten' if loesung else "") + "</p>")
+               + (' &nbsp;&nbsp; <b style="color:#FF1F8A">KS</b> Kernschatten, <b style="color:#FF1F8A">HS</b> Halbschatten' if loesung else "")
+               + ' &nbsp;&nbsp; ○ leicht ◐ mittel ● schwer</p>')
     return f"""<div class="seite">{kopf}{name}
 <h2 class="aufgabe"><span class="nr">5</span>Schatten zeichnen</h2>
 <p class="frage">Zeichne die Randstrahlen ein und schraffiere die Schattenräume. Den Kernschatten schraffierst du dichter als den Halbschatten.

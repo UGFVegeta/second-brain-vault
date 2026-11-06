@@ -14,7 +14,8 @@ MAG = "#E6007E"
 
 def kopf(chip, titel, loesung=False):
     lm = '<div class="loesung-marker">Lösung</div>' if loesung else ""
-    return f'<div class="kopf"><div><span class="chip">{chip}</span><h1>{titel}</h1></div>{lm}</div>'
+    return (f'<div class="kopf"><div><span class="chip">{chip}</span><h1>{titel}</h1></div>{lm}</div>'
+            '<p class="hinweis" style="margin:2mm 0">○ leicht &nbsp;&nbsp; ◐ mittel &nbsp;&nbsp; ● schwer</p>')
 
 
 def luecken(text, loesung):
@@ -78,7 +79,7 @@ def w08(loesung):
     return seite(
         kopf("W08", "F5 — Versuch: Mondphasen im Modell", loesung)
         + ("" if loesung else '<div class="namensfeld"><span>Name</span><span>Klasse</span><span class="kurz">Datum</span></div>')
-        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung</h2><ol class="liste">'
+        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung <span class="kreis">○</span></h2><ol class="liste">'
         '<li>Stecke die Styroporkugel auf einen Bleistift. Die Lampe vorne ist die Sonne, die Kugel der Mond, dein Kopf die Erde.</li>'
         '<li>Halte die Kugel mit ausgestrecktem Arm vor dein Gesicht, etwas höher als deinen Kopf.</li>'
         '<li>Drehe dich langsam nach links im Kreis. Die Kugel bleibt immer vor deinem Gesicht.</li>'
@@ -86,7 +87,7 @@ def w08(loesung):
         + SKIZZE_W08.replace("pw8", "pw8l" if loesung else "pw8") + '</div>'
         + '<p class="frage"><b>Versuchsbeobachtung:</b> Male in jedem Kreis den dunklen Teil der Kugel aus und schreibe den Namen der Mondphase darunter.</p>'
         + f'<div class="phasen">{phasen}</div>'
-        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung</h2><p class="frage">Fülle die Lücken aus.</p>'
+        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung <span class="kreis">◐</span></h2><p class="frage">Fülle die Lücken aus.</p>'
         + f'<p class="frage lt">{lt}</p>')
 
 
@@ -113,7 +114,7 @@ def w09(loesung):
     return seite(
         kopf("W09", "Versuch: Beobachtungen mit der Lochkamera", loesung)
         + ("" if loesung else '<div class="namensfeld"><span>Name</span><span>Klasse</span><span class="kurz">Datum</span></div>')
-        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung</h2><ol class="liste">'
+        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung <span class="kreis">○</span></h2><ol class="liste">'
         '<li>Betrachte mit der Lochkamera hell erleuchtete Gegenstände (Fenster, Kerze).</li>'
         '<li>Verändere den Abstand zwischen Loch und Transparentpapier.</li>'
         '<li>Setze verschiedene Blenden an die Öffnung, also größere und kleinere Löcher.</li>'
@@ -121,7 +122,7 @@ def w09(loesung):
         + SKIZZE_W09 + '</div>'
         + '<p class="frage"><b>Versuchsbeobachtung:</b></p>'
         + f'<div class="zeichenfeld" style="height:40mm;">{beob}</div>'
-        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung</h2><p class="frage">Fülle die Lücken aus.</p>'
+        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung <span class="kreis">◐</span></h2><p class="frage">Fülle die Lücken aus.</p>'
         + f'<p class="frage lt">{lt}</p>')
 
 

@@ -31,6 +31,8 @@ Vorschlag, noch nicht abgestimmt:
 - Die Überprüfungsmodule C (Präsentation) und D (schwierige Alltagssituation) gezielt üben, siehe [[Rektor-Stelle Schulzentrum Rudersberg]]
 - Prüfen, ob die Anlassbeurteilung aus dem Fellbach-Verfahren zum Zeitpunkt der Auswahl noch gilt
 
+Abgestimmt (04.11.2026): Schulrecht nach [[Lernplan Schulrecht bis Februar 2027]], 3 bis 5 Stunden pro Woche, Hören beim Sport und Fälle mündlich mit Claude.
+
 ## Offene Fragen
 
 - Wann wird über die Rektorstelle entschieden?

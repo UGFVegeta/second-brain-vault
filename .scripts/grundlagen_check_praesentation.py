@@ -134,7 +134,7 @@ VORLAGE = """<!DOCTYPE html>
 
 <section>
   <h1>{titel}</h1>
-  <h2>Rückmeldung ohne Note &middot; {klasse}</h2>
+  <h2>Rückmeldung ohne Note, Klasse {klasse}</h2>
   <p class="erklaerung">{untertitel}</p>
 </section>
 

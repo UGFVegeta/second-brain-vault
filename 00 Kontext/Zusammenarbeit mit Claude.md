@@ -6,6 +6,16 @@ tags: [kontext]
 
 Wie Claude bei der Arbeit mit Oskar agieren soll. Ergänzt [[Schreibstil]].
 
+## Einfach schlägt komplex (Grundregel, 01.11.2026)
+
+Gilt für alles: Unterricht, Präsentationen, Konrektor-Themen, Konzepte, Werkzeuge. Oskar: „Lieber mehrere einfache wie ein komplizierter.“
+
+- Die einfachste Form, die trägt, ist fast immer besser. So kommen mehr Menschen mit, und die Umsetzung fällt leichter.
+- Einfach heißt nicht weglassen. Was wichtig ist, bleibt drin, wird aber einfach erklärt und einfach umgesetzt, möglichst eingebettet in etwas Bestehendes statt als zusätzlicher Baustein. Das wirkt organischer als Aufgesetztes.
+- Lieber mehrere kleine, einfache Schritte als ein großer, komplizierter.
+- Unterricht: Oskar zeigt PDFs in Notability am Beamer. Vorhandene Blätter nicht in Folien zerschneiden, beim Besprechen genügt eine Folie mit der ganzen Lösungsseite; keine leeren Karo-Folien zum Mitzeichnen, er zeichnet direkt ins PDF (04.11.2026).
+- Beispiel: Die Mathe-Stunde Verbindung der Rechenarten (Kl. 7, 02.11.2026) war für 45 Minuten zu voll. Das Vertauschungsgesetz bekam keine eigene Seite mehr, sondern steht als Zusatz im Rezept-Schritt „gleiche Zeichen zusammen“; die Rechenvorteile beim Malnehmen kommen in eine eigene Stunde.
+
 ## Optionen vs. einfach machen
 
 - **Einfache, klare Aufgaben:** ohne Rückfrage direkt umsetzen, keine Optionen.
@@ -64,7 +74,7 @@ Jede Stundenvorbereitung entsteht als **eine HTML-Datei** mit Tabs: Vor der Stun
 
 ## Arbeitsblätter mit Schwierigkeitsstufen (23.09.2026)
 
-Arbeitsblätter, Übungsblätter und Diagnosearbeiten (Grundlagen-Check) bekommen bei jeder Aufgabe das Kreis-Symbol wie im Mathebuch: leerer Kreis = leicht, halber Kreis = mittel, voller Kreis = schwer, dazu eine Legende oben. Die Schüler sollen so selbst einschätzen können, ob eine Aufgabe eher leicht oder schwer ist. Stil sonst wie die Buchaufgaben: nummeriert, a) b) c) in Spalten, ohne unnötige Klammern, A4, Lösungsblatt „nur für mich“ separat. Referenz: `04 Ressourcen/Mathematik/Rationale Zahlen/baue_arbeitsblatt2.py`.
+Arbeitsblätter, Übungsblätter und Diagnosearbeiten (Grundlagen-Check) bekommen bei jeder Aufgabe das Kreis-Symbol wie im Mathebuch: leerer Kreis = leicht, halber Kreis = mittel, voller Kreis = schwer, dazu eine Legende oben. Die Schüler sollen so selbst einschätzen können, ob eine Aufgabe eher leicht oder schwer ist. Stil sonst wie die Buchaufgaben: nummeriert, a) b) c) in Spalten, ohne unnötige Klammern, A4, Lösungsblatt „nur für mich“ separat. Referenz: `04 Ressourcen/Mathematik/Rationale Zahlen/_Skripte/baue_arbeitsblatt2.py`.
 
 ## Erst mein Konzept, dann das Buch (23.09.2026)
 
@@ -144,3 +154,5 @@ Auch Klassenlehrer- und Methodenstunden bereitet Claude als eine Stunden-HTML mi
 **Bilder mit wenig Farbe (22.10.2026, Oskar: „viel zu viel Farbe“):** Gemini-Bilder für Folien sind schlichte Strichzeichnungen, weiß, dünne dunkelgraue Linien, keine Farbflächen und keine Umgebung. Farbe nur, wo sie etwas bedeutet (Meer hellblau, Ball, Herz). Kein Symbolwirrwarr, ein Motiv pro Bild; bei Geschichten zum Vorlesen steht auf der Folie nur Überschrift und Bild. Wie Oskar etwas spielt (im Stehen, Basecap nach hinten gedreht), kommt ins Bild. Gemini nur mit seinem Okay (Plus-Konto); lange Prompts können hängen bleiben, dann kürzer fassen.
 
 **Folien nur das Allernötigste, die Stunde passiert im Tun (22.10.2026, Oskar: „Die Präsentation soll kein Zusammenfassen von allem sein, sondern sie nur unterstützen“):** Ab der nächsten Vorbereitung wird die Stunde vom Tun her geplant: Die Schüler machen etwas (Kreis, Rollenspiel, Karten, Gespräch), statt auf Folien zu schauen. Folien zeigen nur, was die Klasse gerade wirklich sehen muss: Überschrift, ein Bild oder Schema, bei Arbeitsphasen den Auftrag in höchstens drei kurzen Zeilen, bei Auswertungen höchstens zwei Fragen. Kein Text, den Oskar vorliest oder ohnehin sagt. Was er sagt, steht nicht unter der Folie (im Vollbild unsichtbar), sondern auf dem ausgedruckten Ablaufblatt mit Musterlösung in einem blauen Kasten „SAGEN“ bei jedem Schritt. Vorbild: „Fr 23.10. 6 Ablauf mit Musterlösung und Sagen“ in Klassenlehrer 7c/09 Zeitfensterwoche.
+
+- 04.11.2026: Ablage in Themenordnern mit Unterordnern statt flacher Liste (Oskar findet sonst nichts). Auswertungen als eine HTML mit Tabs zum Durchklicken. Unterordner statt flacher Ablage gilt auch für neue Themen.

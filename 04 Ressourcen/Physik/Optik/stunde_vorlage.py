@@ -195,6 +195,13 @@ def versuchsbeschreibung(titel, material, schritte, bild=""):
 
 
 
+def ab(h, tab, gruppe="", neu=False, heft=False):
+    """Abschnitt für die Seitenleiste (data-tab, data-group) an eine Folie hängen; neu=True: blauer „neu“-Hinweis über der Folie (bis Oskar freigibt);
+    heft=True: Folie ohne Nummer kommt in den Heft-Tab. data-heft steht direkt hinter class (heft_html prüft die ersten 80 Zeichen)."""
+    attr = (' data-heft="1"' if heft else "") + f' data-tab="{tab}"' + (f' data-group="{gruppe}"' if gruppe else "") + (' data-neu="1"' if neu else "")
+    return re.sub(r'(<section class="[^"]*")', lambda m: m.group(1) + attr, h, count=1)
+
+
 def chip(*nr):
     return "".join(f'<button class="fchip" data-go="f{n}">Folie {n}</button>' for n in nr)
 
@@ -288,6 +295,9 @@ def heft_html(folge, zusatz_labore=()):
             continue
         nr = re.search(r'<div class="nr">(.*?)</div>', f, re.S)
         h2 = re.search(r"<h2>(.*?)</h2>", f, re.S)
+        if nr and nr.group(1).strip().startswith("Einschub") and h2:
+            teile.append(f'<h2 class="hlf"><span>{nr.group(1).strip()}</span>{h2.group(1).strip()}</h2>')
+            continue
         if nr and nr.group(1).strip().startswith("Leitfrage") and h2:
             teile.append(f'<h2 class="hlf"><span>{nr.group(1).strip()}</span>{h2.group(1).strip()}</h2>')
             erste_lf = erste_lf or "da"
@@ -296,7 +306,8 @@ def heft_html(folge, zusatz_labore=()):
             az = re.search(r'<div class="antwortzone"[^>]*>(.*?)</div>', f, re.S)
             if az:
                 teile.append(f'<h3 class="hti">{nr.group(1).strip()}</h3><div class="hantw">{az.group(1).strip()}</div>')
-                erste_lf = erste_lf or re.search(r"\d+", nr.group(1)).group(0)
+                zahl = re.search(r"\d+", nr.group(1))
+                erste_lf = erste_lf or (zahl.group(0) if zahl else None)
             continue
         h1 = re.search(r"<h1>(.*?)</h1>", f, re.S)
         if not h1 or not (re.match(r"\s*\d+(\.\d+)?\.?\s", h1.group(1)) or "data-heft" in f[:80] or 'class="folie heft"' in f[:80]):
@@ -401,13 +412,13 @@ def _titel_neu(h1, folientext):
 def _stil_titel(h1, fach):
     m = re.fullmatch(r"Lösung: Check zu Leitfrage (\d+)", h1)
     if m:
-        return f'<span class="eyebrow">Lösung · Check</span>Leitfrage {m.group(1)}'
+        return f'<span class="eyebrow">Lösung; Check</span>Leitfrage {m.group(1)}'
     m = re.fullmatch(r"Check zu Leitfrage (\d+)", h1)
     if m:
-        return f'<span class="eyebrow">Check · {fach}</span>Leitfrage {m.group(1)}'
+        return f'<span class="eyebrow">Check; {fach}</span>Leitfrage {m.group(1)}'
     m = re.match(r"(\d+)\.\d+ ", h1)
     if m:
-        return f'<span class="eyebrow">{fach} · Leitfrage {m.group(1)}</span>{h1}'
+        return f'<span class="eyebrow">{fach}; Leitfrage {m.group(1)}</span>{h1}'
     return f'<span class="eyebrow">{fach}</span>{h1}'
 
 
@@ -444,7 +455,7 @@ def stilisiere(folge, h1, sub):
     fach = h1.split(":")[0].strip()
     thema = h1.split(":", 1)[1].strip() if ":" in h1 else h1
     kl = re.search(r"Klasse (\d+)", sub)
-    fuss = f"Physik {kl.group(1) if kl else ''} · {fach} · {thema}".replace("Physik  ·", "Physik ·")
+    fuss = f"Physik {kl.group(1) if kl else ''}; {fach}; {thema}".replace("Physik ;", "Physik;")
     neu = []
     for n, h in enumerate(folge, 1):
         if isinstance(h, tuple) or "stil-v1" in h:
@@ -520,11 +531,11 @@ def neue_folge(datei, folge, schritte, drucken=None, heft_extra=None):
 
 def blatt_vorschau(html, ordner):
     """Zeigt zu jedem verlinkten Arbeitsblatt (Materialien/….pdf) beide Seiten als Bild: leeres Blatt und Lösung.
-    Kopiervorlagen („2 auf 1“, „Druck doppelseitig“, Rückseiten) bleiben ohne Vorschau."""
+    Kopiervorlagen („2 auf 1“, „Druck doppelseitig“) bleiben ohne Vorschau. Rückseiten (Seite 1 Aufgabe, Seite 2 Lösung) bekommen seit 04.11.2026 auch eine."""
     mat = Path(ordner) / "Materialien"
     (mat / "assets").mkdir(exist_ok=True)
     for pdf in dict.fromkeys(re.findall(r'href="Materialien/([^"]+\.pdf)"', html)):
-        if any(x in pdf for x in ("2 auf 1", "doppelseitig", "Rückseite", "Lösung.pdf")) or not (mat / pdf).exists():
+        if any(x in pdf for x in ("2 auf 1", "doppelseitig", "Lösung.pdf")) or not (mat / pdf).exists():
             continue
         slug = re.sub(r"[^A-Za-z0-9]+", "-", pdf.replace(".pdf", "")).strip("-").lower()
         bilder = []
@@ -540,8 +551,62 @@ def blatt_vorschau(html, ordner):
     return html
 
 
-def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css="", heft_extra=None):
+# Seitenleiste im Tab Folien (Baustein Seitenleiste, angepasst an die Physik-Stunden: Folien stehen untereinander, Klick scrollt hin).
+# Abschnitte aus data-tab/data-group (Helfer ab()). Tasten im Tab Folien: ←→ Folie, ↑↓ Abschnitt, T Leiste aus/ein.
+SEITENLEISTE_CSS = """
+body:has(#t_folien.on) .wrap{max-width:1250px}
+#present{display:flex;gap:18px;align-items:flex-start}
+#stagecol{flex:1;min-width:0}
+#side{--accent2:#1d1d1f;--muted:#66798E;--ink:#1b1b1b;flex:none;width:224px;position:sticky;top:58px;max-height:calc(100vh - 80px);overflow-y:auto;overflow-x:hidden;background:#efe8d8;border:1px solid #e0d7c2;border-radius:14px;padding:16px 10px;display:flex;flex-direction:column;gap:2px}
+#side>*{flex:none}
+#side h2{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive;font-size:23px;line-height:1.05;font-weight:700;padding:0 8px 8px;overflow-wrap:anywhere;border-bottom:3px solid var(--accent2);margin:0 0 8px}
+#side .grp{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive;font-size:21px;color:var(--muted);padding:12px 8px 3px;line-height:1.1}
+#side .stab{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;padding:8px 11px;border-radius:9px;font-size:14.5px;line-height:1.2;color:var(--ink)}
+#side .stab.sub{padding-left:20px;font-size:14px}
+#side .stab:hover{background:#f8f3e6}
+#side .stab.aktiv{background:#fff;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12);border-left:5px solid var(--accent2)}
+#side .punkte{display:flex;gap:3px;flex:none;flex-wrap:wrap;max-width:70px;justify-content:flex-end}
+#side .punkte i{width:6px;height:6px;border-radius:50%;background:#cdc4ae;cursor:pointer}
+#side .punkte i.an{background:var(--accent2)}
+#side .hinweis{margin-top:auto;padding:14px 8px 0;font-size:11.5px;color:var(--muted);line-height:1.6}
+#side kbd{font:inherit;font-size:10.5px;background:#fff;border:1px solid #cfc8b8;border-radius:4px;padding:0 4px}
+#present.nav-aus #side{display:none}
+@media (max-width:900px){#side{display:none}}
+"""
+SEITENLEISTE_JS = """
+(()=>{const side=document.getElementById('side'),present=document.getElementById('present');if(!side)return;
+const slides=[...document.querySelectorAll('#stagecol .karte, #stagecol .blattkarte')];const ab=[];
+slides.forEach((s,k)=>{const n=s.dataset.tab||'Folien';let t=ab[ab.length-1];if(!t||t.name!==n||t.group!==(s.dataset.group||'')){t={name:n,group:s.dataset.group||'',idx:[]};ab.push(t)}t.idx.push(k);s._tab=ab.length-1});
+const h=document.createElement('h2');h.textContent=document.querySelector('header h1').textContent.replace(/^[^:]*:\\s*/,'');side.appendChild(h);
+const btns=[];let lastG='';
+const geh=k=>{slides[k].scrollIntoView({block:'start'});cur=k;upd()};
+ab.forEach(t=>{if(t.group&&t.group!==lastG){const g=document.createElement('div');g.className='grp';g.textContent=t.group;side.appendChild(g)}lastG=t.group;
+const b=document.createElement('button');b.className='stab'+(t.group?' sub':'');const l=document.createElement('span');l.textContent=t.name;b.appendChild(l);
+const p=document.createElement('span');p.className='punkte';if(t.idx.length>1)t.idx.forEach(k=>{const d=document.createElement('i');d.onclick=ev=>{ev.stopPropagation();geh(k)};p.appendChild(d)});
+b.appendChild(p);b.onclick=()=>{geh(t.idx[0]);b.blur()};side.appendChild(b);btns.push(b)});
+const hw=document.createElement('div');hw.className='hinweis';hw.innerHTML='<kbd>←</kbd> <kbd>→</kbd> Folie<br><kbd>↑</kbd> <kbd>↓</kbd> Abschnitt<br><kbd>T</kbd> Leiste aus/ein';side.appendChild(hw);
+let cur=0;
+function upd(){const ti=slides[cur]._tab;btns.forEach((b,k)=>{b.classList.toggle('aktiv',k===ti);const pos=ab[k].idx.indexOf(cur);b.querySelectorAll('i').forEach((d,j)=>{d.className=(k===ti&&j<=pos)?'an':''})})}
+addEventListener('scroll',()=>{if(!document.getElementById('t_folien').classList.contains('on'))return;let k=0;slides.forEach((s,j)=>{if(s.getBoundingClientRect().top<innerHeight*.45)k=j});if(k!==cur){cur=k;upd()}},{passive:true});
+addEventListener('keydown',e=>{if(!document.getElementById('t_folien').classList.contains('on')||e.metaKey||e.ctrlKey||e.altKey||/INPUT|TEXTAREA/.test(e.target.tagName))return;
+if(e.key==='ArrowRight'){e.preventDefault();geh(Math.min(slides.length-1,cur+1))}else if(e.key==='ArrowLeft'){e.preventDefault();geh(Math.max(0,cur-1))}
+else if(e.key==='ArrowDown'){e.preventDefault();geh(ab[Math.min(ab.length-1,slides[cur]._tab+1)].idx[0])}else if(e.key==='ArrowUp'){e.preventDefault();const ti=slides[cur]._tab;geh(ab[ab[ti].idx[0]===cur?Math.max(0,ti-1):ti].idx[0])}
+else if(e.key==='t'||e.key==='T'){present.classList.toggle('nav-aus')}});
+upd()})();
+"""
+
+
+def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, blaetter_boxen, ziel=None, css_href="folien.css", extra_css="", heft_extra=None, seitenleiste=False, ohne_leer=False):
     folge, schritte, drucken, heft_extra = neue_folge(datei, folge, schritte, drucken, heft_extra)
+    if ohne_leer:   # ohne leere Zwillingsfolien (Oskar 04.11.2026: er zeichnet im PDF in Notability, leere Karo-Folien braucht er nicht)
+        neu_nr, behalten = {}, []
+        for k, h in enumerate(folge, 1):
+            if isinstance(h, str) and re.match(r'<section class="[^"]*\bleer\b', h):
+                continue
+            behalten.append(h)
+            neu_nr[k] = len(behalten)
+        folge = behalten
+        schritte = [(ti, d, sorted({neu_nr[k] for k in ks if k in neu_nr})) for ti, d, ks in schritte]
     blaetter_boxen = blatt_vorschau(blaetter_boxen, ziel or HIER)
     extra_css += ".vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}"
     labore = labore_der_stunde(hintergrund, blaetter_boxen)
@@ -552,11 +617,23 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
     LETZTE[datei] = folge
     labchip = lambda i: "".join(f'<a class="labchip" href="{labore[n]}" target="_blank">🧪 {n}</a>' for n in schritt_lab.get(i, []))
     labzeile = ("".join(f'<a class="labchip" href="{d}" target="_blank">🧪 {n}</a>' for n, d in labore.items()))
+    abschnitt, attrs = ("", ""), []
+    for h in folge:                     # Abschnitt der Seitenleiste: aus data-tab/data-group der Folie, sonst wie die Folie davor
+        m = re.search(r'<section[^>]*?data-tab="([^"]*)"(?: data-group="([^"]*)")?', h if isinstance(h, str) else h[1])
+        abschnitt = (m.group(1), m.group(2) or "") if m else abschnitt
+        attrs.append(f' data-tab="{abschnitt[0]}" data-group="{abschnitt[1]}"' if seitenleiste else "")
+    neu_ = lambda h: ' <span class="neu">neu</span>' if isinstance(h, str) and 'data-neu="1"' in h[:200] else ""
     karten = "".join(
-        (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
-         if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>')
+        (f'<div class="fnr">Folie {i}; Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}"{attrs[i - 1]}>{h[1]}</div>'
+         if isinstance(h, tuple) else f'<div class="fnr">Folie {i}{neu_(h)}</div><div class="karte" id="f{i}"{attrs[i - 1]}>{h}</div>')
         for i, h in enumerate(folge, 1))
-    zeit = "".join(f'<div class="z{i % 6}" style="flex:1">{i + 1} · {t}</div>' for i, (t, d, ks) in enumerate(schritte))
+    extra_css += ".fnr .neu{background:#0a66d8;color:#fff;border-radius:8px;padding:1px 8px;font-size:11px;margin-left:6px}"
+    sl_js = ""
+    if seitenleiste:
+        karten = f'<div id="present"><nav id="side"></nav><div id="stagecol">{karten}</div></div>'
+        extra_css += SEITENLEISTE_CSS
+        sl_js = SEITENLEISTE_JS
+    zeit = "".join(f'<div class="z{i % 6}" style="flex:1">{i + 1} {t}</div>' for i, (t, d, ks) in enumerate(schritte))
     zeilen = "".join(
         f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b><br><span class="m">{d}</span></div>'
         f'<div class="go">{labchip(i)}{"".join(f"<button data-go=f{k}>Folie {k}</button>" for k in ks)}</div></div>'
@@ -588,7 +665,9 @@ tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)}});
 try{{history.scrollRestoration='manual'}}catch(e){{}}
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+{sl_js}
 </script></body></html>"""
+    html = re.sub(r"(?<![\d)]) · (?![\d(])", "; ", html)   # nie „·“ als Trenner (Oskar), Malpunkte zwischen Zahlen bleiben
     ((ziel or HIER) / datei).write_text(html, encoding="utf-8")
     print("geschrieben:", datei, f"({len(html) // 1024} KB), Folien:", len(folge))
 

@@ -10,6 +10,7 @@ Alles zum Verkauf des Golf 6 auf einen Blick. Fahrzeugdaten: [[Golf 6 Fahrzeugda
 
 ## Stand
 
+- **31.10.2026: Golf verkauft für 4.300 € an eine Privatperson.** Angebotspreis war 5.500 € VB, also 1.200 € darunter und 200 € unter der eigenen Untergrenze. Verkaufsdauer 5 Tage ab Inserat.
 - 26.10.2026: Inserat auf mobile.de online (Inseratsnummer 52872319159616). Zusätzlich gibt es ein eigenes Kleinanzeigen-Inserat über Julias Kleinanzeigen-Konto, dessen Nachrichten nicht in Oskars web.de-Postfach ankommen. Sie werden per Chrome abgelesen und von Hand in `kleinanzeigen.json` eingetragen, das Skript baut sie in die Übersicht ein. Nur gelegentlich spiegelt mobile.de eine Kleinanzeigen-Anfrage als Mail. AutoScout24: kein Inserat eingestellt.
 - Erste Anfragen am Abend des 26.10. Anruf bei einem Interessenten ist für 27.10. um 9 Uhr vereinbart (Erinnerung 8:55 Uhr in Apple Erinnerungen, Liste Inbox).
 

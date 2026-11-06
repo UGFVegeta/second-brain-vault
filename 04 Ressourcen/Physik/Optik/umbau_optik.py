@@ -2,7 +2,7 @@
 """Neuer Aufbau der Optik-Stunden bis zu den Herbstferien (Stand 01.10.2026), Registry für stunde_vorlage.bau_stunde.
 Pro Stunde: Versuchsfolien statt Schülerblatt (ersatz), Texte der Schritte (schritt_text), Druckhinweis (drucken).
 Nummerierte Zeichenfolien bekommen automatisch ihre leere Zwillingsfolie (stunde_vorlage.umbauen). Blätter bleiben nur im Tab Arbeitsblätter."""
-from stunde_vorlage import versuchsbeschreibung
+from stunde_vorlage import versuchsbeschreibung, ab
 
 NICHTS = ["Nichts drucken: Die Klasse zeichnet mit und schreibt ins Heft.", "Folien und Lösungen: nicht drucken."]
 
@@ -51,9 +51,9 @@ UMBAU = {
                       "Erklären": "Schattenraum und Schattenbild, Kern- und Halbschatten: leere Folie zum Mitzeichnen, dann ausgefüllt. Im Schattenlabor die Lampen verschieben.",
                       "Schatten einzeichnen": "In drei Schritten an der Tafel vormachen, die Klasse zeichnet mit (leere Folie, dann ausgefüllt). Die Rückseite des Versuchsblatts gibt es nur als Alternative."}),
     "Optik – Leitfrage 5 – Stunde.html": dict(
-        ersatz={4: [VERS_F5]}, drucken=NICHTS + ["Optional: Versuchsblatt Mondphasen als Alternative."],
+        ersatz={"Mondphasen im Modell W08.pdf": [ab(VERS_F5, "Versuch", "Leitfrage 5")], "Schattenwurf W06 Rückseite.pdf": "behalten"}, drucken=NICHTS + ["Optional: Versuchsblatt Mondphasen als Alternative."],
         schritt_text={"Versuch": "Kopf, Kugel, Lampe in Paaren: Beschreibung an der Folie, Beobachtung ins Heft.",
-                      "Mondphasen": "Phasen von der Erde aus, 29,5 Tage: leere Folie zum Mitzeichnen, dann ausgefüllt.",
+                      "Mondphasen": "Phasen von der Erde aus, 29,5 Tage: vorzeichnen, die Klasse zeichnet mit.",
                       "Finsternisse": "Am Tellurium oder im Mondlabor, dann die Folien zum Mitzeichnen (Sonnenfinsternis, Mondfinsternis)."}),
     "Optik – Lochkamera – Stunde.html": dict(
         ersatz={3: [VERS_LK]}, drucken=NICHTS + ["Optional: Versuchsblatt Lochkamera als Alternative."],

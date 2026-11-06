@@ -67,6 +67,10 @@ Bei Schulfragen zu einem Fach zuerst die Karte lesen, nicht erst im Vault suchen
 
 Die Dateien nur gezielt lesen, die für die Aufgabe nötig sind.
 
+## Stunden-HTMLs mit Folien (immer)
+
+Jede Stunden-HTML mit Folien, im Fachunterricht wie in Klassenlehrerstunden, bekommt links die klickbare Seitenleiste wie die Elternabend-Präsentation (Teile als Überschrift, Abschnitte darunter, Punkte = Folien, ↑↓ wechselt den Abschnitt, T blendet aus, keine Punktreihe unten), dazu die Countdown-Uhr unten links und die farbige Zeitleiste über dem Ablauf. Folientechnik nie neu schreiben, sondern die Bausteine aus `04 Ressourcen/Lernwissenschaft & Pädagogik/Baustein …/` übernehmen. Vorher die Claude-Memory-Notiz „vorbereitung-erst-eine-html“ ganz lesen. (Oskar 22.10.2026 „Ab jetzt. Immer.“, am 01.11.2026 bekräftigt, nachdem es vergessen wurde.)
+
 ## Ordner-Anleitungen und „Gelernt“-Dateien
 
 Wiederkehrende Bereiche haben eine eigene `CLAUDE.md` im Ordner (Claude Code lädt sie automatisch, sobald dort Dateien gelesen werden) und eine Datei `Gelernt.md` mit Erkenntnissen aus früheren Läufen. Aktuell: `02 Projekte/Golf Verkauf/`, `04 Ressourcen/Sitzplan/`, `04 Ressourcen/Mathematik/`, `04 Ressourcen/Physik/`, `03 Bereiche/WeinstadtCross/` (die Projektnotizen zu WeinstadtCross liegen weiter in `02 Projekte/`; bei Arbeit an Website, News oder Postfach den Bereichsordner zuerst lesen). Regel: Vor der Arbeit in einem solchen Ordner die `Gelernt.md` lesen. Wenn Oskar etwas korrigiert oder sich etwas bewährt, am Ende eine Zeile dort ergänzen (Datum, was passiert ist, Folge). Neue Bereiche mit wiederkehrender Arbeit bekommen dasselbe Paar.
@@ -178,11 +182,11 @@ end tell
 
 ## Apple Reminders Integration
 
-Ich kann über AppleScript direkt mit der Apple Reminders App kommunizieren. Oskars Listen: **Inbox, Erinnerungen, Familie**.
+Ich kann über AppleScript direkt mit der Apple Reminders App kommunizieren. Oskars Listen: **Inbox, Schule, Familie** (die frühere Liste „Erinnerungen“ heißt seit spätestens 01.11.2026 „Schule“).
 
 **Nutzung:**
 - Wenn Oskar sagt "erinnere mich an X" oder "leg eine Erinnerung an" → per AppleScript direkt in Reminders anlegen, mit Datum/Uhrzeit wenn genannt
-- Standardliste: **Erinnerungen** (außer Oskar sagt explizit eine andere Liste)
+- Standardliste: **Schule** (außer Oskar sagt explizit eine andere Liste)
 - Familien-Aufgaben → Liste **Familie**
 - Schnelle Captures ohne Datum → Liste **Inbox**
 - Am Session-Ende: offene To-Dos aus der Session auf Wunsch als Erinnerungen anlegen
@@ -191,14 +195,14 @@ Ich kann über AppleScript direkt mit der Apple Reminders App kommunizieren. Osk
 ```applescript
 -- Erinnerung ohne Datum
 tell application "Reminders"
-  tell list "Erinnerungen"
+  tell list "Schule"
     make new reminder with properties {name: "Text hier"}
   end tell
 end tell
 
 -- Erinnerung mit Datum
 tell application "Reminders"
-  tell list "Erinnerungen"
+  tell list "Schule"
     make new reminder with properties {name: "Text hier", due date: date "31.05.2026 18:00:00"}
   end tell
 end tell

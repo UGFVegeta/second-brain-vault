@@ -61,3 +61,9 @@ Label `INBOX` wieder setzen per `UID COPY` nach `INBOX`, Quelle `[Gmail]/Papierk
 
 - web.de Papierkorb: `Papierkorb`. Neuer Ordner `Finanzen` angelegt für PayPal/ING/IONOS/Apple/congstar.
 - Gmail Papierkorb: `[Gmail]/Papierkorb`, Archiv: `[Gmail]/Alle Nachrichten`.
+
+## Aufräumen web.de am 01.11.2026
+
+- Zeitraum ab 01.08.2026. Fast alles landet bei web.de im Ordner `Unbekannt`, nicht in der INBOX.
+- 271 Werbemails per `UID MOVE` in den Papierkorb: AliExpress (läuft über Apple-Relay-Adressen `…aliexpress_com…@privaterelay.appleid.com`), heybee, Shaping New Tomorrow, La Machine, Bobshop, Lands' End Marketing (`marketing.landsend.de`). Bestell- und Versandmails von Lands' End blieben liegen.
+- Wichtiges (Rechnungen, Arzttermine, Zahlungsprobleme, persönliche Mails) aus `Unbekannt` in die INBOX geholt. Zwei Phishing-Mails (falsches Apple, falsches IONOS) in den Papierkorb.

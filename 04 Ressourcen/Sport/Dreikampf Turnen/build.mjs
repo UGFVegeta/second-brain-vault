@@ -45,9 +45,9 @@ const D = {
     { items: ['Aufgang: Auflaufen aus dem Schrägstand (mit oder ohne Stütz einer Hand)', 'Flüchtiger Handstand oder Rolle vorwärts', 'Abgang: Handstützüberschlag ' + AKTIV] },
   ],
   sprung: [
-    { note: 'Kasten längs (Bauchhöhe)', items: ['Weites Aufhocken', 'Strecksprung ' + AKTIV] },
-    { note: 'Bock, ca. 0,90 m', items: ['Sprunggrätsche ' + AKTIV] },
-    { note: 'Bock, Pferd oder Kasten, mind. 1 m', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
+    { note: 'Kasten quer, 1,0 m', items: ['Hockwende ' + AKTIV] },
+    { note: 'Bock, 1,0 m', items: ['Sprunggrätsche ' + AKTIV] },
+    { note: 'Bock, Pferd oder Kasten, 1,0 m', items: ['Sprunghocke ' + AKTIV] },
     { note: 'Kasten quer (1,10 m), alternativ T-Bock, Sprungtisch oder Pferd', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
     { note: 'Sprungtisch (1,20 m), alternativ T-Bock, Pferd oder Kasten', items: ['Sprunghocke oder -grätsche ' + AKTIV] },
     { note: 'Pferd, Kasten oder Sprungtisch (1,20 m)', items: ['Handstützsprungüberschlag gestreckt oder gewinkelt ' + AKTIV] },
@@ -114,7 +114,7 @@ const page1 = `<div class="pagebox"><div class="page" id="p1">
 const page2 = `<div class="pagebox"><div class="page" id="p2">
 <header><h1>Dreikampf Turnen<small>Klassen 7 bis 10 · Rückseite: Balancieren, Sprung, Noten</small></h1><div class="rules"><span class="k">3 aus 5 Disziplinen wählen</span><span>Ü2 bis Ü6 = 2 bis 6 Punkte</span><span>Gute Ausführung: bis zu 3 Zusatzpunkte</span></div></header>
 <table class="grid p2">${thead(G.slice(3), '<th style="background:#1b2433">Noten</th>')}<tbody>${[2, 3, 4, 5, 6].map((u, i) => `<tr>${lv(u)}${G.slice(3).map((g) => cell(g, i, true)).join('')}${i === 0 ? panel : ''}</tr>`).join('')}</tbody></table>
-<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Nur für den schulinternen Gebrauch.</footer>
+<footer>Übungen und Bildreihen: Bundesjugendspiele, Handbuch Wettkampf Gerätturnen (Auszug, Stand 04/26). Bildreihe Hockwende (Sprung Ü2): sportunterricht.de. Nur für den schulinternen Gebrauch.</footer>
 </div></div>`;
 
 // Daten für den Wahl-Tab

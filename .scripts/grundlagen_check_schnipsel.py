@@ -116,7 +116,7 @@ def zettel_html(nummer, gesamt, bloecke, selbst):
         f'<span class="label">gesamt</span></div>'
         f'<div class="bloecke">{bloecke_html}</div>'
         f'{selbst_html}'
-        f'<div class="fuss">ohne Note &middot; nur zur eigenen Info</div>'
+        f'<div class="fuss">ohne Note, nur zur eigenen Info</div>'
         f'</div>'
     )
 

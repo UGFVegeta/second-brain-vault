@@ -19,12 +19,15 @@ PZ = HIER / "Prozentrechnung Klasse 10"
 ICLOUD = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/Schuljahr 26 27/Mathematik"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 sys.path.insert(0, str(HIER))
-sys.path.insert(0, str(RZ))
+sys.path.insert(0, str(RZ / "_Skripte"))
+from ablage import ziel as rz  # noqa: E402  Rationale Zahlen liegt in Unterordnern
 sys.path.insert(0, str(PZ))
 import baue_woche3 as w3  # noqa: E402
 import baue_woche7 as w7  # noqa: E402
 import baue_woche4 as w4  # noqa: E402
 import baue_woche4_division as w4d  # noqa: E402
+import baue_woche7_rechenarten as w7r  # noqa: E402
+import baue_woche7_rechenarten_ueben as w7u  # noqa: E402
 import baue_zins10 as z10  # noqa: E402
 import baue_ka1_7c as ka1  # noqa: E402
 import baue_zuwachs10 as zw10  # noqa: E402
@@ -46,6 +49,8 @@ A4_CSS = ("@page{size:A4;margin:0}@page quer{size:A4 landscape;margin:0}.seite.q
 def a4_zu_pdf(seiten, basis, ziel, quer=(), extra_css=""):
     """Seiten [(Titel, HTML)] als DIN-A4-Hochformat. Läuft eine Seite über, entsteht eine Seite mehr -> Abbruch.
     extra_css: zusätzliche Stile der Stunde (mit oder ohne <style>-Hülle)."""
+    if basis == RZ:
+        basis = ziel.parent   # Rationale Zahlen: Bilder liegen neben der Stunde
     tmp_html, tmp_pdf = basis / "_export_a4.html", basis / "_export_a4.pdf"
     extra = extra_css.replace("<style>", "").replace("</style>", "")
     tmp_html.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{A4_CSS}{extra}</style></head><body>'
@@ -61,6 +66,8 @@ def a4_zu_pdf(seiten, basis, ziel, quer=(), extra_css=""):
 
 def folien_zu_pdf(folien, basis, ziel):
     """Folien [(Titel, HTML)] im Folienformat 13,333 × 7,5 in als PDF. basis = Ordner, gegen den Bildpfade aufgelöst werden."""
+    if basis == RZ:
+        basis = ziel.parent   # Rationale Zahlen: Bilder liegen neben der Stunde
     tmp_html, tmp_pdf = basis / "_export_folien.html", basis / "_export_folien.pdf"
     tmp_html.write_text(f'<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><style>{CSS}</style></head><body>'
                         + "".join(f'<div class="slide"><h1>{t}</h1>{h}</div>' for t, h in folien) + "</body></html>", encoding="utf-8")
@@ -88,9 +95,9 @@ def html_zu_pdf(html, n, ziel):
 
 def woche2_pdf():
     """Bestehendes Folien-PDF Rationale Zahlen 2 + Merkheft-Folie „Plus und Minus“ nach Seite 1 (Wohin geht der Bogen?)."""
-    alt = RZ / "Rationale Zahlen 2 – Folien für den Beamer.pdf"
-    neu = RZ / "Mathe 7c – Woche 2 – Folien für den Beamer.pdf"
-    merk = RZ / "_merk_pm.pdf"
+    alt = rz("Rationale Zahlen 2 – Folien für den Beamer.pdf")
+    neu = rz("Mathe 7c – Woche 2 – Folien für den Beamer.pdf")
+    merk = rz("_merk_pm.pdf")
     folien_zu_pdf([("Merkheft: Plus und Minus", w3.HEFT(MERK_PLUSMINUS))], RZ, merk)
     r, w = PdfReader(str(alt)), PdfWriter()
     w.add_page(r.pages[0])
@@ -163,21 +170,27 @@ def gesamt_html(uebersicht, ziel):
 
 def main():
     # 1. PDFs bauen
-    w4_pdf = RZ / f"{w4.NAME}.pdf"
+    w4_pdf = rz(f"{w4.NAME}.pdf")
     print("Woche 4:", a4_zu_pdf(w4.FOLIEN, RZ, w4_pdf, getattr(w4, "QUER", ())), "Seiten")
     w4d_pdfs = []
     for st in w4d.STUNDEN:
-        ziel = RZ / f"{st['name']}.pdf"
+        ziel = rz(f"{st['name']}.pdf")
         print(f"Woche 4, Stunde {st['nr']}:", a4_zu_pdf(st["folien"], RZ, ziel, st["quer"]), "Seiten")
         w4d_pdfs.append(ziel)
-    w7_pdf = RZ / "Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.pdf"   # Bauskript heißt noch baue_woche7.py
+    w7r_pdf = rz(f"{w7r.NAME}.pdf")
+    print("Woche 7 (Verbindung der Rechenarten):", a4_zu_pdf(w7r.FOLIEN, RZ, w7r_pdf, w7r.QUER, w7r.EXTRA), "Seiten")
+    w7u_pdf, w7u_bl, w7u_ls = (rz(f"{w7u.NAME}.pdf"), rz(f"{w7u.NAME} – Lerntheke Blatt 1 und 2.pdf"),
+                                rz(f"{w7u.NAME} – Lerntheke Lösungen.pdf"))
+    print("Woche 7, Stunde 2 (üben):", a4_zu_pdf(w7u.FOLIEN, RZ, w7u_pdf, w7u.QUER, w7u.EXTRA), "Seiten; Blätter:",
+          a4_zu_pdf(w7u.DRUCK_BLAETTER, RZ, w7u_bl, (), w7u.EXTRA), "; Lösungen:", a4_zu_pdf(w7u.DRUCK_LOESUNGEN, RZ, w7u_ls, (), w7u.EXTRA))
+    w7_pdf = rz("Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.pdf")   # Bauskript heißt noch baue_woche7.py
     print("Woche 5 (gemischte Aufgaben):", folien_zu_pdf(w7.FOLIEN, RZ, w7_pdf), "Seiten")
     w2 = woche2_pdf()
     print("Woche 2:", len(PdfReader(str(w2)).pages), "Seiten")
     ka_pdfs = []
     for mod, name in ((uka1, "Mathe 7c – Übungsklassenarbeit Nr. 1 Rationale Zahlen"), (ka1, "Mathe 7c – Klassenarbeit Nr. 1 Rationale Zahlen – Entwurf")):
         for l, zusatz in ((False, ""), (True, " – Lösung")):
-            ziel = RZ / f"{name}{zusatz}.pdf"
+            ziel = rz(f"{name}{zusatz}.pdf")
             print(f"{ziel.name}:", html_zu_pdf(*mod.druckfassung(l), ziel), "Seiten")
             ka_pdfs.append(ziel)
     ka10_pdfs = []
@@ -195,15 +208,20 @@ def main():
 
     # 2. Ablegen
     rz_ordner = ICLOUD / "Mathematik 7c" / "04 Rationale Zahlen"
-    pdfs_7 = [RZ / f"Mathe 7c – Woche 3 – {st['nr']} {st['titel']}.pdf" for st in w3.STUNDEN] + [w2, w4_pdf] + w4d_pdfs + [w7_pdf,
-              RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern.pdf", RZ / "Rationale Zahlen 3 – Arbeitsblatt Klammern – Lösungen.pdf"] + ka_pdfs \
-              + sorted(RZ.glob("Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – *.pdf")) + sorted(RZ.glob("Mathe 7c – Übungstest Rationale Zahlen*.pdf"))   # von baue_woche5_stunde2.py bzw. baue_uebungstest_7c.py gebaut
+    pdfs_7 = [rz(f"Mathe 7c – Woche 3 – {st['nr']} {st['titel']}.pdf") for st in w3.STUNDEN] + [w2, w4_pdf] + w4d_pdfs + [w7_pdf, w7r_pdf, w7u_pdf, w7u_bl, w7u_ls,
+              rz("Rationale Zahlen 3 – Arbeitsblatt Klammern.pdf"), rz("Rationale Zahlen 3 – Arbeitsblatt Klammern – Lösungen.pdf")] + ka_pdfs \
+              + sorted(RZ.rglob("Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – *.pdf")) + sorted(RZ.rglob("Mathe 7c – Übungstest Rationale Zahlen*.pdf"))   # von baue_woche5_stunde2.py bzw. baue_uebungstest_7c.py gebaut
     pz_ordner = ICLOUD / "Mathematik 10b" / "04 Prozentrechnung"   # bestehende Struktur in der iCloud
     pdfs_10 = sorted(PZ.glob("Prozent Wdh 10b – *.pdf")) + [z1, z2, zw, zw_ab, zw_abl] + ka10_pdfs
     for p in pdfs_7:
-        print(f"  7c  {ablegen(p, rz_ordner):24s} {p.name}")
+        unter = rz_ordner / p.parent.name if p.parent.parent == RZ else rz_ordner   # Unterordner wie im Vault
+        print(f"  7c  {ablegen(p, unter):24s} {p.parent.name}/{p.name}")
     for p in pdfs_10:
         print(f"  10b {ablegen(p, pz_ordner):24s} {p.name}")
+    # Dreiecke 7c (gebaut von Dreiecke/baue_diagnose_dreiecke.py)
+    for p in sorted((HIER / "Dreiecke").rglob("Mathe 7c – *.pdf")):   # Unterordner wie im Vault (z. B. Diagnose/)
+        unter = p.parent.relative_to(HIER / "Dreiecke")
+        print(f"  7c  {ablegen(p, ICLOUD / 'Mathematik 7c' / '05 Dreiecke' / unter):24s} {unter / p.name}")
 
     # 3. Gesamt-HTML in die Hauptordner
     for ueb, ordner in ((HIER / "Mathematik Klasse 7 – Übersicht.html", ICLOUD / "Mathematik 7c"),

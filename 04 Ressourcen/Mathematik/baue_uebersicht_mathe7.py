@@ -16,26 +16,29 @@ EIGENER_NAME = "Klein"
 PLAN = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/Schuljahr 26 27/Mathematik/Mathematik 7c/01 Organisatorisches/Stoffverteilungsplan 26-27 Mathe 7.xlsx"
 
 # fertige Wochen (Wochenformat, mathe_woche_vorlage.py): Woche -> [(id, Marke, Titel, Datei relativ zu diesem Ordner)]
-W3 = "Rationale Zahlen/Mathe 7c – Woche 3 – "
+W3 = "Rationale Zahlen/02 Woche 3 – Minusklammer, Rechengesetze/Mathe 7c – Woche 3 – "
 STUNDEN = {  # Woche -> [(id, Marke, Titel, Datei, Tag)]; fertige Wochen bekommen links eine eigene Überschrift, darunter die Stunden
     1: [("W1", "Wo 1", "Grundlagen-Check und Brüche sind Zahlen", "Brüche/Mathe 7c – Woche 1.html", "ganze Woche")],
-    2: [("W2", "Wo 2", "Zahlen unter Null, Addieren", "Rationale Zahlen/Mathe 7c – Woche 2.html", "ganze Woche")],
+    2: [("W2", "Wo 2", "Zahlen unter Null, Addieren", "Rationale Zahlen/01 Woche 1 und 2 – Zahlen unter Null, Addieren, Subtrahieren/Mathe 7c – Woche 2.html", "ganze Woche")],
     3: [("W3S1", "1", "Minus üben", W3 + "1 Minus üben.html", "Mo 28.09., IF-Stunde"),
         ("W3S2", "2", "Rechengesetze, Minusklammer", W3 + "2 Rechengesetze, Minusklammer.html", "Di 29.09., Doppelstunde"),
         ("W3S3", "3", "Minusklammer üben", W3 + "3 Minusklammer üben.html", "Mi 30.09."),
         ("W3S4", "4", "Klammern setzen, Exit-Ticket", W3 + "4 Klammern setzen, Exit-Ticket.html", "Do 01.10.")],
-    4: [("W4S1", "1", "Wiederholung Minusklammer, Multiplizieren", "Rationale Zahlen/Mathe 7c – Woche 4 – 1 Wiederholung Minusklammer, Multiplizieren.html", "Di 06.10., Doppelstunde"),
-        ("W4S2", "2", "Dividieren", "Rationale Zahlen/Mathe 7c – Woche 4 – 2 Dividieren.html", "Mi 07.10."),
-        ("W4S3", "3", "Dividieren üben", "Rationale Zahlen/Mathe 7c – Woche 4 – 3 Dividieren üben.html", "Do 08.10.")],
-    5: [("W5S1", "1", "Rezept für gemischte Aufgaben", "Rationale Zahlen/Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.html", "vor der KA 1"),
-        ("W5S2", "2", "Übungsstunde mit Lerntheke", "Rationale Zahlen/Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke.html", "Doppelstunde, vor der KA 1")],
+    4: [("W4S1", "1", "Wiederholung Minusklammer, Multiplizieren", "Rationale Zahlen/03 Woche 4 – Multiplizieren, Dividieren/Mathe 7c – Woche 4 – 1 Wiederholung Minusklammer, Multiplizieren.html", "Di 06.10., Doppelstunde"),
+        ("W4S2", "2", "Dividieren", "Rationale Zahlen/03 Woche 4 – Multiplizieren, Dividieren/Mathe 7c – Woche 4 – 2 Dividieren.html", "Mi 07.10."),
+        ("W4S3", "3", "Dividieren üben", "Rationale Zahlen/03 Woche 4 – Multiplizieren, Dividieren/Mathe 7c – Woche 4 – 3 Dividieren üben.html", "Do 08.10.")],
+    5: [("W5S1", "1", "Rezept für gemischte Aufgaben", "Rationale Zahlen/04 Woche 5 – Gemischte Aufgaben, Lerntheke/Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.html", "vor der KA 1"),
+        ("W5S2", "2", "Übungsstunde mit Lerntheke", "Rationale Zahlen/04 Woche 5 – Gemischte Aufgaben, Lerntheke/Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke.html", "Doppelstunde, vor der KA 1")],
+    7: [("W7S1", "1", "Verbindung der Rechenarten", "Rationale Zahlen/05 Woche 7 – Verbindung der Rechenarten/Mathe 7c – Woche 7 – 1 Verbindung der Rechenarten.html", "Mo 02.11., IF, halbe Klasse"),
+        ("W7S2", "2", "Verbindung der Rechenarten üben", "Rationale Zahlen/05 Woche 7 – Verbindung der Rechenarten/Mathe 7c – Woche 7 – 2 Verbindung der Rechenarten üben.html", "Di 03.11., Lerntheke, danach KA")],
 }
 
 # Oskars eigener Stand (05.10.2026): er ist dem Plan der Fachschaft etwa eine Woche voraus. Die offizielle Excel-Datei bleibt unverändert,
 # hier steht, was in der 7c tatsächlich dran ist bzw. geplant ist. KA-Termine bleiben wie im Schulplan.
 EIGEN = {1: "Grundlagen-Check, Brüche sind Zahlen", 2: "Zahlen unter Null, Vergleichen, Addieren und Subtrahieren",
          3: "Minus üben, Rechengesetze, Minusklammer", 4: "Wiederholung Minusklammer, Multiplizieren, Dividieren",
-         5: "Verbinden der Rechenarten (gemischte Aufgaben), KA 1"}
+         5: "Verbinden der Rechenarten (gemischte Aufgaben), KA 1",
+         7: "Verbindung der Rechenarten (Rechengesetze), KA 1 verbessern"}
 
 
 def eigener_stand(wochen):

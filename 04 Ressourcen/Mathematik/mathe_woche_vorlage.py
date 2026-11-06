@@ -33,6 +33,62 @@ table.ha{border-collapse:collapse;width:100%}.ha td{border-bottom:1px solid #e3e
 </style>"""
 
 
+# Präsentation mit Seitenleiste und Countdown-Uhr (Pflicht für Stunden mit Folien seit 22.10.2026). CSS und JS kommen
+# unverändert aus den Bausteinen, hier stehen nur die Anpassungen an die A4-Seiten der Mathe-Folien.
+BAUSTEIN = MATHE.parent / "Lernwissenschaft & Pädagogik"
+_bs = lambda ordner, datei: (BAUSTEIN / ordner / datei).read_text(encoding="utf-8")
+
+PRAES_CSS = ("<style>#t_folien{--accent:#1a56a0;--accent2:#1a56a0;--muted:#6b7280;--line:#d9dfe7;--ink:#1b1b1b;--paper:#fff;--bg:#fff}"
+             + _bs("Baustein Seitenleiste", "seitenleiste-baustein.css") + _bs("Baustein Countdown-Uhr", "uhr-baustein.css") + """
+#stage{position:relative;background:#fff;border:1px solid #d9dfe7;border-radius:8px;overflow:hidden;outline:none;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+#stage .slide{display:none;position:absolute;left:0;top:0;transform-origin:0 0}#stage .slide.on{display:block}
+#stage .seite{width:794px;height:1123px;padding:42px 49px;overflow:hidden;background:#fff;font-size:17px;line-height:1.4}
+#stage .seite.quer{width:1123px;height:794px}
+#stage .seite>h1{font-size:24px;margin:0 0 12px;border-bottom:2px solid #1b1b1b;padding-bottom:4px}
+#stage .mb{gap:22px}#stage .mz{font-size:19px;margin:2px 0}#stage .mz-trenn{height:6px}#stage .rezept{margin:0 0 10px;font-size:15px}#stage .rezept h4{font-size:17px}
+#stage .rs li{margin:2px 0}#stage .block{margin:4px 0 12px}#stage .block h4{font-size:16px;margin:0 0 4px}#stage .ex.raster li{margin:1px 0}
+#uhr{left:14px;bottom:14px;gap:8px;padding:6px 12px 6px 16px}#uhr .ut{font-size:34px}#uhr button{font-size:14px;padding:5px 11px}#uhr button.pri{font-size:15px;padding:6px 14px}
+#t_folien .ctrl{display:flex;gap:10px;align-items:center;justify-content:center;font-size:14px;color:#66798e}
+#t_folien .ctrl button{font:inherit;font-weight:600;border:1px solid #cfd6df;background:#fff;border-radius:18px;padding:6px 16px;cursor:pointer;color:#1b1b1b}
+#side h2{font-size:21px}
+</style>""")
+
+PRAES_JS = """<script>(()=>{
+const stage=document.getElementById('stage'), slides=[...stage.querySelectorAll('.slide')], counter=document.getElementById('counter');
+let i=0;
+const tabZeigen=window.show;
+""" + _bs("Baustein Seitenleiste", "seitenleiste-baustein.js") + _bs("Baustein Countdown-Uhr", "uhr-baustein.js") + """
+sideTitle.textContent=SEITENTITEL;
+sideHint.innerHTML='<kbd>←</kbd> <kbd>→</kbd> Folie<br><kbd>↑</kbd> <kbd>↓</kbd> Abschnitt<br><kbd>T</kbd> Leiste aus/ein<br><kbd>F</kbd> Vollbild<br><kbd>U</kbd> Uhr Start/Pause';
+function fit(){
+  const col=document.getElementById('stagecol'), p=slides[i].firstElementChild;
+  const w=p.classList.contains('quer')?1123:794, h=p.classList.contains('quer')?794:1123;
+  const bw=col.clientWidth, bh=window.innerHeight-(document.fullscreenElement?0:250);
+  if(!bw) return;
+  const sc=Math.min(bw/w, bh/h);
+  slides[i].style.transform='scale('+sc+')'; stage.style.width=(w*sc)+'px'; stage.style.height=(h*sc)+'px';
+}
+function show(k){ i=Math.max(0,Math.min(slides.length-1,k)); slides.forEach((x,n)=>x.classList.toggle('on',n===i)); counter.textContent=(i+1)+' / '+slides.length; fit(); uSlide(); updSide(); }
+function full(){ if(document.fullscreenElement) document.exitFullscreen(); else present.requestFullscreen&&present.requestFullscreen(); }
+document.getElementById('next').onclick=()=>show(i+1); document.getElementById('prev').onclick=()=>show(i-1); document.getElementById('full').onclick=full;
+stage.addEventListener('click',e=>{ if(e.target.closest('#uhr,[contenteditable]')) return; const r=stage.getBoundingClientRect(); (e.clientX-r.left<r.width*0.3)?show(i-1):show(i+1); });
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('t_folien').classList.contains('on')||(e.target.closest&&e.target.closest('[contenteditable]'))) return;
+  if(['ArrowRight',' ','PageDown','Enter'].includes(e.key)){ e.preventDefault(); show(i+1); }
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){ e.preventDefault(); show(i-1); }
+  else if(e.key==='ArrowDown'){ e.preventDefault(); tabStep(1); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); tabStep(-1); }
+  else if(e.key==='t'||e.key==='T') present.classList.toggle('nav-aus'), setTimeout(fit,30);
+  else if(e.key==='f'||e.key==='F') full();
+  else if(e.key==='u'||e.key==='U') uToggle();
+});
+window.addEventListener('resize',fit); document.addEventListener('fullscreenchange',()=>setTimeout(fit,60));
+document.querySelectorAll('nav button[data-t=folien]').forEach(b=>b.addEventListener('click',()=>setTimeout(fit,30)));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ tabZeigen('folien'); setTimeout(()=>show(+b.dataset.go.split('_')[1]-1),30); });
+show(0);
+})();</script>"""
+
+
 LEGENDE = ('<div class="legende-mu"><span class="heft">schwarzer Balken: kommt ins Merkheft</span>'
            '<span class="uheft">blau gestrichelt: Übung, kommt ins Übungsheft</span><span>ohne Balken: bleibt an Tafel oder Folie</span></div>')
 
@@ -53,11 +109,25 @@ def aus_skript(datei, *namen):
     return [ns[n] for n in namen]
 
 
-def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css="", verlauf="Die Stunde", legende=True):
+def praesentation(folien, leiste, quer, titel):
+    """Folien als A4-Seiten zum Durchklicken, links die Seitenleiste. leiste: je Folie (Gruppe, Abschnitt, Uhr-Minuten oder None)."""
+    assert len(folien) == len(leiste), (len(folien), len(leiste))
+    seiten = "".join(f'<section class="slide" data-group="{g}" data-tab="{a}"{f" data-timer={u}" if u else ""}>'
+                     f'<div class="seite{" quer" if t in quer else ""}"><h1>{t}</h1>{h}</div></section>'
+                     for (t, h), (g, a, u) in zip(folien, leiste))
+    return (f'<div id="present"><aside id="side"></aside><div id="stagecol"><div id="stage" tabindex="0">{seiten}</div>'
+            '<div class="ctrl"><button id="prev">◀ zurück</button><span id="counter"></span><button id="next">weiter ▶</button>'
+            '<button id="full">Vollbild (F)</button></div><p class="ctrl">← →: Folie. ↑ ↓: Abschnitt. T: Leiste aus/ein. U: Uhr. F: Vollbild.</p></div></div>',
+            PRAES_JS.replace("SEITENTITEL", repr(titel)))
+
+
+def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loesungen, extra_css="", verlauf="Die Stunde", legende=True,
+              leiste=None, quer=()):
     """vorbereiten: [(Wann, Was)] oder HTML; schritte: [(Tag-Marke oder "", Titel, Minuten, Text, [Foliennummern])];
     folien: [(Titel, HTML)] oder nach Tagen [(Tag, [(Titel, HTML)])]. Bei Tagen zählt jeder Tag ab Folie 1, und die
     Foliennummern eines Schritts beziehen sich auf den Tag, zu dem der Schritt gehört (Reihenfolge der Tag-Marken).
-    tafel, merkheft, loesungen: HTML."""
+    tafel, merkheft, loesungen: HTML. leiste (nur bei einer Stunde ohne Tage): je Folie (Gruppe, Abschnitt, Uhr-Minuten);
+    dann zeigt der Folien-Tab die Seiten einzeln mit Seitenleiste und Countdown-Uhr statt untereinander. quer: Titel der Querseiten."""
     if folien and isinstance(folien[0][1], list):
         gruppen = folien
     else:
@@ -84,6 +154,11 @@ def bau_woche(ziel, h1, sub, vorbereiten, schritte, folien, tafel, merkheft, loe
                                                      for i, (t, h) in enumerate(fs, 1)) + "</div>"
         for g, (_, fs) in enumerate(gruppen)) if any(fs for _, fs in gruppen) \
         else '<div class="box"><p>In dieser Woche gibt es keine Beamer-Folien, alles läuft über Tafel und Blatt.</p></div>'
+    praes_js = ""
+    if leiste:
+        assert len(gruppen) == 1, "Seitenleiste nur für eine Stunde ohne Tage"
+        karten, praes_js = praesentation(folien, leiste, quer, h1.split(": ", 1)[-1])
+        extra_css += PRAES_CSS
     html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{h1}</title>{OPTIK_CSS}{extra_css}{EXTRA}</head><body>
@@ -111,6 +186,6 @@ let g0='0';try{{g0=localStorage.getItem('mathe-tag-'+location.pathname)||'0'}}ca
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien');tag(b.dataset.g);setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)}});
 history.scrollRestoration='manual';
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
-</script></body></html>"""
+</script>{praes_js}</body></html>"""
     Path(ziel).write_text(html, encoding="utf-8")
     print("geschrieben:", Path(ziel).name, f"({len(html) // 1024} KB), Folien: {len(folien)}")

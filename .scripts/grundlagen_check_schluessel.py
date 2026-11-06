@@ -131,12 +131,37 @@ SCHLUESSEL_8_9_B = {
     },
 }
 
+# --- Diagnose Dreiecke 7c (04.11.2026) ----------------------------------------
+# Zeichenaufgaben werden beim Auslesen der Scans bewertet: "r" = richtig, "f" = falsch.
+# Messwerte mit Toleranz: Laengen +-1 mm, Winkel +-2 Grad (als Tupel aller erlaubten Werte).
+
+def _dreiecke(ab, cd, w, a4, b4, a6):
+    return {
+        "Längen messen und zeichnen": {"N1": {"a": tuple(round(ab + d, 1) for d in (-0.1, 0, 0.1)),
+                                               "b": tuple(round(cd + d, 1) for d in (-0.1, 0, 0.1))},
+                                        "N2": {"a": "r"}},
+        "Winkelarten": {"N3": dict(zip("abcde", w))},
+        "Winkel messen": {"N4": {"a": tuple(range(a4 - 2, a4 + 3)), "b": tuple(range(b4 - 2, b4 + 3))}},
+        "Winkel zeichnen": {"N5": {"a": "r", "b": "r"}},
+        "Nebenwinkel und Scheitelwinkel": {"N6": {"b": 180 - a6, "c": a6, "d": 180 - a6}},
+        "Senkrechte und Parallele": {"N7": {"a": "r", "b": "r"}},
+        "Koordinatensystem": {"N8": {"a": "r", "b": "r"}},
+    }
+
+
+SCHLUESSEL_DREIECKE_A = _dreiecke(7.3, 4.6, ["stumpf", "spitz", "überstumpf", "recht", "gestreckt"], 35, 118, 38)
+SCHLUESSEL_DREIECKE_B = _dreiecke(6.8, 5.2, ["recht", "überstumpf", "spitz", "gestreckt", "stumpf"], 52, 143, 46)
+
 TESTS = {
     "5-6": {"name": "Grundlagen Klasse 5-6", "schluessel": SCHLUESSEL_5_6},
     "6-9": {"name": "Grundlagen Klasse 6-9", "schluessel": SCHLUESSEL_6_9},
     "8-9": {
         "name": "Grundlagen Klasse 8-9",
         "schluessel_varianten": {"A": SCHLUESSEL_8_9_A, "B": SCHLUESSEL_8_9_B},
+    },
+    "dreiecke": {
+        "name": "Diagnose Dreiecke 7c",
+        "schluessel_varianten": {"A": SCHLUESSEL_DREIECKE_A, "B": SCHLUESSEL_DREIECKE_B},
     },
 }
 
