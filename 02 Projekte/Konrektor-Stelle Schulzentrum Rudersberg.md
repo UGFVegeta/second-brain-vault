@@ -29,9 +29,16 @@ Vorschlag, noch nicht abgestimmt:
 - Ausschreibung beobachten: Amtsblatt Kultus und Unterricht und Schulleitungsstellen auf lehrer-online-bw.de
 - Unterlagen aus [[Konrektor-Bewerbung]] auf diese Stelle hin aktualisieren
 - Die Überprüfungsmodule C (Präsentation) und D (schwierige Alltagssituation) gezielt üben, siehe [[Rektor-Stelle Schulzentrum Rudersberg]]
-- Prüfen, ob die Anlassbeurteilung aus dem Fellbach-Verfahren zum Zeitpunkt der Auswahl noch gilt
+- ~~Prüfen, ob die Anlassbeurteilung aus dem Fellbach-Verfahren zum Zeitpunkt der Auswahl noch gilt~~ (06.11.2026: entfällt, Oskar hat die Fellbach-Bewerbung zurückgezogen)
 
 Abgestimmt (04.11.2026): Schulrecht nach [[Lernplan Schulrecht bis Februar 2027]], 3 bis 5 Stunden pro Woche, Hören beim Sport und Fälle mündlich mit Claude.
+
+## Stand 06.11.2026
+
+- Reihenfolge: Erst wird die Rektorstelle besetzt, danach geht es mit dem Konrektorat los. Vor Februar 2027 ist keine Ausschreibung zu erwarten.
+- Möglich ist auch, dass zunächst nur die Stelle des zweiten Konrektors frei wird.
+- Oskar rechnet damit, dass sich der Schulrat in den nächsten zwei Wochen bei ihm meldet (bis etwa 20.11.2026).
+- Erinnerungen (Liste „Schule“): Ausschreibung prüfen am 01.02.2027, Module C und D ab 11.01.2027, Dossier zuschneiden ab 18.01.2027.
 
 ## Offene Fragen
 

@@ -12,18 +12,20 @@ Dazu gibt es die Übersichtsseite „Weg zur Schulleitung“ als Claude-Artifact
 
 ## Stand
 
-- **Ziel Nr. 1:** 1. Konrektor am Schulzentrum Rudersberg. Die Ausschreibung wird inoffiziell für Januar oder Februar 2027 erwartet. → [[Konrektor-Stelle Schulzentrum Rudersberg]]
+- **Ziel Nr. 1:** 1. Konrektor am Schulzentrum Rudersberg. Die Ausschreibung kommt erst nach Besetzung der Rektorstelle, frühestens Februar 2027. → [[Konrektor-Stelle Schulzentrum Rudersberg]]
 - Hintergrund Rektorstelle Rudersberg, Schule, Verfahren: [[Rektor-Stelle Schulzentrum Rudersberg]]
 - Gesamter Verlauf seit Fellbach, Schulrat-Gespräch, Stellen-Radar, Kriterien: [[Konrektor-Bewerbung]]
 - Weitere Schulen im Blick: Kastell-Realschule Welzheim (Wunschschule), Geschwister-Scholl-Realschule Winnenden (spekulativ), siehe Stellen-Radar in [[Konrektor-Bewerbung]].
 
 ## Nächste Schritte
 
-- [ ] Ab 09.11.: Schulrecht Woche 1 nach [[Lernplan Schulrecht bis Februar 2027]]
-- [ ] Ausschreibung beobachten: Amtsblatt Kultus und Unterricht, Schulleitungsstellen auf lehrer-online-bw.de
-- [ ] Prüfen, ob die Anlassbeurteilung aus dem Fellbach-Verfahren zum Zeitpunkt der Auswahl noch gilt
-- [ ] Module C (Präsentation) und D (schwierige Alltagssituation) üben
-- [ ] Unterlagen aus dem Fellbach-Dossier auf Rudersberg zuschneiden
+Abhaken in den Erinnerungen (Liste „Schule“).
+
+- 09.11.: Schulrecht Woche 1 nach [[Lernplan Schulrecht bis Februar 2027]]
+- bis ca. 20.11.: Schulrat meldet sich voraussichtlich
+- 11.01.: Module C (Präsentation) und D (schwierige Alltagssituation) üben
+- 18.01.: Unterlagen aus dem Fellbach-Dossier auf Rudersberg zuschneiden
+- 01.02.: Ausschreibung prüfen. Erst wird die Rektorstelle besetzt, eventuell wird zuerst nur das zweite Konrektorat frei.
 
 ## Das Verfahren
 
