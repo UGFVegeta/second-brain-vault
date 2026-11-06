@@ -611,6 +611,17 @@ def _wissenskarte():
     return r.stdout.strip()
 
 
+# --- Unterricht – Hub in Obsidian (Wochentabelle) mit aktualisieren ------------
+@section("unterricht_hub")
+def _unterricht_hub():
+    r = subprocess.run(
+        [sys.executable, str(VAULT / ".scripts" / "unterricht_hub_bauen.py")],
+        capture_output=True, text=True, timeout=60)
+    if r.returncode != 0:
+        raise RuntimeError(r.stderr.strip()[:200] or "Build-Fehler")
+    return r.stdout.strip()
+
+
 # --- Erledigte Erinnerungen aus dem Kalender werfen ---------------------------
 # Der Kalender „Geplante Erinnerungen“ spiegelt Apple Erinnerungen und zeigt auch abgehakte.
 # Nur Einträge behalten, die noch als offene Erinnerung existieren.

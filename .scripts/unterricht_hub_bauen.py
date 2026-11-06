@@ -6,7 +6,7 @@ Neue Werkzeuge unten in BEREICHE eintragen, dann: python3 .scripts/unterricht_hu
 HTML-Dateien werden als file://-Links eingebaut, Obsidian öffnet sie im Browser.
 """
 import json
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import quote
 
@@ -23,7 +23,7 @@ K = "03 Bereiche/Schule & Unterricht/Klassenlehrer 7c/"
 # (Titel, Canvas-Farbe, [(Text, Ziel)]); Ziel: Vault-Pfad (.html/.pdf → Datei-Link, .md → Wikilink),
 # absoluter Pfad (iCloud-Ordner) oder None für reinen Text.
 BEREICHE = [
-    ("Diese Woche", "4", [
+    ("Planung", "4", [
         ("Bildungs-Dashboard: Stunden mit Status", "04 Ressourcen/Bildungs-Dashboard.html"),
         ("Stoffverteilung Mathe 7", M + "Mathematik Klasse 7 – Stoffverteilungsplan Schule.html"),
         ("Stoffverteilung Mathe 10", M + "Stoffverteilungsplan 26-27 Mathe 10.html"),
@@ -107,6 +107,48 @@ def block(titel, eintraege):
     return f"## {titel}\n" + "\n".join(f"- {link(t, z)}" for t, z in eintraege)
 
 
+def wochen():
+    """Tabelle „diese und nächste Woche“ aus dem Stundenkontext des Schul-Cockpits."""
+    quelle = Path.home() / ".claude/mods/schul-cockpit/stundenkontext.json"
+    try:
+        daten = json.loads(quelle.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return "Wochenplan nicht lesbar: `python3 .scripts/stundenkontext_bauen.py` laufen lassen."
+    tag = date.today()
+    if tag.weekday() >= 5:  # am Wochenende schon die kommende Woche zeigen
+        tag += timedelta(days=7 - tag.weekday())
+    klassen = daten.get("klassen", {})
+    alle = sorted({w["von"] for ws in klassen.values() for w in ws})
+    laufend = [v for v in alle if date.fromisoformat(v) <= tag < date.fromisoformat(v) + timedelta(days=7)]
+    kommend = [v for v in alle if date.fromisoformat(v) > tag]
+    spalten = (laufend + kommend)[:2]
+    if not spalten:
+        return "Kein Wochenplan mehr für dieses Schuljahr."
+
+    def kopf(v):
+        nr = next(w["nr"] for ws in klassen.values() for w in ws if w["von"] == v)
+        d = date.fromisoformat(v)
+        name = "Diese Woche" if v in laufend else "Nächste Woche" if v == spalten[-1] and laufend else "Kommende Woche"
+        return f"{name}: W{nr} ab {d:%d.%m.}"
+
+    zeilen = ["| | " + " | ".join(kopf(v) for v in spalten) + " |", "|---|" + "---|" * len(spalten)]
+    for klasse, ws in klassen.items():
+        nach_datum = {w["von"]: w for w in ws}
+        zellen = []
+        for v in spalten:
+            w = nach_datum.get(v)
+            text = w["thema"] if w else "–"
+            if w and w.get("termine"):
+                text += f" **({w['termine']})**"
+            zellen.append(text.replace("|", "/"))
+        zeilen.append(f"| **{klasse}** | " + " | ".join(zellen) + " |")
+    for f in daten.get("frei", []):
+        if f["von"] <= tag.isoformat() <= f["bis"]:
+            zeilen.insert(0, f"Gerade frei: {f['was']}\n")
+    return "\n".join(zeilen)
+
+
+TABELLE = wochen()
 heute = date.today().strftime("%d.%m.%Y")
 kopf = (f"Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand {heute}. "
         "Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in "
@@ -116,7 +158,8 @@ md = ["---", "tags: [hub, unterricht, schule]", "status: aktiv", f"date: {date.t
       "# Unterricht – Hub", "", kopf, "",
       "Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. "
       "Als Seite im Browser (Claude-Artifact, privat, Momentaufnahme): "
-      "https://claude.ai/artifact/FEnXLpLuY43fkVGJN3xDef", ""]
+      "https://claude.ai/artifact/FEnXLpLuY43fkVGJN3xDef", "",
+      "## Diese und nächste Woche", "", TABELLE, ""]
 for titel, _, eintraege in BEREICHE:
     md += [block(titel, eintraege), ""]
 (ZIEL / "Unterricht – Hub.md").write_text("\n".join(md), encoding="utf-8")
@@ -129,6 +172,10 @@ nodes, y = [], 0
 nodes.append({"id": "kopf", "type": "text", "x": 0, "y": y, "width": gesamt, "height": 130,
               "text": "# Unterricht\n" + kopf})
 y += 130 + LUECKE
+h_tab = 110 + 48 * TABELLE.count("\n")
+nodes.append({"id": "wochen", "type": "text", "x": 0, "y": y, "width": gesamt, "height": h_tab,
+              "color": "4", "text": "## Diese und nächste Woche\n" + TABELLE})
+y += h_tab + LUECKE
 n = 0
 for zeile in zeilen:
     h = 70 + 34 * max(len(e) for _, _, e in zeile)

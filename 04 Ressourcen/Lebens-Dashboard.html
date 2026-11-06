@@ -46,6 +46,9 @@
     background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 5px 11px;
   }
   nav.tools a:hover, #themeBtn:hover { border-color: var(--t4); color: var(--t1); }
+  nav.tools a.obs { color: var(--t1); font-weight: 600; border-color: var(--t4); }
+  nav.tools a.obs::before { content: "◆"; font-size: 9px; margin-right: 6px; color: #8b6cf6; vertical-align: 1px; }
+  nav.tools .trenner { width: 1px; height: 18px; background: var(--line); margin: 0 4px; }
   .motto { margin: 14px 0 20px; font-size: 13px; color: var(--t3); font-style: italic; max-width: 85ch; }
   .motto cite { font-style: normal; color: var(--t4); font-size: 11.5px; margin-left: 6px; white-space: nowrap; }
 
@@ -290,6 +293,9 @@
       <div class="stand" id="stand"></div>
     </div>
     <nav class="tools">
+      <a class="obs" href="obsidian://open?vault=Second%20Brain%20Claude&amp;file=03%20Bereiche%2FSchule%20%26%20Unterricht%2FUnterricht%20%E2%80%93%20Hub.canvas" title="Unterricht-Hub in Obsidian öffnen">Unterricht</a>
+      <a class="obs" href="obsidian://open?vault=Second%20Brain%20Claude&amp;file=03%20Bereiche%2FF%C3%BChrung%20%26%20Schulentwicklung%2FSchulleitung%20%E2%80%93%20Hub.canvas" title="Schulleitung-Hub in Obsidian öffnen">Schulleitung</a>
+      <span class="trenner"></span>
       <a href="Unterrichtsvorbereitung.html" target="_blank">Unterrichtsvorbereitung</a>
       <a href="Trainings-Kalender.html" target="_blank">Trainings-Kalender</a>
       <a href="Lese-Dashboard.html" target="_blank">Lese-Dashboard</a>

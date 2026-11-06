@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "type": "group",
+      "ctime": 1793998677284,
+      "title": "Dashboards",
+      "items": [
+        {
+          "type": "file",
+          "ctime": 1793998677284,
+          "path": "03 Bereiche/Schule & Unterricht/Unterricht – Hub.canvas",
+          "title": "Unterricht"
+        },
+        {
+          "type": "file",
+          "ctime": 1793998677285,
+          "path": "03 Bereiche/Führung & Schulentwicklung/Schulleitung – Hub.canvas",
+          "title": "Schulleitung"
+        }
+      ]
+    }
+  ]
+}
