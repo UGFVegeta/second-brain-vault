@@ -10,10 +10,10 @@ Erzeugt von `baue_foerderblaetter.py`. Bogen-IDs (A03, A07, A11, B05, B09) stehe
 | Nummer | Version | Aufgaben |
 |---|---|---|
 | 2 | A | N1; N2; M2; S2; L2; W2; Z3 |
-| 6 | B | Z1; Z2; N1; N2; M2; S2; K3 |
+| 6 | B | Z1; Z2; N1; N2; M2; S2 |
 | 7 | B | M1; M2; Z1; Z2; S1; S2 |
 | 8 | A | S1; S2; K1; K2; N1; N2 |
-| 10 | A | Z1; Z2; S1; S2; N1; N2; M2 |
+| 10 | A | Z1; Z2; S1; S2; N1; N2; K3 |
 | 11 | B | M1; M2; Z1; Z2; S1; S2; L2 |
 | 12 | B | M1; M2; S1; S2; N1; N2; K2 |
 | 13 | B | M1; M2; Z1; Z2; N1; N2 |

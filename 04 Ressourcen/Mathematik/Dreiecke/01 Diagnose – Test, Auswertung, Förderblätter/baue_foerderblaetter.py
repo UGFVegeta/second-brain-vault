@@ -107,7 +107,7 @@ def m3(y, L):
     return s
 
 
-def zeichnen(y, L, kz, st, text, winkel, hoch=48):
+def zeichnen(y, L, kz, st, text, winkel, hoch=50):
     s = balken(y, kz, st, text)
     for i, g in enumerate(winkel):
         x0 = 12 + 95 * i
@@ -213,7 +213,7 @@ def schraeg(y, L, kz, st, text, loesung):
 
 def s2(y, L):
     def los(fy, gx, cid):
-        ax, bx, by = 70, 140, fy + 6
+        ax, bx, by = 70, 142, fy + 5
         s = kreuz(ax, gx(ax)) + txt(ax - 2, gx(ax) + 6, "A", 4, "bold") + kreuz(bx, by) + txt(bx + 2.5, by - 1.5, "B", 4, "bold")
         if L:
             u, n = (math.cos(math.radians(WG)), -math.sin(math.radians(WG))), (-math.sin(math.radians(WG)), -math.cos(math.radians(WG)))
@@ -271,15 +271,15 @@ def k1(y, L):
     s += txt(16, y + 46, "Verbinde zum Dreieck ABC.", 4.0)
     s += karo(97, y + 10, 101, 80)
     if L:
-        s += kosy(107, y + 82, 8, 6, PINK) + punkte(107, y + 82, pts, PINK)
+        s += kosy(107, y + 80, 8, 6, PINK) + punkte(107, y + 80, pts, PINK)
     return s
 
 
 def k2(y, L):
     s = balken(y, "K2", 1, "Lies die Koordinaten der Punkte ab.")
-    ox, oy = 107, y + 74
+    ox, oy = 107, y + 75
     pts = [("P", 1, 4), ("Q", 6, 2), ("R", 4, 5), ("S", 7, 0)]
-    s += karo(97, y + 10, 101, 72) + kosy(ox, oy, 8, 5) + punkte(ox, oy, pts, "#111", False)
+    s += karo(97, y + 10, 101, 75) + kosy(ox, oy, 8, 5) + punkte(ox, oy, pts, "#111", False)
     for i, (n, px, py) in enumerate(pts):
         yy = y + 16 + 13 * i
         s += txt(16, yy + 5.6, n, 4.4, "bold") + txt(22, yy + 5.6, "(", 5) + feld(25, yy, 12, 8, str(px) if L else "")
@@ -289,8 +289,8 @@ def k2(y, L):
 
 def k3(y, L):
     s = balken(y, "K3", 2, "A(1|1), B(6|1) und C(6|4) sind Ecken eines Rechtecks ABCD. Zeichne es.")
-    ox, oy = 107, y + 64
-    s += karo(97, y + 10, 101, 62) + kosy(ox, oy, 8, 4)
+    ox, oy = 107, y + 65
+    s += karo(97, y + 10, 101, 65) + kosy(ox, oy, 8, 4)
     s += txt(16, y + 22, "Welche Koordinaten hat D?", 4.2) + txt(16, y + 33, "D(", 5) + feld(23, y + 27.5, 12, 8, "1" if L else "")
     s += txt(36.5, y + 33, "|", 5) + feld(39, y + 27.5, 12, 8, "4" if L else "") + txt(52, y + 33, ")", 5)
     if L:
@@ -320,8 +320,8 @@ def d1(y, L):
 
 def d2(y, L):
     s = balken(y, "D2", 2, "Ausblick: Zeichne das Dreieck ABC mit c = AB = 7 cm, α = 40° und β = 65°.")
-    s += karo(12, y + 10, 186, 52)
-    A = (50, y + 56)
+    s += karo(12, y + 10, 186, 55)
+    A = (52, y + 55)
     s += kreuz(*A) + txt(A[0] - 6, A[1] + 1.5, "A", 4, "bold")
     if L:
         B = (A[0] + 70, A[1])
@@ -338,7 +338,7 @@ POOL = [
     ("L1", "L", 0, 44, l1), ("L2", "L", 1, 38, l2),
     ("W1", "W", 0, 40, w1), ("W2", "W", 1, 58, w2),
     ("M1", "M", 0, 74, m1), ("M2", "M", 1, 74, m2), ("M3", "M", 2, 78, m3),
-    ("Z1", "Z", 0, 61, z1), ("Z2", "Z", 1, 61, z2), ("Z3", "Z", 2, 63, z3),
+    ("Z1", "Z", 0, 63, z1), ("Z2", "Z", 1, 63, z2), ("Z3", "Z", 2, 63, z3),
     ("N1", "N", 0, 42, n1), ("N2", "N", 1, 46, n2), ("N3", "N", 2, 46, n3),
     ("S1", "S", 0, 53, s1), ("S2", "S", 1, 63, s2), ("S3", "S", 2, 63, s3),
     ("K1", "K", 0, 93, k1), ("K2", "K", 1, 85, k2), ("K3", "K", 2, 75, k3),

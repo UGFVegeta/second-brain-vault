@@ -6,6 +6,7 @@ tags: [gelernt, mathematik]
 
 Eine Zeile pro Erkenntnis, neueste oben. Lang ausgeführte Gründe stehen im Claude-Gedächtnis, hier nur die Folge.
 
+- 07.11.2026: In den Lösungen der Förderblätter lagen die Achsen der Koordinatensysteme zwischen den Kästchenlinien. Folge: Ursprung, Achsen, Einheiten und vorgegebene Punkte immer auf die Linien des 5-mm-Karos legen (Abstand zum Feldrand ein Vielfaches von 5 mm, 1 cm = 2 Kästchen), bei jeder Zeichnung nachprüfen.
 - 05.11.2026: Bei der Diagnose fehlten oder doppelten sich Nummern. Folge: nächste Diagnose mit vorgedruckten Nummern 1 bis 26, Zuteilung über den Sitzplan, A und B im Schachbrett, Stapel in Sitzreihenfolge (Details im Grundlagen-Check Workflow).
 - 04.11.2026: Oskar findet in großen Themenordnern nichts mehr. Folge: Rationale Zahlen in Unterordner nach Woche, Übungstests, Klassenarbeit und `_Skripte/` aufgeteilt; neue Themen gleich so anlegen (Dreiecke: `01 Diagnose – Test, Auswertung, Förderblätter/`). Auswertungen nicht als lose HTMLs, sondern als eine HTML mit Tabs wie die Stunden (`Dreiecke/01 Diagnose – Test, Auswertung, Förderblätter/baue_auswertung.py`).
 - 04.11.2026: Lösung Diagnose Dreiecke Nr. 7 hatte eine Senkrechte, die nicht senkrecht war, und das rechte-Winkel-Zeichen war eckig. Folge: rechter Winkel immer als Viertelkreis mit Punkt (`rechter_winkel_zeichen` in `Dreiecke/01 Diagnose – Test, Auswertung, Förderblätter/baue_diagnose_dreiecke.py`), Senkrechten in Lösungen rechnerisch prüfen (Skalarprodukt 0), nicht nach Augenmaß.
