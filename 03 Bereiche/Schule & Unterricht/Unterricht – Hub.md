@@ -1,23 +1,23 @@
 ---
 tags: [hub, unterricht, schule]
 status: aktiv
-date: 2026-11-06
+date: 2026-11-07
 ---
 
 # Unterricht – Hub
 
-Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 06.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
+Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 07.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
 
 Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Seite im Browser (Claude-Artifact, privat, Momentaufnahme): https://claude.ai/artifact/FEnXLpLuY43fkVGJN3xDef
 
 ## Diese und nächste Woche
 
-| | Diese Woche: W7 ab 02.11. | Nächste Woche: W8 ab 09.11. |
+| | Diese Woche: W8 ab 09.11. | Nächste Woche: W9 ab 16.11. |
 |---|---|---|
-| **Mathe 7c** | Üben | Winkelsumme, Dreiecksformen |
-| **Mathe 10b** | KA 1 + Wachstumssparen **(KA Mo 2.11.)** | Seitenverhältnisse im rechtwinkeligen Dreieck / sin, cos, tan |
-| **Physik 7c** | Optik I: Versuch Kern- und Halbschatten, F4 Antwort und Check. Einstieg F5 | Optik I: F5 Mondbahn und Mondphasen, Sonnen- und Mondfinsternis |
-| **Physik 10** | Kernphysik: Die Halbwertszeit, Zerfallskurve auswerten | Kernphysik: Aktivität und Zählrate, Einheit Becquerel |
+| **Mathe 7c** | Winkelsumme, Dreiecksformen | Konstruktion von Dreiecken |
+| **Mathe 10b** | Seitenverhältnisse im rechtwinkeligen Dreieck / sin, cos, tan | Beliebige Dreiecke / Vielecke / Trigo im Raum |
+| **Physik 7c** | Optik I: F5 Mondbahn und Mondphasen, Sonnen- und Mondfinsternis | Optik I: Lochkamera: Bildentstehung, Bau als Hausaufgabe, Versuch, Rückblick |
+| **Physik 10** | Kernphysik: Aktivität und Zählrate, Einheit Becquerel | Kernphysik: F3 Antwort und Check, Übungen zu Halbwertszeit |
 
 ## Planung
 - [Bildungs-Dashboard: Stunden mit Status](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Bildungs-Dashboard.html)
