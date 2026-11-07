@@ -17,6 +17,7 @@ Praktischer Einsatz von KI und digitalen Tools im Schulalltag und für persönli
 
 ## Links und Quellen
 - [[04 Ressourcen/KI & Digitalisierung/Anthropic Academy Kurse|Anthropic Academy Kurse]] – kostenlose Kurse von Anthropic mit empfohlener Reihenfolge
+- [[04 Ressourcen/KI & Digitalisierung/KI und Datenschutz – sechs Wege|KI und Datenschutz – sechs Wege]] – Video-Auswertung: AVV, Claude-Abos, was für mich gilt
 
 ## Notizen
 -
