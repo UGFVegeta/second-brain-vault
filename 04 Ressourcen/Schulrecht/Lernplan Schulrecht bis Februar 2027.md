@@ -47,7 +47,7 @@ Ziel: Bis Ende Januar 2027 im Schulrecht so sicher, dass Oskar eine schwierige A
 - Schulgesetz BW, Stand 16.12.2025, vollständig (147 Paragrafen, über lxgesetze.de, Spiegel der amtlichen Fassung). landesrecht-bw.de lässt sich weder von Claude noch von Gemini LM direkt lesen.
 - Fallbeispiele mit Lösungen, Kurzübersicht, Skript (eigene Unterlagen, im Notizbuch als „alte Unterlage, ca. 2022“ benannt).
 - Seit 05.11.2026 elf Verordnungen und Verwaltungsvorschriften in amtlicher Fassung von landesrecht-bw.de (über das Browser-Fenster ausgelesen): Konferenzordnung, Schulkonferenzordnung, Notenbildungsverordnung, Versetzungsordnung Realschulen, Übergang zwischen den Schularten (MVO), Aufnahmeverordnung 2025 (Grundschulempfehlung neu), Schulbesuchsverordnung, Elternbeiratsverordnung, Lehrkräfte-Arbeitszeitverordnung, VwV außerunterrichtliche Veranstaltungen, VwV Datenschutz an öffentlichen Schulen. Stand meist 2025 oder April 2026. Kopien im Ordner `Rechtsquellen/` neben dieser Notiz.
-- Noch nicht drin: Landesbeamtengesetz, SMV-Verordnung, Werkrealschul- und Grundschul-Versetzungsregeln, Verwaltungsvorschrift Unterrichtsorganisation (Deputat, Vertretung). Bei Bedarf zur passenden Woche ergänzen.
+- Seit 08.11.2026 ergänzt: Landesbeamtengesetz, Landesbesoldungsgesetz, SMV-Verordnung, Werkrealschul- und Grundschul-Versetzungsregeln, Organisationserlass 2026/27. Noch offen: die Dienstordnung nach § 41 Abs. 4 und § 42 Abs. 2 SchG, im amtlichen Portal nicht gefunden.
 
 Audio-Folgen:
 

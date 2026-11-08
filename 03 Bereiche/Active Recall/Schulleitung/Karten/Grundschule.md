@@ -116,3 +116,33 @@ A: SprachFit: Landeskonzept zur Sprachförderung von der Kita bis in die Grundsc
 T: Sprache und Mathe, je ein Landesprogramm.
 W: Der Stand kommt aus deinem Gemini-Notizbuch. Zu verbindlichen Deutsch-Lernbändern enthält es nichts Gesichertes.
 Q: Gemini LM, Notizbuch Bewerbung Konrektorat (08.11.2026)
+
+### Wie kommen Kinder von Klasse 1 nach Klasse 2?
+A: Sie steigen ohne Versetzungsentscheidung auf.
+T: Nach Klasse 1 wird nicht entschieden.
+W: Erst ab Klasse 2 wird versetzt. Eine freiwillige Wiederholung ist auf Antrag der Eltern einmal in den Klassen 1 bis 4 möglich.
+Q: § 1 Abs. 1 und § 5 Abs. 1 Grundschulversetzungsordnung
+
+### Was ist für die Versetzung von Klasse 2 nach Klasse 3 nötig?
+A: In Deutsch und Mathematik kein „ungenügend“ und in höchstens einem der beiden Fächer „mangelhaft“.
+T: Nur Deutsch und Mathematik zählen.
+W: Maßgeblich ist das Jahreszeugnis. Die Klassenkonferenz versetzt auch dann, wenn sie die Leistungen nur vorübergehend für nicht ausreichend hält.
+Q: § 1 Abs. 1 und 2 Nr. 1 Grundschulversetzungsordnung
+
+### Was ist für die Versetzung von Klasse 3 nach Klasse 4 nötig?
+A: In Deutsch, Mathematik und Sachunterricht zweimal mindestens „ausreichend“ und einmal mindestens „mangelhaft“.
+T: Der Sachunterricht kommt dazu.
+W: Dieselbe Bedingung entscheidet am Ende von Klasse 4, ob das Ziel der Abschlussklasse erreicht ist.
+Q: § 1 Abs. 2 Nr. 2 und § 6 Grundschulversetzungsordnung
+
+### Was muss geschehen, wenn an der Grundschule die Versetzung eines Kindes gefährdet ist?
+A: Unterrichtet nur ein Lehrer die Klasse in Deutsch, Mathematik und ab Klasse 3 im Sachunterricht, meldet er das Kind sechs Wochen vor Ausgabe der Jahreszeugnisse schriftlich dem Schulleiter.
+T: Sechs Wochen, schriftlich.
+W: Der Schulleiter oder ein beauftragter Lehrer verschafft sich im Unterricht selbst einen Eindruck und unterrichtet die Klassenkonferenz vor dem Beschluss.
+Q: § 2 Abs. 1 Grundschulversetzungsordnung
+
+### Wer entscheidet, wenn ein Kind an der Grundschule eine Klasse überspringen soll?
+A: Bei der Einschulung direkt in Klasse 2 die Schulleitung, in den anderen Fällen die Klassenkonferenz. Die Eltern müssen einverstanden sein.
+T: Einschulung Schulleitung, sonst Konferenz.
+W: Bis zu zwei Klassen können übersprungen werden. Die Schulleitung kann ein fachpsychologisches Gutachten einholen.
+Q: § 4 Abs. 1 bis 4 Grundschulversetzungsordnung

@@ -5,7 +5,7 @@ stand: 2026-11-08
 
 # Grundschule in Baden-Württemberg
 
-Geprüft am 08.11.2026 gegen Schulgesetz (Stand 16.12.2025), Verordnungen (05.11.2026) und Organisationserlass 2026/27.
+Geprüft am 08.11.2026 gegen Schulgesetz (Stand 16.12.2025), Verordnungen (05.11.2026 und 08.11.2026) und Organisationserlass 2026/27.
 
 ## Was neu ist
 
@@ -45,6 +45,15 @@ Laut deinem Gemini-Notizbuch (08.11.2026):
 - **Lernen mit Rückenwind:** als Landesprogramm fortgeführt.
 - **Schuldatenblatt:** seit 2023/24 für alle allgemein bildenden Schulen.
 
-## Noch nicht in den Rechtsquellen
+## Versetzung
 
-Versetzungsordnung Grundschule. Bei Bedarf in Woche 8 ergänzen.
+Alle Angaben aus der Grundschulversetzungsordnung.
+
+- **Klasse 1 nach 2:** Aufstieg ohne Versetzungsentscheidung (§ 1 Abs. 1).
+- **Klasse 2 nach 3:** In Deutsch und Mathematik kein „ungenügend“ und in höchstens einem der beiden „mangelhaft“ (§ 1 Abs. 2 Nr. 1).
+- **Klasse 3 nach 4:** In Deutsch, Mathematik und Sachunterricht zweimal mindestens „ausreichend“ und einmal mindestens „mangelhaft“ (§ 1 Abs. 2 Nr. 2). Dieselbe Bedingung gilt für das Ziel der Abschlussklasse (§ 6).
+- **Ausnahme:** Die Klassenkonferenz versetzt auch, wenn die Leistungen nur vorübergehend nicht ausreichen (§ 1 Abs. 1).
+- **Gefährdung:** Wer eine Klasse in Deutsch, Mathematik und ab Klasse 3 im Sachunterricht allein unterrichtet, meldet das sechs Wochen vor den Jahreszeugnissen schriftlich dem Schulleiter (§ 2 Abs. 1).
+- **Aussetzen:** Längstens bis zum Ende des nächsten Schulhalbjahres, zum Beispiel nach mehr als acht Wochen Krankheit im zweiten Halbjahr (§ 3).
+- **Überspringen:** Einschulung in Klasse 2 entscheidet die Schulleitung, sonst die Klassenkonferenz, immer mit Einverständnis der Eltern (§ 4).
+- **Freiwillig wiederholen:** Einmal in den Klassen 1 bis 4 auf Antrag der Eltern (§ 5 Abs. 1).

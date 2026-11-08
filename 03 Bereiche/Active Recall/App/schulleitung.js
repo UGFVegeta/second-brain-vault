@@ -544,10 +544,10 @@ async function seiteQuelle(arg) {
   const titel = q.name.replace(/\s*\((?:landesrecht-bw|Stand [^)]*)\)/, "");
   view.innerHTML = `<div class="seite">
     <a class="zurueck" href="#/wissen">${ic("zurueck")}Wissen</a>
-    <h1>${esc(titel)}</h1><p class="sub">${esc((q.name.match(/\(([^)]*)\)/) || [, ""])[1].replace("landesrecht-bw", "Amtlicher Text, abgerufen am 05.11.2026"))}</p>
+    <h1>${esc(titel)}</h1><p class="sub">${esc((q.name.match(/\(([^)]*)\)/) || [, ""])[1].replace("landesrecht-bw", "Amtlicher Text, abgerufen am " + (q.kopf.join(" ").match(/abgerufen am (\d{2}\.\d{2}\.\d{4})/) || [, "05.11.2026"])[1]))}</p>
     ${q.abschnitte.length ? `<div class="such-zeile"><input id="filter" type="search" aria-label="Im Text filtern" placeholder="Paragraf oder Stichwort in diesem Text"></div>` : ""}
     <div class="prosa gesetz">
-      ${q.abschnitte.map((a) => `<section id="p${esc(a.nr)}" data-text="${esc(("§ " + a.nr + " " + a.titel + " " + a.absaetze.join(" ")).toLowerCase())}"><h2>§ ${esc(a.nr)} ${esc(a.titel)}</h2>${a.absaetze.map((t) => `<p>${esc(t)}</p>`).join("")}</section>`).join("")}
+      ${q.abschnitte.map((a) => { const marke = /^\d/.test(a.nr) ? "§ " + a.nr : a.nr; return `<section id="p${esc(a.nr.replace(/\s/g, ""))}" data-text="${esc((marke + " " + a.titel + " " + a.absaetze.join(" ")).toLowerCase())}"><h2>${esc(marke)} ${esc(a.titel)}</h2>${a.absaetze.map((t) => `<p>${esc(t)}</p>`).join("")}</section>`; }).join("")}
       ${q.abschnitte.length ? "" : q.kopf.map((t) => `<p>${esc(t)}</p>`).join("")}
     </div></div>`;
   if ($("#filter")) $("#filter").oninput = (e) => {

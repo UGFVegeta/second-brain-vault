@@ -260,22 +260,23 @@ def quelle_lesen(pfad):
         z = roh.strip()
         if not z or RAUSCH.search(z):
             continue
-        m = re.fullmatch(r"§\s*(\d+[a-z]?)", z)
+        m = re.fullmatch(r"§\s*(\d+[a-z]?)|(Anlage(?: \d+[a-z]?)?)", z)
         if m:
-            aktuell = {"nr": m.group(1), "titel": "", "absaetze": []}
-            if m.group(1) not in gesehen:
-                gesehen.add(m.group(1))
+            nr = m.group(1) or m.group(2)
+            aktuell = {"nr": nr, "titel": "", "absaetze": []}
+            if nr not in gesehen:
+                gesehen.add(nr)
                 teile.append(aktuell)
             continue
         if aktuell is None:
             kopf.append(z)
         elif not aktuell["titel"]:
             aktuell["titel"] = z
-        elif re.match(r"^\(\d+[a-z]?\)", z) or not aktuell["absaetze"]:
+        elif aktuell["nr"].startswith("Anlage") or re.match(r"^\(\d+[a-z]?\)", z) or not aktuell["absaetze"]:
             aktuell["absaetze"].append(z)
         else:
             aktuell["absaetze"][-1] += " " + z
-    return {"name": pfad.stem, "kopf": kopf[:400], "abschnitte": teile}
+    return {"name": pfad.stem, "kopf": kopf[:2000], "abschnitte": teile}
 
 
 def ausschnitt(text, wort):
@@ -313,7 +314,8 @@ def suche(q):
     for p in quellen_dateien():
         q_daten = quelle_lesen(p)
         for a in q_daten["abschnitte"]:
-            pruefe("Gesetz", f"§ {a['nr']} {a['titel']}", p.stem, f"quelle/{p.stem}/{a['nr']}", " ".join(a["absaetze"]))
+            marke = f"§ {a['nr']}" if a["nr"][0].isdigit() else a["nr"]
+            pruefe("Gesetz", f"{marke} {a['titel']}", p.stem, f"quelle/{p.stem}/{a['nr'].replace(' ', '')}", " ".join(a["absaetze"]))
         if not q_daten["abschnitte"]:
             for z in q_daten["kopf"]:
                 pruefe("Gesetz", p.stem, "Verwaltungsvorschrift", f"quelle/{p.stem}", z)
@@ -415,7 +417,7 @@ def uebersicht():
 SYSTEM = f"""Du bist der Trainingspartner von Oskar. Er ist Realschullehrer in Baden-Württemberg und bereitet sich auf das Überprüfungsverfahren für eine Konrektor- oder Schulleitungsstelle vor, voraussichtlich am Schulzentrum Rudersberg (Verbund aus Grund-, Werkreal- und Realschule).
 
 Rechtsstand:
-- Die aktuellen Rechtstexte liegen als .txt in {QUELLEN}. Das Schulgesetz hat den Stand 16.12.2025, die Verordnungen wurden am 05.11.2026 amtlich abgerufen.
+- Die aktuellen Rechtstexte liegen als .txt in {QUELLEN}. Das Schulgesetz hat den Stand 16.12.2025, die übrigen Texte wurden am 05.11.2026 oder 08.11.2026 amtlich abgerufen (siehe Kopf der Datei).
 - Suche gezielt mit Grep, zum Beispiel das Muster "^\\s*§ 90\\s*$" mit 60 Zeilen Kontext danach, oder ein Stichwort. Lies keine ganzen Dateien und such höchstens viermal.
 - Zitiere nur Fundstellen, die du dort tatsächlich gesehen hast. Fehlt etwas, schreib: „nicht in deinen Rechtsquellen geprüft“.
 - Ältere Musterlösungen und Skripte stammen von etwa 2022 und sind nur Anhaltspunkt. Weicht eine vom aktuellen Text ab, sag das ausdrücklich.

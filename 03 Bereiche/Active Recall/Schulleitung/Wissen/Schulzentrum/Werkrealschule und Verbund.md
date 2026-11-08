@@ -5,7 +5,7 @@ stand: 2026-11-08
 
 # Werkrealschule und Verbund
 
-Geprüft am 08.11.2026 gegen Schulgesetz (Stand 16.12.2025), Konferenzordnung (05.11.2026) und Organisationserlass 2026/27.
+Geprüft am 08.11.2026 gegen Schulgesetz (Stand 16.12.2025), Konferenzordnung (05.11.2026), Organisationserlass 2026/27, Werkrealschulverordnung und Landesbesoldungsgesetz (08.11.2026).
 
 ## Werkrealschule
 
@@ -31,8 +31,21 @@ Geprüft am 08.11.2026 gegen Schulgesetz (Stand 16.12.2025), Konferenzordnung (0
 
 ## Rolle in der Leitung
 
-Der Stellvertretende Schulleiter ist ständiger und allgemeiner Vertreter (§ 42 Abs. 1 SchG). Die Einzelheiten regelt die Dienstordnung, die noch nicht in den Rechtsquellen liegt.
+Der Stellvertretende Schulleiter ist ständiger und allgemeiner Vertreter (§ 42 Abs. 1 SchG). Für das Nähere verweist § 42 Abs. 2 SchG auf eine Dienstordnung des Kultusministeriums. Im amtlichen Portal war am 08.11.2026 kein Text dazu zu finden.
 
-## Noch nicht in den Rechtsquellen
+Als ständiger Vertreter einer Grund- und Werkrealschule mit Realschule trägt er das Amt Konrektor. Bei insgesamt bis zu 180 Schülern ist das A 13 mit Amtszulage, bei mehr als 180 bis zu 360 Schülern A 14, bei mehr als 360 Schülern A 14 mit Amtszulage. Maßgebend ist die amtliche Schulstatistik (Anlage 1 und § 91 Abs. 1 LBesGBW).
 
-Versetzungs- und Abschlussregeln der Werkrealschule, Dienstordnung, Landesbeamtengesetz, SMV-Verordnung. Der Lernplan sieht vor, das bei Bedarf zur passenden Woche zu ergänzen.
+## Versetzung an der Werkrealschule
+
+Die Werkrealschulverordnung gilt auch für Hauptschulen (§ 1 Abs. 3 WRSVO).
+
+- **Klassen 5 bis 8:** Neben einem „ungenügend“ oder zwei „mangelhaft“ in maßgebenden Fächern darf kein weiteres maßgebendes Fach unter „ausreichend“ liegen, außer es ist sinnvoll ausgeglichen (§ 4 Abs. 2 WRSVO).
+- **Ausgleich:** „Ungenügend“ durch „sehr gut“ in einem oder „gut“ in zwei anderen maßgebenden Fächern, „mangelhaft“ durch mindestens „gut“ in einem anderen (§ 4 Abs. 2 WRSVO).
+- **Ausnahme:** Die Klassenkonferenz kann mit Zweidrittelmehrheit versetzen, aber nicht zwei Schuljahre hintereinander (§ 4 Abs. 3 WRSVO).
+- **Probe:** Etwa vier Wochen in der nächsthöheren Klasse, im Einvernehmen mit dem Schulleiter und mit Zielvereinbarung, danach Prüfung in den betroffenen Fächern (§ 4 Abs. 6 WRSVO).
+- **Klasse 9:** Zum Ende des ersten Schulhalbjahres wird erklärt, welcher Abschluss angestrebt wird (§ 9 Abs. 1 WRSVO).
+- **Nach Klasse 10 mit Ziel Werkrealschulabschluss:** zusätzlich ein Schnitt von 3,0 in Deutsch, Mathematik, Englisch und dem Wahlpflichtfach der Klasse 9, in jedem dieser Fächer mindestens „ausreichend“ (§ 9 Abs. 3 WRSVO).
+
+## Noch offen
+
+Die Dienstordnung nach § 41 Abs. 4 und § 42 Abs. 2 SchG.

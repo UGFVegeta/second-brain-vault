@@ -78,7 +78,7 @@ Q: Organisationserlass 2026/27
 ### Wer ist der Stellvertretende Schulleiter rechtlich?
 A: Der ständige und allgemeine Vertreter des Schulleiters. Er unterstützt ihn bei der Erfüllung seiner Aufgaben.
 T: Ständig und allgemein.
-W: Ist niemand da, vertritt der dienstälteste Lehrer, sofern die Schulaufsicht niemand anderen bestimmt. Die Details stehen in der Dienstordnung.
+W: Ist niemand da, vertritt der dienstälteste Lehrer, sofern die Schulaufsicht niemand anderen bestimmt. Für das Nähere verweist das Gesetz auf eine Dienstordnung, deren Text im amtlichen Portal nicht zu finden war.
 Q: § 42 Abs. 1 und 2 SchG
 
 ### Was dient der Orientierung an der Realschule, und wann beginnt die Festlegung?
@@ -92,3 +92,39 @@ A: Entschieden wird nach Eignung, Befähigung und fachlicher Leistung auf Vorsch
 T: Land, Schule, Gemeinde.
 W: In der Kommission sitzen zwei Vertreter der Schulaufsicht und je einer von Schulkonferenz und Schulträger.
 Q: § 40 Abs. 1 SchG; Informationen zum Besetzungsverfahren, Stand September 2025
+
+### Wann liegen die Versetzungsvoraussetzungen an der Werkrealschule in den Klassen 5 bis 8 vor?
+A: Neben einem „ungenügend“ oder zwei „mangelhaft“ in maßgebenden Fächern darf kein weiteres maßgebendes Fach unter „ausreichend“ liegen, außer es ist sinnvoll ausgeglichen.
+T: Eine Sechs oder zwei Fünfen, mehr nur mit Ausgleich.
+W: „Ungenügend“ gleicht ein „sehr gut“ in einem oder „gut“ in zwei anderen maßgebenden Fächern aus, „mangelhaft“ mindestens ein „gut“ in einem anderen.
+Q: § 4 Abs. 2 WRSVO
+
+### Wann kann die Klassenkonferenz an der Werkrealschule ausnahmsweise versetzen?
+A: Mit Zweidrittelmehrheit, wenn die Leistungen nur vorübergehend nicht ausreichen und das Kind nach einer Übergangszeit voraussichtlich mitkommt.
+T: Zwei Drittel, nicht zweimal hintereinander.
+W: Das geht nicht zwei Schuljahre hintereinander. Im Zeugnis steht „Versetzt nach § 4 Absatz 3 WRSVO“.
+Q: § 4 Abs. 3 und 5 WRSVO
+
+### Was ist die Aufnahme auf Probe an der Werkrealschule?
+A: Die Klassenkonferenz kann nicht Versetzten im Einvernehmen mit dem Schulleiter für etwa vier Wochen die Aufnahme in die nächsthöhere Klasse gestatten, wenn sie erwartet, dass die Mängel in absehbarer Zeit behoben werden.
+T: Vier Wochen, mit Zielvereinbarung.
+W: Voraussetzung ist eine Zielvereinbarung. Am Ende wird in den betroffenen Fächern schriftlich und mündlich geprüft. Das Ergebnis ersetzt die Note des Jahreszeugnisses.
+Q: § 4 Abs. 6 WRSVO
+
+### Was muss in Klasse 9 der Werkrealschule erklärt werden, und bis wann?
+A: Zum Ende des ersten Schulhalbjahres, welcher Abschluss angestrebt wird: Hauptschulabschluss am Ende von Klasse 9, Hauptschulabschluss am Ende von Klasse 10 oder Werkrealschulabschluss am Ende von Klasse 10.
+T: Drei Wege, Halbjahr Klasse 9.
+W: Vorher berät die Schule. Wer den Hauptschulabschluss am Ende von Klasse 10 anstrebt, geht ohne Versetzungsentscheidung nach Klasse 10 über.
+Q: § 9 Abs. 1 und 2 WRSVO
+
+### Was braucht die Versetzung in Klasse 10 mit dem Ziel Werkrealschulabschluss?
+A: Die Versetzungsanforderungen wie in den Klassen 5 bis 8, dazu in Deutsch, Mathematik, Englisch und dem Wahlpflichtfach der Klasse 9 einen Schnitt von 3,0 und in jedem dieser Fächer mindestens „ausreichend“.
+T: 3,0 in vier Fächern.
+W: Die Verordnung enthält den Abschluss noch, er läuft aber aus. Dazu gibt es eine eigene Karte.
+Q: § 9 Abs. 3 WRSVO
+
+### In welche Besoldungsgruppe kommt der ständige Vertreter einer Grund- und Werkrealschule mit Realschule?
+A: Bei insgesamt bis zu 180 Schülern A 13 mit Amtszulage, bei mehr als 180 bis zu 360 Schülern A 14, bei mehr als 360 Schülern A 14 mit Amtszulage.
+T: Ab 181 Schülern A 14.
+W: Das Amt heißt Konrektor. Maßgebend sind die Schülerzahlen der amtlichen Schulstatistik.
+Q: Anlage 1 LBesGBW, Besoldungsgruppen A 13 und A 14; § 91 Abs. 1 LBesGBW

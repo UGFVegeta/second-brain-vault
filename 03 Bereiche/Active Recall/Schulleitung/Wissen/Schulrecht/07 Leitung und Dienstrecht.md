@@ -20,9 +20,10 @@ Der Schulleiter trägt die Gesamtverantwortung für die Leitung, Verwaltung und 
 - Für den Schulleiter einer verbundenen Schule gilt die niedrigste Unterrichtsverpflichtung der im Verbund geführten Schularten (§ 4 Abs. 6 LehrArbZV BW).
 - Die Leitungszeit ermäßigt das Deputat des Schulleiters nach Maßgabe der Klassenzahl, wobei der Schulleiter mindestens vier und der ständige Vertreter mindestens acht Wochenstunden Unterricht erteilen muss (§ 4 Abs. 2 und 3 LehrArbZV BW).
 - Bei teilzeitbeschäftigten Schulleitern und ständigen Vertretern ermäßigt sich die Mindestunterrichtsverpflichtung entsprechend dem Beschäftigungsumfang (§ 4 Abs. 3 Satz 2 LehrArbZV BW).
-- Beamte sind verpflichtet, ohne Vergütung über die regelmäßige Arbeitszeit hinaus Dienst zu tun, wenn zwingende dienstliche Verhältnisse es erfordern, etwa bei kurzfristigen Unterrichtsvertretungen (nach alter Unterlage).
+- Beamte sind verpflichtet, ohne Vergütung über die regelmäßige Arbeitszeit hinaus Dienst zu tun, wenn zwingende dienstliche Verhältnisse es erfordern (§ 67 Abs. 3 Satz 1 LBG).
+- Mehrarbeit im Schuldienst wird vergütet, wenn sie drei Unterrichtsstunden im Kalendermonat übersteigt, schriftlich oder elektronisch angeordnet oder genehmigt wurde und nicht durch Dienstbefreiung ausgeglichen werden kann, höchstens für 288 Unterrichtsstunden im Kalenderjahr (§ 65 Abs. 2 bis 4 LBesGBW).
 - Die pädagogische Freiheit berechtigt Lehrkräfte zur eigenverantwortlichen methodischen und didaktischen Gestaltung des Unterrichts im Rahmen der Bildungspläne und Konferenzbeschlüsse (§ 38 Abs. 6 SchG; nach alter Unterlage).
-- Hält eine Lehrkraft eine dienstliche Weisung für rechtswidrig, hat sie den Dienstweg über das gesetzliche Remonstrationsverfahren einzuhalten (nach alter Unterlage).
+- Hält eine Lehrkraft eine dienstliche Weisung für rechtswidrig, muss sie ihre Bedenken unverzüglich auf dem Dienstweg geltend machen, die sogenannte Remonstration (§ 36 Abs. 2 BeamtStG, Bundesrecht, nicht in deiner Sammlung).
 
 ## Wer ist zuständig
 

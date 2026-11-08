@@ -47,10 +47,10 @@ W: Das gilt nicht, wenn das Verhalten die Menschenwürde verletzt oder erkennbar
 Q: § 36 Abs. 2 BeamtStG
 
 ### Bis zu welcher Grenze wird Mehrarbeit von Lehrkräften nicht vergütet?
-A: Bis zu drei Unterrichtsstunden im Kalendermonat. Darüber hinaus wird sie vergütet, im Schuldienst für höchstens 288 Unterrichtsstunden im Kalenderjahr.
+A: Bis zu drei Unterrichtsstunden im Kalendermonat. Darüber wird sie vergütet, wenn sie schriftlich oder elektronisch angeordnet oder genehmigt wurde und nicht durch Dienstbefreiung ausgeglichen werden kann, höchstens für 288 Unterrichtsstunden im Kalenderjahr.
 T: Drei im Monat.
-W: Landesbeamtengesetz und Landesbesoldungsgesetz fehlen in deiner Sammlung. Vor dem Gespräch im aktuellen Wortlaut nachlesen.
-Q: § 67 Abs. 3 LBG und § 65 LBesGBW, nur über Sekundärquellen geprüft; Skript
+W: Bei Teilzeit sinkt die Grenze entsprechend. Allgemein gilt für Beamte: Mehr als fünf Stunden Mehrarbeit im Monat werden innerhalb eines Jahres durch Dienstbefreiung ausgeglichen. Geld gibt es erst, wenn das aus zwingenden dienstlichen Gründen nicht möglich ist.
+Q: § 65 Abs. 1 Nr. 5 und Abs. 2 bis 4 LBesGBW; § 67 Abs. 3 LBG
 
 ### Darf der Schulleiter eine Note ändern?
 A: Stellt er einen Verstoß gegen Regeln und Grundsätze der Notengebung fest, hört er die Lehrkraft an und weist sie an, die Note ohne den Verstoß neu zu bilden. Erst wenn sie sich weigert oder die Note wieder fehlerhaft bildet, kann er sie selbst feststellen.
