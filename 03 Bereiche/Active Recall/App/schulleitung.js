@@ -126,7 +126,7 @@ async function route() {
   if (aufraeumen) { const a = aufraeumen; aufraeumen = null; await a(); }
   const [r = "heute", ...rest] = decodeURIComponent(location.hash.slice(2) || "heute").split("/");
   const arg = rest.join("/");
-  const nav = { fall: "faelle", lernen: "karten", map: "mindmaps" }[r] || r;
+  const nav = { fall: "faelle", lernen: "karten", map: "mindmaps", quelle: "wissen" }[r] || r;
   $$(".side a[data-r]").forEach((a) => {
     const an = a.dataset.r === nav; a.classList.toggle("on", an);
     if (an) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
@@ -134,9 +134,9 @@ async function route() {
   tutorSchliessen();
   try {
     D = await api("uebersicht");
-    const seiten = { heute: seiteHeute, faelle: seiteFaelle, fall: seiteFall, karten: seiteKarten, lernen: seiteLernen, mindmaps: seiteMaps, map: seiteMap, wissen: seiteWissen };
-    await (seiten[r] || seiteHeute)(arg);
+    const seiten = { heute: seiteHeute, faelle: seiteFaelle, fall: seiteFall, karten: seiteKarten, lernen: seiteLernen, mindmaps: seiteMaps, map: seiteMap, wissen: seiteWissen, quelle: seiteQuelle };
     view.scrollTop = 0;
+    await (seiten[r] || seiteHeute)(arg);
   } catch (e) {
     view.innerHTML = `<div class="seite"><h1>Das hat nicht geklappt</h1><p class="sub">${esc(e.message)}</p><div class="aktionen"><button class="b" onclick="location.reload()">Neu laden</button></div></div>`;
   }
@@ -479,21 +479,82 @@ async function seiteMap(name) {
 }
 
 /* ---------- Wissen ---------- */
-async function seiteWissen(name) {
-  if (name) {
-    const w = await api("wissen?name=" + enc(name));
-    view.innerHTML = `<div class="seite"><a class="zurueck" href="#/wissen">${ic("zurueck")}Wissen</a><div class="prosa">${md(w.text)}</div></div>`;
+const GRUPPE_TEXT = {
+  Schulzentrum: "Das Haus und seine Schularten", Schulrecht: "Nach den Themen deines Lernplans",
+  Verfahren: "Module, Kommission, Vorbereitung", Schulentwicklung: "Daten, Reformen, Programme, Führung",
+  "Alte Unterlagen": "Etwa 2022, Stand vor jeder Nutzung prüfen",
+};
+const anzeigeName = (n) => n.replace(/^\d+\s+/, "");
+const istAlt = (g) => g === "Alte Unterlagen";
+
+async function seiteWissen(arg) {
+  if (arg) {
+    const [gruppe, ...r] = arg.split("/"), name = r.join("/");
+    const w = await api("wissen?gruppe=" + enc(gruppe) + "&name=" + enc(name));
+    const inhalt = md(w.text);
+    view.innerHTML = `<div class="seite">
+      <a class="zurueck" href="#/wissen">${ic("zurueck")}Wissen</a>
+      <div class="seiten-kopf"><span class="sub">${esc(gruppe)}${w.stand ? `, Stand ${esc(w.stand.split("-").reverse().join("."))}` : ""}</span>
+        <div class="aktionen"><button class="b quiet" id="fragen">${ic("chat")}Claude fragen</button>${istAlt(gruppe) ? "" : `<a class="b quiet" href="#/map/${enc(anzeigeName(name))}">${ic("map")}Mindmap dazu</a>`}</div></div>
+      ${istAlt(gruppe) ? `<p class="warnung">Diese Unterlage stammt von etwa 2022. Prüf Fundstellen gegen die aktuellen Gesetze.</p>` : ""}
+      <nav class="sprung" id="sprung" aria-label="Auf dieser Seite"></nav>
+      <div class="prosa">${inhalt}</div></div>`;
+    const kopfe = $$(".prosa h2", view);
+    kopfe.forEach((h, i) => (h.id = "t" + i));
+    $("#sprung").innerHTML = kopfe.length > 1 ? kopfe.map((h, i) => `<a href="#" data-t="t${i}">${esc(h.textContent)}</a>`).join("") : "";
+    $$("#sprung a").forEach((a) => (a.onclick = (e) => { e.preventDefault(); document.getElementById(a.dataset.t).scrollIntoView({ block: "start" }); }));
+    $("#fragen").onclick = () => tutorOeffnen("Zu dieser Seite", { modus: "wissen", gruppe, name }, ["Erklär mir das einfacher", "Stell mir drei Fragen dazu", "Was ist hier am wichtigsten?"]);
     return;
   }
-  view.innerHTML = `<div class="seite">
-    <h1>Wissen</h1><p class="sub">Daten und Fakten für das Schulzentrum, jeweils mit Stand.</p>
-    <h2>Seiten</h2>
-    <div class="liste">${D.wissen.map((n) => `<a class="zeile" href="#/wissen/${enc(n)}">${ic("buch")}<span class="wachs"><strong>${esc(n)}</strong></span></a>`).join("")}</div>
-    <h2>Schulgesetz nachschlagen</h2>
-    <p class="sub">Aktueller Text, Stand 16.12.2025.</p>
-    <form class="such-zeile" id="such"><input id="nr" aria-label="Paragraf" placeholder="Paragraf, zum Beispiel 90 oder 30b"><button class="b ghost">Anzeigen</button></form>
+  const gruppen = [...new Set(D.wissen.map((s) => s.gruppe))].filter((g) => !istAlt(g));
+  const block = (g) => `<h2>${esc(g)}</h2><p class="sub klein-sub">${esc(GRUPPE_TEXT[g] || "")}</p>
+    <div class="liste spalten">${D.wissen.filter((s) => s.gruppe === g).map((s) => `<a class="zeile" href="#/wissen/${enc(s.gruppe)}/${enc(s.name)}">${ic("buch")}<span class="wachs">${esc(anzeigeName(s.name))}</span></a>`).join("")}</div>`;
+  view.innerHTML = `<div class="seite weit">
+    <h1>Wissen</h1><p class="sub">Alles zum Nachschlagen: Themen, Gesetze im aktuellen Wortlaut und deine alten Unterlagen.</p>
+    <div class="such-zeile"><input id="suche" type="search" aria-label="Suche" placeholder="Suchen, zum Beispiel Zurückstellung, Beanstandung oder § 90"></div>
+    <div id="ergebnis" aria-live="polite"></div>
+    <div id="bloecke">
+      ${gruppen.map(block).join("")}
+      <h2>Gesetze und Verordnungen</h2><p class="sub klein-sub">Aktueller Wortlaut. Schulgesetz Stand 16.12.2025, Verordnungen abgerufen am 05.11.2026</p>
+      <div class="liste spalten">${D.quellen.map((q) => `<a class="zeile" href="#/quelle/${enc(q)}">${ic("fall")}<span class="wachs">${esc(q.replace(/\s*\((?:landesrecht-bw|Stand [^)]*)\)/, ""))}</span></a>`).join("")}</div>
+      ${block("Alte Unterlagen")}
+    </div>
   </div>`;
-  $("#such").onsubmit = (e) => { e.preventDefault(); const n = $("#nr").value.replace(/[^0-9a-z]/gi, ""); if (n) normZeigen(n); };
+  let timer = null;
+  $("#suche").oninput = (e) => {
+    clearTimeout(timer);
+    const q = e.target.value.trim();
+    timer = setTimeout(async () => {
+      if (q.length < 2) { $("#ergebnis").innerHTML = ""; $("#bloecke").hidden = false; return; }
+      try {
+        const { treffer } = await api("suche?q=" + enc(q));
+        if ($("#suche").value.trim() !== q) return;
+        $("#bloecke").hidden = true;
+        $("#ergebnis").innerHTML = treffer.length
+          ? `<p class="hinweis">${treffer.length === 50 ? "Die ersten 50 Treffer" : treffer.length + " Treffer"}</p><div class="liste">${treffer.map((t) => `<a class="zeile" href="#/${t.link.split("/").map(enc).join("/")}"><span class="wachs"><strong>${esc(t.titel)}</strong><span class="info">${esc(t.ausschnitt)}</span></span><span class="tag">${esc(t.art)}</span></a>`).join("")}</div>`
+          : `<p class="hinweis">Keine Treffer. Versuch ein einzelnes Stichwort.</p>`;
+      } catch (err) { toast(err.message); }
+    }, 220);
+  };
+}
+
+async function seiteQuelle(arg) {
+  const [name, nr] = arg.split("/");
+  const q = await api("quelle?name=" + enc(name));
+  const titel = q.name.replace(/\s*\((?:landesrecht-bw|Stand [^)]*)\)/, "");
+  view.innerHTML = `<div class="seite">
+    <a class="zurueck" href="#/wissen">${ic("zurueck")}Wissen</a>
+    <h1>${esc(titel)}</h1><p class="sub">${esc((q.name.match(/\(([^)]*)\)/) || [, ""])[1].replace("landesrecht-bw", "Amtlicher Text, abgerufen am 05.11.2026"))}</p>
+    ${q.abschnitte.length ? `<div class="such-zeile"><input id="filter" type="search" aria-label="Im Text filtern" placeholder="Paragraf oder Stichwort in diesem Text"></div>` : ""}
+    <div class="prosa gesetz">
+      ${q.abschnitte.map((a) => `<section id="p${esc(a.nr)}" data-text="${esc(("§ " + a.nr + " " + a.titel + " " + a.absaetze.join(" ")).toLowerCase())}"><h2>§ ${esc(a.nr)} ${esc(a.titel)}</h2>${a.absaetze.map((t) => `<p>${esc(t)}</p>`).join("")}</section>`).join("")}
+      ${q.abschnitte.length ? "" : q.kopf.map((t) => `<p>${esc(t)}</p>`).join("")}
+    </div></div>`;
+  if ($("#filter")) $("#filter").oninput = (e) => {
+    const w = e.target.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    $$(".gesetz section").forEach((s) => (s.hidden = !w.every((x) => s.dataset.text.includes(x))));
+  };
+  if (nr) { const z = document.getElementById("p" + nr); if (z) { z.scrollIntoView({ block: "start" }); z.classList.add("markiert"); } }
 }
 
 route();

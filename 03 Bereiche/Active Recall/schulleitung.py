@@ -17,6 +17,7 @@ import shutil
 import subprocess
 import tempfile
 import threading
+import unicodedata
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -224,6 +225,111 @@ def sicherer_name(name):
     return name or None
 
 
+# ---------- Wissen und Gesetze ----------
+ALTE_UNTERLAGEN = {"Skript": SCHULRECHT / "Schulrecht – Skript.md",
+                   "Kurzübersicht": SCHULRECHT / "Schulrecht – Kurzübersicht.md"}
+GRUPPE_ALT = "Alte Unterlagen"
+GRUPPEN_FOLGE = ["Schulzentrum", "Schulrecht", "Verfahren", "Schulentwicklung", GRUPPE_ALT]
+RAUSCH = re.compile(r"gültig ab|^https?://|landesrecht-bw\.de/perma|^Fundstelle:|^Neugefasst")
+
+
+def gleich(a, b):
+    return unicodedata.normalize("NFC", a) == unicodedata.normalize("NFC", b)
+
+
+def wissen_seiten():
+    seiten = [{"gruppe": d.parent.name, "name": d.stem} for d in WISSEN.glob("*/*.md")]
+    seiten += [{"gruppe": GRUPPE_ALT, "name": n} for n in ALTE_UNTERLAGEN]
+    rang = lambda s: GRUPPEN_FOLGE.index(s["gruppe"]) if s["gruppe"] in GRUPPEN_FOLGE else 99
+    return sorted(seiten, key=lambda s: (rang(s), s["name"]))
+
+
+def wissen_pfad(gruppe, name):
+    if gleich(gruppe or "", GRUPPE_ALT):
+        return next((p for n, p in ALTE_UNTERLAGEN.items() if gleich(n, name or "")), None)
+    return next((d for d in WISSEN.glob("*/*.md") if gleich(d.parent.name, gruppe or "") and gleich(d.stem, name or "")), None)
+
+
+def quellen_dateien():
+    return sorted(QUELLEN.glob("*.txt"), key=lambda p: (not p.stem.startswith("Schulgesetz"), p.stem))
+
+
+def quelle_lesen(pfad):
+    kopf, teile, aktuell, gesehen = [], [], None, set()
+    for roh in pfad.read_text(encoding="utf-8").splitlines():
+        z = roh.strip()
+        if not z or RAUSCH.search(z):
+            continue
+        m = re.fullmatch(r"§\s*(\d+[a-z]?)", z)
+        if m:
+            aktuell = {"nr": m.group(1), "titel": "", "absaetze": []}
+            if m.group(1) not in gesehen:
+                gesehen.add(m.group(1))
+                teile.append(aktuell)
+            continue
+        if aktuell is None:
+            kopf.append(z)
+        elif not aktuell["titel"]:
+            aktuell["titel"] = z
+        elif re.match(r"^\(\d+[a-z]?\)", z) or not aktuell["absaetze"]:
+            aktuell["absaetze"].append(z)
+        else:
+            aktuell["absaetze"][-1] += " " + z
+    return {"name": pfad.stem, "kopf": kopf[:400], "abschnitte": teile}
+
+
+def ausschnitt(text, wort):
+    i = text.lower().find(wort)
+    a = max(0, i - 70)
+    return ("… " if a else "") + text[a:i + 130].replace("\n", " ").strip() + " …"
+
+
+def suche(q):
+    woerter = [w.lower() for w in re.split(r"\s+", (q or "").strip()) if len(w) > 1 or w.isdigit()]
+    if not woerter:
+        return []
+    treffer = []
+
+    def pruefe(art, titel, ort, link, text):
+        ganz = (titel + " " + text).lower()
+        if all(w in ganz for w in woerter):
+            im_titel = all(w in titel.lower() for w in woerter)
+            quelle = text if woerter[0] in text.lower() else titel
+            treffer.append((0 if im_titel else 1, {"art": art, "titel": titel, "ort": ort, "link": link,
+                                                   "ausschnitt": ausschnitt(quelle, woerter[0])}))
+
+    nur_nr = re.fullmatch(r"§?\s*(\d+[a-z]?)", (q or "").strip().lower())
+    if nur_nr and norm(nur_nr.group(1)):
+        n = norm(nur_nr.group(1))
+        treffer.append((-1, {"art": "Gesetz", "titel": f"§ {n['nr']} SchG: {n['titel']}", "ort": "Schulgesetz",
+                             "link": f"quelle/{SCHULGESETZ.stem}/{n['nr']}", "ausschnitt": n["absaetze"][0][:200] if n["absaetze"] else ""}))
+    for s in wissen_seiten():
+        pfad = wissen_pfad(s["gruppe"], s["name"])
+        _, text = frontmatter(pfad.read_text(encoding="utf-8"))
+        for block in re.split(r"(?m)^(?=#{1,3} )", text):
+            kopf = block.split("\n", 1)[0].lstrip("# ").strip() if block.startswith("#") else ""
+            pruefe("Wissen", s["name"] + (f": {kopf}" if kopf and kopf != s["name"] else ""), s["gruppe"],
+                   f"wissen/{s['gruppe']}/{s['name']}", block)
+    for p in quellen_dateien():
+        q_daten = quelle_lesen(p)
+        for a in q_daten["abschnitte"]:
+            pruefe("Gesetz", f"§ {a['nr']} {a['titel']}", p.stem, f"quelle/{p.stem}/{a['nr']}", " ".join(a["absaetze"]))
+        if not q_daten["abschnitte"]:
+            for z in q_daten["kopf"]:
+                pruefe("Gesetz", p.stem, "Verwaltungsvorschrift", f"quelle/{p.stem}", z)
+    for f in faelle_lesen():
+        pruefe("Fall", f["titel"], f["gruppe"], f"fall/{f['id']}", f["text"])
+    for k in karten_lesen():
+        pruefe("Karte", k["frage"], k["thema"], f"lernen/thema-{k['thema']}", k["antwort"] + " " + k["warum"])
+    treffer.sort(key=lambda t: t[0])
+    einmalig, gesehen = [], set()
+    for _, t in treffer:
+        if t["link"] not in gesehen or t["art"] == "Wissen":
+            gesehen.add(t["link"])
+            einmalig.append(t)
+    return einmalig[:50]
+
+
 def mindmaps_lesen():
     MAPS.mkdir(parents=True, exist_ok=True)
     out = []
@@ -299,7 +405,8 @@ def uebersicht():
         "heute": t, "intervalle": INTERVALLE, "wochen": liste, "aktuell": aktuell,
         "naechsterFall": {"id": nf["id"], "titel": nf["titel"]} if nf else None,
         "faelle": faelle, "karten": kartenliste,
-        "wissen": sorted(d.stem for d in WISSEN.glob("*.md")),
+        "wissen": wissen_seiten(),
+        "quellen": [p.stem for p in quellen_dateien()],
         "mindmaps": mindmaps_lesen(),
     }
 
@@ -309,7 +416,7 @@ SYSTEM = f"""Du bist der Trainingspartner von Oskar. Er ist Realschullehrer in B
 
 Rechtsstand:
 - Die aktuellen Rechtstexte liegen als .txt in {QUELLEN}. Das Schulgesetz hat den Stand 16.12.2025, die Verordnungen wurden am 05.11.2026 amtlich abgerufen.
-- Suche gezielt mit Grep, zum Beispiel das Muster "^\\s*§ 90\\s*$" mit 60 Zeilen Kontext danach, oder ein Stichwort. Lies keine ganzen Dateien.
+- Suche gezielt mit Grep, zum Beispiel das Muster "^\\s*§ 90\\s*$" mit 60 Zeilen Kontext danach, oder ein Stichwort. Lies keine ganzen Dateien und such höchstens viermal.
 - Zitiere nur Fundstellen, die du dort tatsächlich gesehen hast. Fehlt etwas, schreib: „nicht in deinen Rechtsquellen geprüft“.
 - Ältere Musterlösungen und Skripte stammen von etwa 2022 und sind nur Anhaltspunkt. Weicht eine vom aktuellen Text ab, sag das ausdrücklich.
 
@@ -354,6 +461,8 @@ Form:
 **Drei Abruffragen.** Für die nächste Runde.
 
 Zeichne keine neue Mindmap und schreib sie nicht für ihn um."""
+
+AUFGABE_WISSEN = """Oskar liest diese Wissensseite und hat dazu eine Frage. Erkläre kurz und konkret, gern mit einem Beispiel aus dem Schulalltag. Wenn die Seite aus deiner Sicht falsch oder überholt ist, sag das deutlich und nenne die Fundstelle."""
 
 AUFGABE_FREI = """Oskar stellt eine Frage zum Schulrecht oder zur Schulleitung. Antworte kurz und mit Fundstelle, soweit du sie geprüft hast."""
 
@@ -430,6 +539,13 @@ def chat(body):
         kontext = (f"## Karteikarte, Thema {k['thema']}\n\nFrage: {k['frage']}\nAntwort: {k['antwort']}\n"
                    f"Erklärung: {k['warum']}\nFundstelle: {k['quelle']}")
         aufgabe = AUFGABE_KARTE
+    elif modus == "wissen":
+        pfad = wissen_pfad(body.get("gruppe"), body.get("name"))
+        if not pfad:
+            return 404, {"error": "Diese Seite gibt es nicht mehr."}
+        _, seite = frontmatter(pfad.read_text(encoding="utf-8"))
+        kontext = f"## Wissensseite: {body.get('name')}\n\n{seite[:14000]}"
+        aufgabe = AUFGABE_WISSEN
     elif modus == "mindmap":
         name = sicherer_name(body.get("name"))
         if not name:
@@ -493,12 +609,16 @@ def api_get(route, q):
             return 404, {"error": "Diesen Fall gibt es nicht."}
         return 200, f if wert("loesung") else {k: v for k, v in f.items() if k != "loesung"}
     if route == "wissen":
-        name = sicherer_name(wert("name"))
-        pfad = WISSEN / f"{name}.md"
-        if not name or not pfad.exists():
+        pfad = wissen_pfad(wert("gruppe"), wert("name"))
+        if not pfad:
             return 404, {"error": "Diese Seite gibt es nicht."}
         fm, text = frontmatter(pfad.read_text(encoding="utf-8"))
-        return 200, {"name": name, "text": text, "stand": fm.get("stand", "")}
+        return 200, {"name": wert("name"), "gruppe": wert("gruppe"), "text": text, "stand": fm.get("stand", "")}
+    if route == "quelle":
+        pfad = next((p for p in quellen_dateien() if gleich(p.stem, wert("name"))), None)
+        return (200, quelle_lesen(pfad)) if pfad else (404, {"error": "Diesen Rechtstext gibt es nicht."})
+    if route == "suche":
+        return 200, {"treffer": suche(wert("q"))}
     if route == "norm":
         n = norm(wert("nr"))
         return (200, n) if n else (404, {"error": "Diesen Paragrafen gibt es im Schulgesetz nicht."})
