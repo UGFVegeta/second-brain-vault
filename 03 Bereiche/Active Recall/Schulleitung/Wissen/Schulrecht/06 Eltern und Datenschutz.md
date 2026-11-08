@@ -22,7 +22,7 @@ Eltern und Schule bilden eine Erziehungsgemeinschaft mit wechselseitigen Informa
 - Lehrkräfte dürfen personenbezogene Daten von Schülern auf privaten Datenverarbeitungsgeräten nur mit vorheriger schriftlicher Genehmigung der Schulleitung und ausschließlich von selbst unterrichteten Schülern verarbeiten (VwV Datenschutz an öffentlichen Schulen Anlage 1).
 - Besonders schutzwürdige Daten wie Krankheiten oder Erziehungs- und Ordnungsmaßnahmen dürfen keinesfalls auf privaten Datenverarbeitungsgeräten gespeichert werden (VwV Datenschutz an öffentlichen Schulen Anlage 1).
 - Auf privaten Geräten verarbeitete dienstliche Schülerdaten müssen durchgängig verschlüsselt gespeichert und spätestens nach Ablauf des folgenden Schuljahres gelöscht werden (VwV Datenschutz an öffentlichen Schulen Anlage 1).
-- Für die Verarbeitung personenbezogener Daten durch Schulen und Schulaufsichtsbehörden gilt ergänzend das Landesdatenschutzgesetz sowie die Datenschutz-Grundverordnung (§ 115 Abs. 4 SchG).
+- Für die Verarbeitung personenbezogener Daten durch Schulen und Schulaufsichtsbehörden gilt, soweit nichts anderes bestimmt ist, das Landesdatenschutzgesetz (§ 115 Abs. 4 SchG).
 
 ## Wer ist zuständig
 

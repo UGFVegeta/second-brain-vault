@@ -11,7 +11,7 @@ Mit Gemini LM aus deinen aktuellen Rechtstexten zusammengefasst und am 08.11.202
 Die Notengebung, Versetzung und Zuweisung zu Bildungsgängen unterliegen dem Grundsatz der pädagogischen Verantwortung der Lehrkräfte im Rahmen der geltenden Rechts- und Versetzungsordnungen. An der Realschule erfolgt das Lernen nach der Orientierungsstufe in Klasse 5 differenziert auf grundlegendem Niveau (Niveau G) oder mittlerem Niveau (Niveau M). Für eine Verbundschule mit Grund- und Werkrealschule gilt die gesetzliche Besonderheit, dass die Realschule im Verbund ausschließlich das zum Realschulabschluss führende Niveau M anbietet und Schüler bei Zuweisung zum Niveau G die Realschule verlassen müssen.
 
 ## Die wichtigsten Regeln
-- Die Leistungsbewertung in einzelnen Fächern obliegt der unterrichtenden Lehrkraft in pädagogischer Verantwortung unter Beachtung der Rechts- und Verwaltungsvorschriften (§ 7 Abs. 1 NVO).
+- Grundlage der Note sind alle im Zusammenhang mit dem Unterricht erbrachten eigenen Leistungen. Die Note ist eine pädagogisch-fachliche Gesamtwertung (§ 7 Abs. 1 und 2 NVO).
 - An einem Tag soll nicht mehr als eine Klassenarbeit und in einer Woche sollen nicht mehr als drei Klassenarbeiten geschrieben werden (§ 8 Abs. 3 Satz 2 und 3 NVO).
 - Weigert sich ein Schüler, eine Arbeit anzufertigen, oder versäumt er sie unentschuldigt, wird die Note ungenügend erteilt (§ 8 Abs. 5 NVO).
 - Bei einer Täuschungshandlung oder unzulässigen Hilfsmitteln entscheidet die Fachlehrkraft über Leistungsbewertung, Notenabzug, Nacharbeit oder bei schwerer bzw. wiederholter Täuschung über die Note ungenügend (§ 8 Abs. 6 NVO).
@@ -29,16 +29,16 @@ Die Notengebung, Versetzung und Zuweisung zu Bildungsgängen unterliegen dem Gru
 | Wer | Was | Fundstelle |
 | :--- | :--- | :--- |
 | Fachlehrkraft | Erteilung der Noten im Fach, Festlegung von Nachterminen, Maßnahmen bei Täuschungshandlung | § 7 Abs. 1, § 8 Abs. 4 und 6 NVO |
-| Fachlehrkraft | Entscheidung über die Gewichtung der schriftlichen und mündlichen Noten im Fach | § 7 Abs. 1 Satz 3 NVO |
+| Fachlehrkraft | Entscheidung über die Gewichtung der schriftlichen und mündlichen Noten im Fach | § 7 Abs. 1 Satz 5 NVO |
 | Gesamtlehrerkonferenz | Empfehlungen für einheitliche Maßstäbe bei Notengebung und Klassenarbeiten | § 2 Abs. 1 Nr. 5 KonfO BW |
 | Klassenkonferenz | Beschlussfassung über Zeugnisnoten, Versetzung und Aussetzung der Versetzung | § 45 Abs. 2 SchG, § 4 Abs. 1 Nr. 4 KonfO BW, § 10 RealSchulVersV |
 | Klassenkonferenz | Beschluss über erstmalige Niveauzuordnung (Ende Klasse 5) und Niveauwechsel | § 3 Abs. 2, § 4 Abs. 3 RealSchulVersV |
 | Klassenkonferenz (2/3-Mehrheit) | Versetzung trotz Nichterfüllung der Versetzungsanforderungen (§ 8 Abs. 1) und Aufnahme auf Probe in Niveau M | § 4 Abs. 3, § 8 Abs. 1 RealSchulVersV |
-| Schulleiter | Aufnahme in die Schule, Erteilung der Zeugnisse (Mitunterzeichnung), Gesamtverantwortung für Notengebungsgrundsätze | § 41 Abs. 1 und 2 SchG, § 3 Abs. 2 NVO |
+| Schulleiter | Aufnahme in die Schule, Verantwortung für die Einhaltung der allgemeinen Grundsätze der Notengebung | § 41 Abs. 1 und 2 SchG |
 | Schulleiter | Ausnahmegenehmigung bei freiwilliger Klassenwiederholung außerhalb des Halbjahresbeginns | § 13 Abs. 2 RealSchulVersV |
 
 ## Typische Fehler in der Schulleitung
-- Unzulässige Notenkorrektur durch die Schulleitung: Der Schulleiter ändert eigenmächtig eine Fachnote ab, statt bei Rechtsverstößen die Lehrkraft zur Neufestsetzung anzuweisen oder die Konferenz einzuberufen (§ 41 Abs. 2 SchG, § 2 Abs. 1 NVO; nach alter Unterlage).
+- Unzulässige Notenkorrektur durch die Schulleitung: Der Schulleiter ändert eigenmächtig eine Fachnote ab, statt bei Rechtsverstößen die Lehrkraft zur Neufestsetzung anzuweisen oder die Konferenz einzuberufen (§ 41 Abs. 2 SchG; nach alter Unterlage).
 - Fehlerhafte Stimmberechtigung bei Versetzungsbeschlüssen: Lehrkräfte stimmen über die Versetzung von Schülern ab, die sie im Schuljahr nicht selbst unterrichten (§ 13 Abs. 1 KonfO BW).
 - Missachtung der Sonderregelung für Verbundschulen: Ein Schüler wechselt am Ende von Klasse 5 auf Niveau G und verbleibt an der Realschule des Verbunds, obwohl er die Schulart zwingend verlassen muss (§ 7 Abs. 7 SchG, § 14 RealSchulVersV).
 - Unzulässige Wiederholung einer Sonderversetzung: Die Klassenkonferenz wendet § 8 Abs. 1 der Realschulversetzungsordnung in zwei aufeinanderfolgenden Schuljahren für denselben Schüler an (§ 8 Abs. 1 Satz 2 RealSchulVersV).

@@ -11,8 +11,8 @@ Mit Gemini LM aus deinen aktuellen Rechtstexten zusammengefasst und am 08.11.202
 Die Schulpflicht begründet ein öffentlich-rechtliches Rechtsverhältnis, das Schüler zum regelmäßigen Unterrichtsbesuch und zur Teilnahme an verbindlichen Schulveranstaltungen verpflichtet. Verhinderungen wegen Krankheit müssen unverzüglich angezeigt werden, während Befreiungen und Beurlaubungen nur in begründeten Ausnahmefällen auf rechtzeitigen Antrag durch die zuständige Lehrkraft oder Schulleitung erteilt werden dürfen. Außerunterrichtliche Veranstaltungen sind genehmigungspflichtige Schulveranstaltungen, für die Teilnahmepflicht, Aufsicht und gesetzlicher Versicherungsschutz gelten.
 
 ## Die wichtigsten Regeln
-- Die Schulpflicht gliedert sich in die Grundschulpflicht, die Pflicht zum Besuch einer auf der Grundschule aufbauenden Schule oder eines SBBZ sowie die Berufsschulpflicht (§ 72 Abs. 1 SchG).
-- Schüler sind verpflichtet, den Unterricht und die übrigen verbindlichen Veranstaltungen der Schule regelmäßig und ordnungsgemäß zu besuchen sowie die Schulordnung einzuhalten (§ 1 Abs. 1 Schulbesuchsverordnung, § 85 Abs. 1 SchG).
+- Die Schulpflicht gliedert sich in die Grundschulpflicht, die Pflicht zum Besuch einer auf der Grundschule aufbauenden Schule oder eines SBBZ sowie die Berufsschulpflicht (§ 72 Abs. 2 SchG).
+- Schüler sind verpflichtet, den Unterricht und die übrigen verbindlichen Veranstaltungen der Schule regelmäßig und ordnungsgemäß zu besuchen sowie die Schulordnung einzuhalten (§ 1 Abs. 1 Schulbesuchsverordnung, § 72 Abs. 3 SchG).
 - Der Schulleiter leitet und verwaltet die Schule und trägt die Sorge für die Erfüllung der Schulpflicht (§ 41 Abs. 1 SchG).
 - Ist ein Schüler durch Krankheit verhindert, ist dies spätestens am zweiten Tag der Verhinderung mündlich, fernmündlich, elektronisch oder schriftlich unter Angabe von Grund und voraussichtlicher Dauer mitzuteilen (§ 2 Abs. 1 Schulbesuchsverordnung).
 - Bei einer Krankheitsdauer von mehr als zehn Unterrichtstagen kann der Klassenlehrer die Vorlage eines ärztlichen Zeugnisses verlangen (§ 2 Abs. 2 Satz 1 Schulbesuchsverordnung).
@@ -39,7 +39,7 @@ Die Schulpflicht begründet ein öffentlich-rechtliches Rechtsverhältnis, das S
 | Schulleiter | Genehmigung außerunterrichtlicher Veranstaltungen (z. B. Wandertage, Schullandheim) | VwV Außerunterrichtliche Veranstaltungen Nr. 2.4 |
 | Stellvertretender Schulleiter | Vertretung des Schulleiters bei Abwesenheit bei allen schulpflicht- und beurlaubungsrelevanten Entscheidungen | § 42 Abs. 1 SchG |
 | Eltern | Rechtzeitige schriftliche, elektronische oder fernmündliche Entschuldigung sowie Antragstellung auf Beurlaubung | § 1 Abs. 1, § 2 Abs. 1, § 4 Abs. 1 Schulbesuchsverordnung |
-| Untere Verwaltungsbehörde (Gemeinde) | Verfolgung und Ahndung von Schulpflichtverletzungen als Ordnungswidrigkeit | § 92 Abs. 3 SchG |
+| Untere Verwaltungsbehörde | Verfolgung und Ahndung von Schulpflichtverletzungen als Ordnungswidrigkeit | § 92 Abs. 3 SchG |
 
 ## Typische Fehler in der Schulleitung
 - Zuständigkeitsüberschreitung durch Klassenlehrer: Klassenlehrkräfte beurlauben Schüler für mehr als zwei Schultage, obwohl hierfür ausschließlich der Schulleiter zuständig ist (§ 4 Abs. 5 Schulbesuchsverordnung).

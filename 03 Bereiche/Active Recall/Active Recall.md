@@ -48,7 +48,7 @@ Eigener Bereich der App für das Überprüfungsverfahren: `http://localhost:8744
 
 - **Heute:** laufende Woche aus dem [[Lernplan Schulrecht bis Februar 2027]], nächster Fall, fällige Karten, Mindmap, Audio.
 - **Fälle:** Antwort tippen oder mit WhisperBar diktieren, Rückmeldung nach dem 6-Schritte-Schema, Nachfragen im selben Gespräch. Die Gespräche landen in `Schulleitung/Gespräche/`.
-- **Karten:** Fakten mit Tipp, Erklärung und Fundstelle. Bei Unklarem Claude fragen.
+- **Karten:** Fakten mit Tipp, Erklärung und Fundstelle. Bei Unklarem Claude fragen. Eine Datei je Lernplan-Woche 1 bis 9, dazu Grundschule, Werkrealschule und Verbund, Schulzentrum Rudersberg. „Heute“ bietet nur die Karten der laufenden Woche an.
 - **Mindmaps:** Excalidraw in der App oder Foto der Handskizze, danach Abgleich mit Claude. Dateien in `Schulleitung/Mindmaps/`. Der Editor lädt beim ersten Öffnen aus dem Netz.
 - **Wissen:** Suche über alles; Seiten zu Schulzentrum, allen Lernplan-Themen, Verfahren und Schulentwicklung; alle zwölf Rechtstexte im Wortlaut; Skript und Kurzübersicht. Seiten liegen in `Schulleitung/Wissen/<Gruppe>/`, Gesetze und alte Unterlagen werden live aus `04 Ressourcen/Schulrecht/` gelesen.
 

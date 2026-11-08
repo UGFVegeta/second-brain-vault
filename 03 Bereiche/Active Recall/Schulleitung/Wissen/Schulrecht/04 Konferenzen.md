@@ -13,9 +13,9 @@ Die Konferenzen an Schulen in Baden-Württemberg sichern die demokratische Mitwi
 ## Die wichtigsten Regeln
 - Die Gesamtlehrerkonferenz berät und beschließt über Angelegenheiten von wesentlicher Bedeutung für die gesamte Schule, insbesondere allgemeine Fragen des Unterrichts, Fortbildung und Schulordnungen (§ 45 Abs. 2 SchG, § 2 Abs. 1 KonfO BW).
 - Die Klassenkonferenz entscheidet über Fragen von allgemeiner Bedeutung für die Klasse, vor allem über gegenseitige Information, Zeugnis- und Versetzungsentscheidungen (§ 45 Abs. 2 SchG, § 4 Abs. 1 Nr. 4 KonfO BW).
-- Bei Zeugnis- und Versetzungsentscheidungen sowie bei der Beratung der Halbjahresinformation sind in der Klassenkonferenz nur diejenigen Mitglieder stimmberechtigt, die den Schüler selbstständig unterrichten (§ 13 Abs. 1 KonfO BW).
+- Bei Zeugnis- und Versetzungsentscheidungen sowie bei der Beratung der Halbjahresinformation sind in der Klassenkonferenz nur diejenigen Mitglieder stimmberechtigt, die den Schüler unterrichten (§ 13 Abs. 1 KonfO BW).
 - Eine Lehrerkonferenz ist beschlussfähig, wenn mehr als die Hälfte der Stimmberechtigten anwesend ist (§ 13 Abs. 2 Satz 2 KonfO BW).
-- Beschlüsse der Lehrerkonferenzen werden mit einfacher Mehrheit der abgegebenen gültigen Stimmen gefasst; Stimmenthaltungen zählen nicht mit, und bei Stimmengleichheit ist der Antrag abgelehnt (§ 13 Abs. 3 KonfO BW).
+- Beschlüsse der Lehrerkonferenzen werden mit einfacher Mehrheit der abgegebenen gültigen Stimmen gefasst; Stimmenthaltungen zählen nicht mit, und bei Stimmengleichheit ist der Antrag abgelehnt (§ 13 Abs. 3 KonfO BW). Ausnahme: Bei Zeugnis- und Versetzungsentscheidungen führt der Schulleiter den Vorsitz der Klassenkonferenz, und bei Stimmengleichheit gibt seine Stimme den Ausschlag (§ 12 Abs. 2 Satz 4 KonfO BW).
 - Auf Verlangen von mindestens einem Fünftel der anwesenden Stimmberechtigten ist in einer Lehrerkonferenz geheim abzustimmen (§ 13 Abs. 4 KonfO BW).
 - Die Schulkonferenz ist beschlussfähig, wenn mehr als die Hälfte aller Mitglieder anwesend ist; bei Wiederholungssitzungen nach Beschlussunfähigkeit ist sie ohne Rücksicht auf die Zahl der Anwesenden beschlussfähig (§ 7 Abs. 1 SchulKonfO BW).
 - In der Schulkonferenz ist auf Antrag von mindestens zwei Mitgliedern geheim mit Stimmzetteln abzustimmen (§ 7 Abs. 2 Satz 3 SchulKonfO BW).
@@ -35,14 +35,14 @@ Die Konferenzen an Schulen in Baden-Württemberg sichern die demokratische Mitwi
 | Schulkonferenz | Beschlüsse über Schulpartnerschaften, 5-/6-Tagewoche, Unterrichtsbeginn, Schulordnung (Einverständnis) | § 47 Abs. 3 und 5 SchG |
 | Schulleiter | Vorsitz in der Gesamtlehrerkonferenz und Schulkonferenz, Festsetzung der Tagesordnung, Leitung | § 41 Abs. 1, § 47 Abs. 9 SchG, § 12 KonfO BW |
 | Schulleiter | Beanstandung rechtswidriger Konferenzbeschlüsse und Einholung der Entscheidung der Schulaufsichtsbehörde | § 44 Abs. 3, § 47 Abs. 7 SchG, § 16 KonfO BW |
-| Klassenlehrer | Einberufung und Verhandlungsleitung der Klassenkonferenz | § 12 Abs. 1 KonfO BW |
+| Klassenlehrer | Vorsitz, Einberufung und Leitung der Klassenkonferenz, außer bei Zeugnis- und Versetzungsentscheidungen | § 12 Abs. 2 und 3 KonfO BW |
 | Stellvertretender Schulleiter | Ständige Vertretung des Schulleiters bei Abwesenheit bei Konferenzen | § 42 Abs. 1 SchG, § 47 Abs. 10 SchG |
 | Schulaufsichtsbehörde | Letztentscheidung bei aufrechterhaltenem Dissens nach Beanstandung durch den Schulleiter | § 44 Abs. 3, § 47 Abs. 7 SchG, § 16 KonfO BW |
 
 ## Typische Fehler in der Schulleitung
 - Fehlerhafte Stimmberechtigung bei Notenkonferenzen: Lehrkräfte stimmen über Zeugnisse oder Versetzungen von Schülern ab, die sie gar nicht selbst unterrichten (§ 13 Abs. 1 KonfO BW).
 - Falsche Berechnung von Mehrheiten: Stimmenthaltungen werden als Nein-Stimmen gewertet, anstatt sie bei der Feststellung der Mehrheit unberücksichtigt zu lassen (§ 13 Abs. 3 KonfO BW, § 7 Abs. 2 SchulKonfO BW).
-- Fehlerhaftes Vorgehen bei Stimmengleichheit: Bei Stimmengleichheit entscheidet die Stimme des Vorsitzenden, obwohl der Antrag gesetzlich als abgelehnt gilt (§ 13 Abs. 3 KonfO BW, § 7 Abs. 2 SchulKonfO BW).
+- Fehlerhaftes Vorgehen bei Stimmengleichheit: Bei Stimmengleichheit entscheidet die Stimme des Vorsitzenden, obwohl der Antrag als abgelehnt gilt. Ausnahme ist nur die Zeugnis- und Versetzungskonferenz (§ 13 Abs. 3, § 12 Abs. 2 Satz 4 KonfO BW, § 7 Abs. 2 SchulKonfO BW).
 - Verweigerung einer geheimen Abstimmung: Die Schulleitung lässt offen abstimmen, obwohl das erforderliche Quorum (ein Fünftel in der Lehrerkonferenz, zwei Mitglieder in der Schulkonferenz) geheime Abstimmung verlangt hat (§ 13 Abs. 4 KonfO BW, § 7 Abs. 2 SchulKonfO BW).
 - Vollzug trotz Beanstandung: Ein als rechtswidrig erkannter Beschluss wird vollzogen, anstatt ihn förmlich zu beanstanden und bis zur Entscheidung der Schulaufsichtsbehörde auszusetzen (§ 44 Abs. 3, § 47 Abs. 7 SchG, § 16 KonfO BW).
 - Missachtung der Ladungsfristen: Konferenzen werden ohne Einhaltung der gesetzlichen Frist (mindestens sechs Unterrichtstage bei Lehrerkonferenzen, mindestens eine Woche bei der Schulkonferenz) ohne Vorliegen eines dringenden Falles einberufen (§ 12 Abs. 6 KonfO BW, § 5 Abs. 1 SchulKonfO BW).

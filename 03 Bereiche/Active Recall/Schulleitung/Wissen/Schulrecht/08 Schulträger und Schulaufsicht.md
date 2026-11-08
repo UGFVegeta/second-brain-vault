@@ -17,7 +17,7 @@ Die Organisation des Schulwesens in Baden-Württemberg basiert auf dem Zusammenw
 - Obere Schulaufsichtsbehörde ist das Regierungspräsidium; es führt die Aufsicht über Gymnasien und berufliche Schulen sowie die Dienst- und Fachaufsicht über die Staatlichen Schulämter (§ 34 Abs. 1 und 2 SchG).
 - Mehrere Schularten können organisatorisch in einer Schule als Schulverbund verbunden sein; schulartübergreifende Unterrichtsveranstaltungen bedürfen der Genehmigung der oberen Schulaufsichtsbehörde (§ 16 SchG).
 - Verbleibt nach der Aufhebung einer Schulart in einem bisherigen Schulverbund nur noch eine Schulart, ist der Schulverbund kraft Gesetzes aufgehoben (§ 30b Abs. 3 Satz 2 SchG).
-- Der Beschluss eines Schulträgers über die Einrichtung, Änderung oder Aufhebung einer öffentlichen Schule bedarf der Zustimmung der Schulaufsichtsbehörde (§ 30 Abs. 1, 3 und 4 SchG).
+- Der Beschluss eines Schulträgers über die Einrichtung, Änderung oder Aufhebung einer öffentlichen Schule bedarf der Zustimmung der obersten Schulaufsichtsbehörde (§ 30 Abs. 1, 3 und 4 SchG).
 - Vor der Entscheidung über die Zustimmung zu schulorganisatorischen Maßnahmen ist eine regionale Schulentwicklung durchzuführen (§ 30 Abs. 1 Satz 2, § 30a SchG).
 - Für Realschulen und Werkrealschulen ist Voraussetzung für die Zustimmung, dass in den Eingangsklassen eine Mindestschülerzahl von 40 langfristig prognostiziert werden kann (§ 30b Abs. 1 Nr. 1 SchG).
 - Unterschreitet eine Werkrealschule oder Realschule die Mindestschülerzahl von 16 in der Eingangsklasse, fordert die Schulaufsichtsbehörde den Schulträger zur Durchführung einer regionalen Schulentwicklung auf (§ 30b Abs. 2 SchG).

@@ -21,7 +21,7 @@ Der Schulleiter trägt die Gesamtverantwortung für die Leitung, Verwaltung und 
 - Die Leitungszeit ermäßigt das Deputat des Schulleiters nach Maßgabe der Klassenzahl, wobei der Schulleiter mindestens vier und der ständige Vertreter mindestens acht Wochenstunden Unterricht erteilen muss (§ 4 Abs. 2 und 3 LehrArbZV BW).
 - Bei teilzeitbeschäftigten Schulleitern und ständigen Vertretern ermäßigt sich die Mindestunterrichtsverpflichtung entsprechend dem Beschäftigungsumfang (§ 4 Abs. 3 Satz 2 LehrArbZV BW).
 - Beamte sind verpflichtet, ohne Vergütung über die regelmäßige Arbeitszeit hinaus Dienst zu tun, wenn zwingende dienstliche Verhältnisse es erfordern, etwa bei kurzfristigen Unterrichtsvertretungen (nach alter Unterlage).
-- Die pädagogische Freiheit berechtigt Lehrkräfte zur eigenverantwortlichen methodischen und didaktischen Gestaltung des Unterrichts im Rahmen der Bildungspläne und Konferenzbeschlüsse (§ 38 Abs. 1 SchG; nach alter Unterlage).
+- Die pädagogische Freiheit berechtigt Lehrkräfte zur eigenverantwortlichen methodischen und didaktischen Gestaltung des Unterrichts im Rahmen der Bildungspläne und Konferenzbeschlüsse (§ 38 Abs. 6 SchG; nach alter Unterlage).
 - Hält eine Lehrkraft eine dienstliche Weisung für rechtswidrig, hat sie den Dienstweg über das gesetzliche Remonstrationsverfahren einzuhalten (nach alter Unterlage).
 
 ## Wer ist zuständig
@@ -34,7 +34,7 @@ Der Schulleiter trägt die Gesamtverantwortung für die Leitung, Verwaltung und 
 | Stellvertretender Schulleiter | Ständige und allgemeine Vertretung des Schulleiters bei Abwesenheit und Verhinderung | § 42 Abs. 1 SchG |
 | Stellvertretender Schulleiter | Wahrnehmung zugewiesener Schulleitungsaufgaben zur Unterstützung des Schulleiters | § 42 Abs. 2 SchG |
 | Dienstältester Lehrer | Vertretung des Schulleiters, wenn auch der stellvertretende Schulleiter verhindert ist | § 42 Abs. 1 Satz 2 SchG |
-| Lehrkraft | Eigenverantwortliche Unterrichts- und Erziehungsarbeit im Rahmen der pädagogischen Freiheit | § 38 Abs. 1 SchG; nach alter Unterlage |
+| Lehrkraft | Eigenverantwortliche Unterrichts- und Erziehungsarbeit im Rahmen der pädagogischen Freiheit | § 38 Abs. 6 SchG; nach alter Unterlage |
 | Gesamtlehrerkonferenz | Beschluss über Empfehlungen zur Verteilung von Lehraufträgen und Stundenplänen | § 2 Abs. 1 Nr. 9 KonfO BW |
 | Untere Schulaufsichtsbehörde (Staatliches Schulamt) | Dienstaufsicht, Festsetzung beamtenrechtlicher Teilzeit und Genehmigung von Beurlaubungen | § 41 Abs. 2 SchG; nach alter Unterlage |
 | Obere Schulaufsichtsbehörde (Regierungspräsidium) | Zustimmung zu Ausnahmen von der Mindestunterrichtsverpflichtung der Schulleitung | § 4 Abs. 3 Satz 3 LehrArbZV BW |
