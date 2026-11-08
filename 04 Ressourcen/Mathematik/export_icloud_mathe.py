@@ -28,6 +28,8 @@ import baue_woche4 as w4  # noqa: E402
 import baue_woche4_division as w4d  # noqa: E402
 import baue_woche7_rechenarten as w7r  # noqa: E402
 import baue_woche7_rechenarten_ueben as w7u  # noqa: E402
+sys.path.insert(0, str(HIER / "Dreiecke" / "02 Winkel messen – Info und Aufgaben"))
+import baue_stunde_winkel as w8w  # noqa: E402
 import baue_zins10 as z10  # noqa: E402
 import baue_ka1_7c as ka1  # noqa: E402
 import baue_zuwachs10 as zw10  # noqa: E402
@@ -183,6 +185,7 @@ def main():
                                 rz(f"{w7u.NAME} – Lerntheke Lösungen.pdf"))
     print("Woche 7, Stunde 2 (üben):", a4_zu_pdf(w7u.FOLIEN, RZ, w7u_pdf, w7u.QUER, w7u.EXTRA), "Seiten; Blätter:",
           a4_zu_pdf(w7u.DRUCK_BLAETTER, RZ, w7u_bl, (), w7u.EXTRA), "; Lösungen:", a4_zu_pdf(w7u.DRUCK_LOESUNGEN, RZ, w7u_ls, (), w7u.EXTRA))
+    print("Woche 8, Stunde 1 (Winkel messen):", a4_zu_pdf(w8w.FOLIEN, w8w.HIER, w8w.HIER / f"{w8w.NAME}.pdf", w8w.QUER, w8w.EXTRA), "Seiten")
     w7_pdf = rz("Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.pdf")   # Bauskript heißt noch baue_woche7.py
     print("Woche 5 (gemischte Aufgaben):", folien_zu_pdf(w7.FOLIEN, RZ, w7_pdf), "Seiten")
     w2 = woche2_pdf()

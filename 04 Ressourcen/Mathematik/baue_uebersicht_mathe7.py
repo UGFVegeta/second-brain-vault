@@ -31,6 +31,7 @@ STUNDEN = {  # Woche -> [(id, Marke, Titel, Datei, Tag)]; fertige Wochen bekomme
         ("W5S2", "2", "Übungsstunde mit Lerntheke", "Rationale Zahlen/04 Woche 5 – Gemischte Aufgaben, Lerntheke/Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke.html", "Doppelstunde, vor der KA 1")],
     7: [("W7S1", "1", "Verbindung der Rechenarten", "Rationale Zahlen/05 Woche 7 – Verbindung der Rechenarten/Mathe 7c – Woche 7 – 1 Verbindung der Rechenarten.html", "Mo 02.11., IF, halbe Klasse"),
         ("W7S2", "2", "Verbindung der Rechenarten üben", "Rationale Zahlen/05 Woche 7 – Verbindung der Rechenarten/Mathe 7c – Woche 7 – 2 Verbindung der Rechenarten üben.html", "Di 03.11., Lerntheke, danach KA")],
+    8: [("W8S1", "1", "Winkel messen", "Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Woche 8 – 1 Winkel messen.html", "Mo 09.11., Klassenlehrerstunde")],
 }
 
 # Oskars eigener Stand (05.10.2026): er ist dem Plan der Fachschaft etwa eine Woche voraus. Die offizielle Excel-Datei bleibt unverändert,
@@ -50,7 +51,7 @@ def eigener_stand(wochen):
             EIGEN[w["wo"]] = naechste["thema"] if naechste else "Puffer"
 
 # Themenblöcke: erste Woche -> Name (die Blöcke im Plan beginnen mit dem Thema vor mehreren Leerzeichen)
-BLOECKE = {1: "Wiederholung Brüche", 2: "Rationale Zahlen", 9: "Dreiecke", 14: "Rechnen mit Termen", 20: "Gleichungen",
+BLOECKE = {1: "Wiederholung Brüche", 2: "Rationale Zahlen", 8: "Dreiecke", 14: "Rechnen mit Termen", 20: "Gleichungen",
            25: "Proportional und antiproportional", 31: "Prozente", 35: "Vierecke"}
 
 

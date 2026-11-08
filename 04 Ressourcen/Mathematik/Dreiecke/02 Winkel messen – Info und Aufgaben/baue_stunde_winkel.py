@@ -256,7 +256,7 @@ function arten(w){
     cap.textContent=g+'°: '+artVon(g); reg.value=g;
   }
   const zeig2=(e,b)=>e.style.display=b?'':'none';
-  function zu(z){ const id=++tok,t0=performance.now(),a0=a,d=Math.max(350,Math.abs(z-a0)*14);
+  function zu(z){ const id=++tok,t0=performance.now(),a0=a,d=Math.max(350,Math.abs(z-a0)*10);
     return new Promise(res=>{const f=n=>{if(id!==tok)return res();const p=Math.min(1,(n-t0)/d);a=a0+(z-a0)*p;male();p<1?requestAnimationFrame(f):res()};requestAnimationFrame(f)}); }
   w.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{spiel++;zu(+b.dataset.a)});
   reg.addEventListener('input',()=>{spiel++;tok++;a=+reg.value;male()}); reg.addEventListener('change',()=>reg.blur());

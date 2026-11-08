@@ -188,6 +188,17 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
                f("Auswertung (Tabs)", "Mathematik/Dreiecke/01 Diagnose – Test, Auswertung, Förderblätter/Diagnose Dreiecke 7c – Auswertung.html"),
                f("Förderblätter", "Mathematik/Dreiecke/01 Diagnose – Test, Auswertung, Förderblätter/Mathe 7c – Förderblätter Dreiecke – alle Nummern.pdf"),
                f("Förder-Lösungen", "Mathematik/Dreiecke/01 Diagnose – Test, Auswertung, Förderblätter/Mathe 7c – Förderblätter Dreiecke – Lösungen.pdf")]},
+    {"id": "ma7-w8s1", "titel": "Woche 8, Stunde 1 – Winkel messen (Klassenlehrerstunde)", "wann": "Mo 09.11.", "status": "vorbereitet",
+     "links": [f("Stunde", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Woche 8 – 1 Winkel messen.html"),
+               f("Folien", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Woche 8 – 1 Winkel messen.pdf"),
+               f("Info-Blatt", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Info.pdf"),
+               f("Aufgabenblatt", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Aufgaben.pdf"),
+               f("Lösung", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Lösung.pdf")]},
+    {"id": "ma7-w8s1", "titel": "Woche 8, Stunde 1 – Winkel messen", "wann": "Mo 09.11., Klassenlehrerstunde", "status": "vorbereitet",
+     "links": [f("Stunde", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Woche 8 – 1 Winkel messen.html"),
+               f("Info", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Info.pdf"),
+               f("Aufgaben", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Aufgaben.pdf"),
+               f("Lösung", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Lösung.pdf")]},
 ], "material": []}]}]
 
 CSS = """
