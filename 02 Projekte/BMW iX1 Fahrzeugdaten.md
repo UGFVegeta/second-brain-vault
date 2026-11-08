@@ -16,6 +16,8 @@ Die PDFs liegen nicht im Vault, sondern in iCloud: `Privat/Wichtige Dokumente/Au
 - Bestellung 19931789 (Bestelländerung /04 vom 14.07.2026), Auslieferung über BMW Niederlassung Stuttgart
 - Kein fester Liefertermin in der Bestellung, Lieferung nach Produktionsmöglichkeit
 - FIN: noch nicht vergeben
+- Auftragsbestätigung vom 15.07.2026 zur Bestelländerung /04, Ausstattungscodes identisch zur Bestellung (Abgleich 08.11.2026)
+- **Ladekabel:** In Bestellung und Auftragsbestätigung steht nur das Mode-3-Kabel (S04T2, für Ladesäule und Wallbox). Ein Kabel für die Haushaltssteckdose (Mode 2) ist dort nicht aufgeführt. Bei der Niederlassung nachfragen.
 
 ## Ausstattung
 

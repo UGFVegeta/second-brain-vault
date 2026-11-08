@@ -57,21 +57,21 @@ def seitentext(x, y, s, size, drehung, fill):
             f'text-anchor="middle" transform="rotate({drehung} {x:.2f} {y:.2f})">{s}</text>')
 
 
-def geodreieck(sx, sy, h):
+def geodreieck(sx, sy, h, schrift=2.4):
     """Geodreieck mit langer Kante auf dem Schenkel, 0 auf dem Scheitel. Außen zählt von rechts nach links."""
     s = f'<path d="M{sx-h} {sy} L{sx+h} {sy} L{sx} {sy-h} Z" fill="#dff1f1" fill-opacity="0.75" stroke="{TEAL}" stroke-width="0.4"/>'
     s += linie(sx, sy, sx, sy - h + 16, GEO, 0.3)
     for i in range(1, 6):
         for v in (-1, 1):
             s += linie(sx + v * i * 9, sy, sx + v * i * 9, sy - 2.2, TEAL, 0.25) + (seitentext(sx + v * i * 9, sy - 3.1, str(i), 2.2, 0, TEAL) if i in (1, 2, 5) else "")
-    s += linie(sx, sy, sx, sy - 3, TEAL, 0.4) + seitentext(sx, sy - 3.9, "0", 2.4, 0, TEAL)
+    s += linie(sx, sy, sx, sy - 3, TEAL, 0.4) + seitentext(sx, sy - 3.9, "0", schrift, 0, TEAL)
     for a in range(5, 180, 5):
         lang = a % 10 == 0
         s += linie(*P(sx, sy, 37.6 if lang else 38.6, a), *P(sx, sy, 40, a), TEAL, 0.25)
         if lang:
             xa, ya = P(sx, sy, 34, a)
             xi, yi = P(sx, sy, 28.4, a)
-            s += seitentext(xa, ya + 0.8, str(a), 2.4, 90 - a, "#0a5356") + seitentext(xi, yi + 0.8, str(180 - a), 2.4, 90 - a, "#6b8b8b")
+            s += seitentext(xa, ya + 0.8, str(a), schrift, 90 - a, "#0a5356") + seitentext(xi, yi + 0.8, str(180 - a), schrift, 90 - a, "#6b8b8b")
     return s
 
 
