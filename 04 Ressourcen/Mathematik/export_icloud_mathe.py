@@ -213,6 +213,7 @@ def main():
               + sorted(RZ.rglob("Mathe 7c – Woche 5 – 2 Übungsstunde Lerntheke – *.pdf")) + sorted(RZ.rglob("Mathe 7c – Übungstest Rationale Zahlen*.pdf"))   # von baue_woche5_stunde2.py bzw. baue_uebungstest_7c.py gebaut
     pz_ordner = ICLOUD / "Mathematik 10b" / "04 Prozentrechnung"   # bestehende Struktur in der iCloud
     pdfs_10 = sorted(PZ.glob("Prozent Wdh 10b – *.pdf")) + [z1, z2, zw, zw_ab, zw_abl] + ka10_pdfs
+    pdfs_10 += sorted(PZ.glob("Klassenarbeit Nr. 1 – Lösung mit Punkten/*.pdf"))   # von Klassenarbeit Nr. 1 – Lösung mit Punkten/baue_ka1_loesung_punkte.py gebaut
     for p in pdfs_7:
         unter = rz_ordner / p.parent.name if p.parent.parent == RZ else rz_ordner   # Unterordner wie im Vault
         print(f"  7c  {ablegen(p, unter):24s} {p.parent.name}/{p.name}")
