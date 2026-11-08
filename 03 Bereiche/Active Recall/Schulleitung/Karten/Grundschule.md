@@ -60,7 +60,7 @@ Q: § 88 Abs. 1 und 3 SchG
 ### Welche drei Wege führen in das allgemein bildende Gymnasium?
 A: Empfehlung für Niveau E, ausreichendes Ergebnis in Kompass 4, oder ein bestandener Potenzialtest.
 T: Zwei von der Grundschule, einer vom Gymnasium.
-W: Zwei von drei Säulen reichen nicht aus, gemeint ist: Eine der drei genügt, zusammen mit der Entscheidung der Eltern.
+W: Einer der drei Wege genügt, zusammen mit der Entscheidung der Eltern.
 Q: § 88 Abs. 3 SchG; § 3 Abs. 1 Aufnahmeverordnung
 
 ### Welche Kompass-4-Ergebnisse lassen Niveau E erwarten?
@@ -109,7 +109,7 @@ Q: Organisationserlass 2026/27 Abschnitt 1
 A: 28 Wochenstunden. An Werkrealschule und Realschule im gehobenen Dienst sind es 27.
 T: Eine Stunde Unterschied.
 W: Bei Einsatz an mehreren Schularten zählt die Schulart mit dem überwiegenden Einsatz. Bei gleichem Umfang gilt die niedrigere Verpflichtung.
-Q: Lehrkräfte-Arbeitszeitverordnung § 1 Abs. 1 und 2
+Q: Lehrkräfte-Arbeitszeitverordnung § 2 Abs. 1 und 2
 
 ### Was sind SprachFit und die Mathematik-Lernbänder?
 A: SprachFit: Landeskonzept zur Sprachförderung von der Kita bis in die Grundschule, einschließlich der Juniorklassen. Lernbänder: Förderband für Basiskompetenzen in Mathematik, ab 2025/26 aufwachsend an Grundschulen.

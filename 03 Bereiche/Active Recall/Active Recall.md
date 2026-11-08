@@ -42,6 +42,20 @@ python3 "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/03 Bere
 
 Oder über die Claude-Code-Session: „Active-Recall-App starten". Der Server nutzt beim Feedback dein Claude-Abo-Kontingent, kein API-Key.
 
+## Schulleitung (seit 08.11.2026)
+
+Eigener Bereich der App für das Überprüfungsverfahren: `http://localhost:8744/App/schulleitung.html`. Vorbild war die Übersichtlichkeit von RemNote, die Inhalte kommen aus dem Vault.
+
+- **Heute:** laufende Woche aus dem [[Lernplan Schulrecht bis Februar 2027]], nächster Fall, fällige Karten, Mindmap, Audio.
+- **Fälle:** Antwort tippen oder mit WhisperBar diktieren, Rückmeldung nach dem 6-Schritte-Schema, Nachfragen im selben Gespräch. Die Gespräche landen in `Schulleitung/Gespräche/`.
+- **Karten:** Fakten mit Tipp, Erklärung und Fundstelle. Bei Unklarem Claude fragen.
+- **Mindmaps:** Excalidraw in der App oder Foto der Handskizze, danach Abgleich mit Claude. Dateien in `Schulleitung/Mindmaps/`. Der Editor lädt beim ersten Öffnen aus dem Netz.
+- **Wissen:** Seiten zu Rudersberg, Grundschule, Werkrealschule und Verbund; Schulgesetz nachschlagen.
+
+Karten und neue Fälle sind Markdown und lassen sich direkt bearbeiten: `Schulleitung/Karten/*.md`, `Schulleitung/Fälle Verbund.md`. Der Lernstand steht in `Schulleitung/stand.json`.
+
+Die Rückmeldung läuft über die Claude-Kommandozeile mit Sonnet. Sie braucht einmal `claude auth login` im Terminal und verbraucht Pro-Kontingent, keine API. Karten, Tipps auf Karten, Mindmap-Editor und Wissen funktionieren auch ohne Anmeldung.
+
 ## Struktur
 
 - `App/` – die Oberfläche (HTML/JS, keine externen Abhängigkeiten)

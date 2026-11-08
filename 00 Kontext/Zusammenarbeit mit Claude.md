@@ -158,3 +158,7 @@ Auch Klassenlehrer- und Methodenstunden bereitet Claude als eine Stunden-HTML mi
 - 04.11.2026: Ablage in Themenordnern mit Unterordnern statt flacher Liste (Oskar findet sonst nichts). Auswertungen als eine HTML mit Tabs zum Durchklicken. Unterordner statt flacher Ablage gilt auch für neue Themen.
 
 - 06.11.2026: Hub-Canvases (Übersichten in Obsidian) immer in die Breite bauen, Bereiche als Spalten nebeneinander, nicht als eine lange Spalte.
+
+## Lernen (Oskar selbst, 08.11.2026)
+
+Selbst aufgebaute Mindmaps laufen sehr gut, von Hand oder in Excalidraw. Fakten zusätzlich über Karteikarten. Wichtig sind Übersichtlichkeit und Tipps bei Unklarem oder falschen Antworten.

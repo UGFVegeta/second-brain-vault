@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schulleitung</title>
+<link rel="stylesheet" href="schulleitung.css">
+</head>
+<body>
+<div class="shell" id="shell">
+  <nav class="side" aria-label="Bereiche">
+    <div class="marke">Schulleitung</div>
+    <a href="#/heute" data-r="heute"><svg class="ic"><use href="#i-heute"/></svg>Heute</a>
+    <a href="#/faelle" data-r="faelle"><svg class="ic"><use href="#i-fall"/></svg>Fälle</a>
+    <a href="#/karten" data-r="karten"><svg class="ic"><use href="#i-karte"/></svg>Karten</a>
+    <a href="#/mindmaps" data-r="mindmaps"><svg class="ic"><use href="#i-map"/></svg>Mindmaps</a>
+    <a href="#/wissen" data-r="wissen"><svg class="ic"><use href="#i-buch"/></svg>Wissen</a>
+    <div class="side-fuss">
+      <button class="b quiet voll" id="frageBtn" type="button"><svg class="ic"><use href="#i-chat"/></svg>Frage stellen</button>
+      <a class="klein" href="index.html">Active Recall</a>
+    </div>
+  </nav>
+
+  <main id="view" tabindex="-1"></main>
+
+  <aside id="tutor" class="tutor" aria-label="Claude" hidden>
+    <header>
+      <strong id="tutorTitel">Claude</strong>
+      <button class="icon-b" id="tutorZu" type="button" aria-label="Schließen"><svg class="ic"><use href="#i-zu"/></svg></button>
+    </header>
+    <div id="tutorVerlauf" class="verlauf" aria-live="polite"></div>
+    <div id="tutorChips" class="chips"></div>
+    <form id="tutorForm">
+      <textarea id="tutorText" rows="2" placeholder="Nachfragen oder diktieren"></textarea>
+      <button class="b" id="tutorSenden" type="submit">Senden</button>
+    </form>
+  </aside>
+</div>
+
+<dialog id="normDlg" aria-labelledby="normTitel">
+  <header>
+    <div><strong id="normTitel"></strong><p id="normStand">Schulgesetz BW, Stand 16.12.2025</p></div>
+    <button class="icon-b" id="normZu" type="button" aria-label="Schließen"><svg class="ic"><use href="#i-zu"/></svg></button>
+  </header>
+  <div id="normText" class="prosa"></div>
+</dialog>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-heute" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-fall" viewBox="0 0 24 24"><path d="M12 3.5V20M7 20.5h10M5.5 7h13M5.5 7 3 13.5a2.8 2.8 0 0 0 5 0zM18.5 7 16 13.5a2.8 2.8 0 0 0 5 0z"/></symbol>
+    <symbol id="i-karte" viewBox="0 0 24 24"><rect x="3.5" y="7" width="14" height="13" rx="2.2"/><path d="M7.5 4h10.8a2.2 2.2 0 0 1 2.2 2.2V16"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5.5" r="2"/><circle cx="19.5" cy="5.5" r="2"/><circle cx="4.5" cy="18.5" r="2"/><circle cx="19.5" cy="18.5" r="2"/><path d="m6 7 3.8 3M18 7l-3.8 3M6 17l3.8-3M18 17l-3.8-3"/></symbol>
+    <symbol id="i-buch" viewBox="0 0 24 24"><path d="M12 6.5C10 4.8 7.2 4.3 3.5 4.5v14.8c3.7-.2 6.5.3 8.5 2 2-1.700 4.800-2.200 8.500-2V4.500c-3.700-.2-6.500.3-8.500 2zM12 6.500v14.800"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.500h16v11.500h-9.500L6 20.500V17H4z"/></symbol>
+    <symbol id="i-ohr" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.500" y="14" width="4" height="6.500" rx="1.500"/><rect x="16.500" y="14" width="4" height="6.500" rx="1.500"/></symbol>
+    <symbol id="i-zu" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-tipp" viewBox="0 0 24 24"><path d="M9.500 18h5M10.500 21h3M8 14.500a6.500 6.500 0 1 1 8 0c-.8.700-1.300 1.500-1.400 2.500H9.400c-.1-1-.6-1.800-1.400-2.500z"/></symbol>
+    <symbol id="i-zurueck" viewBox="0 0 24 24"><path d="M19 12H5.500M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-foto" viewBox="0 0 24 24"><path d="M4 8h3.500L9 5.500h6L16.500 8H20v11.500H4z"/><circle cx="12" cy="13.200" r="3.200"/></symbol>
+  </defs>
+</svg>
+
+<script src="schulleitung.js"></script>
+</body>
+</html>

@@ -25,7 +25,7 @@ Geprüft am 08.11.2026 gegen Schulgesetz (Stand 16.12.2025), Konferenzordnung (0
 - Mehrere Schularten organisatorisch in einer Schule (§ 16 SchG).
 - Schulartübergreifender Unterricht: Entscheidung der beteiligten Schulen und Genehmigung der oberen Schulaufsicht.
 - Schulartkonferenzen sind möglich (§ 3 Abs. 6 Konferenzordnung).
-- Bei Einsatz an mehreren Schularten zählt für das Deputat der überwiegende Einsatz, bei gleichem Umfang die niedrigere Verpflichtung (§ 1 Abs. 2 Lehrkräfte-Arbeitszeitverordnung).
+- Bei Einsatz an mehreren Schularten zählt für das Deputat der überwiegende Einsatz, bei gleichem Umfang die niedrigere Verpflichtung (§ 2 Abs. 2 Lehrkräfte-Arbeitszeitverordnung).
 
 ## Rolle in der Leitung
 

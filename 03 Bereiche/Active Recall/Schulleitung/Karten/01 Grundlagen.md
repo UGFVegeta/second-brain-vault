@@ -67,7 +67,7 @@ Q: § 90 Abs. 4 und 7 SchG
 ### Was sind innere und äußere Schulangelegenheiten?
 A: Innere: Unterricht, Erziehung, Lehrkräfte, zuständig ist das Land mit der Schulaufsicht. Äußere: Gebäude, Ausstattung, Sekretariat, Hausmeister, zuständig ist der Schulträger.
 T: Wer bezahlt den Hausmeister, wer die Lehrkraft?
-W: Für die Besetzung eines Falls ist das oft die erste Weichenstellung: Wer ist überhaupt zuständig?
+W: In vielen Fällen ist das die erste Weichenstellung: Wer ist überhaupt zuständig?
 Q: Kurzübersicht Schulrecht; § 38 Abs. 1 SchG
 
 ### Was umfasst das Weisungsrecht des Schulleiters?

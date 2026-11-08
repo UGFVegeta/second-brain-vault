@@ -13,7 +13,9 @@ import subprocess
 import tempfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
+
+import schulleitung as sl
 
 ROOT = Path(__file__).resolve().parent          # Ordner "Active Recall"
 PORT = 8744
@@ -115,6 +117,11 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlparse(self.path).path
+        if path.startswith("/api/sl/"):
+            if not sl.erlaubt(self.headers):
+                return self._send(403, {"error": "Nur für die lokale App."})
+            code, body = sl.api_get(path[len("/api/sl/"):], parse_qs(urlparse(self.path).query))
+            return self._send(code, body)
         if path in ("/", "/App", "/App/"):
             self.send_response(302)
             self.send_header("Location", "/App/index.html")
@@ -129,7 +136,22 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(404, b"not found", "text/plain")
         self._send(200, target.read_bytes(), CTYPES.get(target.suffix, "application/octet-stream"))
 
+    def _sl_post(self, path):
+        if not sl.erlaubt(self.headers) or "application/json" not in (self.headers.get("Content-Type") or ""):
+            return self._send(403, {"error": "Nur für die lokale App."})
+        try:
+            n = int(self.headers.get("Content-Length", 0))
+            if n > 40_000_000:
+                return self._send(413, {"error": "Die Datei ist zu groß."})
+            body = json.loads(self.rfile.read(n) or b"{}")
+        except (ValueError, OSError):
+            return self._send(400, {"error": "Ungültige Anfrage."})
+        code, antwort = sl.api_post(path[len("/api/sl/"):], body)
+        return self._send(code, antwort)
+
     def do_POST(self):
+        if urlparse(self.path).path.startswith("/api/sl/"):
+            return self._sl_post(urlparse(self.path).path)
         if urlparse(self.path).path != "/api/feedback":
             return self._send(404, b"not found", "text/plain")
         try:

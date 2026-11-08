@@ -100,7 +100,7 @@ Eine Lehrkraft unterrichtet 14 Stunden an der Grundschule und 13 an der Realschu
 
 **Lösung**
 
-Das Regelstundenmaß beträgt an Grundschulen 28, an Realschulen im gehobenen Dienst 27 Wochenstunden (§ 1 Abs. 1 Lehrkräfte-Arbeitszeitverordnung). Bei Einsatz an mehreren Schularten gilt die Verpflichtung der Schulart, an der die Lehrkraft überwiegend eingesetzt ist (§ 1 Abs. 2). Im laufenden Jahr gelten damit 28 Stunden, unabhängig vom Lehramt.
+Das Regelstundenmaß beträgt an Grundschulen 28, an Realschulen im gehobenen Dienst 27 Wochenstunden (§ 2 Abs. 1 Lehrkräfte-Arbeitszeitverordnung). Bei Einsatz an mehreren Schularten gilt die Verpflichtung der Schulart, an der die Lehrkraft überwiegend eingesetzt ist (§ 2 Abs. 2). Im laufenden Jahr gelten damit 28 Stunden, unabhängig vom Lehramt.
 
 Bei gleichem Umfang an beiden Schularten gilt die niedrigere Verpflichtung, im nächsten Jahr also 27 Stunden.
 
