@@ -108,7 +108,7 @@ def geo_gedreht(cx, cy, h=17):
     """Geodreieck gedreht: lange Kante zeigt auf 60°, 0 auf S. Unten abgeschnitten wie in der Vorlage."""
     a, b, c = P(cx, cy, h, 60), P(cx, cy, h, 240), P(cx, cy, h, -30)
     i = f"c{cx:.0f}{cy:.0f}".replace(".", "")
-    s = f'<clipPath id="{i}"><rect x="{cx - 20}" y="{cy - 22}" width="40" height="26.5"/></clipPath><g clip-path="url(#{i})">'
+    s = f'<clipPath id="{i}"><rect x="{cx - 20}" y="{cy - 22}" width="40" height="25.5"/></clipPath><g clip-path="url(#{i})">'
     s += f'<path d="M{a[0]:.2f} {a[1]:.2f} L{b[0]:.2f} {b[1]:.2f} L{c[0]:.2f} {c[1]:.2f} Z" fill="#dff1f1" fill-opacity="0.75" stroke="{TEAL}" stroke-width="0.35"/>'
     s += bogen(cx, cy, h * 0.68, -120, 60, TEAL, 0.25) + linie(cx, cy, *P(cx, cy, 2, -30), TEAL, 0.4) + "</g>"
     return s
@@ -142,7 +142,106 @@ def streifen(y, titel, dreh):
     return s
 
 
+def plakette(px, py, z, farbe, r, breit, drehung):
+    return (f'<circle cx="{px:.2f}" cy="{py:.2f}" r="{r}" fill="#fff" stroke="{farbe}" stroke-width="{breit}"/>'
+            + seitentext(px, py + 0.85, z, 2.5, drehung, farbe))
+
+
+def messen_kante_erster(y):
+    """Markier-Methode: lange Kante auf dem ersten Schenkel, ablesen am zweiten."""
+    sx, sy = 72, y + 68
+    s = geodreieck(sx, sy, 58) + linie(sx, sy, sx + 62, sy, "#111", 0.55)
+    s += linie(sx, sy, *P(sx, sy, 62, 50), "#111", 0.55) + bogen(sx, sy, 11, 0, 50, PINK, 0.5)
+    mx, my = P(sx, sy, 15, 25)
+    s += txt(mx, my + 1.4, "α", 4.2, "bold", PINK, "middle", "italic")
+    s += plakette(*P(sx, sy, 34, 50), "50", PINK, 3.2, 0.55, 40) + plakette(*P(sx, sy, 28.4, 50), "130", "#777", 2.9, 0.35, 40)
+    s += scheitel(sx, sy) + txt(14, y + 13, "Markier-Methode", 3.8, "bold", TEAL)
+    x, yy = 138, y + 20
+    for n, z, d in (("1", ["Art schätzen: Hier spitz."], 10), ("2", ["0 genau auf S legen.", "Lange Kante auf den", "ersten Schenkel."], 19),
+                    ("3", ["Am zweiten Schenkel", "ablesen: 50 und 130.", "Spitz, also 50."], 19)):
+        s += schritt(x, yy, n, z)
+        yy += d
+    return s + nr(x + 2.3, yy - 1.2, "4") + txt(x + 6.5, yy, "α = 50°", 4.4, "bold", PINK)
+
+
+def messen_gedreht(y):
+    """Dreh-Methode: lange Kante auf dem zweiten Schenkel, ablesen am ersten."""
+    sx, sy = 60, y + 53
+    drehung = 130               # Bildschirm im Uhrzeigersinn: lange Kante links zeigt dann auf 50°
+    assert (180 - drehung) == 50 and (130 - drehung) % 360 == 0   # Stelle außen 130, innen 50 liegt auf dem ersten Schenkel
+    s = (f'<clipPath id="messdreh"><rect x="12" y="{y}" width="122" height="{53 + 20}"/></clipPath><g clip-path="url(#messdreh)">'
+         f'<g transform="rotate({drehung} {sx} {sy})">' + geodreieck(sx, sy, 58) + '</g></g>')
+    s += linie(sx, sy, sx + 68, sy, "#111", 0.55) + linie(sx, sy, *P(sx, sy, 66, 50), "#111", 0.55) + bogen(sx, sy, 11, 0, 50, PINK, 0.5)
+    mx, my = P(sx, sy, 15, 25)
+    s += txt(mx, my + 1.4, "α", 4.2, "bold", PINK, "middle", "italic")
+    s += plakette(sx + 28.4, sy, "50", PINK, 3.2, 0.55, 0) + plakette(sx + 34.6, sy, "130", "#777", 2.9, 0.35, 0)
+    s += scheitel(sx, sy, "S", -5, 1.6) + txt(14, y + 8, "Dreh-Methode", 3.8, "bold", TEAL)
+    x, yy = 138, y + 12
+    for n, z, d in (("1", ["Art schätzen: Hier spitz."], 10), ("2", ["0 genau auf S legen.", "Drehen, bis die lange", "Kante auf dem zweiten", "Schenkel liegt."], 24),
+                    ("3", ["Am ersten Schenkel", "ablesen: 50 und 130.", "Spitz, also 50."], 19)):
+        s += schritt(x, yy, n, z)
+        yy += d
+    return s + nr(x + 2.3, yy - 1.2, "4") + txt(x + 6.5, yy, "α = 50°", 4.4, "bold", PINK)
+
+
+def ueberstumpf(y, messen):
+    """Beispiel 240°, zwei Wege: über den Rest und über 180°."""
+    s = bar(y, "Überstumpfe Winkel " + ("messen" if messen else "zeichnen"), "Beispiel: 240°")
+    farbe = "#111" if messen else PINK
+    cy = y + 25
+    cx = 30
+    s += linie(cx, cy, cx + 22, cy, "#111", 0.5) + linie(cx, cy, *P(cx, cy, 20, 240), farbe, 0.55) + bogen(cx, cy, 6, 0, 240, PINK, 0.5)
+    s += bogen(cx, cy, 11, 240, 360, "#555", 0.3) + txt(*P(cx, cy, 15.5, 300), "120°", 3.1, "bold", "#555", "middle")
+    s += txt(*P(cx, cy, 9.4, 120), "240°", 3.0, "bold", PINK, "middle") + scheitel(cx, cy, "S", 2.6, -1.4)
+    x = 56
+    s += txt(x, y + 13, "Mit dem Rest", 3.8, "bold")
+    if messen:
+        s += schritt(x, y + 19, "1", ["Rest messen: 120°"]) + schritt(x, y + 26, "2", ["360° − 120° = 240°"])
+    else:
+        s += schritt(x, y + 19, "1", ["360° − 240° = 120°"]) + schritt(x, y + 26, "2", ["120° im Uhrzeigersinn"]) + schritt(x, y + 33, "3", ["Bogen außen herum"])
+    cx = 122
+    s += linie(cx, cy, cx + 22, cy, "#111", 0.5) + linie(cx, cy, cx - 20, cy, "#555", 0.3, 'stroke-dasharray="1.5 1"')
+    s += linie(cx, cy, *P(cx, cy, 20, 240), farbe, 0.55) + bogen(cx, cy, 11, 180, 240, "#555", 0.3)
+    s += bogen(cx, cy, 6, 0, 240, PINK, 0.5) + txt(*P(cx, cy, 15, 212), "60°", 3.1, "bold", "#555", "middle") + scheitel(cx, cy, "S", 2.6, -1.4)
+    x = 149
+    s += txt(x, y + 13, "Mit 180°", 3.8, "bold")
+    if messen:
+        s += schritt(x, y + 19, "1", ["Nach links verlängern"]) + schritt(x, y + 26, "2", ["Stück messen: 60°"]) + schritt(x, y + 33, "3", ["180° + 60° = 240°"])
+    else:
+        s += schritt(x, y + 19, "1", ["240° = 180° + 60°"]) + schritt(x, y + 26, "2", ["Nach links verlängern"]) + schritt(x, y + 33, "3", ["60° dazu zeichnen"])
+    return s
+
+
+# Buchstaben als ein Schreibzug im Feld 10 x 15 mm, Grundlinie bei y = 10 (zweite Karolinie)
+GRIECH = (
+    ("Alpha", (8.3, 4.2), "M8.3 4.2 C7.2 7.5 5.6 10 3.8 10 C2 10 1.3 8.4 1.3 7 C1.3 5.4 2.4 4 3.9 4 C5.6 4 6.6 6.6 7.2 8.6 C7.5 9.6 8 10 8.8 10"),
+    ("Beta", (2.5, 14), "M2.5 14 L2.5 3.5 C2.5 1.6 3.8 0.8 5.2 0.8 C7 0.8 7.8 2 7.8 3.2 C7.8 4.6 6.6 5.4 4.8 5.4 C7 5.4 8.6 6.4 8.6 8 C8.6 9.6 7 10.4 5.2 10.4 C4 10.4 3 9.8 2.5 9"),
+    ("Gamma", (1.3, 4.3), "M1.3 4.3 C2.6 3.8 3.6 5 4.2 7 C4.8 9 5.1 11 5 12.6 C4.9 13.8 4.3 14.2 3.9 13.7 C3.4 13 4.2 10.5 5.2 8.5 C6 6.9 7 5.2 8.3 4"),
+    ("Delta", (7.6, 1.6), "M7.6 1.6 C6.6 0.6 3.8 0.6 3.4 1.9 C3 3.2 7.8 4.6 7.8 7.2 C7.8 9 6.3 10.2 4.7 10.2 C3 10.2 1.6 8.9 1.6 7.3 C1.6 5.6 3.1 4.4 5 4.1"),
+    ("Epsilon", (7.6, 4.7), "M7.6 4.7 C6.6 3.8 3 3.7 3 5.6 C3 6.6 4 7 5.8 7 C3.7 7 2.4 7.6 2.4 8.7 C2.4 10.4 6 10.6 7.8 9.4"),
+)
+
+
+def zug(x, y, d, farbe, breit, anteil=1.0):
+    strich = f' pathLength="1" stroke-dasharray="{anteil} 1"' if anteil < 1 else ""
+    return (f'<path transform="translate({x} {y})" d="{d}" fill="none" stroke="{farbe}" stroke-width="{breit}" '
+            f'stroke-linecap="round" stroke-linejoin="round"{strich}/>')
+
+
+def griechisch(y):
+    s = bar(y, "Griechische Buchstaben für Winkel", "Nachspuren, dann mindestens 10-mal selbst schreiben")
+    for i, (name, (sx, sy), d) in enumerate(GRIECH):
+        yy = y + 12 + 20 * i
+        s += zug(14, yy, d, "#111", 0.7) + txt(26, yy + 10, name, 4.8, "bold")
+        s += karo(48, yy, 150, 15)
+        for x, anteil in ((48, 1.0), (58, 0.5)):
+            s += zug(x, yy, d, "#9a9a9a", 0.7, anteil)
+            s += f'<circle cx="{x + sx}" cy="{yy + sy}" r="0.8" fill="{PINK}"/>'
+    return s
+
+
 def info():
+    """Zwei Seiten: vorne messen, hinten zeichnen."""
     y = OBEN
     s = f'<rect x="12" y="{y}" width="186" height="11" fill="#d9d9d9"/>'
     s += txt(15, y + 7.6, "Mathematik 7c   Winkel messen und zeichnen: Info", 5.2, "bold")
@@ -155,50 +254,23 @@ def info():
         s += art(12 + 31 * i, y + 9, n, b, a1, a2)
     y += 42
 
-    s += bar(y, "Winkel messen")
-    sx, sy = 72, y + 68
-    h = 58
-    s += geodreieck(sx, sy, h) + linie(sx, sy, sx + 68, sy, "#111", 0.55)
-    s += linie(sx, sy, *P(sx, sy, 62, 50), "#111", 0.55) + bogen(sx, sy, 11, 0, 50, PINK, 0.5)
-    mx, my = P(sx, sy, 15, 25)
-    s += txt(mx, my + 1.4, "α", 4.2, "bold", PINK, "middle", "italic")
-    for r, z, f, g, b in ((34, "50", PINK, 3.2, 0.55), (28.4, "130", "#777", 2.9, 0.35)):
-        px, py = P(sx, sy, r, 50)
-        s += f'<circle cx="{px:.2f}" cy="{py:.2f}" r="{g}" fill="#fff" stroke="{f}" stroke-width="{b}"/>' + seitentext(px, py + 0.85, z, 2.5, 40, f)
-    s += scheitel(sx, sy)
-    x = 138
-    yy = y + 16
-    for n, z, d in (("1", ["Art schätzen: Hier spitz."], 11), ("2", ["0 genau auf S legen.", "Lange Kante auf den", "ersten Schenkel."], 20),
-                    ("3", ["Zu kurz? Zweiten", "Schenkel verlängern."], 15), ("4", ["Am Schenkel ablesen:", "Zwei Zahlen, 50 und 130.", "Spitz, also 50."], 20)):
-        s += schritt(x, yy, n, z)
-        yy += d
-    s += nr(x + 2.3, yy - 1.2, "5") + txt(x + 6.5, yy, "α = 50°", 4.4, "bold", PINK)
-    y += 85
-
-    s += bar(y, "Winkel zeichnen", "immer gegen den Uhrzeigersinn")
-    s += streifen(y, "Markier-Methode", False) + streifen(y + 37, "Dreh-Methode", True)
-    y += 83
-
-    s += bar(y, "Überstumpfe Winkel", "Beispiel: 240°")
-    cy = y + 25
-    cx = 30
-    s += linie(cx, cy, cx + 22, cy, "#111", 0.5) + linie(cx, cy, *P(cx, cy, 20, 240), PINK, 0.55) + bogen(cx, cy, 6, 0, 240, PINK, 0.5)
-    s += bogen(cx, cy, 11, 240, 360, "#555", 0.3) + txt(*P(cx, cy, 15.5, 300), "120°", 3.1, "bold", "#555", "middle")
-    s += txt(*P(cx, cy, 9.4, 120), "240°", 3.0, "bold", PINK, "middle") + scheitel(cx, cy, "S", 2.6, -1.4)
-    x = 56
-    s += txt(x, y + 13, "Mit dem Rest", 3.8, "bold")
-    s += schritt(x, y + 19, "1", ["360° − 240° = 120°"]) + schritt(x, y + 26, "2", ["120° im Uhrzeigersinn"]) + schritt(x, y + 33, "3", ["Bogen außen herum"])
-    cx = 122
-    s += linie(cx, cy, cx + 22, cy, "#111", 0.5) + linie(cx, cy, cx - 20, cy, "#555", 0.3, 'stroke-dasharray="1.5 1"')
-    s += linie(cx, cy, *P(cx, cy, 20, 240), PINK, 0.55) + bogen(cx, cy, 11, 180, 240, "#555", 0.3)
-    s += bogen(cx, cy, 6, 0, 240, PINK, 0.5) + txt(*P(cx, cy, 15, 212), "60°", 3.1, "bold", "#555", "middle") + scheitel(cx, cy, "S", 2.6, -1.4)
-    x = 149
-    s += txt(x, y + 13, "Mit 180°", 3.8, "bold")
-    s += schritt(x, y + 19, "1", ["240° = 180° + 60°"]) + schritt(x, y + 26, "2", ["Nach links verlängern"]) + schritt(x, y + 33, "3", ["60° dazu zeichnen"])
-    s += txt(14, y + 47, '<tspan font-weight="bold">Messen: </tspan>Miss den Rest und rechne 360° minus Rest.', 3.5)
-    y += 50
+    s += bar(y, "Winkel messen", "Schenkel zu kurz? Verlängern.")
+    s += messen_kante_erster(y) + messen_gedreht(y + 77)
+    y += 153
+    s += ueberstumpf(y, True)
+    y += 42
     assert y <= UNTEN, y
-    return s
+
+    y = OBEN
+    s2 = bar(y, "Winkel zeichnen", "immer gegen den Uhrzeigersinn")
+    s2 += streifen(y, "Markier-Methode", False) + streifen(y + 37, "Dreh-Methode", True)
+    y += 83
+    s2 += ueberstumpf(y, False)
+    y += 45
+    s2 += griechisch(y)
+    y += 12 + 20 * 5
+    assert y <= UNTEN, y
+    return [s, s2]
 
 
 # ------------------------------------------------------------------ Bausteine Aufgaben
@@ -436,6 +508,6 @@ def pdf(name, seiten):
 
 
 if __name__ == "__main__":
-    print(pdf(f"{NAME} – Info", [info()]).name)
+    print(pdf(f"{NAME} – Info", info()).name)
     print(pdf(f"{NAME} – Aufgaben", blatt(False)).name)
     print(pdf(f"{NAME} – Lösung", blatt(True)).name)

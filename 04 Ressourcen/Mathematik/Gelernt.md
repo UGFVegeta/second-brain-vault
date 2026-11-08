@@ -6,7 +6,7 @@ tags: [gelernt, mathematik]
 
 Eine Zeile pro Erkenntnis, neueste oben. Lang ausgeführte Gründe stehen im Claude-Gedächtnis, hier nur die Folge.
 
-- 08.11.2026: Info-Blatt Winkel: Die Dreh-Methode aus Oskars Info-AB hatte ich auf einen Satz gekürzt, er wollte sie sehen. Folge: Zeigt eine Vorlage zwei Methoden, bekommen beide ihre Bilderreihe; „einfach“ heißt nicht, eine davon wegzulassen.
+- 08.11.2026: Info-Blatt Winkel: Die Dreh-Methode aus Oskars Info-AB hatte ich auf einen Satz gekürzt, er wollte sie sehen. Dasselbe beim Messen. Folge: Zeigt eine Vorlage zwei Methoden, bekommen beide ihre Bilder, beim Zeichnen wie beim Messen; „einfach“ heißt nicht, eine davon wegzulassen.
 - 07.11.2026: In den Lösungen der Förderblätter lagen die Achsen der Koordinatensysteme zwischen den Kästchenlinien. Folge: Ursprung, Achsen, Einheiten und vorgegebene Punkte immer auf die Linien des 5-mm-Karos legen (Abstand zum Feldrand ein Vielfaches von 5 mm, 1 cm = 2 Kästchen), bei jeder Zeichnung nachprüfen.
 - 05.11.2026: Bei der Diagnose fehlten oder doppelten sich Nummern. Folge: nächste Diagnose mit vorgedruckten Nummern 1 bis 26, Zuteilung über den Sitzplan, A und B im Schachbrett, Stapel in Sitzreihenfolge (Details im Grundlagen-Check Workflow).
 - 04.11.2026: Oskar findet in großen Themenordnern nichts mehr. Folge: Rationale Zahlen in Unterordner nach Woche, Übungstests, Klassenarbeit und `_Skripte/` aufgeteilt; neue Themen gleich so anlegen (Dreiecke: `01 Diagnose – Test, Auswertung, Förderblätter/`). Auswertungen nicht als lose HTMLs, sondern als eine HTML mit Tabs wie die Stunden (`Dreiecke/01 Diagnose – Test, Auswertung, Förderblätter/baue_auswertung.py`).
