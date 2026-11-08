@@ -21,6 +21,24 @@ T: Erst der Hinweis, noch keine Schließung.
 W: Der Hinweis unterbleibt ausnahmsweise, wenn ein entsprechender Abschluss sonst nicht mehr in zumutbarer Erreichbarkeit angeboten würde.
 Q: § 30b Abs. 2 SchG
 
+### Was wird aus dem Werkrealschulabschluss?
+A: Er läuft aus. Der letzte Jahrgang kam 2024/25 in Klasse 5, angeboten wird er bis 2029/30. Das Schulgesetz nennt für die Werkrealschule nur noch den Hauptschulabschluss.
+T: Die Fünftklässler von 2024/25 sind die letzten.
+W: Die übrigen Wege zum mittleren Abschluss laufen über Realschule, Gemeinschaftsschule und berufliche Schulen.
+Q: § 6 Abs. 2 SchG; FAQ Bildungsreform Kultusministerium
+
+### Welches Niveau bietet eine Realschule im Verbund mit einer Werkrealschule an?
+A: Nur Niveau M. Sie führt in sechs Schuljahren zum Realschulabschluss. Wer Niveau M verlässt, muss diese Realschule verlassen.
+T: Das G-Niveau liegt im Verbund bei der Werkrealschule.
+W: Für Rudersberg wichtig: Das ist der Unterschied zu einer selbstständigen Realschule, an der G und M nebeneinander laufen.
+Q: § 7 Abs. 7 SchG; § 14 Versetzungsordnung Realschulen
+
+### Wie viele Stunden muss der ständige Vertreter mindestens unterrichten?
+A: Acht Wochenstunden. Der Schulleiter vier, andere mit Schulleitungsaufgaben betraute Lehrkräfte 14.
+T: Vier, acht, vierzehn.
+W: Für den Schulleiter einer verbundenen Schule gilt außerdem die niedrigste Unterrichtsverpflichtung der verbundenen Schularten.
+Q: Lehrkräfte-Arbeitszeitverordnung § 4 Abs. 3 und 6
+
 ### Wann wird eine Schule wegen zu geringer Schülerzahl aufgehoben?
 A: Wenn in zwei unmittelbar aufeinanderfolgenden Schuljahren die 16 in der Eingangsklasse nicht erreicht werden und kein Antrag auf eine schulorganisatorische Maßnahme gestellt wird. Aufhebung durch die oberste Schulaufsicht zum folgenden Schuljahr.
 T: Zweimal in Folge und kein Antrag.

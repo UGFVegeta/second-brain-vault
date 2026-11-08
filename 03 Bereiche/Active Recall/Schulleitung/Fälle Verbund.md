@@ -121,3 +121,15 @@ An Schulen, in denen mehrere Schularten nach § 16 SchG verbunden sind, können 
 Grenzen: Allgemeine Fragen der Klassenarbeiten und Hausaufgaben sind Sache der Gesamtlehrerkonferenz (§ 2 Abs. 1 Nr. 4 Konferenzordnung). Sie kann außerdem über Angelegenheiten bestehender Teilkonferenzen entscheiden und deren Beschlüsse aufheben, wenn die Belange der Schule es erfordern (§ 2 Abs. 4 Konferenzordnung). Eine vollständige Abkoppelung geht also nicht.
 
 Vorgehen: Das Anliegen ernst nehmen, in der Gesamtlehrerkonferenz eine Schulartkonferenz vorschlagen und die Tagesordnungen so gliedern, dass jeder Zweig seine Themen bekommt.
+
+### Verbund 5: Kein Niveau M am Ende von Klasse 5
+
+**Fall**
+
+Ein Schüler der Realschule deines Verbunds erfüllt am Ende von Klasse 5 die Versetzungsanforderungen nicht. Die Eltern sagen: „Dann bleibt er eben auf dem G-Niveau bei Ihnen an der Realschule.“ Was gilt, und wie begleitest du den Schritt?
+
+**Lösung**
+
+Wer am Ende von Klasse 5 die Versetzungsanforderungen nicht erfüllt, wird dem Niveau G zugewiesen (§ 3 Abs. 2 Versetzungsordnung Realschulen). Eine Realschule im Verbund mit einer Hauptschule oder Werkrealschule vermittelt jedoch ausschließlich die erweiterte allgemeine Bildung (§ 7 Abs. 7 SchG) und bietet nur Niveau M an. Wer Niveau M verlässt, ist verpflichtet, diese Realschule zu verlassen (§ 14 Versetzungsordnung Realschulen). Der Wechsel ist an jede Schule möglich, die Niveau G anbietet, also nicht nur an die Werkrealschule des Verbunds.
+
+Vorgehen: Die Eltern früh beraten, nicht erst beim Zeugnis. Die Rechtslage klar sagen, die Möglichkeiten nennen und den Übergang mit der Werkrealschule des Verbunds vorbereiten.

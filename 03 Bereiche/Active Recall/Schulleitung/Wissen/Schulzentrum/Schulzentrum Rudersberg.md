@@ -23,6 +23,7 @@ Stand September 2026. Quelle ist die Notiz zur Rektor-Stelle im Vault, dort auch
 ## Was das Haus gerade beschäftigt
 
 - **Werkrealschule:** Im Rems-Murr-Kreis gibt es nur noch drei Standorte (Plüderhausen, Alfdorf, Rudersberg), für alle zusammen zuletzt 23 Anmeldungen. Von 18 Hauptschulabsolventen gingen 2025 sechs in Klasse 10. Rechtlich entscheidend ist § 30b Abs. 2 und 3 SchG.
+- **Realschule im Verbund:** Nach § 7 Abs. 7 SchG führt sie nur Niveau M. Wer Niveau M verlässt, muss sie verlassen (§ 14 Versetzungsordnung Realschulen). Vor Ort klären, wie das Haus diesen Wechsel in die Werkrealschule begleitet.
 - **Hochwasser vom 2. Juni 2024:** Die Grundschule Schlechtbach wurde ins Schulzentrum verlegt und öffnete im Juli 2026 nach dem Wiederaufbau zur Besichtigung. Offen sind Raumsituation und Gemeindefinanzen.
 - **Grundschule:** Ganztagsanspruch seit 2026/27 für Klasse 1, Juniorklassen im Aufbau, Grundschulförderklassen zum 1. August 2026 aufgehoben.
 - **Leitung:** Die Rektorstelle ist ausgeschrieben. Vor Februar 2027 ist keine Konrektor-Ausschreibung zu erwarten.

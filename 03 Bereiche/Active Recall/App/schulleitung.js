@@ -499,7 +499,7 @@ async function seiteWissen(arg) {
       ${istAlt(gruppe) ? `<p class="warnung">Diese Unterlage stammt von etwa 2022. Prüf Fundstellen gegen die aktuellen Gesetze.</p>` : ""}
       <nav class="sprung" id="sprung" aria-label="Auf dieser Seite"></nav>
       <div class="prosa">${inhalt}</div></div>`;
-    const kopfe = $$(".prosa h2", view);
+    const kopfe = $$(".prosa h3", view);
     kopfe.forEach((h, i) => (h.id = "t" + i));
     $("#sprung").innerHTML = kopfe.length > 1 ? kopfe.map((h, i) => `<a href="#" data-t="t${i}">${esc(h.textContent)}</a>`).join("") : "";
     $$("#sprung a").forEach((a) => (a.onclick = (e) => { e.preventDefault(); document.getElementById(a.dataset.t).scrollIntoView({ block: "start" }); }));

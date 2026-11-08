@@ -50,7 +50,7 @@ Eigener Bereich der App für das Überprüfungsverfahren: `http://localhost:8744
 - **Fälle:** Antwort tippen oder mit WhisperBar diktieren, Rückmeldung nach dem 6-Schritte-Schema, Nachfragen im selben Gespräch. Die Gespräche landen in `Schulleitung/Gespräche/`.
 - **Karten:** Fakten mit Tipp, Erklärung und Fundstelle. Bei Unklarem Claude fragen.
 - **Mindmaps:** Excalidraw in der App oder Foto der Handskizze, danach Abgleich mit Claude. Dateien in `Schulleitung/Mindmaps/`. Der Editor lädt beim ersten Öffnen aus dem Netz.
-- **Wissen:** Seiten zu Rudersberg, Grundschule, Werkrealschule und Verbund; Schulgesetz nachschlagen.
+- **Wissen:** Suche über alles; Seiten zu Schulzentrum, allen Lernplan-Themen, Verfahren und Schulentwicklung; alle zwölf Rechtstexte im Wortlaut; Skript und Kurzübersicht. Seiten liegen in `Schulleitung/Wissen/<Gruppe>/`, Gesetze und alte Unterlagen werden live aus `04 Ressourcen/Schulrecht/` gelesen.
 
 Karten und neue Fälle sind Markdown und lassen sich direkt bearbeiten: `Schulleitung/Karten/*.md`, `Schulleitung/Fälle Verbund.md`. Der Lernstand steht in `Schulleitung/stand.json`.
 
