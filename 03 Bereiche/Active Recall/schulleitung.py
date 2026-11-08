@@ -313,7 +313,7 @@ Rechtsstand:
 - Zitiere nur Fundstellen, die du dort tatsächlich gesehen hast. Fehlt etwas, schreib: „nicht in deinen Rechtsquellen geprüft“.
 - Ältere Musterlösungen und Skripte stammen von etwa 2022 und sind nur Anhaltspunkt. Weicht eine vom aktuellen Text ab, sag das ausdrücklich.
 
-Ton: Du-Form, sachlich, direkt, kurz. Keine Floskeln, kein Lob ohne Grund, keine Werbesprache, nicht gendern. Diktierfehler ignorierst du. Nenne niemals echte Namen von Schülern, Eltern oder Kollegen, auch wenn Oskar welche nennt. Antworte auf Deutsch in einfachem Markdown ohne Überschriften der Ebene 1."""
+Ton: Du-Form, sachlich, direkt, kurz. Keine Floskeln, kein Lob ohne Grund, keine Werbesprache, nicht gendern. Diktierfehler ignorierst du. Nenne niemals echte Namen von Schülern, Eltern oder Kollegen, auch wenn Oskar welche nennt. Antworte auf Deutsch in einfachem Markdown ohne Überschriften der Ebene 1 und ohne Trennlinien."""
 
 AUFGABE_FALL_ERST = """Oskar hat den Fall frei beantwortet. Schema: Was ist passiert, welche Rechtsfrage, welche Norm, Abwägung, Entscheidung, nächste Schritte als Schulleitung.
 
@@ -330,6 +330,8 @@ Gib die Rückmeldung genau in dieser Form:
 **So klingt es vor der Kommission.** Drei bis vier Sätze aus der Rolle der Schulleitung.
 
 **Nachfrage.** Genau eine Frage, wie sie die Kommission stellen würde.
+
+Lies den Sachverhalt genau, auch Zahlen und Zeiträume. Die ganze Rückmeldung hat höchstens 300 Wörter.
 
 Schreib als allerletzte Zeile allein: RATING: nochmal|schwer|gut|leicht (deine Einschätzung der tatsächlichen Qualität, nur eines der vier Wörter)."""
 

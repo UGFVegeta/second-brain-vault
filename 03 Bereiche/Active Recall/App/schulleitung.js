@@ -38,7 +38,7 @@ function md(quelle) {
   const z = esc(quelle).split("\n"); let h = "", i = 0;
   while (i < z.length) {
     const t = z[i].trim();
-    if (!t) { i++; continue; }
+    if (!t || /^-{3,}$/.test(t)) { i++; continue; }
     let m;
     if ((m = t.match(/^(#{1,4})\s+(.*)$/))) { const e = Math.min(m[1].length + 1, 3); h += `<h${e}>${inline(m[2])}</h${e}>`; i++; continue; }
     if (t.startsWith("|") && z[i + 1] && /^\s*\|[\s:|-]+\|\s*$/.test(z[i + 1])) {

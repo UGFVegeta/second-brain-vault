@@ -76,6 +76,8 @@ Für die Klasse 5 der Werkrealschule in deinem Schulverbund liegen neun Anmeldun
 
 Bei weniger als 16 Schülern in der Eingangsklasse weist die Schulaufsichtsbehörde den Schulträger darauf hin und fordert ihn zur regionalen Schulentwicklung auf (§ 30b Abs. 2 Satz 1 SchG). Wird die 16 in zwei unmittelbar aufeinanderfolgenden Schuljahren nicht erreicht und kein Antrag auf eine schulorganisatorische Maßnahme nach § 30 SchG gestellt, hebt die oberste Schulaufsichtsbehörde die Schule zum folgenden Schuljahr auf; der Schulträger ist vorher zu hören. Eine Ausnahme gilt, wenn ein entsprechender Abschluss sonst nicht mehr in zumutbarer Erreichbarkeit angeboten wird.
 
+Mit elf im Vorjahr und jetzt neun Anmeldungen wäre die 16 zwei Jahre in Folge verfehlt, wenn sich die Zahlen in der Eingangsklasse bestätigen. Ohne Antrag nach § 30 SchG droht also die Aufhebung zum folgenden Schuljahr. Es eilt.
+
 Im Verbund gilt das für jede Schulart gesondert (§ 30b Abs. 3 SchG). Der Verbund besteht mit den verbleibenden Schularten weiter, solange mehr als eine bleibt.
 
 Vorgehen: Zuerst Fakten klären, mit Schulamt und Schulträger abstimmen, dann offen ins Kollegium gehen. Keine Prognose, die du nicht halten kannst. Die Gesamtlehrerkonferenz nimmt Stellung zur Änderung oder Aufhebung (§ 2 Abs. 1 Nr. 8 Buchst. c Konferenzordnung). Die Entscheidung liegt nicht bei der Schulleitung, die Gestaltung des Übergangs für Schüler und Lehrkräfte aber sehr wohl.
