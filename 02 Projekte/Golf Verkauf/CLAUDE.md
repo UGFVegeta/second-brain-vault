@@ -5,7 +5,7 @@ Golf 6 2.0 TDI, Verkauf seit 26.10.2026 über mobile.de (Kleinanzeigen läuft da
 ## Was liegt wo
 - `Golf Verkauf.md`: Stand, Preis, Fakten zum Fahrzeug.
 - `Anzeigentext Kleinanzeigen.md`, `Anzeigentext mobile.de und AutoScout24.md`: aktuelle Anzeigentexte.
-- `Anfragen.html`: gebaut von `.scripts/golf_anfragen.py` (liest web.de nur lesend, Ordner „Unbekannt“), LaunchAgent `com.oskar.golf-anfragen` alle 15 Minuten. Enthält Interessenten-Namen und Nummern, ist gitignored.
+- `Anfragen.html`: gebaut von `.scripts/golf_anfragen.py` (liest web.de nur lesend, Ordner „Unbekannt“), LaunchAgent `com.oskar.golf-anfragen` seit 08.11.2026 abgeschaltet (plist heißt jetzt `.disabled`), bei Bedarf Skript von Hand starten. Enthält Interessenten-Namen und Nummern, ist gitignored.
 
 ## Regeln
 - Neue Käuferanfragen zuerst über das Skript prüfen, nicht raten.
