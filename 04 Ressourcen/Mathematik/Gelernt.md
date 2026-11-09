@@ -6,6 +6,7 @@ tags: [gelernt, mathematik]
 
 Eine Zeile pro Erkenntnis, neueste oben. Lang ausgeführte Gründe stehen im Claude-Gedächtnis, hier nur die Folge.
 
+- 09.11.2026: Einstiegsfolie sagte „zwei Karolinien“, das sagt Oskar nie; Abstände in cm oder Kästchen nennen. Zeichenaufgaben auf der Folie auf Karo im Heftmaß. Hochformat lässt im Vollbild zu viel Weiß: Folien mit Figuren quer anlegen (Winkel an Geraden, Winkelsumme) und die Figuren groß machen.
 - 08.11.2026: Info-Blatt Winkel: Die Dreh-Methode aus Oskars Info-AB hatte ich auf einen Satz gekürzt, er wollte sie sehen. Dasselbe beim Messen. Folge: Zeigt eine Vorlage zwei Methoden, bekommen beide ihre Bilder, beim Zeichnen wie beim Messen; „einfach“ heißt nicht, eine davon wegzulassen.
 - 07.11.2026: In den Lösungen der Förderblätter lagen die Achsen der Koordinatensysteme zwischen den Kästchenlinien. Folge: Ursprung, Achsen, Einheiten und vorgegebene Punkte immer auf die Linien des 5-mm-Karos legen (Abstand zum Feldrand ein Vielfaches von 5 mm, 1 cm = 2 Kästchen), bei jeder Zeichnung nachprüfen.
 - 05.11.2026: Bei der Diagnose fehlten oder doppelten sich Nummern. Folge: nächste Diagnose mit vorgedruckten Nummern 1 bis 26, Zuteilung über den Sitzplan, A und B im Schachbrett, Stapel in Sitzreihenfolge (Details im Grundlagen-Check Workflow).

@@ -121,7 +121,7 @@ def felder(l, paare, spalten=4):
 
 
 def auftrag(was, schnelle):
-    return f'<div class="auftrag"><div><b>Aufgabe:</b> {was}</div><div><b>Für Schnelle:</b> {schnelle}</div></div>'
+    return f'<div class="auftrag zweit"><div><b>Aufgabe:</b> {was}</div><div><b>Für Schnelle:</b> {schnelle}</div></div>'
 
 
 # ================================================================ Seite 1: Entdecken
@@ -210,33 +210,37 @@ def blk(titel, fig, rechts, unten=""):
     return f'<div class="blk"><div class="nr">{titel}</div><div class="blk-i">{fig}<div class="blk-r">{rechts}</div></div>{unten}</div>'
 
 
+def stapel(titel, fig, unten):
+    return f'<div class="stapel"><div class="nr">{titel}</div><div class="mitte3">{fig}</div>{unten}</div>'
+
+
 def uebung_geraden(l):
     N = ["α", "β", "γ", "δ"]
     NS = ["α′", "β′", "γ′", "δ′"]
-    n1 = fig_paar(-3, 33, 46, N, NS, lambda a, b: g_lab(a, b, 33, p=(38, 40)), 0, 0, 82, 45, (16, 20), zur=(12, 14), breite=70)
-    n2 = fig_paar(-3, 27, 46, [("30°", SCHWARZ), "β", "γ", "δ"], NS, lambda a, b: g_lab(a, b, 27, p=(38, 40)), 0, 0, 82, 45, (16, 20), zur=(12, 14), breite=70)
-    a_ = fig_paar(-20, 31, 50, N, NS, lambda a, b: g_lab(a, b, 31, p=(46, 12)), 0, 0, 82, 52, (15, 15), zur=(12, 12), breite=62)
-    b_ = fig_paar(17, 127, 50, [None, ("70°", SCHWARZ), "γ", "δ"], ["α′", "β′", None, "δ′"], lambda a, b: g_lab(a, b, 127, d=(16, 3), p=(50, 45)), 0, 0, 82, 54, (17, 40), zur=(12, 12), breite=70)
+    n1 = fig_paar(-3, 33, 46, N, NS, lambda a, b: g_lab(a, b, 33, p=(38, 40)), 0, 0, 82, 45, (16, 20), zur=(12, 14), breite=80)
+    n2 = fig_paar(-3, 27, 46, [("30°", SCHWARZ), "β", "γ", "δ"], NS, lambda a, b: g_lab(a, b, 27, p=(38, 40)), 0, 0, 82, 45, (16, 20), zur=(12, 14), breite=80)
+    a_ = fig_paar(-20, 31, 50, N, NS, lambda a, b: g_lab(a, b, 31, p=(46, 12)), 0, 0, 82, 52, (15, 15), zur=(12, 12), breite=68)
+    b_ = fig_paar(17, 127, 50, [None, ("70°", SCHWARZ), "γ", "δ"], ["α′", "β′", None, "δ′"], lambda a, b: g_lab(a, b, 127, d=(16, 3), p=(50, 45)), 0, 0, 82, 54, (17, 40), zur=(12, 12), breite=62)
     z = lambda t, w: f'<div class="azeile">{t} {lk(l, w, True)}</div>'
-    a1 = "".join(z(t, w) for t, w in (("a) α und γ", "Scheitelwinkel"), ("b) α′ und α", "Stufenwinkel"), ("c) β und δ", "Scheitelwinkel"), ("d) β′ und δ", "Wechselwinkel")))
-    a2 = "".join(f'<div class="azeile klein2">{v} {lk(l, w)} sind {n}.</div>' for v, w, n in (("a) β und", "δ", "Scheitelwinkel"), ("b) γ und", "β, δ", "Nebenwinkel"), ("c) α und", "α′", "Stufenwinkel"), ("d) δ und", "β′", "Wechselwinkel")))
-    bb = '<div class="azeile2">b) Zwei Möglichkeiten für δ′:' + (' <span class="lsg">Scheitelwinkel von β′ oder Stufenwinkel von δ.</span>' if l else "") + "</div>"
+    a1 = '<div class="zeilen2">' + "".join(z(t, w) for t, w in (("a) α und γ", "Scheitelwinkel"), ("b) α′ und α", "Stufenwinkel"), ("c) β und δ", "Scheitelwinkel"), ("d) β′ und δ", "Wechselwinkel"))) + "</div>"
+    a2 = '<div class="zeilen2">' + "".join(f'<div class="azeile klein2">{v} {lk(l, w)} sind {n}.</div>' for v, w, n in (("a) β und", "δ", "Scheitelwinkel"), ("b) γ und", "β, δ", "Nebenwinkel"), ("c) α und", "α′", "Stufenwinkel"), ("d) δ und", "β′", "Wechselwinkel"))) + "</div>"
+    bb = '<div class="azeile2 klein2">b) Zwei Möglichkeiten für δ′:' + (' <span class="lsg">Scheitelwinkel von β′, Stufenwinkel von δ.</span>' if l else "") + "</div>"
     return (auftrag("Buch S. 46 Nr. 1, Nr. 2 und S. 47 Nr. A ins Übungsheft.", "Buch S. 47 Nr. B")
-            + '<div class="uheft zw2">'
-            + blk("○ S. 46 Nr. 1: Wie heißen die zwei Winkel?", n1, a1)
-            + blk("○ S. 46 Nr. 2: Wie groß sind die Winkel?", n2, felder(l, [("β", "150°"), ("γ", "30°"), ("δ", "150°"), ("α′", "30°"), ("β′", "150°"), ("γ′", "30°"), ("δ′", "150°")], 2))
-            + blk("S. 47 Nr. A: Gib den richtigen Winkel an.", a_, a2)
-            + blk("S. 47 Nr. B: Für Schnelle", b_, felder(l, [("γ", "110°"), ("δ", "70°"), ("α′", "110°"), ("β′", "70°"), ("δ′", "70°")], 2), bb)
+            + '<div class="uheft zw2 kompakt">'
+            + stapel("○ S. 46 Nr. 1: Wie heißen die zwei Winkel?", n1, a1)
+            + stapel("○ S. 46 Nr. 2: Wie groß sind die Winkel?", n2, felder(l, [("β", "150°"), ("γ", "30°"), ("δ", "150°"), ("α′", "30°"), ("β′", "150°"), ("γ′", "30°"), ("δ′", "150°")], 4))
+            + stapel("S. 47 Nr. A: Gib den richtigen Winkel an.", a_, a2)
+            + stapel("S. 47 Nr. B: Für Schnelle", b_, felder(l, [("γ", "110°"), ("δ", "70°"), ("α′", "110°"), ("β′", "70°"), ("δ′", "70°")], 3) + bb)
             + "</div>")
 
 
 def weitere_geraden(l):
     a = fig_paar(34.3, 169.3, -36, [("135°", SCHWARZ), None, "α", None], ["β", None, None, None],
                  lambda s1, s2: text(P(*s1, 30, -10.7), "g", g=3.4, fett=False, kursiv=True) + text(P(*s2, 31, -10.7), "h", g=3.4, fett=False, kursiv=True),
-                 0, 0, 82, 54, (50, 17), zur=(15, 15), lin=(28, 19), r=8, breite=72)
+                 0, 0, 82, 54, (50, 17), zur=(15, 15), lin=(28, 19), r=8, breite=92)
     b = fig_paar(-10, 90, 42, [("β", ROT), None, None, ("80°", SCHWARZ)], [None, "α", None, None],
                  lambda s1, s2: text((s1[0] + 3, 47), "g", g=3.4, fett=False, kursiv=True) + text((s2[0] + 3, 54), "h", g=3.4, fett=False, kursiv=True),
-                 0, 0, 82, 56, (16, 24), zur=(11, 18), lin=(21, 21), r=8, breite=72)
+                 0, 0, 82, 56, (16, 24), zur=(11, 18), lin=(21, 21), r=8, breite=88)
     # orange Nr. 5: g, h senkrecht, i, k fallen mit 20 Grad
     gA, hA = (20, 16), (58, 16 + 38 * math.tan(math.radians(20)))
     gB, hB = (20, 42), (58, 42 + 38 * math.tan(math.radians(20)))
@@ -262,8 +266,8 @@ def weitere_geraden(l):
             + '<div class="uheft zw2">'
             + blk("○ S. 47 orange Nr. 3 a): Wie groß sind α und β?", a, felder(l, [("α", "135°"), ("β", "135°")], 1))
             + blk("○ S. 47 orange Nr. 3 b)", b, felder(l, [("α", "80°"), ("β", "100°")], 1))
-            + blk("◐ S. 47 orange Nr. 5 (i || k, g || h)", svg(n5, 0, 0, 82, 78, 72), felder(l, [("α", "110°"), ("β", "70°"), ("γ", "70°"), ("δ", "70°"), ("ε", "110°")], 2))
-            + blk("Für Schnelle: S. 47 grün Nr. 4 (g || h, i || k)", svg(vk, 0, 0, 86, 76, 66), b4 + n55)
+            + blk("◐ S. 47 orange Nr. 5 (i || k, g || h)", svg(n5, 0, 0, 82, 78, 78), felder(l, [("α", "110°"), ("β", "70°"), ("γ", "70°"), ("δ", "70°"), ("ε", "110°")], 2))
+            + blk("Für Schnelle: S. 47 grün Nr. 4 (g || h, i || k)", svg(vk, 0, 0, 86, 76, 70), b4 + n55)
             + "</div>")
 
 
@@ -283,7 +287,7 @@ def ecken(l):
          + bogen((0, 0), 11, 0, al, ROT, 0.5, F["α"]) + text(P(0, 0, 7.3, al / 2), "α", ROT, kursiv=True)
          + bogen((c, 0), 11, 180 - be, 180, BLAU, 0.5, F["β"]) + text(P(c, 0, 7.3, 180 - be / 2), "β", BLAU, kursiv=True)
          + bogen(C, 11, 180 + al, 180 + al + 70, "#b38600", 0.5, F["γ"]) + text(P(*C, 7.3, 180 + al + 35), "γ", "#8a6700", kursiv=True))
-    dd = svg(d, -6, round(C[1] - 5, 2), c + 12, round(-C[1] + 10, 2), 125 if l else 165)
+    dd = svg(d, -6, round(C[1] - 5, 2), c + 12, round(-C[1] + 10, 2), 105 if l else 165)
     if not l:
         return ('<div class="uheft"><div class="auftrag"><b>Aufgabe:</b> Auf Schmierpapier ein großes Dreieck zeichnen. Winkel bunt markieren. Die drei Ecken abreißen und an einem Punkt zusammenlegen.</div>'
                 f'<div class="mitte">{dd}</div><p class="ergebnis" style="font-size:28px;text-align:center">Was fällt auf?</p></div>')
@@ -297,7 +301,7 @@ def ecken(l):
          + winkel(C2, 180, 180 + al, "α′", ROT, 11) + winkel(C2, 180 + al, 250 + al, "γ", "#8a6700", 11) + winkel(C2, 300, 360, "β′", BLAU, 11)
          + text((C2[0], -3), "C", g=3.4, fett=False) + text((A2[0] - 3, A2[1] + 2), "A", g=3.4, fett=False) + text((B2[0] + 3, B2[1] + 2), "B", g=3.4, fett=False))
     return ('<div class="uheft"><div class="auftrag"><b>Aufgabe:</b> Auf Schmierpapier ein großes Dreieck zeichnen. Winkel bunt markieren. Die drei Ecken abreißen und an einem Punkt zusammenlegen.</div>'
-            f'<div class="zw2"><div class="mitte2">{dd}</div><div class="mitte2">{svg(leg, 0, 0, 80, 30, 125)}<p class="ergebnis lsg" style="font-size:24px;text-align:center">Die drei Ecken ergeben einen gestreckten Winkel: 180°.</p></div></div></div>'
+            f'<div class="zw2"><div class="mitte2">{dd}</div><div class="mitte2">{svg(leg, 0, 0, 80, 30, 118)}<p class="ergebnis lsg" style="font-size:24px;text-align:center">Die drei Ecken ergeben einen gestreckten Winkel: 180°.</p></div></div></div>'
             f'<h4 style="font-size:20px;margin:3mm 0 1mm">Warum? Parallele durch C</h4><div class="fig-rechts">{svg(w, 0, -6, 92, round(-C[1] + 12, 2), 92)}'
             '<div class="warum2"><div>Wechselwinkel:</div><div class="lsg">α′ = α</div><div class="lsg">β′ = β</div><div style="margin-top:3mm">Gestreckter Winkel bei C:</div><div class="lsg">α + γ + β = 180°</div></div></div>')
 
@@ -318,22 +322,22 @@ def merk_summe():
              '<div class="mz"><span class="sn">4</span><span>Probe: 65° + 45° + 70° = 180°</span></div></div></div>')
     rez = rezept_box("Fehlender Winkel im Dreieck", ["Was fehlt?", "Die zwei bekannten Winkel addieren.", "Von 180° abziehen.", "Probe: Alle drei ergeben 180°."])
     w = "".join(f'<div class="wz">{t}: {n} = {str(e)}°</div>' for t, _, _, n, e in BSP)
-    return ('<div class="heft"><div class="merksatz">In jedem Dreieck gilt: α + β + γ = 180°</div>'
+    return ('<div class="heft merk2"><div class="merksatz">In jedem Dreieck gilt: α + β + γ = 180°</div>'
             f'<div class="mb"><div>{links}</div>{rez}</div><div class="weitere"><div class="weitere-t">Weitere Beispiele</div>{w}</div></div>')
 
 
 # ================================================================ Übung Winkelsumme
 def uebung_summe(l):
     S, R = SCHWARZ, ROT
-    n1 = [("a)", dreieck(60, 75, 24, {"A": ("60°", S), "B": ("75°", S), "C": ("γ", R)}, rand=6, r=5.5), "γ", "45°"),
-          ("b)", dreieck(25, 120, 28, {"A": ("α", R), "B": ("120°", S), "C": ("35°", S)}, rand=6, r=5.5), "α", "25°"),
-          ("c)", dreieck(54, 36, 31, {"A": ("54°", S), "B": ("36°", S), "C": ("γ", R)}, rand=6, r=5.5), "γ", "90°"),
-          ("d)", dreieck(70, 70, 20, {"A": ("70°", S), "B": ("β", R), "C": ("40°", S)}, rand=6, r=5), "β", "70°")]
+    n1 = [("a)", dreieck(60, 75, 31, {"A": ("60°", S), "B": ("75°", S), "C": ("γ", R)}, rand=6, r=5.5), "γ", "45°"),
+          ("b)", dreieck(25, 120, 42, {"A": ("α", R), "B": ("120°", S), "C": ("35°", S)}, rand=6, r=5.5), "α", "25°"),
+          ("c)", dreieck(54, 36, 44, {"A": ("54°", S), "B": ("36°", S), "C": ("γ", R)}, rand=6, r=5.5), "γ", "90°"),
+          ("d)", dreieck(70, 70, 24, {"A": ("70°", S), "B": ("β", R), "C": ("40°", S)}, rand=6, r=5), "β", "70°")]
     assert 180 - 60 - 75 == 45 and 180 - 120 - 35 == 25 and 180 - 54 - 36 == 90 and 180 - 70 - 40 == 70
     reihe = "".join(f'<div class="dz"><div class="dfig"><b>{a}</b>{f}</div><div class="feld">{n} = {lk(l, e)}</div></div>' for a, f, n, e in n1)
-    fA = dreieck(48, 62, 42, {"A": ("48°", S), "B": ("62°", S), "C": ("γ", R)}, rand=6, r=6)
-    fB = dreieck(25, 20, 50, {"A": ("α", R), "B": ("20°", S), "C": ("135°", S)}, rand=6, r=6)
-    f3 = dreieck(48, 35, 48, {"A": ("48°", S), "B": ("β", R), "C": ("97°", S)}, rand=6, r=6)
+    fA = dreieck(48, 62, 32, {"A": ("48°", S), "B": ("62°", S), "C": ("γ", R)}, rand=6, r=6)
+    fB = dreieck(25, 20, 40, {"A": ("α", R), "B": ("20°", S), "C": ("135°", S)}, rand=6, r=6)
+    f3 = dreieck(48, 35, 36, {"A": ("48°", S), "B": ("β", R), "C": ("97°", S)}, rand=6, r=6)
     assert 180 - 48 - 62 == 70 and 180 - 20 - 135 == 25 and 180 - 97 - 48 == 35
     T = [("60°", "50°", None, 70), ("52°", None, "67°", 61), (None, "11°", "16°", 153), ("71°", None, "89°", 20), ("137°", "42°", None, 1)]
     for a, b, g, e in T:
@@ -342,12 +346,13 @@ def uebung_summe(l):
     tz = lambda i, name: f"<tr><th>{name}</th>" + "".join(f'<td>{r[i] if r[i] else lk(l, str(r[3]) + "°")}</td>' for r in T) + "</tr>"
     tab = '<table class="wt"><tr><th></th><th>a)</th><th>b)</th><th>c)</th><th>d)</th><th>e)</th></tr>' + tz(0, "α") + tz(1, "β") + tz(2, "γ") + "</table>"
     return (auftrag("Buch S. 48 Nr. 1, S. 49 Nr. A und orange Nr. 3, Nr. 4 ins Übungsheft.", "Buch S. 48 Nr. 2: Dreieck abzeichnen, messen, mit der Winkelsumme prüfen.")
-            + '<div class="uheft sgrid">'
-            f'<div><div class="nr">○ S. 48 Nr. 1: Berechne den fehlenden Winkel.</div><div class="dr4">{reihe}</div></div>'
-            f'<div><div class="nr">○ S. 49 orange Nr. 3</div><div class="dz"><div class="dfig">{f3}</div><div class="feld">β = {lk(l, "35°")}</div></div></div>'
-            f'<div><div class="nr">S. 49 Nr. A: Berechne den fehlenden Winkel.</div><div class="dr3"><div class="dz"><div class="dfig"><b>a)</b>{fA}</div><div class="feld">γ = {lk(l, "70°")}</div></div>'
-            f'<div class="dz"><div class="dfig"><b>b)</b>{fB}</div><div class="feld">α = {lk(l, "25°")}</div></div></div></div>'
-            f'<div><div class="nr">○ S. 49 orange Nr. 4: Ein Winkel fehlt. Berechne.</div>{tab}</div></div>')
+            + '<div class="uheft">'
+            f'<div class="nr">○ S. 48 Nr. 1: Berechne den fehlenden Winkel.</div><div class="dr4">{reihe}</div>'
+            '<div class="zeile3"><div><div class="nr">S. 49 Nr. A und orange Nr. 3: Berechne den fehlenden Winkel.</div><div class="dr3">'
+            f'<div class="dz"><div class="dfig"><b>A a)</b>{fA}</div><div class="feld">γ = {lk(l, "70°")}</div></div>'
+            f'<div class="dz"><div class="dfig"><b>A b)</b>{fB}</div><div class="feld">α = {lk(l, "25°")}</div></div>'
+            f'<div class="dz"><div class="dfig"><b>Nr. 3</b>{f3}</div><div class="feld">β = {lk(l, "35°")}</div></div></div></div>'
+            f'<div><div class="nr">○ S. 49 orange Nr. 4: Ein Winkel fehlt.</div>{tab}</div></div></div>')
 
 
 def weitere_summe(l):
@@ -408,6 +413,12 @@ EXTRA = EXTRA_W7 + """<style>
 .blk-i{display:flex;gap:3mm;align-items:center}.blk-i svg{flex:none}.blk-r{min-width:0}
 .blk .luecke.lang{min-width:36mm!important;font-size:15px}.blk .feld{font-size:18px}.klein2{font-size:14.5px!important}
 .bsp{display:flex;gap:5mm;align-items:center}
+.auftrag.zweit{display:flex;gap:0 9mm;flex-wrap:wrap;padding:4px 13px}
+.kompakt .luecke{height:10mm!important;margin:.5mm 2mm!important}
+.stapel{min-width:0}.mitte3{display:flex;justify-content:center}.zeilen2{display:grid;grid-template-columns:1fr 1fr;gap:0 3mm}.stapel .felder{justify-content:center}
+.stapel .luecke.lang{min-width:39mm!important;font-size:15px}
+.zeile3{display:grid;grid-template-columns:1fr auto;gap:5mm;margin-top:3mm;align-items:start}
+.merk2 .mz{margin:3mm 0}.merk2 .weitere{margin-top:7mm}.merk2 .wz{font-size:19px!important}.merk2 .merksatz{padding:14px;font-size:36px}
 .sgrid{display:grid;grid-template-columns:1fr auto;gap:3mm 6mm}
 .mitte2{display:flex;flex-direction:column;align-items:center;justify-content:center}
 .auftrag{background:#f4f6f9;border:2px solid #1b1b1b;border-radius:8px;padding:6px 13px;margin:0 0 9px;font-size:17px}
@@ -424,8 +435,9 @@ EXTRA = EXTRA_W7 + """<style>
 .azeile{font-size:17px;white-space:nowrap;margin:.5mm 0}.azeile2{font-size:16px;margin-top:1mm}
 .dr4{display:grid;grid-template-columns:repeat(4,auto);gap:3mm;justify-content:space-between;align-items:end}.dr3{display:grid;grid-template-columns:repeat(3,auto);gap:3mm;justify-content:space-between;align-items:end}
 .dz{display:flex;flex-direction:column;align-items:center}.dfig{display:flex;gap:1mm;align-items:flex-start}.dfig b{white-space:nowrap}
-#t_tafel .mb,#t_merk .mb,.heft .mb{grid-template-columns:2.7fr 1fr;gap:5mm}.heft .weitere{grid-template-columns:repeat(3,1fr)!important;margin-top:3mm}.heft .wz{font-size:16.5px!important}.heft .mz span:last-child{white-space:nowrap}.dfig svg{max-width:none}
-table.wt{border-collapse:collapse;font-size:18px;margin-top:1mm}.wt td,.wt th{border:1px solid #9aa3ad;padding:0 1.5mm;text-align:center;height:15mm;min-width:18mm}.wt th{background:#eef1f5}.wt tr:first-child th{height:8mm}
+#t_tafel .mb,#t_merk .mb,.heft .mb{grid-template-columns:2.7fr 1fr;gap:5mm}.heft .weitere{grid-template-columns:repeat(3,1fr)!important;margin-top:3mm}.heft .wz{font-size:16.5px!important}.heft .mz span:last-child{white-space:nowrap}.dfig svg{max-width:none!important;flex:none}
+table.wt{border-collapse:collapse;font-size:18px;margin-top:1mm}.wt td,.wt th{border:1px solid #9aa3ad;padding:0 1mm;text-align:center;height:14mm;min-width:15mm}.wt th{background:#eef1f5}.wt tr:first-child th{height:8mm}
+.wt .luecke{margin:0!important}
 .warum2{font-size:19px;font-weight:600;line-height:1.5}
 </style>"""
 
