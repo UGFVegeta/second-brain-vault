@@ -199,6 +199,9 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
                f("Info", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Info.pdf"),
                f("Aufgaben", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Aufgaben.pdf"),
                f("Lösung", "Mathematik/Dreiecke/02 Winkel messen – Info und Aufgaben/Mathe 7c – Winkel messen – Lösung.pdf")]},
+    {"id": "ma7-w8s2", "titel": "Woche 8, Stunde 2 – Winkel an Geraden, Winkelsumme", "wann": "Di 10.11., Doppelstunde", "status": "vorbereitet",
+     "links": [f("Stunde", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 2 Winkel an Geraden, Winkelsumme.html"),
+               f("Folien", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 2 Winkel an Geraden, Winkelsumme.pdf")]},
 ], "material": []}]}]
 
 CSS = """
