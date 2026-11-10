@@ -54,7 +54,11 @@ Am 10.11. fragt Oskar zusätzlich den Elektriker, der die Wallbox eingebaut hat 
   - Linden (Hessen), Stiebel 206780, neu: 415 €, nur mit Versand
 - **Einbau:** Laut Installationsanleitung richtet sie sich an Fachkräfte, Elektriker eingeschlossen. Das ISG kommt als letztes Gerät auf den CAN-Bus der Wärmepumpe, und dazu braucht es ein LAN-Kabel. Ein nötiges Update der Reglersoftware kann nur der Kundendienst machen.
 
+Favorit ist das Angebot in Lorch (440 € VB). Den Einbau soll der Elektriker machen, der die Wallbox eingebaut hat, falls er zusagt. Für ihn liegt die deutsche Installationsanleitung bereit: [[ISG Connect Installationsanleitung (deutsch).pdf]], Kapitel 6 (Montage) und 7 (Inbetriebnahme). Dazu ein Infoblatt auf einer Seite mit QR-Code zur Anleitung: [[ISG Connect Infoblatt Elektriker.pdf]].
+
 Quellen: tecalor.de, Produktseite ISG Connect TEC; Kompatibilitätsliste ISG (Stiebel Eltron, Stand 01.05.2025); github.com/pail23/stiebel_eltron_isg_component; docs.evcc.io/de/heating/tecalor-thz-sg-ready.
+
+Displaywerte 10.11.2026, 14:09 Uhr: außen 10,3 °C, Druck Heizkreis 1,1 bar, Warmwasser 47,4 °C, Automatik. Laut Anleitung der Schwesterbaureihe LWZ 304/404 meldet die Anlage unter 0,5 bar Fehler 37. Der Vordruck des Ausdehnungsgefäßes liegt bei 0,75 bar, das Sicherheitsventil öffnet bei 3 bar. 1,1 bar ist also kein Notfall, liegt aber am unteren Rand. Ob und auf welchen Wert aufgefüllt wird, klärt der Techniker. Die Frage steht als Zusatz auf dem Zettel.
 
 Antworten des Technikers: _noch offen_
 
