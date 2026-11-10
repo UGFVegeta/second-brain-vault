@@ -52,3 +52,17 @@ Der Schulleiter trägt die Gesamtverantwortung für die Leitung, Verwaltung und 
 - Deputatsberechnung für die Schulleitung im Verbund: Für den Schulleiter einer verbundenen Schule gilt die niedrigste Unterrichtsverpflichtung der beteiligten Schularten als Basis, an diesem Schulverbund somit 27 Wochenstunden (§ 4 Abs. 6 LehrArbZV BW).
 - Bildungsauftrag der Realschule im Verbund: Realschulen im Verbund mit einer Werkrealschule vermitteln ausschließlich das erweiterte Niveau (Niveau M) zum Realschulabschluss, während die Werkrealschule zum Hauptschulabschluss führt (§ 6 Abs. 2, § 7 Abs. 7 SchG).
 - Organisation der Sprachförderung an der Grundschule: Die Schulleitung trägt an der Grundschule eine besondere gesetzliche Verantwortung für die Organisation und Durchführung verpflichtender Sprachfördermaßnahmen vor der Einschulung (§ 5 Abs. 3, § 41 Abs. 1a SchG).
+
+## Disziplinarrecht und Personalrat
+
+Am 10.11.2026 direkt aus dem Wortlaut von Landesdisziplinargesetz und Landespersonalvertretungsgesetz ergänzt.
+
+- Disziplinarmaßnahmen sind Verweis, Geldbuße, Kürzung der Bezüge, Zurückstufung und Entfernung aus dem Beamtenverhältnis. Bei Beamten auf Probe oder auf Widerruf nur Verweis und Geldbuße (§ 25 Abs. 1 LDG).
+- Ein Verweis ist eine ausdrücklich als Verweis bezeichnete schriftliche Rüge für ein leichtes Dienstvergehen (§ 27 LDG). Eine schriftliche Missbilligung gehört nicht zu den Disziplinarmaßnahmen.
+- Zuständig ist die untere Disziplinarbehörde, der Dienstvorgesetzte (§ 4 Satz 1 Nr. 3 LDG). Für Lehrkräfte ist das der Regierungspräsident (§ 4 BeamtZuVO). Höhere und oberste Disziplinarbehörde können Verfahren an sich ziehen (§ 7 Abs. 2 LDG).
+- Der Schulleiter ist Dienstvorgesetzter nur für einzelne Entscheidungen: schriftliche Missbilligungen (§ 4 BeamtZuVO), außerdem Urlaub, Sonderurlaub, Nebentätigkeiten, Geschenke, Anzeigen nach § 74 Abs. 1 LBG, Unfallmeldungen und die gestaffelte Schwerbehindertenermäßigung (§ 7 Abs. 1 KMZuVO).
+- Das Staatliche Schulamt entscheidet unter anderem über Sonderurlaub nach § 29 Abs. 4 AzUVO von 6 bis 10 Arbeitstagen und über Elternzeit (§ 3 Abs. 1 KMZuVO). Für Schulleiter an Grund-, Werkreal- und Realschulen ist es zum Beispiel bei Urlaub und Nebentätigkeiten Dienstvorgesetzter (§ 3 Abs. 2 KMZuVO).
+- Bei der Einleitung ist der Vorwurf zu eröffnen und über das Schweigerecht, den Beistand und Beweisanträge zu belehren (§ 11 Abs. 2 LDG).
+- Fristen: Ein Verweis darf nur bis zwei Jahre nach dem Dienstvergehen ausgesprochen werden (§ 35 Abs. 1 LDG), zwei Jahre nach Unanfechtbarkeit gilt ein Verwertungsverbot (§ 42 Abs. 1 und 2 LDG).
+- Bei Disziplinarverfügungen und schriftlichen Missbilligungen wirkt der Personalrat auf Antrag der Lehrkraft mit. Sie ist vorher zu informieren und auf ihr Antragsrecht hinzuweisen (§ 81 Abs. 2, § 82 Abs. 2 und § 76 Abs. 3 LPVG).
+- Der Personalrat für Lehrkräfte an Grund-, Werkreal- und Realschulen sitzt beim Staatlichen Schulamt (§ 98 Abs. 1 LPVG).

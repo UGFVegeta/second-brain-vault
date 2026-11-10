@@ -260,9 +260,11 @@ def quelle_lesen(pfad):
         z = roh.strip()
         if not z or RAUSCH.search(z):
             continue
-        m = re.fullmatch(r"§\s*(\d+[a-z]?)|(Anlage(?: \d+[a-z]?)?)", z)
+        m = re.fullmatch(r"§\s*(\d+ ?[a-z]?)|(Anlage(?: \d+[a-z]?)?)", z)
+        if m and m.group(1) and aktuell and aktuell["nr"].startswith("Anlage"):
+            m = None  # in Anlagen ist eine einzelne Paragrafenzeile nur ein Tabellenverweis
         if m:
-            nr = m.group(1) or m.group(2)
+            nr = (m.group(1) or "").replace(" ", "") or m.group(2)  # „§ 4 a“ wird zu 4a
             aktuell = {"nr": nr, "titel": "", "absaetze": []}
             if nr in gesehen:  # erste Fundstelle war die Inhaltsübersicht des Gesetzes, der echte Text kommt später
                 teile = [t for t in teile if t["nr"] != nr]
@@ -271,8 +273,8 @@ def quelle_lesen(pfad):
             continue
         if aktuell is None:
             kopf.append(z)
-        elif not aktuell["titel"]:
-            aktuell["titel"] = z
+        elif not aktuell["titel"] and not aktuell["absaetze"] and not re.match(r"^\(\d+[a-z]?\)", z):
+            aktuell["titel"] = z  # Paragrafen ohne Überschrift beginnen direkt mit (1)
         elif aktuell["nr"].startswith("Anlage") or re.match(r"^\(\d+[a-z]?\)", z) or not aktuell["absaetze"]:
             aktuell["absaetze"].append(z)
         else:

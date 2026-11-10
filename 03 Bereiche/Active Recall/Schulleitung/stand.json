@@ -1,0 +1,47 @@
+{
+ "faelle": {},
+ "karten": {
+  "29b070de8230": {
+   "anzahl": 1,
+   "faellig": "2026-11-11",
+   "level": 0,
+   "rating": "schwer",
+   "zuletzt": "2026-11-10"
+  },
+  "57f2010069cf": {
+   "anzahl": 1,
+   "faellig": "2026-11-11",
+   "level": 0,
+   "rating": "schwer",
+   "zuletzt": "2026-11-10"
+  },
+  "83cedd788cd2": {
+   "anzahl": 1,
+   "faellig": "2026-11-12",
+   "level": 1,
+   "rating": "gut",
+   "zuletzt": "2026-11-10"
+  },
+  "8f3d79f4eb9d": {
+   "anzahl": 1,
+   "faellig": "2026-11-12",
+   "level": 1,
+   "rating": "gut",
+   "zuletzt": "2026-11-10"
+  },
+  "d5b808ff5dc1": {
+   "anzahl": 1,
+   "faellig": "2026-11-12",
+   "level": 1,
+   "rating": "gut",
+   "zuletzt": "2026-11-10"
+  },
+  "e83934337878": {
+   "anzahl": 1,
+   "faellig": "2026-11-14",
+   "level": 2,
+   "rating": "leicht",
+   "zuletzt": "2026-11-10"
+  }
+ }
+}

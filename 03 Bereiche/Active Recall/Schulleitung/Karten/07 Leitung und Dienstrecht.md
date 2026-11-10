@@ -59,10 +59,10 @@ W: Die Reihenfolge und das Selbsteintrittsrecht stammen aus der Lösung des alte
 Q: § 41 Abs. 2 SchG; Fall Schulleiter 3
 
 ### Wie läuft eine schriftliche Missbilligung einer Lehrkraft ab?
-A: Beteiligte befragen, schuldhaftes dienstpflichtwidriges Verhalten feststellen, die Maßnahme schriftlich ankündigen mit Hinweis auf Anhörung und auf Antrag Mitwirkung des Personalrats, dann erst erlassen.
+A: Beteiligte befragen, schuldhaftes dienstpflichtwidriges Verhalten feststellen, die Maßnahme rechtzeitig vorher ankündigen und auf das Recht hinweisen, die Mitwirkung des Personalrats zu beantragen, dann erst erlassen.
 T: Befragen, feststellen, ankündigen, erlassen.
-W: Bei schwerbehinderten Beamten hat die Schwerbehindertenvertretung ein Anhörungsrecht. Das stammt aus der alten Unterlage und nicht aus deinen aktuellen Rechtsquellen.
-Q: Fall Schulleiter 4
+W: Beantragt die Lehrkraft die Mitwirkung und äußert sich der Personalrat nicht binnen drei Wochen, gilt die Maßnahme als gebilligt. Aussprechen darf sie der Schulleiter, er ist dafür Dienstvorgesetzter. Sie ist keine Disziplinarmaßnahme, ein Verweis müsste ausdrücklich so heißen. Das Anhörungsrecht der Schwerbehindertenvertretung bei schwerbehinderten Beamten stammt aus der alten Unterlage.
+Q: § 4 BeamtZuVO; § 81 Abs. 2 Nr. 1, § 82 Abs. 2 und 4 und § 76 Abs. 3 LPVG; § 25 Abs. 1 und § 27 LDG; Fall Schulleiter 4
 
 ### Welche Befähigung braucht der Schulleiter einer Realschule oder Werkrealschule?
 A: Die Befähigung zum Lehramt einer dieser Schularten: Hauptschule, Werkrealschule oder Realschule.
@@ -75,3 +75,46 @@ A: Sie soll innerhalb von sechs Monaten wiederbesetzt werden. Bis dahin kann die
 T: Sechs Monate.
 W: Ohne Beauftragung vertritt der Stellvertretende Schulleiter als ständiger Vertreter.
 Q: § 39 Abs. 4 und § 42 Abs. 1 SchG
+
+### Welche Disziplinarmaßnahmen gibt es gegen Beamte?
+A: Verweis, Geldbuße, Kürzung der Bezüge, Zurückstufung und Entfernung aus dem Beamtenverhältnis.
+T: Fünf Stufen, vom Verweis bis zur Entfernung.
+W: Gegen Beamte auf Probe oder auf Widerruf sind nur Verweis und Geldbuße zulässig. Ausgesprochen wird jede Maßnahme durch Disziplinarverfügung.
+Q: § 25 Abs. 1 und § 38 Abs. 1 LDG
+
+### Wer führt ein Disziplinarverfahren gegen eine Lehrkraft?
+A: Die untere Disziplinarbehörde, das ist der Dienstvorgesetzte. Für Lehrkräfte ist das der Regierungspräsident. Höhere und oberste Disziplinarbehörde können ein Verfahren jederzeit an sich ziehen.
+T: Regierungspräsidium, nicht Schulamt und nicht Schulleitung.
+W: Der Schulleiter ist nur für einzelne Dinge Dienstvorgesetzter, etwa für schriftliche Missbilligungen. Eine abweichende Disziplinarzuständigkeit für Lehrkräfte enthalten die Zuständigkeitsverordnungen nicht.
+Q: § 4 Satz 1 Nr. 3 und § 7 LDG; § 4 BeamtZuVO; § 16 KMZuVO
+
+### Welche Rechte hat eine Lehrkraft, wenn ein Disziplinarverfahren eingeleitet wird?
+A: Ihr wird eröffnet, welches Dienstvergehen ihr vorgeworfen wird. Sie darf sich äußern oder schweigen, jederzeit einen Bevollmächtigten oder Beistand hinzuziehen und zu ihrer Entlastung Beweiserhebungen beantragen.
+T: Vorwurf, Schweigen, Beistand, Beweise.
+W: Für die Äußerung bekommt sie schriftlich eine angemessene Frist. Fehlt die Belehrung, darf ihre Aussage nur mit ihrer Zustimmung zu ihrem Nachteil verwertet werden.
+Q: § 11 Abs. 2 bis 4 LDG
+
+### Wie lange darf ein Verweis ausgesprochen und berücksichtigt werden?
+A: Ausgesprochen werden darf er höchstens zwei Jahre nach dem Dienstvergehen. Zwei Jahre nach seiner Unanfechtbarkeit gilt ein Verwertungsverbot.
+T: Zwei und zwei.
+W: Für die Geldbuße gelten drei Jahre, für die Kürzung der Bezüge fünf und für die Zurückstufung sieben.
+Q: § 35 Abs. 1 und § 42 Abs. 1 und 2 LDG
+
+### Wo ist der Personalrat für Lehrkräfte an Grund-, Werkreal- und Realschulen gebildet?
+A: Als besonderer Personalrat beim Staatlichen Schulamt, also bei der unteren Schulaufsichtsbehörde, nicht an der einzelnen Schule.
+T: Beim Schulamt.
+W: Bei Schulen im Verbund kann das Kultusministerium abweichend regeln, wenn dort auch Lehrkräfte von Gymnasien oder beruflichen Schulen unterrichten. Stufenvertretungen gibt es beim Regierungspräsidium und beim Kultusministerium.
+Q: § 98 Abs. 1 und 2 LPVG
+
+### Bei welchen Maßnahmen wirkt der Personalrat nur auf Antrag der Lehrkraft mit?
+A: Bei Disziplinarverfügungen und schriftlichen Missbilligungen gegen Beamte sowie bei schriftlichen Abmahnungen gegen Arbeitnehmer.
+T: Disziplinarverfügung, Missbilligung, Abmahnung.
+W: Die Lehrkraft ist vorher zu informieren und auf ihr Antragsrecht hinzuweisen. Äußert sich der Personalrat nicht binnen drei Wochen, gilt die Maßnahme als gebilligt.
+Q: § 81 Abs. 2, § 82 Abs. 2 und 4 und § 76 Abs. 3 LPVG
+
+### Wofür ist der Schulleiter Dienstvorgesetzter der Lehrkräfte seiner Schule?
+A: Nur für einzelne Entscheidungen: schriftliche Missbilligungen, Urlaub, Sonderurlaub, Nebentätigkeiten, Geschenke, Anzeigen nach § 74 Abs. 1 LBG, Unfallmeldungen und die gestaffelte Schwerbehindertenermäßigung.
+T: Missbilligung, Urlaub, Nebentätigkeit.
+W: Allgemeiner Dienstvorgesetzter der Lehrkräfte ist der Regierungspräsident. Sonderurlaub nach § 29 Abs. 4 AzUVO bewilligt der Schulleiter bis fünf Arbeitstage, von 6 bis 10 Arbeitstagen das Staatliche Schulamt.
+Q: § 4 BeamtZuVO; § 7 Abs. 1 und § 3 Abs. 1 KMZuVO
+
