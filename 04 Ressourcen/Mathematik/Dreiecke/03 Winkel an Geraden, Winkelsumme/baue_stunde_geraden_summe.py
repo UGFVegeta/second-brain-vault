@@ -285,29 +285,105 @@ AUFTRAG_ECKEN = ('<div class="auftrag"><b>Aufgabe:</b><ol class="schritte4"><li>
                  '<li>Das Dreieck ausschneiden.</li><li>Die drei Ecken abreißen.</li><li>Die Ecken an einem Punkt zusammenlegen.</li></ol></div>')
 
 
+def zacken(p, q, n=8, a=1.1):
+    """Gerissene Kante von p nach q: feste Zacken quer zur Richtung (rückwärts gelesen dieselbe Linie)."""
+    dx, dy = q[0] - p[0], q[1] - p[1]
+    L = math.hypot(dx, dy)
+    nx, ny = -dy / L, dx / L
+    return [(p[0] + dx * k / n + nx * a * (1 if k % 2 else -1), p[1] + dy * k / n + ny * a * (1 if k % 2 else -1)) for k in range(1, n)]
+
+
+def pfad(pts):
+    return " ".join(f"{x:.2f},{y:.2f}" for x, y in pts)
+
+
+def ecken_animation():
+    """Dreieck zeichnen, ausschneiden, Ecken abreißen, an einem Punkt zusammenlegen. Ohne Skript (PDF) steht der Endzustand da."""
+    F, al, be = {"α": "#fbd5d5", "β": "#cfe3f6", "γ": "#fdeeb0"}, 50, 60
+    FS = {"α": ROT, "β": BLAU, "γ": "#8a6700"}
+    c, ga = 100, 70
+    A = (12, 100)
+    B = (A[0] + c, 100)
+    C = P(*A, c * math.sin(math.radians(be)) / math.sin(math.radians(ga)), al)
+    O = (192, 100)
+    r = 30
+    # (Name, Ecke, Sektor von, bis, Drehung bis zur Geraden)
+    ecken_ = [("α", A, 0, al, 180 - al), ("β", B, 180 - be, 180, -(180 - be)), ("γ", C, 180 + al, 180 + al + ga, be - (180 + al))]
+    assert [round((a1 + d) % 360) for _, _, a1, _, d in ecken_] == [180 - al, 0, be]
+    stuecke, rest = "", []
+    for name, V, a1, a2, d in ecken_:
+        s1, s2 = P(*V, r, a1), P(*V, r, a2)
+        z = zacken(s1, s2)
+        mitte = (a1 + a2) / 2
+        tx, ty = P(*V, 10.5, mitte)
+        stuecke += (f'<g class="e-st" data-v="{V[0]:.2f},{V[1]:.2f}" data-d="{d}" data-bis="{mitte}" transform="translate({O[0]} {O[1]}) rotate({-d}) translate({-V[0]:.2f} {-V[1]:.2f})">'
+                    f'<polygon points="{pfad([V, s1] + z + [s2])}" fill="#fff" stroke="#555" stroke-width="0.35" stroke-linejoin="round"/>'
+                    + bogen(V, 16, a1, a2, FS[name], 0.5, F[name])
+                    + f'<text class="e-t" x="{tx:.2f}" y="{ty + 2:.2f}" font-size="5.6" font-weight="700" font-style="italic" text-anchor="middle" font-family="{SCHRIFT}" fill="{FS[name]}" transform="rotate({d} {tx:.2f} {ty:.2f})">{name}</text></g>')
+    # Rest des Dreiecks: Seitenpunkte und Zacken in Umlaufrichtung
+    sp = {n: (P(*V, r, a1), P(*V, r, a2)) for n, V, a1, a2, _ in ecken_}
+    rest = ([sp["α"][0], sp["β"][1]] + zacken(sp["β"][0], sp["β"][1])[::-1] + [sp["β"][0], sp["γ"][1]]
+            + zacken(sp["γ"][0], sp["γ"][1])[::-1] + [sp["γ"][0], sp["α"][1]] + zacken(sp["α"][0], sp["α"][1])[::-1])
+    dreieck_ = (f'<g class="e-dr" style="display:none"><polygon class="e-papier" points="{pfad([A, B, C])}" fill="none" stroke="{SCHWARZ}" stroke-width="0.6" stroke-linejoin="round"/>'
+                + "".join(bogen(V, 16, a1, a2, FS[n], 0.5, F[n]) + text(P(*V, 10.5, (a1 + a2) / 2), n, FS[n], 5.6, kursiv=True) for n, V, a1, a2, _ in ecken_) + "</g>")
+    svg_ = (f'<svg class="e-svg" viewBox="0 16 250 94" xmlns="http://www.w3.org/2000/svg">'
+            f'<polygon class="e-rest" points="{pfad(rest)}" fill="#f1f1ec" stroke="#888" stroke-width="0.35" stroke-linejoin="round"/>'
+            f'{dreieck_}<line class="e-ger" x1="{O[0] - 52}" y1="{O[1]}" x2="{O[0] + 52}" y2="{O[1]}" stroke="{SCHWARZ}" stroke-width="0.7"/>{stuecke}</svg>')
+    return (f'<div class="e-ani">{svg_}<p class="e-cap lsg">Die drei Ecken ergeben einen gestreckten Winkel: 180°.</p>'
+            '<div class="w-ctrl e-ctrl"><button class="e-zur">◀ Schritt</button><button class="e-vor pri">Schritt ▶</button><span class="e-nr"></span>'
+            '<button class="e-play">Abspielen</button></div></div>')
+
+
+JS_ECKEN = r"""<script>(()=>{
+const warte=ms=>new Promise(r=>setTimeout(r,ms));
+document.querySelectorAll('.e-ani').forEach(w=>{
+  w.addEventListener('click',e=>{e.stopPropagation();const b=e.target.closest('button');if(b)b.blur()});
+  const q=s=>w.querySelector(s), st=[...w.querySelectorAll('.e-st')], dr=q('.e-dr'), rest=q('.e-rest'), ger=q('.e-ger'), pap=q('.e-papier'), cap=q('.e-cap'), nr=q('.e-nr');
+  const O=[192,100];
+  const SCHR=[{c:'Dreieck zeichnen, Winkel bunt markieren.'},{c:'Dreieck ausschneiden.',pap:1},{c:'Die drei Ecken abreißen.',ab:1},{c:'An einem Punkt zusammenlegen.',zus:1},{c:'α + β + γ = 180°: ein gestreckter Winkel.',zus:1,erg:1}];
+  const info=st.map(g=>{const [vx,vy]=g.dataset.v.split(',').map(Number),d=+g.dataset.d,b=+g.dataset.bis*Math.PI/180;return {g,vx,vy,d,ox:-7*Math.cos(b),oy:7*Math.sin(b),t:g.querySelector('.e-t')}});
+  let k=0,tok=0,spiel=0,pos=info.map(()=>({x:0,y:0,d:0}));
+  function setze(i,p){const s=info[i];pos[i]=p;s.g.setAttribute('transform',`translate(${s.vx+p.x} ${s.vy+p.y}) rotate(${-p.d}) translate(${-s.vx} ${-s.vy})`);
+    const tx=+s.t.getAttribute('x'),ty=+s.t.getAttribute('y')-2;s.t.setAttribute('transform',`rotate(${p.d} ${tx} ${ty})`)}
+  function ziel(i,s){const n=info[i];if(s.zus)return {x:O[0]-n.vx,y:O[1]-n.vy,d:n.d};if(s.ab)return {x:n.ox,y:n.oy,d:0};return {x:0,y:0,d:0}}
+  function geh(n,sofort){k=Math.max(0,Math.min(SCHR.length-1,n));const s=SCHR[k];
+    const teile=!!(s.ab||s.zus);dr.style.display=teile?'none':'';st.forEach(g=>g.style.display=teile?'':'none');rest.style.display=teile?'':'none';
+    ger.style.display=s.zus?'':'none';pap.setAttribute('fill',s.pap?'#f1f1ec':'none');pap.setAttribute('stroke-width',s.pap?'0.9':'0.6');
+    cap.textContent=s.c;cap.classList.toggle('lsg',!!s.erg);nr.textContent=(k+1)+' / '+SCHR.length;
+    const id=++tok,von=pos.map(p=>({...p})),nach=info.map((_,i)=>ziel(i,s));
+    if(sofort||!teile){nach.forEach((p,i)=>setze(i,p));return Promise.resolve()}
+    const t0=performance.now(),dauer=s.zus&&!s.erg?1800:700;
+    return new Promise(res=>{const f=t=>{if(id!==tok)return res();let p=Math.min(1,(t-t0)/dauer);p=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+      nach.forEach((z,i)=>setze(i,{x:von[i].x+(z.x-von[i].x)*p,y:von[i].y+(z.y-von[i].y)*p,d:von[i].d+(z.d-von[i].d)*p}));p<1?requestAnimationFrame(f):res()};requestAnimationFrame(f)})}
+  q('.e-vor').onclick=()=>{spiel++;geh(k+1)};q('.e-zur').onclick=()=>{spiel++;geh(k-1,true)};
+  q('.e-play').onclick=async()=>{const id=++spiel;geh(0,true);for(let n=1;n<SCHR.length;n++){await warte(1300);if(id!==spiel)return;await geh(n);if(id!==spiel)return}};
+  geh(0,true);
+});})();</script>"""
+
+
 def ecken(l):
     F, al, be, c, C = fuell_dreieck()
     d = (f'<polygon points="0,0 {c},0 {C[0]:.2f},{C[1]:.2f}" fill="none" stroke="{SCHWARZ}" stroke-width="0.6" stroke-linejoin="round"/>'
          + bogen((0, 0), 11, 0, al, ROT, 0.5, F["α"]) + text(P(0, 0, 7.3, al / 2), "α", ROT, kursiv=True)
          + bogen((c, 0), 11, 180 - be, 180, BLAU, 0.5, F["β"]) + text(P(c, 0, 7.3, 180 - be / 2), "β", BLAU, kursiv=True)
          + bogen(C, 11, 180 + al, 180 + al + 70, "#b38600", 0.5, F["γ"]) + text(P(*C, 7.3, 180 + al + 35), "γ", "#8a6700", kursiv=True))
-    dd = svg(d, -6, round(C[1] - 5, 2), c + 12, round(-C[1] + 10, 2), 92 if l else 160)
     if not l:
-        return ('<div class="uheft">' + AUFTRAG_ECKEN + ''
-                f'<div class="mitte">{dd}</div><p class="ergebnis" style="font-size:28px;text-align:center">Was fällt auf?</p></div>')
-    O = (40, 26)
-    leg = (bogen(O, 22, 0, be, BLAU, 0.5, F["β"]) + bogen(O, 22, be, be + 70, "#b38600", 0.5, F["γ"]) + bogen(O, 22, be + 70, 180, ROT, 0.5, F["α"])
-           + linie((6, 26), (74, 26), SCHWARZ, 0.7) + text(P(*O, 14, be / 2), "β", BLAU, g=4.6, kursiv=True) + text(P(*O, 14, be + 35), "γ", "#8a6700", g=4.6, kursiv=True) + text(P(*O, 14, be + 70 + 25), "α", ROT, g=4.6, kursiv=True))
+        dd = svg(d, -6, round(C[1] - 5, 2), c + 12, round(-C[1] + 10, 2), 160)
+        return (f'<div class="uheft">{AUFTRAG_ECKEN}<div class="mitte">{dd}</div><p class="ergebnis" style="font-size:28px;text-align:center">Was fällt auf?</p></div>')
+    return f'<div class="uheft">{AUFTRAG_ECKEN}{ecken_animation()}</div>'
+
+
+def parallel_fig(breite):
+    """Dreieck mit der Parallelen zu AB durch C: Wechselwinkel α′ = α und β′ = β, bei C ein gestreckter Winkel."""
+    _, al, be, c, C = fuell_dreieck()
     C2 = (C[0] + 10, 0)
     A2, B2 = (10, -C[1]), (c + 10, -C[1])
-    w = (linie((C2[0] - 28, 0), (C2[0] + 34, 0), SCHWARZ, 0.6) + f'<polygon points="{A2[0]},{A2[1]:.2f} {B2[0]},{B2[1]:.2f} {C2[0]:.2f},0" fill="none" stroke="{SCHWARZ}" stroke-width="0.6" stroke-linejoin="round"/>'
-         + winkel(A2, 0, al, "α", ROT, 8) + winkel(B2, 180 - be, 180, "β", BLAU, 8)
-         + winkel(C2, 180, 180 + al, "α′", ROT, 11) + winkel(C2, 180 + al, 250 + al, "γ", "#8a6700", 11) + winkel(C2, 300, 360, "β′", BLAU, 11)
-         + text((C2[0], -3), "C", g=3.4, fett=False) + text((A2[0] - 3, A2[1] + 2), "A", g=3.4, fett=False) + text((B2[0] + 3, B2[1] + 2), "B", g=3.4, fett=False))
-    return ('<div class="uheft">' + AUFTRAG_ECKEN + ''
-            f'<div class="zw2"><div class="mitte2">{dd}</div><div class="mitte2">{svg(leg, 0, 0, 80, 30, 108)}<p class="ergebnis lsg" style="font-size:24px;text-align:center">Die drei Ecken ergeben einen gestreckten Winkel: 180°.</p></div></div></div>'
-            f'<h4 style="font-size:20px;margin:3mm 0 1mm">Warum? Parallele durch C</h4><div class="fig-rechts">{svg(w, 0, -6, 92, round(-C[1] + 12, 2), 92)}'
-            '<div class="warum2"><div>Wechselwinkel:</div><div class="lsg">α′ = α</div><div class="lsg">β′ = β</div><div style="margin-top:3mm">Gestreckter Winkel bei C:</div><div class="lsg">α + γ + β = 180°</div></div></div>')
+    w = (linie((C2[0] - 30, 0), (C2[0] + 36, 0), SCHWARZ, 0.6) + f'<polygon points="{A2[0]},{A2[1]:.2f} {B2[0]},{B2[1]:.2f} {C2[0]:.2f},0" fill="none" stroke="{SCHWARZ}" stroke-width="0.6" stroke-linejoin="round"/>'
+         + winkel(A2, 0, al, "α", ROT, 9) + winkel(B2, 180 - be, 180, "β", BLAU, 9)
+         + winkel(C2, 180, 180 + al, "α′", ROT, 12) + winkel(C2, 180 + al, 250 + al, "γ", "#8a6700", 12) + winkel(C2, 300, 360, "β′", BLAU, 12)
+         + text((C2[0], -3), "C", g=3.6, fett=False) + text((A2[0] - 3, A2[1] + 2), "A", g=3.6, fett=False) + text((B2[0] + 3, B2[1] + 2), "B", g=3.6, fett=False)
+         + text((C2[0] + 40, 1.3), "p", g=3.8, fett=False, kursiv=True))
+    return svg(w, 0, -6, 92, round(-C[1] + 12, 2), breite)
 
 
 # ================================================================ Merkheft 2
@@ -318,16 +394,19 @@ for _t, _a, _b, _n, _e in BSP:
 
 
 def merk_summe():
-    fig = dreieck(65, 45, 82, {"A": ("65°", SCHWARZ), "B": ("45°", SCHWARZ), "C": ("γ", ROT)}, rand=8)
+    zeile = lambda n, h: f'<div class="mz"><span class="sn">{n}</span><span>{h}</span></div>'
+    warum = ('<div><div class="nr2">Warum?</div>' + parallel_fig(100)
+             + zeile(1, "Parallele p zu AB durch C.") + zeile(2, 'Wechselwinkel: <span class="rot">α′ = α</span>, <span class="rot">β′ = β</span>')
+             + zeile(3, "Bei C: α′ + γ + β′ = 180° (gestreckt)") + "</div>")
+    fig = dreieck(65, 45, 60, {"A": ("65°", SCHWARZ), "B": ("45°", SCHWARZ), "C": ("γ", ROT)}, rand=7)
     assert 65 + 45 == 110 and 180 - 110 == 70
-    links = ('<div class="bsp">' + fig + '<div><div class="mz"><span class="sn">1</span><span>Gesucht: γ</span></div>'
-             '<div class="mz"><span class="sn">2</span><span>65° + 45° = <span class="gelb">110°</span></span></div>'
-             '<div class="mz"><span class="sn">3</span><span>γ = 180° − <span class="gelb">110°</span> = <span class="rot">70°</span></span></div>'
-             '<div class="mz"><span class="sn">4</span><span>Probe: 65° + 45° + 70° = 180°</span></div></div></div>')
-    rez = rezept_box("Fehlender Winkel im Dreieck", ["Was fehlt?", "Die zwei bekannten Winkel addieren.", "Von 180° abziehen.", "Probe: Alle drei ergeben 180°."])
+    bsp = ('<div><div class="nr2">Fehlenden Winkel berechnen</div><div class="bsp">' + fig + "<div>"
+           + zeile(1, "Gesucht: γ") + zeile(2, '65° + 45° = <span class="gelb">110°</span>')
+           + zeile(3, 'γ = 180° − <span class="gelb">110°</span> = <span class="rot">70°</span>') + zeile(4, "Probe: Summe 180°") + "</div></div>"
+           + rezept_box("Fehlender Winkel im Dreieck", ["Was fehlt?", "Die zwei bekannten Winkel addieren.", "Von 180° abziehen.", "Probe: Alle drei ergeben 180°."]) + "</div>")
     w = "".join(f'<div class="wz">{t}: {n} = {str(e)}°</div>' for t, _, _, n, e in BSP)
     return ('<div class="heft merk2"><div class="merksatz">In jedem Dreieck gilt: α + β + γ = 180°</div>'
-            f'<div class="mb"><div>{links}</div>{rez}</div><div class="weitere"><div class="weitere-t">Weitere Beispiele</div>{w}</div></div>')
+            f'<div class="zw2 merk2-r">{warum}{bsp}</div><div class="weitere"><div class="weitere-t">Weitere Beispiele</div>{w}</div></div>')
 
 
 # ================================================================ Übung Winkelsumme
@@ -443,6 +522,13 @@ EXTRA = EXTRA_W7 + """<style>
 table.wt{border-collapse:collapse;font-size:18px;margin-top:1mm}.wt td,.wt th{border:1px solid #9aa3ad;padding:0 1mm;text-align:center;height:14mm;min-width:15mm}.wt th{background:#eef1f5}.wt tr:first-child th{height:8mm}
 .wt .luecke{margin:0!important}
 .schritte4{margin:2px 0 0;padding-left:24px;display:grid;grid-template-columns:1fr 1fr;gap:0 10mm;grid-auto-flow:column;grid-template-rows:auto auto}
+.e-ani{display:flex;flex-direction:column;align-items:center}.e-svg{display:block;width:255mm;height:auto;max-width:100%}
+.e-cap{font-size:26px;font-weight:700;text-align:center;margin:3mm 0;min-height:34px}.e-ctrl{margin-top:1mm}
+.w-ctrl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;font-size:16px}
+.w-ctrl button{font:inherit;font-weight:600;border:1px solid #cfd6df;background:#fff;border-radius:18px;padding:7px 16px;cursor:pointer;color:#1b1b1b}
+.w-ctrl button.pri{background:#0f7c80;border-color:#0f7c80;color:#fff}
+@media print{.e-ctrl{display:none}}
+.nr2{font-weight:800;font-size:19px;margin:0 0 1mm}.merk2-r .rezept{margin-top:3mm}.merk2 .mz{margin:1.5mm 0!important;font-size:18px}
 .warum2{font-size:19px;font-weight:600;line-height:1.5}
 </style>"""
 
@@ -474,7 +560,7 @@ SCHRITTE = [
     ("", "Üben ○", 15, "S. 46 Nr. 1, 2 und S. 47 Nr. A. Schnelle: Nr. B. Merkheft offen.", [4, 5]),
     ("", "Weitere Aufgaben", 10, "S. 47 orange Nr. 3 und Nr. 5. Schnelle: grün Nr. 4 und 5.", [6, 7]),
     ("", "Ecken abreißen", 8, "Schmierpapier: Dreieck zeichnen, ausschneiden, Ecken abreißen, an einem Punkt zusammenlegen. Danach die Parallele durch C: Wechselwinkel zeigen, warum es immer 180° sind.", [8, 9]),
-    ("", "Merkheft: Winkelsumme", 8, "Merksatz, Beispiel und Rezept abschreiben.", [10]),
+    ("", "Merkheft: Winkelsumme", 8, "Merksatz, Begründung mit der Parallelen (Wechselwinkel), Beispiel und Rezept abschreiben.", [10]),
     ("", "Üben ○", 15, "S. 48 Nr. 1, S. 49 Nr. A, orange Nr. 3 und 4. Schnelle: S. 48 Nr. 2.", [11, 12]),
     ("", "Weitere Aufgaben, Puffer", 10, "S. 49 orange Nr. 5 und 6. Schnelle: grün Nr. 6. Rest kann Hausaufgabe werden.", [13, 14]),
 ]
@@ -483,6 +569,12 @@ assert sum(s[2] for s in SCHRITTE) == 90
 
 def box(t, h):
     return f'<div class="box"><h3>{t}</h3>{h}</div>'
+
+
+def js_dran(ziel):
+    t = ziel.read_text(encoding="utf-8")
+    assert t.count("</body></html>") == 1
+    ziel.write_text(t.replace("</body></html>", JS_ECKEN + "</body></html>"), encoding="utf-8")
 
 
 def main():
@@ -496,6 +588,7 @@ def main():
     ziel = HIER / f"{NAME}.html"
     bau_woche(ziel, "Woche 8, Stunde 2: Winkel an Geraden, Winkelsumme", "Klasse 7c, Mathematik, Di 10.11.2026, Doppelstunde (90 Minuten)",
               vb, SCHRITTE, FOLIEN, tafel=tafel, merkheft=merk, loesungen=loes, extra_css=EXTRA, verlauf="Die Stunde", leiste=LEISTE, quer=QUER)
+    js_dran(ziel)
 
 
 # ================================================================ Stunde 3: Winkelsumme allein (Mi 11.11., Einzelstunde), weil der Teil am Di nicht mehr drankam
@@ -505,8 +598,8 @@ QUER3 = {t for t, _ in FOLIEN3}
 LEISTE3 = [("Winkelsumme", "Ecken abreißen", 8), ("Winkelsumme", "Ecken abreißen", None), ("Winkelsumme", "Merkheft", None),
            ("Winkelsumme", "Üben", 15), ("Winkelsumme", "Üben", None), ("Winkelsumme", "Weitere", 8), ("Winkelsumme", "Weitere", None)]
 SCHRITTE3 = [
-    ("", "Ecken abreißen", 10, "Schmierpapier: Dreieck zeichnen, Winkel bunt markieren, ausschneiden, Ecken abreißen, an einem Punkt zusammenlegen. Danach die Parallele durch C: Wechselwinkel zeigen, warum es immer 180° sind.", [1, 2]),
-    ("", "Merkheft: Winkelsumme", 8, "Merksatz, Beispiel und Rezept abschreiben.", [3]),
+    ("", "Ecken abreißen", 10, "Schmierpapier: Dreieck zeichnen, Winkel bunt markieren, ausschneiden, Ecken abreißen, an einem Punkt zusammenlegen. In der HTML: Folie 2 als Animation (Schritt ▶ oder Abspielen).", [1, 2]),
+    ("", "Merkheft: Winkelsumme", 8, "Merksatz, Begründung mit der Parallelen (Wechselwinkel), Beispiel und Rezept abschreiben.", [3]),
     ("", "Üben ○", 17, "S. 48 Nr. 1, S. 49 Nr. A, orange Nr. 3 und 4. Schnelle: S. 48 Nr. 2.", [4, 5]),
     ("", "Weitere Aufgaben, Puffer", 10, "S. 49 orange Nr. 5 und 6. Schnelle: grün Nr. 6. Rest kann Hausaufgabe werden.", [6, 7]),
 ]
@@ -522,6 +615,7 @@ def main3():
     loes = "".join(box(t, h) for t, h in FOLIEN3 if "ausgefüllt" in t)
     bau_woche(HIER / f"{NAME3}.html", "Woche 8, Stunde 3: Winkelsumme im Dreieck", "Klasse 7c, Mathematik, Mi 11.11.2026, Einzelstunde (45 Minuten)",
               vb, SCHRITTE3, FOLIEN3, tafel=merk, merkheft=merk, loesungen=loes, extra_css=EXTRA, verlauf="Die Stunde", leiste=LEISTE3, quer=QUER3)
+    js_dran(HIER / f"{NAME3}.html")
 
 
 if __name__ == "__main__":
