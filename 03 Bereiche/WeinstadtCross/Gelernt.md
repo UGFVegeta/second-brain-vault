@@ -6,6 +6,7 @@ tags: [gelernt, weinstadtcross]
 
 Eine Zeile pro Erkenntnis, neueste oben.
 
+- 2026-11-10: Seite Teilnehmer zeigte die RaceResult-Liste vom Vorjahr (Event 323896), die Anmeldeseite die aktuelle (375707). Folge: jedes Jahr die Event-ID auf Teilnehmer, Anmeldung und Ergebnissen gemeinsam umstellen; Block liegt in iCloud als „Teilnehmer - NUR HTML.txt“.
 - 2026-11-07: Streckenkarte in der Mediathek ersetzt, beim Kollegen blieb die alte Karte: Bilder werden 28 Tage im Browser gecacht. Folge: nach jedem Bildtausch den Zähler `?v=` im Strecken-HTML hochsetzen (jetzt v=3).
 
 - 2026-11-04: Die Master-Datei „Maultaschenparty - NUR HTML.txt“ in iCloud hatte die Talkgäste noch nicht, die standen nur live auf der Seite. Liste nachgetragen, Erfolge zweier Talkgäste für 2026 aktualisiert. Folge: vor Änderungen kurz die Live-Seite mit der Master-Datei vergleichen.
