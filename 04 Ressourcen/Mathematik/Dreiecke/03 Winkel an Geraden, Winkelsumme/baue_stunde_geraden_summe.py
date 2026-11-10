@@ -281,15 +281,19 @@ def fuell_dreieck():
     return F, al, be, c, C
 
 
+AUFTRAG_ECKEN = ('<div class="auftrag"><b>Aufgabe:</b><ol class="schritte4"><li>Auf Schmierpapier ein großes Dreieck zeichnen, die Winkel bunt markieren.</li>'
+                 '<li>Das Dreieck ausschneiden.</li><li>Die drei Ecken abreißen.</li><li>Die Ecken an einem Punkt zusammenlegen.</li></ol></div>')
+
+
 def ecken(l):
     F, al, be, c, C = fuell_dreieck()
     d = (f'<polygon points="0,0 {c},0 {C[0]:.2f},{C[1]:.2f}" fill="none" stroke="{SCHWARZ}" stroke-width="0.6" stroke-linejoin="round"/>'
          + bogen((0, 0), 11, 0, al, ROT, 0.5, F["α"]) + text(P(0, 0, 7.3, al / 2), "α", ROT, kursiv=True)
          + bogen((c, 0), 11, 180 - be, 180, BLAU, 0.5, F["β"]) + text(P(c, 0, 7.3, 180 - be / 2), "β", BLAU, kursiv=True)
          + bogen(C, 11, 180 + al, 180 + al + 70, "#b38600", 0.5, F["γ"]) + text(P(*C, 7.3, 180 + al + 35), "γ", "#8a6700", kursiv=True))
-    dd = svg(d, -6, round(C[1] - 5, 2), c + 12, round(-C[1] + 10, 2), 105 if l else 165)
+    dd = svg(d, -6, round(C[1] - 5, 2), c + 12, round(-C[1] + 10, 2), 92 if l else 160)
     if not l:
-        return ('<div class="uheft"><div class="auftrag"><b>Aufgabe:</b> Auf Schmierpapier ein großes Dreieck zeichnen. Winkel bunt markieren. Die drei Ecken abreißen und an einem Punkt zusammenlegen.</div>'
+        return ('<div class="uheft">' + AUFTRAG_ECKEN + ''
                 f'<div class="mitte">{dd}</div><p class="ergebnis" style="font-size:28px;text-align:center">Was fällt auf?</p></div>')
     O = (40, 26)
     leg = (bogen(O, 22, 0, be, BLAU, 0.5, F["β"]) + bogen(O, 22, be, be + 70, "#b38600", 0.5, F["γ"]) + bogen(O, 22, be + 70, 180, ROT, 0.5, F["α"])
@@ -300,8 +304,8 @@ def ecken(l):
          + winkel(A2, 0, al, "α", ROT, 8) + winkel(B2, 180 - be, 180, "β", BLAU, 8)
          + winkel(C2, 180, 180 + al, "α′", ROT, 11) + winkel(C2, 180 + al, 250 + al, "γ", "#8a6700", 11) + winkel(C2, 300, 360, "β′", BLAU, 11)
          + text((C2[0], -3), "C", g=3.4, fett=False) + text((A2[0] - 3, A2[1] + 2), "A", g=3.4, fett=False) + text((B2[0] + 3, B2[1] + 2), "B", g=3.4, fett=False))
-    return ('<div class="uheft"><div class="auftrag"><b>Aufgabe:</b> Auf Schmierpapier ein großes Dreieck zeichnen. Winkel bunt markieren. Die drei Ecken abreißen und an einem Punkt zusammenlegen.</div>'
-            f'<div class="zw2"><div class="mitte2">{dd}</div><div class="mitte2">{svg(leg, 0, 0, 80, 30, 118)}<p class="ergebnis lsg" style="font-size:24px;text-align:center">Die drei Ecken ergeben einen gestreckten Winkel: 180°.</p></div></div></div>'
+    return ('<div class="uheft">' + AUFTRAG_ECKEN + ''
+            f'<div class="zw2"><div class="mitte2">{dd}</div><div class="mitte2">{svg(leg, 0, 0, 80, 30, 108)}<p class="ergebnis lsg" style="font-size:24px;text-align:center">Die drei Ecken ergeben einen gestreckten Winkel: 180°.</p></div></div></div>'
             f'<h4 style="font-size:20px;margin:3mm 0 1mm">Warum? Parallele durch C</h4><div class="fig-rechts">{svg(w, 0, -6, 92, round(-C[1] + 12, 2), 92)}'
             '<div class="warum2"><div>Wechselwinkel:</div><div class="lsg">α′ = α</div><div class="lsg">β′ = β</div><div style="margin-top:3mm">Gestreckter Winkel bei C:</div><div class="lsg">α + γ + β = 180°</div></div></div>')
 
@@ -438,6 +442,7 @@ EXTRA = EXTRA_W7 + """<style>
 #t_tafel .mb,#t_merk .mb,.heft .mb{grid-template-columns:2.7fr 1fr;gap:5mm}.heft .weitere{grid-template-columns:repeat(3,1fr)!important;margin-top:3mm}.heft .wz{font-size:16.5px!important}.heft .mz span:last-child{white-space:nowrap}.dfig svg{max-width:none!important;flex:none}
 table.wt{border-collapse:collapse;font-size:18px;margin-top:1mm}.wt td,.wt th{border:1px solid #9aa3ad;padding:0 1mm;text-align:center;height:14mm;min-width:15mm}.wt th{background:#eef1f5}.wt tr:first-child th{height:8mm}
 .wt .luecke{margin:0!important}
+.schritte4{margin:2px 0 0;padding-left:24px;display:grid;grid-template-columns:1fr 1fr;gap:0 10mm;grid-auto-flow:column;grid-template-rows:auto auto}
 .warum2{font-size:19px;font-weight:600;line-height:1.5}
 </style>"""
 
@@ -468,7 +473,7 @@ SCHRITTE = [
     ("", "Merkheft: Winkel an Geraden", 12, "Vier Winkelpaare mit Bild und Beispiel abschreiben, Paare farbig.", [3]),
     ("", "Üben ○", 15, "S. 46 Nr. 1, 2 und S. 47 Nr. A. Schnelle: Nr. B. Merkheft offen.", [4, 5]),
     ("", "Weitere Aufgaben", 10, "S. 47 orange Nr. 3 und Nr. 5. Schnelle: grün Nr. 4 und 5.", [6, 7]),
-    ("", "Ecken abreißen", 8, "Schmierpapier. Ecken an einem Punkt zusammenlegen. Danach die Parallele durch C: Wechselwinkel zeigen, warum es immer 180° sind.", [8, 9]),
+    ("", "Ecken abreißen", 8, "Schmierpapier: Dreieck zeichnen, ausschneiden, Ecken abreißen, an einem Punkt zusammenlegen. Danach die Parallele durch C: Wechselwinkel zeigen, warum es immer 180° sind.", [8, 9]),
     ("", "Merkheft: Winkelsumme", 8, "Merksatz, Beispiel und Rezept abschreiben.", [10]),
     ("", "Üben ○", 15, "S. 48 Nr. 1, S. 49 Nr. A, orange Nr. 3 und 4. Schnelle: S. 48 Nr. 2.", [11, 12]),
     ("", "Weitere Aufgaben, Puffer", 10, "S. 49 orange Nr. 5 und 6. Schnelle: grün Nr. 6. Rest kann Hausaufgabe werden.", [13, 14]),
@@ -482,7 +487,7 @@ def box(t, h):
 
 def main():
     vb = [("Drucken", "Nichts. Keine Arbeitsblätter: Merkheft, Übungsheft und Buch."),
-          ("Mitbringen", "Geodreieck, Buntstifte, Schmierpapier zum Abreißen (ein Blatt pro Schüler)."),
+          ("Mitbringen", "Geodreieck, Buntstifte, Schere, Schmierpapier (ein Blatt pro Schüler)."),
           ("Digital", "Folien-PDF aufs iPad (alle Seiten quer), an den Kästchen schreibst du die Werte der Klasse hinein."),
           ("Raum", "Doppelstunde, 90 Minuten. Mittwoch geht es mit Dreiecksformen (S. 50) weiter.")]
     merk = box("Eintrag 1: Winkel an Geraden", merk_geraden()) + box("Eintrag 2: Winkelsumme im Dreieck", merk_summe())
@@ -493,5 +498,32 @@ def main():
               vb, SCHRITTE, FOLIEN, tafel=tafel, merkheft=merk, loesungen=loes, extra_css=EXTRA, verlauf="Die Stunde", leiste=LEISTE, quer=QUER)
 
 
+# ================================================================ Stunde 3: Winkelsumme allein (Mi 11.11., Einzelstunde), weil der Teil am Di nicht mehr drankam
+NAME3 = "Mathe 7c – Woche 8 – 3 Winkelsumme im Dreieck"
+FOLIEN3 = FOLIEN[7:]
+QUER3 = {t for t, _ in FOLIEN3}
+LEISTE3 = [("Winkelsumme", "Ecken abreißen", 8), ("Winkelsumme", "Ecken abreißen", None), ("Winkelsumme", "Merkheft", None),
+           ("Winkelsumme", "Üben", 15), ("Winkelsumme", "Üben", None), ("Winkelsumme", "Weitere", 8), ("Winkelsumme", "Weitere", None)]
+SCHRITTE3 = [
+    ("", "Ecken abreißen", 10, "Schmierpapier: Dreieck zeichnen, Winkel bunt markieren, ausschneiden, Ecken abreißen, an einem Punkt zusammenlegen. Danach die Parallele durch C: Wechselwinkel zeigen, warum es immer 180° sind.", [1, 2]),
+    ("", "Merkheft: Winkelsumme", 8, "Merksatz, Beispiel und Rezept abschreiben.", [3]),
+    ("", "Üben ○", 17, "S. 48 Nr. 1, S. 49 Nr. A, orange Nr. 3 und 4. Schnelle: S. 48 Nr. 2.", [4, 5]),
+    ("", "Weitere Aufgaben, Puffer", 10, "S. 49 orange Nr. 5 und 6. Schnelle: grün Nr. 6. Rest kann Hausaufgabe werden.", [6, 7]),
+]
+assert sum(x[2] for x in SCHRITTE3) == 45 and len(LEISTE3) == len(FOLIEN3)
+
+
+def main3():
+    vb = [("Drucken", "Nichts. Merkheft, Übungsheft und Buch."),
+          ("Mitbringen", "Geodreieck, Buntstifte, Schere, Schmierpapier (ein Blatt pro Schüler)."),
+          ("Digital", "Folien-PDF aufs iPad (quer), an den Kästchen schreibst du die Werte der Klasse hinein."),
+          ("Raum", "Einzelstunde, 45 Minuten. Der Teil kam am Di nicht mehr dran. Danach Dreiecksformen (S. 50).")]
+    merk = box("Merkheft: Winkelsumme im Dreieck", merk_summe())
+    loes = "".join(box(t, h) for t, h in FOLIEN3 if "ausgefüllt" in t)
+    bau_woche(HIER / f"{NAME3}.html", "Woche 8, Stunde 3: Winkelsumme im Dreieck", "Klasse 7c, Mathematik, Mi 11.11.2026, Einzelstunde (45 Minuten)",
+              vb, SCHRITTE3, FOLIEN3, tafel=merk, merkheft=merk, loesungen=loes, extra_css=EXTRA, verlauf="Die Stunde", leiste=LEISTE3, quer=QUER3)
+
+
 if __name__ == "__main__":
+    main3()
     main()

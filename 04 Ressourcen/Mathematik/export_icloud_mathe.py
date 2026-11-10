@@ -189,6 +189,7 @@ def main():
           a4_zu_pdf(w7u.DRUCK_BLAETTER, RZ, w7u_bl, (), w7u.EXTRA), "; Lösungen:", a4_zu_pdf(w7u.DRUCK_LOESUNGEN, RZ, w7u_ls, (), w7u.EXTRA))
     print("Woche 8, Stunde 1 (Winkel messen):", a4_zu_pdf(w8w.FOLIEN, w8w.HIER, w8w.HIER / f"{w8w.NAME}.pdf", w8w.QUER, w8w.EXTRA), "Seiten")
     print("Woche 8, Stunde 2 (Winkel an Geraden, Winkelsumme):", a4_zu_pdf(w8g.FOLIEN, w8g.HIER, w8g.HIER / f"{w8g.NAME}.pdf", w8g.QUER, w8g.EXTRA), "Seiten")
+    print("Woche 8, Stunde 3 (Winkelsumme):", a4_zu_pdf(w8g.FOLIEN3, w8g.HIER, w8g.HIER / f"{w8g.NAME3}.pdf", w8g.QUER3, w8g.EXTRA), "Seiten")
     w7_pdf = rz("Mathe 7c – Woche 5 – 1 Rezept für gemischte Aufgaben.pdf")   # Bauskript heißt noch baue_woche7.py
     print("Woche 5 (gemischte Aufgaben):", folien_zu_pdf(w7.FOLIEN, RZ, w7_pdf), "Seiten")
     w2 = woche2_pdf()

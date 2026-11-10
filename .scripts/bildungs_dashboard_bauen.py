@@ -202,6 +202,9 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
     {"id": "ma7-w8s2", "titel": "Woche 8, Stunde 2 – Winkel an Geraden, Winkelsumme", "wann": "Di 10.11., Doppelstunde", "status": "vorbereitet",
      "links": [f("Stunde", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 2 Winkel an Geraden, Winkelsumme.html"),
                f("Folien", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 2 Winkel an Geraden, Winkelsumme.pdf")]},
+    {"id": "ma7-w8s3", "titel": "Woche 8, Stunde 3 – Winkelsumme im Dreieck", "wann": "Mi 11.11., Einzelstunde", "status": "vorbereitet",
+     "links": [f("Stunde", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 3 Winkelsumme im Dreieck.html"),
+               f("Folien", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 3 Winkelsumme im Dreieck.pdf")]},
 ], "material": []}]}]
 
 CSS = """
