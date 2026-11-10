@@ -264,9 +264,10 @@ def quelle_lesen(pfad):
         if m:
             nr = m.group(1) or m.group(2)
             aktuell = {"nr": nr, "titel": "", "absaetze": []}
-            if nr not in gesehen:
-                gesehen.add(nr)
-                teile.append(aktuell)
+            if nr in gesehen:  # erste Fundstelle war die Inhaltsübersicht des Gesetzes, der echte Text kommt später
+                teile = [t for t in teile if t["nr"] != nr]
+            gesehen.add(nr)
+            teile.append(aktuell)
             continue
         if aktuell is None:
             kopf.append(z)
