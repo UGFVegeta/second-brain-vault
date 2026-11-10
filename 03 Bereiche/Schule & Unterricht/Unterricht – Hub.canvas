@@ -7,7 +7,7 @@
    "y": 0,
    "width": 2160,
    "height": 130,
-   "text": "# Unterricht\nEine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 09.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu."
+   "text": "# Unterricht\nEine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 10.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu."
   },
   {
    "id": "wochen",

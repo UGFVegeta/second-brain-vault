@@ -1,12 +1,12 @@
 ---
 tags: [hub, unterricht, schule]
 status: aktiv
-date: 2026-11-09
+date: 2026-11-10
 ---
 
 # Unterricht – Hub
 
-Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 09.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
+Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 10.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
 
 Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Seite im Browser (Claude-Artifact, privat, Momentaufnahme): https://claude.ai/artifact/FEnXLpLuY43fkVGJN3xDef
 
