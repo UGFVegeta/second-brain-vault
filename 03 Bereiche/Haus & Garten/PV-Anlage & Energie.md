@@ -186,7 +186,10 @@ Rund 70 % des erzeugten Stroms gehen ins Netz (Eigenverbrauchsquote nur 29 %). V
 - **Vorteile:** App-Steuerung, Fernzugriff, volle SG-Ready Integration
 - **Einbau:** Heizungsfachmann ~1 Stunde
 
-### Option 2: Direkte SG-Ready Verkabelung (empfohlen)
+### Option 2: Direkte SG-Ready Verkabelung (verworfen 10.11.2026)
+
+⚠️ Laut Tecalor-Produktseite braucht SG Ready an der THZ 504 das ISG Connect TEC. Ohne ISG gibt es diesen Weg also nicht. Außerdem gibt das Kabel keinen Zugriff auf die Einstellungen. Details in [[02 Projekte/ISG Connect TEC nachrüsten]].
+
 - 2-adriges Steuerkabel: Kostal `DigitalOut` → SG-Ready Klemmen THZ 504
 - **Kosten:** ~50–100 € (nur Elektriker/Heizungsmonteur)
 - **Einschränkung:** Nur Ein/Aus-Signal, keine App/Fernzugriff
@@ -195,7 +198,7 @@ Rund 70 % des erzeugten Stroms gehen ins Netz (Eigenverbrauchsquote nur 29 %). V
 Der Hebel ist hier größer als früher gedacht: Die Wärmepumpe kostet mit 60 € Abschlag im Monat mehr als der gesamte Haushaltsstrom. Läuft sie bei PV-Überschuss, wandert genau der Strom dorthin, der sonst für 7,72 ct ins Netz geht.
 
 ### Nächster Schritt
-- [ ] Heizungsmonteur fragen ob SG-Ready Klemmen an THZ 504 zugänglich sind → Option 2 prüfen
+- [ ] ISG Connect TEC einbauen lassen, LAN-Kabel zur Wärmepumpe legen, Modbus TCP einrichten (Stand 10.11.2026: Fragen an Tecalor-Techniker am 11.11.)
 
 ## Optimierungspotenzial
 
