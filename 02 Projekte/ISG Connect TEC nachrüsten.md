@@ -1,6 +1,6 @@
 ---
 tags: [projekt, energie, smart-home, wärmepumpe]
-status: abgeschlossen
+status: aktiv
 erstellt: 2026-06-10
 deadline: 2026-09-30
 ---
@@ -28,6 +28,16 @@ ISG Connect TEC (191016) kaufen und an der Tecalor THZ 504 installieren lassen �
 - [Tecalor offiziell](https://www.tecalor.de/de/produkte/regelung_energiemanagement/kommunikation/isg-connect-tec/isg-connect-tec.html) – **799 €** (UVP)
 - [Kleinanzeigen](https://www.kleinanzeigen.de/s-isg-connect/k0) – **450–550 €** (neu/OVP) ← empfohlen
 - [eBay](https://www.ebay.de/b/Tecalor/bn_7005760371) – **ab ~410 €**
+
+## Stand 10.11.2026
+
+Oskar will die Kopplung jetzt umsetzen, entweder direkt über SG Ready (Kostal DigitalOut an THZ 504) oder über das ISG Connect TEC. Am 11.11.2026 kommt der Tecalor-Techniker zur Wartung. Oskar ist nicht da, die Fragen stellt der Schwiegervater anhand des Fragenzettels und notiert die Antworten: [[Fragen Tecalor-Techniker 2026-11-11.pdf]].
+
+Am 10.11. fragt Oskar zusätzlich den Elektriker, der die Wallbox eingebaut hat (freier Digitalausgang am Plenticore, Koppelrelais, Kabelweg, Kosten).
+
+Ungeklärt: Ob die THZ 504 wirklich eigene SG-Ready-Klemmen hat oder SG Ready nur über das ISG geht. Das steht in der Notiz [[PV-Anlage & Energie]] als Tatsache, ist aber nicht belegt. Frage 3 auf dem Zettel klärt das.
+
+Antworten des Technikers: _noch offen_
 
 ## Nächste Schritte
 - [ ] ISG Connect TEC kaufen (Kleinanzeigen/eBay, neu/OVP, ~450–550 €)
