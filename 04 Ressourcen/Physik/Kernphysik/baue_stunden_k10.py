@@ -252,12 +252,15 @@ S5Z_HG = f"""
 <li><b>Aufgabe 1:</b> Np-237 (α) Pa-233 (β) U-233 (α) Th-229 (α) Ra-225 (β) Ac-225 (α) Fr-221 (α) At-217 (α) Bi-213 (β) Po-213 (α) Pb-209 (β) Bi-209 (α) Tl-205.</li>
 <li><b>Aufgabe 2:</b> Th-232 (α) Ra-228 (β) Ac-228 (β) Th-228 (α) Ra-224 (α) Rn-220 (α) Po-216 (α) Pb-212 (β) Bi-212 (α) Tl-208 (β) Pb-208, stabil.</li>
 <li>Doppellücken wie Fr-221 → □ → □ → Bi-213 oder Ra-224 → □ → □ → Po-216: Massenzahl sinkt um 8, also zweimal α.</li>
+<li><b>Rückseite:</b> Aufgabe 3 Ra-226 (α) Rn-222 (α) Po-218 (α) Pb-214 (β) Bi-214 (β) Po-214 (α) Pb-210 (β) Bi-210 (β) Po-210 (α) Pb-206. Aufgabe 4 U-235 (α) Th-231 (β) Pa-231 (α) Ac-227 (β) Th-227 (α) Ra-223 (α) Rn-219 (α) Po-215 (α) Pb-211 (β) Bi-211 (α) Tl-207 (β) Pb-207.</li>
+<li><b>Aufgabe 5:</b> Rest beim Teilen durch 4: Th 0, Np 1, U-238 2, U-235 3. α ändert die Massenzahl um 4, β gar nicht, also bleibt der Rest. Vier mögliche Reste, vier Reihen. Die Np-Reihe ist in der Natur ausgestorben (Np-237: rund 2 Millionen Jahre Halbwertszeit).</li>
 <li>Bi-212 zerfällt in Wirklichkeit auch per β⁻ zu Po-212 und dann per α zu Pb-208. Das Blatt nimmt den Weg über Tl-208, beide enden beim selben Blei.</li></ul></div>
 {LAB(STRAHL, "Strahlungslabor", "Zerfallsgleichungen üben mit sofortiger Rückmeldung, falls jemand früh fertig ist.")}"""
 S5Z_AB = f"""<div class="box"><h3>Dein Blatt Zerfallsreihen {chip(3)}</h3><a class="btn" href="Materialien/Zerfallsreihen (Oskar).pdf">PDF öffnen</a>
 <p>Umgebaut am 11.11.2026: Aufgabe 2 ohne Erklärtext, die rechte Spalte funktioniert wie die linke. Mal steht die Zerfallsart am Pfeil (neues Element berechnen),
-mal ist das nächste Element gegeben (Zerfallsart bestimmen). Seite 1 leer zum Austeilen, Seite 2 ausgefüllt als Lösung.
-Aufgabe und Lösung liegen auch einzeln im Ordner Materialien und in iCloud neben dem Original.</p></div>"""
+mal ist das nächste Element gegeben (Zerfallsart bestimmen). Rückseite: Aufgabe 3 ◐ U-238 ab Ra-226 (setzt das Heftbeispiel fort), Aufgabe 4 ◐ U-235,
+Aufgabe 5 ● Massenzahl durch 4, warum es genau vier Zerfallsreihen gibt. Im PDF: Vorderseite leer, Lösung, Rückseite leer, Lösung.
+Zum Drucken die doppelseitige Datei „Zerfallsreihen (Oskar) – Aufgabe“ (Ordner Materialien und iCloud neben dem Original).</p></div>"""
 
 # Hefteinträge ohne eigene Folie: {Stundendatei: [(Titel als Aussage, Merksatz)]}. Nur Inhalte, die schon auf Folien, Blättern oder im Hintergrund stehen.
 HEFT_EXTRA = {
@@ -322,10 +325,10 @@ STUNDEN = [
       ("Alltag", "Abschirmung und Strahlung als Werkzeug.", [10, 11])],
      S5, S5_HG, S5_AB),
     ("Kernphysik – W05b Zerfallsreihen – Stunde.html", "Kernphysik: Zerfallsreihen", "Klasse 10; Physik; W05b (10d: Do 12.11.2026); Leitfrage 2",
-     ["Blatt Zerfallsreihen, Seite 1: für jeden ein Exemplar (Ausnahme, hier gibt es ein Blatt).", "Folien und Lösungen: nicht drucken."],
+     ["Blatt Zerfallsreihen doppelseitig (Datei „Zerfallsreihen (Oskar) – Aufgabe“): für jeden ein Exemplar (Ausnahme, hier gibt es ein Blatt).", "Folien und Lösungen: nicht drucken."],
      {"demo": [], "schueler": [("Periodensystem", "1×", "die Tabelle auf dem Blatt reicht auch")], "hinweis": ""},
      [("Zerfallsreihe", "Beispiel U-238: die ersten fünf Schritte ins Heft (leer, dann ausgefüllt). Regeln für α und β⁻ wiederholen.", [1, 2]),
-      ("Blatt", "Zerfallsreihen allein lösen: Aufgabe 1 Np-237, Aufgabe 2 Th-232 genauso. Am Ende mit der Lösung vergleichen.", [3])],
+      ("Blatt", "Zerfallsreihen allein lösen: Aufgabe 1 Np-237, Aufgabe 2 Th-232 genauso. Wer fertig ist: Rückseite (U-238 ab Ra-226, U-235, warum es vier Reihen gibt). Am Ende mit der Lösung vergleichen.", [3])],
      S5Z, S5Z_HG, S5Z_AB),
 ]
 

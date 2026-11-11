@@ -116,6 +116,15 @@
         "/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen"
       ],
       "port": 8753
+    },
+    {
+      "name": "physik-ressourcen",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd '/Users/oskarklein/Documents/Obsidian Claude/Second Brain Claude/04 Ressourcen/Physik' && exec python3 -m http.server 8741"
+      ],
+      "port": 8741
     }
   ]
 }

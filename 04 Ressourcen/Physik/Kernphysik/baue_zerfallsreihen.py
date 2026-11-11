@@ -9,9 +9,11 @@ Dazu: Schwierigkeitskreise (Aufgabe 1 ○, Aufgabe 2 ◐) mit Legende, „Thaliu
 Schrift: Oskars eingebettete Minion Pro, damit alles aussieht wie das Original. Lösung in Magenta auf demselben Blatt.
 
 Das Original in iCloud bleibt unverändert, es wird nur gelesen.
+Rückseite (11.11.2026, Oskars Wunsch): die beiden anderen Reihen. Aufgabe 3 ◐ U-238 ab Ra-226 (setzt das Heftbeispiel fort),
+Aufgabe 4 ◐ U-235, Aufgabe 5 ● Massenzahl durch 4: warum es genau vier Zerfallsreihen gibt.
 Aufruf: python3 baue_zerfallsreihen.py
-  -> Materialien/Zerfallsreihen (Oskar).pdf            (Seite 1 Aufgabe, Seite 2 Lösung, für die Stunden-HTML)
-  -> Materialien/Zerfallsreihen (Oskar) – Aufgabe.pdf  und  … – Lösung.pdf  (einzeln, für iCloud)"""
+  -> Materialien/Zerfallsreihen (Oskar) – Aufgabe.pdf  und  … – Lösung.pdf  (je Vorder- und Rückseite, für iCloud und Druck)
+  -> Materialien/Zerfallsreihen (Oskar).pdf  (Vorderseite leer, Vorderseite Lösung, Rückseite leer, Rückseite Lösung; für die Stunden-HTML)"""
 from pathlib import Path
 import fitz
 
@@ -191,21 +193,155 @@ def baue_loesung(doc, minion):
     return gefuellt
 
 
+# ---------------------------------------------------------------- Rückseite (11.11.2026): die beiden anderen Reihen
+TIMES = "/System/Library/Fonts/Supplemental/Times New Roman.ttf"
+TIMES_B = "/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf"
+U238 = [("Ra", 226, 88), ("Rn", 222, 86), ("Po", 218, 84), ("Pb", 214, 82), ("Bi", 214, 83), ("Po", 214, 84),
+        ("Pb", 210, 82), ("Bi", 210, 83), ("Po", 210, 84), ("Pb", 206, 82)]          # Fortsetzung des Heftbeispiels ab Ra-226
+U235 = [("U", 235, 92), ("Th", 231, 90), ("Pa", 231, 91), ("Ac", 227, 89), ("Th", 227, 90), ("Ra", 223, 88), ("Rn", 219, 86),
+        ("Po", 215, 84), ("Pb", 211, 82), ("Bi", 211, 83), ("Tl", 207, 81), ("Pb", 207, 82)]
+# Doppellücken nur dort, wo beide Schritte gleich sind (αα), sonst wäre die Reihenfolge α/β nicht eindeutig.
+U238_KERN, U238_PFEIL = {0, 3, 7, 9}, {0, 3, 4, 5, 7}            # Rn-222 → □ → □ → Pb-214: zweimal α
+U235_KERN, U235_PFEIL = {0, 3, 7, 10, 11}, {0, 1, 3, 4, 7, 8}     # Ra-223 → □ → □ → Po-215: zweimal α
+D, DY, Y0 = 33.9, 60.1, 65.9        # Kreisdurchmesser, Abstand, erster Kreis (wie die rechte Spalte vorne)
+TEXT_X, TEXT_B = 141.2, 314
+
+
+class Schrift:
+    """Minion-Teilmenge aus Oskars PDF, fehlende Zeichen (Komma, ä, M, W …) zeichenweise aus Times New Roman."""
+    def __init__(self, p, reg, bold):
+        self.p = p
+        self.f = {"mr": fitz.Font(fontbuffer=reg), "mb": fitz.Font(fontbuffer=bold), "tr": fitz.Font(fontfile=TIMES), "tb": fitz.Font(fontfile=TIMES_B)}
+        p.insert_font(fontname="mr", fontbuffer=reg)
+        p.insert_font(fontname="mb", fontbuffer=bold)
+        p.insert_font(fontname="tr", fontfile=TIMES)
+        p.insert_font(fontname="tb", fontfile=TIMES_B)
+
+    def laeufe(self, text, fett):
+        m, t = ("mb", "tb") if fett else ("mr", "tr")
+        out = []
+        for c in text:
+            name = m if (c == " " or self.f[m].has_glyph(ord(c))) else t
+            if out and out[-1][0] == name:
+                out[-1][1] += c
+            else:
+                out.append([name, c])
+        return out
+
+    def breite(self, text, gr, fett=False):
+        return sum(self.f[n].text_length(t, gr) for n, t in self.laeufe(text, fett))
+
+    def schreibe(self, x, y, text, gr, farbe=SCHWARZ, fett=False):
+        for n, t in self.laeufe(text, fett):
+            self.p.insert_text((x, y), t, fontname=n, fontsize=gr, color=farbe)
+            x += self.f[n].text_length(t, gr)
+
+    def absatz(self, x, y, text, gr, breite, farbe=SCHWARZ, zeilenabstand=14.4):
+        zeilen, z = [], ""
+        for w in text.split():
+            if self.breite(f"{z} {w}".strip(), gr) > breite:
+                zeilen.append(z)
+                z = w
+            else:
+                z = f"{z} {w}".strip()
+        zeilen.append(z)
+        for k, zl in enumerate(zeilen):
+            self.schreibe(x, y + k * zeilenabstand, zl, gr, farbe)
+        return y + (len(zeilen) - 1) * zeilenabstand
+
+
+def spalte(p, sch, kx, reihe, kern_geg, pfeil_geg, loesung):
+    """Eine Spalte wie vorne: Kreis, links Kästchen für Massen- und Ordnungszahl, Pfeil mit α/β oder Kästchen."""
+    mx = kx + D / 2
+    for i, (sym, a, z) in enumerate(reihe):
+        y = Y0 + i * DY
+        p.draw_circle((mx, y + D / 2), D / 2, color=SCHWARZ, width=1)
+        boxen = (fitz.Rect(kx - 24.5, y - 1.8, kx - 2.5, y + 20.2), fitz.Rect(kx - 24.5, y + 25.4, kx - 2.5, y + 47.4))
+        for b in boxen:
+            p.draw_rect(b, color=SCHWARZ, width=1)
+        if i in kern_geg:
+            sch.schreibe(mx - sch.breite(sym, 19) / 2, y + 20.3, sym, 19)
+            sch.schreibe(kx - 22.2, y - 1.8 + 13.8, str(a), 12)
+            sch.schreibe(kx - 22.2, y + 25.4 + 13.8, str(z), 12)
+        elif loesung:
+            sch.schreibe(mx - sch.breite(sym, 17) / 2, y + 22.9, sym, 17, MAG)
+            for b, wert in zip(boxen, (a, z)):
+                sch.schreibe(b.x0 + 11 - sch.breite(str(wert), 12) / 2, b.y0 + 15, str(wert), 12, MAG)
+        if i + 1 < len(reihe):
+            yn = y + DY
+            p.draw_line((mx, y + D + 0.5), (mx, yn - 5.6), color=SCHWARZ, width=1)
+            p.draw_polyline([(mx - 2.55, yn - 7.2), (mx + 2.55, yn - 7.2), (mx, yn - 0.3), (mx - 2.55, yn - 7.2)], color=None, fill=SCHWARZ)
+            art = zerfall(reihe[i], reihe[i + 1])
+            if i in pfeil_geg:
+                sch.schreibe(mx + 4.7, y + D + 9.3, art, 12)
+            else:
+                k = fitz.Rect(mx + 5.25, y + D + 2.4, mx + 20.05, y + D + 17.2)
+                p.draw_rect(k, color=SCHWARZ, width=1)
+                if loesung:
+                    sch.schreibe(k.x0 + 7.4 - sch.breite(art, 12) / 2, k.y0 + 11, art, 12, MAG)
+
+
+def baue_rueckseite(doc, vorne, reg, bold, loesung):
+    """Hängt die Rückseite an doc an. vorne: fertige Vorderseite (eigenes Dokument), daraus Titel und Tabelle 1:1."""
+    p = doc.new_page(width=vorne[0].rect.width, height=vorne[0].rect.height)
+    for clip in (fitz.Rect(205, 30, 390, 66), fitz.Rect(170, 416, 377, 712)):      # Titel, Elementtabelle
+        p.show_pdf_page(clip, vorne, 0, clip=clip)
+    p.draw_rect(fitz.Rect(36.5, 36.5, 558.5, 817.9), color=SCHWARZ, width=2)
+    sch = Schrift(p, reg, bold)
+    sch.schreibe(71.3, 47.5, "Aufgabe 3", 12, fett=True)
+    sch.schreibe(446.9, 47.5, "Aufgabe 4", 12, fett=True)
+    spalte(p, sch, 85.5, U238, U238_KERN, U238_PFEIL, loesung)
+    spalte(p, sch, 503.9, U235, U235_KERN, U235_PFEIL, loesung)
+
+    y = 92
+    for nr, stufe, text in (
+            (3, 1, "Die Zerfallsreihe von U-238 kennst du aus dem Heft bis Ra-226. Setze sie fort bis zum stabilen Blei. Gehe vor wie in Aufgabe 2."),
+            (4, 1, "U-235 ist radioaktiv. Stelle die Zerfallsreihe für U-235 auf. Gehe vor wie in Aufgabe 2."),
+            (5, 2, "Teile in allen vier Reihen die Massenzahlen durch 4 und notiere den Rest. Was fällt dir auf? Erkläre damit, warum es genau vier Zerfallsreihen gibt.")):
+        sch.schreibe(TEXT_X, y, f"Aufgabe {nr}", 12, fett=True)
+        kreis_symbol(p, fitz.Point(TEXT_X + sch.breite(f"Aufgabe {nr}", 12, True) + 8.3, y - 4.2), 4.6, stufe)
+        y = sch.absatz(TEXT_X, y + 14.4, text, 12, TEXT_B) + 28
+    linien = [y - 6 + k * 22 for k in range(4)]
+    for ly in linien:
+        p.draw_line((TEXT_X, ly), (TEXT_X + TEXT_B, ly), color=GRAU, width=0.5)
+    assert linien[-1] < 410, f"Aufgabe 5 ragt in die Tabelle ({linien[-1]:.0f})"
+    if loesung:
+        reste = {name: {a % 4 for _, a, _ in r} for name, r in (("Np", NP), ("Th", TH), ("U-238", U238), ("U-235", U235))}
+        assert all(len(v) == 1 for v in reste.values()) and len({min(v) for v in reste.values()}) == 4, reste
+        r = {k: min(v) for k, v in reste.items()}
+        txt = (f"Der Rest bleibt in jeder Reihe gleich: Th {r['Th']}, Np {r['Np']}, U-238 {r['U-238']}, U-235 {r['U-235']}. "
+               "Bei α sinkt die Massenzahl um 4, bei β bleibt sie gleich. Der Rest ändert sich also nie. "
+               "Es gibt nur vier mögliche Reste, deshalb vier Reihen.")
+        ende = sch.absatz(TEXT_X, linien[0] - 3, txt, 10.5, TEXT_B, MAG, zeilenabstand=22)
+        assert ende <= linien[-1], "Lösung Aufgabe 5 zu lang"
+        sch.schreibe(436, 30, "LÖSUNG", 12, MAG, fett=True)
+    return p
+
+
 def main():
-    pruefe_reihe(NP)
-    pruefe_reihe(TH)
+    for r in (NP, TH, U238, U235):
+        pruefe_reihe(r)
+    quelle = fitz.open(str(QUELLE))
+    reg, bold = quelle.extract_font(250)[3], quelle.extract_font(251)[3]
+
     aufgabe = fitz.open(str(QUELLE))
     minion = baue_aufgabe(aufgabe)
-    aufgabe.save(str(ZIEL_A), garbage=3, deflate=True)
-
-    loesung = fitz.open(str(ZIEL_A))
+    vorne = fitz.open("pdf", aufgabe.tobytes())
+    loesung = fitz.open("pdf", aufgabe.tobytes())
     n = baue_loesung(loesung, minion)
+
+    baue_rueckseite(aufgabe, vorne, reg, bold, loesung=False)
+    baue_rueckseite(loesung, vorne, reg, bold, loesung=True)
+    aufgabe.save(str(ZIEL_A), garbage=3, deflate=True)
     loesung.save(str(ZIEL_L), garbage=3, deflate=True)
 
-    beide = fitz.open(str(ZIEL_A))
-    beide.insert_pdf(fitz.open(str(ZIEL_L)))
+    # Für die Stunden-HTML: Seite 1 Vorderseite leer, Seite 2 Vorderseite Lösung, Seite 3 Rückseite leer, Seite 4 Rückseite Lösung
+    beide = fitz.open()
+    for s in (0, 1):
+        beide.insert_pdf(aufgabe, from_page=s, to_page=s)
+        beide.insert_pdf(loesung, from_page=s, to_page=s)
     beide.save(str(ZIEL), garbage=3, deflate=True)
-    print("geschrieben:", ZIEL.name, "|", ZIEL_A.name, "|", ZIEL_L.name, "| Kreise in der Lösung gefüllt:", n)
+    print("geschrieben:", ZIEL.name, "|", ZIEL_A.name, "|", ZIEL_L.name, "| Kreise vorne in der Lösung gefüllt:", n)
 
 
 if __name__ == "__main__":
