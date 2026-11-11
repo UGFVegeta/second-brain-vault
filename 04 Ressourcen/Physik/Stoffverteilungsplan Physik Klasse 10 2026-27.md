@@ -43,7 +43,7 @@ Spalten bleiben zum Eintragen frei.
 | W05 | 12.10.2026 | Kernphysik | Zerfallsgleichungen aufstellen, Durchdringungsvermögen | 3.2.4 (2) | S. 17–20 | Absorber: Papier, Alu, Blei | | |
 | W06 | 19.10.2026 | Kernphysik | F2 Antwort und Check, Einstieg F3 mit dem Würfelmodell | 3.2.4 (2) | S. 21–25 | 100 Würfel | | |
 | W07 | 02.11.2026 | Kernphysik | Die Halbwertszeit, Zerfallskurve auswerten | 3.2.4 (2) | S. 26–27 | Messwerte Fluor-20 oder Würfelprotokoll | | |
-| W08 | 09.11.2026 | Kernphysik | Aktivität und Zählrate, Einheit Becquerel | 3.2.4 (2) | S. 28–29 | Zählrohr, Abstandsreihe | | |
+| W08 | 09.11.2026 | Kernphysik | Zerfallsreihen (10d ab Do 12.11., Blatt Np-237 und Th-232), danach Aktivität und Zählrate, Einheit Becquerel | 3.2.4 (2) | S. 28–29 | Blatt Zerfallsreihen; Zählrohr, Abstandsreihe | | 10d: Zerfallsreihen am 12.11. (Stunde W05b) |
 | W09 | 16.11.2026 | Kernphysik | F3 Antwort und Check, Übungen zu Halbwertszeit | 3.2.4 (2) | S. 30–32 | Aufgabensatz | | |
 | W10 | 23.11.2026 | Klassenarbeit | **Klassenarbeit 1**: Atombau, Zerfall, Halbwertszeit | 3.2.4 (1), (2) | – | – | | |
 | W11 | 30.11.2026 | Klassenarbeit | Besprechung und Rückgabe | – | – | – | | |

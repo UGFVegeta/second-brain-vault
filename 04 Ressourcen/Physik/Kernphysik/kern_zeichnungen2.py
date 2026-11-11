@@ -105,9 +105,10 @@ def zerfallsreihe_u238():
     for i, (sym, A, Zz) in enumerate(reihe):
         x, y = (1.5 + i * 6) * K + 18, 5 * K
         nuklid(z, x, y, sym, A, Zz, 22)
-        if i < 5:
-            z.pfeil(x + 30, y - 7, (1.5 + (i + 1) * 6) * K + 2, y - 7, "#66798E", 1.6, 7)
-            z.text((x + 30 + (1.5 + (i + 1) * 6) * K + 2) / 2, y - 13, art[i], "middle", 11, 600, ROT if art[i] == "α" else CYAN)
+        if i < 5:   # Pfeil zwischen Symbol und der Massenzahl des nächsten Kerns, ohne sie zu berühren
+            x1, x2 = x + 38, (1.5 + (i + 1) * 6) * K + 18 - 32
+            z.pfeil(x1, y - 7, x2, y - 7, "#66798E", 1.6, 7)
+            z.text((x1 + x2) / 2, y - 13, art[i], "middle", 11, 600, ROT if art[i] == "α" else CYAN)
     z.text(1.5 * K, 8.6 * K, "… und so weiter, insgesamt 14 Zerfälle (8-mal α, 6-mal β⁻)", size=10.5)
     z.text(1.5 * K, 10.2 * K, "Ende: Blei-206, stabil", size=10.5, weight=600, col=GRUEN)
     z.text(1 * K, 1.3 * K, "α: A − 4, Z − 2", size=10, weight=600, col=ROT).text(10 * K, 1.3 * K, "β⁻: A bleibt, Z + 1", size=10, weight=600, col=CYAN)

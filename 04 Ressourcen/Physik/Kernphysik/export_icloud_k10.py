@@ -32,7 +32,7 @@ def stunden():
     for kurz, h1, sub, _b, _m, sch, folge, hg, ab in t2.STUNDEN:
         datei = f"Kernphysik – {kurz} – Stunde.html"
         folge, sch = neue_folge(datei, folge, sch)[:2]
-        yield datei, h1, sub, stilisiere(mit_labor(folge, sch, labore_der_stunde(hg, ab))[0], h1, f"Klasse 10 · Physik · {sub}")
+        yield datei, h1, sub, stilisiere(mit_labor(folge, sch, labore_der_stunde(hg, ab))[0], h1, f"Klasse 10; Physik; {sub}")
 
 
 def einbetten(html):

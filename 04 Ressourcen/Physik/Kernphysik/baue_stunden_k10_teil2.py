@@ -82,7 +82,7 @@ HWZ_LEER = HWZ_LEER.replace('class="zeichenzone karo"', 'class="zeichenzone gros
 HALB = zeichnungsfolie("3.2 Nach jeder Halbwertszeit", halbierung(),
                        "Nach jeder Halbwertszeit ist nur noch die <b>Hälfte</b> der Kerne übrig: nach 1 T die Hälfte, nach 2 T ein Viertel, "
                        "nach 3 T ein Achtel, nach 4 T ein Sechzehntel. Die Zahl wird nie ganz null.")
-S7 = [HWZ_LEER, f(27), HALB, blatt("Halbwertszeit W07.pdf", "k07", "Arbeitsblatt austeilen · Malzbier und Messzylinder pro Gruppe"), A7, A7b]
+S7 = [HWZ_LEER, f(27), HALB, blatt("Halbwertszeit W07.pdf", "k07", "Arbeitsblatt austeilen; Malzbier und Messzylinder pro Gruppe"), A7, A7b]
 S7_HG = (box("Halbwertszeit", ["Nach n Halbwertszeiten ist der Anteil (1/2)ⁿ übrig. Nach 10 Halbwertszeiten noch etwa ein Tausendstel.",
                                "Einzeichnen wie bisher: Das Zerfallslabor (nach der LEIFI-Animation) zeigt Fluor-20 mit 225 Kernen, Uhr und Messpunkten alle 2 s. Die Schüler tragen die Werte ins Heft ein. Die Achsen der Folie entsprechen deinem Blatt „Halbwertszeit AB“ (N bis 260, t bis 60 s), das Blatt geht auch als Alternative. Die Punkte streuen, jeder Durchlauf ist neu gewürfelt; die Kurve durch die Punkte gibt etwa 11 s.",
                                "Zerfallsgesetz für Interessierte: N(t) = N₀ · (1/2)^(t/T). Rechnen mit gebrochenen Hochzahlen ist nicht verlangt.",
@@ -105,7 +105,7 @@ A8 = tabellenfolie("Becquerel im Alltag", [
     ("Diätsalz (1 kg Kaliumchlorid)", "etwa 16 000 Bq", "Das Zählrohr zeigt davor mehr als die Nullrate."),
     ("Rauchmelder mit Americium", "etwa 37 000 Bq", "in Deutschland heute kaum noch im Einsatz"),
 ], kopf=("Gegenstand", "Aktivität", "woher"), frage="Wie viele Kerne zerfallen in deinem Körper in einer Minute?")
-S8 = [f(29), A8, blatt("Uebungen Halbwertszeit W09.pdf", "k09", "Übungsblatt austeilen · Aufgaben 1 bis 4, Rest in W09")]
+S8 = [f(29), A8, blatt("Uebungen Halbwertszeit W09.pdf", "k09", "Übungsblatt austeilen; Aufgaben 1 bis 4, Rest in W09")]
 S8_HG = (box("Aktivität, kurz", ["Aktivität A in Becquerel: Zerfälle pro Sekunde. Sie halbiert sich mit derselben Halbwertszeit wie die Zahl der Kerne. "
                                  "Das ist die Verbindung zu W07.",
                                  "Die Zählrate ist viel kleiner als die Aktivität: Das Zählrohr sieht nur einen Teil der Strahlung, und nicht jedes Teilchen löst einen Impuls aus.",
@@ -124,7 +124,7 @@ S8_AB = (ab_box("Übungsblatt Halbwertszeit", "Uebungen Halbwertszeit W09.pdf",
                   "Abstand: 1600, 400, 100. Cäsium: 4000, 2000, 1000 Bq.", 1))
 
 # ====================================================================== W09
-S9 = [f(30), f(31), f(32), blatt("Uebungen Halbwertszeit W09.pdf", "k09", "Übungsblatt weiter ab Aufgabe 5 · Vorbereitung Klassenarbeit")]
+S9 = [f(30), f(31), f(32), blatt("Uebungen Halbwertszeit W09.pdf", "k09", "Übungsblatt weiter ab Aufgabe 5; Vorbereitung Klassenarbeit")]
 S9_HG = (box("Abschluss Leitfrage 3", ["Antwortfolie ins Heft, Check per Handzeichen. Lösung: 1 b, 2 c."], 1, 2, 3)
          + box("Übungsblatt", ["Die Aufgaben steigen an: Aufgaben 1 und 2 sind Pflicht, 3 bis 5 Übung, 6 und 7 für Schnelle.",
                                "Aufgabe 6 (Zerfallsreihe Uran-238 zu Blei-206) verbindet Leitfrage 2 und 3: 8 α- und 6 β⁻-Zerfälle.",
@@ -203,7 +203,7 @@ A16 = tabellenfolie("Kernkraft in Baden-Württemberg", [
     ("Philippsburg 1 und 2", "bis 2011 und bis 2019", "Kühltürme 2020 gesprengt, Rückbau läuft"),
     ("Neckarwestheim 1 und 2", "bis 2011 und bis 15. April 2023", "eines der letzten drei Kraftwerke in Deutschland"),
 ], kopf=("Kraftwerk", "in Betrieb", "heute"), frage="Wie weit ist Neckarwestheim von unserer Schule entfernt?")
-S16 = [f(46), f(47), heft(1, "Begleitheft austeilen · A3-Bogen, bleibt bis W18"), heft(2), f(49), heft(3), heft(4), heft(5), A16]
+S16 = [f(46), f(47), heft(1, "Begleitheft austeilen; A3-Bogen, bleibt bis W18"), heft(2), f(49), heft(3), heft(4), heft(5), A16]
 S16_HG = (box("Einstieg Leitfrage 5", ["1 kg Uran-235 liefert bei vollständiger Spaltung etwa 8 · 10¹³ J. Steinkohle hat etwa 30 MJ pro kg, das ergibt rund 3000 t.",
                                        "Der Unterschied: Bei der Verbrennung ändern sich nur Elektronenhüllen, bei der Spaltung die Kerne. Kernkräfte sind millionenfach stärker.",
                                        "Heft Abschnitt 1 zeigt die Mengen als Bild: ca. 2000 t Öl oder 3000 t Kohle oder 5500 t Holz für dieselbe Wärme."], 1, 2, 3)
@@ -222,7 +222,7 @@ A17 = tabellenfolie("Kettenreaktionen im Alltag", [
     ("Ansteckung bei Grippe", "Ansteckungszahl R", "R größer 1: Die Welle wächst. R kleiner 1: Sie ebbt ab."),
     ("Lawine", "ein Schneebrett reißt weitere mit", "unkontrolliert, sie wächst immer weiter"),
 ], kopf=("Beispiel", "was weitergegeben wird", "kontrolliert oder nicht?"), frage="Was entspricht im Reaktor der Ansteckungszahl R?")
-S17 = [heft(6, "Begleitheft weiter · Dominosteine pro Gruppe"), f(51), heft(7), heft(8), heft(9), f(53), heft(10), A17]
+S17 = [heft(6, "Begleitheft weiter; Dominosteine pro Gruppe"), f(51), heft(7), heft(8), heft(9), f(53), heft(10), A17]
 S17_HG = (box("Kettenreaktion", ["Entscheidend ist, wie viele der freien Neutronen im Mittel eine neue Spaltung auslösen (Multiplikationsfaktor k). k = 1 heißt kritisch, der Reaktor läuft gleichmäßig.",
                                  "In einem Kernkraftwerk ist das Uran nur auf 3 bis 5 % Uran-235 angereichert. Eine Explosion wie bei einer Kernwaffe ist damit physikalisch nicht möglich.",
                                  "Ein kleiner Teil der Neutronen wird erst Sekunden später frei (verzögerte Neutronen). Nur deshalb lässt sich ein Reaktor mit Steuerstäben regeln.",
@@ -261,7 +261,7 @@ A19 = tabellenfolie("Kernkraft weltweit", [
     ("China", "baut die meisten neuen Reaktoren", "wegen des schnell wachsenden Strombedarfs"),
     ("Deutschland", "seit April 2023 keiner mehr am Netz", "Ausstieg nach Fukushima beschlossen"),
 ], kopf=("Land", "Stand", "Hintergrund"), frage="Warum entscheiden Länder so unterschiedlich?")
-S19 = [f(58), f(59), f(60), blatt("Uebungen Kernenergie W19.pdf", "k19", "Übungsblatt austeilen · mit Periodensystem"), A19]
+S19 = [f(58), f(59), f(60), blatt("Uebungen Kernenergie W19.pdf", "k19", "Übungsblatt austeilen; mit Periodensystem"), A19]
 S19_HG = (box("Abschluss Leitfrage 5", ["Antwortfolie ins Heft, Check per Handzeichen. Lösung: 1 b, 2 b."], 1, 2, 3)
           + box("Reaktorunfälle", ["Tschernobyl, 26. April 1986: Bei einem Sicherheitstest geriet der Reaktor außer Kontrolle. Dampfexplosion, Brand des Graphit-Moderators, radioaktive Wolke über Europa. Das Gebiet ist bis heute gesperrt, seit 2016 liegt eine neue Schutzhülle darüber.",
                                    "Fukushima, 11. März 2011: Die Reaktoren schalteten sich nach dem Erdbeben ab, der Tsunami zerstörte aber die Notstromversorgung. Ohne Kühlung schmolzen drei Reaktorkerne, es kam zu Wasserstoffexplosionen.",
@@ -297,7 +297,7 @@ A21 = tabellenfolie("Rollen für die Diskussion", [
     ("Bürgermeisterin eines möglichen Endlagerorts", "Sicherheit der Bürger", "Warum ausgerechnet bei uns?"),
     ("Klimaforscher", "CO₂ senken", "Jede Tonne CO₂ zählt, egal woher."),
 ], kopf=("Rolle", "vertritt vor allem", "typischer Satz"), frage="Welche Aussagen sind Fakten, welche Meinungen?")
-S21 = [f(66), blatt("Argumente abwaegen W21.pdf", "k21", "Arbeitsblatt austeilen · danach Diskussion"), A21, f(67), f(68), f(69)]
+S21 = [f(66), blatt("Argumente abwaegen W21.pdf", "k21", "Arbeitsblatt austeilen; danach Diskussion"), A21, f(67), f(68), f(69)]
 S21_HG = (box("Argumente abwägen", ["Ziel ist nicht eine richtige Meinung, sondern Argumente zu prüfen: Stimmt der Fakt? Wie groß ist die Zahl dahinter?",
                                      "Gute Fakten zum Verwenden: 24 000 Jahre Halbwertszeit Pu-239, 1 kg Uran-235 wie 3000 t Kohle, kaum CO₂ im Betrieb, Rückbau etwa eine Milliarde Euro, Endlager eine Million Jahre."], 1, 2)
           + box("Diskussion", ["Vier Gruppen ziehen je eine Rolle von der Folie. Fünf Minuten Argumente sammeln, dann je ein Sprecher. Die anderen notieren, was Fakt und was Meinung war.",
@@ -327,72 +327,72 @@ S22_AB = ab_box("Arbeitsblatt Altersbestimmung mit C-14", "Altersbestimmung W22.
 
 ZAEHLROHR = ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "")
 STUNDEN = [
-    ("W06 Wuerfelmodell", "Kernphysik: Der Zufall beim Zerfall", "W06 (Woche ab 19.10.2026) · Abschluss Leitfrage 2, Einstieg Leitfrage 3",
+    ("W06 Wuerfelmodell", "Kernphysik: Der Zufall beim Zerfall", "W06 (Woche ab 19.10.2026); Abschluss Leitfrage 2, Einstieg Leitfrage 3",
      "Versuchsblatt Zerfall mit Würfeln", {"demo": [], "schueler": [("Würfel", "30×", "500 Stück bestellt, reicht für 16 Gruppen"), ("Würfelbecher oder Schale", "1×", "")],
                                           "hinweis": "Die Werte aller Gruppen an der Tafel addieren."},
      [("Abschluss Leitfrage 2", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 3", "Leitfrage und Vermutungen sammeln.", [4]),
       ("Versuch", "Würfelversuch in Gruppen: Beschreibung an der Folie, Werte ins Heft eintragen. Die Tabelle mit Beispielwerten dient zum Vergleich.", [5, 6]),
       ("Diagramm", "Diagramm zeichnen und die Hälfte ablesen, erst leer, dann ausgefüllt.", [7, 8]),
       ("100 Würfel", "Und bei 100 Würfeln? Bestätigung im Zerfallslabor, die Kurve wird glatter.", [9]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [10])], S6, S6_HG, S6_AB),
-    ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 02.11.2026) · Leitfrage 3",
+    ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 02.11.2026); Leitfrage 3",
      "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt"), ("Lappen", "1×", "")],
                                         "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."},
      [("Einzeichnen", "Zerfallslabor Fluor-20 am Beamer, alle 2 s ablesen. Die Schüler tragen die Punkte ins Diagramm im Heft ein.", [1]),
       ("Halbwertszeit", "Kurve zeichnen, Halbwertszeit ablesen: etwa 11 s. Vergleich mit der Lösung.", [2]),
       ("Hälfte, Viertel, Achtel", "Nach jeder Halbwertszeit die Hälfte: Kästchen ins Heft.", [3]),
       ("Versuch", "Bierschaum messen, Arbeitsblatt optional. Wenn es knapp wird: als Demo vorne.", [4]), ("Vergleich", "Halbwertszeiten und Alltag.", [5, 6])], S7, S7_HG, S7_AB),
-    ("W08 Aktivitaet", "Kernphysik: Aktivität und Halbwertszeit üben", "W08 (Woche ab 09.11.2026) · Leitfrage 3",
+    ("W08 Aktivitaet", "Kernphysik: Aktivität und Halbwertszeit üben", "W08 (Woche ab 09.11.2026); Leitfrage 3",
      "Übungsblatt Halbwertszeit", {"demo": [ZAEHLROHR, ("Diätsalz (Kaliumchlorid)", "1 kg", "freiwillig, aus dem Supermarkt")],
                                    "schueler": [PSE], "hinweis": "Nullrate vor dem Diätsalz messen."},
      [("Aktivität", "Kurz: Becquerel, Zerfälle pro Sekunde, halbiert sich mit der Halbwertszeit. Zerfallslabor mit Reglern.", [1]),
       ("Alltag", "Becquerel im Alltag, freiwillig Diätsalz vor dem Zählrohr.", [2]),
       ("Üben", "Übungsblatt Halbwertszeit, Aufgaben 1 bis 4.", [3])], S8, S8_HG, S8_AB),
-    ("W09 Uebungen Halbwertszeit", "Kernphysik: Übungen zur Halbwertszeit", "W09 (Woche ab 16.11.2026) · Abschluss Leitfrage 3",
+    ("W09 Uebungen Halbwertszeit", "Kernphysik: Übungen zur Halbwertszeit", "W09 (Woche ab 16.11.2026); Abschluss Leitfrage 3",
      "Übungsblatt Halbwertszeit", {"demo": [], "schueler": [PSE], "hinweis": ""},
      [("Abschluss Leitfrage 3", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt weiter ab Aufgabe 5, Vorbereitung Klassenarbeit. Zu Hause: Kurz-Check im Zerfallslabor.", [4])], S9, S9_HG, S9_AB),
-    ("W12 Ionisierende Strahlung", "Kernphysik: Warum heißt sie ionisierende Strahlung?", "W12 (Woche ab 07.12.2026) · Einstieg Leitfrage 4",
+    ("W12 Ionisierende Strahlung", "Kernphysik: Warum heißt sie ionisierende Strahlung?", "W12 (Woche ab 07.12.2026); Einstieg Leitfrage 4",
      "Arbeitsblatt Ionisierende Strahlung", {"demo": [("Nebelkammer", "1", "falls vorhanden"), ("Trockeneis", "nach Anleitung", "erst kurz vorher besorgen, hält nicht lange"), ("Isopropanol", "nach Anleitung", "")], "schueler": [], "hinweis": "Ohne Nebelkammer: Szene im Wirkungslabor."},
      [("Einstieg Leitfrage 4", "Röntgenbild und Warnzeichen, Vermutungen.", [1, 2]), ("Ionisation", "Folie und Wirkungslabor.", [3]),
       ("Üben", "Arbeitsblatt.", [4]), ("Alltag", "Strahlung nachweisen.", [5])], S12, S12_HG, S12_AB),
-    ("W13 Wirkung auf den Koerper", "Kernphysik: Was macht Strahlung mit dem Körper?", "W13 (Woche ab 14.12.2026) · Leitfrage 4",
+    ("W13 Wirkung auf den Koerper", "Kernphysik: Was macht Strahlung mit dem Körper?", "W13 (Woche ab 14.12.2026); Leitfrage 4",
      "Arbeitsblatt Wirkung auf den Körper", {"demo": [], "schueler": [], "hinweis": ""},
      [("Wirkung auf die Zelle", "Drei mögliche Folgen.", [1]), ("Strahlenbelastung", "Diagramm, Jahresdosis im Labor.", [2]),
       ("Üben", "Arbeitsblatt.", [3]), ("Alltag", "Wie viel ist ein Millisievert?", [4])], S13, S13_HG, S13_AB),
-    ("W15 Schutz und Anwendungen", "Kernphysik: Schutz und Anwendungen", "W15 (Woche ab 11.01.2027) · Abschluss Leitfrage 4",
+    ("W15 Schutz und Anwendungen", "Kernphysik: Schutz und Anwendungen", "W15 (Woche ab 11.01.2027); Abschluss Leitfrage 4",
      "Arbeitsblatt Schutz und Anwendungen", {"demo": [("Echte Röntgenbilder", "einige", "freiwillig, die Folie zeigt schon zwei")], "schueler": [], "hinweis": ""},
      [("Schutz und Anwendungen", "Folie, Schutzregeln im Labor.", [1]), ("Röntgenbild", "1895 und heute, warum Knochen hell sind.", [2]),
       ("Abschluss Leitfrage 4", "Antwort ins Heft, Check.", [3, 4, 5]), ("Üben", "Arbeitsblatt.", [6]), ("Alltag", "Radon zu Hause.", [7])], S15, S15_HG, S15_AB),
-    ("W16 Kernspaltung", "Kernphysik: Die Kernspaltung", "W16 (Woche ab 18.01.2027) · Einstieg Leitfrage 5",
+    ("W16 Kernspaltung", "Kernphysik: Die Kernspaltung", "W16 (Woche ab 18.01.2027); Einstieg Leitfrage 5",
      "!Begleitheft Kernspaltung: Seiten 1 bis 4 als A3-Bogen doppelseitig, eins pro Schüler, bleibt bis W18.", {"demo": [], "schueler": [PSE], "hinweis": ""},
      [("Einstieg Leitfrage 5", "1 kg gegen 3000 t, Vermutungen.", [1, 2]), ("Energie und Entdeckung", "Heft austeilen, Abschnitte 1 und 2.", [3, 4]),
       ("Kernspaltung", "Folie, Heft 3 und 4, Spaltung im Kernenergielabor.", [5, 6, 7]), ("Kettenreaktion", "Heft 5 mit Reaktionsgleichung.", [8]),
       ("Alltag", "Kernkraft in Baden-Württemberg.", [9])], S16, S16_HG, S16_AB),
-    ("W17 Kettenreaktion", "Kernphysik: Kettenreaktion und Reaktor", "W17 (Woche ab 25.01.2027) · Leitfrage 5",
+    ("W17 Kettenreaktion", "Kernphysik: Kettenreaktion und Reaktor", "W17 (Woche ab 25.01.2027); Leitfrage 5",
      "!Kein neuer Druck: Die Schüler arbeiten im Begleitheft weiter.", {"demo": [], "schueler": [("Dominosteine", "etwa 50", "")], "hinweis": "Für Schritt 2 Platz auf dem Boden einplanen."},
      [("Dominoversuch", "Heft 6.", [1]), ("Kontrolliert und unkontrolliert", "Folie, Heft 7 und 8.", [2, 3, 4]),
       ("Kritische Masse", "Heft 9.", [5]), ("Reaktor", "Folie, Heft 10, Steuerstäbe im Labor.", [6, 7]), ("Alltag", "Kettenreaktionen im Alltag.", [8])], S17, S17_HG, S17_AB),
-    ("W18 Kraftwerk und Fusion", "Kernphysik: Kernkraftwerk und Kernfusion", "W18 (Woche ab 01.02.2027) · Leitfrage 5",
+    ("W18 Kraftwerk und Fusion", "Kernphysik: Kernkraftwerk und Kernfusion", "W18 (Woche ab 01.02.2027); Leitfrage 5",
      "!Kein neuer Druck: Die Schüler arbeiten im Begleitheft weiter.", {"demo": [], "schueler": [], "hinweis": ""},
      [("Reaktoraufbau", "Heft 11 und 12, Kreisläufe im Labor.", [1, 2]), ("Vom Reaktor zum Strom", "Folie Kraftwerke, Heft 13.", [3, 4]),
       ("Kernfusion", "Folie, Heft 14, Fusion im Labor.", [5, 6]), ("Alltag", "Wo man an der Fusion forscht.", [7])], S18, S18_HG, S18_AB),
-    ("W19 Uebungen Kernenergie", "Kernphysik: Leitfrage 5 abschließen", "W19 (Woche ab 15.02.2027) · Abschluss Leitfrage 5",
+    ("W19 Uebungen Kernenergie", "Kernphysik: Leitfrage 5 abschließen", "W19 (Woche ab 15.02.2027); Abschluss Leitfrage 5",
      "Übungsblatt Kernenergie", {"demo": [], "schueler": [PSE], "hinweis": ""},
      [("Abschluss Leitfrage 5", "Antwort ins Heft, Check.", [1, 2, 3]), ("Üben", "Übungsblatt, Reaktorunfälle. Zu Hause: Kurz-Check im Kernenergielabor.", [4]), ("Alltag", "Kernkraft weltweit.", [5])], S19, S19_HG, S19_AB),
-    ("W20 Radioaktiver Abfall", "Kernphysik: Wohin mit dem Abfall?", "W20 (Woche ab 22.02.2027) · Einstieg Leitfrage 6",
+    ("W20 Radioaktiver Abfall", "Kernphysik: Wohin mit dem Abfall?", "W20 (Woche ab 22.02.2027); Einstieg Leitfrage 6",
      "Arbeitsblatt Der radioaktive Abfall", {"demo": [], "schueler": [], "hinweis": ""},
      [("Einstieg Leitfrage 6", "Zeitachse bis eine Million Jahre, Vermutungen.", [1, 2]), ("Abfall", "Folie und Labor.", [3]),
       ("Üben", "Arbeitsblatt.", [4]), ("Alltag", "Abfall in Deutschland.", [5])], S20, S20_HG, S20_AB),
-    ("W21 Argumente abwaegen", "Kernphysik: Nutzen und Risiko abwägen", "W21 (Woche ab 01.03.2027) · Abschluss Leitfrage 6",
+    ("W21 Argumente abwaegen", "Kernphysik: Nutzen und Risiko abwägen", "W21 (Woche ab 01.03.2027); Abschluss Leitfrage 6",
      "Arbeitsblatt Nutzen und Risiko abwägen", {"demo": [], "schueler": [], "hinweis": "Rollenfolie für die Diskussion bereithalten."},
      [("Argumente", "Folie, Fakt oder Meinung.", [1, 2]), ("Diskussion", "Vier Rollen, Sprecher, Auswertung.", [3]), ("Abschluss Leitfrage 6", "Antwort, Check. Zu Hause: Kurz-Check im Kernenergielabor.", [4, 5, 6])], S21, S21_HG, S21_AB),
-    ("W22 Rueckblick und C-14", "Kernphysik: Rückblick und Altersbestimmung", "W22 (Woche ab 08.03.2027) · Abschluss Kernphysik",
+    ("W22 Rueckblick und C-14", "Kernphysik: Rückblick und Altersbestimmung", "W22 (Woche ab 08.03.2027); Abschluss Kernphysik",
      "Arbeitsblatt Altersbestimmung mit C-14", {"demo": [], "schueler": [], "hinweis": ""},
      [("Rückblick", "Die sechs Leitfragen.", [1]), ("C-14", "Folie, C-14-Uhr im Labor.", [2]), ("Üben", "Arbeitsblatt.", [3]), ("Alltag", "Datierte Funde.", [4])], S22, S22_HG, S22_AB),
 ]
 
 if __name__ == "__main__":
     for kurz, h1, sub, blattname, mat, schritte, folge, hg, ab in STUNDEN:
-        bau_stunde(f"Kernphysik – {kurz} – Stunde.html", h1, f"Klasse 10 · Physik · {sub}",
+        bau_stunde(f"Kernphysik – {kurz} – Stunde.html", h1, f"Klasse 10; Physik; {sub}",
                    [blattname[1:] if blattname.startswith("!") else f"Optional: {blattname}, Seite 1, eins pro Schüler.", NICHT_DRUCKEN], mat, schritte, folge, hg, ab,
                    ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS + ".blattkarte:has(.heftbild){width:900px}",
                    heft_extra=HEFT_EXTRA.get(f"Kernphysik – {kurz} – Stunde.html"))

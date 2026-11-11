@@ -23,7 +23,7 @@ def f(p):
 
 def blatt(pdf, key, hinweis, beide=False):
     """Arbeitsblätter sind immer optional: Das Heft ist auch ohne Blatt vollständig. beide=True: Ausnahme-Blatt (leere Seite und Lösung im Folien-PDF)."""
-    hinweis = "optional · " + hinweis.replace("Arbeitsblatt austeilen", "Arbeitsblatt").replace("Versuchsblatt austeilen", "Versuchsblatt").replace("Übungsblatt austeilen", "Übungsblatt")
+    hinweis = "optional; " + hinweis.replace("Arbeitsblatt austeilen", "Arbeitsblatt").replace("Versuchsblatt austeilen", "Versuchsblatt").replace("Übungsblatt austeilen", "Übungsblatt")
     return _blatt(pdf, key, hinweis, mat=MAT, beide=beide)
 
 
@@ -241,7 +241,7 @@ S5_AB = f"""<div class="box"><h3>Alternative: Arbeitsblatt Durchdringung und Zer
 Bleitabelle 800, 400, 200, 100, 50, die Zählrate wird nie ganz null. Po-210 → Pb-206 + He-4, K-40 → Ca-40 + e, Ra-226 → Rn-222 + He-4. Zerfallsreihe Th-234, Pa-234, U-234.</p></div>"""
 
 # ====================================================================== W05b (Zerfallsreihen, eigene Stunde; 10d am Do 12.11.2026)
-ZR_BLATT = _blatt("Zerfallsreihen (Oskar).pdf", "k05z", "Blatt Zerfallsreihen · Np-237 und Th-232 · Seite 1 für alle", mat=MAT, beide=True)   # Ausnahme: kein „optional“
+ZR_BLATT = _blatt("Zerfallsreihen (Oskar).pdf", "k05z", "Blatt Zerfallsreihen; Np-237 und Th-232; Seite 1 für alle", mat=MAT, beide=True)   # Ausnahme: kein „optional“
 S5Z = [*paar(ZR), ZR_BLATT]
 S5Z_HG = f"""
 <div class="box"><h3>Zerfallsreihe {chip(1)}</h3><ul>
@@ -280,7 +280,7 @@ HEFT_EXTRA = {
 }
 
 STUNDEN = [
-    ("Kernphysik – W01 Woraus besteht Materie – Stunde.html", "Kernphysik: Woraus besteht Materie?", "Klasse 10 · Physik · W01 (Woche ab 14.09.2026) · Einstieg Leitfrage 1",
+    ("Kernphysik – W01 Woraus besteht Materie – Stunde.html", "Kernphysik: Woraus besteht Materie?", "Klasse 10; Physik; W01 (Woche ab 14.09.2026); Einstieg Leitfrage 1",
      ["Nichts drucken: Die Klasse zeichnet mit und schreibt ins Heft. Optional: Versuchsblatt Atome enthalten elektrische Ladungen als Alternative.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Wasserhahn mit dünnem Strahl", "1×", "falls kein Waschbecken an den Gruppentischen"), ("Elektroskop", "1×", "freiwillig, zeigt die Ladung des Ballons")],
       "schueler": [("Luftballon, aufgeblasen", "1×", ""), ("Wolltuch oder Wollpullover", "1×", ""), ("Papierschnipsel", "eine Handvoll", "klein gerissen")],
@@ -288,13 +288,13 @@ STUNDEN = [
      [("Einstieg", "Stadion und Erbse, Leitfrage 1, Vermutungen.", [1, 2]), ("Versuch", "Luftballon, Papierschnipsel, Wasserstrahl: Beschreibung an der Folie, Beobachtung ins Heft.", [3]),
       ("Geschichte", "Wie man das Atom entdeckte (leer, dann ausgefüllt), Rutherford im Atomlabor.", [4, 5]), ("Größen", "Wie klein ist ein Atom? Zoom im Atomlabor.", [6])],
      S1, S1_HG, S1_AB),
-    ("Kernphysik – W02 Atombau und Isotope – Stunde.html", "Kernphysik: Atombau und Isotope", "Klasse 10 · Physik · W02 (Woche ab 21.09.2026) · Leitfrage 1",
+    ("Kernphysik – W02 Atombau und Isotope – Stunde.html", "Kernphysik: Atombau und Isotope", "Klasse 10; Physik; W02 (Woche ab 21.09.2026); Leitfrage 1",
      ["Nichts drucken: Die Klasse zeichnet mit. Optional: Arbeitsblatt Nuklide und Isotope und Wiederholung Atombau als Alternativen.", "Folien und Lösungen: nicht drucken."],
      {"demo": [], "schueler": [("Periodensystem", "1×", "")], "hinweis": ""},
      [("Aufbau", "Kern und Hülle, Nuklidschreibweise, A = Z + N: leere Folie zum Mitzeichnen, dann ausgefüllt.", [1, 2]),
       ("Isotope", "Wasserstoff, Deuterium, Tritium. Nuklidkarte im Atomlabor.", [3, 4]), ("Tabelle", "Protonen, Neutronen, Elektronen für sieben Nuklide selbst zeichnen und ausfüllen.", [5, 6]), ("Alltag", "Isotope im Alltag mündlich.", [7])],
      S2, S2_HG, S2_AB),
-    ("Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html", "Kernphysik: Das Zählrohr klickt von allein", "Klasse 10 · Physik · W03 (Woche ab 28.09.2026) · Abschluss Leitfrage 1, Einstieg Leitfrage 2",
+    ("Kernphysik – W03 Zaehlrohr und Nullrate – Stunde.html", "Kernphysik: Das Zählrohr klickt von allein", "Klasse 10; Physik; W03 (Woche ab 28.09.2026); Abschluss Leitfrage 1, Einstieg Leitfrage 2",
      ["Optional: Arbeitsblatt Zählrohr und Nullrate als Alternative zum Selberzeichnen, Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "Lautsprecher an"), ("Stoppuhr", "1×", "fünfmal eine Minute"),
                ("Glühstrumpf, in Folie", "1×", "nur als Lehrerversuch, danach verschlossen und beschriftet aufbewahren")], "schueler": [],
@@ -304,14 +304,14 @@ STUNDEN = [
       ("Versuch", "Nullrate messen: Beschreibung an der Folie, Tabelle selbst zeichnen, Werte eintragen, Mittelwert. Zum Vergleich: Nullrate im Strahlungslabor.", [8, 9, 10]),
       ("Demo Glühstrumpf", "Lehrerversuch: Strumpf in Folie vor dem Zählrohr, Abstand ändern.", [11]), ("Alltag", "Natürliche Strahlung.", [12])],
      S3, S3_HG, S3_AB),
-    ("Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "Kernphysik: Alpha, Beta und Gamma", "Klasse 10 · Physik · W04 (Woche ab 05.10.2026) · Leitfrage 2",
+    ("Kernphysik – W04 Alpha Beta Gamma – Stunde.html", "Kernphysik: Alpha, Beta und Gamma", "Klasse 10; Physik; W04 (Woche ab 05.10.2026); Leitfrage 2",
      ["Nichts drucken: Die Klasse zeichnet mit. Optional: Arbeitsblatt Drei Arten radioaktiver Strahlung als Alternative.", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Präparatesatz", "1", "nur Lehrkraft, nach RiSU"), ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "")], "schueler": [("Periodensystem", "1×", "")],
       "hinweis": "Ohne Präparatesatz: Zerfälle und Ablenkung im Strahlungslabor zeigen."},
      [("Radioaktivität", "Leere Folie zum Mitzeichnen, dann die ausgefüllte. Instabile Kerne zerfallen zufällig.", [1, 2]), ("Drei Strahlungsarten", "α, β, γ an der Folie und im Strahlungslabor.", [3, 4]),
       ("Ablenkung", "Strahlung im elektrischen Feld, im Labor Spannung an und aus.", [5, 6]), ("Tabelle", "Die drei Strahlungsarten im Vergleich selbst zeichnen und ausfüllen.", [7, 8]), ("Alltag", "Strahler im Alltag mündlich.", [9])],
      S4, S4_HG, S4_AB),
-    ("Kernphysik – W05 Zerfallsgleichungen – Stunde.html", "Kernphysik: Zerfallsgleichungen und Durchdringung", "Klasse 10 · Physik · W05 (Woche ab 12.10.2026) · Leitfrage 2",
+    ("Kernphysik – W05 Zerfallsgleichungen – Stunde.html", "Kernphysik: Zerfallsgleichungen und Durchdringung", "Klasse 10; Physik; W05 (Woche ab 12.10.2026); Leitfrage 2",
      ["Nichts drucken: Die Klasse zeichnet mit. Optional: Arbeitsblatt Durchdringung und Zerfallsgleichungen als Alternative. Die Zerfallsreihen haben eine eigene Stunde (W05b).", "Folien und Lösungen: nicht drucken."],
      {"demo": [("Präparate α, β, γ", "je 1", "nur Lehrkraft, nach RiSU"), ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", ""),
                ("Absorber: Papier, Aluminium 5 mm, Bleiplatten", "je 1", "mehrere gleich dicke Bleiplatten, falls vorhanden")], "schueler": [("Periodensystem", "1×", "")],
@@ -321,7 +321,7 @@ STUNDEN = [
       ("Durchdringung", "Wie weit kommt die Strahlung? Dann Blei halbiert die Zählrate. Bleidicke im Strahlungslabor.", [6, 7, 8, 9]),
       ("Alltag", "Abschirmung und Strahlung als Werkzeug.", [10, 11])],
      S5, S5_HG, S5_AB),
-    ("Kernphysik – W05b Zerfallsreihen – Stunde.html", "Kernphysik: Zerfallsreihen", "Klasse 10 · Physik · W05b (10d: Do 12.11.2026) · Leitfrage 2",
+    ("Kernphysik – W05b Zerfallsreihen – Stunde.html", "Kernphysik: Zerfallsreihen", "Klasse 10; Physik; W05b (10d: Do 12.11.2026); Leitfrage 2",
      ["Blatt Zerfallsreihen, Seite 1: für jeden ein Exemplar (Ausnahme, hier gibt es ein Blatt).", "Folien und Lösungen: nicht drucken."],
      {"demo": [], "schueler": [("Periodensystem", "1×", "die Tabelle auf dem Blatt reicht auch")], "hinweis": ""},
      [("Zerfallsreihe", "Beispiel U-238: die ersten fünf Schritte ins Heft (leer, dann ausgefüllt). Regeln für α und β⁻ wiederholen.", [1, 2]),

@@ -6,6 +6,7 @@ tags: [gelernt, physik]
 
 Eine Zeile pro Erkenntnis, neueste oben.
 
+- 2026-11-11: Blatt Zerfallsreihen umgebaut (`Kernphysik/baue_zerfallsreihen.py`): Aufgabe 2 ohne Erklärtext, rechte Spalte wie die linke (Zerfallsart gegeben oder nächstes Element gegeben). Oskars InDesign-PDF per PyMuPDF bearbeiten, eingebettete Minion-Teilmenge nutzen (kein Komma, kein Ö darin). Heftbeispiel darf nicht die Blattreihe sein, deshalb U-238 statt Th-232.
 - 2026-11-11: Leitfrage 5 ohne Styropor-Versuch, dafür FWU-Film (Link auf der Folie). Animationen als eigene Folien mit Steuerleiste (`animationen_f5.py`), nicht in Heftfolien, sonst doppelt im Heft-Tab.
 - 2026-11-04: Rückseite in sechs Folien zerschnitten und leere Karo-Zwillingsfolien waren zu viel. Oskar zeigt die PDFs in Notability: vorhandenes Blatt als PDF lassen, keine leeren Folien (`ohne_leer=True`).
 - 2026-11-04: Rückseiten von Blättern fehlten in den Stunden-HTMLs, weil `blatt_vorschau` alles mit „Rückseite“ im Namen übersprang und der Umbau vom 01.10. die Lösungsfolie gestrichen hatte. Filter angepasst; nicht geschaffte Blätter in der nächsten Stunde als leer/Lösung-Folienpaare vorn einbauen.

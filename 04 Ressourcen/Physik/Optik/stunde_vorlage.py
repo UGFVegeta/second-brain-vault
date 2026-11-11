@@ -667,7 +667,9 @@ try{{history.scrollRestoration='manual'}}catch(e){{}}
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
 {sl_js}
 </script></body></html>"""
-    html = re.sub(r"(?<![\d)]) · (?![\d(])", "; ", html)   # nie „·“ als Trenner (Oskar), Malpunkte zwischen Zahlen bleiben
+    # nie „·“ als Trenner (Oskar): vor Wörtern und Wochen immer ersetzen, sonst nur, wenn es kein Malpunkt zwischen Zahlen ist
+    html = re.sub(r" · (?=[A-Za-zÄÖÜäöüß]{2}|W\d)", "; ", html)
+    html = re.sub(r"(?<![\d)]) · (?![\d(])", "; ", html)
     ((ziel or HIER) / datei).write_text(html, encoding="utf-8")
     print("geschrieben:", datei, f"({len(html) // 1024} KB), Folien:", len(folge))
 
