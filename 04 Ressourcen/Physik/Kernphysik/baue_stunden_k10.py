@@ -324,7 +324,7 @@ STUNDEN = [
       ("Durchdringung", "Wie weit kommt die Strahlung? Dann Blei halbiert die Zählrate. Bleidicke im Strahlungslabor.", [6, 7, 8, 9]),
       ("Alltag", "Abschirmung und Strahlung als Werkzeug.", [10, 11])],
      S5, S5_HG, S5_AB),
-    ("Kernphysik – W05b Zerfallsreihen – Stunde.html", "Kernphysik: Zerfallsreihen", "Klasse 10; Physik; W05b (10d: Do 12.11.2026); Leitfrage 2",
+    ("Kernphysik – W05b Zerfallsreihen – Stunde.html", "Kernphysik: Zerfallsreihen", "Klasse 10; Physik; W05b (Woche ab 09.11.2026, 10d Do 12.11.); Leitfrage 2",
      ["Blatt Zerfallsreihen doppelseitig (Datei „Zerfallsreihen (Oskar) – Aufgabe“): für jeden ein Exemplar (Ausnahme, hier gibt es ein Blatt).", "Folien und Lösungen: nicht drucken."],
      {"demo": [], "schueler": [("Periodensystem", "1×", "die Tabelle auf dem Blatt reicht auch")], "hinweis": ""},
      [("Zerfallsreihe", "Beispiel U-238: die ersten fünf Schritte ins Heft (leer, dann ausgefüllt). Regeln für α und β⁻ wiederholen.", [1, 2]),

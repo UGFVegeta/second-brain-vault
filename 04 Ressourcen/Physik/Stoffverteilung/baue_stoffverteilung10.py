@@ -17,32 +17,33 @@ GRUEN, BRAUN, BLAU, ROT = "#3fae49", "#a0652b", "#00aeef", "#d2232a"
 # Grundlage der Wochen: Rahmendaten Schuljahr 2026-27 (Ferien), Kalender (Berlinfahrt, Eurocom), Infoblatt Elternabend 10b (Prüfungen).
 SEITE1 = [
     ("block", "Atomphysik", GRUEN, 13, ["Atombau und Isotope", "Zählrohr und Nullrate", "Alpha-, Beta- und Gamma-Strahlung",
-                                        "Zerfallsgleichungen, Zerfallsreihen und Durchdringung"]),
+                                        "Zerfallsgleichungen und Durchdringung"]),
     ("info", "Berlinfahrt der 10er, kein Unterricht"),
     ("ferien", "Herbstferien"),
-    ("block", "Kernphysik", GRUEN, 13, ["Zufall beim Zerfall", "Halbwertszeit", "Aktivität und Übungen zur Halbwertszeit",
-                                        "Klassenarbeit 1 und Besprechung", "Ionisierende Strahlung und Wirkung auf den Körper", "Puffer"]),
+    ("block", "Kernphysik", GRUEN, 13, ["Zerfallsreihen (10d ab Do 12.11.)", "Zufall beim Zerfall", "Halbwertszeit",
+                                        "Aktivität und Übungen zur Halbwertszeit", "Klassenarbeit 1 (10d Do 17.12.)"]),
     ("ferien", "Weihnachtsferien"),
-    ("block", "Kernenergie", GRUEN, 10.5, ["Schutz vor Strahlung und Anwendungen", "Kernspaltung und Kettenreaktion",
-                                           "Kernreaktor, Kernkraftwerk und Kernfusion"]),
+    ("block", "Kernphysik", GRUEN, 10.5, ["Besprechung der Klassenarbeit", "Ionisierende Strahlung und Wirkung auf den Körper",
+                                          "Schutz vor Strahlung und Anwendungen"]),
     ("ferien", "Faschingsferien"),
-    ("block", "Kernenergie", GRUEN, 10.5, ["Übungen zur Kernenergie", ("Radioaktiver Abfall und Endlagersuche", "Eurocom Mo bis Mi"),
-                                           "Nutzen und Risiko abwägen", "Rückblick und Altersbestimmung (C-14)"]),
+    ("block", "Kernenergie", GRUEN, 10.5, ["Kernspaltung", ("Kettenreaktion und Kernreaktor", "Eurocom Mo bis Mi"),
+                                           "Kernkraftwerk und Kernfusion", "Übungen zur Kernenergie"]),
     ("info", "Praktische Prüfungen AES/T, kein Unterricht"),
-    ("block", "Wärme", BRAUN, 8, ["Teilchenmodell und Aggregatzustände"]),
     ("ferien", "Osterferien"),
 ]
 SEITE2 = [
     ("ferien", "Osterferien"),
+    ("block", "Kernenergie", GRUEN, 10.5, ["Radioaktiver Abfall und Endlagersuche", "Nutzen und Risiko abwägen", "Rückblick und Altersbestimmung (C-14)"]),
+    ("block", "Wärme", BRAUN, 8, [("Teilchenmodell und Aggregatzustände", "vorher Prüfungen, kein Unterricht")]),
     ("block", "Wärmelehre", BRAUN, 11.5, ["Temperatur, Temperaturskalen und absoluter Nullpunkt", "Ausdehnung von Festkörpern, Flüssigkeiten und Gasen",
-                                          ("Spezifische Wärmekapazität und Grundgleichung der Wärmelehre", "vorher Prüfungen, kein Unterricht")]),
+                                          "Spezifische Wärmekapazität und Grundgleichung der Wärmelehre"]),
     ("ferien", "Pfingstferien"),
     ("block", "Wärme", BRAUN, 12, ["Wärmeleitung, Wärmeströmung und Wärmestrahlung", "Wärmedämmung und Klassenarbeit 2"]),
     ("block", "Klima", BLAU, 13, ["Treibhauseffekt und Klimaschutz", "Erneuerbare Energien und Wirkungsgrad"]),
     ("info", "Mündliche Prüfungen und Schuljahresende, kein Unterricht"),
     ("ferien", "Sommerferien"),
 ]
-FUSS = "Wochen nur ungefähr. Ferien und Termine nach Schulkalender, Kalender GDRS und Infoblatt Elternabend 10b. Für Physik bleiben nach den Osterferien etwa sechs bis sieben Unterrichtswochen."
+FUSS = "Wochen nur ungefähr. Ferien und Termine nach Schulkalender, Kalender GDRS und Infoblatt Elternabend 10b. Umgeplant am 11.11.2026: Die 10d beginnt erst am 12.11. mit den Zerfallsreihen, die Kernphysik reicht deshalb bis nach Ostern. Für Wärmelehre und Klima bleiben danach nur etwa sechs Wochen, was gekürzt wird, ist noch offen."
 
 
 def bild(name):

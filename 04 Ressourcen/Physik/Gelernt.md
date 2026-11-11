@@ -6,6 +6,7 @@ tags: [gelernt, physik]
 
 Eine Zeile pro Erkenntnis, neueste oben.
 
+- 2026-11-11: Verschiebt sich der Plan, bleiben die Stunden-IDs (W06 …) gleich, nur „Woche ab“ in den Untertiteln ändern; Plan-md, Übersicht, Dashboard und Stundenkontext danach neu bauen. Ausfallwochen (Berlin, AES/T, verkürzte Wochen) als eigene Zeilen „Ausfall“ in den Plan.
 - 2026-11-11: Blatt Zerfallsreihen umgebaut (`Kernphysik/baue_zerfallsreihen.py`): Aufgabe 2 ohne Erklärtext, rechte Spalte wie die linke (Zerfallsart gegeben oder nächstes Element gegeben). Oskars InDesign-PDF per PyMuPDF bearbeiten, eingebettete Minion-Teilmenge nutzen (kein Komma, kein Ö darin). Heftbeispiel darf nicht die Blattreihe sein, deshalb U-238 statt Th-232.
 - 2026-11-11: Leitfrage 5 ohne Styropor-Versuch, dafür FWU-Film (Link auf der Folie). Animationen als eigene Folien mit Steuerleiste (`animationen_f5.py`), nicht in Heftfolien, sonst doppelt im Heft-Tab.
 - 2026-11-04: Rückseite in sechs Folien zerschnitten und leere Karo-Zwillingsfolien waren zu viel. Oskar zeigt die PDFs in Notability: vorhandenes Blatt als PDF lassen, keine leeren Folien (`ohne_leer=True`).
