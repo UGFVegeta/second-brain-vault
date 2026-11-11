@@ -4,6 +4,7 @@ python3 baue_stunden_f5_lk.py   -> nur die HTMLs im Vault (Export nach iCloud er
 import math, re
 from stunde_vorlage import basis, blatt, chip, tabellenfolie, bau_stunde, ab
 from folien_zeichnungen import Z, GELB, INK
+from animationen_f5 import erde_folie, mond_folie
 
 # ====================================================================== Do 05.11.2026: Rückseite Schattenwurf, Einschub Jahreszeiten
 # Oskars Plan: 1. Rückseite des Versuchsblatts F4 besprechen (letztes Mal nicht geschafft), 2. Einschub „Warum gibt es Jahreszeiten?“
@@ -36,7 +37,7 @@ def erdbahn():
         l = math.hypot(dx, dy)
         z.pfeil(x - 7 * dx / l, y - 7 * dy / l, x + 7 * dx / l, y + 7 * dy / l, "#66798E", 1.4, 9)
     z.sonne(*S, 16)
-    z.text(S[0], S[1] + 42, "Sonne", "middle")
+    z.text(S[0] + 30, S[1] + 30, "Sonne")
     for t, z1, z2, tx, ty, anc in ((math.pi, "Sommeranfang", "21. Juni", 0, 34, "middle"), (0, "Winteranfang", "21. Dezember", 0, 34, "middle"),
                                    (math.pi / 2, "Frühlingsanfang, 20. März", "", 24, 3, "start"),
                                    (3 * math.pi / 2, "Herbstanfang, 23. September", "", 24, 8, "start")):
@@ -53,9 +54,9 @@ def erdbahn():
     z.text(wx + 30, wy - 18, "23,5°")
     # Drehung um die eigene Achse an der Sommerstellung
     sx, sy = cx - rx, cy
-    z.add(f'<path d="M{sx - 13} {sy - 26} Q{sx} {sy - 36} {sx + 13} {sy - 26}" fill="none" stroke="{INK}" stroke-width="1.3"/>'
-          f'<polygon points="{sx + 16},{sy - 23} {sx + 7},{sy - 25} {sx + 13},{sy - 31}" fill="{INK}"/>')
-    z.text(sx, sy - 42, "Drehung in 24 h", "middle", 9.5)
+    z.add(f'<path d="M{sx - 26} {sy - 30} Q{sx - 14} {sy - 42} {sx - 2} {sy - 36}" fill="none" stroke="{INK}" stroke-width="1.3"/>'
+          f'<polygon points="{sx + 1},{sy - 34} {sx - 8},{sy - 34} {sx - 3},{sy - 41}" fill="{INK}"/>')
+    z.text(sx - 30, sy - 46, "Drehung in 24 h", "middle", 9.5)
     z.text(150, 46, "Erdbahn", "middle", 9.5)
     z.text(622, 204, "nicht maßstabsgetreu", "end", 9)
     return z.svg()
@@ -107,8 +108,8 @@ J_ANTWORT = ab('<section class="folie"><div class="frageband"><div class="nr">An
 
 _sw = blatt(SW_PDF, "w06b", "Rückseite besprechen")
 SW_LOESUNG = (_sw[0], '<section class="marke" data-tab="Rückseite Schattenwurf" data-group="Wiederholung" hidden></section>' + _sw[1], _sw[2])
-VORSPANN = [SW_LOESUNG, J_FRAGE, J_BAHN, J_WINKEL, J_ANTWORT]   # ohne leere Zwillingsfolien (Oskar 04.11.: er zeichnet im PDF in Notability)
-V = len(VORSPANN)   # 5 Folien vor Leitfrage 5
+VORSPANN = [SW_LOESUNG, J_FRAGE, J_BAHN, erde_folie(EINSCHUB), J_WINKEL, J_ANTWORT]   # ohne leere Zwillingsfolien (Oskar 04.11.: er zeichnet im PDF in Notability)
+V = len(VORSPANN)   # 6 Folien vor Leitfrage 5
 
 # ====================================================================== Leitfrage 5
 F5_ALLTAG = tabellenfolie("Mond und Finsternis im Alltag", [
@@ -119,32 +120,35 @@ F5_ALLTAG = tabellenfolie("Mond und Finsternis im Alltag", [
 ], frage="Warum darf man eine Mondfinsternis ohne Brille ansehen, eine Sonnenfinsternis aber nicht?")
 
 LF5 = "Leitfrage 5"
+# Oskar 11.11.2026: kein Styropor-Versuch, stattdessen ein Film aus der FWU-Mediathek
+FILM_URL = "https://playout01.edupool.cloud/cloud/bd6551fab35b559c8dd095feb3b3f10b/menu/chapter_1.html"
+FILM = ab('<section class="folie"><div class="frageband"><div class="nr">Film</div><h2>Mondphasen und Finsternisse</h2></div>'
+          f'<div class="ab-hinweis">🎬 <a href="{FILM_URL}" target="_blank" style="color:inherit">Film aus der FWU-Mediathek öffnen</a></div></section>', "Film", LF5, neu=True)
 F5 = VORSPANN + [
     ab(basis(42), "Einstieg", LF5), ab(basis(43), "Einstieg", LF5), ab(basis(45), "Tellurium", LF5),
-    blatt("Mondphasen im Modell W08.pdf", "w08", "Versuchsblatt austeilen · Versuch in Paaren"),
-    ab(basis(47), "Mondphasen", LF5), ab(basis(49), "Finsternisse", LF5), ab(basis(51), "Finsternisse", LF5), ab(F5_ALLTAG, "Alltag", LF5),
+    FILM,
+    ab(basis(47), "Mondphasen", LF5), mond_folie(LF5), ab(basis(49), "Finsternisse", LF5), ab(basis(51), "Finsternisse", LF5), ab(F5_ALLTAG, "Alltag", LF5),
     ab(basis(52), "Antwort, Check", LF5), ab(basis(53), "Antwort, Check", LF5), ab(basis(54), "Antwort, Check", LF5),
 ]
 
 F5_MATERIAL = {
     "demo": [("Tellurium beleuchtet (Phywe)", "1×", "Tag und Nacht, Jahreszeiten, Mondphasen und Finsternisse vorne zeigen"),
-             ("helle Lampe ohne Schirm", "1×", "als Sonne für den Schülerversuch, mitten im Raum oder vorne")],
-    "schueler": [("Styroporkugel, etwa 5 cm", "1×", "pro Paar, einer dreht sich, einer beobachtet mit"),
-                 ("Bleistift oder Schaschlikspieß", "1×", "als Griff für die Kugel")],
+             ("Film aus der FWU-Mediathek", "1×", f'<a href="{FILM_URL}" target="_blank">Link zum Film</a>; vorher testen, Ton am Apple TV prüfen')],
+    "schueler": [],
     "hinweis": "Raum gut abdunkeln. Für die Lochkamera in der nächsten Stunde ankündigen: Chipsdose, Transparent- oder Butterbrotpapier, schwarzer Zeichenkarton, Schere, Kleber mitbringen.",
 }
 
 F5_SCHRITTE = [
     ("Rückseite", "Rückseite des F4-Blatts besprechen: PDF „Schattenwurf W06 Rückseite“ in Notability (Seite 1 Aufgabe, Seite 2 Lösung). Die Lösung ist Folie 1.", [1]),
     ("Jahreszeiten", "Einschub am Tellurium: Tag und Nacht, ein Jahr, geneigte Erdachse. Vermutungen zur Frage.", [2]),
-    ("Erdbahn", "Vorzeichnen, die Klasse zeichnet mit.", [3]),
-    ("Steil und flach", "Vorzeichnen, die Klasse zeichnet mit. Antwort ins Heft.", [4, 5]),
+    ("Erdbahn", "Vorzeichnen, die Klasse zeichnet mit. Danach die Animation: Erde laufen lassen, Neigung auf 0° und zurück auf 23,5° stellen.", [3, 4]),
+    ("Steil und flach", "Vorzeichnen, die Klasse zeichnet mit. Antwort ins Heft.", [5, 6]),
     ("Einstieg", "Ab hier Leitfrage 5, so weit es reicht. Vier Wochen Mond, Leitfrage 5, Vermutungen.", [V + 1, V + 2]),
     ("Tellurium", "Vorne am Tellurium zeigen, wo der Mond steht. Folie dazu.", [V + 3]),
-    ("Versuch", "Kopf, Kugel, Lampe in Paaren, Versuchsblatt.", [V + 4]),
-    ("Mondphasen", "Phasen von der Erde aus, 29,5 Tage.", [V + 5]),
-    ("Finsternisse", "Am Tellurium oder im Mondlabor, dann Folien.", [V + 6, V + 7]),
-    ("Alltag, Antwort, Check", "Alltag mündlich, Antwort ins Heft, Handzeichen.", [V + 8, V + 9, V + 10, V + 11]),
+    ("Film", f'Film aus der FWU-Mediathek zu Mondphasen und Finsternissen: <a href="{FILM_URL}" target="_blank">Film öffnen</a>.', [V + 4]),
+    ("Mondphasen", "Phasen von der Erde aus, 29,5 Tage. Danach die Animation laufen lassen.", [V + 5, V + 6]),
+    ("Finsternisse", "Am Tellurium oder im Mondlabor, dann Folien.", [V + 7, V + 8]),
+    ("Alltag, Antwort, Check", "Alltag mündlich, Antwort ins Heft, Handzeichen.", [V + 9, V + 10, V + 11, V + 12]),
 ]
 
 F5_HG = f"""
@@ -153,14 +157,15 @@ F5_HG = f"""
 <li>Typischer Fehler: Randstrahlen enden am Hindernis oder werden nicht bis zum Schirm verlängert. Bei d (zwei Hindernisse, eine Lampe) gibt es keinen Halbschatten.</li>
 <li>Bei e hilft es, erst alle Strahlen der oberen Lampe zu zeichnen, dann die der unteren, und danach die Gebiete zu zählen.</li></ul></div>
 
-<div class="box"><h3>Jahreszeiten {chip(2, 3, 4, 5)}</h3><ul>
+<div class="box"><h3>Jahreszeiten {chip(2, 3, 4, 5, 6)}</h3><ul>
 <li>Vorlage: dein Foliensatz „Wie entstehen die Jahreszeiten“ (iCloud, Physik Klasse 7, Optik, 3. Mondphasen …). Neu gezeichnet, gleicher Inhalt.</li>
 <li><b>Erdachse:</b> um 23,5° gegen die Senkrechte auf der Erdbahn geneigt, zeigt immer Richtung Polarstern. Am Tellurium sieht man das gut: Die Achse bleibt beim Umlauf parallel.</li>
 <li><b>Abstand:</b> Die Bahn ist fast ein Kreis. Anfang Januar ist die Erde der Sonne am nächsten (etwa 147 Mio. km), Anfang Juli am weitesten weg (etwa 152 Mio. km). Bei uns ist im Januar Winter, der Abstand kann also nicht der Grund sein.</li>
 <li><b>Sonnenhöhe mittags in Schorndorf:</b> im Juni etwa 65°, im Dezember nur etwa 18°.</li>
 <li>Zweiter Grund (wie auf deinem alten Blatt): Im Sommer sind die Tage länger, die Sonne scheint länger.</li>
 <li><b>Typische Fehlvorstellungen:</b> Im Sommer ist die Erde näher an der Sonne. Die Erdachse kippt im Lauf des Jahres hin und her.</li>
-<li>Versuch zum Zeigen (ohne Bauen): Taschenlampe senkrecht und schräg auf kariertes Papier halten, Kästchen im Lichtfleck zählen.</li></ul></div>
+<li>Versuch zum Zeigen (ohne Bauen): Taschenlampe senkrecht und schräg auf kariertes Papier halten, Kästchen im Lichtfleck zählen.</li>
+<li><b>Animation (Folie 4):</b> Mit dem Neigungsregler auf 0° sieht man: Ohne geneigte Achse ist keine Halbkugel zur Sonne geneigt, es gäbe keine Jahreszeiten. Die Achse bleibt beim Umlauf parallel.</li></ul></div>
 
 <div class="box"><h3>Wo steht der Mond? {chip(V + 3)}</h3><ul>
 <li>Der Mond läuft in etwa 27,3 Tagen einmal um die Erde. Von Neumond bis Neumond dauert es 29,5 Tage, weil die Erde in dieser Zeit ein Stück um die Sonne weiterwandert.</li>
@@ -168,17 +173,11 @@ F5_HG = f"""
 <li><b>Tellurium:</b> Zeigt Mondphasen und beide Finsternisse direkt vorne. Den Raum gut abdunkeln, dann ist die beleuchtete Hälfte klar zu sehen.</li>
 <li><b>Typische Fehlvorstellungen:</b> Die Phasen entstehen durch den Erdschatten. Der Mond leuchtet selbst. Bei Neumond ist der Mond „weg“.</li></ul></div>
 
-<div class="box"><h3>Tipps zum Versuch {chip(V + 4)}</h3><ul>
-<li>Eine helle Lampe ohne Schirm, sonst sind die Phasen blass. Raum ganz abdunkeln.</li>
-<li>Die Kugel etwas höher als den Kopf halten. Sonst steht sie bei „Lampe hinter dir“ im Kopfschatten, das ist dann eine Mondfinsternis. Das kann man gezielt als Zusatz zeigen.</li>
-<li>Drehen nach links, also gegen den Uhrzeigersinn. Dann stimmen die Phasen mit der Nordhalbkugel überein: Lampe rechts von dir heißt zunehmender Halbmond, rechte Seite hell.</li>
-<li>Das Buch zeigt auf S. 40 einen ähnlichen Versuch mit Globus, Lampe und einer Papierkugel am Faden.</li></ul></div>
-
-<div class="box"><h3>Mondphasen {chip(V + 5)}</h3><ul>
+<div class="box"><h3>Mondphasen {chip(V + 5, V + 6)}</h3><ul>
 <li>Faustregel für die Nordhalbkugel: rechts hell heißt zunehmend, links hell heißt abnehmend. Auf der Südhalbkugel ist es umgekehrt.</li>
 <li>Der zunehmende Halbmond steht am Nachmittag und Abend am Himmel, der abnehmende am Morgen. Der Vollmond geht beim Sonnenuntergang auf.</li></ul></div>
 
-<div class="box"><h3>Finsternisse {chip(V + 6, V + 7)}</h3><ul>
+<div class="box"><h3>Finsternisse {chip(V + 7, V + 8)}</h3><ul>
 <li>Die Mondbahn ist um etwa 5° gegen die Erdbahn geneigt. Deshalb gibt es nicht bei jedem Neumond eine Sonnenfinsternis und nicht bei jedem Vollmond eine Mondfinsternis. Im Mondlabor lässt sich der Mond dafür nach oben und unten schieben.</li>
 <li>Der Kernschatten des Mondes ist auf der Erde höchstens rund 270 km breit. Eine totale Sonnenfinsternis sieht man deshalb nur in einem schmalen Streifen, eine Mondfinsternis dagegen überall, wo gerade Nacht ist.</li>
 <li><b>Blutmond:</b> Die Lufthülle der Erde lenkt etwas Sonnenlicht in den Kernschatten. Dabei bleibt vor allem rotes Licht übrig, wie beim Sonnenuntergang.</li>
@@ -195,11 +194,6 @@ F5_AB = f"""
 <p>Die Schüler haben das Blatt schon (Rückseite des Versuchsblatts F4). Schwierigkeit: ○ leicht; ◐ mittel; ● schwer.</p>
 <p>Lücken: a ○ <b>Kernschatten</b>; b ○ <b>Halbschatten</b>; c ◐ <b>Kernschatten</b>, <b>Halbschatten</b>; d ◐ <b>Kernschatten</b>, <b>drei</b>; e ● <b>Halbschatten</b>, <b>Kernschatten</b>, <b>beiden Lichtquellen</b>.</p>
 <p>Die Kreise stehen ab dem nächsten PDF-Bau auch auf dem Blatt selbst (nach Freigabe).</p></div>
-<div class="box"><h3>Versuchsblatt Mondphasen im Modell {chip(V + 4)}</h3>
-<a class="btn" href="Materialien/Mondphasen im Modell W08.pdf">PDF öffnen</a><a class="btn" href="Materialien/Mondphasen im Modell W08 – 2 auf 1.pdf">Kopiervorlage 2 auf 1</a>
-<p>Schwierigkeit: Aufgabe 1 Versuch ○; Aufgabe 2 Lücken ◐ (○ leicht; ◐ mittel; ● schwer).</p>
-<p><b>Lösung:</b> zur Lampe: Neumond (ganz dunkel). Lampe rechts: zunehmender Halbmond (rechts hell). Lampe hinter dir: Vollmond. Lampe links: abnehmender Halbmond (links hell).
-Lücken: <b>Hälfte</b>, <b>unterschiedlich viel</b>, <b>Mondfinsternis</b>.</p></div>
 <div class="box"><h3>Mondlabor</h3>
 <a class="btn" href="Mondlabor Mondphasen und Finsternisse.html">Labor öffnen</a>
 <p>Dein H5P „Mondphasen Klasse 7“ liegt unter <code>04 Ressourcen/Physik/Mondphasen/H5P/</code> und passt als Wiederholung.</p></div>"""
@@ -275,9 +269,8 @@ Lücken: <b>geradlinig</b>, <b>umgekehrtes</b>, <b>größer</b>, <b>schärfer</b
 <a class="btn" href="Lochkameralabor.html">Labor öffnen</a><a class="btn" href="Optik-Labore.html">Alle Labore</a></div>"""
 
 bau_stunde("Optik – Leitfrage 5 – Stunde.html", "Optik: Warum sieht der Mond nicht immer gleich aus?",
-           "Klasse 7c; Physik; Rückseite Schattenwurf, Einschub Jahreszeiten, Leitfrage 5 so weit es reicht; Do 05.11.2026",
-           ["Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.",
-            "Folien und Lösungen: nicht drucken."],
+           "Klasse 7c; Physik; Rückseite Schattenwurf, Einschub Jahreszeiten, Leitfrage 5 mit Film und Animationen; Do 12.11.2026",
+           ["Nichts drucken.", "Folien und Lösungen: nicht drucken."],
            F5_MATERIAL, F5_SCHRITTE, F5, F5_HG, F5_AB, seitenleiste=True, ohne_leer=True)
 bau_stunde("Optik – Lochkamera – Stunde.html", "Optik: Die Lochkamera und Rückblick",
            "Klasse 7c; Physik; Lochkamera, Rückblick Optik I",
@@ -292,7 +285,7 @@ if "export" in sys.argv:
     VORLAGE = ICL / "F4 Kern- und Halbschatten (W06-07)"
     for ordner, chip_text, titel, mat, ab, ab21, folge, fpdf, shtml, hname, links in (
         (ICL / "F5 Mondphasen und Finsternisse (W08)", "W08", "F5 — Mondphasen und Finsternisse", F5_MATERIAL,
-         "Mondphasen im Modell W08.pdf", "Mondphasen im Modell W08 – 2 auf 1.pdf", F5, "Folien F5.pdf", "Stunde Leitfrage 5.html",
+         None, None, F5, "Folien F5.pdf", "Stunde Leitfrage 5.html",   # 11.11.2026: kein Styropor-Versuch, kein Arbeitsblatt
          "Optik – Leitfrage 5 – Stunde.html", {"Mondlabor Mondphasen und Finsternisse.html": "../Labore/Mondlabor Mondphasen und Finsternisse.html"}),
         (ICL / "Lochkamera und Rückblick (W09)", "W09", "Lochkamera und Rückblick Optik I", LK_MATERIAL,
          "Lochkamera W09.pdf", "Lochkamera W09 – 2 auf 1.pdf", LK, "Folien Lochkamera.pdf", "Stunde Lochkamera.html",
@@ -302,12 +295,13 @@ if "export" in sys.argv:
         kurz = "F5" if "F5" in fpdf else "Lochkamera"
         shutil.copy(VORLAGE / "Materialliste.html", ordner / "Materialliste.html")
         (ordner / "Gesamt.html").write_text((VORLAGE / "Gesamt.html").read_text(encoding="utf-8").replace("W06–07", chip_text), encoding="utf-8")
-        shutil.copy(MAT / ab, ordner / f"Arbeitsblatt {kurz}.pdf")
-        shutil.copy(MAT / ab21, ordner / f"Arbeitsblatt {kurz} – Kopiervorlage 2 auf 1.pdf")
+        if ab:
+            shutil.copy(MAT / ab, ordner / f"Arbeitsblatt {kurz}.pdf")
+            shutil.copy(MAT / ab21, ordner / f"Arbeitsblatt {kurz} – Kopiervorlage 2 auf 1.pdf")
+            links = dict(links, **{f"Materialien/{ab}": f"Arbeitsblatt {kurz}.pdf", f"Materialien/{ab21}": f"Arbeitsblatt {kurz} – Kopiervorlage 2 auf 1.pdf"})
         materialliste(ordner, chip_text, titel, mat)
-        links = dict(links, **{f"Materialien/{ab}": f"Arbeitsblatt {kurz}.pdf", f"Materialien/{ab21}": f"Arbeitsblatt {kurz} – Kopiervorlage 2 auf 1.pdf",
-                               "Optik-Labore.html": "../Labore/Optik-Labore.html"})
-        exportiere(folge, ordner, fpdf, f"Arbeitsblatt {kurz}.pdf", shtml, hname, links)
+        links = dict(links, **{"Optik-Labore.html": "../Labore/Optik-Labore.html"})
+        exportiere(folge, ordner, fpdf, f"Arbeitsblatt {kurz}.pdf" if ab else None, shtml, hname, links)
     for f in ("Optik-Labore.html", "Sehlabor Lichtquellen.html", "Körperlabor Licht trifft auf Körper.html", "Strahlenlabor Lichtausbreitung.html",
               "Schattenlabor Halbschatten.html", "Mondlabor Mondphasen und Finsternisse.html", "Lochkameralabor.html"):
         shutil.copy(f, ICL / "Labore" / f)

@@ -751,7 +751,7 @@ def exportiere(folge, ordner, folien_pdf, ab_pdf, stunde_html, html_name, links)
     (ordner / stunde_html).write_text(html, encoding="utf-8")
     # Gesamt.pdf
     w = PdfWriter()
-    for part in ["Materialliste.pdf", folien_pdf, ab_pdf]:
+    for part in [p for p in ("Materialliste.pdf", folien_pdf, ab_pdf) if p]:   # ab_pdf=None: Stunde ohne Arbeitsblatt
         w.append(str(ordner / part))
     with open(ordner / "Gesamt.pdf", "wb") as f:
         w.write(f)

@@ -51,9 +51,8 @@ UMBAU = {
                       "Erklären": "Schattenraum und Schattenbild, Kern- und Halbschatten: leere Folie zum Mitzeichnen, dann ausgefüllt. Im Schattenlabor die Lampen verschieben.",
                       "Schatten einzeichnen": "In drei Schritten an der Tafel vormachen, die Klasse zeichnet mit (leere Folie, dann ausgefüllt). Die Rückseite des Versuchsblatts gibt es nur als Alternative."}),
     "Optik – Leitfrage 5 – Stunde.html": dict(
-        ersatz={"Mondphasen im Modell W08.pdf": [ab(VERS_F5, "Versuch", "Leitfrage 5")], "Schattenwurf W06 Rückseite.pdf": "behalten"}, drucken=NICHTS + ["Optional: Versuchsblatt Mondphasen als Alternative."],
-        schritt_text={"Versuch": "Kopf, Kugel, Lampe in Paaren: Beschreibung an der Folie, Beobachtung ins Heft.",
-                      "Mondphasen": "Phasen von der Erde aus, 29,5 Tage: vorzeichnen, die Klasse zeichnet mit.",
+        ersatz={"Schattenwurf W06 Rückseite.pdf": "behalten"}, drucken=NICHTS,   # 11.11.2026: kein Styropor-Versuch, dafür FWU-Film
+        schritt_text={"Mondphasen": "Phasen von der Erde aus, 29,5 Tage: vorzeichnen, die Klasse zeichnet mit. Danach die Animation laufen lassen.",
                       "Finsternisse": "Am Tellurium oder im Mondlabor, dann die Folien zum Mitzeichnen (Sonnenfinsternis, Mondfinsternis)."}),
     "Optik – Lochkamera – Stunde.html": dict(
         ersatz={3: [VERS_LK]}, drucken=NICHTS + ["Optional: Versuchsblatt Lochkamera als Alternative."],
