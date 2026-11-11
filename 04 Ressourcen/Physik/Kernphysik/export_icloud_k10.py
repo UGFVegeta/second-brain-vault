@@ -88,7 +88,7 @@ def main():
     for lab in LABORE:
         shutil.copy(HIER / lab, ZIEL / "Labore" / lab)
     for datei, h1, sub, folge in stunden():
-        w = re.search(r"W\d\d", sub).group(0)
+        w = re.search(r"W\d\d[a-z]?", sub).group(0)   # auch W05b
         ordner = ZIEL / f"{w} {h1.replace('Kernphysik: ', '').replace('?', '').replace(':', ' –')}"
         ordner.mkdir(exist_ok=True)
         html = (HIER / datei).read_text(encoding="utf-8")
