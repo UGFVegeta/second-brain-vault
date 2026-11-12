@@ -642,7 +642,7 @@ def bau_stunde(datei, h1, sub, drucken, material, schritte, folge, hintergrund, 
     html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{h1}</title>
-<link rel="stylesheet" href="{css_href}">
+<style>{((ziel or HIER) / css_href).read_text(encoding="utf-8")}</style>
 {CSS.replace("</style>", extra_css + "</style>")}{HEFT_CSS}</head><body>
 <div class="wrap"><header class="kopf"><h1>{h1}</h1>
 <p class="sub">{sub}</p></header></div>
