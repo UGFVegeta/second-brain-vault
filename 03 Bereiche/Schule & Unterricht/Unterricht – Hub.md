@@ -60,8 +60,6 @@ Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Se
 - [Sportcurriculum Klasse 5 bis 10](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Sport/Sportcurriculum.html)
 - [Dreikampf Turnen](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Sport/Dreikampf%20Turnen/dreikampf-turnen.html)
 - [Coopertest Laufzettel](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Sport/Coopertest/Coopertest%20Laufzettel%20Klasse%205%20bis%2010.html)
-- [[04 Ressourcen/Sport/Aufgabenblätter Nichtteilnahme/Aufgabenblätter Nichtteilnahme|Aufgabenblätter Nichtteilnahme (Absprachen, Stand)]]
-- [Aufgabenblätter Nichtteilnahme: Übersicht zum Durchblättern](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Sport/Aufgabenbl%C3%A4tter%20Nichtteilnahme/%C3%9Cbersicht.html)
 - [[04 Ressourcen/Sport/LA Sprengeltabelle Remstal (männlich)|LA Sprengeltabelle Remstal]]
 - [[04 Ressourcen/Sport/Schwimmen/Schulschwimmen BW – Zusammenfassung der Bestimmungen|Schulschwimmen: Bestimmungen]]
 - [iCloud Sport 26/27 (Notenlisten, Gruppen)](file:///Users/oskarklein/Library/Mobile%20Documents/com~apple~CloudDocs/GDRS%20ICloud/Schuljahr%2026%2027/Sport)
