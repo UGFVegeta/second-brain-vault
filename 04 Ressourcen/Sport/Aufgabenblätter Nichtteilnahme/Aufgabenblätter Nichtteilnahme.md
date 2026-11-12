@@ -47,6 +47,14 @@ Aufgabenblätter für Schüler, die wegen Verletzung oder Erkältung im Sportunt
 Die Sportarten bei „Regeln und Spielfeld“ folgen dem Fachschafts-Curriculum (Kl. 6 Handball, Kl. 7/8 Basketball, Badminton, Fußball, Kl. 9/10 Volleyball, Kugelstoßen).
 Einige Zahlen sind gerundete Richtwerte (Zucker in Getränken, Energieverbrauch, Nährwerte als Beispiel), auf den Blättern mit „etwa“ gekennzeichnet.
 
+## Drucken
+
+Ordner `Druck/<Stufe>/` (Vault und iCloud), je Stufe zwei Dateien, beidseitig mit Wenden an der langen Kante, 100 Prozent, einmal drucken:
+1. `1 Schülerblätter …`: zuerst das Deckblatt mit Anleitung und Inhalt (ein Blatt, steckt schon in der Datei), danach jedes Blatt fünfmal hintereinander in Themenreihenfolge. 91 bis 96 Blatt je Stufe. Nach dem Druck das Deckblatt vorn in den Ordner, die 5er-Päckchen an den Wechseln trennen und je eins in eine Klarsichthülle.
+2. `2 Lösungen …`: mit eigenem Deckblatt „Nur für Lehrkräfte“, auf farbiges Papier. Nicht in den Schülerordner, sondern zur Fachschaft.
+
+Alle Dateien haben gerade Seitenzahlen, damit beidseitig nie eine Vorderseite auf die Rückseite des Vorgängers rutscht. Die Deckblätter einzeln liegen in `Druck/<Stufe>/_Einzelteile/`, einzelne Blätter für Nachdrucke in den Stufenordnern. Neu bauen: erst `baue_blaetter.py`, dann `baue_druck.py` (optional mit Stufenfilter).
+
 ## Ablage und Bauen
 
 - Vault: dieser Ordner, Unterordner `Klasse 5 und 6/<Thema>/` mit Schülerfassung und Lösung als PDF.

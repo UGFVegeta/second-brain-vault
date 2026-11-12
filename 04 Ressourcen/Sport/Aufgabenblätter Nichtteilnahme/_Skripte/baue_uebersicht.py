@@ -32,10 +32,41 @@ def vorschau(pdf):
     return ["/".join(quote(x) for x in b.relative_to(BASIS).parts) for b in bilder]
 
 
+def vorschau_anfang(pdf, name):
+    """JPGs der ersten beiden Seiten einer längeren Datei (für das Lösungsdeckblatt)."""
+    ziel = VORSCHAU / pdf.relative_to(BASIS).parent
+    bilder = [ziel / f"{name}-{i}.jpg" for i in (1, 2)]
+    if not all(b.exists() and b.stat().st_mtime >= pdf.stat().st_mtime for b in bilder):
+        ziel.mkdir(parents=True, exist_ok=True)
+        subprocess.run(["pdftoppm", "-jpeg", "-jpegopt", "quality=72", "-r", "90", "-f", "1", "-l", "2",
+                        str(pdf), str(ziel / f"{name}-tmp")], check=True)
+        for i, t in enumerate(sorted(ziel.glob(f"{name}-tmp-*.jpg")), 1):
+            t.replace(ziel / f"{name}-{i}.jpg")
+    return ["/".join(quote(x) for x in b.relative_to(BASIS).parts) for b in bilder]
+
+
+def rel(p):
+    return "/".join(quote(x) for x in p.relative_to(BASIS).parts)
+
+
+def deckblatt(st):
+    """Eintrag „Deckblatt“ je Stufe: Schülerdeckblatt, mit Lösung-Schalter das Lösungsdeckblatt."""
+    d = BASIS / "Druck" / st
+    deck = next(iter(sorted((d / "_Einzelteile").glob("Deckblatt K*.pdf"))), None)
+    loes = next(iter(sorted(d.glob("2 Lösungen*.pdf"))), None)
+    if not deck:
+        return []
+    return [{"nr": "", "titel": "Deckblatt und Inhalt", "pdf": rel(deck), "bild": vorschau(deck),
+             "loes": rel(loes) if loes else "", "loesbild": vorschau_anfang(loes, "Deckblatt Lösungen") if loes else []}]
+
+
 def daten():
     out = []
     for st in STUFEN:
         themen = []
+        dk = deckblatt(st)
+        if dk:
+            themen.append({"thema": "Ordner", "blaetter": dk})
         for th in THEMEN:
             ordner = BASIS / st / th
             blaetter = []
@@ -45,7 +76,6 @@ def daten():
                 m = re.match(r".* (\d) – (.*)\.pdf$", pdf.name)
                 nr, titel = (m.group(1), m.group(2)) if m else ("", pdf.stem)
                 loes = pdf.with_name(pdf.stem + " (Lösung).pdf")
-                rel = lambda p: "/".join(quote(x) for x in p.relative_to(BASIS).parts)
                 blaetter.append({"nr": nr, "titel": titel, "pdf": rel(pdf), "bild": vorschau(pdf),
                                  "loes": rel(loes) if loes.exists() else "",
                                  "loesbild": vorschau(loes) if loes.exists() else []})
@@ -118,7 +148,7 @@ function zeichne() {
   const b = L[idx]; if (!b) return;
   const pdf = loes && b.loes ? b.loes : b.pdf;
   document.getElementById("titel").textContent = b.titel + (loes ? " (Lösung)" : "");
-  document.getElementById("unter").textContent = D[st].stufe + " | " + b.thema + ", Blatt " + b.nr;
+  document.getElementById("unter").textContent = D[st].stufe + " | " + b.thema + (b.nr ? ", Blatt " + b.nr : "");
   document.getElementById("link").href = pdf;
   const bild = loes && b.loesbild.length ? b.loesbild : b.bild;
   document.getElementById("s1").src = bild[0]; document.getElementById("s2").src = bild[1];
