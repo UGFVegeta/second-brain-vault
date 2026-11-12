@@ -1,12 +1,12 @@
 ---
 tags: [hub, unterricht, schule]
 status: aktiv
-date: 2026-11-11
+date: 2026-11-12
 ---
 
 # Unterricht – Hub
 
-Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 11.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
+Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 12.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
 
 Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Seite im Browser (Claude-Artifact, privat, Momentaufnahme): https://claude.ai/artifact/FEnXLpLuY43fkVGJN3xDef
 
@@ -17,7 +17,7 @@ Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Se
 | **Mathe 7c** | Winkelsumme, Dreiecksformen | Konstruktion von Dreiecken |
 | **Mathe 10b** | Seitenverhältnisse im rechtwinkeligen Dreieck / sin, cos, tan | Beliebige Dreiecke / Vielecke / Trigo im Raum |
 | **Physik 7c** | Optik I: F5 Mondbahn und Mondphasen, Sonnen- und Mondfinsternis | Optik I: Lochkamera: Bildentstehung, Bau als Hausaufgabe, Versuch, Rückblick |
-| **Physik 10** | Kernphysik: Aktivität und Zählrate, Einheit Becquerel | Kernphysik: F3 Antwort und Check, Übungen zu Halbwertszeit |
+| **Physik 10** | Kernphysik: Zerfallsreihen: Blatt Np-237 und Th-232, Rückseite U-238 und U-235 (Stunde W05b) | Kernphysik: F2 Antwort und Check, Einstieg F3 mit dem Würfelmodell (Stunde W06) |
 
 ## Planung
 - [Bildungs-Dashboard: Stunden mit Status](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Bildungs-Dashboard.html)
