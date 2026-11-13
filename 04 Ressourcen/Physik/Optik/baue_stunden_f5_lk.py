@@ -276,7 +276,7 @@ bau_stunde("Optik – Lochkamera – Stunde.html", "Optik: Die Lochkamera und R�
            "Klasse 7c; Physik; Lochkamera, Rückblick Optik I",
            ["Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.",
             "Folien und Lösungen: nicht drucken."],
-           LK_MATERIAL, LK_SCHRITTE, LK, LK_HG, LK_AB)
+           LK_MATERIAL, LK_SCHRITTE, LK, LK_HG, LK_AB, seitenleiste=True)
 
 # ====================================================================== Export nach iCloud (freigegeben 24.09.2026)
 import shutil, sys

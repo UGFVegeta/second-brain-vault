@@ -14,6 +14,7 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-11-13 | 3 | – | – | |
 | 2026-11-12 | 3 | – | – | |
 | 2026-11-11 | 3 | – | – | |
 | 2026-11-10 | 4 | – | – | |

@@ -47,7 +47,7 @@ F1_AB = f"""
 HTML = "Optik – Leitfrage 1 – Stunde.html"
 bau_stunde(HTML, "Optik: Warum sehen wir überhaupt etwas?", "Klasse 7c · Physik · Leitfrage 1 · Lichtquellen und beleuchtete Körper (W03)",
            ["Arbeitsblatt Lichtquellen: Seite 1, eins pro Schüler.", "Folien und Lösungen: nicht drucken."],
-           F1_MATERIAL, F1_SCHRITTE, F1, F1_HG, F1_AB)
+           F1_MATERIAL, F1_SCHRITTE, F1, F1_HG, F1_AB, seitenleiste=True)
 
 if "export" in sys.argv:
     ordner = ICL / "F1 Lichtquellen (W03)"

@@ -1,7 +1,445 @@
 <!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Optik: Das Spiegelbild</title>
-<link rel="stylesheet" href="folien.css">
+<style>/* Beschriftungen der Zeichnungen (Labor-Stil B): IBM Plex Mono, eingebettet */
+@font-face{font-family:PlexMono;font-weight:500;src:url(data:font/woff2;base64,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) format('woff2')}
+@font-face{font-family:PlexMono;font-weight:600;src:url(data:font/woff2;base64,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) format('woff2')}
+/* ------------------------------------------------------------------
+   Folienvorlage Physik Klasse 7 (Oskar Klein)
+   Seitenformat exakt wie der Notability-Bestand: 716.8 x 404 pt
+   Farben aus dem Altbestand gemessen:
+     Magenta Rahmen  #FF1F8A
+     Blaugrau Kasten #8DA6C2 (Rand #66798E)
+     Violett Pfeil   #AD7FBA
+   Karo: gemessen an den Notability-Karoblaettern des Bestands,
+     Kaestchen 16.32 pt (= 4.8 mm auf A4-Breite), Linien #A3B7D3.
+     Das Karo liegt NUR in der Zeichenzone, nicht auf der ganzen Seite.
+   ------------------------------------------------------------------ */
+
+@page { size: 716.8pt 404pt; margin: 0; }
+
+:root {
+  --magenta:   #FF1F8A;
+  --blaugrau:  #8DA6C2;
+  --blaurand:  #66798E;
+  --violett:   #AD7FBA;
+  --karo:      #A3B7D3;
+  --kararand:  #C3D0E2;
+  --deko:      #C5D2E0;
+  --tuerkis:   #00A0A0;
+  --rot:       #E3000F;
+  --raster:    16.32pt;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #111;
+}
+
+/* --- Grundseite ------------------------------------------------- */
+
+.folie {
+  position: relative;
+  width: 716.8pt;
+  height: 404pt;
+  overflow: hidden;
+  background-color: #fff;
+  page-break-after: always;
+}
+
+/* Karo-Flaeche: nur dort, wo tatsaechlich gezeichnet wird.
+   Als SVG-Pattern, weil Chrome feine linear-gradient-Linien beim
+   PDF-Export wegrundet. So bleibt das Karo vektoriell. */
+.karo {
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><path d='M100 0H0v100' fill='none' stroke='%23A3B7D3' stroke-width='2.5'/></svg>");
+  background-size: var(--raster) var(--raster);
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+.folie:last-child { page-break-after: auto; }
+
+/* Deko-Pfeil am linken Rand, wie im Bestand angeschnitten */
+.folie::before {
+  content: "";
+  position: absolute;
+  left: -14pt;
+  top: 22%;
+  width: 0; height: 0;
+  border-top: 14pt solid transparent;
+  border-bottom: 14pt solid transparent;
+  border-left: 22pt solid var(--deko);
+}
+
+/* --- Titel ------------------------------------------------------ */
+
+.titelband {
+  position: absolute;
+  left: 14pt; right: 14pt; top: 12pt;
+  border: 0.8pt solid var(--magenta);
+  background: rgba(255,255,255,0.85);
+  padding: 6pt 0;
+  text-align: center;
+}
+.titelband h1 {
+  margin: 0;
+  font-size: 30pt;
+  font-weight: 500;
+  letter-spacing: -0.3pt;
+}
+
+/* Kapiteltitelseite: nur eine grosse Ueberschrift mittig */
+.folie.kapitel { display: flex; align-items: center; justify-content: center; }
+.folie.kapitel h1 {
+  margin: 0;
+  font-size: 40pt;
+  font-weight: 500;
+  text-align: center;
+  max-width: 560pt;
+  line-height: 1.2;
+}
+.folie.kapitel::before { content: none; }
+
+/* --- Zeichenzone ------------------------------------------------ */
+
+.zeichenzone {
+  position: absolute;
+  left: 40.16pt;           /* zentriert, Breite = 39 Kaestchen */
+  top: 74pt;
+  width: 636.48pt;         /* 39 x 16.32 pt */
+  height: 212.16pt;        /* 13 x 16.32 pt */
+  border: 0.5pt solid var(--kararand);
+}
+.zeichenzone svg { width: 100%; height: 100%; display: block; }
+
+/* --- Merksatz --------------------------------------------------- */
+
+.merksatz {
+  position: absolute;
+  left: 96pt; right: 96pt; bottom: 26pt;
+  border: 0.8pt solid var(--magenta);
+  background: rgba(255,255,255,0.9);
+  padding: 7pt 10pt;
+  font-size: 12.5pt;
+  line-height: 1.35;
+}
+.merksatz.links { left: 38pt; right: auto; width: 330pt; }
+
+b, strong { font-weight: 600; }
+.rot { color: var(--rot); font-weight: 600; }
+
+/* --- Hand-Icon: Seite, auf der mitgeschrieben wird -------------- */
+
+.schreibicon {
+  position: absolute;
+  right: 20pt; top: 16pt;
+  width: 52pt;
+  opacity: 0.95;
+}
+
+/* --- Versuchsraster --------------------------------------------- */
+
+.versuch {
+  position: absolute;
+  left: 38pt; right: 38pt; top: 72pt; bottom: 18pt;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 170pt 118pt;
+  gap: 10pt 14pt;
+  font-size: 10pt;
+  line-height: 1.28;
+}
+.versuch h2 {
+  margin: 0 0 3pt 0;
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--blaurand);
+}
+/* Feldhoehen fest, damit Arbeits- und Vorlagenseite deckungsgleich bleiben */
+.versuch .feld {
+  border: 0.6pt solid var(--blaugrau);
+  background: rgba(255,255,255,0.85);
+  padding: 6pt 8pt;
+  overflow: hidden;
+}
+.versuch .zelle { display: flex; flex-direction: column; }
+.versuch .zelle .feld { flex: 1; }
+/* Felder, in die gezeichnet wird, bekommen das Karo */
+.versuch .feld.karo { border-color: var(--kararand); }
+.versuch ol, .versuch ul { margin: 0; padding-left: 13pt; }
+.versuch li { margin-bottom: 2.5pt; }
+.versuch .feld svg { width: 100%; height: 100%; display: block; }
+
+/* --- Leitfragen-Dramaturgie -------------------------------------
+   Muster aus dem bewerteten Unterrichtsbesuch:
+   Impuls -> Leitfrage + offene Vermutung -> Erarbeitung ->
+   Antwort -> Check (MC) -> Loesung
+   ---------------------------------------------------------------- */
+
+/* Impulsseite: nur beobachten, noch keine Frage */
+.impulszone {
+  position: absolute;
+  left: 40.16pt; top: 66pt;
+  width: 636.48pt; height: 244.8pt;   /* 39 x 15 Kaestchen */
+}
+.impulszone svg { width: 100%; height: 100%; display: block; }
+.impulstext {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; bottom: 24pt;
+  font-size: 13pt;
+  text-align: center;
+  color: var(--blaurand);
+  font-weight: 600;
+}
+
+/* Frageband: die Leitfrage der Einheit */
+.frageband {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 52pt;
+  background: var(--blaugrau);
+  border: 0.6pt solid var(--blaurand);
+  padding: 10pt 18pt 12pt 18pt;
+}
+.frageband .nr {
+  font-size: 10.5pt; font-weight: 600; letter-spacing: 0.8pt;
+  color: #2E4257; text-transform: uppercase;
+}
+.frageband h2 { margin: 3pt 0 0 0; font-size: 21pt; font-weight: 500; line-height: 1.2; }
+
+.vermutungslabel {
+  position: absolute;
+  left: 40.16pt; top: 122pt;
+  font-size: 11.5pt; font-weight: 600; color: var(--blaurand);
+}
+.zeichenzone.tief { top: 138pt; height: 228.48pt; }   /* 14 Kaestchen */
+
+/* Grosse Zeichenflaeche fuer Darstellungen, die die Klasse in voller
+   Groesse abzeichnen soll (z. B. Spektrum mit 2 Kaestchen je Farbe).
+   17 Kaestchen hoch, der Merksatz rueckt dafuer nach unten. */
+.zeichenzone.gross { top: 60pt; height: 277.44pt; }
+.merksatz.tief { bottom: 12pt; padding: 5pt 10pt; }
+
+/* Antwortseite: gleiche Frage, jetzt beantwortet */
+.antwortzone {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 148pt;
+  border: 0.8pt solid var(--magenta);
+  background: rgba(255,255,255,0.9);
+  padding: 12pt 16pt;
+  font-size: 14pt;
+  line-height: 1.4;
+}
+
+/* Wissenscheck: zwei Multiple-Choice-Aufgaben, je Frage ein Band mit vier Antwortkacheln A bis D.
+   Lösungsfolie = dieselbe Folie, richtige Kachel magenta (li.richtig). */
+.check {
+  position: absolute;
+  left: 30pt; right: 30pt; top: 68pt; bottom: 16pt;
+  display: grid; grid-template-rows: 1fr 1fr; gap: 14pt;
+}
+.check .aufgabe { display: flex; flex-direction: column; gap: 8pt; min-height: 0; }
+.check .frage {
+  margin: 0; display: flex; align-items: center; gap: 10pt;
+  font-size: 16.5pt; font-weight: 600; line-height: 1.22;
+}
+.check .frage .nr {
+  flex: none; width: 24pt; height: 24pt; border-radius: 50%;
+  background: var(--magenta); color: #fff; font-size: 13pt;
+  display: flex; align-items: center; justify-content: center;
+}
+.check ol {
+  flex: 1; margin: 0; padding: 0; list-style: none; counter-reset: abc;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 9pt;
+}
+.check li {
+  counter-increment: abc; position: relative; margin: 0;
+  border: 0.8pt solid var(--blaugrau); border-radius: 8pt; background: #F3F6FA;
+  padding: 28pt 10pt 10pt;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 15.5pt; line-height: 1.22;
+}
+.check li::before {
+  content: counter(abc, upper-alpha);
+  position: absolute; top: 7pt; left: 8pt;
+  width: 19pt; height: 19pt; border-radius: 5pt;
+  background: var(--blaurand); color: #fff; font-size: 11pt; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+.check li.richtig { border: 1.8pt solid var(--magenta); background: #FFEAF4; font-weight: 600; }
+.check li.richtig::before { background: var(--magenta); }
+.check li.richtig::after {
+  content: "✓"; position: absolute; top: 4pt; right: 9pt;
+  color: var(--magenta); font-size: 17pt; font-weight: 700;
+}
+.loesungsfolie .check li:not(.richtig) { opacity: 0.55; }
+
+.loesung {
+  position: absolute;
+  left: 0; right: 0; top: 170pt;
+  text-align: center;
+  font-size: 24pt; letter-spacing: 3pt;
+}
+
+/* Rueckblick auf alle Leitfragen */
+.rueckblick {
+  position: absolute;
+  left: 60pt; right: 60pt; top: 86pt;
+  font-size: 13.5pt; line-height: 1.5;
+  list-style: none; padding-left: 0; margin: 0;
+}
+.rueckblick li { margin-bottom: 7pt; }
+.rueckblick .fnr { font-weight: 600; color: var(--blaurand); }
+
+/* --- Textseite ohne Zeichenzone --------------------------------- */
+
+.textblock {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 78pt; bottom: 24pt;
+  font-size: 12pt;
+  line-height: 1.4;
+}
+.textblock.zweispaltig { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22pt; }
+.textblock h2 { margin: 0 0 5pt 0; font-size: 13pt; font-weight: 600; color: var(--blaurand); }
+.textblock ul, .textblock ol { margin: 0; padding-left: 15pt; }
+.textblock li { margin-bottom: 3.5pt; }
+
+/* --- Prozesskette Sender / Ausbreitung / Empfaenger -------------- */
+
+.kette { display: flex; align-items: center; justify-content: center; gap: 0; }
+.kette .kasten {
+  background: var(--blaugrau);
+  border: 0.6pt solid var(--blaurand);
+  color: #111;
+  font-size: 12pt;
+  padding: 16pt 22pt;
+  text-align: center;
+}
+.kette .pfeil {
+  width: 0; height: 0;
+  border-top: 20pt solid transparent;
+  border-bottom: 20pt solid transparent;
+  border-left: 34pt solid var(--violett);
+}
+
+/* --- SVG-Grundstile (Physikzeichnungen) ------------------------- */
+
+svg .licht      { stroke: #E8B400; stroke-width: 1.4; fill: none; }
+svg .lichtrand  { stroke: #E8B400; stroke-width: 1.4; fill: none; stroke-dasharray: none; }
+svg .koerper    { fill: #6E6E6E; stroke: #333; stroke-width: 1; }
+svg .schirm     { stroke: #333; stroke-width: 2.5; }
+svg .kern       { fill: #3A3A3A; }
+svg .halb       { fill: #9A9A9A; }
+svg .hilfslinie { stroke: #999; stroke-width: 0.8; stroke-dasharray: 4 3; fill: none; }
+svg .beschriftung { font-family: "Avenir Next", Helvetica, sans-serif; font-size: 11px; fill: #111; }
+svg .beschriftung.klein { font-size: 9.5px; }
+svg .kursiv { font-style: italic; }
+
+/* --- Materialhinweis: wann welches AB ausgeteilt wird ------------ */
+
+.ab-hinweis {
+  position: absolute;
+  left: 40.16pt; bottom: 4pt;
+  background: var(--magenta);
+  color: #fff;
+  font-size: 8.5pt;
+  font-weight: 600;
+  padding: 3pt 9pt;
+  border-radius: 3pt;
+  z-index: 5;
+}
+
+/* --- Schritte-Liste: naturwissenschaftliche Arbeitsweise, vertikal - */
+
+.schritte {
+  position: absolute;
+  left: 40.16pt; right: 40.16pt; top: 66pt; bottom: 22pt;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.schritt {
+  display: flex; align-items: center; gap: 16pt;
+  border-bottom: 0.6pt solid var(--kararand);
+  padding-bottom: 6pt;
+}
+.schritt:last-child { border-bottom: none; }
+.schritt .icon { width: 34pt; height: 34pt; flex: 0 0 34pt; }
+.schritt .label { font-size: 14.5pt; font-weight: 600; width: 118pt; flex: 0 0 118pt; }
+.schritt .inhalt { font-size: 12pt; line-height: 1.32; flex: 1; }
+.schritt .inhalt.leer { border-bottom: 0.6pt solid #b8bec7; align-self: stretch; height: 18pt; }
+
+/* Variante innerhalb der Karo-Zeichenzone: kein eigener Rahmen/Abstand,
+   fuellt die Zone komplett (nur auf der Vorlagenseite verwendet). */
+.schritte.schritte-in-zone {
+  position: absolute; inset: 10pt 16pt;
+  left: 10pt; right: 16pt; top: 10pt; bottom: 10pt;
+}
+.schritte-in-zone .schritt { border-bottom-color: #dfe2e7; }
+.schritte-in-zone .label { font-size: 13pt; width: 108pt; flex: 0 0 108pt; }
+.schritte-in-zone .inhalt { font-size: 11pt; }
+
+/* Labor-Zeichen auf Folien (stunde_vorlage.mit_labor) */
+.laborchips{position:absolute;right:12pt;bottom:5pt;display:flex;gap:5pt;z-index:5}
+.laborchip{background:#0B8FB8;color:#fff;font:600 9pt/1.2 "Avenir Next",Helvetica,Arial,sans-serif;padding:2.5pt 8pt;border-radius:9pt}
+
+/* ==== Folienstil V1 (30.09.2026): schwarzer Kopfbalken, weißer Grund, Apple-Anmutung, Fußzeile.
+   Greift nur auf Folien mit Klasse stil-v1 (setzt stunde_vorlage.stilisiere). Richtige Antwort im Check grün. ==== */
+.folie.stil-v1 { background:#fff; font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif; color:#1d1d1f; }
+.folie.stil-v1::before { content:none; }
+.stil-v1 .titelband { left:0; right:0; top:0; height:auto; min-height:56pt; border:none; background:#1d1d1f; padding:9pt 30pt 9pt; text-align:left; }
+.stil-v1 .titelband h1 { color:#fff; font-family:-apple-system,"SF Pro Display","Helvetica Neue",sans-serif; font-size:21pt; font-weight:700; letter-spacing:-0.5pt; line-height:1.15; }
+.stil-v1 .eyebrow { display:block; color:#98989d; font-size:9.5pt; font-weight:600; letter-spacing:1pt; text-transform:uppercase; margin-bottom:1pt; }
+.stil-v1 .frageband { left:0; right:0; top:0; background:#1d1d1f; border:none; padding:11pt 30pt 13pt; }
+.stil-v1 .frageband .nr { color:#98989d; font-size:9.5pt; letter-spacing:1pt; }
+.stil-v1 .frageband h2 { color:#fff; font-size:22pt; font-weight:700; letter-spacing:-0.4pt; }
+.stil-v1 .zeichenzone { border:none; border-radius:4pt; box-shadow:0 0 0 0.6pt #D2D2D7; }
+.stil-v1 .zeichenzone:not(.gross):not(.tief) { top:84pt; }
+.stil-v1 .zeichenzone.tief { top:92pt; height:261.12pt; }
+.stil-v1 .vermutungslabel { top:74pt; color:#6e6e73; }
+.stil-v1 .impulstext { color:#6e6e73; bottom:26pt; }
+.stil-v1 .merksatz, .stil-v1 .antwortzone { border:none; border-radius:12pt; background:#fff; padding-left:18pt;
+  box-shadow:0 0 0 0.7pt #D2D2D7; }
+.stil-v1 .merksatz { bottom:28pt; }
+.stil-v1 .merksatz.tief { bottom:26pt; }
+.stil-v1 .antwortzone { top:90pt; }
+.stil-v1 .merksatz::before, .stil-v1 .antwortzone::before { content:""; position:absolute; left:7pt; top:8pt; bottom:8pt; width:3pt; border-radius:2pt; background:#1d1d1f; }
+.stil-v1 .schreibicon { top:7pt; right:18pt; width:42pt; background:#fff; border-radius:50%; padding:4pt; }
+.stil-v1 .fuss { position:absolute; left:30pt; right:30pt; bottom:8pt; display:flex; justify-content:space-between;
+  font-size:7.5pt; color:#86868b; letter-spacing:0.3pt; border-top:0.5pt solid #E3E3E8; padding-top:4pt; }
+/* Check */
+.stil-v1 .check { left:26pt; right:26pt; top:70pt; bottom:26pt; gap:9pt; }
+.stil-v1 .check .aufgabe { background:#F5F5F7; border-radius:16pt; padding:10pt 12pt 12pt; gap:8pt; }
+.stil-v1 .check .frage { font-size:16pt; font-weight:600; letter-spacing:-0.2pt; text-wrap:balance; }
+.stil-v1 .check .frage .nr { width:auto; height:auto; border-radius:0; background:none; color:#86868b; font-size:11pt; letter-spacing:0.6pt; text-transform:uppercase; }
+.stil-v1 .check .frage .nr::before { content:"Frage\00a0"; }
+.stil-v1 .check ol { gap:8pt; }
+.stil-v1 .check li { border:none; border-radius:12pt; background:#fff; box-shadow:0 0 0 0.7pt #D2D2D7;
+  padding:30pt 10pt 10pt; font-size:15.5pt; font-weight:500; letter-spacing:-0.2pt; text-wrap:balance; hyphens:none; }
+.stil-v1 .check li::before { top:9pt; left:50%; transform:translateX(-50%); width:20pt; height:20pt; border-radius:50%; background:#E8E8ED; color:#1d1d1f; font-size:10.5pt; font-weight:600; }
+.stil-v1 .check li.richtig { font-weight:600; box-shadow:0 0 0 2pt #34C759; }
+.stil-v1 .check li.richtig::before { background:#34C759; color:#fff; }
+.stil-v1 .check li.richtig::after { content:"✓"; top:7pt; right:10pt; font-size:15pt; color:#248A3D; }
+.loesungsfolie.stil-v1 .check li:not(.richtig) { opacity:0.4; box-shadow:none; }
+.stil-v1 .ab-hinweis { left:300pt; bottom:3pt; }
+.stil-v1 .laborchips { right:44pt; bottom:3pt; }
+/* Karo als echte Vektorlinien (Apple Vorschau/Quartz rendert das Kachel-Muster mit riesigen Kästchen) */
+.karo.vgitter { background-image:none; isolation:isolate; }
+.zeichenzone .karogitter { position:absolute; left:0; top:0; z-index:-1; width:100%; height:100%; }
+/* große Zeichenfläche (17 Kästchen): Merksatz breit und niedrig, Fußzeile entfällt */
+.stil-v1 .merksatz.tief { left:40.16pt; right:40.16pt; bottom:16pt; font-size:11pt; padding:4pt 10pt 4pt 18pt; line-height:1.3; }
+.folie.stil-v1:has(.merksatz.tief) .fuss { display:none; }
+.folie.stil-v1:has(.merksatz.tief) .laborchips { bottom:3pt; }
+
+/* Versuchsbeschreibung: Material/Aufbau links, Durchführung rechts, keine Beobachtung */
+.folie.stil-v1 .vbeschr { position:absolute; left:30pt; right:30pt; top:74pt; bottom:26pt; display:grid; grid-template-columns:1fr 1.25fr; gap:12pt; }
+.stil-v1 .vkarte { background:#F5F5F7; border-radius:14pt; padding:10pt 14pt; font-size:12.5pt; line-height:1.35; }
+.stil-v1 .vkarte h2 { margin:0 0 6pt; font-size:9.5pt; font-weight:600; letter-spacing:1pt; text-transform:uppercase; color:#86868b; }
+.stil-v1 .vkarte ul, .stil-v1 .vkarte ol { margin:0; padding-left:16pt; }
+.stil-v1 .vkarte li { margin-bottom:5pt; }
+.stil-v1 .vbild { margin-top:6pt; } .stil-v1 .vbild svg { width:100%; height:auto; display:block; }
+</style>
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}
@@ -37,7 +475,35 @@ table.t{border-collapse:collapse;width:100%;font-size:15.5px}.t td,.t th{border:
 .austeil{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}
 .box h4{margin:12px 0 4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#66798e}table.mt{border-collapse:collapse;width:100%;font-size:15.5px;margin:0 0 6px;table-layout:fixed}.mt th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#66798e;border-bottom:1.5px solid #1b1b1b;padding:5px 8px}.mt td{border-bottom:1px solid #e3e5ea;padding:6px 8px;vertical-align:top}.mt td.anz{white-space:nowrap;font-weight:600}.mt td.leer{color:#8da6c2;font-style:italic}.mhinweis{margin:10px 0 4px;padding:8px 12px;border:1px solid #FF1F8A;background:#fff6fa;font-size:15px}
 .fchip{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}
-.vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}</style><style>
+.vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}.fnr .neu{background:#0a66d8;color:#fff;border-radius:8px;padding:1px 8px;font-size:11px;margin-left:6px}
+body:has(#t_folien.on) .wrap{max-width:1250px}
+#present{display:flex;gap:18px;align-items:flex-start}
+#stagecol{flex:1;min-width:0}
+#side{--accent2:#1d1d1f;--muted:#66798E;--ink:#1b1b1b;flex:none;width:224px;position:sticky;top:58px;max-height:calc(100vh - 80px);overflow-y:auto;overflow-x:hidden;background:#efe8d8;border:1px solid #e0d7c2;border-radius:14px;padding:16px 10px;display:flex;flex-direction:column;gap:2px}
+#side>*{flex:none}
+#side h2{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive;font-size:23px;line-height:1.05;font-weight:700;padding:0 8px 8px;overflow-wrap:anywhere;border-bottom:3px solid var(--accent2);margin:0 0 8px}
+#side .grp{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive;font-size:21px;color:var(--muted);padding:12px 8px 3px;line-height:1.1}
+#side .stab{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;padding:8px 11px;border-radius:9px;font-size:14.5px;line-height:1.2;color:var(--ink)}
+#side .stab.sub{padding-left:20px;font-size:14px}
+#side .stab:hover{background:#f8f3e6}
+#side .stab.aktiv{background:#fff;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12);border-left:5px solid var(--accent2)}
+#side .punkte{display:flex;gap:3px;flex:none;flex-wrap:wrap;max-width:70px;justify-content:flex-end}
+#side .punkte i{width:6px;height:6px;border-radius:50%;background:#cdc4ae;cursor:pointer}
+#side .punkte i.an{background:var(--accent2)}
+#side .hinweis{margin-top:auto;padding:14px 8px 0;font-size:11.5px;color:var(--muted);line-height:1.6}
+#side kbd{font:inherit;font-size:10.5px;background:#fff;border:1px solid #cfc8b8;border-radius:4px;padding:0 4px}
+#present.nav-aus #side{display:none}
+@media (max-width:900px){#side{display:none}}
+#side .praes{all:unset;box-sizing:border-box;display:block;text-align:center;cursor:pointer;margin:0 4px 8px;padding:7px 10px;border-radius:9px;background:#1d1d1f;color:#fff;font-size:13.5px;font-weight:600}
+#side .praes:hover{background:#3a3a3c}
+#present:fullscreen{background:#fff;padding:14px;gap:14px;align-items:stretch;overflow:hidden;box-sizing:border-box}
+#present:fullscreen #side{position:static;max-height:none;height:100%;display:flex}
+#present:fullscreen.nav-aus #side{display:none}
+#present:fullscreen #side .praes{display:none}
+#present:fullscreen #stagecol{display:flex;align-items:center;justify-content:center;height:100%;overflow:hidden}
+#present:fullscreen #stagecol>*{display:none}
+#present:fullscreen #stagecol>.vollan{display:block;margin:0;flex:none}
+</style><style>
 .hbeob{margin:4px 0 14px;font-size:15px}.hbeob .hz{border-bottom:1px solid #b8bec7;height:26px}
 a.labchip{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;text-decoration:none;margin:0 6px 4px 0}
 .labzeile{margin:12px 0 0;font-size:14px;color:#555}
@@ -54,7 +520,35 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 .heftseite .hantw{background:rgba(255,255,255,.92);border:1.5px solid #1a56a0;border-radius:4px;padding:8px 14px;font-size:16px;line-height:1.5;max-width:760px}
 .heftseite .hlabor{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:2px 10px;font-size:13.5px;font-weight:600;margin:6px 0 2px}
 .heftleg{font-size:14px;color:#555;background:#f5f5f1;border-radius:8px;padding:10px 14px;margin:14px 0 0}
-.vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}</style><style>
+.vorschau{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}.vorschau figure{margin:0;flex:1 1 260px;max-width:48%}.vorschau img{width:100%;border:1px solid #d9dee6;border-radius:4px;display:block}.vorschau figcaption{font-size:12px;color:#66798E;margin-top:3px}.fnr .neu{background:#0a66d8;color:#fff;border-radius:8px;padding:1px 8px;font-size:11px;margin-left:6px}
+body:has(#t_folien.on) .wrap{max-width:1250px}
+#present{display:flex;gap:18px;align-items:flex-start}
+#stagecol{flex:1;min-width:0}
+#side{--accent2:#1d1d1f;--muted:#66798E;--ink:#1b1b1b;flex:none;width:224px;position:sticky;top:58px;max-height:calc(100vh - 80px);overflow-y:auto;overflow-x:hidden;background:#efe8d8;border:1px solid #e0d7c2;border-radius:14px;padding:16px 10px;display:flex;flex-direction:column;gap:2px}
+#side>*{flex:none}
+#side h2{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive;font-size:23px;line-height:1.05;font-weight:700;padding:0 8px 8px;overflow-wrap:anywhere;border-bottom:3px solid var(--accent2);margin:0 0 8px}
+#side .grp{font-family:'Caveat','Bradley Hand','Segoe Print','Chalkboard SE',cursive;font-size:21px;color:var(--muted);padding:12px 8px 3px;line-height:1.1}
+#side .stab{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;padding:8px 11px;border-radius:9px;font-size:14.5px;line-height:1.2;color:var(--ink)}
+#side .stab.sub{padding-left:20px;font-size:14px}
+#side .stab:hover{background:#f8f3e6}
+#side .stab.aktiv{background:#fff;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12);border-left:5px solid var(--accent2)}
+#side .punkte{display:flex;gap:3px;flex:none;flex-wrap:wrap;max-width:70px;justify-content:flex-end}
+#side .punkte i{width:6px;height:6px;border-radius:50%;background:#cdc4ae;cursor:pointer}
+#side .punkte i.an{background:var(--accent2)}
+#side .hinweis{margin-top:auto;padding:14px 8px 0;font-size:11.5px;color:var(--muted);line-height:1.6}
+#side kbd{font:inherit;font-size:10.5px;background:#fff;border:1px solid #cfc8b8;border-radius:4px;padding:0 4px}
+#present.nav-aus #side{display:none}
+@media (max-width:900px){#side{display:none}}
+#side .praes{all:unset;box-sizing:border-box;display:block;text-align:center;cursor:pointer;margin:0 4px 8px;padding:7px 10px;border-radius:9px;background:#1d1d1f;color:#fff;font-size:13.5px;font-weight:600}
+#side .praes:hover{background:#3a3a3c}
+#present:fullscreen{background:#fff;padding:14px;gap:14px;align-items:stretch;overflow:hidden;box-sizing:border-box}
+#present:fullscreen #side{position:static;max-height:none;height:100%;display:flex}
+#present:fullscreen.nav-aus #side{display:none}
+#present:fullscreen #side .praes{display:none}
+#present:fullscreen #stagecol{display:flex;align-items:center;justify-content:center;height:100%;overflow:hidden}
+#present:fullscreen #stagecol>*{display:none}
+#present:fullscreen #stagecol>.vollan{display:block;margin:0;flex:none}
+</style><style>
 .hbeob{margin:4px 0 14px;font-size:15px}.hbeob .hz{border-bottom:1px solid #b8bec7;height:26px}
 a.labchip{display:inline-block;background:#E4F3F8;color:#0B6E8E;border:1px solid #0B8FB8;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;text-decoration:none;margin:0 6px 4px 0}
 .labzeile{margin:12px 0 0;font-size:14px;color:#555}
@@ -73,20 +567,20 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
 .heftleg{font-size:14px;color:#555;background:#f5f5f1;border-radius:8px;padding:10px 14px;margin:14px 0 0}
 </style></head><body>
 <div class="wrap"><header class="kopf"><h1>Optik: Das Spiegelbild</h1>
-<p class="sub">Klasse 7c · Physik · Leitfrage 6, Teil 2 · Spiegelbild und Spiegelgröße · voraussichtlich Do 12.11.2026</p></header></div>
+<p class="sub">Klasse 7c; Physik; Leitfrage 6, Teil 2; Spiegelbild und Spiegelgröße; voraussichtlich Do 12.11.2026</p></header></div>
 <nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="heft">Heft</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
 <div class="wrap">
 <div class="tab" id="t_ueb">
 <div class="box"><h3>Drucken</h3><ul><li>Ausnahme: Arbeitsblatt Der Spiegel, Seite 1, eins pro Schüler (Spiegelbild braucht eine besondere Zeichnung).</li><li>Folien und Lösungen: nicht drucken.</li></ul></div>
 <div class="box"><h3>Material</h3><h4>Demo (für dich)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Glasplatte, senkrecht aufgestellt</td><td class="anz">1×</td><td>zum Beispiel ein Bilderrahmenglas, Kanten abkleben</td></tr><tr><td>zwei gleiche Teelichter</td><td class="anz">2</td><td>eins brennt davor, eins steht aus hinter der Platte</td></tr><tr><td>Feuerzeug</td><td class="anz">1×</td><td></td></tr></table><h4>Schülerversuch (pro Gruppe)</h4><table class="mt"><tr><th style="width:40%">Material</th><th style="width:90px">Anzahl</th><th>Hinweis</th></tr><tr><td>Geodreieck und Bleistift</td><td class="anz">1×</td><td>zum Konstruieren auf dem Arbeitsblatt</td></tr></table><div class="mhinweis">Demo zum Spiegelbild: Das nicht brennende Teelicht hinter der Glasplatte scheint zu brennen, wenn es genau an der Bildstelle steht.</div></div>
-<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 · Spiegelbild</div><div class="z1" style="flex:1">2 · Arbeitsblatt</div><div class="z2" style="flex:1">3 · Alltag</div><div class="z3" style="flex:1">4 · Antwort und Check</div></div><div class="schr"><span class="n">1</span><div><b>Spiegelbild</b><br><span class="m">Demo mit Glasplatte und zwei Teelichtern, dann Folie. Spiegelgröße im Spiegellabor.</span></div><div class="go"><a class="labchip" href="Spiegellabor Reflexion.html" target="_blank">🧪 Spiegellabor</a><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Arbeitsblatt</b><br><span class="m">Wie groß muss der Spiegel sein? Konstruieren.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Alltag</b><br><span class="m">Spiegelschrift und Schaufenster.</span></div><div class="go"><button data-go=f4>Folie 4</button></div></div><div class="schr"><span class="n">4</span><div><b>Antwort und Check</b><br><span class="m">Antwort auf Leitfrage 6 ins Heft, Handzeichen, Lösung.</span></div><div class="go"><button data-go=f5>Folie 5</button><button data-go=f6>Folie 6</button><button data-go=f7>Folie 7</button></div></div><p class="labzeile">Labore zur Stunde: <a class="labchip" href="Spiegellabor Reflexion.html" target="_blank">🧪 Spiegellabor</a></p></div>
+<div class="box"><h3>Die Stunde</h3><div class="zeitleiste"><div class="z0" style="flex:1">1 Spiegelbild</div><div class="z1" style="flex:1">2 Arbeitsblatt</div><div class="z2" style="flex:1">3 Alltag</div><div class="z3" style="flex:1">4 Antwort und Check</div></div><div class="schr"><span class="n">1</span><div><b>Spiegelbild</b><br><span class="m">Demo mit Glasplatte und zwei Teelichtern, dann Folie. Spiegelgröße im Spiegellabor.</span></div><div class="go"><a class="labchip" href="Spiegellabor Reflexion.html" target="_blank">🧪 Spiegellabor</a><button data-go=f1>Folie 1</button><button data-go=f2>Folie 2</button></div></div><div class="schr"><span class="n">2</span><div><b>Arbeitsblatt</b><br><span class="m">Wie groß muss der Spiegel sein? Konstruieren.</span></div><div class="go"><button data-go=f3>Folie 3</button></div></div><div class="schr"><span class="n">3</span><div><b>Alltag</b><br><span class="m">Spiegelschrift und Schaufenster.</span></div><div class="go"><button data-go=f4>Folie 4</button></div></div><div class="schr"><span class="n">4</span><div><b>Antwort und Check</b><br><span class="m">Antwort auf Leitfrage 6 ins Heft, Handzeichen, Lösung.</span></div><div class="go"><button data-go=f5>Folie 5</button><button data-go=f6>Folie 6</button><button data-go=f7>Folie 7</button></div></div><p class="labzeile">Labore zur Stunde: <a class="labchip" href="Spiegellabor Reflexion.html" target="_blank">🧪 Spiegellabor</a></p></div>
 </div>
-<div class="tab" id="t_folien"><div class="fnr">Folie 1</div><div class="karte" id="f1"><section class="folie leer stil-v1">
-  <div class="titelband"><h1><span class="eyebrow">Optik · Leitfrage 6</span>6.2 Das Spiegelbild</h1></div>
+<div class="tab" id="t_folien"><div id="present"><nav id="side"></nav><div id="stagecol"><div class="fnr">Folie 1</div><div class="karte" id="f1" data-tab="Spiegelbild" data-group=""><section class="folie leer stil-v1">
+  <div class="titelband"><h1><span class="eyebrow">Optik; Leitfrage 6</span>6.2 Das Spiegelbild</h1></div>
   <div class="zeichenzone karo vgitter" style="height:277.44pt"><svg class="karogitter" viewBox="0 0 636.48 277.44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#A3B7D3" stroke-width="0.41"><path d="M0.00 0V277.44"/><path d="M16.32 0V277.44"/><path d="M32.64 0V277.44"/><path d="M48.96 0V277.44"/><path d="M65.28 0V277.44"/><path d="M81.60 0V277.44"/><path d="M97.92 0V277.44"/><path d="M114.24 0V277.44"/><path d="M130.56 0V277.44"/><path d="M146.88 0V277.44"/><path d="M163.20 0V277.44"/><path d="M179.52 0V277.44"/><path d="M195.84 0V277.44"/><path d="M212.16 0V277.44"/><path d="M228.48 0V277.44"/><path d="M244.80 0V277.44"/><path d="M261.12 0V277.44"/><path d="M277.44 0V277.44"/><path d="M293.76 0V277.44"/><path d="M310.08 0V277.44"/><path d="M326.40 0V277.44"/><path d="M342.72 0V277.44"/><path d="M359.04 0V277.44"/><path d="M375.36 0V277.44"/><path d="M391.68 0V277.44"/><path d="M408.00 0V277.44"/><path d="M424.32 0V277.44"/><path d="M440.64 0V277.44"/><path d="M456.96 0V277.44"/><path d="M473.28 0V277.44"/><path d="M489.60 0V277.44"/><path d="M505.92 0V277.44"/><path d="M522.24 0V277.44"/><path d="M538.56 0V277.44"/><path d="M554.88 0V277.44"/><path d="M571.20 0V277.44"/><path d="M587.52 0V277.44"/><path d="M603.84 0V277.44"/><path d="M620.16 0V277.44"/><path d="M636.48 0V277.44"/><path d="M0 0.00H636.48"/><path d="M0 16.32H636.48"/><path d="M0 32.64H636.48"/><path d="M0 48.96H636.48"/><path d="M0 65.28H636.48"/><path d="M0 81.60H636.48"/><path d="M0 97.92H636.48"/><path d="M0 114.24H636.48"/><path d="M0 130.56H636.48"/><path d="M0 146.88H636.48"/><path d="M0 163.20H636.48"/><path d="M0 179.52H636.48"/><path d="M0 195.84H636.48"/><path d="M0 212.16H636.48"/><path d="M0 228.48H636.48"/><path d="M0 244.80H636.48"/><path d="M0 261.12H636.48"/><path d="M0 277.44H636.48"/></g></svg></div>
   
-<div class="laborchips"><div class="laborchip">🧪 Labor: Spiegellabor</div></div><div class="fuss"><span>Physik 7 · Optik · Das Spiegelbild</span><span>1</span></div></section></div><div class="fnr">Folie 2</div><div class="karte" id="f2"><section class="folie stil-v1">
-  <div class="titelband"><h1><span class="eyebrow">Optik · Leitfrage 6</span>6.2 Das Spiegelbild</h1></div>
+<div class="laborchips"><div class="laborchip">🧪 Labor: Spiegellabor</div></div><div class="fuss"><span>Physik 7; Optik; Das Spiegelbild</span><span>1</span></div></section></div><div class="fnr">Folie 2</div><div class="karte" id="f2" data-tab="Spiegelbild" data-group=""><section class="folie stil-v1">
+  <div class="titelband"><h1><span class="eyebrow">Optik; Leitfrage 6</span>6.2 Das Spiegelbild</h1></div>
   <div class="zeichenzone karo vgitter"><svg class="karogitter" viewBox="0 0 636.48 212.16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#A3B7D3" stroke-width="0.41"><path d="M0.00 0V212.16"/><path d="M16.32 0V212.16"/><path d="M32.64 0V212.16"/><path d="M48.96 0V212.16"/><path d="M65.28 0V212.16"/><path d="M81.60 0V212.16"/><path d="M97.92 0V212.16"/><path d="M114.24 0V212.16"/><path d="M130.56 0V212.16"/><path d="M146.88 0V212.16"/><path d="M163.20 0V212.16"/><path d="M179.52 0V212.16"/><path d="M195.84 0V212.16"/><path d="M212.16 0V212.16"/><path d="M228.48 0V212.16"/><path d="M244.80 0V212.16"/><path d="M261.12 0V212.16"/><path d="M277.44 0V212.16"/><path d="M293.76 0V212.16"/><path d="M310.08 0V212.16"/><path d="M326.40 0V212.16"/><path d="M342.72 0V212.16"/><path d="M359.04 0V212.16"/><path d="M375.36 0V212.16"/><path d="M391.68 0V212.16"/><path d="M408.00 0V212.16"/><path d="M424.32 0V212.16"/><path d="M440.64 0V212.16"/><path d="M456.96 0V212.16"/><path d="M473.28 0V212.16"/><path d="M489.60 0V212.16"/><path d="M505.92 0V212.16"/><path d="M522.24 0V212.16"/><path d="M538.56 0V212.16"/><path d="M554.88 0V212.16"/><path d="M571.20 0V212.16"/><path d="M587.52 0V212.16"/><path d="M603.84 0V212.16"/><path d="M620.16 0V212.16"/><path d="M636.48 0V212.16"/><path d="M0 0.00H636.48"/><path d="M0 16.32H636.48"/><path d="M0 32.64H636.48"/><path d="M0 48.96H636.48"/><path d="M0 65.28H636.48"/><path d="M0 81.60H636.48"/><path d="M0 97.92H636.48"/><path d="M0 114.24H636.48"/><path d="M0 130.56H636.48"/><path d="M0 146.88H636.48"/><path d="M0 163.20H636.48"/><path d="M0 179.52H636.48"/><path d="M0 195.84H636.48"/><path d="M0 212.16H636.48"/></g></svg>
     <svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sbgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="sbwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="sbball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><rect x="316.0" y="16.0" width="4.0" height="174.0" rx="0" fill="#66798E" fill-opacity="1"/><line x1="320.0" y1="24.0" x2="328.0" y2="16.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="40.0" x2="328.0" y2="32.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="56.0" x2="328.0" y2="48.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="72.0" x2="328.0" y2="64.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="88.0" x2="328.0" y2="80.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="104.0" x2="328.0" y2="96.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="120.0" x2="328.0" y2="112.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="136.0" x2="328.0" y2="128.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="152.0" x2="328.0" y2="144.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="168.0" x2="328.0" y2="160.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="184.0" x2="328.0" y2="176.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><g opacity="1"><rect x="170" y="96" width="16" height="46" rx="2" fill="#F5E6C8" stroke="#C6B48E"/><path d="M178 96 q-10 -14 0 -28 q10 14 0 28z" fill="#FFB627" stroke="#E8641B" stroke-width="1.2"/></g><g opacity="0.4"><rect x="450" y="96" width="16" height="46" rx="2" fill="#F5E6C8" stroke="#C6B48E"/><path d="M458 96 q-10 -14 0 -28 q10 14 0 28z" fill="#FFB627" stroke="#E8641B" stroke-width="1.2"/></g><circle cx="178" cy="80" r="22" fill="url(#sbgl)"/><line x1="178.0" y1="68.0" x2="318.0" y2="124.0" stroke="#E8641B" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><line x1="318.0" y1="124.0" x2="231.4" y2="158.6" stroke="#E8641B" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="224.0,161.6 230.9,154.5 233.9,162.0" fill="#E8641B" fill-opacity="1"/><line x1="318.0" y1="124.0" x2="458.0" y2="68.0" stroke="#E8641B" stroke-width="1.4" stroke-opacity="0.7" stroke-linecap="round" stroke-dasharray="5 4"/><line x1="178.0" y1="142.0" x2="318.0" y2="156.6" stroke="#0B8FB8" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><line x1="318.0" y1="156.6" x2="232.0" y2="165.5" stroke="#0B8FB8" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="224.0,166.3 232.5,161.4 233.4,169.4" fill="#0B8FB8" fill-opacity="1"/><line x1="318.0" y1="156.6" x2="458.0" y2="142.0" stroke="#0B8FB8" stroke-width="1.4" stroke-opacity="0.7" stroke-linecap="round" stroke-dasharray="5 4"/><path d="M190.0 168 Q208 151.1 226.0 168 Q208 184.9 190.0 168Z" fill="#FFFFFF" stroke="#66798E" stroke-width="1.5"/><circle cx="202.0" cy="168" r="6.8" fill="#3B7CC4"/><circle cx="201.2" cy="168" r="3.2" fill="#05080F"/><line x1="178.0" y1="200.0" x2="314.0" y2="200.0" stroke="#9AAAC0" stroke-width="1" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="3 4"/><line x1="322.0" y1="200.0" x2="458.0" y2="200.0" stroke="#9AAAC0" stroke-width="1" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="3 4"/><text x="248.0" y="198.0" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="14" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">g</text><text x="388.0" y="198.0" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="14" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">g</text><text x="162.0" y="124.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Gegenstand</text><text x="474.0" y="124.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">virtuelles Bild</text><text x="318.0" y="208.0" font-family="PlexMono, Menlo, monospace" font-size="9" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Spiegel</text><style>@media (prefers-reduced-motion:reduce){.puls{display:none}}</style><circle class="puls" r="4" fill="#E8641B" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 68.0 L318.0 124.0 L231.4 158.6" dur="1.63s" begin="0.00s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.63s" begin="0.00s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#E8641B" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 68.0 L318.0 124.0 L231.4 158.6" dur="1.63s" begin="0.54s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.63s" begin="0.54s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#E8641B" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 68.0 L318.0 124.0 L231.4 158.6" dur="1.63s" begin="1.08s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.63s" begin="1.08s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#0B8FB8" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 142.0 L318.0 156.6 L232.0 165.5" dur="1.60s" begin="0.00s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.60s" begin="0.00s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#0B8FB8" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 142.0 L318.0 156.6 L232.0 165.5" dur="1.60s" begin="0.53s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.60s" begin="0.53s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#0B8FB8" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 142.0 L318.0 156.6 L232.0 165.5" dur="1.60s" begin="1.07s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.60s" begin="1.07s" repeatCount="indefinite"/></circle></svg>
   </div>
@@ -94,7 +588,7 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
     Das Spiegelbild ist <b>genauso groß</b> wie der Gegenstand und steht scheinbar
     (<span class="rot">virtuell</span>) ebenso weit hinter dem Spiegel wie der Gegenstand davor.
   </div>
-<div class="laborchips"><div class="laborchip">🧪 Labor: Spiegellabor</div></div><div class="fuss"><span>Physik 7 · Optik · Das Spiegelbild</span><span>2</span></div></section></div><div class="fnr">Folie 3 · Schülerblatt mit Lösung</div><div class="blattkarte" id="f3"><div class="austeil">📄 Arbeitsblatt austeilen</div><img class="blattbild" src="Materialien/assets/blatt-w11-loesung.png" alt=""></div><div class="fnr">Folie 4</div><div class="karte" id="f4"><section class="folie stil-v1"><div class="titelband"><h1><span class="eyebrow">Optik</span>Auf dem Krankenwagen steht AMBULANZ spiegelverkehrt</h1></div><div class="zeichenzone karo vgitter"><svg class="karogitter" viewBox="0 0 636.48 212.16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#A3B7D3" stroke-width="0.41"><path d="M0.00 0V212.16"/><path d="M16.32 0V212.16"/><path d="M32.64 0V212.16"/><path d="M48.96 0V212.16"/><path d="M65.28 0V212.16"/><path d="M81.60 0V212.16"/><path d="M97.92 0V212.16"/><path d="M114.24 0V212.16"/><path d="M130.56 0V212.16"/><path d="M146.88 0V212.16"/><path d="M163.20 0V212.16"/><path d="M179.52 0V212.16"/><path d="M195.84 0V212.16"/><path d="M212.16 0V212.16"/><path d="M228.48 0V212.16"/><path d="M244.80 0V212.16"/><path d="M261.12 0V212.16"/><path d="M277.44 0V212.16"/><path d="M293.76 0V212.16"/><path d="M310.08 0V212.16"/><path d="M326.40 0V212.16"/><path d="M342.72 0V212.16"/><path d="M359.04 0V212.16"/><path d="M375.36 0V212.16"/><path d="M391.68 0V212.16"/><path d="M408.00 0V212.16"/><path d="M424.32 0V212.16"/><path d="M440.64 0V212.16"/><path d="M456.96 0V212.16"/><path d="M473.28 0V212.16"/><path d="M489.60 0V212.16"/><path d="M505.92 0V212.16"/><path d="M522.24 0V212.16"/><path d="M538.56 0V212.16"/><path d="M554.88 0V212.16"/><path d="M571.20 0V212.16"/><path d="M587.52 0V212.16"/><path d="M603.84 0V212.16"/><path d="M620.16 0V212.16"/><path d="M636.48 0V212.16"/><path d="M0 0.00H636.48"/><path d="M0 16.32H636.48"/><path d="M0 32.64H636.48"/><path d="M0 48.96H636.48"/><path d="M0 65.28H636.48"/><path d="M0 81.60H636.48"/><path d="M0 97.92H636.48"/><path d="M0 114.24H636.48"/><path d="M0 130.56H636.48"/><path d="M0 146.88H636.48"/><path d="M0 163.20H636.48"/><path d="M0 179.52H636.48"/><path d="M0 195.84H636.48"/><path d="M0 212.16H636.48"/></g></svg><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was man sieht</th><th>warum</th></tr><tr><td>Krankenwagen</td><td><b>AMBULANZ steht spiegelverkehrt</b></td><td>Im Rückspiegel des Autos davor ist die Schrift richtig lesbar.</td></tr><tr><td>Schaufenster am Abend</td><td><b>du siehst dich in der Scheibe</b></td><td>Glas reflektiert einen kleinen Teil des Lichts. Ist es dahinter dunkel, fällt das auf.</td></tr><tr><td>zwei Spiegel in der Umkleide</td><td><b>viele Bilder hintereinander</b></td><td>Das Spiegelbild wird im zweiten Spiegel wieder gespiegelt.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Warum steht „AMBULANZ“ vorne auf dem Krankenwagen spiegelverkehrt?<br><b style="color:#E6007E">Antwort:</b> <span style="color:#E6007E">Wer vorausfährt, sieht den Krankenwagen im Rückspiegel. Der Spiegel dreht die Schrift wieder um, dort ist sie richtig lesbar.</span></div><div class="fuss"><span>Physik 7 · Optik · Das Spiegelbild</span><span>4</span></div></section></div><div class="fnr">Folie 5</div><div class="karte" id="f5"><section class="folie stil-v1">
+<div class="laborchips"><div class="laborchip">🧪 Labor: Spiegellabor</div></div><div class="fuss"><span>Physik 7; Optik; Das Spiegelbild</span><span>2</span></div></section></div><div class="fnr">Folie 3; Schülerblatt mit Lösung</div><div class="blattkarte" id="f3" data-tab="Arbeitsblatt" data-group=""><div class="austeil">📄 Arbeitsblatt austeilen</div><img class="blattbild" src="Materialien/assets/blatt-w11-loesung.png" alt=""></div><div class="fnr">Folie 4</div><div class="karte" id="f4" data-tab="Alltag" data-group=""><section class="folie stil-v1"><div class="titelband"><h1><span class="eyebrow">Optik</span>Auf dem Krankenwagen steht AMBULANZ spiegelverkehrt</h1></div><div class="zeichenzone karo vgitter"><svg class="karogitter" viewBox="0 0 636.48 212.16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#A3B7D3" stroke-width="0.41"><path d="M0.00 0V212.16"/><path d="M16.32 0V212.16"/><path d="M32.64 0V212.16"/><path d="M48.96 0V212.16"/><path d="M65.28 0V212.16"/><path d="M81.60 0V212.16"/><path d="M97.92 0V212.16"/><path d="M114.24 0V212.16"/><path d="M130.56 0V212.16"/><path d="M146.88 0V212.16"/><path d="M163.20 0V212.16"/><path d="M179.52 0V212.16"/><path d="M195.84 0V212.16"/><path d="M212.16 0V212.16"/><path d="M228.48 0V212.16"/><path d="M244.80 0V212.16"/><path d="M261.12 0V212.16"/><path d="M277.44 0V212.16"/><path d="M293.76 0V212.16"/><path d="M310.08 0V212.16"/><path d="M326.40 0V212.16"/><path d="M342.72 0V212.16"/><path d="M359.04 0V212.16"/><path d="M375.36 0V212.16"/><path d="M391.68 0V212.16"/><path d="M408.00 0V212.16"/><path d="M424.32 0V212.16"/><path d="M440.64 0V212.16"/><path d="M456.96 0V212.16"/><path d="M473.28 0V212.16"/><path d="M489.60 0V212.16"/><path d="M505.92 0V212.16"/><path d="M522.24 0V212.16"/><path d="M538.56 0V212.16"/><path d="M554.88 0V212.16"/><path d="M571.20 0V212.16"/><path d="M587.52 0V212.16"/><path d="M603.84 0V212.16"/><path d="M620.16 0V212.16"/><path d="M636.48 0V212.16"/><path d="M0 0.00H636.48"/><path d="M0 16.32H636.48"/><path d="M0 32.64H636.48"/><path d="M0 48.96H636.48"/><path d="M0 65.28H636.48"/><path d="M0 81.60H636.48"/><path d="M0 97.92H636.48"/><path d="M0 114.24H636.48"/><path d="M0 130.56H636.48"/><path d="M0 146.88H636.48"/><path d="M0 163.20H636.48"/><path d="M0 179.52H636.48"/><path d="M0 195.84H636.48"/><path d="M0 212.16H636.48"/></g></svg><table class="atab"><colgroup><col style="width:27%"><col style="width:29%"><col></colgroup><tr><th>im Alltag</th><th>was man sieht</th><th>warum</th></tr><tr><td>Krankenwagen</td><td><b>AMBULANZ steht spiegelverkehrt</b></td><td>Im Rückspiegel des Autos davor ist die Schrift richtig lesbar.</td></tr><tr><td>Schaufenster am Abend</td><td><b>du siehst dich in der Scheibe</b></td><td>Glas reflektiert einen kleinen Teil des Lichts. Ist es dahinter dunkel, fällt das auf.</td></tr><tr><td>zwei Spiegel in der Umkleide</td><td><b>viele Bilder hintereinander</b></td><td>Das Spiegelbild wird im zweiten Spiegel wieder gespiegelt.</td></tr></table></div><div class="merksatz"><b>Frage:</b> Warum steht „AMBULANZ“ vorne auf dem Krankenwagen spiegelverkehrt?<br><b style="color:#E6007E">Antwort:</b> <span style="color:#E6007E">Wer vorausfährt, sieht den Krankenwagen im Rückspiegel. Der Spiegel dreht die Schrift wieder um, dort ist sie richtig lesbar.</span></div><div class="fuss"><span>Physik 7; Optik; Das Spiegelbild</span><span>4</span></div></section></div><div class="fnr">Folie 5</div><div class="karte" id="f5" data-tab="Antwort und Check" data-group=""><section class="folie stil-v1">
   <div class="frageband">
     <div class="nr">Antwort auf Leitfrage 6</div>
     <h2>Was passiert mit dem Licht am Spiegel?</h2>
@@ -104,8 +598,8 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
     Unser Auge verlängert die ankommenden Strahlen geradlinig nach hinten. Deshalb sehen wir
     das Bild scheinbar hinter dem Spiegel: ein <b>virtuelles Bild</b>.
   </div>
-<div class="fuss"><span>Physik 7 · Optik · Das Spiegelbild</span><span>5</span></div></section></div><div class="fnr">Folie 6</div><div class="karte" id="f6"><section class="folie stil-v1">
-  <div class="titelband"><h1><span class="eyebrow">Check · Optik</span>Leitfrage 6</h1></div>
+<div class="fuss"><span>Physik 7; Optik; Das Spiegelbild</span><span>5</span></div></section></div><div class="fnr">Folie 6</div><div class="karte" id="f6" data-tab="Antwort und Check" data-group=""><section class="folie stil-v1">
+  <div class="titelband"><h1><span class="eyebrow">Check; Optik</span>Leitfrage 6</h1></div>
   <div class="check">
     <div class="aufgabe">
       <p class="frage"><span class="nr">1</span>Ein Lichtstrahl trifft unter 30° zum Lot auf einen Spiegel. Wie groß ist der Reflexionswinkel?</p>
@@ -126,8 +620,8 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
       </ol>
     </div>
   </div>
-<div class="fuss"><span>Physik 7 · Optik · Das Spiegelbild</span><span>6</span></div></section></div><div class="fnr">Folie 7</div><div class="karte" id="f7"><section class="folie loesungsfolie stil-v1">
-  <div class="titelband"><h1><span class="eyebrow">Lösung · Check</span>Leitfrage 6</h1></div>
+<div class="fuss"><span>Physik 7; Optik; Das Spiegelbild</span><span>6</span></div></section></div><div class="fnr">Folie 7</div><div class="karte" id="f7" data-tab="Antwort und Check" data-group=""><section class="folie loesungsfolie stil-v1">
+  <div class="titelband"><h1><span class="eyebrow">Lösung; Check</span>Leitfrage 6</h1></div>
   <div class="check">
     <div class="aufgabe">
       <p class="frage"><span class="nr">1</span>Ein Lichtstrahl trifft unter 30° zum Lot auf einen Spiegel. Wie groß ist der Reflexionswinkel?</p>
@@ -148,7 +642,7 @@ background-size:16px 16px;border:1px solid #c9d1dc;border-radius:4px;padding:26p
       </ol>
     </div>
   </div>
-<div class="fuss"><span>Physik 7 · Optik · Das Spiegelbild</span><span>7</span></div></section></div></div>
+<div class="fuss"><span>Physik 7; Optik; Das Spiegelbild</span><span>7</span></div></section></div></div></div></div>
 <div class="tab" id="t_heft"><p class="heftleg">So steht es am Ende der Stunde im Heft: Überschriften abschreiben, Zeichnungen abzeichnen, Merksätze abschreiben, die Antwort auf die Leitfrage. Beobachte-, Alltags- und Check-Folien kommen nicht ins Heft. „Fortsetzung“ heißt: im Heft ohne neue Überschrift weiterschreiben.</p><div class="heftseite"><div class="hdat">Datum: __________</div><h2 class="hlf hfort"><span>Fortsetzung Leitfrage 6</span>Was passiert mit dem Licht am Spiegel?</h2><h3 class="hti">6.2 Das Spiegelbild</h3><div class="hbild"><svg viewBox="0 0 636 212" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sbgl"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".95"/><stop offset="1" stop-color="#FFC53D" stop-opacity="0"/></radialGradient><linearGradient id="sbwa" x1="0" x2="1"><stop offset="0" stop-color="#FFC53D" stop-opacity=".32"/><stop offset="1" stop-color="#FFC53D" stop-opacity=".05"/></linearGradient><radialGradient id="sbball" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FF9C7A"/><stop offset="1" stop-color="#B8391F"/></radialGradient></defs><rect x="316.0" y="16.0" width="4.0" height="174.0" rx="0" fill="#66798E" fill-opacity="1"/><line x1="320.0" y1="24.0" x2="328.0" y2="16.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="40.0" x2="328.0" y2="32.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="56.0" x2="328.0" y2="48.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="72.0" x2="328.0" y2="64.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="88.0" x2="328.0" y2="80.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="104.0" x2="328.0" y2="96.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="120.0" x2="328.0" y2="112.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="136.0" x2="328.0" y2="128.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="152.0" x2="328.0" y2="144.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="168.0" x2="328.0" y2="160.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><line x1="320.0" y1="184.0" x2="328.0" y2="176.0" stroke="#9AAAC0" stroke-width="1.2" stroke-opacity="1" stroke-linecap="round"/><g opacity="1"><rect x="170" y="96" width="16" height="46" rx="2" fill="#F5E6C8" stroke="#C6B48E"/><path d="M178 96 q-10 -14 0 -28 q10 14 0 28z" fill="#FFB627" stroke="#E8641B" stroke-width="1.2"/></g><g opacity="0.4"><rect x="450" y="96" width="16" height="46" rx="2" fill="#F5E6C8" stroke="#C6B48E"/><path d="M458 96 q-10 -14 0 -28 q10 14 0 28z" fill="#FFB627" stroke="#E8641B" stroke-width="1.2"/></g><circle cx="178" cy="80" r="22" fill="url(#sbgl)"/><line x1="178.0" y1="68.0" x2="318.0" y2="124.0" stroke="#E8641B" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><line x1="318.0" y1="124.0" x2="231.4" y2="158.6" stroke="#E8641B" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="224.0,161.6 230.9,154.5 233.9,162.0" fill="#E8641B" fill-opacity="1"/><line x1="318.0" y1="124.0" x2="458.0" y2="68.0" stroke="#E8641B" stroke-width="1.4" stroke-opacity="0.7" stroke-linecap="round" stroke-dasharray="5 4"/><line x1="178.0" y1="142.0" x2="318.0" y2="156.6" stroke="#0B8FB8" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><line x1="318.0" y1="156.6" x2="232.0" y2="165.5" stroke="#0B8FB8" stroke-width="2" stroke-opacity="1" stroke-linecap="round"/><polygon points="224.0,166.3 232.5,161.4 233.4,169.4" fill="#0B8FB8" fill-opacity="1"/><line x1="318.0" y1="156.6" x2="458.0" y2="142.0" stroke="#0B8FB8" stroke-width="1.4" stroke-opacity="0.7" stroke-linecap="round" stroke-dasharray="5 4"/><path d="M190.0 168 Q208 151.1 226.0 168 Q208 184.9 190.0 168Z" fill="#FFFFFF" stroke="#66798E" stroke-width="1.5"/><circle cx="202.0" cy="168" r="6.8" fill="#3B7CC4"/><circle cx="201.2" cy="168" r="3.2" fill="#05080F"/><line x1="178.0" y1="200.0" x2="314.0" y2="200.0" stroke="#9AAAC0" stroke-width="1" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="3 4"/><line x1="322.0" y1="200.0" x2="458.0" y2="200.0" stroke="#9AAAC0" stroke-width="1" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="3 4"/><text x="248.0" y="198.0" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="14" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">g</text><text x="388.0" y="198.0" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="14" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3">g</text><text x="162.0" y="124.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="end" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Gegenstand</text><text x="474.0" y="124.0" font-family="PlexMono, Menlo, monospace" font-size="10.5" font-weight="500" fill="#101A2B" text-anchor="start" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">virtuelles Bild</text><text x="318.0" y="208.0" font-family="PlexMono, Menlo, monospace" font-size="9" font-weight="500" fill="#101A2B" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round">Spiegel</text><style>@media (prefers-reduced-motion:reduce){.puls{display:none}}</style><circle class="puls" r="4" fill="#E8641B" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 68.0 L318.0 124.0 L231.4 158.6" dur="1.63s" begin="0.00s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.63s" begin="0.00s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#E8641B" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 68.0 L318.0 124.0 L231.4 158.6" dur="1.63s" begin="0.54s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.63s" begin="0.54s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#E8641B" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 68.0 L318.0 124.0 L231.4 158.6" dur="1.63s" begin="1.08s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.63s" begin="1.08s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#0B8FB8" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 142.0 L318.0 156.6 L232.0 165.5" dur="1.60s" begin="0.00s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.60s" begin="0.00s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#0B8FB8" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 142.0 L318.0 156.6 L232.0 165.5" dur="1.60s" begin="0.53s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.60s" begin="0.53s" repeatCount="indefinite"/></circle><circle class="puls" r="4" fill="#0B8FB8" stroke="#FFFFFF" stroke-width="1.2" opacity="0"><animateMotion path="M178.0 142.0 L318.0 156.6 L232.0 165.5" dur="1.60s" begin="1.07s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="1.60s" begin="1.07s" repeatCount="indefinite"/></circle></svg></div><div class="hmerk">Das Spiegelbild ist <b>genauso groß</b> wie der Gegenstand und steht scheinbar
     (<span class="rot">virtuell</span>) ebenso weit hinter dem Spiegel wie der Gegenstand davor.</div><div class="hlabor">🧪 Labor: Spiegellabor, auch zu Hause über IServ</div><h3 class="hti">Antwort auf Leitfrage 6</h3><div class="hantw">Es wird <b>reflektiert</b>, und zwar so, dass <span class="rot">Einfallswinkel = Reflexionswinkel</span> gilt.
     Unser Auge verlängert die ankommenden Strahlen geradlinig nach hinten. Deshalb sehen wir
@@ -177,4 +671,32 @@ tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)});
 try{history.scrollRestoration='manual'}catch(e){}
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+
+(()=>{const side=document.getElementById('side'),present=document.getElementById('present');if(!side)return;
+const slides=[...document.querySelectorAll('#stagecol .karte, #stagecol .blattkarte')];const ab=[];
+slides.forEach((s,k)=>{const n=s.dataset.tab||'Folien';let t=ab[ab.length-1];if(!t||t.name!==n||t.group!==(s.dataset.group||'')){t={name:n,group:s.dataset.group||'',idx:[]};ab.push(t)}t.idx.push(k);s._tab=ab.length-1});
+const h=document.createElement('h2');h.textContent=document.querySelector('header h1').textContent.replace(/^[^:]*:\s*/,'');side.appendChild(h);
+const btns=[];let lastG='';
+const geh=k=>{cur=k;if(document.fullscreenElement===present)passen();else slides[k].scrollIntoView({block:'start'});upd()};
+ab.forEach(t=>{if(t.group&&t.group!==lastG){const g=document.createElement('div');g.className='grp';g.textContent=t.group;side.appendChild(g)}lastG=t.group;
+const b=document.createElement('button');b.className='stab'+(t.group?' sub':'');const l=document.createElement('span');l.textContent=t.name;b.appendChild(l);
+const p=document.createElement('span');p.className='punkte';if(t.idx.length>1)t.idx.forEach(k=>{const d=document.createElement('i');d.onclick=ev=>{ev.stopPropagation();geh(k)};p.appendChild(d)});
+b.appendChild(p);b.onclick=()=>{geh(t.idx[0]);b.blur()};side.appendChild(b);btns.push(b)});
+const hw=document.createElement('div');hw.className='hinweis';hw.innerHTML='<kbd>←</kbd> <kbd>→</kbd> Folie<br><kbd>↑</kbd> <kbd>↓</kbd> Abschnitt<br><kbd>T</kbd> Leiste aus/ein<br><kbd>F</kbd> Präsentation (Vollbild)';side.appendChild(hw);
+const pk=document.createElement('button');pk.className='praes';pk.textContent='▶ Präsentation (F)';pk.onclick=()=>{voll();pk.blur()};side.insertBefore(pk,h.nextSibling);
+let cur=0;const istVoll=()=>document.fullscreenElement===present;
+function passen(){const col=document.getElementById('stagecol');slides.forEach((s,k)=>{const f=s.querySelector(':scope>.folie')||s.firstElementChild;if(!f)return;f.style.zoom=1;s.style.zoom=1;if(istVoll()){s.classList.toggle('vollan',k===cur);if(k!==cur)return;const w=f.offsetWidth,hh=f.offsetHeight;if(w&&hh)s.style.zoom=Math.min(col.clientWidth/w,col.clientHeight/hh)}else{s.classList.remove('vollan');s.style.zoom='';const w=f.offsetWidth,cw=col.clientWidth;if(w&&cw&&cw<w)s.style.zoom=cw/w}})}
+function voll(){if(istVoll())document.exitFullscreen();else if(present.requestFullscreen)present.requestFullscreen().catch(()=>{})}
+document.addEventListener('fullscreenchange',()=>{passen();upd();if(!istVoll())setTimeout(()=>slides[cur].scrollIntoView({block:'start'}),60)});
+addEventListener('resize',passen);document.querySelectorAll('nav button[data-t=folien]').forEach(b=>b.addEventListener('click',()=>setTimeout(passen,30)));
+function upd(){const ti=slides[cur]._tab;btns.forEach((b,k)=>{b.classList.toggle('aktiv',k===ti);const pos=ab[k].idx.indexOf(cur);b.querySelectorAll('i').forEach((d,j)=>{d.className=(k===ti&&j<=pos)?'an':''})})}
+addEventListener('scroll',()=>{if(!document.getElementById('t_folien').classList.contains('on')||document.fullscreenElement)return;let k=0;slides.forEach((s,j)=>{if(s.getBoundingClientRect().top<innerHeight*.45)k=j});if(k!==cur){cur=k;upd()}},{passive:true});
+addEventListener('keydown',e=>{if(!document.getElementById('t_folien').classList.contains('on')||e.metaKey||e.ctrlKey||e.altKey||/INPUT|TEXTAREA/.test(e.target.tagName))return;
+const vor=e.key==='ArrowRight'||istVoll()&&(e.key==='PageDown'||e.key===' '),zur=e.key==='ArrowLeft'||istVoll()&&e.key==='PageUp';
+if(vor){e.preventDefault();geh(Math.min(slides.length-1,cur+1))}else if(zur){e.preventDefault();geh(Math.max(0,cur-1))}
+else if(e.key==='ArrowDown'){e.preventDefault();geh(ab[Math.min(ab.length-1,slides[cur]._tab+1)].idx[0])}else if(e.key==='ArrowUp'){e.preventDefault();const ti=slides[cur]._tab;geh(ab[ab[ti].idx[0]===cur?Math.max(0,ti-1):ti].idx[0])}
+else if(e.key==='t'||e.key==='T'){present.classList.toggle('nav-aus');setTimeout(passen,30)}
+else if(e.key==='f'||e.key==='F'){e.preventDefault();voll()}});
+upd();setTimeout(passen,30)})();
+
 </script></body></html>

@@ -195,12 +195,12 @@ bau_stunde("Optik – Leitfrage 3 – Stunde.html", "Optik: Warum können wir ni
            "Klasse 7c · Physik · Leitfrage 3 · Lichtausbreitung und Blende (W05)",
            ["Versuchsblatt: Kopiervorlage „2 auf 1“, halbe Klassenstärke drucken und in der Mitte durchschneiden.",
             "Folien und Lösungen: nicht drucken."],
-           F3_MATERIAL, F3_SCHRITTE, F3, F3_HG, F3_AB)
+           F3_MATERIAL, F3_SCHRITTE, F3, F3_HG, F3_AB, seitenleiste=True)
 bau_stunde("Optik – Leitfrage 4 – Stunde.html", "Optik: Warum hat ein Schatten manchmal weiche Ränder?",
            "Klasse 7c · Physik · Leitfrage 4 · Kern- und Halbschatten (W06–07)",
            ["Versuchsblatt doppelseitig, eins pro Schüler: Kern- und Halbschatten W06 – Druck doppelseitig.pdf (vorne Versuch, hinten Schattenwurf).",
             "Folien und Lösungen: nicht drucken."],
-           F4_MATERIAL, F4_SCHRITTE, F4, F4_HG, F4_AB)
+           F4_MATERIAL, F4_SCHRITTE, F4, F4_HG, F4_AB, seitenleiste=True)
 
 if "export" in sys.argv:
     zwei_auf_eins("lichtausbreitung-blende.html", "Lichtausbreitung und Blende W05 – 2 auf 1.pdf", feld="40mm")

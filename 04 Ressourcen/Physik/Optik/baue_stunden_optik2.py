@@ -192,7 +192,7 @@ STUNDEN = [
 ]
 
 for datei, h1, sub, drucken, mat, schritte, folge, hg, ab in STUNDEN:
-    bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab)
+    bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab, seitenleiste=True)
 
 if "export" in sys.argv:
     from stunde_vorlage import exportiere, materialliste, MAT, ICL

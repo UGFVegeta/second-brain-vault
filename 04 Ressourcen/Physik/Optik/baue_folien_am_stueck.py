@@ -268,10 +268,19 @@ FOLGE, SCHRITTE, _ABB = _sv.umbauen(FOLGE, SCHRITTE, {10: [VERS_F2]}, {
 F2_START = _ABB[8][0]   # erste Folie des F2-Teils (Beobachte „Dieselbe Lampe, drei Gegenstände“), für export_f2.py
 FOLGE, SCHRITT_LAB = _sv.mit_labor(FOLGE, SCHRITTE, LABORE)
 FOLGE_HEFT, FOLGE = FOLGE, _sv.stilisiere(FOLGE, "Optik: Lichtquellen und Licht trifft auf einen Körper", "Klasse 7c · Physik")   # Stil V1 (Heft mit unveränderter Folge)
+# Seitenleiste wie in bau_stunde: Abschnitte aus den Schritten des Überblicks, F startet die Präsentation
+_von, _ab, _attr = {}, "Folien", []
+for _t, _d, _ks in SCHRITTE:
+    for _k in _ks:
+        _von.setdefault(_k, _t)
+for _n in range(1, len(FOLGE) + 1):
+    _ab = _von.get(_n, _ab)
+    _attr.append(f' data-tab="{_ab}" data-group=""')
 karten = "".join(
-    (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}">{h[1]}</div>'
-     if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}">{h}</div>')
+    (f'<div class="fnr">Folie {i} · Schülerblatt mit Lösung</div><div class="blattkarte" id="f{i}"{_attr[i - 1]}>{h[1]}</div>'
+     if isinstance(h, tuple) else f'<div class="fnr">Folie {i}</div><div class="karte" id="f{i}"{_attr[i - 1]}>{h}</div>')
     for i, h in enumerate(FOLGE, 1))
+karten = f'<div id="present"><nav id="side"></nav><div id="stagecol">{karten}</div></div>'
 zeilen_u = "".join(
     f'<div class="schr"><span class="n">{i}</span><div><b>{t}</b><br><span class="m">{d}</span></div>'
     f'<div class="go">{"".join(f'<a class="labchip" href="{LABORE[n]}" target="_blank">🧪 {n}</a>' for n in SCHRITT_LAB.get(i, []))}'
@@ -282,7 +291,7 @@ zeilen_u = "".join(
 html = f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{TITEL}</title>
-<link rel="stylesheet" href="folien.css">
+<style>{(hier / "folien.css").read_text(encoding="utf-8")}</style>
 <style>
 *{{box-sizing:border-box}}html{{scroll-behavior:smooth}}
 body{{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#1b1b1b;background:#fff}}
@@ -318,7 +327,7 @@ table.t{{border-collapse:collapse;width:100%;font-size:15.5px}}.t td,.t th{{bord
 .austeil{{display:inline-block;background:#FF1F8A;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:4px;margin:0 0 6px}}
 {_sv.MT_CSS}
 .fchip{{border:0;background:#e2ecf8;color:#1a56a0;border-radius:12px;padding:1px 9px;font-size:12.5px;font-weight:600;cursor:pointer;margin-left:6px;vertical-align:2px}}
-</style>{_sv.HEFT_CSS}</head><body>
+{_sv.SEITENLEISTE_CSS}</style>{_sv.HEFT_CSS}</head><body>
 <div class="wrap"><header class="kopf"><h1>Optik: Lichtquellen und Licht trifft auf einen Körper</h1>
 <p class="sub">Klasse 7c · Physik · Doppelstunde Do 24.09.2026</p></header></div>
 <nav><div class="wrap tabs"><button data-t="ueb">Überblick</button><button data-t="folien">Folien</button><button data-t="heft">Heft</button><button data-t="hg">Hintergrund</button><button data-t="ab">Arbeitsblätter</button></div></nav>
@@ -357,11 +366,14 @@ tabs.forEach(b=>b.onclick=()=>show(b.dataset.t));
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{{show('folien');setTimeout(()=>document.getElementById(b.dataset.go).scrollIntoView(),60)}});
 try{{history.scrollRestoration='manual'}}catch(e){{}}
 show(secs.some(s=>s.id==='t_'+location.hash.slice(1))?location.hash.slice(1):'ueb');
+{_sv.SEITENLEISTE_JS}
 </script></body></html>"""
 
 ziel = hier / "Optik – Do 24.09. – Stunde.html"
 # Vorschau der Arbeitsblätter im Tab Arbeitsblätter (beide Seiten als Bild)
 _i, _j = html.index('<div class="tab" id="t_ab">'), html.index("<script>")
 html = html[:_i] + _sv.blatt_vorschau(html[_i:_j], hier) + html[_j:]
+html = re.sub(r" · (?=[A-Za-zÄÖÜäöüß]{2}|W\d)", "; ", html)   # nie „·“ als Trenner
+html = re.sub(r"(?<![\d)]) · (?![\d(])", "; ", html)
 ziel.write_text(html, encoding="utf-8")
 print("geschrieben:", ziel.name, f"({len(html) // 1024} KB), Folien:", len(FOLGE))
