@@ -6,6 +6,7 @@ tags: [gelernt, physik]
 
 Eine Zeile pro Erkenntnis, neueste oben.
 
+- 2026-11-13: Kernphysik-Stunden laufen jetzt mit `seitenleiste=True`: Abschnitte kommen aus den Schritten des Überblicks, F startet die Präsentation (Vollbild, eine Folie, skaliert), im schmalen Fenster werden Folien auf Breite verkleinert. Das iframe der Übersicht braucht `allowfullscreen`. Eigene Folienteile (z. B. Gruppentabelle W06) absolut unter den Titelbalken setzen (`top:66pt`), sonst rutschen sie darunter.
 - 2026-11-12: In Oskars Chrome lud die Übersicht (iframe, file://) `../Optik/folien.css` nicht, die Folien lagen ungestylt übereinander. Bei Tests über den lokalen Server trat das nie auf. Seitdem bettet `bau_stunde` das folien.css direkt in jede Stunden-HTML ein, kein externes Stylesheet mehr.
 - 2026-11-11: Verschiebt sich der Plan, bleiben die Stunden-IDs (W06 …) gleich, nur „Woche ab“ in den Untertiteln ändern; Plan-md, Übersicht, Dashboard und Stundenkontext danach neu bauen. Ausfallwochen (Berlin, AES/T, verkürzte Wochen) als eigene Zeilen „Ausfall“ in den Plan.
 - 2026-11-11: Blatt Zerfallsreihen umgebaut (`Kernphysik/baue_zerfallsreihen.py`): Aufgabe 2 ohne Erklärtext, rechte Spalte wie die linke (Zerfallsart gegeben oder nächstes Element gegeben). Oskars InDesign-PDF per PyMuPDF bearbeiten, eingebettete Minion-Teilmenge nutzen (kein Komma, kein Ö darin). Heftbeispiel darf nicht die Blattreihe sein, deshalb U-238 statt Th-232.

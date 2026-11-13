@@ -51,7 +51,7 @@ iframe{{flex:1;border:0;width:100%;background:#fff}}
 <div class="mehr">{lk}</div></aside>
 <main><div class="leiste"><div class="info"><b id="titel"></b><span id="sub"></span></div>
 <button id="zurueck" title="Pfeil links">← Vorherige</button><button id="weiter" title="Pfeil rechts">Nächste →</button><a id="neu" target="_blank">In neuem Tab</a></div>
-<iframe id="rahmen" title="Stunde"></iframe><div class="leer-hinweis" id="leer" hidden>Diese Stunde ist noch nicht vorbereitet.</div></main>
+<iframe id="rahmen" title="Stunde" allow="fullscreen" allowfullscreen></iframe><div class="leer-hinweis" id="leer" hidden>Diese Stunde ist noch nicht vorbereitet.</div></main>
 <script>
 const D={daten};
 const knoepfe=[...document.querySelectorAll('.eintrag')], pos=w=>D.findIndex(x=>x.w===w);

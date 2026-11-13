@@ -335,4 +335,4 @@ STUNDEN = [
 if __name__ == "__main__":
   for datei, h1, sub, drucken, mat, schritte, folge, hg, ab in STUNDEN:
     drucken = [("Optional: " + d) if "eins pro Schüler" in d else d for d in drucken]
-    bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab, ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS, heft_extra=HEFT_EXTRA.get(datei))
+    bau_stunde(datei, h1, sub, drucken, mat, schritte, folge, hg, ab, ziel=HIER, seitenleiste=True, css_href="../Optik/folien.css", extra_css=KERN_CSS, heft_extra=HEFT_EXTRA.get(datei))

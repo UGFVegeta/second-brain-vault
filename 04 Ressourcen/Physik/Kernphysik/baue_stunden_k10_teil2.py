@@ -48,13 +48,55 @@ VERS6 = versuchsbeschreibung("Versuch: Zerfall mit Würfeln", ["30 Würfel pro G
                               "Zählt die übrigen Würfel und tragt die Zahl ein. Werft dann nur die übrigen Würfel wieder.", "Bis zu acht Würfe."])
 WM = als_heft(zeichnungsfolie("Pro Wurf zerfällt etwa ein Sechstel der Würfel", wuerfel_messwerte(),
                               "Ein Würfel ist ein Kern, die Sechs ist der <b>Zerfall</b>. Welcher Würfel eine Sechs hat, ist Zufall, deshalb weichen die Gruppen voneinander ab."))
+def gruppentabelle(gruppen=8, wuerfe=8, start=30):
+    """Eingabefolie für den Würfelversuch: bis zu 8 Gruppen tippen ihre übrigen Würfel ein, der Mittelwert pro Wurf
+    rechnet sich selbst (nur ausgefüllte Felder zählen). Werte bleiben im Browser gespeichert, „Leeren“ setzt zurück."""
+    kopf = "<th>Wurf</th>" + "".join(f"<th>{w}</th>" for w in range(wuerfe + 1))
+    zeilen = "".join(
+        f"<tr><th>Gruppe {g}</th>" + "".join(
+            f'<td><input inputmode="numeric" data-g="{g}" data-w="{w}"{f" value={chr(34)}{start}{chr(34)}" if w == 0 else ""}></td>'
+            for w in range(wuerfe + 1)) + "</tr>"
+        for g in range(1, gruppen + 1))
+    mittel = '<tr class="mw"><th>Mittelwert</th>' + "".join(f'<td data-m="{w}"></td>' for w in range(wuerfe + 1)) + "</tr>"
+    css = ("<style>.gruppentab{position:absolute;left:30pt;right:30pt;top:66pt;bottom:26pt}"
+           ".gtab{border-collapse:collapse;margin:0 auto;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11pt}"
+           ".gtab th,.gtab td{border:1.2pt solid #1b2330;padding:0;height:22pt;text-align:center}"
+           ".gtab th{background:#EEF1F5;font-weight:600;padding:0 8pt;white-space:nowrap}"
+           ".gtab td{background:#fff;width:44pt}.gtab input{width:100%;height:22pt;border:0;text-align:center;font:inherit;background:transparent}"
+           ".gtab input:focus{outline:2px solid #0a66d8;outline-offset:-2px}"
+           ".gtab tr.mw th,.gtab tr.mw td{background:#FFF4D6;font-weight:700;border-top:2.4pt solid #1b2330}"
+           ".gtab-leiste{display:flex;justify-content:space-between;align-items:center;margin:6pt auto 0;max-width:560pt;font-size:9.5pt;color:#4a5566}"
+           ".gtab-leiste button{font:inherit;border:1px solid #c5ccd6;background:#fff;border-radius:5pt;padding:2pt 8pt;cursor:pointer}</style>")
+    js = ("<script>(function(){document.querySelectorAll('.gruppentab:not([data-ok])').forEach(function(box){box.dataset.ok='1';"
+          "var KEY='kern10-w06-wuerfel',ins=[].slice.call(box.querySelectorAll('input'));"
+          "function zahl(v){v=String(v).trim().replace(',','.');return v===''||isNaN(+v)?null:+v}"
+          "function rechne(){var n=0;box.querySelectorAll('[data-m]').forEach(function(td){var w=td.dataset.m,s=0,k=0;"
+          "ins.forEach(function(i){if(i.dataset.w===w){var z=zahl(i.value);if(z!==null){s+=z;k++}}});"
+          "td.textContent=k?(Math.round(s/k*10)/10).toString().replace('.',','):'';});"
+          "var gr={};ins.forEach(function(i){if(i.dataset.w!=='0'&&zahl(i.value)!==null)gr[i.dataset.g]=1});"
+          "box.querySelector('.gtab-n').textContent=Object.keys(gr).length;"
+          "try{localStorage.setItem(KEY,JSON.stringify(ins.map(function(i){return i.value})))}catch(e){}}"
+          "try{var alt=JSON.parse(localStorage.getItem(KEY)||'null');if(alt&&alt.length===ins.length)ins.forEach(function(i,k){i.value=alt[k]})}catch(e){}"
+          "ins.forEach(function(i,k){i.addEventListener('input',rechne);i.addEventListener('keydown',function(e){"
+          "if(e.key==='Enter'||e.key==='ArrowRight'&&i.selectionStart===i.value.length){e.preventDefault();(ins[k+1]||i).focus();(ins[k+1]||i).select()}"
+          "else if(e.key==='ArrowLeft'&&i.selectionStart===0){e.preventDefault();(ins[k-1]||i).focus()}"
+          "else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();var j=ins[k+(e.key==='ArrowDown'?1:-1)*" + str(wuerfe + 1) + "];if(j){j.focus();j.select()}}})});"
+          "box.querySelector('.gtab-leer').onclick=function(){if(!confirm('Alle Gruppenwerte löschen?'))return;"
+          "ins.forEach(function(i){i.value=i.dataset.w==='0'?'" + str(start) + "':''});rechne()};rechne()})})()</script>")
+    return ('<section class="folie"><div class="titelband"><h1>Würfelversuch: die Werte aller Gruppen</h1></div>'
+            f'<div class="gruppentab">{css}<table class="gtab"><tr>{kopf}</tr>{zeilen}{mittel}</table>'
+            '<div class="gtab-leiste"><span>Übrige Würfel eintragen, der Mittelwert rechnet sich selbst. Gruppen mit Werten: <b class="gtab-n">0</b></span>'
+            f'<button class="gtab-leer" type="button">Leeren</button></div>{js}</div></section>')
+
+
+GT = gruppentabelle()
 WD = als_heft(zeichnungsfolie("Nach knapp vier Würfen ist die Hälfte der Würfel übrig", wuerfel_diagramm(),
                               "Je mehr Würfel, desto genauer passt der Verlauf. Die <b>Hälfte</b> ist nach etwa 3,8 Würfen weg: das ist die „Halbwertszeit“ des Modells."))
-S6 = [f(21), f(22), f(23), f(25), VERS6, WM, *paar(WD, "Wie viele Würfe dauert es, bis die Hälfte übrig ist?"), f(24), A6]
+S6 = [f(21), f(22), f(23), f(25), VERS6, WM, GT, *paar(WD, "Wie viele Würfe dauert es, bis die Hälfte übrig ist?"), f(24), A6]
 S6_HG = (box("Abschluss Leitfrage 2", ["Die Antwortfolie ins Heft, der Check per Handzeichen. Lösung: 1 a, 2 c.",
                                        "Wer die Zerfallsgleichungen noch nicht sicher kann: Übung im Strahlungslabor."], 1, 2, 3)
          + box("Das Würfelmodell", ["Jede Runde fällt im Mittel ein Sechstel weg, übrig bleiben 5/6. Nach etwa 3,8 Würfen ist die Hälfte weg. Das ist die „Halbwertszeit“ des Modells.",
-                                    "Die Gruppenwerte streuen stark. Die Summe der ganzen Klasse passt viel besser zur Kurve. Deshalb die Klassenwerte an der Tafel addieren.",
+                                    "Die Gruppenwerte streuen stark. Die Summe der ganzen Klasse passt viel besser zur Kurve. Deshalb die Werte aller Gruppen in die Gruppentabelle (Folie 7) eintippen: Der Mittelwert liegt viel näher an 30, 25, 21, 17 …",
                                     "Grenze des Modells: Echte Kerne zerfallen nicht in Runden, sondern zu jedem beliebigen Zeitpunkt. Die Wahrscheinlichkeit pro Zeit ist aber genauso fest.",
                                     "<b>Typische Fehlvorstellungen:</b> Nach zwei Halbwertszeiten ist alles zerfallen. Ein Kern, der lange nicht zerfallen ist, ist „bald dran“."], 4, 6)
          + box("Material", ["500 Würfel sind bestellt, das reicht für 30 Würfel pro Gruppe bei bis zu 16 Gruppen. Alternative: 30 Münzen pro Gruppe, „Zahl“ scheidet aus. Dann halbiert sich die Zahl schon pro Wurf."], 6)
@@ -329,11 +371,11 @@ ZAEHLROHR = ("Geiger-Müller-Zählrohr mit Zählgerät", "1×", "")
 STUNDEN = [
     ("W06 Wuerfelmodell", "Kernphysik: Der Zufall beim Zerfall", "W06 (Woche ab 16.11.2026); Abschluss Leitfrage 2, Einstieg Leitfrage 3",
      "Versuchsblatt Zerfall mit Würfeln", {"demo": [], "schueler": [("Würfel", "30×", "500 Stück bestellt, reicht für 16 Gruppen"), ("Würfelbecher oder Schale", "1×", "")],
-                                          "hinweis": "Die Werte aller Gruppen an der Tafel addieren."},
+                                          "hinweis": "Die Werte aller Gruppen in die Gruppentabelle (Folie 7) eintippen, der Mittelwert rechnet sich selbst."},
      [("Abschluss Leitfrage 2", "Antwort ins Heft, Check.", [1, 2, 3]), ("Einstieg Leitfrage 3", "Leitfrage und Vermutungen sammeln.", [4]),
-      ("Versuch", "Würfelversuch in Gruppen: Beschreibung an der Folie, Werte ins Heft eintragen. Die Tabelle mit Beispielwerten dient zum Vergleich.", [5, 6]),
-      ("Diagramm", "Diagramm zeichnen und die Hälfte ablesen, erst leer, dann ausgefüllt.", [7, 8]),
-      ("100 Würfel", "Und bei 100 Würfeln? Bestätigung im Zerfallslabor, die Kurve wird glatter.", [9]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [10])], S6, S6_HG, S6_AB),
+      ("Versuch", "Würfelversuch in Gruppen: Beschreibung an der Folie, Werte ins Heft eintragen. Die Tabelle mit Beispielwerten dient zum Vergleich. Danach die Werte aller Gruppen in die Gruppentabelle eintippen.", [5, 6, 7]),
+      ("Diagramm", "Diagramm zeichnen und die Hälfte ablesen, erst leer, dann ausgefüllt.", [8, 9]),
+      ("100 Würfel", "Und bei 100 Würfeln? Bestätigung im Zerfallslabor, die Kurve wird glatter.", [10]), ("Alltag", "Zufall im Einzelnen, sicher in der Menge.", [11])], S6, S6_HG, S6_AB),
     ("W07 Halbwertszeit", "Kernphysik: Die Halbwertszeit", "W07 (Woche ab 23.11.2026); Leitfrage 3",
      "Arbeitsblatt Die Halbwertszeit", {"demo": [], "schueler": [("Messzylinder 250 ml", "1×", ""), ("Malzbier", "1 Flasche", "zimmerwarm"), ("Lineal", "1×", ""), ("Stoppuhr", "1×", "Handy genügt"), ("Lappen", "1×", "")],
                                         "hinweis": "Malzbier ist alkoholfrei. Lappen bereitlegen."},
@@ -394,5 +436,5 @@ if __name__ == "__main__":
     for kurz, h1, sub, blattname, mat, schritte, folge, hg, ab in STUNDEN:
         bau_stunde(f"Kernphysik – {kurz} – Stunde.html", h1, f"Klasse 10; Physik; {sub}",
                    [blattname[1:] if blattname.startswith("!") else f"Optional: {blattname}, Seite 1, eins pro Schüler.", NICHT_DRUCKEN], mat, schritte, folge, hg, ab,
-                   ziel=HIER, css_href="../Optik/folien.css", extra_css=KERN_CSS + ".blattkarte:has(.heftbild){width:900px}",
+                   ziel=HIER, seitenleiste=True, css_href="../Optik/folien.css", extra_css=KERN_CSS + ".blattkarte:has(.heftbild){width:900px}",
                    heft_extra=HEFT_EXTRA.get(f"Kernphysik – {kurz} – Stunde.html"))
