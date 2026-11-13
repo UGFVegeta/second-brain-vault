@@ -65,6 +65,7 @@ In Fellbach hakte es bei C und D. Beides ist trainierbar, weil Format und Zeiten
 
 ## Fortbildungen und Wissen
 
+- Schularten, Übergänge, Landesprogramme, Daten und Vergleichsarbeiten: [[Schularten, Übergänge und Landesprogramme]], dazu drei Mindmaps ([[Schularten und Übergänge – Mindmap.excalidraw]], [[Landesprogramme und Hilfen – Mindmap.excalidraw]], [[Daten und Vergleichsarbeiten – Mindmap.excalidraw]])
 - Fachtag Diskriminierungsschutz an Schulen (05.11.2026): [[Fachtag Diskriminierungsschutz an Schulen (05.11.2026)]], PDF für die Schulleitung daneben
 - Sammlung Führung: [[Führung & Management]], Karteikarten: [[Anki - Führung & Schulentwicklung]]
 - Podcast: [[Lieben Sie Ihren Job - Lead Forward Podcast]]

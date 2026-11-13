@@ -1,16 +1,110 @@
 {
-	"nodes":[
-		{"id":"efca630959cd5d83","type":"text","text":"# Weg zur Schulleitung\nStand 06.11.2026. Ziel Nr. 1: **1. Konrektor am Schulzentrum Rudersberg**, Ausschreibung erst nach Besetzung der Rektorstelle, frühestens Februar 2027. Übersicht im Browser: [Weg zur Schulleitung](https://claude.ai/artifact/3DKYqKLyTPUZfTG9LCJcnx)","x":0,"y":0,"width":1440,"height":130},
-		{"id":"335b5a5e346db492","type":"text","text":"## Stand\n- [[Schulleitung – Mindmap.excalidraw|Mindmap: alles auf einen Blick]]\n- [[Konrektor-Stelle Schulzentrum Rudersberg]]\n- [[Rektor-Stelle Schulzentrum Rudersberg]] (Schule, Verfahren)\n- [[Konrektor-Bewerbung]] (Verlauf seit Fellbach, Stellen-Radar, Kriterien)\n\n**Weitere Schulen im Blick**\n- Kastell-Realschule Welzheim (Wunschschule)\n- Geschwister-Scholl-Realschule Winnenden (spekulativ)","x":0,"y":190,"width":440,"height":420,"color":"2"},
-		{"id":"d0571e2ef70948db","type":"text","text":"## Nächste Schritte\nAbhaken in den Erinnerungen (Liste „Schule“).\n\n- 09.11.: Schulrecht Woche 1, vorher Audio-Folge hören\n- bis ca. 20.11.: Schulrat meldet sich voraussichtlich\n- 11.01.: Module C und D üben\n- 18.01.: Fellbach-Dossier auf Rudersberg zuschneiden\n- 01.02.: Ausschreibung prüfen (erst nach Besetzung der Rektorstelle, evtl. 2. Konrektor)","x":500,"y":190,"width":440,"height":420,"color":"3"},
-		{"id":"ee853be2dbf87053","type":"text","text":"## Verfahren\n| Modul | Inhalt |\n|---|---|\n| A | Unterrichtsanalyse mit Beratung, nicht affines Fach |\n| B | Strukturiertes Interview, Schulspezifika |\n| C | Präsentation, 15 Min. Vorbereitung, ca. 10 Min. |\n| D | Schwierige Alltagssituation, Rollenspiel oder Fall |\n\nC und D trainieren, dort hakte es in Fellbach. Details: [[Rektor-Stelle Schulzentrum Rudersberg#Das Besetzungsverfahren]]","x":1000,"y":190,"width":440,"height":420,"color":"5"},
-		{"id":"eac8a6f2bca6375f","type":"text","text":"## Bewerbung\n- [[Bewerber-Dossier_ Konrektorat an der ARS Fellbach – Oskar Klein.pdf|Bewerber-Dossier Fellbach]]\n- [[Dossier_ Disziplinarmanagement und multiprofessionelle Kooperation (Konrektor-Zweitgehirn).pdf|Dossier Disziplinarmanagement]]\n- [[Über mich]]\n- [[Führung & Schulentwicklung]] (vier Säulen, Ordnungsmaßnahmen, Teams)\n- [[Konrektor-Bewerbung#Argumentations-Baustein: Evidenzbasierte Schulentwicklung statt Trend-Konzepte (15.09.2026)|Argument Evidenz statt Trends]]\n- [[Datenschutz – Privates System als Konrektor]]\n- [[Datengestützte Schulentwicklung v2.excalidraw|Skizze datengestützte Schulentwicklung]]","x":0,"y":670,"width":440,"height":380,"color":"6"},
-		{"id":"ba934417719f5733","type":"text","text":"## Schulrecht\n- [Trainings-App](http://localhost:8744/App/schulleitung.html) (Fälle, Karten, Mindmaps, Start: siehe [[Active Recall]])\n- [[Lernplan Schulrecht bis Februar 2027]]\n- [[Schulrecht – Fallbeispiele mit Lösungen]] (37 Fälle)\n- [[Schulrecht – Kurzübersicht]] und [[Schulrecht – Skript]] (Stand ca. 2022)\n- [[Schulrecht]] (Einstieg, Rechtsquellen)\n- Gesetzestexte aktuell: Ordner `04 Ressourcen/Schulrecht/Rechtsquellen/`\n- [Gemini LM](https://notebook.google.com/): Notizbuch „Schulrecht BW aktuell“","x":500,"y":670,"width":440,"height":380,"color":"4"},
-		{"id":"bf0a8a7468cd4673","type":"text","text":"## Wissen und Fortbildungen\n- [[Fachtag Diskriminierungsschutz an Schulen (05.11.2026)|Fachtag Diskriminierungsschutz]]\n- [[Führung & Management]]\n- [[Anki - Führung & Schulentwicklung|Karteikarten Führung]]\n- [[Führungsskills erwerben]]\n- [[Rhetorik und Kommunikation]]\n- [[Lieben Sie Ihren Job - Lead Forward Podcast|Podcast Lead Forward]]\n- [[PISA 2025 – Befunde und internationale Vergleiche|PISA 2025]]\n- [[Weiterbildung]]","x":1000,"y":670,"width":440,"height":380},
-		{"id":"4d4fb6052570b48d","type":"file","file":"04 Ressourcen/Schulrecht/Lernplan Schulrecht bis Februar 2027.md","subpath":"#Stand","x":0,"y":1110,"width":940,"height":610},
-		{"id":"fbf7b4b43a727279","type":"text","text":"## Draußen\n- [Landesrecht BW](https://www.landesrecht-bw.de/)\n- [Lehrer-Online BW](https://www.lehrer-online-bw.de/) (Schulleitungsstellen)\n- [Netzwerk NikLAS am ZSL](https://zsl-bw.de/,Lde/startseite/uebergreifendes/netzwerk-niklas)\n- [Gemini LM](https://notebook.google.com/)","x":1000,"y":1110,"width":440,"height":300}
-	],
-	"edges":[
-		{"id":"3087839520c56a87","fromNode":"ba934417719f5733","fromSide":"bottom","toNode":"4d4fb6052570b48d","toSide":"top"}
-	]
+ "nodes": [
+  {
+   "id": "efca630959cd5d83",
+   "type": "text",
+   "text": "# Weg zur Schulleitung\nStand 06.11.2026. Ziel Nr. 1: **1. Konrektor am Schulzentrum Rudersberg**, Ausschreibung erst nach Besetzung der Rektorstelle, frühestens Februar 2027. Übersicht im Browser: [Weg zur Schulleitung](https://claude.ai/artifact/3DKYqKLyTPUZfTG9LCJcnx)",
+   "x": 0,
+   "y": 0,
+   "width": 1440,
+   "height": 130
+  },
+  {
+   "id": "335b5a5e346db492",
+   "type": "text",
+   "text": "## Stand\n- [[Schulleitung – Mindmap.excalidraw|Mindmap: alles auf einen Blick]]\n- [[Konrektor-Stelle Schulzentrum Rudersberg]]\n- [[Rektor-Stelle Schulzentrum Rudersberg]] (Schule, Verfahren)\n- [[Konrektor-Bewerbung]] (Verlauf seit Fellbach, Stellen-Radar, Kriterien)\n\n**Weitere Schulen im Blick**\n- Kastell-Realschule Welzheim (Wunschschule)\n- Geschwister-Scholl-Realschule Winnenden (spekulativ)",
+   "x": 0,
+   "y": 190,
+   "width": 440,
+   "height": 420,
+   "color": "2"
+  },
+  {
+   "id": "d0571e2ef70948db",
+   "type": "text",
+   "text": "## Nächste Schritte\nAbhaken in den Erinnerungen (Liste „Schule“).\n\n- 09.11.: Schulrecht Woche 1, vorher Audio-Folge hören\n- bis ca. 20.11.: Schulrat meldet sich voraussichtlich\n- 11.01.: Module C und D üben\n- 18.01.: Fellbach-Dossier auf Rudersberg zuschneiden\n- 01.02.: Ausschreibung prüfen (erst nach Besetzung der Rektorstelle, evtl. 2. Konrektor)",
+   "x": 500,
+   "y": 190,
+   "width": 440,
+   "height": 420,
+   "color": "3"
+  },
+  {
+   "id": "ee853be2dbf87053",
+   "type": "text",
+   "text": "## Verfahren\n| Modul | Inhalt |\n|---|---|\n| A | Unterrichtsanalyse mit Beratung, nicht affines Fach |\n| B | Strukturiertes Interview, Schulspezifika |\n| C | Präsentation, 15 Min. Vorbereitung, ca. 10 Min. |\n| D | Schwierige Alltagssituation, Rollenspiel oder Fall |\n\nC und D trainieren, dort hakte es in Fellbach. Details: [[Rektor-Stelle Schulzentrum Rudersberg#Das Besetzungsverfahren]]",
+   "x": 1000,
+   "y": 190,
+   "width": 440,
+   "height": 420,
+   "color": "5"
+  },
+  {
+   "id": "eac8a6f2bca6375f",
+   "type": "text",
+   "text": "## Bewerbung\n- [[Bewerber-Dossier_ Konrektorat an der ARS Fellbach – Oskar Klein.pdf|Bewerber-Dossier Fellbach]]\n- [[Dossier_ Disziplinarmanagement und multiprofessionelle Kooperation (Konrektor-Zweitgehirn).pdf|Dossier Disziplinarmanagement]]\n- [[Über mich]]\n- [[Führung & Schulentwicklung]] (vier Säulen, Ordnungsmaßnahmen, Teams)\n- [[Konrektor-Bewerbung#Argumentations-Baustein: Evidenzbasierte Schulentwicklung statt Trend-Konzepte (15.09.2026)|Argument Evidenz statt Trends]]\n- [[Datenschutz – Privates System als Konrektor]]\n- [[Datengestützte Schulentwicklung v2.excalidraw|Skizze datengestützte Schulentwicklung]]",
+   "x": 0,
+   "y": 670,
+   "width": 440,
+   "height": 380,
+   "color": "6"
+  },
+  {
+   "id": "ba934417719f5733",
+   "type": "text",
+   "text": "## Schulrecht\n- [Trainings-App](http://localhost:8744/App/schulleitung.html) (Fälle, Karten, Mindmaps, Start: siehe [[Active Recall]])\n- [[Lernplan Schulrecht bis Februar 2027]]\n- [[Schulrecht – Fallbeispiele mit Lösungen]] (37 Fälle)\n- [[Schulrecht – Kurzübersicht]] und [[Schulrecht – Skript]] (Stand ca. 2022)\n- [[Schulrecht]] (Einstieg, Rechtsquellen)\n- Gesetzestexte aktuell: Ordner `04 Ressourcen/Schulrecht/Rechtsquellen/`\n- [Gemini LM](https://notebook.google.com/): Notizbuch „Schulrecht BW aktuell“",
+   "x": 500,
+   "y": 670,
+   "width": 440,
+   "height": 380,
+   "color": "4"
+  },
+  {
+   "id": "bf0a8a7468cd4673",
+   "type": "text",
+   "text": "## Wissen und Fortbildungen\n- [[Fachtag Diskriminierungsschutz an Schulen (05.11.2026)|Fachtag Diskriminierungsschutz]]\n- [[Führung & Management]]\n- [[Anki - Führung & Schulentwicklung|Karteikarten Führung]]\n- [[Führungsskills erwerben]]\n- [[Rhetorik und Kommunikation]]\n- [[Lieben Sie Ihren Job - Lead Forward Podcast|Podcast Lead Forward]]\n- [[PISA 2025 – Befunde und internationale Vergleiche|PISA 2025]]\n- [[Weiterbildung]]",
+   "x": 1000,
+   "y": 670,
+   "width": 440,
+   "height": 380
+  },
+  {
+   "id": "4d4fb6052570b48d",
+   "type": "file",
+   "file": "04 Ressourcen/Schulrecht/Lernplan Schulrecht bis Februar 2027.md",
+   "subpath": "#Stand",
+   "x": 0,
+   "y": 1110,
+   "width": 940,
+   "height": 610
+  },
+  {
+   "id": "fbf7b4b43a727279",
+   "type": "text",
+   "text": "## Draußen\n- [Landesrecht BW](https://www.landesrecht-bw.de/)\n- [Lehrer-Online BW](https://www.lehrer-online-bw.de/) (Schulleitungsstellen)\n- [Netzwerk NikLAS am ZSL](https://zsl-bw.de/,Lde/startseite/uebergreifendes/netzwerk-niklas)\n- [Gemini LM](https://notebook.google.com/)",
+   "x": 1000,
+   "y": 1110,
+   "width": 440,
+   "height": 300
+  },
+  {
+   "id": "16a9c68dd0502b20",
+   "type": "text",
+   "x": 1000,
+   "y": 1450,
+   "width": 440,
+   "height": 270,
+   "color": "4",
+   "text": "## Schulsystem und Programme\n- [[Schularten, Übergänge und Landesprogramme|Notiz mit Quellen]]\n- [[Schularten und Übergänge – Mindmap.excalidraw|Mindmap: Schularten und Übergänge]]\n- [[Landesprogramme und Hilfen – Mindmap.excalidraw|Mindmap: Landesprogramme, Konflikte]]\n- [[Daten und Vergleichsarbeiten – Mindmap.excalidraw|Mindmap: Daten, VERA, Lernstand 2, 5, 7]]"
+  }
+ ],
+ "edges": [
+  {
+   "id": "3087839520c56a87",
+   "fromNode": "ba934417719f5733",
+   "fromSide": "bottom",
+   "toNode": "4d4fb6052570b48d",
+   "toSide": "top"
+  }
+ ]
 }
