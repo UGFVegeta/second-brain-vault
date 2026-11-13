@@ -611,6 +611,17 @@ def _wissenskarte():
     return r.stdout.strip()
 
 
+# --- Berichte-Leseansicht aus den Daily Notes ----------------------------------
+@section("berichte")
+def _berichte():
+    r = subprocess.run(
+        [sys.executable, str(VAULT / ".scripts" / "berichte_bauen.py")],
+        capture_output=True, text=True, timeout=60)
+    if r.returncode != 0:
+        raise RuntimeError(r.stderr.strip()[:200] or "Build-Fehler")
+    return r.stdout.strip()
+
+
 # --- Unterricht – Hub in Obsidian (Wochentabelle) mit aktualisieren ------------
 @section("unterricht_hub")
 def _unterricht_hub():
