@@ -22,7 +22,7 @@ PHYSIK = [
     {"klasse": "7c", "untertitel": "Optik, Akustik · 2 Wochenstunden, Do Doppelstunde", "themen": [
         {"titel": "Optik", "stunden": [
             {"id": "ph7-optik1", "titel": "Optik 1 – Lichtquellen und beleuchtete Körper", "wann": "", "status": "gehalten",
-             "links": [f("Stunde", PH + "Optik/Optik 1 – Lichtquellen und beleuchtete Körper – ALLES.html")]},
+             "links": [f("Stunde", PH + "Optik/Optik – Leitfrage 1 – Stunde.html"), f("Frühere Fassung", PH + "Optik/Optik 1 – Lichtquellen und beleuchtete Körper – ALLES.html")]},
             {"id": "ph7-optik2", "titel": "Optik 2 – Licht trifft auf einen Körper", "wann": "Do 24.09.", "status": "vorbereitet",
              "links": [f("Stunde", PH + "Optik/Optik – Do 24.09. – Stunde.html"), f("Übersicht", PH + "Optik/Optik 2 – Licht trifft auf einen Körper – ALLES.html")]},
             {"id": "ph7-lf3", "titel": "Leitfrage 3", "wann": "", "status": "vorbereitet",

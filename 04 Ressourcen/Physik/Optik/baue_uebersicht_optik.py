@@ -45,11 +45,22 @@ farben = [
 for x in ka:
     x["art"] = "ka"
 
-planung = [{"id": "MAT", "marke": "MAT", "titel": "Materialliste", "sub": "Alles Material Optik I und II · vorhanden, bestellen, bestellt",
+planung = [{"id": "MAT", "marke": "MAT", "titel": "Materialliste", "sub": "Alles Material Optik I und II: vorhanden, bestellen, bestellt",
             "datum": "Gesamtliste und nach Stunden", "datei": "Optik Klasse 7 – Material.html", "art": ""}]
 
-links = [("Optik-Labore (Startseite für IServ)", "Optik-Labore.html"), ("Foliensatz Optik I", "Optik I.html"), ("Foliensatz Optik II", "Optik II.html"),
-         ("F2 alles in einer Datei", "Optik 2 – Licht trifft auf einen Körper – ALLES.html"), ("Schattenlabor", "Schattenlabor Halbschatten.html"), ("Übersicht Kernphysik Klasse 10", "../Kernphysik/Kernphysik Klasse 10 – Übersicht.html"), ("Unterrichtsvorbereitung (alle Fächer)", "../../Unterrichtsvorbereitung.html")]
+_lab = lambda kurz, name, datei, wofuer: {"id": "LAB-" + kurz, "marke": "🧪", "titel": name, "sub": "Labor; " + wofuer, "datum": wofuer, "datei": datei, "art": "lab"}
+labore = [_lab("Seh", "Sehlabor", "Sehlabor Lichtquellen.html", "Lichtquellen (F1)"),
+          _lab("Koerper", "Körperlabor", "Körperlabor Licht trifft auf Körper.html", "Licht trifft auf Körper (F2)"),
+          _lab("Strahlen", "Strahlenlabor", "Strahlenlabor Lichtausbreitung.html", "Lichtausbreitung (F3)"),
+          _lab("Schatten", "Schattenlabor", "Schattenlabor Halbschatten.html", "Kern- und Halbschatten (F4)"),
+          _lab("Mond", "Mondlabor", "Mondlabor Mondphasen und Finsternisse.html", "Mondphasen und Finsternisse (F5)"),
+          _lab("Lochkamera", "Lochkameralabor", "Lochkameralabor.html", "Lochkamera (LK)"),
+          _lab("Spiegel", "Spiegellabor", "Spiegellabor Reflexion.html", "Reflexion und Spiegelbild (F6)"),
+          _lab("Brechung", "Brechungslabor", "Brechungslabor Lichtbrechung.html", "Lichtbrechung (F7)"),
+          _lab("Linsen", "Linsenlabor", "Linsenlabor Sammel- und Zerstreuungslinse.html", "Sammel- und Zerstreuungslinse (F8)")]
 
-baue_uebersicht(HIER / "Optik Klasse 7 – Übersicht.html", "Optik Klasse 7c", "Alle Doppelstunden Optik · 2026/27",
-                [("Planung", planung), ("Optik I", optik1), ("Optik II", optik2), ("Klassenarbeit", ka), ("Farben", farben)], links, "optik7-stunde")
+links = [("Optik-Labore (Startseite für IServ)", "Optik-Labore.html"), ("Foliensatz Optik I", "Optik I.html"), ("Foliensatz Optik II", "Optik II.html"),
+         ("F2 alles in einer Datei", "Optik 2 – Licht trifft auf einen Körper – ALLES.html"), ("Übersicht Kernphysik Klasse 10", "../Kernphysik/Kernphysik Klasse 10 – Übersicht.html"), ("Unterrichtsvorbereitung (alle Fächer)", "../../Unterrichtsvorbereitung.html")]
+
+baue_uebersicht(HIER / "Optik Klasse 7 – Übersicht.html", "Optik Klasse 7c", "Alle Doppelstunden Optik 2026/27",
+                [("Planung", planung), ("Labore", labore), ("Optik I", optik1), ("Optik II", optik2), ("Klassenarbeit", ka), ("Farben", farben)], links, "optik7-stunde")

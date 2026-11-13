@@ -18,7 +18,7 @@ R_ALLTAG = tabellenfolie("Reflexion im Alltag", [
 ], frage="Warum siehst du dich in einem Spiegel, aber nicht in einem weißen Blatt Papier?")
 
 R = [basis2(2), basis2(3),
-     blatt("Reflexionsgesetz W10.pdf", "w10", "Versuchsblatt austeilen · Versuch in Gruppen"),
+     blatt("Reflexionsgesetz W10.pdf", "w10", "Versuchsblatt austeilen; Versuch in Gruppen"),
      basis2(5), R_ALLTAG]
 
 R_MAT = {"demo": [("Spiegel und Taschenlampe", "1×", "für den Einstieg, Licht an die Decke lenken")],
@@ -96,7 +96,7 @@ B_ALLTAG = tabellenfolie("Brechung im Alltag", [
 ], frage="Warum sieht ein Schwimmbecken flacher aus, als es ist?")
 
 BR = [basis2(15), basis2(16),
-      blatt("Lichtbrechung W12.pdf", "w12", "Versuchsblatt austeilen · Versuch in Gruppen"),
+      blatt("Lichtbrechung W12.pdf", "w12", "Versuchsblatt austeilen; Versuch in Gruppen"),
       basis2(18), basis2(20), B_ALLTAG, basis2(21), basis2(22), basis2(23)]
 
 B_MAT = {"demo": [("Glas mit Wasser und Strohhalm", "1×", "für den Einstieg"),
@@ -139,7 +139,7 @@ L_ALLTAG = tabellenfolie("Linsen im Alltag", [
 ], frage="Woran erkennst du, ob eine Linse sammelt oder zerstreut?")
 
 LI = [basis2(24), basis2(25),
-      blatt("Strahlengaenge an Linsen W13.pdf", "w13", "Versuchsblatt austeilen · Versuch in Gruppen"),
+      blatt("Strahlengaenge an Linsen W13.pdf", "w13", "Versuchsblatt austeilen; Versuch in Gruppen"),
       basis2(27), L_ALLTAG]
 
 L_MAT = {"demo": [("Lupen", "mehrere", "zum Durchgeben beim Einstieg"),

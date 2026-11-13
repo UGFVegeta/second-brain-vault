@@ -42,14 +42,14 @@ def w10(l):
     lt = luecken("Der Einfallswinkel α ist genauso groß wie der [[Reflexionswinkel]] β. Beide Winkel werden zum [[Lot]] gemessen.", l)
     return seite(kopf("W10", "F6 — Versuch: Das Reflexionsgesetz", l) + ("" if l else NAME)
         + '<p class="frage">Trifft Licht auf einen Spiegel, dann wird es reflektiert. Wovon hängt ab, in welche Richtung das auftreffende Licht abgelenkt wird?</p>'
-        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung</h2><ol class="liste">'
+        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung <span class="kreis">○</span></h2><ol class="liste">'
         '<li>Stelle an der Optikleuchte die Einspaltblende ein, sodass ein Lichtstrahl entsteht.</li>'
         '<li>Lege den Spiegel an die Grundlinie der Winkeleinteilung und richte den Strahl auf den Mittelpunkt der Kreisscheibe.</li>'
         '<li>Miss den Winkel α zwischen einfallendem Strahl und Lot, dann den Winkel β zwischen Lot und reflektiertem Strahl.</li>'
         '<li>Führe sechs Messungen mit verschiedenen Winkeln durch und trage sie in die Tabelle ein.</li></ol></div>' + SK_W10 + '</div>'
         + '<p class="frage"><b>Versuchsbeobachtung:</b>' + (' <span class="loesungstext">Beispielwerte, beim Messen ± 1°</span>' if l else '') + '</p>'
         + tabelle(["Einfallswinkel α", "Reflexionswinkel β"], werte, l, 6)
-        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung</h2><p class="frage">Fülle die Lücken aus.</p>'
+        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung <span class="kreis">◐</span></h2><p class="frage">Fülle die Lücken aus.</p>'
         + f'<p class="frage lt">{lt}</p>')
 
 
@@ -91,10 +91,10 @@ def w11(l):
     return seite(kopf("W11", "F6 — Der Spiegel", l) + ("" if l else NAME)
         + '<p class="frage">Eine Person steht vor einer Wand und möchte einen Spiegel so aufhängen, dass sie sich von Kopf bis Fuß betrachten kann. '
           'Erinnere dich: Das Spiegelbild ist genauso groß wie der Betrachter. Er steht scheinbar (virtuell) ebenso weit hinter dem Spiegel wie der Betrachter davor.</p>'
-        + '<h2 class="aufgabe"><span class="nr">1</span>Zeichne das Spiegelbild rechts neben der Wand in richtiger Entfernung und Größe.</h2>'
-        + '<h2 class="aufgabe"><span class="nr">2</span>Finde heraus, wie hoch der Spiegel hängen und wie groß er mindestens sein muss. Zeichne dazu die Strahlengänge ein.</h2>'
+        + '<h2 class="aufgabe"><span class="nr">1</span>Zeichne das Spiegelbild rechts neben der Wand in richtiger Entfernung und Größe. <span class="kreis">○</span></h2>'
+        + '<h2 class="aufgabe"><span class="nr">2</span>Finde heraus, wie hoch der Spiegel hängen und wie groß er mindestens sein muss. Zeichne dazu die Strahlengänge ein. <span class="kreis">●</span></h2>'
         + f'<div class="zeichenfeld" style="height:92mm;">{spiegel_zeichnung(l)}</div>'
-        + '<h2 class="aufgabe"><span class="nr">3</span>Ergänze.</h2>' + f'<p class="frage lt">{lt}</p>')
+        + '<h2 class="aufgabe"><span class="nr">3</span>Ergänze. <span class="kreis">◐</span></h2>' + f'<p class="frage lt">{lt}</p>')
 
 
 # ---------------------------------------------------------------- W12 Lichtbrechung am Halbzylinder
@@ -123,7 +123,7 @@ def w12(l):
                'das ganze Licht wird reflektiert.</p>') if l else ""
     k = ["Einfalls&shy;winkel", "Reflexions&shy;winkel", "Brechungs&shy;winkel"]
     return seite(kopf("W12", "F7 — Versuch: Lichtbrechung am Halbzylinder", l) + ("" if l else NAME)
-        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung</h2><ol class="liste">'
+        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung <span class="kreis">○</span></h2><ol class="liste">'
         '<li>Lege den Halbzylinder auf die Winkelscheibe wie im Bild.</li>'
         '<li>Leuchte mit der Ray-Box aus fünf verschiedenen Winkeln auf die gerade Fläche des Halbzylinders. Der Lichtstrahl soll dabei immer durch den Mittelpunkt der Scheibe verlaufen.</li>'
         '<li>Wiederhole Schritt 2. Leuchte jetzt aber auf die runde Fläche des Halbzylinders. Der Lichtstrahl verläuft wieder durch den Mittelpunkt der Winkelscheibe.</li></ol>'
@@ -131,7 +131,7 @@ def w12(l):
         + '<p class="frage"><b>Versuchsbeobachtung:</b> Trage die Winkel in die Tabellen ein.</p>'
         + f'<div class="zwei"><div><p class="frage">1. Versuch: von Luft in Glas</p>{tabelle(k, t1, l, 5)}</div>'
           f'<div><p class="frage">2. Versuch: von Glas in Luft</p>{tabelle(k, t2, l, 5)}</div></div>' + hinweis
-        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung</h2><p class="frage">Fülle die Lücken aus.</p>'
+        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung <span class="kreis">◐</span></h2><p class="frage">Fülle die Lücken aus.</p>'
         + f'<p class="frage lt">{lt}</p>')
 
 
@@ -167,7 +167,7 @@ def w13(l):
                  "Hinter der Zerstreuungslinse laufen parallele Strahlen [[auseinander]]. Verlängert man sie nach hinten, "
                  "scheinen sie von einem Punkt vor der Linse zu kommen.", l)
     return seite(kopf("W13", "F8 — Versuch: Strahlengänge an Linsen", l) + ("" if l else NAME)
-        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung</h2><ol class="liste">'
+        + '<div class="versuchskopf"><div><h2 class="aufgabe"><span class="nr">1</span>Versuchsbeschreibung <span class="kreis">○</span></h2><ol class="liste">'
         '<li>Zeichne eine gestrichelte waagrechte und eine senkrechte Achse in die Felder.</li>'
         '<li>Lege die Linse mittig auf die senkrechte Achse und stelle die Ray-Box auf drei parallele Strahlen.</li>'
         '<li>Lege die Ray-Box so, dass der mittlere Strahl auf der waagrechten Achse liegt.</li>'
@@ -176,7 +176,7 @@ def w13(l):
         + '<p class="frage"><b>Versuchsbeobachtung:</b></p>'
         + f'<p class="frage">Sammellinse</p><div class="zeichenfeld" style="height:48mm;">{linse_feld(True, l)}</div>'
         + f'<p class="frage">Zerstreuungslinse</p><div class="zeichenfeld" style="height:48mm;">{linse_feld(False, l)}</div>'
-        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung</h2><p class="frage">Fülle die Lücken aus.</p>'
+        + '<h2 class="aufgabe"><span class="nr">2</span>Versuchserklärung <span class="kreis">◐</span></h2><p class="frage">Fülle die Lücken aus.</p>'
         + f'<p class="frage lt">{lt}</p>')
 
 

@@ -13,13 +13,13 @@ def baue_uebersicht(ziel, titel, untertitel, gruppen, links, speicher_key):
         nav += f'<div class="gruppe">{html.escape(gt)}</div>'
         for e in liste:
             leer = not e.get("datei")
-            cls = "eintrag" + (" leer" if leer else "") + (" ka" if e.get("art") == "ka" else "")
+            cls = "eintrag" + (" leer" if leer else "") + (" ka" if e.get("art") == "ka" else "") + (" lab" if e.get("art") == "lab" else "")
             klein = e.get("datum", "") or ("noch nicht vorbereitet" if e.get("art") == "offen" else "")
             nav += (f'<button class="{cls}" data-w="{e["id"]}"{" disabled" if leer else ""}>'
                     f'<span class="w">{html.escape(e["marke"])}</span><span class="t">{html.escape(e["titel"])}'
                     f'{f"<small>{html.escape(klein)}</small>" if klein else ""}</span></button>')
     lk = "".join(f'<a href="{html.escape(h)}" target="_blank">{html.escape(t)}</a>' for t, h in links)
-    daten = json.dumps([{"w": e["id"], "marke": e["marke"], "titel": e["titel"], "sub": e.get("sub", ""), "datei": e.get("datei", "")} for e in alle],
+    daten = json.dumps([{"w": e["id"], "marke": e["marke"], "titel": e["titel"], "sub": e.get("sub", ""), "datei": e.get("datei", ""), "lab": e.get("art") == "lab"} for e in alle],
                        ensure_ascii=False)
     seite = f"""<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -35,7 +35,7 @@ aside h1{{font-size:17px;margin:2px 8px 2px}}aside .sub{{font-size:12px;color:va
 .eintrag:hover{{background:#EEF2F7}}.eintrag.on{{background:var(--sel)}}
 .eintrag .w{{font:600 12px ui-monospace,Menlo,monospace;color:var(--accent);padding-top:2px;min-width:34px}}
 .eintrag .t{{font-size:14px;line-height:1.3}}.eintrag small{{display:block;font-size:11px;color:var(--muted);margin-top:1px}}
-.eintrag.ka .w{{color:var(--ka)}}.eintrag.leer{{opacity:.5;cursor:default}}.eintrag.leer:hover{{background:none}}
+.eintrag.ka .w{{color:var(--ka)}}.eintrag.lab .w{{color:#0f7b5f}}.eintrag.leer{{opacity:.5;cursor:default}}.eintrag.leer:hover{{background:none}}
 .mehr{{margin:18px 8px 0;border-top:1px solid var(--line);padding-top:10px}}.mehr a{{display:block;font-size:13px;color:var(--accent);text-decoration:none;padding:4px 0}}
 .mehr a:hover{{text-decoration:underline}}
 main{{display:flex;flex-direction:column;min-width:0}}
@@ -51,7 +51,7 @@ iframe{{flex:1;border:0;width:100%;background:#fff}}
 <div class="mehr">{lk}</div></aside>
 <main><div class="leiste"><div class="info"><b id="titel"></b><span id="sub"></span></div>
 <button id="zurueck" title="Pfeil links">← Vorherige</button><button id="weiter" title="Pfeil rechts">Nächste →</button><a id="neu" target="_blank">In neuem Tab</a></div>
-<iframe id="rahmen" title="Stunde" allow="fullscreen" allowfullscreen></iframe><div class="leer-hinweis" id="leer" hidden>Diese Stunde ist noch nicht vorbereitet.</div></main>
+<iframe id="rahmen" title="Stunde" allow="fullscreen *" allowfullscreen></iframe><div class="leer-hinweis" id="leer" hidden>Diese Stunde ist noch nicht vorbereitet.</div></main>
 <script>
 const D={daten};
 const knoepfe=[...document.querySelectorAll('.eintrag')], pos=w=>D.findIndex(x=>x.w===w);
@@ -65,17 +65,25 @@ function zeige(w){{
   if(s.datei){{ r.hidden=false; leer.hidden=true; r.src=encodeURI(s.datei); neu.href=encodeURI(s.datei); neu.style.visibility='visible'; }}
   else {{ r.hidden=true; leer.hidden=false; neu.style.visibility='hidden'; }}
   const i=pos(w);
-  document.getElementById('zurueck').disabled=!D.slice(0,i).some(x=>x.datei); document.getElementById('weiter').disabled=!D.slice(i+1).some(x=>x.datei);
+  document.getElementById('zurueck').disabled=!D.slice(0,i).some(x=>x.datei&&!x.lab); document.getElementById('weiter').disabled=!D.slice(i+1).some(x=>x.datei&&!x.lab);
   try{{ localStorage.setItem('{speicher_key}',w); }}catch(e){{}}
   history.replaceState(null,'','#'+w);
 }}
-function schritt(d){{ const i=pos(akt.w); const z=d>0?D.slice(i+1).find(x=>x.datei):D.slice(0,i).reverse().find(x=>x.datei); if(z) zeige(z.w); }}
+function schritt(d){{ const i=pos(akt.w); const z=d>0?D.slice(i+1).find(x=>x.datei&&!x.lab):D.slice(0,i).reverse().find(x=>x.datei&&!x.lab); if(z) zeige(z.w); }}
 knoepfe.forEach(k=>k.addEventListener('click',()=>zeige(k.dataset.w)));
 document.getElementById('zurueck').onclick=()=>schritt(-1);
 document.getElementById('weiter').onclick=()=>schritt(1);
-document.addEventListener('keydown',e=>{{ if(e.key==='ArrowRight') schritt(1); if(e.key==='ArrowLeft') schritt(-1); }});
+document.addEventListener('keydown',e=>{{ if(e.metaKey||e.ctrlKey||e.altKey) return; if(e.key==='ArrowRight') schritt(1); if(e.key==='ArrowLeft') schritt(-1);
+  if((e.key==='f'||e.key==='F')&&akt&&akt.datei){{ e.preventDefault(); praesentation(); }} }});
+// F in der Übersicht: das Stundenfenster rechts geht ins Vollbild, die Stunde zeigt eine Folie groß (Nachricht an die Stunde,
+// klappt auch bei file://, wo die Übersicht nicht in die Stunde hineingreifen darf). Esc beendet das Vollbild.
+function praesentation(){{ const r=document.getElementById('rahmen'); if(document.fullscreenElement){{ document.exitFullscreen(); return; }}
+  const p=r.requestFullscreen?r.requestFullscreen():null; const los=()=>{{ try{{ r.contentWindow.postMessage({{praes:'an'}},'*'); r.contentWindow.focus(); }}catch(err){{}} }};
+  if(p&&p.then) p.then(los).catch(()=>{{}}); else los(); }}
+document.addEventListener('fullscreenchange',()=>{{ if(!document.fullscreenElement){{ try{{ document.getElementById('rahmen').contentWindow.postMessage({{praes:'aus'}},'*'); }}catch(err){{}} }} }});
+window.addEventListener('message',e=>{{ if(e.data&&e.data.praes==='aus'&&document.fullscreenElement) document.exitFullscreen(); }});
 let start=location.hash.slice(1); if(!D.some(x=>x.w===start)){{ try{{ start=localStorage.getItem('{speicher_key}')||''; }}catch(e){{ start=''; }} }}
-zeige(D.some(x=>x.w===start&&x.datei)?start:D.find(x=>x.datei).w);
+zeige(D.some(x=>x.w===start&&x.datei)?start:D.find(x=>x.datei&&!x.lab).w);
 </script></body></html>"""
     Path(ziel).write_text(seite, encoding="utf-8")
-    print("geschrieben:", Path(ziel).name, "·", sum(1 for e in alle if e.get("datei")), "Stunden verlinkt")
+    print("geschrieben:", Path(ziel).name, ";", sum(1 for e in alle if e.get("datei") and e.get("art") != "lab"), "Stunden,", sum(1 for e in alle if e.get("art") == "lab"), "Labore verlinkt")

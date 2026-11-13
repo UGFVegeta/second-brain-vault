@@ -39,6 +39,12 @@ gruppen = [(t, [{"id": s["w"], "marke": s["w"], "titel": s["titel"], "sub": s["s
                  "datei": s["datei"], "art": s.get("art", "")} for s in alle if a <= s["w"] <= b]) for t, a, b in GRUPPEN]
 gruppen.insert(0, ("Planung", [{"id": "MAT", "marke": "MAT", "titel": "Materialliste", "sub": "Alles Material W01 bis W22; vorhanden, bestellen, bestellt",
                                   "datum": "Gesamtliste und nach Stunden", "datei": "Kernphysik Klasse 10 – Material.html", "art": ""}]))
+_lab = lambda kurz, name, datei, wofuer: {"id": "LAB-" + kurz, "marke": "🧪", "titel": name, "sub": "Labor; " + wofuer, "datum": wofuer, "datei": datei, "art": "lab"}
+gruppen.insert(1, ("Labore", [_lab("Atom", "Atomlabor", "Atomlabor Atombau und Isotope.html", "Atombau und Isotope (W01–W02)"),
+                              _lab("Strahlung", "Strahlungslabor", "Strahlungslabor Radioaktivitaet.html", "Zählrohr, Strahlungsarten, Zerfall (W03–W06)"),
+                              _lab("Zerfall", "Zerfallslabor", "Zerfallslabor Halbwertszeit.html", "Würfelmodell, Halbwertszeit (W06–W09)"),
+                              _lab("Wirkung", "Wirkungslabor", "Wirkungslabor Strahlung und Koerper.html", "Strahlung und Körper (W12–W15)"),
+                              _lab("Kernenergie", "Kernenergielabor", "Kernenergielabor Spaltung und Fusion.html", "Spaltung und Fusion (W16–W21)")]))
 zusatz = [("Kernphysik-Labore (Startseite für IServ)", "Kernphysik-Labore.html"), ("Foliensatz Kernphysik (alle Folien)", "Kernphysik.html"),
           ("Begleitheft Kernspaltung (PDF)", "Materialien/Begleitheft Kernspaltung.pdf"), ("Klassenarbeit Nr. 1", KA + ".html"),
           ("Was muss ich wissen? (KA 1)", KA + " – Was muss ich wissen.html"), ("Übersicht Optik Klasse 7", "../Optik/Optik Klasse 7 – Übersicht.html"), ("Unterrichtsvorbereitung (alle Fächer)", "../../Unterrichtsvorbereitung.html")]

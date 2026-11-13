@@ -380,6 +380,7 @@ svg .kursiv { font-style: italic; }
 /* Labor-Zeichen auf Folien (stunde_vorlage.mit_labor) */
 .laborchips{position:absolute;right:12pt;bottom:5pt;display:flex;gap:5pt;z-index:5}
 .laborchip{background:#0B8FB8;color:#fff;font:600 9pt/1.2 "Avenir Next",Helvetica,Arial,sans-serif;padding:2.5pt 8pt;border-radius:9pt}
+a.laborchip{text-decoration:none;cursor:pointer}a.laborchip:hover{background:#08739A;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 
 /* ==== Folienstil V1 (30.09.2026): schwarzer Kopfbalken, weißer Grund, Apple-Anmutung, Fußzeile.
    Greift nur auf Folien mit Klasse stil-v1 (setzt stunde_vorlage.stilisiere). Richtige Antwort im Check grün. ==== */

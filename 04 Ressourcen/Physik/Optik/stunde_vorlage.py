@@ -260,7 +260,7 @@ def mit_labor(folge, schritte, labore):
     neu = []
     for k, h in enumerate(folge, 1):
         if k in folie_lab and not isinstance(h, tuple) and "</section>" in h:
-            chip = "".join(f'<div class="laborchip">🧪 Labor: {n}</div>' for n in folie_lab[k])
+            chip = "".join(f'<a class="laborchip" href="{labore[n]}" target="_blank" title="Labor in neuem Tab öffnen">🧪 Labor: {n}</a>' for n in folie_lab[k])
             i = h.rindex("</section>")
             h = h[:i] + f'<div class="laborchips">{chip}</div>' + h[i:]
         neu.append(h)
@@ -286,7 +286,7 @@ def heft_html(folge, zusatz_labore=()):
     for f in folge:
         if isinstance(f, tuple):
             continue
-        alle_labs += [n for n in re.findall(r'<div class="laborchip">🧪 Labor: ([^<]+)</div>', f) if n not in alle_labs]
+        alle_labs += [n for n in re.findall(r'<(?:div|a) class="laborchip"[^>]*>🧪 Labor: ([^<]+)</(?:div|a)>', f) if n not in alle_labs]
         if re.match(r'<section class="[^"]*\bleer\b', f):   # leere Zwillingsfolie: nicht ins Heft
             continue
         if re.match(r'<section class="[^"]*\bvbeschreibung\b', f):   # Versuch: Überschrift, die Beobachtung schreibt die Klasse selbst (Beschreibung steht in IServ)
@@ -324,8 +324,8 @@ def heft_html(folge, zusatz_labore=()):
         gesehen.add(titel)
         m = re.match(r"\s*(\d+)\.\d+\s", titel)
         erste_lf = erste_lf or (m.group(1) if m else None)
-        labs = re.findall(r'<div class="laborchip">🧪 Labor: ([^<]+)</div>', f)
-        f = re.sub(r'<div class="laborchips">.*?</div></div>|<div class="laborchip">.*?</div>', "", f, flags=re.S)
+        labs = re.findall(r'<(?:div|a) class="laborchip"[^>]*>🧪 Labor: ([^<]+)</(?:div|a)>', f)
+        f = re.sub(r'<div class="laborchips">(?:<a [^>]*>.*?</a>)+</div>|<div class="laborchips">.*?</div></div>|<(?:div|a) class="laborchip"[^>]*>.*?</(?:div|a)>', "", f, flags=re.S)
         zz = re.search(r'<div class="zeichenzone[^"]*">(.*?)</div>\s*<div class="merksatz[^"]*"', f, re.S)
         ms = re.search(r'<div class="merksatz[^"]*"[^>]*>(.*?)</div>\s*</section>', f, re.S)
         bild = f'<div class="hbild">{zz.group(1).strip()}</div>' if zz and zz.group(1).strip() else ""
@@ -539,7 +539,9 @@ def blatt_vorschau(html, ordner):
             continue
         slug = re.sub(r"[^A-Za-z0-9]+", "-", pdf.replace(".pdf", "")).strip("-").lower()
         bilder = []
-        for seite, name in ((1, "Leeres Blatt"), (2, "Lösung")):
+        pdftext = subprocess.run(["pdftotext", str(mat / pdf), "-"], capture_output=True, text=True).stdout
+        kreise = " (Aufgaben mit Kreisen ○ ◐ ●)" if any(k in pdftext for k in "○◐●") else ""
+        for seite, name in ((1, "Leeres Blatt" + kreise), (2, "Lösung")):
             ziel = mat / "assets" / f"vorschau-{slug}-{seite}"
             subprocess.run(["pdftoppm", "-png", "-r", "75", "-f", str(seite), "-l", str(seite), "-singlefile", str(mat / pdf), str(ziel)],
                            check=True, capture_output=True)
@@ -581,6 +583,15 @@ body:has(#t_folien.on) .wrap{max-width:1250px}
 #present:fullscreen #stagecol{display:flex;align-items:center;justify-content:center;height:100%;overflow:hidden}
 #present:fullscreen #stagecol>*{display:none}
 #present:fullscreen #stagecol>.vollan{display:block;margin:0;flex:none}
+#present.praes-ext{position:fixed;inset:0;z-index:1000}
+#present.praes-ext{background:#fff;padding:14px;gap:14px;align-items:stretch;overflow:hidden;box-sizing:border-box}
+#present.praes-ext #side{position:static;max-height:none;height:100%;display:flex}
+#present.praes-ext.nav-aus #side{display:none}
+#present.praes-ext #side .praes{display:none}
+#present.praes-ext #stagecol{display:flex;align-items:center;justify-content:center;height:100%;overflow:hidden}
+#present.praes-ext #stagecol>*{display:none}
+#present.praes-ext #stagecol>.vollan{display:block;margin:0;flex:none}
+body:has(#present.praes-ext){overflow:hidden}
 """
 SEITENLEISTE_JS = """
 (()=>{const side=document.getElementById('side'),present=document.getElementById('present');if(!side)return;
@@ -588,20 +599,21 @@ const slides=[...document.querySelectorAll('#stagecol .karte, #stagecol .blattka
 slides.forEach((s,k)=>{const n=s.dataset.tab||'Folien';let t=ab[ab.length-1];if(!t||t.name!==n||t.group!==(s.dataset.group||'')){t={name:n,group:s.dataset.group||'',idx:[]};ab.push(t)}t.idx.push(k);s._tab=ab.length-1});
 const h=document.createElement('h2');h.textContent=document.querySelector('header h1').textContent.replace(/^[^:]*:\\s*/,'');side.appendChild(h);
 const btns=[];let lastG='';
-const geh=k=>{cur=k;if(document.fullscreenElement===present)passen();else slides[k].scrollIntoView({block:'start'});upd()};
+const geh=k=>{cur=k;if(istVoll())passen();else slides[k].scrollIntoView({block:'start'});upd()};
 ab.forEach(t=>{if(t.group&&t.group!==lastG){const g=document.createElement('div');g.className='grp';g.textContent=t.group;side.appendChild(g)}lastG=t.group;
 const b=document.createElement('button');b.className='stab'+(t.group?' sub':'');const l=document.createElement('span');l.textContent=t.name;b.appendChild(l);
 const p=document.createElement('span');p.className='punkte';if(t.idx.length>1)t.idx.forEach(k=>{const d=document.createElement('i');d.onclick=ev=>{ev.stopPropagation();geh(k)};p.appendChild(d)});
 b.appendChild(p);b.onclick=()=>{geh(t.idx[0]);b.blur()};side.appendChild(b);btns.push(b)});
 const hw=document.createElement('div');hw.className='hinweis';hw.innerHTML='<kbd>←</kbd> <kbd>→</kbd> Folie<br><kbd>↑</kbd> <kbd>↓</kbd> Abschnitt<br><kbd>T</kbd> Leiste aus/ein<br><kbd>F</kbd> Präsentation (Vollbild)';side.appendChild(hw);
 const pk=document.createElement('button');pk.className='praes';pk.textContent='▶ Präsentation (F)';pk.onclick=()=>{voll();pk.blur()};side.insertBefore(pk,h.nextSibling);
-let cur=0;const istVoll=()=>document.fullscreenElement===present;
+let cur=0;const istVoll=()=>document.fullscreenElement===present||present.classList.contains('praes-ext');
 function passen(){const col=document.getElementById('stagecol');slides.forEach((s,k)=>{const f=s.querySelector(':scope>.folie')||s.firstElementChild;if(!f)return;f.style.zoom=1;s.style.zoom=1;if(istVoll()){s.classList.toggle('vollan',k===cur);if(k!==cur)return;const w=f.offsetWidth,hh=f.offsetHeight;if(w&&hh)s.style.zoom=Math.min(col.clientWidth/w,col.clientHeight/hh)}else{s.classList.remove('vollan');s.style.zoom='';const w=f.offsetWidth,cw=col.clientWidth;if(w&&cw&&cw<w)s.style.zoom=cw/w}})}
-function voll(){if(istVoll())document.exitFullscreen();else if(present.requestFullscreen)present.requestFullscreen().catch(()=>{})}
+function voll(){if(present.classList.contains('praes-ext')){try{parent.postMessage({praes:'aus'},'*')}catch(e){}return}if(document.fullscreenElement)document.exitFullscreen();else if(present.requestFullscreen)present.requestFullscreen().catch(()=>{})}
+addEventListener('message',e=>{const d=e.data||{};if(d.praes==='an'){if(typeof show==='function')show('folien');present.classList.add('praes-ext');setTimeout(()=>{passen();upd()},30)}else if(d.praes==='aus'&&present.classList.contains('praes-ext')){present.classList.remove('praes-ext');passen();upd();setTimeout(()=>slides[cur].scrollIntoView({block:'start'}),60)}});
 document.addEventListener('fullscreenchange',()=>{passen();upd();if(!istVoll())setTimeout(()=>slides[cur].scrollIntoView({block:'start'}),60)});
 addEventListener('resize',passen);document.querySelectorAll('nav button[data-t=folien]').forEach(b=>b.addEventListener('click',()=>setTimeout(passen,30)));
 function upd(){const ti=slides[cur]._tab;btns.forEach((b,k)=>{b.classList.toggle('aktiv',k===ti);const pos=ab[k].idx.indexOf(cur);b.querySelectorAll('i').forEach((d,j)=>{d.className=(k===ti&&j<=pos)?'an':''})})}
-addEventListener('scroll',()=>{if(!document.getElementById('t_folien').classList.contains('on')||document.fullscreenElement)return;let k=0;slides.forEach((s,j)=>{if(s.getBoundingClientRect().top<innerHeight*.45)k=j});if(k!==cur){cur=k;upd()}},{passive:true});
+addEventListener('scroll',()=>{if(!document.getElementById('t_folien').classList.contains('on')||istVoll())return;let k=0;slides.forEach((s,j)=>{if(s.getBoundingClientRect().top<innerHeight*.45)k=j});if(k!==cur){cur=k;upd()}},{passive:true});
 addEventListener('keydown',e=>{if(!document.getElementById('t_folien').classList.contains('on')||e.metaKey||e.ctrlKey||e.altKey||/INPUT|TEXTAREA/.test(e.target.tagName))return;
 const vor=e.key==='ArrowRight'||istVoll()&&(e.key==='PageDown'||e.key===' '),zur=e.key==='ArrowLeft'||istVoll()&&e.key==='PageUp';
 if(vor){e.preventDefault();geh(Math.min(slides.length-1,cur+1))}else if(zur){e.preventDefault();geh(Math.max(0,cur-1))}

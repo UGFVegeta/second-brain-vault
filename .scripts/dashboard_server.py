@@ -27,6 +27,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import fokus_lib
 import tagesblatt
 import logbuch_lib
+import bericht_lib
 
 HOST, PORT = "127.0.0.1", 8765
 
@@ -110,6 +111,13 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": True, **fokus_lib.auswerten()})
         if self.path == "/abend":
             return self._send(200, {"ok": True, "heute": logbuch_lib.heute_zeile()})
+        if self.path.split("?")[0] == "/bericht":
+            try:
+                q = self.path.partition("d=")[2][:10]
+                tag = datetime.strptime(q, "%Y-%m-%d").date() if q else datetime.now().date()
+                return self._send(200, {"ok": True, **bericht_lib.lesen(tag), "letzte": bericht_lib.letzte()})
+            except ValueError as e:
+                return self._send(400, {"ok": False, "fehler": str(e)[:120]})
         if self.path.split("?")[0] == "/tagesblatt":
             try:
                 if "neu=1" in self.path:
@@ -137,6 +145,14 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as e:
                 return self._send(500, {"ok": False, "fehler": str(e)[:200]})
             return self._send(200, {"ok": True, "pfad": pfad})
+        if self.path == "/bericht":
+            try:
+                tag = datetime.strptime(str(body["datum"]), "%Y-%m-%d").date()
+                b = body.get("befinden")
+                r = bericht_lib.eintragen(tag, str(body["art"]), body, int(b) if b else None)
+            except (KeyError, TypeError, ValueError) as e:
+                return self._send(400, {"ok": False, "fehler": str(e)[:120]})
+            return self._send(200, {"ok": True, **r, **bericht_lib.lesen(tag), "letzte": bericht_lib.letzte()})
         if self.path == "/abend":
             try:
                 zeile = logbuch_lib.setzen(int(body["befinden"]), str(body["training"]))
