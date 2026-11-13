@@ -104,7 +104,8 @@ class Mindmap:
         rel = [[px - x0, py - y0] for px, py in pts]
         xs, ys = [p[0] for p in rel], [p[1] for p in rel]
         return self.base("line", x0, y0, max(xs) - min(xs), max(ys) - min(ys), stroke=col, sw=sw, style=style, fill=fill,
-                         points=rel, lastCommittedPoint=None, startArrowhead=None, endArrowhead=None, round=None)
+                         points=rel, lastCommittedPoint=None, startArrowhead=None, endArrowhead=None, round=None,
+                         polygon=pts[0] == pts[-1] and len(pts) > 2)   # geschlossen = Fläche, wird gefüllt
 
     # ------------------------------------------------------------ Mindmap-Bausteine
     def ast(self, i, titel, punkte, geplant=False, fs=17):
@@ -241,7 +242,8 @@ def svg_schreiben(E, pfad, skala=1.6):
         elif t in ("line", "arrow"):
             p = " ".join(f'{e["x"] + a},{e["y"] + c}' for a, c in e["points"])
             mk = ' marker-end="url(#m)"' if t == "arrow" and e.get("endArrowhead") else ""
-            o.append(f'<polyline points="{p}" fill="none" {st}{mk}/>')
+            f = fill if t == "line" and e.get("polygon") else "none"
+            o.append(f'<polyline points="{p}" fill="{f}" {st}{mk}/>')
         elif t == "text":
             a = {"left": "start", "center": "middle", "right": "end"}[e["textAlign"]]
             xx = e["x"] + (e["width"] / 2 if a == "middle" else e["width"] if a == "end" else 0)

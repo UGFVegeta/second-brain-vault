@@ -8,7 +8,7 @@ date: 2026-11-06
 
 Einstieg für alles rund um den Weg in die Schulleitung: Stand der Bewerbung, Verfahren, Unterlagen, Schulrecht, Fortbildungen und Lesestoff. Stand 06.11.2026.
 
-Dazu gibt es die Übersichtsseite „Weg zur Schulleitung“ als Claude-Artifact (privat): https://claude.ai/artifact/3DKYqKLyTPUZfTG9LCJcnx. Diese Notiz hier ist der Master, die Seite eine Momentaufnahme. Dieselben Inhalte als Pinnwand in Spalten: [[Schulleitung – Hub.canvas]].
+Dazu gibt es die Übersichtsseite „Weg zur Schulleitung“ als Claude-Artifact (privat): https://claude.ai/artifact/3DKYqKLyTPUZfTG9LCJcnx. Diese Notiz hier ist der Master, die Seite eine Momentaufnahme. Dieselben Inhalte als Pinnwand in Spalten: [[Schulleitung – Hub.canvas]]. Alles auf einen Blick als Mindmap (Verfahren, Schulrecht, Säulen, Schulentwicklung, Zeitplan): [[Schulleitung – Mindmap.excalidraw]].
 
 ## Stand
 

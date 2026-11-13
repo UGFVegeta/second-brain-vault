@@ -158,6 +158,7 @@ Auch Klassenlehrer- und Methodenstunden bereitet Claude als eine Stunden-HTML mi
 - 04.11.2026: Ablage in Themenordnern mit Unterordnern statt flacher Liste (Oskar findet sonst nichts). Auswertungen als eine HTML mit Tabs zum Durchklicken. Unterordner statt flacher Ablage gilt auch für neue Themen.
 
 - 06.11.2026: Hub-Canvases (Übersichten in Obsidian) immer in die Breite bauen, Bereiche als Spalten nebeneinander, nicht als eine lange Spalte.
+- 13.11.2026: Übersichts-Mindmaps je Fach und Klasse sowie für die Schulleitung als Excalidraw im Stil „Kernphysik Klasse 10“: Mitte dunkel, sechs Äste in die Breite, je Ast Kasten mit vier gebundenen Punkten und kleiner Zeichnung als Gruppe, nur gerade gebundene Pfeile, Geplantes gestrichelt. Frei stehende Texte und geknickte Pfeile verhedderten sich beim Verschieben. Generator `.scripts/mindmap_excalidraw.py`.
 
 ## Lernen (Oskar selbst, 08.11.2026)
 

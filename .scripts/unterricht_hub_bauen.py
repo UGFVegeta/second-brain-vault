@@ -20,7 +20,7 @@ S = "04 Ressourcen/Sport/"
 L = "04 Ressourcen/Lernwissenschaft & Pädagogik/"
 K = "03 Bereiche/Schule & Unterricht/Klassenlehrer 7c/"
 
-# (Titel, Canvas-Farbe, [(Text, Ziel)]); Ziel: Vault-Pfad (.html/.pdf → Datei-Link, .md → Wikilink),
+# (Titel, Canvas-Farbe, [(Text, Ziel)]); Ziel: Vault-Pfad (.html/.pdf → Datei-Link, .md/.excalidraw → Wikilink),
 # absoluter Pfad (iCloud-Ordner) oder None für reinen Text.
 BEREICHE = [
     ("Planung", "4", [
@@ -32,6 +32,7 @@ BEREICHE = [
         ("Mein Stundenplan", "04 Ressourcen/Lernwissenschaft & Pädagogik/Stundenplan 7C.html"),
     ]),
     ("Mathe 7c", "#2563eb", [
+        ("Mindmap Mathe 7c", M + "Mathematik Klasse 7c – Mindmap.excalidraw"),
         ("Übersicht aller Stunden", M + "Mathematik Klasse 7 – Übersicht.html"),
         ("Dreiecke: Diagnose und Auswertung", M + "Dreiecke/01 Diagnose – Test, Auswertung, Förderblätter/Diagnose Dreiecke 7c – Auswertung.html"),
         ("Einstiegskarte Mathe", M + "Mathematik.md"),
@@ -40,6 +41,7 @@ BEREICHE = [
         ("iCloud Mathematik 7c", str(ICLOUD / "Mathematik/Mathematik 7c")),
     ]),
     ("Mathe 10b", "#2563eb", [
+        ("Mindmap Mathe 10b", M + "Mathematik Klasse 10b – Mindmap.excalidraw"),
         ("Übersicht aller Stunden", M + "Mathematik Klasse 10b – Übersicht.html"),
         ("Prüfungsaufgaben: Startseite", M + "Prüfungsaufgaben/index.html"),
         ("Prüfungs-Baukasten", M + "Prüfungsaufgaben/Baukasten.html"),
@@ -47,6 +49,7 @@ BEREICHE = [
         ("iCloud Mathematik 10b", str(ICLOUD / "Mathematik/Mathematik 10b")),
     ]),
     ("Physik 7c", "#111111", [
+        ("Mindmap Physik 7c", P + "Physik Klasse 7c – Mindmap.excalidraw"),
         ("Optik Klasse 7: Übersicht", P + "Optik/Optik Klasse 7 – Übersicht.html"),
         ("Optik Klasse 7: Material", P + "Optik/Optik Klasse 7 – Material.html"),
         ("Optik-Labore (Simulationen)", P + "Optik/Optik-Labore.html"),
@@ -54,6 +57,7 @@ BEREICHE = [
         ("Einstiegskarte Physik", P + "Physik.md"),
     ]),
     ("Physik 10", "#111111", [
+        ("Mindmap Kernphysik 10", P + "Kernphysik/Kernphysik Klasse 10 – Mindmap.excalidraw"),
         ("Kernphysik Klasse 10: Übersicht", P + "Kernphysik/Kernphysik Klasse 10 – Übersicht.html"),
         ("Kernphysik Klasse 10: Material", P + "Kernphysik/Kernphysik Klasse 10 – Material.html"),
         ("Kernphysik-Labore (Simulationen)", P + "Kernphysik/Kernphysik-Labore.html"),
@@ -97,6 +101,10 @@ def link(text, ziel):
         return text
     if ziel.endswith(".md"):
         return f"[[{ziel[:-3]}|{text}]]"
+    if ziel.endswith(".excalidraw"):  # Mindmaps öffnen in Obsidian, nicht im Browser
+        if not (VAULT / ziel).exists():
+            print("FEHLT:", ziel)
+        return f"[[{ziel}|{text}]]"
     pfad = Path(ziel) if ziel.startswith("/") else VAULT / ziel
     if not pfad.exists():
         print("FEHLT:", ziel)

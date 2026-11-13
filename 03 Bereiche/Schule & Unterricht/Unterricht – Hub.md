@@ -28,6 +28,7 @@ Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Se
 - [Mein Stundenplan](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Lernwissenschaft%20%26%20P%C3%A4dagogik/Stundenplan%207C.html)
 
 ## Mathe 7c
+- [[04 Ressourcen/Mathematik/Mathematik Klasse 7c – Mindmap.excalidraw|Mindmap Mathe 7c]]
 - [Übersicht aller Stunden](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Mathematik/Mathematik%20Klasse%207%20%E2%80%93%20%C3%9Cbersicht.html)
 - [Dreiecke: Diagnose und Auswertung](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Mathematik/Dreiecke/01%20Diagnose%20%E2%80%93%20Test%2C%20Auswertung%2C%20F%C3%B6rderbl%C3%A4tter/Diagnose%20Dreiecke%207c%20%E2%80%93%20Auswertung.html)
 - [[04 Ressourcen/Mathematik/Mathematik|Einstiegskarte Mathe]]
@@ -36,6 +37,7 @@ Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Se
 - [iCloud Mathematik 7c](file:///Users/oskarklein/Library/Mobile%20Documents/com~apple~CloudDocs/GDRS%20ICloud/Schuljahr%2026%2027/Mathematik/Mathematik%207c)
 
 ## Mathe 10b
+- [[04 Ressourcen/Mathematik/Mathematik Klasse 10b – Mindmap.excalidraw|Mindmap Mathe 10b]]
 - [Übersicht aller Stunden](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Mathematik/Mathematik%20Klasse%2010b%20%E2%80%93%20%C3%9Cbersicht.html)
 - [Prüfungsaufgaben: Startseite](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Mathematik/Pr%C3%BCfungsaufgaben/index.html)
 - [Prüfungs-Baukasten](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Mathematik/Pr%C3%BCfungsaufgaben/Baukasten.html)
@@ -43,6 +45,7 @@ Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Se
 - [iCloud Mathematik 10b](file:///Users/oskarklein/Library/Mobile%20Documents/com~apple~CloudDocs/GDRS%20ICloud/Schuljahr%2026%2027/Mathematik/Mathematik%2010b)
 
 ## Physik 7c
+- [[04 Ressourcen/Physik/Physik Klasse 7c – Mindmap.excalidraw|Mindmap Physik 7c]]
 - [Optik Klasse 7: Übersicht](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Physik/Optik/Optik%20Klasse%207%20%E2%80%93%20%C3%9Cbersicht.html)
 - [Optik Klasse 7: Material](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Physik/Optik/Optik%20Klasse%207%20%E2%80%93%20Material.html)
 - [Optik-Labore (Simulationen)](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Physik/Optik/Optik-Labore.html)
@@ -50,6 +53,7 @@ Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Se
 - [[04 Ressourcen/Physik/Physik|Einstiegskarte Physik]]
 
 ## Physik 10
+- [[04 Ressourcen/Physik/Kernphysik/Kernphysik Klasse 10 – Mindmap.excalidraw|Mindmap Kernphysik 10]]
 - [Kernphysik Klasse 10: Übersicht](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Physik/Kernphysik/Kernphysik%20Klasse%2010%20%E2%80%93%20%C3%9Cbersicht.html)
 - [Kernphysik Klasse 10: Material](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Physik/Kernphysik/Kernphysik%20Klasse%2010%20%E2%80%93%20Material.html)
 - [Kernphysik-Labore (Simulationen)](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Physik/Kernphysik/Kernphysik-Labore.html)
