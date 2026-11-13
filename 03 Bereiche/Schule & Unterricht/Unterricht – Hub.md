@@ -74,6 +74,13 @@ Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Se
 - [[04 Ressourcen/Lernwissenschaft & Pädagogik/Klassenführung – Regeln und Rituale Klasse 7|Klassenführung: Regeln und Rituale]]
 - [[03 Bereiche/Schule & Unterricht/Schule & Unterricht|Bereichsnotiz Schule & Unterricht]]
 
+## Schule & Orga
+- [[03 Bereiche/Schule & Unterricht/GLK 25.11.2026 – IServ Mindmap.excalidraw|GLK 25.11.: IServ, Mindmap]]
+- [[03 Bereiche/Schule & Unterricht/GLK 25.11.2026 – IServ Ablage und Links|GLK 25.11.: IServ, Notiz]]
+- [GLK 25.11.: Sitzplan-Generator](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Sitzplan/Sitzplan.html)
+- [GLK 25.11.: Notenschlüsselrechner](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Notenschl%C3%BCsselrechner/Notenschl%C3%BCsselrechner%20GDRS.html)
+- [[03 Bereiche/Führung & Schulentwicklung/Schulleitung – Hub|Schulleitung – Hub]]
+
 ## Werkzeuge
 - [Sitzplan-Generator](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Sitzplan/Sitzplan.html)
 - [Notenschlüsselrechner](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Notenschl%C3%BCsselrechner/Notenschl%C3%BCsselrechner.html)

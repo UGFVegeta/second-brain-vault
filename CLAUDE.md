@@ -32,6 +32,12 @@ Private PDFs und Dateien, die Oskar persönlich betreffen (Verträge, Bescheide,
 - Beim Suchen nach einem privaten Dokument zuerst dort nachsehen. Der alte lose Inhalt in `Privat/` bleibt, wo er ist, und wird nicht ungefragt umsortiert.
 - PDFs weiterhin mit dem `firecrawl-parse` Skill lesen, die geparsten Texte landen in `.firecrawl/` (gitignored).
 
+## Ablage: Vault oder iCloud (festgelegt 13.11.2026)
+
+- **Privat:** nur iCloud `Privat/Wichtige Dokumente/` (siehe Abschnitt oben), nie in den Vault.
+- **Schulmaterial ohne Personenbezug** (Stunden, Arbeitsblätter, Klassenarbeiten, Stoffverteilung, Infoblätter): beides. Der Vault ist die Hauptablage, die andere Sessions durchsuchen können: Fachmaterial nach `04 Ressourcen/<Fach>/`, Klassenlehrer-Material nach `03 Bereiche/Schule & Unterricht/Klassenlehrer <Klasse>/`. Die GDRS-iCloud (`~/Library/Mobile Documents/com~apple~CloudDocs/GDRS ICloud/`) ist die Kopie zum Drucken und Teilen, in die bestehende Ordnerstruktur und bei Klassenmaterial in den Unterordner `<Fach> <Klasse>`. Mathe läuft über `export_icloud_mathe.py`.
+- **Dateien mit Schülernamen oder Noten** (Klassenlisten, Notenlisten, Sitzpläne, Wahllisten, Sportgruppen): nur GDRS-iCloud, nie in den Vault. Im Vault steht höchstens der Pfad, wie in `04 Ressourcen/Sport/Sport.md`.
+
 ## Excalidraw-Regeln
 
 - Für Verbindungen zwischen Elementen in Mindmaps und Diagrammen immer **Pfeile** (`"type": "arrow"`) verwenden, **keine Linien** (`"type": "line"`). Linien sind nicht mit Elementen verbunden und hängen frei im Raum.

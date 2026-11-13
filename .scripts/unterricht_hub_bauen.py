@@ -78,6 +78,13 @@ BEREICHE = [
         ("Klassenführung: Regeln und Rituale", L + "Klassenführung – Regeln und Rituale Klasse 7.md"),
         ("Bereichsnotiz Schule & Unterricht", "03 Bereiche/Schule & Unterricht/Schule & Unterricht.md"),
     ]),
+    ("Schule & Orga", "5", [
+        ("GLK 25.11.: IServ, Mindmap", "03 Bereiche/Schule & Unterricht/GLK 25.11.2026 – IServ Mindmap.excalidraw"),
+        ("GLK 25.11.: IServ, Notiz", "03 Bereiche/Schule & Unterricht/GLK 25.11.2026 – IServ Ablage und Links.md"),
+        ("GLK 25.11.: Sitzplan-Generator", "04 Ressourcen/Sitzplan/Sitzplan.html"),
+        ("GLK 25.11.: Notenschlüsselrechner", "04 Ressourcen/Notenschlüsselrechner/Notenschlüsselrechner GDRS.html"),
+        ("Schulleitung – Hub", "03 Bereiche/Führung & Schulentwicklung/Schulleitung – Hub.md"),
+    ]),
     ("Werkzeuge", "1", [
         ("Sitzplan-Generator", "04 Ressourcen/Sitzplan/Sitzplan.html"),
         ("Notenschlüsselrechner", "04 Ressourcen/Notenschlüsselrechner/Notenschlüsselrechner.html"),

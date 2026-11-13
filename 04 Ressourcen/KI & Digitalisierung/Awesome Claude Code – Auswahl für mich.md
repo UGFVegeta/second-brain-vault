@@ -15,7 +15,6 @@ Kuratierte Auswahl aus der Sammelliste [awesome-claude-code](https://github.com/
   - Voller Modus liefert 3 Gestaltungsvarianten + PDF-Export (im Test nur 1 Version, weil „kompakt" gewünscht).
   - Überschneidet sich mit pptx / frontend-slides / canvas-design (huashu = „auf einen Schlag poliert", die anderen kontrollierbarer).
   - ⚠️ Snyk stuft als „mittleres Risiko" ein → niemals Schülerdaten geben, nur lokale Material-Erstellung.
-  - Testdateien: `07 Anhänge/huashu-test/`.
 
 > [!tip] Top-Empfehlungen
 > **Claudable** (Apps bauen), **Basic Memory** (Vault), **Happy Coder** (Handysteuerung).

@@ -63,4 +63,4 @@ Titel, Treppe, Päckchen, Gefühle, Hausbau, Karte (neu erzeugen, es gibt noch k
 
 - Vault-Ordner: `Di 20.10. Gehirn und Lernen – Stunden.html` (Folien, Merk-Experiment, Schülerblätter, Aufschrieb, Ausdrucken), `neu-*.jpg` (neun Bilder ohne Gesichter), `bild-*.jpg` (frühere Strichzeichnungen), `_anime-*`, `_retro-*`, `_mix-*`, `_skizze-*`, `_pastell-*` (Testvarianten), `_Stilvergleich.html`, `Gemini-Prompts Bilder Gehirn und Lernen.md`.
 - iCloud `09 Zeitfensterwoche`: zwei PDFs "(ohne Gesichter)" als Sicherheit.
-- Die Testbilder und `_Stilvergleich.html` sind Arbeitsdateien. Nach Oskars Entscheidung fragen, ob sie gelöscht werden sollen (nie ungefragt löschen).
+- Die Testbilder, die alten `bild-*`/`sw-*` und `_Stilvergleich.html` hat Oskar am 13.11.2026 zum Löschen freigegeben, sie sind im Papierkorb (Git-Historie hat sie noch).

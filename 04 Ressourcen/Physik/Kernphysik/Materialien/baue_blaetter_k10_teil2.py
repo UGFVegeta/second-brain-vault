@@ -361,7 +361,7 @@ def w22(l):
                       "Die Methode reicht nur bis etwa 50 000 Jahre.", l, 2))
 
 
-# W16 bis W18 ersetzt durch das Begleitheft (baue_begleitheft_kernspaltung.py), alte Blätter liegen in _alt/
+# W16 bis W18 ersetzt durch das Begleitheft (baue_begleitheft_kernspaltung.py), alte Blätter am 13.11.2026 gelöscht (Git-Historie)
 BLAETTER = [
     ("wuerfel.html", "Zerfall mit Wuerfeln W06.pdf", "Zerfall mit Würfeln – W06", w06),
     ("halbwertszeit.html", "Halbwertszeit W07.pdf", "Die Halbwertszeit – W07", w07),

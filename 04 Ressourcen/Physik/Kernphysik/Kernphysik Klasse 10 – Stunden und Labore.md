@@ -54,7 +54,7 @@ Ideen aus „Erlebnis Physik“ Kl. 10, in eigenen Worten.
 
 ## Begleitheft Kernspaltung (W16–W18)
 
-`Materialien/Begleitheft Kernspaltung.pdf`: Oskars Tutory-Blatt „Kettenreaktion“ neu gesetzt, mit seinen Zeichnungen, ergänzt um Energiedichte-Bild und Fusionsbild (Gemini, nachkorrigiert). Vier Seiten für den A3-Bogen, Lösung Seiten 5–8. Die Lösung jedes der 14 Abschnitte erscheint in den Stunden als eigene Folie (`assets/heft-lsg-XX.png`). Builder: `Materialien/baue_begleitheft_kernspaltung.py`. Die alten Einzelblätter W16–W18 liegen in `Materialien/_alt/`, ihre Übungen stecken jetzt im Übungsblatt W19.
+`Materialien/Begleitheft Kernspaltung.pdf`: Oskars Tutory-Blatt „Kettenreaktion“ neu gesetzt, mit seinen Zeichnungen, ergänzt um Energiedichte-Bild und Fusionsbild (Gemini, nachkorrigiert). Vier Seiten für den A3-Bogen, Lösung Seiten 5–8. Die Lösung jedes der 14 Abschnitte erscheint in den Stunden als eigene Folie (`assets/heft-lsg-XX.png`). Builder: `Materialien/baue_begleitheft_kernspaltung.py`. Die alten Einzelblätter W16–W18 sind am 13.11.2026 gelöscht worden (in der Git-Historie noch vorhanden), ihre Übungen stecken jetzt im Übungsblatt W19.
 
 ## Wo vom Buch abgewichen wurde
 
