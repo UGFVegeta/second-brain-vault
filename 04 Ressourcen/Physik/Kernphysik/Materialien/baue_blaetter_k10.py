@@ -33,7 +33,8 @@ def kreis(stufe):
         b += '<path d="M10 2 A8 8 0 0 0 10 18 Z" fill="#333"/>'
     elif stufe == 2:
         b += '<circle cx="10" cy="10" r="8" fill="#333"/>'
-    return b + "</svg>"
+    # Zeichen zusätzlich als unsichtbarer Text: so findet pdftotext (Stunden-Check, blatt_vorschau) die Kreise im PDF
+    return b + "</svg>" + f'<span style="font-size:1px;color:transparent">{"○◐●"[stufe]}</span>'
 
 
 LEGENDE = f'<div class="legende">Schwierigkeit:{kreis(0)}leicht{kreis(1)}mittel{kreis(2)}schwer</div>'

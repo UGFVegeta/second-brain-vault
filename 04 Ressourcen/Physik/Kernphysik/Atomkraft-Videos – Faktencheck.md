@@ -145,9 +145,9 @@ Mögliche Aussagen (alle aus den Videos):
 2. „Seit 2010 hat Deutschland fast kein CO₂ eingespart.“ → prüfbar, stimmt nicht (UBA: rund −30 %)
 3. „Der Ausstieg war unfassbar dumm.“ → Meinung
 4. „Der hochradioaktive Abfall passt in einen Würfel von 30 m Kantenlänge.“ → prüfbar, stimmt (BASE)
-5. „In Fukushima ist niemand wegen des Kraftwerks gestorben.“ → prüfbar, verkürzt (Evakuierung)
+5. „In Fukushima ist niemand wegen des Kraftwerks gestorben.“ → prüfbar, verkürzt (rund 2300 Todesfälle durch den Stress der Evakuierung laut japanischer Wiederaufbaubehörde 2020, zitiert bei OWID; lassen sich nicht ganz von Erdbeben und Tsunami trennen)
 
-Das passt zur bestehenden Folie 2 und 3 in W21 („Fakten kann man nachprüfen oder messen … Meinungen bewerten“).
+Seit 14.11.2026 als Folien 3 und 4 (Aufgabe, Lösung) in W21 eingebaut, Quelle `FM_AUSSAGEN` in `baue_stunden_k10_teil2.py`. Das passt zu den Folien davor und danach in W21 („Fakten kann man nachprüfen oder messen … Meinungen bewerten“).
 
 ## Our World in Data im Physikunterricht
 

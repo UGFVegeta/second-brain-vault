@@ -339,7 +339,34 @@ A21 = tabellenfolie("Rollen für die Diskussion", [
     ("Bürgermeisterin eines möglichen Endlagerorts", "Sicherheit der Bürger", "Warum ausgerechnet bei uns?"),
     ("Klimaforscher", "CO₂ senken", "Jede Tonne CO₂ zählt, egal woher."),
 ], kopf=("Rolle", "vertritt vor allem", "typischer Satz"), frage="Welche Aussagen sind Fakten, welche Meinungen?")
-S21 = [f(66), blatt("Argumente abwaegen W21.pdf", "k21", "Arbeitsblatt austeilen; danach Diskussion"), A21, f(67), f(68), f(69)]
+FM_AUSSAGEN = [  # aus den Atomkraft-Videos, siehe „Atomkraft-Videos – Faktencheck.md“
+    ("„Kohle verursacht etwa 25 Tote pro Terawattstunde Strom, Kernkraft etwa 0,03.“", "prüfbar, stimmt", "Our World in Data"),
+    ("„Seit 2010 hat Deutschland fast kein CO₂ eingespart.“", "prüfbar, stimmt nicht", "Umweltbundesamt: rund 30 % weniger"),
+    ("„Der Ausstieg war unfassbar dumm.“", "Meinung", "Wertung, nicht messbar"),
+    ("„Der hochradioaktive Abfall passt in einen Würfel mit 30 m Kantenlänge.“", "prüfbar, stimmt", "BASE: rund 27 000 m³"),
+    ("„In Fukushima ist niemand wegen des Kraftwerks gestorben.“", "prüfbar, verkürzt", "rund 2300 Todesfälle durch den Stress der Evakuierung (Japans Wiederaufbaubehörde)"),
+]
+
+
+def fakt_meinung(loesung):
+    """Aufgabe „Fakt oder Meinung?“: fünf Aussagen aus Pro-Kernkraft-Videos. Ohne Lösung bleiben die rechten Spalten leer."""
+    zeilen = "".join(f"<tr><td>{i}</td><td>{a}</td><td><b>{u if loesung else ''}</b></td><td>{q if loesung else ''}</td></tr>"
+                     for i, (a, u, q) in enumerate(FM_AUSSAGEN, 1))
+    tab = ('<table class="atab"><colgroup><col style="width:5%"><col style="width:47%"><col style="width:20%"><col></colgroup>'
+           "<tr><th>Nr.</th><th>Aussage aus einem Video</th><th>Fakt oder Meinung?</th><th>geprüft mit</th></tr>" + zeilen + "</table>")
+    if loesung:
+        ms = ('<div class="merksatz"><b>Frage:</b> Woran erkennt man eine Meinung?<br><b style="color:#E6007E">Antwort:</b> '
+              '<span style="color:#E6007E">Fakten kann man nachprüfen oder messen. Meinungen bewerten, oft mit starken Wörtern wie „dumm“ oder „Wahnsinn“. '
+              'Auch ein richtiger Fakt kann täuschen, wenn etwas weggelassen wird.</span></div>')
+    else:
+        ms = ('<div class="merksatz"><b>Aufgabe:</b> Ordne jede Aussage ein: prüfbar und stimmt, prüfbar und stimmt nicht, oder Meinung? '
+              'Prüfe mit einer Quelle (Our World in Data, Umweltbundesamt, BASE).</div>')
+    titel = "Fakt oder Meinung?" + (" (Lösung)" if loesung else "")
+    return f'<section class="folie"><div class="titelband"><h1>{titel}</h1></div><div class="zeichenzone karo">{tab}</div>{ms}</section>'
+
+
+S21 = [f(66), blatt("Argumente abwaegen W21.pdf", "k21", "Arbeitsblatt austeilen; danach Diskussion"), fakt_meinung(False), fakt_meinung(True),
+       A21, f(67), f(68), f(69)]
 S21_HG = (box("Argumente abwägen", ["Ziel ist nicht eine richtige Meinung, sondern Argumente zu prüfen: Stimmt der Fakt? Wie groß ist die Zahl dahinter?",
                                      "Gute Fakten zum Verwenden: 24 000 Jahre Halbwertszeit Pu-239, 1 kg Uran-235 wie 3000 t Kohle, kaum CO₂ im Betrieb, Rückbau etwa eine Milliarde Euro, Endlager eine Million Jahre."], 1, 2)
           + box("Diskussion", ["Vier Gruppen ziehen je eine Rolle von der Folie. Fünf Minuten Argumente sammeln, dann je ein Sprecher. Die anderen notieren, was Fakt und was Meinung war.",
@@ -426,7 +453,8 @@ STUNDEN = [
       ("Üben", "Arbeitsblatt.", [4]), ("Alltag", "Abfall in Deutschland.", [5])], S20, S20_HG, S20_AB),
     ("W21 Argumente abwaegen", "Kernphysik: Nutzen und Risiko abwägen", "W21 (Woche ab 12.04.2027); Abschluss Leitfrage 6",
      "Arbeitsblatt Nutzen und Risiko abwägen", {"demo": [], "schueler": [], "hinweis": "Rollenfolie für die Diskussion bereithalten."},
-     [("Argumente", "Folie, Fakt oder Meinung.", [1, 2]), ("Diskussion", "Vier Rollen, Sprecher, Auswertung.", [3]), ("Abschluss Leitfrage 6", "Antwort, Check. Zu Hause: Kurz-Check im Kernenergielabor.", [4, 5, 6])], S21, S21_HG, S21_AB),
+     [("Argumente", "Folie, Arbeitsblatt.", [1, 2]), ("Fakt oder Meinung?", "Fünf Aussagen aus Videos einordnen und prüfen.", [3, 4]),
+      ("Diskussion", "Vier Rollen, Sprecher, Auswertung.", [5]), ("Abschluss Leitfrage 6", "Antwort, Check. Zu Hause: Kurz-Check im Kernenergielabor.", [6, 7, 8])], S21, S21_HG, S21_AB),
     ("W22 Rueckblick und C-14", "Kernphysik: Rückblick und Altersbestimmung", "W22 (Woche ab 19.04.2027); Abschluss Kernphysik",
      "Arbeitsblatt Altersbestimmung mit C-14", {"demo": [], "schueler": [], "hinweis": ""},
      [("Rückblick", "Die sechs Leitfragen.", [1]), ("C-14", "Folie, C-14-Uhr im Labor.", [2]), ("Üben", "Arbeitsblatt.", [3]), ("Alltag", "Datierte Funde.", [4])], S22, S22_HG, S22_AB),
