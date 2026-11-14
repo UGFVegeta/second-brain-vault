@@ -13,6 +13,9 @@ nimmt die Klicks an, die etwas ändern müssen. Aktuell:
   GET  /tagesblatt -> Arbeitstermine heute und morgen, To-dos (Liste Schule) für die Prüfung vor dem Druck
   POST /tagesblatt -> {"termine": [...], "todos": [...]}  baut das Tagesblatt-PDF mit Ergänzungen und öffnet es
   POST /fokus      -> {"projekt": "...", "start": <ms>, "minuten": n}  schreibt eine Zeile in die heutige Daily Note
+  GET  /angebote/suche?q=...       -> Prospektangebote in den aktiven Orten (angebote_lib, Quelle marktguru)
+  POST /angebote/aktualisieren     -> Favoriten neu holen (läuft außerdem einmal täglich ab 6 Uhr von selbst)
+  POST /angebote/einstellungen     -> {"orte"|"aus"|"favoriten": ...}  speichert die Einstellungen der Angebote-App
 
 Nur Anfragen von file:// (Origin "null") oder ohne Origin werden bedient, damit
 keine fremde Webseite im Browser Erinnerungen abhaken kann.
@@ -21,9 +24,13 @@ Start: python3 .scripts/dashboard_server.py   (Port 8765)
 """
 import json
 import subprocess
+import threading
+import time
 from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlparse
 
+import angebote_lib
 import fokus_lib
 import tagesblatt
 import logbuch_lib
@@ -110,6 +117,12 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": True, **fokus_lib.auswerten()})
         if self.path == "/abend":
             return self._send(200, {"ok": True, "heute": logbuch_lib.heute_zeile()})
+        if self.path.split("?")[0] == "/angebote/suche":
+            q = parse_qs(urlparse(self.path).query).get("q", [""])[0][:80]
+            try:
+                return self._send(200, {"ok": True, "treffer": angebote_lib.mit_bestpreis(angebote_lib.suchen(q))})
+            except Exception as e:
+                return self._send(500, {"ok": False, "fehler": str(e)[:200]})
         if self.path.split("?")[0] == "/tagesblatt":
             try:
                 if "neu=1" in self.path:
@@ -137,6 +150,17 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as e:
                 return self._send(500, {"ok": False, "fehler": str(e)[:200]})
             return self._send(200, {"ok": True, "pfad": pfad})
+        if self.path == "/angebote/aktualisieren":
+            try:
+                with _ANGEBOTE_SPERRE:
+                    return self._send(200, {"ok": True, "stand": angebote_lib.holen()})
+            except Exception as e:
+                return self._send(500, {"ok": False, "fehler": str(e)[:200]})
+        if self.path == "/angebote/einstellungen":
+            try:
+                return self._send(200, {"ok": True, "einstellungen": angebote_lib.einstellungen_speichern(body)})
+            except Exception as e:
+                return self._send(500, {"ok": False, "fehler": str(e)[:200]})
         if self.path == "/abend":
             try:
                 zeile = logbuch_lib.setzen(int(body["befinden"]), str(body["training"]))
@@ -182,6 +206,23 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
+_ANGEBOTE_SPERRE = threading.Lock()
+
+
+def _angebote_morgens():
+    """Holt die Favoriten-Angebote einmal am Tag, sobald der Mac ab 6 Uhr wach ist."""
+    while True:
+        try:
+            jetzt = datetime.now()
+            if jetzt.hour >= 6 and angebote_lib.stand() != jetzt.date().isoformat():
+                with _ANGEBOTE_SPERRE:
+                    print("Angebote geholt:", angebote_lib.holen(), flush=True)
+        except Exception as e:
+            print("Angebote-Abruf fehlgeschlagen:", e, flush=True)
+        time.sleep(1800)
+
+
 if __name__ == "__main__":
+    threading.Thread(target=_angebote_morgens, daemon=True).start()
     print(f"Dashboard-Dienst auf http://{HOST}:{PORT} (Strg+C beendet)")
     ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
