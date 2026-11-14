@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Angebote</title>
+<style>
+  :root {
+    --bg: #f5f5f7; --karte: #ffffff; --text: #1d1d1f; --leise: #6e6e73; --linie: #e3e3e8;
+    --akzent: #0a66d9; --akzent-hell: #e8f0fc; --rot: #c8102e; --gruen: #1e7a3c; --gelb: #fff4d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111113; --karte: #1c1c1f; --text: #f2f2f4; --leise: #9a9aa2; --linie: #2e2e33;
+      --akzent: #5aa2ff; --akzent-hell: #1b2a40; --rot: #ff6b7d; --gruen: #5fd38a; --gelb: #3a3220;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 60px; }
+  header { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 30px; margin: 0; letter-spacing: -0.02em; }
+  .stand { color: var(--leise); font-size: 13px; }
+  .rechts { margin-left: auto; display: flex; gap: 8px; }
+  button { font: inherit; cursor: pointer; border: 1px solid var(--linie); background: var(--karte);
+    color: var(--text); border-radius: 9px; padding: 7px 13px; }
+  button:hover { border-color: var(--akzent); }
+  button.haupt { background: var(--akzent); border-color: var(--akzent); color: #fff; }
+  button:disabled { opacity: .5; cursor: wait; }
+  .suche { display: flex; gap: 8px; margin: 22px 0 6px; }
+  .suche input { flex: 1; font: inherit; font-size: 17px; padding: 12px 14px; border-radius: 12px;
+    border: 1px solid var(--linie); background: var(--karte); color: var(--text); }
+  .suche input:focus { outline: 2px solid var(--akzent); outline-offset: -1px; }
+  .hinweis { color: var(--leise); font-size: 13px; min-height: 20px; }
+  .fehler { color: var(--rot); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 4px; }
+  .chip { border-radius: 999px; padding: 5px 12px; font-size: 13.5px; }
+  .chip.an { background: var(--akzent-hell); border-color: var(--akzent); color: var(--akzent); }
+  .chip .n { color: var(--leise); margin-left: 4px; }
+  .label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--leise); margin: 18px 0 2px; }
+  h2 { font-size: 19px; margin: 26px 0 8px; display: flex; align-items: baseline; gap: 10px; }
+  h2 small { font-weight: 400; color: var(--leise); font-size: 13px; }
+  .liste { background: var(--karte); border-radius: 14px; border: 1px solid var(--linie); overflow: hidden; }
+  .liste { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 900px; }
+  th { text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--leise); padding: 9px 10px; border-bottom: 1px solid var(--linie); white-space: nowrap; }
+  th.r, td.preis, td.zahl { text-align: right; }
+  td { padding: 8px 10px; border-top: 1px solid var(--linie); vertical-align: middle; }
+  tbody tr:first-child td { border-top: 0; }
+  tbody tr:hover td { background: var(--bg); }
+  td.bild { width: 52px; padding-right: 0; }
+  td.bild img { width: 44px; height: 44px; object-fit: contain; border-radius: 6px; background: #fff; display: block; }
+  td.pack, td.zahl, td.gilt { white-space: nowrap; }
+  td.markt { font-weight: 600; }
+  td.zahl, td.gilt { color: var(--leise); font-size: 13.5px; }
+  .name { font-weight: 600; }
+  .name a { color: inherit; text-decoration: none; }
+  .name a:hover { text-decoration: underline; }
+  .klein { color: var(--leise); font-size: 12.5px; }
+  .preis { white-space: nowrap; }
+  .preis b { font-size: 17px; }
+  .preis s { color: var(--leise); }
+  .bisher { font-size: 12px; color: var(--gruen); }
+  .bisher.teurer { color: var(--leise); }
+  .bald { display: inline-block; background: var(--gelb); border-radius: 5px; padding: 0 6px; font-size: 12px; color: var(--text); }
+  .kasten { display: inline-block; background: var(--akzent-hell); color: var(--akzent); border-radius: 5px; padding: 0 6px; font-size: 12px; font-weight: 600; }
+  .karte-pflicht { display: inline-block; border: 1px solid var(--linie); border-radius: 5px; padding: 0 5px; font-size: 11.5px; }
+  .mehr { display: block; width: 100%; border: 0; border-top: 1px solid var(--linie); border-radius: 0; color: var(--akzent); }
+  .leer { padding: 16px; color: var(--leise); }
+  details.einst { margin-top: 36px; background: var(--karte); border: 1px solid var(--linie); border-radius: 14px; padding: 4px 16px 16px; }
+  details.einst summary { cursor: pointer; font-weight: 600; padding: 10px 0; }
+  .orte { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 4px 12px; }
+  .orte label { font-size: 14px; }
+  .fav-zeile { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin: 6px 0; }
+  .fav-zeile input { font: inherit; padding: 6px 9px; border-radius: 8px; border: 1px solid var(--linie);
+    background: var(--bg); color: var(--text); }
+  @media (max-width: 600px) {
+    .fav-zeile { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Angebote</h1>
+    <span class="stand" id="stand"></span>
+    <div class="rechts"><button id="btnHolen" class="haupt">Jetzt aktualisieren</button></div>
+  </header>
+
+  <form class="suche" id="suchform">
+    <input id="q" type="search" placeholder="Was brauchst du? z. B. alkoholfreies Weizen" autocomplete="off">
+    <button type="submit">Suchen</button>
+  </form>
+  <div class="hinweis" id="hinweis"></div>
+
+  <div class="label">Favoriten</div>
+  <div class="chips" id="favChips"></div>
+
+  <div id="ansicht"></div>
+
+  <details class="einst" id="einst">
+    <summary>Einstellungen: Orte, Märkte, Favoriten</summary>
+    <div class="label">Orte (Rems-Murr-Kreis)</div>
+    <div class="chips">
+      <button type="button" id="orteNah">Rudersberg und Umgebung</button>
+      <button type="button" id="orteAlle">Ganzer Landkreis</button>
+    </div>
+    <div class="orte" id="orte"></div>
+    <div class="label">Märkte (angehakt = wird angezeigt)</div>
+    <div class="orte" id="maerkte"></div>
+    <div class="label">Favoriten (Name und Suchbegriff)</div>
+    <div id="favListe"></div>
+    <div class="chips"><button type="button" id="favNeu">+ Favorit</button>
+      <button type="button" class="haupt" id="speichern">Speichern und neu holen</button></div>
+    <p class="klein">Quelle der Angebote ist marktguru. Das Portal nennt die Kette, nicht die einzelne Filiale.
+      Den Originalpreis liefert es nur selten. Deshalb merkt sich die App jede Woche die Angebotspreise und zeigt,
+      was ein Produkt in früheren Angeboten gekostet hat. Rossmann und dm sind dort nicht vertreten. Die Seite holt die Angebote beim ersten Öffnen am Tag selbst, das dauert etwa eine halbe Minute. Einstellungen und Preise bleiben in diesem Browser gespeichert.</p>
+  </details>
+</div>
+
+<script>
+function lies(k, standard) { try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : standard; } catch (e) { return standard; } }
+function schreib(k, wert) { try { localStorage.setItem(k, JSON.stringify(wert)); } catch (e) {} }
+const STANDARD = {"orte": [{"name": "Rudersberg", "plz": "73635", "aktiv": true}, {"name": "Welzheim", "plz": "73642", "aktiv": true}, {"name": "Schorndorf", "plz": "73614", "aktiv": true}, {"name": "Backnang", "plz": "71522", "aktiv": true}, {"name": "Waiblingen", "plz": "71332", "aktiv": true}, {"name": "Winnenden", "plz": "71364", "aktiv": true}, {"name": "Weinstadt", "plz": "71384", "aktiv": true}, {"name": "Fellbach", "plz": "70734", "aktiv": false}, {"name": "Murrhardt", "plz": "71540", "aktiv": false}, {"name": "Remshalden", "plz": "73630", "aktiv": false}, {"name": "Plüderhausen", "plz": "73655", "aktiv": true}, {"name": "Urbach", "plz": "73660", "aktiv": true}, {"name": "Winterbach", "plz": "73650", "aktiv": false}, {"name": "Kernen", "plz": "71394", "aktiv": false}, {"name": "Korb", "plz": "71404", "aktiv": false}, {"name": "Leutenbach", "plz": "71397", "aktiv": false}, {"name": "Schwaikheim", "plz": "71409", "aktiv": false}, {"name": "Weissach im Tal", "plz": "71554", "aktiv": false}, {"name": "Kaisersbach", "plz": "73667", "aktiv": false}, {"name": "Alfdorf", "plz": "73553", "aktiv": false}, {"name": "Berglen", "plz": "73663", "aktiv": false}, {"name": "Althütte", "plz": "71566", "aktiv": false}, {"name": "Auenwald", "plz": "71549", "aktiv": false}, {"name": "Sulzbach an der Murr", "plz": "71560", "aktiv": false}, {"name": "Oppenweiler", "plz": "71570", "aktiv": false}, {"name": "Großerlach", "plz": "71577", "aktiv": false}, {"name": "Spiegelberg", "plz": "71579", "aktiv": false}, {"name": "Allmersbach im Tal", "plz": "71573", "aktiv": false}, {"name": "Burgstetten", "plz": "71576", "aktiv": false}, {"name": "Kirchberg an der Murr", "plz": "71737", "aktiv": false}, {"name": "Aspach", "plz": "71546", "aktiv": false}], "aus": ["Möbel Inhofer", "XXXLutz", "mömax", "Opti Wohnwelt", "EDEKA Foodservice", "Woolworth"], "favoriten": [{"name": "Alkoholfreies Weizen", "suche": "weizen alkoholfrei", "kategorien": ["Bier", "Alkoholfreies Bier"]}, {"name": "Bier", "suche": "bier", "kategorien": ["Bier", "Alkoholfreies Bier"], "ohne": ["weizen", "weißbier", "weissbier", "weisse", "weiße", "weißbräu", "hefe"]}, {"name": "Weizen", "suche": "weizen", "kategorien": ["Bier", "Alkoholfreies Bier"]}, {"name": "Kaffee (Bohnen, 1 kg)", "suche": "kaffee", "kategorien": ["Kaffee"], "muss": ["ganze (kaffee)?bo|kaffeebohnen|bohnen ganz", "(?<!x )(?<![\\d,.])1(,1)?\\s*-?\\s*kg|1\\.?000\\s*-?\\s*g"]}, {"name": "Mineralwasser", "suche": "mineralwasser"}, {"name": "Butter", "suche": "butter", "kategorien": ["Butter"]}, {"name": "Milch", "suche": "milch", "kategorien": ["Milch"]}, {"name": "Käse", "suche": "käse", "kategorien": ["Käse"]}, {"name": "Toilettenpapier", "suche": "toilettenpapier"}, {"name": "Waschmittel", "suche": "waschmittel"}, {"name": "Spülmaschinentabs", "suche": "spülmaschine", "kategorien": ["Spülmittel"]}]};
+let E = lies("angebote-einst", STANDARD);
+const D = lies("angebote-cache", { stand: null, favoriten: {} });
+let aktiv = { art: "uebersicht", name: null, treffer: [] };
+let katFilter = new Set();
+const NAH = ["73635", "73642", "73614", "71522", "71364", "71332", "71384", "73660", "73655"];
+
+const $ = id => document.getElementById(id);
+const eur = x => x == null ? "" : x.toFixed(2).replace(".", ",") + " €";
+const WT = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const tag = iso => { if (!iso) return ""; const d = new Date(iso + "T12:00"); return WT[d.getDay()] + " " + iso.slice(8, 10) + "." + iso.slice(5, 7) + "."; };
+const heute = new Date().toISOString().slice(0, 10);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// Kasten = mindestens 12 Flaschen ("20 x 0,5 l", "24 x 0,33-l-Fl.") oder ausdrücklich Kasten/Kiste.
+function gebinde(a) {
+  const m = (a.text || "").match(/(\d+)\s*x\s*(\d+(?:[,.]\d+)?)\s*-?\s*l(?:iter)?\b/i);
+  const n = m ? +m[1] : 0, liter = m ? n * parseFloat(m[2].replace(",", ".")) : 0;
+  const kasten = n >= 12 || /kasten|kiste|je ka\./i.test(a.text || "");
+  return { kasten, literpreis: liter ? a.preis / liter : a.grundpreis };
+}
+// Kästen zuerst (nach Literpreis), danach der Rest in der bisherigen Reihenfolge (Grundpreis).
+function sichtbar(liste) {
+  const l = liste.filter(a => !E.aus.includes(a.markt)).map(a => ({ ...a, ...gebinde(a) }));
+  const k = l.filter(a => a.kasten).sort((x, y) => (x.literpreis ?? 99) - (y.literpreis ?? 99));
+  let rest = l.filter(a => !a.kasten);
+  if (nurKasten && k.length) rest = [];
+  return k.concat(rest);
+}
+let nurKasten = false;
+
+// Packungsangabe aus dem Prospekttext: "20 x 0,5 l", "1 kg", "850–1000 g"
+function packung(a) {
+  const t = a.text || "";
+  const eh = u => u.toLowerCase().startsWith("liter") ? "l" : u.toLowerCase();
+  let m = t.match(/(\d+)\s*x\s*(\d+(?:[,.]\d+)?)\s*-?\s*(liter|l|kg|g|ml)\b/i);
+  if (m) return `${m[1]} × ${m[2]} ${eh(m[3])}`;
+  m = t.match(/(\d+(?:[.,]\d+)?(?:\s*[–-]\s*\d+)?)\s*-?\s*(kg|g|liter|l|ml)\b/i);
+  return m ? `${m[1]} ${eh(m[2])}` : "";
+}
+
+function zeile(a) {
+  const gilt = a.von && a.von > heute ? `<span class="bald">ab ${tag(a.von)}</span>` : (a.bis ? `bis ${tag(a.bis)}` : "");
+  const gp = a.kasten && a.literpreis ? `${eur(a.literpreis)}/l` : (a.grundpreis ? `${eur(a.grundpreis)}/${esc(a.einheit)}` : "");
+  let bisher = "";
+  if (a.bisher) {
+    const guenstiger = a.preis <= a.bisher.preis;
+    bisher = `<div class="bisher ${guenstiger ? "" : "teurer"}">${guenstiger ? "bisher bester Preis" : "früher " + eur(a.bisher.preis) + " (" + esc(a.bisher.markt) + ")"}</div>`;
+  }
+  const name = esc([a.marke, a.produkt].filter(Boolean).join(" "));
+  return `<tr>
+    <td class="bild"><img loading="lazy" src="${esc(a.bild)}" alt="" onerror="this.style.visibility='hidden'"></td>
+    <td class="prod"><div class="name">${a.url ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${name}</a>` : name}</div>
+      <div class="klein">${esc(a.text)}${a.karte ? ' <span class="karte-pflicht">nur mit Kundenkarte/App</span>' : ""}</div></td>
+    <td class="pack">${a.kasten ? '<span class="kasten">Kasten</span><br>' : ""}${esc(packung(a))}</td>
+    <td class="markt">${esc(a.markt)}</td>
+    <td class="preis">${a.alt ? `<s>${eur(a.alt)}</s> ` : ""}<b>${eur(a.preis)}</b>${bisher}</td>
+    <td class="zahl">${gp}</td>
+    <td class="gilt">${gilt}</td>
+  </tr>`;
+}
+
+function liste(treffer, max) {
+  if (!treffer.length) return `<div class="liste"><div class="leer">Gerade kein Angebot in deinen Märkten.</div></div>`;
+  const zeig = max ? treffer.slice(0, max) : treffer;
+  return `<div class="liste"><table>
+    <colgroup><col style="width:56px"><col><col style="width:110px"><col style="width:180px"><col style="width:110px"><col style="width:105px"><col style="width:105px"></colgroup>
+    <thead><tr><th></th><th>Produkt</th><th>Packung</th><th>Markt</th><th class="r">Preis</th><th class="r">Grundpreis</th><th>Gültig</th></tr></thead>
+    <tbody>${zeig.map(zeile).join("")}</tbody></table></div>`;
+}
+
+function kategorieChips(treffer, favName) {
+  const zaehl = {};
+  treffer.forEach(a => { const k = a.kategorie || "Sonstiges"; zaehl[k] = (zaehl[k] || 0) + 1; });
+  const kats = Object.entries(zaehl).sort((a, b) => b[1] - a[1]);
+  if (kats.length < 2) return "";
+  let h = `<div class="label">Kategorien</div><div class="chips">` + kats.map(([k, n]) =>
+    `<button type="button" class="chip ${katFilter.has(k) ? "an" : ""}" data-kat="${esc(k)}">${esc(k)}<span class="n">${n}</span></button>`).join("");
+  if (favName && katFilter.size) h += `<button type="button" class="chip" id="katMerken">Nur diese Kategorien für „${esc(favName)}“ merken</button>`;
+  return h + "</div>";
+}
+
+function zeigeTreffer(titel, treffer, favName) {
+  treffer = sichtbar(treffer);
+  const gefiltert = katFilter.size ? treffer.filter(a => katFilter.has(a.kategorie || "Sonstiges")) : treffer;
+  const kaesten = treffer.filter(a => a.kasten).length;
+  let h = `<h2>${esc(titel)} <small>${gefiltert.length} Angebote, ${kaesten ? "Kästen zuerst, " : ""}günstigster Grundpreis zuerst</small></h2>`;
+  if (kaesten) h += `<div class="chips"><button type="button" class="chip ${nurKasten ? "an" : ""}" id="nurKasten">Nur Kästen<span class="n">${kaesten}</span></button></div>`;
+  h += kategorieChips(treffer, favName);
+  if (!favName && aktiv.art === "suche" && !E.favoriten.some(f => f.suche === aktiv.name))
+    h += `<div class="chips"><button type="button" class="chip" id="alsFav">Als Favorit merken</button></div>`;
+  h += liste(gefiltert);
+  $("ansicht").innerHTML = h;
+  $("ansicht").querySelectorAll("[data-kat]").forEach(b => b.onclick = () => {
+    const k = b.dataset.kat; katFilter.has(k) ? katFilter.delete(k) : katFilter.add(k); zeigeTreffer(titel, aktiv.treffer, favName);
+  });
+  if ($("nurKasten")) $("nurKasten").onclick = () => { nurKasten = !nurKasten; zeigeTreffer(titel, aktiv.treffer, favName); };
+  if ($("katMerken")) $("katMerken").onclick = () => {
+    const f = E.favoriten.find(f => f.name === favName); f.kategorien = [...katFilter]; speichern();
+  };
+  if ($("alsFav")) $("alsFav").onclick = () => {
+    E.favoriten.push({ name: aktiv.name.charAt(0).toUpperCase() + aktiv.name.slice(1), suche: aktiv.name }); speichern();
+  };
+}
+
+function uebersicht() {
+  aktiv = { art: "uebersicht", name: null, treffer: [] };
+  let h = "";
+  for (const f of E.favoriten) {
+    const t = sichtbar(D.favoriten[f.name] || []);
+    h += `<h2>${esc(f.name)} <small>${t.length ? t.length + " im Angebot" : "nichts im Angebot"}</small></h2>`;
+    if (t.length) h += liste(t, 3).replace(/<\/div>$/, t.length > 3 ? `<button class="mehr" data-fav="${esc(f.name)}">Alle ${t.length} zeigen</button></div>` : "</div>");
+  }
+  if (!E.favoriten.length) h = `<p class="klein">Noch keine Favoriten. Unten in den Einstellungen anlegen.</p>`;
+  $("ansicht").innerHTML = h;
+  $("ansicht").querySelectorAll("[data-fav]").forEach(b => b.onclick = () => zeigeFavorit(b.dataset.fav));
+  favChips();
+}
+
+function zeigeFavorit(name) {
+  katFilter = new Set();
+  aktiv = { art: "favorit", name, treffer: D.favoriten[name] || [] };
+  zeigeTreffer(name, aktiv.treffer, name);
+  favChips();
+}
+
+function favChips() {
+  const t = name => sichtbar(D.favoriten[name] || []).length;
+  $("favChips").innerHTML = `<button type="button" class="chip ${aktiv.art === "uebersicht" ? "an" : ""}" data-alle>Übersicht</button>` +
+    E.favoriten.map(f => `<button type="button" class="chip ${aktiv.name === f.name ? "an" : ""}" data-f="${esc(f.name)}">${esc(f.name)}<span class="n">${t(f.name)}</span></button>`).join("");
+  $("favChips").querySelector("[data-alle]").onclick = uebersicht;
+  $("favChips").querySelectorAll("[data-f]").forEach(b => b.onclick = () => zeigeFavorit(b.dataset.f));
+}
+
+
+// ---------- Abruf direkt bei marktguru (ohne Dienst) ----------
+const API = "https://api.marktguru.de/api/v1/offers/search";
+const KOPF = { "x-apikey": "8Kk+pmbf7TgJ9nVj2cXeA7P5zBGv8iuutVVMRfOfvNE=", "x-clientkey": "WU/RH+PMGDi+gkZer3WbMelt6zcYHSTytNB7VpTia90=" };
+const SYN = {"weizen": ["weizen", "weißbier", "weissbier", "weißbräu", "weissbräu"], "weissbier": ["weizen", "weißbier", "weissbier", "weißbräu", "weissbräu"], "alkoholfrei": ["alkoholfrei", "alkohofrei", "alkolfrei", "alkoholfr", "alkoh. frei", "0,0 %", "0,0%", "0.0"], "kaffee": ["kaffee", "café", "caffè", "espresso", "crema"], "wasser": ["wasser", "sprudel", "mineral"], "klopapier": ["toilettenpapier", "klopapier"], "spuelmaschine": ["spülmaschin", "geschirrspül", "tabs"]};
+const klein = t => (t || "").toLowerCase();
+function stamm(w) { w = w.toLowerCase(); if (w.length >= 8) for (const e of ["es", "er", "en", "em", "e", "s"]) if (w.endsWith(e)) return w.slice(0, -e.length); return w; }
+function varianten(w) { const s = stamm(w); const k = s.replace(/ü/g, "ue").replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ß/g, "ss"); return SYN[k] || SYN[s] || [s]; }
+const woerterVon = b => b.trim().split(/\s+/).filter(Boolean);
+function anfragen(b) {
+  const a = [b.trim()];
+  woerterVon(b).forEach(w => { a.push(stamm(w)); varianten(w).filter(v => v.length >= 5).forEach(v => a.push(v)); });
+  return [...new Set(a)];
+}
+const lokal = iso => { if (!iso) return null; const d = new Date(iso); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+function aufbereiten(o) {
+  const v = (o.validityDates || [{}])[0] || {};
+  return {
+    id: o.id, markt: ((o.advertisers || [{}])[0] || {}).name || "?",
+    marke: (o.brand || {}).name || "", produkt: (o.product || {}).name || "", text: o.description || "",
+    kategorie: ((o.categories || [{}])[0] || {}).name || "", preis: o.price, alt: o.oldPrice,
+    grundpreis: o.referencePrice, einheit: (o.unit || {}).shortName || "", von: lokal(v.from), bis: lokal(v.to),
+    karte: !!o.requiresLoyalityMembership, url: o.externalUrl || "",
+    bild: `https://mg2de.b-cdn.net/api/v1/offers/${o.id}/images/default/0/small.jpg`,
+  };
+}
+// Alle Anfragen für alle aktiven Orte, sechs gleichzeitig. Ergebnis: Anfrage -> Map(id -> Angebot)
+async function abrufen(anfrageListe, fortschritt) {
+  const plz = E.orte.filter(o => o.aktiv).map(o => o.plz);
+  const jobs = []; anfrageListe.forEach(q => plz.forEach(p => jobs.push([q, p])));
+  const erg = new Map(anfrageListe.map(q => [q, new Map()]));
+  const gesamt = jobs.length; let fertig = 0, fehler = 0;
+  async function arbeiter() {
+    while (jobs.length) {
+      const [q, p] = jobs.shift();
+      try {
+        const r = await fetch(API + "?" + new URLSearchParams({ as: "web", q, zipCode: p, limit: 250 }), { headers: KOPF });
+        if (!r.ok) throw new Error(r.status);
+        ((await r.json()).results || []).forEach(o => erg.get(q).set(o.id, o));
+      } catch (e) { fehler++; }
+      fertig++; if (fortschritt) fortschritt(fertig, gesamt);
+    }
+  }
+  await Promise.all(Array.from({ length: 6 }, arbeiter));
+  if (fehler === gesamt) throw new Error("Keine Verbindung zu marktguru. Ist der PC online? Sonst haben sich die Zugangsschlüssel geändert, dann bitte Oskar Bescheid geben.");
+  return erg;
+}
+function auswerten(begriff, erg) {
+  const roh = new Map();
+  anfragen(begriff).forEach(q => (erg.get(q) || new Map()).forEach((o, id) => roh.set(id, o)));
+  const ws = woerterVon(begriff), treffer = [], gesehen = new Set();
+  for (const o of roh.values()) {
+    const a = aufbereiten(o);
+    if (a.bis && a.bis < heute) continue;
+    const doppelt = [a.markt, klein(a.marke), klein(a.produkt), a.preis, a.von].join("|");
+    if (gesehen.has(doppelt)) continue;
+    gesehen.add(doppelt);
+    const hay = klein([a.marke, a.produkt, a.text, a.kategorie].join(" "));
+    if (ws.every(w => varianten(w).some(v => hay.includes(v)))) treffer.push(a);
+  }
+  treffer.sort((x, y) => ((x.grundpreis || x.preis || 999) - (y.grundpreis || y.preis || 999)) || ((x.preis || 999) - (y.preis || 999)));
+  return treffer;
+}
+function regeln(f, t) {
+  const txt = a => klein(`${a.marke} ${a.produkt} ${a.text}`);
+  if (f.kategorien && f.kategorien.length) t = t.filter(a => f.kategorien.includes(a.kategorie));
+  if (f.muss) t = t.filter(a => f.muss.every(m => new RegExp(m).test(txt(a))));
+  if (f.ohne) t = t.filter(a => !f.ohne.some(w => txt(a).includes(w)));
+  return t;
+}
+// Preisverlauf im Browser: zeigt, ob es ein Produkt früher schon günstiger gab
+const schluessel = a => `${klein(a.marke)}|${klein(a.produkt)}|${klein(a.text)}`;
+function mitBisher(treffer) {
+  let v = lies("angebote-preise", {});
+  for (const a of treffer) {
+    const fr = (v[schluessel(a)] || []).filter(e => e[0] < (a.von || ""));
+    a.bisher = fr.length ? (b => ({ preis: b[1], datum: b[0], markt: b[2] }))(fr.reduce((m, e) => e[1] < m[1] ? e : m)) : null;
+  }
+  for (const a of treffer) {
+    if (a.preis == null) continue;
+    const l = v[schluessel(a)] = v[schluessel(a)] || [], e = [a.von || heute, a.preis, a.markt];
+    if (!l.some(x => x[0] === e[0] && x[1] === e[1] && x[2] === e[2])) { l.push(e); l.splice(0, Math.max(0, l.length - 30)); }
+  }
+  schreib("angebote-preise", v);
+  return treffer;
+}
+function merkeEinst() { schreib("angebote-einst", E); }
+const zeigeFortschritt = (n, g) => { $("hinweis").className = "hinweis"; $("hinweis").textContent = `Holt Angebote … ${Math.round(100 * n / g)} %`; };
+async function holen() {
+  const alle = [...new Set(E.favoriten.flatMap(f => anfragen(f.suche || f.name)))];
+  const erg = await abrufen(alle, zeigeFortschritt);
+  const fav = {};
+  for (const f of E.favoriten) fav[f.name] = mitBisher(regeln(f, auswerten(f.suche || f.name, erg)));
+  const jetzt = new Date();
+  D.stand = lokal(jetzt.toISOString()) + " " + String(jetzt.getHours()).padStart(2, "0") + ":" + String(jetzt.getMinutes()).padStart(2, "0");
+  D.favoriten = fav;
+  schreib("angebote-cache", D);
+  $("hinweis").textContent = "";
+}
+async function suchen(q) { return mitBisher(auswerten(q, await abrufen(anfragen(q), zeigeFortschritt))); }
+function standZeigen() {
+  $("stand").textContent = D.stand ? "Stand " + tag(D.stand.slice(0, 10)) + " " + D.stand.slice(11) + " Uhr; "
+    + E.orte.filter(o => o.aktiv).map(o => o.name).join(", ") : "Noch kein Abruf";
+}
+function fehlerZeigen(e) { $("hinweis").textContent = e.message; $("hinweis").className = "hinweis fehler"; }
+
+$("suchform").onsubmit = async ev => {
+  ev.preventDefault();
+  const q = $("q").value.trim();
+  if (!q) return uebersicht();
+  $("hinweis").textContent = "Suche läuft …"; $("hinweis").className = "hinweis";
+  try {
+    const j = { treffer: await suchen(q) };
+    katFilter = new Set();
+    aktiv = { art: "suche", name: q, treffer: j.treffer };
+    $("hinweis").textContent = "";
+    zeigeTreffer("Suche: " + q, j.treffer, null);
+    favChips();
+  } catch (e) {
+    fehlerZeigen(e);
+  }
+};
+
+$("btnHolen").onclick = async () => {
+  const b = $("btnHolen"); b.disabled = true; b.textContent = "Holt Angebote …";
+  try { await holen(); standZeigen(); einstellungenZeigen(); uebersicht(); }
+  catch (e) { fehlerZeigen(e); }
+  b.disabled = false; b.textContent = "Jetzt aktualisieren";
+};
+
+// ---------- Einstellungen ----------
+function einstellungenZeigen() {
+  $("orte").innerHTML = E.orte.map((o, i) =>
+    `<label><input type="checkbox" data-ort="${i}" ${o.aktiv ? "checked" : ""}> ${esc(o.name)} <span class="klein">${o.plz}</span></label>`).join("");
+  $("orte").querySelectorAll("[data-ort]").forEach(c => c.onchange = () => E.orte[c.dataset.ort].aktiv = c.checked);
+  const maerkte = new Set(E.aus);
+  Object.values(D.favoriten).flat().forEach(a => maerkte.add(a.markt));
+  $("maerkte").innerHTML = [...maerkte].sort((a, b) => a.localeCompare(b, "de")).map(m =>
+    `<label><input type="checkbox" data-m="${esc(m)}" ${E.aus.includes(m) ? "" : "checked"}> ${esc(m)}</label>`).join("");
+  $("maerkte").querySelectorAll("[data-m]").forEach(c => c.onchange = () => {
+    E.aus = E.aus.filter(m => m !== c.dataset.m); if (!c.checked) E.aus.push(c.dataset.m);
+    aktiv.art === "uebersicht" ? uebersicht() : zeigeTreffer(aktiv.art === "suche" ? "Suche: " + aktiv.name : aktiv.name, aktiv.treffer, aktiv.art === "favorit" ? aktiv.name : null);
+    merkeEinst();
+  });
+  $("favListe").innerHTML = E.favoriten.map((f, i) =>
+    `<div class="fav-zeile"><input data-i="${i}" data-k="name" value="${esc(f.name)}" placeholder="Name">
+     <input data-i="${i}" data-k="suche" value="${esc(f.suche)}" placeholder="Suchbegriff">
+     <button type="button" data-weg="${i}">Entfernen</button></div>`).join("");
+  $("favListe").querySelectorAll("input").forEach(inp => inp.oninput = () => E.favoriten[inp.dataset.i][inp.dataset.k] = inp.value);
+  $("favListe").querySelectorAll("[data-weg]").forEach(b => b.onclick = () => { E.favoriten.splice(b.dataset.weg, 1); einstellungenZeigen(); });
+}
+$("favNeu").onclick = () => { E.favoriten.push({ name: "", suche: "" }); einstellungenZeigen(); };
+$("orteNah").onclick = () => { E.orte.forEach(o => o.aktiv = NAH.includes(o.plz)); einstellungenZeigen(); };
+$("orteAlle").onclick = () => { E.orte.forEach(o => o.aktiv = true); einstellungenZeigen(); };
+
+async function speichern() {
+  E.favoriten = E.favoriten.filter(f => f.name.trim() && f.suche.trim());
+  const b = $("speichern"); b.disabled = true; b.textContent = "Speichert und holt …";
+  $("hinweis").textContent = "Speichert und holt die Favoriten neu, das dauert etwas …"; $("hinweis").className = "hinweis";
+  try {
+    merkeEinst();
+    await holen();
+    standZeigen(); einstellungenZeigen(); uebersicht();
+  } catch (e) {
+    fehlerZeigen(e);
+  }
+  b.disabled = false; b.textContent = "Speichern und neu holen";
+}
+$("speichern").onclick = speichern;
+
+// ---------- Start ----------
+standZeigen();
+einstellungenZeigen();
+uebersicht();
+if (!D.stand || D.stand.slice(0, 10) !== heute) {
+  $("btnHolen").disabled = true;
+  holen().then(() => { standZeigen(); einstellungenZeigen(); uebersicht(); }).catch(fehlerZeigen)
+    .finally(() => { $("btnHolen").disabled = false; });
+}
+</script>
+</body>
+</html>

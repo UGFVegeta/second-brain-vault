@@ -39,6 +39,8 @@ KOPF = {
 SYNONYME = {
     "weizen": ["weizen", "weißbier", "weissbier", "weißbräu", "weissbräu"],
     "weissbier": ["weizen", "weißbier", "weissbier", "weißbräu", "weissbräu"],
+    # Prospekte vertippen sich ("alkohofrei" bei Franziskaner/Netto) oder schreiben 0,0 %
+    "alkoholfrei": ["alkoholfrei", "alkohofrei", "alkolfrei", "alkoholfr", "alkoh. frei", "0,0 %", "0,0%", "0.0"],
     "kaffee": ["kaffee", "café", "caffè", "espresso", "crema"],
     "wasser": ["wasser", "sprudel", "mineral"],
     "klopapier": ["toilettenpapier", "klopapier"],
@@ -139,11 +141,15 @@ def suchen(begriff, plz_liste=None):
                 print(f"Abruf {q!r} / {plz}: {e}", file=sys.stderr)
             time.sleep(0.2)
     heute = date.today().isoformat()
-    treffer = []
+    treffer, gesehen = [], set()
     for o in roh.values():
         a = _aufbereiten(o)
         if a["bis"] and a["bis"] < heute:
             continue
+        doppelt = (a["markt"], _klein(a["marke"]), _klein(a["produkt"]), a["preis"], a["von"])
+        if doppelt in gesehen:  # dasselbe Angebot steht oft mehrfach im Prospekt
+            continue
+        gesehen.add(doppelt)
         hay = _klein(" ".join([a["marke"], a["produkt"], a["text"], a["kategorie"]]))
         if all(any(v in hay for v in _varianten(w)) for w in woerter):
             treffer.append(a)
@@ -203,6 +209,12 @@ def holen():
         treffer = suchen(f.get("suche") or f["name"], plz)
         if f.get("kategorien"):  # z. B. Milch nur aus der Kategorie Milch, nicht Milchschokolade
             treffer = [a for a in treffer if a["kategorie"] in f["kategorien"]]
+        if f.get("muss"):  # Regeln (regulärer Ausdruck), die alle passen müssen, z. B. Kaffee: ganze Bohnen und 1 kg
+            treffer = [a for a in treffer
+                       if all(re.search(m, _klein(f"{a['marke']} {a['produkt']} {a['text']}")) for m in f["muss"])]
+        if f.get("ohne"):  # z. B. Bier ohne Weizen, das hat einen eigenen Favoriten
+            treffer = [a for a in treffer
+                       if not any(w in _klein(f"{a['marke']} {a['produkt']} {a['text']}") for w in f["ohne"])]
         fav[f["name"]] = mit_bestpreis(treffer)
     stand = datetime.now().strftime("%Y-%m-%d %H:%M")
     daten = {"stand": stand, "favoriten": fav, "einstellungen": e}
