@@ -27,6 +27,6 @@ Zuschuss für den BMW iX1 (Leasing, siehe [[BMW iX1 Fahrzeugdaten]]) beim BAFA b
 - [x] Einkommensteuerbescheide 2024 und 2025, einzeln in iCloud unter `Privat/Wichtige Dokumente/Finanzen und Steuern/` und in Paperless. Hochgeladen werden nur die Seiten mit Name, Steuer-ID, Steuerjahr und zu versteuerndem Einkommen, PDF höchstens 5 MB.
 - [x] FIN aus der Zulassungsbescheinigung Teil I abgelesen, steht in [[BMW iX1 Fahrzeugdaten]]. Sie wird im Formular eingetippt, nicht hochgeladen.
 - [x] Halter ist Oskar laut Zulassungsbescheinigung Teil I, Zulassung am 05.11.2026. Der Antrag muss also auf Oskars Namen laufen, die Frist endet am 05.11.2027.
-- [ ] Aktueller Kindergeldnachweis: Bescheinigung der Familienkasse, Bescheid mit Erklärung zur Aktualität oder erweiterte Meldebescheinigung. Der Bescheid vom 16.12.2024 liegt in iCloud unter `Familie und Kinder/`, ist aber vermutlich zu alt.
+- [x] Kindergeldnachweis: Der Kindergeldbescheid vom 16.12.2024 liegt in iCloud unter `Familie und Kinder/`. Ob er allein reicht, ist offen: Ratgeber nennen Bescheid mit Erklärung zur Aktualität, Bescheinigung der Familienkasse oder erweiterte Meldebescheinigung. Die Kinder stehen auch in den Einkommensteuerbescheiden, über die das BAFA sie laut einem Ratgeber prüft. Im Antragsformular nachsehen, was verlangt wird.
 - [ ] IBAN des Halters, selbst ins Formular eintragen.
 - [ ] Antrag stellen.
