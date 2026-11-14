@@ -17,6 +17,7 @@ Zuschuss für den BMW iX1 (Leasing, siehe [[BMW iX1 Fahrzeugdaten]]) beim BAFA b
 
 ## Stand 14.11.2026
 - **Antrag am 14.11.2026 um 12:23 über die Förderzentrale eingereicht, Status „versendet".** Jetzt wartet das BAFA mit der Prüfung. Den Bescheid gibt es in der Förderzentrale unter „Meine Förderungen", Reiter „Bescheide". Wie lange die Bearbeitung dauert, ist nicht bekannt. Nach dem Bescheid wird laut einem Ratgeber innerhalb weniger Wochen ausgezahlt. Screenshot in iCloud: `Privat/Wichtige Dokumente/Auto/BMW iX1/2026-11-14 BAFA E-Auto-Förderung Antrag versendet.png`.
+- Eingangsbestätigung des BAFA vom 14.11.2026 (per Mail an web.de): Vorgangsnummer **EMO-SWG 700217902**, Referenz Antrag_2026-KTP159. Im weiteren Verlauf nur diese Vorgangsnummer angeben. Portal: https://foerderzentrale.gov.de/meine-foerderung/. PDF in iCloud unter `Privat/Wichtige Dokumente/Auto/BMW iX1/2026-11-14 BAFA Eingangsbestätigung E-Auto-Förderung.pdf`.
 - Das Auto muss bis mindestens 05.11.2029 auf Oskar zugelassen bleiben (36 Monate Mindesthaltedauer). Das Leasing läuft 42 Monate.
 - Auto am 11.11.2026 abgeholt, am 05.11.2026 zugelassen. Der Antrag geht erst nach der Zulassung, Frist 12 Monate.
 - **Einkommensgrenze:** bei 2 Kindern 90.000 € zu versteuerndes Haushaltseinkommen. Nach den Einkommensteuerbescheiden 2024 und 2025 liegen beide Jahre darunter. Die Beträge stehen nicht hier, sondern in den Bescheiden (iCloud).

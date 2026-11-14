@@ -130,11 +130,26 @@ const tag = iso => { if (!iso) return ""; const d = new Date(iso + "T12:00"); re
 const heute = new Date().toISOString().slice(0, 10);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-function sichtbar(liste) { return liste.filter(a => !E.aus.includes(a.markt)); }
+// Kasten = mindestens 12 Flaschen ("20 x 0,5 l", "24 x 0,33-l-Fl.") oder ausdrücklich Kasten/Kiste.
+function gebinde(a) {
+  const m = (a.text || "").match(/(\d+)\s*x\s*(\d+(?:[,.]\d+)?)\s*-?\s*l\b/i);
+  const n = m ? +m[1] : 0, liter = m ? n * parseFloat(m[2].replace(",", ".")) : 0;
+  const kasten = n >= 12 || /kasten|kiste|je ka\./i.test(a.text || "");
+  return { kasten, literpreis: liter ? a.preis / liter : a.grundpreis };
+}
+// Kästen zuerst (nach Literpreis), danach der Rest in der bisherigen Reihenfolge (Grundpreis).
+function sichtbar(liste) {
+  const l = liste.filter(a => !E.aus.includes(a.markt)).map(a => ({ ...a, ...gebinde(a) }));
+  const k = l.filter(a => a.kasten).sort((x, y) => (x.literpreis ?? 99) - (y.literpreis ?? 99));
+  let rest = l.filter(a => !a.kasten);
+  if (nurKasten && k.length) rest = [];
+  return k.concat(rest);
+}
+let nurKasten = false;
 
 function zeile(a) {
   const gilt = a.von && a.von > heute ? `<span class="bald">ab ${tag(a.von)}</span>` : (a.bis ? `bis ${tag(a.bis)}` : "");
-  const gp = a.grundpreis ? `${eur(a.grundpreis)}/${esc(a.einheit)}` : "";
+  const gp = a.kasten && a.literpreis ? `${eur(a.literpreis)}/l` : (a.grundpreis ? `${eur(a.grundpreis)}/${esc(a.einheit)}` : "");
   let bisher = "";
   if (a.bisher) {
     const guenstiger = a.preis <= a.bisher.preis;
@@ -145,7 +160,7 @@ function zeile(a) {
     <img loading="lazy" src="${esc(a.bild)}" alt="" onerror="this.style.visibility='hidden'">
     <div>
       <div class="name">${a.url ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${name}</a>` : name}</div>
-      <div class="klein"><span class="markt">${esc(a.markt)}</span>; ${esc(a.text)} ${a.karte ? '<span class="karte-pflicht">nur mit Kundenkarte/App</span>' : ""}</div>
+      <div class="klein">${a.kasten ? '<span class="karte-pflicht">Kasten</span> ' : ""}<span class="markt">${esc(a.markt)}</span>; ${esc(a.text)} ${a.karte ? '<span class="karte-pflicht">nur mit Kundenkarte/App</span>' : ""}</div>
       <div class="klein">${gilt}${gp ? "; " + gp : ""}${a.kategorie ? "; " + esc(a.kategorie) : ""}</div>
     </div>
     <div class="preis">${a.alt ? `<s>${eur(a.alt)}</s>` : ""}<b>${eur(a.preis)}</b>${bisher}</div>
@@ -172,7 +187,9 @@ function kategorieChips(treffer, favName) {
 function zeigeTreffer(titel, treffer, favName) {
   treffer = sichtbar(treffer);
   const gefiltert = katFilter.size ? treffer.filter(a => katFilter.has(a.kategorie || "Sonstiges")) : treffer;
-  let h = `<h2>${esc(titel)} <small>${gefiltert.length} Angebote, günstigster Grundpreis zuerst</small></h2>`;
+  const kaesten = treffer.filter(a => a.kasten).length;
+  let h = `<h2>${esc(titel)} <small>${gefiltert.length} Angebote, ${kaesten ? "Kästen zuerst, " : ""}günstigster Grundpreis zuerst</small></h2>`;
+  if (kaesten) h += `<div class="chips"><button type="button" class="chip ${nurKasten ? "an" : ""}" id="nurKasten">Nur Kästen<span class="n">${kaesten}</span></button></div>`;
   h += kategorieChips(treffer, favName);
   if (!favName && aktiv.art === "suche" && !E.favoriten.some(f => f.suche === aktiv.name))
     h += `<div class="chips"><button type="button" class="chip" id="alsFav">Als Favorit merken</button></div>`;
@@ -181,6 +198,7 @@ function zeigeTreffer(titel, treffer, favName) {
   $("ansicht").querySelectorAll("[data-kat]").forEach(b => b.onclick = () => {
     const k = b.dataset.kat; katFilter.has(k) ? katFilter.delete(k) : katFilter.add(k); zeigeTreffer(titel, aktiv.treffer, favName);
   });
+  if ($("nurKasten")) $("nurKasten").onclick = () => { nurKasten = !nurKasten; zeigeTreffer(titel, aktiv.treffer, favName); };
   if ($("katMerken")) $("katMerken").onclick = () => {
     const f = E.favoriten.find(f => f.name === favName); f.kategorien = [...katFilter]; speichern();
   };
@@ -294,6 +312,9 @@ $("stand").textContent = D.stand ? "Stand " + tag(D.stand.slice(0, 10)) + " " + 
   + E.orte.filter(o => o.aktiv).map(o => o.name).join(", ") : "Noch kein Abruf";
 einstellungenZeigen();
 uebersicht();
+// Direkt zu einem Favoriten springen: Angebote.html#Bier
+const sprung = decodeURIComponent(location.hash.slice(1));
+if (sprung && D.favoriten[sprung]) zeigeFavorit(sprung);
 </script>
 </body>
 </html>

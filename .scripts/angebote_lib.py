@@ -126,7 +126,9 @@ def suchen(begriff, plz_liste=None):
     woerter = [w for w in re.split(r"\s+", begriff.strip()) if w]
     if not woerter:
         return []
-    anfragen = [begriff] + ([_stamm(w) for w in woerter] if len(woerter) > 1 else [])
+    anfragen = [begriff]
+    for w in woerter:  # jedes Wort und seine Synonyme einzeln, sonst fehlt z. B. "Hefeweißbier" bei "weizen"
+        anfragen += [_stamm(w)] + [v for v in _varianten(w) if len(v) >= 5]
     roh = {}
     for plz in plz_liste:
         for q in dict.fromkeys(anfragen):
