@@ -37,6 +37,8 @@
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 4px; }
   .chip { border-radius: 999px; padding: 5px 12px; font-size: 13.5px; }
   .chip.an { background: var(--akzent-hell); border-color: var(--akzent); color: var(--akzent); }
+  .prospekte a.chip { border: 1px solid var(--linie); background: var(--karte); color: var(--text); text-decoration: none; }
+  .prospekte a.chip:hover { border-color: var(--akzent); color: var(--akzent); }
   .chip .n { color: var(--leise); margin-left: 4px; }
   .label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--leise); margin: 18px 0 2px; }
   h2 { font-size: 19px; margin: 26px 0 8px; display: flex; align-items: baseline; gap: 10px; }
@@ -89,6 +91,22 @@
     <div class="rechts"><button id="btnHolen" class="haupt">Jetzt aktualisieren</button></div>
   </header>
 
+  <div class="label" style="margin-top:22px">Prospekte zum Blättern</div>
+  <div class="chips prospekte">
+    <a class="chip" target="_blank" rel="noopener" href="https://www.lidl.de/c/online-prospekte/s10005610">Lidl</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.edeka.de/angebote/">EDEKA</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://filiale.kaufland.de/prospekte.html">Kaufland</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.aldi-sued.de/prospekte">ALDI SÜD</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.penny.de/angebote">PENNY</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.netto-online.de/ueber-netto/Online-Prospekte.chtm">Netto</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.rewe.de/angebote/">REWE</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.trinkgut.de/angebote/">trinkgut</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.rossmann.de/de/angebote/prospekt/">Rossmann</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.dm.de/angebote">dm</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.marktguru.de/prospekte">Alle Prospekte (marktguru)</a>
+  </div>
+  <p class="klein">Bei EDEKA und REWE auf der Seite einmal den Markt wählen, z. B. Rudersberg. Dann zeigen sie den Prospekt für diesen Markt.</p>
+
   <form class="suche" id="suchform">
     <input id="q" type="search" placeholder="Was brauchst du? z. B. alkoholfreies Weizen" autocomplete="off">
     <button type="submit">Suchen</button>
@@ -123,7 +141,7 @@
 <script>
 function lies(k, standard) { try { const s = localStorage.getItem(k); return s ? JSON.parse(s) : standard; } catch (e) { return standard; } }
 function schreib(k, wert) { try { localStorage.setItem(k, JSON.stringify(wert)); } catch (e) {} }
-const STANDARD = {"orte": [{"name": "Rudersberg", "plz": "73635", "aktiv": true}, {"name": "Welzheim", "plz": "73642", "aktiv": true}, {"name": "Schorndorf", "plz": "73614", "aktiv": true}, {"name": "Backnang", "plz": "71522", "aktiv": true}, {"name": "Waiblingen", "plz": "71332", "aktiv": true}, {"name": "Winnenden", "plz": "71364", "aktiv": true}, {"name": "Weinstadt", "plz": "71384", "aktiv": true}, {"name": "Fellbach", "plz": "70734", "aktiv": false}, {"name": "Murrhardt", "plz": "71540", "aktiv": false}, {"name": "Remshalden", "plz": "73630", "aktiv": false}, {"name": "Plüderhausen", "plz": "73655", "aktiv": true}, {"name": "Urbach", "plz": "73660", "aktiv": true}, {"name": "Winterbach", "plz": "73650", "aktiv": false}, {"name": "Kernen", "plz": "71394", "aktiv": false}, {"name": "Korb", "plz": "71404", "aktiv": false}, {"name": "Leutenbach", "plz": "71397", "aktiv": false}, {"name": "Schwaikheim", "plz": "71409", "aktiv": false}, {"name": "Weissach im Tal", "plz": "71554", "aktiv": false}, {"name": "Kaisersbach", "plz": "73667", "aktiv": false}, {"name": "Alfdorf", "plz": "73553", "aktiv": false}, {"name": "Berglen", "plz": "73663", "aktiv": false}, {"name": "Althütte", "plz": "71566", "aktiv": false}, {"name": "Auenwald", "plz": "71549", "aktiv": false}, {"name": "Sulzbach an der Murr", "plz": "71560", "aktiv": false}, {"name": "Oppenweiler", "plz": "71570", "aktiv": false}, {"name": "Großerlach", "plz": "71577", "aktiv": false}, {"name": "Spiegelberg", "plz": "71579", "aktiv": false}, {"name": "Allmersbach im Tal", "plz": "71573", "aktiv": false}, {"name": "Burgstetten", "plz": "71576", "aktiv": false}, {"name": "Kirchberg an der Murr", "plz": "71737", "aktiv": false}, {"name": "Aspach", "plz": "71546", "aktiv": false}], "aus": ["Möbel Inhofer", "XXXLutz", "mömax", "Opti Wohnwelt", "EDEKA Foodservice", "Woolworth"], "favoriten": [{"name": "Alkoholfreies Weizen", "suche": "weizen alkoholfrei", "kategorien": ["Bier", "Alkoholfreies Bier"]}, {"name": "Bier", "suche": "bier", "kategorien": ["Bier", "Alkoholfreies Bier"], "ohne": ["weizen", "weißbier", "weissbier", "weisse", "weiße", "weißbräu", "hefe"]}, {"name": "Weizen", "suche": "weizen", "kategorien": ["Bier", "Alkoholfreies Bier"]}, {"name": "Kaffee (Bohnen, 1 kg)", "suche": "kaffee", "kategorien": ["Kaffee"], "muss": ["ganze (kaffee)?bo|kaffeebohnen|bohnen ganz", "(?<!x )(?<![\\d,.])1(,1)?\\s*-?\\s*kg|1\\.?000\\s*-?\\s*g"]}, {"name": "Mineralwasser", "suche": "mineralwasser"}, {"name": "Butter", "suche": "butter", "kategorien": ["Butter"]}, {"name": "Milch", "suche": "milch", "kategorien": ["Milch"]}, {"name": "Käse", "suche": "käse", "kategorien": ["Käse"]}, {"name": "Toilettenpapier", "suche": "toilettenpapier"}, {"name": "Waschmittel", "suche": "waschmittel"}, {"name": "Spülmaschinentabs", "suche": "spülmaschine", "kategorien": ["Spülmittel"]}]};
+const STANDARD = {"orte": [{"name": "Rudersberg", "plz": "73635", "aktiv": true}, {"name": "Welzheim", "plz": "73642", "aktiv": true}, {"name": "Schorndorf", "plz": "73614", "aktiv": true}, {"name": "Backnang", "plz": "71522", "aktiv": true}, {"name": "Waiblingen", "plz": "71332", "aktiv": true}, {"name": "Winnenden", "plz": "71364", "aktiv": true}, {"name": "Weinstadt", "plz": "71384", "aktiv": true}, {"name": "Fellbach", "plz": "70734", "aktiv": false}, {"name": "Murrhardt", "plz": "71540", "aktiv": false}, {"name": "Remshalden", "plz": "73630", "aktiv": false}, {"name": "Plüderhausen", "plz": "73655", "aktiv": true}, {"name": "Urbach", "plz": "73660", "aktiv": true}, {"name": "Winterbach", "plz": "73650", "aktiv": false}, {"name": "Kernen", "plz": "71394", "aktiv": false}, {"name": "Korb", "plz": "71404", "aktiv": false}, {"name": "Leutenbach", "plz": "71397", "aktiv": false}, {"name": "Schwaikheim", "plz": "71409", "aktiv": false}, {"name": "Weissach im Tal", "plz": "71554", "aktiv": false}, {"name": "Kaisersbach", "plz": "73667", "aktiv": false}, {"name": "Alfdorf", "plz": "73553", "aktiv": false}, {"name": "Berglen", "plz": "73663", "aktiv": false}, {"name": "Althütte", "plz": "71566", "aktiv": false}, {"name": "Auenwald", "plz": "71549", "aktiv": false}, {"name": "Sulzbach an der Murr", "plz": "71560", "aktiv": false}, {"name": "Oppenweiler", "plz": "71570", "aktiv": false}, {"name": "Großerlach", "plz": "71577", "aktiv": false}, {"name": "Spiegelberg", "plz": "71579", "aktiv": false}, {"name": "Allmersbach im Tal", "plz": "71573", "aktiv": false}, {"name": "Burgstetten", "plz": "71576", "aktiv": false}, {"name": "Kirchberg an der Murr", "plz": "71737", "aktiv": false}, {"name": "Aspach", "plz": "71546", "aktiv": false}], "aus": ["Möbel Inhofer", "XXXLutz", "mömax", "Opti Wohnwelt", "EDEKA Foodservice", "Woolworth"], "favoriten": [{"name": "Alkoholfreies Weizen", "suche": "weizen alkoholfrei", "kategorien": ["Bier", "Alkoholfreies Bier"]}, {"name": "Bier", "suche": "bier", "kategorien": ["Bier", "Alkoholfreies Bier"], "ohne": ["weizen", "weißbier", "weissbier", "weisse", "weiße", "weißbräu", "hefe"]}, {"name": "Weizen", "suche": "weizen", "kategorien": ["Bier", "Alkoholfreies Bier"]}, {"name": "Kaffee (Bohnen, 1 kg)", "suche": "kaffee", "kategorien": ["Kaffee"], "muss": ["ganze (kaffee)?bo|kaffeebohnen|bohnen ganz", "(?<!x )(?<![\\d,.])1(,1)?\\s*-?\\s*kg|1\\.?000\\s*-?\\s*g"]}, {"name": "Mineralwasser", "suche": "mineralwasser"}, {"name": "Butter", "suche": "butter", "kategorien": ["Butter"]}, {"name": "Milch", "suche": "milch", "kategorien": ["Milch"]}, {"name": "Käse", "suche": "käse", "kategorien": ["Käse"]}, {"name": "Toilettenpapier", "suche": "toilettenpapier"}, {"name": "Waschmittel", "suche": "waschmittel", "ohne": ["weichspül"]}, {"name": "Spülmaschinentabs", "suche": "spülmaschine", "kategorien": ["Spülmittel"]}]};
 let E = lies("angebote-einst", STANDARD);
 const D = lies("angebote-cache", { stand: null, favoriten: {} });
 let aktiv = { art: "uebersicht", name: null, treffer: [] };
@@ -433,6 +451,7 @@ einstellungenZeigen();
 uebersicht();
 if (!D.stand || D.stand.slice(0, 10) !== heute) {
   $("btnHolen").disabled = true;
+  if (!D.stand) $("ansicht").innerHTML = '<p class="klein">Die Angebote werden geholt, das dauert beim ersten Mal etwa eine halbe Minute …</p>';
   holen().then(() => { standZeigen(); einstellungenZeigen(); uebersicht(); }).catch(fehlerZeigen)
     .finally(() => { $("btnHolen").disabled = false; });
 }

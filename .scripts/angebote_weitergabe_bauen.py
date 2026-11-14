@@ -131,6 +131,7 @@ einstellungenZeigen();
 uebersicht();
 if (!D.stand || D.stand.slice(0, 10) !== heute) {
   $("btnHolen").disabled = true;
+  if (!D.stand) $("ansicht").innerHTML = '<p class="klein">Die Angebote werden geholt, das dauert beim ersten Mal etwa eine halbe Minute …</p>';
   holen().then(() => { standZeigen(); einstellungenZeigen(); uebersicht(); }).catch(fehlerZeigen)
     .finally(() => { $("btnHolen").disabled = false; });
 }

@@ -30,3 +30,9 @@ Name und Suchbegriff lassen sich in der App ändern. Feinere Regeln stehen nur i
 - `ohne`: Wörter, die rausfliegen (Bier ohne Weizen)
 
 Beim Anzeigen stehen Kästen (ab 12 Flaschen) immer oben, sortiert nach Literpreis.
+
+## Weitergabe-Version (Eltern, Windows)
+
+`Angebote zum Weitergeben.html` ist eine einzelne Datei ohne Dienst und ohne Python: Sie fragt marktguru direkt aus dem Browser ab und speichert Einstellungen, letzten Abruf und Preisverlauf im Browser. Startwerte sind Oskars Favoriten und Orte. Nach Änderungen an Angebote.html oder einstellungen.json neu bauen: `python3 .scripts/angebote_weitergabe_bauen.py`. Auf dem iPad läuft eine lokale HTML-Datei nicht zuverlässig, dafür müsste die Seite online stehen.
+
+Oben auf der Seite stehen Links zu den Prospekten der Märkte (geprüft 14.11.2026). Die Eltern nutzen nur die Datei am PC; sobald Oskar einen eigenen Server hat, kommt die Seite dorthin (dann auch fürs iPad).

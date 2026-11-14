@@ -240,7 +240,10 @@
     },
     {
       "name": "Waschmittel",
-      "suche": "waschmittel"
+      "suche": "waschmittel",
+      "ohne": [
+        "weichspül"
+      ]
     },
     {
       "name": "Spülmaschinentabs",

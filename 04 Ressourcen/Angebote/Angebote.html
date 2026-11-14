@@ -38,6 +38,8 @@
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 4px; }
   .chip { border-radius: 999px; padding: 5px 12px; font-size: 13.5px; }
   .chip.an { background: var(--akzent-hell); border-color: var(--akzent); color: var(--akzent); }
+  .prospekte a.chip { border: 1px solid var(--linie); background: var(--karte); color: var(--text); text-decoration: none; }
+  .prospekte a.chip:hover { border-color: var(--akzent); color: var(--akzent); }
   .chip .n { color: var(--leise); margin-left: 4px; }
   .label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--leise); margin: 18px 0 2px; }
   h2 { font-size: 19px; margin: 26px 0 8px; display: flex; align-items: baseline; gap: 10px; }
@@ -89,6 +91,22 @@
     <span class="stand" id="stand"></span>
     <div class="rechts"><button id="btnHolen" class="haupt">Jetzt aktualisieren</button></div>
   </header>
+
+  <div class="label" style="margin-top:22px">Prospekte zum Blättern</div>
+  <div class="chips prospekte">
+    <a class="chip" target="_blank" rel="noopener" href="https://www.lidl.de/c/online-prospekte/s10005610">Lidl</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.edeka.de/angebote/">EDEKA</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://filiale.kaufland.de/prospekte.html">Kaufland</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.aldi-sued.de/prospekte">ALDI SÜD</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.penny.de/angebote">PENNY</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.netto-online.de/ueber-netto/Online-Prospekte.chtm">Netto</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.rewe.de/angebote/">REWE</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.trinkgut.de/angebote/">trinkgut</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.rossmann.de/de/angebote/prospekt/">Rossmann</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.dm.de/angebote">dm</a>
+    <a class="chip" target="_blank" rel="noopener" href="https://www.marktguru.de/prospekte">Alle Prospekte (marktguru)</a>
+  </div>
+  <p class="klein">Bei EDEKA und REWE auf der Seite einmal den Markt wählen, z. B. Rudersberg. Dann zeigen sie den Prospekt für diesen Markt.</p>
 
   <form class="suche" id="suchform">
     <input id="q" type="search" placeholder="Was brauchst du? z. B. alkoholfreies Weizen" autocomplete="off">
