@@ -26,7 +26,7 @@ Insgesamt rund 120 Bücher, 28 Brettspiele, 11 Quiz- und Kartenspiele und 7 Puzz
 | **Brettspiele** | Dein Körper und Du; Die Eiskönigin (Wettlaufspiel); Der hungrige Zahlen-Roboter; Abenteuer Tierwelt; Ratespaß auf Reisen; Das Geheimnis der Zahleninsel; Wir lernen die Uhr ×2; Buchstaben-Burg; Alle meine Tiere; Tier-Set Wildtiere; Tier-Set Dinosaurier; Starter-Set (Stift und Spiel); Die monsterstarke Musikschule; Rätselspaß auf dem Bauernhof; Wir spielen Schule; Die verrückte Wettermaschine; Abenteuer Lese-Dschungel; Sprichst du Englisch?; Rechenspaß mit Taschengeld; Reise durch die Jahreszeiten; Dschungel-Olympiade (active Set); Magors Lesezauber; Fahrzeuge in der Stadt; Die Zahlen-Hexe; Tief im Wörter-Meer; Der verrückte Rechen-Zoo; Rund um die Uhr |
 | **Wissen & Quizzen / Quiz** | Faszinierende Pferde; Retter und Helfer; Schöne Orte Europas; Die Welt der Saurier; Spannende Erfindungen; Gefährliche Raubtiere; Menschlicher Körper; FC Bayern München 2019/2020; Die Musikinstrumente; Quiz Weltraum; Memory Rekorde im Tierreich (Happy-Meal-Edition) |
 | **Puzzles** | 100 Teile: Im Einsatz, Beim Kinderarzt, Die Baustelle, Im Zoo, Die Ritterburg; 2×12 Teile: Zoo („Was fressen Elefanten?“), Bauernhof („Kikeriki!“) |
-| **Globen & Zubehör** | Globus mit Karton; zweiter Globus ohne Karton; Junior Globus; mehrere tiptoi-Stifte (einer mit Player); 4 farbige Stifthüllen; Stift-Ständer; USB-Kabel; Anleitungen; Heft „Spiel dich schlau“ |
+| **Globen & Zubehör** | Der interaktive Globus (mit Karton); Junior Globus; mehrere tiptoi-Stifte (einer mit Player); 4 farbige Stifthüllen; Stift-Ständer; USB-Kabel; Anleitungen; Heft „Spiel dich schlau“ |
 
 ## Unsicher
 

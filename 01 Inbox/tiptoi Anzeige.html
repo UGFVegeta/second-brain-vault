@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tiptoi Anzeige</title>
+<style>
+:root{
+  --bg:#f6f5f2; --card:#fff; --ink:#1d1d1f; --muted:#6e6e73; --line:#e3e1dc;
+  --accent:#e8710a; --accent-soft:#fdf0e3; --ok:#1f7a3f; --sel:#fff6ea;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:rgba(246,245,242,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;padding:14px 0 10px}
+h1{font-size:20px;margin:0;font-weight:650;letter-spacing:-.01em}
+.stats{color:var(--muted);font-size:14px}
+.stats b{color:var(--ink)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;padding-bottom:12px}
+input[type=search]{flex:1 1 220px;min-width:180px;padding:8px 12px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fff}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tabs{display:flex;gap:4px}
+.tab{border:0;background:none;padding:8px 14px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer;color:var(--muted)}
+.tab.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.tab .n{display:inline-block;min-width:22px;padding:0 6px;margin-left:6px;border-radius:999px;background:var(--accent);color:#fff;font-size:12px}
+main{padding:18px 0 60px}
+section.kat{margin-bottom:22px}
+h2{font-size:15px;margin:0 0 8px;display:flex;gap:10px;align-items:baseline}
+h2 small{color:var(--muted);font-weight:400}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;background:#faf9f7}
+tr:last-child td{border-bottom:0}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#faf9f7}
+tr.sel{background:var(--sel)!important}
+td.c{width:36px;text-align:center}
+td.id{width:46px;color:var(--muted);font-variant-numeric:tabular-nums}
+td.foto{width:62px;color:var(--muted);font-size:13px}
+td.p{width:90px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+td.z{width:96px;color:var(--muted);font-size:13px}
+td.l{width:150px;font-size:13px}
+td.l a{color:var(--accent);text-decoration:none}
+td.l a:hover{text-decoration:underline}
+.mm{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.dup{display:inline-block;margin-left:6px;font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 5px}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}
+.none{color:#b0aea8;font-weight:400}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:16px}
+.panel h3{margin:0 0 8px;font-size:15px}
+textarea{width:100%;min-height:260px;border:1px solid var(--line);border-radius:9px;padding:12px;font:14px/1.5 inherit;font-family:inherit;resize:vertical}
+.btn{border:0;background:var(--accent);color:#fff;padding:9px 16px;border-radius:9px;font:inherit;font-weight:600;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.hint{color:var(--muted);font-size:13px}
+.empty{padding:40px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:12px}
+.sum td{font-weight:650;background:#faf9f7}
+@media (max-width:760px){
+  td.foto,th.foto,td.z,th.z{display:none}
+  td.l{width:auto}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <h1>tiptoi Anzeige</h1>
+      <div class="stats" id="stats"></div>
+      <div class="tabs" style="margin-left:auto">
+        <button class="tab on" data-v="alle">Alle Artikel</button>
+        <button class="tab" data-v="auswahl">Meine Auswahl<span class="n" id="nsel">0</span></button>
+      </div>
+    </div>
+    <div class="controls" id="controls">
+      <input type="search" id="q" placeholder="Titel suchen …">
+      <div id="chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <div id="alle"></div>
+  <div id="auswahl" hidden></div>
+</main>
+
+<script>
+// Artikel aus der Anzeige: [Kategorie, Foto, Titel, Anzahl]
+const ROH = [
+["Wieso? Weshalb? Warum?",2,"Entdecke den Bauernhof",1],
+["Wieso? Weshalb? Warum?",2,"Auf dem Bauernhof",1],
+["Wieso? Weshalb? Warum?",2,"Entdecke den Flughafen",1],
+["Wieso? Weshalb? Warum?",2,"Die Welt der Musik",1],
+["Wieso? Weshalb? Warum?",2,"Wir entdecken die Musik",1],
+["Wieso? Weshalb? Warum?",2,"Sicher im Straßenverkehr",1],
+["Wieso? Weshalb? Warum?",2,"Wir lernen Englisch",1],
+["Wieso? Weshalb? Warum?",2,"Unterwegs mit der Feuerwehr",1],
+["Wieso? Weshalb? Warum?",2,"Bei der Feuerwehr",1],
+["Wieso? Weshalb? Warum?",2,"Entdecke die Piraten",1],
+["Wieso? Weshalb? Warum?",2,"Komm mit in den Wald",1],
+["Wieso? Weshalb? Warum?",2,"Unser Wald",1],
+["Wieso? Weshalb? Warum?",2,"Entdecke die Tiere Afrikas",1],
+["Wieso? Weshalb? Warum?",2,"Entdecke die Ritter",1],
+["Wieso? Weshalb? Warum?",2,"Die Welt der Fahrzeuge",1],
+["Wieso? Weshalb? Warum?",2,"Die Welt der Pferde und Ponys",1],
+["Wieso? Weshalb? Warum?",2,"Wir entdecken Pferde und Ponys",1],
+["Wieso? Weshalb? Warum?",2,"Wir reisen durch Europa",1],
+["Wieso? Weshalb? Warum?",2,"Komm mit auf die Baustelle",1],
+["Wieso? Weshalb? Warum?",2,"Entdecke die Eisenbahn",1],
+["Wieso? Weshalb? Warum?",2,"Unsere Jahreszeiten",1],
+["Wieso? Weshalb? Warum?",2,"Entdecke den Regenwald",1],
+["Wieso? Weshalb? Warum?",2,"Entdecke den Zoo",1],
+["Wieso? Weshalb? Warum?",2,"Tiere im Zoo",1],
+["Wieso? Weshalb? Warum?",2,"Die Welt des Fußballs",1],
+["Wieso? Weshalb? Warum?",2,"Bei der Polizei",1],
+["Wieso? Weshalb? Warum?",2,"Alles über die Musik",1],
+["Wieso? Weshalb? Warum?",2,"Wir entdecken die Dinosaurier",2],
+["Wieso? Weshalb? Warum?",2,"Alles über den Körper",1],
+["Wieso? Weshalb? Warum?",2,"Wir erkunden den Weltraum",1],
+["Wieso? Weshalb? Warum?",2,"Lexikon",2],
+["Atlanten",2,"Mein großer Weltatlas",1],
+["Atlanten",2,"Weltatlas",1],
+["Sachbücher 7–10 Jahre",7,"Expedition Wissen Dinosaurier",1],
+["Sachbücher 7–10 Jahre",7,"Expedition Wissen Weltraum",1],
+["Sachbücher 7–10 Jahre",7,"Expedition Wissen Ägypten",1],
+["Sachbücher 7–10 Jahre",7,"Expedition Wissen Musik",1],
+["Sachbücher 7–10 Jahre",2,"Der Weltraum",1],
+["Sachbücher 7–10 Jahre",2,"Die Erde",1],
+["Pocket Wissen",10,"Pocket Wissen Dinosaurier",1],
+["Pocket Wissen",10,"Pocket Wissen Wale und Delfine",1],
+["Pocket Wissen",10,"Pocket Wissen Baustellen-Fahrzeuge",1],
+["Pocket Wissen",10,"Pocket Wissen Feuerwehr",1],
+["Pocket Wissen",10,"Pocket Wissen Pferde und Ponys",1],
+["Pocket Wissen",10,"Pocket Wissen Ballett",1],
+["Pocket Wissen",10,"Pocket Wissen Tierkinder",1],
+["Pocket Wissen",10,"Pocket Wissen Körper",1],
+["Bilderlexikon & Wimmelbuch",6,"Bilderlexikon Tiere",2],
+["Bilderlexikon & Wimmelbuch",6,"Mein großes Bilderlexikon",2],
+["Bilderlexikon & Wimmelbuch",6,"Die große Wimmelreise der Tiere",2],
+["Bilderlexikon & Wimmelbuch",6,"Mein großes Wimmelbuch",2],
+["Bilderlexikon & Wimmelbuch",6,"Mein Wimmelbuch",1],
+["Kleinkind (2–4 Jahre)",4,"Mein Wörter-Bilderbuch Unser Zuhause",2],
+["Kleinkind (2–4 Jahre)",4,"Mein Wörter-Bilderbuch Unterwegs",2],
+["Kleinkind (2–4 Jahre)",4,"Mein Wörter-Bilderbuch Tiere",2],
+["Kleinkind (2–4 Jahre)",4,"Mein Wörter-Bilderbuch Baustelle",1],
+["Kleinkind (2–4 Jahre)",4,"Mein Wörter-Bilderbuch Kindergarten",1],
+["Kleinkind (2–4 Jahre)",4,"Suchen und Entdecken Meine Welt",1],
+["Kleinkind (2–4 Jahre)",4,"Suchen und Entdecken Fahrzeuge",1],
+["Kleinkind (2–4 Jahre)",4,"Suchen und Entdecken Die Jahreszeiten",1],
+["Kleinkind (2–4 Jahre)",4,"Suchen und Entdecken Meine Tiere",1],
+["Kleinkind (2–4 Jahre)",4,"Liv geht aufs Töpfchen",1],
+["Kleinkind (2–4 Jahre)",4,"Piet kommt in den Kindergarten",1],
+["Kleinkind (2–4 Jahre)",4,"Mein erstes Bild-Wörterbuch Deutsch-Englisch",1],
+["Lieder & Märchen",4,"Meine schönsten Lieder für unterwegs",2],
+["Lieder & Märchen",5,"Meine schönsten Kinderlieder",2],
+["Lieder & Märchen",5,"Meine schönsten Weihnachtslieder",2],
+["Lieder & Märchen",5,"Meine schönsten englischen Kinderlieder",1],
+["Lieder & Märchen",5,"Kennst du diese Tiergeräusche?",1],
+["Lieder & Märchen",5,"Meine schönsten Märchen",2],
+["Lieder & Märchen",5,"Meine schönsten Weihnachtsmärchen",1],
+["Vorschule",3,"Mein Lern-Spiel-Abenteuer Vorschulwissen",1],
+["Vorschule",3,"Mein Lern-Spiel-Abenteuer Merken und Konzentrieren",1],
+["Vorschule",3,"Mein Lern-Spiel-Abenteuer Erste Zahlen",1],
+["Vorschule",3,"Mein Lern-Spiel-Abenteuer Erste Buchstaben",1],
+["Vorschule",3,"Mein Lern-Spiel-Abenteuer Uhr und Zeit",1],
+["Vorschule",3,"Mein Lern-Spiel-Abenteuer Erstes Englisch",1],
+["Vorschule",3,"Mein Lern-Spiel-Abenteuer Logisches Denken",1],
+["Vorschule",3,"Meine Lern-Spiel-Welt Zahlen und Mengen",1],
+["Vorschule",3,"Meine Lern-Spiel-Welt Buchstaben",1],
+["Vorschule",3,"Meine Lern-Spiel-Welt Uhr und Zeit",1],
+["Vorschule",3,"Meine Lern-Spiel-Welt Englisch",1],
+["Vorschule",3,"Meine Lern-Spiel-Welt Logisches Denken",1],
+["Grundschule: Lern mit mir!",9,"Lern mit mir! Das kleine 1×1",1],
+["Grundschule: Lern mit mir!",9,"Lern mit mir! Deutschland",1],
+["Grundschule: Lern mit mir!",9,"Lern mit mir! Mathe 1. Klasse",2],
+["Grundschule: Lern mit mir!",9,"Lern mit mir! Mathe 2. Klasse",1],
+["Grundschule: Lern mit mir!",9,"Lern mit mir! Deutsch 1. Klasse",2],
+["Grundschule: Lern mit mir!",9,"Lern mit mir! Deutsch 2. Klasse",1],
+["Grundschule: Lern mit mir!",9,"Grundschulwörterbuch Englisch",1],
+["Lesen lernen",8,"Leserabe Im Garten der Feen",1],
+["Lesen lernen",8,"Leserabe Das tollste Pony der Welt",1],
+["Lesen lernen",8,"Leserabe Willi Vampir in der Schule",1],
+["Lesen lernen",8,"Leserabe Jan und die Piraten",1],
+["Lesen lernen",8,"Leserabe Der neue Fußball",1],
+["Lesen lernen",8,"Leserabe Der kleine Drache will nicht zur Schule",1],
+["Lesen lernen",8,"Lese-Lausch-Abenteuer Zauberwald",1],
+["Lesen lernen",8,"Lese-Lausch-Abenteuer Tiefsee",2],
+["Lesen lernen",8,"Lese-Lausch-Abenteuer Dino-Stadt",2],
+["Disney & Star Wars",5,"Die Eiskönigin – Völlig unverfroren (Buch)",1],
+["Disney & Star Wars",5,"Cars",1],
+["Disney & Star Wars",7,"Star Wars Episode I–VI",1],
+["Disney & Star Wars",7,"Star Wars – Der Weg der Jedi",1],
+["Brettspiele",14,"Dein Körper und Du",1],
+["Brettspiele",14,"Die Eiskönigin Wettlaufspiel",1],
+["Brettspiele",14,"Der hungrige Zahlen-Roboter",1],
+["Brettspiele",14,"Abenteuer Tierwelt",1],
+["Brettspiele",14,"Ratespaß auf Reisen",1],
+["Brettspiele",14,"Das Geheimnis der Zahleninsel",1],
+["Brettspiele",14,"Wir lernen die Uhr",2],
+["Brettspiele",14,"Buchstaben-Burg",1],
+["Brettspiele",14,"Alle meine Tiere",1],
+["Brettspiele",14,"Tier-Set Wildtiere",1],
+["Brettspiele",14,"Tier-Set Dinosaurier",1],
+["Brettspiele",14,"Starter-Set (Stift und Spiel)",1],
+["Brettspiele",14,"Die monsterstarke Musikschule",1],
+["Brettspiele",14,"Rätselspaß auf dem Bauernhof",1],
+["Brettspiele",14,"Wir spielen Schule",1],
+["Brettspiele",14,"Die verrückte Wettermaschine",1],
+["Brettspiele",14,"Abenteuer Lese-Dschungel",1],
+["Brettspiele",14,"Sprichst du Englisch?",1],
+["Brettspiele",14,"Rechenspaß mit Taschengeld",1],
+["Brettspiele",14,"Reise durch die Jahreszeiten",1],
+["Brettspiele",14,"Dschungel-Olympiade",1],
+["Brettspiele",14,"Magors Lesezauber",1],
+["Brettspiele",14,"Fahrzeuge in der Stadt",1],
+["Brettspiele",14,"Die Zahlen-Hexe",1],
+["Brettspiele",14,"Tief im Wörter-Meer",1],
+["Brettspiele",14,"Der verrückte Rechen-Zoo",1],
+["Brettspiele",14,"Rund um die Uhr",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Faszinierende Pferde",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Retter und Helfer",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Schöne Orte Europas",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Die Welt der Saurier",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Spannende Erfindungen",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Gefährliche Raubtiere",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Menschlicher Körper",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen FC Bayern München",1],
+["Wissen & Quizzen",12,"Wissen & Quizzen Die Musikinstrumente",1],
+["Wissen & Quizzen",12,"Quiz Weltraum",1],
+["Wissen & Quizzen",12,"Memory Rekorde im Tierreich",1],
+["Puzzles",13,"Puzzle Im Einsatz",1],
+["Puzzles",13,"Puzzle Beim Kinderarzt",1],
+["Puzzles",13,"Puzzle Die Baustelle",1],
+["Puzzles",13,"Puzzle Im Zoo",1],
+["Puzzles",13,"Puzzle Die Ritterburg",1],
+["Puzzles",13,"Puzzle 2×12 Zoo",1],
+["Puzzles",13,"Puzzle 2×12 Bauernhof",1],
+["Globen & Zubehör",11,"Der interaktive Globus",1],
+["Globen & Zubehör",11,"Junior Globus",1],
+["Globen & Zubehör",11,"tiptoi Stift mit Player",1],
+["Globen & Zubehör",11,"Weitere tiptoi-Stifte (Anzahl nachfragen)",1],
+["Globen & Zubehör",11,"4 farbige Stifthüllen",1],
+["Globen & Zubehör",11,"Stift-Ständer",1],
+["Globen & Zubehör",11,"USB-Kabel",1],
+];
+
+// Medimops-Gebrauchtpreise, abgefragt am 14.11.2026 (Titel → [Preis, Zustand, Medimops-Titel, Pfad])
+const PREISE = {"Entdecke den Bauernhof": ["6,99", "Gut", "", "/x-M03473329002.html"], "Auf dem Bauernhof": ["11,51", "Gut", "", "/x-M03473492264.html"], "Entdecke den Flughafen": ["17,01", "Gut", "", "/x-M03473329010.html"], "Die Welt der Musik": ["10,71", "Gut", "", "/x-M03473329029.html"], "Wir entdecken die Musik": ["19,99", "nur neu", "", "/x-M03473492809.html"], "Sicher im Straßenverkehr": ["11,01", "Gut", "", "/x-M03473329037.html"], "Wir lernen Englisch": ["11,51", "Gut", "", "/x-M03473329045.html"], "Unterwegs mit der Feuerwehr": ["8,51", "Gut", "", "/x-M03473329053.html"], "Bei der Feuerwehr": ["16,95", "Sehr gut", "", "/x-M03473492272.html"], "Entdecke die Piraten": ["16,71", "Gut", "", "/x-M03473329061.html"], "Komm mit in den Wald": ["11,51", "Gut", "", "/x-M0347332907X.html"], "Unser Wald": ["16,93", "Gut", "", "/x-M03473492728.html"], "Entdecke die Tiere Afrikas": ["14,51", "Gut", "", "/x-M03473329096.html"], "Entdecke die Ritter": ["17,01", "Gut", "", "/x-M0347332910X.html"], "Die Welt der Fahrzeuge": ["8,51", "Gut", "", "/x-M03473329126.html"], "Die Welt der Pferde und Ponys": ["8,51", "Gut", "", "/x-M03473329134.html"], "Wir entdecken Pferde und Ponys": ["12,81", "Gut", "", "/x-M03473492299.html"], "Wir reisen durch Europa": ["16,93", "Gut", "", "/x-M03473329142.html"], "Komm mit auf die Baustelle": ["11,81", "Gut", "", "/x-M03473329169.html"], "Unsere Jahreszeiten": ["10,81", "Gut", "", "/x-M03473329185.html"], "Entdecke den Regenwald": ["17,01", "Gut", "", "/x-M03473329193.html"], "Entdecke den Zoo": ["12,51", "Gut", "", "/x-M03473329207.html"], "Die Welt des Fußballs": ["17,01", "Gut", "", "/x-M03473329215.html"], "Alles über die Musik": ["13,71", "Gut", "", "/x-M03473329231.html"], "Wir entdecken die Dinosaurier": ["16,93", "Gut", "", "/x-M03473492868.html"], "Alles über den Körper": ["16,93", "Gut", "", "/x-M03473492280.html"], "Wir erkunden den Weltraum": ["19,99", "nur neu", "", "/x-M03473492957.html"], "Lexikon": ["15,51", "Gut", "", "/x-M03473658715.html"], "Mein großer Weltatlas": ["9,81", "Gut", "", "/x-M03473329118.html"], "Expedition Wissen Dinosaurier": ["10,51", "Gut", "", "/x-M03473553999.html"], "Expedition Wissen Weltraum": ["12,51", "Gut", "", "/x-M03473554014.html"], "Expedition Wissen Ägypten": ["15,89", "Gut", "", "/x-M03473554006.html"], "Expedition Wissen Musik": ["16,61", "Gut", "", "/x-M03473553980.html"], "Der Weltraum": ["22,00", "nur neu", "", "/x-M03473492825.html"], "Die Erde": ["22,00", "nur neu", "", "/x-M03473492965.html"], "Pocket Wissen Dinosaurier": ["5,51", "Gut", "", "/x-M03473554073.html"], "Pocket Wissen Wale und Delfine": ["8,51", "Gut", "", "/x-M0347355409X.html"], "Pocket Wissen Baustellen-Fahrzeuge": ["5,81", "Gut", "", "/x-M03473554065.html"], "Pocket Wissen Feuerwehr": ["6,51", "Gut", "", "/x-M03473554138.html"], "Pocket Wissen Pferde und Ponys": ["6,51", "Gut", "", "/x-M03473554081.html"], "Pocket Wissen Ballett": ["8,51", "Gut", "", "/x-M0347355412X.html"], "Pocket Wissen Tierkinder": ["12,51", "Gut", "", "/x-M03473554766.html"], "Pocket Wissen Körper": ["8,51", "Gut", "", "/x-M03473554200.html"], "Bilderlexikon Tiere": ["9,51", "Gut", "", "/x-M03473445681.html"], "Mein großes Bilderlexikon": ["10,51", "Gut", "", "/x-M03473433527.html"], "Die große Wimmelreise der Tiere": ["13,49", "Gut", "", "/x-M03473658847.html"], "Mein großes Wimmelbuch": ["12,51", "Gut", "", "/x-M03473445673.html"], "Mein Wörter-Bilderbuch Unser Zuhause": ["7,61", "Gut", "", "/x-M03473554057.html"], "Mein Wörter-Bilderbuch Unterwegs": ["8,51", "Gut", "", "/x-M03473554111.html"], "Mein Wörter-Bilderbuch Tiere": ["10,49", "Gut", "", "/x-M03473554197.html"], "Mein Wörter-Bilderbuch Baustelle": ["11,61", "Gut", "", "/x-M03473492701.html"], "Mein Wörter-Bilderbuch Kindergarten": ["10,51", "Gut", "", "/x-M03473554774.html"], "Suchen und Entdecken Meine Welt": ["11,59", "Gut", "", "/x-M03473492310.html"], "Suchen und Entdecken Fahrzeuge": ["15,43", "Gut", "", "/x-M03473492698.html"], "Suchen und Entdecken Die Jahreszeiten": ["15,49", "Gut", "", "/x-M03473492302.html"], "Suchen und Entdecken Meine Tiere": ["15,45", "Sehr gut", "", "/x-M03473492906.html"], "Liv geht aufs Töpfchen": ["17,99", "nur neu", "", "/x-M03473493015.html"], "Piet kommt in den Kindergarten": ["17,99", "nur neu", "", "/x-M03473493023.html"], "Mein erstes Bild-Wörterbuch Deutsch-Englisch": ["17,99", "nur neu", "", "/x-M03473492973.html"], "Meine schönsten Lieder für unterwegs": ["11,91", "Gut", "", "/x-M03473554790.html"], "Meine schönsten Kinderlieder": ["10,01", "Gut", "", "/x-M03473435147.html"], "Meine schönsten Weihnachtslieder": ["17,01", "Gut", "", "/x-M03473554103.html"], "Kennst du diese Tiergeräusche?": ["19,99", "nur neu", "", "/x-M03473493031.html"], "Meine schönsten Märchen": ["9,69", "Gut", "", "/x-M0347355491X.html"], "Meine schönsten Weihnachtsmärchen": ["19,99", "nur neu", "", "/x-M03473492612.html"], "Mein Lern-Spiel-Abenteuer Vorschulwissen": ["13,01", "Gut", "", "/x-M03473418056.html"], "Mein Lern-Spiel-Abenteuer Merken und Konzentrieren": ["12,81", "Gut", "", "/x-M03473418080.html"], "Mein Lern-Spiel-Abenteuer Erste Zahlen": ["17,01", "Gut", "", "/x-M03473418013.html"], "Mein Lern-Spiel-Abenteuer Erste Buchstaben": ["11,51", "Gut", "", "/x-M03473418005.html"], "Mein Lern-Spiel-Abenteuer Uhr und Zeit": ["13,81", "Gut", "", "/x-M03473658855.html"], "Mein Lern-Spiel-Abenteuer Erstes Englisch": ["14,01", "Gut", "", "/x-M03473418102.html"], "Mein Lern-Spiel-Abenteuer Logisches Denken": ["16,51", "Gut", "", "/x-M03473658928.html"], "Meine Lern-Spiel-Welt Zahlen und Mengen": ["17,04", "Sehr gut", "", "/x-M03473492752.html"], "Meine Lern-Spiel-Welt Buchstaben": ["16,93", "Gut", "", "/x-M03473492744.html"], "Meine Lern-Spiel-Welt Uhr und Zeit": ["19,99", "nur neu", "", "/x-M03473492884.html"], "Meine Lern-Spiel-Welt Englisch": ["19,99", "nur neu", "", "/x-M03473492892.html"], "Meine Lern-Spiel-Welt Logisches Denken": ["19,99", "nur neu", "", "/x-M03473493007.html"], "Lern mit mir! Das kleine 1×1": ["12,81", "Gut", "", "/x-M03473418099.html"], "Lern mit mir! Mathe 1. Klasse": ["11,51", "Gut", "", "/x-M0347341803X.html"], "Lern mit mir! Deutsch 1. Klasse": ["14,51", "Gut", "", "/x-M03473418048.html"], "Lern mit mir! Deutsch 2. Klasse": ["17,04", "Sehr gut", "", "/x-M03473418072.html"], "Grundschulwörterbuch Englisch": ["8,51", "Gut", "", "/x-M03473418021.html"], "Leserabe Im Garten der Feen": ["12,81", "Gut", "", "/x-M0347338593X.html"], "Leserabe Das tollste Pony der Welt": ["6,51", "Gut", "", "/x-M03473385891.html"], "Leserabe Willi Vampir in der Schule": ["6,51", "Gut", "", "/x-M03473385905.html"], "Leserabe Jan und die Piraten": ["11,61", "Gut", "", "/x-M03473385948.html"], "Leserabe Der neue Fußball": ["7,01", "Gut", "", "/x-M03473385913.html"], "Leserabe Der kleine Drache will nicht zur Schule": ["11,49", "Gut", "", "/x-M03473385921.html"], "Lese-Lausch-Abenteuer Zauberwald": ["8,81", "Gut", "", "/x-M03473418110.html"], "Lese-Lausch-Abenteuer Tiefsee": ["11,51", "Gut", "", "/x-M03473418137.html"], "Lese-Lausch-Abenteuer Dino-Stadt": ["10,51", "Gut", "", "/x-M03473418145.html"], "Die Eiskönigin – Völlig unverfroren (Buch)": ["8,91", "Gut", "", "/x-M03551280096.html"], "Star Wars Episode I–VI": ["15,51", "Gut", "", "/x-M03473554022.html"]};
+
+const ITEMS=[]; let n=0;
+for(const [kat,foto,titel,anz] of ROH){ for(let i=1;i<=anz;i++){ n++; ITEMS.push({id:n,kat,foto,titel,ex:anz>1?i+'/'+anz:'',p:PREISE[titel]||null}); } }
+
+const KEY='tiptoi-auswahl-v1';
+let sel=new Set(); try{ sel=new Set(JSON.parse(localStorage.getItem(KEY)||'[]')); }catch(e){}
+const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify([...sel])); }catch(e){} };
+let filterKat=null, query='';
+
+const eur=v=>v==null?'':v.toFixed(2).replace('.',',')+' €';
+const num=p=>p&&p[0]?parseFloat(p[0].replace(',','.')):null;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function rowHtml(it,withBox=true){
+  const p=it.p, pr=num(p);
+  const link=p&&p[3]?`<a href="https://www.medimops.de${p[3]}" target="_blank" rel="noopener">bei Medimops ↗</a>`:'<span class="none">kein Preis</span>';
+  const mm=p&&p[2]?`<span class="mm">${esc(p[2])}</span>`:'';
+  return `<tr data-id="${it.id}" class="${sel.has(it.id)?'sel':''}">
+    ${withBox?`<td class="c"><input type="checkbox" ${sel.has(it.id)?'checked':''} aria-label="auswählen"></td>`:''}
+    <td class="id">${it.id}</td>
+    <td>${esc(it.titel)}${it.ex?`<span class="dup">Exemplar ${it.ex}</span>`:''}${mm}</td>
+    <td class="foto">Foto ${it.foto}</td>
+    <td class="p">${pr!=null?eur(pr):'<span class="none">–</span>'}</td>
+    <td class="z">${p&&p[1]?esc(p[1]):''}</td>
+    <td class="l">${link}</td>
+  </tr>`;
+}
+const head=(box=true)=>`<thead><tr>${box?'<th></th>':''}<th>Nr.</th><th>Titel</th><th class="foto">Foto</th><th style="text-align:right">Medimops</th><th class="z">Zustand</th><th>Link</th></tr></thead>`;
+
+function renderAlle(){
+  const q=query.toLowerCase();
+  const vis=ITEMS.filter(it=>(!filterKat||it.kat===filterKat)&&(!q||it.titel.toLowerCase().includes(q)));
+  const kats=[...new Set(vis.map(i=>i.kat))];
+  document.getElementById('alle').innerHTML = vis.length? kats.map(k=>{
+    const rows=vis.filter(i=>i.kat===k);
+    return `<section class="kat"><h2>${esc(k)} <small>${rows.length} Artikel</small></h2><table>${head()}<tbody>${rows.map(r=>rowHtml(r)).join('')}</tbody></table></section>`;
+  }).join('') : '<div class="empty">Kein Titel passt zur Suche.</div>';
+}
+
+function nachricht(list){
+  const zeilen=list.map(i=>`- ${i.titel.replace(/ \(Anzahl nachfragen\)/,'')}${i.kat==='Wieso? Weshalb? Warum?'?' (Wieso? Weshalb? Warum?)':''}`);
+  // Doppelte Titel zusammenfassen
+  const cnt={}; zeilen.forEach(z=>cnt[z]=(cnt[z]||0)+1);
+  const uniq=[...new Set(zeilen)].map(z=>cnt[z]>1?`${z} (${cnt[z]}×)`:z);
+  return `Hallo,\n\nich interessiere mich für folgende tiptoi-Sachen aus deiner Anzeige:\n\n${uniq.join('\n')}\n\nWas hättest du dir dafür vorgestellt?\n\nViele Grüße\nOskar`;
+}
+
+function renderAuswahl(){
+  const list=ITEMS.filter(i=>sel.has(i.id));
+  const box=document.getElementById('auswahl');
+  if(!list.length){ box.innerHTML='<div class="empty">Noch nichts ausgewählt. Unter „Alle Artikel“ einfach Zeilen anklicken.</div>'; return; }
+  const sum=list.reduce((s,i)=>s+(num(i.p)||0),0);
+  const ohne=list.filter(i=>num(i.p)==null).length;
+  box.innerHTML=`<table>${head(false)}<tbody>${list.map(r=>rowHtml(r,false)).join('')}
+    <tr class="sum"><td></td><td>${list.length} Artikel${ohne?` <span class="hint">(${ohne} ohne Medimops-Preis)</span>`:''}</td><td class="foto"></td><td class="p">${eur(sum)}</td><td class="z"></td><td class="l"></td></tr></tbody></table>
+    <div class="panel"><h3>Nachricht für Kleinanzeigen</h3>
+      <p class="hint" style="margin:0 0 10px">Kannst du hier noch anpassen, dann kopieren und im Chat der Anzeige einfügen.</p>
+      <textarea id="msg">${esc(nachricht(list))}</textarea>
+      <div class="row"><button class="btn" id="copy">Nachricht kopieren</button><button class="btn ghost" id="reset">Auswahl leeren</button><span class="hint" id="cmsg"></span></div>
+    </div>`;
+  document.getElementById('copy').onclick=async()=>{ const t=document.getElementById('msg').value; try{ await navigator.clipboard.writeText(t); document.getElementById('cmsg').textContent='Kopiert.'; }catch(e){ document.getElementById('msg').select(); document.execCommand('copy'); document.getElementById('cmsg').textContent='Kopiert.'; } };
+  document.getElementById('reset').onclick=()=>{ if(confirm('Auswahl wirklich leeren?')){ sel.clear(); save(); update(); } };
+}
+
+function update(){
+  document.getElementById('nsel').textContent=sel.size;
+  const total=ITEMS.reduce((s,i)=>s+(num(i.p)||0),0), found=ITEMS.filter(i=>num(i.p)!=null).length;
+  const selSum=ITEMS.filter(i=>sel.has(i.id)).reduce((s,i)=>s+(num(i.p)||0),0);
+  document.getElementById('stats').innerHTML=`<b>${ITEMS.length}</b> Artikel; Medimops-Preis für ${found} gefunden; zusammen <b>${eur(total)}</b>; Auswahl: <b>${sel.size}</b> (${eur(selSum)})`;
+  renderAlle(); renderAuswahl();
+}
+
+document.getElementById('alle').addEventListener('click',e=>{
+  if(e.target.closest('a')) return;
+  const tr=e.target.closest('tr[data-id]'); if(!tr) return;
+  const id=+tr.dataset.id; sel.has(id)?sel.delete(id):sel.add(id); save();
+  tr.classList.toggle('sel',sel.has(id)); tr.querySelector('input').checked=sel.has(id);
+  document.getElementById('nsel').textContent=sel.size; update();
+});
+document.getElementById('q').addEventListener('input',e=>{query=e.target.value;renderAlle();});
+const kats=[...new Set(ITEMS.map(i=>i.kat))];
+document.getElementById('chips').innerHTML=['Alle',...kats].map(k=>`<button class="chip ${k==='Alle'?'on':''}" data-k="${esc(k)}">${esc(k)}</button>`).join('');
+document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('.chip'); if(!b) return; filterKat=b.dataset.k==='Alle'?null:b.dataset.k; document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b)); renderAlle();});
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t)); const v=t.dataset.v; document.getElementById('alle').hidden=v!=='alle'; document.getElementById('auswahl').hidden=v!=='auswahl'; document.getElementById('controls').style.display=v==='alle'?'flex':'none'; window.scrollTo(0,0);});
+update();
+</script>
+</body>
+</html>
