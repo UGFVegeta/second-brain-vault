@@ -15,7 +15,9 @@ Die PDFs liegen nicht im Vault, sondern in iCloud: `Privat/Wichtige Dokumente/Au
 - BMW iX1 eDrive20, Neuwagen, 5 Sitze, Elektro, WLTP-Reichweite 495 km, 14,9 kWh/100 km
 - Bestellung 19931789 (Bestelländerung /04 vom 14.07.2026), Auslieferung über BMW Niederlassung Stuttgart
 - Kein fester Liefertermin in der Bestellung, Lieferung nach Produktionsmöglichkeit
-- FIN: noch nicht vergeben
+- FIN: WBY11HM0205868058 (aus der Zulassungsbescheinigung Teil I, Scan vom 14.11.2026)
+- Zugelassen am 05.11.2026 (Erstzulassung), Kennzeichen WN KL 894 E, Zulassungsstelle Landratsamt Rems-Murr-Kreis. Halter ist Oskar, die Zulassungsbescheinigung Teil I (der Fahrzeugschein) trägt seinen Namen. Nächste Hauptuntersuchung 11.2029.
+- Farbe schwarz, 5 Sitzplätze, 170 km/h, Nennleistung 150 kW, Leermasse 1.940 kg, zulässige Gesamtmasse 2.435 kg, Reifen 225/55 R18 102Y, Stützlast Anhängerkupplung 75 kg. Der Scan liegt in iCloud unter `Privat/Wichtige Dokumente/Auto/BMW iX1/`.
 - Auftragsbestätigung vom 15.07.2026 zur Bestelländerung /04, Ausstattungscodes identisch zur Bestellung (Abgleich 08.11.2026)
 - **Ladekabel:** In Bestellung und Auftragsbestätigung steht nur das Mode-3-Kabel (S04T2, für Ladesäule und Wallbox). Ein Kabel für die Haushaltssteckdose (Mode 2) ist dort nicht aufgeführt. Bei der Niederlassung nachfragen. Geladen wird normalerweise an der Wallbox, ein Mode-2-Kabel ist nur die Notlösung für unterwegs.
 
