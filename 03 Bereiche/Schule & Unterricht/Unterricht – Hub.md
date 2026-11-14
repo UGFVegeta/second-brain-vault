@@ -1,23 +1,23 @@
 ---
 tags: [hub, unterricht, schule]
 status: aktiv
-date: 2026-11-13
+date: 2026-11-14
 ---
 
 # Unterricht – Hub
 
-Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 13.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
+Eine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 14.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu.
 
 Dieselben Inhalte als Pinnwand in Spalten: [[Unterricht – Hub.canvas]]. Als Seite im Browser (Claude-Artifact, privat, Momentaufnahme): https://claude.ai/artifact/FEnXLpLuY43fkVGJN3xDef
 
 ## Diese und nächste Woche
 
-| | Diese Woche: W8 ab 09.11. | Nächste Woche: W9 ab 16.11. |
+| | Diese Woche: W9 ab 16.11. | Nächste Woche: W10 ab 23.11. |
 |---|---|---|
-| **Mathe 7c** | Winkelsumme, Dreiecksformen | Konstruktion von Dreiecken |
-| **Mathe 10b** | Seitenverhältnisse im rechtwinkeligen Dreieck / sin, cos, tan | Beliebige Dreiecke / Vielecke / Trigo im Raum |
-| **Physik 7c** | Optik I: F5 Mondbahn und Mondphasen, Sonnen- und Mondfinsternis | Optik I: Lochkamera: Bildentstehung, Bau als Hausaufgabe, Versuch, Rückblick |
-| **Physik 10** | Kernphysik: Zerfallsreihen: Blatt Np-237 und Th-232, Rückseite U-238 und U-235 (Stunde W05b) | Kernphysik: F2 Antwort und Check, Einstieg F3 mit dem Würfelmodell (Stunde W06) |
+| **Mathe 7c** | Konstruktion von Dreiecken | Thaleskreis, Höhen |
+| **Mathe 10b** | Beliebige Dreiecke / Vielecke / Trigo im Raum | Sinus am Einheitskreis |
+| **Physik 7c** | Optik I: Lochkamera: Bildentstehung, Bau als Hausaufgabe, Versuch, Rückblick | Optik II: F6 Was passiert am Spiegel? Reflexionsgesetz, Versuch mit der Kreisscheibe |
+| **Physik 10** | Kernphysik: F2 Antwort und Check, Einstieg F3 mit dem Würfelmodell (Stunde W06) | Kernphysik: Die Halbwertszeit, Zerfallskurve auswerten (Stunde W07) |
 
 ## Planung
 - [Bildungs-Dashboard: Stunden mit Status](file:///Users/oskarklein/Documents/Obsidian%20Claude/Second%20Brain%20Claude/04%20Ressourcen/Bildungs-Dashboard.html)
