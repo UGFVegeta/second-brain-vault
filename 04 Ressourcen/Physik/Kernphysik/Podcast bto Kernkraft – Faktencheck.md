@@ -38,6 +38,17 @@ Fritz Vahrenholt und der Gast des Podcasts, „Zeit für Kernkraft. Schlüssel z
 | 61:00 | Über 30 Staaten wollen die Kernenergie bis 2050 verdreifachen. | ✅ Erklärung von der COP28 (2023), seitdem weitere Staaten. |
 | 68:00 | Heizreaktor für Fernwärme bei 150 °C braucht nur etwa 9 bar, so viel wie eine Espressomaschine. | ✅ Physikalisch richtig: Wasser siedet bei 150 °C erst ab etwa 5 bar. |
 
+### Nachgeprüft: EWI Merit-Order-Tool (zu 24:00)
+
+Das Tool des Energiewirtschaftlichen Instituts an der Uni Köln ist eine seriöse, frei verfügbare Excel-Datei ([Dokumentation 2025](https://www.ewi.uni-koeln.de/en/publikationen/ewi-merit-order-tool-2025-dokumentation/)). Es sortiert die deutschen Kraftwerke nach ihren **Grenzkosten**, also den Kosten für eine zusätzliche Megawattstunde: Brennstoff geteilt durch Wirkungsgrad, plus CO₂-Zertifikate, plus sonstige variable Kosten.
+
+- Für Kernenergie setzt das EWI 5,50 € pro MWh Wärme Brennstoff und 1,2 € pro MWh sonstige Kosten an, beides als „eigene Annahme“, kein CO₂. Bei rund 33 % Wirkungsgrad ergibt das etwa **18 € pro MWh Strom**. Die 17 bis 18 € aus dem Podcast stimmen also.
+- **Aber:** Grenzkosten sind keine Gesamtkosten. Bau, Kapital, Personal und andere Fixkosten stecken nicht drin. Ob Rückbau und Endlager im Brennstoffpreis enthalten sind, wie der Gast sagt, steht in der Dokumentation nicht. Der Wert ist eine Annahme ohne Aufschlüsselung.
+- Die Grenzkosten sagen, welches Kraftwerk an der Börse zuerst zum Zug kommt. Sie sagen nicht, was ein neues Kraftwerk kostet. Für einen Neubau zählen vor allem die Baukosten (Flamanville, Hinkley Point).
+- Das EWI nennt selbst die Grenzen des Tools: keine Speicher, keine Nachbarländer, keine negativen Preise.
+
+**Für die Klasse:** Grenzkosten von Wind und Sonne sind fast null, weil sie keinen Brennstoff brauchen. Beim Vergleich kommt es also darauf an, welche Kosten man vergleicht: Grenzkosten, Gesamtkosten einer Anlage oder Systemkosten mit Netzen und Speichern. Jede Seite wählt gern die Zahl, die ihr nützt.
+
 ## Was verkürzt, falsch oder unbelegt ist
 
 | Min. | Aussage | Prüfung |
