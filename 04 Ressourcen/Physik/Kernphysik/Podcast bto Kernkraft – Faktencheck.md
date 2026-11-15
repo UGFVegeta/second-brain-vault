@@ -15,6 +15,17 @@ date: 2026-11-15
 - **Eine Gegenstimme fehlt.** Die einzige Gegenposition (Harald Lesch) kommt als Zitat und Tonschnipsel vor, ausgesucht, um sie zu widerlegen.
 - **Für dich als Lehrer wichtig:** Das Buch fordert ausdrücklich, „Journalisten, Lehrkräfte und Multiplikatoren“ gezielt einzubinden, mit Seminaren und Kraftwerksbesuchen (12:00–13:00). Das ist offene Öffentlichkeitsarbeit einer Interessengruppe, die sich an Schulen richtet.
 
+## Das Buch „Zeit für Kernkraft“
+
+Fritz Vahrenholt und der Gast des Podcasts, „Zeit für Kernkraft. Schlüssel zum Wohlstand“, Langen Müller 2026, rund 230 Seiten, ISBN 978-3-7844-3773-6. **Ich habe das Buch nicht gelesen.** Die Einschätzung stützt sich auf die Verlagsseite, eine Besprechung bei Tichys Einblick und die Zitate im Podcast.
+
+- **Art des Buchs:** ein Plädoyer, keine wissenschaftliche Arbeit. Der Verlag bewirbt es selbst als „klare, kontroverse Position“. Es gibt kein Gutachterverfahren wie bei Fachartikeln.
+- **Autoren:** Vahrenholt war SPD-Umweltsenator in Hamburg und Manager für erneuerbare Energien bei RWE. Bekannt wurde er später mit „Die kalte Sonne“ (2012), einem Buch, das den Einfluss des CO₂ auf das Klima kleinredet und von der Klimaforschung deutlich kritisiert wurde. Der Co-Autor hat Geschäftsinteressen in der Kernkraft (siehe oben).
+- **Besprechung:** Tichys Einblick lobt das Buch („Zahlen, Daten und Fakten“) und verkauft es zugleich im eigenen Shop.
+- **Ein Warnsignal bei der Empirie:** Laut Besprechung schreibt das Buch, Radioaktivität könne „in geringen Dosen auch gesundheitsfördernd sein“. Das ist die sogenannte Hormesis-These. BfS und Internationale Strahlenschutzkommission gehen dagegen davon aus, dass auch kleine Dosen das Krebsrisiko etwas erhöhen. Für den Unterricht gilt BfS.
+
+**Einordnung:** Kein reines Lobbybuch im Sinn einer Auftragsarbeit, aber ein Buch von Leuten mit klarer Haltung und, beim Co-Autor, mit Geschäftsinteresse. Die Physik darin dürfte weitgehend stimmen. Bewertungen, Kostenrechnungen und alles zu Klima und Strahlenwirkung muss man einzeln gegen BfS, BASE, UBA oder IPCC prüfen. Zahlen nicht direkt aus dem Buch übernehmen.
+
 ## Was gut belegt ist
 
 | Min. | Aussage | Prüfung |

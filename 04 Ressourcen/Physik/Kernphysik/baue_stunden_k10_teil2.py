@@ -365,8 +365,29 @@ def fakt_meinung(loesung):
     return f'<section class="folie"><div class="titelband"><h1>{titel}</h1></div><div class="zeichenzone karo">{tab}</div>{ms}</section>'
 
 
+ZAHLEN = [  # Herleitung und Quellen: „Kernkraft in Zahlen – Vergleichswerte.md“; je Zelle eine Zeile, sonst passt die Folie nicht
+    ("Energie", "1 Pellet (6 g) wie etwa 700 kg Steinkohle", "Reaktor nutzt nur etwa 1 % des Urans"),
+    ("Abfall", "Strom einer Familie, 1 Jahr: etwa 7 g hochradioaktiv", "dazu mehr schwach und mittel radioaktiver Abfall"),
+    ("Strahldauer", "Cs-137: nach etwa 300 Jahren fast weg", "Pu-239: 240 000 Jahre; Endlager: 1 Mio. Jahre"),
+    ("Wind", "1 Kernkraftwerk wie etwa 1000 Windräder (pro Jahr)", "bei Flaute liefern Windräder fast nichts"),
+    ("Fläche", "Kraftwerk etwa 1 km², 1000 Windräder etwa 200 km²", "dazwischen Acker; Sperrzone Tschernobyl 2600 km²"),
+    ("Klima", "Kernkraft und Wind: 5–16 g CO₂ pro kWh", "zum Vergleich Kohle: etwa 820 g CO₂ pro kWh"),
+    ("Ausland", "Uran vor allem aus Kasachstan, Anreicherung oft Russland", "Solarmodule zu 80 % aus China, Windräder aus Europa"),
+]
+
+
+def zahlenfolie():
+    """Kernkraft in Zahlen: Vergleichswerte als Grundlage für die Rollen-Diskussion, je Zeile Zahl und fairer Zusatz."""
+    zeilen = "".join(f"<tr><td><b>{a}</b></td><td>{b}</td><td>{c}</td></tr>" for a, b, c in ZAHLEN)
+    tab = ('<table class="atab"><colgroup><col style="width:13%"><col style="width:44%"><col></colgroup>'
+           "<tr><th>Thema</th><th>Zahl</th><th>fair dazugesagt</th></tr>" + zeilen + "</table>")
+    ms = ('<div class="merksatz"><b>Für die Diskussion:</b> Die meisten Zahlen stimmen auf beiden Seiten. '
+          'Gestritten wird darüber, welche wichtiger ist. Nutzt in eurer Rolle zwei Zahlen.</div>')
+    return f'<section class="folie"><div class="titelband"><h1>Kernkraft in Zahlen</h1></div><div class="zeichenzone karo">{tab}</div>{ms}</section>'
+
+
 S21 = [f(66), blatt("Argumente abwaegen W21.pdf", "k21", "Arbeitsblatt austeilen; danach Diskussion"), fakt_meinung(False), fakt_meinung(True),
-       A21, f(67), f(68), f(69)]
+       zahlenfolie(), A21, f(67), f(68), f(69)]
 S21_HG = (box("Argumente abwägen", ["Ziel ist nicht eine richtige Meinung, sondern Argumente zu prüfen: Stimmt der Fakt? Wie groß ist die Zahl dahinter?",
                                      "Gute Fakten zum Verwenden: 24 000 Jahre Halbwertszeit Pu-239, 1 kg Uran-235 wie 3000 t Kohle, kaum CO₂ im Betrieb, Rückbau etwa eine Milliarde Euro, Endlager eine Million Jahre."], 1, 2)
           + box("Diskussion", ["Vier Gruppen ziehen je eine Rolle von der Folie. Fünf Minuten Argumente sammeln, dann je ein Sprecher. Die anderen notieren, was Fakt und was Meinung war.",
@@ -454,7 +475,7 @@ STUNDEN = [
     ("W21 Argumente abwaegen", "Kernphysik: Nutzen und Risiko abwägen", "W21 (Woche ab 12.04.2027); Abschluss Leitfrage 6",
      "Arbeitsblatt Nutzen und Risiko abwägen", {"demo": [], "schueler": [], "hinweis": "Rollenfolie für die Diskussion bereithalten."},
      [("Argumente", "Folie, Arbeitsblatt.", [1, 2]), ("Fakt oder Meinung?", "Fünf Aussagen aus Videos einordnen und prüfen.", [3, 4]),
-      ("Diskussion", "Vier Rollen, Sprecher, Auswertung.", [5]), ("Abschluss Leitfrage 6", "Antwort, Check. Zu Hause: Kurz-Check im Kernenergielabor.", [6, 7, 8])], S21, S21_HG, S21_AB),
+      ("Diskussion", "Zahlenfolie als Grundlage, vier Rollen, Sprecher, Auswertung.", [5, 6]), ("Abschluss Leitfrage 6", "Antwort, Check. Zu Hause: Kurz-Check im Kernenergielabor.", [7, 8, 9])], S21, S21_HG, S21_AB),
     ("W22 Rueckblick und C-14", "Kernphysik: Rückblick und Altersbestimmung", "W22 (Woche ab 19.04.2027); Abschluss Kernphysik",
      "Arbeitsblatt Altersbestimmung mit C-14", {"demo": [], "schueler": [], "hinweis": ""},
      [("Rückblick", "Die sechs Leitfragen.", [1]), ("C-14", "Folie, C-14-Uhr im Labor.", [2]), ("Üben", "Arbeitsblatt.", [3]), ("Alltag", "Datierte Funde.", [4])], S22, S22_HG, S22_AB),
