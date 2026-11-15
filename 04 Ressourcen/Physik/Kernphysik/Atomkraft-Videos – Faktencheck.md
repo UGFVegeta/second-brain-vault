@@ -8,6 +8,8 @@ date: 2026-11-13
 
 Vier Videos vom YouTube-Kanal „Eduard Heindl“ (Energiegespräche/Energievorträge), ausgewertet für Physik 10, Leitfrage 6 ([[Kernphysik Klasse 10 – Stunden und Labore]], W19 bis W21). Grundlage waren die automatischen Untertitel und Standbilder. Zeitangaben auf die Minute genau, vor dem Einsatz kurz nachprüfen.
 
+Dazu passt: [[Podcast bto Kernkraft – Faktencheck]] (Podcast vom 15.11.2026, ebenfalls pro Kernkraft, mit Rechenaufgaben für W19 bis W21).
+
 ## Wer steckt dahinter?
 
 - **Alle vier Videos stammen vom selben Kanal**, und alle vier argumentieren für Kernenergie. Eine Gegenposition kommt in keinem Video zu Wort. Der Betreiber sagt selbst, er wolle „alle Seiten“ zeigen (Video 1, 09:00). Die Auswahl hier zeigt nur eine Seite.
