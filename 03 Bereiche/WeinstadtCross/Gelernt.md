@@ -6,6 +6,7 @@ tags: [gelernt, weinstadtcross]
 
 Eine Zeile pro Erkenntnis, neueste oben.
 
+- 2026-11-16: Startseiten-Laufband (wc-heroA) war per CSS fest auf 5 Bilder gebaut. Folge: neue Bilder kommen dazu statt zu ersetzen (Oskar: „zusätzlich, nicht ersetzen“); der Block trägt jetzt ein eigenes <style> für beliebig viele Bilder (je 5 s). Bei weiteren Bildern nur Zeilen und nth-child-Verzögerungen ergänzen, Dauer = 5 s × Anzahl. Master: „Hero-Startseite 13 Bilder – NUR HTML.txt“.
 - 2026-11-16: Neuer Sponsor ins Logo-Laufband: LayerSlider Projekt #3 (läuft auf Startseite und Sponsorenseite). Folie mit Link duplizieren, Bild tauschen, dann Größe neu setzen (Kopie übernimmt die alten Maße und verzerrt): breite Logos 1280 px breit, Höhe nach Seitenverhältnis, links 0, vertikal mittig. Link unter „Link & Attrs“, dann Publish.
 - 2026-11-10: Seite Teilnehmer zeigte die RaceResult-Liste vom Vorjahr (Event 323896), die Anmeldeseite die aktuelle (375707). Folge: jedes Jahr die Event-ID auf Teilnehmer, Anmeldung und Ergebnissen gemeinsam umstellen; Block liegt in iCloud als „Teilnehmer - NUR HTML.txt“.
 - 2026-11-07: Streckenkarte in der Mediathek ersetzt, beim Kollegen blieb die alte Karte: Bilder werden 28 Tage im Browser gecacht. Folge: nach jedem Bildtausch den Zähler `?v=` im Strecken-HTML hochsetzen (jetzt v=3).

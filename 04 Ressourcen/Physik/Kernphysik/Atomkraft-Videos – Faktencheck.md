@@ -12,7 +12,7 @@ Dazu passt: [[Podcast bto Kernkraft – Faktencheck]] (Podcast vom 15.11.2026, e
 
 ## Wer steckt dahinter?
 
-- **Alle vier Videos stammen vom selben Kanal**, und alle vier argumentieren für Kernenergie. Eine Gegenposition kommt in keinem Video zu Wort. Der Betreiber sagt selbst, er wolle „alle Seiten“ zeigen (Video 1, 09:00). Die Auswahl hier zeigt nur eine Seite.
+- **Alle vier Videos stammen vom selben Kanal**, und alle vier argumentieren für Kernenergie. Eine Gegenposition kommt in keinem Video zu Wort. Der Betreiber sagt selbst, er wolle „alle Seiten“ zeigen (Video 1, 09:00). Die Auswahl hier zeigt nur eine Seite. Video 5 kommt von einem anderen Kanal und dient als Gegenquelle.
 - Der Kanal finanziert sich nach eigenen Worten über Kanalmitgliedschaften (Video 1, 61:00). Video 3 endet mit einer Einladung zu einem Kolloquium in Furtwangen. Welche Rolle Heindl an einer Hochschule hat und ob es weitere Geldgeber gibt, konnte ich nicht sicher prüfen.
 - **Video 1** ist ein Gespräch mit der Geschäftsführerin von Kerntechnik Deutschland e.V. Das ist der Branchenverband der Kernindustrie, laut Lobbyregister des Bundestags (R001444) ein Wirtschaftsverband mit 21 Mitgliedern (Stand 31.12.2025), unter anderem mit dem Ziel „Wiedereinstieg in die Kernenergienutzung“. Sie sagt das auch selbst (06:00).
 - **Video 2** (Prof. Bruno Merk, Universität Liverpool) und **Video 4** (Dr.-Ing. Bernhard Leidinger) sind Vorträge von einer Endlager-Tagung. Fachleute, aber beide werben für eine bestimmte Lösung (Wiederaufarbeitung und Transmutation).
@@ -109,6 +109,35 @@ https://youtu.be/3tEpsxGdqiI; Vortrag Dr.-Ing. Bernhard Leidinger, mit Einleitun
 - ✅ **China, Hochtemperaturreaktor HTR-PM:** seit 2023 im kommerziellen Betrieb. Die genannten „nächsten sechs“ Module habe ich nicht geprüft.
 - 🗣️ **Meinung:** „Wir sitzen das Problem aus“, „der Ausstieg war falsch“ (10:00).
 
+## Video 5: Der Atomausstieg ist der dümmste Fehler Deutschlands (18 min) – die Gegenquelle
+
+https://youtu.be/FUTqodPqWac; Kanal „InvestScience“ (Simon Schoebel), 15.11.2026. Ausgewertet am 16.11.2026.
+
+**Wer:** Ein Finanz- und Wirtschafts-YouTuber, kein Energieverband. Er verdient über Werbung und Provisionslinks (Bank, Stromanbieterwechsel), ein Interesse an einer bestimmten Energieform ist nicht zu erkennen. **Der Titel ist Köder:** Er zitiert die These von Hans-Werner Sinn und prüft sie dann. Im Ergebnis widerspricht er ihr weitgehend. Seine Quellen blendet er ein (World Nuclear Industry Status Report, IRENA, Fraunhofer ISE, Bundestag). Der Status Report gilt selbst als atomkritisch, das sagt er nicht dazu.
+
+**Kernaussagen**
+- 01:00–04:00 Der Anteil der Kernkraft am Weltstrom ist von 17,5 % (1996) auf 8,8 % (2025) gefallen. In absoluten Zahlen ist die Strommenge leicht gestiegen, alles andere ist schneller gewachsen. 2025 kamen weltweit etwa 510 GW Solar dazu, aber nur 1,5 GW Kernkraft.
+- 03:00–04:00 37 der 73 Reaktoren im Bau stehen in China. Auch dort liefern Wind und Sonne etwa fünfmal so viel Strom wie Kernkraft.
+- 04:00–06:00 Bauzeit im Mittel 10,9 Jahre; Hinkley Point C von 18 auf rund 49 Mrd. Pfund; Flamanville 3 von 3,3 auf 23,7 Mrd. € (französischer Rechnungshof), 12 Jahre zu spät. SMR sind im Westen noch nicht in Betrieb, das erste in Kanada ab etwa 2030.
+- 07:00 **Zwei Fragen trennen:** Bestehende Kraftwerke abschalten ist etwas anderes als neue bauen. Beim Abschalten ist Deutschland tatsächlich die Ausnahme, beim Neubau geht die Welt nicht in die andere Richtung.
+- 07:00–10:00 Geschichte: Atomkonsens 2000 (Rot-Grün, mit den Konzernen), Laufzeitverlängerung 2010 (Schwarz-Gelb), Ausstieg nach Fukushima 2011 (ebenfalls Schwarz-Gelb), 2,4 Mrd. € Entschädigung.
+- 11:00–13:00 Die letzten drei Kraftwerke lieferten 2022 etwa 6 % des Stroms. Ihr Weiterbetrieb hätte die Großhandelspreise je nach Studie um 0,5 bis 4 % gesenkt. Im ersten Jahr danach sank die Stromerzeugung aus Kohle und Gas um 26 % (Fraunhofer ISE).
+- 13:00–15:00 **Der eigentliche Fehler war 2011:** Damals ersetzte vor allem Kohle den Atomstrom. Eine Studie im Journal of the European Economic Association beziffert die Folgekosten auf Milliarden Euro pro Jahr, vor allem durch Feinstaub und vorzeitige Todesfälle.
+- 17:00 Ein schwerer Unfall wäre sehr teuer; Fukushima kostet nach Schätzungen über 200 Mrd. €.
+
+**Faktencheck**
+- ✅ **Geschichte des Ausstiegs** (07:00–10:00): Daten, Laufzeiten und die 2,4 Mrd. € Entschädigung stimmen.
+- ✅ **Flamanville 23,7 Mrd. €, Darlington 300 MW ab etwa 2030, Kernkraft größte einzelne Stromquelle der EU (23 %)**: stimmt.
+- ✅ **Fossile Erzeugung −26 % im Jahr nach dem Abschalten**: Fraunhofer ISE, Bilanz von 2024.
+- ✅ **Anteil der Kernkraft am Weltstrom sinkt, die Menge steigt leicht**: passt auch zu Our World in Data.
+- ⚠️ **Auslastung** (02:00): Im Transkript steht für Kernkraftwerke „48 %“. Seine eigene Rechnung (510 GW Solar entsprechen etwa 80 GW Kernkraft) passt nur zu rund 80 %, und das ist auch der übliche Wert. Vermutlich ein Versprecher oder Übersetzungsfehler, vor dem Zeigen nachhören.
+- ⚠️ **Folgekosten der Studie von 2011** (14:00): Er nennt 3 bis 8 Mrd. € pro Jahr. Meiner Erinnerung nach nennt die Studie (Jarvis, Deschenes, Jha) rund 12 Mrd. US-$ pro Jahr, davon der größte Teil durch Luftverschmutzung. Nicht geprüft.
+- ⚠️ **Importe kamen „vor allem aus Wasserkraft“ der Alpenländer und Skandinaviens** (12:00): verkürzt, ein Teil kam auch aus französischen Kernkraftwerken.
+- ⚠️ **Fukushima über 200 Mrd. €:** Die japanische Regierung nennt weniger, andere Schätzungen deutlich mehr. Umstritten.
+- 🗣️ **Meinung:** „Die Energiewende hat trotz Atomausstieg funktioniert, nur langsamer und teurer“ (16:00) und die Schlussfrage, ob Deutschland eher Vorreiter als Geisterfahrer ist (17:00).
+
+**Wert für den Unterricht:** Die beste Gegenquelle zu den Videos 1 bis 4. Er gibt der Gegenseite recht, wo sie recht hat (Abschalten 2011 war teuer, Kohle statt Kernkraft kostete Gesundheit), und hält ihr Zahlen entgegen, wo sie übertreibt (weltweiter Neubau, Kosten, Bauzeiten).
+
 ## Zusammengefasst
 
 **Was gut belegt ist und in den Unterricht passt**
@@ -123,7 +152,7 @@ https://youtu.be/3tEpsxGdqiI; Vortrag Dr.-Ing. Bernhard Leidinger, mit Einleitun
 - Umstritten: Tschernobyl-Opferzahlen; frühere Subventionen; Kosten neuer Kraftwerke.
 - Nicht belegt: Transmutation und Salzschmelze-Reaktoren als schnelle Lösung. Ein Vortragender sagt selbst, dass sie teurer und schwieriger sind als erhofft.
 
-**Was in allen vier Videos fehlt:** Baukosten und Bauzeiten neuer Kraftwerke (Olkiluoto, Flamanville, Hinkley Point werden nur kurz als „First of a kind“ abgetan), Uranabbau, Haftung und Versicherung, Stimmen von Kritikern. Für eine ausgewogene Diskussion braucht es eine Gegenquelle, zum Beispiel die Informationsseiten von BASE oder BGE.
+**Was in allen vier Videos fehlt:** Baukosten und Bauzeiten neuer Kraftwerke (Olkiluoto, Flamanville, Hinkley Point werden nur kurz als „First of a kind“ abgetan), Uranabbau, Haftung und Versicherung, Stimmen von Kritikern. Video 5 (InvestScience) schließt diese Lücke bei Kosten, Bauzeiten und weltweitem Ausbau. Für Abfall und Endlager bleiben BASE und BGE die Gegenquelle.
 
 ## Nutzen für Physik 10
 
@@ -138,6 +167,10 @@ Einfach halten: wenige kurze Ausschnitte (je 1 bis 2 Minuten), keine ganzen Vide
 | W21 Fakt oder Meinung | Video 1, 50:00 und 11:00 | Zwei Sätze nebeneinander: „Kohle 25 Tote pro TWh“ (prüfbar) und „Deutschland ist Geisterfahrer“ (Wertung). |
 | W21 | Video 2, 07:00–09:00 | Der Fachmann nennt selbst die Probleme seiner Lösung. Gutes Beispiel für ehrliche Argumentation. |
 | W21 Rollen | Video 1, 06:00 (Lobbyverband) | Für die Rolle „Energieversorger“: Wer spricht hier? Wer bezahlt den Verband? Wie wirkt das auf die Aussage? |
+| W19 Kernkraft weltweit | Video 5, 01:00–04:00 (510 GW Solar, 1,5 GW Kernkraft) | **Physik:** Leistung ist nicht Energie. 1 GW Solar liefert im Jahr viel weniger als 1 GW Kernkraft (Auslastung etwa 13 % gegen etwa 80 %). Rechnen: Wie viel GW Kernkraft entsprechen 510 GW Solar? (etwa 80 GW) |
+| W21 Argumente | Video 5, 07:00 (zwei Fragen) | Struktur für die Diskussion: Abschalten bestehender Kraftwerke und Bau neuer getrennt besprechen. |
+| W21 Fakt oder Meinung | Titel von Video 5 gegen seinen Inhalt | Der Titel behauptet das Gegenteil von dem, was das Video zeigt. Frage: Was erfährt man, wenn man nur Überschriften liest? |
+| W21 | Video 5, 13:00–15:00 (2011, Kohle, Feinstaub) | Auch ein kritisches Video räumt Nachteile des Ausstiegs ein. Gute Argumente gestehen der Gegenseite etwas zu. |
 
 **Aufgabe „Fakt oder Meinung?“ (Vorschlag für W21)**
 Die Klasse hört drei kurze Ausschnitte und sortiert jede Aussage in drei Spalten: *prüfbar und stimmt*, *prüfbar und stimmt nicht*, *Meinung*. Geprüft wird mit einem einzigen OWID-Diagramm oder einer BASE-Seite. Danach die Frage: Woran erkennt man Meinungssprache?
