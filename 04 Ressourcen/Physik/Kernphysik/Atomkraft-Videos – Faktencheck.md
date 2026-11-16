@@ -131,7 +131,7 @@ https://youtu.be/FUTqodPqWac; Kanal „InvestScience“ (Simon Schoebel), 15.11.
 - ✅ **Fossile Erzeugung −26 % im Jahr nach dem Abschalten**: Fraunhofer ISE, Bilanz von 2024.
 - ✅ **Anteil der Kernkraft am Weltstrom sinkt, die Menge steigt leicht**: passt auch zu Our World in Data.
 - ⚠️ **Auslastung** (02:00): Im Transkript steht für Kernkraftwerke „48 %“. Seine eigene Rechnung (510 GW Solar entsprechen etwa 80 GW Kernkraft) passt nur zu rund 80 %, und das ist auch der übliche Wert. Vermutlich ein Versprecher oder Übersetzungsfehler, vor dem Zeigen nachhören.
-- ⚠️ **Folgekosten der Studie von 2011** (14:00): Er nennt 3 bis 8 Mrd. € pro Jahr. Meiner Erinnerung nach nennt die Studie (Jarvis, Deschenes, Jha) rund 12 Mrd. US-$ pro Jahr, davon der größte Teil durch Luftverschmutzung. Nicht geprüft.
+- ✅ **Folgekosten des Ausstiegs 2011** (14:00): Er nennt 3 bis 8 Mrd. € pro Jahr. Stimmt: Die veröffentlichte Fassung der Studie (Jarvis, Deschenes, Jha, JEEA 2022) nennt 3 bis 8 Mrd. € pro Jahr. Die oft zitierten 12 Mrd. US-$ und 1100 Toten pro Jahr stammen aus der Vorabversion von 2019.
 - ⚠️ **Importe kamen „vor allem aus Wasserkraft“ der Alpenländer und Skandinaviens** (12:00): verkürzt, ein Teil kam auch aus französischen Kernkraftwerken.
 - ⚠️ **Fukushima über 200 Mrd. €:** Die japanische Regierung nennt weniger, andere Schätzungen deutlich mehr. Umstritten.
 - 🗣️ **Meinung:** „Die Energiewende hat trotz Atomausstieg funktioniert, nur langsamer und teurer“ (16:00) und die Schlussfrage, ob Deutschland eher Vorreiter als Geisterfahrer ist (17:00).
