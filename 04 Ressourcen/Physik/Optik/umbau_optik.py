@@ -96,7 +96,7 @@ for _k in _K10_REST:
         ersatz={"Halbwertszeit W07.pdf": [VERS_W07]} if _k.startswith("W07") else {},
         drucken=NICHTS + ["Optional: Arbeitsblätter als Alternative, siehe Tab Arbeitsblätter."])
 UMBAU["Kernphysik – W21 Argumente abwaegen – Stunde.html"]["drucken"] = [  # Ausnahme 16.11.2026: Lesetexte für die Diskussion
-    "Ausnahme: Lesetexte Kernkraft (Materialien/Lesetexte Kernkraft W21.pdf), Seiten 1 bis 4 als A3-Bogen doppelseitig, einer pro Schüler.",
+    "Ausnahme: Lesetexte Kernkraft, zwei Hefte: „Pro“ für die Gruppen A, „Contra“ für die Gruppen B. Je Seiten 1 bis 4 als A3-Bogen doppelseitig, einer pro Schüler.",
     "Seite 5 (Lösung), Folien und das alte Arbeitsblatt: nicht drucken."]
 UMBAU["Optik II – Reflexionsgesetz – Stunde.html"] = dict(ersatz={"Reflexionsgesetz W10.pdf": [VERS_F6A]},
                                                           drucken=NICHTS + ["Optional: Versuchsblatt als Alternative."])

@@ -28,7 +28,7 @@ GRUEN, ROT, GRAU = "#2E7D5B", "#B4462F", "#66798E"
 # ---------------------------------------------------------------- Diagramme
 def balken(daten, einheit, farbe, hervor=(), breite=300):
     """Waagerechte Balken, linear. daten: (Name, Wert, Beschriftung). hervor: Namen in Farbe, Rest grau."""
-    zeile, links, rechts = 17, 92, 56
+    zeile, links, rechts = 17, 92, 74
     vmax = max(w for _, w, _ in daten)
     h = zeile * len(daten) + 16
     s = f'<svg viewBox="0 0 {breite} {h}" xmlns="http://www.w3.org/2000/svg" font-family="Avenir Next, Helvetica, Arial" font-size="9">'
@@ -90,6 +90,12 @@ def figur(titel, svg):
 
 def dia(*figuren):
     return '<div class="dia">' + "".join(figur(t, s) for t, s in figuren) + '</div>'
+
+
+def neben(titel, svg, html):
+    """Einzelnes Diagramm (halbe Breite) neben einem Textabschnitt."""
+    return (f'<div class="dia"><figure style="flex:0 0 84mm">{"<figcaption>" + titel + "</figcaption>"}{svg}</figure>'
+            f'<div class="lese" style="flex:1">{html}</div></div>')
 
 
 def kopf_info(gruppe, nr, titel):
@@ -165,13 +171,13 @@ def a2():
 
 def a3():
     dosis = [("natürlich", 2.1, "2,1"), ("Medizin", 1.5, "1,5"), ("Flug New York", 0.1, "0,1"), ("Kernkraftwerk", 0.01, "unter 0,01")]
-    return (kopf_info("A", 3, "Strahlung, Abfall und die Welt") + '<div class="lese">'
-            '<h3>Im Normalbetrieb kaum Strahlung</h3>'
-            '<p>Strahlung ist überall: aus dem Boden, aus der Luft (Radon), aus dem Weltall und aus der Nahrung. In Deutschland bekommt jeder Mensch dadurch '
-            'im Schnitt etwa 2,1 Millisievert im Jahr ab. Dazu kommen Röntgen und CT beim Arzt, im Schnitt etwa 1,5 Millisievert. Wer in der Nähe eines '
-            'Kernkraftwerks wohnt, bekommt dadurch laut Bundesamt für Strahlenschutz weniger als 0,01 Millisievert im Jahr. '
-            'Das ist weniger als ein Zehntel eines Fluges nach New York und zurück.</p></div>'
-            + dia(("Strahlenbelastung pro Jahr in Deutschland", balken(dosis, "Millisievert pro Jahr (Flug: einmal hin und zurück)", GRUEN, ("Kernkraftwerk",))))
+    return (kopf_info("A", 3, "Strahlung, Abfall und die Welt")
+            + neben("Strahlenbelastung pro Jahr in Deutschland", balken(dosis, "Millisievert pro Jahr (Flug: hin und zurück)", GRUEN, ("Kernkraftwerk",)),
+                    '<h3 style="margin-top:0">Im Normalbetrieb kaum Strahlung</h3>'
+                    '<p>Strahlung ist überall: aus dem Boden, aus der Luft (Radon), aus dem Weltall und aus der Nahrung. In Deutschland bekommt jeder Mensch dadurch '
+                    'im Schnitt etwa 2,1 Millisievert im Jahr ab. Dazu kommen Röntgen und CT beim Arzt, im Schnitt etwa 1,5 Millisievert.</p>')
+            + '<div class="lese"><p>Wer in der Nähe eines Kernkraftwerks wohnt, bekommt dadurch laut Bundesamt für Strahlenschutz weniger als 0,01 Millisievert im Jahr. '
+              'Das ist weniger als ein Zehntel eines Fluges nach New York und zurück.</p></div>'
             + '<div class="lese">'
             '<h3>Der Abfall ist klein und gut überwacht</h3>'
             '<p>In 60 Jahren hat Deutschland rund 5600 Terawattstunden Atomstrom erzeugt. Dabei sind rund 10 500 t abgebrannter Brennstoff entstanden, '
@@ -194,7 +200,7 @@ def a3():
 
 # ================================================================ Gruppe B: Contra
 def b1():
-    menge = [("hochradioaktiv", 27000, "rund 27 000 m³"), ("schwach und mittel", 303000, "bis 303 000 m³")]
+    menge = [("hochradioaktiv", 27000, "27 000 m³"), ("schwach, mittel", 303000, "303 000 m³")]
     return (kopf_info("B", 1, "Abfall und Endlager") + '<div class="lese">'
             '<h3>Eine Million Jahre sicher</h3>'
             '<p>Abgebrannte Brennelemente sind hochradioaktiv. Ein Mensch, der sich kurz nach der Entnahme ungeschützt daneben stellen würde, bekäme in kurzer Zeit '
@@ -208,11 +214,11 @@ def b1():
             '<p>Seit 2017 wird in ganz Deutschland nach dem Standort mit der bestmöglichen Sicherheit gesucht, in Salz, Ton oder Granit, mehrere hundert Meter tief. '
             'Eigentlich sollte der Standort 2031 feststehen. Die zuständige Bundesgesellschaft für Endlagerung rechnet inzwischen mit einer Entscheidung '
             'zwischen 2046 und 2068. Bis dahin stehen rund 1900 Castor-Behälter in Zwischenlagern. Deren Genehmigungen gelten 40 Jahre und laufen ab den 2030er-Jahren aus.</p>'
-            '<h3>Was schiefgehen kann: die Asse</h3>'
+            '</div>' + neben("Abfallmengen in Deutschland", balken(menge, "Kubikmeter, verpackt (schwach, mittel: Konrad)", ROT, ("hochradioaktiv",)),
+            '<h3 style="margin-top:0">Was schiefgehen kann: die Asse</h3>'
             '<p>In das alte Salzbergwerk Asse in Niedersachsen wurden von 1967 bis 1978 rund 126 000 Fässer mit schwach und mittel radioaktivem Abfall gebracht. '
             'Seit Jahren dringt Wasser ein. Die Fässer sollen deshalb wieder herausgeholt werden, ein Vorhaben, das Jahrzehnte dauert und Milliarden kostet. '
-            'Für schwach und mittel radioaktiven Abfall wird Schacht Konrad in Salzgitter umgebaut, die Arbeiten sollen bis 2029 fertig sein.</p></div>'
-            + dia(("Abfallmengen in Deutschland", balken(menge, "Kubikmeter, verpackt (schwach und mittel: für Konrad genehmigt)", ROT, ("hochradioaktiv",))))
+            'Für schwach und mittel radioaktiven Abfall wird Schacht Konrad in Salzgitter umgebaut, die Arbeiten sollen bis 2029 fertig sein. Er ist für bis zu 303 000 m³ genehmigt.</p>')
             + '<div class="lese"><h3>Wer zahlt?</h3>'
             '<p>Die Betreiber haben 24 Milliarden Euro in einen Fonds eingezahlt. Reicht das Geld für Zwischen- und Endlagerung nicht, zahlt der Staat, also die Steuerzahler. '
             'Die Kosten trägt damit die Gesellschaft, und zwar noch viele Generationen lang, die selbst keinen Atomstrom genutzt haben.</p></div>'
@@ -220,14 +226,13 @@ def b1():
 
 
 def b2():
-    flaeche = [("Sperrzone Tschernobyl", 2600, "etwa 2600 km²"), ("Saarland", 2570, "2570 km²"), ("Stuttgart", 207, "207 km²")]
-    return (kopf_info("B", 2, "Unfälle und Sicherheit") + '<div class="lese">'
-            '<h3>Tschernobyl 1986</h3>'
+    flaeche = [("Sperrzone", 2600, "etwa 2600 km²"), ("Saarland", 2570, "2570 km²"), ("Stuttgart", 207, "207 km²")]
+    return (kopf_info("B", 2, "Unfälle und Sicherheit") + neben("Sperrzone Tschernobyl im Vergleich", balken(flaeche, "Quadratkilometer", ROT, ("Sperrzone",)),
+            '<h3 style="margin-top:0">Tschernobyl 1986</h3>'
             '<p>Am 26. April 1986 geriet in Tschernobyl in der heutigen Ukraine bei einem Test ein Reaktor außer Kontrolle. Er explodierte, der Graphit im Reaktor '
             'brannte tagelang, eine radioaktive Wolke zog über Europa bis nach Deutschland. Rund um das Kraftwerk wurde eine Sperrzone von etwa 2600 km² eingerichtet, '
             'so groß wie das Saarland. Sie gilt bis heute. Wie viele Menschen an den Spätfolgen sterben, ist umstritten: Die Weltgesundheitsorganisation schätzte '
-            'bis zu 4000 Todesfälle, andere Studien kamen auf 16 000 bis 60 000.</p></div>'
-            + dia(("Sperrzone Tschernobyl im Vergleich", balken(flaeche, "Quadratkilometer", ROT, ("Sperrzone Tschernobyl",))))
+            'bis zu 4000 Todesfälle, andere Studien kamen auf 16 000 bis 60 000.</p>')
             + '<div class="lese">'
             '<h3>Fukushima 2011</h3>'
             '<p>Im März 2011 traf ein Tsunami das Kraftwerk Fukushima in Japan. Die Notstromversorgung fiel aus, ohne Kühlung schmolzen drei Reaktorkerne. '

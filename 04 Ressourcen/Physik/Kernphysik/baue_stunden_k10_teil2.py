@@ -394,9 +394,11 @@ S21_HG = (box("Argumente abwägen", ["Ziel ist nicht eine richtige Meinung, sond
                                "Zum Schluss aus der Rolle heraustreten: eigene Stellungnahme (Aufgabe 3 auf dem Blatt)."], 3)
           + box("Abschluss Leitfrage 6", ["Antwortfolie, Check per Handzeichen. Lösung: 1 c, 2 b."], 4, 5, 6)
           + LAB(KERN, "Kernenergielabor", "Zusammenfassung und Kurz-Check zu Leitfrage 5 und 6."))
-S21_AB = ('<div class="box"><h3>Lesetexte Kernkraft: Pro und Contra</h3><a class="btn" href="Materialien/Lesetexte Kernkraft W21.pdf">PDF öffnen</a>'
-          '<p>Ein A3-Bogen, doppelseitig: Seite 1 Grundlagen für alle, Seite 2 Gruppe A (Pro), Seite 3 Gruppe B (Contra), Seite 4 Fragen und Protokoll. '
-          'Mit Diagrammen und Quellen. Die Hälfte der Klasse liest Pro, die andere Contra, dann Diskussion. <b>Lösung:</b> Seite 5 des PDFs.</p></div>'
+S21_AB = ('<div class="box"><h3>Lesetexte Gruppe A: Argumente für Kernkraft</h3><a class="btn" href="Materialien/Lesetexte Kernkraft Pro W21.pdf">PDF öffnen</a>'
+          '<p>Ein A3-Bogen: Infoblatt 1 Klima und Gesundheit, 2 Versorgung und Fläche, 3 Strahlung, Abfall und die Welt, Seite 4 Aufgabenblatt. <b>Lösung:</b> Seite 5.</p></div>'
+          '<div class="box"><h3>Lesetexte Gruppe B: Argumente gegen Kernkraft</h3><a class="btn" href="Materialien/Lesetexte Kernkraft Contra W21.pdf">PDF öffnen</a>'
+          '<p>Ein A3-Bogen: Infoblatt 1 Abfall und Endlager, 2 Unfälle und Sicherheit, 3 Kosten, Zeit und Abhängigkeit, Seite 4 Aufgabenblatt. <b>Lösung:</b> Seite 5.</p>'
+          '<p>In jeder Gruppe (mindestens vier) liest jeder ein Infoblatt, die vierte Person ist Zeitwächter und Schreiber. Wer was macht, tragen sie oben auf dem Aufgabenblatt ein.</p></div>'
           + ab_box("Arbeitsblatt Nutzen und Risiko abwägen (Alternative)", "Argumente abwaegen W21.pdf",
                 "Fakt, Meinung, Fakt, Meinung, Fakt, Meinung. Argumente siehe Lösungsseite. Stellungnahme individuell.", 2))
 
@@ -476,7 +478,7 @@ STUNDEN = [
      [("Einstieg Leitfrage 6", "Zeitachse bis eine Million Jahre, Vermutungen.", [1, 2]), ("Abfall", "Folie und Labor.", [3]),
       ("Üben", "Arbeitsblatt.", [4]), ("Alltag", "Abfall in Deutschland.", [5])], S20, S20_HG, S20_AB),
     ("W21 Argumente abwaegen", "Kernphysik: Nutzen und Risiko abwägen", "W21 (Woche ab 12.04.2027); Abschluss Leitfrage 6",
-     "!Lesetexte Kernkraft: Seiten 1 bis 4 als A3-Bogen doppelseitig, einer pro Schüler. Seite 5 ist die Lösung, nicht drucken.", {"demo": [], "schueler": [], "hinweis": "Klasse in Gruppe A (Pro) und Gruppe B (Contra) teilen."},
+     "!Lesetexte Kernkraft: Seiten 1 bis 4 als A3-Bogen doppelseitig, einer pro Schüler. Seite 5 ist die Lösung, nicht drucken.", {"demo": [], "schueler": [], "hinweis": "Klasse in Gruppen zu vier bis fünf teilen, je die Hälfte Pro (A) und Contra (B)."},
      [("Argumente", "Folie, Arbeitsblatt.", [1, 2]), ("Fakt oder Meinung?", "Fünf Aussagen aus Videos einordnen und prüfen.", [3, 4]),
       ("Diskussion", "Zahlenfolie als Grundlage, vier Rollen, Sprecher, Auswertung.", [5, 6]), ("Abschluss Leitfrage 6", "Antwort, Check. Zu Hause: Kurz-Check im Kernenergielabor.", [7, 8, 9])], S21, S21_HG, S21_AB),
     ("W22 Rueckblick und C-14", "Kernphysik: Rückblick und Altersbestimmung", "W22 (Woche ab 19.04.2027); Abschluss Kernphysik",
