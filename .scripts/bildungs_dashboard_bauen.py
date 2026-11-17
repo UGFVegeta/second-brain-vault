@@ -211,7 +211,7 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
 ], "material": []}]},
     {"klasse": "10b", "untertitel": "Trigonometrie", "themen": [{"titel": "Trigonometrie", "stunden": [
     {"id": "ma10-vertretung-1811", "titel": "Vertretung: Dreieck mit stumpfem Winkel (S. 16 Nr. 3 c, Übungen S. 16/17)", "wann": "Mi 18.11., Vertretung", "status": "vorbereitet",
-     "links": [f("Lösung mit Schritten", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel – Lösung mit Schritten.pdf"), f("Ablauf", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel – Ablauf für die Vertretung.pdf")]},
+     "links": [f("Lösung mit Schritten", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel – Lösung mit Schritten.pdf")]},
 ], "material": []}]}]
 
 CSS = """

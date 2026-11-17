@@ -6,6 +6,7 @@ tags: [gelernt, mathematik]
 
 Eine Zeile pro Erkenntnis, neueste oben. Lang ausgeführte Gründe stehen im Claude-Gedächtnis, hier nur die Folge.
 
+- 17.11.2026: Für eine Vertretung reicht eine kurze Nachricht mit den Aufgaben, ohne Zeitplan. Folge: keine eigene Ablaufnotiz bauen.
 - 17.11.2026: Vertretung 10b hatte ein Schülerblatt mit Lücken zu Buchaufgaben. Oskar will das nicht: Aufgaben stehen im Buch, die Klasse schreibt alles selbst ins Heft, keine Lückeneinträge. Folge: bei Buchaufgaben kein Schülerblatt, nur Buchnummern nennen; Lösung und Tafelbild für die Lehrkraft.
 - 17.11.2026: Schwere Hausaufgaben (z. B. S. 16 Nr. 3 c in 10b) haben die meisten nicht gemacht oder nicht verstanden. Folge: so eine Aufgabe in der nächsten Stunde trotzdem Schritt für Schritt gemeinsam rechnen, nicht nur Lösung zeigen.
 - 17.11.2026: Vertretung 10b (`Trigonometrie Klasse 10/baue_vertretung_18_11.py`): Seiten mit fester A4-Höhe und overflow hidden schneiden Überlauf stumm ab, der Seitenzähler bleibt richtig. Folge: jede Seite gerendert ansehen, nicht nur die Seitenzahl prüfen.

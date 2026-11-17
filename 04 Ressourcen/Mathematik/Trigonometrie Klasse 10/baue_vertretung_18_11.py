@@ -1,6 +1,6 @@
 """Vertretungsstunde Mathe 10b, Mi 18.11.2026 (45 min): Schnittpunkt 10, S. 16/17, Berechnungen am allgemeinen Dreieck.
 Kern: S. 16 Nr. 3 c rechts (stumpfer Winkel, Höhe außerhalb) gemeinsam, danach Übungen ○ ◐ ● und Zusatz.
-Baut zwei PDFs: Lösung mit Schritten (für die Vertretung) und Ablaufnotiz. Kein Schülerblatt: Aufgaben aus dem Buch, die Klasse schreibt alles selbst ins Heft (Oskar 17.11.).
+Baut ein PDF: Lösung mit Schritten (für die Vertretung). Ablaufnotiz nicht nötig, die Nachricht an die Vertretung reicht (Oskar 17.11.). Kein Schülerblatt: Aufgaben aus dem Buch, die Klasse schreibt alles selbst ins Heft (Oskar 17.11.).
 Die Funktion schuelerblatt() bleibt nur als Reserve, wird nicht mehr gebaut.
 Werte mit Asserts gegen die Buchlösung geprüft. Rechenweg wie in baue_loesung_s15_s16.py: nur sin, cos, Pythagoras.
 Ausführen: /Library/Frameworks/Python.framework/Versions/3.12/bin/python3 baue_vertretung_18_11.py
@@ -464,4 +464,3 @@ def drucke(name, inhalt, seiten_soll):
 
 if __name__ == "__main__":
     drucke(N_LOE, loesung(), 2)
-    drucke(N_ABL, ablauf(), 1)
