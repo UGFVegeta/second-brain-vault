@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Klettergerüst Aufstellplaner</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1d1d1b;--muted:#6b6a65;--line:#dedbd2;--lawn:#cfe3b4;--bed:#a98466;--terr:#5a4636;--wall:#b9b7b0;--wood:#c79a5b;--tower:#9c7440;--slide:#5b5d61;--zone:#e8833a;--bad:#c62828;--ok:#2e7d32;--arrow:#1f4e9c}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+.wrap{display:grid;grid-template-columns:310px 1fr;gap:20px;padding:20px;max-width:1500px;margin:0 auto}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;padding:16px}}
+aside{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+h1{font-size:22px;margin:0 0 2px}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+.sub{color:var(--muted);font-size:12px;margin:0}
+label{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0}
+input[type=number]{width:78px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6px;text-align:right}
+input[type=range]{width:100%}
+.tag{font-size:12px;padding:1px 6px;border-radius:10px;background:#fde7d3;color:#8a4a10}
+.tag.ok{background:#dcefdc;color:#1f5e22}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;padding:6px 10px;border:1px solid var(--line);background:#fafaf7;border-radius:8px;cursor:pointer}
+button:hover{background:#f0eee8}
+.obs{display:grid;grid-template-columns:1fr 58px 58px 52px;gap:4px;align-items:center;font-size:12px}
+.obs input{width:100%}
+.obs .h{color:var(--muted);font-size:12px}
+ul.dist{list-style:none;margin:0;padding:0;font-size:15px}
+ul.dist li{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed var(--line)}
+ul.dist li b.bad{color:var(--bad)} ul.dist li b.ok{color:var(--ok)}
+.note{font-size:12px;color:var(--muted);margin:8px 0 0}
+main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0}
+svg{width:100%;height:auto;display:block;touch-action:none;user-select:none}
+.hint{font-size:12px;color:var(--muted);margin:4px 6px 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <div class="card">
+    <h1>Klettergerüst im Garten</h1>
+    <p class="sub">Wickey FIT Cross 662, Draufsicht maßstabsgetreu (1 Kästchen = 1 m)</p>
+  </div>
+
+  <div class="card">
+    <h2>Rasenfläche</h2>
+    <label>Breite (Wand ↔ Beet links), m <span><input id="W" type="number" step="0.05" min="3" max="20"> <span id="tagW" class="tag">geschätzt</span></span></label>
+    <label>Tiefe (Terrasse ↔ Beet Straße), m <span><input id="D" type="number" step="0.05" min="3" max="20"> <span class="tag ok">gemessen</span></span></label>
+  </div>
+
+  <div class="card">
+    <h2>Gerüst</h2>
+    <label>Drehung <span id="rotV"></span></label>
+    <input id="rot" type="range" min="-180" max="180" step="5">
+    <div class="row" style="margin-top:8px">
+      <button id="flip">Rutsche andere Seite</button>
+      <button id="end">Turm ans andere Ende</button>
+    </div>
+    <label style="margin-top:12px">Sicherheitsabstand <span id="zoneV"></span></label>
+    <input id="zone" type="range" min="0" max="250" step="10">
+    <p class="note">Wickey nennt keinen Zahlenwert, nur „Abstände zu Wänden, Bäumen, Zäunen beachten“. Der Wert hier ist eine Annahme zum Ausprobieren.</p>
+  </div>
+
+  <div class="card">
+    <h2>Beete und Hindernisse</h2>
+    <div class="obs" id="obs"></div>
+    <p class="note">x = Abstand von links, y = Abstand von der Straßenseite, r = Radius, alles in m. Kreise lassen sich auch direkt ziehen.</p>
+  </div>
+
+  <div class="card">
+    <h2>Abstände Gerüst (inkl. Rutsche)</h2>
+    <ul class="dist" id="dist"></ul>
+    <p class="note">Rot = kleiner als der Sicherheitsabstand.</p>
+    <div class="row" style="margin-top:10px"><button id="reset">Alles zurücksetzen</button></div>
+  </div>
+</aside>
+
+<main>
+  <p class="hint">Gerüst und Kreise mit der Maus ziehen. Drehen mit dem Regler oder mit Shift + Mausrad über dem Gerüst.</p>
+  <svg id="svg"></svg>
+</main>
+</div>
+
+<script>
+// Maße laut Wickey (cm): Gesamtlänge 303 (Zeichnung; Produktseite 295), Breite inkl. Rutsche 276,
+// Turm 84 × 84, Rutsche 220 lang. Rutschenbreite ~48 aus der Zeichnung abgemessen.
+const L = 303, T = 84, SLIDE_OUT = 276 - 84, SLIDE_W = 48;
+const DEF = {
+  W: 9.0, D: 5.70, Wmeasured: false,
+  cx: 560, cy: 220, rot: 30, flip: -1, end: 1, zone: 150,
+  obs: [
+    {name: "Baumbeet", x: 6.3, y: 5.0, r: 1.1},
+    {name: "Beet links unten", x: 1.2, y: 5.2, r: 1.0}
+  ]
+};
+let S;
+try { S = JSON.parse(localStorage.getItem("kletter662")) || null; } catch (e) { S = null; }
+if (!S) S = structuredClone(DEF);
+const save = () => { try { localStorage.setItem("kletter662", JSON.stringify(S)); } catch (e) {} };
+
+const $ = id => document.getElementById(id);
+const svg = $("svg");
+const fmt = cm => (cm / 100).toFixed(2).replace(".", ",") + " m";
+
+// Rechtecke im lokalen System (cm), Mitte des Rahmens = 0
+function rects() {
+  const e = S.end, f = S.flip;
+  const tx0 = e > 0 ? L/2 - T : -L/2;
+  const sx0 = e > 0 ? L/2 - 73 : -L/2 + 25;       // Rutsche 25–73 cm vom Turmende
+  const sy0 = f > 0 ? T/2 : -T/2 - SLIDE_OUT;
+  return {
+    frame: [-L/2, -T/2, L, T],
+    tower: [tx0, -T/2, T, T],
+    slide: [sx0, sy0, SLIDE_W, SLIDE_OUT],
+    swingX: e > 0 ? -45 : 45
+  };
+}
+function toWorld(x, y) {
+  const a = S.rot * Math.PI / 180, c = Math.cos(a), s = Math.sin(a);
+  return [S.cx + x*c - y*s, S.cy + x*s + y*c];
+}
+function corners(r) {
+  const [x, y, w, h] = r;
+  return [[x,y],[x+w,y],[x+w,y+h],[x,y+h]].map(p => toWorld(p[0], p[1]));
+}
+function polyPts(r) { return corners(r).map(p => p.join(",")).join(" "); }
+
+function closestOnSeg(px, py, ax, ay, bx, by) {
+  const dx = bx-ax, dy = by-ay, t = Math.max(0, Math.min(1, ((px-ax)*dx + (py-ay)*dy) / (dx*dx + dy*dy)));
+  return [ax + t*dx, ay + t*dy];
+}
+function inside(p, poly) {
+  let ins = false;
+  for (let i = 0, j = poly.length-1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if ((yi > p[1]) !== (yj > p[1]) && p[0] < (xj-xi)*(p[1]-yi)/(yj-yi) + xi) ins = !ins;
+  }
+  return ins;
+}
+
+function render() {
+  const W = S.W*100, D = S.D*100, P = 90, R = rects();
+  svg.setAttribute("viewBox", `${-P} ${-P} ${W + 2*P} ${D + 2*P}`);
+  const polys = [corners(R.frame), corners(R.slide)];
+  const allPts = polys.flat();
+  let h = "";
+
+  // Umgebung
+  h += `<rect x="${-P}" y="${-P}" width="${W+2*P}" height="${P}" fill="#d9cdbd"/>`;
+  h += `<text x="${W/2}" y="-55" text-anchor="middle" font-size="20" fill="#5c4a38">Beet zur Straße</text>`;
+  h += `<rect x="0" y="${D}" width="${W}" height="${P}" fill="var(--terr)"/>`;
+  h += `<text x="${W/2}" y="${D+55}" text-anchor="middle" font-size="20" fill="#fff">Terrasse</text>`;
+  h += `<rect x="${W}" y="${-P}" width="${P}" height="${D+2*P}" fill="var(--wall)"/>`;
+  h += `<text transform="translate(${W+50} ${D/2}) rotate(90)" text-anchor="middle" font-size="20" fill="#3b3a36">Randsteine / Garagenwand</text>`;
+  h += `<rect x="${-P}" y="0" width="${P}" height="${D}" fill="#d9cdbd"/>`;
+  h += `<text transform="translate(${-45} ${D/2}) rotate(-90)" text-anchor="middle" font-size="20" fill="#5c4a38">Beet links</text>`;
+
+  // Rasen mit 1-m-Raster
+  h += `<rect x="0" y="0" width="${W}" height="${D}" fill="var(--lawn)" stroke="#7fa35a" stroke-width="3"/>`;
+  for (let x = 100; x < W; x += 100) h += `<line x1="${x}" y1="0" x2="${x}" y2="${D}" stroke="#b5cf96" stroke-width="1.5"/>`;
+  for (let y = 100; y < D; y += 100) h += `<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#b5cf96" stroke-width="1.5"/>`;
+
+  // Beete
+  S.obs.forEach((o, i) => {
+    h += `<circle data-drag="o${i}" cx="${o.x*100}" cy="${o.y*100}" r="${o.r*100}" fill="var(--bed)" fill-opacity=".55" stroke="#6e5038" stroke-width="2" style="cursor:move"/>`;
+    h += `<text x="${o.x*100}" y="${o.y*100+6}" text-anchor="middle" font-size="17" fill="#fff" pointer-events="none">${o.name}</text>`;
+  });
+
+  // Sicherheitszone (Vereinigung über Gruppen-Deckkraft)
+  if (S.zone > 0) {
+    h += `<g opacity=".28" pointer-events="none">`;
+    polys.forEach(p => h += `<polygon points="${p.map(q=>q.join(",")).join(" ")}" fill="var(--zone)" stroke="var(--zone)" stroke-width="${2*S.zone}" stroke-linejoin="round"/>`);
+    h += `</g>`;
+  }
+
+  // Gerüst
+  h += `<g data-drag="rig" style="cursor:move">`;
+  h += `<polygon points="${polyPts(R.slide)}" fill="var(--slide)"/>`;
+  h += `<polygon points="${polyPts(R.frame)}" fill="var(--wood)" stroke="#6b4e25" stroke-width="3"/>`;
+  h += `<polygon points="${polyPts(R.tower)}" fill="var(--tower)" stroke="#6b4e25" stroke-width="3"/>`;
+  // Schaukelsitz + Schwingrichtung
+  const sw = [R.swingX - 22, -8, 44, 16];
+  h += `<polygon points="${polyPts(sw)}" fill="#333"/>`;
+  const a1 = toWorld(R.swingX, -95), a2 = toWorld(R.swingX, 95);
+  h += `<line x1="${a1[0]}" y1="${a1[1]}" x2="${a2[0]}" y2="${a2[1]}" stroke="#333" stroke-width="3" stroke-dasharray="8 6" marker-start="url(#ah)" marker-end="url(#ah)"/>`;
+  const tc = toWorld(R.tower[0] + T/2, 0);
+  h += `<text x="${tc[0]}" y="${tc[1]+6}" text-anchor="middle" font-size="17" fill="#fff" pointer-events="none">Turm</text>`;
+  h += `</g>`;
+
+  // Abstandspfeile
+  const out = [];
+  const arrow = (x1, y1, x2, y2, d, label) => {
+    const bad = d < S.zone;
+    const col = bad ? "var(--bad)" : "var(--arrow)";
+    h += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="2.5" stroke-dasharray="10 7" marker-start="url(#ah2${bad?'r':''})" marker-end="url(#ah2${bad?'r':''})" pointer-events="none"/>`;
+    const mx = (x1+x2)/2, my = (y1+y2)/2;
+    h += `<g pointer-events="none"><rect x="${mx-38}" y="${my-14}" width="76" height="24" rx="5" fill="#fff" stroke="${col}" stroke-width="1.5"/><text x="${mx}" y="${my+4}" text-anchor="middle" font-size="16" font-weight="600" fill="${col}">${fmt(d).replace(" m","")}</text></g>`;
+    out.push([label, d]);
+  };
+  const minBy = f => allPts.reduce((a, p) => f(p) < f(a) ? p : a);
+  let p;
+  p = minBy(q => q[1]);       arrow(p[0], 0, p[0], p[1], p[1], "Beet zur Straße");
+  p = minBy(q => D - q[1]);   arrow(p[0], p[1], p[0], D, D - p[1], "Terrasse");
+  p = minBy(q => q[0]);       arrow(0, p[1], p[0], p[1], p[0], "Beet links");
+  p = minBy(q => W - q[0]);   arrow(p[0], p[1], W, p[1], W - p[0], "Randsteine / Wand");
+
+  S.obs.forEach(o => {
+    const c = [o.x*100, o.y*100], r = o.r*100;
+    let best = null, bd = Infinity, hit = false;
+    polys.forEach(poly => {
+      if (inside(c, poly)) hit = true;
+      for (let i = 0; i < 4; i++) {
+        const a = poly[i], b = poly[(i+1)%4], q = closestOnSeg(c[0], c[1], a[0], a[1], b[0], b[1]);
+        const d = Math.hypot(q[0]-c[0], q[1]-c[1]);
+        if (d < bd) { bd = d; best = q; }
+      }
+    });
+    const d = hit ? 0 : Math.max(0, bd - r);
+    if (d > 0) {
+      const ex = c[0] + (best[0]-c[0]) * r / bd, ey = c[1] + (best[1]-c[1]) * r / bd;
+      arrow(best[0], best[1], ex, ey, d, o.name);
+    } else out.push([o.name, 0]);
+  });
+
+  const defs = `<defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="#333"/></marker>
+    <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="#1f4e9c"/></marker>
+    <marker id="ah2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="#c62828"/></marker>
+  </defs>`;
+  svg.innerHTML = defs + h;
+
+  $("dist").innerHTML = out.map(([n, d]) =>
+    `<li><span>${n}</span><b class="${d < S.zone ? "bad" : "ok"}">${d === 0 ? "überlappt" : fmt(d)}</b></li>`).join("");
+  $("rotV").textContent = S.rot + "°";
+  $("zoneV").textContent = fmt(S.zone);
+  save();
+}
+
+function syncInputs() {
+  $("W").value = S.W; $("D").value = S.D; $("rot").value = S.rot; $("zone").value = S.zone;
+  $("tagW").className = S.Wmeasured ? "tag ok" : "tag";
+  $("tagW").textContent = S.Wmeasured ? "gemessen" : "geschätzt";
+  $("obs").innerHTML = `<span class="h">Name</span><span class="h">x</span><span class="h">y</span><span class="h">r</span>` +
+    S.obs.map((o, i) => `<span>${o.name}</span>` +
+      ["x","y","r"].map(k => `<input type="number" step="0.05" data-i="${i}" data-k="${k}" value="${o[k]}">`).join("")).join("");
+}
+
+$("W").oninput = e => { S.W = +e.target.value || S.W; S.Wmeasured = true; syncInputs(); render(); };
+$("D").oninput = e => { S.D = +e.target.value || S.D; render(); };
+$("rot").oninput = e => { S.rot = +e.target.value; render(); };
+$("zone").oninput = e => { S.zone = +e.target.value; render(); };
+$("flip").onclick = () => { S.flip *= -1; render(); };
+$("end").onclick = () => { S.end *= -1; render(); };
+$("reset").onclick = () => { S = structuredClone(DEF); syncInputs(); render(); };
+$("obs").oninput = e => { const t = e.target; if (t.dataset.k) { S.obs[t.dataset.i][t.dataset.k] = +t.value; render(); } };
+
+// Ziehen
+let drag = null;
+const pt = ev => { const m = svg.getScreenCTM().inverse(); return [ev.clientX*m.a + ev.clientY*m.c + m.e, ev.clientX*m.b + ev.clientY*m.d + m.f]; };
+svg.addEventListener("pointerdown", ev => {
+  const t = ev.target.closest("[data-drag]"); if (!t) return;
+  const k = t.dataset.drag, p = pt(ev);
+  if (k === "rig") drag = {k, dx: S.cx - p[0], dy: S.cy - p[1]};
+  else { const o = S.obs[+k.slice(1)]; drag = {k, dx: o.x*100 - p[0], dy: o.y*100 - p[1]}; }
+  svg.setPointerCapture(ev.pointerId);
+});
+svg.addEventListener("pointermove", ev => {
+  if (!drag) return;
+  const p = pt(ev);
+  if (drag.k === "rig") { S.cx = Math.round(p[0] + drag.dx); S.cy = Math.round(p[1] + drag.dy); }
+  else { const o = S.obs[+drag.k.slice(1)]; o.x = +((p[0] + drag.dx)/100).toFixed(2); o.y = +((p[1] + drag.dy)/100).toFixed(2); }
+  render();
+});
+svg.addEventListener("pointerup", () => { if (drag && drag.k !== "rig") syncInputs(); drag = null; });
+svg.addEventListener("wheel", ev => {
+  if (!ev.shiftKey || !ev.target.closest('[data-drag="rig"]')) return;
+  ev.preventDefault();
+  S.rot = ((S.rot + (ev.deltaY + ev.deltaX > 0 ? 5 : -5) + 540) % 360) - 180;
+  $("rot").value = S.rot; render();
+}, {passive: false});
+
+syncInputs(); render();
+</script>
+</body>
+</html>
