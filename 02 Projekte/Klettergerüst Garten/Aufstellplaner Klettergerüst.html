@@ -24,6 +24,7 @@ input[type=range]{width:100%}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 button{font:inherit;padding:6px 10px;border:1px solid var(--line);background:#fafaf7;border-radius:8px;cursor:pointer}
 button:hover{background:#f0eee8}
+button.on{background:#1d1d1b;color:#fff;border-color:#1d1d1b}
 ul.dist{list-style:none;margin:0;padding:0}
 ul.dist li{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed var(--line)}
 b.bad{color:var(--bad)} b.ok{color:var(--ok)}
@@ -38,6 +39,11 @@ svg{width:100%;height:auto;display:block;touch-action:none;user-select:none}
   <div class="card">
     <h1>Klettergerüst im Garten</h1>
     <p class="sub">Wickey FIT Cross 662, Draufsicht, 1 Kästchen = 1 m</p>
+  </div>
+
+  <div class="card">
+    <h2>Stil</h2>
+    <div class="row" id="styles"></div>
   </div>
 
   <div class="card">
@@ -102,7 +108,7 @@ const PHOTO_B = 4.35 - (-3.46);   // Breite aus Foto an der breitesten Stelle
 const TREE = [1.95, 0.97], RED = [[1.32,4.16],[3.62,1.40]];
 const DEPTH = 5.8;
 
-const DEF = {B: null, cx: 247, cy: 302, rot: 50, flip: 1, end: -1, zone: 150, slide: true};
+const DEF = {B: null, cx: 247, cy: 302, rot: 50, flip: 1, end: -1, zone: 150, slide: true, style: "plan"};
 let S;
 try { S = JSON.parse(localStorage.getItem("kletter662v2")) || null; } catch (e) { S = null; }
 if (!S) S = {...DEF};
@@ -169,21 +175,110 @@ function polyDist(polys, line, lawn) {
 // Zeichenhelfer: Sträucher, Gräser (fester Zufall, damit nichts springt)
 let seed = 7;
 const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
-function blob(cx, cy, r, fill, stroke) {
+function blob(cx, cy, r, fill, stroke, sw = 2, op = 1) {
   const n = 8 + Math.floor(rnd()*4), p = [];
   for (let i = 0; i < n; i++) { const a = i/n*2*Math.PI + rnd()*0.3, rr = r*(0.85 + rnd()*0.15); p.push([cx + rr*Math.cos(a), cy + rr*Math.sin(a)]); }
   let d = `M${p[0]}`;
   for (let i = 0; i < n; i++) { const q = p[i], w = p[(i+1)%n], m = Math.atan2((q[1]+w[1])/2 - cy, (q[0]+w[0])/2 - cx); d += ` Q${cx + r*1.2*Math.cos(m)},${cy + r*1.2*Math.sin(m)} ${w}`; }
-  return `<path d="${d}Z" fill="${fill}" stroke="${stroke}" stroke-width="2"/>`;
+  return `<path d="${d}Z" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-opacity="${op}" stroke-linejoin="round"/>`;
 }
 function shrub(cx, cy, r, g, flower, tree) {
-  let s = `<g filter="url(#sh)">${blob(cx, cy, r, g[0], g[1])}</g>` + blob(cx - r*.18, cy - r*.18, r*.55, g[2], "none");
+  const st = CUR, ink = st.ink, outer = blob(cx, cy, r, F(g[0]), ink || g[1], ink ? st.sw : 2);
+  let s = st.shadow ? `<g filter="url(#sh)">${outer}</g>` : outer;
+  if (st.cluster) {
+    for (let i = 0; i < 7; i++) { const a = rnd()*6.28, rr = r*(.15 + rnd()*.45); s += blob(cx + rr*Math.cos(a) - r*.08, cy + rr*Math.sin(a) - r*.08, r*(.28 + rnd()*.15), i % 2 ? g[2] : g[0], ink, .7, .35); }
+    if (tree) for (let i = 0; i < 9; i++) { const a = i/9*6.28 + rnd()*.4; s += `<line x1="${cx}" y1="${cy}" x2="${cx + r*.8*Math.cos(a)}" y2="${cy + r*.8*Math.sin(a)}" stroke="${ink}" stroke-width="1" stroke-opacity=".55"/>`; }
+  } else if (!st.hatch) s += blob(cx - r*.18, cy - r*.18, r*.55, g[2], "none");
+  if (ink && !st.cluster) s += blob(cx + r*.05, cy + r*.05, r*.6, "none", ink, st.sw*.6, .45);
   if (flower) for (let i = 0; i < 6; i++) { const a = rnd()*6.28, rr = r*(.3 + rnd()*.5); s += `<circle cx="${cx + rr*Math.cos(a)}" cy="${cy + rr*Math.sin(a)}" r="${Math.max(3, r*.1)}" fill="${flower}"/>`; }
-  return s + `<circle cx="${cx}" cy="${cy}" r="${tree ? 7 : 3}" fill="${tree ? "#fff" : g[1]}"/>`;
+  return s + `<circle cx="${cx}" cy="${cy}" r="${tree ? 7 : 3}" fill="${tree ? "#fff" : (ink || g[1])}"${tree && ink ? ` stroke="${ink}" stroke-width="1.5"` : ""}/>`;
 }
 function tuft(cx, cy, r) {
   let s = "";
   for (let i = 0; i < 14; i++) { const a = rnd()*6.28, rr = r*(.6 + rnd()*.4); s += `<line x1="${cx}" y1="${cy}" x2="${cx + rr*Math.cos(a)}" y2="${cy + rr*Math.sin(a)}" stroke="${i%2 ? "#8fae5c" : "#b5c97e"}" stroke-width="2.5" stroke-linecap="round"/>`; }
+  return s;
+}
+// Stile: Gartenplan (digital), Skizze (Gardena-artig), Landschaftsplan (Architekten-Zeichnung)
+const HAND = '"Bradley Hand","Chalkboard SE","Segoe Print","Comic Sans MS",cursive';
+const STYLES = {
+  plan:     {name: "Gartenplan", paper: "#fff", grid: null, bed: "url(#mulch)", lawn: "#bfe08f", lawnTex: "grain", lawnGrid: "#fff", rim: "#9cc56c", edge: "stone", ink: null, sw: 2, shadow: true, filter: null, font: null, house: "#eceae4", wall: "#3d3d3b", wallW: 7, deck: "url(#planks)", gravel: "url(#gravel)"},
+  skizze:   {name: "Skizze", paper: "#eadfc6", grid: "#d4c39d", bed: "url(#hedge)", lawn: "#cde7b3", lawnTex: "strokes", lawnGrid: "#9fc185", rim: null, edge: "ink", ink: "#33402a", sw: 2.2, shadow: true, filter: "wob", font: HAND, label: "#2f3a26", halo: "#f1e9d6", house: "#9c9c99", wall: "#3b3b3a", wallW: 4, deck: "url(#planks2)", gravel: "url(#gravel)", tex: true},
+  plan2:    {name: "Landschaftsplan", paper: "#fff", grid: null, bed: "url(#beds2)", lawn: "#b2d886", lawnTex: "marker", lawnGrid: null, rim: "#8cbf52", edge: "band", ink: "#2e2e2a", sw: 1.4, shadow: true, rich: true, filter: "sk", font: HAND, label: "#1f1f1c", halo: "#ffffff", house: "#ffffff", wall: "#6d6c66", wallW: 8, deck: "url(#planks3)", gravel: "url(#cobble2)"}
+};
+let CUR = STYLES.plan, HD = {};
+// Buntstift: Farbe als Schraffur
+function F(c) {
+  if (!CUR.hatch || !c || c[0] !== "#") return c;
+  const id = "h" + c.slice(1), ang = 25 + parseInt(c.slice(1, 3), 16) % 50;
+  HD[id] = `<pattern id="${id}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(${ang})"><rect width="6" height="6" fill="${c}" fill-opacity=".25"/><line x1="1.5" y1="0" x2="1.5" y2="6" stroke="${c}" stroke-width="2.4" stroke-opacity=".9"/></pattern>`;
+  return `url(#${id})`;
+}
+// ---------- Landschaftsplan: Blattstruktur, Markerrasen, Einzelsteine ----------
+function shade(hex, f) {
+  const n = parseInt(hex.slice(1), 16), t = f > 0 ? 255 : 0, a = Math.abs(f);
+  const c = [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.round(v + (t - v) * a));
+  return "#" + ((1 << 24) + (c[0] << 16) + (c[1] << 8) + c[2]).toString(16).slice(1);
+}
+function rg(c) {
+  const id = "g" + c.slice(1);
+  HD[id] = `<radialGradient id="${id}" cx="34%" cy="30%" r="78%"><stop offset="0" stop-color="${shade(c, .5)}"/><stop offset=".5" stop-color="${c}"/><stop offset="1" stop-color="${shade(c, -.5)}"/></radialGradient>`;
+  return `url(#${id})`;
+}
+function inkRing(cx, cy, r, op = .6) {
+  const n = 10 + Math.floor(r / 4), p = [];
+  for (let i = 0; i <= n; i++) { const a = i/n*6.283 + .2, rr = r*(1.02 + (i % 2 ? .07 : -.02) + rnd()*.05); p.push([cx + rr*Math.cos(a), cy + rr*Math.sin(a)]); }
+  let d = `M${p[0]}`;
+  for (let i = 1; i < p.length; i++) { const q = p[i-1], w = p[i], m = Math.atan2((q[1]+w[1])/2 - cy, (q[0]+w[0])/2 - cx), k = r*1.12; d += ` Q${cx + k*Math.cos(m)},${cy + k*Math.sin(m)} ${w}`; }
+  return `<path d="${d}" fill="none" stroke="#2f3324" stroke-width="${r > 30 ? 1.1 : .8}" stroke-opacity="${op}" stroke-dasharray="${r*1.4} ${2 + rnd()*3} ${r*.5} ${3 + rnd()*3}" stroke-linecap="round"/>`;
+}
+function scribbles(cx, cy, r, c) {
+  let s = "";
+  for (let i = 0; i < Math.round(r / 3); i++) {
+    const a = rnd()*6.28, rr = r*.8*Math.sqrt(rnd()), x = cx + rr*Math.cos(a), y = cy + rr*Math.sin(a), l = 3 + rnd()*4;
+    s += `<path d="M${x - l},${y} q${l},${-l} ${l*2},0" fill="none" stroke="${shade(c, -.45)}" stroke-width=".9" stroke-opacity=".55" stroke-linecap="round"/>`;
+  }
+  return s;
+}
+function richShrub(cx, cy, r, c, flower) {
+  c = shade(c, .2);
+  let s = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${rg(c)}" filter="url(#leaf)"/>` + scribbles(cx, cy, r, c) + (r > 14 ? inkRing(cx, cy, r) : "");
+  if (flower) for (let i = 0; i < Math.round(r / 2.5); i++) { const a = rnd()*6.28, rr = r*.75*Math.sqrt(rnd()); s += `<circle cx="${cx + rr*Math.cos(a)}" cy="${cy + rr*Math.sin(a)}" r="${1.8 + rnd()*1.8}" fill="${flower}" fill-opacity=".9"/>`; }
+  return s;
+}
+function richTree(cx, cy, r, c) {
+  let s = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${rg(c)}" filter="url(#leaf)" opacity=".85"/>`;
+  for (let i = 0; i < 8; i++) {
+    const a = i/8*6.28 + rnd()*.5, m = r*(.35 + rnd()*.15), e = r*(.7 + rnd()*.2), k = a + (rnd() - .5)*.6;
+    const mx = cx + m*Math.cos(a), my = cy + m*Math.sin(a);
+    s += `<path d="M${cx},${cy} L${mx},${my} L${cx + e*Math.cos(k)},${cy + e*Math.sin(k)}" fill="none" stroke="#33421f" stroke-width="2" stroke-opacity=".6" stroke-linecap="round" stroke-linejoin="round"/>`;
+    s += `<line x1="${mx}" y1="${my}" x2="${mx + r*.25*Math.cos(k + .9)}" y2="${my + r*.25*Math.sin(k + .9)}" stroke="#33421f" stroke-width="1.2" stroke-opacity=".5" stroke-linecap="round"/>`;
+  }
+  return s + scribbles(cx, cy, r, c) + inkRing(cx, cy, r, .7) + `<circle cx="${cx}" cy="${cy}" r="5" fill="#5a4630"/>`;
+}
+function stones(line) {
+  const C = ["#d2d0c8", "#c4c1b8", "#dad8d1", "#b9b6ad", "#cac7bf"];
+  let s = "", carry = 0;
+  for (let i = 0; i < line.length - 1; i++) {
+    const [ax, ay] = line[i], [bx, by] = line[i+1], len = Math.hypot(bx - ax, by - ay), ang = Math.atan2(by - ay, bx - ax) * 180 / Math.PI;
+    for (let d = carry; d < len; d += 11) {
+      const x = ax + (bx - ax)*d/len, y = ay + (by - ay)*d/len;
+      s += `<rect x="-5" y="-5.5" width="10" height="11" rx="1.6" transform="translate(${x} ${y}) rotate(${ang + (rnd() - .5)*6})" fill="${C[Math.floor(rnd()*5)]}" stroke="#5a5852" stroke-width=".8"/>`;
+      carry = d + 11 - len;
+    }
+  }
+  return s;
+}
+function markerLawn(bx0, by0, bx1, by1) {
+  const C = ["#d4ecab", "#9cc96a", "#c2e293", "#8bbd5c", "#eef7dc"];
+  let s = "";
+  for (let i = 0; i < 110; i++) {
+    const x = bx0 + rnd()*(bx1 - bx0), y = by0 + rnd()*(by1 - by0), a = (-25 + (rnd() - .5)*30) * Math.PI / 180, l = 60 + rnd()*140;
+    s += `<line x1="${x}" y1="${y}" x2="${x + l*Math.cos(a)}" y2="${y + l*Math.sin(a)}" stroke="${C[Math.floor(rnd()*5)]}" stroke-width="${12 + rnd()*22}" stroke-opacity="${.22 + rnd()*.25}" stroke-linecap="round"/>`;
+  }
+  for (let i = 0; i < 140; i++) {
+    const x = bx0 + rnd()*(bx1 - bx0), y = by0 + rnd()*(by1 - by0), a = (-60 + (rnd() - .5)*30) * Math.PI / 180, l = 6 + rnd()*12;
+    s += `<line x1="${x}" y1="${y}" x2="${x + l*Math.cos(a)}" y2="${y + l*Math.sin(a)}" stroke="#5f8a3c" stroke-width="1" stroke-opacity=".5" stroke-linecap="round"/>`;
+  }
   return s;
 }
 const PATTERNS = `
@@ -191,6 +286,22 @@ const PATTERNS = `
   <pattern id="planks" width="420" height="15" patternUnits="userSpaceOnUse"><rect width="420" height="15" fill="#7a5238"/><line x1="0" y1="14.3" x2="420" y2="14.3" stroke="#4e3322" stroke-width="1.5"/><line x1="180" y1="0" x2="180" y2="15" stroke="#4e3322" stroke-width="1.2"/></pattern>
   <pattern id="gravel" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#dedad1"/><circle cx="5" cy="6" r="2.5" fill="#c4beb1"/><circle cx="16" cy="4" r="2" fill="#f2efe8"/><circle cx="12" cy="15" r="3" fill="#c9c3b6"/><circle cx="20" cy="19" r="2" fill="#f2efe8"/><circle cx="4" cy="20" r="2" fill="#bdb7aa"/></pattern>
   <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="3"/><feColorMatrix values="0 0 0 0 0.42  0 0 0 0 0.62  0 0 0 0 0.25  0.9 0 0 0 -0.25"/></filter>
+  <pattern id="hedge" width="56" height="56" patternUnits="userSpaceOnUse"><rect width="56" height="56" fill="#93b673"/><circle cx="12" cy="14" r="9" fill="#7fa45f" stroke="#55773d" stroke-width="1.2"/><circle cx="40" cy="10" r="7" fill="#a6c787" stroke="#55773d" stroke-width="1.2"/><circle cx="30" cy="36" r="10" fill="#86ab66" stroke="#55773d" stroke-width="1.2"/><circle cx="8" cy="44" r="6" fill="#a6c787" stroke="#55773d" stroke-width="1.2"/><circle cx="50" cy="48" r="5" fill="#7fa45f" stroke="#55773d" stroke-width="1.2"/></pattern>
+  <pattern id="planks2" width="420" height="15" patternUnits="userSpaceOnUse"><rect width="420" height="15" fill="#c9996b"/><line x1="0" y1="14.3" x2="420" y2="14.3" stroke="#6b4a2e" stroke-width="1.4"/><line x1="180" y1="0" x2="180" y2="15" stroke="#6b4a2e" stroke-width="1.1"/></pattern>
+  <pattern id="lawnS" width="46" height="46" patternUnits="userSpaceOnUse"><g stroke="#8fbf74" stroke-width="1.6" stroke-linecap="round"><line x1="6" y1="12" x2="10" y2="6"/><line x1="10" y1="13" x2="13" y2="8"/><line x1="30" y1="30" x2="34" y2="24"/><line x1="34" y1="31" x2="37" y2="26"/><line x1="22" y1="42" x2="25" y2="37"/><line x1="40" y1="8" x2="43" y2="3"/></g></pattern>
+  <pattern id="beds2" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#b9d48e"/><circle cx="10" cy="12" r="8" fill="#93bd62"/><circle cx="38" cy="8" r="6" fill="#7faa4f"/><circle cx="28" cy="34" r="9" fill="#a3c873"/><circle cx="52" cy="40" r="7" fill="#88b35a"/><circle cx="8" cy="48" r="6" fill="#7faa4f"/><circle cx="20" cy="22" r="2.2" fill="#b58ad0"/><circle cx="46" cy="24" r="2.2" fill="#e9a0b8"/><circle cx="36" cy="52" r="2.2" fill="#b58ad0"/><circle cx="54" cy="12" r="1.8" fill="#f0d36a"/></pattern>
+  <pattern id="cobble" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#9e9c95"/><rect x="1" y="1" width="6" height="6" rx="1.5" fill="#c9c7c0"/><rect x="9" y="1" width="6" height="6" rx="1.5" fill="#bdbbb3"/><rect x="5" y="9" width="6" height="6" rx="1.5" fill="#cfcdc6"/><rect x="-3" y="9" width="6" height="6" rx="1.5" fill="#c3c1b9"/><rect x="13" y="9" width="6" height="6" rx="1.5" fill="#c3c1b9"/></pattern>
+  <pattern id="cobble2" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#8e8b84"/><rect x="1" y="1" width="10" height="10" rx="2" fill="#cbc9c1" stroke="#5a5852" stroke-width=".7"/><path d="M2.5 4 Q4 2.5 6 2.5" stroke="#efede7" stroke-width="1" fill="none"/></pattern>
+  <filter id="leaf" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G" result="s"/><feDiffuseLighting in="n" surfaceScale="2.6" diffuseConstant="1.45" lighting-color="#fff" result="l"><feDistantLight azimuth="225" elevation="52"/></feDiffuseLighting><feComposite in="l" in2="s" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/><feDropShadow dx="4" dy="5" stdDeviation="3" flood-color="#1e3010" flood-opacity=".35"/></filter>
+  <filter id="leafBed" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="3" seed="21" result="n"/><feDiffuseLighting in="n" surfaceScale="3" diffuseConstant="1.35" lighting-color="#fff" result="l"><feDistantLight azimuth="225" elevation="50"/></feDiffuseLighting><feComposite in="l" in2="SourceGraphic" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/></filter>
+  <filter id="sk" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/><feColorMatrix type="saturate" values=".68"/><feComponentTransfer><feFuncR type="linear" slope=".9" intercept=".09"/><feFuncG type="linear" slope=".9" intercept=".09"/><feFuncB type="linear" slope=".9" intercept=".09"/></feComponentTransfer></filter>
+  <pattern id="hx" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#5b4430" stroke-width=".9" stroke-opacity=".4"/></pattern>
+  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+  <pattern id="planks3" width="420" height="15" patternUnits="userSpaceOnUse"><rect width="420" height="15" fill="#dcbd92"/><path d="M0 7 Q60 5 120 8 T260 6 T420 7" stroke="#b08a5c" stroke-width=".8" fill="none" opacity=".6"/><line x1="0" y1="14.4" x2="420" y2="14.4" stroke="#5b4430" stroke-width="1.1"/><line x1="180" y1="0" x2="180" y2="15" stroke="#5b4430" stroke-width=".9"/></pattern>
+  <filter id="mk" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.006 0.05" numOctaves="3" seed="5"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.45  0 0 0 0 0.1  2.2 0 0 0 -0.75"/></filter>
+  <filter id="wob" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="wob2" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="2.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="paperTex" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2"/><feColorMatrix values="0 0 0 0 0.35  0 0 0 0 0.3  0 0 0 0 0.22  0 0 0 -1.6 1.05"/></filter>
   <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="5" dy="6" stdDeviation="4" flood-color="#2b3a1e" flood-opacity=".28"/></filter>`;
 
 function render() {
@@ -206,59 +317,102 @@ function render() {
   const polys = HS ? [corners(R.frame), corners(R.slide)] : [corners(R.frame)];
   let h = "";
 
-  // ---------- Zeichnung im Gartenplan-Stil ----------
+  // ---------- Zeichnung, Stil nach Wahl ----------
+  if (!STYLES[S.style]) S.style = "plan";
+  const ST = STYLES[S.style];
+  CUR = ST; HD = {};
+  svg.style.fontFamily = ST.font || "";
   seed = 7;
   const tY = DEPTH*100;
   const tA = P([-1.63, 0])[0], tB = P([3.82, 0])[0];
   const wX = P([4.35, 0])[0], gX = P([5.0, 0])[0], y09 = P([0, 0.9])[1];
-  const lbl = (x, y, t, o = {}) => `<text x="${x}" y="${y}" text-anchor="${o.a || "middle"}" font-size="${o.s || 18}" fill="${o.c || "#3f4a3a"}" ${o.r ? `transform="rotate(${o.r} ${x} ${y})"` : ""} style="paint-order:stroke;stroke:${o.halo || "#fbfaf5"};stroke-width:5px;stroke-linejoin:round">${t}</text>`;
+  const INK = c => ST.ink || c;
+  let labels = "";
+  const lbl = (x, y, t, o = {}) => { labels += `<text x="${x}" y="${y}" text-anchor="${o.a || "middle"}" font-size="${(o.s || 18) * (ST.font ? 1.2 : 1)}" fill="${ST.font ? ST.label : (o.c || "#3f4a3a")}" ${o.r ? `transform="rotate(${o.r} ${x} ${y})"` : ""} style="paint-order:stroke;stroke:${ST.font ? ST.halo : (o.halo || "#fbfaf5")};stroke-width:5px;stroke-linejoin:round">${t}</text>`; return ""; };
 
+  // Papier
+  let scene = `<rect x="${x0-M}" y="${y0-M}" width="${x1-x0+M}" height="${y1-y0+M}" fill="${ST.paper}"/>`;
+  if (ST.grid) scene += `<rect x="${x0-M}" y="${y0-M}" width="${x1-x0+M}" height="${y1-y0+M}" fill="url(#pg)"/>`;
+
+  let sc = "";
   // Beete als Grund, darauf Haus, Terrasse, Kies, Garage
-  h += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="url(#mulch)"/>`;
-  h += `<rect x="${tB}" y="${y09}" width="${x1-tB}" height="${y1-y09}" fill="#bfe08f"/>`;        // Rasen geht unten rechts weiter
-  h += `<rect x="${tA}" y="${tY}" width="${tB-tA}" height="${y1-tY}" fill="url(#planks)" stroke="#4e3322" stroke-width="2"/>`;
-  h += lbl((tA+tB)/2, tY+58, "Terrasse", {s: 22, c: "#fff", halo: "#5e3b25"});
-  h += `<rect x="${x0-10}" y="${tY}" width="${tA-x0+10}" height="${y1-tY+10}" fill="#eceae4" stroke="#3d3d3b" stroke-width="7"/>`;
-  h += lbl((x0+tA)/2, tY+58, "Haus", {s: 20, c: "#55534d"});
-  h += `<rect x="${wX}" y="${y0}" width="${gX-wX}" height="${y09-y0}" fill="url(#gravel)"/>`;
-  h += `<rect x="${gX}" y="${y0-10}" width="${x1-gX+10}" height="${y09-y0-40}" fill="#eceae4" stroke="#3d3d3b" stroke-width="7"/>`;
-  h += lbl((gX+x1)/2+5, P([0,3])[1], "Garage", {s: 20, c: "#55534d", r: 90});
+  if (ST.rich) sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="#a3cc6c" filter="url(#leafBed)"/>`;
+  else sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="${F(ST.bed)}"/>`;
+  if (ST.rich) {   // Stauden im Beet
+    const PC = ["#8cbc58", "#a8cf6a", "#6f9e48", "#bfd97f", "#7fa95c"], PF = ["#a77bc9", "#e9a0bd", "#f4d35e", "#ffffff", null, null, null];
+    let n = 0;
+    for (let t = 0; t < 900 && n < 120; t++) {
+      const x = x0 + rnd()*(x1 - x0), y = y0 + rnd()*(y1 - y0);
+      if (inside([x, y], lawn) || (y > tY - 8) || (x > wX - 6 && y < y09 + 6) || (x > tB && y > y09)) continue;
+      sc += richShrub(x, y, 9 + rnd()*8, PC[Math.floor(rnd()*5)], PF[Math.floor(rnd()*7)]); n++;
+    }
+  }
+  sc += `<rect x="${tB}" y="${y09}" width="${x1-tB}" height="${y1-y09}" fill="${F(ST.lawn)}"/>`;        // Rasen geht unten rechts weiter
+  sc += `<rect x="${tA}" y="${tY}" width="${tB-tA}" height="${y1-tY}" fill="${F(ST.deck)}" stroke="${INK("#4e3322")}" stroke-width="2"/>`;
+  if (ST.hatch || ST.font) for (let y = tY + 15; y < y1; y += 15) sc += `<line x1="${tA}" y1="${y}" x2="${tB}" y2="${y}" stroke="${INK("#4e3322")}" stroke-width="1" stroke-opacity=".6"/>`;
+  lbl((tA+tB)/2, tY+58, "Terrasse", {s: 22, c: "#fff", halo: "#5e3b25"});
+  sc += `<rect x="${x0-10}" y="${tY}" width="${tA-x0+10}" height="${y1-tY+10}" fill="${F(ST.house)}" stroke="${INK(ST.wall)}" stroke-width="${ST.wallW}"/>`;
+  lbl((x0+tA)/2, tY+58, "Haus", {s: 20, c: "#55534d"});
+  sc += `<rect x="${wX}" y="${y0}" width="${gX-wX}" height="${y09-y0}" fill="${F(ST.gravel)}"/>`;
+  sc += `<rect x="${gX}" y="${y0-10}" width="${x1-gX+10}" height="${y09-y0-40}" fill="${F(ST.house)}" stroke="${INK(ST.wall)}" stroke-width="${ST.wallW}"/>`;
+  lbl((gX+x1)/2+5, P([0,3])[1], "Garage", {s: 20, c: "#55534d", r: 90});
 
   // Rasen
-  h += `<clipPath id="lc"><polygon points="${pts(lawn)}"/></clipPath>`;
-  h += `<polygon points="${pts(lawn)}" fill="#bfe08f"/>`;
-  h += `<g clip-path="url(#lc)"><rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" filter="url(#grain)" opacity=".9"/>`;
-  for (let x = Math.ceil(x0/100)*100; x < x1; x += 100) h += `<line x1="${x}" y1="${y0}" x2="${x}" y2="${y1}" stroke="#fff" stroke-opacity=".45" stroke-width="1.5"/>`;
-  for (let y = tY; y > y0; y -= 100) h += `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="#fff" stroke-opacity=".45" stroke-width="1.5"/>`;
-  h += `<polygon points="${pts(lawn)}" fill="none" stroke="#9cc56c" stroke-width="18"/></g>`;
-  // Pflasterkante
-  secs.forEach(([n, l]) => { if (n && n !== "Terrasse") h += `<polyline points="${pts(l)}" fill="none" stroke="#b9ae9a" stroke-width="10" stroke-linejoin="round"/><polyline points="${pts(l)}" fill="none" stroke="#efe9dc" stroke-width="6" stroke-dasharray="11 2" stroke-linejoin="round"/>`; });
+  sc += `<clipPath id="lc"><polygon points="${pts(lawn)}"/></clipPath><clipPath id="lc2"><rect x="${tB}" y="${y09}" width="${x1-tB}" height="${y1-y09}"/></clipPath>`;
+  sc += `<polygon points="${pts(lawn)}" fill="${F(ST.lawn)}"/>`;
+  if (ST.rich) sc += `<g clip-path="url(#lc2)">${markerLawn(tB, y09, x1, y1)}</g>`;
+  sc += `<g clip-path="url(#lc)">`;
+  if (ST.lawnTex === "grain") sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" filter="url(#grain)" opacity=".9"/>`;
+  if (ST.rich) { const bb = lawn.reduce((b, p) => [Math.min(b[0], p[0]), Math.min(b[1], p[1]), Math.max(b[2], p[0]), Math.max(b[3], p[1])], [1e9, 1e9, -1e9, -1e9]); sc += markerLawn(bb[0] - 60, bb[1] - 30, bb[2], bb[3]); }
+  else if (ST.lawnTex === "marker") sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" filter="url(#mk)" opacity=".8"/>`;
+  if (ST.lawnTex === "strokes") sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="url(#lawnS)"/>`;
+  if (ST.lawnGrid) {
+    for (let x = Math.ceil(x0/100)*100; x < x1; x += 100) sc += `<line x1="${x}" y1="${y0}" x2="${x}" y2="${y1}" stroke="${ST.lawnGrid}" stroke-opacity=".45" stroke-width="1.5"/>`;
+    for (let y = tY; y > y0; y -= 100) sc += `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="${ST.lawnGrid}" stroke-opacity=".45" stroke-width="1.5"/>`;
+  }
+  if (ST.rim) sc += `<polygon points="${pts(lawn)}" fill="none" stroke="${ST.rim}" stroke-width="18"/>`;
+  sc += `</g>`;
+  // Rasenkante
+  secs.forEach(([n, l]) => {
+    if (!n || n === "Terrasse") return;
+    if (ST.edge === "stone") sc += `<polyline points="${pts(l)}" fill="none" stroke="#b9ae9a" stroke-width="10" stroke-linejoin="round"/><polyline points="${pts(l)}" fill="none" stroke="#efe9dc" stroke-width="6" stroke-dasharray="11 2" stroke-linejoin="round"/>`;
+    else if (ST.rich) sc += stones(l);
+    else if (ST.edge === "band") sc += `<polyline points="${pts(l)}" fill="none" stroke="${ST.ink}" stroke-width="13" stroke-linejoin="round"/><polyline points="${pts(l)}" fill="none" stroke="#cfccc3" stroke-width="10" stroke-linejoin="round"/><polyline points="${pts(l)}" fill="none" stroke="#9f9c93" stroke-width="10" stroke-dasharray="1.5 7" stroke-linejoin="round"/>`;
+    else sc += `<polyline points="${pts(l)}" fill="none" stroke="${ST.ink}" stroke-width="${ST.sw*1.5}" stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
 
   // Bepflanzung (nur Deko, außerhalb des Rasens)
   const G = [["#7fae5a","#4f7a34","#a5cc7c"],["#5f9447","#3c6629","#88b86a"],["#9cbf62","#6b8c3a","#c2dc8e"],["#4f8a5b","#2f5c3a","#7bb187"]];
   const FL = ["#f2c94c", "#e88fb0", "#e26a4a", null, null];
   for (let x = x0 + 50; x < wX - 20; x += 62 + rnd()*20) {
-    const g = G[Math.floor(rnd()*4)]; h += shrub(x, y0 + 38 + rnd()*14, 26 + rnd()*12, g, FL[Math.floor(rnd()*5)]);
+    const g = G[Math.floor(rnd()*4)], cy = y0 + 38 + rnd()*14, r = 26 + rnd()*12, fl = FL[Math.floor(rnd()*5)];
+    sc += ST.rich ? richShrub(x, cy, r, g[0], fl) : shrub(x, cy, r, g, fl);
   }
   for (let y = y0 + 120; y < P([0,1.9])[1]; y += 60 + rnd()*18) {
-    const g = G[Math.floor(rnd()*4)]; h += shrub(x0 + 42 + rnd()*10, y, 24 + rnd()*10, g, FL[Math.floor(rnd()*5)]);
+    const g = G[Math.floor(rnd()*4)], cx = x0 + 42 + rnd()*10, r = 24 + rnd()*10, fl = FL[Math.floor(rnd()*5)];
+    sc += ST.rich ? richShrub(cx, y, r, g[0], fl) : shrub(cx, y, r, g, fl);
   }
-  [[-2.7, 0.75], [-2.2, 0.45]].forEach(p => { const q = P(p); h += shrub(q[0], q[1], 24, G[1], null); });
-  const lb = P([-1.3, 0.35]); h += shrub(lb[0], lb[1], 30, G[2], null);
-  [[0.95, 0.25], [1.5, 0.55], [2.25, 0.4], [2.35, 0.8]].forEach(p => { const q = P(p); h += tuft(q[0], q[1], 16); });
-  [[4.7, 1.3], [4.65, 2.3]].forEach(p => { const q = P(p); h += shrub(q[0], q[1], 20, G[3], null); });
+  const SH = (x, y, r, g, f) => ST.rich ? richShrub(x, y, r, g[0], f) : shrub(x, y, r, g, f);
+  [[-2.7, 0.75], [-2.2, 0.45]].forEach(p => { const q = P(p); sc += SH(q[0], q[1], 24, G[1], null); });
+  const lb = P([-1.3, 0.35]); sc += SH(lb[0], lb[1], 30, G[2], null);
+  [[0.95, 0.25], [1.5, 0.55], [2.25, 0.4], [2.35, 0.8]].forEach(p => { const q = P(p); sc += tuft(q[0], q[1], 16); });
+  [[4.7, 1.3], [4.65, 2.3]].forEach(p => { const q = P(p); sc += SH(q[0], q[1], 20, G[3], null); });
   const tr = P(TREE);
-  h += `<g opacity=".88">${shrub(tr[0], tr[1], 58, G[0], null, true)}</g>`;
-  h += lbl(tr[0], tr[1] + 82, "Baum", {s: 16});
-  h += lbl(P([0.5, 0])[0], y0 + 92, "Beet zur Straße", {s: 18});
-  h += lbl(x0 + 88, P([0, 3.1])[1], "Beet", {s: 18, r: -90});
-  const open = P([4.3, 0.45]); h += lbl(open[0], open[1] + 6, "Rasen geht weiter", {s: 15, a: "start"});
+  sc += ST.rich ? richTree(tr[0], tr[1], 64, "#8cbc55") : `<g opacity=".88">${shrub(tr[0], tr[1], 58, G[0], null, true)}</g>`;
+  lbl(tr[0], tr[1] + 82, "Baum", {s: 16});
+  lbl(P([0.5, 0])[0], y0 + 92, "Beet zur Straße", {s: 18});
+  lbl(x0 + 88, P([0, 3.1])[1], "Beet", {s: 18, r: -90});
+  const open = P([4.3, 0.45]); lbl(open[0], open[1] + 6, "Rasen geht weiter", {s: 15, a: "start"});
   const r1 = P(RED[0]), r2 = P(RED[1]);
-  h += `<line x1="${r1[0]}" y1="${r1[1]}" x2="${r2[0]}" y2="${r2[1]}" stroke="#e0461a" stroke-opacity=".35" stroke-width="20" stroke-linecap="round"/>`;
+  sc += `<line x1="${r1[0]}" y1="${r1[1]}" x2="${r2[0]}" y2="${r2[1]}" stroke="#e0461a" stroke-opacity=".35" stroke-width="20" stroke-linecap="round"/>`;
+  const FX = ST.filter ? ` filter="url(#${ST.filter})"` : "";
+  scene += `<g${FX}>${sc}</g>` + labels;
+  labels = "";
+  if (ST.tex) scene += `<rect x="${x0-M}" y="${y0-M}" width="${x1-x0+M}" height="${y1-y0+M}" filter="url(#paperTex)" pointer-events="none"/>`;
 
   // Sicherheitszone
   if (S.zone > 0) {
-    h += `<g opacity=".22" pointer-events="none">`;
+    h += `<g opacity="${ST.rich ? .13 : .22}" pointer-events="none">`;
     polys.forEach(p => h += `<polygon points="${pts(p)}" fill="#e8833a" stroke="#e8833a" stroke-width="${2*S.zone}" stroke-linejoin="round"/>`);
     h += `</g>`;
   }
@@ -268,24 +422,62 @@ function render() {
   const sl = R.slide, tw = R.tower;
   h += `<g data-drag="rig" style="cursor:move">`;
   h += `<polygon points="${Wp(R.frame)}" fill="#fff" fill-opacity="0"/>`;
-  h += `<g filter="url(#sh)">`;
+  if (ST.rich) {
+    // Skizzenstil: Bodenschatten, helles Holz, Tuschelinien mit Überstand, Schraffur
+    const ink = "#3b3127";
+    const skl = (ax, ay, bx, by, w = 1.1, op = .85, ov = 6) => {
+      const dx = bx - ax, dy = by - ay, l = Math.hypot(dx, dy) || 1, ux = dx/l, uy = dy/l;
+      const p = toWorld(ax - ux*ov, ay - uy*ov), q = toWorld(bx + ux*ov, by + uy*ov);
+      return `<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="${ink}" stroke-width="${w}" stroke-opacity="${op}" stroke-linecap="round"/>`;
+    };
+    const skR = ([x, y, w, hh], wd = 1.1, ov = 6) => skl(x, y, x+w, y, wd, .85, ov) + skl(x, y+hh, x+w, y+hh, wd, .85, ov) + skl(x, y, x, y+hh, wd, .85, ov) + skl(x+w, y, x+w, y+hh, wd, .85, ov);
+    let g = "";
+    const sh = poly => `<polygon points="${pts(corners(poly).map(p => [p[0] + 10, p[1] + 13]))}" fill="#2c3a1a" fill-opacity=".22"/>`;
+    g += `<g filter="url(#soft)">${sh(R.frame)}${HS ? sh(sl) : ""}</g>`;
+    if (HS) {
+      g += `<polygon points="${Wp(sl)}" fill="#cfd3d6"/>`;
+      g += `<polygon points="${Wp([sl[0]+9, sl[1] + (S.flip > 0 ? 6 : 0), sl[2]-18, sl[3]-6])}" fill="#e9ecee"/>`;
+      for (let x = sl[0] + 3; x < sl[0] + 9; x += 2.5) g += skl(x, sl[1] + 4, x, sl[1] + sl[3] - 4, .6, .35, 0);
+      g += skR(sl) + skl(sl[0]+9, sl[1] + (S.flip > 0 ? 6 : 0), sl[0]+9, sl[1] + sl[3] - (S.flip > 0 ? 0 : 6), .7, .6, 2) + skl(sl[0]+sl[2]-9, sl[1] + (S.flip > 0 ? 6 : 0), sl[0]+sl[2]-9, sl[1] + sl[3] - (S.flip > 0 ? 0 : 6), .7, .6, 2);
+    }
+    g += `<polygon points="${Wp(tw)}" fill="#efd8ae"/>`;
+    for (let x = tw[0] + 12; x < tw[0] + T; x += 12) g += skl(x, -T/2, x, T/2, .7, .45, 0);
+    g += `<polygon points="${Wp([tw[0], 0, T, T/2])}" fill="url(#hx)"/>`;
+    g += skR(tw, 1.3, 7);
+    const rx0 = S.end > 0 ? -L/2 + 18 : -L/2 + T + 18, rx1 = S.end > 0 ? L/2 - T - 12 : L/2 - 18;
+    for (let x = rx0; x <= rx1; x += 30) { const p = toWorld(x, -T/2+9), q = toWorld(x, T/2-9); g += `<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="#7b766d" stroke-width="3" stroke-linecap="round"/>` + skl(x - 1.6, -T/2 + 9, x - 1.6, T/2 - 9, .5, .5, 0); }
+    [[-T/2, 10], [T/2 - 10, 10]].forEach(([y, w]) => {
+      g += `<polygon points="${Wp([-L/2, y, L, w])}" fill="#e7cb9b"/>`;
+      g += skl(-L/2 + 4, y + 5, L/2 - 4, y + 5, .6, .4, 0) + skR([-L/2, y, L, w], 1.1, 8);
+    });
+    const ix = S.end > 0 ? tw[0] : tw[0] + T - 10;
+    [-L/2, L/2 - 10, ix].forEach(x => [-T/2, T/2 - 10].forEach(y => g += `<polygon points="${Wp([x, y, 10, 10])}" fill="#c99c66"/>` + skR([x, y, 10, 10], .9, 2)));
+    g += skl(R.swingX - 16, -T/2 + 9, R.swingX - 16, -7, .7, .7, 0) + skl(R.swingX + 16, -T/2 + 9, R.swingX + 16, -7, .7, .7, 0);
+    g += skl(R.swingX - 16, 7, R.swingX - 16, T/2 - 9, .7, .7, 0) + skl(R.swingX + 16, 7, R.swingX + 16, T/2 - 9, .7, .7, 0);
+    g += `<polygon points="${Wp([R.swingX-22, -7, 44, 14])}" fill="#d9776a"/>` + skR([R.swingX-22, -7, 44, 14], 1, 3);
+    h += `<g${FX}>${g}</g>`;
+  } else {
+  h += `<g${FX}><g${ST.shadow ? ' filter="url(#sh)"' : ""}>`;
   if (HS) {
-    h += `<polygon points="${Wp(sl)}" fill="#7d8187" stroke="#4f5257" stroke-width="2.5" stroke-linejoin="round"/>`;
-    h += `<polygon points="${Wp([sl[0]+9, sl[1] + (S.flip > 0 ? 6 : 0), sl[2]-18, sl[3]-6])}" fill="#a3a7ad"/>`;
+    h += `<polygon points="${Wp(sl)}" fill="${F("#7d8187")}" stroke="${INK("#4f5257")}" stroke-width="2.5" stroke-linejoin="round"/>`;
+    h += `<polygon points="${Wp([sl[0]+9, sl[1] + (S.flip > 0 ? 6 : 0), sl[2]-18, sl[3]-6])}" fill="${F("#a3a7ad")}"/>`;
   }
-  h += `<polygon points="${Wp(tw)}" fill="#e2bd86" stroke="#8a6337" stroke-width="3"/>`;
-  for (let x = tw[0] + 12; x < tw[0] + T; x += 12) { const a = toWorld(x, -T/2), b = toWorld(x, T/2); h += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#a87c45" stroke-width="1.5"/>`; }
+  h += `<polygon points="${Wp(tw)}" fill="${F("#e2bd86")}" stroke="${INK("#8a6337")}" stroke-width="3"/>`;
+  for (let x = tw[0] + 12; x < tw[0] + T; x += 12) { const a = toWorld(x, -T/2), b = toWorld(x, T/2); h += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${INK("#a87c45")}" stroke-opacity="${ST.ink ? .5 : 1}" stroke-width="1.5"/>`; }
   const rx0 = S.end > 0 ? -L/2 + 18 : -L/2 + T + 18, rx1 = S.end > 0 ? L/2 - T - 12 : L/2 - 18;
-  for (let x = rx0; x <= rx1; x += 30) { const a = toWorld(x, -T/2+9), b = toWorld(x, T/2-9); h += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#4f5257" stroke-width="4" stroke-linecap="round"/>`; }
-  h += `<polygon points="${Wp([-L/2, -T/2, L, 10])}" fill="#d9b27a" stroke="#8a6337" stroke-width="2"/>`;
-  h += `<polygon points="${Wp([-L/2, T/2-10, L, 10])}" fill="#d9b27a" stroke="#8a6337" stroke-width="2"/>`;
+  for (let x = rx0; x <= rx1; x += 30) { const a = toWorld(x, -T/2+9), b = toWorld(x, T/2-9); h += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${INK("#4f5257")}" stroke-width="4" stroke-linecap="round"/>`; }
+  h += `<polygon points="${Wp([-L/2, -T/2, L, 10])}" fill="${F("#d9b27a")}" stroke="${INK("#8a6337")}" stroke-width="2"/>`;
+  h += `<polygon points="${Wp([-L/2, T/2-10, L, 10])}" fill="${F("#d9b27a")}" stroke="${INK("#8a6337")}" stroke-width="2"/>`;
   const ix = S.end > 0 ? tw[0] : tw[0] + T - 10;
-  [-L/2, L/2 - 10, ix].forEach(x => [-T/2, T/2 - 10].forEach(y => h += `<polygon points="${Wp([x, y, 10, 10])}" fill="#b8894f" stroke="#6e4d24" stroke-width="2"/>`));
-  h += `<polygon points="${Wp([R.swingX-22, -7, 44, 14])}" fill="#c0392b" stroke="#7d2219" stroke-width="2"/>`;
-  h += `</g>`;
+  [-L/2, L/2 - 10, ix].forEach(x => [-T/2, T/2 - 10].forEach(y => h += `<polygon points="${Wp([x, y, 10, 10])}" fill="${F("#b8894f")}" stroke="${INK("#6e4d24")}" stroke-width="2"/>`));
+  h += `<polygon points="${Wp([R.swingX-22, -7, 44, 14])}" fill="${F("#c0392b")}" stroke="${INK("#7d2219")}" stroke-width="2"/>`;
+  h += `</g></g>`;
+  }
   const tc = toWorld(tw[0] + T/2, 0);
-  h += lbl(tc[0], tc[1] + 6, "Turm", {s: 16, c: "#5a3d1c", halo: "#e2bd86"});
+  lbl(tc[0], tc[1] + 6, "Turm", {s: 16, c: "#5a3d1c", halo: "#e2bd86"});
+  h += labels;
   h += `</g>`;
+  h += ST.filter ? `<g filter="url(#wob2)">` : `<g>`;
 
   // ---------- Maßlinien ----------
   const DK = "#2b2b2b";
@@ -356,6 +548,7 @@ function render() {
     }
   }
 
+  h += `</g>`;
   // Gerüst ↔ Randabschnitte (Pfeil nur, wenn zu nah)
   const groups = {};
   secs.forEach(([n, l]) => { if (n) (groups[n] = groups[n] || []).push(l); });
@@ -372,7 +565,10 @@ function render() {
   out.push(["Baumstamm", polys.some(p => inside(tr, p)) ? 0 : dT]);
 
   const mk = (id, c) => `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="${c}"/></marker>`;
-  svg.innerHTML = `<defs>${PATTERNS}${mk("md","#2b2b2b")}${mk("mb","#1f4e9c")}${mk("mr","#c62828")}${mk("ms","#b8401f")}</defs>` + h;
+  const defs = `${PATTERNS}${Object.values(HD).join("")}${ST.grid ? `<pattern id="pg" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="${ST.grid}" stroke-width="1.2"/></pattern>` : ""}${mk("md","#2b2b2b")}${mk("mb","#1f4e9c")}${mk("mr","#c62828")}${mk("ms","#b8401f")}`;
+  const key = S.style + "|" + defs.length + "|" + scene;
+  if (svg._key !== key) { svg.innerHTML = `<defs>${defs}</defs><g id="sceneL">${scene}</g><g id="dynL"></g>`; svg._key = key; }
+  svg.querySelector("#dynL").innerHTML = h;
   $("swing").innerHTML = swingOut.map(([n, d, bad]) =>
     `<li><span>${n}</span><b class="${bad ? "bad" : "ok"}">${d <= 0 ? "kein Platz" : fmt(d)}</b></li>`).join("");
 
@@ -388,10 +584,13 @@ function syncInputs() {
   $("tagB").className = S.B ? "tag ok" : "tag";
   $("tagB").textContent = S.B ? "gemessen" : "aus Foto";
   $("rot").value = S.rot; $("zone").value = S.zone; $("slide").checked = S.slide !== false;
+  document.querySelectorAll("#styles button").forEach(b => b.classList.toggle("on", b.dataset.s === (S.style || "plan")));
 }
 $("B").oninput = e => { const v = +e.target.value; if (v >= 4) { const f = v / (S.B || PHOTO_B); S.cx *= f; S.B = v; syncInputs(); render(); } };
 $("rot").oninput = e => { S.rot = +e.target.value; render(); };
 $("zone").oninput = e => { S.zone = +e.target.value; render(); };
+$("styles").innerHTML = Object.entries(STYLES).map(([k, v]) => `<button data-s="${k}">${v.name}</button>`).join("");
+$("styles").onclick = ev => { const b = ev.target.closest("button"); if (b) { S.style = b.dataset.s; syncInputs(); render(); } };
 $("slide").onchange = e => { S.slide = e.target.checked; render(); };
 $("flip").onclick = () => { S.flip *= -1; render(); };
 $("end").onclick = () => { S.end *= -1; render(); };

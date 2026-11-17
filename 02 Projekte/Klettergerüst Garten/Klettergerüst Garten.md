@@ -50,6 +50,16 @@ Tipps: Passt die Größe nicht, nachschieben: „Das Gerüst ist zu groß, es so
 
 ## Offen
 
+**Messliste für den Planer (18.11.2026):**
+
+1. Breite an der breitesten Stelle, parallel zur Terrasse: Beetkante links bis Randsteine rechts
+2. Tiefe noch zweimal, Terrasse bis Beetkante: einmal ganz links, einmal direkt an den Randsteinen rechts
+3. Baum: Stamm bis Terrassenkante und Stamm bis Randsteine rechts
+4. Baumbeet: wie weit ragt es von der Terrasse in den Rasen (tiefster Punkt)
+5. Randsteine rechts bis Garagenwand
+6. Foto wie IMG_8629 vom Obergeschoss, mit zwei ausgelegten Zollstöcken (2 m längs, 2 m quer) als Maßstab
+7. Optional: Wunschplatz mit 4 Stäben abstecken (Gerüstecken 3,03 × 0,84 m) und von oben fotografieren
+
 - Rasenbreite an der breitesten Stelle messen (Beetkante links bis Randsteine rechts) und in den Planer eintragen
 - Turmseite und Rutschenrichtung festlegen
 - Sicherheitsabstand: Wickey nennt keine Zahl, vor dem Kauf klären (Montageanleitung oder Nachfrage bei Wickey)
