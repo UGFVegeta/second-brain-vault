@@ -55,15 +55,22 @@ svg{width:100%;height:auto;display:block;touch-action:none;user-select:none}
       <button id="flip">Rutsche andere Seite</button>
       <button id="end">Turm ans andere Ende</button>
     </div>
+    <label style="justify-content:flex-start;margin-top:10px"><input id="slide" type="checkbox"> mit Rutsche</label>
     <label style="margin-top:12px">Sicherheitsabstand <span id="zoneV"></span></label>
     <input id="zone" type="range" min="0" max="250" step="10">
     <p class="note">Wickey nennt keinen Zahlenwert, nur „Abstände zu Wänden, Bäumen, Zäunen beachten“. Der Wert ist eine Annahme zum Ausprobieren.</p>
   </div>
 
   <div class="card">
-    <h2>Abstände Gerüst (inkl. Rutsche)</h2>
+    <h2>Schaukel und Rutsche: Platz bis zum Rand</h2>
+    <ul class="dist" id="swing"></ul>
+    <p class="note">Schwung = ab Mitte Schaukelsitz in Schwungrichtung. Seite = ab Gerüstende. Rutschenende = ab Rutschenspitze in Rutschrichtung.</p>
+  </div>
+
+  <div class="card">
+    <h2>Gerüst zum Rand</h2>
     <ul class="dist" id="dist"></ul>
-    <p class="note">Rot = kleiner als der Sicherheitsabstand.</p>
+    <p class="note">Rot = Platz neben dem Gerüst kleiner als der Sicherheitsabstand. Im Plan zeigt das die orange Fläche.</p>
     <div class="row" style="margin-top:10px"><button id="reset">Zurücksetzen</button></div>
   </div>
 </aside>
@@ -95,7 +102,7 @@ const PHOTO_B = 4.35 - (-3.46);   // Breite aus Foto an der breitesten Stelle
 const TREE = [1.95, 0.97], RED = [[1.32,4.16],[3.62,1.40]];
 const DEPTH = 5.8;
 
-const DEF = {B: null, cx: 247, cy: 302, rot: 50, flip: 1, end: -1, zone: 150};
+const DEF = {B: null, cx: 247, cy: 302, rot: 50, flip: 1, end: -1, zone: 150, slide: true};
 let S;
 try { S = JSON.parse(localStorage.getItem("kletter662v2")) || null; } catch (e) { S = null; }
 if (!S) S = {...DEF};
@@ -193,8 +200,10 @@ function render() {
   const xs = lawn.map(p => p[0]), PAD = 100;
   const x0 = Math.min(...xs) - PAD, x1 = Math.max(...xs) + PAD;
   const y0 = -PAD + 10, y1 = DEPTH*100 + PAD;
-  svg.setAttribute("viewBox", `${x0} ${y0} ${x1-x0} ${y1-y0}`);
-  const polys = [corners(R.frame), corners(R.slide)];
+  const M = 90;   // Rand für Maßlinien oben und links
+  svg.setAttribute("viewBox", `${x0-M} ${y0-M} ${x1-x0+M} ${y1-y0+M}`);
+  const HS = S.slide !== false;
+  const polys = HS ? [corners(R.frame), corners(R.slide)] : [corners(R.frame)];
   let h = "";
 
   // ---------- Zeichnung im Gartenplan-Stil ----------
@@ -260,8 +269,10 @@ function render() {
   h += `<g data-drag="rig" style="cursor:move">`;
   h += `<polygon points="${Wp(R.frame)}" fill="#fff" fill-opacity="0"/>`;
   h += `<g filter="url(#sh)">`;
-  h += `<polygon points="${Wp(sl)}" fill="#7d8187" stroke="#4f5257" stroke-width="2.5" stroke-linejoin="round"/>`;
-  h += `<polygon points="${Wp([sl[0]+9, sl[1] + (S.flip > 0 ? 6 : 0), sl[2]-18, sl[3]-6])}" fill="#a3a7ad"/>`;
+  if (HS) {
+    h += `<polygon points="${Wp(sl)}" fill="#7d8187" stroke="#4f5257" stroke-width="2.5" stroke-linejoin="round"/>`;
+    h += `<polygon points="${Wp([sl[0]+9, sl[1] + (S.flip > 0 ? 6 : 0), sl[2]-18, sl[3]-6])}" fill="#a3a7ad"/>`;
+  }
   h += `<polygon points="${Wp(tw)}" fill="#e2bd86" stroke="#8a6337" stroke-width="3"/>`;
   for (let x = tw[0] + 12; x < tw[0] + T; x += 12) { const a = toWorld(x, -T/2), b = toWorld(x, T/2); h += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#a87c45" stroke-width="1.5"/>`; }
   const rx0 = S.end > 0 ? -L/2 + 18 : -L/2 + T + 18, rx1 = S.end > 0 ? L/2 - T - 12 : L/2 - 18;
@@ -272,13 +283,80 @@ function render() {
   [-L/2, L/2 - 10, ix].forEach(x => [-T/2, T/2 - 10].forEach(y => h += `<polygon points="${Wp([x, y, 10, 10])}" fill="#b8894f" stroke="#6e4d24" stroke-width="2"/>`));
   h += `<polygon points="${Wp([R.swingX-22, -7, 44, 14])}" fill="#c0392b" stroke="#7d2219" stroke-width="2"/>`;
   h += `</g>`;
-  const a1 = toWorld(R.swingX, -100), a2 = toWorld(R.swingX, 100);
-  h += `<line x1="${a1[0]}" y1="${a1[1]}" x2="${a2[0]}" y2="${a2[1]}" stroke="#333" stroke-width="2.5" stroke-dasharray="8 6" marker-start="url(#ah)" marker-end="url(#ah)" pointer-events="none"/>`;
   const tc = toWorld(tw[0] + T/2, 0);
   h += lbl(tc[0], tc[1] + 6, "Turm", {s: 16, c: "#5a3d1c", halo: "#e2bd86"});
   h += `</g>`;
 
-  // Abstände je Randabschnitt (gleichnamige zusammengefasst)
+  // ---------- Maßlinien ----------
+  const DK = "#2b2b2b";
+  function dim(p, q, n, off, text) {
+    const a = [p[0]+n[0]*off, p[1]+n[1]*off], b = [q[0]+n[0]*off, q[1]+n[1]*off];
+    let s = `<g pointer-events="none">`;
+    [[p, a], [q, b]].forEach(([u, v]) => s += `<line x1="${u[0]+n[0]*6}" y1="${u[1]+n[1]*6}" x2="${v[0]+n[0]*10}" y2="${v[1]+n[1]*10}" stroke="${DK}" stroke-width="1.3"/>`);
+    s += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${DK}" stroke-width="2" marker-start="url(#md)" marker-end="url(#md)"/>`;
+    let ang = Math.atan2(b[1]-a[1], b[0]-a[0]) * 180 / Math.PI;
+    if (ang > 90) ang -= 180; if (ang <= -90) ang += 180;
+    const mx = (a[0]+b[0])/2 + n[0]*16, my = (a[1]+b[1])/2 + n[1]*16;
+    s += `<text x="${mx}" y="${my}" dominant-baseline="middle" text-anchor="middle" font-size="19" font-weight="600" fill="${DK}" transform="rotate(${ang} ${mx} ${my})" style="paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round">${text}</text>`;
+    return s + `</g>`;
+  }
+  // Garten außen: Breite oben, Tiefe links
+  const bX0 = P([-3.46, 0])[0], bX1 = P([4.35, 0])[0];
+  h += dim([bX0, y0], [bX1, y0], [0, -1], 45, `ca. ${fmt((S.B || PHOTO_B) * 100)} breit (Rasen)`);
+  h += dim([x0, tY], [x0, P([0, 5.70])[1]], [-1, 0], 45, "5,70 m tief (gemessen)");
+  // Gerüst: Länge an der Seite ohne Rutsche, Breite inkl. Rutsche am Turmende
+  const ang = S.rot * Math.PI / 180, rv = v => [v[0]*Math.cos(ang) - v[1]*Math.sin(ang), v[0]*Math.sin(ang) + v[1]*Math.cos(ang)];
+  const f = S.flip, e = S.end;
+  h += dim(toWorld(-L/2, -f*T/2), toWorld(L/2, -f*T/2), rv([0, -f]), 32, fmt(L));
+  const slideTipX = e > 0 ? L/2 - 73 + SLIDE_W : -L/2 + 25;
+  if (!HS) h += dim(toWorld(e*L/2, -f*T/2), toWorld(e*L/2, f*T/2), rv([e, 0]), 32, fmt(T));
+  else h += dim(toWorld(e*L/2, -f*T/2), toWorld(e*L/2, f*(T/2 + SLIDE_OUT)), rv([e, 0]), 32, `${fmt(T + SLIDE_OUT)} mit Rutsche`);
+  if (HS) h += `<line x1="${toWorld(slideTipX, f*(T/2+SLIDE_OUT))[0]}" y1="${toWorld(slideTipX, f*(T/2+SLIDE_OUT))[1]}" x2="${toWorld(e*L/2, f*(T/2+SLIDE_OUT))[0]}" y2="${toWorld(e*L/2, f*(T/2+SLIDE_OUT))[1]}" stroke="${DK}" stroke-width="1.3" pointer-events="none"/>`;
+
+  // ---------- Schaukel: Strahlen bis zum Rand ----------
+  const segs = [];
+  secs.forEach(([n, l]) => { for (let i = 0; i < l.length-1; i++) segs.push([n || "Rasen geht weiter", l[i], l[i+1]]); });
+  function ray(o, d) {
+    let best = [Infinity, null, null];
+    for (const [n, c, w] of segs) {
+      const ex = w[0]-c[0], ey = w[1]-c[1], den = d[0]*ey - d[1]*ex;
+      if (Math.abs(den) < 1e-9) continue;
+      const t = ((c[0]-o[0])*ey - (c[1]-o[1])*ex) / den, u = ((c[0]-o[0])*d[1] - (c[1]-o[1])*d[0]) / den;
+      if (t > 0 && u >= 0 && u <= 1 && t < best[0]) best = [t, n, [o[0]+t*d[0], o[1]+t*d[1]]];
+    }
+    return best;
+  }
+  const seat = toWorld(R.swingX, 0), swingOut = [];
+  [["Schwung", [0, -1], T/2], ["Schwung", [0, 1], T/2],
+   ["Seite", [-1, 0], L/2 + R.swingX], ["Seite", [1, 0], L/2 - R.swingX]].forEach(([kind, dl, exit]) => {
+    const d = rv(dl), [t, n, hit] = ray(seat, d);
+    if (!hit) return;
+    const isSwing = kind === "Schwung", free = t - exit;
+    const from = isSwing ? seat : [seat[0] + d[0]*exit, seat[1] + d[1]*exit];
+    const val = isSwing ? t : free, bad = free < S.zone;
+    const towerSide = !isSwing && Math.sign(dl[0]) === e;
+    swingOut.push([`${kind}${towerSide ? " (Turm)" : ""} → ${n}`, val, bad]);
+    if (free <= 0) return;
+    const col = bad ? "#c62828" : (isSwing ? "#b8401f" : "#1f4e9c"), m = bad ? "mr" : (isSwing ? "ms" : "mb");
+    h += `<g pointer-events="none"><line x1="${from[0]}" y1="${from[1]}" x2="${hit[0]}" y2="${hit[1]}" stroke="${col}" stroke-width="${isSwing ? 3.5 : 2.5}" stroke-dasharray="${isSwing ? "none" : "9 6"}" marker-end="url(#${m})"/>`;
+    if (isSwing) h += `<circle cx="${seat[0]}" cy="${seat[1]}" r="6" fill="${col}"/>`;
+    const lp = [seat[0] + d[0]*(exit + free*0.65), seat[1] + d[1]*(exit + free*0.65)];   // hinter der Maßlinie
+    h += `<rect x="${lp[0]-38}" y="${lp[1]-14}" width="76" height="26" rx="6" fill="#fff" stroke="${col}" stroke-width="1.8"/><text x="${lp[0]}" y="${lp[1]+5}" text-anchor="middle" font-size="17" font-weight="700" fill="${col}">${fmt(val)}</text></g>`;
+  });
+
+  // Rutschenende: Abstand in Rutschrichtung bis zum Rand
+  if (HS) {
+    const tip = toWorld(R.slide[0] + SLIDE_W/2, f*(T/2 + SLIDE_OUT)), d = rv([0, f]), [t, n, hit] = ray(tip, d);
+    if (hit) {
+      const bad = t < S.zone, col = bad ? "#c62828" : "#1f4e9c";
+      swingOut.push([`Rutschenende → ${n}`, t, bad]);
+      h += `<g pointer-events="none"><line x1="${tip[0]}" y1="${tip[1]}" x2="${hit[0]}" y2="${hit[1]}" stroke="${col}" stroke-width="2.5" stroke-dasharray="9 6" marker-end="url(#${bad ? "mr" : "mb"})"/><circle cx="${tip[0]}" cy="${tip[1]}" r="5" fill="${col}"/>`;
+      const lp = [tip[0] + d[0]*t*0.5, tip[1] + d[1]*t*0.5];
+      h += `<rect x="${lp[0]-38}" y="${lp[1]-14}" width="76" height="26" rx="6" fill="#fff" stroke="${col}" stroke-width="1.8"/><text x="${lp[0]}" y="${lp[1]+5}" text-anchor="middle" font-size="17" font-weight="700" fill="${col}">${fmt(t)}</text></g>`;
+    }
+  }
+
+  // Gerüst ↔ Randabschnitte (Pfeil nur, wenn zu nah)
   const groups = {};
   secs.forEach(([n, l]) => { if (n) (groups[n] = groups[n] || []).push(l); });
   const out = [];
@@ -286,12 +364,6 @@ function render() {
     let best = [Infinity];
     for (const l of lines) { const r = polyDist(polys, l, lawn); if (r[0] < best[0]) best = r; }
     out.push([n, best[0]]);
-    if (best[0] > 0 && best[0] < 400) {
-      const [d, p, q] = best, bad = d < S.zone, col = bad ? "#c62828" : "#1f4e9c";
-      h += `<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="${col}" stroke-width="2.5" stroke-dasharray="10 7" marker-start="url(#m${bad?'r':'b'})" marker-end="url(#m${bad?'r':'b'})" pointer-events="none"/>`;
-      const mx = (p[0]+q[0])/2, my = (p[1]+q[1])/2;
-      h += `<g pointer-events="none"><rect x="${mx-36}" y="${my-14}" width="72" height="24" rx="5" fill="#fff" stroke="${col}" stroke-width="1.5"/><text x="${mx}" y="${my+4}" text-anchor="middle" font-size="16" font-weight="600" fill="${col}">${fmt(d).replace(" m","")}</text></g>`;
-    }
   }
   // Baum
   const dT = Math.max(0, Math.min(...polys.flatMap(poly => poly.map((a, i) => { const q = closestOnSeg(tr, a, poly[(i+1)%4]); return Math.hypot(q[0]-tr[0], q[1]-tr[1]); }))));
@@ -300,7 +372,9 @@ function render() {
   out.push(["Baumstamm", polys.some(p => inside(tr, p)) ? 0 : dT]);
 
   const mk = (id, c) => `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="${c}"/></marker>`;
-  svg.innerHTML = `<defs>${PATTERNS}${mk("ah","#333").replace('refX="9"','refX="5"')}${mk("mb","#1f4e9c")}${mk("mr","#c62828")}</defs>` + h;
+  svg.innerHTML = `<defs>${PATTERNS}${mk("md","#2b2b2b")}${mk("mb","#1f4e9c")}${mk("mr","#c62828")}${mk("ms","#b8401f")}</defs>` + h;
+  $("swing").innerHTML = swingOut.map(([n, d, bad]) =>
+    `<li><span>${n}</span><b class="${bad ? "bad" : "ok"}">${d <= 0 ? "kein Platz" : fmt(d)}</b></li>`).join("");
 
   $("dist").innerHTML = out.map(([n, d]) =>
     `<li><span>${n}</span><b class="${d < S.zone ? "bad" : "ok"}">${d === Infinity ? "ja" : d === 0 ? (n.endsWith("?") ? "nein, ragt raus" : "überlappt") : fmt(d)}</b></li>`).join("");
@@ -313,11 +387,12 @@ function syncInputs() {
   $("B").value = (S.B || PHOTO_B).toFixed(2);
   $("tagB").className = S.B ? "tag ok" : "tag";
   $("tagB").textContent = S.B ? "gemessen" : "aus Foto";
-  $("rot").value = S.rot; $("zone").value = S.zone;
+  $("rot").value = S.rot; $("zone").value = S.zone; $("slide").checked = S.slide !== false;
 }
 $("B").oninput = e => { const v = +e.target.value; if (v >= 4) { const f = v / (S.B || PHOTO_B); S.cx *= f; S.B = v; syncInputs(); render(); } };
 $("rot").oninput = e => { S.rot = +e.target.value; render(); };
 $("zone").oninput = e => { S.zone = +e.target.value; render(); };
+$("slide").onchange = e => { S.slide = e.target.checked; render(); };
 $("flip").onclick = () => { S.flip *= -1; render(); };
 $("end").onclick = () => { S.end *= -1; render(); };
 $("reset").onclick = () => { S = {...DEF}; syncInputs(); render(); };
