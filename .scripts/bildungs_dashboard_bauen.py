@@ -208,6 +208,10 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
     {"id": "ma7-w8s3", "titel": "Woche 8, Stunde 3 – Winkelsumme im Dreieck", "wann": "Mi 11.11., Einzelstunde", "status": "vorbereitet",
      "links": [f("Stunde", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 3 Winkelsumme im Dreieck.html"),
                f("Folien", "Mathematik/Dreiecke/03 Winkel an Geraden, Winkelsumme/Mathe 7c – Woche 8 – 3 Winkelsumme im Dreieck.pdf")]},
+], "material": []}]},
+    {"klasse": "10b", "untertitel": "Trigonometrie", "themen": [{"titel": "Trigonometrie", "stunden": [
+    {"id": "ma10-vertretung-1811", "titel": "Vertretung: Dreieck mit stumpfem Winkel (S. 16 Nr. 3 c, Übungen S. 16/17)", "wann": "Mi 18.11., Vertretung", "status": "vorbereitet",
+     "links": [f("Lösung mit Schritten", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel – Lösung mit Schritten.pdf"), f("Ablauf", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel – Ablauf für die Vertretung.pdf")]},
 ], "material": []}]}]
 
 CSS = """

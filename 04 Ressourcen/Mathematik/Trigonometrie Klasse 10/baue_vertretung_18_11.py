@@ -1,6 +1,7 @@
 """Vertretungsstunde Mathe 10b, Mi 18.11.2026 (45 min): Schnittpunkt 10, S. 16/17, Berechnungen am allgemeinen Dreieck.
 Kern: S. 16 Nr. 3 c rechts (stumpfer Winkel, Höhe außerhalb) gemeinsam, danach Übungen ○ ◐ ● und Zusatz.
-Baut drei PDFs: Schülerblatt, Lösungsblatt mit Schritten (für die Vertretung), Ablaufnotiz.
+Baut zwei PDFs: Lösung mit Schritten (für die Vertretung) und Ablaufnotiz. Kein Schülerblatt: Aufgaben aus dem Buch, die Klasse schreibt alles selbst ins Heft (Oskar 17.11.).
+Die Funktion schuelerblatt() bleibt nur als Reserve, wird nicht mehr gebaut.
 Werte mit Asserts gegen die Buchlösung geprüft. Rechenweg wie in baue_loesung_s15_s16.py: nur sin, cos, Pythagoras.
 Ausführen: /Library/Frameworks/Python.framework/Versions/3.12/bin/python3 baue_vertretung_18_11.py
 """
@@ -18,6 +19,8 @@ TITEL = "Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel"
 N_SCH = f"{TITEL} – Schülerblatt"
 N_LOE = f"{TITEL} – Lösung mit Schritten"
 N_ABL = f"{TITEL} – Ablauf für die Vertretung"
+N_SCHL = f"{TITEL} – Schülerblatt Lösung"
+LOES = {}
 SUB = lambda t: f"<tspan font-size='2' dy='0.8'>{t}</tspan>"
 
 # ---------------------------------------------------------------- Rechnung
@@ -32,7 +35,7 @@ hc = r2(8.2 * S(47)); c2 = r2(8.2 * C(47)); c1 = r2(8.5 - c2); b = r2(math.sqrt(
 q = round(hc / b, 4); al = r1(aS(q))
 assert (hc, c2, c1) == (6.0, 5.59, 2.91) and r1(b) == 6.7 and al == 64.1   # Buch: 6,0; 5,59; 2,91; 6,7; 64,1°
 R[2] = dict(hc=hc, c2=c2, c1=c1, b=b, q=q, al=al)
-# 3) S. 16 Nr. 5 rechts: Flächeninhalt mit A = ½ · a · b · sin γ
+# 3) S. 16 Nr. 5 rechts: Flächeninhalt mit A = ½ ⋅ a ⋅ b ⋅ sin γ
 A_a = r2(0.5 * 7.1 * 5.9 * S(65.1)); A_b = r2(0.5 * 12.4 * 9.5 * S(52.3))
 al_c = r1(180 - 47.7 - 51.9); A_c = r2(0.5 * 8.4 * 9.8 * S(al_c))
 assert (r1(A_a), r1(A_b), al_c, r1(A_c)) == (19.0, 46.6, 80.4, 40.6)    # Buch
@@ -198,6 +201,10 @@ body {{ margin: 0; background: #fff; font-family: Helvetica, Arial, sans-serif; 
 .weg div {{ line-height: 1.55; }}
 .weg b {{ display: inline-block; min-width: 5mm; }}
 .zwei {{ display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-top: 1mm; }}
+.luecke.voll {{ color: {ROT}; font-weight: 700; text-align: center; }}
+.loes {{ margin-top: 1.5mm; padding: 1.5mm 2mm; border-left: 0.8mm solid {ROT}; background: #fdf3f6; }}
+.loes .sch {{ font-size: 8.6pt; }}
+.zwei .loes .schritte {{ grid-template-columns: 1fr 1fr; }}
 .zusatz {{ background: #f3f3f3; padding: 1mm 2.5mm; margin-top: 2mm; }}
 .tipp {{ font-size: 8.5pt; color: #555; }}
 .br {{ display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: 0.9em; line-height: 1.15; margin: 0 0.4mm; }}
@@ -242,59 +249,66 @@ Q = "(Schnittpunkt 10, S. {})"
 
 
 # ---------------------------------------------------------------- Schülerblatt
-def schuelerblatt():
-    a1 = auf(1, "", "gemeinsam an der Tafel " + Q.format("16 Nr. 3 c, rechte Spalte"),
+def schuelerblatt(loes=False):
+    F = lambda v: f'<span class="luecke voll">{v}</span>' if loes else L
+    X = lambda nr: f'<div class="loes">{LOES[nr]}</div>' if loes else ''
+    a1 = auf(1, "", "Hausaufgabe, gemeinsam besprechen " + Q.format("16 Nr. 3 c, rechte Spalte"),
              '<div class="reihe"><div class="txt">Berechne die Seite <b>c</b> und den Winkel <b>β</b>.<br>'
              'Gegeben: b = 4,4 cm; a = 8,4 cm; α = 115°.<br><br>'
              'Das Problem: α ist stumpf. Die Höhe h<sub>c</sub> von C aus trifft die Seite c nicht.<br>'
              '<b>Trick:</b> c über A hinaus verlängern, von C das Lot fällen. Den Fußpunkt nennen wir F, '
              'die Strecke von F bis A nennen wir x.</div>'
-             f'<div class="sk">{sk_1(False, 100, 46)}</div></div>'
+             f'<div class="sk">{sk_1(loes, 100, 46)}</div></div>'
              '<div class="weg">'
              f'<div><b>①</b> Höhe h<sub>c</sub>, F und x in die Skizze einzeichnen</div>'
-             f'<div><b>②</b> α\' = 180° − 115° = {L}</div>'
-             f'<div><b>③</b> h<sub>c</sub>: sin α\' = {bruch(hc_, "4,4")} &nbsp; h<sub>c</sub> = {L}</div>'
-             f'<div><b>④</b> x: cos α\' = {bruch("x", "4,4")} &nbsp; x = {L}</div>'
-             f'<div><b>⑤</b> x + c = √<span class="wu">8,4² − h<sub>c</sub>²</span> = {L}</div>'
-             f'<div><b>⑥</b> c = (x + c) − x = {L}</div>'
-             f'<div><b>⑦</b> β: sin β = {bruch(hc_, "8,4")} &nbsp; β = {L}</div>'
-             f'<div>Ergebnis: c = {L}; β = {L}</div>'
+             f'<div><b>②</b> α\' = 180° − 115° = {F('65,0°')}</div>'
+             f'<div><b>③</b> h<sub>c</sub>: sin α\' = {bruch(hc_, "4,4")} &nbsp; h<sub>c</sub> = {F('3,99 cm')}</div>'
+             f'<div><b>④</b> x: cos α\' = {bruch("x", "4,4")} &nbsp; x = {F('1,86 cm')}</div>'
+             f'<div><b>⑤</b> x + c = √<span class="wu">8,4² − h<sub>c</sub>²</span> = {F('7,39 cm')}</div>'
+             f'<div><b>⑥</b> c = (x + c) − x = {F('5,53 cm')}</div>'
+             f'<div><b>⑦</b> β: sin β = {bruch(hc_, "8,4")} &nbsp; β = {F('28,4°')}</div>'
+             f'<div>Ergebnis: c = {F('5,5 cm')}; β = {F('28,4°')}</div>'
              '</div>')
     a2 = auf(2, "○", Q.format("16 Nr. 3 a, linke Spalte"),
              '<div class="reihe"><div class="txt">Berechne die rot markierten Größen h<sub>c</sub>, b und α. '
              'Beginne mit der Länge h<sub>c</sub>.<br>Gegeben: c = 8,5 cm; a = 8,2 cm; β = 47,0°.<br>'
              '<span class="tipp">Tipp: Die Höhe teilt c in c<sub>1</sub> (bei A) und c<sub>2</sub> (bei B).</span></div>'
-             f'<div class="sk">{sk_2(False, 72, 48)}</div></div>')
+             f'<div class="sk">{sk_2(loes, 72, 48)}</div></div>' + X(2))
     a3 = auf(3, "○", Q.format("16 Nr. 5, rechte Spalte"),
              '<div class="txt">Berechne den Flächeninhalt des Dreiecks ABC. Eine Planfigur hilft dir.<br>'
              'a) a = 7,1 cm; b = 5,9 cm; γ = 65,1° &nbsp;&nbsp; b) a = 12,4 cm; c = 9,5 cm; β = 52,3°<br>'
              'c) b = 8,4 cm; c = 9,8 cm; β = 47,7°; γ = 51,9°<br>'
-             '<span class="tipp">Formel: A = ½ · a · b · sin γ (zwei Seiten und der Winkel dazwischen). '
-             'Bei c) fehlt dir zuerst der Winkel zwischen b und c.</span></div>')
+             '<span class="tipp">Formel: A = ½ ⋅ a ⋅ b ⋅ sin γ (zwei Seiten und der Winkel dazwischen). '
+             'Bei c) fehlt dir zuerst der Winkel zwischen b und c.</span></div>' + X(3))
     a4 = auf(4, "◐", Q.format("16 Nr. 4, linke Spalte"),
              '<div class="txt">Berechne die rot markierten Größen. Beginne mit der Länge der eingezeichneten Höhe.</div>'
              '<div class="zwei">'
-             f'<div><div class="txt">a) a = 6,9 cm; β = 36,7°; γ = 77,7°<br>gesucht: α, b, c</div><div class="sk">{sk_4a(False, 86, 54)}</div></div>'
-             f'<div><div class="txt">b) b = 5,0 cm; α = 60,9°; γ = 68,4°<br>gesucht: β, a, c</div><div class="sk">{sk_4b(False, 76, 54)}</div></div>'
+             f'<div><div class="txt">a) a = 6,9 cm; β = 36,7°; γ = 77,7°<br>gesucht: α, b, c</div><div class="sk">{sk_4a(loes, 86, 54)}</div>' + X('4 a') + '</div>'
+             f'<div><div class="txt">b) b = 5,0 cm; α = 60,9°; γ = 68,4°<br>gesucht: β, a, c</div><div class="sk">{sk_4b(loes, 76, 54)}</div>' + X('4 b') + '</div>'
              '</div>')
     a5 = auf(5, "●", Q.format("16 Nr. 7, linke Spalte"),
              '<div class="reihe"><div class="txt">Der Punkt M halbiert die Strecke AB. '
              'Berechne den Flächeninhalt und den Umfang des Dreiecks AMC (rot).<br>'
              'Gegeben: AB = 8,0 cm; α = 20,6°; bei B ist ein rechter Winkel.</div>'
-             f'<div class="sk">{sk_5(False, 84, 36)}</div></div>')
+             f'<div class="sk">{sk_5(loes, 84, 36)}</div></div>' + X(5))
     a6 = auf(6, "◐", "Zusatz für Schnelle " + Q.format("17 Nr. 8, linke Spalte"),
              '<div class="txt">Zwei Dreiecke haben beide die Seiten 3,0 cm und 5,0 cm. '
              'Beim ersten Dreieck ist der Winkel zwischen ihnen 68°, beim zweiten 112°. '
              'Rosi behauptet, dass beide Dreiecke den gleichen Flächeninhalt haben. Hat Rosi recht? Begründe.<br>'
-             '<span class="tipp">Tipp: Je näher γ bei 90° liegt, desto näher liegt sin γ bei 1.</span></div>')
+             '<span class="tipp">Tipp: Je näher γ bei 90° liegt, desto näher liegt sin γ bei 1.</span></div>' + X(6))
     a7 = auf(7, "●", "Zusatz für Schnelle " + Q.format("17 Nr. 10, linke Spalte"),
              '<div class="txt">Für eine Segelregatta ist im Bodensee ein Dreieckskurs ABC vorgesehen: '
              'AB = 3,1 km; α = 28°; β = 126°. Bestimme die Gesamtlänge des Kurses.<br>'
              '<span class="tipp">Tipp: Planfigur zeichnen. β ist stumpf wie in Aufgabe 1. '
-             'Zeichne die Höhe von B auf die Seite AC ein.</span></div>')
-    leg = '<div class="legende">○ leicht &nbsp; ◐ mittel &nbsp; ● schwer &nbsp;&nbsp; Aufgaben 2 bis 5 rechnest du im Übungsheft, der Reihe nach. Taschenrechner auf DEG!</div>'
-    s1 = seite(kopf("Mi 18.11.2026") + leg + a1 + a2 + a3, "Mathe 10b; Vertretung 18.11.", 1)
-    s2 = seite(kopf("Mi 18.11.2026") + a4 + a5 + '<div class="zusatz">' + a6 + a7 + "</div>", "Mathe 10b; Vertretung 18.11.", 2)
+             'Zeichne die Höhe von B auf die Seite AC ein.</span></div>' + (f'<div class="reihe"><div class="sk">{sk_7(58, 30)}</div>{X(7)}</div>' if loes else ''))
+    leg = '<div class="legende">○ leicht &nbsp; ◐ mittel &nbsp; ● schwer &nbsp;&nbsp; Aufgaben 2 bis 5 rechnest du im Übungsheft, der Reihe nach. Die Lösungen liegen später vorne aus. Taschenrechner auf DEG!</div>'
+    fl = "Mathe 10b; Vertretung 18.11." + ("; Lösung" if loes else "")
+    kp = kopf("Mi 18.11.2026" + (", Lösung" if loes else ""))
+    if loes:
+        return html(N_SCHL, [seite(kp + leg + a1 + a2, fl, 1), seite(kp + a3 + a4, fl, 2),
+                             seite(kp + a5 + '<div class="zusatz">' + a6 + a7 + "</div>", fl, 3)])
+    s1 = seite(kp + leg + a1 + a2 + a3, fl, 1)
+    s2 = seite(kp + a4 + a5 + '<div class="zusatz">' + a6 + a7 + "</div>", fl, 2)
     return html(N_SCH, [s1, s2])
 
 
@@ -311,9 +325,9 @@ def loesung():
         sch_w(1, "Höhe einzeichnen", ["c über A hinaus verlängern,", "Lot von C: Fußpunkt F, Strecke FA = x"],
               "Das Dreieck FBC ist rechtwinklig, das Dreieck FAC auch."),
         sch_w(2, "α':", ["α' = 180° − 115°", erg("α' = 65,0°")], "Nebenwinkel von α im kleinen Dreieck FAC."),
-        sch_w(3, f"{hc_}:", [f"sin 65,0° = {bruch(hc_, '4,4')} {um('· 4,4')}", f"{hc_} = 4,4 · sin 65,0°", erg(f"{hc_} = {k(r['hc'])} cm")],
+        sch_w(3, f"{hc_}:", [f"sin 65,0° = {bruch(hc_, '4,4')} {um('⋅ 4,4')}", f"{hc_} = 4,4 ⋅ sin 65,0°", erg(f"{hc_} = {k(r['hc'])} cm")],
               "Im Dreieck FAC: h<sub>c</sub> ist Gegenkathete, 4,4 cm die Hypotenuse."),
-        sch_w(4, "x:", [f"cos 65,0° = {bruch('x', '4,4')} {um('· 4,4')}", "x = 4,4 · cos 65,0°", erg(f"x = {k(r['x'])} cm")],
+        sch_w(4, "x:", [f"cos 65,0° = {bruch('x', '4,4')} {um('⋅ 4,4')}", "x = 4,4 ⋅ cos 65,0°", erg(f"x = {k(r['x'])} cm")],
               "Im Dreieck FAC: x ist Ankathete."),
         sch_w(5, "x + c:", [f"x + c = √<span class='wu'>8,4² − {k(r['hc'])}²</span>", erg(f"x + c = {k(r['cx'])} cm")],
               "Pythagoras im großen Dreieck FBC: 8,4 cm ist die Hypotenuse."),
@@ -323,7 +337,7 @@ def loesung():
         sch_w(8, "Probe (wer mag):", [f"γ = 180° − 115° − {k(r['be'], 1)}°", erg(f"γ = {k(r['ga'], 1)}°")],
               "Winkelsumme. γ wird hier nicht verlangt."),
     ]
-    teil1 = ('<div class="auf gross"><h2>Aufgabe 1<span class="q">S. 16 Nr. 3 c rechts, gemeinsam: so steht es am Ende an der Tafel</span></h2>'
+    teil1 = ('<div class="auf gross"><h2>S. 16 Nr. 3 c rechts<span class="q">gemeinsam: so steht es am Ende an der Tafel und im Heft</span></h2>'
              f'<div class="reihe"><div class="sk">{sk_1(True, 92, 38)}</div></div>'
              f'<div class="schritte" style="margin-top:2mm">{"".join(s1)}</div>'
              f'<div class="ergebnis">Ergebnis: c = {k(r["c"])} cm ≈ {k(r["c"], 1)} cm; β = {k(r["be"], 1)}°</div>'
@@ -343,54 +357,55 @@ def loesung():
         h = f'<div class="warum">{hinweis}</div>' if hinweis else ""
         skd = f'<div class="sk">{svg}</div>' if svg else ""
         k_ = f'<span class="kr">{kreis}</span>'
-        return (f'<div class="auf"><h2>{k_}Aufgabe {nr}<span class="q">{quelle}</span></h2>'
+        LOES[nr] = f'<div class="schritte">{"".join(schritte)}</div><div class="ergebnis">Ergebnis: {ergebnis}</div>{h}'
+        return (f'<div class="auf"><h2>{k_}{quelle}</h2>'
                 f'<div class="reihe">{skd}<div class="schritte">{"".join(schritte)}</div></div>'
                 f'<div class="ergebnis">Ergebnis: {ergebnis}</div>{h}</div>')
 
     t = []
     t.append(kurz(2, "○", "S. 16 Nr. 3 a links", sk_2(True, 54, 34), [
-        schritt(1, f"{hc_}:", f"sin 47,0° = {bruch(hc_, '8,2')} {um('· 8,2')}", erg(f"{hc_} = {k(r2_['hc'])} cm")),
-        schritt(2, f"{i('c', 2)}:", f"cos 47,0° = {bruch(i('c', 2), '8,2')} {um('· 8,2')}", erg(f"{i('c', 2)} = {k(r2_['c2'])} cm")),
+        schritt(1, f"{hc_}:", f"sin 47,0° = {bruch(hc_, '8,2')} {um('⋅ 8,2')}", erg(f"{hc_} = {k(r2_['hc'])} cm")),
+        schritt(2, f"{i('c', 2)}:", f"cos 47,0° = {bruch(i('c', 2), '8,2')} {um('⋅ 8,2')}", erg(f"{i('c', 2)} = {k(r2_['c2'])} cm")),
         schritt(3, f"{i('c', 1)}:", f"{i('c', 1)} = 8,5 − {k(r2_['c2'])}", erg(f"{i('c', 1)} = {k(r2_['c1'])} cm")),
         schritt(4, "b:", f"b = √<span class='wu'>{k(r2_['hc'])}² + {k(r2_['c1'])}²</span>", erg(f"b = {k(r2_['b'])} cm")),
         schritt(5, "α:", f"sin α = {bruch(k(r2_['hc']), k(r2_['b']))}", erg(f"α = {k(r2_['al'], 1)}°")),
     ], f"{hc_} = {k(r2_['hc'], 1)} cm; b = {k(r2_['b'], 1)} cm; α = {k(r2_['al'], 1)}°"))
     t.append(kurz(3, "○", "S. 16 Nr. 5 rechts", "", [
-        schritt(1, "a)", f"A = {bruch(1, 2)} · 7,1 · 5,9 · sin 65,1°", erg(f"A = {k(r3['A_a'], 1)} cm²")),
-        schritt(2, "b)", f"A = {bruch(1, 2)} · 12,4 · 9,5 · sin 52,3°", erg(f"A = {k(r3['A_b'], 1)} cm²")),
-        schritt(3, "c)", f"α = 180° − 47,7° − 51,9° = {k(r3['al_c'], 1)}°", f"A = {bruch(1, 2)} · 8,4 · 9,8 · sin {k(r3['al_c'], 1)}°", erg(f"A = {k(r3['A_c'], 1)} cm²")),
+        schritt(1, "a)", f"A = {bruch(1, 2)} ⋅ 7,1 ⋅ 5,9 ⋅ sin 65,1°", erg(f"A = {k(r3['A_a'], 1)} cm²")),
+        schritt(2, "b)", f"A = {bruch(1, 2)} ⋅ 12,4 ⋅ 9,5 ⋅ sin 52,3°", erg(f"A = {k(r3['A_b'], 1)} cm²")),
+        schritt(3, "c)", f"α = 180° − 47,7° − 51,9° = {k(r3['al_c'], 1)}°", f"A = {bruch(1, 2)} ⋅ 8,4 ⋅ 9,8 ⋅ sin {k(r3['al_c'], 1)}°", erg(f"A = {k(r3['A_c'], 1)} cm²")),
     ], f"a) {k(r3['A_a'], 1)} cm²; b) {k(r3['A_b'], 1)} cm²; c) {k(r3['A_c'], 1)} cm²"))
     t.append(kurz("4 a", "◐", "S. 16 Nr. 4 a links", sk_4a(True, 58, 36), [
         schritt(1, "α:", "α = 180° − 36,7° − 77,7°", erg(f"α = {k(a['al'], 1)}°")),
-        schritt(2, f"{hb_}:", f"sin 77,7° = {bruch(hb_, '6,9')} {um('· 6,9')}", erg(f"{hb_} = {k(a['hb'])} cm")),
-        schritt(3, f"{i('b', 2)}:", f"cos 77,7° = {bruch(i('b', 2), '6,9')} {um('· 6,9')}", erg(f"{i('b', 2)} = {k(a['b2'])} cm")),
+        schritt(2, f"{hb_}:", f"sin 77,7° = {bruch(hb_, '6,9')} {um('⋅ 6,9')}", erg(f"{hb_} = {k(a['hb'])} cm")),
+        schritt(3, f"{i('b', 2)}:", f"cos 77,7° = {bruch(i('b', 2), '6,9')} {um('⋅ 6,9')}", erg(f"{i('b', 2)} = {k(a['b2'])} cm")),
         schritt(4, "c:", f"sin {k(a['al'], 1)}° = {bruch(k(a['hb']), 'c')}", f"c = {bruch(k(a['hb']), 'sin ' + k(a['al'], 1) + '°')}", erg(f"c = {k(a['c'])} cm")),
         schritt(5, f"{i('b', 1)}:", f"{i('b', 1)} = √<span class='wu'>{k(a['c'])}² − {k(a['hb'])}²</span>", erg(f"{i('b', 1)} = {k(a['b1'])} cm")),
         schritt(6, "b:", f"b = {k(a['b1'])} + {k(a['b2'])}", erg(f"b = {k(a['b'])} cm")),
     ], f"α = {k(a['al'], 1)}°; b = {k(a['b'], 1)} cm; c = {k(a['c'], 1)} cm", "Buchlösung: b = 4,53 cm (rechnet b<sub>1</sub> mit tan, Rundung)."))
     t.append(kurz("4 b", "◐", "S. 16 Nr. 4 b links", sk_4b(True, 52, 36), [
         schritt(1, "β:", "β = 180° − 60,9° − 68,4°", erg(f"β = {k(b['be'], 1)}°")),
-        schritt(2, f"{ha_}:", f"sin 68,4° = {bruch(ha_, '5,0')} {um('· 5,0')}", erg(f"{ha_} = {k(b['ha'])} cm")),
-        schritt(3, f"{i('a', 2)}:", f"cos 68,4° = {bruch(i('a', 2), '5,0')} {um('· 5,0')}", erg(f"{i('a', 2)} = {k(b['a2'])} cm")),
+        schritt(2, f"{ha_}:", f"sin 68,4° = {bruch(ha_, '5,0')} {um('⋅ 5,0')}", erg(f"{ha_} = {k(b['ha'])} cm")),
+        schritt(3, f"{i('a', 2)}:", f"cos 68,4° = {bruch(i('a', 2), '5,0')} {um('⋅ 5,0')}", erg(f"{i('a', 2)} = {k(b['a2'])} cm")),
         schritt(4, "c:", f"sin {k(b['be'], 1)}° = {bruch(k(b['ha']), 'c')}", erg(f"c = {k(b['c'])} cm")),
         schritt(5, f"{i('a', 1)}:", f"{i('a', 1)} = √<span class='wu'>{k(b['c'])}² − {k(b['ha'])}²</span>", erg(f"{i('a', 1)} = {k(b['a1'])} cm")),
         schritt(6, "a:", f"a = {k(b['a1'])} + {k(b['a2'])}", erg(f"a = {k(b['a'])} cm")),
     ], f"β = {k(b['be'], 1)}°; a = {k(b['a'], 1)} cm; c = {k(b['c'], 1)} cm"))
     t.append(kurz(5, "●", "S. 16 Nr. 7 links", sk_5(True, 56, 26), [
-        schritt(1, "BC:", f"tan 20,6° = {bruch('BC', '8,0')} {um('· 8,0')}", erg(f"BC = {k(r5['BC'], 1)} cm")),
+        schritt(1, "BC:", f"tan 20,6° = {bruch('BC', '8,0')} {um('⋅ 8,0')}", erg(f"BC = {k(r5['BC'], 1)} cm")),
         schritt(2, "AC:", f"AC = √<span class='wu'>8,0² + {k(r5['BC'], 1)}²</span>", erg(f"AC = {k(r5['AC'])} cm")),
         schritt(3, "MC:", f"MC = √<span class='wu'>4,0² + {k(r5['BC'], 1)}²</span>", erg(f"MC = {k(r5['MC'], 1)} cm")),
         schritt(4, "u:", f"u = 4,0 + {k(r5['MC'], 1)} + {k(r5['AC'])}", erg(f"u = {k(r5['u'])} cm")),
-        schritt(5, "A:", f"A = {bruch(1, 2)} · AM · BC", f"A = {bruch(1, 2)} · 4,0 · {k(r5['BC'], 1)}", erg(f"A = {k(r5['A'], 1)} cm²")),
-    ], f"u ≈ {k(r5['u'], 1)} cm; A = {k(r5['A'], 1)} cm²", "Ohne tan: AC = 8,0 : cos 20,6° = 8,55 cm, dann BC = AC · sin 20,6°. Die Höhe von AMC ist BC (außerhalb, wie in Aufgabe 1)."))
+        schritt(5, "A:", f"A = {bruch(1, 2)} ⋅ AM ⋅ BC", f"A = {bruch(1, 2)} ⋅ 4,0 ⋅ {k(r5['BC'], 1)}", erg(f"A = {k(r5['A'], 1)} cm²")),
+    ], f"u ≈ {k(r5['u'], 1)} cm; A = {k(r5['A'], 1)} cm²", "Ohne tan: AC = 8,0 : cos 20,6° = 8,55 cm, dann BC = AC ⋅ sin 20,6°. Die Höhe von AMC ist BC (außerhalb, wie bei Nr. 3 c)."))
     t.append(kurz(6, "◐", "Zusatz, S. 17 Nr. 8 links", "", [
-        schritt(1, "oben:", f"A = {bruch(1, 2)} · 3,0 · 5,0 · sin 68°", erg(f"A = {k(r6['Ao'])} cm²")),
-        schritt(2, "unten:", f"A = {bruch(1, 2)} · 3,0 · 5,0 · sin 112°", erg(f"A = {k(r6['Au'])} cm²")),
+        schritt(1, "oben:", f"A = {bruch(1, 2)} ⋅ 3,0 ⋅ 5,0 ⋅ sin 68°", erg(f"A = {k(r6['Ao'])} cm²")),
+        schritt(2, "unten:", f"A = {bruch(1, 2)} ⋅ 3,0 ⋅ 5,0 ⋅ sin 112°", erg(f"A = {k(r6['Au'])} cm²")),
         schritt(3, "Begründung:", "68° + 112° = 180°,", "also sin 68° = sin 112°"),
     ], "Rosi hat recht, beide Dreiecke haben 6,95 cm²."))
     t.append(kurz(7, "●", "Zusatz, S. 17 Nr. 10 links", sk_7(58, 30), [
         schritt(1, "γ:", "γ = 180° − 28° − 126°", erg(f"γ = {R[7]['ga']}°")),
-        schritt(2, f"{hb_}:", f"sin 28° = {bruch(hb_, '3,1')} {um('· 3,1')}", erg(f"{hb_} = {k(r7['hb'])} km")),
+        schritt(2, f"{hb_}:", f"sin 28° = {bruch(hb_, '3,1')} {um('⋅ 3,1')}", erg(f"{hb_} = {k(r7['hb'])} km")),
         schritt(3, "AD:", f"cos 28° = {bruch('AD', '3,1')}", erg(f"AD = {k(r7['AD'])} km")),
         schritt(4, "a:", f"sin 26° = {bruch(k(r7['hb']), 'a')}", erg(f"a = {k(r7['a'])} km")),
         schritt(5, "CD:", f"CD = √<span class='wu'>{k(r7['a'])}² − {k(r7['hb'])}²</span>", erg(f"CD = {k(r7['CD'])} km")),
@@ -398,22 +413,26 @@ def loesung():
     ], f"Der Kurs ist {k(r7['u'])} km lang."))
 
     p1 = seite(kopf("Lösung für die Vertretung, Mi 18.11.2026") + teil1 + t.pop(0) + t.pop(0), "Mathe 10b; Vertretung 18.11.; Lösung", 1)
-    p2 = seite(kopf("Lösung, Aufgaben 4 bis 7") + "".join(t), "Mathe 10b; Vertretung 18.11.; Lösung", 2)
+    p2 = seite(kopf("Lösung der Übungsaufgaben") + "".join(t), "Mathe 10b; Vertretung 18.11.; Lösung", 2)
     return html(N_LOE, [p1, p2])
 
 
 # ---------------------------------------------------------------- Ablauf
 def ablauf():
     zeilen = [
-        ("vorher", "Schülerblatt doppelseitig kopieren (2 Seiten). Das Lösungsblatt ist für Sie, Seite 1 ist das fertige Tafelbild zu Aufgabe 1."),
-        ("0 bis 3 min", "Blatt austeilen. Taschenrechner auf DEG prüfen lassen (Probe: sin 30° = 0,5). "
+        ("vorher", "Nichts kopieren: Alle Aufgaben stehen im Buch (Schnittpunkt 10, S. 16 und 17). Die Klasse schreibt alles selbst ins Übungsheft. "
+                   "Die Lösung mit Schritten ist für Sie, Seite 1 ist das fertige Tafelbild zu Nr. 3 c."),
+        ("0 bis 3 min", "Taschenrechner auf DEG prüfen lassen (Probe: sin 30° = 0,5). "
                         "Hinweis an die Klasse: So eine Aufgabe kommt im Kurztest am Mi 25.11."),
-        ("3 bis 20 min", "<b>Aufgabe 1 gemeinsam an der Tafel</b> (S. 16 Nr. 3 c). Skizze groß anzeichnen, "
-                         "fragen, wo die Höhe von C aus liegt, c verlängern, h<sub>c</sub> einzeichnen. "
+        ("3 bis 18 min", "<b>S. 16 Nr. 3 c rechts gemeinsam an der Tafel.</b> War Hausaufgabe, die meisten haben sie nicht geschafft. "
+                         "Skizze groß anzeichnen, fragen, wo die Höhe von C aus liegt, c verlängern, h<sub>c</sub> einzeichnen. "
                          "Dann die Schritte ② bis ⑦ einzeln: kurz selbst rechnen lassen, vergleichen, an die Tafel. "
-                         "Die Klasse füllt die Lücken auf dem Blatt aus."),
-        ("20 bis 43 min", "<b>Einzelarbeit</b> Aufgaben 2 bis 5 im Übungsheft, der Reihe nach (○ leicht, ◐ mittel, ● schwer). "
-                          "Wer fertig ist: Zusatz 6 und 7. Ab etwa 35 min kann das Lösungsblatt vorne zur Selbstkontrolle ausliegen."),
+                         "Die Klasse schreibt Skizze und Rechnung vollständig ins Heft. "
+                         "Wer nicht mitrechnen will, macht gleich mit den Übungsaufgaben weiter. "
+                         "Die Lösungen der übrigen Hausaufgaben müssen nicht gezeigt werden, sie stehen in IServ."),
+        ("18 bis 43 min", "<b>Einzelarbeit im Übungsheft</b>, der Reihe nach: ○ S. 16 Nr. 3 a links; ○ S. 16 Nr. 5 rechts; "
+                          "◐ S. 16 Nr. 4 a und b links; ● S. 16 Nr. 7 links. Für Schnelle: S. 17 Nr. 8 und Nr. 10 links. "
+                          "Ab etwa 35 min kann Seite 2 der Lösung vorne zur Selbstkontrolle ausliegen."),
         ("43 bis 45 min", "Kurz zusammenfassen: Erst die Höhe, dann die rechtwinkligen Dreiecke, dann sin, cos oder Pythagoras. "
                           "Was nicht fertig ist, bis zur nächsten Mathestunde fertig rechnen."),
     ]
@@ -421,9 +440,9 @@ def ablauf():
     inhalt = (kopf("Ablauf, Mi 18.11.2026, 45 min") +
               '<div class="txt" style="margin:3mm 0 2mm">Thema: Berechnungen am allgemeinen Dreieck (Schnittpunkt 10, S. 16). '
               'Die Klasse kennt sin, cos und Pythagoras im rechtwinkligen Dreieck und hat schon Dreiecke über eine eingezeichnete Höhe berechnet. '
-              'Neu ist heute: der stumpfe Winkel, bei dem die Höhe außerhalb liegt.</div>'
+              'Neu ist der stumpfe Winkel, bei dem die Höhe außerhalb liegt (S. 16 Nr. 3 c war Hausaufgabe, viele werden daran gescheitert sein).</div>'
               f'<table class="abl">{tab}</table>'
-              '<div class="txt" style="margin-top:3mm">Material: Schülerblatt (2 Seiten), Lösungsblatt (2 Seiten), Taschenrechner. '
+              '<div class="txt" style="margin-top:3mm">Material: Buch, Übungsheft, Taschenrechner; Lösung mit Schritten für Sie (2 Seiten). '
               'Vielen Dank fürs Übernehmen!</div>')
     css_extra = ('<style>.abl {{ border-collapse: collapse; width: 100%; font-size: 10.5pt; line-height: 1.45; }}'
                  '.abl td {{ border-bottom: 0.3mm solid #ccc; padding: 2mm 2mm; vertical-align: top; }}'
@@ -444,6 +463,5 @@ def drucke(name, inhalt, seiten_soll):
 
 
 if __name__ == "__main__":
-    drucke(N_SCH, schuelerblatt(), 2)
     drucke(N_LOE, loesung(), 2)
     drucke(N_ABL, ablauf(), 1)

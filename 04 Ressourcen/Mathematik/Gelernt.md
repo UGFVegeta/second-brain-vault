@@ -6,6 +6,8 @@ tags: [gelernt, mathematik]
 
 Eine Zeile pro Erkenntnis, neueste oben. Lang ausgeführte Gründe stehen im Claude-Gedächtnis, hier nur die Folge.
 
+- 17.11.2026: Vertretung 10b hatte ein Schülerblatt mit Lücken zu Buchaufgaben. Oskar will das nicht: Aufgaben stehen im Buch, die Klasse schreibt alles selbst ins Heft, keine Lückeneinträge. Folge: bei Buchaufgaben kein Schülerblatt, nur Buchnummern nennen; Lösung und Tafelbild für die Lehrkraft.
+- 17.11.2026: Schwere Hausaufgaben (z. B. S. 16 Nr. 3 c in 10b) haben die meisten nicht gemacht oder nicht verstanden. Folge: so eine Aufgabe in der nächsten Stunde trotzdem Schritt für Schritt gemeinsam rechnen, nicht nur Lösung zeigen.
 - 17.11.2026: Vertretung 10b (`Trigonometrie Klasse 10/baue_vertretung_18_11.py`): Seiten mit fester A4-Höhe und overflow hidden schneiden Überlauf stumm ab, der Seitenzähler bleibt richtig. Folge: jede Seite gerendert ansehen, nicht nur die Seitenzahl prüfen.
 - 15.11.2026: Schnittpunkt 10 S. 16 Nr. 3 b: Schülerbuch hat AC = 5,8 cm, die Lösungs-PDF rechnet mit 5,4 cm. Folge: Werte immer aus der Buchseite (Screenshot von Oskar) nehmen, Lösungs-PDF nur zum Abgleich, Abweichungen auf dem Blatt vermerken.
 - 13.11.2026: Mindmaps Mathe 7c und 10b im Stil der Kernphysik-Mindmap (`.scripts/mindmaps/mathe7c.py`, `mathe10b.py`, Generator `.scripts/mindmap_excalidraw.py`). Inhalte aus Stoffverteilung, gehaltenen Stunden und Rezepten; Geplantes gestrichelt. Neuer Stand: Spec anpassen, Datei vorher in Obsidian schließen, neu bauen.
