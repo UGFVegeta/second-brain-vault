@@ -50,7 +50,7 @@ svg{width:100%;height:auto;display:block;touch-action:none;user-select:none}
     <h2>Rasen</h2>
     <label>Tiefe Terrasse ↔ Beet Straße <span>5,70 m <span class="tag ok">gemessen</span></span></label>
     <label>Breite an der Straßenseite, m <span><input id="B" type="number" step="0.05" min="4" max="15"> <span id="tagB" class="tag">aus Foto</span></span></label>
-    <p class="note">Die Rasenform ist aus deinem Foto entzerrt und mit den 5,70 m skaliert. Die Breite ist nur geschätzt. Miss sie an der breitesten Stelle (Beetkante links bis Randsteine rechts) und trag sie ein, dann passt sich der ganze Rasen an.</p>
+    <p class="note">Die Rasenform ist aus deinem Foto entzerrt und mit den 5,70 m skaliert. Die Breite ist nur geschätzt. Miss sie an der breitesten Stelle (Beetkante links bis L-Steine rechts) und trag sie ein, dann passt sich der ganze Rasen an.</p>
   </div>
 
   <div class="card">
@@ -95,8 +95,8 @@ const L = 303, T = 84, SLIDE_OUT = 276 - 84, SLIDE_W = 48;
 // X = seitlich (rechts positiv), Tiefe über 5,70 m gemessen. Abschnitte mit Namen; null = offener Rand (nicht im Foto).
 const SECTIONS = [
   ["Beet zur Straße", [[-3.34,4.75],[-2.87,5.33],[-1.89,5.55],[-0.42,5.69],[1.07,5.73],[2.56,5.73],[3.29,5.66],[3.93,5.37],[4.24,4.67],[4.35,3.88]]],
-  ["Randsteine rechts", [[4.35,3.88],[4.35,0.9]]],
-  ["Beet rechts", [[4.35,0.9],[4.9,0.9]]],
+  ["L-Steine rechts", [[4.35,3.88],[4.35,0.9]]],
+  ["L-Steine rechts", [[4.35,0.9],[4.9,0.9]]],
   [null, [[4.9,0.9],[4.9,0]]],
   ["Terrasse", [[4.9,0],[2.59,0]]],
   ["Baumbeet", [[2.59,0],[2.69,0.35],[2.72,0.65],[2.6,0.9],[2.27,1.15],[1.87,1.18],[1.56,1.04],[1.28,0.77],[0.91,0.59],[0.72,0.47],[0.58,0.24],[0.52,0]]],
@@ -202,7 +202,7 @@ function tuft(cx, cy, r) {
 const HAND = '"Bradley Hand","Chalkboard SE","Segoe Print","Comic Sans MS",cursive';
 const STYLES = {
   plan:     {name: "Gartenplan", paper: "#fff", grid: null, bed: "url(#mulch)", lawn: "#bfe08f", lawnTex: "grain", lawnGrid: "#fff", rim: "#9cc56c", edge: "stone", ink: null, sw: 2, shadow: true, filter: null, font: null, house: "#eceae4", wall: "#3d3d3b", wallW: 7, deck: "url(#planks)", gravel: "url(#gravel)"},
-  skizze:   {name: "Skizze", paper: "#eadfc6", grid: "#d4c39d", bed: "url(#hedge)", lawn: "#cde7b3", lawnTex: "strokes", lawnGrid: "#9fc185", rim: null, edge: "ink", ink: "#33402a", sw: 2.2, shadow: true, filter: "wob", font: HAND, label: "#2f3a26", halo: "#f1e9d6", house: "#9c9c99", wall: "#3b3b3a", wallW: 4, deck: "url(#planks2)", gravel: "url(#gravel)", tex: true},
+  skizze:   {name: "Skizze", paper: "#eadfc6", grid: "#d4c39d", bed: "url(#mulch2)", lawn: "#cde7b3", lawnTex: "strokes", lawnGrid: "#9fc185", rim: null, edge: "ink", ink: "#33402a", sw: 2.2, shadow: true, filter: "wob", font: HAND, label: "#2f3a26", halo: "#f1e9d6", house: "#9c9c99", wall: "#3b3b3a", wallW: 4, deck: "url(#planks2)", gravel: "url(#gravel)", tex: true},
   plan2:    {name: "Landschaftsplan", paper: "#fff", grid: null, bed: "url(#beds2)", lawn: "#b2d886", lawnTex: "marker", lawnGrid: null, rim: "#8cbf52", edge: "band", ink: "#2e2e2a", sw: 1.4, shadow: true, rich: true, filter: "sk", font: HAND, label: "#1f1f1c", halo: "#ffffff", house: "#ffffff", wall: "#6d6c66", wallW: 8, deck: "url(#planks3)", gravel: "url(#cobble2)"}
 };
 let CUR = STYLES.plan, HD = {};
@@ -292,6 +292,7 @@ const PATTERNS = `
   <pattern id="beds2" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#b9d48e"/><circle cx="10" cy="12" r="8" fill="#93bd62"/><circle cx="38" cy="8" r="6" fill="#7faa4f"/><circle cx="28" cy="34" r="9" fill="#a3c873"/><circle cx="52" cy="40" r="7" fill="#88b35a"/><circle cx="8" cy="48" r="6" fill="#7faa4f"/><circle cx="20" cy="22" r="2.2" fill="#b58ad0"/><circle cx="46" cy="24" r="2.2" fill="#e9a0b8"/><circle cx="36" cy="52" r="2.2" fill="#b58ad0"/><circle cx="54" cy="12" r="1.8" fill="#f0d36a"/></pattern>
   <pattern id="cobble" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#9e9c95"/><rect x="1" y="1" width="6" height="6" rx="1.5" fill="#c9c7c0"/><rect x="9" y="1" width="6" height="6" rx="1.5" fill="#bdbbb3"/><rect x="5" y="9" width="6" height="6" rx="1.5" fill="#cfcdc6"/><rect x="-3" y="9" width="6" height="6" rx="1.5" fill="#c3c1b9"/><rect x="13" y="9" width="6" height="6" rx="1.5" fill="#c3c1b9"/></pattern>
   <pattern id="cobble2" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#8e8b84"/><rect x="1" y="1" width="10" height="10" rx="2" fill="#cbc9c1" stroke="#5a5852" stroke-width=".7"/><path d="M2.5 4 Q4 2.5 6 2.5" stroke="#efede7" stroke-width="1" fill="none"/></pattern>
+  <pattern id="mulch2" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#a5836a"/><path d="M3 6 l7 2 M18 3 l5 4 M30 9 l7 -2 M8 18 l6 3 M24 20 l8 -1 M34 28 l4 5 M5 32 l8 -2 M19 35 l6 2 M28 14 l3 5" stroke="#7d5c44" stroke-width="2.4" stroke-linecap="round"/><path d="M12 10 l5 1 M26 27 l6 2 M2 24 l5 -2 M33 38 l5 -1" stroke="#c4a589" stroke-width="2" stroke-linecap="round"/></pattern>
   <filter id="leaf" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G" result="s"/><feDiffuseLighting in="n" surfaceScale="2.6" diffuseConstant="1.45" lighting-color="#fff" result="l"><feDistantLight azimuth="225" elevation="52"/></feDiffuseLighting><feComposite in="l" in2="s" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/><feDropShadow dx="4" dy="5" stdDeviation="3" flood-color="#1e3010" flood-opacity=".35"/></filter>
   <filter id="leafBed" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="3" seed="21" result="n"/><feDiffuseLighting in="n" surfaceScale="3" diffuseConstant="1.35" lighting-color="#fff" result="l"><feDistantLight azimuth="225" elevation="50"/></feDiffuseLighting><feComposite in="l" in2="SourceGraphic" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/></filter>
   <filter id="sk" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/><feColorMatrix type="saturate" values=".68"/><feComponentTransfer><feFuncR type="linear" slope=".9" intercept=".09"/><feFuncG type="linear" slope=".9" intercept=".09"/><feFuncB type="linear" slope=".9" intercept=".09"/></feComponentTransfer></filter>
@@ -325,7 +326,7 @@ function render() {
   seed = 7;
   const tY = DEPTH*100;
   const tA = P([-1.63, 0])[0], tB = P([3.82, 0])[0];
-  const wX = P([4.35, 0])[0], gX = P([5.0, 0])[0], y09 = P([0, 0.9])[1];
+  const wX = P([4.35, 0])[0], gX = P([4.675, 0])[0], y09 = P([0, 0.9])[1];
   const INK = c => ST.ink || c;
   let labels = "";
   const lbl = (x, y, t, o = {}) => { labels += `<text x="${x}" y="${y}" text-anchor="${o.a || "middle"}" font-size="${(o.s || 18) * (ST.font ? 1.2 : 1)}" fill="${ST.font ? ST.label : (o.c || "#3f4a3a")}" ${o.r ? `transform="rotate(${o.r} ${x} ${y})"` : ""} style="paint-order:stroke;stroke:${ST.font ? ST.halo : (o.halo || "#fbfaf5")};stroke-width:5px;stroke-linejoin:round">${t}</text>`; return ""; };
@@ -336,12 +337,12 @@ function render() {
 
   let sc = "";
   // Beete als Grund, darauf Haus, Terrasse, Kies, Garage
-  if (ST.rich) sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="#a3cc6c" filter="url(#leafBed)"/>`;
+  if (ST.rich) sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="url(#mulch2)" filter="url(#leafBed)"/>`;
   else sc += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="${F(ST.bed)}"/>`;
   if (ST.rich) {   // Stauden im Beet
     const PC = ["#8cbc58", "#a8cf6a", "#6f9e48", "#bfd97f", "#7fa95c"], PF = ["#a77bc9", "#e9a0bd", "#f4d35e", "#ffffff", null, null, null];
     let n = 0;
-    for (let t = 0; t < 900 && n < 120; t++) {
+    for (let t = 0; t < 900 && n < 85; t++) {
       const x = x0 + rnd()*(x1 - x0), y = y0 + rnd()*(y1 - y0);
       if (inside([x, y], lawn) || (y > tY - 8) || (x > wX - 6 && y < y09 + 6) || (x > tB && y > y09)) continue;
       sc += richShrub(x, y, 9 + rnd()*8, PC[Math.floor(rnd()*5)], PF[Math.floor(rnd()*7)]); n++;
@@ -353,7 +354,14 @@ function render() {
   lbl((tA+tB)/2, tY+58, "Terrasse", {s: 22, c: "#fff", halo: "#5e3b25"});
   sc += `<rect x="${x0-10}" y="${tY}" width="${tA-x0+10}" height="${y1-tY+10}" fill="${F(ST.house)}" stroke="${INK(ST.wall)}" stroke-width="${ST.wallW}"/>`;
   lbl((x0+tA)/2, tY+58, "Haus", {s: 20, c: "#55534d"});
-  sc += `<rect x="${wX}" y="${y0}" width="${gX-wX}" height="${y09-y0}" fill="${F(ST.gravel)}"/>`;
+  // Streifen zur Garage, kein Durchgang. Von den Beton-L-Steinen sieht man nur die Oberkante (der Fuß liegt unter der Erde):
+  // längs am rechten Rasenrand und unten quer zum Rasen hin, je 1 m lang (Oskar, 18.11.2026)
+  const yL = y09, LW = 12, LI = INK("#5f5d57");
+  sc += `<rect x="${wX}" y="${y0}" width="${gX-wX}" height="${y09-y0}" fill="${F("#e2dfd8")}"/>`;   // was zwischen L-Stein und Garage liegt, ist noch offen
+  sc += `<rect x="${wX}" y="${y0}" width="${LW}" height="${yL-y0}" fill="#cfcdc6" stroke="${LI}" stroke-width="1.2"/>`;
+  sc += `<rect x="${wX}" y="${yL-LW}" width="${x1-wX}" height="${LW}" fill="#cfcdc6" stroke="${LI}" stroke-width="1.2"/>`;
+  for (let y = yL - 100; y > y0; y -= 100) sc += `<line x1="${wX}" y1="${y}" x2="${wX+LW}" y2="${y}" stroke="${LI}" stroke-width="1"/>`;
+  for (let x = wX + 100; x < x1; x += 100) sc += `<line x1="${x}" y1="${yL-LW}" x2="${x}" y2="${yL}" stroke="${LI}" stroke-width="1"/>`;
   sc += `<rect x="${gX}" y="${y0-10}" width="${x1-gX+10}" height="${y09-y0-40}" fill="${F(ST.house)}" stroke="${INK(ST.wall)}" stroke-width="${ST.wallW}"/>`;
   lbl((gX+x1)/2+5, P([0,3])[1], "Garage", {s: 20, c: "#55534d", r: 90});
 
@@ -374,7 +382,7 @@ function render() {
   sc += `</g>`;
   // Rasenkante
   secs.forEach(([n, l]) => {
-    if (!n || n === "Terrasse") return;
+    if (!n || n === "Terrasse" || n.startsWith("L-Steine")) return;   // dort keine Pflastersteine, nur L-Steine
     if (ST.edge === "stone") sc += `<polyline points="${pts(l)}" fill="none" stroke="#b9ae9a" stroke-width="10" stroke-linejoin="round"/><polyline points="${pts(l)}" fill="none" stroke="#efe9dc" stroke-width="6" stroke-dasharray="11 2" stroke-linejoin="round"/>`;
     else if (ST.rich) sc += stones(l);
     else if (ST.edge === "band") sc += `<polyline points="${pts(l)}" fill="none" stroke="${ST.ink}" stroke-width="13" stroke-linejoin="round"/><polyline points="${pts(l)}" fill="none" stroke="#cfccc3" stroke-width="10" stroke-linejoin="round"/><polyline points="${pts(l)}" fill="none" stroke="#9f9c93" stroke-width="10" stroke-dasharray="1.5 7" stroke-linejoin="round"/>`;
@@ -384,10 +392,13 @@ function render() {
   // Bepflanzung (nur Deko, außerhalb des Rasens)
   const G = [["#7fae5a","#4f7a34","#a5cc7c"],["#5f9447","#3c6629","#88b86a"],["#9cbf62","#6b8c3a","#c2dc8e"],["#4f8a5b","#2f5c3a","#7bb187"]];
   const FL = ["#f2c94c", "#e88fb0", "#e26a4a", null, null];
-  for (let x = x0 + 50; x < wX - 20; x += 62 + rnd()*20) {
-    const g = G[Math.floor(rnd()*4)], cy = y0 + 38 + rnd()*14, r = 26 + rnd()*12, fl = FL[Math.floor(rnd()*5)];
-    sc += ST.rich ? richShrub(x, cy, r, g[0], fl) : shrub(x, cy, r, g, fl);
+  // Ligusterhecke an der Straße (Oskar, 18.11.2026): geschlossenes Band aus vielen Büscheln
+  const HG = ["#5f8c3f", "#3d6528", "#86b062"];
+  for (let x = x0 + 120; x < wX - 10; x += 17 + rnd()*6) {
+    const cy = y0 + 30 + rnd()*8, r = 20 + rnd()*6;
+    sc += ST.rich ? richShrub(x, cy, r, HG[0], null) : shrub(x, cy, r, HG, null);
   }
+  lbl((x0 + wX)/2 - 120, y0 + 36, "Ligusterhecke", {s: 16});
   for (let y = y0 + 120; y < P([0,1.9])[1]; y += 60 + rnd()*18) {
     const g = G[Math.floor(rnd()*4)], cx = x0 + 42 + rnd()*10, r = 24 + rnd()*10, fl = FL[Math.floor(rnd()*5)];
     sc += ST.rich ? richShrub(cx, y, r, g[0], fl) : shrub(cx, y, r, g, fl);
@@ -395,11 +406,13 @@ function render() {
   const SH = (x, y, r, g, f) => ST.rich ? richShrub(x, y, r, g[0], f) : shrub(x, y, r, g, f);
   [[-2.7, 0.75], [-2.2, 0.45]].forEach(p => { const q = P(p); sc += SH(q[0], q[1], 24, G[1], null); });
   const lb = P([-1.3, 0.35]); sc += SH(lb[0], lb[1], 30, G[2], null);
-  [[0.95, 0.25], [1.5, 0.55], [2.25, 0.4], [2.35, 0.8]].forEach(p => { const q = P(p); sc += tuft(q[0], q[1], 16); });
-  [[4.7, 1.3], [4.65, 2.3]].forEach(p => { const q = P(p); sc += SH(q[0], q[1], 20, G[3], null); });
   const tr = P(TREE);
   sc += ST.rich ? richTree(tr[0], tr[1], 64, "#8cbc55") : `<g opacity=".88">${shrub(tr[0], tr[1], 58, G[0], null, true)}</g>`;
-  lbl(tr[0], tr[1] + 82, "Baum", {s: 16});
+  lbl(tr[0], tr[1] + 82, "Kupfer-Felsenbirne", {s: 16});
+  // Kugelahorn oben links im Eckbeet (Oskar, 18.11.2026; Kronengröße geschätzt)
+  const ka = [x0 + 62, y0 + 62];   // ganz oben links in der Ecke
+  sc += ST.rich ? richTree(ka[0], ka[1], 60, "#7aa84a") : `<g opacity=".92">${shrub(ka[0], ka[1], 55, G[1], null, true)}</g>`;
+  lbl(ka[0] + 4, ka[1] + 84, "Kugelahorn", {s: 16});
   lbl(P([0.5, 0])[0], y0 + 92, "Beet zur Straße", {s: 18});
   lbl(x0 + 88, P([0, 3.1])[1], "Beet", {s: 18, r: -90});
   const open = P([4.3, 0.45]); lbl(open[0], open[1] + 6, "Rasen geht weiter", {s: 15, a: "start"});

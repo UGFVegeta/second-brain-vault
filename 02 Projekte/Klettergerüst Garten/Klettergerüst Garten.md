@@ -27,12 +27,17 @@ Planer: [[Aufstellplaner Klettergerüst.html]] (Draufsicht, Gerüst zieh- und dr
 
 ## Garten
 
-- Tiefe Rasen, Terrasse bis Randsteine Straßenseite: ca. 5,70 m (Oskar, gemessen)
+- Tiefe Rasen, Terrasse bis Beetkante Straßenseite: ca. 5,70 m (Oskar, gemessen)
 - Rasenform im Planer aus Foto IMG_8629 entzerrt (Kamera ca. 4,3 m hoch, mit den 5,70 m skaliert), Beete rund wie in echt
 - Breite an der breitesten Stelle: ca. 7,8 m laut Foto, noch nachmessen und im Planer eintragen
 - Rote Linie aus dem Foto ist ca. 3,6 m lang und liegt im Planer als Markierung
 - Gerüst darf nicht ins Beet ragen
-- Gewünschte Lage: rechte Rasenhälfte, schräg, hinter dem jungen Baum (rote Linie im Foto)
+- In den Beeten liegt Rindenmulch, kein Gras (Oskar, 18.11.2026)
+- Baum im Baumbeet an der Terrasse: Kupfer-Felsenbirne als Hochstamm (Oskar, 18.11.2026)
+- Ganz oben links in der Ecke: Kugelahorn (Oskar, 18.11.2026), im Planer mit geschätzter Krone ca. 1,2 m
+- Oben an der Straße: Ligusterhecke (Oskar, 18.11.2026)
+- Rechter Rasenrand bis Garage: schmaler Streifen (ca. 0,3 m, geschätzt), kein Durchgang. Am rechten Rasenrand keine Pflastersteine, sondern Beton-L-Steine, längs und unten quer zum Rasen hin, je 1 m lang, von oben nur die Oberkante sichtbar, der Fuß liegt unter der Erde (Oskar, 18.11.2026). Offen: was zwischen L-Stein und Garagenwand liegt
+- Gewünschte Lage: rechte Rasenhälfte, schräg, hinter der jungen Kupfer-Felsenbirne (rote Linie im Foto)
 
 ## Visualisierung mit Gemini (Oskar führt aus)
 
@@ -40,11 +45,11 @@ In der Gemini-App jeweils zwei Bilder hochladen: das Gartenfoto und das Produktb
 
 **Bild 1, von oben (Foto IMG_8629 vom Obergeschoss):**
 
-> Setze das Klettergerüst aus dem zweiten Bild fotorealistisch in den Garten aus dem ersten Bild. Es steht auf dem Rasen in der rechten Hälfte, hinter dem jungen Baum mit den drei Stützpfählen, schräg gedreht, sodass die lange Seite mit der Hangelleiter von links oben nach rechts unten verläuft. Das Gerüst ist 3 m lang, 2,3 m hoch, der Holzturm steht am Ende zur Straße hin, die graue Rutsche zeigt nach links zur Rasenmitte. Der Rasen ist von der Terrasse bis zur Beetkante 5,7 m tief, die Größe muss dazu passen. Das Gerüst berührt keine Beete. Perspektive, Licht und Schatten wie im Originalfoto, bewölkter Novembertag. Sonst nichts am Foto verändern, keine Menschen, kein Text.
+> Setze das Klettergerüst aus dem zweiten Bild fotorealistisch in den Garten aus dem ersten Bild. Es steht auf dem Rasen in der rechten Hälfte, hinter der jungen Kupfer-Felsenbirne (Hochstamm) mit den drei Stützpfählen, schräg gedreht, sodass die lange Seite mit der Hangelleiter von links oben nach rechts unten verläuft. Das Gerüst ist 3 m lang, 2,3 m hoch, der Holzturm steht am Ende zur Straße hin, die graue Rutsche zeigt nach links zur Rasenmitte. Der Rasen ist von der Terrasse bis zur Beetkante 5,7 m tief, die Größe muss dazu passen. Das Gerüst berührt keine Beete. Perspektive, Licht und Schatten wie im Originalfoto, bewölkter Novembertag. Sonst nichts am Foto verändern, keine Menschen, kein Text.
 
 **Bild 2, vom Boden (Foto IMG_8627 von der Terrasse):**
 
-> Setze das Klettergerüst aus dem zweiten Bild fotorealistisch in den Garten aus dem ersten Bild, gesehen von der Terrasse auf Augenhöhe. Es steht rechts auf dem Rasen hinter dem jungen Baum mit den Stützpfählen, schräg gedreht, etwa 3 m lang und 2,3 m hoch, deutlich niedriger als die weiße Garagenwand rechts. Holzturm am hinteren Ende zur Straße, graue Rutsche nach links zur Rasenmitte, Schaukel unter dem Querbalken. Das Gerüst steht vollständig auf dem Rasen, nicht im Beet. Licht und Schatten wie im Foto, bewölkt. Sonst nichts verändern, keine Menschen, kein Text.
+> Setze das Klettergerüst aus dem zweiten Bild fotorealistisch in den Garten aus dem ersten Bild, gesehen von der Terrasse auf Augenhöhe. Es steht rechts auf dem Rasen hinter der jungen Kupfer-Felsenbirne (Hochstamm) mit den Stützpfählen, schräg gedreht, etwa 3 m lang und 2,3 m hoch, deutlich niedriger als die weiße Garagenwand rechts. Holzturm am hinteren Ende zur Straße, graue Rutsche nach links zur Rasenmitte, Schaukel unter dem Querbalken. Das Gerüst steht vollständig auf dem Rasen, nicht im Beet. Licht und Schatten wie im Foto, bewölkt. Sonst nichts verändern, keine Menschen, kein Text.
 
 Tipps: Passt die Größe nicht, nachschieben: „Das Gerüst ist zu groß, es soll nur etwa halb so hoch sein wie die Garagenwand." Turmseite und Rutschenrichtung im Prompt an das anpassen, was im Planer am besten passt. Ergebnisse in `07 Anhänge/` ablegen.
 
@@ -52,14 +57,14 @@ Tipps: Passt die Größe nicht, nachschieben: „Das Gerüst ist zu groß, es so
 
 **Messliste für den Planer (18.11.2026):**
 
-1. Breite an der breitesten Stelle, parallel zur Terrasse: Beetkante links bis Randsteine rechts
-2. Tiefe noch zweimal, Terrasse bis Beetkante: einmal ganz links, einmal direkt an den Randsteinen rechts
-3. Baum: Stamm bis Terrassenkante und Stamm bis Randsteine rechts
+1. Breite an der breitesten Stelle, parallel zur Terrasse: Beetkante links bis L-Steine rechts
+2. Tiefe noch zweimal, Terrasse bis Beetkante: einmal ganz links, einmal direkt an den L-Steinen rechts
+3. Kupfer-Felsenbirne: Stamm bis Terrassenkante und Stamm bis L-Steine rechts
 4. Baumbeet: wie weit ragt es von der Terrasse in den Rasen (tiefster Punkt)
-5. Randsteine rechts bis Garagenwand
+5. L-Steine rechts bis Garagenwand
 6. Foto wie IMG_8629 vom Obergeschoss, mit zwei ausgelegten Zollstöcken (2 m längs, 2 m quer) als Maßstab
 7. Optional: Wunschplatz mit 4 Stäben abstecken (Gerüstecken 3,03 × 0,84 m) und von oben fotografieren
 
-- Rasenbreite an der breitesten Stelle messen (Beetkante links bis Randsteine rechts) und in den Planer eintragen
+- Rasenbreite an der breitesten Stelle messen (Beetkante links bis L-Steine rechts) und in den Planer eintragen
 - Turmseite und Rutschenrichtung festlegen
 - Sicherheitsabstand: Wickey nennt keine Zahl, vor dem Kauf klären (Montageanleitung oder Nachfrage bei Wickey)

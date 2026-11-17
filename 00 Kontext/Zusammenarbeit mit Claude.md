@@ -165,3 +165,4 @@ Auch Klassenlehrer- und Methodenstunden bereitet Claude als eine Stunden-HTML mi
 Selbst aufgebaute Mindmaps laufen sehr gut, von Hand oder in Excalidraw. Fakten zusätzlich über Karteikarten. Wichtig sind Übersichtlichkeit und Tipps bei Unklarem oder falschen Antworten.
 
 - **Schülerlisten und Namensschutz (17.11.2026):** CSV- und Textlisten mit Schülerdaten darf Oskar Claude geben, der Namensschutz-Mod ersetzt die Namen durch Platzhalter. Claude rät davon nicht mehr ab, sondern nennt nur die Lücken (Namen außerhalb der Tabelle, Kollegennamen, PDFs/Bilder). Ergebnisse mit Namen nur in die GDRS-iCloud.
+- **Pläne und Visualisierungen handgezeichnet (17.11.2026):** Gartenpläne, Lagepläne und ähnliche Grafiken lieber im Stil einer Architekten- oder Skizzenzeichnung (Blattstruktur, Tuschelinien, gedämpfte Farben) als glatt digital. Vorlage: Klettergerüst-Planer, Stil „Landschaftsplan“.
