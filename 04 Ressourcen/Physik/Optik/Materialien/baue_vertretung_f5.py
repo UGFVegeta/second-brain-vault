@@ -231,12 +231,14 @@ def mond_bahn(loesung):
 
 # ------------------------------------------------------------ Dokument
 STIL = """
+html,body{font-size:12pt !important;line-height:1.5}h2.aufgabe{font-size:13pt}.hinweis{font-size:10.5pt}table.rftab,table.rftab td{font-size:12pt}p.antwort{font-size:12pt}.kopf h1{font-size:17pt}
+
 .hinweis{font-size:9pt;color:#66798E}
 svg.feld{display:block;margin:1.5mm 0 2mm}
 p.lt{line-height:2.05}
-.luecke{min-width:30mm}.luecke.kurz{min-width:18mm}
+.luecke{min-width:42mm;height:8mm;vertical-align:bottom}.luecke.kurz{min-width:26mm}.luecke.loesungstext{height:auto}
 p.antwort{margin:1mm 0 3mm;line-height:1.6;font-size:10.5pt}
-.linien .linie{height:7mm}
+.linien .linie{height:8.5mm}
 h2.aufgabe{margin:3mm 0 1.2mm}
 table.rftab{border-collapse:collapse;width:100%;font-size:10pt;margin:1mm 0 2mm}
 table.rftab th{font-size:8.5pt;font-weight:600;color:#66798E;text-align:center;padding:0 0 1mm;width:16mm}
@@ -255,9 +257,21 @@ def blatt(loesung):
     return f'<div class="seite">{s1}</div><div class="seite">{s2}</div>'
 
 
+def kreise_einheitlich(html):
+    """○ ◐ ● als gleich große SVG-Kreise (Schriftzeichen sind je nach Font verschieden groß)."""
+    def k(art):
+        f = {"○": "", "◐": '<path d="M5,1 A4,4 0 0 0 5,9 Z" fill="#222"/>', "●": '<circle cx="5" cy="5" r="4" fill="#222"/>'}[art]
+        return (f'<svg width="3.4mm" height="3.4mm" viewBox="0 0 10 10" style="vertical-align:-0.5mm"><title>{art}</title>'
+                f'<circle cx="5" cy="5" r="4" fill="none" stroke="#222" stroke-width="1.1"/>{f}</svg>')
+    for z in "○◐●":
+        html = html.replace(z, k(z))
+    return html
+
+
+
 def dokument(titel, inhalt):
     return (f'<!doctype html><html lang="de"><head><meta charset="utf-8"><title>{titel}</title>'
-            f'<link rel="stylesheet" href="ab-vorlage.css"><style>{STIL}</style></head><body>{inhalt}</body></html>')
+            f'<link rel="stylesheet" href="ab-vorlage.css"><style>{STIL}</style></head><body>{kreise_einheitlich(inhalt)}</body></html>')
 
 
 def drucke(html_name, pdf_name):

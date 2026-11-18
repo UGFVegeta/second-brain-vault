@@ -71,7 +71,7 @@ def aufgabe(nr, titel, kreis_):
 
 
 def box(loes, breite=18):
-    return f'<span class="box" style="min-width:{breite}mm">{f"<b class=m>{loes}</b>" if L else ""}</span>'
+    return f'<span class="box" style="min-width:{breite * 1.35:.0f}mm">{f"<b class=m>{loes}</b>" if L else ""}</span>'
 
 
 # ------------------------------------------------------------ Merkkasten
@@ -109,8 +109,8 @@ def merk():
 
 # ------------------------------------------------------------ Aufgaben
 def a1():
-    w, h = 90, 65
-    M = (45, 30)
+    w, h = 85, 60
+    M = (40, 30)
     s = punkt(M, "M", (0, -3.5))
     for a in (30, 150, 270):
         p = P(M, 20, a)
@@ -126,9 +126,9 @@ def a1():
 
 
 def a2():
-    w, h = 90, 65
-    A = (10, 50)
-    s = linie(A, (85, 50), b=0.5) + linie(A, P(A, 70, 40), b=0.5) + punkt(A, "A", (-3, 2.5))
+    w, h = 85, 50
+    A = (10, 42)
+    s = linie(A, (80, 42), b=0.5) + linie(A, P(A, 70, 40), b=0.5) + punkt(A, "A", (-3, 2.5))
     if L:
         B, C = P(A, 40, 0), P(A, 30, 40)
         s += bogen(A, 40, 0, 14) + bogen(A, 30, 40, 14) + punkt(B, "B", (0, 4), MAG) + punkt(C, "C", (-3, -2.5), MAG)
@@ -139,8 +139,8 @@ def a2():
 
 
 def a3():
-    w, h = 186, 75
-    A, B = (65, 40), (115, 40)
+    w, h = 186, 62
+    A, B = (65, 31), (115, 31)
     s = punkt(A, "Baum A", (-1, 4.5)) + punkt(B, "Brunnen B", (1, 4.5))
     if L:
         C1, C2 = schnitt(A, 30, B, 30, True), schnitt(A, 30, B, 30, False)
@@ -180,31 +180,31 @@ def dreieck_feld(ab, ra, rb, w=90, h=52):
 
 
 def a5():
-    return (aufgabe(5, "Dein erstes Dreieck: alle Seiten 4 cm", "●")
+    return (aufgabe(4, "Dein erstes Dreieck: alle Seiten 4 cm", "●")
             + '<div class="row">' + dreieck_feld(4, 4, 4) + '<p class="auf">① Kreisbogen um A mit <b>4 cm</b> nach oben.<br>② Kreisbogen um B mit <b>4 cm</b>.<br>'
               '③ Der Schnittpunkt ist <b>C</b>.<br>④ Verbinde C mit A und mit B.<br>'
               'Miss die Winkel: ' + box("alle 60°", 18) + '<br>Das Dreieck ist ' + box("gleichseitig", 26) + '</p></div>')
 
 
 def a6():
-    return (aufgabe(6, "Dreieck mit 5 cm, 4 cm und 3 cm", "●")
+    return (aufgabe(5, "Dreieck mit 5 cm, 4 cm und 3 cm", "●")
             + '<div class="row">' + dreieck_feld(5, 4, 3, 90, 50) + '<p class="auf">Gegeben ist AB = 5 cm. C soll <b>4 cm</b> von A und <b>3 cm</b> von B entfernt sein.<br>'
               '① Bogen um A mit 4 cm.<br>② Bogen um B mit 3 cm.<br>③ Schnittpunkt C, dann verbinden.<br>'
               'Miss den Winkel bei C: γ = ' + box("90°", 12) + '<br>Was fällt dir auf? ' + box("Das Dreieck ist rechtwinklig.", 40) + '</p></div>')
 
 
 def a7():
-    w, h = 186, 62
+    w, h = 186, 56
     s = ""
     if L:
-        A, B = (60, 50), (120, 50)
+        A, B = (60, 47), (120, 47)
         C = schnitt(A, 50, B, 40, True)
         s += linie(A, B, MAG, 0.6) + punkt(A, "A", (-3, 2.5), MAG) + punkt(B, "B", (3, 2.5), MAG)
         s += bogen(A, 50, ang(A, C), 12) + bogen(B, 40, ang(B, C), 12)
         s += linie(A, C, MAG, 0.6) + linie(B, C, MAG, 0.6) + punkt(C, "C", (0, -3.6), MAG)
-    return (aufgabe(7, "Jetzt ganz allein", "●")
+    return (aufgabe(6, "Jetzt ganz allein", "●")
             + '<p class="auf">Zeichne ein Dreieck mit AB = <b>6 cm</b>, AC = <b>5 cm</b> und BC = <b>4 cm</b>. '
-              'Fang mit der Strecke AB an, dann zwei Kreisbögen wie in Aufgabe 5 und 6.</p>' + svg(w, h, s))
+              'Fang mit der Strecke AB an, dann zwei Kreisbögen wie in Aufgabe 4 und 5.</p>' + svg(w, h, s))
 
 
 def kopf(seite):
@@ -217,34 +217,46 @@ def kopf(seite):
     return f'<div class="kopf"><div><span class="chip">Mathe 7c</span><h1>Rückseite: Vom Kreisbogen zum Dreieck</h1></div>{lm}</div>'
 
 
+def kreise_einheitlich(html):
+    """○ ◐ ● als gleich große SVG-Kreise (Schriftzeichen sind je nach Font verschieden groß)."""
+    def k(art):
+        f = {"○": "", "◐": '<path d="M5,1 A4,4 0 0 0 5,9 Z" fill="#222"/>', "●": '<circle cx="5" cy="5" r="4" fill="#222"/>'}[art]
+        return (f'<svg width="3.4mm" height="3.4mm" viewBox="0 0 10 10" style="vertical-align:-0.5mm"><title>{art}</title>'
+                f'<circle cx="5" cy="5" r="4" fill="none" stroke="#222" stroke-width="1.1"/>{f}</svg>')
+    for z in "○◐●":
+        html = html.replace(z, k(z))
+    return html
+
+
 STIL = """
-@page{size:A4;margin:0}*{box-sizing:border-box}
-body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:9.4pt;line-height:1.35}
-.seite{width:210mm;height:297mm;padding:9mm 12mm 8mm;overflow:hidden;page-break-after:always}
+@page{size:A4;margin:9mm 11mm 8mm}*{box-sizing:border-box}
+body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:12.0pt;line-height:1.45}
+.seite{page-break-after:always}.blk{break-inside:avoid}
 .kopf{display:flex;justify-content:space-between;align-items:center;border-bottom:1.6px solid #1F4FA0;padding-bottom:1.5mm}
-.kopf h1{display:inline;font-size:14pt;margin:0 0 0 2mm;color:#1F4FA0}
-.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:9pt;font-weight:700}
+.kopf h1{display:inline;font-size:16.0pt;margin:0 0 0 2mm;color:#1F4FA0}
+.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:10.3pt;font-weight:700}
 .lmark{color:#fff;background:#E6007E;padding:1mm 3mm;border-radius:3px;font-weight:700}
-.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:8pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
-.leg{font-size:8.4pt;color:#555;margin:1.2mm 0 1.5mm}
+.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:9.1pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
+.leg{font-size:9.6pt;color:#555;margin:1.2mm 0 1.5mm}
 .merk{border:1.4px solid #1F4FA0;border-radius:2.5mm;padding:1.8mm 3mm;background:#F3F7FD;margin-bottom:1mm}
 .mt{font-weight:700;color:#1F4FA0;margin-bottom:1mm}.mrow{display:flex;gap:4mm;align-items:center}
-.rezept{font-size:8.8pt}.rezept ol{margin:.5mm 0 .8mm 5mm;padding:0}.kl{color:#555;font-size:8.4pt}
-h2{font-size:10pt;margin:2.4mm 0 .8mm;display:flex;align-items:baseline;gap:1.6mm}
-.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:8.6pt;flex:none}
-.kr{font-size:11pt}.auf{margin:0 0 1.2mm}
+.rezept{font-size:10.1pt}.rezept ol{margin:.5mm 0 .8mm 5mm;padding:0}.kl{color:#555;font-size:9.6pt}
+h2{font-size:11.4pt;margin:2.4mm 0 .8mm;display:flex;align-items:baseline;gap:1.6mm}
+.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:9.8pt;flex:none}
+.kr{font-size:12.6pt}.auf{margin:0 0 1.2mm}
 .zwei{display:flex;gap:6mm}.zwei>div{flex:1}
 .row{display:flex;gap:5mm;align-items:center}
-.box{display:inline-block;border-bottom:1px solid #555;height:5mm;vertical-align:bottom;padding:0 1mm;line-height:5mm}
+.box{display:inline-block;border-bottom:1px solid #555;height:9.5mm;vertical-align:bottom;padding:0 1mm;line-height:12mm}
 .m{color:#E6007E;font-weight:600}
-.hinweis{font-size:8pt;color:#777;margin-top:2mm}
+.hinweis{font-size:9.1pt;color:#777;margin-top:2mm}
 """
 
 
 def blatt():
-    s1 = kopf(1) + merk() + f'<div class="zwei"><div>{a1()}</div><div>{a2()}</div></div>' + a3()
-    s2 = kopf(2) + a4() + a5() + a6() + a7() + '<p class="hinweis">Drucke das Blatt in Originalgröße (100 %), sonst stimmen die Zentimeter nicht.</p>'
-    return f'<div class="seite">{s1}</div><div class="seite">{s2}</div>'
+    b = lambda *t: "".join(f'<div class="blk">{x}</div>' for x in t)
+    hin = '<p class="hinweis">Drucke das Blatt in Originalgröße (100 %), sonst stimmen die Zentimeter nicht.</p>'
+    seiten = [kopf(1) + b(merk()) + f'<div class="zwei blk"><div>{a1()}</div><div>{a2()}</div></div>' + b(a3()), kopf(2) + b(a5(), a6(), a7()) + hin]
+    return "".join(f'<div class="seite">{x}</div>' for x in seiten)
 
 
 def main():
@@ -254,7 +266,7 @@ def main():
         name = BASIS + (" – Lösung" if loes else "")
         html = HIER / f"{name}.html"
         html.write_text(f'<!doctype html><html lang="de"><head><meta charset="utf-8"><title>{name}</title><style>{STIL}</style></head>'
-                        f'<body>{blatt()}</body></html>', encoding="utf-8")
+                        f'<body>{kreise_einheitlich(blatt())}</body></html>', encoding="utf-8")
         subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={HIER / (name + '.pdf')}",
                         "--virtual-time-budget=3000", html.as_uri()], check=True, capture_output=True)
         print("gedruckt:", name)

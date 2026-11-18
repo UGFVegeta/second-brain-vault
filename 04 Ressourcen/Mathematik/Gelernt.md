@@ -6,6 +6,8 @@ tags: [gelernt, mathematik]
 
 Eine Zeile pro Erkenntnis, neueste oben. Lang ausgeführte Gründe stehen im Claude-Gedächtnis, hier nur die Folge.
 
+- 18.11.2026: Schreiblücken waren zu klein und zu eng (Oskar: frustriert die Schüler). Folge: auf allen Arbeitsblättern Lücken mindestens 8 mm hoch, gut 1,35-mal so breit wie das Lösungswort, Schrift 12 pt; reicht der Platz nicht, lieber eine Seite mehr oder Aufgaben kürzen statt quetschen. Achtung: Ist eine Zeile breiter als die Seite, verkleinert Chrome beim Drucken das ganze Blatt, dann ist 12 pt nur scheinbar 12 pt. Breite prüfen.
+- 18.11.2026: Die Zeichen ○ ◐ ● sind je nach Schrift verschieden groß (● und ○ klein, ◐ groß). Oskar will alle so groß wie ◐. Folge: Kreise als gleich große SVG einsetzen (`kreise_einheitlich` in `Dreiecke/06 Zirkel üben …/baue_zirkel.py`), nicht als Schriftzeichen.
 - 17.11.2026: Vertretungsnachricht klingt bei Oskar so: „Hallo …, du vertrittst mich morgen in der 7c. Die Schüler sollen folgende Aufgaben machen:“, dann nur die Buchnummern, „Lösungen hänge ich an. Danke!“. Folge: keine Anweisungen zur Didaktik („nur üben, nichts einführen“), Vertretungen nur Aufgaben + Lösung.
 - 17.11.2026: Für eine Vertretung reicht eine kurze Nachricht mit den Aufgaben, ohne Zeitplan. Folge: keine eigene Ablaufnotiz bauen.
 - 17.11.2026: Vertretung 10b hatte ein Schülerblatt mit Lücken zu Buchaufgaben. Oskar will das nicht: Aufgaben stehen im Buch, die Klasse schreibt alles selbst ins Heft, keine Lückeneinträge. Folge: bei Buchaufgaben kein Schülerblatt, nur Buchnummern nennen; Lösung und Tafelbild für die Lehrkraft.

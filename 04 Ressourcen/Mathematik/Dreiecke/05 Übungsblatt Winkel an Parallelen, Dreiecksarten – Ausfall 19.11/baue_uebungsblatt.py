@@ -9,6 +9,7 @@ HIER = Path(__file__).parent
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 MAG, ROT, BLAU, GRUEN, ORANGE, SCHWARZ = "#E6007E", "#D7263D", "#1F6FD1", "#1E9E52", "#E08A00", "#222"
 BASIS = "Mathe 7c – Übungsblatt Winkel an Parallelen, Dreiecksarten"
+GROSS = 1.0   # Figuren größer (kein Messen auf diesem Blatt)
 L = False   # Lösung an/aus (wird in main gesetzt)
 
 
@@ -68,7 +69,7 @@ def striche(p, q, n, f=SCHWARZ):
 
 
 def svg(w, h, inhalt, klasse="fig"):
-    return (f'<svg class="{klasse}" width="{w}mm" height="{h}mm" viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg" '
+    return (f'<svg class="{klasse}" width="{w * GROSS:.1f}mm" height="{h * GROSS:.1f}mm" viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg" '
             f'font-family="Avenir Next, Helvetica Neue, Arial, sans-serif">{inhalt}</svg>')
 
 
@@ -159,8 +160,8 @@ def tri_fig(w, h, al, be, c, winkel=None, gleich=(), rechts=None, eck=("A", "B",
 # ------------------------------------------------------------ Bausteine fürs Blatt
 def box(loes, breite=18):
     if L:
-        return f'<span class="box" style="min-width:{breite}mm"><b class="m">{loes}</b></span>'
-    return f'<span class="box" style="min-width:{breite}mm"></span>'
+        return f'<span class="box" style="min-width:{breite * 1.35:.0f}mm"><b class="m">{loes}</b></span>'
+    return f'<span class="box" style="min-width:{breite * 1.35:.0f}mm"></span>'
 
 
 def zeile_lsg(loes, n=1):
@@ -209,7 +210,7 @@ def a1():
     paare = [("α und γ", "Scheitelwinkel"), ("β und γ", "Nebenwinkel"), ("δ und δ′", "Stufenwinkel"),
              ("γ und α′", "Wechselwinkel"), ("β und β′", "Stufenwinkel"), ("δ und β′", "Wechselwinkel")]
     li = "".join(f'<div class="pz">{chr(97 + i)}) {p} sind {box(l, 27)}</div>' for i, (p, l) in enumerate(paare))
-    return aufgabe(1, "Wie heißt das Winkelpaar? (g || h)", "○") + f'<div class="row">{fig}<div class="grid2">{li}</div></div>'
+    return aufgabe(1, "Wie heißt das Winkelpaar? (g || h)", "○") + f'<div class="row">{fig}<div class="grid1">{li}</div></div>'
 
 
 def a2():
@@ -219,9 +220,11 @@ def a2():
              ("α′", "62°", "Stufenwinkel von 62°"), ("β′", "118°", "Stufenwinkel von β"), ("γ′", "62°", "Wechselwinkel zu 62°… nein: Stufenwinkel von γ"),
              ("δ′", "118°", "Stufenwinkel von δ")]
     werte[5] = ("γ′", "62°", "Stufenwinkel von γ")
-    rows = "".join(f'<tr><td>{n} =</td><td>{box(v, 14)}</td><td class="weil">weil {box(b, 52) if L else box("", 52)}</td></tr>' for n, v, b in werte)
-    return (aufgabe(2, "Bestimme alle Winkel ohne Messen. Schreibe dazu, warum. (g || h)", "○")
-            + f'<div class="row">{fig}<table class="wt">{rows}</table></div>')
+    mit, ohne = werte, []
+    rows = "".join(f'<tr><td>{n} =</td><td>{box(v, 12)}</td><td class="weil">weil {box(b if L else "", 50)}</td></tr>' for n, v, b in mit)
+    rest = " &nbsp; ".join(f'{n} = {box(v, 10)}' for n, v, _ in ohne)
+    return (aufgabe(2, "Bestimme alle Winkel ohne Messen. Schreibe immer dazu, warum. (g || h)", "○")
+            + f'<div class="row">{fig}<div><table class="wt">{rows}</table></div></div>')
 
 
 def a3():
@@ -256,7 +259,7 @@ def a4():
          f'β = {box("67°", 12)} weil {box("Wechselwinkel zu 67°", 38)}<br>'
          f'γ = {box("65°", 12)} weil {box("48° + γ + 67° = 180° (gestreckter Winkel bei C)", 38)}<br>'
          f'Was zeigt die Figur? {box("Die Winkelsumme im Dreieck ist 180°.", 50)}')
-    return (aufgabe(4, "Parallelen und Dreieck: Bestimme α, β und γ. (g || h)", "●")
+    return (aufgabe(3, "Parallelen und Dreieck: Bestimme α, β und γ. (g || h)", "●")
             + f'<div class="row">{fig}<div class="lsg">{t}</div></div>')
 
 
@@ -298,7 +301,7 @@ def a5():
     for i, n in enumerate(("spitzwinklig", "rechtwinklig", "stumpfwinklig")):
         zeilen += f'<tr{" class=trenn" if i == 0 else ""}><td>{n}</td>' + "".join(f"<td>{kreuz(w == i)}</td>" for _, _, _, w, _ in dr) + "</tr>"
     beg = "".join(f'<div class="bg">{b}: {box(t, 50)}</div>' for b, _, _, _, t in dr[2:4])
-    return (aufgabe(5, "Welche Art ist es? Kreuze zweimal an: einmal nach Seiten, einmal nach Winkeln.", "○")
+    return (aufgabe(4, "Welche Art ist es? Kreuze zweimal an: einmal nach Seiten, einmal nach Winkeln.", "○")
             + f'<div class="figs">{figs}</div><table class="kt"><tr><th></th>{kopfz}</tr>{zeilen}</table>'
             + f'<p class="klein">Begründe bei C und D in einem Satz:</p><div class="grid2">{beg}</div>')
 
@@ -315,7 +318,7 @@ def a6():
          ("c)", fc, f'β = {box("35°", 11)} γ = {box("110°", 11)}', "Basiswinkel gleich, 180° − 70°"),
          ("d)", fd, f'α = β = γ = {box("60°", 11)}', "180° durch 3")]
     k = "".join(f'<div class="a6"><span class="sub">{s}</span>{f}<div>{z}</div><div class="klein m">{b if L else ""}</div></div>' for s, f, z, b in t)
-    return aufgabe(6, "Bestimme die fehlenden Winkel ohne Messen.", "◐") + f'<div class="a6row">{k}</div>'
+    return aufgabe(5, "Bestimme die fehlenden Winkel ohne Messen.", "◐") + f'<div class="a6row">{k}</div>'
 
 
 def a7():
@@ -339,7 +342,7 @@ def a7():
          f'β = {box("70°", 12)} weil {box("Basiswinkel, gleichschenklig", 40)}<br>'
          f'γ = {box("40°", 12)} weil {box("180° − 70° − 70°", 40)}<br>'
          f'Art: {box("gleichschenklig und spitzwinklig", 60)}')
-    return (aufgabe(7, "Parallelen und Dreieck: Bestimme α, β, γ und die Dreiecksart. (g || h)", "●")
+    return (aufgabe(6, "Parallelen und Dreieck: Bestimme α, β, γ und die Dreiecksart. (g || h)", "●")
             + f'<div class="row">{svg(w, h, out)}<div class="lsg">{t}</div></div>')
 
 
@@ -348,57 +351,68 @@ def a8():
          ("Jedes gleichseitige Dreieck ist auch gleichschenklig.", "wahr", "Es hat sogar 3 gleiche Seiten, also auch 2."),
          ("Ein rechtwinkliges Dreieck kann gleichschenklig sein.", "wahr", "Mit 90°, 45°, 45°."),
          ("Ein stumpfwinkliges Dreieck kann gleichseitig sein.", "falsch", "Gleichseitig heißt: alle Winkel 60°.")]
-    r = "".join(f'<tr><td>{chr(97 + i)}) {a}</td><td>{box(wf, 13)}</td><td>{box(b, 66)}</td></tr>' for i, (a, wf, b) in enumerate(s))
+    r = "".join(f'<tr><td>{chr(97 + i)}) {a}</td><td>{box(wf, 11)}</td><td>{box(b, 50)}</td></tr>' for i, (a, wf, b) in enumerate(s))
     return aufgabe(8, "Wahr oder falsch? Begründe.", "●") + f'<table class="wf"><tr><th></th><th>wahr/falsch</th><th>weil</th></tr>{r}</table>'
 
 
+def kreise_einheitlich(html):
+    """○ ◐ ● als gleich große SVG-Kreise (Schriftzeichen sind je nach Font verschieden groß)."""
+    def k(art):
+        f = {"○": "", "◐": '<path d="M5,1 A4,4 0 0 0 5,9 Z" fill="#222"/>', "●": '<circle cx="5" cy="5" r="4" fill="#222"/>'}[art]
+        return (f'<svg width="3.4mm" height="3.4mm" viewBox="0 0 10 10" style="vertical-align:-0.5mm"><title>{art}</title>'
+                f'<circle cx="5" cy="5" r="4" fill="none" stroke="#222" stroke-width="1.1"/>{f}</svg>')
+    for z in "○◐●":
+        html = html.replace(z, k(z))
+    return html
+
+
 STIL = """
-@page{size:A4;margin:0}
+@page{size:A4;margin:9mm 11mm 8mm}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:9pt;line-height:1.25}
-.seite{width:210mm;height:297mm;padding:9mm 11mm 8mm;overflow:hidden;page-break-after:always;position:relative}
+body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:12.0pt;line-height:1.25}
+.seite{page-break-after:always}.blk{break-inside:avoid}
 .kopf{display:flex;justify-content:space-between;align-items:center;border-bottom:1.6px solid #1F4FA0;padding-bottom:1.5mm}
-.kopf h1{display:inline;font-size:14pt;margin:0 0 0 2mm;color:#1F4FA0}
-.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:9pt;font-weight:700}
+.kopf h1{display:inline;font-size:18.7pt;margin:0 0 0 2mm;color:#1F4FA0}
+.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:12.0pt;font-weight:700}
 .lmark{color:#fff;background:#E6007E;padding:1mm 3mm;border-radius:3px;font-weight:700}
-.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:8pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
-.leg{font-size:8.4pt;color:#555;margin:1.2mm 0 1.5mm}
+.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:10.7pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
+.leg{font-size:11.2pt;color:#555;margin:1.2mm 0 1.5mm}
 .merk{border:1.4px solid #1F4FA0;border-radius:2.5mm;padding:1.6mm 2.5mm;background:#F3F7FD;margin-bottom:2mm}
 .mt{font-weight:700;color:#1F4FA0;margin-bottom:1mm}
 .mrow{display:flex;gap:3mm;align-items:center}
 table{border-collapse:collapse}
-.paare{font-size:8.3pt;width:100%}.paare td,.paare th{border:1px solid #c9d3e3;padding:.5mm 1.2mm;text-align:left}.paare th{background:#e4ecf8}
-.rezept{margin-top:1.2mm;font-size:8.4pt}.rezept ol{margin:.5mm 0 .5mm 5mm;padding:0}.rezept .kl{color:#444;font-size:8.2pt}
+.paare{font-size:11.1pt;width:100%}.paare td,.paare th{border:1px solid #c9d3e3;padding:.5mm 1.2mm;text-align:left}.paare th{background:#e4ecf8}
+.rezept{margin-top:1.2mm;font-size:11.2pt}.rezept ol{margin:.5mm 0 .5mm 5mm;padding:0}.rezept .kl{color:#444;font-size:10.9pt}
 .rezept.quer ol li{margin-bottom:.3mm}
-h2{font-size:9.8pt;margin:1.6mm 0 .6mm;display:flex;align-items:baseline;gap:1.6mm}
-.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:8.6pt;flex:none}
-.kr{font-size:11pt}
+h2{font-size:13.1pt;margin:1.6mm 0 .6mm;display:flex;align-items:baseline;gap:1.6mm}
+.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:11.5pt;flex:none}
+.kr{font-size:14.7pt}
 .row{display:flex;gap:4mm;align-items:center;margin-bottom:.8mm}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.6mm 4mm;flex:1}
+.grid1{display:grid;gap:1mm;flex:1}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.6mm 4mm;flex:1}
 .pz{white-space:nowrap}
-.box{display:inline-block;border-bottom:1px solid #555;height:4.8mm;vertical-align:bottom;padding:0 1mm;line-height:5.2mm}
-.m{color:#E6007E}.box .m{font-weight:600;font-size:8.6pt}
-.wt td{padding:0 1mm;white-space:nowrap}.wt .weil{font-size:8.6pt}
-.lsg{line-height:1.85;font-size:9pt}
+.box{display:inline-block;border-bottom:1px solid #555;height:9.5mm;vertical-align:bottom;padding:0 1mm;line-height:12mm}
+.m{color:#E6007E}.box .m{font-weight:600;font-size:11.5pt}
+.wt td{padding:0 1mm;white-space:nowrap}.wt .weil{font-size:11.5pt}
+.lsg{line-height:1.85;font-size:12.0pt}
 .sub{font-weight:700;align-self:flex-start}
-.arten{display:flex;gap:1.5mm}.art{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;font-size:8pt;background:#fff;border:1px solid #c9d3e3;border-radius:2mm;padding:1mm}
-.art b{font-size:8.4pt;min-height:7mm}.art span{display:block}
-.figs{display:flex;justify-content:space-between;align-items:flex-end}.tf{text-align:center}.tf b{display:block}
-.kt{width:100%;font-size:8.6pt;margin-top:1mm}.kt td,.kt th{border:1px solid #bbb;padding:0 1.5mm;text-align:center}.kt td:first-child{text-align:left;width:34mm}
+.arten{display:flex;gap:1.5mm}.art svg{width:26mm;height:auto}.art{min-width:0}.art{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;font-size:10.7pt;background:#fff;border:1px solid #c9d3e3;border-radius:2mm;padding:1mm}
+.art b{font-size:11.2pt;min-height:7mm}.art span{display:block}
+.figs .tf svg{width:29mm;height:auto}.figs{display:flex;justify-content:space-between;align-items:flex-end}.tf{text-align:center}.tf b{display:block}
+.kt{width:100%;font-size:11.5pt;margin-top:1mm}.kt td,.kt th{border:1px solid #bbb;padding:0 1.5mm;text-align:center}.kt td:first-child{text-align:left;width:34mm}
 .kt tr.trenn td{border-top:2px solid #555}
-.cb{display:inline-block;width:3.6mm;height:3.6mm;border:1px solid #555;vertical-align:middle;line-height:3.4mm;font-size:8pt}
-.klein{font-size:8.4pt;margin:1mm 0 .5mm}
+.cb{display:inline-block;width:3.6mm;height:3.6mm;border:1px solid #555;vertical-align:middle;line-height:3.4mm;font-size:10.7pt}
+.klein{font-size:11.2pt;margin:1mm 0 .5mm}
 .bg{white-space:nowrap}
-.a6row{display:flex;justify-content:space-between;gap:2mm}.a6{display:flex;flex-direction:column;align-items:center;font-size:9pt;line-height:1.7}
-.wf{width:100%;font-size:8.8pt}.wf td,.wf th{padding:0 1mm;text-align:left}
-.antw{font-size:8.6pt}
+.a6row svg{width:38mm;height:auto}.a6row{display:flex;justify-content:space-between;gap:2mm}.a6{display:flex;flex-direction:column;align-items:center;font-size:12.0pt;line-height:1.7}
+.wf{width:100%;font-size:11.7pt}.wf td:first-child{width:78mm}.rest{margin-top:2mm;line-height:2}.wf td,.wf th{padding:0 1mm;text-align:left}
+.antw{font-size:11.5pt}
 """
 
 
 def blatt():
-    s1 = kopf(1) + merk_parallelen() + a1() + a2() + a3() + a4()
-    s2 = kopf(2) + merk_dreiecke() + a5() + a6() + a7() + a8()
-    return f'<div class="seite">{s1}</div><div class="seite">{s2}</div>'
+    b = lambda *t: "".join(f'<div class="blk">{x}</div>' for x in t)
+    seiten = [kopf(1) + b(merk_parallelen(), a1(), a2(), a4()), kopf(2) + b(merk_dreiecke(), a5(), a6(), a7())]
+    return "".join(f'<div class="seite">{x}</div>' for x in seiten)
 
 
 def main():
@@ -408,7 +422,7 @@ def main():
         name = BASIS + (" – Lösung" if loes else "")
         html = HIER / f"{name}.html"
         html.write_text(f'<!doctype html><html lang="de"><head><meta charset="utf-8"><title>{name}</title><style>{STIL}</style></head>'
-                        f'<body>{blatt()}</body></html>', encoding="utf-8")
+                        f'<body>{kreise_einheitlich(blatt())}</body></html>', encoding="utf-8")
         subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={HIER / (name + '.pdf')}",
                         "--virtual-time-budget=3000", html.as_uri()], check=True, capture_output=True)
         print("gedruckt:", name)
