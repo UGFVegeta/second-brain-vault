@@ -66,7 +66,12 @@ def svg(w, h, inhalt, gitter=True):
             f'font-family="Avenir Next, Helvetica Neue, Arial, sans-serif">{karo(w, h) if gitter else ""}{inhalt}</svg>')
 
 
-def aufgabe(nr, titel, kreis_):
+NR = [0]
+
+
+def aufgabe(_nr, titel, kreis_):
+    NR[0] += 1
+    nr = NR[0]
     return f'<h2><span class="nr">{nr}</span><span class="kr">{kreis_}</span>{titel}</h2>'
 
 
@@ -109,8 +114,8 @@ def merk():
 
 # ------------------------------------------------------------ Aufgaben
 def a1():
-    w, h = 85, 60
-    M = (40, 30)
+    w, h = 80, 55
+    M = (40, 27.5)
     s = punkt(M, "M", (0, -3.5))
     for a in (30, 150, 270):
         p = P(M, 20, a)
@@ -126,9 +131,9 @@ def a1():
 
 
 def a2():
-    w, h = 85, 50
-    A = (10, 42)
-    s = linie(A, (80, 42), b=0.5) + linie(A, P(A, 70, 40), b=0.5) + punkt(A, "A", (-3, 2.5))
+    w, h = 80, 45
+    A = (10, 38)
+    s = linie(A, (76, 38), b=0.5) + linie(A, P(A, 70, 40), b=0.5) + punkt(A, "A", (-3, 2.5))
     if L:
         B, C = P(A, 40, 0), P(A, 30, 40)
         s += bogen(A, 40, 0, 14) + bogen(A, 30, 40, 14) + punkt(B, "B", (0, 4), MAG) + punkt(C, "C", (-3, -2.5), MAG)
@@ -139,18 +144,17 @@ def a2():
 
 
 def a3():
-    w, h = 186, 62
-    A, B = (65, 31), (115, 31)
+    w, h = 120, 64
+    A, B = (35, 32), (85, 32)
     s = punkt(A, "Baum A", (-1, 4.5)) + punkt(B, "Brunnen B", (1, 4.5))
     if L:
         C1, C2 = schnitt(A, 30, B, 30, True), schnitt(A, 30, B, 30, False)
         s += kreis(A, 30, "#E6007E") + bogen(B, 30, ang(B, C1), 18) + bogen(B, 30, ang(B, C2), 18)
         s += punkt(C1, "S", (0, -3.5), MAG) + punkt(C2, "S", (0, 5), MAG)
     return (aufgabe(3, "Schatzsuche: zwei Kreisbögen schneiden sich", "◐")
-            + '<p class="auf">Der Schatz liegt genau <b>3 cm</b> vom Baum A und genau <b>3 cm</b> vom Brunnen B entfernt.<br>'
-              'a) Zeichne einen Kreis um A mit 3 cm. Auf diesem Kreis liegen alle Stellen, die 3 cm von A entfernt sind.<br>'
-              'b) Zeichne einen Kreisbogen um B mit 3 cm. Wo sich Kreis und Bogen schneiden, liegt der Schatz. Markiere mit S.<br>'
-              'c) Wie viele Stellen kommen in Frage? ' + box("2 Stellen (oben und unten)", 44) + '</p>' + svg(w, h, s))
+            + '<div class="row"><p class="auf">Der Schatz liegt genau <b>3 cm</b> vom Baum A und genau <b>3 cm</b> vom Brunnen B entfernt.<br>'
+              'a) Kreis um A mit 3 cm.<br>b) Kreisbogen um B mit 3 cm.<br>Wo sie sich schneiden, liegt der Schatz. Markiere mit S.<br>'
+              'c) Wie viele Stellen gibt es? ' + box("2 (oben und unten)", 30) + '</p>' + svg(w, h, s) + '</div>')
 
 
 def a4():
@@ -204,7 +208,7 @@ def a7():
         s += linie(A, C, MAG, 0.6) + linie(B, C, MAG, 0.6) + punkt(C, "C", (0, -3.6), MAG)
     return (aufgabe(6, "Jetzt ganz allein", "●")
             + '<p class="auf">Zeichne ein Dreieck mit AB = <b>6 cm</b>, AC = <b>5 cm</b> und BC = <b>4 cm</b>. '
-              'Fang mit der Strecke AB an, dann zwei Kreisbögen wie in Aufgabe 4 und 5.</p>' + svg(w, h, s))
+              'Fang mit der Strecke AB an, dann zwei Kreisbögen wie in Aufgabe 5 und 6.</p>' + svg(w, h, s))
 
 
 def kopf(seite):
@@ -229,33 +233,34 @@ def kreise_einheitlich(html):
 
 
 STIL = """
-@page{size:A4;margin:9mm 11mm 8mm}*{box-sizing:border-box}
-body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:12.0pt;line-height:1.45}
+@page{size:A4;margin:7mm 11mm 6mm}*{box-sizing:border-box}
+body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:11.0pt;line-height:1.45}
 .seite{page-break-after:always}.blk{break-inside:avoid}
 .kopf{display:flex;justify-content:space-between;align-items:center;border-bottom:1.6px solid #1F4FA0;padding-bottom:1.5mm}
-.kopf h1{display:inline;font-size:16.0pt;margin:0 0 0 2mm;color:#1F4FA0}
-.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:10.3pt;font-weight:700}
+.kopf h1{display:inline;font-size:14.7pt;margin:0 0 0 2mm;color:#1F4FA0}
+.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:9.4pt;font-weight:700}
 .lmark{color:#fff;background:#E6007E;padding:1mm 3mm;border-radius:3px;font-weight:700}
-.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:9.1pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
-.leg{font-size:9.6pt;color:#555;margin:1.2mm 0 1.5mm}
+.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:8.3pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
+.leg{font-size:8.8pt;color:#555;margin:1.2mm 0 1.5mm}
 .merk{border:1.4px solid #1F4FA0;border-radius:2.5mm;padding:1.8mm 3mm;background:#F3F7FD;margin-bottom:1mm}
 .mt{font-weight:700;color:#1F4FA0;margin-bottom:1mm}.mrow{display:flex;gap:4mm;align-items:center}
-.rezept{font-size:10.1pt}.rezept ol{margin:.5mm 0 .8mm 5mm;padding:0}.kl{color:#555;font-size:9.6pt}
-h2{font-size:11.4pt;margin:2.4mm 0 .8mm;display:flex;align-items:baseline;gap:1.6mm}
-.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:9.8pt;flex:none}
-.kr{font-size:12.6pt}.auf{margin:0 0 1.2mm}
+.rezept{font-size:9.3pt}.rezept ol{margin:.5mm 0 .8mm 5mm;padding:0}.kl{color:#555;font-size:8.8pt}
+h2{font-size:10.5pt;margin:2.4mm 0 .8mm;display:flex;align-items:baseline;gap:1.6mm}
+.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:9.0pt;flex:none}
+.kr{font-size:11.5pt}.auf{margin:0 0 1.2mm}
 .zwei{display:flex;gap:6mm}.zwei>div{flex:1}
 .row{display:flex;gap:5mm;align-items:center}
 .box{display:inline-block;border-bottom:1px solid #555;height:9.5mm;vertical-align:bottom;padding:0 1mm;line-height:12mm}
 .m{color:#E6007E;font-weight:600}
-.hinweis{font-size:9.1pt;color:#777;margin-top:2mm}
+.hinweis{font-size:8.3pt;color:#777;margin-top:2mm}
 """
 
 
 def blatt():
+    NR[0] = 0
     b = lambda *t: "".join(f'<div class="blk">{x}</div>' for x in t)
     hin = '<p class="hinweis">Drucke das Blatt in Originalgröße (100 %), sonst stimmen die Zentimeter nicht.</p>'
-    seiten = [kopf(1) + b(merk()) + f'<div class="zwei blk"><div>{a1()}</div><div>{a2()}</div></div>' + b(a3()), kopf(2) + b(a5(), a6(), a7()) + hin]
+    seiten = [kopf(1) + b(merk()) + f'<div class="zwei blk"><div>{a1()}</div><div>{a2()}</div></div>' + b(a3()), kopf(2) + b(a4(), a5(), a6(), a7()) + hin]
     return "".join(f'<div class="seite">{x}</div>' for x in seiten)
 
 

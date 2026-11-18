@@ -231,22 +231,22 @@ def mond_bahn(loesung):
 
 # ------------------------------------------------------------ Dokument
 STIL = """
-html,body{font-size:12pt !important;line-height:1.5}h2.aufgabe{font-size:13pt}.hinweis{font-size:10.5pt}table.rftab,table.rftab td{font-size:12pt}p.antwort{font-size:12pt}.kopf h1{font-size:17pt}
+html,body{font-size:11.0pt !important;line-height:1.5}h2.aufgabe{font-size:11.9pt}.hinweis{font-size:9.6pt}table.rftab,table.rftab td{font-size:11.0pt}p.antwort{font-size:11.0pt}.kopf h1{font-size:15.6pt}
 
-.hinweis{font-size:9pt;color:#66798E}
+.hinweis{font-size:8.2pt;color:#66798E}
 svg.feld{display:block;margin:1.5mm 0 2mm}
 p.lt{line-height:2.05}
 .luecke{min-width:42mm;height:8mm;vertical-align:bottom}.luecke.kurz{min-width:26mm}.luecke.loesungstext{height:auto}
-p.antwort{margin:1mm 0 3mm;line-height:1.6;font-size:10.5pt}
+p.antwort{margin:1mm 0 3mm;line-height:1.6;font-size:9.6pt}
 .linien .linie{height:8.5mm}
 h2.aufgabe{margin:3mm 0 1.2mm}
-table.rftab{border-collapse:collapse;width:100%;font-size:10pt;margin:1mm 0 2mm}
-table.rftab th{font-size:8.5pt;font-weight:600;color:#66798E;text-align:center;padding:0 0 1mm;width:16mm}
+table.rftab{border-collapse:collapse;width:100%;font-size:9.2pt;margin:1mm 0 2mm}
+table.rftab th{font-size:7.8pt;font-weight:600;color:#66798E;text-align:center;padding:0 0 1mm;width:16mm}
 table.rftab th:first-child{width:auto}
 table.rftab td{border-bottom:0.4pt solid #dfe2e7;padding:0.9mm 1mm}
 table.rftab td.rf{text-align:center}
-.kasten{display:inline-block;width:4.6mm;height:4.6mm;border:0.6pt solid #14171c;line-height:4.4mm;
-        text-align:center;color:#E6007E;font-weight:700;font-size:10pt}
+.kasten{display:inline-block;width:4.6mm;height:4.6mm;border:0.5pt solid #14171c;line-height:4.4mm;
+        text-align:center;color:#E6007E;font-weight:700;font-size:9.2pt}
 """
 
 

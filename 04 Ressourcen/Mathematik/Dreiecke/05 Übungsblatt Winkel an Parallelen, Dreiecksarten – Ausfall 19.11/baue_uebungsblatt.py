@@ -174,7 +174,12 @@ def kreuz(an):
     return f'<span class="cb">{"<b class=m>✕</b>" if (L and an) else ""}</span>'
 
 
-def aufgabe(nr, titel, kreis):
+NR = [0]
+
+
+def aufgabe(_nr, titel, kreis):
+    NR[0] += 1
+    nr = NR[0]
     return f'<h2><span class="nr">{nr}</span><span class="kr">{kreis}</span>{titel}</h2>'
 
 
@@ -301,9 +306,9 @@ def a5():
     for i, n in enumerate(("spitzwinklig", "rechtwinklig", "stumpfwinklig")):
         zeilen += f'<tr{" class=trenn" if i == 0 else ""}><td>{n}</td>' + "".join(f"<td>{kreuz(w == i)}</td>" for _, _, _, w, _ in dr) + "</tr>"
     beg = "".join(f'<div class="bg">{b}: {box(t, 50)}</div>' for b, _, _, _, t in dr[2:4])
-    return (aufgabe(4, "Welche Art ist es? Kreuze zweimal an: einmal nach Seiten, einmal nach Winkeln.", "○")
+    return (aufgabe(3, "Welche Art ist es? Kreuze zweimal an: einmal nach Seiten, einmal nach Winkeln.", "○")
             + f'<div class="figs">{figs}</div><table class="kt"><tr><th></th>{kopfz}</tr>{zeilen}</table>'
-            + f'<p class="klein">Begründe bei C und D in einem Satz:</p><div class="grid2">{beg}</div>')
+            )
 
 
 def a6():
@@ -317,8 +322,8 @@ def a6():
          ("b)", fb, f'α = {box("45°", 11)} β = {box("45°", 11)}', "90° übrig, durch 2"),
          ("c)", fc, f'β = {box("35°", 11)} γ = {box("110°", 11)}', "Basiswinkel gleich, 180° − 70°"),
          ("d)", fd, f'α = β = γ = {box("60°", 11)}', "180° durch 3")]
-    k = "".join(f'<div class="a6"><span class="sub">{s}</span>{f}<div>{z}</div><div class="klein m">{b if L else ""}</div></div>' for s, f, z, b in t)
-    return aufgabe(5, "Bestimme die fehlenden Winkel ohne Messen.", "◐") + f'<div class="a6row">{k}</div>'
+    k = "".join(f'<div class="a6"><span class="sub">{s}</span>{f}<div>{z}</div></div>' for s, f, z, b in t)
+    return aufgabe(4, "Bestimme die fehlenden Winkel ohne Messen.", "◐") + f'<div class="a6row">{k}</div>'
 
 
 def a7():
@@ -342,7 +347,7 @@ def a7():
          f'β = {box("70°", 12)} weil {box("Basiswinkel, gleichschenklig", 40)}<br>'
          f'γ = {box("40°", 12)} weil {box("180° − 70° − 70°", 40)}<br>'
          f'Art: {box("gleichschenklig und spitzwinklig", 60)}')
-    return (aufgabe(6, "Parallelen und Dreieck: Bestimme α, β, γ und die Dreiecksart. (g || h)", "●")
+    return (aufgabe(5, "Parallelen und Dreieck: Bestimme α, β, γ und die Dreiecksart. (g || h)", "●")
             + f'<div class="row">{svg(w, h, out)}<div class="lsg">{t}</div></div>')
 
 
@@ -367,51 +372,52 @@ def kreise_einheitlich(html):
 
 
 STIL = """
-@page{size:A4;margin:9mm 11mm 8mm}
+@page{size:A4;margin:7mm 11mm 6mm}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:12.0pt;line-height:1.25}
+body{margin:0;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;color:#222;font-size:11.0pt;line-height:1.25}
 .seite{page-break-after:always}.blk{break-inside:avoid}
 .kopf{display:flex;justify-content:space-between;align-items:center;border-bottom:1.6px solid #1F4FA0;padding-bottom:1.5mm}
-.kopf h1{display:inline;font-size:18.7pt;margin:0 0 0 2mm;color:#1F4FA0}
-.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:12.0pt;font-weight:700}
+.kopf h1{display:inline;font-size:17.1pt;margin:0 0 0 2mm;color:#1F4FA0}
+.chip{background:#1F4FA0;color:#fff;border-radius:3px;padding:.6mm 2mm;font-size:11.0pt;font-weight:700}
 .lmark{color:#fff;background:#E6007E;padding:1mm 3mm;border-radius:3px;font-weight:700}
-.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:10.7pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
-.leg{font-size:11.2pt;color:#555;margin:1.2mm 0 1.5mm}
+.name{display:flex;gap:4mm;margin-top:1.5mm}.name span{flex:1;border-bottom:1px solid #999;font-size:9.8pt;color:#777;padding-bottom:3mm}.name .k{flex:.35}
+.leg{font-size:10.3pt;color:#555;margin:1.2mm 0 1.5mm}
 .merk{border:1.4px solid #1F4FA0;border-radius:2.5mm;padding:1.6mm 2.5mm;background:#F3F7FD;margin-bottom:2mm}
 .mt{font-weight:700;color:#1F4FA0;margin-bottom:1mm}
 .mrow{display:flex;gap:3mm;align-items:center}
 table{border-collapse:collapse}
-.paare{font-size:11.1pt;width:100%}.paare td,.paare th{border:1px solid #c9d3e3;padding:.5mm 1.2mm;text-align:left}.paare th{background:#e4ecf8}
-.rezept{margin-top:1.2mm;font-size:11.2pt}.rezept ol{margin:.5mm 0 .5mm 5mm;padding:0}.rezept .kl{color:#444;font-size:10.9pt}
+.paare{font-size:10.2pt;width:100%}.paare td,.paare th{border:1px solid #c9d3e3;padding:.5mm 1.2mm;text-align:left}.paare th{background:#e4ecf8}
+.rezept{margin-top:1.2mm;font-size:10.3pt}.rezept ol{margin:.5mm 0 .5mm 5mm;padding:0}.rezept .kl{color:#444;font-size:10.0pt}
 .rezept.quer ol li{margin-bottom:.3mm}
-h2{font-size:13.1pt;margin:1.6mm 0 .6mm;display:flex;align-items:baseline;gap:1.6mm}
-.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:11.5pt;flex:none}
-.kr{font-size:14.7pt}
+h2{font-size:12.0pt;margin:1.6mm 0 .6mm;display:flex;align-items:baseline;gap:1.6mm}
+.nr{background:#222;color:#fff;border-radius:50%;width:5.2mm;height:5.2mm;display:inline-flex;align-items:center;justify-content:center;font-size:10.5pt;flex:none}
+.kr{font-size:13.5pt}
 .row{display:flex;gap:4mm;align-items:center;margin-bottom:.8mm}
 .grid1{display:grid;gap:1mm;flex:1}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.6mm 4mm;flex:1}
 .pz{white-space:nowrap}
 .box{display:inline-block;border-bottom:1px solid #555;height:9.5mm;vertical-align:bottom;padding:0 1mm;line-height:12mm}
-.m{color:#E6007E}.box .m{font-weight:600;font-size:11.5pt}
-.wt td{padding:0 1mm;white-space:nowrap}.wt .weil{font-size:11.5pt}
-.lsg{line-height:1.85;font-size:12.0pt}
+.m{color:#E6007E}.box .m{font-weight:600;font-size:10.5pt}
+.wt td{padding:0 1mm;white-space:nowrap}.wt .weil{font-size:10.5pt}
+.lsg{line-height:1.85;font-size:11.0pt}
 .sub{font-weight:700;align-self:flex-start}
-.arten{display:flex;gap:1.5mm}.art svg{width:26mm;height:auto}.art{min-width:0}.art{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;font-size:10.7pt;background:#fff;border:1px solid #c9d3e3;border-radius:2mm;padding:1mm}
-.art b{font-size:11.2pt;min-height:7mm}.art span{display:block}
+.arten{display:flex;gap:1.5mm}.art svg{width:20mm;height:auto}.art{min-width:0}.art{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;font-size:9.8pt;background:#fff;border:1px solid #c9d3e3;border-radius:2mm;padding:1mm}
+.art b{font-size:10.3pt;min-height:7mm}.art span{display:block}
 .figs .tf svg{width:29mm;height:auto}.figs{display:flex;justify-content:space-between;align-items:flex-end}.tf{text-align:center}.tf b{display:block}
-.kt{width:100%;font-size:11.5pt;margin-top:1mm}.kt td,.kt th{border:1px solid #bbb;padding:0 1.5mm;text-align:center}.kt td:first-child{text-align:left;width:34mm}
+.kt{width:100%;font-size:10.5pt;margin-top:1mm}.kt td,.kt th{border:1px solid #bbb;padding:0 1.5mm;text-align:center}.kt td:first-child{text-align:left;width:34mm}
 .kt tr.trenn td{border-top:2px solid #555}
-.cb{display:inline-block;width:3.6mm;height:3.6mm;border:1px solid #555;vertical-align:middle;line-height:3.4mm;font-size:10.7pt}
-.klein{font-size:11.2pt;margin:1mm 0 .5mm}
+.cb{display:inline-block;width:3.6mm;height:3.6mm;border:1px solid #555;vertical-align:middle;line-height:3.4mm;font-size:9.8pt}
+.klein{font-size:10.3pt;margin:1mm 0 .5mm}
 .bg{white-space:nowrap}
-.a6row svg{width:38mm;height:auto}.a6row{display:flex;justify-content:space-between;gap:2mm}.a6{display:flex;flex-direction:column;align-items:center;font-size:12.0pt;line-height:1.7}
-.wf{width:100%;font-size:11.7pt}.wf td:first-child{width:78mm}.rest{margin-top:2mm;line-height:2}.wf td,.wf th{padding:0 1mm;text-align:left}
-.antw{font-size:11.5pt}
+.a6row svg{width:31mm;height:auto}.a6row{display:flex;justify-content:space-between;gap:2mm}.a6{display:flex;flex-direction:column;align-items:center;font-size:11.0pt;line-height:1.7}
+.wf{width:100%;font-size:10.7pt}.wf td:first-child{width:78mm}.rest{margin-top:2mm;line-height:2}.wf td,.wf th{padding:0 1mm;text-align:left}
+.antw{font-size:10.5pt}
 """
 
 
 def blatt():
+    NR[0] = 0
     b = lambda *t: "".join(f'<div class="blk">{x}</div>' for x in t)
-    seiten = [kopf(1) + b(merk_parallelen(), a1(), a2(), a4()), kopf(2) + b(merk_dreiecke(), a5(), a6(), a7())]
+    seiten = [kopf(1) + b(merk_parallelen(), a1(), a2()), kopf(2) + b(merk_dreiecke(), a5(), a6(), a7())]
     return "".join(f'<div class="seite">{x}</div>' for x in seiten)
 
 
