@@ -31,6 +31,8 @@ PHYSIK = [
              "links": [f("Stunde", PH + "Optik/Optik – Leitfrage 4 – Stunde.html")]},
             {"id": "ph7-lf5", "titel": "Rückseite Schattenwurf, Einschub Jahreszeiten, Leitfrage 5 (Mondphasen und Finsternisse)", "wann": "Do 05.11.", "status": "vorbereitet",
              "links": [f("Stunde", PH + "Optik/Optik – Leitfrage 5 – Stunde.html")]},
+            {"id": "ph7-vertretung-1911", "titel": "Vertretung: Wiederholungsblatt Mondphasen, Finsternisse, Jahreszeiten", "wann": "Do 19.11., Vertretung", "status": "vorbereitet",
+             "links": [f("Arbeitsblatt", PH + "Optik/Materialien/Wiederholung F5 Mondphasen und Finsternisse.pdf"), f("Lösung", PH + "Optik/Materialien/Wiederholung F5 Mondphasen und Finsternisse – Lösung.pdf")]},
             {"id": "ph7-lochkamera", "titel": "Lochkamera und Rückblick", "wann": "", "status": "vorbereitet",
              "links": [f("Stunde", PH + "Optik/Optik – Lochkamera – Stunde.html")]},
             {"id": "ph7-o2-reflexion", "titel": "Optik II – Reflexionsgesetz", "wann": "", "status": "vorbereitet",
