@@ -24,6 +24,13 @@ weg = {m.mitte["id"]} | {e["id"] for e in m.E if e.get("containerId") == m.mitte
 m.E = [e for e in m.E if e["id"] not in weg]
 
 
+def teil(name, start):
+    """Elemente ab Index start als Teil `name` markieren (customData bleibt in Excalidraw erhalten);
+    die Präsentation deckt die Teile damit einzeln auf."""
+    for e in m.E[start:]:
+        e["customData"] = {"teil": name}
+
+
 def oben_buendig(kasten, abstand=12):
     t = next(e for e in m.E if e.get("containerId") == kasten["id"])
     t["verticalAlign"], t["y"] = "top", kasten["y"] + abstand
@@ -61,18 +68,21 @@ def rechter(x, y, start, r=14):
     m.ell(x + r * .48 * math.cos(w), y + r * .48 * math.sin(w), 2.5, ROT, ROT, 1)
 
 
-s0 = schritt(0, 0, 90, "Alles Gegebene in die Skizze eintragen", "Gesuchtes rot markieren")
-s1 = schritt(1, 140, 90, "Gibt es Winkel, die ich direkt erkenne?",
-             "Scheitel-, Neben-, Stufen-, Wechselwinkel; Winkelsumme 180°")
-pfeil(s0, s1, (450, 96), (450, 134))
+n = len(m.E); s0 = schritt(0, 0, 90, "Alles Gegebene in die Skizze eintragen", "Gesuchtes rot markieren"); teil("s0", n)
+n = len(m.E); s1 = schritt(1, 140, 90, "Gibt es Winkel, die ich direkt erkenne?",
+                           "Scheitel-, Neben-, Stufen-, Wechselwinkel; Winkelsumme 180°"); teil("s1", n)
+n = len(m.E); pfeil(s0, s1, (450, 96), (450, 134)); teil("p01", n)
 
+n = len(m.E)
 m.gruppe = ["s2"]
 f2 = m.box(240, 280, 420, 140, "Ist das Dreieck\nrechtwinklig?", 22, *FRAGE, typ="diamond", tcol="#1f2937")
 m.box(282, 330, 40, 40, "2", 22, BLAU, BLAU, "ellipse", "#ffffff")
 m.gruppe = []
-pfeil(s1, f2, (450, 236), (450, 274))
+teil("s2", n)
+n = len(m.E); pfeil(s1, f2, (450, 236), (450, 274)); teil("p12", n)
 
-ja = m.box(20, 480, 320, 215, "sin, cos\noder tan", 28, "#ecfdf5", "#047857", tcol="#047857")
+n = len(m.E); ja = m.box(20, 480, 320, 215, "sin, cos\noder tan", 28, "#ecfdf5", "#047857", tcol="#047857"); teil("ja", n)
+n = len(m.E)
 m.gruppe = ["nein"]
 nein = m.box(500, 480, 380, 215, "Höhe oder Rechendreieck\neinzeichnen", 22, "#fdf2f8", ROT, tcol=ROT)
 oben_buendig(nein)
@@ -81,23 +91,24 @@ m.linie([(600, 680), (780, 680), (660, 600), (600, 680)], "#1f2937", 2, fill="#f
 m.linie([(660, 600), (660, 680)], ROT, 2, "dashed")
 rechter(660, 680, 270)
 m.gruppe = []
-pfeil(f2, ja, (234, 352), (180, 474), "Ja")
-pfeil(f2, nein, (666, 352), (690, 474), "Nein")
+teil("nein", n)
+n = len(m.E); pfeil(f2, ja, (234, 352), (180, 474), "Ja"); teil("pja", n)
+n = len(m.E); pfeil(f2, nein, (666, 352), (690, 474), "Nein"); teil("pnein", n)
 
-s3 = schritt(3, 750, 90, "Gleichung mit genau einer Unbekannten",
-             "zwei Seiten oder eine Seite und ein Winkel")
-pfeil(ja, s3, (180, 701), (180, 744))
-pfeil(nein, s3, (690, 701), (690, 744))
-s4 = schritt(4, 890, 120, "Nach der Unbekannten auflösen",
-             "Unbekannte oben: mal Nenner; unten: tauschen\nzwei Nachkommastellen, auch bei Winkeln")
-pfeil(s3, s4, (450, 846), (450, 884))
+n = len(m.E); s3 = schritt(3, 750, 90, "Gleichung mit genau einer Unbekannten",
+                           "zwei Seiten oder eine Seite und ein Winkel"); teil("s3", n)
+n = len(m.E); pfeil(ja, s3, (180, 701), (180, 744)); teil("pja3", n)
+n = len(m.E); pfeil(nein, s3, (690, 701), (690, 744)); teil("pnein3", n)
+n = len(m.E); s4 = schritt(4, 890, 120, "Nach der Unbekannten auflösen",
+                           "Unbekannte oben: mal Nenner; unten: tauschen\nzwei Nachkommastellen, auch bei Winkeln"); teil("s4", n)
+n = len(m.E); pfeil(s3, s4, (450, 846), (450, 884)); teil("p34", n)
 
-ff = m.box(290, 1060, 320, 120, "Alles\nberechnet?", 22, *FRAGE, typ="diamond", tcol="#1f2937")
-pfeil(s4, ff, (450, 1016), (450, 1054))
-fertig = m.box(40, 1085, 180, 70, "Fertig", 22, "#ffffff", ROT, tcol=ROT, sw=3)
-zurueck = m.box(680, 1085, 200, 70, "zurück zu 1", 20, "#f8fafc", GRAU, tcol=GRAU)
-pfeil(ff, fertig, (284, 1120), (226, 1120), "Ja")
-pfeil(ff, zurueck, (616, 1120), (674, 1120), "Nein")
+n = len(m.E); ff = m.box(290, 1060, 320, 120, "Alles\nberechnet?", 22, *FRAGE, typ="diamond", tcol="#1f2937"); teil("ff", n)
+n = len(m.E); pfeil(s4, ff, (450, 1016), (450, 1054)); teil("p4f", n)
+n = len(m.E); fertig = m.box(40, 1085, 180, 70, "Fertig", 22, "#ffffff", ROT, tcol=ROT, sw=3); teil("fertig", n)
+n = len(m.E); zurueck = m.box(680, 1085, 200, 70, "zurück zu 1", 20, "#f8fafc", GRAU, tcol=GRAU); teil("zurueck", n)
+n = len(m.E); pfeil(ff, fertig, (284, 1120), (226, 1120), "Ja"); teil("pfertig", n)
+n = len(m.E); pfeil(ff, zurueck, (616, 1120), (674, 1120), "Nein"); teil("pzurueck", n)
 m.mitte = s0
 
 if __name__ == "__main__":

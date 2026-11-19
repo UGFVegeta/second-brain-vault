@@ -220,7 +220,8 @@ def rahmen(e):
     return e["x"], e["y"], e["x"] + e["width"], e["y"] + e["height"]
 
 
-def svg_schreiben(E, pfad, skala=1.6):
+def svg_schreiben(E, pfad, skala=1.6, gruppen=False):
+    """gruppen=True: Elemente mit customData.teil kommen in <g data-teil=…> (zum schrittweisen Aufdecken)."""
     r = [rahmen(e) for e in E]
     x0, y0 = min(a[0] for a in r) - 40, min(a[1] for a in r) - 40
     x1, y1 = max(a[2] for a in r) + 40, max(a[3] for a in r) + 40
@@ -231,6 +232,7 @@ def svg_schreiben(E, pfad, skala=1.6):
          f'<rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{y1 - y0}" fill="#fff"/>']
     pfeile = {e["id"] for e in E if e["type"] == "arrow"}
     for e in E:
+        n0 = len(o)
         fill = e["backgroundColor"] if e["backgroundColor"] != "transparent" else "none"
         st = f'stroke="{e["strokeColor"]}" stroke-width="{e["strokeWidth"]}"'
         if e["strokeStyle"] == "dashed":
@@ -259,5 +261,8 @@ def svg_schreiben(E, pfad, skala=1.6):
             for k, z in enumerate(e["text"].split("\n")):
                 o.append(f'<text x="{xx}" y="{e["y"] + e["fontSize"] * (1.25 * k + 1)}" font-family="Menlo,monospace" '
                          f'font-size="{e["fontSize"]}" fill="{e["strokeColor"]}" text-anchor="{a}">{_html.escape(z)}</text>')
+        teil = (e.get("customData") or {}).get("teil") if gruppen else None
+        if teil:
+            o[n0:] = [f'<g data-teil="{teil}">' + "".join(o[n0:]) + "</g>"]
     Path(pfad).write_text("".join(o) + "</svg>", encoding="utf-8")
     return b, h
