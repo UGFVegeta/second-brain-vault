@@ -90,7 +90,7 @@ pfeil(s1, f2, (540, 316), (540, 354))
 
 # Ja: sin, cos, tan
 m.gruppe = ["ja"]
-ja = m.box(0, 610, 540, 310, "sin, cos oder tan", 26, *JA, tcol=JA[1])
+ja = m.box(0, 610, 540, 360, "sin, cos oder tan", 26, *JA, tcol=JA[1])
 oben_buendig(ja)
 P, Q, R = (30, 850), (170, 850), (170, 710)
 m.linie([P, Q, R, P], "#1f2937", 2, fill="#ffffff")
@@ -105,49 +105,52 @@ for k, (fn, z, n) in enumerate((("sin", "Gegenkathete", "Hypotenuse"), ("cos", "
     y = 705 + k * 65
     m.text(305, y - 11, f"{fn} α =", 18, "#1f2937", w=76)
     bruch(385, y, z, n)
-m.text(20, 885, "zwei Seiten bekannt, dritte gesucht: Pythagoras", 15, GRAU, "center", w=500)
+m.text(20, 935, "zwei Seiten bekannt, dritte gesucht: Pythagoras", 15, GRAU, "center", w=500)
 
 # Nein: Höhe einzeichnen
 m.gruppe = ["nein"]
-nein = m.box(600, 610, 480, 310, "Höhe oder Rechendreieck\neinzeichnen", 24, *NEIN, tcol=NEIN[1])
+nein = m.box(600, 610, 480, 360, "Höhe oder Rechendreieck\neinzeichnen", 24, *NEIN, tcol=NEIN[1])
 oben_buendig(nein)
 m.text(620, 690, "so, dass ein rechtwinkliges\nDreieck entsteht; auch bei\nTrapez, Fünfeck …", 18, "#1f2937", "center", w=440)
-m.linie([(630, 890), (800, 890), (700, 790), (630, 890)], "#1f2937", 2, fill="#ffffff")
-m.linie([(700, 790), (700, 890)], ROT, 2, "dashed")
-rechter(700, 890, 270)
-m.linie([(850, 890), (1050, 890), (1000, 795), (900, 795), (850, 890)], "#1f2937", 2, fill="#ffffff")
-m.linie([(1000, 795), (1000, 890)], ROT, 2, "dashed")
-rechter(1000, 890, 180)
+# Oskar 19.11.: Die Höhe darf nicht die einzige bekannte Seite teilen (sonst zwei unbekannte Teile, nichts mehr rechenbar)
+m.text(620, 765, "Achtung: nie die einzige\nbekannte Seite teilen", 18, ROT, "center", w=440)
+m.linie([(630, 940), (800, 940), (700, 840), (630, 940)], "#1f2937", 2, fill="#ffffff")
+m.linie([(700, 840), (700, 940)], ROT, 2, "dashed")
+rechter(700, 940, 270)
+m.linie([(850, 940), (1050, 940), (1000, 845), (900, 845), (850, 940)], "#1f2937", 2, fill="#ffffff")
+m.linie([(1000, 845), (1000, 940)], ROT, 2, "dashed")
+rechter(1000, 940, 180)
 m.gruppe = []
 pfeil(f2, ja, (326, 452), (270, 604), "Ja")
 pfeil(f2, nein, (754, 452), (840, 604), "Nein")
 
 # ---------------------------------------------------------------- 3, 4
-s3 = schritt(3, 980, 115, "Gleichung mit genau einer Unbekannten aufstellen\n"
+s3 = schritt(3, 1030, 115, "Gleichung mit genau einer Unbekannten aufstellen\n"
                           "Im rechtwinkligen Dreieck: zwei Seiten oder eine Seite und ein Winkel\n"
                           "Das Gesuchte steht möglichst in der Gleichung.")
-pfeil(ja, s3, (270, 926), (270, 974))
-pfeil(nein, s3, (840, 926), (840, 974))
-s4 = schritt(4, 1145, 165, "Nach der Unbekannten auflösen\n"
+pfeil(ja, s3, (270, 976), (270, 1024))
+pfeil(nein, s3, (840, 976), (840, 1024))
+s4 = schritt(4, 1195, 165, "Nach der Unbekannten auflösen\n"
                            "Unbekannte oben im Bruch: mal Nenner (| ⋅ 9,0)\n"
                            "Unbekannte unten im Bruch: tauschen (| a ↔ sin 60°)\n"
                            "Winkel gesucht: sin⁻¹, cos⁻¹, tan⁻¹ (Rechner auf DEG)\n"
                            "Ergebnis mit zwei Nachkommastellen, auch bei Winkeln")
-pfeil(s3, s4, (540, 1101), (540, 1139))
+pfeil(s3, s4, (540, 1151), (540, 1189))
 
 # ---------------------------------------------------------------- fertig?
 m.gruppe = ["fertig"]
-ff = m.box(350, 1360, 380, 160, "Alles Gesuchte\nberechnet?", 22, *FRAGE, typ="diamond", tcol="#1f2937")
+ff = m.box(350, 1410, 380, 160, "Alles Gesuchte\nberechnet?", 22, *FRAGE, typ="diamond", tcol="#1f2937")
 m.gruppe = []
-pfeil(s4, ff, (540, 1316), (540, 1354))
-fertig = m.box(0, 1395, 270, 90, "Fertig:\nErgebnis mit Einheit", 19, "#ffffff", ROT, tcol=ROT, sw=3)
-zurueck = m.box(810, 1385, 270, 110, "Neuen Wert in die\nSkizze eintragen,\nweiter bei Schritt 1", 18, "#f8fafc", GRAU, tcol=GRAU)
-pfeil(ff, fertig, (344, 1440), (276, 1440), "Ja")
-pfeil(ff, zurueck, (736, 1440), (804, 1440), "Nein")
+pfeil(s4, ff, (540, 1366), (540, 1404))
+fertig = m.box(0, 1445, 270, 90, "Fertig:\nErgebnis mit Einheit", 19, "#ffffff", ROT, tcol=ROT, sw=3)
+zurueck = m.box(810, 1435, 270, 110, "Neuen Wert in die\nSkizze eintragen,\nweiter bei Schritt 1", 18, "#f8fafc", GRAU, tcol=GRAU)
+pfeil(ff, fertig, (344, 1490), (276, 1490), "Ja")
+pfeil(ff, zurueck, (736, 1490), (804, 1490), "Nein")
 m.mitte = s0                                      # für die Überlappungsprüfung des Generators
 
 if __name__ == "__main__":
     offen = json.loads((VAULT / ".obsidian/workspace.json").read_text()) if (VAULT / ".obsidian/workspace.json").exists() else {}
+    offen.pop("lastOpenFiles", None)                     # nur offene Tabs zählen, nicht die Liste „zuletzt geöffnet“
     if ZIEL.name in json.dumps(offen, ensure_ascii=False):
         raise SystemExit(f"{ZIEL.name} ist in Obsidian offen, erst schließen.")
     m.speichern(ZIEL)

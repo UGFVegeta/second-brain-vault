@@ -138,7 +138,8 @@ def beispiel_b():
         zeile(0, "c = 9,0 cm; α = 50,0°; β = 70,0°", "eintragen; gesucht a und b rot"),
         zeile(1, "Winkelsumme:", f"γ = 180° − 50,0° − 70,0°", erg(f"γ = {k(ga_b)}°")),
         zeile(2, "rechtwinklig? <b>Nein</b>", f"Höhe {hb_} von B auf b einzeichnen,", "Fußpunkt F. Jetzt gibt es",
-              "zwei rechtwinklige Dreiecke:", "ABF und FBC"),
+              "zwei rechtwinklige Dreiecke:", "ABF und FBC", f"<span class='achtung'>nicht {i('h', 'c')}: c ist die einzige</span>",
+              "<span class='achtung'>bekannte Seite</span>"),
         zeile(3, f"{hb_} im Dreieck ABF:", f"sin 50,0° = {bruch(hb_, '9,0')} {um('⋅ 9,0')}"),
         zeile(4, f"{hb_} = 9,0 ⋅ sin 50,0°", erg(f"{hb_} = {k(hb)} cm")),
     ]
@@ -182,6 +183,7 @@ h2 {{ font-size: 12pt; margin: 0 0 2mm; }}
 .weiter {{ font-size: 9pt; color: #555; border-top: 0.25mm dashed #aaa; padding-top: 0.8mm; }}
 .weiter:first-child {{ border-top: none; padding-top: 0; }}
 .erg {{ color: {ROT}; }}
+.achtung {{ color: {ROT}; }}
 .um {{ color: #777; font-size: 9pt; margin-left: 1.5mm; }}
 .br {{ display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: 9.5pt; line-height: 1.15; margin: 0 0.6mm; }}
 .br span:first-child {{ border-bottom: 0.25mm solid #222; padding: 0 0.8mm; }}

@@ -81,39 +81,43 @@ m.gruppe = []
 teil("s2", n)
 n = len(m.E); pfeil(s1, f2, (450, 236), (450, 274)); teil("p12", n)
 
-n = len(m.E); ja = m.box(20, 480, 320, 215, "sin, cos\noder tan", 28, "#ecfdf5", "#047857", tcol="#047857"); teil("ja", n)
+n = len(m.E); ja = m.box(20, 480, 320, 260, "sin, cos\noder tan", 28, "#ecfdf5", "#047857", tcol="#047857"); teil("ja", n)
 n = len(m.E)
 m.gruppe = ["nein"]
-nein = m.box(500, 480, 380, 215, "Höhe oder Rechendreieck\neinzeichnen", 22, "#fdf2f8", ROT, tcol=ROT)
+nein = m.box(500, 480, 380, 260, "Höhe oder Rechendreieck\neinzeichnen", 22, "#fdf2f8", ROT, tcol=ROT)
 oben_buendig(nein)
 m.text(500, 548, "sodass ein rechtwinkliges\nDreieck entsteht", 17, "#1f2937", "center", w=380)
-m.linie([(600, 680), (780, 680), (660, 600), (600, 680)], "#1f2937", 2, fill="#ffffff")
-m.linie([(660, 600), (660, 680)], ROT, 2, "dashed")
-rechter(660, 680, 270)
+# Oskar 19.11.: Die Höhe darf nicht die einzige bekannte Seite teilen
+m.text(500, 594, "nie die einzige bekannte\nSeite teilen", 17, ROT, "center", w=380)
+m.linie([(600, 725), (780, 725), (660, 648), (600, 725)], "#1f2937", 2, fill="#ffffff")
+m.linie([(660, 648), (660, 725)], ROT, 2, "dashed")
+rechter(660, 725, 270)
 m.gruppe = []
 teil("nein", n)
 n = len(m.E); pfeil(f2, ja, (234, 352), (180, 474), "Ja"); teil("pja", n)
 n = len(m.E); pfeil(f2, nein, (666, 352), (690, 474), "Nein"); teil("pnein", n)
 
-n = len(m.E); s3 = schritt(3, 750, 90, "Gleichung mit genau einer Unbekannten",
+n = len(m.E); s3 = schritt(3, 795, 90, "Gleichung mit genau einer Unbekannten",
                            "zwei Seiten oder eine Seite und ein Winkel"); teil("s3", n)
-n = len(m.E); pfeil(ja, s3, (180, 701), (180, 744)); teil("pja3", n)
-n = len(m.E); pfeil(nein, s3, (690, 701), (690, 744)); teil("pnein3", n)
-n = len(m.E); s4 = schritt(4, 890, 120, "Nach der Unbekannten auflösen",
+n = len(m.E); pfeil(ja, s3, (180, 746), (180, 789)); teil("pja3", n)
+n = len(m.E); pfeil(nein, s3, (690, 746), (690, 789)); teil("pnein3", n)
+n = len(m.E); s4 = schritt(4, 935, 120, "Nach der Unbekannten auflösen",
                            "Unbekannte oben: mal Nenner; unten: tauschen\nzwei Nachkommastellen, auch bei Winkeln"); teil("s4", n)
-n = len(m.E); pfeil(s3, s4, (450, 846), (450, 884)); teil("p34", n)
+n = len(m.E); pfeil(s3, s4, (450, 891), (450, 929)); teil("p34", n)
 
-n = len(m.E); ff = m.box(290, 1060, 320, 120, "Alles\nberechnet?", 22, *FRAGE, typ="diamond", tcol="#1f2937"); teil("ff", n)
-n = len(m.E); pfeil(s4, ff, (450, 1016), (450, 1054)); teil("p4f", n)
-n = len(m.E); fertig = m.box(40, 1085, 180, 70, "Fertig", 22, "#ffffff", ROT, tcol=ROT, sw=3); teil("fertig", n)
-n = len(m.E); zurueck = m.box(680, 1085, 200, 70, "zurück zu 1", 20, "#f8fafc", GRAU, tcol=GRAU); teil("zurueck", n)
-n = len(m.E); pfeil(ff, fertig, (284, 1120), (226, 1120), "Ja"); teil("pfertig", n)
-n = len(m.E); pfeil(ff, zurueck, (616, 1120), (674, 1120), "Nein"); teil("pzurueck", n)
+n = len(m.E); ff = m.box(290, 1105, 320, 120, "Alles\nberechnet?", 22, *FRAGE, typ="diamond", tcol="#1f2937"); teil("ff", n)
+n = len(m.E); pfeil(s4, ff, (450, 1061), (450, 1099)); teil("p4f", n)
+n = len(m.E); fertig = m.box(40, 1130, 180, 70, "Fertig", 22, "#ffffff", ROT, tcol=ROT, sw=3); teil("fertig", n)
+n = len(m.E); zurueck = m.box(680, 1130, 200, 70, "zurück zu 1", 20, "#f8fafc", GRAU, tcol=GRAU); teil("zurueck", n)
+n = len(m.E); pfeil(ff, fertig, (284, 1165), (226, 1165), "Ja"); teil("pfertig", n)
+n = len(m.E); pfeil(ff, zurueck, (616, 1165), (674, 1165), "Nein"); teil("pzurueck", n)
 m.mitte = s0
 
 if __name__ == "__main__":
     ws = VAULT / ".obsidian/workspace.json"
-    if ws.exists() and ZIEL.name in ws.read_text(encoding="utf-8"):
+    offen = json.loads(ws.read_text(encoding="utf-8")) if ws.exists() else {}
+    offen.pop("lastOpenFiles", None)                     # nur offene Tabs zählen, nicht die Liste „zuletzt geöffnet“
+    if ZIEL.name in json.dumps(offen, ensure_ascii=False):
         raise SystemExit(f"{ZIEL.name} ist in Obsidian offen, erst schließen.")
     m.speichern(ZIEL)
     if len(sys.argv) > 1:

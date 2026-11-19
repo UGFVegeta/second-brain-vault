@@ -67,7 +67,8 @@ def loesung():
         zeile(0, "AC = 8,0 cm; α = 35,0°; ε = 130,0°", "in die Skizze; gesucht: u (rot),", "dafür fehlen AB und BC"),
         zeile(1, "β ist Nebenwinkel von ε:", "β = 180° − 130,0°", erg(f"β = {k(be)}°"),
               "Winkelsumme:", f"γ = 180° − 35,0° − {k(be)}°", erg(f"γ = {k(ga)}°")),
-        zeile(2, "rechtwinklig? <b>Nein</b>", f"Höhe {hc_} von C auf AB,", "Fußpunkt F: Dreiecke AFC und FBC"),
+        zeile(2, "rechtwinklig? <b>Nein</b>", f"Höhe {hc_} von C auf AB,", "Fußpunkt F: Dreiecke AFC und FBC",
+              "<span class='erg'>AC ist die einzige bekannte Seite:</span>", "<span class='erg'>sie bleibt ganz</span>"),
         zeile(3, f"{hc_} im Dreieck AFC:", f"sin 35,0° = {bruch(hc_, '8,0')} {um('⋅ 8,0')}"),
         zeile(4, f"{hc_} = 8,0 ⋅ sin 35,0°", erg(f"{hc_} = {k(hc)} cm")),
     ]
