@@ -165,8 +165,8 @@ def folien():
               + "</section>")
     ha = ('<section class="slide ha" data-tab="Hausaufgabe" data-group="">'
           '<div class="kicker">Bis Montag, 23.11.</div><h1>Hausaufgabe</h1>'
-          '<ul><li>Buch S. 16 Nr. 3 a (linke Spalte)</li><li>Buch S. 16 Nr. 4 a (linke Spalte)</li>'
-          '<li class="klein2">Für Schnelle: S. 16 Nr. 4 b (linke Spalte)</li></ul></section>')
+          '<ul><li>Arbeitsblatt Rückseite: Höhe einzeichnen, Nr. 1 bis 10</li>'
+          '<li class="klein2">Nie die einzige bekannte Seite teilen!</li></ul></section>')
     return rezept + ha
 
 
@@ -179,10 +179,8 @@ def ueberblick():
             '<li>Rezept per Klick: erst 0, 1, 2. Links Beispiel (a) bis „rechtwinklig? Ja“, rechts Beispiel (b) bis „Nein“; danach nur rechts fertig rechnen.</li>'
             '<li>Die Klasse schreibt das Rezept von der Tafel ins Merkheft ab.</li>'
             '<li>Aufgabe im Prüfungsstil gemeinsam in Notability, die Klasse zeichnet ab und schreibt mit.</li>'
-            '<li>Hausaufgabe nennen (zweite Folie).</li></ol>'
-            '<h2>Hausaufgabe bis Mo 23.11.</h2><p>Schnittpunkt 10, S. 16 Nr. 3 a und Nr. 4 a (je linke Spalte); für Schnelle Nr. 4 b (linke Spalte). '
-            'Lösungen mit Schritten: <a href="Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel – Lösung mit Schritten.pdf">'
-            'Lösung Vertretung 18.11.</a> (Nr. 3 a auf Seite 1, Nr. 4 a und b auf Seite 2).</p>'
+            '<li>Arbeitsblatt Vorderseite üben (Nr. 1 bis 14); Hausaufgabe Rückseite (zweite Folie).</li></ol>'
+            '<h2>Hausaufgabe bis Mo 23.11.</h2><p>Arbeitsblatt Rückseite: 10 Dreiecke, Höhe einzeichnen. Lösung: <a href="Mathe 10b – Arbeitsblatt sin, cos, tan üben und Höhe einzeichnen – Lösung.pdf">Arbeitsblatt Lösung</a>, Seite 2.</p>'
             '<h2>Material</h2><ul>'
             '<li><a href="Mathe 10b – Rezept Trigonometrie – Aufgabe im Prüfungsstil.pdf">Aufgabe im Prüfungsstil (Seite 1 Notability, Seite 2 Lösung)</a></li>'
             '<li><a href="Mathe 10b – Rezept Trigonometrie – Kurzfassung zum Mitschreiben.pdf">Kurzfassung als PDF</a></li>'
@@ -219,7 +217,7 @@ body{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif; color:var(--in
 .ctrl{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--muted)}
 .ctrl button{font:inherit; padding:6px 12px; border:1px solid var(--line); border-radius:8px; background:#fff; cursor:pointer}
 /* Rezept-Folie: Flussdiagramm in der Mitte, links Beispiel Ja (rechtwinklig), rechts Beispiel Nein */
-.drei{display:grid; grid-template-columns:1fr auto 1fr; gap:1.6cqw; padding:1.6cqw 2cqw}
+.drei{grid-template-columns:1fr auto 1fr; gap:1.6cqw; padding:1.6cqw 2cqw}
 .mitte{display:flex; flex-direction:column; align-items:center}
 .mitte{grid-column:2; grid-row:1} .bsp.links{grid-column:1; grid-row:1} .bsp.rechts{grid-column:3; grid-row:1}
 .mitte h1{font-size:2.3cqw; line-height:1.1; margin-bottom:.4cqw; color:var(--accent)}

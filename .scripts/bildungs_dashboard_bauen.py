@@ -226,7 +226,9 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
                f("Blatt", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Flussdiagramm mit zwei Beispielen.pdf"),
                f("HTML", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Flussdiagramm mit zwei Beispielen.html"),
                f("Kurzfassung zum Mitschreiben", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Kurzfassung zum Mitschreiben.pdf"),
-               f("Aufgabe mit Lösung", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Aufgabe im Prüfungsstil.pdf")]},
+               f("Aufgabe mit Lösung", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Aufgabe im Prüfungsstil.pdf"),
+               f("Arbeitsblatt", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Arbeitsblatt sin, cos, tan üben und Höhe einzeichnen.pdf"),
+               f("Arbeitsblatt Lösung", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Arbeitsblatt sin, cos, tan üben und Höhe einzeichnen – Lösung.pdf")]},
 ], "material": []}]}]
 
 CSS = """
