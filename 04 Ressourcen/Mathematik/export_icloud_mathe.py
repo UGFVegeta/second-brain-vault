@@ -230,6 +230,9 @@ def main():
     for p in sorted((HIER / "Dreiecke").rglob("Mathe 7c – *.pdf")):   # Unterordner wie im Vault (z. B. Diagnose/)
         unter = p.parent.relative_to(HIER / "Dreiecke")
         print(f"  7c  {ablegen(p, ICLOUD / 'Mathematik 7c' / '05 Dreiecke' / unter):24s} {unter / p.name}")
+    # Trigonometrie 10b (PDFs bauen die Skripte in Trigonometrie Klasse 10/ selbst, z. B. baue_rezept_trigo.py)
+    for p in sorted((HIER / "Trigonometrie Klasse 10").glob("Mathe 10b – *.pdf")):
+        print(f"  10b {ablegen(p, ICLOUD / 'Mathematik 10b' / '05 Trigonometrie'):24s} {p.name}")
 
     # 3. Gesamt-HTML in die Hauptordner
     for ueb, ordner in ((HIER / "Mathematik Klasse 7 – Übersicht.html", ICLOUD / "Mathematik 7c"),

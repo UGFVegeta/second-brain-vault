@@ -14,6 +14,8 @@ Eine Zeile pro Tag, mehr nicht. Alles Messbare kommt automatisch von Garmin übe
 
 | Datum | Befinden | Symptome | Training | Notiz |
 |---|---|---|---|---|
+| 2026-11-19 | 2 | – | – | |
+| 2026-11-18 | 2 | Nebenhöhlenentzündung, kein Fieber, keine Gliederschmerzen mehr | – | besser als gestern, noch krank |
 | 2026-11-17 | 1 | – | – | |
 | 2026-11-16 | 1 | – | – | |
 | 2026-11-15 | 1 | – | – | |

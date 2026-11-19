@@ -62,7 +62,17 @@ ich habe soeben mit einem Mitarbeiter der Syna gesprochen. Er hat nachgeschaut: 
 Viele Grüße
 Oskar Klein
 
+## Letzte Mahnung 19.11.2026
+
+EnBW schickt per Mail eine letzte Mahnung über **6.100,76 €**, Frist **01.12.2026**, danach Inkasso und ggf. Gericht. Posten: Bankgebühren 2 × 7,34 € (07.05. und 29.05.2026), Rechnung 4.421,30 € (27.07.2026), Rechnung 1.664,08 € (13.11.2026), Mahngebühr 0,70 €. Heißt: Die Syna-Meldung vom 28.10.2026 ist bei EnBW immer noch nicht angekommen.
+
+Plan: Syna anrufen (069 3107-1500, Rieth 069 3107-1933) und per Mail an kundenbetreuung-netz@syna.de eine schriftliche Bestätigung über Ausbau 17.03.2025, Endstand 89.834 und Datum der Übermittlung an EnBW einfordern (Frist 26.11.2026), dann an EnBW weiterleiten.
+
+**EnBW-Antwort 19.11.2026:** Mahnsperre eingerichtet. Syna hat auf EnBWs Mail noch nicht reagiert, EnBW hat den Ausbauzählerstand heute erneut bei Syna angefordert. Rechnungskorrektur erst, wenn Syna den Stand meldet.
+
 ## Offene Punkte
+
+- [ ] Syna-Bestätigung schriftlich bis 26.11.2026, dann an EnBW weiterleiten und Mahnung widersprechen (vor Frist 01.12.2026)
 
 - [ ] Syna anrufen (069 3107-1500 oder Rieth 069 3107-1933), Gesprächsnotizen oben eintragen
 - [ ] Mail an EnBW senden (mit Rechnung als Anhang)

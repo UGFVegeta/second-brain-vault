@@ -22,8 +22,8 @@ Diese Karte gilt für jede neue Mathe-Sitzung. Pfade relativ zu `04 Ressourcen/M
 - **Stoffverteilung:** `Stoffverteilungsplan 26-27 Mathe 10.html/.pdf/.xlsx` (Bauskript `baue_stoffverteilung10.py`).
 - **Prüfung:** mündliche Realschulprüfung, Aufgabenpools in `Prüfungsaufgaben/` (Skill `pruefungsaufgaben-generator`). Stochastik: `Stochastik/`, Quadratische Funktionen: `Quadratische Funktionen/`.
 - **Lösungen zum Buch Schnittpunkt 10:** iCloud `GDRS ICloud/Mathematik/Schnittpunkt/Schnittpunkt 10/Lösungen …/` als PDF je Doppelseite (mit `pdftotext -layout` lesbar).
-- **Trigonometrie (ab Woche 8):** `Trigonometrie Klasse 10/`, erste Datei: Lösung Buch S. 15 A, B und S. 16 Nr. 3, 5 (Bauskript `baue_loesung_s15_s16.py`, Stilvorbild Oskars Handlösung S. 15 Nr. 2 in iCloud `Mathematik/Paldet Videos und Dateien/Trigonometrie Videos & Merkhefteintrag/`).
-- **iCloud-Ablage:** `Schuljahr 26 27/Mathematik/Mathematik 10b/` (`03 Wahrscheinlichkeit`, `04 Prozentrechnung`, `05 Trigonometrie`). Notenliste liegt lose im Klassenordner.
+- **Trigonometrie (ab Woche 8):** `Trigonometrie Klasse 10/`, erste Datei: Lösung Buch S. 15 A, B und S. 16 Nr. 3, 5 (Bauskript `baue_loesung_s15_s16.py`; Rezept als Flussdiagramm mit zwei Beispielen: `baue_rezept_trigo.py`, Stilvorbild Oskars Handlösung S. 15 Nr. 2 in iCloud `Mathematik/Paldet Videos und Dateien/Trigonometrie Videos & Merkhefteintrag/`).
+- **iCloud-Ablage:** `Schuljahr 26 27/Mathematik/Mathematik 10b/` (`03 Wahrscheinlichkeit`, `04 Prozentrechnung`, `05 Trigonometrie`); Trigonometrie-PDFs legt `export_icloud_mathe.py` nach `05 Trigonometrie`. Notenliste liegt lose im Klassenordner.
 
 ### Immer
 - Nach jeder neuen oder geänderten Stunde: `export_icloud_mathe.py` laufen lassen und sagen, was ersetzt wurde.

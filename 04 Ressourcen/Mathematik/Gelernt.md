@@ -6,6 +6,7 @@ tags: [gelernt, mathematik]
 
 Eine Zeile pro Erkenntnis, neueste oben. Lang ausgeführte Gründe stehen im Claude-Gedächtnis, hier nur die Folge.
 
+- 19.11.2026: Oskar will Flussdiagramme (Rezept Trigonometrie 10b) erst als Excalidraw und dann ins PDF übertragen. Folge: Spec in `.scripts/mindmaps/rezept_trigo10b.py` mit dem Mindmap-Generator (kann jetzt Rauten und Pfeil-Beschriftungen), das Bauskript liest die `.excalidraw` bei jedem Bau neu ein, Änderungen in Obsidian landen so im PDF.
 - 18.11.2026: Für größere Schrift habe ich die Doppelseite eigenmächtig auf 4 Seiten verlängert, Oskar wollte das nicht. Folge: vorgegebene Seitenzahl ist fest; passt es nicht, fragen und dann Aufgaben streichen (Übungsblatt: x/y-Aufgabe, Parallelen+Dreieck S. 1, wahr/falsch raus; Zirkel: Kreisblume raus).
 - 18.11.2026: Schreiblücken waren zu klein und zu eng (Oskar: frustriert die Schüler). Folge: auf allen Arbeitsblättern Lücken mindestens 8 mm hoch, gut 1,35-mal so breit wie das Lösungswort, Schrift 11 pt; reicht der Platz nicht, lieber eine Seite mehr oder Aufgaben kürzen statt quetschen. Achtung: Ist eine Zeile breiter als die Seite, verkleinert Chrome beim Drucken das ganze Blatt, dann ist die Schriftgröße nur scheinbar richtig. Breite prüfen.
 - 18.11.2026: Die Zeichen ○ ◐ ● sind je nach Schrift verschieden groß (● und ○ klein, ◐ groß). Oskar will alle so groß wie ◐. Folge: Kreise als gleich große SVG einsetzen (`kreise_einheitlich` in `Dreiecke/06 Zirkel üben …/baue_zirkel.py`), nicht als Schriftzeichen.

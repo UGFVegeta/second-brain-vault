@@ -118,6 +118,19 @@ Merkmale der Art:
 - **Anrede:** Beim ersten Brief „Sehr geehrte Eltern", in der Antwort an eine Mutter oder einen Vater „Hallo Frau [Name]"; Gruß „Mit freundlichen Grüßen" beziehungsweise „Viele Grüße".
 - **Wortwahl:** „genauso", „es nicht mehr zu tun", „mitmacht"; „auch" statt „außerdem" (weniger streng).
 
+### Kurze Elternnachricht bei Absage/Krankheit (19.11.2026, Oskar: „Merke dir den Stil“)
+
+> Hallo Frau [Name],
+>
+> [Name] braucht sich keine Gedanken zu machen. In der ersten Schicht sind auch ohne sie noch 7 Schüler, und einpacken können ohnehin nur 6 gleichzeitig.
+>
+> Sie soll sich lieber richtig auskurieren. Ich wünsche ihr eine gute Besserung.
+>
+> Viele Grüße
+> Oskar Klein
+
+Was den Stil ausmacht: kurz (drei Sätze), zuerst entlasten („braucht sich keine Gedanken zu machen“), dann ein sachlicher Grund in einem Satz, dann ein persönlicher Wunsch. Anrede „Hallo Frau …“, Sie-Form, kein Dank-Floskel-Einstieg, keine Rückfrage.
+
 ## Kein Gendern (22.10.2026)
 
 Oskar gendert nicht. Keine Sternchen, Doppelpunkte, Binnen-I oder Klammerformen („Verführer*in“, „Schüler:innen“), auch nicht in Material für den Unterricht und auch nicht, wenn das Lehrerband oder eine Vorlage es tut. Stattdessen die gewöhnliche Form („Verführer“, „Fragender“, „die Schüler“) oder ein neutrales Wort („die Klasse“). Auch „er oder sie“ nur, wenn es wirklich nötig ist, sonst „er“.

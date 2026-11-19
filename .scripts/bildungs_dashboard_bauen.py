@@ -221,6 +221,10 @@ MATHE_STUNDEN = [{"klasse": "7c", "untertitel": "Rationale Zahlen", "themen": [{
     {"klasse": "10b", "untertitel": "Trigonometrie", "themen": [{"titel": "Trigonometrie", "stunden": [
     {"id": "ma10-vertretung-1811", "titel": "Vertretung: Dreieck mit stumpfem Winkel (S. 16 Nr. 3 c, Übungen S. 16/17)", "wann": "Mi 18.11., Vertretung", "status": "vorbereitet",
      "links": [f("Lösung mit Schritten", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Vertretung 18.11. – Dreieck mit stumpfem Winkel – Lösung mit Schritten.pdf")]},
+    {"id": "ma10-rezept-2011", "titel": "Rezept Trigonometrie: Flussdiagramm mit zwei Beispielen", "wann": "Fr 20.11.", "status": "vorbereitet",
+     "links": [f("Blatt", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Flussdiagramm mit zwei Beispielen.pdf"),
+               f("HTML", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Flussdiagramm mit zwei Beispielen.html"),
+               f("Kurzfassung zum Mitschreiben", "Mathematik/Trigonometrie Klasse 10/Mathe 10b – Rezept Trigonometrie – Kurzfassung zum Mitschreiben.pdf")]},
 ], "material": []}]}]
 
 CSS = """

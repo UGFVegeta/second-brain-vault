@@ -58,7 +58,7 @@ Mails und Nachrichten, die ich an Personen schicke, soll Claude mir **direkt in 
 - Leerzeilen als Zeile mit einem geschützten Leerzeichen (U+00A0), sonst schluckt der Editor sie.
 - Kein RTF/HTML, das hat es schlimmer gemacht. Keine Aufzählungszeichen.
 - Betreff getrennt ausgeben, nicht im Text. Kurz sagen, dass die Zwischenablage überschrieben wurde.
-- Den Mailtext immer auch im Chat zeigen, damit ich ihn prüfen kann. Eingefügt wird aber aus der Zwischenablage, nicht aus dem Chat (Kopieren aus dem Chat verändert die Formatierung).
+- Den Mailtext immer auch im Chat zeigen, damit ich ihn prüfen kann. Das gilt ausnahmslos, auch bei einer kleinen Änderung oder wenn der Text nur noch einmal in die Zwischenablage gelegt wird (bekräftigt 19.11.2026). Eingefügt wird aber aus der Zwischenablage, nicht aus dem Chat (Kopieren aus dem Chat verändert die Formatierung).
 
 Ablauf über das Skript `.scripts/mail_clip.py` (bereitet auf, prüft, legt in die Zwischenablage). Keine Aufzählungen in Mails.
 

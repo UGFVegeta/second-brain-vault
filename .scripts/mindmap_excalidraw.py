@@ -158,6 +158,8 @@ class Mindmap:
         for e in self.E:
             if e["type"] == "text" and e.get("containerId"):
                 c = nach_id[e["containerId"]]
+                if c["type"] == "arrow":          # Beschriftung auf einem Pfeil, Excalidraw setzt sie selbst
+                    continue
                 breite = max(len(z) for z in e["text"].split("\n")) * e["fontSize"] * FS_CH
                 platz = c["width"] - (40 if c["type"] == "rectangle" else c["width"] * 0.3)
                 if breite > platz:
@@ -227,6 +229,7 @@ def svg_schreiben(E, pfad, skala=1.6):
          '<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" '
          'orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>'
          f'<rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{y1 - y0}" fill="#fff"/>']
+    pfeile = {e["id"] for e in E if e["type"] == "arrow"}
     for e in E:
         fill = e["backgroundColor"] if e["backgroundColor"] != "transparent" else "none"
         st = f'stroke="{e["strokeColor"]}" stroke-width="{e["strokeWidth"]}"'
@@ -236,6 +239,10 @@ def svg_schreiben(E, pfad, skala=1.6):
         if t == "rectangle":
             o.append(f'<rect x="{e["x"]}" y="{e["y"]}" width="{e["width"]}" height="{e["height"]}" '
                      f'rx="{12 if e.get("roundness") else 0}" fill="{fill}" {st}/>')
+        elif t == "diamond":
+            cx, cy, hw, hh = e["x"] + e["width"] / 2, e["y"] + e["height"] / 2, e["width"] / 2, e["height"] / 2
+            o.append(f'<polygon points="{cx - hw},{cy} {cx},{cy - hh} {cx + hw},{cy} {cx},{cy + hh}" '
+                     f'stroke-linejoin="round" fill="{fill}" {st}/>')
         elif t == "ellipse":
             o.append(f'<ellipse cx="{e["x"] + e["width"] / 2}" cy="{e["y"] + e["height"] / 2}" '
                      f'rx="{e["width"] / 2}" ry="{e["height"] / 2}" fill="{fill}" {st}/>')
@@ -246,6 +253,8 @@ def svg_schreiben(E, pfad, skala=1.6):
             o.append(f'<polyline points="{p}" fill="{f}" {st}{mk}/>')
         elif t == "text":
             a = {"left": "start", "center": "middle", "right": "end"}[e["textAlign"]]
+            if e.get("containerId") in pfeile:   # Beschriftung auf einem Pfeil: weißer Grund wie in Excalidraw
+                o.append(f'<rect x="{e["x"] - 4}" y="{e["y"]}" width="{e["width"] + 8}" height="{e["height"]}" fill="#fff"/>')
             xx = e["x"] + (e["width"] / 2 if a == "middle" else e["width"] if a == "end" else 0)
             for k, z in enumerate(e["text"].split("\n")):
                 o.append(f'<text x="{xx}" y="{e["y"] + e["fontSize"] * (1.25 * k + 1)}" font-family="Menlo,monospace" '
