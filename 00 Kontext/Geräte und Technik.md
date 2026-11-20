@@ -31,5 +31,5 @@ Quelle: `PC_Komponentenliste Oskar.docx` (Ordner Downloads), Stand August 2026.
 ## Weitere Geräte und Werkzeuge
 
 - Raspberry Pi 5 mit Paperless-ngx und AdGuard Home, Einzelheiten im Projekt [[KI-Assistent Setup (Hermes & Hardware)]]
-- Geplant: Mac mini M6 mit 32 GB und 512 GB, Entscheidung vom 20.09.2026, gleiches Projekt
+- Mac mini M6: nicht mehr geplant. Oskar kauft ihn nicht (20.11.2026), er hat inzwischen ein neues MacBook.
 - PDF-Werkzeug: PDF Expert auf Mac, iPad und iPhone

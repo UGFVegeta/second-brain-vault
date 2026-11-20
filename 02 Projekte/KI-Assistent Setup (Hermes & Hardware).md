@@ -11,7 +11,10 @@ date: 2026-06-21
 > [!note] Status
 > Idee / Planung – noch keine Anschaffung. Festgehalten am 2026-06-21.
 
-> [!check] Entscheidung 20.09.2026
+> [!warning] Überholt am 20.11.2026
+> Oskar kauft keinen Mac mini, er hat inzwischen ein neues MacBook. Hermes nutzt er auch nicht mehr. Die Abschnitte unten zu Mac mini und Hermes sind damit nur noch Hintergrund. Gültig bleiben der Pi mit Paperless und AdGuard, das Backup und die Wege 1 und 2 aus „Zusammenspiel“ (lokales Modell per Ollama), falls sie auf dem neuen MacBook gewollt sind. Ob und wie das neue MacBook dafür reicht, ist nicht geprüft.
+
+> [!check] Entscheidung 20.09.2026 (überholt)
 > **Ein Gerät statt zwei: Mac mini M6 mit 32 GB und 512 GB SSD**, bei TeacherStore mit Bildungsrabatt 1.549 €. Das M1-MacBook Pro bleibt der Laptop. Ein neues MacBook Pro kommt nur in Frage, wenn die Stelle als Konrektor oder Rektor kommt.
 > Gegen den M5 Pro mit 48 GB (2.469 €) entschieden: Die 920 € bringen Tempo und Luft, die für Aufgaben im Hintergrund nicht nötig sind. Gegen die 24-GB-Variante entschieden, weil erst 32 GB die Modelle der 26B- bis 31B-Klasse zulassen.
 
@@ -142,8 +145,8 @@ Schülerdaten und lokales Modell: Technisch bleiben die Daten auf dem Mac mini, 
 - ~~Entscheiden: zwei Geräte oder ein starker Dauerläufer?~~ Am 20.09.2026 entschieden, siehe oben: Mac mini M6 mit 32 GB.
 - Beim Kauf auf die Lieferzeit achten, die Auslieferung des neuen Mac mini beginnt erst am 22.09.2026.
 - Nach dem Kauf: MoE-Modelle zuerst testen (Gemma 4 26B, gpt-oss 20B), dann mit eigenen Texten gegen Qwen3.6 27B vergleichen.
-- Bei Anschaffung: Hermes testweise auf einem Gerät aufsetzen, erst mit Cloud-Modell, dann lokal.
-- Messaging-Kanal wählen (Signal bevorzugt).
+- ~~Bei Anschaffung: Hermes testweise auf einem Gerät aufsetzen, erst mit Cloud-Modell, dann lokal.~~ Am 20.11.2026 gestrichen: Oskar will Hermes nicht mehr nutzen, Claude Code mit den Mods reicht ihm, der Aufwand lohnt sich nicht. Folge: Für den Mac mini bleiben Ollama und Paperless AI als Gründe, der Kauf ist neu zu bewerten.
+- ~~Messaging-Kanal wählen (Signal bevorzugt).~~ Entfällt mit Hermes.
 - Realistische Kosten gegenüberstellen (Hardware + ggf. Claude Max / Nous Portal Abo).
 - ~~Pi: automatisches Backup außerhalb der SD-Karte einrichten.~~ Am 20.09.2026 erledigt: `.scripts/paperless_backup.sh` läuft täglich um 20:00 über den LaunchAgent `com.oskar.paperless-backup` und legt den Export unter `~/Backups/Paperless-Pi/` ab (Ordner `aktuell` plus sieben datierte Momentaufnahmen, die per Hardlink kaum Platz brauchen). Log unter `~/Library/Logs/paperless-backup.log`. SSH-Zugang für Claude Code steht seit 19.09.2026 (`ugfvegeta@raspberrypi.local`).
 - Offen: Der Mac selbst hat keine Time Machine. Es gibt damit nur eine Kopie außerhalb des Pi. Zweites Ziel überlegen, zum Beispiel die vorhandene externe Samsung-SSD.
