@@ -69,6 +69,16 @@ Einrichtung: Claude Code kann sich per SSH mit dem Mac mini (und dem Pi) verbind
 
 Für den privaten Bereich nicht übernommen: Nextcloud (am 01.06.2026 für iCloud mit erweitertem Datenschutz entschieden) und Vaultwarden (ein selbst gehosteter Passwort-Tresor ist das falsche Risiko). Die Firmenwerkzeuge aus dem Video (n8n, Postiz, Supabase, Invoice Ninja, Cal.com) gehören thematisch zu [[Alternatives Einkommen]]. Falls dort etwas davon gebraucht wird, läuft es ebenfalls auf dem Mac mini.
 
+### n8n: Video vom 20.11.2026, bewertet am selben Tag
+
+Video „n8n ist jetzt ein Agent Harness“ vom selben Kanal (Untertitel gelesen, n8n-Dokumentation nicht geprüft). Fazit: Im Moment nichts aufsetzen.
+
+- n8n ist für feste Abläufe, die rund um die Uhr laufen und nachvollziehbar sein sollen. Das meiste davon läuft bei mir schon über Claude Code und eigene Skripte. Nach der Regel „Einfach schlägt komplex“ wäre es ein zusätzlicher Baustein ohne konkreten Fall.
+- Einziger Kandidat: das WeinstadtCross-Postfach (Anmeldungen sortieren, Benachrichtigung). Ob n8n dafür auf dem Pi läuft, ist nicht geprüft. Schulisches kommt nie dazu.
+- Der n8n-Assistent und die Agenten brauchen ein Sprachmodell. Das Video bucht den KI-Zugang über Hostinger dazu, das wären Zusatzkosten ([[claude-pro-kein-api]]). Billiger Weg: Claude Code baut die Workflows über die MCP-Schnittstelle von n8n, danach laufen sie ohne Tokens.
+- Der gemietete Server (Hostinger, im Video gesponserter Rabattcode) entfällt, Pi und Mac mini reichen.
+- Der persönliche Agent von n8n Labs ist eine Forschungsvorschau und läuft nur bei eingeschaltetem Rechner. Hermes bleibt gesetzt.
+
 ## Mac mini 2026 und passende Modelle (Stand 19.09.2026)
 
 Apple hat am 25.08.2026 den neuen Mac mini vorgestellt, Auslieferung ab 22.09.2026. Laut apple.com/mac-mini/specs:
