@@ -7,7 +7,7 @@
    "y": 0,
    "width": 2160,
    "height": 130,
-   "text": "# Unterricht\nEine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 20.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu."
+   "text": "# Unterricht\nEine Anlaufstelle für den Unterricht: Fächer, Werkzeuge, Ablage. Stand 21.11.2026. Links auf HTML-Dateien öffnen im Browser. Neues trägt Claude in `.scripts/unterricht_hub_bauen.py` ein und baut Notiz und Canvas neu."
   },
   {
    "id": "wochen",
@@ -17,7 +17,7 @@
    "width": 2160,
    "height": 350,
    "color": "4",
-   "text": "## Diese und nächste Woche\n| | Diese Woche: W9 ab 16.11. | Nächste Woche: W10 ab 23.11. |\n|---|---|---|\n| **Mathe 7c** | Konstruktion von Dreiecken | Thaleskreis, Höhen |\n| **Mathe 10b** | Beliebige Dreiecke / Vielecke / Trigo im Raum | Sinus am Einheitskreis |\n| **Physik 7c** | Optik I: Lochkamera: Bildentstehung, Bau als Hausaufgabe, Versuch, Rückblick | Optik II: F6 Was passiert am Spiegel? Reflexionsgesetz, Versuch mit der Kreisscheibe |\n| **Physik 10** | Kernphysik: F2 Antwort und Check, Einstieg F3 mit dem Würfelmodell (Stunde W06) | Kernphysik: Die Halbwertszeit, Zerfallskurve auswerten (Stunde W07) |"
+   "text": "## Diese und nächste Woche\n| | Diese Woche: W10 ab 23.11. | Nächste Woche: W11 ab 30.11. |\n|---|---|---|\n| **Mathe 7c** | Thaleskreis, Höhen | Mittelsenkrechte, Winkelhalbierende, Üben |\n| **Mathe 10b** | Sinus am Einheitskreis | 6 seitige Pyramide V+O / n-seitige Pyramide |\n| **Physik 7c** | Optik II: F6 Was passiert am Spiegel? Reflexionsgesetz, Versuch mit der Kreisscheibe | Optik II: Das Spiegelbild, Anwendung Spiegelgröße, F6 Antwort und Check |\n| **Physik 10** | Kernphysik: Die Halbwertszeit, Zerfallskurve auswerten (Stunde W07) | Kernphysik: Aktivität und Zählrate, Einheit Becquerel (Stunde W08) |"
   },
   {
    "id": "b0",
